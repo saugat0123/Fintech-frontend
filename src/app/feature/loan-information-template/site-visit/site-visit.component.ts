@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {SiteVisit} from '../../admin/modal/siteVisit';
+import {NbDateService} from '@nebular/theme';
 
 
 declare let google: any;
@@ -36,7 +37,10 @@ export class SiteVisitComponent implements OnInit {
   formDataForEdit;
   currentResident = false;
 
-  constructor(private formBuilder: FormBuilder) {
+  date: Date;
+
+  constructor(private formBuilder: FormBuilder, dateService: NbDateService<Date>) {
+    this.date = dateService.today();
   }
 
   get staffsForm() {
@@ -255,29 +259,29 @@ export class SiteVisitComponent implements OnInit {
         vicinityToTheBasicAmenities: this.formBuilder.group({
           majorMarketPlaces: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.majorMarketPlaces, Validators.required],
+                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.majorMarketPlaces],
           schoolOrCollege: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.schoolOrCollege, Validators.required],
+                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.schoolOrCollege],
           hospitalOrNursingHome: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-              : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.hospitalOrNursingHome, Validators.required],
+              : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.hospitalOrNursingHome],
           electricityLine: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.electricityLine, Validators.required],
+                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.electricityLine],
           telephoneLine: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.telephoneLine, Validators.required],
+                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.telephoneLine],
           waterPipeline: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.waterPipeline, Validators.required],
+                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.waterPipeline],
           staffs: this.formBuilder.array([]),
           commentAboutFAC: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.commentAboutFAC, Validators.required],
+                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.commentAboutFAC],
           branchInchargeComment: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.branchInchargeComment, Validators.required]
+                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.branchInchargeComment]
         })
       }),
       currentAssetsInspectionDetails: this.formBuilder.group({
@@ -286,48 +290,48 @@ export class SiteVisitComponent implements OnInit {
                 : this.formDataForEdit.currentAssetsInspectionDetails.dateOfInspection, Validators.required],
         particularsOfGoodInspected: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                : this.formDataForEdit.currentAssetsInspectionDetails.particularsOfGoodInspected, Validators.required],
+                : this.formDataForEdit.currentAssetsInspectionDetails.particularsOfGoodInspected],
         stockValueReported: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                : this.formDataForEdit.currentAssetsInspectionDetails.stockValueReported, Validators.required],
+                : this.formDataForEdit.currentAssetsInspectionDetails.stockValueReported],
         rents: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                : this.formDataForEdit.currentAssetsInspectionDetails.rents, Validators.required],
+                : this.formDataForEdit.currentAssetsInspectionDetails.rents],
         isRentPmtUpToDate: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                : this.formDataForEdit.currentAssetsInspectionDetails.isRentPmtUpToDate, Validators.required],
+                : this.formDataForEdit.currentAssetsInspectionDetails.isRentPmtUpToDate],
         isRentReceiptShown: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                : this.formDataForEdit.currentAssetsInspectionDetails.isRentReceiptShown, Validators.required],
+                : this.formDataForEdit.currentAssetsInspectionDetails.isRentReceiptShown],
         insuranceVerification: this.formBuilder.group({
           assetsMortgaged: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.assetsMortgaged, Validators.required],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.assetsMortgaged],
           insuredAmount: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.insuredAmount, Validators.required],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.insuredAmount],
           insuranceCompany: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.insuranceCompany, Validators.required],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.insuranceCompany],
           expiryDate: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.expiryDate, Validators.required],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.expiryDate],
           clientsOverallRating: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.clientsOverallRating, Validators.required],
+                  : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.clientsOverallRating],
           comments: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.comments, Validators.required],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.comments],
           stockValueConfirmed: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.stockValueConfirmed, Validators.required],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.stockValueConfirmed],
           insuranceVerificationPosition: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
@@ -409,24 +413,24 @@ export class SiteVisitComponent implements OnInit {
           threeMonthTotal: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.threeMonthTotal, Validators.required],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.threeMonthTotal],
           sixMonthTotal: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.sixMonthTotal, Validators.required],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.sixMonthTotal],
           oneYearTotal: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.oneYearTotal, Validators.required],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.oneYearTotal],
           moreThanOneYearTotal: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.moreThanOneYearTotal, Validators.required],
+                  : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.moreThanOneYearTotal],
           findingsAndCommentsForCurrentAssetsInspection: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
                       : this.formDataForEdit.currentAssetsInspectionDetails
-                          .receivablesAndPayables.findingsAndCommentsForCurrentAssetsInspection, Validators.required]
+                          .receivablesAndPayables.findingsAndCommentsForCurrentAssetsInspection]
         }),
         otherCurrentAssets: this.formBuilder.group({
           receivableAssets: this.formBuilder.array([]),

@@ -505,11 +505,11 @@
                 <h4 class="col-md-12">Current Assets Inspection - Stock</h4>
                 <div class="col-md-4 form-group">
                     <label class="title" for="dateOfInspection">Date Of Inspection</label>
-                    <input [nbDatepicker]="datepicker1" class="form-control"
+                    <input [max]="date" [nbDatepicker]="datepicker1" class="form-control"
                            [ngClass]="{ 'is-invalid': (current) && siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('dateOfInspection')?.errors }"
                            formControlName="dateOfInspection"
                            id="dateOfInspection" placeholder="date of inspection">
-                    <nb-datepicker #datepicker1></nb-datepicker>
+                    <nb-datepicker [max]="date" #datepicker1 ></nb-datepicker>
                     <div *ngIf="(current) && siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('dateOfInspection')?.invalid"
                          class="invalid-feedback">
                         <span *ngIf="siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('dateOfInspection')?.errors.required">Date is required</span>
