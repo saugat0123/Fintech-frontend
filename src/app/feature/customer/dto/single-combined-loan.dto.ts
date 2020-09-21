@@ -7,6 +7,7 @@ export class SingleCombinedLoanDto {
   branchName?: string;
   loanId?: number;
   loanName?: string;
+  loanIsFundable?: boolean;
   proposalProposedLimit?: number;
   loanType?: LoanType | string;
   documentStatus?: DocStatus | string;

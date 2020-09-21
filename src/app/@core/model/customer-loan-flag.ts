@@ -2,7 +2,7 @@ import {CustomerInfoData} from '../../feature/loan/model/customerInfoData';
 
 export class CustomerLoanFlag {
   id: number;
-  flag: number;
+  flag: string;
   description: string;
   order: number;
   customerLoanId: number;
