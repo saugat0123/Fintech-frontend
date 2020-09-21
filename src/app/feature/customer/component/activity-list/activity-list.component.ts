@@ -20,15 +20,16 @@ export class ActivityListComponent implements OnInit {
   spinner = false;
   dataList = [];
   pageable: Pageable = new Pageable();
+  activityListArray = [];
+  search = {profileId: null, activity: null};
 
   constructor(private activityService: CustomerActivityService,
               private modalService: NgbModal, ) {
   }
 
   static loadData(other: ActivityListComponent) {
-    const search = {profileId: other.customerInfoId};
     other.spinner = true;
-    other.activityService.getPaginationWithSearchObject(search, other.page, other.size).subscribe((response: any) => {
+    other.activityService.getPaginationWithSearchObject(other.search, other.page, other.size).subscribe((response: any) => {
           other.dataList = response.detail.content;
           other.pageable = PaginationUtils.getPageable(response.detail);
           other.spinner = false;
@@ -41,6 +42,8 @@ export class ActivityListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.search.profileId = this.customerInfoId;
+    this.getActivityList();
     ActivityListComponent.loadData(this);
   }
 
@@ -58,5 +61,16 @@ export class ActivityListComponent implements OnInit {
     }
 
     this.spinner = false;
+  }
+
+  getActivityList() {
+    this.activityService.getActivity().subscribe((res: any) => {
+      this.activityListArray = res.detail;
+    });
+  }
+
+  changeUpdateType(event) {
+    this.search.activity = event;
+    ActivityListComponent.loadData(this);
   }
 }
