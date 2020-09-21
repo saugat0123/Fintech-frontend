@@ -23,7 +23,6 @@ import {AddressService} from '../../../../@core/service/baseservice/address.serv
 import {Branch} from '../../../admin/modal/branch';
 import {RoleAccess} from '../../../admin/modal/role-access';
 import {BranchService} from '../../../admin/component/branch/branch.service';
-import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-customer-component',
@@ -82,7 +81,6 @@ export class CustomerComponent implements OnInit {
       other.spinner = false;
 
     });
-    other.filterForm.get('tempBranch').patchValue(other.holdBranch);
   }
 
   ngOnInit() {
@@ -99,7 +97,6 @@ export class CustomerComponent implements OnInit {
       name: [undefined],
       customerType: [undefined],
       idRegPlace: [undefined],
-      tempBranch: [undefined],
       branchIds: [undefined]
     });
   }
@@ -111,7 +108,6 @@ export class CustomerComponent implements OnInit {
   }
 
   changePage(page: number) {
-    delete this.filterForm.value.tempBranch;
     this.page = page;
     CustomerComponent.loadData(this);
   }
@@ -127,7 +123,6 @@ export class CustomerComponent implements OnInit {
   }
 
   onSearch() {
-    this.branchArrayToString();
     CustomerComponent.loadData(this);
   }
 
@@ -150,8 +145,6 @@ export class CustomerComponent implements OnInit {
   }
 
   clear() {
-    this.holdBranch = [];
-    this.filterForm.get('tempBranch').patchValue(this.holdBranch);
     this.buildFilterForm();
     CustomerComponent.loadData(this);
 
@@ -159,7 +152,6 @@ export class CustomerComponent implements OnInit {
 
   download() {
     this.overlay.show();
-    this.branchArrayToString();
     this.customerInfoService.download(this.filterForm.value).subscribe((response: any) => {
       this.overlay.hide();
       const link = document.createElement('a');
@@ -199,17 +191,6 @@ export class CustomerComponent implements OnInit {
       });
     }
 
-  }
-
-  branchArrayToString() {
-    const branches: Array<number> = this.filterForm.get('tempBranch').value;
-    if (!ObjectUtil.isEmpty(branches) && branches.length > 0) {
-      this.holdBranch = branches;
-      this.filterForm.get('branchIds').patchValue(branches.join(','));
-    } else {
-      delete this.filterForm.value.branchIds;
-    }
-    delete this.filterForm.value.tempBranch;
   }
 
 

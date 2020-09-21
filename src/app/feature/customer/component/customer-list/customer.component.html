@@ -31,9 +31,10 @@
       <form [formGroup]="filterForm">
         <div class="row py-3">
           <div class="col-md-3 mb-3" *ngIf="accessSpecific || accessAll">
-            <nb-select multiple placeholder="branches" formControlName="tempBranch" >
-              <nb-option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}</nb-option>
-            </nb-select>
+            <ng-select placeholder="branches" formControlName="branchIds">
+              <ng-option *ngFor="let branch of branchList"
+                         [value]="branch.id">{{branch.name}}</ng-option>
+            </ng-select>
           </div>
           <div class="col-md-3 mb-3">
             <input class="form-control rounded" formControlName="name" id="customerName"
@@ -107,7 +108,7 @@
 
       </tbody>
     </table>
-<!--    <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>-->
+    <!--    <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>-->
     <!-- ===================table-pagination==================== -->
     <app-paging (changePage)="changePage($event)" *ngIf="!spinner"
                 [pageable]="pageable"></app-paging>
