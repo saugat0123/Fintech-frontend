@@ -87,7 +87,6 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             }
             crgFormGroupObject[value.description] = null;
         });
-        console.log(crgFormGroupObject);
 
         this.creditRiskGrading = this.formBuilder.group(crgFormGroupObject);
 
