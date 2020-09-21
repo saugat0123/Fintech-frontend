@@ -1,0 +1,76 @@
+<nb-card accent="primary">
+  <nb-card-header>
+
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-4">
+          <h5 class="float-left">Activity</h5></div>
+        <div class="col-md-8">
+          <div class="float-right">
+            <select size="small" class="form-control-sm"
+                    (change)="changeUpdateType($event.target.value)">
+              <option value="null">All Update</option>
+              <option *ngFor="let activity of activityListArray"
+                      [value]="activity">{{activity | replace:'_':' '}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </nb-card-header>
+  <nb-card-body #activityList (scrolled)="onScrollDown()"
+                [infiniteScrollThrottle]="50"
+                [infiniteScrollUpDistance]="1.5"
+                [scrollWindow]="false"
+                infinite-scroll>
+    <div class="container mt-2 mb-2 activity">
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Latest Update</h4>
+          <ul class="timeline">
+            <div class="col-md-12">
+              <div class="d-flex justify-content-center">
+                <app-spinner *ngIf="spinner"></app-spinner>
+                <span *ngIf="dataList.length < 1">
+                  <span *ngIf="search.activity"> No  {{search.activity| replace:'_':' '}} has been perform yet</span>
+                  <span *ngIf="!search.activity"> No Any Activity Perform Yet</span>
+
+                </span>
+              </div>
+            </div>
+
+            <li *ngFor="let model of dataList;let i=index" class="cursor"
+                (click)=" viewUpdate(model?.data,model?.activity,model?.profile)"
+            >
+              <div class="col-md-12" [nbTooltip]="'click to view'">
+                <div class="row">
+                  <div class="col-md-8">
+                    <span
+                        class="float-left text-danger">{{model?.activity | replace:'_':' '}}</span>
+                  </div>
+                  <div class="col-md-4">
+
+                    <span class="float-right text-danger">{{(model?.modifiedOn|date)
+                    || 'NA'}}</span></div>
+                </div>
+              </div>
+              <div class="col-md-12 py-2">
+                <p>{{model?.description}} .</p>
+                <div class="d-flex justify-content-end">
+                  <p>By {{model?.modifiedBy?.name || 'NA'}}</p>
+                </div>
+              </div>
+              <hr>
+            </li>
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+  </nb-card-body>
+</nb-card>

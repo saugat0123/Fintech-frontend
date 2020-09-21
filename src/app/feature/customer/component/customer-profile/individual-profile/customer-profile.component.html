@@ -1,9 +1,17 @@
 <nb-card [nbSpinner]="spinner" accent="primary">
   <nb-card-header>
     <div class="row shadow-sm">
+
       <div class="col-md-2">
         <strong>Associate Group:</strong> <span>{{customerInfo?.customerGroup != undefined
           ? customerInfo?.customerGroup?.groupCode : ' N/A'}}</span>
+        <div class="py-2">
+          <button [nbPopover]="activity" nbButton size="small" [nbPopoverPlacement]="'right'"> Customer Activity
+
+            <nb-icon icon="arrow-right-outline"></nb-icon>
+          </button>
+        </div>
+
       </div>
       <div class="offset-4 col-md-6 float-right">
         <button [nbPopover]="groupWindow" class="float-right mb-3" nbButton size="small"
@@ -11,12 +19,21 @@
           Groups
           <nb-icon icon="arrow-down-outline"></nb-icon>
         </button>
+
         <div class="row">
           <ng-template #groupWindow>
-            <app-group-tagging #GroupTaggingComponent [customerData]="customerInfo" (refreshGroup)="refreshGroup()"></app-group-tagging>
+            <app-group-tagging #GroupTaggingComponent [customerData]="customerInfo"
+                               (refreshGroup)="refreshGroup()"></app-group-tagging>
           </ng-template>
         </div>
       </div>
+
+    </div>
+
+    <div class="row">
+      <ng-template #activity>
+        <app-activity-list [customerInfoId]="customerInfoId"></app-activity-list>
+      </ng-template>
     </div>
   </nb-card-header>
   <nb-card-body>
@@ -192,12 +209,14 @@
                       <span>Groups</span>
                     </div>
                     <div class="col-md-6 d-flex justify-content-end">
-                      Total Amount:  Rs. {{proposeAmountOfGroup | currencyFormatter}}
+                      Total Amount: Rs. {{proposeAmountOfGroup | currencyFormatter}}
                     </div>
                   </div>
                 </nb-accordion-item-header>
-                <nb-accordion-item-body *ngIf="customerInfo !== undefined && customerInfo.customerGroup !== undefined">
-                  <app-customer-list-group #customerListGroupComponent (messageToEmit)="getTotalLoanAmount($event)"
+                <nb-accordion-item-body
+                    *ngIf="customerInfo !== undefined && customerInfo.customerGroup !== undefined">
+                  <app-customer-list-group #customerListGroupComponent
+                                           (messageToEmit)="getTotalLoanAmount($event)"
                                            [customerInfoData]="customerInfo"></app-customer-list-group>
                 </nb-accordion-item-body>
               </nb-accordion-item>
@@ -306,7 +325,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group py-4">
-             Do you want to upload this file?
+              Do you want to upload this file?
             </div>
           </div>
         </div>
