@@ -21,6 +21,8 @@ import {CreditRiskGradingAlpha} from '../../../admin/modal/CreditRiskGradingAlph
 import {CompanyInfo} from '../../../admin/modal/company-info';
 import {CreditRiskGrading} from '../../../admin/modal/creditRiskGrading';
 import {CreditGradingComponent} from '../../../loan-information-template/credit-grading/credit-grading.component';
+import {CreditRiskGradingGammaComponent} from '../../../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
+import {CreditRiskGradingGamma} from '../../../admin/modal/creditRiskGradingGamma';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -49,6 +51,10 @@ export class CustomerLoanInformationComponent implements OnInit {
   public CrgComponent: CreditGradingComponent;
   @ViewChild('itemCrg', {static: false})
   private itemCrg: NbAccordionItemComponent;
+  @ViewChild('CrgGammaComponent', {static: false})
+  public CrgGammaComponent: CreditRiskGradingGammaComponent;
+  @ViewChild('itemCrgGamma', {static: false})
+  private itemCrgGamma: NbAccordionItemComponent;
   @ViewChild('itemSecurity', {static: false})
   private itemSecurity: NbAccordionItemComponent;
   @ViewChild('guarantorComponent', {static: false})
@@ -63,6 +69,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   private financial: Financial;
   private creditRiskGradingAlpha: CreditRiskGradingAlpha;
   private creditRiskGrading: CreditRiskGrading;
+  private crgGamma: CreditRiskGradingGamma;
   private security: Security;
   private shareSecurity: ShareSecurity;
   private guarantors: GuarantorDetail;
@@ -86,6 +93,9 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.creditRiskGrading)) {
       this.creditRiskGrading = this.customerInfo.creditRiskGrading;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.crgGamma)) {
+      this.crgGamma = this.customerInfo.crgGamma;
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
       this.security = this.customerInfo.security;
@@ -223,6 +233,22 @@ export class CustomerLoanInformationComponent implements OnInit {
         }, error => {
           console.error(error);
           this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Risk Grading!'));
+        });
+  }
+
+  saveCrgGamma(data: string) {
+    if (ObjectUtil.isEmpty(this.crgGamma)) {
+      this.crgGamma = new CreditRiskGradingGamma();
+    }
+    this.crgGamma.data = data;
+    this.customerInfoService.saveLoanInfo(this.crgGamma, this.customerInfoId, TemplateName.CRG_GAMMA)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Risk Grading (Gamma)!'));
+          this.itemCrgGamma.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Risk Grading (Gamma)!'));
         });
   }
 }

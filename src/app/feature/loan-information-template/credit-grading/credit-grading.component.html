@@ -114,7 +114,7 @@
                     <td>
                         <div *ngFor="let lev of leverageMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('leverage', lev.key)"
-                                   [checked]="totalPointMapper.get('leverage') == lev.key"
+                                   [checked]="totalPointMapper.get('leverage') === lev.key"
                                    [value]="lev.key"
                                    class="form-control-input"
                                    formControlName="leverage"
@@ -157,7 +157,7 @@
                     <td>
                         <div *ngFor="let liq of liquidityMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('liquidity', liq.key)"
-                                   [checked]="totalPointMapper.get('liquidity') == liq.key" [value]="liq.key"
+                                   [checked]="totalPointMapper.get('liquidity') === liq.key" [value]="liq.key"
                                    class="form-control-input"
                                    formControlName="liquidity"
                                    id="liquidity"
@@ -198,7 +198,7 @@
                     <td>
                         <div *ngFor="let pro of profitMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('profit', pro.key)"
-                                   [checked]="totalPointMapper.get('profit') == pro.key" [value]="pro.key"
+                                   [checked]="totalPointMapper.get('profit') === pro.key" [value]="pro.key"
                                    class="form-control-input"
                                    formControlName="profit"
                                    id="profit"
@@ -239,7 +239,7 @@
                     <td>
                         <div *ngFor="let cov of coverageMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('coverage', cov.key)"
-                                   [checked]="totalPointMapper.get('coverage') == cov.key" [value]="cov.key"
+                                   [checked]="totalPointMapper.get('coverage') === cov.key" [value]="cov.key"
                                    class="form-control-input"
                                    formControlName="coverage"
                                    id="coverage"
@@ -286,7 +286,7 @@
                     <td>
                         <div *ngFor="let sob of sizeOfBusinessMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('sizeOfBusiness', sob.key)"
-                                   [checked]="totalPointMapper.get('sizeOfBusiness') == sob.key" [value]="sob.key"
+                                   [checked]="totalPointMapper.get('sizeOfBusiness') === sob.key" [value]="sob.key"
                                    class="form-control-input"
                                    formControlName="sizeOfBusiness"
                                    id="sizeOfBusiness"
@@ -329,7 +329,7 @@
                     <td>
                         <div *ngFor="let aob of ageOfBusinessMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('ageOfBusiness', aob.key)"
-                                   [checked]="totalPointMapper.get('ageOfBusiness') == aob.key" [value]="aob.key"
+                                   [checked]="totalPointMapper.get('ageOfBusiness') === aob.key" [value]="aob.key"
                                    class="form-control-input"
                                    formControlName="ageOfBusiness"
                                    id="ageOfBusiness"
@@ -373,7 +373,7 @@
                     <td>
                         <div *ngFor="let bok of businessOutlookMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('businessOutlook', bok.key)"
-                                   [checked]="totalPointMapper.get('businessOutlook') == bok.key" [value]="bok.key"
+                                   [checked]="totalPointMapper.get('businessOutlook') === bok.key" [value]="bok.key"
                                    class="form-control-input"
                                    formControlName="businessOutlook"
                                    id="businessOutlook"
@@ -412,7 +412,7 @@
                     <td>
                         <div *ngFor="let ig of industryGrowthMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('industryGrowth', ig.key)"
-                                   [checked]="totalPointMapper.get('industryGrowth') == ig.key" [value]="ig.key"
+                                   [checked]="totalPointMapper.get('industryGrowth') === ig.key" [value]="ig.key"
                                    class="form-control-input"
                                    formControlName="industryGrowth"
                                    id="industryGrowth"
@@ -451,7 +451,7 @@
                     <td>
                         <div *ngFor="let market of marketCompetitionMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('marketCompetition', market.key)"
-                                   [checked]="totalPointMapper.get('marketCompetition') == market.key"
+                                   [checked]="totalPointMapper.get('marketCompetition') === market.key"
                                    [value]="market.key"
                                    class="form-control-input"
                                    formControlName="marketCompetition"
@@ -491,7 +491,7 @@
                     <td>
                         <div *ngFor="let barriers of entryExitBarriersMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('entryExitBarriers', barriers.key)"
-                                   [checked]="totalPointMapper.get('entryExitBarriers') == barriers.key"
+                                   [checked]="totalPointMapper.get('entryExitBarriers') === barriers.key"
                                    [value]="barriers.key"
                                    class="form-control-input"
                                    formControlName="entryExitBarriers"
@@ -542,7 +542,7 @@
                     <td>
                         <div *ngFor="let exp of experienceMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('experience', exp.key)"
-                                   [checked]="totalPointMapper.get('experience') == exp.key" [value]="exp.key"
+                                   [checked]="totalPointMapper.get('experience') === exp.key" [value]="exp.key"
                                    class="form-control-input"
                                    formControlName="experience"
                                    id="experience"
@@ -582,7 +582,7 @@
                     <td>
                         <div *ngFor="let secondSuccession of secondLineSuccessionMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('secondLineSuccession', secondSuccession.key)"
-                                   [checked]="totalPointMapper.get('secondLineSuccession') == secondSuccession.key"
+                                   [checked]="totalPointMapper.get('secondLineSuccession') === secondSuccession.key"
                                    [value]="secondSuccession.key"
                                    class="form-control-input"
                                    formControlName="secondLineSuccession"
@@ -623,7 +623,7 @@
                     <td>
                         <div *ngFor="let tw of teamWorkMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('teamWork', tw.key)"
-                                   [checked]="totalPointMapper.get('teamWork') == tw.key"
+                                   [checked]="totalPointMapper.get('teamWork') === tw.key"
                                    [value]="tw.key"
                                    class="form-control-input"
                                    formControlName="teamWork"
@@ -668,7 +668,7 @@
                     <td>
                         <div *ngFor="let sc of securityCoverageMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('securityCoverage', sc.key)"
-                                   [checked]="totalPointMapper.get('securityCoverage') == sc.key"
+                                   [checked]="totalPointMapper.get('securityCoverage') === sc.key"
                                    [value]="sc.key"
                                    class="form-control-input"
                                    formControlName="securityCoverage"
@@ -710,7 +710,7 @@
                     <td>
                         <div *ngFor="let cc of collateralCoverageMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('collateralCoverage', cc.key)"
-                                   [checked]="totalPointMapper.get('collateralCoverage') == cc.key"
+                                   [checked]="totalPointMapper.get('collateralCoverage') === cc.key"
                                    [value]="cc.key"
                                    class="form-control-input"
                                    formControlName="collateralCoverage"
@@ -751,7 +751,7 @@
                     <td>
                         <div *ngFor="let spt of supportMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('support', spt.key)"
-                                   [checked]="totalPointMapper.get('support') == spt.key"
+                                   [checked]="totalPointMapper.get('support') === spt.key"
                                    [value]="spt.key"
                                    class="form-control-input"
                                    formControlName="support"
@@ -796,7 +796,7 @@
                     <td>
                         <div *ngFor="let ac of accountConductMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('accountConduct', ac.key)"
-                                   [checked]="totalPointMapper.get('accountConduct') == ac.key"
+                                   [checked]="totalPointMapper.get('accountConduct') === ac.key"
                                    [value]="ac.key"
                                    class="form-control-input"
                                    formControlName="accountConduct"
@@ -838,7 +838,7 @@
                     <td>
                         <div *ngFor="let ul of utilizationOfLimitMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('utilizationOfLimit', ul.key)"
-                                   [checked]="totalPointMapper.get('utilizationOfLimit') == ul.key"
+                                   [checked]="totalPointMapper.get('utilizationOfLimit') === ul.key"
                                    [value]="ul.key"
                                    class="form-control-input"
                                    formControlName="utilizationOfLimit"
@@ -879,7 +879,7 @@
                     <td>
                         <div *ngFor="let coc of complianceOfCovenantsMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('complianceOfCovenants', coc.key)"
-                                   [checked]="totalPointMapper.get('complianceOfCovenants') == coc.key"
+                                   [checked]="totalPointMapper.get('complianceOfCovenants') === coc.key"
                                    [value]="coc.key"
                                    class="form-control-input"
                                    formControlName="complianceOfCovenants"
@@ -923,7 +923,7 @@
                     <td>
                         <div *ngFor="let pd of personalDepositsMap | keyvalue: asIsOrder; let i = index">
                             <input (change)="onChangeOption('personalDeposits', pd.key)"
-                                   [checked]="totalPointMapper.get('personalDeposits') == pd.key"
+                                   [checked]="totalPointMapper.get('personalDeposits') === pd.key"
                                    [value]="pd.key"
                                    class="form-control-input"
                                    formControlName="personalDeposits"
