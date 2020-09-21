@@ -164,7 +164,7 @@ export class CustomerComponent implements OnInit {
       this.overlay.hide();
       this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Download Customer!'));
     });
-    this.filterForm.get('tempBranch').patchValue(this.holdBranch);
+
   }
 
 
