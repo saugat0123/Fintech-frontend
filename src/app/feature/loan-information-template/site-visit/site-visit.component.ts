@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {SiteVisit} from '../../admin/modal/siteVisit';
+import {ToastService} from "../../../@core/utils";
+import {Alert, AlertType} from "../../../@theme/model/Alert";
 
 
 declare let google: any;
@@ -36,10 +38,13 @@ export class SiteVisitComponent implements OnInit {
   formDataForEdit;
   currentResident = false;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private toastService: ToastService) {
   }
 
   get staffsForm() {
+    .get('vicinityToTheBasicAmenities'))
+    .get('staffs')).controls);
     return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('fixedAssetCollateralDetails'))
     .get('vicinityToTheBasicAmenities'))
     .get('staffs')).controls;
@@ -80,6 +85,7 @@ export class SiteVisitComponent implements OnInit {
     .get('otherCurrentAssets'))
     .get('bankExposures')).controls;
   }
+
   get formControls() {
     return this.siteVisitFormGroup.controls;
   }
@@ -102,8 +108,7 @@ export class SiteVisitComponent implements OnInit {
       this.addDetailsOfPayableAssets();
       this.addDetailsOfBankExposure();
     }
-
-
+    this.onBuildingValueChange();
   }
 
   buildForm() {
@@ -136,12 +141,8 @@ export class SiteVisitComponent implements OnInit {
             : this.formDataForEdit.businessSiteVisitDetails.dateOfVisit, Validators.required],
         objectiveOfVisit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.objectiveOfVisit, Validators.required],
-        observation: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.observation, Validators.required],
         visitedBy: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.visitedBy, Validators.required],
-        conclusion: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.conclusion, Validators.required],
         locationPreview: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.locationPreview],
         mapAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
@@ -219,10 +220,6 @@ export class SiteVisitComponent implements OnInit {
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
                       : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.constructionYear, Validators.required],
-          qualityOfConstructionRemarks: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.qualityOfConstructionRemarks, Validators.required],
           loadBearingWall: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
@@ -261,7 +258,8 @@ export class SiteVisitComponent implements OnInit {
                   : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.schoolOrCollege, Validators.required],
           hospitalOrNursingHome: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-              : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.hospitalOrNursingHome, Validators.required],
+                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.hospitalOrNursingHome,
+            Validators.required],
           electricityLine: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.electricityLine, Validators.required],
@@ -319,7 +317,8 @@ export class SiteVisitComponent implements OnInit {
           clientsOverallRating: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.clientsOverallRating, Validators.required],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.clientsOverallRating,
+            Validators.required],
           comments: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
@@ -421,7 +420,7 @@ export class SiteVisitComponent implements OnInit {
           moreThanOneYearTotal: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.moreThanOneYearTotal, Validators.required],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.moreThanOneYearTotal, Validators.required],
           findingsAndCommentsForCurrentAssetsInspection: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
@@ -486,8 +485,8 @@ export class SiteVisitComponent implements OnInit {
 
   staffsFormGroup(): FormGroup {
     return this.formBuilder.group({
-      name: [undefined],
-      position: [undefined]
+      name: [undefined, Validators.required],
+      position: [undefined, Validators.required]
     });
   }
 
@@ -731,7 +730,10 @@ export class SiteVisitComponent implements OnInit {
 
 
   onSubmit() {
-    console.log(this.siteVisitFormGroup);
+    if (!this.currentResidentForm && !this.businessSiteVisitForm && !this.fixedAssetCollateralForm && !this.currentAssetsInspectionForm) {
+      this.toastService.show(new Alert(AlertType.INFO, 'Please Select Atleast One SiteVisit!'));
+      return;
+    }
     if (this.currentResidentForm) {
       if (this.siteVisitFormGroup.get('currentResidentDetails').invalid) {
         this.submitted = true;
@@ -987,6 +989,27 @@ export class SiteVisitComponent implements OnInit {
   }
 
 
+  onBuildingValueChange() {
+    const control = (this.siteVisitFormGroup.get('fixedAssetCollateralDetails') as FormGroup);
+    control.get('otherFacilities').get('building').valueChanges.subscribe(value => {
+      if (value === 'NO') {
+        control.get('otherFacilities').get('buildingArea').setValidators(null);
+        control.get('otherFacilities').get('constructionYear').setValidators(null);
+      } else if (value === 'YES') {
+        control.get('otherFacilities').get('buildingArea').setValidators(Validators.required);
+        control.get('otherFacilities').get('constructionYear').setValidators(Validators.required);
+      }
+      control.get('otherFacilities').get('buildingArea').updateValueAndValidity();
+      control.get('otherFacilities').get('constructionYear').updateValueAndValidity();
+    });
+  }
+
+  public removeValidators(form: FormGroup) {
+    for(const key in form.controls) {
+      form.get(key).clearValidators();
+      form.get(key).updateValueAndValidity();
+    }
+  }
 }
 
 
