@@ -78,7 +78,7 @@
 
             <ng-container *ngFor="let crgQuestion of crgQuestionsList; let i = index">
                 <tr>
-                    <td></td>
+                    <td>{{i+1}}</td>
 
                     <td class="desc-td-width">
                         <ng-container *ngIf="crgQuestionsList[i-1]?.crgGroupId !== crgQuestion?.crgGroupId">
@@ -87,7 +87,10 @@
                         </ng-container>
                         <p>{{ crgQuestion?.description }}</p>
                     </td>
-                    <td>{{ groupWeightageMap.get(crgQuestion?.crgGroupId) }}</td>
+                    <td *ngIf="crgQuestionsList[i-1]?.crgGroupId !== crgQuestion?.crgGroupId">
+                        <strong>{{ groupWeightageMap.get(crgQuestion?.crgGroupId) }}</strong>
+                    </td>
+                    <td *ngIf="crgQuestionsList[i-1]?.crgGroupId === crgQuestion?.crgGroupId"></td>
                     <td *ngIf="!fromProfile">{{creditRiskGrading.get(crgQuestion?.description).value === null ? '' :
                         'TODO'}}</td>
                     <ng-container *ngIf="fromProfile">

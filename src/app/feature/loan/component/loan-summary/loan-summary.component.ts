@@ -99,6 +99,12 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   noComplianceLoan = false;
   creditRiskSummary = false;
 
+  // Credit risk GAMMA variables ---
+  crgGammaGradeStatusBadge;
+  crgGammaGrade;
+  crgGammaScore = 0;
+  crgGammaSummary = false;
+
   // credit risk alpha variables --
   creditGradeAlphaStatusBadge;
   creditRiskGradeAlpha;
@@ -210,6 +216,21 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             }
           }
 
+            // Setting credit risk GAMMA data---
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.crgGamma)) {
+                this.crgGammaSummary = true;
+                const crgParsedData = JSON.parse(this.loanDataHolder.loanHolder.crgGamma.data);
+                this.crgGammaGrade = crgParsedData.grade;
+                this.crgGammaScore = ObjectUtil.isEmpty(crgParsedData.totalPoint) ? 0 : crgParsedData.totalPoint;
+                if (this.crgGammaGrade === 'Superior' || this.crgGammaGrade === 'Good') {
+                    this.crgGammaGradeStatusBadge = 'badge badge-success';
+                } else if (this.crgGammaGrade === 'Bad & Loss' || this.crgGammaGrade === 'Doubtful') {
+                    this.crgGammaGradeStatusBadge = 'badge badge-danger';
+                } else {
+                    this.crgGammaGradeStatusBadge = 'badge badge-warning';
+                }
+            }
+
           // Setting credit risk alpha data---
           if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.creditRiskGradingAlpha)) {
             this.creditRiskAlphaSummary = true;
@@ -293,8 +314,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.actionsList.closed = false;
           }
           // commented code is for approval limit
-          // tslint:disable-next-line:max-line-length
-          this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id, this.loanDataHolder.loanCategory).subscribe((res: any) => {
+          this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id, this.loanDataHolder.loanCategory)
+              .subscribe((res: any) => {
             if (res.detail === undefined) {
               this.actionsList.approved = false;
             } else {

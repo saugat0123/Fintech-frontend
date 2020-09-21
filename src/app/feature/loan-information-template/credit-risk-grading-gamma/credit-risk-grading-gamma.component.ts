@@ -9,6 +9,7 @@ import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
 import {LoanCategory} from '../../loan/model/loan-category';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-credit-risk-grading-gamma',
@@ -39,6 +40,7 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         private questionService: RiskGradingService,
         private toastService: ToastService,
         private formBuilder: FormBuilder,
+        private route: ActivatedRoute
     ) {
     }
 
@@ -47,7 +49,10 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         if (!this.fromProfile) {
             this.totalPointsColspan = 2;
         }
-        this.questionService.getAllQuestions(LoanCategory.BUSINESS).subscribe((res: any) => {
+        const customerType = this.route.snapshot.queryParamMap.get('customerType');
+        const customerTypeParam = customerType === 'INDIVIDUAL' ? LoanCategory.PERSONAL : LoanCategory.BUSINESS;
+
+        this.questionService.getAllQuestions(customerTypeParam).subscribe((res: any) => {
             this.crgQuestionsList = res.detail;
             this.buildFormAndCheckEdit();
         }, error => {
@@ -102,7 +107,7 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             });
             this.totalPoints = total;
             this.creditRiskGrading.get('totalPoint').patchValue(this.totalPoints);
-            /*if (this.totalPoints === 100) {
+            if (this.totalPoints === 100) {
                 this.grading = 'Superior';
             } else if (this.totalPoints >= 85) {
                 this.grading = 'Good';
@@ -119,7 +124,7 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             } else if (this.totalPoints <= 35) {
                 this.grading = 'Bad & Loss';
             }
-            this.creditRiskGrading.get('grade').patchValue(this.grading);*/
+            this.creditRiskGrading.get('grade').patchValue(this.grading);
         }
     }
 
