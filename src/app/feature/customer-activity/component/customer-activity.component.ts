@@ -70,7 +70,6 @@ export class CustomerActivityComponent implements OnInit {
 
 
   changePage(page: number) {
-    delete this.filterForm.value.tempBranch;
     this.page = page;
     CustomerActivityComponent.loadData(this);
   }
@@ -89,14 +88,11 @@ export class CustomerActivityComponent implements OnInit {
       name: [undefined],
       activity: [undefined],
       customerType: [undefined],
-      tempBranch: [undefined],
       branchIds: [undefined]
     });
   }
 
   clear() {
-    this.holdBranch = [];
-    // this.filterForm.get('tempBranch').patchValue(this.holdBranch);
     this.buildFilterForm();
     CustomerActivityComponent.loadData(this);
 

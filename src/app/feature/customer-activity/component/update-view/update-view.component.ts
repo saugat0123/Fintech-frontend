@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 
 @Component({
@@ -17,12 +17,16 @@ export class UpdateViewComponent implements OnInit {
 
   unParsedData;
 
-  constructor(public activeModal: NgbActiveModal, ) {
+  constructor(private modalService: NgbModal, ) {
   }
 
   ngOnInit() {
     this.unParsedData = this.data;
     this.data = JSON.parse(this.data);
+  }
+
+  close() {
+    this.modalService.dismissAll();
   }
 
 }
