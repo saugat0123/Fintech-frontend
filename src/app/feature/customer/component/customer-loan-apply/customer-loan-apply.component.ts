@@ -36,6 +36,7 @@ export class CustomerLoanApplyComponent implements OnInit {
     id: undefined,
     version: undefined
   };
+  removeFromCombinedLoan = false;
 
   constructor(
       public activeModal: NgbActiveModal,
@@ -56,6 +57,7 @@ export class CustomerLoanApplyComponent implements OnInit {
       this.customerGroupLoanList
       .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))
       .forEach((l) => this.combinedLoansIds.push(l.id));
+      this.removeFromCombinedLoan = this.combinedLoansIds.length > 0;
       if (this.combinedLoansIds.length > 0) {
         const loan = this.customerGroupLoanList
         .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))[0];
@@ -65,11 +67,15 @@ export class CustomerLoanApplyComponent implements OnInit {
     });
   }
 
-  openLoanForm(isCombined: boolean) {
+  openLoanForm(isCombined: boolean, removeFromCombined = false) {
     this.spinner = true;
     if (isCombined) {
-      if (this.combinedLoansIds.length < 1) {
+      if (!removeFromCombined && this.combinedLoansIds.length < 1) {
         this.toastService.show(new Alert(AlertType.INFO, 'No loans selected'));
+        this.spinner = false;
+        return;
+      } else if (!removeFromCombined && this.combinedLoansIds.length === 1) {
+        this.toastService.show(new Alert(AlertType.INFO, 'Single loan selected'));
         this.spinner = false;
         return;
       }
@@ -80,12 +86,13 @@ export class CustomerLoanApplyComponent implements OnInit {
       });
       const combinedLoan: CombinedLoan = {
         id: this.existingCombinedLoan.id,
-        loans: combinedLoans,
+        loans: removeFromCombined ? [] : combinedLoans,
         version: this.existingCombinedLoan.version
       };
       this.combinedLoanService.save(combinedLoan).subscribe(() => {
         this.activeModal.close(true);
-        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved combined loan'));
+        const msg = `Successfully ${removeFromCombined ? 'removed' : 'saved'} combined loan`;
+        this.toastService.show(new Alert(AlertType.SUCCESS, msg));
       }, error => {
         console.error(error);
         this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save combined loan'));
