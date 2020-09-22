@@ -34,9 +34,7 @@ export class ActivityListComponent implements OnInit {
           other.pageable = PaginationUtils.getPageable(response.detail);
           other.spinner = false;
         }, error => {
-
-
-          other.spinner = true;
+          other.spinner = false;
         }
     );
   }

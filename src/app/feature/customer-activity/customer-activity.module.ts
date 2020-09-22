@@ -9,6 +9,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {CoreModule} from '../../@core/core.module';
 import {UpdateViewComponent} from './component/update-view/update-view.component';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
+import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {LoanInformationViewModule} from '../loan-information-view/loan-informati
     ReactiveFormsModule,
     NgSelectModule,
     CoreModule,
-    LoanInformationViewModule
+    LoanInformationViewModule,
+    LoanInformationTemplateModule
   ], entryComponents: [UpdateViewComponent]
 })
 export class CustomerActivityModule {
