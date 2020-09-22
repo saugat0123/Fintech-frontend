@@ -88,10 +88,11 @@ export class ProposalComponent implements OnInit {
             creditInformationReportStatus: [undefined, [Validators.required]],
             incomeFromTheAccount: [undefined, [Validators.required]],
             borrowerInformation: [undefined, [Validators.required]],
+            interestAmount: [undefined],
 
             // Additional Fields--
             // for installment Amount--
-            installmentAmount: [undefined, Validators.required],
+            installmentAmount: [undefined],
             // for moratoriumPeriod Amount--
             moratoriumPeriod: [undefined],
             // for prepaymentCharge Amount--
