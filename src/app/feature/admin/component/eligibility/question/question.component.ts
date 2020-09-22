@@ -33,16 +33,13 @@ export class QuestionComponent implements OnInit {
                 private loanConfigService: LoanConfigService,
                 private router: Router,
                 private modalService: NgbModal,
-                private toastService: ToastService) {
+                private toastService: ToastService) {}
 
+    ngOnInit() {
         this.questionAnswerForm = this.formBuilder.group({
             loanConfigId: [undefined, Validators.required],
             questionForm: this.formBuilder.array([])
         });
-
-    }
-
-    ngOnInit() {
         this.getSchemeList();
         this.existingQuestionList = false;
         this.newQuestionList = false;
