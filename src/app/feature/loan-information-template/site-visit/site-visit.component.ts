@@ -537,11 +537,11 @@ export class SiteVisitComponent implements OnInit {
 
   partyFormGroup() {
     return this.formBuilder.group({
-      party: [undefined, Validators.required],
-      withinThreeMonths: [undefined, Validators.required],
-      sixMonth: [undefined, Validators.required],
-      oneYear: [undefined, Validators.required],
-      oneYearPlus: [undefined, Validators.required]
+      party: [undefined],
+      withinThreeMonths: [undefined],
+      sixMonth: [undefined],
+      oneYear: [undefined],
+      oneYearPlus: [undefined]
     });
   }
 
@@ -565,8 +565,8 @@ export class SiteVisitComponent implements OnInit {
 
   assetsFormGroup() {
     return this.formBuilder.group({
-      particulars: [undefined, Validators.required],
-      amount: [undefined, Validators.required]
+      particulars: [undefined],
+      amount: [undefined]
     });
   }
 
@@ -629,8 +629,8 @@ export class SiteVisitComponent implements OnInit {
 
   bankExposureFormGroup() {
     return this.formBuilder.group({
-      bankName: [undefined, Validators.required],
-      amount: [undefined, Validators.required]
+      bankName: [undefined],
+      amount: [undefined]
     });
   }
 
@@ -735,6 +735,7 @@ export class SiteVisitComponent implements OnInit {
 
 
   onSubmit() {
+      console.log(this.siteVisitFormGroup);
     if (this.currentResidentForm) {
       if (this.siteVisitFormGroup.get('currentResidentDetails').invalid) {
         this.submitted = true;
@@ -815,8 +816,8 @@ export class SiteVisitComponent implements OnInit {
     .get('inspectingStaffsDetails') as FormArray;
     controls.push(
         this.formBuilder.group({
-          name: [undefined, Validators.required],
-          position: [undefined, Validators.required]
+          name: [undefined],
+          position: [undefined]
         })
     );
   }
@@ -827,8 +828,8 @@ export class SiteVisitComponent implements OnInit {
     .get('inspectingStaffs') as FormArray;
     controls.push(
         this.formBuilder.group({
-          name: [undefined, Validators.required],
-          position: [undefined, Validators.required]
+          name: [undefined],
+          position: [undefined]
         })
     );
   }
@@ -839,11 +840,11 @@ export class SiteVisitComponent implements OnInit {
     .get('parties') as FormArray;
     controls.push(
         this.formBuilder.group({
-          party: [undefined, Validators.required],
-          withinThreeMonths: [undefined, Validators.required],
-          sixMonth: [undefined, Validators.required],
-          oneYear: [undefined, Validators.required],
-          oneYearPlus: [undefined, Validators.required]
+          party: [undefined],
+          withinThreeMonths: [undefined],
+          sixMonth: [undefined],
+          oneYear: [undefined],
+          oneYearPlus: [undefined]
         })
     );
   }
@@ -854,8 +855,8 @@ export class SiteVisitComponent implements OnInit {
     .get('receivableAssets') as FormArray;
     controls.push(
         this.formBuilder.group({
-          particulars: [undefined, Validators.required],
-          amount: [undefined, Validators.required]
+          particulars: [undefined],
+          amount: [undefined]
         })
     );
   }
@@ -866,8 +867,8 @@ export class SiteVisitComponent implements OnInit {
     .get('payableAssets') as FormArray;
     controls.push(
         this.formBuilder.group({
-          particulars: [undefined, Validators.required],
-          amount: [undefined, Validators.required]
+          particulars: [undefined],
+          amount: [undefined]
         })
     );
   }
@@ -908,8 +909,8 @@ export class SiteVisitComponent implements OnInit {
       currentData.forEach(data => {
         controls.push(
             this.formBuilder.group({
-              name: [data.name, Validators.required],
-              position: [data.position, Validators.required]
+              name: [data.name],
+              position: [data.position]
             })
         );
       });
@@ -923,11 +924,11 @@ export class SiteVisitComponent implements OnInit {
     currentData.forEach(data => {
       controls.push(
           this.formBuilder.group({
-            party: [data.party, Validators.required],
-            withinThreeMonths: [data.withinThreeMonths, Validators.required],
-            sixMonth: [data.sixMonth, Validators.required],
-            oneYear: [data.oneYear, Validators.required],
-            oneYearPlus: [data.oneYearPlus, Validators.required]
+            party: [data.party],
+            withinThreeMonths: [data.withinThreeMonths],
+            sixMonth: [data.sixMonth],
+            oneYear: [data.oneYear],
+            oneYearPlus: [data.oneYearPlus]
           })
       );
     });
@@ -940,8 +941,8 @@ export class SiteVisitComponent implements OnInit {
     currentData.forEach(data => {
       controls.push(
           this.formBuilder.group({
-            particulars: [data.particulars, Validators.required],
-            amount: [data.amount, Validators.required]
+            particulars: [data.particulars],
+            amount: [data.amount]
           })
       );
     });
@@ -954,8 +955,8 @@ export class SiteVisitComponent implements OnInit {
     currentData.forEach(data => {
       controls.push(
           this.formBuilder.group({
-            particulars: [data.particulars, Validators.required],
-            amount: [data.amount, Validators.required]
+            particulars: [data.particulars],
+            amount: [data.amount]
           })
       );
     });
@@ -968,8 +969,8 @@ export class SiteVisitComponent implements OnInit {
     currentData.forEach(data => {
       controls.push(
           this.formBuilder.group({
-            name: [data.name, Validators.required],
-            position: [data.position, Validators.required]
+            name: [data.name],
+            position: [data.position]
           })
       );
     });
@@ -982,8 +983,8 @@ export class SiteVisitComponent implements OnInit {
     currentData.forEach(data => {
       controls.push(
           this.formBuilder.group({
-            bankName: [data.bankName, Validators.required],
-            amount: [data.amount, Validators.required]
+            bankName: [data.bankName],
+            amount: [data.amount]
           })
       );
     });
