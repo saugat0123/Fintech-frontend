@@ -1,5 +1,5 @@
-import {FormArray} from "@angular/forms";
-import {ObjectUtil} from "./ObjectUtil";
+import {FormArray} from '@angular/forms';
+import {ObjectUtil} from './ObjectUtil';
 
 export class FormUtils {
   /**

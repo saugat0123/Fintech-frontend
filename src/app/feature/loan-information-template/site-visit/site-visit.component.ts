@@ -5,7 +5,7 @@ import {SiteVisit} from '../../admin/modal/siteVisit';
 import {NbDateService} from '@nebular/theme';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
-import {FormUtils} from "../../../@core/utils/form.utils";
+import {FormUtils} from '../../../@core/utils/form.utils';
 
 
 declare let google: any;
