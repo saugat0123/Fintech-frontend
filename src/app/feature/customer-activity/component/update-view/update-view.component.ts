@@ -23,6 +23,9 @@ export class UpdateViewComponent implements OnInit {
   ngOnInit() {
     this.unParsedData = this.data;
     this.data = JSON.parse(this.data);
+    if (this.unParsedData === '[]') {
+      this.data = null;
+    }
   }
 
   close() {

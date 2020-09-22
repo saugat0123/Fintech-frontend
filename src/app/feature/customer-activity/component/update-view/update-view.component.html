@@ -26,12 +26,18 @@
 
     <app-security-view *ngIf="activity === 'SHARE_SECURITY' && data"
                        [shareSecurityData]="data" [security]="null"></app-security-view>
+    <app-individual-view [individual]="data"
+                         *ngIf="activity === 'CUSTOMER_UPDATE' && data && profile.customerType === 'INDIVIDUAL'"></app-individual-view>
+    <app-company-info-view [formValue]="data"
+                           *ngIf="activity === 'CUSTOMER_UPDATE' && data && profile.customerType === 'COMPANY'"></app-company-info-view>
+
+    <app-credit-grading [formData]="data" [fromProfile]="false" *ngIf="activity === 'CRG_UPDATE' && data"></app-credit-grading>
 
     <div class="col-md-12" *ngIf="activity === 'CUSTOMER_GROUP_UPDATE' && data">
       <div class="d-flex justify-content-center">
-
-        <span ><strong>Group Code : </strong>{{data?.groupCode}}<strong>  Group Limit  :</strong> Rs. {{data?.groupLimit | currencyFormatter}}/-</span></div>
-      <span><strong>In Words :</strong> {{data?.groupLimitToWords}} only /-</span>
+        <span><strong>Group Code : </strong>{{data?.groupCode}}
+          <strong>  Group Limit  :</strong> Rs. {{data?.groupLimit | currencyFormatter}}/-</span>
+      </div>
     </div>
 
     <div class="col-md-12">
