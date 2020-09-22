@@ -112,7 +112,6 @@ export class SiteVisitComponent implements OnInit {
       this.addDetailsOfPayableAssets();
       this.addDetailsOfBankExposure();
     }
-    this.onBuildingValueChange();
   }
 
   buildForm() {
@@ -1022,22 +1021,6 @@ export class SiteVisitComponent implements OnInit {
             amount: [data.amount]
           })
       );
-    });
-  }
-
-
-  onBuildingValueChange() {
-    const control = (this.siteVisitFormGroup.get('fixedAssetCollateralDetails') as FormGroup);
-    control.get('otherFacilities').get('building').valueChanges.subscribe(value => {
-      if (value === 'NO') {
-        control.get('otherFacilities').get('buildingArea').setValidators(null);
-        control.get('otherFacilities').get('constructionYear').setValidators(null);
-      } else if (value === 'YES') {
-        control.get('otherFacilities').get('buildingArea').setValidators(Validators.required);
-        control.get('otherFacilities').get('constructionYear').setValidators(Validators.required);
-      }
-      control.get('otherFacilities').get('buildingArea').updateValueAndValidity();
-      control.get('otherFacilities').get('constructionYear').updateValueAndValidity();
     });
   }
 }
