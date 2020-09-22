@@ -211,10 +211,10 @@
                 <h4 class="col-md-12">Fixed Assets Collateral</h4>
                 <div class="col-md-3 form-group">
                     <label class="title" for="date">Date</label>
-                    <input [nbDatepicker]="datepicker4" class="form-control"
+                    <input [max]="date" [nbDatepicker]="datepicker4" class="form-control"
                            [ngClass]="{ 'is-invalid': (fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('date')?.errors }"
                            formControlName="date" id="date" placeholder="date">
-                    <nb-datepicker #datepicker4></nb-datepicker>
+                    <nb-datepicker [max]="date" #datepicker4></nb-datepicker>
                     <div *ngIf="(fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('date')?.invalid"
                          class="invalid-feedback">
                         <span *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('date')?.errors.required">date is required</span>
@@ -477,7 +477,7 @@
                            [ngClass]="{ 'is-invalid': (current) && siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('dateOfInspection')?.errors }"
                            formControlName="dateOfInspection"
                            id="dateOfInspection" placeholder="date of inspection">
-                    <nb-datepicker #datepicker1></nb-datepicker>
+                    <nb-datepicker #datepicker1 ></nb-datepicker>
                     <div *ngIf="(current) && siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('dateOfInspection')?.invalid"
                          class="invalid-feedback">
                         <span *ngIf="siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('dateOfInspection')?.errors.required">Date is required</span>

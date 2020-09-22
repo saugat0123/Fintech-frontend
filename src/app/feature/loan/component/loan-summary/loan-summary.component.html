@@ -124,21 +124,21 @@
       <div class="row disable-print">
 
         <!-- CRG - Normal-->
-        <div *ngIf="creditRiskSummary" class="col-md-6">
+        <div *ngIf="creditRiskSummary" class="col-md-12">
           <nb-card>
             <nb-card-header class="text-center">
               <h4>Credit Risk Gauge</h4>
             </nb-card-header>
-            <nb-card-body class="pr-0">
+            <nb-card-body>
               <div class="row disable-print">
-                <div class="col-md-6 mr-0 pr-0 text-right">
+                <div class="col-md-6 text-right">
                   <app-gauge-chart [chartWidth]="275"
                                    [chartHeight]="180"
                                    gaugeIdentifier="crg-manual"
                                    [maxValue]="100"
                                    [obtainedValue]="creditRiskScore"></app-gauge-chart>
                 </div>
-                <div class="col-md-6 ml-0 gauge-label-padding">
+                <div class="col-md-6 gauge-label-padding">
                   <div class="vertical-line">
                     <div class="text-left pl-2">
                       <h5>Manual</h5><br>
@@ -161,8 +161,42 @@
           </nb-card>
         </div>
 
+        <!-- CRG - Gamma-->
+        <div *ngIf="crgGammaSummary" class="col-md-12">
+          <nb-card>
+            <nb-card-header class="text-center">
+              <h4>Credit Risk Gauge (Gamma)</h4>
+            </nb-card-header>
+            <nb-card-body>
+              <div class="row disable-print">
+                <div class="col-md-6 text-right">
+                  <app-gauge-chart [chartWidth]="275"
+                                   [chartHeight]="180"
+                                   gaugeIdentifier="crg-gamma"
+                                   [maxValue]="100"
+                                   [obtainedValue]="crgGammaScore"></app-gauge-chart>
+                </div>
+                <div class="col-md-6 gauge-label-padding">
+                  <div class="vertical-line">
+                    <div class="text-left pl-2">
+                      <h5>Gamma</h5><br>
+                      Credit Risk Grade:
+                      <span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span>
+                    </div>
+                    <br>
+                    <div class="text-left pl-2">
+                      Credit Risk Score:
+                      <span><strong> {{ crgGammaScore }}</strong></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nb-card-body>
+          </nb-card>
+        </div>
+
         <!--CRG - Alpha-->
-        <div *ngIf="creditRiskAlphaSummary" class="col-md-6">
+        <div *ngIf="creditRiskAlphaSummary" class="col-md-12">
           <nb-card>
             <nb-card-header class="text-center">
               <nb-select placeholder="Select Fiscal year"
@@ -172,16 +206,16 @@
                            [value]="i">{{year}}</nb-option>
               </nb-select>
             </nb-card-header>
-            <nb-card-body class="pr-0">
+            <nb-card-body>
               <div class="row disable-print">
-                <div class="col-md-6 mr-0 pr-0 text-right">
+                <div class="col-md-6 text-right">
                   <app-gauge-chart [chartWidth]="275"
                                    gaugeIdentifier="crg-alpha"
                                    [chartHeight]="180"
                                    [maxValue]="100"
                                    [obtainedValue]="creditRiskAlphaScore"></app-gauge-chart>
                 </div>
-                <div class="col-md-6 ml-0 gauge-label-padding">
+                <div class="col-md-6 gauge-label-padding">
                   <div class="vertical-line">
                     <div class="text-left pl-2">
                       <h5>Alpha</h5><br>

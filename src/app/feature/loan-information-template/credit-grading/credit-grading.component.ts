@@ -250,7 +250,7 @@ export class CreditGradingComponent implements OnInit {
       utilizationOfLimit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.utilizationOfLimit, [Validators.required]],
       complianceOfCovenants: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.complianceOfCovenants, [Validators.required]],
       personalDeposits: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.personalDeposits, [Validators.required]],
-      totalPoint: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.totalPoints],
+      totalPoint: [this.formDataForEdit === undefined ? 0 : this.formDataForEdit.totalPoints],
       grade: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.grading]
     });
   }

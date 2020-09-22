@@ -1,0 +1,43 @@
+<nb-card [ngStyle]="{'margin-bottom': 0}" accent="primary">
+  <nb-card-header>
+    <strong>{{activity | replace:'_':' '}}</strong>
+    <a (click)="close()" aria-label="Close" class="close cursor">
+      <span aria-hidden="true">&times;</span>
+    </a>
+  </nb-card-header>
+  <nb-card-body class="modal-height">
+    <app-insurance-view [insurance]="data"
+                        *ngIf="activity === 'INSURANCE_UPDATE' && data"></app-insurance-view>
+
+    <app-financial-view *ngIf="activity === 'FINANCIAL_UPDATE' && data"
+                        [formData]="data"
+                        [customerType]="profile?.customerType"
+    ></app-financial-view>
+
+    <app-guarantor-view *ngIf="activity === 'GUARANTOR_UPDATE' && data"
+                        [guarantorData]="data"></app-guarantor-view>
+
+    <app-site-visit-view *ngIf="activity === 'SITE_VISIT_UPDATE' && data"
+                         [siteVisit]="data">
+    </app-site-visit-view>
+
+    <app-security-view *ngIf="activity === 'SECURITY' && data"
+                       [security]="data" [shareSecurityData]="null"></app-security-view>
+
+    <app-security-view *ngIf="activity === 'SHARE_SECURITY' && data"
+                       [shareSecurityData]="data" [security]="null"></app-security-view>
+
+    <div class="col-md-12" *ngIf="activity === 'CUSTOMER_GROUP_UPDATE' && data">
+      <div class="d-flex justify-content-center">
+
+        <span ><strong>Group Code : </strong>{{data?.groupCode}}<strong>  Group Limit  :</strong> Rs. {{data?.groupLimit | currencyFormatter}}/-</span></div>
+      <span><strong>In Words :</strong> {{data?.groupLimitToWords}} only /-</span>
+    </div>
+
+    <div class="col-md-12">
+      <div class="d-flex justify-content-center">
+        <span *ngIf="!data">Previous Data was Empty</span></div>
+    </div>
+  </nb-card-body>
+</nb-card>
+
