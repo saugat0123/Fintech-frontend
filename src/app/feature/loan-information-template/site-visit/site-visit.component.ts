@@ -735,7 +735,6 @@ export class SiteVisitComponent implements OnInit {
 
 
   onSubmit() {
-      console.log(this.siteVisitFormGroup);
     if (this.currentResidentForm) {
       if (this.siteVisitFormGroup.get('currentResidentDetails').invalid) {
         this.submitted = true;
