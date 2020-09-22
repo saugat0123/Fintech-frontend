@@ -1,5 +1,5 @@
 export class InsuranceList {
-  insuranceCompanyList = [
+  public static insuranceCompanyList = [
     {
       id: 'Nepal Insurance Company Limited',
       name: 'Nepal Insurance Company Limited',
