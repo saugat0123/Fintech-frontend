@@ -25,6 +25,7 @@ import {CreditRiskGradingAlpha} from '../../admin/modal/CreditRiskGradingAlpha';
 import {CustomerInfoData} from './customerInfoData';
 import {CombinedLoan} from './combined-loan';
 import {Guarantor} from './guarantor';
+import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
 
 
 export class LoanDataHolder {
@@ -63,6 +64,7 @@ export class LoanDataHolder {
     uploadedOfferLetterStat: number;
     creditRiskGrading: CreditRiskGrading;
     creditRiskGradingAlpha: CreditRiskGradingAlpha;
+    crgGamma: CreditRiskGradingGamma;
     group: Group;
     shareSecurity: ShareSecurity;
     nepaliTemplates: Array<NepaliTemplateDataHolder>;

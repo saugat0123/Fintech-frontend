@@ -50,7 +50,12 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             this.totalPointsColspan = 2;
         }
         const customerType = this.route.snapshot.queryParamMap.get('customerType');
-        const customerTypeParam = customerType === 'INDIVIDUAL' ? LoanCategory.PERSONAL : LoanCategory.BUSINESS;
+        let customerTypeParam = '';
+        if (customerType) {
+            customerTypeParam = customerType === 'INDIVIDUAL' ? LoanCategory.PERSONAL : LoanCategory.BUSINESS;
+        } else {
+            customerTypeParam = this.route.snapshot.queryParamMap.get('loanCategory');
+        }
 
         this.questionService.getAllQuestions(customerTypeParam).subscribe((res: any) => {
             this.crgQuestionsList = res.detail;
@@ -86,6 +91,7 @@ export class CreditRiskGradingGammaComponent implements OnInit {
                 this.totalPointMapper.set(value.description, this.formDataForEdit[value.description]);
             }
             crgFormGroupObject[value.description] = null;
+            crgFormGroupObject[`${value.description}Parameter`] = null;
         });
 
         this.creditRiskGrading = this.formBuilder.group(crgFormGroupObject);
@@ -97,8 +103,9 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         }
     }
 
-    onChangeOption(field, point) {
+    onChangeOption(field, point, parameter) {
         this.totalPointMapper.set(field, point);
+        this.creditRiskGrading.get(`${field}Parameter`).patchValue(parameter);
         if (this.totalPointMapper.size === this.crgQuestionsList.length) {
             let total = 0;
             this.totalPointMapper.forEach(data => {

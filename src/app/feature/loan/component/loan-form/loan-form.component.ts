@@ -49,6 +49,7 @@ import {FinancialComponent} from '../../../loan-information-template/financial/f
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {CustomerType} from '../../../customer/model/customerType';
 import {GuarantorAdderComponent} from '../loan-main-template/guarantor-adder/guarantor-adder.component';
+import {CreditRiskGradingGammaComponent} from '../../../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 
 @Component({
   selector: 'app-loan-form',
@@ -151,6 +152,9 @@ export class LoanFormComponent implements OnInit {
 
   @ViewChild('creditRiskGradingAlpha', {static: false})
   creditRiskGradingAlpha: CreditRiskGradingAlphaComponent;
+
+  @ViewChild('crgGamma', {static: false})
+  crgGamma: CreditRiskGradingGammaComponent;
 
   @ViewChild('financial', {static: false})
   financial: FinancialComponent;
@@ -556,7 +560,6 @@ export class LoanFormComponent implements OnInit {
     this.customerInfoService.detail(id)
     .subscribe((infoResponse) => {
       this.loanHolder = infoResponse.detail;
-      console.log('loan', this.loanHolder);
       this.loanDocument.loanHolder = this.loanHolder;
       this.loanDocument.siteVisit = this.loanHolder.siteVisit;
       this.loanDocument.financial = this.loanHolder.financial;
@@ -569,6 +572,7 @@ export class LoanFormComponent implements OnInit {
       }
       this.loanDocument.creditRiskGradingAlpha = this.loanHolder.creditRiskGradingAlpha;
       this.loanDocument.creditRiskGrading = this.loanHolder.creditRiskGrading;
+      this.loanDocument.crgGamma = this.loanHolder.crgGamma;
       this.loanDocument.security = this.loanHolder.security;
       this.loanDocument.shareSecurity = this.loanHolder.shareSecurity;
       this.loanDocument.insurance = this.loanHolder.insurance;
