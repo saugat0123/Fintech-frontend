@@ -53,6 +53,10 @@
             <td><strong>{{p?.fieldName}}</strong></td>
             <td>{{p?.prevValue}}</td>
           </tr>
+          <tr *ngIf="loanUpdateData?.priority">
+            <td><strong>Priority</strong></td>
+            <td>{{loanUpdateData?.priority}}</td>
+          </tr>
         </table>
 
 
