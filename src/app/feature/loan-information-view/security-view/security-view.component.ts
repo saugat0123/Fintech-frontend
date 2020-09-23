@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Security} from '../../loan/model/security';
 import {NepseMaster} from '../../admin/modal/NepseMaster';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
-import {NepseService} from '../../admin/component/nepse/nepse.service';
 
 @Component({
   selector: 'app-security-view',
