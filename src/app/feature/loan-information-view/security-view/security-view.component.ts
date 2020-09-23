@@ -30,7 +30,9 @@ export class SecurityViewComponent implements OnInit {
 
   ngOnInit() {
     this.securityData = JSON.parse(this.security.data);
-    this.shareSecurity = JSON.parse(this.shareSecurityData.data);
+    if (!ObjectUtil.isEmpty(this.shareSecurityData)){
+      this.shareSecurity = JSON.parse(this.shareSecurityData.data);
+    }
     (this.securityData['selectedArray'] as Array<any>).forEach(selectedValue => {
       switch (selectedValue) {
         case 'VehicleSecurity':
