@@ -186,8 +186,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             case 'currentAssets':
                 this.financialService.onValueChangeForArraySum(this.balanceSheetForm.get('currentAssets'),
                     this.balanceSheetForm.get('currentAssetsCategory'), index);
-                currentAssets.controls['value'].setValue(Number(currentAssets.controls['value'].value)
-                    + Number(inventories.controls['value'].value));
+                currentAssets.controls['value'].setValue((Number(currentAssets.controls['value'].value)
+                    + Number(inventories.controls['value'].value)).toFixed(2));
                 break;
             case 'inventories':
                 this.financialService.onValueChangeForArraySum(this.balanceSheetForm.get('inventories'),
@@ -223,8 +223,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                 break;
         }
         // Calculating Total Assets--
-        const totalAssetsValue = Number(currentAssets.controls['value'].value) + Number(fixedAssets.controls['value'].value)
-            + Number(otherAssets.controls['value'].value);
+        const totalAssetsValue = (Number(currentAssets.controls['value'].value) + Number(fixedAssets.controls['value'].value)
+            + Number(otherAssets.controls['value'].value)).toFixed(2);
         totalAssets.controls['value'].setValue(totalAssetsValue);
 
         // Calculating retainedEarningsValue--
@@ -237,135 +237,139 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             }
         });
         // Calculating totalLiabilitiesAndEquity--
-        const totalLiabilitiesAndEquityValue = Number(currentLiabilities.controls['value'].value)
+        const totalLiabilitiesAndEquityValue = (Number(currentLiabilities.controls['value'].value)
             + Number(longTermLoan.controls['value'].value) + Number(otherLongTermLiabilities.controls['value'].value)
-            + Number(otherProvisions.controls['value'].value) + Number(netWorth.controls['value'].value);
+            + Number(otherProvisions.controls['value'].value) + Number(netWorth.controls['value'].value)).toFixed(2);
         totalLiabilitiesAndEquity.controls['value'].setValue(totalLiabilitiesAndEquityValue);
         // Calculating Differences--
-        const differenceBSValue = Number(totalAssets.controls['value'].value) - Number(totalLiabilitiesAndEquity.controls['value'].value);
+        const differenceBSValue = (Number(totalAssets.controls['value'].value)
+            - Number(totalLiabilitiesAndEquity.controls['value'].value)).toFixed(2);
         differenceBS.controls['value'].setValue(differenceBSValue);
 
         //
         // CFS calculation --
         if (index > 0) {
             cashFlowStatement.increaseDecreaseInInventory[index].value =
-                Number(((this.balanceSheetForm.get('inventories') as FormArray).controls[index - 1] as FormGroup).controls['value'].value)
-                - Number(inventories.controls['value'].value);
+                (Number(((this.balanceSheetForm.get('inventories') as FormArray).controls[index - 1] as FormGroup).controls['value'].value)
+                - Number(inventories.controls['value'].value)).toFixed(2);
             cashFlowStatement.increaseDecreaseInAccountsReceivable[index].value =
-                Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory') as FormArray,
+                (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory') as FormArray,
                     'Account Receivable', (index - 1)))
                 - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
-                    'Account Receivable', index));
+                    'Account Receivable', index))).toFixed(2);
             cashFlowStatement.increaseDecreaseInShortTermInvestment[index].value =
-                Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
+                (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
                     'Short term investment', (index - 1)))
                 - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
-                'Short term investment', index));
+                'Short term investment', index))).toFixed(2);
             cashFlowStatement.increaseDecreaseInAdvanceAndDeposit[index].value =
-                Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
+                (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
                     'Advances and Deposits', (index - 1)))
                 - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
-                'Advances and Deposits', index));
+                'Advances and Deposits', index))).toFixed(2);
             cashFlowStatement.increaseDecreaseInOtherCurrentAssets[index].value =
-                Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
+                (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
                     'Others', (index - 1)))
                 - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
-                'Others', index));
+                'Others', index))).toFixed(2);
             cashFlowStatement.increaseDecreaseInCreditors[index].value =
-                Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
+                (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
                     'Creditors', index))
                 - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
-                'Creditors', (index - 1)));
+                'Creditors', (index - 1)))).toFixed(2);
             cashFlowStatement.increaseDecreaseInOtherCurrentLiabilities[index].value =
-                Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
+                (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
                     'Security Deposits', index))
                 + Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
                 'Taxes Payable', index))
                 - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
                 'Taxes Payable', (index - 1)))
                 - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
-                'Security Deposits', (index - 1)));
+                'Security Deposits', (index - 1)))).toFixed(2);
 
             cashFlowStatement.changedInFixedAsset[index].value =
-                Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('fixedAssetsCategory'),
+                (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('fixedAssetsCategory'),
                     'Net Fixed Assets', (index - 1)))
                 - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('fixedAssetsCategory'),
                 'Net Fixed Assets', index))
                 - Number(this.financialService
-                    .fetchValuesForJsonSubCategories(incomeStatement.operatingExpensesCategory, 'Depreciation', index));
+                    .fetchValuesForJsonSubCategories(incomeStatement.operatingExpensesCategory, 'Depreciation', index))).toFixed(2);
             cashFlowStatement.changeInOtherAssets[index].value =
-                Number(((this.balanceSheetForm.get('otherAssets') as FormArray).controls[index - 1] as FormGroup).controls['value'].value)
+                (Number(((this.balanceSheetForm.get('otherAssets') as FormArray).controls[index - 1] as FormGroup).controls['value'].value)
                 - Number(otherAssets.controls['value'].value)
                 - Number(this.financialService.fetchValuesForJsonSubCategories(incomeStatement.operatingExpensesCategory,
-                'Amortization/Other Non-Cash Expenses', index));
+                'Amortization/Other Non-Cash Expenses', index))).toFixed(2);
             cashFlowStatement.changeInOtherLongTermLiabilities[index].value =
-                Number(otherLongTermLiabilities.controls['value'].value)
+                (Number(otherLongTermLiabilities.controls['value'].value)
                 - Number(((this.balanceSheetForm.get('otherLongTermLiabilities') as FormArray)
-                    .controls[index - 1] as FormGroup).controls['value'].value);
+                    .controls[index - 1] as FormGroup).controls['value'].value)).toFixed(2);
             cashFlowStatement.changeInOtherProvisions[index].value =
-                Number(otherProvisions.controls['value'].value)
+                (Number(otherProvisions.controls['value'].value)
                 - Number(((this.balanceSheetForm.get('otherProvisions') as FormArray)
-                    .controls[index - 1] as FormGroup).controls['value'].value);
+                    .controls[index - 1] as FormGroup).controls['value'].value)).toFixed(2);
             cashFlowStatement.paidUpCapitalEquity[index].value =
-                Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('netWorthCategory'),
+                (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('netWorthCategory'),
                     'Paid up Capital/Equity', index))
                 - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('netWorthCategory'),
-                'Paid up Capital/Equity', (index - 1)));
+                'Paid up Capital/Equity', (index - 1)))).toFixed(2);
             cashFlowStatement.shortTermLoan[index].value =
-                Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
+                (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
                     'Short Term Loan', index))
                 - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
-                'Short Term Loan', (index - 1)));
+                'Short Term Loan', (index - 1)))).toFixed(2);
             cashFlowStatement.longTermLoanReceived[index].value =
-                Number(longTermLoan.controls['value'].value)
-                - Number(((this.balanceSheetForm.get('longTermLoan') as FormArray).controls[index] as FormGroup).controls['value'].value);
+                (Number(longTermLoan.controls['value'].value)
+                - Number(((this.balanceSheetForm.get('longTermLoan') as FormArray).controls[index] as FormGroup)
+                        .controls['value'].value)).toFixed(2);
             cashFlowStatement.addOpeningBalance[index].value = cashFlowStatement.closingBalance[index - 1].value;
         } else {
-            cashFlowStatement.increaseDecreaseInInventory[index].value = -Math.abs(Number(inventories.controls['value'].value));
+            cashFlowStatement.increaseDecreaseInInventory[index].value = (-Math.abs(Number(inventories.controls['value'].value)))
+            .toFixed(2);
             cashFlowStatement.increaseDecreaseInAccountsReceivable[index].value =
-                -Math.abs(Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
-                'Account Receivable', index)));
+                (-Math.abs(Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
+                'Account Receivable', index)))).toFixed(2);
             cashFlowStatement.increaseDecreaseInShortTermInvestment[index].value =
-                -Math.abs(Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
-                'Short term investment', index)));
+                (-Math.abs(Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
+                'Short term investment', index)))).toFixed(2);
             cashFlowStatement.increaseDecreaseInAdvanceAndDeposit[index].value =
-                -Math.abs(Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
-                'Advances and Deposits', index)));
+                (-Math.abs(Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
+                'Advances and Deposits', index)))).toFixed(2);
             cashFlowStatement.increaseDecreaseInOtherCurrentAssets[index].value =
-                -Math.abs(Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
-                'Others', index)));
+                (-Math.abs(Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
+                'Others', index)))).toFixed(2);
             cashFlowStatement.increaseDecreaseInCreditors[index].value =
-                Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
-                    'Creditors', index));
+                (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
+                    'Creditors', index))).toFixed(2);
             cashFlowStatement.increaseDecreaseInOtherCurrentLiabilities[index].value =
-                Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
+                (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
                     'Security Deposits', index))
                 + Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
-                'Taxes Payable', index));
+                'Taxes Payable', index))).toFixed(2);
 
-            cashFlowStatement.changedInFixedAsset[index].value = -Math.abs(
+            cashFlowStatement.changedInFixedAsset[index].value = (-Math.abs(
                 Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('fixedAssetsCategory'),
                 'Net Fixed Assets', index))
                 - Number(this.financialService
-                    .fetchValuesForJsonSubCategories(incomeStatement.operatingExpensesCategory, 'Depreciation', index)));
-            cashFlowStatement.changeInOtherAssets[index].value = -Math.abs(
+                    .fetchValuesForJsonSubCategories(incomeStatement.operatingExpensesCategory, 'Depreciation', index)))).toFixed(2);
+            cashFlowStatement.changeInOtherAssets[index].value = (-Math.abs(
                 Number(otherAssets.controls['value'].value)
                 - Number(this.financialService.fetchValuesForJsonSubCategories(incomeStatement.operatingExpensesCategory,
-                'Amortization/Other Non-Cash Expenses', index)));
-            cashFlowStatement.changeInOtherLongTermLiabilities[index].value = Number(otherLongTermLiabilities.controls['value'].value);
-            cashFlowStatement.changeInOtherProvisions[index].value = Number(otherProvisions.controls['value'].value);
+                'Amortization/Other Non-Cash Expenses', index)))).toFixed(2);
+            cashFlowStatement.changeInOtherLongTermLiabilities[index].value = (Number(otherLongTermLiabilities.controls['value'].value))
+            .toFixed(2);
+            cashFlowStatement.changeInOtherProvisions[index].value = (Number(otherProvisions.controls['value'].value)).toFixed(2);
             cashFlowStatement.paidUpCapitalEquity[index].value =
-                Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('netWorthCategory'),
-                    'Paid up Capital/Equity', index));
+                (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('netWorthCategory'),
+                    'Paid up Capital/Equity', index))).toFixed(2);
             cashFlowStatement.shortTermLoan[index].value =
-                Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
-                    'Short Term Loan', index));
-            cashFlowStatement.longTermLoanReceived[index].value = Number(longTermLoan.controls['value'].value);
+                (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
+                    'Short Term Loan', index))).toFixed(2);
+            cashFlowStatement.longTermLoanReceived[index].value = Number(longTermLoan.controls['value'].value).toFixed(2);
         }
 
         cashFlowStatement.closingBalance[index].value =
-            this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
-            'Cash/Bank Balance', index);
+            (this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
+            'Cash/Bank Balance', index)).toFixed(2);
         this.financialService.cashFromOperatingActivitiesTotal(cashFlowStatement, index);
         this.financialService.cashFromInvestingActivitiesTotal(cashFlowStatement, index);
         this.financialService.cashFromFinancingActivitiesTotal(cashFlowStatement, index);
@@ -447,12 +451,12 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
 
         keyIndicators.netOperatingCycle[index].value = Number(keyIndicators.stockInHandDays[index].value)
             + Number(keyIndicators.averageCollectionPeriod[index].value) - Number(keyIndicators.averagePaymentPeriod[index].value);
-        keyIndicators.netWCBeforeBank[index].value = Number(currentAssets.controls['value'].value) === 0 ? 0 :
+        keyIndicators.netWCBeforeBank[index].value = (Number(currentAssets.controls['value'].value) === 0 ? 0 :
             Number(currentAssets.controls['value'].value) - Number(this.financialService
                 .fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'), 'Cash/Bank Balance', index))
         - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
             'Creditors', index)) - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm
-                .get('currentLiabilitiesCategory'), 'Security Deposits', index));
+                .get('currentLiabilitiesCategory'), 'Security Deposits', index))).toFixed(2);
     }
 
     checkForLatterFiscalYearChanges(index: number) {

@@ -14,7 +14,7 @@
                         class="form-control"
                         formControlName="proposedLimit" id="proposedLimit"
                         name="proposedLimit" placeholder="Proposed limit"
-                        type="number">
+                        type="number" (input)="checkRepaymentMode()">
                     <div *ngIf=" (submitted)  && formControls.proposedLimit.errors"
                          class="invalid-feedback">
                       <span *ngIf="(formControls.proposedLimit.errors.required)">Proposed Limit is required</span>
@@ -33,7 +33,7 @@
                         class="form-control" formControlName="interestRate"
                         id="interestRate" name="interestRate" placeholder="Interest Rate(%)"
                         [(ngModel)]="interestLimit"
-                        type="number">
+                        type="number" (input)="checkRepaymentMode()">
                     <div *ngIf="(submitted) && formControls.interestRate.invalid"
                          class="invalid-feedback">
                       <span *ngIf="formControls.interestRate.errors.required">Interest Rate is required</span>
@@ -115,7 +115,7 @@
                         class="form-control"
                         formControlName="tenureDurationInMonths" id="tenureDurationInMonths"
                         placeholder="Tenure Duration in Months"
-                        type="number">
+                        type="number" (input)="checkRepaymentMode()">
 
                     <!--                                        <input [nbDatepicker]="tenurePicker"-->
                     <!--                                               [ngClass]="{ 'is-invalid':submitted &&formControls.tenureDurationInMonths.errors}"-->
@@ -159,7 +159,8 @@
                         [ngClass]="{ 'is-invalid': (submitted ) && formControls.repaymentMode.errors }"
                         class="custom-select" formControlName="repaymentMode"
                         id="repaymentMode"
-                        name="repaymentMode">
+                        name="repaymentMode"
+                   (change)="checkRepaymentMode()">
                       <option [ngValue]="null" hidden selected>Select</option>
                       <option value="EMI">EMI</option>
                       <option value="EQI">EQI</option>
@@ -176,19 +177,27 @@
                 <!--                                end of repayment mode-->
 
                 <!--                start of installment amount div-->
-                <div class="col-md-4">
+                <div class="col-md-4" *ngIf="proposalForm.get('repaymentMode').value === 'EMI' || proposalForm.get('repaymentMode').value === 'EQI'">
                   <div class="form-group>">
                     <label class="title"> <strong>Installment Amount</strong></label>
                     <input
-                        [ngClass]="{ 'is-invalid': (submitted) && formControls.installmentAmount.errors }"
                         class="form-control" formControlName="installmentAmount"
                         id="installmentAmount"
                         name="installmentAmount" placeholder="Installment Amount"
-                        type="number">
+                        type="number" readonly>
                   </div>
                 </div>
                 <!--                end of installment amount div-->
-
+                <div class="col-md-4" *ngIf="proposalForm.get('repaymentMode').value === 'MONTHLY' || proposalForm.get('repaymentMode').value === 'QUARTERLY' || proposalForm.get('repaymentMode').value === 'YEARLY'">
+                  <div class="form-group>">
+                    <label class="title"> <strong>Interest Amount</strong></label>
+                    <input
+                        class="form-control" formControlName="interestAmount"
+                        id="interestAmount"
+                        name="interestAmount" placeholder="Interest Amount"
+                        type="number">
+                  </div>
+                </div>
 
                 <!--                start of Moratorium period amount div-->
                 <div class="col-md-4">
