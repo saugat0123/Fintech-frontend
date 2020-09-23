@@ -41,6 +41,9 @@ export class SecurityViewComponent implements OnInit {
         case 'Land and Building Security' :
           this.apartmentSelected = this.landSelected = true;
           break;
+          case 'ShareSecurity' :
+          this.shareSelected = true;
+          break;
         case 'PlantSecurity' :
           this.plantSelected = true;
       }
