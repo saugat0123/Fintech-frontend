@@ -62,7 +62,7 @@
     </table>
 
     <form [formGroup]="creditRiskGrading">
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped text-center">
             <thead>
             <tr>
                 <th>SN.</th>
@@ -88,34 +88,34 @@
                         <p>{{ crgQuestion?.description }}</p>
                     </td>
                     <td *ngIf="crgQuestionsList[i-1]?.crgGroupId !== crgQuestion?.crgGroupId">
-                        <strong>{{ groupWeightageMap.get(crgQuestion?.crgGroupId) }}</strong>
+                        <strong>{{ groupWeightageMap.get(crgQuestion?.crgGroupId) }}%</strong>
                     </td>
                     <td *ngIf="crgQuestionsList[i-1]?.crgGroupId === crgQuestion?.crgGroupId"></td>
                     <td *ngIf="!fromProfile">{{creditRiskGrading.get(crgQuestion?.description).value === null ? '' :
-                        'TODO'}}</td>
+                        creditRiskGrading.get(crgQuestion?.description + 'Parameter').value}}</td>
                     <ng-container *ngIf="fromProfile">
                         <td>
                             <ul>
                                 <li *ngFor="let answer of crgQuestion?.answers">
-                                    {{ answer.description }}
+                                    {{ answer?.description }}
                                 </li>
                             </ul>
                         </td>
                         <td>
                             <ul class="list-unstyled">
                                 <li *ngFor="let answer of crgQuestion?.answers">
-                                    {{ answer.points }}
+                                    {{ answer?.points }}
                                 </li>
                             </ul>
                         </td>
                         <td>
                             <div *ngFor="let answer of crgQuestion?.answers; let i = index">
-                                <input (change)="onChangeOption(crgQuestion?.description, answer?.points)"
+                                <input (change)="onChangeOption(crgQuestion?.description, answer?.points, answer?.description)"
                                        [checked]="totalPointMapper.get(crgQuestion?.description) === answer?.points"
                                        [value]="answer?.points"
                                        class="form-control-input"
                                        [formControlName]="crgQuestion?.description"
-                                       [id]="crgQuestion?.description"
+                                       [id]="crgQuestion?.description+i"
                                        type="radio"><br>
                             </div>
                         </td>
