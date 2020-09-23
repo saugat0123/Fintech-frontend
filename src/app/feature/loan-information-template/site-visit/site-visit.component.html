@@ -151,17 +151,6 @@
                     </div>
                 </div>
                 <div class="col-md-4 form-group">
-                    <label class="title" for="observation">Observation</label>
-                    <input class="form-control" formControlName="observation" id="observation"
-                           [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('observation')?.errors }"
-                           name="observation" placeholder="observation"
-                           type="text">
-                    <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('observation')?.invalid"
-                         class="invalid-feedback">
-                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('observation')?.errors.required">observation is required</span>
-                    </div>
-                </div>
-                <div class="col-md-4 form-group">
                     <label class="title" for="visitedBy">Visited By</label>
                     <input class="form-control" formControlName="visitedBy" id="visitedBy" name="visitedBy"
                            [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('visitedBy')?.errors }"
@@ -171,27 +160,17 @@
                         <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('visitedBy')?.errors.required">value is required</span>
                     </div>
                 </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="conclusion">Conclusion</label>
-                    <input class="form-control" formControlName="conclusion" id="conclusion" name="conclusion"
-                           [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('conclusion')?.errors }"
-                           placeholder="conclusion" type="text">
-                    <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('conclusion')?.invalid"
-                         class="invalid-feedback">
-                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('conclusion')?.errors.required">conclusion is required</span>
-                    </div>
-                </div>
-                <div class="form-group col-md-4">
-                    <label class="title" for="mapAddress">Address</label>
-                    <input class="form-control col-md-12" formControlName="mapAddress" id="mapAddress"
-                           [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('mapAddress')?.errors }"
-                           name="mapAddress" placeholder="address"
-                           type="text">
-                    <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('mapAddress')?.invalid"
-                         class="invalid-feedback">
-                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('mapAddress')?.errors.required">address is required</span>
-                    </div>
-                </div>
+                <!-- <div class="form-group col-md-4">
+                     <label class="title" for="mapAddress">Map Address</label>
+                     <input class="form-control col-md-12" formControlName="mapAddress" id="mapAddress"
+                            [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('mapAddress')?.errors }"
+                            name="mapAddress" placeholder="address"
+                            type="text">
+                     <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('mapAddress')?.invalid"
+                          class="invalid-feedback">
+                         <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('mapAddress')?.errors.required">address is required</span>
+                     </div>
+                 </div>-->
                 <div class="col-md-8 form-group">
                     <label class="title" for="findingsAndComments">Finding And Comments</label>
                     <textarea class="form-control" formControlName="findingsAndComments"
@@ -234,7 +213,7 @@
                     <label class="title" for="date">Date</label>
                     <input [max]="date" [nbDatepicker]="datepicker4" class="form-control"
                            [ngClass]="{ 'is-invalid': (fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('date')?.errors }"
-                           formControlName="date" id="date">
+                           formControlName="date" id="date" placeholder="date">
                     <nb-datepicker [max]="date" #datepicker4></nb-datepicker>
                     <div *ngIf="(fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('date')?.invalid"
                          class="invalid-feedback">
@@ -262,7 +241,7 @@
                         <label class="title" for="roadApproach">Road Approach</label>
                         <select class="custom-select" formControlName="roadApproach" id="roadApproach"
                                 name="roadApproach">
-                            <option [ngValue]="undefined" hidden>Select Road Approach</option>
+                            <option [ngValue]="''" hidden>Select Road Approach</option>
                             <option value="BLACK_TOPPED_ROAD">Black Topped Road</option>
                             <option value="GRAVELLED_ROAD">Gravelled Road</option>
                             <option value="EARTHEN_ROAD">Earthen Road</option>
@@ -337,32 +316,28 @@
                             <label class="title" for="building">Building</label>
                             <select class="custom-select" formControlName="building" id="building"
                                     name="building">
+                                <option [ngValue]="''" hidden>Select Building</option>
                                 <option value="YES">Yes</option>
                                 <option value="NO">No</option>
                             </select>
                         </div>
-                        <div class="col-md-12 form-group">
+                        <div *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('building')?.value == 'YES'"
+                             class="col-md-12 form-group">
                             <label class="title" for="buildingArea">Building Area</label>
                             <input class="form-control" formControlName="buildingArea" id="buildingArea"
                                    name="buildingArea" placeholder="building area">
                         </div>
-                        <div class="col-md-12 form-group">
+                        <div *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('building')?.value == 'YES'"
+                             class="col-md-12 form-group">
                             <label class="title" for="constructionYear">Construction Year</label>
                             <input [nbDatepicker]="datepicker5" class="form-control"
                                    formControlName="constructionYear" id="constructionYear"
                                    name="constructionYear" placeholder="construction year">
                             <nb-datepicker #datepicker5></nb-datepicker>
                         </div>
-                        <div class="col-md-12 form-group">
-                            <label class="title" for="qualityOfConstructionRemarks">Remarks For 'No'
-                                Option</label>
-                            <textarea class="form-control" formControlName="qualityOfConstructionRemarks"
-                                      id="qualityOfConstructionRemarks" name="qualityOfConstructionRemarks"
-                                      placeholder="remarks"
-                                      row="3" type="text"></textarea>
-                        </div>
                     </div>
-                    <table class="table col-md-4">
+                    <table *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('building')?.value == 'YES'"
+                           class="table col-md-4">
                         <tr>
                             <th>SN</th>
                             <th>Particulars</th>
@@ -480,22 +455,15 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <input (click)="addStaffs()" class="btn btn-sm btn-flat btn-primary" type="button"
-                                   value="Add Staff"/>
+                            <button (click)="addStaffs()"
+                                    class="btn btn-sm btn-flat btn-primary">Add Staff
+                            </button>
                         </div>
                         <div class="form-group">
                             <label class="title" for="commentAboutFAC">Comments About FAC</label>
                             <textarea class="form-control" formControlName="commentAboutFAC"
                                       id="commentAboutFAC" name="commentsAboutFAC"
                                       placeholder="comments" row="3" type="text"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label class="title" for="branchInchargeComment">Branch Incharge Comment</label>
-                            <textarea class="form-control" formControlName="branchInchargeComment"
-                                      id="branchInchargeComment" name="branchInchargeComment"
-                                      placeholder="branch incharge comment"
-                                      row="3"
-                                      type="text"></textarea>
                         </div>
                     </div>
                 </div>
@@ -532,7 +500,8 @@
                     <label class="title" for="rents">Rents</label>
                     <select class="custom-select" formControlName="rents"
                             id="rents" name="rents">
-                        <option selected="selected" value="OWNED">Owned</option>
+                        <option [ngValue]="''" hidden>Select Rent</option>
+                        <option value="OWNED">Owned</option>
                         <option value="RENTED">Rented</option>
                     </select>
                 </div>
@@ -578,6 +547,7 @@
                             <select class="custom-select" formControlName="clientsOverallRating"
                                     id="clientsOverallRating"
                                     name="rents">
+                                <option [ngValue]="''">Select Rating</option>
                                 <option value="POOR">Poor</option>
                                 <option value="GOOD">Good</option>
                                 <option value="AVERAGE">Average</option>
@@ -619,9 +589,11 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <input (click)="addInspectingStaffsDetails()" class="btn btn-sm btn-flat btn-primary"
-                                   type="button"
-                                   value="Add Staff"/>
+                            <button
+                                (click)="addInspectingStaffsDetails()"
+                                class="btn btn-sm btn-flat btn-primary"
+                            >Add Staff
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -788,7 +760,9 @@
                         </div>
                     </div>
                     <div class="row col-md-12 justify-content-end">
-                        <input (click)="addPartyForm()" class="btn btn-sm btn-flat btn-primary" type="button"
+                        <input (click)="addPartyForm()"
+                                class="btn btn-sm btn-flat btn-primary"
+                               type="button"
                                value="Add Party"/>
                     </div>
                     <div class="col-md-12 pl-4">
@@ -852,9 +826,8 @@
                         </div>
                         <div class="row col-md-12">
                             <div class="col-md-5 justify-content-end">
-                                <input (click)="addReceivableAssets()" class="col-md-12 btn-sm btn-primary mt-4"
-                                       type="button"
-                                       value="+Add Receivable Assets"/>
+                                <button (click)="addReceivableAssets()" class="col-md-12 btn btn-sm btn-primary mt-4"
+                                       >+Add Receivable Assets</button>
                             </div>
                             <div class="col-md-4 justify-content-end ml-3">
                                 <label class="title" for="total">Total</label>
@@ -886,10 +859,9 @@
                             </div>
                         </div>
                         <div class="row col-md-12 justify-content-start">
-                            <input (click)="addInspectingStaffs()"
+                            <button (click)="addInspectingStaffs()"
                                    class="col-md-9 btn btn-sm btn-flat btn-primary"
-                                   type="button"
-                                   value="+Add Inspecting Staffs"/>
+                                 >+Add Inspecting Staffs</button>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -917,9 +889,7 @@
                         </div>
                         <div class="row col-md-12">
                             <div class="col-md-5 justify-content-end">
-                                <input (click)="addPayableAssets()" class="col-md-12 btn-sm btn-primary mt-4"
-                                       type="button"
-                                       value="+Add Payable Assets"/>
+                                <button (click)="addPayableAssets()" class="col-md-12 btn btn-sm btn-primary mt-4">+Add Payable Assets</button>
                             </div>
                             <div class="col-md-4 justify-content-end ml-3">
                                 <label class="title" for="total">Total</label>
@@ -949,9 +919,8 @@
                             </div>
                         </div>
                         <div class="row col-md-12 justify-content-start">
-                            <input (click)="addBankExposure()" class="col-md-9 btn btn-sm btn-flat btn-primary"
-                                   type="button"
-                                   value="+Add Bank Exposure"/>
+                            <button (click)="addBankExposure()" class="col-md-9 btn btn-sm btn-flat btn-primary"
+                                   >+Add Bank Exposure</button>
                         </div>
                     </div>
                     <div class="col-md-12 mt-4">

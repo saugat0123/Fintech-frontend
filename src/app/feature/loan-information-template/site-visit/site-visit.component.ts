@@ -3,6 +3,9 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angul
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {SiteVisit} from '../../admin/modal/siteVisit';
 import {NbDateService} from '@nebular/theme';
+import {ToastService} from '../../../@core/utils';
+import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {FormUtils} from '../../../@core/utils/form.utils';
 
 
 declare let google: any;
@@ -39,7 +42,9 @@ export class SiteVisitComponent implements OnInit {
 
   date: Date;
 
-  constructor(private formBuilder: FormBuilder, dateService: NbDateService<Date>) {
+  constructor(private formBuilder: FormBuilder,
+              dateService: NbDateService<Date>,
+              private toastService: ToastService) {
     this.date = dateService.today();
   }
 
@@ -84,6 +89,7 @@ export class SiteVisitComponent implements OnInit {
     .get('otherCurrentAssets'))
     .get('bankExposures')).controls;
   }
+
   get formControls() {
     return this.siteVisitFormGroup.controls;
   }
@@ -106,8 +112,6 @@ export class SiteVisitComponent implements OnInit {
       this.addDetailsOfPayableAssets();
       this.addDetailsOfBankExposure();
     }
-
-
   }
 
   buildForm() {
@@ -140,12 +144,8 @@ export class SiteVisitComponent implements OnInit {
             : this.formDataForEdit.businessSiteVisitDetails.dateOfVisit, Validators.required],
         objectiveOfVisit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.objectiveOfVisit, Validators.required],
-        observation: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.observation, Validators.required],
         visitedBy: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.visitedBy, Validators.required],
-        conclusion: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.conclusion, Validators.required],
         locationPreview: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.locationPreview],
         mapAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
@@ -490,16 +490,20 @@ export class SiteVisitComponent implements OnInit {
 
   staffsFormGroup(): FormGroup {
     return this.formBuilder.group({
-      name: [undefined],
-      position: [undefined]
+      name: [undefined, Validators.required],
+      position: [undefined, Validators.required]
     });
   }
 
   addStaffs() {
-    (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('fixedAssetCollateralDetails'))
+    const controls =  (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('fixedAssetCollateralDetails'))
     .get('vicinityToTheBasicAmenities'))
-    .get('staffs'))
-    .push(this.staffsFormGroup());
+    .get('staffs'));
+    if (FormUtils.checkEmptyProperties(controls)) {
+      this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Staffs Data To Add More'));
+     return;
+    }
+    controls.push(this.staffsFormGroup());
   }
 
   deleteStaff(i) {
@@ -516,10 +520,14 @@ export class SiteVisitComponent implements OnInit {
   }
 
   addInspectingStaffsDetails() {
-    (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
+    const controls = (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
     .get('insuranceVerification'))
-    .get('inspectingStaffsDetails'))
-    .push(this.staffsFormGroup());
+    .get('inspectingStaffsDetails'));
+    if (FormUtils.checkEmptyProperties(controls)) {
+      this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Staff Detail To Add More'));
+      return;
+    }
+    controls.push(this.staffsFormGroup());
   }
 
   deleteInspectingStaffsDetails(i) {
@@ -546,9 +554,14 @@ export class SiteVisitComponent implements OnInit {
   }
 
   addPartyForm() {
-    (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
+   const controls = (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
     .get('receivablesAndPayables'))
-    .get('parties')).push(this.partyFormGroup());
+    .get('parties'));
+    if (FormUtils.checkEmptyProperties(controls)) {
+      this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
+      return;
+    }
+    controls.push(this.partyFormGroup());
   }
 
   deletePartyForm(i) {
@@ -571,10 +584,14 @@ export class SiteVisitComponent implements OnInit {
   }
 
   addReceivableAssets() {
-    (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
+    const controls = (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
     .get('otherCurrentAssets'))
-    .get('receivableAssets'))
-    .push(this.assetsFormGroup());
+    .get('receivableAssets'));
+    if (FormUtils.checkEmptyProperties(controls)) {
+      this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Assets Data To Add More'));
+      return;
+    }
+    controls.push(this.assetsFormGroup());
   }
 
   deleteReceivableAssets(i) {
@@ -590,10 +607,14 @@ export class SiteVisitComponent implements OnInit {
   }
 
   addPayableAssets() {
-    (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
+    const controls = (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
     .get('otherCurrentAssets'))
-    .get('payableAssets'))
-    .push(this.assetsFormGroup());
+    .get('payableAssets'));
+    if (FormUtils.checkEmptyProperties(controls)) {
+      this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Assets Data To Add More'));
+      return;
+    }
+    controls.push(this.assetsFormGroup());
   }
 
   deletePayableAssets(i) {
@@ -609,10 +630,15 @@ export class SiteVisitComponent implements OnInit {
   }
 
   addInspectingStaffs() {
+    const controls =
     (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
     .get('otherCurrentAssets'))
-    .get('inspectingStaffs'))
-    .push(this.staffsFormGroup());
+    .get('inspectingStaffs'));
+    if (FormUtils.checkEmptyProperties(controls)) {
+      this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Staff Detail To Add More'));
+      return;
+    }
+    controls.push(this.staffsFormGroup());
   }
 
   deleteInspectingStaffs(i) {
@@ -635,10 +661,14 @@ export class SiteVisitComponent implements OnInit {
   }
 
   addBankExposure() {
-    (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
+    const controls = (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
     .get('otherCurrentAssets'))
-    .get('bankExposures'))
-    .push(this.bankExposureFormGroup());
+    .get('bankExposures'));
+    if (FormUtils.checkEmptyProperties(controls)) {
+      this.toastService.show(new Alert(AlertType.INFO, 'Please Fil Exposure Detail To Add More'));
+      return;
+    }
+    controls.push(this.bankExposureFormGroup());
   }
 
   deleteBankExposure(i) {
@@ -735,7 +765,11 @@ export class SiteVisitComponent implements OnInit {
 
 
   onSubmit() {
-      console.log(this.siteVisitFormGroup);
+    console.log(this.siteVisitFormGroup);
+    if (!this.currentResidentForm && !this.businessSiteVisitForm && !this.fixedAssetCollateralForm && !this.currentAssetsInspectionForm) {
+      this.toastService.show(new Alert(AlertType.INFO, 'Please Select Atleast One SiteVisit!'));
+      return;
+    }
     if (this.currentResidentForm) {
       if (this.siteVisitFormGroup.get('currentResidentDetails').invalid) {
         this.submitted = true;
@@ -989,8 +1023,6 @@ export class SiteVisitComponent implements OnInit {
       );
     });
   }
-
-
 }
 
 
