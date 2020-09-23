@@ -26,7 +26,8 @@
       <tr>
         <th>CIB Charge</th>
         <th>Repayment Mode</th>
-        <th>Installment Amount</th>
+        <th *ngIf="proposalData['repaymentMode'] === 'EMI' || proposalData['repaymentMode'] === 'EQI'">Installment Amount</th>
+        <th *ngIf="proposalData['repaymentMode'] === 'MONTHLY' || proposalData['repaymentMode'] === 'YEARLY'|| proposalData['repaymentMode'] === 'QUARTERLY'">Interest Amount</th>
         <th>Moratorium Period</th>
         <th>Prepayment Charge (%)</th>
         <th>Purpose of Submission</th>
@@ -36,8 +37,8 @@
       <tr>
         <td>{{proposalData['cibCharge']}}</td>
         <td>{{proposalData['repaymentMode']}}</td>
-        <td>{{proposalData['installmentAmount']}}</td>
-        <td>{{proposalData['moratoriumPeriod']}}</td>
+        <td *ngIf="proposalData['repaymentMode'] === 'EMI' || proposalData['repaymentMode'] === 'EQI'">Rs. {{proposalData['installmentAmount'] | currencyFormatter}}</td>
+        <td *ngIf="proposalData['repaymentMode'] === 'MONTHLY' || proposalData['repaymentMode'] === 'YEARLY'|| proposalData['repaymentMode'] === 'QUARTERLY'">Rs.{{proposalData['interestAmount'] | currencyFormatter}}</td>        <td>{{proposalData['moratoriumPeriod']}}</td>
         <td>{{proposalData['prepaymentCharge']}}</td>
         <td>{{proposalData['purposeOfSubmission']}}</td>
       </tr>

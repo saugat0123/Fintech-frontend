@@ -281,17 +281,17 @@
                         </div>
                   <div class="col-md-4">
                   <div class="form-group">
-                    <label for="registrationExpiryDate"><strong>PAN/VAT Registration  Expiry Date</strong></label>
+                    <label for="registrationExpiryDate"><strong>Registration Expiry Date</strong></label>
                     <input *ngIf="calendarType === 'AD'" id="registrationExpiryDate" formControlName="registrationExpiryDate"
                            [nbDatepicker]="registrationExpiryDate" name="registrationExpiryDate"
-                           class="form-control" placeholder="PAN/VAT Registration Expiry Date"
+                           class="form-control" placeholder="Registration Expiry Date"
                            [ngClass]="{ 'is-invalid':submitted && form.registrationExpiryDate.errors}">
                       <app-calendar [ePreDate]="companyInfoFormGroup.get('registrationExpiryDate').value" *ngIf="calendarType === 'BS'"
                                     (messageToEmit)="companyInfoFormGroup.get('registrationExpiryDate').patchValue($event?.eDate)"></app-calendar>
                     <nb-datepicker #registrationExpiryDate></nb-datepicker>
                     <div *ngIf="submitted && form.registrationExpiryDate.errors" class="invalid-feedback">
                       <div *ngIf="form.registrationExpiryDate.errors.required">
-                        PAN/VAT Registration Expiry Date is Required
+                          Registration Expiry Date is Required
                       </div>
                     </div>
                 </div>

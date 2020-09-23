@@ -33,7 +33,8 @@
           <tr>
             <th>CIB Charge</th>
             <th>RepaymentMode</th>
-            <th>Installment Amount</th>
+            <th *ngIf="proposal?.repaymentMode === 'EMI' || proposal?.repaymentMode === 'EQI'">Installment Amount</th>
+            <th *ngIf="proposal?.repaymentMode === 'MONTHLY' || proposal?.repaymentMode === 'YEARLY'|| proposal?.repaymentMode === 'QUARTERLY'">Interest Amount</th>
             <th>MoratoriumPeriod</th>
             <th>PrepaymentCharge</th>
           </tr>
@@ -42,7 +43,8 @@
           <tr>
             <td>Rs. {{proposal?.cibCharge}}</td>
             <td>{{proposal?.repaymentMode}}</td>
-            <td>Rs. {{proposal?.installmentAmount | currencyFormatter}}</td>
+            <td *ngIf="proposal?.repaymentMode === 'EMI' || proposal?.repaymentMode === 'EQI'">Rs. {{proposal?.installmentAmount | currencyFormatter}}</td>
+            <td *ngIf="proposal?.repaymentMode === 'MONTHLY' || proposal?.repaymentMode === 'YEARLY'|| proposal?.repaymentMode === 'QUARTERLY'">Rs.{{proposal?.interestAmount | currencyFormatter}}</td>
             <td>{{proposal?.moratoriumPeriod }}</td>
             <td>Rs. {{proposal?.prepaymentCharge | currencyFormatter}}</td>
           </tr>

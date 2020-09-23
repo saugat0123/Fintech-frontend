@@ -38,7 +38,7 @@ export class ProposalComponent implements OnInit {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.formDataForEdit = JSON.parse(this.formValue.data);
-            this.proposalForm.setValue(this.formDataForEdit);
+            this.proposalForm.patchValue(this.formDataForEdit);
             this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
         } else {
             this.setActiveBaseRate();
@@ -88,10 +88,11 @@ export class ProposalComponent implements OnInit {
             creditInformationReportStatus: [undefined, [Validators.required]],
             incomeFromTheAccount: [undefined, [Validators.required]],
             borrowerInformation: [undefined, [Validators.required]],
+            interestAmount: [undefined],
 
             // Additional Fields--
             // for installment Amount--
-            installmentAmount: [undefined, Validators.required],
+            installmentAmount: [undefined],
             // for moratoriumPeriod Amount--
             moratoriumPeriod: [undefined],
             // for prepaymentCharge Amount--
@@ -124,5 +125,27 @@ export class ProposalComponent implements OnInit {
    this.baseInterestService.getActiveBaseRate().subscribe(value => {
        this.proposalForm.get('baseRate').setValue(value.detail.rate);
    });
+    }
+
+    checkRepaymentMode() {
+        if (this.proposalForm.get('repaymentMode').value === 'EMI') {
+            this.calculateEmiEqiAmount('emi');
+        } else if (this.proposalForm.get('repaymentMode').value === 'EQI') {
+            this.calculateEmiEqiAmount('eqi');
+        }
+    }
+
+    calculateEmiEqiAmount(repaymentMode) {
+        const proposedAmount = this.proposalForm.get('proposedLimit').value;
+        const rate = Number(this.proposalForm.get('interestRate').value) / (12 * 100);
+        const n = this.proposalForm.get('tenureDurationInMonths').value;
+        if (proposedAmount && rate && n) {
+            const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / (Math.pow(1 + rate, n) - 1));
+            if (repaymentMode === 'emi') {
+                this.proposalForm.get('installmentAmount').patchValue(emi.toFixed(2));
+            } else if (repaymentMode === 'eqi') {
+                this.proposalForm.get('installmentAmount').patchValue((emi * 3).toFixed(2));
+            }
+        } else {  this.proposalForm.get('installmentAmount').patchValue(undefined); }
     }
 }
