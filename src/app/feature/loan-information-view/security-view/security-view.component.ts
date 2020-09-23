@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Security} from '../../loan/model/security';
 import {NepseMaster} from '../../admin/modal/NepseMaster';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {NepseService} from '../../admin/component/nepse/nepse.service';
 
 @Component({
   selector: 'app-security-view',
@@ -22,11 +24,13 @@ export class SecurityViewComponent implements OnInit {
   shareTotalValue = 0;
   totalConsideredValue = 0;
   loanSharePercent: NepseMaster = new NepseMaster();
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit() {
     this.securityData = JSON.parse(this.security.data);
-    this.shareSecurity = JSON.parse(this.shareSecurityData);
+    this.shareSecurity = JSON.parse(this.shareSecurityData.data);
     (this.securityData['selectedArray'] as Array<any>).forEach(selectedValue => {
       switch (selectedValue) {
         case 'VehicleSecurity':
@@ -41,12 +45,25 @@ export class SecurityViewComponent implements OnInit {
         case 'Land and Building Security' :
           this.apartmentSelected = this.landSelected = true;
           break;
-          case 'ShareSecurity' :
+        case 'ShareSecurity' :
           this.shareSelected = true;
           break;
         case 'PlantSecurity' :
           this.plantSelected = true;
       }
     });
+    if (this.shareSelected) {
+      this.calculateShareTotals();
+      this.loanSharePercent = this.shareSecurity['loanShareRate'];
+    }
   }
+
+  calculateShareTotals() {
+    const shareList = this.shareSecurity['shareSecurityDetails'];
+    shareList.forEach(share => {
+      this.shareTotalValue += share.total;
+      this.totalConsideredValue += share.consideredValue;
+    });
+  }
+
 }
