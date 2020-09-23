@@ -34,7 +34,9 @@ export class UpdateViewComponent implements OnInit {
     }
     if (this.activity === 'LOAN_UPDATE') {
       this.loanUpdateData = this.data;
-      if (!ObjectUtil.isEmpty(this.data.guarantor)) {
+      if (this.unParsedData === '{}') {
+        this.data = null;
+      } else if (!ObjectUtil.isEmpty(this.loanUpdateData.guarantor)) {
         this.loanUpdateData.guarantor.guarantorList = this.data.guarantor;
       }
     }
