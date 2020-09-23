@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-update-view',
@@ -17,6 +18,11 @@ export class UpdateViewComponent implements OnInit {
 
   unParsedData;
 
+  loanUpdateData = {
+    proposal: null,
+    guarantor: {guarantorList: null}
+  };
+
   constructor(private modalService: NgbModal, ) {
   }
 
@@ -26,6 +32,14 @@ export class UpdateViewComponent implements OnInit {
     if (this.unParsedData === '[]') {
       this.data = null;
     }
+    if (this.activity === 'LOAN_UPDATE') {
+      this.loanUpdateData = this.data;
+      if (!ObjectUtil.isEmpty(this.data.guarantor)) {
+        const guarantorList = this.data.guarantor;
+        this.loanUpdateData.guarantor.guarantorList = guarantorList;
+      }
+    }
+
   }
 
   close() {
