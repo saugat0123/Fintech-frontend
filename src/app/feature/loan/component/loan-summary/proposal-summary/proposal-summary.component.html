@@ -32,6 +32,7 @@
         <th>CIB Charge</th>
         <th>Repayment Mode</th>
         <th>Installment Amount</th>
+        <th>Interest Amount</th>
         <th>Moratorium Period</th>
         <th>Prepayment Charge</th>
       </tr>
@@ -56,6 +57,7 @@
         <td>Rs. {{(loan?.proposal?.data | jsonParse)?.cibCharge | currencyFormatter}}</td>
         <td>{{(loan?.proposal?.data | jsonParse)?.repaymentMode}}</td>
         <td>Rs. {{(loan?.proposal?.data | jsonParse)?.installmentAmount | currencyFormatter}}</td>
+        <td>Rs. {{(loan?.proposal?.data | jsonParse)?.interestAmount | currencyFormatter}}</td>
         <td>{{(loan?.proposal?.data | jsonParse)?.moratoriumPeriod }} months</td>
         <td>Rs. {{(loan?.proposal?.data | jsonParse)?.prepaymentCharge | currencyFormatter}}</td>
       </tr>
@@ -70,6 +72,7 @@
         <td>Rs. {{ getTotal('cibCharge') | currencyFormatter }}</td>
         <td>N/A</td>
         <td>Rs. {{ getTotal('installmentAmount') | currencyFormatter }}</td>
+        <td>Rs. {{ getTotal('interestAmount') | currencyFormatter }}</td>
         <td>N/A</td>
         <td>Rs. {{ getTotal('prepaymentCharge') | currencyFormatter }}</td>
       </tr>
