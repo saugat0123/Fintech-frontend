@@ -24,15 +24,62 @@
     <app-security-view *ngIf="activity === 'SECURITY' && data"
                        [security]="data" [shareSecurityData]="null"></app-security-view>
 
-    <app-security-view *ngIf="activity === 'SHARE_SECURITY' && data"
-                       [shareSecurityData]="data" [security]="null"></app-security-view>
+    <div *ngIf="activity === 'SHARE_SECURITY' && data"
+                       >
+      <div  class="row mt-4">
+        <div class="col-md-12">
+          <p><strong>Share Security Detail</strong>(Promoter Percent: {{loanSharePercent == undefined? 0: loanSharePercent.promoter}} , Ordinary Percent: {{loanSharePercent == undefined? 0 : loanSharePercent.ordinary}})</p>
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th> Sn</th>
+              <th> Name of Company</th>
+              <th> Share Type</th>
+              <th>Share Unit</th>
+              <th> Rate</th>
+              <th>Total Value</th>
+              <th>Considered Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let singleShareData of shareSecurity['shareSecurityDetails']; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{singleShareData?.companyName}}</td>
+              <td>{{singleShareData?.shareType}}</td>
+              <td>{{singleShareData?.totalShareUnit}}</td>
+              <td>{{singleShareData?.amountPerUnit |currencyFormatter}}</td>
+              <td>{{singleShareData?.total |currencyFormatter}}</td>
+              <td>{{singleShareData?.consideredValue |currencyFormatter}}</td>
+            </tr>
+            <tr>
+              <th class="text-right" colspan="5">Total</th>
+              <th>{{shareTotalValue |currencyFormatter}}</th>
+              <th>{{totalConsideredValue |currencyFormatter}}</th>
+            </tr>
+            <tr>
+              <th>Description</th>
+              <th colspan="6">{{shareSecurity['securityOffered']}}</th>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
     <app-individual-view [individual]="data"
-                         *ngIf="activity === 'CUSTOMER_UPDATE' && data && profile.customerType === 'INDIVIDUAL'"></app-individual-view>
+                         *ngIf="activity === 'CUSTOMER_UPDATE' && data && profile.customerType === 'INDIVIDUAL'">
+    </app-individual-view>
     <app-company-info-view [formValue]="data"
-                           *ngIf="activity === 'CUSTOMER_UPDATE' && data && profile.customerType === 'COMPANY'"></app-company-info-view>
+                           *ngIf="activity === 'CUSTOMER_UPDATE' && data && profile.customerType === 'COMPANY'">
+    </app-company-info-view>
 
     <app-credit-grading [formData]="data" [fromProfile]="false"
-                        *ngIf="activity === 'CRG_UPDATE' && data"></app-credit-grading>
+                        *ngIf="activity === 'CRG_UPDATE' && data">
+    </app-credit-grading>
+
+    <app-credit-risk-grading-alpha [creditRiskGradingAlpha]="data" [fromProfile]="false"
+                                   [financial]="profile?.financial" [companyInfo]="companyInfo"
+                                   *ngIf="activity === 'CRG_ALPHA_UPDATE' && data">
+    </app-credit-risk-grading-alpha>
 
     <div class="col-md-12" *ngIf="activity === 'CUSTOMER_GROUP_UPDATE' && data">
       <div class="d-flex justify-content-center">
@@ -44,20 +91,20 @@
 
     <div class="col-md-12" *ngIf="activity === 'LOAN_UPDATE' && data">
       <div class="d-flex justify-content-center">
-      <h2 *ngIf="loanUpdateData?.proposal">Proposal</h2>
+        <h2 *ngIf="loanUpdateData?.proposal">Proposal</h2>
       </div>
 
-        <table class="table table-bordered table-hover ">
+      <table class="table table-bordered table-hover ">
 
-          <tr *ngFor="let p of loanUpdateData?.proposal">
-            <td><strong>{{p?.fieldName}}</strong></td>
-            <td>{{p?.prevValue}}</td>
-          </tr>
-          <tr *ngIf="loanUpdateData?.priority">
-            <td><strong>Priority</strong></td>
-            <td>{{loanUpdateData?.priority}}</td>
-          </tr>
-        </table>
+        <tr *ngFor="let p of loanUpdateData?.proposal">
+          <td><strong>{{p?.fieldName}}</strong></td>
+          <td>{{p?.prevValue}}</td>
+        </tr>
+        <tr *ngIf="loanUpdateData?.priority">
+          <td><strong>Priority</strong></td>
+          <td>{{loanUpdateData?.priority}}</td>
+        </tr>
+      </table>
 
 
       <app-guarantor-view *ngIf="loanUpdateData?.guarantor"
