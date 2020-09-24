@@ -51,7 +51,7 @@ export class FinancialService {
         });
         const headingControl = headingArray as FormArray;
         const formGroup = headingControl.controls[index] as FormGroup;
-        formGroup.controls['value'].setValue(totalSum);
+        formGroup.controls['value'].setValue(totalSum.toFixed(2));
     }
 
     // Fetching sub category values for FormControls--
@@ -89,7 +89,7 @@ export class FinancialService {
     // Cash Flow Statement Total Calculation--
     cashFromOperatingActivitiesTotal(cashFlowStatementData, index) {
         cashFlowStatementData.cashFromOperatingActivities[index].value =
-            Number(cashFlowStatementData.netProfitForThePeriod[index].value)
+            (Number(cashFlowStatementData.netProfitForThePeriod[index].value)
             + Number(cashFlowStatementData.depreciation[index].value)
             + Number(cashFlowStatementData.otherAmortizationAndNonCashExpenses[index].value)
             + Number(cashFlowStatementData.increaseDecreaseInInventory[index].value)
@@ -100,44 +100,44 @@ export class FinancialService {
             + Number(cashFlowStatementData.increaseDecreaseInCreditors[index].value)
             + Number(cashFlowStatementData.increaseDecreaseInOtherCurrentLiabilities[index].value)
             + Number(cashFlowStatementData.adjustmentForNonOperatingIncome[index].value)
-            + Number(cashFlowStatementData.interestExpensesCFSa[index].value);
+            + Number(cashFlowStatementData.interestExpensesCFSa[index].value)).toFixed(2);
     }
 
     cashFromInvestingActivitiesTotal(cashFlowStatementData, index) {
         cashFlowStatementData.cashFromInvestingActivities[index].value =
-            Number(cashFlowStatementData.changedInFixedAsset[index].value)
+            (Number(cashFlowStatementData.changedInFixedAsset[index].value)
             + Number(cashFlowStatementData.nonOperatingIncomeExpenses[index].value)
             + Number(cashFlowStatementData.changeInOtherAssets[index].value)
             + Number(cashFlowStatementData.changeInOtherLongTermLiabilities[index].value)
-            + Number(cashFlowStatementData.changeInOtherProvisions[index].value);
+            + Number(cashFlowStatementData.changeInOtherProvisions[index].value)).toFixed(2);
     }
 
     cashFromFinancingActivitiesTotal(cashFlowStatementData, index) {
         cashFlowStatementData.cashFromFinancingActivities[index].value =
-            Number(cashFlowStatementData.paidUpCapitalEquity[index].value)
+            (Number(cashFlowStatementData.paidUpCapitalEquity[index].value)
             + Number(cashFlowStatementData.shortTermLoan[index].value)
             + Number(cashFlowStatementData.longTermLoanReceived[index].value)
             + Number(cashFlowStatementData.dividendDrawing[index].value)
             + Number(cashFlowStatementData.interestExpensesCFSb[index].value)
-            + Number(cashFlowStatementData.otherAdjustments[index].value);
+            + Number(cashFlowStatementData.otherAdjustments[index].value)).toFixed(2);
     }
 
     netCashFlowTotal(cashFlowStatementData, index) {
         cashFlowStatementData.netCashFlow[index].value =
-            Number(cashFlowStatementData.cashFromOperatingActivities[index].value)
+            (Number(cashFlowStatementData.cashFromOperatingActivities[index].value)
             + Number(cashFlowStatementData.cashFromInvestingActivities[index].value)
-            + Number(cashFlowStatementData.cashFromFinancingActivities[index].value);
+            + Number(cashFlowStatementData.cashFromFinancingActivities[index].value)).toFixed(2);
     }
 
     closingCashTotal(cashFlowStatementData, index) {
         cashFlowStatementData.closingCash[index].value =
-            Number(cashFlowStatementData.netCashFlow[index].value)
-            + Number(cashFlowStatementData.addOpeningBalance[index].value);
+            (Number(cashFlowStatementData.netCashFlow[index].value)
+            + Number(cashFlowStatementData.addOpeningBalance[index].value)).toFixed(2);
     }
 
     differenceCFSTotal(cashFlowStatementData, index) {
         cashFlowStatementData.differenceCFS[index].value =
-            Number(cashFlowStatementData.closingCash[index].value)
-            - Number(cashFlowStatementData.closingBalance[index].value);
+            (Number(cashFlowStatementData.closingCash[index].value)
+            - Number(cashFlowStatementData.closingBalance[index].value)).toFixed(2);
     }
 }

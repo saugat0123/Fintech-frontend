@@ -96,10 +96,11 @@ export class ProposalComponent implements OnInit {
             creditInformationReportStatus: [undefined, [Validators.required]],
             incomeFromTheAccount: [undefined, [Validators.required]],
             borrowerInformation: [undefined, [Validators.required]],
+            interestAmount: [undefined],
 
             // Additional Fields--
             // for installment Amount--
-            installmentAmount: [undefined, Validators.required],
+            installmentAmount: [undefined],
             // for moratoriumPeriod Amount--
             moratoriumPeriod: [undefined],
             // for prepaymentCharge Amount--
@@ -196,5 +197,30 @@ export class ProposalComponent implements OnInit {
             this.checkChecked(data['waiverChecked'], 'waiver');
             this.checkChecked(data['riskChecked'], 'risk');
         }
+    }
+
+    checkRepaymentMode() {
+      if (this.proposalForm.get('repaymentMode').value === 'EMI' || this.proposalForm.get('repaymentMode').value === 'EQI') {
+        this.proposalForm.get('interestAmount').patchValue(0);
+        if (this.proposalForm.get('repaymentMode').value === 'EMI') {
+          this.calculateEmiEqiAmount('emi');
+        } else if (this.proposalForm.get('repaymentMode').value === 'EQI') {
+          this.calculateEmiEqiAmount('eqi');
+        }
+      } else { this.proposalForm.get('installmentAmount').patchValue(0); }
+    }
+
+    calculateEmiEqiAmount(repaymentMode) {
+        const proposedAmount = this.proposalForm.get('proposedLimit').value;
+        const rate = Number(this.proposalForm.get('interestRate').value) / (12 * 100);
+        const n = this.proposalForm.get('tenureDurationInMonths').value;
+        if (proposedAmount && rate && n) {
+            const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
+            if (repaymentMode === 'emi') {
+                this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(2)));
+            } else if (repaymentMode === 'eqi') {
+                this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(2)));
+            }
+        } else {  this.proposalForm.get('installmentAmount').patchValue(undefined); }
     }
 }
