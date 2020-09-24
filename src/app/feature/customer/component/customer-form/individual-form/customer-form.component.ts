@@ -83,9 +83,9 @@ export class CustomerFormComponent implements OnInit {
         this.formBuilder.group({
           customerRelation: [undefined, Validators.required],
           customerRelativeName: [undefined, Validators.compose([Validators.required])],
-          citizenshipNumber: [undefined, Validators.compose([Validators.required])],
+          citizenshipNumber: [undefined],
           citizenshipIssuedPlace: [undefined],
-          citizenshipIssuedDate: [undefined],
+          citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
           version: [0]
         })
     );
@@ -259,9 +259,9 @@ export class CustomerFormComponent implements OnInit {
       (this.basicInfo.get('customerRelatives') as FormArray).push(this.formBuilder.group({
         customerRelation: [{value: customerRelation, disabled: true}],
         customerRelativeName: [undefined, Validators.required],
-        citizenshipNumber: [undefined, Validators.required],
-        citizenshipIssuedPlace: [undefined, Validators.required],
-        citizenshipIssuedDate: [undefined, Validators.required],
+        citizenshipNumber: [undefined],
+        citizenshipIssuedPlace: [undefined],
+        citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
         version: [undefined]
       }));
     });
@@ -277,10 +277,10 @@ export class CustomerFormComponent implements OnInit {
             [({value: customerRelative, disabled: true}), Validators.required],
         customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
         version: [singleRelatives.version === undefined ? undefined : singleRelatives.version],
-        citizenshipNumber: [singleRelatives.citizenshipNumber, Validators.required],
+        citizenshipNumber: [singleRelatives.citizenshipNumber],
         citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
         citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
-            undefined : new Date(singleRelatives.citizenshipIssuedDate)]
+            undefined : new Date(singleRelatives.citizenshipIssuedDate) , DateValidator.isValidBefore]
       }));
     });
   }
