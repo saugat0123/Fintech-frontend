@@ -60,9 +60,9 @@ export class KycFormComponent implements OnInit {
         this.formBuilder.group({
           customerRelation: [undefined, Validators.required],
           customerRelativeName: [undefined, Validators.compose([Validators.required])],
-          citizenshipNumber: [undefined, Validators.compose([Validators.required])],
-          citizenshipIssuedPlace: [undefined, Validators.compose([Validators.required])],
-          citizenshipIssuedDate: [undefined, Validators.compose([Validators.required, DateValidator.isValidBefore])],
+          citizenshipNumber: [undefined],
+          citizenshipIssuedPlace: [undefined],
+          citizenshipIssuedDate: [undefined, Validators.compose([DateValidator.isValidBefore])],
         })
     );
   }
@@ -77,9 +77,9 @@ export class KycFormComponent implements OnInit {
         (this.kycInfo.get('customerRelatives') as FormArray).push(this.formBuilder.group({
           customerRelation: [{value: customerRelation, disabled: true} , Validators.required],
           customerRelativeName: [undefined , Validators.required],
-          citizenshipNumber: [undefined, Validators.required],
-          citizenshipIssuedPlace: [undefined, Validators.required],
-          citizenshipIssuedDate: [undefined, Validators.compose([Validators.required, DateValidator.isValidBefore])]
+          citizenshipNumber: [undefined],
+          citizenshipIssuedPlace: [undefined],
+          citizenshipIssuedDate: [undefined, Validators.compose([DateValidator.isValidBefore])]
         }));
       });
     }
@@ -94,10 +94,10 @@ export class KycFormComponent implements OnInit {
         customerRelation: (index > 1) ? [(customerRelative)] :
             [({value: customerRelative, disabled: true}), Validators.required],
         customerRelativeName: [singleRelatives.customerRelativeName , Validators.required],
-        citizenshipNumber: [singleRelatives.citizenshipNumber , Validators.required],
-        citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace , Validators.required],
+        citizenshipNumber: [singleRelatives.citizenshipNumber],
+        citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
         citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
-            undefined : new Date(singleRelatives.citizenshipIssuedDate) , Validators.required],
+            undefined : new Date(singleRelatives.citizenshipIssuedDate) , DateValidator.isValidBefore],
         id: [ObjectUtil.setUndefinedIfNull(singleRelatives.id)],
         version: [ObjectUtil.setUndefinedIfNull(singleRelatives.version)],
       }));

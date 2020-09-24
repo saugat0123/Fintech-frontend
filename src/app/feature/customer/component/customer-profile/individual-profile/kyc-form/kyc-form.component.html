@@ -48,14 +48,7 @@
               <div class="form-group">
                 <label for="citizenship"><strong>CitizenshipNumber</strong></label>
                 <input class="form-control" formControlName="citizenshipNumber"
-                       [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipNumber').errors }"
                        id="citizenship" placeholder="Citizenship Number" type="text">
-                <div *ngIf="submitted && relatives.get('citizenshipNumber').errors"
-                     class="invalid-feedback">
-                  <div *ngIf="relatives.get('citizenshipNumber').errors.required">citizenship number
-                    is required
-                  </div>
-                </div>
               </div>
             </div>
             <div class="col-md-2">
@@ -64,19 +57,11 @@
                 <ng-select [multiple]="false"
                            [appendTo]="'body'"
                            formControlName="citizenshipIssuedPlace"
-                           id="issuedLocation"
-                           [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipIssuedPlace').errors }"
-                           >
+                           id="issuedLocation">
                   <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
                     {{district?.name}}
                   </ng-option>
                 </ng-select>
-                <div *ngIf="submitted && relatives.get('citizenshipIssuedPlace').errors"
-                     class="invalid-feedback">
-                  <div *ngIf="relatives.get('citizenshipIssuedPlace').errors.required">
-                    issue district is required
-                  </div>
-                </div>
               </div>
             </div>
             <div class="col-md-3">
@@ -97,12 +82,9 @@
                   <nb-datepicker #relationCitizenIssueDate></nb-datepicker>
                   <div *ngIf="submitted && relatives.get('citizenshipIssuedDate').errors"
                        class="invalid-feedback">
-                    <div *ngIf="relatives.get('citizenshipIssuedDate').errors['beforeToday']">
+<!--                    <div *ngIf="relatives.get('citizenshipIssuedDate').errors['afterToday']">-->
                       invalid issued date
-                    </div>
-                    <div *ngIf="relatives.get('citizenshipIssuedDate').errors.required">
-                      issued date is required
-                    </div>
+<!--                    </div>-->
                   </div>
                 </div>
               </div>

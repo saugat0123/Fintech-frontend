@@ -364,12 +364,7 @@
                   <div class="form-group">
                     <label for="citizenship{{i}}"><strong>CitizenshipNumber</strong></label>
                     <input class="form-control" formControlName="citizenshipNumber"
-                           [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipNumber').errors }"
                            id="citizenship{{i}}" placeholder="Citizenship Number" type="text">
-                    <div *ngIf="submitted && relatives.get('citizenshipNumber').errors"
-                         class="invalid-feedback">
-                      citizenship Number is required!
-                    </div>
                   </div>
                 </div>
                 <div class="col-md-2">
@@ -378,16 +373,11 @@
                     <ng-select [multiple]="false"
                                formControlName="citizenshipIssuedPlace"
                                id="issuedLocation{{i}}"
-                               [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipIssuedPlace').errors }"
                                placeholder="Issued District">
                       <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
                         {{district?.name}}
                       </ng-option>
                     </ng-select>
-                      <div *ngIf="submitted && relatives.get('citizenshipIssuedPlace').errors"
-                           class="invalid-feedback">
-                        citizenship Number is required!
-                      </div>
                   </div>
                 </div>
                 <div class="col-md-2">
