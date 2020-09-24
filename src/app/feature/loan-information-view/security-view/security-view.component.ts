@@ -29,9 +29,7 @@ export class SecurityViewComponent implements OnInit {
 
   ngOnInit() {
     this.securityData = JSON.parse(this.security.data);
-    if (!ObjectUtil.isEmpty(this.shareSecurityData)) {
-      this.shareSecurity = JSON.parse(this.shareSecurityData.data);
-    }
+
     (this.securityData['selectedArray'] as Array<any>).forEach(selectedValue => {
       switch (selectedValue) {
         case 'VehicleSecurity':
@@ -53,6 +51,11 @@ export class SecurityViewComponent implements OnInit {
           this.plantSelected = true;
       }
     });
+    if (!ObjectUtil.isEmpty(this.shareSecurityData)) {
+      this.shareSecurity = JSON.parse(this.shareSecurityData.data);
+    } else {
+      this.shareSelected = false;
+    }
     if (this.shareSelected) {
       this.calculateShareTotals();
       this.loanSharePercent = this.shareSecurity['loanShareRate'];

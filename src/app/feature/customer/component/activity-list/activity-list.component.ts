@@ -5,7 +5,6 @@ import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {UpdateViewComponent} from '../../../customer-activity/component/update-view/update-view.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
-import {LoanDataHolder} from '../../../loan/model/loanData';
 
 @Component({
   selector: 'app-activity-list',
@@ -49,14 +48,12 @@ export class ActivityListComponent implements OnInit {
   }
 
   viewUpdate(data, activity, profile) {
-
-      const modalRef = this.modalService.open(UpdateViewComponent, {size: 'lg'});
-      modalRef.componentInstance.data = data;
-      modalRef.componentInstance.activity = activity;
-      modalRef.componentInstance.profile = profile;
+    const modalRef = this.modalService.open(UpdateViewComponent, {size: 'lg'});
+    modalRef.componentInstance.data = data;
+    modalRef.componentInstance.activity = activity;
+    modalRef.componentInstance.profile = profile;
 
   }
-
 
 
   onScrollDown() {
