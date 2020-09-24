@@ -104,6 +104,10 @@
           <td><strong>Priority</strong></td>
           <td>{{loanUpdateData?.priority}}</td>
         </tr>
+        <tr *ngIf="loanUpdateData?.documentStatus">
+          <td><strong>Document Status</strong></td>
+          <td>{{loanUpdateData?.documentStatus}}</td>
+        </tr>
       </table>
 
 
