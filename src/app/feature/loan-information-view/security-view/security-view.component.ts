@@ -60,6 +60,9 @@ export class SecurityViewComponent implements OnInit {
       this.calculateShareTotals();
       this.loanSharePercent = this.shareSecurity['loanShareRate'];
     }
+    if (this.depositSelected) {
+      this.calculateTotal();
+    }
   }
 
   calculateShareTotals() {
@@ -67,6 +70,13 @@ export class SecurityViewComponent implements OnInit {
     shareList.forEach(share => {
       this.shareTotalValue += share.total;
       this.totalConsideredValue += share.consideredValue;
+    });
+  }
+
+  calculateTotal() {
+    const depositList = this.securityData['initialForm']['fixedDepositDetails'];
+    depositList.forEach(deposit => {
+      this.totalAmount += deposit.amount;
     });
   }
 
