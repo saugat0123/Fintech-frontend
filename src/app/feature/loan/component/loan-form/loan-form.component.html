@@ -1,10 +1,10 @@
-<nb-card>
+<nb-card >
 
   <nb-card-header>
     <h2 class="d-flex justify-content-center">{{loanTitle}}</h2>
     <hr>
 
-    <div class="row">
+    <div #container class="row">
 
       <div class="col-md-3">
         <form #priorityFormNav id="priorityFormNav" [formGroup]="priorityForm">
@@ -190,12 +190,12 @@
             <div class="col-md-6 d-flex justify-content-start">
               <button nbButton status="primary"
                       *ngIf="nextTabId > 1"
-                      (click)="tabSet.select(previousTabId.toString(10))">Previous
+                      (click)="tabSet.select(previousTabId.toString(10));scrollToTop()">Previous
               </button>
             </div>
             <div class="col-md-6 d-flex justify-content-end">
               <button nbButton status="primary"
-                      (click)="nextButtonActionFxn(tabSet)"
+                      (click)="nextButtonActionFxn(tabSet);scrollToTop()"
                       *ngIf="nextTabId !== totalTabCount">Next
               </button>
 
