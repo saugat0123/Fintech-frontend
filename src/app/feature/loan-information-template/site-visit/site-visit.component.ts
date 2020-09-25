@@ -6,6 +6,7 @@ import {NbDateService} from '@nebular/theme';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {FormUtils} from '../../../@core/utils/form.utils';
+import {Pattern} from '../../../@core/utils/constants/pattern';
 
 
 declare let google: any;
@@ -130,7 +131,7 @@ export class SiteVisitComponent implements OnInit {
         nearBy: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
             : this.formDataForEdit.currentResidentDetails.nearBy), Validators.required],
         ownerName: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.ownerName), Validators.required],
+            : this.formDataForEdit.currentResidentDetails.ownerName), [Validators.required , Validators.pattern(Pattern.ALPHABET_ONLY)]],
         locationPreview: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
             : this.formDataForEdit.currentResidentDetails.locationPreview)]
       }),
@@ -139,7 +140,8 @@ export class SiteVisitComponent implements OnInit {
             : this.formDataForEdit.businessSiteVisitDetails.officeAddress, Validators.required],
         nameOfThePersonContacted: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-                : this.formDataForEdit.businessSiteVisitDetails.nameOfThePersonContacted, Validators.required],
+                : this.formDataForEdit.businessSiteVisitDetails.nameOfThePersonContacted,
+          [Validators.required , Validators.pattern(Pattern.ALPHABET_ONLY)]],
         dateOfVisit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.dateOfVisit, Validators.required],
         objectiveOfVisit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
@@ -160,10 +162,10 @@ export class SiteVisitComponent implements OnInit {
         address: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
             : this.formDataForEdit.fixedAssetCollateralDetails.address],
         personContacted: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
-            : this.formDataForEdit.fixedAssetCollateralDetails.personContacted],
+            : this.formDataForEdit.fixedAssetCollateralDetails.personContacted , Validators.pattern(Pattern.ALPHABET_ONLY)],
         phoneNoOfContact: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
-                : this.formDataForEdit.fixedAssetCollateralDetails.phoneNoOfContact],
+                : this.formDataForEdit.fixedAssetCollateralDetails.phoneNoOfContact , Validators.pattern(Pattern.NUMBER_MOBILE)],
         facilities: this.formBuilder.group({
           roadApproach: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.facilities === undefined ? ''

@@ -78,6 +78,7 @@
                     <div *ngIf="(submitted) && siteVisitFormGroup.get('currentResidentDetails')?.get('ownerName')?.invalid"
                          class="invalid-feedback">
                         <span *ngIf="siteVisitFormGroup.get('currentResidentDetails')?.get('ownerName')?.errors.required">owner Name is required</span>
+                        <span *ngIf="siteVisitFormGroup.get('currentResidentDetails')?.get('ownerName')?.errors.pattern">Invalid Owner Name</span>
                     </div>
                 </div>
                 <div class=" input-group mb-3">
@@ -127,6 +128,7 @@
                     <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('nameOfThePersonContacted')?.invalid"
                          class="invalid-feedback">
                         <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('nameOfThePersonContacted')?.errors.required">Name is required</span>
+                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('nameOfThePersonContacted')?.errors.pattern">Invalid person name</span>
                     </div>
                 </div>
                 <div class="col-md-4 form-group">
@@ -228,12 +230,26 @@
                 <div class="col-md-3 form-group">
                     <label class="title" for="personContacted">Person Contacted</label>
                     <input class="form-control" formControlName="personContacted" id="personContacted"
-                           name="personContacted" placeholder="person contacted" type="text">
+                           [ngClass]="{ 'is-invalid': (fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('personContacted')?.errors }"
+                           name="personContacted" placeholder="person contacted"
+                           type="text">
+                    <div *ngIf="(fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('personContacted')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('personContacted')?.errors.pattern">
+                            Invalid Person Name</span>
+                    </div>
                 </div>
                 <div class="col-md-3 form-group">
                     <label class="title" for="phoneNoOfContact">Phone No. Of Contact</label>
                     <input class="form-control" formControlName="phoneNoOfContact" id="phoneNoOfContact"
+                           [ngClass]="{ 'is-invalid': (fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('phoneNoOfContact')?.errors }"
                            name="phoneNoOfContact" placeholder="phone no. of contact" type="text">
+                    <div *ngIf="(fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('phoneNoOfContact')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('phoneNoOfContact')?.errors.pattern">
+                            Invalid Mobile Number
+                        </span>
+                    </div>
                 </div>
                 <h5 class="col-md-12 mt-3">Facilities</h5>
                 <div class="row col-md-12 pr-0" formGroupName="facilities">
@@ -494,7 +510,7 @@
                     <label class="title" for="stockValueReported">Stock Value Reported</label>
                     <input class="form-control" formControlName="stockValueReported"
                            id="stockValueReported" name="stockValueReported"
-                           placeholder="0.0">
+                           placeholder="0.0" type="number">
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="title" for="rents">Rents</label>
@@ -528,7 +544,7 @@
                         <div class="col-md-6 form-group">
                             <label class="title" for="insuredAmount">Insured Amount</label>
                             <input class="form-control" formControlName="insuredAmount" id="insuredAmount"
-                                   name="insuredAmount" placeholder="insured amount">
+                                   name="insuredAmount" placeholder="insured amount" type="number">
                         </div>
                         <div class="col-md-6 form-group">
                             <label class="title" for="insuranceCompany">Insurance Company</label>
@@ -563,7 +579,7 @@
                             <label class="title" for="stockValueConfirmed">Stock Value Confirmed</label>
                             <input class="form-control" formControlName="stockValueConfirmed"
                                    id="stockValueConfirmed" name="stockValueConfirmed"
-                                   placeholder="0.0">
+                                   placeholder="0.0" type="number">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -728,28 +744,28 @@
                                        class="form-control"
                                        formControlName="withinThreeMonths" id="withinThreeMonths"
                                        name="party"
-                                       placeholder="0.0">
+                                       placeholder="0.0" type="number">
                             </div>
                             <div class="col-md-2 form-group">
                                 <label class="title" for="sixMonth">6 Month</label>
                                 <input (keyup)="onChangeValue('sixMonth', 'sixMonthTotal')" class="form-control"
                                        formControlName="sixMonth"
                                        id="sixMonth" name="sixMonth"
-                                       placeholder="0.0">
+                                       placeholder="0.0" type="number">
                             </div>
                             <div class="col-md-2 form-group">
                                 <label class="title" for="oneYear">One year</label>
                                 <input (keyup)="onChangeValue('oneYear', 'oneYearTotal')" class="form-control"
                                        formControlName="oneYear"
                                        id="oneYear" name="oneYear"
-                                       placeholder="0.0">
+                                       placeholder="0.0" type="number">
                             </div>
                             <div class="col-md-2 form-group">
                                 <label class="title" for="oneYearPlus">1+ year</label>
                                 <input (keyup)="onChangeValue('oneYearPlus', 'moreThanOneYearTotal')"
                                        class="form-control" formControlName="oneYearPlus"
                                        id="oneYearPlus" name="oneYeaPlus"
-                                       placeholder="0.0">
+                                       placeholder="0.0" type="number">
                             </div>
                             <div *ngIf="partyLength()>1" class="col-md-1 pt-4">
                                 <input (click)="deletePartyForm(i)"
@@ -808,14 +824,14 @@
                                 <div class="col-md-5 form-group">
                                     <label class="title" for="particulars">Particulars</label>
                                     <input class="form-control" formControlName="particulars" id="particulars"
-                                           name="party">
+                                           name="party" placeholder="particular">
                                 </div>
                                 <div class="col-md-4 form-group ml-3">
                                     <label class="title" for="amount">Amount</label>
                                     <input (keyup)="onReceivableAssetValueChange('amount', 'receivableCurrentAssetsTotal')"
                                            class="form-control" formControlName="amount"
                                            id="amount" name="amount"
-                                           placeholder="0.0">
+                                           placeholder="0.0" type="number">
                                 </div>
                                 <div *ngIf="receivableAssetsLength()>1" class="col-md-2 form-group pt-4">
                                     <input (click)="deleteReceivableAssets(i)"
@@ -844,12 +860,12 @@
                                     <label class="title" for="inspectingStaff">Name</label>
                                     <input class="form-control" formControlName="name"
                                            id="inspectingStaff"
-                                           name="inspectingStaff">
+                                           name="inspectingStaff" placeholder="name">
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label class="title" for="position">Position</label>
                                     <input class="form-control" formControlName="position" id="position"
-                                           name="position">
+                                           name="position" placeholder="possition">
                                 </div>
                                 <div *ngIf="inspectingStaffsLength()>1" class="col-md-2 form-group pt-4">
                                     <input (click)="deleteInspectingStaffs(i)"
@@ -872,14 +888,14 @@
                                 <div class="col-md-5 form-group">
                                     <label class="title" for="particulars">Particulars</label>
                                     <input class="form-control" formControlName="particulars" id="particulars"
-                                           name="party">
+                                           name="party" placeholder="particular">
                                 </div>
                                 <div class="col-md-4 form-group ml-3">
                                     <label class="title" for="amount">Amount</label>
                                     <input (keyup)="onPayableAssetsValueChange('amount', 'payableCurrentAssetsTotal')"
                                            class="form-control" formControlName="amount"
                                            id="amount" name="amount"
-                                           placeholder="0.0">
+                                           placeholder="0.0" type="number">
                                 </div>
                                 <div *ngIf="payableAssetsLength()>1" class="col-md-2 form-group pt-4">
                                     <input (click)="deletePayableAssets(i)" class="btn btn-sm btn-danger btn-primary"
@@ -910,7 +926,7 @@
                                 <div class="col-md-4 form-group">
                                     <label class="title" for="amount">Amount</label>
                                     <input class="form-control" formControlName="amount" id="amount"
-                                           name="amount" placeholder="0.0">
+                                           name="amount" placeholder="0.0" type="number">
                                 </div>
                                 <div *ngIf="bankExposureLength()>1" class="col-md-2 form-group pt-4">
                                     <input (click)="deleteBankExposure(i)" class="btn btn-sm btn-danger btn-primary"
