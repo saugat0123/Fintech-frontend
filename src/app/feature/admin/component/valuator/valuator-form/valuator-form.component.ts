@@ -205,4 +205,8 @@ export class ValuatorFormComponent implements OnInit {
     onClose() {
         this.activeModal.dismiss(ValuatorFormComponent);
     }
+
+    addAllBranch() {
+        this.valuatorForm.get('branch').patchValue(this.branchList);
+    }
 }

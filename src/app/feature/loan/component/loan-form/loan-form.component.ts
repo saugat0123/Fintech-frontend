@@ -129,6 +129,9 @@ export class LoanFormComponent implements OnInit {
   @ViewChild('priorityFormNav', {static: false})
   priorityFormNav: ElementRef;
 
+  @ViewChild('container', {static: false})
+  container: ElementRef;
+
   @ViewChild('basicInfo', {static: false})
   basicInfo: BasicInfoComponent;
 
@@ -652,5 +655,9 @@ export class LoanFormComponent implements OnInit {
         this.toastService.show(new Alert(AlertType.ERROR, `Error saving customer: ${error.error.message}`));
       });
     }
+  }
+
+  scrollToTop() {
+    this.scrollNavService.scrollNavigateTo(this.container);
   }
 }

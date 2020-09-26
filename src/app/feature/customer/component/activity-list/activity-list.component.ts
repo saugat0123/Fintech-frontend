@@ -4,6 +4,7 @@ import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {UpdateViewComponent} from '../../../customer-activity/component/update-view/update-view.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-activity-list',
@@ -24,7 +25,8 @@ export class ActivityListComponent implements OnInit {
   search = {profileId: null, activity: null};
 
   constructor(private activityService: CustomerActivityService,
-              private modalService: NgbModal, ) {
+              private modalService: NgbModal,
+              private router: Router) {
   }
 
   static loadData(other: ActivityListComponent) {
@@ -50,7 +52,9 @@ export class ActivityListComponent implements OnInit {
     modalRef.componentInstance.data = data;
     modalRef.componentInstance.activity = activity;
     modalRef.componentInstance.profile = profile;
+
   }
+
 
   onScrollDown() {
     if (this.pageable.totalElements > this.size) {

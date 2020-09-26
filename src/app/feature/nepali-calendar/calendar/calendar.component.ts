@@ -161,9 +161,9 @@ export class CalendarComponent implements OnInit {
 
   selectedCalendar(value) {
     this.selectedDay = value;
+    this.toggleShow = false;
     this.getEnglishDate();
     this.emitValue();
-   this.toggleDate();
   }
 
   getEnglishDate() {
