@@ -86,8 +86,9 @@
         <td>{{model?.modifiedBy?.name || 'NA'}}</td>
 
         <td>{{(model?.modifiedOn|date) || 'NA'}}</td>
-        <td (click)=" viewUpdate(model?.data,model?.activity,model?.profile)"><em
-            class="fa fa-eye"></em></td>
+        <td (click)=" viewUpdate(model?.data,model?.activity,model?.profile,model?.modifiedOn,model?.modifiedBy)">
+          <em
+              class="fa fa-eye"></em></td>
 
       </tr>
 

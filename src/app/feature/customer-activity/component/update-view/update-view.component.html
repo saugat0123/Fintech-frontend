@@ -1,11 +1,32 @@
 <nb-card [ngStyle]="{'margin-bottom': 0}" accent="primary">
   <nb-card-header>
     <strong>{{activity | replace:'_':' '}}</strong>
+
     <a (click)="close()" aria-label="Close" class="close cursor">
       <span aria-hidden="true">&times;</span>
     </a>
   </nb-card-header>
-  <nb-card-body class="modal-height">
+  <nb-card-body class="modal-height" id="print-update-block">
+    <div class="col-md-12 disable-print" *ngIf="data">
+
+      <div class=" d-flex justify-content-end">
+        <button [useExistingCss]="true" nbButton size="small"
+                ngxPrint printSectionId="print-update-block"
+                styleSheetFile="assets/css/printStyles.scss">
+          <em class="fa fa-print"></em>
+        </button>
+      </div>
+
+    </div>
+    <div class="col-md-12">
+      <div class=" d-flex justify-content-center">
+        <h3>{{profile?.name}}</h3>
+      </div>
+      <div class=" d-flex justify-content-end">
+        <strong>Till date : </strong>  {{modifiedOn | date}}
+      </div>
+    </div>
+    <hr>
     <app-insurance-view [insurance]="data"
                         *ngIf="activity === 'INSURANCE_UPDATE' && data"></app-insurance-view>
 
@@ -31,7 +52,7 @@
           <p><strong>Share Security Detail</strong>(Promoter Percent: {{loanSharePercent
           == undefined ? 0 : loanSharePercent.promoter}} , Ordinary Percent: {{loanSharePercent
           == undefined ? 0 : loanSharePercent.ordinary}})</p>
-          <table class="table table-bordered">
+          <table class="table table-bordered text-center">
             <thead>
             <tr>
               <th> Sn</th>
@@ -95,16 +116,16 @@
 
     <div class="col-md-12" *ngIf="activity === 'LOAN_UPDATE' && data">
       <div class="d-flex justify-content-center">
-        <h2 *ngIf="loanUpdateData?.proposal">Proposal</h2>
+        <h4 *ngIf="loanUpdateData?.proposal">Proposal</h4>
       </div>
 
       <table class="table table-bordered table-hover ">
 
         <tr *ngFor="let p of loanUpdateData?.proposal">
           <td><strong>{{p?.fieldName}}</strong></td>
-<!--          <td><span *ngIf="p?.fieldName == 'Proposed Limit'">RS.{{p?.prevValue | currencyFormatter}}-->
-<!--            /-</span>-->
-          <td>   <span >{{p?.prevValue}}</span></td>
+          <td><span *ngIf="p?.fieldName == 'Proposed Limit'">RS.{{p?.prevValue | currencyFormatter}}
+            /-</span>
+            <span *ngIf="p?.fieldName !== 'Proposed Limit'">{{p?.prevValue}}</span></td>
         </tr>
         <tr *ngIf="loanUpdateData?.priority">
           <td><strong>Priority</strong></td>

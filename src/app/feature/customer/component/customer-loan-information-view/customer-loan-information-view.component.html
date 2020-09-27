@@ -54,10 +54,10 @@
           </div>
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-      <app-site-visit-view *ngIf="siteVisit.expanded"
-                          [siteVisit]="customerInfo?.siteVisit">
+          <app-site-visit-view *ngIf="siteVisit.expanded"
+                               [siteVisit]="customerInfo?.siteVisit">
 
-      </app-site-visit-view>
+          </app-site-visit-view>
         </nb-accordion-item-body>
       </nb-accordion-item>
       <nb-accordion-item #security *ngIf="customerInfo?.security">
@@ -69,12 +69,68 @@
           </div>
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-      <app-security-view *ngIf="security.expanded"
-                          [security]="customerInfo?.security" [shareSecurityData]="customerInfo?.shareSecurity">
+          <app-security-view *ngIf="security.expanded"
+                             [security]="customerInfo?.security"
+                             [shareSecurityData]="customerInfo?.shareSecurity">
 
-      </app-security-view>
+          </app-security-view>
         </nb-accordion-item-body>
       </nb-accordion-item>
+      <nb-accordion-item #itemCrgAlpha *ngIf="customerInfo?.creditRiskGradingAlpha">
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>CREDIT RISK GRADING (ALPHA)</span>
+            </div>
+
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-credit-risk-grading-alpha
+              *ngIf="itemCrgAlpha.expanded"
+              [creditRiskGradingAlpha]="customerInfo?.creditRiskGradingAlpha"
+              [financial]="customerInfo?.financial"
+              [companyInfo]="companyInfo"
+              [fromProfile]="false"></app-credit-risk-grading-alpha>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item #itemCrg>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>CREDIT RISK GRADING</span>
+            </div>
+
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-credit-grading #CrgComponent
+                              *ngIf="itemCrg.expanded"
+                              [formData]="customerInfo?.creditRiskGrading"
+                              [fromProfile]="false"></app-credit-grading>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+
+      <nb-accordion-item #itemCrgGamma>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>CREDIT RISK GRADING (GAMMA)</span>
+            </div>
+
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-credit-risk-grading-gamma #CrgGammaComponent
+
+                                         *ngIf="itemCrgGamma.expanded"
+                                         [formData]="customerInfo?.crgGamma"
+                                         [fromProfile]="false"></app-credit-risk-grading-gamma>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
     </nb-accordion>
   </nb-card-body>
 </nb-card>

@@ -21,6 +21,8 @@ export class UpdateViewComponent implements OnInit {
   @Input() profile: CustomerInfoData;
 
   @Input() activity: string;
+  @Input() modifiedOn: any;
+  @Input() modifiedBy: any;
 
   unParsedData;
   shareSecurity;
