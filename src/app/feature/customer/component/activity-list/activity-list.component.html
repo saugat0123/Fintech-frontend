@@ -42,7 +42,7 @@
             </div>
 
             <li *ngFor="let model of dataList;let i=index" class="cursor"
-                (click)=" viewUpdate(model?.data,model?.activity,model?.profile)"
+                (click)=" viewUpdate(model?.data,model?.activity,model?.profile,model?.modifiedOn,model?.modifiedBy)"
             >
               <div class="col-md-12" [nbTooltip]="'click to view previous data'">
                 <div class="row">

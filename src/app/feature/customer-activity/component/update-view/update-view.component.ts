@@ -8,6 +8,9 @@ import {CompanyInfo} from '../../../admin/modal/company-info';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {ToastService} from '../../../../@core/utils';
 import {NepseMaster} from '../../../admin/modal/NepseMaster';
+import {HttpClient} from '@angular/common/http';
+import {ApiUtils} from '../../../../@core/utils/api/ApiUtils';
+import {LoanDataHolder} from '../../../loan/model/loanData';
 
 @Component({
   selector: 'app-update-view',
@@ -21,6 +24,8 @@ export class UpdateViewComponent implements OnInit {
   @Input() profile: CustomerInfoData;
 
   @Input() activity: string;
+  @Input() modifiedOn: any;
+  @Input() modifiedBy: any;
 
   unParsedData;
   shareSecurity;
@@ -36,10 +41,12 @@ export class UpdateViewComponent implements OnInit {
   };
 
   companyInfo = new CompanyInfo();
+  customerLoan = new LoanDataHolder();
 
   constructor(private modalService: NgbModal,
               private companyInfoService: CompanyInfoService,
               private toastService: ToastService,
+              private httpService: HttpClient
   ) {
   }
 
@@ -61,6 +68,13 @@ export class UpdateViewComponent implements OnInit {
     if (this.activity === 'SHARE_SECURITY') {
       this.shareSecurity = JSON.parse(this.data.data);
       this.calculateShareTotals();
+    }
+    if (this.activity === 'LOAN_APPROVED') {
+      const req = ApiUtils.getRequest(this.data.filePath);
+      this.httpService.get(req.url, {headers: req.header}).subscribe((res: any) => {
+        this.customerLoan = res;
+        console.log('response:::', res);
+      });
     }
     this.checkCustomerType();
   }

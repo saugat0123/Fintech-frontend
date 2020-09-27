@@ -128,11 +128,13 @@ export class CustomerActivityComponent implements OnInit {
 
   }
 
-  viewUpdate(data, activity, profile) {
+  viewUpdate(data, activity, profile, modifiedOn, modifiedBy) {
     const modalRef = this.modalService.open(UpdateViewComponent, {size: 'lg'});
     modalRef.componentInstance.data = data;
     modalRef.componentInstance.activity = activity;
     modalRef.componentInstance.profile = profile;
+    modalRef.componentInstance.modifiedOn = modifiedOn;
+    modalRef.componentInstance.modifiedBy = modifiedBy;
   }
 
 }
