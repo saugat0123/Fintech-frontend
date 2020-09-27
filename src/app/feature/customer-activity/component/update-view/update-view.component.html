@@ -27,6 +27,7 @@
       </div>
     </div>
     <hr>
+    <app-loan-view *ngIf="activity === 'LOAN_APPROVED' && data" [customerLoan]="customerLoan"></app-loan-view>
     <app-insurance-view [insurance]="data"
                         *ngIf="activity === 'INSURANCE_UPDATE' && data"></app-insurance-view>
 

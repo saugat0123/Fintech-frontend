@@ -11,10 +11,11 @@ import {UpdateViewComponent} from './component/update-view/update-view.component
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import {NgxPrintModule} from 'ngx-print';
+import { LoanViewComponent } from './component/loan-view/loan-view.component';
 
 
 @NgModule({
-  declarations: [CustomerActivityComponent, UpdateViewComponent],
+  declarations: [CustomerActivityComponent, UpdateViewComponent, LoanViewComponent],
   imports: [
     CommonModule,
     ThemeModule,
