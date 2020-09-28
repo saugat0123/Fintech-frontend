@@ -40,7 +40,6 @@
                 <div class="col form-group">
                     <label for="insuredAmount"><strong>Insured Amount</strong></label>
                     <input class="form-control" formControlName="insuredAmount" id="insuredAmount"
-                           placeholder="12,00,000"
                            type="text" [ngClass]="{'is-invalid': isSubmitted && formArrays.get('insuredAmount').errors}">
                     <div *ngIf="isSubmitted && formArrays.get('insuredAmount').invalid" class="invalid-feedback">
                         Insured Amount is required!
@@ -49,7 +48,6 @@
                 <div class="col form-group">
                     <label for="premiumAmount"><strong>Premium Amount</strong></label>
                     <input class="form-control" formControlName="premiumAmount" id="premiumAmount"
-                           placeholder="12,00,000"
                            type="text" [ngClass]="{'is-invalid': isSubmitted && formArrays.get('premiumAmount').errors}">
                     <div *ngIf="isSubmitted && formArrays.get('premiumAmount').invalid" class="invalid-feedback">
                         Premium Amount is required!
