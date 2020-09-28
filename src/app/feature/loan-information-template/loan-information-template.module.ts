@@ -10,7 +10,6 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {AgmCoreModule} from '@agm/core';
 import {environment} from '../../../environments/environment';
 import {FinancialComponent} from './financial/financial.component';
-import {BorrowerRiskRatingComponent} from './financial/borrower-risk-rating/borrower-risk-rating.component';
 import {IncomeStatementComponent} from './financial/income-statement/income-statement.component';
 import {BalanceSheetComponent} from './financial/balance-sheet/balance-sheet.component';
 import {CashFlowStatementComponent} from './financial/cash-flow-statement/cash-flow-statement.component';
@@ -32,7 +31,6 @@ const COMPONENTS = [
   SiteVisitComponent,
   // Financial components--
   FinancialComponent,
-  BorrowerRiskRatingComponent,
   IncomeStatementComponent,
   BalanceSheetComponent,
   CashFlowStatementComponent,

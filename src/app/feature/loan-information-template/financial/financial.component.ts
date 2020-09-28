@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {BorrowerRiskRatingComponent} from './borrower-risk-rating/borrower-risk-rating.component';
 import {IncomeStatementComponent} from './income-statement/income-statement.component';
 import {BalanceSheetComponent} from './balance-sheet/balance-sheet.component';
 import {CashFlowStatementComponent} from './cash-flow-statement/cash-flow-statement.component';
@@ -20,7 +19,6 @@ import {CustomerType} from '../../customer/model/customerType';
     styleUrls: ['./financial.component.scss']
 })
 export class FinancialComponent implements OnInit {
-    @ViewChild('brr', {static: false}) brr: BorrowerRiskRatingComponent;
     @ViewChild('incomeStatement', {static: false}) incomeStatement: IncomeStatementComponent;
     @ViewChild('balanceSheet', {static: false}) balanceSheet: BalanceSheetComponent;
     @ViewChild('cashFlowStatement', {static: false}) cashFlowStatement: CashFlowStatementComponent;
@@ -465,7 +463,6 @@ export class FinancialComponent implements OnInit {
         this.currentFormData['fiscalYear'] = this.fiscalYear;
         this.currentFormData['initialForm'] = this.financialForm.value;
         if (this.isBusinessLoan) {
-            this.currentFormData['brr'] = this.brr.borrowerRiskRating.value;
             this.currentFormData['auditorList'] = this.auditorList;
         }
         this.financialData.data = JSON.stringify(this.currentFormData);
