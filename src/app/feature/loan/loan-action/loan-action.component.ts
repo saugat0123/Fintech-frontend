@@ -1,4 +1,12 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {Router} from '@angular/router';
 import {ToastService} from '../../../@core/utils';
 import {AlertService} from '../../../@theme/components/alert/alert.service';
@@ -21,6 +29,9 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
   styleUrls: ['./loan-action.component.scss']
 })
 export class LoanActionComponent implements OnInit, OnChanges {
+
+  @ViewChild('confirmModal', {static: true})
+  confirmModal: TemplateRef<any>;
 
   @Input() loanConfigId: number;
   @Input() id: number;
@@ -163,4 +174,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
         });
   }
 
+  openConfirmationModal() {
+    this.nbDialogService.open(this.confirmModal , {autoFocus: true});
+  }
 }

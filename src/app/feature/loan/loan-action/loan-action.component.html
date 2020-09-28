@@ -1,3 +1,13 @@
+<ng-template #confirmModal let-ref="dialogRef">
+  <nb-card accent="primary">
+    <nb-card-header></nb-card-header>
+  <nb-card-body>  <h5>Are your sure you want to delete this loan ?</h5></nb-card-body>
+    <nb-card-footer class="text-right">
+      <button nbButton status="primary" size="small" (click)="ref.close()">No</button>
+      <button nbButton status="danger" size="small" (click)="deleteCustomerLoan();ref.close()">Yes</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
 <div class="d-flex {{catalogueStatus === true ? 'float-right' : 'justify-content-center'}}">
 
   <button (click)="loanAction('approve')" *ngIf="!catalogueStatus"
@@ -57,7 +67,7 @@
     PRINT<i class="col-md-1 fa fa-print"></i>
   </button>
 
-  <button (click)="deleteCustomerLoan()" *ngIf="isMaker && !catalogueStatus"
+  <button (click)="openConfirmationModal()" *ngIf="isMaker && !catalogueStatus"
           class="btn-sm btn-danger d-flex justify-content-end">
     Delete<i class="col-md-1 fa fa-ban"></i>
   </button>
