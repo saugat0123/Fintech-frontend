@@ -8,6 +8,8 @@
     [loanConfigId]="loanConfigId"
     [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"
 ></app-loan-action>
-<app-loan-summary *ngIf="loanDataHolder?.id" [loanData]="loanDataHolder"
-                   [loanConfig]="loanConfig">
+<app-loan-summary *ngIf="loanDataHolder?.id"
+                  [loanData]="loanDataHolder"
+                  [loanConfig]="loanConfig"
+                  [nepaliDate]="nepaliDate">
 </app-loan-summary>

@@ -37,6 +37,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
   currentIndex: number;
   loanType = LoanType;
   loanDataHolder: LoanDataHolder = new LoanDataHolder();
+  nepaliDate;
 
   constructor( private userService: UserService,
                private loanFormService: LoanFormService,
@@ -97,12 +98,9 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
 
 
   getLoanDataHolder() {
-    console.log(this.customerId);
     this.loanFormService.detail(this.customerId).subscribe(
-        (response: any) => {
+        async (response: any) => {
           this.loanDataHolder = response.detail;
-          console.log(response);
-          console.log(this.loanDataHolder);
           this.loanCategory = this.loanDataHolder.loanCategory;
           this.currentIndex = this.loanDataHolder.previousList.length;
 
@@ -127,7 +125,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
             this.actionsList.closed = false;
           }
 
-          this.loanActionService.getSendForwardList().subscribe((res: any) => {
+         await this.loanActionService.getSendForwardList().subscribe((res: any) => {
             const forward = res.detail;
             if (forward.length === 0) {
               this.actionsList.sendForward = false;
@@ -144,7 +142,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
             this.actionsList.closed = false;
           }
 
-          this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id, this.loanDataHolder.loanCategory)
+         await this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id, this.loanDataHolder.loanCategory)
           .subscribe((res: any) => {
             if (res.detail === undefined) {
               this.actionsList.approved = false;
@@ -154,6 +152,10 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 this.actionsList.approved = false;
               }
             }
+          });
+
+          this.dateService.getDateInNepali(this.loanDataHolder.createdAt.toString()).subscribe((nepDate: any) => {
+            this.nepaliDate = nepDate.detail;
           });
         });
   }

@@ -43,6 +43,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   @Input()
   loanConfig: LoanConfig = new LoanConfig();
 
+  @Input()nepaliDate;
+
   client: string;
 
   docMsg;
@@ -70,7 +72,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   signatureList: Array<LoanStage> = new Array<LoanStage>();
   previousList: Array<LoanStage> = new Array<LoanStage>();
   currentDocAction = '';
-  nepaliDate;
   loanCategory;
   @ViewChild('print', {static: false}) print;
   businessType = BusinessType;
@@ -278,9 +279,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
               this.docMsg = filledDocLength + ' out of ' + this.rootDocLength + ' document has been uploaded';
             }
           }
-          this.dateService.getDateInNepali(this.loanDataHolder.createdAt.toString()).subscribe((nepDate: any) => {
-            this.nepaliDate = nepDate.detail;
-          });
 
           // Offer Letter Documents
           if (this.loanDataHolder.customerOfferLetter && this.loanDataHolder.customerOfferLetter.customerOfferLetterPath) {
