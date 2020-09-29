@@ -44,6 +44,8 @@ export class SecurityInitialFormComponent implements OnInit {
     depositSelected = false;
     isFixedDeposit = false;
     shareSelected = false;
+    landBuilding = false;
+    underBuildingConstructionChecked = false;
 
     securityTypes = [
         {key: 'LandSecurity', value: 'Land Security'},
@@ -90,15 +92,19 @@ export class SecurityInitialFormComponent implements OnInit {
             this.selectedArray = this.formData['selectedArray'];
             this.change(this.selectedArray);
             this.underConstruction(this.formData['underConstructionChecked']);
+            this.underBuildingConstruction(this.formData['underBuildingConstructionChecked']);
             this.otherBranch(this.formData['otherBranchcheck']);
             this.setBuildingDescription(this.formDataForEdit['buildingDetailsDescription']);
             this.setLandDescription(this.formDataForEdit['description']);
             this.setLandDetails(this.formDataForEdit['landDetails']);
             this.setBuildingDetails(this.formDataForEdit['buildingDetails']);
             this.setBuildingUnderConstructions(this.formDataForEdit['buildingUnderConstructions']);
+            this.setLandBuildingDetails(this.formDataForEdit['landBuilding']);
             this.setPlantDetails(this.formDataForEdit['plantDetails']);
             this.setVehicleDetails(this.formDataForEdit['vehicleDetails']);
             this.setFixedDepositDetails(this.formDataForEdit['fixedDepositDetails']);
+            this.setLandBuildingDescription(this.formDataForEdit['landBuildingDescription']);
+            this.setLandBuildingUnderConstructions(this.formDataForEdit['landBuildingUnderConstruction']);
         } else {
             this.addMoreLand();
             this.addBuilding();
@@ -106,6 +112,8 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addBuildingUnderConstructions();
             this.addVehicleSecurity();
             this.addFixedDeposit();
+            this.addLandBuilding();
+            this.addLandBuildingUnderConstruction();
         }
 
         if (ObjectUtil.isEmpty(this.shareSecurity)) {
@@ -127,7 +135,10 @@ export class SecurityInitialFormComponent implements OnInit {
             buildingUnderConstructions: this.formBuilder.array([]),
             plantDetails: this.formBuilder.array([]),
             vehicleDetails: this.formBuilder.array([]),
-            fixedDepositDetails: this.formBuilder.array([])
+            fixedDepositDetails: this.formBuilder.array([]),
+            landBuilding: this.formBuilder.array([]),
+            landBuildingDescription: [undefined],
+            landBuildingUnderConstruction: this.formBuilder.array([])
         });
         this.buildShareSecurityForm();
     }
@@ -174,6 +185,11 @@ export class SecurityInitialFormComponent implements OnInit {
                     this.securityValuator.plantValuator[index] = res.detail;
                 });
                 break;
+            case  'building':
+                this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
+                    this.securityValuator.buildingValuator[index] = res.detail;
+                });
+                break;
         }
     }
     branchList() {
@@ -185,6 +201,10 @@ export class SecurityInitialFormComponent implements OnInit {
 
     setBuildingDescription(buildingDescription) {
         this.securityForm.get('buildingDetailsDescription').setValue(buildingDescription);
+    }
+
+    setLandBuildingDescription(landBuildingDescription) {
+        this.securityForm.get('landBuildingDescription').setValue(landBuildingDescription);
     }
 
     setLandDescription(landDescription) {
@@ -257,6 +277,94 @@ export class SecurityInitialFormComponent implements OnInit {
         });
     }
 
+    setLandBuildingDetails(Data) {
+        if (ObjectUtil.isEmpty(Data)) {
+            this.addLandBuilding();
+            return;
+        }
+        const buildingDetails = this.securityForm.get('landBuilding') as FormArray;
+        Data.forEach((singleData , index) => {
+            if (this.otherBranchcheck && singleData.apartmentBranch) {
+                this.valuator(singleData['apartmentBranch']['id'], 'building', index);
+            } else {
+                this.valuator(null, 'building', index);
+            }
+            buildingDetails.push(
+                this.formBuilder.group({
+                    buildingName: [singleData.buildingName] ,
+                    buildingDescription: [singleData.buildingDescription] ,
+                    buildArea: [singleData.buildArea] ,
+                    buildRate: [singleData.buildRate] ,
+                    totalCost: [singleData.totalCost] ,
+                    floorName: [singleData.floorName] ,
+                    valuationArea: [singleData.valuationArea] ,
+                    ratePerSquareFeet: [singleData.ratePerSquareFeet] ,
+                    estimatedCost: [singleData.estimatedCost] ,
+                    waterSupply: [singleData.waterSupply] ,
+                    sanitation: [singleData.sanitation] ,
+                    electrification: [singleData.electrification] ,
+                    buildingTotalCost: [singleData.buildingTotalCost] ,
+                    buildingFairMarketValue: [singleData.buildingFairMarketValue] ,
+                    buildingDistressValue: [singleData.buildingDistressValue] ,
+                    ApartmentValuator: [singleData.ApartmentValuator],
+                    ApartmentValuatorDate: [ObjectUtil.isEmpty(singleData.ApartmentValuatorDate) ?
+                        undefined : new Date(singleData.ApartmentValuatorDate)],
+                    ApartmentValuatorRepresentative: [singleData.ApartmentValuatorRepresentative],
+                    ApartmentStaffRepresentativeName: [singleData.ApartmentStaffRepresentativeName],
+                    apartmentBranch: [singleData.apartmentBranch]
+                })
+            );
+        });
+    }
+
+    setLandBuildingUnderConstructions(currentData) {
+        if (ObjectUtil.isEmpty(currentData)) {
+            this.addLandBuildingUnderConstruction();
+            return;
+        }
+        const underConstruct = this.securityForm.get('landBuildingUnderConstruction') as FormArray;
+        currentData.forEach(singleData => {
+            underConstruct.push(
+                this.formBuilder.group({
+                    buildingDetailsBeforeCompletion: this.formBuilder.group({
+                        buildingName: [singleData.buildingDetailsBeforeCompletion.buildingName] ,
+                        buildingDescription: [singleData.buildingDetailsBeforeCompletion.buildingDescription] ,
+                        buildArea: [singleData.buildingDetailsBeforeCompletion.buildArea] ,
+                        buildRate: [singleData.buildingDetailsBeforeCompletion.buildRate] ,
+                        totalCost: [singleData.buildingDetailsBeforeCompletion.totalCost] ,
+                        floorName: [singleData.buildingDetailsBeforeCompletion.floorName] ,
+                        valuationArea: [singleData.buildingDetailsBeforeCompletion.valuationArea] ,
+                        ratePerSquareFeet: [singleData.buildingDetailsBeforeCompletion.ratePerSquareFeet] ,
+                        estimatedCost: [singleData.buildingDetailsBeforeCompletion.estimatedCost] ,
+                        waterSupply: [singleData.buildingDetailsBeforeCompletion.waterSupply] ,
+                        sanitation: [singleData.buildingDetailsBeforeCompletion.sanitation] ,
+                        electrification: [singleData.buildingDetailsBeforeCompletion.electrification] ,
+                        buildingTotalCost: [singleData.buildingDetailsBeforeCompletion.buildingTotalCost] ,
+                        buildingFairMarketValue: [singleData.buildingDetailsBeforeCompletion.buildingFairMarketValue] ,
+                        buildingDistressValue: [singleData.buildingDetailsBeforeCompletion.buildingDistressValue]
+                    }) ,
+                    buildingDetailsAfterCompletion: this.formBuilder.group({
+                        buildingName: [singleData.buildingDetailsAfterCompletion.buildingName] ,
+                        buildingDescription: [singleData.buildingDetailsAfterCompletion.buildingDescription] ,
+                        buildArea: [singleData.buildingDetailsAfterCompletion.buildArea] ,
+                        buildRate: [singleData.buildingDetailsAfterCompletion.buildRate] ,
+                        totalCost: [singleData.buildingDetailsAfterCompletion.totalCost] ,
+                        floorName: [singleData.buildingDetailsAfterCompletion.floorName] ,
+                        valuationArea: [singleData.buildingDetailsAfterCompletion.valuationArea] ,
+                        ratePerSquareFeet: [singleData.buildingDetailsAfterCompletion.ratePerSquareFeet] ,
+                        estimatedCost: [singleData.buildingDetailsAfterCompletion.estimatedCost] ,
+                        waterSupply: [singleData.buildingDetailsAfterCompletion.waterSupply] ,
+                        sanitation: [singleData.buildingDetailsAfterCompletion.sanitation] ,
+                        electrification: [singleData.buildingDetailsAfterCompletion.electrification] ,
+                        buildingTotalCost: [singleData.buildingDetailsAfterCompletion.buildingTotalCost] ,
+                        buildingFairMarketValue: [singleData.buildingDetailsAfterCompletion.buildingFairMarketValue] ,
+                        buildingDistressValue: [singleData.buildingDetailsAfterCompletion.buildingDistressValue]
+                    })
+                })
+            );
+        });
+    }
+
     setBuildingUnderConstructions(currentData) {
         const underConstruct = this.securityForm.get('buildingUnderConstructions') as FormArray;
         currentData.forEach(singleData => {
@@ -299,6 +407,49 @@ export class SecurityInitialFormComponent implements OnInit {
                 })
             );
         });
+    }
+
+    addLandBuildingUnderConstruction() {
+        const underConstruct = this.securityForm.get('landBuildingUnderConstruction') as FormArray;
+        underConstruct.push(
+            this.formBuilder.group({
+                buildingDetailsBeforeCompletion: this.formBuilder.group({
+                    buildingName: [undefined] ,
+                    buildingDescription: [undefined] ,
+                    buildArea: [undefined] ,
+                    buildRate: [undefined] ,
+                    totalCost: [undefined] ,
+                    floorName: [undefined] ,
+                    valuationArea: [undefined] ,
+                    ratePerSquareFeet: [undefined] ,
+                    estimatedCost: [undefined] ,
+                    waterSupply: [undefined] ,
+                    sanitation: [undefined] ,
+                    electrification: [undefined] ,
+                    buildingTotalCost: [undefined] ,
+                    buildingFairMarketValue: [undefined] ,
+                    buildingDistressValue: [undefined]
+                }) ,
+                buildingDetailsAfterCompletion: this.formBuilder.group({
+                    buildingName: [undefined] ,
+                    buildingDescription: [undefined] ,
+                    buildArea: [undefined] ,
+                    buildRate: [undefined] ,
+                    totalCost: [undefined] ,
+                    floorName: [undefined] ,
+                    valuationArea: [undefined] ,
+                    ratePerSquareFeet: [undefined] ,
+                    estimatedCost: [undefined] ,
+                    waterSupply: [undefined] ,
+                    sanitation: [undefined] ,
+                    electrification: [undefined] ,
+                    buildingTotalCost: [undefined] ,
+                    buildingFairMarketValue: [undefined] ,
+                    buildingDistressValue: [undefined]
+
+                })
+            })
+        );
     }
 
     addBuildingUnderConstructions() {
@@ -373,7 +524,7 @@ export class SecurityInitialFormComponent implements OnInit {
     change(arraySelected) {
         this.selectedArray = arraySelected;
         this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected
-            = this.underConstructionChecked = this.depositSelected = this.shareSelected = false;
+            = this.underConstructionChecked = this.depositSelected = this.shareSelected = this.landBuilding =  false;
         arraySelected.forEach(selectedValue => {
             switch (selectedValue) {
                 case 'LandSecurity' :
@@ -386,7 +537,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     this.apartmentSelected = true;
                     break;
                 case 'Land and Building Security' :
-                    this.apartmentSelected = this.landSelected = true;
+                    this.landBuilding = this.landSelected = true;
                     break;
                 case 'PlantSecurity' :
                     this.plantSelected = true;
@@ -399,6 +550,7 @@ export class SecurityInitialFormComponent implements OnInit {
             }
         });
     }
+
 
     landDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
@@ -414,7 +566,8 @@ export class SecurityInitialFormComponent implements OnInit {
             landValuatorDate: [undefined],
             landValuatorRepresentative: [undefined],
             landStaffRepresentativeName: [undefined],
-            landBranch: [undefined]
+            landBranch: [undefined],
+            landConsideredValue: [undefined]
         });
     }
 
@@ -435,6 +588,32 @@ export class SecurityInitialFormComponent implements OnInit {
             buildingTotalCost: [''] ,
             buildingFairMarketValue: [''] ,
             buildingDistressValue: [''] ,
+            buildingDetailsDescription: [''],
+            ApartmentValuator: [undefined],
+            ApartmentValuatorDate: [undefined],
+            ApartmentValuatorRepresentative: [undefined],
+            ApartmentStaffRepresentativeName: [undefined],
+            apartmentBranch: [undefined]
+        });
+    }
+
+    LandBuildingDetailsFormGroup() {
+        return this.formBuilder.group({
+            buildingName: [''],
+            buildingDescription: [''],
+            buildArea: [''],
+            buildRate: [''],
+            totalCost: [''],
+            floorName: [''],
+            valuationArea: [''],
+            ratePerSquareFeet: [''],
+            estimatedCost: [''],
+            waterSupply: [''],
+            sanitation: [''],
+            electrification: [''],
+            buildingTotalCost: [''],
+            buildingFairMarketValue: [''],
+            buildingDistressValue: [''],
             buildingDetailsDescription: [''],
             ApartmentValuator: [undefined],
             ApartmentValuatorDate: [undefined],
@@ -466,12 +645,24 @@ export class SecurityInitialFormComponent implements OnInit {
             this.underConstructionChecked = false;
         }
     }
+
+    underBuildingConstruction(checkedStatus) {
+        if (checkedStatus) {
+            this.underBuildingConstructionChecked = true;
+        } else {
+            this.underBuildingConstructionChecked = false;
+        }
+    }
     otherBranch(checkedStatus) {
         if (checkedStatus) {
             this.otherBranchcheck = true;
         } else {
             this.otherBranchcheck = false;
         }
+    }
+
+    addLandBuilding() {
+        (this.securityForm.get('landBuilding') as FormArray).push(this.LandBuildingDetailsFormGroup());
     }
 
     addMoreLand() {
@@ -492,6 +683,10 @@ export class SecurityInitialFormComponent implements OnInit {
 
     removeBuildingUnderConstructions(index: number) {
         (this.securityForm.get('buildingUnderConstructions') as FormArray).removeAt(index);
+    }
+
+    removeLandBuildingUnderConstructions(i) {
+        (this.securityForm.get('landBuildingUnderConstruction') as FormArray).removeAt(i);
     }
 
     removePlantDetails(index: number) {
@@ -560,6 +755,10 @@ export class SecurityInitialFormComponent implements OnInit {
                 })
             );
         });
+    }
+
+    removeLandBuildingDetails(i) {
+        (this.securityForm.get('landBuilding') as FormArray).removeAt(i);
     }
 
     fixedDepositFormGroup(): FormGroup {
@@ -758,6 +957,27 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.securityForm.get(['buildingUnderConstructions', i ,
                     'buildingDetailsAfterCompletion', 'totalCost']).patchValue(afterTotalBuildRate);
                 break;
+            case 'landBuilding':
+                const landBuildingTotalBuildRate = (Number(this.securityForm.get(['landBuilding', i , 'buildArea']).value)
+                    * Number(this.securityForm.get(['landBuilding', i , 'buildRate']).value)).toFixed(2);
+                this.securityForm.get(['landBuilding', i , 'totalCost']).patchValue(landBuildingTotalBuildRate);
+                break;
+            case 'landBuildingBefore':
+                const landBuildingBeforeTotalBuildRate = (Number(this.securityForm.get(['landBuildingUnderConstruction', i ,
+                        'buildingDetailsBeforeCompletion', 'buildArea']).value)
+                    * Number(this.securityForm.get(['landBuildingUnderConstruction', i ,
+                        'buildingDetailsBeforeCompletion', 'buildRate']).value)).toFixed(2);
+                this.securityForm.get(['landBuildingUnderConstruction', i ,
+                    'buildingDetailsBeforeCompletion', 'totalCost']).patchValue(landBuildingBeforeTotalBuildRate);
+                break;
+            case 'landBuildingAfter':
+                const landBuildingAfterTotalBuildRate = (Number(this.securityForm.get(['landBuildingUnderConstruction', i ,
+                        'buildingDetailsAfterCompletion', 'buildArea']).value)
+                    * Number(this.securityForm.get(['landBuildingUnderConstruction', i ,
+                        'buildingDetailsAfterCompletion', 'buildRate']).value)).toFixed(2);
+                this.securityForm.get(['landBuildingUnderConstruction', i ,
+                    'buildingDetailsAfterCompletion', 'totalCost']).patchValue(landBuildingAfterTotalBuildRate);
+                break;
         }
     }
     calculateEstimatedCost(i, type) {
@@ -782,6 +1002,27 @@ export class SecurityInitialFormComponent implements OnInit {
                         'buildingDetailsAfterCompletion', 'ratePerSquareFeet']).value)).toFixed(2);
                 this.securityForm.get(['buildingUnderConstructions', i ,
                     'buildingDetailsAfterCompletion', 'estimatedCost']).patchValue(afterEstimatedCost);
+                break;
+            case 'landBuilding':
+                const landBuildingEstimatedCost = (Number(this.securityForm.get(['landBuilding', i , 'valuationArea']).value)
+                    * Number(this.securityForm.get(['landBuilding', i , 'ratePerSquareFeet']).value)).toFixed(2);
+                this.securityForm.get(['landBuilding', i , 'estimatedCost']).patchValue(landBuildingEstimatedCost);
+                break;
+            case 'landBuildingBefore':
+                const landBuildingBeforeEstimatedCost = (Number(this.securityForm.get(['landBuildingUnderConstruction', i ,
+                        'buildingDetailsBeforeCompletion', 'valuationArea']).value)
+                    * Number(this.securityForm.get(['landBuildingUnderConstruction', i ,
+                        'buildingDetailsBeforeCompletion', 'ratePerSquareFeet']).value)).toFixed(2);
+                this.securityForm.get(['landBuildingUnderConstruction', i ,
+                    'buildingDetailsBeforeCompletion', 'estimatedCost']).patchValue(landBuildingBeforeEstimatedCost);
+                break;
+            case 'landBuildingAfter':
+                const landBuildingAfterEstimatedCost = (Number(this.securityForm.get(['landBuildingUnderConstruction', i ,
+                        'buildingDetailsAfterCompletion', 'valuationArea']).value)
+                    * Number(this.securityForm.get(['landBuildingUnderConstruction', i ,
+                        'buildingDetailsAfterCompletion', 'ratePerSquareFeet']).value)).toFixed(2);
+                this.securityForm.get(['landBuildingUnderConstruction', i ,
+                    'buildingDetailsAfterCompletion', 'estimatedCost']).patchValue(landBuildingAfterEstimatedCost);
                 break;
         }
     }
