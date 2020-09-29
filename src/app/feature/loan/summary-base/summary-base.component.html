@@ -1,15 +1,22 @@
-<app-loan-action
-    *ngIf="loanDataHolder"
-    [actionsList]="actionsList"
-    [catalogueStatus]="catalogueStatus"
-    [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
-    [id]="customerId"
-    [loanCategory]="loanCategory"
-    [loanConfigId]="loanConfigId"
-    [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"
-></app-loan-action>
-<app-loan-summary *ngIf="loanDataHolder?.id"
-                  [loanData]="loanDataHolder"
-                  [loanConfig]="loanConfig"
-                  [nepaliDate]="nepaliDate">
-</app-loan-summary>
+<nb-card>
+  <nb-card-header>
+    <app-loan-action
+        *ngIf="loanDataHolder"
+        [actionsList]="actionsList"
+        [catalogueStatus]="catalogueStatus"
+        [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
+        [id]="customerId"
+        [loanCategory]="loanCategory"
+        [loanConfigId]="loanConfigId"
+        [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"
+    ></app-loan-action>
+  </nb-card-header>
+  <nb-card-body>
+    <app-loan-summary *ngIf="loanDataHolder?.id"
+                      [loanData]="loanDataHolder"
+                      [loanConfig]="loanConfig"
+                      [nepaliDate]="nepaliDate">
+    </app-loan-summary>
+
+  </nb-card-body>
+</nb-card>
