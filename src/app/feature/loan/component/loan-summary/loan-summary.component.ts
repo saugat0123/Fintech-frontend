@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {LoanConfig} from '../../../admin/modal/loan-config';
 import {User} from '../../../admin/modal/user';
 import {Security} from '../../../admin/modal/security';
@@ -37,12 +37,17 @@ import {CombinedLoan} from '../../model/combined-loan';
 })
 export class LoanSummaryComponent implements OnInit, OnDestroy {
 
+  @Input() loanData;
+  loanDataHolder: LoanDataHolder;
+
+  @Input()
+  loanConfig: LoanConfig = new LoanConfig();
+
   client: string;
 
   docMsg;
   rootDocLength;
   dmsLoanFile: DmsLoanFile = new DmsLoanFile();
-  loanConfig: LoanConfig = new LoanConfig();
   loan: string;
   index = 0;
   currentIndex: number;
@@ -58,7 +63,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   documentNamesSplit: string[] = [];
   id: number;
   customerInfo: any;
-  loanDataHolder: LoanDataHolder = new LoanDataHolder();
   loanType = LoanType;
   allId;
   customerId;
@@ -141,6 +145,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log("loandata",this.loanData);
+    this.loanDataHolder = this.loanData;
     this.loadSummary();
   }
 
@@ -149,7 +155,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   }
 
   loadSummary() {
-    this.activatedRoute.queryParams.subscribe(
+   /* this.activatedRoute.queryParams.subscribe(
         (paramsValue: Params) => {
           this.allId = {
             loanConfigId: null,
@@ -168,23 +174,19 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         (response: any) => {
           this.loanConfig = response.detail;
         }
-    );
-    this.userService.getLoggedInUser().subscribe(
+    ); */
+   /* this.userService.getLoggedInUser().subscribe(
         (response: any) => {
           this.user = response.detail;
           this.actionsList.roleTypeMaker = this.user.role.roleType === 'MAKER';
         }
-    );
+    );*/
     this.getLoanDataHolder();
   }
 
   getLoanDataHolder() {
-    this.loanFormService.detail(this.customerId).subscribe(
-        (response: any) => {
-
-          this.loanDataHolder = response.detail;
-
-          this.getAllLoans(this.loanDataHolder.loanHolder.id);
+    console.log(this.loanDataHolder);
+    this.getAllLoans(this.loanDataHolder.loanHolder.id);
 
           // Setting financial data---
           if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
@@ -275,23 +277,23 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           (...this.loanDataHolder.previousList, this.loanDataHolder.currentStage));
 
           this.previousList = this.loanDataHolder.previousList;
-          this.actionsList.approved = true;
+         /* this.actionsList.approved = true;
           this.actionsList.sendForward = true;
           this.actionsList.edit = true;
           this.actionsList.sendBackward = true;
           this.actionsList.rejected = true;
-          this.actionsList.closed = true;
+          this.actionsList.closed = true;*/
           this.currentDocAction = this.loanDataHolder.currentStage.docAction.toString();
-          if (this.loanDataHolder.createdBy.toString() === LocalStorageUtil.getStorage().userId) {
+         /* if (this.loanDataHolder.createdBy.toString() === LocalStorageUtil.getStorage().userId) {
             this.actionsList.sendBackward = false;
             this.actionsList.edit = true;
             this.actionsList.approved = false;
             this.actionsList.closed = false;
           } else {
             this.actionsList.edit = false;
-          }
+          }*/
 
-          if (this.loanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
+          /*if (this.loanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
             this.actionsList.approved = false;
           } else {
             this.actionsList.closed = false;
@@ -312,9 +314,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.actionsList.sendBackward = false;
             this.actionsList.rejected = false;
             this.actionsList.closed = false;
-          }
+          }*/
           // commented code is for approval limit
-          this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id, this.loanDataHolder.loanCategory)
+       /*   this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id, this.loanDataHolder.loanCategory)
               .subscribe((res: any) => {
             if (res.detail === undefined) {
               this.actionsList.approved = false;
@@ -324,7 +326,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 this.actionsList.approved = false;
               }
             }
-          });
+          });*/
           this.id = this.loanDataHolder.id;
           this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
           if (this.dmsLoanFile !== undefined && this.dmsLoanFile !== null) {
@@ -372,8 +374,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
               }
             });
           }
-        }
-    );
   }
 
   getAllLoans(customerInfoId: number): void {

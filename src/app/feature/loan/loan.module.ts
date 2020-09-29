@@ -14,7 +14,6 @@ import {NbDatepickerModule} from '@nebular/theme';
 import {ThemeModule} from '../../@theme/theme.module';
 import {LoanActionComponent} from './loan-action/loan-action.component';
 import {LoanFormService} from './component/loan-form/service/loan-form.service';
-import {LoanSummaryComponent} from './component/loan-summary/loan-summary.component';
 import {BirthMarkLetterNepaliComponent} from './component/offer-letter/birth-mark-letter/birth-mark-letter-nepali.component';
 // tslint:disable-next-line:max-line-length
 import {BirthMarkLetterPrintComponent} from './component/offer-letter/birth-mark-letter/birth-mark-letter-print/birth-mark-letter-print.component';
@@ -28,15 +27,12 @@ import {environment} from '../../../environments/environment';
 
 import {AgmCoreModule} from '@agm/core';
 import {LoanPullComponent} from './component/loan-pull/loan-pull.component';
-import {FinancialSummaryComponent} from './component/loan-summary/financial-summary/financial-summary.component';
 // tslint:disable-next-line:max-line-length
-import {SecuritySummaryComponent} from './component/loan-summary/security-summary/security-summary.component';
 
 import {LoanOfferLetterComponent} from './loan-offer-letter/loan-offer-letter.component';
 import {OfferLetterActionComponent} from './loan-offer-letter/offer-letter-action/offer-letter-action.component';
 import {OfferLetterUploadComponent} from './component/offer-letter/offer-letter-upload/offer-letter-upload.component';
 import {OfferLetterComponent} from './component/offer-letter/offer-letter.component';
-import {SitevistSummaryComponentComponent} from './component/loan-summary/sitevist-summary-component/sitevist-summary-component.component';
 import {GroupComponent} from './component/loan-main-template/group/group.component';
 import {GroupDetailComponent} from './component/loan-main-template/group/group-detail/group-detail.component';
 import {SecurityDetailComponent} from './component/loan-main-template/group/security-detail/security-detail.component';
@@ -68,9 +64,6 @@ import {CustomerAssociateComponent} from './component/loan-main-template/custome
 import {CustomerModule} from '../customer/customer.module';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {ReportingModule} from '../reporting/reporting.module';
-import {InsuranceSummaryComponent} from './component/loan-summary/insurance-summary/insurance-summary.component';
-import { GuarantorSummaryComponent } from './component/loan-summary/guarantor-summary/guarantor-summary.component';
-import { ProposalSummaryComponent } from './component/loan-summary/proposal-summary/proposal-summary.component';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 import { LoanActionModalComponent } from './loan-action/loan-action-modal/loan-action-modal.component';
@@ -78,7 +71,8 @@ import { LoanActionVerificationComponent } from './loan-action/loan-action-verif
 import { LoanActionCombinedModalComponent } from './loan-action/loan-action-combined-modal/loan-action-combined-modal.component';
 import { GuarantorAdderComponent } from './component/loan-main-template/guarantor-adder/guarantor-adder.component';
 import { GuarantorDetailComponent } from './component/loan-main-template/guarantor-adder/guarantor-detail/guarantor-detail.component';
-import { CustomerGroupSummaryComponent } from './component/loan-summary/customer-group-summary/customer-group-summary.component';
+import {LoanSummaryModule} from './component/loan-summary/loan-summary.module';
+import { SummaryBaseComponent } from './summary-base/summary-base.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -87,7 +81,6 @@ const COMPONENTS = [
     KycInfoComponent,
     DmsLoanFileComponent,
     LoanActionComponent,
-    LoanSummaryComponent,
     BirthMarkLetterNepaliComponent,
     BirthMarkLetterPrintComponent,
     SuccessOfferLetterComponent,
@@ -96,15 +89,10 @@ const COMPONENTS = [
     ReadmoreModelComponent,
 
     LoanPullComponent,
-    SecuritySummaryComponent,
-    FinancialSummaryComponent,
-
-    FinancialSummaryComponent,
     LoanOfferLetterComponent,
     OfferLetterActionComponent,
     OfferLetterUploadComponent,
     OfferLetterComponent,
-    SitevistSummaryComponentComponent,
     GroupComponent,
     GroupDetailComponent,
     SecurityDetailComponent,
@@ -133,15 +121,11 @@ const COMPONENTS = [
     ApplicantFamilyInfoPrintComponent,
     BikeKarjaPrintComponent,
     CustomerAssociateComponent,
-    InsuranceSummaryComponent,
-    GuarantorSummaryComponent,
-    ProposalSummaryComponent,
     LoanActionModalComponent,
     LoanActionVerificationComponent,
     LoanActionCombinedModalComponent,
     GuarantorAdderComponent,
     GuarantorDetailComponent,
-    CustomerGroupSummaryComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -156,7 +140,7 @@ const ENTRY_COMPONENTS = [
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS],
+    declarations: [...COMPONENTS, SummaryBaseComponent],
     imports: [
         ThemeModule,
         CommonModule,
@@ -175,7 +159,8 @@ const ENTRY_COMPONENTS = [
         NepaliCalendarModule,
         ReportingModule,
         LoanInformationTemplateModule,
-        LoanInformationViewModule
+        LoanInformationViewModule,
+        LoanSummaryModule
     ],
 
     providers: [
