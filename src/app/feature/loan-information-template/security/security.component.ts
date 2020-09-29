@@ -175,7 +175,8 @@ export class SecurityComponent implements OnInit {
             selectedArray: this.initialSecurity.selectedArray ,
             underConstructionChecked: this.initialSecurity.underConstructionChecked ,
             otherBranchcheck: this.initialSecurity.otherBranchcheck,
-            guarantorsForm: this.guarantorsForm.value
+            guarantorsForm: this.guarantorsForm.value,
+            underBuildingConstructionChecked: this.initialSecurity.underBuildingConstructionChecked
         };
         this.securityData.data = JSON.stringify(mergedForm);
         this.securityData.guarantor = [];

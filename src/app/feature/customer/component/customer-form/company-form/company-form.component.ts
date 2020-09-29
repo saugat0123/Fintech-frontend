@@ -217,7 +217,7 @@ export class CompanyFormComponent implements OnInit {
                 new Date(this.companyInfo.legalStatus.registrationDate), [Validators.required, DateValidator.isValidBefore]],
 
             panRegistrationOffice: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? 'Internal Revenue Department' :
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? 'Inland Revenue Department' :
                 this.companyInfo.legalStatus.panRegistrationOffice, Validators.required],
 
             panRegistrationDate: [(ObjectUtil.isEmpty(this.companyInfo)
