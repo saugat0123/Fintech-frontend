@@ -146,9 +146,10 @@
   </div>
 
   <!--        buildingDetails-->
-  <div *ngIf="apartmentSelected" class="row">
+  <div *ngIf="buildingSelected" class="row">
+    <p><b>Building Details</b></p>
     <table
-        *ngFor="let buildingDetails of securityData['initialForm']['buildingDetails']; let i= index"
+        *ngFor="let landBuildingDetails of securityData['initialForm']['landBuilding']; let i= index"
         class="table table-condensed table-bordered table-responsive-md text-center">
       <thead>
       <tr>
@@ -168,11 +169,11 @@
       <tbody>
       <tr>
         <td>{{i + 1}}</td>
-        <td>{{buildingDetails?.buildingName}}</td>
-        <td>{{buildingDetails?.buildingDescription}}</td>
-        <td>{{buildingDetails?.buildArea}}</td>
-        <td>{{buildingDetails?.buildRate}}</td>
-        <td><strong>Rs. {{buildingDetails?.totalCost | currencyFormatter}}</strong></td>
+        <td>{{landBuildingDetails?.buildingName}}</td>
+        <td>{{landBuildingDetails?.buildingDescription}}</td>
+        <td>{{landBuildingDetails?.buildArea}}</td>
+        <td>{{landBuildingDetails?.buildRate}}</td>
+        <td><strong>Rs. {{landBuildingDetails?.totalCost | currencyFormatter}}</strong></td>
       </tr>
       </tbody>
       <thead>
@@ -188,11 +189,11 @@
       <tbody>
       <tr>
         <td></td>
-        <td>{{buildingDetails?.floorName}}</td>
-        <td>{{buildingDetails?.valuationArea}}</td>
-        <td>{{buildingDetails?.ratePerSquareFeet}}</td>
-        <td>{{buildingDetails?.estimatedCost}}</td>
-        <td>{{buildingDetails?.waterSupply}}</td>
+        <td>{{landBuildingDetails?.floorName}}</td>
+        <td>{{landBuildingDetails?.valuationArea}}</td>
+        <td>{{landBuildingDetails?.ratePerSquareFeet}}</td>
+        <td>{{landBuildingDetails?.estimatedCost}}</td>
+        <td>{{landBuildingDetails?.waterSupply}}</td>
       </tr>
       </tbody>
       <thead>
@@ -208,11 +209,11 @@
       <tbody>
       <tr>
         <td></td>
-        <td>{{buildingDetails?.sanitation}}</td>
-        <td>{{buildingDetails?.electrification}}</td>
-        <td>{{buildingDetails?.buildingTotalCost}}</td>
-        <td>{{buildingDetails?.buildingFairMarketValue}}</td>
-        <td>{{buildingDetails?.buildingDistressValue}}</td>
+        <td>{{landBuildingDetails?.sanitation}}</td>
+        <td>{{landBuildingDetails?.electrification}}</td>
+        <td>{{landBuildingDetails?.buildingTotalCost}}</td>
+        <td>{{landBuildingDetails?.buildingFairMarketValue}}</td>
+        <td>{{landBuildingDetails?.buildingDistressValue}}</td>
       </tr>
       </tbody>
       <thead>
@@ -228,11 +229,11 @@
       <tbody>
       <tr>
         <td></td>
-        <td *ngIf="securityData['otherBranchcheck']">{{buildingDetails?.apartmentBranch?.name}}</td>
-        <td>{{buildingDetails?.ApartmentValuator?.name}}</td>
-        <td>{{buildingDetails?.ApartmentValuatorDate | date}}</td>
-        <td>{{buildingDetails?.ApartmentValuatorRepresentative}}</td>
-        <td>{{buildingDetails?.ApartmentStaffRepresentativeName}}</td>
+        <td *ngIf="securityData['otherBranchcheck']">{{landBuildingDetails?.apartmentBranch?.name}}</td>
+        <td>{{landBuildingDetails?.ApartmentValuator?.name}}</td>
+        <td>{{landBuildingDetails?.ApartmentValuatorDate | date}}</td>
+        <td>{{landBuildingDetails?.ApartmentValuatorRepresentative}}</td>
+        <td>{{landBuildingDetails?.ApartmentStaffRepresentativeName}}</td>
       </tr>
       </tbody>
     </table>
@@ -244,22 +245,22 @@
       </thead>
       <tbody>
       <tr>
-        <td>{{securityData['initialForm']['buildingDetailsDescription']}}</td>
+        <td>{{securityData['initialForm']['landBuildingDescription']}}</td>
       </tr>
       </tbody>
     </table>
   </div>
 
-  <!--        undercostructions-->
-  <div *ngIf="securityData['underConstructionChecked']" class="row">
+  <!--        buildingundercostructions-->
+  <div *ngIf="securityData['underBuildingConstructionChecked']" class="row">
     <div>
       <p><strong>Building Under Construction</strong></p>
       <table
-          *ngFor="let beforeCompletion of securityData['initialForm']['buildingUnderConstructions']; let i= index"
+          *ngFor="let beforeCompletion of securityData['initialForm']['landBuildingUnderConstruction']; let i= index"
           class="table table-condensed table-bordered table-responsive-md text-center">
         <thead>
         <tr>
-          <th class="text-center" colspan="6">Building Before Completion</th>
+          <th class="text-center" colspan="6">{{i+1}}.Building Before Completion</th>
         </tr>
         <tr>
           <th>S.N</th>
@@ -274,9 +275,9 @@
         <tr>
           <td>{{i + 1}}</td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingName}}</td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildingDescription}}</td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildArea}}</td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildRate}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingDescription}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildArea}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildRate}}</td>
           <td>
             <strong>Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion.totalCost | currencyFormatter}}</strong>
           </td>
@@ -325,16 +326,266 @@
       </table>
 
       <table
-          *ngFor="let afterCompletion of securityData['initialForm']['buildingUnderConstructions']; let i= index"
+          *ngFor="let afterCompletion of securityData['initialForm']['landBuildingUnderConstruction']; let i= index"
           class="table table-condensed table-bordered table-responsive-md text-center">
         <thead>
         <tr>
-          <th class="text-center" colspan="6">Building After Completion</th>
+          <th class="text-center" colspan="6">{{i+1}}.Building After Completion</th>
         </tr>
         <tr>
           <th>S.N</th>
           <th>Building Name</th>
           <th>Building Description</th>
+          <th>BuildArea</th>
+          <th>BuildRate</th>
+          <th>TotalCost</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{i + 1}}</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildingName}}</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildingDescription}}</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildArea}}</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildRate}}</td>
+          <td>
+            <strong>Rs.{{afterCompletion?.buildingDetailsAfterCompletion.totalCost | currencyFormatter}}</strong>
+          </td>
+        </tr>
+        </tbody>
+        <thead>
+        <tr>
+          <th></th>
+          <th>Floor Name</th>
+          <th>Valuation Area</th>
+          <th>Rate Per Square Feet</th>
+          <th>Estimated Cost</th>
+          <th>Water Supply</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td></td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.floorName}}</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.valuationArea}}</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.ratePerSquareFeet}}</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.estimatedCost}}</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.waterSupply}}</td>
+        </tr>
+        </tbody>
+        <thead>
+        <tr>
+          <th></th>
+          <th>Sanitation</th>
+          <th>Electrification</th>
+          <th>Building Total Cost</th>
+          <th>Building Fair Market Value</th>
+          <th>Building Distress Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td></td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.sanitation}}</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.electrification}}</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildingTotalCost}}</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildingFairMarketValue}}</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildingDistressValue}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!--       apartmentDetails-->
+  <div *ngIf="apartmentSelected" class="row">
+    <table
+        *ngFor="let buildingDetails of securityData['initialForm']['buildingDetails']; let i= index"
+        class="table table-condensed table-bordered table-responsive-md text-center">
+      <thead>
+      <tr>
+        <th colspan="6">{{i+1}}.Apartment Security Details</th>
+      </tr>
+      </thead>
+      <thead>
+      <tr>
+        <th>S.N</th>
+        <th>Apartment Name</th>
+        <th>Apartment Description</th>
+        <th>Build Area</th>
+        <th>Build Rate</th>
+        <th>Total Cost</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{i + 1}}</td>
+        <td>{{buildingDetails?.buildingName}}</td>
+        <td>{{buildingDetails?.buildingDescription}}</td>
+        <td>{{buildingDetails?.buildArea}}</td>
+        <td>{{buildingDetails?.buildRate}}</td>
+        <td><strong>Rs. {{buildingDetails?.totalCost | currencyFormatter}}</strong></td>
+      </tr>
+      </tbody>
+      <thead>
+      <tr>
+        <th></th>
+        <th>Floor Name</th>
+        <th>Valuation Area</th>
+        <th>Rate Per Square Feet</th>
+        <th>Estimated Cost</th>
+        <th>Water Supply</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td></td>
+        <td>{{buildingDetails?.floorName}}</td>
+        <td>{{buildingDetails?.valuationArea}}</td>
+        <td>{{buildingDetails?.ratePerSquareFeet}}</td>
+        <td>{{buildingDetails?.estimatedCost}}</td>
+        <td>{{buildingDetails?.waterSupply}}</td>
+      </tr>
+      </tbody>
+      <thead>
+      <tr>
+        <th></th>
+        <th>Sanitation</th>
+        <th>Electrification</th>
+        <th>Apartment Total Cost</th>
+        <th>Apartment Fair Market Value</th>
+        <th>Apartment Distress Value</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td></td>
+        <td>{{buildingDetails?.sanitation}}</td>
+        <td>{{buildingDetails?.electrification}}</td>
+        <td>{{buildingDetails?.buildingTotalCost}}</td>
+        <td>{{buildingDetails?.buildingFairMarketValue}}</td>
+        <td>{{buildingDetails?.buildingDistressValue}}</td>
+      </tr>
+      </tbody>
+      <thead>
+      <tr>
+        <th></th>
+        <th  *ngIf="securityData['otherBranchcheck']">Branch</th>
+        <th>Valuator</th>
+        <th>Valuated Date</th>
+        <th>Valuator Representative Name</th>
+        <th>Staff Representative</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td></td>
+        <td *ngIf="securityData['otherBranchcheck']">{{buildingDetails?.apartmentBranch?.name}}</td>
+        <td>{{buildingDetails?.ApartmentValuator?.name}}</td>
+        <td>{{buildingDetails?.ApartmentValuatorDate | date}}</td>
+        <td>{{buildingDetails?.ApartmentValuatorRepresentative}}</td>
+        <td>{{buildingDetails?.ApartmentStaffRepresentativeName}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="table table-condensed table-bordered table-responsive-md">
+      <thead>
+      <tr>
+        <th>Apartment Details Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{securityData['initialForm']['buildingDetailsDescription']}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!--        apartmentUndercostructions-->
+  <div *ngIf="securityData['underConstructionChecked']" class="row">
+    <div>
+      <p><strong>Apartment Under Construction</strong></p>
+      <table
+          *ngFor="let beforeCompletion of securityData['initialForm']['buildingUnderConstructions']; let i= index"
+          class="table table-condensed table-bordered table-responsive-md text-center">
+        <thead>
+        <tr>
+          <th class="text-center" colspan="6">Apartment Before Completion</th>
+        </tr>
+        <tr>
+          <th>S.N</th>
+          <th>Apartment Name</th>
+          <th>Apartment Description</th>
+          <th>BuildArea</th>
+          <th>BuildRate</th>
+          <th>TotalCost</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{i + 1}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingName}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildingDescription}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildArea}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildRate}}</td>
+          <td>
+            <strong>Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion.totalCost | currencyFormatter}}</strong>
+          </td>
+        </tr>
+        </tbody>
+        <thead>
+        <tr>
+          <th></th>
+          <th>Floor Name</th>
+          <th>Valuation Area</th>
+          <th>Rate Per Square Feet</th>
+          <th>Estimated Cost</th>
+          <th>Water Supply</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td></td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.floorName}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.valuationArea}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.ratePerSquareFeet}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.estimatedCost}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.waterSupply}}</td>
+        </tr>
+        </tbody>
+        <thead>
+        <tr>
+          <th></th>
+          <th>Sanitation</th>
+          <th>Electrification</th>
+          <th>Apartment Total Cost</th>
+          <th>Apartment Fair Market Value</th>
+          <th>Apartment Distress Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td></td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.sanitation}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.electrification}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingTotalCost}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingFairMarketValue}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingDistressValue}}</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <table
+          *ngFor="let afterCompletion of securityData['initialForm']['buildingUnderConstructions']; let i= index"
+          class="table table-condensed table-bordered table-responsive-md text-center">
+        <thead>
+        <tr>
+          <th class="text-center" colspan="6">Apartment After Completion</th>
+        </tr>
+        <tr>
+          <th>S.N</th>
+          <th>Apartment Name</th>
+          <th>Apartment Description</th>
           <th>BuildArea</th>
           <th>BuildRate</th>
           <th>TotalCost</th>
@@ -377,9 +628,9 @@
           <th></th>
           <th>Sanitation</th>
           <th>Electrification</th>
-          <th>Building Total Cost</th>
-          <th>Building Fair Market Value</th>
-          <th>Building Distress Value</th>
+          <th>Apartment Total Cost</th>
+          <th>Apartment Fair Market Value</th>
+          <th>Apartment Distress Value</th>
         </tr>
         </thead>
         <tbody>
