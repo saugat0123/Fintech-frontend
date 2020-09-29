@@ -3,10 +3,12 @@ export class SecurityValuator {
   apartmentValuator: Array<any>;
   vehicalValuator: Array<any>;
   plantValuator: Array<any>;
-  constructor(landValuator = [] , apartmentValuator = [], vehicalValuator = [], plantValuator = []) {
+  buildingValuator: Array<any>;
+  constructor(landValuator = [] , apartmentValuator = [], vehicalValuator = [], plantValuator = [], buildingValuator = []) {
     this.landValuator = landValuator;
     this.apartmentValuator = apartmentValuator;
     this.vehicalValuator = vehicalValuator;
     this.plantValuator = plantValuator;
+    this.buildingValuator = buildingValuator;
   }
 }
