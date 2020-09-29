@@ -23,6 +23,8 @@ import {AddressService} from '../../../../@core/service/baseservice/address.serv
 import {Branch} from '../../../admin/modal/branch';
 import {RoleAccess} from '../../../admin/modal/role-access';
 import {BranchService} from '../../../admin/component/branch/branch.service';
+import {CustomerGroupService} from '../../../admin/component/preference/services/customer-group.service';
+import {CustomerGroup} from '../../../admin/modal/customer-group';
 
 @Component({
   selector: 'app-customer-component',
@@ -49,7 +51,7 @@ export class CustomerComponent implements OnInit {
   accessSpecific: boolean;
   accessAll: boolean;
   showBranch = true;
-  holdBranch = [];
+  customerGroupList: Array<CustomerGroup>;
 
   constructor(private customerService: CustomerService,
               private toastService: ToastService,
@@ -62,6 +64,7 @@ export class CustomerComponent implements OnInit {
               private overlay: NgxSpinnerService,
               private commonLocation: AddressService,
               private branchService: BranchService,
+              private customerGroupService: CustomerGroupService,
   ) {
   }
 
@@ -88,6 +91,7 @@ export class CustomerComponent implements OnInit {
     CustomerComponent.loadData(this);
     this.getAllDistrict();
     this.getBranch();
+    this.getAllGroup();
     const roleType: string = LocalStorageUtil.getStorage().roleType;
     this.currentRoleTypeMaker = roleType === RoleType.MAKER;
   }
@@ -97,13 +101,20 @@ export class CustomerComponent implements OnInit {
       name: [undefined],
       customerType: [undefined],
       idRegPlace: [undefined],
-      branchIds: [undefined]
+      branchIds: [undefined],
+      groupId: [undefined]
     });
   }
 
   private getAllDistrict() {
     this.commonLocation.getAllDistrict().subscribe((response: any) => {
       this.allDistrict = response.detail;
+    });
+  }
+
+  private getAllGroup() {
+    this.customerGroupService.getAll().subscribe((res: any) => {
+      this.customerGroupList = res.detail;
     });
   }
 

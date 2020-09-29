@@ -315,7 +315,7 @@
                 <hr>
 
                 <div class="box-header with-border">
-                    <h5 class="box-title">2. Capital Information</h5>
+                    <h5 class="box-title">2. Capital Information (in NPR 000)</h5>
                 </div>
                 <!-- START ROW -->
                 <div class="row">
@@ -432,63 +432,10 @@
 
                 <hr>
 
-                <div class="box-header with-border">
-                    <h5 class="box-title title">3. Management Team</h5>
-                </div>
-                <div formArrayName="managementTeams" class="border-bottom border-dark m-4"
-                     *ngFor="let managementTeam of companyInfoFormGroup.get('managementTeams')['controls']; let managementTeamIndex = index">
-                    <div [formGroupName]="managementTeamIndex">
-                        <div class="row">
-                            <div class="col-md-10 form-group">
-                                <h5>{{managementTeamIndex + 1}}) Management Team</h5>
-                            </div>
-                            <div class="col-md-2 float-right" *ngIf="companyInfoFormGroup.get('managementTeams').length>1">
-                                <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
-                                       (click)="removeManagementTeam(managementTeamIndex)" value="Delete">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-md-6">
-                                <label for="managementTeamName"><strong>Name</strong></label>
-                                <input id="managementTeamName" formControlName="name" name="name" type="text"
-                                       class="form-control" placeholder="Name"
-                                       [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('name').errors }">
-                                <div *ngIf="(submitted) && managementTeam.get('name').invalid"
-                                     class="invalid-feedback">
-                                    <div *ngIf="managementTeam.get('name').errors.required">
-                                        Management Team Name is required
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="designation"><strong>Designation</strong></label>
-                                    <select id="designation" formControlName="designation" name="designation"
-                                           class="form-control"
-                                            [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('designation').errors }">
-                                        <option [ngValue]="null" hidden>Select Designation</option>
-                                        <option *ngFor="let designations of designation" [ngValue]="designations.id">{{designations.name}}</option>
-                                    </select>
-                                    <div *ngIf="(submitted) && managementTeam.get('designation').invalid"
-                                         class="invalid-feedback">
-                                        <div *ngIf="managementTeam.get('designation').errors.required">
-                                            Designation is required
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-right">
-                    <input class="btn btn-sm btn-flat btn-primary" type="button" (click)="addManagementTeam()"
-                           value="Add More"/>
-                </div>
 
-                <hr>
 
                 <div class="box-header with-border">
-                    <h5 class="box-title">4. Information of Proprietor/Shareholder/Partner with holder %</h5>
+                    <h5 class="box-title">3. Information of Proprietor/Shareholder/Partner with holder %</h5>
                 </div>
                 <div formArrayName="proprietors" class="border-bottom border-dark m-4"
                      *ngFor="let proprietor of companyInfoFormGroup.get('proprietors')['controls']; let proprietorIndex = index">
@@ -631,6 +578,60 @@
                 </div>
                 <div class="text-right">
                     <input class="btn btn-sm btn-flat btn-primary" type="button" (click)="addProprietor()"
+                           value="Add More"/>
+                </div>
+
+                <hr>
+                <div class="box-header with-border">
+                    <h5 class="box-title title">4. Management Team</h5>
+                </div>
+                <div formArrayName="managementTeams" class="border-bottom border-dark m-4"
+                     *ngFor="let managementTeam of companyInfoFormGroup.get('managementTeams')['controls']; let managementTeamIndex = index">
+                    <div [formGroupName]="managementTeamIndex">
+                        <div class="row">
+                            <div class="col-md-10 form-group">
+                                <h5>{{managementTeamIndex + 1}}) Management Team</h5>
+                            </div>
+                            <div class="col-md-2 float-right" *ngIf="companyInfoFormGroup.get('managementTeams').length>1">
+                                <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
+                                       (click)="removeManagementTeam(managementTeamIndex)" value="Delete">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <label for="managementTeamName"><strong>Name</strong></label>
+                                <input id="managementTeamName" formControlName="name" name="name" type="text"
+                                       class="form-control" placeholder="Name"
+                                       [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('name').errors }">
+                                <div *ngIf="(submitted) && managementTeam.get('name').invalid"
+                                     class="invalid-feedback">
+                                    <div *ngIf="managementTeam.get('name').errors.required">
+                                        Management Team Name is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="designation"><strong>Designation</strong></label>
+                                    <select id="designation" formControlName="designation" name="designation"
+                                            class="form-control"
+                                            [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('designation').errors }">
+                                        <option [ngValue]="null" hidden>Select Designation</option>
+                                        <option *ngFor="let designations of designation" [ngValue]="designations.id">{{designations.name}}</option>
+                                    </select>
+                                    <div *ngIf="(submitted) && managementTeam.get('designation').invalid"
+                                         class="invalid-feedback">
+                                        <div *ngIf="managementTeam.get('designation').errors.required">
+                                            Designation is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <input class="btn btn-sm btn-flat btn-primary" type="button" (click)="addManagementTeam()"
                            value="Add More"/>
                 </div>
 

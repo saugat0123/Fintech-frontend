@@ -1,6 +1,5 @@
 import {Component, Input, OnInit, QueryList} from '@angular/core';
 import {Financial} from '../../loan/model/financial';
-import {FinancialService} from '../../loan-information-template/financial/financial.service';
 
 @Component({
   selector: 'app-financial-view',
@@ -15,7 +14,6 @@ export class FinancialViewComponent implements OnInit {
   financialData: any;
 
   isBusinessLoan = false;
-  riskRating = ['Very High', 'High', 'Average', 'Moderate', 'Low', 'Very Low'];
   activeTab: string;
 
   constructor() { }
