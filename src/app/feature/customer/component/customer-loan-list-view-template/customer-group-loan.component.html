@@ -5,9 +5,9 @@
             <nb-card-header>Initial, Pending, Rejected, Closed</nb-card-header>
             <nb-card-body>
                 <table *ngIf="!spinner"
-                       class="table table-bordered table-hover table-sm small" style="max-height: 400px;overflow-y: auto">
+                       class="table table-bordered table-hover table-sm sb-small" style="max-height: 400px;overflow-y: auto">
                     <thead>
-                    <tr class="bg-dark text-white">
+                    <tr class="sb-bg-dark text-white">
                         <th>S.N</th>
                         <th>Loan Facility</th>
                         <th>Proposed Amount</th>
@@ -54,9 +54,9 @@
             <nb-card-header>Approved</nb-card-header>
             <nb-card-body>
                 <table *ngIf="!spinner"
-                       class="table table-bordered table-hover table-sm small" style="max-height: 400px;overflow-y: auto">
+                       class="table table-bordered table-hover table-sm sb-small" style="max-height: 400px;overflow-y: auto">
                     <thead>
-                    <tr class="bg-dark text-white">
+                    <tr class="sb-bg-dark text-white">
                         <th>S.N</th>
                         <th>Loan Facility</th>
                         <th>Proposed Amount</th>
@@ -66,7 +66,7 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="text-center bg-secondary text-white" colspan="5"><strong>Funded</strong></td>
+                        <td class="text-center sb-bg-secondary text-white" colspan="5"><strong>Funded</strong></td>
                     </tr>
                     <ng-container
                         *ngFor="let model of loanHistoriesGroup(loanHistories).funded;let i=index">
@@ -94,7 +94,7 @@
                         </ng-container>
                     </ng-container>
                     <tr>
-                        <td class="text-center bg-secondary text-white" colspan="5"><strong>Non-Funded</strong></td>
+                        <td class="text-center sb-bg-secondary text-white" colspan="5"><strong>Non-Funded</strong></td>
                     </tr>
                     <ng-container
                         *ngFor="let model of loanHistoriesGroup(loanHistories).nonFunded;let i=index">
