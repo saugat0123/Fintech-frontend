@@ -1,0 +1,160 @@
+<nb-card>
+  <nb-card-header>
+
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="ciclForm">
+      <div *ngFor="let cicl of ciclArray['controls']; let ciclIndex = index;"
+           formArrayName="ciclArray">
+        <div [formGroupName]="ciclIndex.toString()">
+          <div class="row">
+            <div class="col-md-3 form-group">
+              <label for="fiName"><b>Name of FI</b></label>
+              <input class="form-control" formControlName="fiName" id="fiName" 
+                     placeholder="FI name"
+                     [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('fiName').invalid) }">
+              <div *ngIf="(submitted) && cicl.get('fiName').errors" class="invalid-feedback">
+                <span *ngIf="(cicl.get('fiName').errors.required)">FI Name is required</span>
+              </div>
+            </div>
+            <div class="col-md-3 form-group">
+              <label for="facilityName"><b>Facility</b></label>
+              <input class="form-control" formControlName="facilityName"
+                     id="facilityName"  placeholder="Facility Name"
+                     [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('facilityName').invalid) }">
+              <div *ngIf="(submitted) && cicl.get('facilityName').errors" class="invalid-feedback">
+                <span *ngIf="(cicl.get('facilityName').errors.required)">Facility Name is required</span>
+              </div>
+            </div>
+
+            <div class="col-md-3 form-group">
+              <label for="overdueAmount"><b>Overdue Amount</b></label>
+              <input class="form-control" formControlName="overdueAmount" id="overdueAmount"
+                      placeholder="Overdue Amount" type="number"
+                     [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('overdueAmount').invalid) }">
+              <div *ngIf="(submitted) && cicl.get('overdueAmount').errors" class="invalid-feedback">
+                <span *ngIf="(cicl.get('overdueAmount').errors.required)">Overdue Amount is required</span>
+              </div>
+            </div>
+            <div class="col-md-3 form-group">
+              <label for="outstandingAmount"><b>Outstanding Amount</b></label>
+              <input class="form-control" formControlName="outstandingAmount" id="outstandingAmount"
+                      placeholder="Outstanding Amount" type ="number"
+                     [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('outstandingAmount').invalid) }">
+              <div *ngIf="(submitted) && cicl.get('outstandingAmount').errors" class="invalid-feedback">
+                <span *ngIf="(cicl.get('outstandingAmount').errors.required)">Outstanding Amount is required</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 form-group">
+              <label for="ciclStatus"><b>Status</b></label>
+              <input class="form-control" formControlName="ciclStatus" id="ciclStatus" 
+                     placeholder="Status"
+                     [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('ciclStatus').invalid) }">
+              <div *ngIf="(submitted) && cicl.get('ciclStatus').errors" class="invalid-feedback">
+                <span *ngIf="(cicl.get('ciclStatus').errors.required)">Status is required</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button (click)="removeCICL(ciclIndex)" *ngIf="ciclArray['controls'].length > 1"
+                      nbButton class="float-right"
+                      size="small" status="danger">Remove
+              </button>
+            </div>
+          </div>
+          <hr/>
+        </div>
+      </div>
+      <button (click)="addCiclFormGroup()" class="float-right" nbButton status="primary">
+        Add More
+      </button>
+      <div class="clearfix"></div>
+      <br/>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label for="ciclRemarks"><b>Remarks</b></label>
+          <textarea class="form-control" id="ciclRemarks" name="ciclRemarks"  formControlName="ciclRemarks"
+                    placeholder="remarks" rows="5" 
+          ></textarea>
+
+        </div>
+      </div>
+      <div class="py-4 d-flex justify-content-end">
+        <button nbButton (click)="onSubmit()">save</button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>
+
+<!--<nb-card>-->
+<!--  <nb-card-header>-->
+<!--    Insurance-->
+<!--  </nb-card-header>-->
+<!--  <nb-card-body>-->
+<!--    <form [formGroup]="insuranceForm" class="form-horizontal">-->
+<!--      <div class="row">-->
+<!--        <div class="col-md-12 form-group">-->
+<!--          <label for="insuranceCompany"><b>Insurance Company</b></label>-->
+<!--          <input class="form-control" formControlName="insuranceCompany" id="insuranceCompany"-->
+<!--                  placeholder="Insurance Company"-->
+<!--                 [ngClass]="{ 'is-invalid': (submitted) && insuranceFormControls.insuranceCompany.errors }">-->
+<!--          <div *ngIf="(submitted) && insuranceFormControls.insuranceCompany.errors" class="invalid-feedback">-->
+<!--            <span *ngIf="(insuranceFormControls.insuranceCompany.errors.required)">Insurance Company is required</span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="row">-->
+<!--        <div class="col-md-3 form-group">-->
+<!--          <label for="insuredAmount"><b>Insured Amount</b></label>-->
+<!--          <input class="form-control" formControlName="insuredAmount" id="insuredAmount" -->
+<!--                 placeholder="Insured Amount"-->
+<!--                 [ngClass]="{ 'is-invalid': (submitted) && insuranceFormControls.insuredAmount.errors }">-->
+<!--          <div *ngIf="(submitted) && insuranceFormControls.insuredAmount.errors" class="invalid-feedback">-->
+<!--            <span *ngIf="(insuranceFormControls.insuredAmount.errors.required)">Insured amount is required</span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col-md-3 form-group">-->
+<!--          <label for="premiumAmount"><b>Premium Amount</b></label>-->
+<!--          <input class="form-control" formControlName="premiumAmount" id="premiumAmount" -->
+<!--                 placeholder="Premium Amount"-->
+<!--                 [ngClass]="{ 'is-invalid': (submitted) && insuranceFormControls.premiumAmount.errors }">-->
+<!--          <div *ngIf="(submitted) && insuranceFormControls.premiumAmount.errors" class="invalid-feedback">-->
+<!--            <span *ngIf="(insuranceFormControls.premiumAmount.errors.required)">Premium amount is required</span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col-md-3 form-group">-->
+<!--          <label for="issuedDate"><b>Issued Date</b></label>-->
+<!--          <input class="form-control" formControlName="issuedDate" id="issuedDate" -->
+<!--                 type="date"-->
+<!--                 [ngClass]="{ 'is-invalid': (submitted) && insuranceFormControls.issuedDate.errors }">-->
+<!--          <div *ngIf="(submitted) && insuranceFormControls.issuedDate.errors" class="invalid-feedback">-->
+<!--            <span *ngIf="(insuranceFormControls.issuedDate.errors.required)">Issued date is required</span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col-md-3 form-group">-->
+<!--          <label for="expiryDate"><b>Expiry date</b></label>-->
+<!--          <input class="form-control" formControlName="expiryDate" id="expiryDate" -->
+<!--                 type="date"-->
+<!--                 [ngClass]="{ 'is-invalid': (submitted) && insuranceFormControls.expiryDate.errors }">-->
+<!--          <div *ngIf="(submitted) && insuranceFormControls.expiryDate.errors" class="invalid-feedback">-->
+<!--            <span *ngIf="(insuranceFormControls.expiryDate.errors.required)">Expiry date is required</span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="row">-->
+<!--        <div class="col-md-12 form-group">-->
+<!--          <label for="policyType"><b>Insurance Policy Type</b></label>-->
+<!--          <textarea class="form-control" formControlName="policyType" id="policyType" -->
+<!--                    placeholder="Insurance Policy Type" rows="5"-->
+<!--                    [ngClass]="{ 'is-invalid': (submitted) && insuranceFormControls.policyType.errors }"></textarea>-->
+<!--          <div *ngIf="(submitted) && insuranceFormControls.policyType.errors" class="invalid-feedback">-->
+<!--            <span *ngIf="(insuranceFormControls.policyType.errors.required)">Insurance Policy is required</span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </form>-->
+<!--  </nb-card-body>-->
+<!--</nb-card>-->

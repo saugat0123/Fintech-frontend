@@ -103,9 +103,9 @@
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'CICL'">
             <app-cicl #cicl
-                      [ciclRemark]="loanDocument?.ciclRemarks"
-                      [ciclValue]="loanDocument?.ciclList"
-                      [insuranceValue]="loanDocument?.insurance"></app-cicl>
+
+                      [ciclValue]="loanDocument?.loanHolder?.cicl"
+                   ></app-cicl>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading'">
             <app-credit-grading #creditGrading

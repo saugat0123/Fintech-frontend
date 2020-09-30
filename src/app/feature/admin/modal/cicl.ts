@@ -8,3 +8,12 @@ export class Cicl {
   lastModifiedAt: Date;
   version: number;
 }
+
+export class CiclArray {
+  id: number;
+  data?: any;
+  remarks: string;
+  createdAt: Date;
+  lastModifiedAt: Date;
+  version: number;
+}

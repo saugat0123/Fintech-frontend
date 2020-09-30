@@ -19,7 +19,7 @@ import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.componen
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
 import {ProposalComponent} from '../../../loan-information-template/proposal/proposal.component';
 import {Proposal} from '../../../admin/modal/proposal';
-import {CiclComponent} from '../loan-main-template/cicl/cicl.component';
+import {CiclComponent} from '../../../loan-information-template/cicl/cicl.component';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {DatePipe} from '@angular/common';
@@ -475,16 +475,16 @@ export class LoanFormComponent implements OnInit {
       this.loanDocument.customerDocument = this.customerDocument.customerDocumentArray;
     }
 
-    if (name === 'CICL' && action) {
-      if (this.cicl.ciclForm.invalid || this.cicl.insuranceForm.invalid) {
-        this.cicl.submitted = true;
-        // return true;
-      }
-      this.cicl.onSubmit();
-      this.loanDocument.ciclList = this.cicl.ciclList;
-      this.loanDocument.ciclRemarks = this.cicl.ciclRemark;
-      // this.loanDocument.insurance = this.cicl.insurance;
-    }
+    // if (name === 'CICL' && action) {
+    //   if (this.cicl.ciclForm.invalid ) {
+    //     this.cicl.submitted = true;
+    //     // return true;
+    //   }
+    //   this.cicl.onSubmit();
+    //   this.loanDocument.ciclList = this.cicl.ciclList;
+    //   this.loanDocument.ciclRemarks = this.cicl.ciclRemark;
+    //   // this.loanDocument.insurance = this.cicl.insurance;
+    // }
 
     // if (name === 'Financial' && action) {
     //     this.financial.onSubmit();
