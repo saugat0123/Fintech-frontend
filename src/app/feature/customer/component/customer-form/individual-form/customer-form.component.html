@@ -292,17 +292,33 @@
           </div>
           <div class="col-md-4">
             <div class="form-group">
-              <label for="occupation"><strong>Occupation</strong></label>
-              <input
-                  [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.occupation.errors }"
-                  class="form-control"
-                  formControlName="occupation" id="occupation" name="occupation"
-                  placeholder="Occupation"
-                  type="text">
+              <label for="otherOccupation"><strong>Occupation </strong></label>
+              <nb-select [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.occupation.errors }"
+                         class="form-control"
+                         formControlName="occupation"
+                         placeholder="Occupation" multiple >
+                <nb-option value="Business Owner">Business Owner</nb-option>
+                <nb-option value="Chartered Accountant">Chartered Accountant</nb-option>
+                <nb-option value="Lawyer">Lawyer</nb-option>
+                <nb-option value="Doctor">Doctor</nb-option>
+                <nb-option value="Engineer">Engineer</nb-option>
+                <nb-option value="Government Job">Government Job</nb-option>
+                <nb-option value="Banker">Banker</nb-option>
+                <nb-option value="Teaching Professional">Teaching Professional</nb-option>
+                <nb-option value="Banker">Salary</nb-option>
+                <nb-option value="Teaching Professional">Farmer</nb-option>
+                <nb-option value="Other">Other</nb-option>
+              </nb-select>
+              <div *ngIf="basicInfo.get('occupation')?.value == 'Other'"
+                   class="col-md-12 form-group">
+                <label>Other occupation(s)</label>
+                <input class="form-control" formControlName="otherOccupation" id="otherOccupation"
+                       name="otherOccupation" placeholder="Other occupation" type="text">
               <div *ngIf="submitted && basicInfoControls.occupation.errors"
                    class="invalid-feedback">
                 <div *ngIf="basicInfoControls.occupation.errors.required">Occupation is required
                 </div>
+              </div>
               </div>
             </div>
           </div>
@@ -310,13 +326,22 @@
           <!-- START ROW -->
           <div class="col-md-4">
             <div class="form-group">
-              <label for="incomeSource"><strong>Income Source</strong></label>
-              <input
-                  [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.incomeSource.errors }"
-                  class="form-control"
-                  formControlName="incomeSource" id="incomeSource" name="incomeSource"
-                  placeholder="incomeSource"
-                  type="text">
+              <label><strong>Income Source</strong></label>
+              <nb-select [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.incomeSource.errors }"
+                         class="form-control"
+                         formControlName="incomeSource" id="incomeSource" name="incomeSource"
+                         placeholder="Income Source" multiple >
+                <nb-option value="Salaried">Salaried</nb-option>
+                <nb-option value="Business">Business</nb-option>
+                <nb-option value="Salaried & Business">Salaried & Business</nb-option>
+                <nb-option value="Rent">Rent</nb-option>
+                <nb-option value="Farming">Farming</nb-option>
+                <nb-option value="Other">Other</nb-option>
+              </nb-select>
+              <div *ngIf="basicInfo.get('incomeSource')?.value == 'Other'"
+                   class="col-md-12 form-group">
+                <input class="form-control" formControlName="otherIncome" id="otherIncome"
+                       name="otherIncome" placeholder="Other Income Source" type="text">
               <div *ngIf="submitted && basicInfoControls.incomeSource.errors"
                    class="invalid-feedback">
                 <div *ngIf="basicInfoControls.incomeSource.errors.required">Income Source is
@@ -325,6 +350,7 @@
               </div>
             </div>
           </div>
+        </div>
         </div>
         <div>
           <div
@@ -414,7 +440,18 @@
           <input (click)="addRelatives()" class="btn btn-sm btn-flat btn-primary"
                  type="button" value="Add More"/>
         </div>
-
+      <div>
+        <label><strong>Introduction</strong></label>
+        <textarea id="introduction" formControlName="introduction" name="introduction" type="text"
+                  class="form-control" placeholder="introduction"
+                  [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.introduction.errors }"></textarea>
+        <div *ngIf="(submitted) && basicInfoControls.introduction.invalid"
+             class="invalid-feedback">
+          <div *ngIf="basicInfoControls.introduction.errors.required">
+            Introduction is required
+          </div>
+        </div>
+      </div>
         <!-- END ROW -->
       </form>
     </div>

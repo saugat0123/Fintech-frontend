@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, NgModule} from '@angular/core';
 import {Customer} from '../../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
@@ -14,7 +14,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {DateValidator} from '../../../../../@core/validator/date-validator';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {CustomerAssociateComponent} from '../../../../loan/component/loan-main-template/customer-associate/customer-associate.component';
-import {NbDialogRef, NbDialogService} from '@nebular/theme';
+import {NbDialogRef, NbDialogService, NbSelectModule} from '@nebular/theme';
 
 @Component({
   selector: 'app-customer-form',
@@ -171,40 +171,53 @@ export class CustomerFormComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.spinner = true;
-    if (this.basicInfo.invalid) {
+    const tempId = this.basicInfo.get('citizenshipNumber').value;
+    this.blackListService.checkBlacklistByRef(tempId).subscribe((response: any) => {
+      this.isBlackListed = response.detail;
+      this.blackListStatusEmitter.emit(this.isBlackListed);
+      if (this.isBlackListed) {
+      this.customerDetailField.showFormField = false;
       this.spinner = false;
+      this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Customer'));
       return;
-    }
-    this.customer.id = (this.customer.citizenshipIssuedPlace ===
-        this.basicInfo.get('citizenshipIssuedPlace').value) ? this.customer.id : undefined;
-    this.customer.customerName = this.basicInfo.get('customerName').value;
-    this.customer.province = this.basicInfo.get('province').value;
-    this.customer.district = this.basicInfo.get('district').value;
-    this.customer.municipalities = this.basicInfo.get('municipalities').value;
-    this.customer.street = this.basicInfo.get('street').value;
-    this.customer.wardNumber = this.basicInfo.get('wardNumber').value;
-    this.customer.contactNumber = this.basicInfo.get('contactNumber').value;
-    this.customer.email = this.basicInfo.get('email').value;
-    this.customer.dob = this.basicInfo.get('dob').value;
-    this.customer.initialRelationDate = this.basicInfo.get('initialRelationDate').value;
-    this.customer.citizenshipNumber = this.basicInfo.get('citizenshipNumber').value;
-    this.customer.citizenshipIssuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
-    this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
-    this.customer.occupation = this.basicInfo.get('occupation').value;
-    this.customer.incomeSource = this.basicInfo.get('incomeSource').value;
-    this.customer.version = this.basicInfo.get('version').value;
-    const rawFromValue = this.basicInfo.getRawValue();
-    this.customer.customerRelatives = rawFromValue.customerRelatives;
-
-    this.customerService.save(this.customer).subscribe(res => {
-      this.spinner = false;
-      this.close();
-    }, res => {
-      this.spinner = false;
-      this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
+    } else {
+      if (this.basicInfo.invalid) {
+        this.spinner = false;
+        return;};
+      {
+        this.customer.id = (this.customer.citizenshipIssuedPlace ===
+            this.basicInfo.get('citizenshipIssuedPlace').value) ? this.customer.id : undefined;
+        this.customer.customerName = this.basicInfo.get('customerName').value;
+        this.customer.province = this.basicInfo.get('province').value;
+        this.customer.district = this.basicInfo.get('district').value;
+        this.customer.municipalities = this.basicInfo.get('municipalities').value;
+        this.customer.street = this.basicInfo.get('street').value;
+        this.customer.wardNumber = this.basicInfo.get('wardNumber').value;
+        this.customer.contactNumber = this.basicInfo.get('contactNumber').value;
+        this.customer.email = this.basicInfo.get('email').value;
+        this.customer.dob = this.basicInfo.get('dob').value;
+        this.customer.initialRelationDate = this.basicInfo.get('initialRelationDate').value;
+        this.customer.citizenshipNumber = this.basicInfo.get('citizenshipNumber').value;
+        this.customer.citizenshipIssuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
+        this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
+        this.customer.occupation = this.basicInfo.get('occupation').value;
+        this.customer.occupation = this.basicInfo.get('otherOccupation').value;
+        this.customer.incomeSource = this.basicInfo.get('incomeSource').value;
+        this.customer.incomeSource = this.basicInfo.get('otherIncome').value;
+        this.customer.introduction = this.basicInfo.get('introduction').value;
+        this.customer.version = this.basicInfo.get('version').value;
+        const rawFromValue = this.basicInfo.getRawValue();
+        this.customer.customerRelatives = rawFromValue.customerRelatives;
+        this.customerService.save(this.customer).subscribe(res => {
+          this.spinner = false;
+          this.close();
+          this.toastService.show(new Alert(AlertType.INFO, "Successfully saved Customer Info"));
+        }, res => {
+          this.spinner = false;
+          this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
+         });
+      }}
     });
-
-
   }
 
   getProvince() {
@@ -248,8 +261,11 @@ export class CustomerFormComponent implements OnInit {
           new Date(this.customer.dob), [Validators.required, DateValidator.isValidBefore]],
       occupation: [this.customer.occupation === undefined ? undefined : this.customer.occupation, [Validators.required]],
       version: [this.customer.version === undefined ? undefined : this.customer.version],
+      otherOccupation: [this.customer.otherOccupation === undefined ? undefined : this.customer.otherOccupation],
       incomeSource: [this.customer.incomeSource === undefined ? undefined : this.customer.incomeSource, [Validators.required]],
-      customerRelatives: this.formBuilder.array([])
+      otherIncome: [this.customer.otherIncome === undefined ? undefined : this.customer.otherIncome],
+      customerRelatives: this.formBuilder.array([]),
+      introduction: [this.customer.introduction === undefined ? undefined : this.customer.introduction, [Validators.required]],
     });
   }
 
