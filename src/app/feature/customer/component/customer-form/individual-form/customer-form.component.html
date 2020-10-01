@@ -295,7 +295,7 @@
               <label for="otherOccupation"><strong>Occupation </strong></label>
               <nb-select [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.occupation.errors }"
                          formControlName="occupation"
-                         placeholder="Occupation" multiple size="tiny" >
+                         placeholder="Occupation" multiple >
                 <nb-option value="Business Owner">Business Owner</nb-option>
                 <nb-option value="Chartered Accountant">Chartered Accountant</nb-option>
                 <nb-option value="Lawyer">Lawyer</nb-option>
@@ -328,7 +328,7 @@
               <label><strong>Income Source</strong></label>
               <nb-select [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.incomeSource.errors }"
                          formControlName="incomeSource" id="incomeSource" name="incomeSource"
-                         placeholder="Income Source" multiple tiny >
+                         placeholder="Income Source" multiple >
                 <nb-option value="Salaried">Salaried</nb-option>
                 <nb-option value="Business">Business</nb-option>
                 <nb-option value="Salaried & Business">Salaried & Business</nb-option>

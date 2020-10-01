@@ -200,9 +200,6 @@ export class CustomerFormComponent implements OnInit {
         this.customer.citizenshipNumber = this.basicInfo.get('citizenshipNumber').value;
         this.customer.citizenshipIssuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
         this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
-        console.log(this.basicInfo.get('otherOccupation').value)
-        console.log(this.basicInfo.get('occupation').value);
-        console.log(this.basicInfo.get('occupation').value === 'Other');
         const occupations = {
           multipleOccupation : this.basicInfo.get('occupation').value ,
           otherOccupation : this.basicInfo.get('otherOccupation').value
