@@ -293,21 +293,97 @@
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label class="title" for="creditInfo"><strong>Credit Information Report
-                      Status</strong></label>
+                    <label class="title" for="repayment"><strong>Repayment</strong></label>
                     <textarea
-                        [ngClass]="{ 'is-invalid': (submitted) && formControls.creditInformationReportStatus.errors }"
+                        [ngClass]="{ 'is-invalid': (submitted) && formControls.repayment.errors }"
                         class="form-control"
-                        formControlName="creditInformationReportStatus" id="creditInfo"
-                        name="creditInfo" placeholder="Credit Information Report Status"
+                        formControlName="repayment" id="repayment"
+                        name="repayment"
+                        placeholder="Repayment"
                         rows="3"></textarea>
-                    <div *ngIf="(submitted) && formControls.creditInformationReportStatus.invalid"
+                    <div *ngIf="(submitted) && formControls.repayment.invalid"
                          class="invalid-feedback">
-                      <span *ngIf="formControls.creditInformationReportStatus.errors.required">Credit Information Report Status is required.</span>
+                      <span *ngIf="formControls.repayment.errors.required">Repayment is required.</span>
                     </div>
-
-
                   </div>
+                </div>
+                <div class="col-md-12">
+                  <p><strong>Income From Account</strong></p>
+                  <table class="table table-bordered table-responsive-md table-hover text-center">
+                    <thead>
+                    <tr>
+                      <th>Particular</th>
+                      <th>During Review Period</th>
+                      <th>Projected For next Review Period</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                      <td>Gross Interest</td>
+                      <td><input (keyup)="calculateTotalIncomeDuringReview()" class="form-control"
+                                 formControlName="interestDuringReview"
+                                 type="number"
+                                 [ngClass]="{ 'is-invalid': (submitted) && formControls.interestDuringReview.errors }">
+                        <div *ngIf="(submitted) && formControls.interestDuringReview.invalid"
+                             class="invalid-feedback">
+                          <span *ngIf="formControls.interestDuringReview.errors.required">Interest During Review is required.</span>
+                        </div>
+                      </td>
+                      <td><input (keyup)="calculateTotalIncomeAfterReview()" class="form-control"
+                                 formControlName="interestAfterNextReview"
+                                 type="number"
+                                 [ngClass]="{ 'is-invalid': (submitted) && formControls.interestAfterNextReview.errors }">
+                        <div *ngIf="(submitted) && formControls.interestAfterNextReview.invalid"
+                             class="invalid-feedback">
+                          <span *ngIf="formControls.interestAfterNextReview.errors.required">i]Interest After Next Review is required.</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Free and Commission</td>
+                      <td><input (keyup)="calculateTotalIncomeDuringReview()" class="form-control"
+                                 formControlName="commissionDuringReview"
+                                 type="number"
+                                 [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionDuringReview.errors }">
+                        <div *ngIf="(submitted) && formControls.commissionDuringReview.invalid"
+                             class="invalid-feedback">
+                          <span *ngIf="formControls.commissionDuringReview.errors.required">Commission During Review is required.</span>
+                        </div></td>
+                      <td><input (keyup)="calculateTotalIncomeAfterReview()" class="form-control"
+                                 formControlName="commissionAfterNextReview"
+                                 type="number"
+                                 [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionAfterNextReview.errors }">
+                        <div *ngIf="(submitted) && formControls.commissionAfterNextReview.invalid"
+                             class="invalid-feedback">
+                          <span *ngIf="formControls.commissionAfterNextReview.errors.required">Commission After Next Review is required.</span>
+                        </div></td>
+                    </tr>
+                    <tr>
+                      <td>Other Charges</td>
+                      <td><input (keyup)="calculateTotalIncomeDuringReview()" class="form-control"
+                                 formControlName="otherChargesDuringReview"
+                                 type="number"
+                                 [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesDuringReview.errors }">
+                        <div *ngIf="(submitted) && formControls.otherChargesDuringReview.invalid"
+                             class="invalid-feedback">
+                          <span *ngIf="formControls.otherChargesDuringReview.errors.required">Other Charges During Review is required.</span>
+                        </div></td>
+                      <td><input (keyup)="calculateTotalIncomeAfterReview()" class="form-control"
+                                 formControlName="otherChargesAfterNextReview"
+                                 type="number"
+                                 [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesAfterNextReview.errors }">
+                        <div *ngIf="(submitted) && formControls.otherChargesAfterNextReview.invalid"
+                             class="invalid-feedback">
+                          <span *ngIf="formControls.otherChargesAfterNextReview.errors.required">Other Charges After Next Review is required.</span>
+                        </div></td>
+                    </tr>
+                    <tr>
+                      <td>Total</td>
+                      <td><input [readOnly]="true" class="form-control" formControlName="totalIncomeDuringReview"
+                                 type="number"></td>
+                      <td><input [readOnly]="true" class="form-control" formControlName="totalIncomeAfterNextReview"
+                                 type="number"></td>
+                    </tr>
+                  </table>
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">

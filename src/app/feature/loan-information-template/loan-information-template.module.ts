@@ -27,6 +27,7 @@ import {CreditGradingComponent} from './credit-grading/credit-grading.component'
 import {ProposalComponent} from './proposal/proposal.component';
 import {CreditRiskGradingGammaComponent} from './credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {CiclComponent} from './cicl/cicl.component';
+import {QuillModule} from 'ngx-quill';
 
 const COMPONENTS = [
   SiteVisitComponent,
@@ -67,6 +68,7 @@ const COMPONENTS = [
     AgmCoreModule.forRoot({
       apiKey: environment.GOOGLE_MAP_API_KEY
     }),
+    QuillModule,
     CoreModule,
   ]
 })
