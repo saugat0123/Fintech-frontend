@@ -18,4 +18,5 @@ export class Guarantor {
     relationship: string;
     docPath: string;
     netWorth: number;
+    consentOfLegalHeirs: boolean;
 }

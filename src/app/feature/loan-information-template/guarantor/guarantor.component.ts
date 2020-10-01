@@ -155,7 +155,8 @@ export class GuarantorComponent implements OnInit {
       ],
       docPath: [
           ObjectUtil.setUndefinedIfNull(data.docPath)
-      ]
+      ],
+      consentOfLegalHeirs: [ObjectUtil.isEmpty(data.consentOfLegalHeirs) ? false : data.consentOfLegalHeirs]
     });
   }
 

@@ -33,6 +33,11 @@
                             </div>
                             </div>
                             <div class="row">
+                                <div class="col-md-12">
+                                    <nb-checkbox formControlName="consentOfLegalHeirs">Consent of Legal Heirs</nb-checkbox>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><strong> Name</strong></label>
@@ -324,8 +329,13 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><b>Net Worth</b></label>
-                                        <input class="form-control" formControlName="netWorth" type="number" placeholder="Net Worth Amount">
+                                        <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('netWorth').errors }" class="form-control" formControlName="netWorth" type="number" placeholder="Net Worth Amount">
                                         <div *ngIf="addMore && guarantorDetails.get('netWorth').invalid" class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('netWorth').errors.required">
+                                                Net Worth Amount is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="submitted && guarantorDetails.get('netWorth').invalid" class="invalid-feedback">
                                             <div *ngIf="guarantorDetails.get('netWorth').errors.required">
                                                 Net Worth Amount is required
                                             </div>
