@@ -214,7 +214,7 @@
 
     <tbody>
     <tr>
-      <th >e</th>
+      <th>e</th>
       <td>Debt-Equity Ratio (Overall)</td>
       <td *ngFor="let amount of keyIndicatorsForm.get('debtEquityRatioOverall')['controls']; let j = index"
           formArrayName="debtEquityRatioOverall" >
@@ -227,7 +227,7 @@
 
     <tbody>
     <tr>
-      <th >f</th>
+      <th>f</th>
       <td>Debt-Equity Ratio - Long Term (times)</td>
       <td *ngFor="let amount of keyIndicatorsForm.get('debtEquityRatioLongTerm')['controls']; let j = index"
           formArrayName="debtEquityRatioLongTerm" >
@@ -257,6 +257,19 @@
       <td>Debt-Equity Ratio - General</td>
       <td *ngFor="let amount of keyIndicatorsForm.get('debtEquityRatioGeneral')['controls']; let j = index"
           formArrayName="debtEquityRatioGeneral" >
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th>i</th>
+      <td>Leverage ratio</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('leverageRatio')['controls']; let j = index"
+          formArrayName="leverageRatio" >
         <div [formGroupName]="j" class="text-center">
           <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
         </div>
