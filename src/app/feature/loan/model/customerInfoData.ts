@@ -10,6 +10,7 @@ import {CreditRiskGrading} from '../../admin/modal/creditRiskGrading';
 import {Branch} from '../../admin/modal/branch';
 import {CustomerLoanFlag} from '../../../@core/model/customer-loan-flag';
 import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
+import {Cicl, CiclArray} from '../../admin/modal/cicl';
 
 export class CustomerInfoData {
   id: number;
@@ -38,5 +39,6 @@ export class CustomerInfoData {
   customerGroup: CustomerGroup;
   profilePic: string;
   loanFlags: Array<CustomerLoanFlag>;
+  cicl: CiclArray;
 
 }

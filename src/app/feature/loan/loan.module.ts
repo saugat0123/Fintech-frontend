@@ -21,7 +21,7 @@ import {BirthMarkLetterPrintComponent} from './component/offer-letter/birth-mark
 import {SuccessOfferLetterComponent} from './component/offer-letter/success-offer-letter/success-offer-letter.component';
 // tslint:disable-next-line:max-line-length
 import {SuccessOfferLetterPrintComponent} from './component/offer-letter/success-offer-letter/success-offer-letter-print/success-offer-letter-print.component';
-import {CiclComponent} from './component/loan-main-template/cicl/cicl.component';
+
 import {ReadmoreModelComponent} from './component/readmore-model/readmore-model.component';
 import {CoreModule} from '../../@core/core.module';
 import {environment} from '../../../environments/environment';
@@ -69,122 +69,122 @@ import {CustomerModule} from '../customer/customer.module';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {ReportingModule} from '../reporting/reporting.module';
 import {InsuranceSummaryComponent} from './component/loan-summary/insurance-summary/insurance-summary.component';
-import { GuarantorSummaryComponent } from './component/loan-summary/guarantor-summary/guarantor-summary.component';
-import { ProposalSummaryComponent } from './component/loan-summary/proposal-summary/proposal-summary.component';
+import {GuarantorSummaryComponent} from './component/loan-summary/guarantor-summary/guarantor-summary.component';
+import {ProposalSummaryComponent} from './component/loan-summary/proposal-summary/proposal-summary.component';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
-import { LoanActionModalComponent } from './loan-action/loan-action-modal/loan-action-modal.component';
-import { LoanActionVerificationComponent } from './loan-action/loan-action-verification/loan-action-verification.component';
-import { LoanActionCombinedModalComponent } from './loan-action/loan-action-combined-modal/loan-action-combined-modal.component';
-import { GuarantorAdderComponent } from './component/loan-main-template/guarantor-adder/guarantor-adder.component';
-import { GuarantorDetailComponent } from './component/loan-main-template/guarantor-adder/guarantor-detail/guarantor-detail.component';
-import { CustomerGroupSummaryComponent } from './component/loan-summary/customer-group-summary/customer-group-summary.component';
+import {LoanActionModalComponent} from './loan-action/loan-action-modal/loan-action-modal.component';
+import {LoanActionVerificationComponent} from './loan-action/loan-action-verification/loan-action-verification.component';
+import {LoanActionCombinedModalComponent} from './loan-action/loan-action-combined-modal/loan-action-combined-modal.component';
+import {GuarantorAdderComponent} from './component/loan-main-template/guarantor-adder/guarantor-adder.component';
+import {GuarantorDetailComponent} from './component/loan-main-template/guarantor-adder/guarantor-detail/guarantor-detail.component';
+import {CustomerGroupSummaryComponent} from './component/loan-summary/customer-group-summary/customer-group-summary.component';
 
 const COMPONENTS = [
-    LoanFormComponent,
-    BasicInfoComponent,
-    CompanyInfoComponent,
-    KycInfoComponent,
-    DmsLoanFileComponent,
-    LoanActionComponent,
-    LoanSummaryComponent,
-    BirthMarkLetterNepaliComponent,
-    BirthMarkLetterPrintComponent,
-    SuccessOfferLetterComponent,
-    SuccessOfferLetterPrintComponent,
-    CiclComponent,
-    ReadmoreModelComponent,
+  LoanFormComponent,
+  BasicInfoComponent,
+  CompanyInfoComponent,
+  KycInfoComponent,
+  DmsLoanFileComponent,
+  LoanActionComponent,
+  LoanSummaryComponent,
+  BirthMarkLetterNepaliComponent,
+  BirthMarkLetterPrintComponent,
+  SuccessOfferLetterComponent,
+  SuccessOfferLetterPrintComponent,
+  ReadmoreModelComponent,
 
-    LoanPullComponent,
-    SecuritySummaryComponent,
-    FinancialSummaryComponent,
+  LoanPullComponent,
+  SecuritySummaryComponent,
+  FinancialSummaryComponent,
 
-    FinancialSummaryComponent,
-    LoanOfferLetterComponent,
-    OfferLetterActionComponent,
-    OfferLetterUploadComponent,
-    OfferLetterComponent,
-    SitevistSummaryComponentComponent,
-    GroupComponent,
-    GroupDetailComponent,
-    SecurityDetailComponent,
-    DhitoLikhatManjurinamaComponent,
-    DhristiBandhakComponent,
-    JamaniTamsukComponent,
-    KararnamaComponent,
-    KarjatamsukComponent,
-    ManjurinamaComponent,
-    PratigyaPatraComponent,
-    LoanMainNepaliTemplateComponent,
-    CustomerInfoNepaliComponent,
-    LoanMainNepaliTemplateComponent,
-    DhitoLikhatPrintComponent,
-    PratigyaPatraPrintComponent,
-    ApplicantFamilyInfoComponent,
-    KarjaTamsukPrintComponent,
-    KararnamaPrintComponent,
-    ManjurinamaLetterPrintComponent,
-    JamaniBasekoComponent,
-    JamaniBasekoPrintComponent,
-    DhristiBandhakPrintComponent,
-    BikeKarjaComponent,
-    HayarParchesKarjaNibedanComponent,
-    JamaniTamsukLetterPrintComponent,
-    ApplicantFamilyInfoPrintComponent,
-    BikeKarjaPrintComponent,
-    CustomerAssociateComponent,
-    InsuranceSummaryComponent,
-    GuarantorSummaryComponent,
-    ProposalSummaryComponent,
-    LoanActionModalComponent,
-    LoanActionVerificationComponent,
-    LoanActionCombinedModalComponent,
-    GuarantorAdderComponent,
-    GuarantorDetailComponent,
-    CustomerGroupSummaryComponent
+  FinancialSummaryComponent,
+  LoanOfferLetterComponent,
+  OfferLetterActionComponent,
+  OfferLetterUploadComponent,
+  OfferLetterComponent,
+  SitevistSummaryComponentComponent,
+  GroupComponent,
+  GroupDetailComponent,
+  SecurityDetailComponent,
+  DhitoLikhatManjurinamaComponent,
+  DhristiBandhakComponent,
+  JamaniTamsukComponent,
+  KararnamaComponent,
+  KarjatamsukComponent,
+  ManjurinamaComponent,
+  PratigyaPatraComponent,
+  LoanMainNepaliTemplateComponent,
+  CustomerInfoNepaliComponent,
+  LoanMainNepaliTemplateComponent,
+  DhitoLikhatPrintComponent,
+  PratigyaPatraPrintComponent,
+  ApplicantFamilyInfoComponent,
+  KarjaTamsukPrintComponent,
+  KararnamaPrintComponent,
+  ManjurinamaLetterPrintComponent,
+  JamaniBasekoComponent,
+  JamaniBasekoPrintComponent,
+  DhristiBandhakPrintComponent,
+  BikeKarjaComponent,
+  HayarParchesKarjaNibedanComponent,
+  JamaniTamsukLetterPrintComponent,
+  ApplicantFamilyInfoPrintComponent,
+  BikeKarjaPrintComponent,
+  CustomerAssociateComponent,
+  InsuranceSummaryComponent,
+  GuarantorSummaryComponent,
+  ProposalSummaryComponent,
+  LoanActionModalComponent,
+  LoanActionVerificationComponent,
+  LoanActionCombinedModalComponent,
+  GuarantorAdderComponent,
+  GuarantorDetailComponent,
+  CustomerGroupSummaryComponent
 ];
 
 const ENTRY_COMPONENTS = [
-    ReadmoreModelComponent,
-    LoanMainNepaliTemplateComponent,
-    CustomerInfoNepaliComponent,
-    CustomerAssociateComponent,
-    LoanActionModalComponent,
-    LoanActionVerificationComponent,
-    LoanActionCombinedModalComponent,
-    GuarantorDetailComponent
+  ReadmoreModelComponent,
+  LoanMainNepaliTemplateComponent,
+  CustomerInfoNepaliComponent,
+  CustomerAssociateComponent,
+  LoanActionModalComponent,
+  LoanActionVerificationComponent,
+  LoanActionCombinedModalComponent,
+  GuarantorDetailComponent
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS],
-    imports: [
-        ThemeModule,
-        CommonModule,
-        LoanRoutingModule,
-        FormsModule,
-        NgbPaginationModule,
-        ReactiveFormsModule,
-        NgSelectModule,
-        NbDatepickerModule,
-        NgxPrintModule,
-        CoreModule,
-        AgmCoreModule.forRoot({
-            apiKey: environment.GOOGLE_MAP_API_KEY
-        }),
-        CustomerModule,
-        NepaliCalendarModule,
-        ReportingModule,
-        LoanInformationTemplateModule,
-        LoanInformationViewModule
-    ],
+  declarations: [...COMPONENTS],
+  imports: [
+    ThemeModule,
+    CommonModule,
+    LoanRoutingModule,
+    FormsModule,
+    NgbPaginationModule,
+    ReactiveFormsModule,
+    NgSelectModule,
+    NbDatepickerModule,
+    NgxPrintModule,
+    CoreModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.GOOGLE_MAP_API_KEY
+    }),
+    CustomerModule,
+    NepaliCalendarModule,
+    ReportingModule,
+    LoanInformationTemplateModule,
+    LoanInformationViewModule
+  ],
 
-    providers: [
-        DatePipe,
-        LoanFormService,
-        NgbActiveModal
-    ],
+  providers: [
+    DatePipe,
+    LoanFormService,
+    NgbActiveModal
+  ],
 
-    entryComponents: [...ENTRY_COMPONENTS],
+  entryComponents: [...ENTRY_COMPONENTS],
+  exports: []
 })
 export class LoanModule {
 }
