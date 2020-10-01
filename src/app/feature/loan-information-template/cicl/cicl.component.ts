@@ -48,6 +48,8 @@ export class CiclComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.ciclValue)) {
       this.ciclList = JSON.parse(this.ciclValue.data);
+    } else {
+      this.ciclValue = new CiclArray();
     }
     this.buildCiclForm();
 
@@ -141,8 +143,7 @@ export class CiclComponent implements OnInit {
       this.ciclList.push(cicl);
 
     }
-    const ciclArray: CiclArray = new CiclArray();
-    this.ciclValue.remarks = this.ciclRemarks.value;
+    this.ciclValue.remarks = this.ciclForm.get('ciclRemarks').value === undefined ? '' : this.ciclForm.get('ciclRemarks').value;
     this.ciclValue.data = JSON.stringify(this.ciclList);
     this.ciclDataEmitter.emit(this.ciclValue);
   }
