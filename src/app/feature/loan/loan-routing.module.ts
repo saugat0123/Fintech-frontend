@@ -2,16 +2,16 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoanFormComponent} from './component/loan-form/loan-form.component';
 import {DmsLoanFileComponent} from './component/loan-main-template/dms-loan-file/dms-loan-file.component';
-import {LoanSummaryComponent} from './component/loan-summary/loan-summary.component';
 import {KycInfoComponent} from './component/loan-main-template/kyc-info/kyc-info.component';
 import {LoanPullComponent} from './component/loan-pull/loan-pull.component';
 import {LoanOfferLetterComponent} from './loan-offer-letter/loan-offer-letter.component';
 import {OfferLetterComponent} from './component/offer-letter/offer-letter.component';
+import {SummaryBaseComponent} from './summary-base/summary-base.component';
 
 export const routes: Routes = [
     {path: 'loanForm', component: LoanFormComponent},
     {path: 'loanDataHolder', component: DmsLoanFileComponent},
-    {path: 'summary', component: LoanSummaryComponent},
+    {path: 'summary', component: SummaryBaseComponent},
     {path: 'kyc', component: KycInfoComponent},
     {path: 'offer-letter', component: OfferLetterComponent},
     {path: 'pull', component: LoanPullComponent},

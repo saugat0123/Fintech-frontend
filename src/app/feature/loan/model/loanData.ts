@@ -71,4 +71,5 @@ export class LoanDataHolder {
     reportingInfoLevels: Array<ReportingInfoLevel>;
     loanHolder: CustomerInfoData;
     combinedLoan: CombinedLoan;
+    refNo: string;
 }
