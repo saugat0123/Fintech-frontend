@@ -13,6 +13,7 @@ import {ProposalSummaryComponent} from './proposal-summary/proposal-summary.comp
 import {ReportingModule} from '../../../reporting/reporting.module';
 import {NgxPrintModule} from 'ngx-print';
 import {CoreModule} from '../../../../@core/core.module';
+import { CompanyInfoSummaryComponent } from './company-info-summary/company-info-summary.component';
 
 
 const COMPONENTS = [
@@ -28,7 +29,7 @@ const COMPONENTS = [
 ];
 const ENTRY_COMPONENTS = [];
 @NgModule({
-  declarations: [...COMPONENTS],
+  declarations: [...COMPONENTS, CompanyInfoSummaryComponent],
   imports: [
     CommonModule,
     ThemeModule,

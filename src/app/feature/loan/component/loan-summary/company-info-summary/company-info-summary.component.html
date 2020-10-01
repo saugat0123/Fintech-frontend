@@ -1,0 +1,89 @@
+<p><strong>Details of Company</strong></p>
+<table
+    class="table table-condensed table-bordered table-sm table-responsive-md disable-print text-center">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Establishment Date</th>
+    <th>PAN</th>
+    <th>Registration Number</th>
+    <th>Business Type</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>{{companyInfo?.companyName}}</td>
+    <td>{{companyInfo?.establishmentDate | date}}</td>
+    <td>{{companyInfo?.panNumber}}</td>
+    <td>{{companyInfo?.registrationNumber}}</td>
+    <td>{{businessType[companyInfo?.businessType]}}</td>
+  </tr>
+  </tbody>
+</table>
+<!--    shareHolder detail section-->
+<p><strong>Information of Proprietor/Shareholder/Partner with holder %</strong></p>
+<table class="table table-sm table-bordered text-center table-condensed">
+  <thead>
+  <tr>
+    <th>S.N</th>
+    <th>Name</th>
+    <th>Contact No</th>
+    <th>Share</th>
+    <th>Province</th>
+    <th>District</th>
+    <th>Municipalities or VDC</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let proprietors of companyInfo?.proprietorsList; let i=index;">
+  <tr>
+    <td>{{i + 1}}</td>
+    <td>{{proprietors?.name}}</td>
+    <td>{{proprietors?.contactNo}}</td>
+    <td>{{proprietors?.share}}</td>
+    <td>{{proprietors?.province?.name}}</td>
+    <td>{{proprietors?.district?.name}}</td>
+    <td>{{proprietors?.municipalityVdc?.name}}</td>
+  </tr>
+  </tbody>
+</table>
+<table class="print-only table table-bordered text-center table-responsive-sm" id="print-company-table">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Establishment Date</th>
+    <th>PAN</th>
+    <th>Registration Number</th>
+    <th>Business Type</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>{{companyInfo?.companyName}}</td>
+    <td>{{companyInfo?.establishmentDate | date}}</td>
+    <td>{{companyInfo?.panNumber}}</td>
+    <td>{{companyInfo?.registrationNumber}}</td>
+    <td>{{businessType[companyInfo?.businessType]}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<!--SWOT Analysis-->
+<p><strong>SWOT Analysis</strong></p>
+<table aria-describedby="swot table" class="table  table-bordered table-hover sb-small">
+  <tr>
+    <td class="font-weight-bold"> Strengths</td>
+    <td>{{companyInfo?.swot?.strength}} </td>
+  </tr>
+  <tr>
+    <td class="font-weight-bold"> Weaknesses</td>
+    <td> {{companyInfo?.swot?.weakness}}</td>
+  </tr>
+  <tr>
+    <td class="font-weight-bold"> Opportunities</td>
+    <td> {{companyInfo?.swot?.opportunity}}</td>
+  </tr>
+  <tr>
+    <td class="font-weight-bold"> Threats</td>
+    <td> {{companyInfo?.swot?.threats}}</td>
+  </tr>
+</table>
