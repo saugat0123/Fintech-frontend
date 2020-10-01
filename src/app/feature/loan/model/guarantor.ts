@@ -17,4 +17,5 @@ export class Guarantor {
     grandFatherName: string;
     relationship: string;
     docPath: string;
+    netWorth: number;
 }

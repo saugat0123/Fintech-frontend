@@ -38,10 +38,12 @@
           <tr>
             <th>Relationship</th>
             <th> Age</th>
+            <th>Net Worth</th>
           </tr>
           <tr>
             <td>{{guarantorData?.relationship}}</td>
             <td>{{findAge(guarantorData?.issuedYear)}} yrs</td>
+            <td>{{guarantorData?.netWorth | number:'.2-2'}}</td>
           </tr>
         </table>
       </ng-container>

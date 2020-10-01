@@ -149,6 +149,10 @@ export class GuarantorComponent implements OnInit {
         ObjectUtil.setUndefinedIfNull(data.relationship),
         Validators.required
       ],
+      netWorth: [
+          ObjectUtil.setUndefinedIfNull(data.netWorth),
+          Validators.required
+      ],
       docPath: [
           ObjectUtil.setUndefinedIfNull(data.docPath)
       ]
