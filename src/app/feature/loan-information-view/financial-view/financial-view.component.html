@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <p *ngIf="!isBusinessLoan"><strong>Financial Details</strong></p>
-        <table class="table table-condensed table-bordered table-responsive-md text-center" *ngIf="!isBusinessLoan">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center" *ngIf="!isBusinessLoan">
             <thead>
             <tr>
                 <th colspan="5">Income of Borrower</th>
@@ -30,7 +30,7 @@
             </tbody>
         </table>
 
-        <table class="table table-condensed table-bordered table-responsive-md text-center" *ngIf="!isBusinessLoan">
+        <table class="table table-condensed table-sm table-bordered table-responsive-md text-center" *ngIf="!isBusinessLoan">
             <thead>
             <tr>
                 <th colspan="4">Expenses of Borrower</th>
@@ -57,7 +57,7 @@
                 <td></td>
             </tr>
         </table>
-        <table class="table table-condensed table-bordered table-responsive-md text-center" *ngIf="!isBusinessLoan">
+        <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center" *ngIf="!isBusinessLoan">
             <thead>
             <tr>
                 <th>Net Saving</th>
@@ -70,7 +70,7 @@
                        fullWidth>
                 <nb-tab class="px-0" tabTitle="Income Statement">
                     <table *ngIf="activeTab === 'Income Statement'"
-                           class="table table-condensed table-bordered table-responsive-md text-center">
+                           class="table table-condensed table-sm table-bordered table-responsive-md text-center">
                         <thead>
                         <tr>
                             <th>S.No.</th>
@@ -260,7 +260,7 @@
 
                 <nb-tab class="px-0" tabTitle="Balance Sheet">
                     <table *ngIf="activeTab === 'Balance Sheet'"
-                           class="table table-condensed table-bordered table-responsive-md text-center">
+                           class="table table-condensed table-sm table-bordered table-responsive-md text-center">
                         <thead>
                         <tr>
                             <th scope="col">S.No</th>
@@ -448,7 +448,7 @@
 
                 <nb-tab class="px-0" tabTitle="Cash Flow Statement">
                     <table *ngIf="activeTab === 'Cash Flow Statement'"
-                           class="table table-condensed table-bordered table-responsive-md text-center">
+                           class="table table-condensed table-sm table-bordered table-responsive-md text-center">
                         <thead>
                         <tr>
                             <th scope="col">S.No</th>
@@ -693,7 +693,7 @@
                 </nb-tab>
                 <nb-tab class="px-0" tabTitle="Key Indicators">
                     <table *ngIf="activeTab === 'Key Indicators'"
-                           class="table table-condensed table-bordered table-responsive-md text-center">
+                           class="table table-condensed table-sm table-bordered table-responsive-md text-center">
                         <thead>
                         <tr>
                             <th>S.No</th>
@@ -850,7 +850,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <table class="table table-condensed table-bordered table-responsive-md ">
+                    <table class="table table-condensed table-sm table-bordered table-responsive-md ">
                         <thead>
                         <tr>
                             <th class="text-left">Justification</th>
