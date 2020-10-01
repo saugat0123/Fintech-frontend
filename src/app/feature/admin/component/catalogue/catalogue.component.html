@@ -9,11 +9,12 @@
                                 [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
                                 nbButton
                                 shape="rectangle"
-                                status="primary">
-                            <em class="fa fa-filter"> Filter</em>
+                                status="primary"
+                                size="small">
+                            <i class="fa fa-filter"> Filter</i>
                         </button>
                         <nb-toggle (checkedChange)="onChangeTransferToggle($event)"
-                                   class="pt-2 pl-4" [disabled]="!transferToggle">
+                                   class="pt-2 pl-4" [disabled]="!transferToggle" height>
                             Transferred
                         </nb-toggle>
                         <nb-toggle (checkedChange)="onChangeShareToggle($event)"
@@ -27,7 +28,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
-                    <button nbButton outline status="info"
+                    <button nbButton outline status="info" size="small"
                             (click)="getCsv()">
                         <i class="fa fa-download" aria-hidden="true"></i></button>
                 </div>
@@ -111,10 +112,10 @@
                 </div>
 
                 <div class="col-md-12 p-0">
-                    <button [disabled]="!filterForm.valid" nbButton status="info" shape="rectangle" class="mr-2"
+                    <button [disabled]="!filterForm.valid" nbButton size="small" status="info" shape="rectangle" class="mr-2"
                             type="submit">Search
                     </button>
-                    <button (click)="clearSearch()" nbButton shape="rectangle" status="danger" type="button">Clear
+                    <button (click)="clearSearch()" nbButton shape="rectangle" size="small" status="danger" type="button">Clear
                     </button>
                 </div>
             </form>
@@ -123,9 +124,9 @@
     </nb-card-header>
     <nb-card-body>
         <br>
-        <table id="add-branch-table" class="table table-bordered table-hover ">
+        <table id="add-branch-table" class="table table-bordered table-hover sb-small">
             <thead>
-            <tr>
+            <tr class="sb-bg-dark text-white">
                 <th *ngIf="this.showBranch">Branch</th>
                 <th>Customer Name</th>
                 <th>Loan Facility</th>

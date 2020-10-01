@@ -3,7 +3,7 @@
         <p><strong>Security Position</strong></p>
         <div class="row" *ngIf= "vehicleSelected">
             <div class="col-md-12">
-                <table  class="table table-condensed table-bordered table-responsive-md text-center"  style="table-layout: fixed; width: 100%" *ngFor="let vehicleDetails of formData['initialForm']['vehicleDetails']; let i= index">
+                <table  class="table table-condensed table-bordered table-responsive-md text-center table-sm"  style="table-layout: fixed; width: 100%" *ngFor="let vehicleDetails of formData['initialForm']['vehicleDetails']; let i= index">
                 <thead>
                     <tr>
                         <th colspan="9">{{i+1}}.Details of Security Offered: Vehicle</th>
@@ -53,7 +53,7 @@
         </div>
         <div class="row" *ngIf= "landSelected">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center" *ngFor="let landDetails of formData['initialForm']['landDetails']; let i= index">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm" *ngFor="let landDetails of formData['initialForm']['landDetails']; let i= index">
                     <thead>
                     <tr>
                         <th class="text-center" colspan="8">{{i+1}}.Land Security Details</th>
@@ -101,7 +101,7 @@
         <!--        BuildingDetails-->
         <div class="row" *ngIf= "apartmentSelected">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center"  *ngFor="let buildingDetails of formData['initialForm']['landBuilding']; let i= index">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm"  *ngFor="let buildingDetails of formData['initialForm']['landBuilding']; let i= index">
                     <thead>
                     <tr>
                         <th class="text-center" colspan="8">{{i+1}}.Building Security Details</th>
@@ -149,7 +149,7 @@
         <div class="row" *ngIf="formData['underBuildingConstructionChecked']">
             <div class="col-md-12">
                 <p><strong>Building Under Construction</strong></p>
-                <table class="table table-condensed table-bordered table-responsive-md text-center">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm">
                     <thead>
                     <tr>
                         <th class="text-center" colspan="6">Building Before Completion</th>
@@ -173,7 +173,7 @@
                     </tr>
                     </thead>
                 </table>
-                <table class="table table-condensed table-bordered table-responsive-md text-center">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm">
                     <thead>
                     <tr>
                         <th class="text-center" colspan="6">Building After Completion</th>
@@ -201,7 +201,7 @@
 <!--        apartmentDetails-->
         <div class="row" *ngIf= "apartmentSelected">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center"  *ngFor="let buildingDetails of formData['initialForm']['buildingDetails']; let i= index">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm"  *ngFor="let buildingDetails of formData['initialForm']['buildingDetails']; let i= index">
                     <thead>
                     <tr>
                         <th class="text-center" colspan="8">{{i+1}}.Apartment Security Details</th>
@@ -249,7 +249,7 @@
         <div class="row" *ngIf="formData['underConstructionChecked']">
             <div class="col-md-12">
                 <p><strong>Apartment Under Construction</strong></p>
-                <table class="table table-condensed table-bordered table-responsive-md text-center">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm">
                     <thead>
                     <tr>
                         <th class="text-center" colspan="6">Apartment Before Completion</th>
@@ -273,7 +273,7 @@
                     </tr>
                     </thead>
                 </table>
-                <table class="table table-condensed table-bordered table-responsive-md text-center">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm">
                     <thead>
                     <tr>
                         <th class="text-center" colspan="6">Apartment After Completion</th>
@@ -302,7 +302,7 @@
 
         <div class="row" *ngIf= "plantSelected">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm">
                     <thead>
                     <tr>
                         <th class="text-center" colspan="7">Plant and Machinery Details Security</th>
@@ -331,7 +331,7 @@
         </div>
         <div *ngIf="depositSelected" class="row">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm">
                     <thead>
                     <tr>
                         <th class="text-center" colspan="7">Fixed Deposit Receipt Details</th>
@@ -369,10 +369,10 @@
                 <p><strong>Share Security Detail</strong>(Promoter Percent: {{loanSharePercent
                 == undefined ? 0 : loanSharePercent.promoter}} , Ordinary
                     Percent: {{loanSharePercent == undefined ? 0 : loanSharePercent.ordinary}})</p>
-                <table class="table table-bordered">
+                <table class="table table-bordered table-sm">
                     <thead>
                     <tr>
-                        <th> Sn</th>
+                        <th>S.N</th>
                         <th> Name of Company</th>
                         <th> Share Type</th>
                         <th>Share Unit</th>
@@ -407,7 +407,7 @@
         <!--        guarantors details-->
         <div *ngIf="isPresentGuarantor" class="row">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm">
                     <thead>
                     <tr>
                         <th class="text-center" colspan="6">Security Gurantors Details</th>

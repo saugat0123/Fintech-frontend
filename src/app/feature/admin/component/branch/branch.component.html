@@ -25,7 +25,8 @@
                             (click)="isFilterCollapsed = !isFilterCollapsed" [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
                             nbButton
                             shape="rectangle"
-                            status="primary">
+                            status="primary"
+                            size="small">
                             <i class="fa fa-filter"> Filter</i>
                         </button>
                     </div>
@@ -34,10 +35,11 @@
                             <button *ngIf='downloadCsv'
                                     nbButton outline status="info"
                                     class="mr-2"
+                                    size="small"
                                     (click)="getCsv()">
                                 <i class="fa fa-download" aria-hidden="true"></i>
                             </button>
-                            <button nbButton outline status="success" *ngIf='addViewBranch' (click)="add()">
+                            <button nbButton outline size="small" status="success" *ngIf='addViewBranch' (click)="add()">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
@@ -85,10 +87,10 @@
                                 </div>
                             </div>
                             <div class="col-md-12 p-0">
-                                <button nbButton status="info" shape="rectangle" class="mr-2"
+                                <button nbButton status="info" shape="rectangle" class="mr-2" size="small"
                                         type="submit">Search
                                 </button>
-                                <button (click)="clear()" shape="rectangle" nbButton status="danger">Clear</button>
+                                <button (click)="clear()" size="small" shape="rectangle" nbButton status="danger">Clear</button>
                             </div>
                         </form>
                     </div>
@@ -96,9 +98,9 @@
             </nb-card-header>
             <nb-card-body>
                 <div class="box-body" *ngIf='viewBranch'>
-                    <table id="add-branch-table" class="table table-bordered table-responsive-md table-hover ">
+                    <table id="add-branch-table" class="table table-bordered table-responsive-md table-hover sb-small">
                         <thead>
-                        <tr>
+                        <tr class="sb-bg-dark text-white">
                             <th>S.N</th>
                             <th>Branch Name</th>
                             <th>Code</th>
@@ -146,7 +148,7 @@
                             <td>
                                 <button *ngIf='editViewBranch'
                                         nbButton status="info"
-                                        size="small"
+                                        size="tiny"
                                         (click)="edit(allList)"
                                         title="Edit">
                                     <i class="fa fa-edit"></i>

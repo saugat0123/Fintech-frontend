@@ -1,17 +1,5 @@
 <section class="enable-print">
   <nb-card>
-    <nb-card-header class="disable-print">
-      <app-loan-action
-          *ngIf="loanDataHolder"
-          [actionsList]="actionsList"
-          [catalogueStatus]="catalogueStatus"
-          [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
-          [id]="customerId"
-          [loanCategory]="loanCategory"
-          [loanConfigId]="loanConfigId"
-          [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"
-      ></app-loan-action>
-    </nb-card-header>
     <nb-card-body id="print-block">
       <div *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId"
            class="row text-success cursor disable-print">
@@ -110,7 +98,7 @@
       <hr class="print-line">
       <div class="row">
         <div class="col-md-6">
-          <span><strong>Ref. No: </strong>{{dmsLoanFile?.id}}</span>
+          <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span>
         </div>
         <div class="col-md-6">
           <p class="text-right"><strong>Date: </strong>{{loanDataHolder?.createdAt | date}}
@@ -243,52 +231,7 @@
 
       <div *ngIf="loanCategory === 'BUSINESS_TYPE'" class="row">
         <div class="col-md-12">
-          <p><strong>Details of Company</strong></p>
-        </div>
-        <div class="col-md-12">
-          <table
-              class="table table-condensed table-bordered table-responsive-md disable-print text-center">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Establishment Date</th>
-              <th>PAN</th>
-              <th>Registration Number</th>
-              <th>Business Type</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>{{loanDataHolder?.companyInfo?.companyName}}</td>
-              <td>{{loanDataHolder?.companyInfo?.establishmentDate | date}}</td>
-              <td>{{loanDataHolder?.companyInfo?.panNumber}}</td>
-              <td>{{loanDataHolder?.companyInfo?.registrationNumber}}</td>
-              <td>{{businessType[loanDataHolder?.companyInfo?.businessType]}}</td>
-            </tr>
-            </tbody>
-          </table>
-          <table class="print-only table table-bordered text-center" id="print-company-table">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Establishment Date</th>
-              <th>PAN</th>
-              <th>Registration Number</th>
-              <th>Business Type</th>
-              <th>Key Person</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>{{loanDataHolder?.companyInfo?.companyName}}</td>
-              <td>{{loanDataHolder?.companyInfo?.establishmentDate | date}}</td>
-              <td>{{loanDataHolder?.companyInfo?.panNumber}}</td>
-              <td>{{loanDataHolder?.companyInfo?.registrationNumber}}</td>
-              <td>{{businessType[loanDataHolder?.companyInfo?.businessType]}}</td>
-              <td>{{loanDataHolder?.dmsLoanFile?.keyPersonName}}</td>
-            </tr>
-            </tbody>
-          </table>
+        <app-company-info-summary [companyInfo]="loanDataHolder?.companyInfo"></app-company-info-summary>
         </div>
       </div>
 
@@ -300,7 +243,7 @@
         <div class="col-md-12">
           <div *ngIf="loanCategory === 'PERSONAL_TYPE'">
             <table
-                class="table table-condensed table-bordered table-responsive-md disable-print text-center">
+                class="table table-condensed table-bordered table-sm table-responsive-md disable-print text-center">
               <thead>
               <tr>
                 <th>Name</th>
@@ -347,7 +290,7 @@
           </div>
           <div *ngIf="loanCategory === 'BUSINESS_TYPE'">
             <table
-                class="table table-condensed table-bordered table-responsive-md text-center">
+                class="table table-condensed table-sm table-bordered table-responsive-md text-center">
               <thead>
               <tr>
                 <th>Name</th>
@@ -358,12 +301,12 @@
               </thead>
               <tbody>
               <tr>
-                <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
-                <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
-                <td>{{loanDataHolder?.customerInfo?.email}}</td>
-                <td>{{loanDataHolder?.customerInfo?.province?.name}}
-                  ,{{loanDataHolder?.customerInfo?.district?.name}}
-                  ,{{ loanDataHolder?.customerInfo?.municipalities?.name}}</td>
+                <td>{{loanDataHolder?.companyInfo?.contactPerson?.name}}</td>
+                <td>{{loanDataHolder?.companyInfo?.contactPerson?.contactNumber}}</td>
+                <td>{{loanDataHolder?.companyInfo?.contactPerson?.email}}</td>
+                <td>{{loanDataHolder?.companyInfo?.contactPerson?.province?.name}}
+                  ,{{loanDataHolder?.companyInfo?.contactPerson?.district?.name}}
+                  ,{{ loanDataHolder?.companyInfo?.contactPerson?.municipalityVdc?.name}}</td>
               </tr>
               </tbody>
             </table>
@@ -371,7 +314,7 @@
           <div *ngIf="loanCategory === 'PERSONAL_TYPE'">
             <p><strong>Family Details</strong></p>
             <table
-                class="table table-condensed table-bordered table-responsive-md text-center">
+                class="table table-condensed table-bordered table-responsive-md text-center table-sm">
               <thead>
               <tr>
                 <th>Name</th>
@@ -476,13 +419,6 @@
           </table>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <strong>Propose Amount:</strong>
-          Rs. {{loanDataHolder?.proposal?.proposedAmountInWords}}
-          Only /-
-        </div>
-      </div>
       <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
         <div class="col-md-12">
           <p><strong>Security Offered</strong></p>
@@ -537,6 +473,13 @@
           *ngIf="proposalSummary"
           [customerAllLoanList]="customerAllLoanList"
           [proposalData]="proposalData"></app-proposal-summary>
+      <div class="row">
+        <div class="col-md-12">
+          <strong>Propose Amount:</strong>
+          Rs. {{loanDataHolder?.proposal?.proposedAmountInWords}}
+          Only /-
+        </div>
+      </div>
 
       <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
       [customerGroup]="loanDataHolder.loanHolder.customerGroup" [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>
@@ -599,7 +542,7 @@
         <div class="col-md-12">
           <p><strong>Authority Section</strong></p>
           <table
-              class="table table-condensed table-bordered table-responsive-md text-center">
+              class="table table-condensed table-bordered table-responsive-md text-center table-sm">
             <thead>
             <tr>
               <th>S.N</th>
