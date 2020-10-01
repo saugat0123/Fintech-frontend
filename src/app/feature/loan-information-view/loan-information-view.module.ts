@@ -15,6 +15,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import { SecurityViewComponent } from './security-view/security-view.component';
 import { CompanyInfoViewComponent } from './company-info-view/company-info-view.component';
+import { CiclViewComponent } from './cicl-view/cicl-view.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { CompanyInfoViewComponent } from './company-info-view/company-info-view.
     CustomerInfoSearchFormComponent,
     SecurityViewComponent,
     CompanyInfoViewComponent,
+    CiclViewComponent,
   ],
   exports: [
     InsuranceViewComponent,
@@ -36,6 +38,7 @@ import { CompanyInfoViewComponent } from './company-info-view/company-info-view.
     IndividualViewComponent,
     SecurityViewComponent,
     CompanyInfoViewComponent,
+    CiclViewComponent,
   ],
   imports: [
     CommonModule,
