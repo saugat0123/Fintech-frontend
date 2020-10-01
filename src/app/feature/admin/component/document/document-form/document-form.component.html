@@ -1,37 +1,48 @@
-
-    <div class="modal-header">
-      <h4 class="modal-title">{{action}} Document</h4>
-      <a (click)="dismiss()" aria-label="Close" class="close cursor"
-         data-dismiss="modal">
-        <span aria-hidden="true">×</span></a>
+<nb-card class="mb-0">
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-6">{{action}} Document</div>
+      <div class="col-md-6">
+        <a (click)="dismiss()" aria-label="Close" class="close cursor" data-dismiss="modal">
+          <span aria-hidden="true">×</span></a>
+      </div>
     </div>
-    <div class="modal-body">
-      <form (ngSubmit)="modelForm.valid && onSubmit()" [formGroup]="modelForm">
-        <div class="form-group">
-          <div class="row">
-            <div class="col-md-12">
-              <input class="form-control" formControlName="id" type="hidden">
-              <div class="form-group">
-                <label for="name">Name</label>
-                <input [ngClass]="{
+  </nb-card-header>
+  <nb-card-body>
+    <form (ngSubmit)="modelForm.valid && onSubmit()" [formGroup]="modelForm">
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <input class="form-control" formControlName="id" type="hidden">
+          <label for="name">Name</label>
+          <input [ngClass]="{
                                 'is-invalid': name.invalid && (name.dirty || name.touched),
                                 'is-valid': !name.invalid && (name.dirty || name.touched)
                                 }"
-                       formControlName="name" class="form-control"
-                       id="name" placeholder="Name"/>
-                <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback">
-                  Name is invalid or should be separated by whitespace only.
-                </div>
-              </div>
-            </div>
-            <br>
+                 class="form-control" formControlName="name"
+                 id="name" placeholder="Name"/>
+          <small class="text-danger text-muted">
+            Words must be strictly separated with whitespace only.
+          </small>
+          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback">
+            Name is invalid or should be separated by whitespace only.
           </div>
         </div>
-        <div class="modal-footer">
-          <label class="text-danger text-left subtitle-2">* Words must be strictly separated with whitespace
-            only.</label>
-          <br/>
-          <button [disabled]="modelForm.invalid" nbButton status="info" type="submit">Save</button>
+        <br>
+      </div>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label for="checkType">Check Type</label>
+          <nb-radio-group formControlName="checkType" id="checkType">
+            <nb-radio [value]="null">Default</nb-radio>
+            <nb-radio *ngFor="let type of DocumentCheckTypeEnum" [value]="type">
+              {{ type | titlecase }}
+            </nb-radio>
+          </nb-radio-group>
         </div>
-      </form>
-    </div>
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="modelForm.invalid" nbButton status="info" type="submit">Save</button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>
