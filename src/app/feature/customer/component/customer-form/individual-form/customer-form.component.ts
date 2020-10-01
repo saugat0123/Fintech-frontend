@@ -26,7 +26,7 @@ export class CustomerFormComponent implements OnInit {
   @Input() formValue: Customer;
   calendarType = 'AD';
   @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
-  selectedArray = [];
+
   basicInfo: FormGroup;
   submitted = false;
   spinner = false;
@@ -63,6 +63,7 @@ export class CustomerFormComponent implements OnInit {
       protected ref: NbDialogRef<CustomerFormComponent>
   ) {
   }
+
   ngOnInit() {
     this.getProvince();
     this.getAllDistrict();

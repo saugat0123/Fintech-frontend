@@ -294,9 +294,8 @@
             <div class="form-group">
               <label for="otherOccupation"><strong>Occupation </strong></label>
               <nb-select [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.occupation.errors }"
-                         class="form-control"
                          formControlName="occupation"
-                         placeholder="Occupation" multiple >
+                         placeholder="Occupation" multiple size="tiny" >
                 <nb-option value="Business Owner">Business Owner</nb-option>
                 <nb-option value="Chartered Accountant">Chartered Accountant</nb-option>
                 <nb-option value="Lawyer">Lawyer</nb-option>
@@ -328,9 +327,8 @@
             <div class="form-group">
               <label><strong>Income Source</strong></label>
               <nb-select [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.incomeSource.errors }"
-                         class="form-control"
                          formControlName="incomeSource" id="incomeSource" name="incomeSource"
-                         placeholder="Income Source" multiple >
+                         placeholder="Income Source" multiple tiny >
                 <nb-option value="Salaried">Salaried</nb-option>
                 <nb-option value="Business">Business</nb-option>
                 <nb-option value="Salaried & Business">Salaried & Business</nb-option>
@@ -451,7 +449,6 @@
             Introduction is required
           </div>
         </div>
-        {{basicInfo.value |json}}
       </div>
         <!-- END ROW -->
       </form>
