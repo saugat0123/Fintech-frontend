@@ -40,6 +40,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
   @Input() loanFlags: CustomerLoanFlag[];
   @Input() actionsList: ActionModel;
   @Input() combinedLoanId: number;
+  @Input() hasDeferredDocs: boolean;
   public isMaker = false;
   public committeeRole = false;
 
@@ -145,6 +146,11 @@ export class LoanActionComponent implements OnInit, OnChanges {
           documentStatus: DocStatus.CLOSED
         };
         break;
+    }
+    if (this.hasDeferredDocs) {
+      context.additionalDetails = {
+        hasDeferredDocs: true
+      };
     }
     if (ObjectUtil.isEmpty(this.combinedLoanId)) {
       this.nbDialogService.open(LoanActionModalComponent, {context});
