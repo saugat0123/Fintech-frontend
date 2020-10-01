@@ -23,6 +23,7 @@ export class CiclComponent implements OnInit {
 
   submitted = false;
 
+
   constructor(
       private formBuilder: FormBuilder,
       private toastService: ToastService
@@ -44,23 +45,25 @@ export class CiclComponent implements OnInit {
 
 
   ngOnInit() {
+
     if (!ObjectUtil.isEmpty(this.ciclValue)) {
       this.ciclList = JSON.parse(this.ciclValue.data);
     }
-
-
     this.buildCiclForm();
+
 
   }
 
   buildCiclForm() {
     this.ciclForm = this.formBuilder.group({
       ciclArray: this.formBuilder.array([]),
-      ciclRemarks: [this.ciclValue.remarks === undefined ? '' : this.ciclValue.remarks]
+      ciclRemarks: [ObjectUtil.isEmpty(this.ciclValue) ? '' : this.ciclValue.remarks]
     });
     if (!ObjectUtil.isEmpty(this.ciclList)) {
       if ((this.ciclList.length > 0)) {
         this.patchCiclFormGroup(this.ciclList);
+      } else {
+        this.addCiclFormGroup();
       }
     } else {
       this.addCiclFormGroup();
@@ -68,6 +71,19 @@ export class CiclComponent implements OnInit {
   }
 
   addCiclFormGroup() {
+    const controls = this.ciclForm.controls.ciclArray as FormArray;
+
+    controls.push(
+        this.formBuilder.group({
+          fiName: [undefined, Validators.required],
+          facilityName: [undefined, Validators.required],
+          overdueAmount: [undefined, Validators.required],
+          outstandingAmount: [undefined, Validators.required],
+          ciclStatus: [undefined, Validators.required]
+        }));
+  }
+
+  addCicl() {
     const controls = this.ciclForm.controls.ciclArray as FormArray;
     if (FormUtils.checkEmptyProperties(controls)) {
       this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All CICL Detail To Add More'));
@@ -81,6 +97,7 @@ export class CiclComponent implements OnInit {
           outstandingAmount: [undefined, Validators.required],
           ciclStatus: [undefined, Validators.required]
         }));
+
   }
 
   removeCICL(index: number) {
@@ -111,7 +128,6 @@ export class CiclComponent implements OnInit {
 
     // CICL
 
-    console.log(this.ciclRemarks);
     this.ciclList = new Array<Cicl>();
     const ciclControls = this.ciclArray as FormArray;
     for (const arrayControl of ciclControls.controls) {
