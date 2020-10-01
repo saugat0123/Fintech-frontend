@@ -1,5 +1,8 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {FinancialDeleteComponentComponent} from '../financial-delete-component/financial-delete-component.component';
+import {ModalResponse} from '../../../../@core/utils';
 
 @Component({
     selector: 'app-cash-flow-statement',
@@ -12,7 +15,8 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
     @Output() removeFiscalYear = new EventEmitter<any>();
     cashFlowStatementForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder,
+                private modalService: NgbModal) {
     }
 
     ngOnInit() {
@@ -92,9 +96,14 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
         });
     }
 
+    // Removing Fiscal Year--
     removingFiscalYear(fiscalYear, index) {
-        const removeParamsObject = {fiscalYear: fiscalYear, index: index};
-        this.removeFiscalYear.next(removeParamsObject);
+        this.modalService.open(FinancialDeleteComponentComponent).result.then(message => {
+            if (message === ModalResponse.SUCCESS) {
+                const removeParamsObject = {fiscalYear: fiscalYear, index: index};
+                this.removeFiscalYear.next(removeParamsObject);
+            }
+        });
     }
 
     // Setting data for edit---
