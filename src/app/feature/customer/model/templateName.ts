@@ -9,4 +9,5 @@ export class TemplateName {
   static CRG_ALPHA = 'CrgAlpha';
   static CRG_GAMMA = 'CrgGamma';
   static CRG = 'Crg';
+  static CICL = 'CICL';
 }

@@ -1,4 +1,4 @@
-<nb-card >
+<nb-card>
 
   <nb-card-header>
     <h2 class="d-flex justify-content-center">{{loanTitle}}</h2>
@@ -48,14 +48,14 @@
           </nb-radio-group>
         </div>
       </div>
-<!--      todo uncomment this if nepali form is required-->
-<!--      <div *ngIf="productUtils.NEP_TEMPLATE" class="col-md-3">-->
-<!--        <div class=" d-flex justify-content-end py-4">-->
-<!--          <button (click)="nepaliFormTemplate()" class="btn btn-flat btn-outline-primary">-->
-<!--            नेपाली फारम-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--      todo uncomment this if nepali form is required-->
+      <!--      <div *ngIf="productUtils.NEP_TEMPLATE" class="col-md-3">-->
+      <!--        <div class=" d-flex justify-content-end py-4">-->
+      <!--          <button (click)="nepaliFormTemplate()" class="btn btn-flat btn-outline-primary">-->
+      <!--            नेपाली फारम-->
+      <!--          </button>-->
+      <!--        </div>-->
+      <!--      </div>-->
 
     </div>
 
@@ -102,10 +102,12 @@
             <app-proposal [formValue]="loadProposal()" #proposalInfo></app-proposal>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'CICL'">
-            <app-cicl #cicl
-                      [ciclRemark]="loanDocument?.ciclRemarks"
-                      [ciclValue]="loanDocument?.ciclList"
-                      [insuranceValue]="loanDocument?.insurance"></app-cicl>
+            <div class="py-4">
+              <app-cicl-view #cicl
+
+                             [ciclValue]="loanDocument?.loanHolder?.cicl"
+              ></app-cicl-view>
+            </div>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading'">
             <app-credit-grading #creditGrading
@@ -115,8 +117,8 @@
 
           <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Gamma'">
             <app-credit-risk-grading-gamma #crgGamma
-                                [fromProfile]="false"
-                                [formData]="loanDocument?.crgGamma"></app-credit-risk-grading-gamma>
+                                           [fromProfile]="false"
+                                           [formData]="loanDocument?.crgGamma"></app-credit-risk-grading-gamma>
           </ng-template>
 
           <ng-template ngbTabContent *ngIf="allList.name === 'Financial'">

@@ -25,7 +25,8 @@ import {CustomerLoanDocumentComponent} from './customer-loan-document/customer-l
 import {CreditRiskGradingAlphaComponent} from './credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 import {CreditGradingComponent} from './credit-grading/credit-grading.component';
 import {ProposalComponent} from './proposal/proposal.component';
-import { CreditRiskGradingGammaComponent } from './credit-risk-grading-gamma/credit-risk-grading-gamma.component';
+import {CreditRiskGradingGammaComponent} from './credit-risk-grading-gamma/credit-risk-grading-gamma.component';
+import {CiclComponent} from './cicl/cicl.component';
 import { TemplateDocumentComponent } from './template-document/template-document.component';
 
 const COMPONENTS = [
@@ -46,11 +47,13 @@ const COMPONENTS = [
   CreditRiskGradingAlphaComponent,
   CreditGradingComponent,
   ProposalComponent,
-  CreditRiskGradingGammaComponent
+  CreditRiskGradingGammaComponent,
+  CiclComponent,
+  TemplateDocumentComponent
 ];
 
 @NgModule({
-  declarations: [...COMPONENTS, TemplateDocumentComponent],
+  declarations: [...COMPONENTS],
   exports: [...COMPONENTS],
   entryComponents: [...COMPONENTS],
   imports: [
