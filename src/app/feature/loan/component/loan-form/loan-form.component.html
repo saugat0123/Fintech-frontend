@@ -142,8 +142,10 @@
             <!--                          [calendarType]="calendarType"-->
             <!--                          [loanTag]="loanTag"-->
             <!--                          [shareSecurity]="loanDocument?.shareSecurity"></app-security>-->
-            <app-security-view [security]="loanHolder?.security"
-                               [shareSecurityData]="loanHolder?.shareSecurity"></app-security-view>
+            <div class="py-4">
+              <app-security-view [security]="loanHolder?.security"
+                                 [shareSecurityData]="loanHolder?.shareSecurity"></app-security-view>
+            </div>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Customer Document'">
             <app-customer-loan-document #customerDocument
