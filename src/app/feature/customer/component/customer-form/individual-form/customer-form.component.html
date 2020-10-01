@@ -340,18 +340,18 @@
               </nb-select>
               <div *ngIf="basicInfo.get('incomeSource')?.value == 'Other'"
                    class="col-md-12 form-group">
+                <label>Other occupation(s)</label>
                 <input class="form-control" formControlName="otherIncome" id="otherIncome"
-                       name="otherIncome" placeholder="Other Income Source" type="text">
+                       name="otherIncome" placeholder="Other Income source" type="text">
               <div *ngIf="submitted && basicInfoControls.incomeSource.errors"
                    class="invalid-feedback">
                 <div *ngIf="basicInfoControls.incomeSource.errors.required">Income Source is
                   required
-                </div>
               </div>
             </div>
           </div>
         </div>
-        </div>
+          </div></div>
         <div>
           <div
               *ngFor="let relatives of basicInfo.get('customerRelatives')['controls']; let i = index"
@@ -451,6 +451,7 @@
             Introduction is required
           </div>
         </div>
+        {{basicInfo.value |json}}
       </div>
         <!-- END ROW -->
       </form>
@@ -463,7 +464,6 @@
       <button nbButton status="info" (click)="close()" class=" mr-2">close</button>
       <button nbButton (click)="onSubmit()">save</button>
     </div>
-
 
   </nb-card-footer>
 </nb-card>

@@ -26,7 +26,7 @@ export class CustomerFormComponent implements OnInit {
   @Input() formValue: Customer;
   calendarType = 'AD';
   @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+  selectedArray = [];
   basicInfo: FormGroup;
   submitted = false;
   spinner = false;
@@ -63,7 +63,6 @@ export class CustomerFormComponent implements OnInit {
       protected ref: NbDialogRef<CustomerFormComponent>
   ) {
   }
-
   ngOnInit() {
     this.getProvince();
     this.getAllDistrict();
@@ -200,10 +199,19 @@ export class CustomerFormComponent implements OnInit {
         this.customer.citizenshipNumber = this.basicInfo.get('citizenshipNumber').value;
         this.customer.citizenshipIssuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
         this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
-        this.customer.occupation = this.basicInfo.get('occupation').value;
-        this.customer.occupation = this.basicInfo.get('otherOccupation').value;
-        this.customer.incomeSource = this.basicInfo.get('incomeSource').value;
-        this.customer.incomeSource = this.basicInfo.get('otherIncome').value;
+        console.log(this.basicInfo.get('otherOccupation').value)
+        console.log(this.basicInfo.get('occupation').value);
+        console.log(this.basicInfo.get('occupation').value === 'Other');
+        const occupations = {
+          multipleOccupation : this.basicInfo.get('occupation').value ,
+          otherOccupation : this.basicInfo.get('otherOccupation').value
+        }
+        const incomeSource = {
+          multipleIncome : this.basicInfo.get('incomeSource').value ,
+          otherIncome : this.basicInfo.get('otherIncome').value
+        }
+        this.customer.occupation = JSON.stringify(occupations);
+        this.customer.incomeSource = JSON.stringify(incomeSource);
         this.customer.introduction = this.basicInfo.get('introduction').value;
         this.customer.version = this.basicInfo.get('version').value;
         const rawFromValue = this.basicInfo.getRawValue();
