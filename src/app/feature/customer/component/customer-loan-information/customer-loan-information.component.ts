@@ -78,9 +78,8 @@ export class CustomerLoanInformationComponent implements OnInit {
   private shareSecurity: ShareSecurity;
   private guarantors: GuarantorDetail;
   public insurance: Array<Insurance>;
-  private ciclResponse: CiclArray;
-  private ciclInput: any;
-  private ciclRemark: any;
+  public ciclResponse: CiclArray;
+
 
   constructor(
       private toastService: ToastService,
