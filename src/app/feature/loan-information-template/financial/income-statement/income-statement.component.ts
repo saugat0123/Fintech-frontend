@@ -1,6 +1,9 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {FinancialService} from '../financial.service';
+import {FinancialDeleteComponentComponent} from '../financial-delete-component/financial-delete-component.component';
+import {ModalResponse} from '../../../../@core/utils';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-income-statement',
@@ -14,6 +17,7 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
     incomeStatementForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder,
+                private modalService: NgbModal,
                 private financialService: FinancialService) {
     }
 
@@ -136,8 +140,12 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
 
     // Removing Fiscal Year--
     removingFiscalYear(fiscalYear, index) {
-        const removeParamsObject = {fiscalYear: fiscalYear, index: index};
-        this.removeFiscalYear.next(removeParamsObject);
+        this.modalService.open(FinancialDeleteComponentComponent).result.then(message => {
+            if (message === ModalResponse.SUCCESS) {
+                const removeParamsObject = {fiscalYear: fiscalYear, index: index};
+                this.removeFiscalYear.next(removeParamsObject);
+            }
+        });
     }
 
     // Formula implementation---
@@ -232,7 +240,7 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
                 + Number(otherAdjustment.controls['value'].value)) + Number(accumulatedProfitBOrD.controls['value'].value)).toFixed(2);
         netProfitTransferredToBalanceSheet.controls['value'].setValue(netProfitTransferredToBalanceSheetValue);
         // Reflecting the value of netProfitTransferredToBalanceSheetValue into Balance Sheet (BS43)---
-        // balanceSheet.netWorthCategory[index]
+        balanceSheet.netWorthCategory[1].amount[index].value = netProfitTransferredToBalanceSheetValue;
 
 
         //
