@@ -5,6 +5,11 @@
       <span aria-hidden="true">×</span></a>
     <strong>{{guarantorData?.name}} Details</strong>
   </nb-card-header>
+  <div class="row">
+    <div class="col-md-12">
+      <nb-checkbox [value]="guarantorData?.consentOfLegalHeirs">Consent Of LegalHeirs</nb-checkbox>
+    </div>
+  </div>
       <ng-container>
         <table class="table table-bordered table-hover text-center">
           <tr>
