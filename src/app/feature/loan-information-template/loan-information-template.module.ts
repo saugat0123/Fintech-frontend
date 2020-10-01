@@ -26,6 +26,7 @@ import {CreditRiskGradingAlphaComponent} from './credit-risk-grading-alpha/credi
 import {CreditGradingComponent} from './credit-grading/credit-grading.component';
 import {ProposalComponent} from './proposal/proposal.component';
 import { CreditRiskGradingGammaComponent } from './credit-risk-grading-gamma/credit-risk-grading-gamma.component';
+import { TemplateDocumentComponent } from './template-document/template-document.component';
 
 const COMPONENTS = [
   SiteVisitComponent,
@@ -49,7 +50,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  declarations: [...COMPONENTS],
+  declarations: [...COMPONENTS, TemplateDocumentComponent],
   exports: [...COMPONENTS],
   entryComponents: [...COMPONENTS],
   imports: [

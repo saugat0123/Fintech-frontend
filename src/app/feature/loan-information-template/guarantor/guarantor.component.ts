@@ -25,6 +25,7 @@ export class GuarantorComponent implements OnInit {
   @Input() calendarType: CalendarType;
   @Output() guarantorDataEmitter = new EventEmitter();
   @Input() fromProfile: boolean;
+  @Input() customerInfo;
 
   form: FormGroup;
   submitted = false;
@@ -43,6 +44,8 @@ export class GuarantorComponent implements OnInit {
   allDistrict: Array<District> = new Array<District>();
   relationshipList: RelationshipList = new RelationshipList();
   relationList;
+  docTitle = 'Net Worth Document';
+  docFolderName = 'guarantorDoc';
   constructor(
       private formBuilder: FormBuilder,
       private addressServices: AddressService,
@@ -145,6 +148,9 @@ export class GuarantorComponent implements OnInit {
       relationship: [
         ObjectUtil.setUndefinedIfNull(data.relationship),
         Validators.required
+      ],
+      docPath: [
+          ObjectUtil.setUndefinedIfNull(data.docPath)
       ]
     });
   }
@@ -221,5 +227,9 @@ export class GuarantorComponent implements OnInit {
     this.addressServices.getAllDistrict().subscribe((response: any) => {
       this.allDistrict = response.detail;
     });
+  }
+
+  documentPath(path, i) {
+    this.form.get(['guarantorDetails', i, 'docPath']).patchValue(path);
   }
 }

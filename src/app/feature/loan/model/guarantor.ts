@@ -16,4 +16,5 @@ export class Guarantor {
     fatherName: string;
     grandFatherName: string;
     relationship: string;
+    docPath: string;
 }
