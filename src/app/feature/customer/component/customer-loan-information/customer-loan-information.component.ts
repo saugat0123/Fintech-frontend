@@ -23,6 +23,7 @@ import {CreditRiskGrading} from '../../../admin/modal/creditRiskGrading';
 import {CreditGradingComponent} from '../../../loan-information-template/credit-grading/credit-grading.component';
 import {CreditRiskGradingGammaComponent} from '../../../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {CreditRiskGradingGamma} from '../../../admin/modal/creditRiskGradingGamma';
+import {CiclArray} from '../../../admin/modal/cicl';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -62,7 +63,10 @@ export class CustomerLoanInformationComponent implements OnInit {
   @ViewChild('itemGuarantor', {static: false})
   private itemGuarantor: NbAccordionItemComponent;
   @ViewChild('itemInsurance', {static: false})
-  private  itemInsurance: NbAccordionItemComponent;
+  private itemInsurance: NbAccordionItemComponent;
+
+  @ViewChild('ciclComponent', {static: false})
+  private itemCicl: NbAccordionItemComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
   calendarType: CalendarType = CalendarType.AD;
   private siteVisit: SiteVisit;
@@ -74,6 +78,9 @@ export class CustomerLoanInformationComponent implements OnInit {
   private shareSecurity: ShareSecurity;
   private guarantors: GuarantorDetail;
   public insurance: Array<Insurance>;
+  private ciclResponse: CiclArray;
+  private ciclInput: any;
+  private ciclRemark: any;
 
   constructor(
       private toastService: ToastService,
@@ -106,6 +113,9 @@ export class CustomerLoanInformationComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
       this.guarantors = this.customerInfo.guarantors;
     }
+    if (!ObjectUtil.isEmpty(this.customerInfo.cicl)) {
+      this.ciclResponse = this.customerInfo.cicl;
+    }
   }
 
   public saveSiteVisit(data: string) {
@@ -130,14 +140,14 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     this.financial.data = data;
     this.customerInfoService.saveLoanInfo(this.financial, this.customerInfoId, TemplateName.FINANCIAL)
-        .subscribe(() => {
-          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Financial!'));
-          this.itemFinancial.close();
-          this.triggerCustomerRefresh.emit(true);
-        }, error => {
-          console.error(error);
-          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Financial!'));
-        });
+    .subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Financial!'));
+      this.itemFinancial.close();
+      this.triggerCustomerRefresh.emit(true);
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Financial!'));
+    });
   }
 
   public saveSecurity(data: Security) {
@@ -159,18 +169,20 @@ export class CustomerLoanInformationComponent implements OnInit {
         console.error(error);
         this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Security Data!'));
       });
-    }}
-    saveShare(data) {
-      this.shareSecurity = data.share;
-      this.customerInfoService.saveLoanInfo(this.shareSecurity, this.customerInfoId, TemplateName.SHARE_SECURITY)
-      .subscribe(() => {
-        this.itemSecurity.close();
-        this.triggerCustomerRefresh.emit(true);
-      }, error => {
-        console.error(error);
-        this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Share Security!'));
-      });
     }
+  }
+
+  saveShare(data) {
+    this.shareSecurity = data.share;
+    this.customerInfoService.saveLoanInfo(this.shareSecurity, this.customerInfoId, TemplateName.SHARE_SECURITY)
+    .subscribe(() => {
+      this.itemSecurity.close();
+      this.triggerCustomerRefresh.emit(true);
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Share Security!'));
+    });
+  }
 
   saveGuarantor(data: GuarantorDetail) {
     if (ObjectUtil.isEmpty(this.guarantors)) {
@@ -178,31 +190,31 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     this.guarantors = data;
     this.customerInfoService.saveLoanInfo(this.guarantors, this.customerInfoId, TemplateName.GUARANTOR)
-        .subscribe(() => {
-          this.toastService.show(new Alert(AlertType.SUCCESS, 'Guarantor saved successfully !'));
-          this.itemGuarantor.close();
-          this.triggerCustomerRefresh.emit(true);
-        }, error => {
-          console.error(error);
-          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Guarantor !'));
+    .subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Guarantor saved successfully !'));
+      this.itemGuarantor.close();
+      this.triggerCustomerRefresh.emit(true);
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Guarantor !'));
     });
   }
 
-    public saveInsurance(data: Array<Insurance>) {
-      if (ObjectUtil.isEmpty(this.insurance)) {
-        this.insurance = new Array<Insurance>();
-      }
-      this.insurance = data;
-      this.customerInfoService.saveLoanInfo(this.insurance, this.customerInfoId, TemplateName.INSURANCE)
-      .subscribe(() => {
-        this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Insurance!'));
-        this.itemInsurance.close();
-        this.triggerCustomerRefresh.emit(true);
-      }, error => {
-        console.error(error);
-        this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Insurance!'));
-      });
+  public saveInsurance(data: Array<Insurance>) {
+    if (ObjectUtil.isEmpty(this.insurance)) {
+      this.insurance = new Array<Insurance>();
     }
+    this.insurance = data;
+    this.customerInfoService.saveLoanInfo(this.insurance, this.customerInfoId, TemplateName.INSURANCE)
+    .subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Insurance!'));
+      this.itemInsurance.close();
+      this.triggerCustomerRefresh.emit(true);
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Insurance!'));
+    });
+  }
 
   saveCrgAlpha(data: string) {
     if (ObjectUtil.isEmpty(this.creditRiskGradingAlpha)) {
@@ -210,14 +222,14 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     this.creditRiskGradingAlpha.data = data;
     this.customerInfoService.saveLoanInfo(this.creditRiskGradingAlpha, this.customerInfoId, TemplateName.CRG_ALPHA)
-        .subscribe(() => {
-          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Risk Grading (Alpha)!'));
-          this.itemCrgAlpha.close();
-          this.triggerCustomerRefresh.emit(true);
-        }, error => {
-          console.error(error);
-          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Risk Grading (Alpha)!'));
-        });
+    .subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Risk Grading (Alpha)!'));
+      this.itemCrgAlpha.close();
+      this.triggerCustomerRefresh.emit(true);
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Risk Grading (Alpha)!'));
+    });
   }
 
   saveCrg(data: string) {
@@ -226,14 +238,14 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     this.creditRiskGrading.data = data;
     this.customerInfoService.saveLoanInfo(this.creditRiskGrading, this.customerInfoId, TemplateName.CRG)
-        .subscribe(() => {
-          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Risk Grading!'));
-          this.itemCrg.close();
-          this.triggerCustomerRefresh.emit(true);
-        }, error => {
-          console.error(error);
-          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Risk Grading!'));
-        });
+    .subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Risk Grading!'));
+      this.itemCrg.close();
+      this.triggerCustomerRefresh.emit(true);
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Risk Grading!'));
+    });
   }
 
   saveCrgGamma(data: string) {
@@ -242,13 +254,31 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     this.crgGamma.data = data;
     this.customerInfoService.saveLoanInfo(this.crgGamma, this.customerInfoId, TemplateName.CRG_GAMMA)
-        .subscribe(() => {
-          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Risk Grading (Gamma)!'));
-          this.itemCrgGamma.close();
-          this.triggerCustomerRefresh.emit(true);
-        }, error => {
-          console.error(error);
-          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Risk Grading (Gamma)!'));
-        });
+    .subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Risk Grading (Gamma)!'));
+      this.itemCrgGamma.close();
+      this.triggerCustomerRefresh.emit(true);
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Risk Grading (Gamma)!'));
+    });
+  }
+
+  saveCICL(data: CiclArray) {
+    if (ObjectUtil.isEmpty(this.ciclResponse)) {
+      this.ciclResponse = new CiclArray();
+    }
+    this.ciclResponse = data;
+
+    console.log( this.ciclResponse);
+    this.customerInfoService.saveLoanInfo(this.ciclResponse, this.customerInfoId, TemplateName.CICL)
+    .subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved CICL!'));
+      this.itemCicl.close();
+      this.triggerCustomerRefresh.emit(true);
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved CICL)!'));
+    });
   }
 }

@@ -87,6 +87,19 @@ $color-bank-dark: #007bff;
     perspective: 1000px;
 }
 
+
+.sb-small {
+  font-size: 70%;
+  font-weight: 400;
+}
+
+.sb-bg-dark {
+  background-color: #343a40 !important;
+}
+
+.sb-bg-secondary {
+  background-color: #6c757d !important;
+}
 /* shake keyframes */
 @keyframes shake {
   10%,

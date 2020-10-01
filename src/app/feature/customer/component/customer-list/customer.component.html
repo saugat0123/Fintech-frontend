@@ -9,19 +9,20 @@
                 [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
                 nbButton
                 shape="rectangle"
-                status="primary">
+                status="primary"
+                size="small">
               <em class="fa fa-filter"> Filter</em>
             </button>
 
           </div>
         </div>
         <div class="col-md-6 d-flex justify-content-end">
-          <button nbButton outline status="success" class="mr-2"
+          <button nbButton outline status="success" class="mr-2" size="small"
                   (click)="openTemplate(chooseCusType)" *ngIf="currentRoleTypeMaker">
             <i class="fa fa-plus"></i>
           </button>
           <button (click)="download()" nbButton outline
-                  status="info">
+                  status="info" size="small">
             <i aria-hidden="true" class="fa fa-download"></i></button>
         </div>
       </div>
@@ -76,9 +77,10 @@
         <div class="col-md-12 p-0">
           <button (click)="onSearch()" [disabled]="!filterForm.valid" class="mr-2" nbButton
                   shape="rectangle"
-                  status="info">Search
+                  status="info"
+                  size="small">Search
           </button>
-          <button nbButton shape="rectangle" (click)=" clear()" status="danger" type="button">Clear
+          <button nbButton shape="rectangle" (click)=" clear()" status="danger" type="button" size="small">Clear
           </button>
         </div>
       </form>
@@ -87,9 +89,9 @@
   </nb-card-header>
   <nb-card-body>
     <br>
-    <table class="table table-bordered table-hover " id="add-branch-table">
+    <table class="table table-bordered table-hover sb-small" id="add-branch-table">
       <thead>
-      <tr>
+      <tr class="sb-bg-dark text-white">
         <th *ngIf="!isMaker">Branch</th>
         <th>Customer Name</th>
         <th>Customer Type</th>
