@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CompanyInfo} from "../../../../admin/modal/company-info";
-import {BusinessType} from "../../../../admin/modal/businessType";
+import {CompanyInfo} from '../../../../admin/modal/company-info';
+import {BusinessType} from '../../../../admin/modal/businessType';
 
 @Component({
   selector: 'app-company-info-summary',
