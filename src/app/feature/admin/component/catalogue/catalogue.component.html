@@ -13,18 +13,20 @@
                                 size="small">
                             <i class="fa fa-filter"> Filter</i>
                         </button>
+                      <div style="zoom:70%">
                         <nb-toggle (checkedChange)="onChangeTransferToggle($event)"
                                    class="pt-2 pl-4" [disabled]="!transferToggle" height>
-                            Transferred
+                            <strong class="f-18">Transferred</strong>
                         </nb-toggle>
                         <nb-toggle (checkedChange)="onChangeShareToggle($event)"
                                    [disabled]="!shareToggle" class="pt-2 pl-4">
-                            <small><b>Show Share Loan Exceeding Limit</b></small>
+                          <strong class="f-18">Show Share Loan Exceeding Limit</strong>
                         </nb-toggle>
                         <nb-toggle (checkedChange)="onChangeInsuranceToggle($event)"
                                    [disabled]="!insuranceToggle" class="pt-2 pl-4">
-                            <small><b>Insurance Expiry</b></small>
+                          <strong class="f-18">Insurance Expiry</strong>
                         </nb-toggle>
+                      </div>
                     </div>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
