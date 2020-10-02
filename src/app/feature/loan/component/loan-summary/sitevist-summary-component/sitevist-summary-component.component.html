@@ -1,7 +1,7 @@
 <div *ngIf="!isBusinessLoanType">
     <p *ngIf="formData['currentResidentFormChecked'] === true" class="font-weight-bold">Current Resident Details</p>
     <table *ngIf="formData['currentResidentFormChecked'] === true"
-           class="table table-condensed table-bordered table-responsive-md text-center">
+           class="table table-condensed table-bordered table-sm table-responsive-md text-center">
         <tr>
             <th>Owner Name</th>
             <th>House Number</th>
@@ -22,7 +22,7 @@
 <div *ngIf="isBusinessLoanType">
     <p *ngIf="formData['businessSiteVisitFormChecked'] === true" class="font-weight-bold">Business Site Visit</p>
     <table *ngIf="formData['businessSiteVisitFormChecked'] === true"
-           class="table table-condensed table-bordered table-responsive-md text-center">
+           class="table table-condensed table-sm table-bordered table-responsive-md text-center">
         <tr>
             <th>Person Contacted</th>
             <th>Office Address</th>
