@@ -10,6 +10,10 @@
   <nb-card-body>
     <form [formGroup]="formAction" role="form">
 
+      <p *ngIf="additionalDetails?.hasDeferredDocs" class="text-danger">
+        This loan contains deferred documents that are not uploaded.
+      </p>
+
       <div *ngIf="popUpTitle === 'Send Forward'" class="row">
         <div class="col-md-12 form-group">
           <label class="toRole" for="toRole">TO</label>

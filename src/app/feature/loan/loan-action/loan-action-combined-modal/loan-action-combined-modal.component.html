@@ -10,6 +10,9 @@
   <nb-card-body>
     <div class="row">
       <div class="col-md-12">
+        <p *ngIf="additionalDetails?.hasDeferredDocs" class="text-danger">
+          This loan contains deferred documents that are not uploaded.
+        </p>
         <p>This loan is combined. All combined loans are mentioned below:</p>
         <table class="table table-bordered table-hover table-sm text-center">
           <thead>

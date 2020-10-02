@@ -1,6 +1,9 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {FinancialService} from '../financial.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {FinancialDeleteComponentComponent} from '../financial-delete-component/financial-delete-component.component';
+import {ModalResponse} from '../../../../@core/utils';
 
 @Component({
     selector: 'app-balance-sheet',
@@ -14,6 +17,7 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
     balanceSheetForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder,
+                private modalService: NgbModal,
                 private financialService: FinancialService) {
     }
 
@@ -155,8 +159,12 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
     }
 
     removingFiscalYear(fiscalYear, index) {
-        const removeParamsObject = {fiscalYear: fiscalYear, index: index};
-        this.removeFiscalYear.next(removeParamsObject);
+        this.modalService.open(FinancialDeleteComponentComponent).result.then(message => {
+            if (message === ModalResponse.SUCCESS) {
+                const removeParamsObject = {fiscalYear: fiscalYear, index: index};
+                this.removeFiscalYear.next(removeParamsObject);
+            }
+        });
     }
 
     // Formula implementation---
@@ -230,7 +238,7 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         // Calculating retainedEarningsValue--
         const retainedEarningsValue = (this.formData['incomeStatementData']
             .netProfitTransferredToBalanceSheet as Array<Object>)[index]['value'];
-        this.balanceSheetForm.get('netWorthCategory')['controls'].forEach( category => {
+        this.balanceSheetForm.get('netWorthCategory')['controls'].some( category => {
             if (category.get('name').value === 'Retained Earning') {
                 const amountIndex = (category.get('amount') as FormArray).controls[index] as FormGroup;
                 amountIndex.controls['value'].setValue(retainedEarningsValue);
@@ -430,6 +438,11 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                 .get('currentLiabilitiesCategory'), 'Security Deposits', index))
             - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm
                 .get('currentLiabilitiesCategory'), 'Taxes Payable', index))));
+
+        keyIndicators.leverageRatio[index].value = ((Number(longTermLoan.controls['value'].value) + Number(currentLiabilities.controls['value'].value)) /
+            (Number(longTermLoan.controls['value'].value) +
+                Number(currentLiabilities.controls['value'].value) +
+                Number(netWorth.controls['value'].value))).toFixed(2);
 
         keyIndicators.inventoryTurnoverRatio[index].value =
             (Number(incomeStatement.costOfGoodsSold[index].value) === 0 || Number(inventories.controls['value'].value) === 0) ? 0 :

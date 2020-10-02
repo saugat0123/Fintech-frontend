@@ -1,5 +1,8 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {FinancialDeleteComponentComponent} from '../financial-delete-component/financial-delete-component.component';
+import {ModalResponse} from '../../../../@core/utils';
 
 @Component({
     selector: 'app-key-indicators',
@@ -12,7 +15,8 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
     @Output() removeFiscalYear = new EventEmitter<any>();
     keyIndicatorsForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder,
+                private modalService: NgbModal) {
     }
 
     ngOnInit() {
@@ -38,6 +42,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
             this.setDebtEquityRatioLongTerm(keyIndicatorsData.debtEquityRatioLongTerm);
             this.setDebtEquityRatioWorkingCapital(keyIndicatorsData.debtEquityRatioWorkingCapital);
             this.setDebtEquityRatioGeneral(keyIndicatorsData.debtEquityRatioGeneral);
+            this.setLeverageRatio(keyIndicatorsData.leverageRatio);
             this.setOperatingCycle(keyIndicatorsData.operatingCycle);
             this.setInventoryTurnoverRatio(keyIndicatorsData.inventoryTurnoverRatio);
             this.setStockInHandDays(keyIndicatorsData.stockInHandDays);
@@ -71,6 +76,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
             debtEquityRatioLongTerm: this.formBuilder.array([]),
             debtEquityRatioWorkingCapital: this.formBuilder.array([]),
             debtEquityRatioGeneral: this.formBuilder.array([]),
+            leverageRatio: this.formBuilder.array([]),
             operatingCycle: this.formBuilder.array([]),
             inventoryTurnoverRatio: this.formBuilder.array([]),
             stockInHandDays: this.formBuilder.array([]),
@@ -84,8 +90,12 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
     }
 
     removingFiscalYear(fiscalYear, index) {
-        const removeParamsObject = {fiscalYear: fiscalYear, index: index};
-        this.removeFiscalYear.next(removeParamsObject);
+        this.modalService.open(FinancialDeleteComponentComponent).result.then(message => {
+            if (message === ModalResponse.SUCCESS) {
+                const removeParamsObject = {fiscalYear: fiscalYear, index: index};
+                this.removeFiscalYear.next(removeParamsObject);
+            }
+        });
     }
 
     // Set data for Edit---
@@ -326,6 +336,19 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
     // debtEquityRatioGeneral
     setDebtEquityRatioGeneral(currentData) {
         const controls = this.keyIndicatorsForm.get('debtEquityRatioGeneral') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    // leverageRatio
+    setLeverageRatio(currentData) {
+        const controls = this.keyIndicatorsForm.get('leverageRatio') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({

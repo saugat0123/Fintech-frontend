@@ -29,6 +29,7 @@
                         <tr>
                           <th>#</th>
                           <th>Document</th>
+                          <th>Type</th>
                           <th>Upload</th>
                           <th>Preview</th>
                           <th>Status</th>
@@ -40,6 +41,7 @@
                             {{i + 1}}
                           </td>
                           <td>{{gDoc.name}}</td>
+                          <td>{{ gDoc?.document?.displayName || 'Default' | titlecase }}</td>
 
                           <td align="center">
                             <input (change)="uploadDoc($event)" class="hide-type"
