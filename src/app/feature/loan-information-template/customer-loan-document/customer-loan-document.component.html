@@ -18,7 +18,8 @@
             <thead>
             <tr>
               <th>#</th>
-              <th>Document Type</th>
+              <th>Document</th>
+              <th>Type</th>
               <th>Upload</th>
               <th>Upload Status</th>
             </tr>
@@ -29,6 +30,7 @@
                 {{i + 1}}
               </td>
               <td>{{document.name}}</td>
+              <td>{{document?.checkType || 'Default' | titlecase }}</td>
 
               <td><input (change)="documentUploader($event, document.name, document.id, i)"
                          accept=".png, .jpg"

@@ -1,4 +1,5 @@
 import {LoanCycle} from './loan-cycle';
+import {DocumentCheckType} from '../../../@core/model/enum/document-check-type.enum';
 
 export class Document {
     id: number;
@@ -8,4 +9,5 @@ export class Document {
     loanCycle: Array<LoanCycle>;
     status: string;
     checked: boolean;
+    checkType: DocumentCheckType | string;
 }
