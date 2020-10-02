@@ -1,4 +1,4 @@
-<div class="row mt-4">
+<div class="row mt-4" *ngIf="insurance.length !== 0">
   <div class="col-md-12">
     <p><strong>Insurance Detail</strong></p>
     <table class="table table-bordered text-center table-sm" *ngFor="let insurance of insurance; let i= index">
