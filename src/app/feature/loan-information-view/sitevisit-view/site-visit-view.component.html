@@ -92,6 +92,13 @@
     <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['open']}}</td>
     <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['remarksForOtherFacility']}}</td>
   </tr>
+
+  <tr>
+    <th>Telephone Line</th>
+  </tr>
+  <tr>
+    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['telephoneLine']}}</td>
+  </tr>
 </table>
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center">
@@ -175,6 +182,7 @@
     <th>Good Inspected</th>
     <th>Stock Value Reported</th>
     <th>Rents</th>
+    <th *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">Copy of rental/leased agreement obtained</th>
     <th>Rents payment up to</th>
     <th>Rent Receipt shown</th>
   </tr>
@@ -184,6 +192,7 @@
     <td>{{formData['currentAssetsInspectionDetails']['particularsOfGoodInspected']}}</td>
     <td>{{formData['currentAssetsInspectionDetails']['stockValueReported']}}</td>
     <td>{{formData['currentAssetsInspectionDetails']['rents']}}</td>
+    <td *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">{{formData['currentAssetsInspectionDetails']['rentLeased']}}</td>
     <td>{{formData['currentAssetsInspectionDetails']['isRentPmtUpToDate']}}</td>
     <td>{{formData['currentAssetsInspectionDetails']['isRentReceiptShown']}}</td>
   </tr>

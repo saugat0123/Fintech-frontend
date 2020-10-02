@@ -319,6 +319,11 @@
                                 <td>Open</td>
                                 <td><input formControlName="open" type="checkbox"></td>
                             </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>Telephone Line</td>
+                                <td><input formControlName="telephoneLine" type="checkbox"></td>
+                            </tr>
                         </table>
 
                         <label class="title" for="remarksForOtherFacility">Remarks For 'No' Option</label>
@@ -406,9 +411,11 @@
                             <tr>
                                 <td>1</td>
                                 <td>Major Market Places</td>
-                                <td><input class="form-control" formControlName="majorMarketPlaces"
-                                           placeholder="eg: 4.2 km"
-                                           type="text">
+                                <td>
+                                    <select formControlName="majorMarketPlaces" class="custom-select">
+                                        <option [ngValue]="null" hidden>Select Distance</option>
+                                        <option *ngFor="let distance of majorMarketPlaceDistance" [ngValue]="distance">{{distance}}</option>
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
@@ -423,27 +430,6 @@
                                 <td>Hospital/Nursing Home</td>
                                 <td><input class="form-control"
                                            formControlName="hospitalOrNursingHome" type="text">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Electricity Line</td>
-                                <td><input class="form-control"
-                                           formControlName="electricityLine" type="text">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Telephone Line</td>
-                                <td><input class="form-control"
-                                           formControlName="telephoneLine" type="text">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Water Pipeline</td>
-                                <td><input class="form-control"
-                                           formControlName="waterPipeline" type="text">
                                 </td>
                             </tr>
                         </table>
@@ -513,12 +499,21 @@
                            placeholder="0.0" type="number">
                 </div>
                 <div class="col-md-4 form-group">
-                    <label class="title" for="rents">Rents</label>
+                    <label class="title" for="rents">Is the Premise self owned or rented?</label>
                     <select class="custom-select" formControlName="rents"
                             id="rents" name="rents">
                         <option [ngValue]="''" hidden>Select Rent</option>
-                        <option value="OWNED">Owned</option>
-                        <option value="RENTED">Rented</option>
+                        <option value="Self owned">Self owned</option>
+                        <option value="Rented/Leased">Rented/Leased</option>
+                    </select>
+                </div>
+                <div class="col-md-4 form-group" *ngIf="siteVisitFormGroup.get(['currentAssetsInspectionDetails','rents']).value === 'Rented/Leased'">
+                    <label class="title" for="rents">Is copy of rental/leased agreement obtained?</label>
+                    <select class="custom-select" formControlName="rentLeased"
+                            id="rentLeased" name="rentLeased">
+                        <option [ngValue]="null" hidden>Is copy of rental/leased agreement obtained?</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
                     </select>
                 </div>
                 <div class="col-md-4 form-group">
@@ -712,6 +707,11 @@
                             <td>15</td>
                             <td> Were our padlocks in use ?</td>
                             <td><input formControlName="padlocksUse" type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td> Is the PAN/Registration Certificate of the business is displayed? </td>
+                            <td><input formControlName="certificate" type="checkbox"></td>
                         </tr>
                     </table>
                     <div class="col-md-6 form-group">
