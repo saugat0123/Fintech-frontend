@@ -28,6 +28,7 @@ import {ProposalComponent} from './proposal/proposal.component';
 import {CreditRiskGradingGammaComponent} from './credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {CiclComponent} from './cicl/cicl.component';
 import { FinancialDeleteComponentComponent } from './financial/financial-delete-component/financial-delete-component.component';
+import { TemplateDocumentComponent } from './template-document/template-document.component';
 
 const COMPONENTS = [
   SiteVisitComponent,
@@ -49,7 +50,8 @@ const COMPONENTS = [
   ProposalComponent,
   CreditRiskGradingGammaComponent,
   FinancialDeleteComponentComponent,
-  CiclComponent
+  CiclComponent,
+  TemplateDocumentComponent
 ];
 
 @NgModule({
