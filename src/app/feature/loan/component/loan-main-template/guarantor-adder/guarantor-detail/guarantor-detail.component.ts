@@ -10,6 +10,7 @@ import {NbDialogRef} from '@nebular/theme';
 export class GuarantorDetailComponent implements OnInit {
    guarantorData: Guarantor;
 
+
   constructor(protected dialogRef: NbDialogRef<GuarantorDetailComponent>) { }
 
   ngOnInit() {

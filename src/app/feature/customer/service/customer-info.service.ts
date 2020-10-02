@@ -36,4 +36,9 @@ export class CustomerInfoService extends BaseService<Object> {
     const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/upload-photo`);
     return this.http.post(req.url, formData, {headers: req.header});
   }
+
+  public upload(formData: FormData): Observable<any> {
+    const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/upload`);
+    return this.http.post(req.url, formData, {headers: req.header});
+  }
 }
