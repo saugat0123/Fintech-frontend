@@ -66,6 +66,10 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                     amount: this.formBuilder.array([])
                 }),
                 this.formBuilder.group({
+                    name: ['Prepaid expenses'],
+                    amount: this.formBuilder.array([])
+                }),
+                this.formBuilder.group({
                     name: ['Advances and Deposits'],
                     amount: this.formBuilder.array([])
                 }),
@@ -405,12 +409,10 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
 
         if (!(Number(currentAssets.controls['value'].value) === 0 || Number(currentLiabilities.controls['value'].value) === 0)) {
             keyIndicators.quickRatio[index].value =
-                ((Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm
-                        .get('currentAssetsCategory'), 'Cash/Bank Balance', index))
-                    + Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm
-                        .get('currentAssetsCategory'), 'Short term investment', index))
-                    + Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm
-                        .get('currentAssetsCategory'), 'Account Receivable', index))) /
+                ((Number(currentAssets.controls['value'].value)
+                    - Number(inventories.controls['value'].value)
+                    - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm
+                        .get('currentAssetsCategory'), 'Advances and Deposits', index))) /
                 Number(currentLiabilities.controls['value'].value)).toFixed(2);
             keyIndicators.currentRatio[index].value = (Number(currentAssets.controls['value'].value)
                 / Number(Number(currentLiabilities.controls['value'].value))).toFixed(2);
