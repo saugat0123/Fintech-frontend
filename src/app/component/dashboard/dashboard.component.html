@@ -20,28 +20,28 @@
     </div>
 </div>
 
-<div class="row center mb-3" *ngIf="roleType">
-    <div class="col-md-12">
-        <nb-card>
-            <nb-card-body>
-                <div class="row">
-                    <div class="col-md-11">
-                        <select [(ngModel)]="loanType" class="form-control rounded">
-                            <option [ngValue]="undefined" hidden>---select Loan Type---</option>
-                            <option *ngFor="let allList of loanList" [value]="allList.id">{{allList.name}}</option>
-                        </select>
-                    </div>
-                    <div class="col-md-1">
-                        <button nbButton status="primary" (click)="proceed()">
-                            <i class="fa fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-            </nb-card-body>
-        </nb-card>
+<!--<div class="row center mb-3" *ngIf="roleType">-->
+<!--    <div class="col-md-12">-->
+<!--        <nb-card>-->
+<!--            <nb-card-body>-->
+<!--                <div class="row">-->
+<!--                    <div class="col-md-11">-->
+<!--                        <select [(ngModel)]="loanType" class="form-control rounded">-->
+<!--                            <option [ngValue]="undefined" hidden>-&#45;&#45;select Loan Type-&#45;&#45;</option>-->
+<!--                            <option *ngFor="let allList of loanList" [value]="allList.id">{{allList.name}}</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-1">-->
+<!--                        <button nbButton status="primary" (click)="proceed()">-->
+<!--                            <i class="fa fa-arrow-right"></i>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </nb-card-body>-->
+<!--        </nb-card>-->
 
-    </div>
-</div>
+<!--    </div>-->
+<!--</div>-->
 
 <ng-template #loanTemplate>
     <div class="modal-header">

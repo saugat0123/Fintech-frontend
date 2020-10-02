@@ -80,38 +80,46 @@ export class ProposalComponent implements OnInit {
     buildForm() {
         this.proposalForm = this.formBuilder.group({
 
-            // Proposed Limit--
-            proposedLimit: [undefined, [Validators.required, Validators.min(0)]],
+          // Proposed Limit--
+          proposedLimit: [undefined, [Validators.required, Validators.min(0)]],
 
-            interestRate: [undefined, [Validators.required, Validators.min(0)]],
-            baseRate: [undefined, [Validators.required, Validators.min(0)]],
-            premiumRateOnBaseRate: [undefined, [Validators.required, Validators.min(0)]],
-            serviceChargeMethod: [undefined, [Validators.required]],
-            serviceCharge: [undefined, [Validators.required, Validators.min(0)]],
-            tenureDurationInMonths: [undefined, [Validators.required, Validators.min(0)]],
-            cibCharge: [undefined, [Validators.required, Validators.min(0)]],
-            repaymentMode: [undefined, [Validators.required]],
-            purposeOfSubmission: [undefined, [Validators.required]],
-            disbursementCriteria: [undefined, [Validators.required]],
-            creditInformationReportStatus: [undefined, [Validators.required]],
-            incomeFromTheAccount: [undefined, [Validators.required]],
-            borrowerInformation: [undefined, [Validators.required]],
-            interestAmount: [undefined],
+          interestRate: [undefined, [Validators.required, Validators.min(0)]],
+          baseRate: [undefined, [Validators.required, Validators.min(0)]],
+          premiumRateOnBaseRate: [undefined, [Validators.required, Validators.min(0)]],
+          serviceChargeMethod: [undefined, [Validators.required]],
+          serviceCharge: [undefined, [Validators.required, Validators.min(0)]],
+          tenureDurationInMonths: [undefined, [Validators.required, Validators.min(0)]],
+          cibCharge: [undefined, [Validators.required, Validators.min(0)]],
+          repaymentMode: [undefined, [Validators.required]],
+          purposeOfSubmission: [undefined, [Validators.required]],
+          disbursementCriteria: [undefined, [Validators.required]],
+          repayment: [undefined , Validators.required],
+          interestDuringReview: [undefined, [Validators.required]],
+          interestAfterNextReview: [undefined, [Validators.required]],
+          commissionDuringReview: [undefined, [Validators.required]],
+          commissionAfterNextReview: [undefined, [Validators.required]],
+          otherChargesDuringReview: [undefined, [Validators.required]],
+          otherChargesAfterNextReview: [undefined, [Validators.required]],
+          totalIncomeAfterNextReview: [0, [Validators.required]],
+          totalIncomeDuringReview: [0, [Validators.required]],
+          incomeFromTheAccount: [undefined, [Validators.required]],
+          borrowerInformation: [undefined, [Validators.required]],
+          interestAmount: [undefined],
 
-            // Additional Fields--
-            // for installment Amount--
-            installmentAmount: [undefined],
-            // for moratoriumPeriod Amount--
-            moratoriumPeriod: [undefined],
-            // for prepaymentCharge Amount--
-            prepaymentCharge: [undefined],
-            // for prepaymentCharge Amount--
-            purposeOfSubmissionSummary: [undefined, Validators.required],
-            // for commitmentFee Amount--
-            commitmentFee: [undefined, Validators.required],
-            solConclusionRecommendation: [undefined],
-            waiverConclusionRecommendation: [undefined],
-            riskConclusionRecommendation: [undefined],
+          // Additional Fields--
+          // for installment Amount--
+          installmentAmount: [undefined],
+          // for moratoriumPeriod Amount--
+          moratoriumPeriod: [undefined],
+          // for prepaymentCharge Amount--
+          prepaymentCharge: [undefined],
+          // for prepaymentCharge Amount--
+          purposeOfSubmissionSummary: [undefined, Validators.required],
+          // for commitmentFee Amount--
+          commitmentFee: [undefined, Validators.required],
+          solConclusionRecommendation: [undefined],
+          waiverConclusionRecommendation: [undefined],
+          riskConclusionRecommendation: [undefined],
 
 
         });
@@ -211,16 +219,34 @@ export class ProposalComponent implements OnInit {
     }
 
     calculateEmiEqiAmount(repaymentMode) {
-        const proposedAmount = this.proposalForm.get('proposedLimit').value;
-        const rate = Number(this.proposalForm.get('interestRate').value) / (12 * 100);
-        const n = this.proposalForm.get('tenureDurationInMonths').value;
-        if (proposedAmount && rate && n) {
-            const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
-            if (repaymentMode === 'emi') {
-                this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(2)));
-            } else if (repaymentMode === 'eqi') {
-                this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(2)));
-            }
-        } else {  this.proposalForm.get('installmentAmount').patchValue(undefined); }
+      const proposedAmount = this.proposalForm.get('proposedLimit').value;
+      const rate = Number(this.proposalForm.get('interestRate').value) / (12 * 100);
+      const n = this.proposalForm.get('tenureDurationInMonths').value;
+      if (proposedAmount && rate && n) {
+        const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
+        if (repaymentMode === 'emi') {
+          this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(2)));
+        } else if (repaymentMode === 'eqi') {
+          this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(2)));
+        }
+      } else {
+        this.proposalForm.get('installmentAmount').patchValue(undefined);
+      }
     }
+
+  calculateTotalIncomeDuringReview() {
+    let totalIncomeDuringReview = 0;
+    totalIncomeDuringReview = this.proposalForm.get('interestDuringReview').value +
+        this.proposalForm.get('commissionDuringReview').value +
+        this.proposalForm.get('otherChargesDuringReview').value;
+    this.proposalForm.get('totalIncomeDuringReview').setValue(totalIncomeDuringReview);
+  }
+
+  calculateTotalIncomeAfterReview() {
+    let totalIncomeAfterNextReview = 0;
+    totalIncomeAfterNextReview = this.proposalForm.get('interestAfterNextReview').value +
+        this.proposalForm.get('commissionAfterNextReview').value +
+        this.proposalForm.get('otherChargesAfterNextReview').value;
+    this.proposalForm.get('totalIncomeAfterNextReview').setValue(totalIncomeAfterNextReview);
+  }
 }

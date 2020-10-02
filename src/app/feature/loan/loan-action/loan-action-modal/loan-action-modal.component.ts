@@ -31,6 +31,7 @@ export class LoanActionModalComponent implements OnInit {
   @Input() popUpTitle: 'Send Forward' | 'Approve' | 'Send Backward' | 'Reject' | 'Close' | string;
   @Input() isForward: boolean;
   @Input() toRole: Role;
+  @Input() additionalDetails: any;
   submitted = false;
   formAction: FormGroup;
   userList: Array<User> = new Array<User>();

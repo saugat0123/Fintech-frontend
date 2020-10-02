@@ -3,7 +3,7 @@
     <p><strong>Reporting Information</strong></p>
     <div class="row">
       <div class="col-md-12">
-        <table *ngIf="layout === 'vertical'" class="table table-bordered">
+        <table *ngIf="layout === 'vertical'" class="table table-bordered table-sm">
           <ng-container *ngFor="let report of reportingInfoSummary">
             <tr>
               <td class="font-weight-bold" colspan="2">{{report?.name}}</td>
@@ -20,7 +20,7 @@
         </table>
         <ng-container *ngIf="layout === 'horizontal'">
           <ng-container *ngFor="let report of reportingInfoSummary">
-            <table class="table table-bordered">
+            <table class="table table-bordered table-sm">
               <tr>
                 <td [attr.colspan]="report?.reportingInfoLevels?.length + 1"
                     class="font-weight-bold">{{report?.name}}</td>

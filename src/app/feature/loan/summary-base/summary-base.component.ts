@@ -16,6 +16,10 @@ import {User} from '../../admin/modal/user';
 import {LoanDataHolder} from '../model/loanData';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {LoanType} from '../model/loanType';
+import {ObjectUtil} from 'src/app/@core/utils/ObjectUtil';
+import {DocumentCheckType} from '../../../@core/model/enum/document-check-type.enum';
+import {Document} from '../../admin/modal/document';
+import {EnumUtils} from '../../../@core/utils/enums.utils';
 
 @Component({
   selector: 'app-summary-base',
@@ -38,6 +42,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
   loanType = LoanType;
   loanDataHolder: LoanDataHolder = new LoanDataHolder();
   nepaliDate;
+  hasMissingDeferredDocs = false;
 
   constructor( private userService: UserService,
                private loanFormService: LoanFormService,
@@ -98,65 +103,94 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
 
 
   getLoanDataHolder() {
-    this.loanFormService.detail(this.customerId).subscribe(
-        async (response: any) => {
-          this.loanDataHolder = response.detail;
-          this.loanCategory = this.loanDataHolder.loanCategory;
-          this.currentIndex = this.loanDataHolder.previousList.length;
+    this.loanFormService.detail(this.customerId).subscribe(async (response: any) => {
+      this.loanDataHolder = response.detail;
+      this.loanCategory = this.loanDataHolder.loanCategory;
+      this.currentIndex = this.loanDataHolder.previousList.length;
 
-          this.actionsList.approved = true;
-          this.actionsList.sendForward = true;
-          this.actionsList.edit = true;
-          this.actionsList.sendBackward = true;
-          this.actionsList.rejected = true;
-          this.actionsList.closed = true;
-          if (this.loanDataHolder.createdBy.toString() === LocalStorageUtil.getStorage().userId) {
-            this.actionsList.sendBackward = false;
-            this.actionsList.edit = true;
+      this.actionsList.approved = true;
+      this.actionsList.sendForward = true;
+      this.actionsList.edit = true;
+      this.actionsList.sendBackward = true;
+      this.actionsList.rejected = true;
+      this.actionsList.closed = true;
+      if (this.loanDataHolder.createdBy.toString() === LocalStorageUtil.getStorage().userId) {
+        this.actionsList.sendBackward = false;
+        this.actionsList.edit = true;
+        this.actionsList.approved = false;
+        this.actionsList.closed = false;
+      } else {
+        this.actionsList.edit = false;
+      }
+
+      if (this.loanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
+        this.actionsList.approved = false;
+      } else {
+        this.actionsList.closed = false;
+      }
+
+      await this.loanActionService.getSendForwardList().subscribe((res: any) => {
+        const forward = res.detail;
+        if (forward.length === 0) {
+          this.actionsList.sendForward = false;
+        }
+      });
+      if (this.loanDataHolder.currentStage.docAction.toString() === 'APPROVED' ||
+          this.loanDataHolder.currentStage.docAction.toString() === 'REJECT' ||
+          this.loanDataHolder.currentStage.docAction.toString() === 'CLOSED') {
+        this.actionsList.approved = false;
+        this.actionsList.sendForward = false;
+        this.actionsList.edit = false;
+        this.actionsList.sendBackward = false;
+        this.actionsList.rejected = false;
+        this.actionsList.closed = false;
+      }
+
+      await this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id, this.loanDataHolder.loanCategory)
+      .subscribe((res: any) => {
+        if (res.detail === undefined) {
+          this.actionsList.approved = false;
+        } else {
+          if (this.loanDataHolder.proposal !== null
+              && this.loanDataHolder.proposal.proposedLimit > res.detail.amount) {
             this.actionsList.approved = false;
-            this.actionsList.closed = false;
-          } else {
-            this.actionsList.edit = false;
           }
+        }
+      });
 
-          if (this.loanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
-            this.actionsList.approved = false;
-          } else {
-            this.actionsList.closed = false;
-          }
+      this.dateService.getDateInNepali(this.loanDataHolder.createdAt.toString()).subscribe((nepDate: any) => {
+        this.nepaliDate = nepDate.detail;
+      });
 
-         await this.loanActionService.getSendForwardList().subscribe((res: any) => {
-            const forward = res.detail;
-            if (forward.length === 0) {
-              this.actionsList.sendForward = false;
-            }
-          });
-          if (this.loanDataHolder.currentStage.docAction.toString() === 'APPROVED' ||
-              this.loanDataHolder.currentStage.docAction.toString() === 'REJECT' ||
-              this.loanDataHolder.currentStage.docAction.toString() === 'CLOSED') {
-            this.actionsList.approved = false;
-            this.actionsList.sendForward = false;
-            this.actionsList.edit = false;
-            this.actionsList.sendBackward = false;
-            this.actionsList.rejected = false;
-            this.actionsList.closed = false;
-          }
-
-         await this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id, this.loanDataHolder.loanCategory)
-          .subscribe((res: any) => {
-            if (res.detail === undefined) {
-              this.actionsList.approved = false;
-            } else {
-              if (this.loanDataHolder.proposal !== null
-                  && this.loanDataHolder.proposal.proposedLimit > res.detail.amount) {
-                this.actionsList.approved = false;
-              }
-            }
-          });
-
-          this.dateService.getDateInNepali(this.loanDataHolder.createdAt.toString()).subscribe((nepDate: any) => {
-            this.nepaliDate = nepDate.detail;
-          });
-        });
+      // check deferred docs
+      let deferredDocs: Document[];
+      switch (this.loanDataHolder.loanType) {
+        case EnumUtils.getEnum(LoanType, LoanType.NEW_LOAN):
+          deferredDocs = this.loanDataHolder.loan.initial;
+          break;
+        case EnumUtils.getEnum(LoanType, LoanType.ENHANCED_LOAN):
+          deferredDocs = this.loanDataHolder.loan.enhance;
+          break;
+        case EnumUtils.getEnum(LoanType, LoanType.RENEWED_LOAN):
+          deferredDocs = this.loanDataHolder.loan.renew;
+          break;
+        case EnumUtils.getEnum(LoanType, LoanType.CLOSURE_LOAN):
+          deferredDocs = this.loanDataHolder.loan.closure;
+          break;
+        case EnumUtils.getEnum(LoanType, LoanType.PARTIAL_SETTLEMENT_LOAN):
+          deferredDocs = this.loanDataHolder.loan.partialSettlement;
+          break;
+        case EnumUtils.getEnum(LoanType, LoanType.FULL_SETTLEMENT_LOAN):
+          deferredDocs = this.loanDataHolder.loan.fullSettlement;
+          break;
+        default:
+          deferredDocs = [];
+      }
+      deferredDocs = deferredDocs.filter((d) => (
+          !ObjectUtil.isEmpty(d.checkType) && d.checkType === EnumUtils.getEnum(DocumentCheckType, DocumentCheckType.DEFERRAL)
+      ));
+      const uploadedDocIds = this.loanDataHolder.customerDocument.map(d => d.document.id);
+      this.hasMissingDeferredDocs = !deferredDocs.every(d => uploadedDocIds.includes(d.id));
+    });
   }
 }

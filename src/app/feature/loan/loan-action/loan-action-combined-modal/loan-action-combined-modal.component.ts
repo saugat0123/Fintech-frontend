@@ -27,6 +27,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
   @Input() docAction: string;
   @Input() documentStatus: DocStatus;
   @Input() isForward: boolean;
+  @Input() additionalDetails: any;
 
   public combinedLoan: CombinedLoan;
   public LoanType = LoanType;
