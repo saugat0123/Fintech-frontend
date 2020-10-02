@@ -240,8 +240,7 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
                 + Number(otherAdjustment.controls['value'].value)) + Number(accumulatedProfitBOrD.controls['value'].value)).toFixed(2);
         netProfitTransferredToBalanceSheet.controls['value'].setValue(netProfitTransferredToBalanceSheetValue);
         // Reflecting the value of netProfitTransferredToBalanceSheetValue into Balance Sheet (BS43)---
-        balanceSheet.netWorthCategory[1].amount[index].value = netProfitTransferredToBalanceSheetValue;
-
+        // balanceSheet.netWorthCategory[1].amount[index].value = netProfitTransferredToBalanceSheetValue;
 
         //
         // Cash Flow Statement Calculation--
@@ -394,9 +393,23 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         }
     }
 
+    /**
+     * Generic remove method for all Sub-categories
+     * @param indexToBeRemoved The index to be removed from sub-category
+     * @param headingCategory The main Header title name
+     * @param subCategory The Sub-category name under the heading title
+     */
+    removeSubCategoryGenericAction(indexToBeRemoved: number, headingCategory: string, subCategory: string) {
+        const control = this.incomeStatementForm.get(subCategory) as FormArray;
+        control.removeAt(indexToBeRemoved);
+        this.fiscalYear.forEach((singleYear, yearIndex) => {
+            this.onValueChange(headingCategory, yearIndex);
+        });
+    }
+
     // Adding and deleting fields
     // Total Sales Revenue Sub Category--
-    addSubCategoryTotalSales(name) {
+    addSubCategoryTotalSales(input) {
         const amount = this.formBuilder.array([]);
         this.fiscalYear.forEach((year) => {
             amount.push(
@@ -409,24 +422,21 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         const control = this.incomeStatementForm.get('totalSalesSubCategory') as FormArray;
         control.push(
             this.formBuilder.group({
-                name: [name],
+                name: [input.value],
                 amount: amount
             })
         );
+        input.value = '';
     }
 
-    removeSubCategoryTotalSales(index, amountArray) {
-        const subCategoryControl = this.incomeStatementForm.get('totalSalesSubCategory') as FormArray;
-        const headingControl = this.incomeStatementForm.get('totalSalesRevenue') as FormArray;
-        amountArray.forEach((amount, i) => {
-            amount.controls['value'].setValue(0);
-            this.financialService.onValueChangeForArraySum(headingControl, subCategoryControl, i);
-        });
-        subCategoryControl.removeAt(index);
+    removeSubCategoryTotalSales(index) {
+        this.removeSubCategoryGenericAction(index, 'totalSalesRevenue', 'totalSalesSubCategory');
     }
+
+    // removeSubCategoryAndResetSum
 
     // Cost of Goods Sold Category
-    addCostOfGoodsSoldCategory(name) {
+    addCostOfGoodsSoldCategory(input) {
         const amount = this.formBuilder.array([]);
         this.fiscalYear.forEach((year) => {
             amount.push(
@@ -439,19 +449,19 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         const control = this.incomeStatementForm.get('costOfGoodsSoldCategory') as FormArray;
         control.push(
             this.formBuilder.group({
-                name: [name],
+                name: [input.value],
                 amount: amount
             })
         );
+        input.value = '';
     }
 
     removeCostOfGoodsSoldCategory(index) {
-        const control = this.incomeStatementForm.get('costOfGoodsSoldCategory') as FormArray;
-        control.removeAt(index);
+        this.removeSubCategoryGenericAction(index, 'costOfGoodsSold', 'costOfGoodsSoldCategory');
     }
 
     // Operating Expenses Category
-    addOperatingExpensesCategory(name) {
+    addOperatingExpensesCategory(input) {
         const amount = this.formBuilder.array([]);
         this.fiscalYear.forEach((year) => {
             amount.push(
@@ -464,19 +474,19 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         const control = this.incomeStatementForm.get('operatingExpensesCategory') as FormArray;
         control.push(
             this.formBuilder.group({
-                name: [name],
+                name: [input.value],
                 amount: amount
             })
         );
+        input.value = '';
     }
 
     removeOperatingExpensesCategory(index) {
-        const control = this.incomeStatementForm.get('operatingExpensesCategory') as FormArray;
-        control.removeAt(index);
+        this.removeSubCategoryGenericAction(index, 'operatingExpenses', 'operatingExpensesCategory');
     }
 
     // Interest Expenses Category
-    addInterestExpensesCategory(name) {
+    addInterestExpensesCategory(input) {
         const amount = this.formBuilder.array([]);
         this.fiscalYear.forEach((year) => {
             amount.push(
@@ -489,19 +499,19 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         const control = this.incomeStatementForm.get('interestExpensesCategory') as FormArray;
         control.push(
             this.formBuilder.group({
-                name: [name],
+                name: [input.value],
                 amount: amount
             })
         );
+        input.value = '';
     }
 
     removeInterestExpensesCategory(index) {
-        const control = this.incomeStatementForm.get('interestExpensesCategory') as FormArray;
-        control.removeAt(index);
+        this.removeSubCategoryGenericAction(index, 'interestExpenses', 'interestExpensesCategory');
     }
 
     // Non-Operating Income/Expenses Category
-    addNonOperatingIncomeOrExpensesCategory(name) {
+    addNonOperatingIncomeOrExpensesCategory(input) {
         const amount = this.formBuilder.array([]);
         this.fiscalYear.forEach((year) => {
             amount.push(
@@ -514,15 +524,15 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         const control = this.incomeStatementForm.get('nonOperatingIncomeOrExpensesCategory') as FormArray;
         control.push(
             this.formBuilder.group({
-                name: [name],
+                name: [input.value],
                 amount: amount
             })
         );
+        input.value = '';
     }
 
     removeNonOperatingIncomeOrExpensesCategory(index) {
-        const control = this.incomeStatementForm.get('nonOperatingIncomeOrExpensesCategory') as FormArray;
-        control.removeAt(index);
+        this.removeSubCategoryGenericAction(index, 'nonOperatingIncomeOrExpenses', 'nonOperatingIncomeOrExpensesCategory');
     }
 
     // ---
