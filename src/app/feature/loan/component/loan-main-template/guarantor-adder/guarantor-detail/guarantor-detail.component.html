@@ -17,39 +17,82 @@
             <th>Citizen Number</th>
             <th>Issued Year</th>
             <th>Issued Place</th>
-            <th>Province</th>
           </tr>
           <tr>
             <td>{{guarantorData?.name}}</td>
             <td>{{guarantorData?.citizenNumber}}</td>
             <td>{{guarantorData?.issuedYear | date}}</td>
             <td>{{guarantorData?.issuedPlace}}</td>
-            <td>{{guarantorData?.province?.name}}</td>
           </tr>
           <tr>
-            <th>District</th>
-            <th>Municipalities</th>
             <th>Contact Number</th>
             <th>Father Name</th>
             <th>Grand Father Name</th>
-          </tr>
-          <tr>
-            <td>{{guarantorData?.fatherName}}</td>
-            <td>{{guarantorData?.district?.name}}</td>
-            <td>{{guarantorData?.municipalities?.name}}</td>
-            <td>{{guarantorData?.contactNumber}}</td>
-            <td>{{guarantorData?.grandFatherName}}</td>
-          </tr>
-          <tr>
             <th>Relationship</th>
+          </tr>
+          <tr>
+            <td>{{guarantorData?.contactNumber}}</td>
+            <td>{{guarantorData?.fatherName}}</td>
+            <td>{{guarantorData?.grandFatherName}}</td>
+            <td>{{guarantorData?.relationship}}</td>
+          </tr>
+          <tr>
             <th> Age</th>
             <th>Net Worth</th>
           </tr>
           <tr>
-            <td>{{guarantorData?.relationship}}</td>
             <td>{{findAge(guarantorData?.issuedYear)}} yrs</td>
             <td>{{guarantorData?.netWorth | number:'.2-2'}}</td>
           </tr>
+        </table>
+<!--        Permanent Address-->
+        <table class="table table-responsive-md table-bordered table-hover text-center">
+          <thead>
+          <tr>
+            <th colspan="5">Permanent Address</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th>Province</th>
+            <th>District</th>
+            <th>Municipalities</th>
+            <th>Ward NUmber</th>
+            <th>Street Name</th>
+          </tr>
+          <tr>
+            <td>{{guarantorData?.province?.name}}</td>
+            <td>{{guarantorData?.district?.name}}</td>
+            <td>{{guarantorData?.municipalities?.name}}</td>
+            <td>{{guarantorData?.wardNumber}}</td>
+            <td>{{guarantorData?.streetName}}</td>
+
+          </tr>
+          </tbody>
+        </table>
+<!--        Current Address-->
+        <table class="table table-responsive-md table-bordered table-hover text-center">
+          <thead>
+          <tr>
+            <th colspan="5">Current Address</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th>Province</th>
+            <th>District</th>
+            <th>Municipalities</th>
+            <th>Ward NUmber</th>
+            <th>Street Name</th>
+          </tr>
+          <tr>
+            <td>{{guarantorData?.provinceTemporary?.name}}</td>
+            <td>{{guarantorData?.districtTemporary?.name}}</td>
+            <td>{{guarantorData?.municipalitiesTemporary?.name}}</td>
+            <td>{{guarantorData?.wardNumberTemporary}}</td>
+            <td>{{guarantorData?.streetNameTemporary}}</td>
+          </tr>
+          </tbody>
         </table>
       </ng-container>
 </nb-card>

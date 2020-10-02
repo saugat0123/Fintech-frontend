@@ -40,6 +40,7 @@ export class GuarantorComponent implements OnInit {
   municipality: MunicipalityVdc = new MunicipalityVdc();
   municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
   addressList: Array<Address> = new Array<Address>();
+  addressListTemporary: Array<Address> = new Array<Address>();
   private isBlackListed: boolean;
   allDistrict: Array<District> = new Array<District>();
   relationshipList: RelationshipList = new RelationshipList();
@@ -76,10 +77,17 @@ export class GuarantorComponent implements OnInit {
       }
       this.guarantorDetailValue.guarantorList.forEach((v, index) => {
         this.addressList.push(new Address());
+        this.addressListTemporary.push(new Address());
         if (!ObjectUtil.isEmpty(v.province) && !ObjectUtil.isEmpty(v.province.id)) {
           this.getDistrict(v.province.id, index);
           if (!ObjectUtil.isEmpty(v.district.id)) {
             this.getMunicipalities(v.district.id, index);
+          }
+        }
+        if (!ObjectUtil.isEmpty(v.provinceTemporary) && !ObjectUtil.isEmpty(v.provinceTemporary.id)) {
+          this.getDistrictTemporary(v.provinceTemporary.id, index);
+          if (!ObjectUtil.isEmpty(v.districtTemporary.id)) {
+            this.getMunicipalitiesTemporary(v.districtTemporary.id, index);
           }
         }
         formArray.push(this.addGuarantorDetails(v));
@@ -93,6 +101,7 @@ export class GuarantorComponent implements OnInit {
       return;
     }
     this.addressList.push(new Address());
+    this.addressListTemporary.push(new Address());
     const formArray = this.form.get('guarantorDetails') as FormArray;
     formArray.push(this.addGuarantorDetails(new Guarantor()));
   }
@@ -119,6 +128,18 @@ export class GuarantorComponent implements OnInit {
       ],
       municipalities: [
         ObjectUtil.isEmpty(data.municipalities) ? undefined : data.municipalities.id,
+        Validators.required
+      ],
+      provinceTemporary: [
+        ObjectUtil.isEmpty(data.provinceTemporary) ? undefined : data.provinceTemporary.id,
+        Validators.required
+      ],
+      districtTemporary: [
+        ObjectUtil.isEmpty(data.districtTemporary) ? undefined : data.districtTemporary.id,
+        Validators.required
+      ],
+      municipalitiesTemporary: [
+        ObjectUtil.isEmpty(data.municipalitiesTemporary) ? undefined : data.municipalitiesTemporary.id,
         Validators.required
       ],
       citizenNumber: [
@@ -156,6 +177,18 @@ export class GuarantorComponent implements OnInit {
       docPath: [
           ObjectUtil.setUndefinedIfNull(data.docPath)
       ],
+      streetName: [
+        ObjectUtil.setUndefinedIfNull(data.streetName), Validators.required
+      ],
+      wardNumber: [
+        ObjectUtil.setUndefinedIfNull(data.wardNumber), Validators.required
+      ],
+      streetNameTemporary: [
+        ObjectUtil.setUndefinedIfNull(data.streetNameTemporary), Validators.required
+      ],
+      wardNumberTemporary: [
+        ObjectUtil.setUndefinedIfNull(data.wardNumberTemporary), Validators.required
+      ],
       consentOfLegalHeirs: [ObjectUtil.isEmpty(data.consentOfLegalHeirs) ? false : data.consentOfLegalHeirs]
     });
   }
@@ -188,6 +221,24 @@ export class GuarantorComponent implements OnInit {
     });
   }
 
+  getDistrictTemporary(provinceId: number, i: number) {
+    const province = new Province();
+    province.id = provinceId;
+    this.addressServices.getDistrictByProvince(province).subscribe((response: any) => {
+      this.districtList = response.detail;
+      this.addressListTemporary[i].districtList = this.districtList;
+    });
+  }
+
+  getMunicipalitiesTemporary(districtId: number, i: number) {
+    const district = new District();
+    district.id = districtId;
+    this.addressServices.getMunicipalityVDCByDistrict(district).subscribe((response: any) => {
+      this.municipalitiesList = response.detail;
+      this.addressListTemporary[i].municipalityVdcList = this.municipalitiesList;
+    });
+  }
+
   onSubmit() {
     this.submitted = true;
     if (this.form.invalid) {
@@ -210,6 +261,17 @@ export class GuarantorComponent implements OnInit {
         const municipalityVdc = new MunicipalityVdc();
         municipalityVdc.id = c.get('municipalities').value;
         guarantor.municipalities = municipalityVdc;
+      }
+      if (!ObjectUtil.isEmpty(c.get('provinceTemporary').value)) {
+        const province = new Province();
+        province.id = c.get('provinceTemporary').value;
+        guarantor.provinceTemporary = province;
+        const district = new District();
+        district.id = c.get('districtTemporary').value;
+        guarantor.districtTemporary = district;
+        const municipalityVdc = new MunicipalityVdc();
+        municipalityVdc.id = c.get('municipalitiesTemporary').value;
+        guarantor.municipalitiesTemporary = municipalityVdc;
       }
       this.guarantorDetail.guarantorList.push(guarantor);
     });
@@ -236,5 +298,20 @@ export class GuarantorComponent implements OnInit {
 
   documentPath(path, i) {
     this.form.get(['guarantorDetails', i, 'docPath']).patchValue(path);
+  }
+
+  sameAsAbove(i) {
+    if (ObjectUtil.isEmpty(this.form.get(['guarantorDetails', i, 'municipalities']).value)) {
+      this.toastService.show(new Alert(AlertType.WARNING, 'Please fill Permanent Address Completely'));
+      return;
+    }
+    this.form.get(['guarantorDetails', i, 'provinceTemporary']).patchValue(this.form.get(['guarantorDetails', i, 'province']).value);
+    this.form.get(['guarantorDetails', i, 'districtTemporary']).patchValue(this.form.get(['guarantorDetails', i, 'district']).value);
+    this.form.get(['guarantorDetails', i, 'municipalitiesTemporary'])
+    .patchValue(this.form.get(['guarantorDetails', i, 'municipalities']).value);
+    this.getMunicipalitiesTemporary(this.form.get(['guarantorDetails', i, 'district']).value, i);
+    this.getDistrictTemporary(this.form.get(['guarantorDetails', i, 'province']).value, i);
+    this.form.get(['guarantorDetails', i, 'streetNameTemporary']).patchValue(this.form.get(['guarantorDetails', i, 'streetName']).value);
+    this.form.get(['guarantorDetails', i, 'wardNumberTemporary']).patchValue(this.form.get(['guarantorDetails', i, 'wardNumber']).value);
   }
 }

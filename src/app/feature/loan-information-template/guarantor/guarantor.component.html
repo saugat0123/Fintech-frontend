@@ -62,86 +62,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label><strong>Province</strong></label>
-                                        <select (change)="getDistrict(guarantorDetails.get('province').value,i)"
-                                                [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails.get('province').errors}"
-                                                class="custom-select"
-                                                formControlName="province"
-                                                name="province">
-                                            <option [value]="null" hidden>Select Province</option>
-                                            <option *ngFor="let provinceVal of provinceList"
-                                                    [ngValue]="provinceVal.id">
-                                                {{provinceVal.name}}
-                                        </select>
-                                        <div *ngIf="(submitted) && guarantorDetails.get('province').invalid"
-                                             class="invalid-feedback">
-                                            <div *ngIf="guarantorDetails.get('province').errors.required">Province
-                                                is required
-                                            </div>
-                                        </div>
-                                        <div *ngIf="(addMore) && guarantorDetails.get('province').invalid"
-                                             class="alert-warning">
-                                            <div *ngIf="guarantorDetails.get('province').errors.required">Please fill province
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label><strong>District</strong></label>
-                                        <select (change)="getMunicipalities(guarantorDetails.get('district').value, i)"
-                                                [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails.get('district').errors}"
-                                                class="custom-select"
-                                                formControlName="district"
-                                                name="district">
-                                            <option [value]="null" hidden>Select District</option>
-                                            <option *ngFor="let districtVal of addressList[i].districtList"
-                                                    [ngValue]="districtVal.id">
-                                                {{districtVal.name}}</option>
-                                        </select>
-                                        <div *ngIf="(submitted) && guarantorDetails.get('district').invalid"
-                                             class="invalid-feedback">
-                                            <div *ngIf="guarantorDetails.get('district').errors.required">District
-                                                is required
-                                            </div>
-                                        </div>
-                                        <div *ngIf="(addMore) && guarantorDetails.get('district').invalid"
-                                             class="alert-warning">
-                                            <div *ngIf="guarantorDetails.get('district').errors.required">please add district
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label><strong>Municipalities/VDC</strong></label>
-                                        <select [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('municipalities').errors}"
-                                                class="custom-select"
-                                                formControlName="municipalities"
-                                                name="municipalities">
-                                            <option [value]="null" hidden>Select Municipalities/VDC</option>
-                                            <option *ngFor="let municipalitiesVal of addressList[i].municipalityVdcList"
-                                                    [ngValue]="municipalitiesVal.id">
-                                                {{municipalitiesVal.name}}
-                                        </select>
-                                        <div *ngIf="(submitted) && guarantorDetails.get('municipalities').invalid"
-                                             class="invalid-feedback">
-                                            <div *ngIf="guarantorDetails.get('municipalities').errors.required">
-                                                Municipality or VDC is required
-                                            </div>
-                                        </div>
-                                        <div *ngIf="(addMore) && guarantorDetails.get('municipalities').invalid"
-                                             class="alert-warning">
-                                            <div *ngIf="guarantorDetails.get('municipalities').errors.required">
-                                                Please add Municipality or VDC
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><strong>Citizenship Number</strong></label>
@@ -338,6 +258,268 @@
                                         <div *ngIf="submitted && guarantorDetails.get('netWorth').invalid" class="invalid-feedback">
                                             <div *ngIf="guarantorDetails.get('netWorth').errors.required">
                                                 Net Worth Amount is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <h6><b>Permanent Address as per citizenship</b></h6>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong>Province</strong></label>
+                                        <select (change)="getDistrict(guarantorDetails.get('province').value,i)"
+                                                [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails.get('province').errors}"
+                                                class="custom-select"
+                                                formControlName="province"
+                                                name="province">
+                                            <option [value]="null" hidden>Select Province</option>
+                                            <option *ngFor="let provinceVal of provinceList"
+                                                    [ngValue]="provinceVal.id">
+                                                {{provinceVal.name}}
+                                        </select>
+                                        <div *ngIf="(submitted) && guarantorDetails.get('province').invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails.get('province').errors.required">Province
+                                                is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('province').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('province').errors.required">Please fill province
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong>District</strong></label>
+                                        <select (change)="getMunicipalities(guarantorDetails.get('district').value, i)"
+                                                [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails.get('district').errors}"
+                                                class="custom-select"
+                                                formControlName="district"
+                                                name="district">
+                                            <option [value]="null" hidden>Select District</option>
+                                            <option *ngFor="let districtVal of addressList[i].districtList"
+                                                    [ngValue]="districtVal.id">
+                                                {{districtVal.name}}</option>
+                                        </select>
+                                        <div *ngIf="(submitted) && guarantorDetails.get('district').invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails.get('district').errors.required">District
+                                                is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('district').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('district').errors.required">please add district
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong>Municipalities/VDC</strong></label>
+                                        <select [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('municipalities').errors}"
+                                                class="custom-select"
+                                                formControlName="municipalities"
+                                                name="municipalities">
+                                            <option [value]="null" hidden>Select Municipalities/VDC</option>
+                                            <option *ngFor="let municipalitiesVal of addressList[i].municipalityVdcList"
+                                                    [ngValue]="municipalitiesVal.id">
+                                                {{municipalitiesVal.name}}
+                                        </select>
+                                        <div *ngIf="(submitted) && guarantorDetails.get('municipalities').invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails.get('municipalities').errors.required">
+                                                Municipality or VDC is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('municipalities').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('municipalities').errors.required">
+                                                Please add Municipality or VDC
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong> Ward Number</strong></label>
+                                        <input [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails.get('wardNumber').errors }"
+                                               class="form-control form-control-sm-error rounded"
+                                               formControlName="wardNumber"
+                                               id="wardNumber"
+                                               name="wardNumber"
+                                               placeholder="Ward Number"
+                                               type="number">
+                                        <div *ngIf="(submitted) && guarantorDetails.get('wardNumber').invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails.get('wardNumber').errors.required">Ward Number is
+                                                required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('wardNumber').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('wardNumber').errors.required">
+                                                Please fill Ward Number
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong> Street Name</strong></label>
+                                        <input [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails.get('streetName').errors }"
+                                               class="form-control form-control-sm-error rounded"
+                                               formControlName="streetName"
+                                               id="streetName"
+                                               name="streetName"
+                                               placeholder="Street Name"
+                                               type="text">
+                                        <div *ngIf="(submitted) && guarantorDetails.get('streetName').invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails.get('streetName').errors.required">Street Name is
+                                                required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('streetName').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('streetName').errors.required">
+                                                Please fill Street name
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <nb-checkbox (change)="sameAsAbove(i)"><i>Same as Permanent Address for Current Address</i></nb-checkbox>
+                                </div>
+                                <div class="col-md-12">
+                                    <h6><b>Current Address</b></h6>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong>Province</strong></label>
+                                        <select (change)="getDistrictTemporary(guarantorDetails.get('provinceTemporary').value,i)"
+                                                [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails.get('provinceTemporary').errors}"
+                                                class="custom-select"
+                                                formControlName="provinceTemporary"
+                                                name="province">
+                                            <option [value]="null" hidden>Select Province</option>
+                                            <option *ngFor="let provinceVal of provinceList"
+                                                    [ngValue]="provinceVal.id">
+                                                {{provinceVal.name}}
+                                        </select>
+                                        <div *ngIf="(submitted) && guarantorDetails.get('provinceTemporary').invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails.get('provinceTemporary').errors.required">Province
+                                                is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('provinceTemporary').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('provinceTemporary').errors.required">Please fill province
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong>District</strong></label>
+                                        <select (change)="getMunicipalitiesTemporary(guarantorDetails.get('districtTemporary').value, i)"
+                                                [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails.get('districtTemporary').errors}"
+                                                class="custom-select"
+                                                formControlName="districtTemporary"
+                                                name="district">
+                                            <option [value]="null" hidden>Select District</option>
+                                            <option *ngFor="let districtVal of addressListTemporary[i].districtList"
+                                                    [ngValue]="districtVal.id">
+                                                {{districtVal.name}}</option>
+                                        </select>
+                                        <div *ngIf="(submitted) && guarantorDetails.get('districtTemporary').invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails.get('districtTemporary').errors.required">District
+                                                is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('districtTemporary').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('districtTemporary').errors.required">please add district
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong>Municipalities/VDC</strong></label>
+                                        <select [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('municipalitiesTemporary').errors}"
+                                                class="custom-select"
+                                                formControlName="municipalitiesTemporary"
+                                                name="municipalities">
+                                            <option [value]="null" hidden>Select Municipalities/VDC</option>
+                                            <option *ngFor="let municipalitiesVal of addressListTemporary[i].municipalityVdcList"
+                                                    [ngValue]="municipalitiesVal.id">
+                                                {{municipalitiesVal.name}}
+                                        </select>
+                                        <div *ngIf="(submitted) && guarantorDetails.get('municipalitiesTemporary').invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails.get('municipalitiesTemporary').errors.required">
+                                                Municipality or VDC is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('municipalitiesTemporary').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('municipalitiesTemporary').errors.required">
+                                                Please add Municipality or VDC
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong> Ward Number</strong></label>
+                                        <input [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails.get('wardNumberTemporary').errors }"
+                                               class="form-control form-control-sm-error rounded"
+                                               formControlName="wardNumberTemporary"
+                                               id="wardNumberTemporary"
+                                               name="wardNumberTemporary"
+                                               placeholder="Ward Number"
+                                               type="number">
+                                        <div *ngIf="(submitted) && guarantorDetails.get('wardNumberTemporary').invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails.get('wardNumberTemporary').errors.required">Ward Number is
+                                                required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('wardNumberTemporary').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('wardNumberTemporary').errors.required">
+                                                Please fill Ward Number
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong> Street Name</strong></label>
+                                        <input [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails.get('streetNameTemporary').errors }"
+                                               class="form-control form-control-sm-error rounded"
+                                               formControlName="streetNameTemporary"
+                                               id="streetNameTemporary"
+                                               name="streetNameTemporary"
+                                               placeholder="Street Name"
+                                               type="text">
+                                        <div *ngIf="(submitted) && guarantorDetails.get('streetNameTemporary').invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails.get('streetNameTemporary').errors.required">Street Name is
+                                                required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('streetNameTemporary').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('streetNameTemporary').errors.required">
+                                                Please fill Street name
                                             </div>
                                         </div>
                                     </div>

@@ -9,6 +9,9 @@ export class Guarantor {
     province: Province;
     district: District;
     municipalities: MunicipalityVdc;
+    provinceTemporary: Province;
+    districtTemporary: District;
+    municipalitiesTemporary: MunicipalityVdc;
     citizenNumber: string;
     issuedYear: Date;
     issuedPlace: string;
@@ -19,4 +22,8 @@ export class Guarantor {
     docPath: string;
     netWorth: number;
     consentOfLegalHeirs: boolean;
+    streetName: string;
+    wardNumber: number;
+    streetNameTemporary: string;
+    wardNumberTemporary: number;
 }
