@@ -16,10 +16,12 @@ export class ProposalSummaryComponent implements OnInit {
   public DocStatus = DocStatus;
   public LoanType = LoanType;
   public EnumUtils = EnumUtils;
+  proposalAllData: any;
 
   constructor() { }
 
   ngOnInit() {
+    this.proposalAllData = JSON.parse(this.proposalData.data);
   }
 
   public getTotal(key: string): number {
