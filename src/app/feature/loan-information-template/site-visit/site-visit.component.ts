@@ -41,6 +41,7 @@ export class SiteVisitComponent implements OnInit {
   formDataForEdit;
   currentResident = false;
   majorMarketPlaceDistance = ['less than 500M', '500M to 1KM', '1KM to 2KM', 'More than 2KM'];
+  yesNo = ['Yes', 'No'];
   date: Date;
 
   constructor(private formBuilder: FormBuilder,

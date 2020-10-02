@@ -421,15 +421,22 @@
                             <tr>
                                 <td>2</td>
                                 <td>School/Colleges</td>
-                                <td><input class="form-control"
-                                           formControlName="schoolOrCollege" type="text">
+                                <td>
+                                    <select formControlName="schoolOrCollege" class="custom-select">
+                                        <option [ngValue]="''" hidden>Select Distance</option>
+                                        <option *ngFor="let distance of majorMarketPlaceDistance" [ngValue]="distance">{{distance}}</option>
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
                                 <td>3</td>
                                 <td>Hospital/Nursing Home</td>
-                                <td><input class="form-control"
-                                           formControlName="hospitalOrNursingHome" type="text">
+                                <td>
+                                    <select formControlName="hospitalOrNursingHome" class="custom-select">
+                                        <option [ngValue]="''" hidden>Select Distance</option>
+                                        <option *ngFor="let distance of majorMarketPlaceDistance" [ngValue]="distance">{{distance}}</option>
+                                    </select>
+
                                 </td>
                             </tr>
                         </table>
@@ -512,20 +519,24 @@
                     <select class="custom-select" formControlName="rentLeased"
                             id="rentLeased" name="rentLeased">
                         <option [ngValue]="null" hidden>Is copy of rental/leased agreement obtained?</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
+                        <option *ngFor="let data of yesNo" [ngValue]="data">{{data}}</option>
                     </select>
                 </div>
-                <div class="col-md-4 form-group">
+                <div class="col-md-4 form-group" *ngIf="siteVisitFormGroup.get(['currentAssetsInspectionDetails','rents']).value === 'Rented/Leased'">
                     <label class="title" for="isRentPmtUpToDate">IS Rent Pmt. Up to Date?</label>
-                    <input class="form-control" formControlName="isRentPmtUpToDate" id="isRentPmtUpToDate"
-                           name="isRentPmtUpToDate" placeholder="Is rent payment up to date?">
+                    <select class="custom-select" formControlName="isRentPmtUpToDate"
+                            id="isRentPmtUpToDate" name="isRentPmtUpToDate">
+                        <option [ngValue]="''" hidden>Is rent payment up to date?</option>
+                        <option *ngFor="let data of yesNo" [ngValue]="data">{{data}}</option>
+                    </select>
                 </div>
-                <div class="col-md-4 form-group">
+                <div class="col-md-4 form-group" *ngIf="siteVisitFormGroup.get(['currentAssetsInspectionDetails','rents']).value === 'Rented/Leased'">
                     <label class="title" for="isRentReceiptShown">IS Rent Receipt Up to Date?</label>
-                    <input class="form-control" formControlName="isRentReceiptShown"
-                           id="isRentReceiptShown" name="isRentReceiptShown"
-                           placeholder="Is Rent Receipt Shown?">
+                    <select class="custom-select" formControlName="isRentReceiptShown"
+                            id="isRentReceiptShown" name="isRentReceiptShown">
+                        <option [ngValue]="''" hidden>Is rent payment up to date?</option>
+                        <option *ngFor="let data of yesNo" [ngValue]="data">{{data}}</option>
+                    </select>
                 </div>
 
                 <h4 class="col-md-12 mt-3">Insurance Verification</h4>
