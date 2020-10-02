@@ -6,6 +6,9 @@ import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {Action} from '../../../../../@core/Action';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {EnumUtils} from '../../../../../@core/utils/enums.utils';
+import {DocumentCheckType} from '../../../../../@core/model/enum/document-check-type.enum';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-document-form',
@@ -14,13 +17,11 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class DocumentFormComponent implements OnInit {
 
-  @Input()
-  model: Document;
-
-  @Input()
-  action: Action = Action.ADD;
+  @Input() model: Document;
+  @Input() action: Action = Action.ADD;
 
   modelForm: FormGroup;
+  DocumentCheckTypeEnum = EnumUtils.keys(DocumentCheckType);
 
   constructor(
       private service: DocumentService,
@@ -43,13 +44,15 @@ export class DocumentFormComponent implements OnInit {
         {
           id: [this.model.id === undefined ? '' : this.model.id],
           name: [this.model.displayName === undefined ? '' : this.model.displayName,
-            [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]]
+            [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
+          checkType: [ObjectUtil.setUndefinedIfNull(this.model.checkType)]
         }
     );
   }
 
   onSubmit() {
-    this.model.displayName = this.modelForm.value.name;
+    this.model.displayName = this.modelForm.get('name').value;
+    this.model.checkType = this.modelForm.get('checkType').value;
     this.service.save(this.model).subscribe((response) => {
           this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Document!'));
           this.model = new Document();
