@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-md-12 table-responsive">
+    <table class="table table-bordered table-responsive table-hover">
+      <thead>
+      <tr>
+        <th>S.N</th>
+        <th>Document</th>
+        <th>Upload</th>
+        <th *ngIf="checked">Preview</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>1</td>
+        <td>{{docTitle}}</td>
+        <td><input (change)="fileUpload($event)"
+                   accept=".png, .jpg"
+                   class="form-control-file"
+                   id="" multiple=""
+                   type="file"></td>
+        <td *ngIf="checked"><i (click)="previewDoc(pathValue)" class="fas fa-eye"></i></td>
+        <td>
+          <i *ngIf="checked" class="fas fa-check-circle"></i>
+          <i *ngIf="!checked" class="fas fa-times-circle"></i>
+
+        </td>
+      </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
