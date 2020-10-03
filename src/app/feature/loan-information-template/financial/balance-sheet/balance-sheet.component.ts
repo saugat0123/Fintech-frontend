@@ -47,6 +47,9 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             this.setDifferenceBS(balanceSheetFormData.differenceBS);
             this.balanceSheetForm.get('justificationBalanceSheet').patchValue(balanceSheetFormData.justificationBalanceSheet);
         }
+        this.fiscalYear.forEach((y, i) => {
+            this.onValueChange('netWorth', i);
+        });
     }
 
     buildBalanceSheetForm() {
@@ -63,6 +66,10 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                 }),
                 this.formBuilder.group({
                     name: ['Account Receivable'],
+                    amount: this.formBuilder.array([])
+                }),
+                this.formBuilder.group({
+                    name: ['Prepaid expenses'],
                     amount: this.formBuilder.array([])
                 }),
                 this.formBuilder.group({
@@ -183,12 +190,22 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         const totalLiabilitiesAndEquity = (this.balanceSheetForm.get('totalLiabilitiesAndEquity') as FormArray)
             .controls[index] as FormGroup;
         const differenceBS = (this.balanceSheetForm.get('differenceBS') as FormArray).controls[index] as FormGroup;
+
         // Income Statement variable--
         const incomeStatement = this.formData['incomeStatementData'];
         // Cash Flow Statement variable--
         const cashFlowStatement = this.formData['cashFlowStatementData'];
         // KeyIndicators variable--
         const keyIndicators = this.formData['keyIndicatorsData'];
+
+        // Calculating retainedEarningsValue--
+        const retainedEarningsValue = (incomeStatement.netProfitTransferredToBalanceSheet as Array<Object>)[index]['value'];
+        this.balanceSheetForm.get('netWorthCategory')['controls'].some( category => {
+            if (category.get('name').value === 'Retained Earning') {
+                const amountIndex = (category.get('amount') as FormArray).controls[index] as FormGroup;
+                amountIndex.controls['value'].setValue(retainedEarningsValue);
+            }
+        });
 
         switch (headingTitle) {
             case 'currentAssets':
@@ -235,15 +252,6 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             + Number(otherAssets.controls['value'].value)).toFixed(2);
         totalAssets.controls['value'].setValue(totalAssetsValue);
 
-        // Calculating retainedEarningsValue--
-        const retainedEarningsValue = (this.formData['incomeStatementData']
-            .netProfitTransferredToBalanceSheet as Array<Object>)[index]['value'];
-        this.balanceSheetForm.get('netWorthCategory')['controls'].some( category => {
-            if (category.get('name').value === 'Retained Earning') {
-                const amountIndex = (category.get('amount') as FormArray).controls[index] as FormGroup;
-                amountIndex.controls['value'].setValue(retainedEarningsValue);
-            }
-        });
         // Calculating totalLiabilitiesAndEquity--
         const totalLiabilitiesAndEquityValue = (Number(currentLiabilities.controls['value'].value)
             + Number(longTermLoan.controls['value'].value) + Number(otherLongTermLiabilities.controls['value'].value)
@@ -405,12 +413,10 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
 
         if (!(Number(currentAssets.controls['value'].value) === 0 || Number(currentLiabilities.controls['value'].value) === 0)) {
             keyIndicators.quickRatio[index].value =
-                ((Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm
-                        .get('currentAssetsCategory'), 'Cash/Bank Balance', index))
-                    + Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm
-                        .get('currentAssetsCategory'), 'Short term investment', index))
-                    + Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm
-                        .get('currentAssetsCategory'), 'Account Receivable', index))) /
+                ((Number(currentAssets.controls['value'].value)
+                    - Number(inventories.controls['value'].value)
+                    - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm
+                        .get('currentAssetsCategory'), 'Advances and Deposits', index))) /
                 Number(currentLiabilities.controls['value'].value)).toFixed(2);
             keyIndicators.currentRatio[index].value = (Number(currentAssets.controls['value'].value)
                 / Number(Number(currentLiabilities.controls['value'].value))).toFixed(2);
@@ -486,9 +492,23 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         }
     }
 
+    /**
+     * Generic remove method for all Sub-categories Balance Sheet
+     * @param indexToBeRemoved The index to be removed from sub-category
+     * @param headingCategory The main Header title name
+     * @param subCategory The Sub-category name under the heading title
+     */
+    removeSubCategoryGenericAction(indexToBeRemoved: number, headingCategory: string, subCategory: string) {
+        const control = this.balanceSheetForm.get(subCategory) as FormArray;
+        control.removeAt(indexToBeRemoved);
+        this.fiscalYear.forEach((singleYear, yearIndex) => {
+            this.onValueChange(headingCategory, yearIndex);
+        });
+    }
+
     // Adding and deleting fields---
     // Current Assets Category
-    addCurrentAssetsCategory(name) {
+    addCurrentAssetsCategory(input) {
         const amount = this.formBuilder.array([]);
         this.fiscalYear.forEach((year) => {
             amount.push(
@@ -501,19 +521,19 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         const control = this.balanceSheetForm.get('currentAssetsCategory') as FormArray;
         control.push(
             this.formBuilder.group({
-                name: [name],
+                name: [input.value],
                 amount: amount
             })
         );
+        input.value = '';
     }
 
     removeCurrentAssetsCategory(index) {
-        const control = this.balanceSheetForm.get('currentAssetsCategory') as FormArray;
-        control.removeAt(index);
+        this.removeSubCategoryGenericAction(index, 'currentAssets', 'currentAssetsCategory');
     }
 
     // Fixed Assets Category
-    addFixedAssetsCategory(name) {
+    addFixedAssetsCategory(input) {
         const amount = this.formBuilder.array([]);
         this.fiscalYear.forEach((year) => {
             amount.push(
@@ -526,19 +546,19 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         const control = this.balanceSheetForm.get('fixedAssetsCategory') as FormArray;
         control.push(
             this.formBuilder.group({
-                name: [name],
+                name: [input.value],
                 amount: amount
             })
         );
+        input.value = '';
     }
 
     removeFixedAssetsCategory(index) {
-        const control = this.balanceSheetForm.get('fixedAssetsCategory') as FormArray;
-        control.removeAt(index);
+        this.removeSubCategoryGenericAction(index, 'fixedAssets', 'fixedAssetsCategory');
     }
 
     // Other Assets Category
-    addOtherAssetsCategory(name) {
+    addOtherAssetsCategory(input) {
         const amount = this.formBuilder.array([]);
         this.fiscalYear.forEach((year) => {
             amount.push(
@@ -551,19 +571,19 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         const control = this.balanceSheetForm.get('otherAssetsCategory') as FormArray;
         control.push(
             this.formBuilder.group({
-                name: [name],
+                name: [input.value],
                 amount: amount
             })
         );
+        input.value = '';
     }
 
     removeOtherAssetsCategory(index) {
-        const control = this.balanceSheetForm.get('otherAssetsCategory') as FormArray;
-        control.removeAt(index);
+        this.removeSubCategoryGenericAction(index, 'otherAssets', 'otherAssetsCategory');
     }
 
     // Current Liabilities Category
-    addCurrentLiabilitiesCategory(name) {
+    addCurrentLiabilitiesCategory(input) {
         const amount = this.formBuilder.array([]);
         this.fiscalYear.forEach((year) => {
             amount.push(
@@ -576,19 +596,19 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         const control = this.balanceSheetForm.get('currentLiabilitiesCategory') as FormArray;
         control.push(
             this.formBuilder.group({
-                name: [name],
+                name: [input.value],
                 amount: amount
             })
         );
+        input.value = '';
     }
 
     removeCurrentLiabilitiesCategory(index) {
-        const control = this.balanceSheetForm.get('currentLiabilitiesCategory') as FormArray;
-        control.removeAt(index);
+        this.removeSubCategoryGenericAction(index, 'currentLiabilities', 'currentLiabilitiesCategory');
     }
 
     // 	Other Long Term Liabilities Category
-    addOtherLongTermLiabilitiesCategory(name) {
+    addOtherLongTermLiabilitiesCategory(input) {
         const amount = this.formBuilder.array([]);
         this.fiscalYear.forEach((year) => {
             amount.push(
@@ -601,19 +621,19 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         const control = this.balanceSheetForm.get('otherLongTermLiabilitiesCategory') as FormArray;
         control.push(
             this.formBuilder.group({
-                name: [name],
+                name: [input.value],
                 amount: amount
             })
         );
+        input.value = '';
     }
 
     removeOtherLongTermLiabilitiesCategory(index) {
-        const control = this.balanceSheetForm.get('otherLongTermLiabilitiesCategory') as FormArray;
-        control.removeAt(index);
+        this.removeSubCategoryGenericAction(index, 'otherLongTermLiabilities', 'otherLongTermLiabilitiesCategory');
     }
 
     // Net Worth Category
-    addNetWorthCategory(name) {
+    addNetWorthCategory(input) {
         const amount = this.formBuilder.array([]);
         this.fiscalYear.forEach((year) => {
             amount.push(
@@ -626,15 +646,15 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         const control = this.balanceSheetForm.get('netWorthCategory') as FormArray;
         control.push(
             this.formBuilder.group({
-                name: [name],
+                name: [input.value],
                 amount: amount
             })
         );
+        input.value = '';
     }
 
     removeNetWorthCategory(index) {
-        const control = this.balanceSheetForm.get('netWorthCategory') as FormArray;
-        control.removeAt(index);
+        this.removeSubCategoryGenericAction(index, 'netWorth', 'netWorthCategory');
     }
 
     //
