@@ -40,7 +40,8 @@ export class SiteVisitComponent implements OnInit {
   latLng: string[];
   formDataForEdit;
   currentResident = false;
-
+  majorMarketPlaceDistance = ['less than 500M', '500M to 1KM', '1KM to 2KM', 'More than 2KM'];
+  yesNo = ['Yes', 'No'];
   date: Date;
 
   constructor(private formBuilder: FormBuilder,
@@ -209,6 +210,10 @@ export class SiteVisitComponent implements OnInit {
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
                       : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.open],
+          telephoneLine: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.telephoneLine],
           remarksForOtherFacility: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
@@ -259,8 +264,8 @@ export class SiteVisitComponent implements OnInit {
                       : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.bathroomAndToilet],
         }),
         vicinityToTheBasicAmenities: this.formBuilder.group({
-          majorMarketPlaces: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
+          majorMarketPlaces: [this.formDataForEdit === undefined ? undefined
+              : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? undefined
                   : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.majorMarketPlaces],
           schoolOrCollege: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
@@ -268,15 +273,6 @@ export class SiteVisitComponent implements OnInit {
           hospitalOrNursingHome: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.hospitalOrNursingHome],
-          electricityLine: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.electricityLine],
-          telephoneLine: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.telephoneLine],
-          waterPipeline: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.waterPipeline],
           staffs: this.formBuilder.array([]),
           commentAboutFAC: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
@@ -299,6 +295,9 @@ export class SiteVisitComponent implements OnInit {
         rents: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                 : this.formDataForEdit.currentAssetsInspectionDetails.rents],
+        rentLeased: [this.formDataForEdit === undefined ? undefined
+            : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? undefined
+                : this.formDataForEdit.currentAssetsInspectionDetails.rentLeased],
         isRentPmtUpToDate: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                 : this.formDataForEdit.currentAssetsInspectionDetails.isRentPmtUpToDate],
@@ -401,6 +400,10 @@ export class SiteVisitComponent implements OnInit {
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
                       : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.padlocksUse],
+          certificate: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.certificate],
           findingAndComments: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
