@@ -36,8 +36,10 @@
               "node_modules/quill/dist/quill.snow.css",
               "node_modules/@ng-select/ng-select/themes/default.theme.css",
               "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
+              "node_modules/angular2-draggable/css/resizable.min.css",
               "src/styles.scss",
               "src/app/@theme/styles/styles.scss"
+
             ],
             "scripts": [
               "node_modules/pace-js/pace.min.js"

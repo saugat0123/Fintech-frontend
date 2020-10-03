@@ -27,8 +27,9 @@ import {CreditGradingComponent} from './credit-grading/credit-grading.component'
 import {ProposalComponent} from './proposal/proposal.component';
 import {CreditRiskGradingGammaComponent} from './credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {CiclComponent} from './cicl/cicl.component';
-import { FinancialDeleteComponentComponent } from './financial/financial-delete-component/financial-delete-component.component';
-import { TemplateDocumentComponent } from './template-document/template-document.component';
+import {FinancialDeleteComponentComponent} from './financial/financial-delete-component/financial-delete-component.component';
+import {TemplateDocumentComponent} from './template-document/template-document.component';
+import {QuillModule} from 'ngx-quill';
 
 const COMPONENTS = [
   SiteVisitComponent,
@@ -54,6 +55,30 @@ const COMPONENTS = [
   TemplateDocumentComponent
 ];
 
+const modules = {
+
+  toolbar: [
+    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    ['blockquote', 'code-block'],
+
+    [{'header': 1}, {'header': 2}],               // custom button values
+    [{'list': 'ordered'}, {'list': 'bullet'}],
+    [{'script': 'sub'}, {'script': 'super'}],      // superscript/subscript
+    [{'indent': '-1'}, {'indent': '+1'}],          // outdent/indent
+    [{'direction': 'rtl'}],                         // text direction
+
+    [{'size': ['small', false, 'large', 'huge']}],  // custom dropdown
+    [{'header': [1, 2, 3, 4, 5, 6, false]}],
+
+    [{'color': []}, {'background': []}],          // dropdown with defaults from theme
+    [{'font': []}],
+    [{'align': []}],
+
+    ['clean'],                                         // remove formatting button
+    // link and image, video
+  ]
+};
+
 @NgModule({
   declarations: [...COMPONENTS],
   exports: [...COMPONENTS],
@@ -72,6 +97,7 @@ const COMPONENTS = [
       apiKey: environment.GOOGLE_MAP_API_KEY
     }),
     CoreModule,
+    QuillModule.forRoot({modules: modules}),
   ]
 })
 export class LoanInformationTemplateModule {

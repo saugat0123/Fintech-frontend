@@ -1,12 +1,4 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {ToastService} from '../../../@core/utils';
 import {AlertService} from '../../../@theme/components/alert/alert.service';
@@ -153,10 +145,21 @@ export class LoanActionComponent implements OnInit, OnChanges {
       };
     }
     if (ObjectUtil.isEmpty(this.combinedLoanId)) {
-      this.nbDialogService.open(LoanActionModalComponent, {context});
+      this.nbDialogService.open(LoanActionModalComponent, {
+        context,
+        closeOnBackdropClick: false,
+        hasBackdrop: false,
+        hasScroll: true
+      });
     } else {
       context.combinedLoanId = this.combinedLoanId;
-      this.nbDialogService.open(LoanActionCombinedModalComponent, {context});
+      this.nbDialogService.open(LoanActionCombinedModalComponent,
+          {
+            context,
+            closeOnBackdropClick: false,
+            hasBackdrop: false,
+            hasScroll: true
+          });
     }
 
   }
@@ -182,6 +185,6 @@ export class LoanActionComponent implements OnInit, OnChanges {
   }
 
   openConfirmationModal() {
-    this.nbDialogService.open(this.confirmModal , {autoFocus: true});
+    this.nbDialogService.open(this.confirmModal, {autoFocus: true});
   }
 }
