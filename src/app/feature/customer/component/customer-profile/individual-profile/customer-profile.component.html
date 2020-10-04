@@ -81,7 +81,8 @@
             <span> <strong>Email :</strong> {{customer.email }}</span></div>
           <div class="row">
             <span> <strong>Contact :</strong> {{customer.contactNumber }}</span></div>
-
+          <div class="row">
+            <span> <strong>Introduction :</strong> {{customer.introduction }}</span></div>
         </div>
         <div *ngIf="isEdited" class="col-md-9 mt-3 py-4">
           <form [formGroup]="basicForm">
@@ -144,6 +145,10 @@
             <div class="row">
                         <span> <strong>Contact :</strong>   <input formControlName="contactNumber"
                                                                    placeholder="name"
+                                                                   type="text"></span></div>
+            <div class="row">
+                        <span> <strong>Introduction :</strong>   <input formControlName="introduction"
+                                                                   placeholder="Introduction"
                                                                    type="text"></span></div>
           </form>
 
