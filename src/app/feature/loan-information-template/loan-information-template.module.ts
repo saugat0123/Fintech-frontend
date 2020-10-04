@@ -30,6 +30,7 @@ import {CiclComponent} from './cicl/cicl.component';
 import {FinancialDeleteComponentComponent} from './financial/financial-delete-component/financial-delete-component.component';
 import {TemplateDocumentComponent} from './template-document/template-document.component';
 import {QuillModule} from 'ngx-quill';
+import {CKEditorModule} from 'ng2-ckeditor';
 
 const COMPONENTS = [
   SiteVisitComponent,
@@ -56,10 +57,11 @@ const COMPONENTS = [
 ];
 
 const modules = {
-
+  table: true,
   toolbar: [
-    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    ['bold', 'italic', 'underline', 'strike', 'table'],        // toggled buttons
     ['blockquote', 'code-block'],
+
 
     [{'header': 1}, {'header': 2}],               // custom button values
     [{'list': 'ordered'}, {'list': 'bullet'}],
@@ -98,6 +100,7 @@ const modules = {
     }),
     CoreModule,
     QuillModule.forRoot({modules: modules}),
+      CKEditorModule
   ]
 })
 export class LoanInformationTemplateModule {

@@ -475,10 +475,12 @@
                     <b>Waiver/Deviation</b>
                   </nb-checkbox>
                   <div *ngIf="waiverChecked">
-                    <textarea class="form-control"
-                              formControlName="waiverConclusionRecommendation" placeholder="Waiver"
-                              rows="2"></textarea>
+<!--                    <textarea class="form-control"-->
+<!--                              formControlName="waiverConclusionRecommendation" placeholder="Waiver"-->
+<!--                              rows="2"></textarea>-->
+                    <ckeditor formControlName="waiverConclusionRecommendation" [config]="ckeConfig"></ckeditor>
                   </div>
+
                 </div>
                 <div class="col-md-12 form-group">
                   <nb-checkbox (change)="checkChecked($event.target.checked,'sol')"
@@ -486,10 +488,11 @@
                     Obligor Limit</b>
                   </nb-checkbox>
                   <div *ngIf="solChecked">
-                    <textarea class="form-control"
-                              formControlName="solConclusionRecommendation"
-                              placeholder="Single Obligor Limit "
-                              rows="2"></textarea>
+<!--                    <textarea class="form-control"-->
+<!--                              formControlName="solConclusionRecommendation"-->
+<!--                              placeholder="Single Obligor Limit "-->
+<!--                              rows="2"></textarea>-->
+                    <ckeditor formControlName="solConclusionRecommendation" [config]="ckeConfig"></ckeditor>
                   </div>
                 </div>
                 <div class="col-md-12 form-group">
@@ -499,10 +502,11 @@
                     Mitigation</b>
                   </nb-checkbox>
                   <div *ngIf="riskChecked">
-                    <textarea class="form-control"
-                              formControlName="riskConclusionRecommendation"
-                              placeholder="Risk & Mitigation "
-                              rows="2"></textarea>
+<!--                    <textarea class="form-control"-->
+<!--                              formControlName="riskConclusionRecommendation"-->
+<!--                              placeholder="Risk & Mitigation "-->
+<!--                              rows="2"></textarea>-->
+                    <ckeditor formControlName="riskConclusionRecommendation" [config]="ckeConfig"></ckeditor>
                   </div>
                 </div>
               </div>
