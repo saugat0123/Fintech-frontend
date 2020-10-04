@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {LoanCategory} from '../../../loan/model/loan-category';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
 import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
@@ -12,6 +11,7 @@ import {CombinedLoan} from '../../../loan/model/combined-loan';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {CustomerType} from "../../model/customerType";
 
 @Component({
   selector: 'app-customer-loan-apply',
@@ -19,7 +19,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
   styleUrls: ['./customer-loan-apply.component.scss']
 })
 export class CustomerLoanApplyComponent implements OnInit {
-  @Input() loanCategory: LoanCategory;
+  @Input() customerType: CustomerType;
   @Input() paramProp;
   @Input() associateId;
   @Input() customerInfo: CustomerInfoData;
@@ -49,7 +49,7 @@ export class CustomerLoanApplyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loanConfigService.getAllByLoanCategory(this.loanCategory).subscribe((response: any) => {
+    this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
       this.loanList = response.detail;
     });
     this.customerLoanService.getInitialLoansByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
@@ -105,7 +105,7 @@ export class CustomerLoanApplyComponent implements OnInit {
           customerInfoId: this.paramProp.customerInfoId,
           customerType: this.paramProp.customerType,
           customerProfileId: this.associateId,
-          loanCategory: this.loanCategory
+          loanCategory: this.customerType
         }
       });
     }

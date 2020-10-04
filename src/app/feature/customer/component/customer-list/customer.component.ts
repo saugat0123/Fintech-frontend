@@ -127,7 +127,7 @@ export class CustomerComponent implements OnInit {
   customerProfile(associateId, id, customerType) {
     if (CustomerType[customerType] === CustomerType.INDIVIDUAL) {
       this.router.navigate(['/home/customer/profile/' + associateId], {queryParams: {customerType: customerType, customerInfoId: id}});
-    } else if (CustomerType[customerType] === CustomerType.COMPANY) {
+    } else if (CustomerType[customerType] === CustomerType.INSTITUTION ) {
       this.router.navigate(['/home/customer/company-profile/' + associateId],
           {queryParams: {id: id, customerType: customerType, companyInfoId: associateId, customerInfoId: id}});
     }
@@ -142,7 +142,7 @@ export class CustomerComponent implements OnInit {
     this.onClose();
     if (CustomerType.INDIVIDUAL === CustomerType[this.customerType]) {
       this.dialogService.open(CustomerFormComponent).onClose.subscribe(res => CustomerComponent.loadData(this));
-    } else if (CustomerType.COMPANY === CustomerType[this.customerType]) {
+    } else if (CustomerType.INSTITUTION  === CustomerType[this.customerType]) {
       this.dialogService.open(CompanyFormComponent).onClose.subscribe(res => CustomerComponent.loadData(this));
     }
   }

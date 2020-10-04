@@ -15,10 +15,10 @@ import {Status} from '../../../../../@core/Status';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {ProductModeService, ProductUtils} from '../../../service/product-mode.service';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
-import {LoanCategory} from '../../../../loan/model/loan-category';
 import {LoanTag} from '../../../../loan/model/loanTag';
 import {NgForm} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {CustomerType} from "../../../../customer/model/customerType";
 
 
 @Component({
@@ -57,7 +57,7 @@ export class UIComponent implements OnInit {
   showEligibility = false;
 
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
-  loanCategories = LoanCategory.enumObject();
+  loanCategories = CustomerType.enumObject();
   selectedLoanCategory: string;
   loanTagList = LoanTag.enumObject();
   selectedLoanTag = LoanTag.getKeyByValue(LoanTag.GENERAL);

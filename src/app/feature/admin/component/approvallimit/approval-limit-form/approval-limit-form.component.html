@@ -56,9 +56,9 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="loanApprovalType">Approval Type</label>
-                        <select class="custom-select" [(ngModel)]="model.loanApprovalType"
-                                name="loanApprovalType" id="loanApprovalType"
+                        <label for="customerType">Approval Type</label>
+                        <select class="custom-select" [(ngModel)]="model.customerType"
+                                name="customerType" id="customerType"
                                 #type="ngModel" [ngClass]="{ 'is-invalid': f.submitted && type.invalid }" required>
                             <option [ngValue]="undefined" hidden>Approval Type</option>
                             <option value="PERSONAL_TYPE">PERSONAL</option>
