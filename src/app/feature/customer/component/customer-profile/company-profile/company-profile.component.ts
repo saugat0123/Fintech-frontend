@@ -133,9 +133,9 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
   openLoanForm() {
     this.onClose();
     this.spinner = true;
-    let loanCategory = 'BUSINESS_TYPE';
+    let loanCategory = 'INSTITUTION';
     if (CustomerType.INDIVIDUAL === CustomerType[this.paramProp.customerType]) {
-      loanCategory = 'PERSONAL_TYPE';
+      loanCategory = 'INDIVIDUAL';
     }
     this.router.navigate(['/home/loan/loanForm'], {
       queryParams: {

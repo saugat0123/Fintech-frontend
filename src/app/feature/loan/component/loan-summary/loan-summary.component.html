@@ -45,7 +45,7 @@
                 </div>
                 <div
                     class="report-header-sub-heading">
-                  {{loanCategory === 'BUSINESS_TYPE' ?
+                  {{loanCategory === 'INSTITUTION' ?
                     loanDataHolder?.companyInfo?.companyName
                     : loanDataHolder?.customerInfo?.customerName}}
                 </div>
@@ -229,7 +229,7 @@
       </div>
 
 
-      <div *ngIf="loanCategory === 'BUSINESS_TYPE'" class="row">
+      <div *ngIf="loanCategory === 'INSTITUTION'" class="row">
         <div class="col-md-12">
         <app-company-info-summary [companyInfo]="loanDataHolder?.companyInfo"></app-company-info-summary>
         </div>
@@ -237,11 +237,11 @@
 
       <div class="row">
         <div class="col-md-12">
-          <p><strong>Details of {{loanCategory === 'BUSINESS_TYPE' ? 'Authorized Person'
+          <p><strong>Details of {{loanCategory === 'INSTITUTION' ? 'Authorized Person'
               : 'Borrower'}}</strong></p>
         </div>
         <div class="col-md-12">
-          <div *ngIf="loanCategory === 'PERSONAL_TYPE'">
+          <div *ngIf="loanCategory === 'INDIVIDUAL'">
             <table
                 class="table table-condensed table-bordered table-sm table-responsive-md disable-print text-center">
               <thead>
@@ -288,7 +288,7 @@
               </tbody>
             </table>
           </div>
-          <div *ngIf="loanCategory === 'BUSINESS_TYPE'">
+          <div *ngIf="loanCategory === 'INSTITUTION'">
             <table
                 class="table table-condensed table-sm table-bordered table-responsive-md text-center">
               <thead>
@@ -311,7 +311,7 @@
               </tbody>
             </table>
           </div>
-          <div *ngIf="loanCategory === 'PERSONAL_TYPE'">
+          <div *ngIf="loanCategory === 'INDIVIDUAL'">
             <p><strong>Family Details</strong></p>
             <table
                 class="table table-condensed table-bordered table-responsive-md text-center table-sm">
@@ -357,7 +357,7 @@
               <td>{{loanDataHolder?.loan?.name}}</td>
 
               <th>Loan Category</th>
-              <td>{{loanDataHolder?.loanCategory === 'PERSONAL_TYPE' ? 'PERSONAL'
+              <td>{{loanDataHolder?.loanCategory === 'INDIVIDUAL' ? 'PERSONAL'
                   : 'BUSINESS'}}</td>
 
               <th>Proposed Limit</th>
@@ -392,26 +392,26 @@
               <td>{{dmsLoanFile?.totalLoanLimit | currencyFormatter}}</td>
             </tr>
             <tr>
-              <th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Individual Exposure</th>
-              <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.individualExposure | currencyFormatter}}</td>
+              <th *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">Individual Exposure</th>
+              <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">{{dmsLoanFile?.individualExposure | currencyFormatter}}</td>
 
-              <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Institution Exposure</th>
-              <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.institutionExposure | currencyFormatter}}</td>
+              <th *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">Institution Exposure</th>
+              <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">{{dmsLoanFile?.institutionExposure | currencyFormatter}}</td>
 
               <th>Group Exposure</th>
               <td>{{dmsLoanFile?.groupExpo | currencyFormatter}}</td>
 
-              <th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Interest Coverage Ratio
+              <th *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">Interest Coverage Ratio
               </th>
-              <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.incomeCoverageRatio}}</td>
+              <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">{{dmsLoanFile?.incomeCoverageRatio}}</td>
 
-              <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Debt Service Coverage
+              <th *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">Debt Service Coverage
                 Ratio
               </th>
-              <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.debtServiceCoverageRatio}}</td>
+              <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">{{dmsLoanFile?.debtServiceCoverageRatio}}</td>
 
-              <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Dealing Product Name</th>
-              <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.dealingProductName}}</td>
+              <th *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">Dealing Product Name</th>
+              <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">{{dmsLoanFile?.dealingProductName}}</td>
             </tr>
             <tr>
             </tr>
