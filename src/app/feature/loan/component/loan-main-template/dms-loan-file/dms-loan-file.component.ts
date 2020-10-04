@@ -107,7 +107,7 @@ export class DmsLoanFileComponent implements OnInit {
           this.allId = paramsValue;
           this.customerId = this.allId.customerId;
           this.loanConfigId = this.allId.loanId;
-          if (this.allId.loanCategory !== 'PERSONAL_TYPE') {
+          if (this.allId.loanCategory !== 'INDIVIDUAL') {
             this.personal = false;
           }
 

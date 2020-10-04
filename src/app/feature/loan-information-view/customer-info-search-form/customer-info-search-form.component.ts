@@ -141,9 +141,9 @@ export class CustomerInfoSearchFormComponent implements OnInit {
 
   fetchCustomer(ref: NbDialogRef<TemplateRef<any>>) {
     ref.close();
-    let loanCategory = 'BUSINESS_TYPE';
+    let loanCategory = 'INSTITUTION';
     if (CustomerType.INDIVIDUAL === this.customerType) {
-      loanCategory = 'PERSONAL_TYPE';
+      loanCategory = 'INDIVIDUAL';
     }
     this.router.navigate(['/home/loan/loanForm'], {
       queryParams: {

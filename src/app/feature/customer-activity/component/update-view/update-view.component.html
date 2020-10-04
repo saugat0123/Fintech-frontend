@@ -93,7 +93,7 @@
                          *ngIf="activity === 'CUSTOMER_UPDATE' && data && profile.customerType === 'INDIVIDUAL'">
     </app-individual-view>
     <app-company-info-view [formValue]="data"
-                           *ngIf="activity === 'CUSTOMER_UPDATE' && data && profile.customerType === 'COMPANY'">
+                           *ngIf="activity === 'CUSTOMER_UPDATE' && data && profile.customerType === 'INSTITUTION'">
     </app-company-info-view>
 
     <app-credit-grading [formData]="data" [fromProfile]="false"
@@ -128,7 +128,7 @@
           <td><strong>{{p?.fieldName}}</strong></td>
           <td><span *ngIf="p?.fieldName == 'Proposed Limit'">RS.{{p?.prevValue | currencyFormatter}}
             /-</span>
-            <span *ngIf="p?.fieldName !== 'Proposed Limit'">{{p?.prevValue}}</span></td>
+            <span *ngIf="p?.fieldName !== 'Proposed Limit'" [innerHTML]="p?.prevValue | safeHtml"></span></td>
         </tr>
         <tr *ngIf="loanUpdateData?.priority">
           <td><strong>Priority</strong></td>

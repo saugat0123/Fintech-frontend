@@ -302,7 +302,7 @@ export class LoanFormComponent implements OnInit {
       this.templateList = response.detail.templateList;
 
       // Splicing customer loan for Personal Type Loan--
-      if (this.allId.loanCategory === 'PERSONAL_TYPE') {
+      if (this.allId.loanCategory === 'INDIVIDUAL') {
         this.templateList.forEach((value, index) => {
           if (value.name === 'Company Info') {
             this.templateList.splice(index, 1);
@@ -319,7 +319,7 @@ export class LoanFormComponent implements OnInit {
       });
 
       // Remove Customer Info Template for Business Loan Type
-      if (this.allId.loanCategory === 'BUSINESS_TYPE') {
+      if (this.allId.loanCategory === 'INSTITUTION') {
         this.templateList.forEach((value, i) => {
           if (value.name === 'Customer Info') {
             this.templateList.splice(i, 1);
@@ -633,7 +633,7 @@ export class LoanFormComponent implements OnInit {
       this.loanDocument.priority = this.priorityForm.get('priority').value;
       this.loanDocument.documentStatus = this.docStatusForm.get('documentStatus').value;
       this.loanDocument.loanCategory = this.allId.loanCategory;
-      if (this.allId.loanCategory === 'BUSINESS_TYPE') {
+      if (this.allId.loanCategory === 'INSTITUTION') {
         this.loanDocument.customerInfo = null;
       }
       if (ObjectUtil.isEmpty(this.loanDocument.loanHolder)) {
