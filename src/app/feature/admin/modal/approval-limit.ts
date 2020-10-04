@@ -6,6 +6,6 @@ export class ApprovalLimit {
     amount: number;
     loanCategory: LoanConfig;
     authorities: Role;
-    loanApprovalType: string;
+    customerType: string;
 }
 

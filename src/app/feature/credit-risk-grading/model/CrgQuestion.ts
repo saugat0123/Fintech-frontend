@@ -1,6 +1,6 @@
 import {Status} from '../../../@core/Status';
-import {LoanCategory} from '../../loan/model/loan-category';
 import {CrgAnswer} from './CrgAnswer';
+import {CustomerType} from "../../customer/model/customerType";
 
 export class CrgQuestion {
     id: number;
@@ -11,6 +11,6 @@ export class CrgQuestion {
     status: Status;
     version: number;
     crgGroupId: number;
-    loanApprovalType: LoanCategory;
+    customerType: CustomerType;
     answers: Array<CrgAnswer>;
 }

@@ -69,7 +69,7 @@ export class CustomerInfoSearchFormComponent implements OnInit {
 
     this.searchForm();
     this.getAllDistrict();
-    if (this.customerType === CustomerType.COMPANY) {
+    if (this.customerType === CustomerType.INSTITUTION) {
       this.placeHolder = CustomerInfoSearchFormComponent.COMPANY_PLACEHOLDER;
       this.errorMessage = CustomerInfoSearchFormComponent.COMPANY_MESSAGE;
       this.displayIndividual = false;

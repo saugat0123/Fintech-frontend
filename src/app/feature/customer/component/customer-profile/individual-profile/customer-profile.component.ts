@@ -19,7 +19,6 @@ import {CustomerRelative} from '../../../../admin/modal/customer-relative';
 import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {FetchLoan} from '../../../model/fetchLoan';
 import {LoanAmountType} from '../../../model/loanAmountType';
-import {LoanCategory} from '../../../../loan/model/loan-category';
 import {CustomerType} from '../../../model/customerType';
 import {CustomerInfoService} from '../../../service/customer-info.service';
 // @ts-ignore
@@ -66,7 +65,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
   totalLoanProposedAmount = 0;
   fetchLoan = FetchLoan;
   paramProp: any;
-  filterLoanCat = LoanCategory.BUSINESS;
+  filterLoanCat = CustomerType.INSTITUTION;
   isIndividual = false;
   customerInfo: CustomerInfoData;
   maker = false;
@@ -109,7 +108,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
           this.getCustomerInfo();
         });
     if (CustomerType.INDIVIDUAL === CustomerType[this.paramProp.customerType]) {
-      this.filterLoanCat = LoanCategory.PERSONAL;
+      this.filterLoanCat = CustomerType.INDIVIDUAL;
       this.isIndividual = true;
     }
     this.customerService.detail(this.associateId).subscribe((res: any) => {
@@ -167,7 +166,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
 
   openSelectLoanTemplate() {
     const modalRef = this.modalService.open(CustomerLoanApplyComponent, {size: 'lg'});
-    modalRef.componentInstance.loanCategory = this.filterLoanCat;
+    modalRef.componentInstance.customerType = this.filterLoanCat;
     modalRef.componentInstance.paramProp = this.paramProp;
     modalRef.componentInstance.associateId = this.associateId;
     modalRef.componentInstance.customerInfo = this.customerInfo;

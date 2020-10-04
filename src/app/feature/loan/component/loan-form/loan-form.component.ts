@@ -566,7 +566,7 @@ export class LoanFormComponent implements OnInit {
       this.loanDocument.loanHolder = this.loanHolder;
       this.loanDocument.siteVisit = this.loanHolder.siteVisit;
       this.loanDocument.financial = this.loanHolder.financial;
-      if (CustomerType[this.loanHolder.customerType] === CustomerType.COMPANY) {
+      if (CustomerType[this.loanHolder.customerType] === CustomerType.INSTITUTION) {
         this.companyInfoService.detail(this.loanHolder.associateId).subscribe((res: any) => {
           this.loanDocument.companyInfo = res.detail;
         }, error => {
