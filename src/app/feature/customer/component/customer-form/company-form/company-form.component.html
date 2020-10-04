@@ -187,6 +187,46 @@
                         </div>
                     </div>
                 </div>
+                <hr>
+                <div class="row" *ngIf="companyFormField.showFormField">
+                    <div class="col-md-12">
+                      <h5>Additional registration/license information
+                        <nb-checkbox id="additionalInfo"></nb-checkbox> </h5>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="businessType"><strong> Type of Registration/License</strong></label>
+                            <ng-select>
+                                <ng-option></ng-option>
+                            </ng-select>
+                            <div *ngIf="submitted && form.businessType.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="form.businessType.errors.required">
+                                    Business Type is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="licenseHolder"><strong>Name of license holder</strong></label>
+                            <div class="input-group mb-3">
+                                <input
+                                    [ngClass]="{ 'is-invalid':submitted && form.companyPAN.errors }"
+                                    class="form-control rounded"
+                                    id="licenseHolder"
+                                    placeholder="License Holder Name"
+                                    type="text"/>
+                                <div *ngIf="submitted && form.companyPAN.errors"
+                                     class="invalid-feedback">
+                                    <div *ngIf="form.companyPAN.errors.required">
+                                        PAN is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <hr>
 

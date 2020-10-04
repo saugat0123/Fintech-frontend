@@ -22,8 +22,11 @@ export class Customer {
     status: string;
     customerRelatives: Array<CustomerRelative>;
     occupation: string;
+    otherOccupation: string;
     incomeSource: string;
+    otherIncome: string;
     nepaliDetail: string;
     version: number;
+    introduction: string;
 
 }
