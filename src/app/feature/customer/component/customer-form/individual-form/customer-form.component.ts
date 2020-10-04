@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, NgModule} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, NgModule, ElementRef} from '@angular/core';
 import {Customer} from '../../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
@@ -64,7 +64,8 @@ export class CustomerFormComponent implements OnInit {
       private modalService: NgbModal,
       private blackListService: BlacklistService,
       private dialogService: NbDialogService,
-      protected ref: NbDialogRef<CustomerFormComponent>
+      protected ref: NbDialogRef<CustomerFormComponent>,
+      private el: ElementRef
   ) {
   }
 
@@ -171,6 +172,22 @@ export class CustomerFormComponent implements OnInit {
       }
     });
   }
+    scrollToFirstInvalidControl() {
+        const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+            'form .ng-invalid'
+        );
+        window.scroll({
+            top: this.getTopOffset(firstInvalidControl),
+            left: 0,
+            behavior: 'smooth'
+        });
+        firstInvalidControl.focus();
+    }
+
+    private getTopOffset(controlEl: HTMLElement): number {
+        const labelOffset = 50;
+        return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+    }
 
   onSubmit() {
     this.submitted = true;
@@ -186,6 +203,7 @@ export class CustomerFormComponent implements OnInit {
       return;
     } else {
       if (this.basicInfo.invalid) {
+          this. scrollToFirstInvalidControl()
         this.spinner = false;
         return; }
       {
