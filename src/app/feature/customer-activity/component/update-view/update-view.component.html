@@ -93,7 +93,7 @@
                          *ngIf="activity === 'CUSTOMER_UPDATE' && data && profile.customerType === 'INDIVIDUAL'">
     </app-individual-view>
     <app-company-info-view [formValue]="data"
-                           *ngIf="activity === 'CUSTOMER_UPDATE' && data && profile.customerType === 'COMPANY'">
+                           *ngIf="activity === 'CUSTOMER_UPDATE' && data && profile.customerType === 'INSTITUTION'">
     </app-company-info-view>
 
     <app-credit-grading [formData]="data" [fromProfile]="false"
