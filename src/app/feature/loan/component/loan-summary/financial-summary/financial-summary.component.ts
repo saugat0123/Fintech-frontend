@@ -41,7 +41,7 @@ export class FinancialSummaryComponent implements OnInit {
   constructor(private financialService: FinancialService) { }
 
   ngOnInit() {
-    if (this.loanType === 'BUSINESS_TYPE') {
+    if (this.loanType === 'INSTITUTION') {
       this.isBusinessLoan = true;
     }
     if (this.formData !== undefined) {

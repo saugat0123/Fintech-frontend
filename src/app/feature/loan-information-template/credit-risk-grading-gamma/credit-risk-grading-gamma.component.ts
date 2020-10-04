@@ -8,8 +8,9 @@ import {RiskGradingService} from '../../credit-risk-grading/service/risk-grading
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
-import {LoanCategory} from '../../loan/model/loan-category';
 import {ActivatedRoute} from '@angular/router';
+import {Customer} from "../../admin/modal/customer";
+import {CustomerType} from "../../customer/model/customerType";
 
 @Component({
     selector: 'app-credit-risk-grading-gamma',
@@ -52,7 +53,7 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         const customerType = this.route.snapshot.queryParamMap.get('customerType');
         let customerTypeParam = '';
         if (customerType) {
-            customerTypeParam = customerType === 'INDIVIDUAL' ? LoanCategory.PERSONAL : LoanCategory.BUSINESS;
+            customerTypeParam = customerType === 'INDIVIDUAL' ? CustomerType.INDIVIDUAL : CustomerType.INSTITUTION;
         } else {
             customerTypeParam = this.route.snapshot.queryParamMap.get('loanCategory');
         }

@@ -84,7 +84,7 @@ export class UpdateViewComponent implements OnInit {
   }
 
   checkCustomerType() {
-    if (CustomerType[this.profile.customerType] === CustomerType.COMPANY) {
+    if (CustomerType[this.profile.customerType] === CustomerType.INSTITUTION) {
       this.companyInfoService.detail(this.profile.associateId).subscribe((res: any) => {
         this.companyInfo = res.detail;
       }, error => {

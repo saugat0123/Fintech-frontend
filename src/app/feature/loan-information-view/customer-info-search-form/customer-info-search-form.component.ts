@@ -69,7 +69,7 @@ export class CustomerInfoSearchFormComponent implements OnInit {
 
     this.searchForm();
     this.getAllDistrict();
-    if (this.customerType === CustomerType.COMPANY) {
+    if (this.customerType === CustomerType.INSTITUTION) {
       this.placeHolder = CustomerInfoSearchFormComponent.COMPANY_PLACEHOLDER;
       this.errorMessage = CustomerInfoSearchFormComponent.COMPANY_MESSAGE;
       this.displayIndividual = false;
@@ -141,9 +141,9 @@ export class CustomerInfoSearchFormComponent implements OnInit {
 
   fetchCustomer(ref: NbDialogRef<TemplateRef<any>>) {
     ref.close();
-    let loanCategory = 'BUSINESS_TYPE';
+    let loanCategory = 'INSTITUTION';
     if (CustomerType.INDIVIDUAL === this.customerType) {
-      loanCategory = 'PERSONAL_TYPE';
+      loanCategory = 'INDIVIDUAL';
     }
     this.router.navigate(['/home/loan/loanForm'], {
       queryParams: {

@@ -86,7 +86,7 @@ export class CustomerListGroupComponent implements OnInit {
           customerInfoId: id
         }
       });
-    } else if (CustomerType[customerType] === CustomerType.COMPANY) {
+    } else if (CustomerType[customerType] === CustomerType.INSTITUTION) {
       this.router.navigate(['/home/customer/company-profile/' + associateId],
           {
             queryParams: {

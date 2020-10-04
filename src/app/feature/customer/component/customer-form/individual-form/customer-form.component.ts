@@ -51,6 +51,10 @@ export class CustomerFormComponent implements OnInit {
   allDistrict: Array<District> = Array<District>();
   private customerList: Array<Customer> = new Array<Customer>();
   public showMatchingTable: boolean;
+  tempFlag = {
+    showOtherOccupation: false ,
+    showOtherIncomeSource: false
+  };
 
   constructor(
       private formBuilder: FormBuilder,
@@ -201,7 +205,7 @@ export class CustomerFormComponent implements OnInit {
       if (this.basicInfo.invalid) {
           this. scrollToFirstInvalidControl()
         this.spinner = false;
-        return;};
+        return; }
       {
         this.customer.id = (this.customer.citizenshipIssuedPlace ===
             this.basicInfo.get('citizenshipIssuedPlace').value) ? this.customer.id : undefined;
@@ -221,11 +225,11 @@ export class CustomerFormComponent implements OnInit {
         const occupations = {
           multipleOccupation : this.basicInfo.get('occupation').value ,
           otherOccupation : this.basicInfo.get('otherOccupation').value
-        }
+        };
         const incomeSource = {
           multipleIncome : this.basicInfo.get('incomeSource').value ,
           otherIncome : this.basicInfo.get('otherIncome').value
-        }
+        };
         this.customer.occupation = JSON.stringify(occupations);
         this.customer.incomeSource = JSON.stringify(incomeSource);
         this.customer.introduction = this.basicInfo.get('introduction').value;
@@ -235,7 +239,7 @@ export class CustomerFormComponent implements OnInit {
         this.customerService.save(this.customer).subscribe(res => {
           this.spinner = false;
           this.close();
-          this.toastService.show(new Alert(AlertType.INFO, "Successfully saved Customer Info"));
+          this.toastService.show(new Alert(AlertType.INFO, 'Successfully saved Customer Info'));
         }, res => {
           this.spinner = false;
           this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
@@ -365,5 +369,29 @@ export class CustomerFormComponent implements OnInit {
 
   close() {
     this.ref.close();
+  }
+
+  occupationChange() {
+    const isOtherSelected = this.basicInfo.get('occupation').value.includes('Other');
+    if (isOtherSelected) {
+      this.tempFlag.showOtherOccupation = true;
+      this.basicInfo.get('otherOccupation').setValidators(Validators.required);
+    } else {
+      this.tempFlag.showOtherOccupation = false;
+      this.basicInfo.get('otherOccupation').setValidators(null);
+    }
+    this.basicInfo.get('otherOccupation').updateValueAndValidity();
+  }
+
+  onIncomeSourceChange() {
+    const isOtherSourceSelected = this.basicInfo.get('incomeSource').value.includes('Other');
+    if (isOtherSourceSelected) {
+      this.tempFlag.showOtherIncomeSource = true;
+      this.basicInfo.get('otherIncome').setValidators(Validators.required);
+    } else {
+      this.tempFlag.showOtherIncomeSource = false;
+      this.basicInfo.get('otherIncome').setValidators(null);
+    }
+    this.basicInfo.get('otherIncome').updateValueAndValidity();
   }
 }

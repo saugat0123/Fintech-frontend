@@ -295,7 +295,7 @@
               <label for="otherOccupation"><strong>Occupation </strong></label>
               <nb-select [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.occupation.errors }"
                          formControlName="occupation"
-                         placeholder="Occupation" multiple >
+                         placeholder="Occupation" multiple fullWidth (selectedChange)="occupationChange()">
                 <nb-option value="Business Owner">Business Owner</nb-option>
                 <nb-option value="Chartered Accountant">Chartered Accountant</nb-option>
                 <nb-option value="Lawyer">Lawyer</nb-option>
@@ -308,11 +308,16 @@
                 <nb-option value="Teaching Professional">Farmer</nb-option>
                 <nb-option value="Other">Other</nb-option>
               </nb-select>
-              <div *ngIf="basicInfo.get('occupation')?.value == 'Other'"
-                   class="col-md-12 form-group">
+              <div *ngIf="tempFlag.showOtherOccupation"
+                   class="col-md-12 mt-3 form-group">
                 <label>Other occupation(s)</label>
                 <input class="form-control" formControlName="otherOccupation" id="otherOccupation"
                        name="otherOccupation" placeholder="Other occupation" type="text">
+                <div *ngIf="submitted && basicInfoControls.otherOccupation.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="basicInfoControls.otherOccupation.errors.required">Other occupation is required
+                  </div>
+                </div>
               <div *ngIf="submitted && basicInfoControls.occupation.errors"
                    class="invalid-feedback">
                 <div *ngIf="basicInfoControls.occupation.errors.required">Occupation is required
@@ -328,7 +333,7 @@
               <label><strong>Income Source</strong></label>
               <nb-select [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.incomeSource.errors }"
                          formControlName="incomeSource" id="incomeSource" name="incomeSource"
-                         placeholder="Income Source" multiple >
+                         placeholder="Income Source" multiple fullWidth (selectedChange)="onIncomeSourceChange()">
                 <nb-option value="Salaried">Salaried</nb-option>
                 <nb-option value="Business">Business</nb-option>
                 <nb-option value="Salaried & Business">Salaried & Business</nb-option>
@@ -336,11 +341,17 @@
                 <nb-option value="Farming">Farming</nb-option>
                 <nb-option value="Other">Other</nb-option>
               </nb-select>
-              <div *ngIf="basicInfo.get('incomeSource')?.value == 'Other'"
-                   class="col-md-12 form-group">
-                <label>Other occupation(s)</label>
+              <div *ngIf="tempFlag.showOtherIncomeSource"
+                   class="col-md-12 mt-3 form-group">
+                <label>Other Income Source</label>
                 <input class="form-control" formControlName="otherIncome" id="otherIncome"
                        name="otherIncome" placeholder="Other Income source" type="text">
+                <div *ngIf="submitted && basicInfoControls.otherIncome.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="basicInfoControls.otherIncome.errors.required">Other income Source is
+                    required
+                  </div>
+                </div>
               <div *ngIf="submitted && basicInfoControls.incomeSource.errors"
                    class="invalid-feedback">
                 <div *ngIf="basicInfoControls.incomeSource.errors.required">Income Source is

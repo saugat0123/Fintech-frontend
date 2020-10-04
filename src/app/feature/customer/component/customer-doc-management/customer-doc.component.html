@@ -30,7 +30,7 @@
                           <th>#</th>
                           <th>Document</th>
                           <th>Type</th>
-                          <th>Upload</th>
+                          <th *ngIf="currentRoleTypeMaker">Upload</th>
                           <th>Preview</th>
                           <th>Status</th>
                         </tr>
@@ -43,7 +43,7 @@
                           <td>{{gDoc.name}}</td>
                           <td>{{ gDoc?.document?.displayName || 'Default' | titlecase }}</td>
 
-                          <td align="center">
+                          <td align="center" *ngIf="currentRoleTypeMaker">
                             <input (change)="uploadDoc($event)" class="hide-type"
                                    id="uploadDocument{{i}}"
                                    type="file">

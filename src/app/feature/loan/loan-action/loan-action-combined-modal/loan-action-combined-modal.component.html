@@ -1,3 +1,4 @@
+<div ngDraggable [ngResizable]="true">
 <nb-card>
   <nb-card-header>
     <strong>{{popUpTitle}}</strong>
@@ -160,7 +161,7 @@
                 <textarea
                     [ngClass]="{ 'is-invalid': combinedType?.submitted && combinedType?.form.controls['comment'].errors }"
                     class="form-control" formControlName="comment" id="comment"
-                    name="text"
+                    name="text" rows="5"
                 ></textarea>
                 <div
                     *ngIf="combinedType?.submitted && combinedType?.form.controls['comment'].hasError('required')"
@@ -180,8 +181,9 @@
         (click)="onSubmit()"
         [disabled]="!stageType || (stageType === 'individually' ? individualType?.form?.invalid : combinedType?.form?.invalid)"
         nbButton type="button">
-      <i class="fa fa-save"></i>
+      <em class="fa fa-save"></em>
     </button>
   </nb-card-footer>
 </nb-card>
+</div>
 

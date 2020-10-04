@@ -3,8 +3,8 @@
         <div class="row">
             <div class="col-md-4">
                 <nb-select fullWidth (selectedChange)="onChangeLoanCategory($event)" placeholder="Please select a loan scheme">
-                    <nb-option *ngFor="let loanApprovalType of loanApprovalTypeList; "
-                               [value]="loanApprovalType">{{loanApprovalType?.key}}</nb-option>
+                    <nb-option *ngFor="let customerType of customerTypeList; "
+                               [value]="customerType">{{customerType?.key}}</nb-option>
                 </nb-select>
             </div>
             <div *ngIf="existingQuestionList" class="col-md-8 text-right mt-5">
@@ -83,7 +83,7 @@
         </table>
 
         <form [formGroup]="questionAnswerForm">
-            <div *ngIf="loanApprovalType != null && newQuestionList" class="box-body">
+            <div *ngIf="customerType != null && newQuestionList" class="box-body">
                 <div formArrayName="questionForm">
                     <div *ngFor="let qsn of questionAnswerForm.get('questionForm')['controls']; let i = index;"
                          class="form-group">

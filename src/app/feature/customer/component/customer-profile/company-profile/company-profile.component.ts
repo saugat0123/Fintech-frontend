@@ -9,7 +9,6 @@ import {CustomerInfoService} from '../../../service/customer-info.service';
 import {CustomerType} from '../../../model/customerType';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
-import {LoanCategory} from '../../../../loan/model/loan-category';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NbDialogService} from '@nebular/theme';
@@ -43,7 +42,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     customerProfileId: undefined
   };
   loanList = [];
-  filterLoanCat = LoanCategory.BUSINESS;
+  filterLoanCat = CustomerType.INSTITUTION;
   companyForm: FormGroup;
   businessTypes = BusinessType.enumObject();
 
@@ -134,9 +133,9 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
   openLoanForm() {
     this.onClose();
     this.spinner = true;
-    let loanCategory = 'BUSINESS_TYPE';
+    let loanCategory = 'INSTITUTION';
     if (CustomerType.INDIVIDUAL === CustomerType[this.paramProp.customerType]) {
-      loanCategory = 'PERSONAL_TYPE';
+      loanCategory = 'INDIVIDUAL';
     }
     this.router.navigate(['/home/loan/loanForm'], {
       queryParams: {
@@ -156,7 +155,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
 
   openSelectLoanTemplate() {
     const modalRef = this.modalService.open(CustomerLoanApplyComponent, {size: 'lg'});
-    modalRef.componentInstance.loanCategory = this.filterLoanCat;
+    modalRef.componentInstance.customerType = this.filterLoanCat;
     modalRef.componentInstance.paramProp = this.paramProp;
     modalRef.componentInstance.associateId = this.paramProp.companyInfoId;
     modalRef.componentInstance.customerInfo = this.customerInfo;

@@ -27,7 +27,7 @@ export class CustomerLoanInformationViewComponent implements OnInit {
   }
 
   checkCustomerType() {
-    if (CustomerType[this.customerInfo.customerType] === CustomerType.COMPANY) {
+    if (CustomerType[this.customerInfo.customerType] === CustomerType.INSTITUTION) {
       this.companyInfoService.detail(this.customerInfo.associateId).subscribe((res: any) => {
         this.companyInfo = res.detail;
       }, error => {

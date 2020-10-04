@@ -19,7 +19,7 @@ export class SitevistSummaryComponentComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.loanType === 'BUSINESS_TYPE') {
+        if (this.loanType === 'INSTITUTION') {
             this.isBusinessLoanType = true;
         }
         if (!ObjectUtil.isEmpty(this.formData)) {

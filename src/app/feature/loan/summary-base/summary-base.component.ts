@@ -129,12 +129,13 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.actionsList.closed = false;
       }
 
+      if (this.user.role.roleName !== 'admin') {
       await this.loanActionService.getSendForwardList().subscribe((res: any) => {
         const forward = res.detail;
         if (forward.length === 0) {
           this.actionsList.sendForward = false;
         }
-      });
+      }); }
       if (this.loanDataHolder.currentStage.docAction.toString() === 'APPROVED' ||
           this.loanDataHolder.currentStage.docAction.toString() === 'REJECT' ||
           this.loanDataHolder.currentStage.docAction.toString() === 'CLOSED') {

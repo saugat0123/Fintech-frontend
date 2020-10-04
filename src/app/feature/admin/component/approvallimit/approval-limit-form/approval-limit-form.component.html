@@ -56,13 +56,13 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="loanApprovalType">Approval Type</label>
+                        <label for="customerType">Approval Type</label>
                         <select class="custom-select" [(ngModel)]="model.loanApprovalType"
-                                name="loanApprovalType" id="loanApprovalType"
+                                name="customerType" id="customerType"
                                 #type="ngModel" [ngClass]="{ 'is-invalid': f.submitted && type.invalid }" required>
                             <option [ngValue]="undefined" hidden>Approval Type</option>
-                            <option value="PERSONAL_TYPE">PERSONAL</option>
-                            <option value="BUSINESS_TYPE">BUSINESS</option>
+                            <option value="INDIVIDUAL">INDIVIDUAL</option>
+                            <option value="INSTITUTION">INSTITUTION</option>
                         </select>
                         <div *ngIf="f.submitted && type.invalid" class="invalid-feedback">
                             <div *ngIf="type.errors.required">Type is required</div>
