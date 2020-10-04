@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CompanyInfo} from '../../../../admin/modal/company-info';
 import {Customer} from '../../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -83,7 +83,8 @@ export class CompanyFormComponent implements OnInit {
         private companyInfoService: CompanyInfoService,
         private blackListService: BlacklistService,
         protected ref: NbDialogRef<CompanyFormComponent>,
-        private company: CompanyService
+        private company: CompanyService,
+        private el: ElementRef
 
     ) {
 
@@ -489,10 +490,26 @@ export class CompanyFormComponent implements OnInit {
             }
         });
     }
+    scrollToFirstInvalidControl() {
+        const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+            'form .ng-invalid'
+        );
+        window.scroll({
+            top: this.getTopOffset(firstInvalidControl),
+            left: 0,
+            behavior: 'smooth'
+        });
+        firstInvalidControl.focus();
+    }
 
+    private getTopOffset(controlEl: HTMLElement): number {
+        const labelOffset = 50;
+        return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+    }
     onSubmit() {
         this.submitted = true;
         if (this.companyInfoFormGroup.invalid) {
+            this.scrollToFirstInvalidControl();
             return;
         }
         this.companyInfo = new CompanyInfo();
