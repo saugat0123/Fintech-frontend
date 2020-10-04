@@ -13,6 +13,8 @@ import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DmsLoanFileComponent} from '../../../loan/component/loan-main-template/dms-loan-file/dms-loan-file.component';
 import {CustomerType} from '../../model/customerType';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {RoleType} from '../../../admin/modal/roleType';
 
 @Component({
   selector: 'app-customer-doc',
@@ -37,6 +39,7 @@ export class CustomerDocComponent implements OnInit {
   documentName;
   documentId;
   index;
+  currentRoleTypeMaker = false;
 
   constructor(private documentService: DocumentService,
               private loanService: LoanFormService,
@@ -50,6 +53,8 @@ export class CustomerDocComponent implements OnInit {
   ngOnInit() {
     this.getGeneralLoanConfigDocument();
     this.getLoanOfLoanHolder();
+    const roleType: string = LocalStorageUtil.getStorage().roleType;
+    this.currentRoleTypeMaker = roleType === RoleType.MAKER;
   }
 
   openModel(model, documentName: string, documentId, index: number) {
