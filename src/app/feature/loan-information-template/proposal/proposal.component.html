@@ -160,7 +160,7 @@
                         class="custom-select" formControlName="repaymentMode"
                         id="repaymentMode"
                         name="repaymentMode"
-                   (change)="checkRepaymentMode()">
+                        (change)="checkRepaymentMode()">
                       <option [ngValue]="null" hidden selected>Select</option>
                       <option value="EMI">EMI</option>
                       <option value="EQI">EQI</option>
@@ -177,7 +177,8 @@
                 <!--                                end of repayment mode-->
 
                 <!--                start of installment amount div-->
-                <div class="col-md-4" *ngIf="proposalForm.get('repaymentMode').value === 'EMI' || proposalForm.get('repaymentMode').value === 'EQI'">
+                <div class="col-md-4"
+                     *ngIf="proposalForm.get('repaymentMode').value === 'EMI' || proposalForm.get('repaymentMode').value === 'EQI'">
                   <div class="form-group>">
                     <label class="title"> <strong>Installment Amount</strong></label>
                     <input
@@ -188,7 +189,8 @@
                   </div>
                 </div>
                 <!--                end of installment amount div-->
-                <div class="col-md-4" *ngIf="proposalForm.get('repaymentMode').value === 'MONTHLY' || proposalForm.get('repaymentMode').value === 'QUARTERLY' || proposalForm.get('repaymentMode').value === 'YEARLY'">
+                <div class="col-md-4"
+                     *ngIf="proposalForm.get('repaymentMode').value === 'MONTHLY' || proposalForm.get('repaymentMode').value === 'QUARTERLY' || proposalForm.get('repaymentMode').value === 'YEARLY'">
                   <div class="form-group>">
                     <label class="title"> <strong>Interest Amount</strong></label>
                     <input
@@ -303,7 +305,8 @@
                         rows="3"></textarea>
                     <div *ngIf="(submitted) && formControls.repayment.invalid"
                          class="invalid-feedback">
-                      <span *ngIf="formControls.repayment.errors.required">Repayment is required.</span>
+                      <span
+                          *ngIf="formControls.repayment.errors.required">Repayment is required.</span>
                     </div>
                   </div>
                 </div>
@@ -347,7 +350,8 @@
                         <div *ngIf="(submitted) && formControls.commissionDuringReview.invalid"
                              class="invalid-feedback">
                           <span *ngIf="formControls.commissionDuringReview.errors.required">Commission During Review is required.</span>
-                        </div></td>
+                        </div>
+                      </td>
                       <td><input (keyup)="calculateTotalIncomeAfterReview()" class="form-control"
                                  formControlName="commissionAfterNextReview"
                                  type="number"
@@ -355,7 +359,8 @@
                         <div *ngIf="(submitted) && formControls.commissionAfterNextReview.invalid"
                              class="invalid-feedback">
                           <span *ngIf="formControls.commissionAfterNextReview.errors.required">Commission After Next Review is required.</span>
-                        </div></td>
+                        </div>
+                      </td>
                     </tr>
                     <tr>
                       <td>Other Charges</td>
@@ -366,7 +371,8 @@
                         <div *ngIf="(submitted) && formControls.otherChargesDuringReview.invalid"
                              class="invalid-feedback">
                           <span *ngIf="formControls.otherChargesDuringReview.errors.required">Other Charges During Review is required.</span>
-                        </div></td>
+                        </div>
+                      </td>
                       <td><input (keyup)="calculateTotalIncomeAfterReview()" class="form-control"
                                  formControlName="otherChargesAfterNextReview"
                                  type="number"
@@ -374,13 +380,16 @@
                         <div *ngIf="(submitted) && formControls.otherChargesAfterNextReview.invalid"
                              class="invalid-feedback">
                           <span *ngIf="formControls.otherChargesAfterNextReview.errors.required">Other Charges After Next Review is required.</span>
-                        </div></td>
+                        </div>
+                      </td>
                     </tr>
-                    <tr  class="font-weight-bold">
+                    <tr class="font-weight-bold">
                       <td>Total</td>
-                      <td><input [readOnly]="true" class="form-control" formControlName="totalIncomeDuringReview"
+                      <td><input [readOnly]="true" class="form-control"
+                                 formControlName="totalIncomeDuringReview"
                                  type="number"></td>
-                      <td><input [readOnly]="true" class="form-control" formControlName="totalIncomeAfterNextReview"
+                      <td><input [readOnly]="true" class="form-control"
+                                 formControlName="totalIncomeAfterNextReview"
                                  type="number"></td>
                     </tr>
                   </table>
@@ -426,26 +435,39 @@
                 <!--                                end of commitment fee div-->
 
                 <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="title" for="borrowerInfo"><strong>Introduction/Justification of
-                      Borrower</strong></label>
-                    <textarea
-                        [ngClass]="{ 'is-invalid': (submitted) && formControls.borrowerInformation.errors }"
-                        class="form-control"
-                        formControlName="borrowerInformation" id="borrowerInfo"
-                        name="borrowerInfo"
-                        placeholder="Borrower Information"
-                        rows="3"></textarea>
-                    <div *ngIf="(submitted) && formControls.borrowerInformation.invalid"
-                         class="invalid-feedback">
-                      <span *ngIf="formControls.borrowerInformation.errors.required">Borrower Information is required.</span>
-                    </div>
+                  <div class="form-group" style="max-height: 300px !important;height: 250px;">
 
+                    <label class="title"><strong><sup class="text-danger">*</sup>Introduction/Justification
+                      of
+                      Borrower</strong></label>
+                    <!--                    <textarea-->
+                    <!--                        [ngClass]="{ 'is-invalid': (submitted) && formControls.borrowerInformation.errors }"-->
+                    <!--                        class="form-control"-->
+                    <!--                        formControlName="borrowerInformation" id="borrowerInfo"-->
+                    <!--                        name="borrowerInfo"-->
+                    <!--                        placeholder="Borrower Information"-->
+                    <!--                        rows="3"></textarea>-->
+
+
+                    <quill-editor formControlName="borrowerInformation"
+                                  [style]="{height:'250px !important;'}"
+                                  placeholder="Insert borrower Information..." [minLength]="5"
+                                  required
+                                  [ngClass]="{'is-invalid': formControls.borrowerInformation.invalid && submitted}">
+                    </quill-editor>
                   </div>
+
+
                 </div>
 
-                <div class="col-md-12">
-                  <h6>Additional Description</h6>
+
+                <div class="clearfix"></div>
+                <div class="col-md-12" style="padding-top: 70px;">
+                  <div *ngIf="submitted">
+                    <span *ngIf="formControls.borrowerInformation.invalid" class="text-danger">
+                      <sup>*</sup>Borrower Information is required.</span>
+                  </div>
+                  <h6><strong>Additional Description</strong></h6>
                 </div>
                 <div class="col-md-12 form-group">
                   <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
@@ -483,7 +505,8 @@
                               rows="2"></textarea>
                   </div>
                 </div>
-                </div>
+              </div>
+
             </form>
           </div>
         </nb-card-body>

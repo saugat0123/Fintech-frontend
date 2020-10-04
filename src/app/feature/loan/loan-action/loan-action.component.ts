@@ -1,12 +1,4 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {ToastService} from '../../../@core/utils';
 import {AlertService} from '../../../@theme/components/alert/alert.service';
@@ -17,7 +9,7 @@ import {RoleType} from '../../admin/modal/roleType';
 import {DocAction} from '../model/docAction';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CustomerLoanFlag} from '../../../@core/model/customer-loan-flag';
-import {NbDialogService} from '@nebular/theme';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {LoanActionModalComponent} from './loan-action-modal/loan-action-modal.component';
 import {LoanFormService} from '../component/loan-form/service/loan-form.service';
 import {LoanActionCombinedModalComponent} from './loan-action-combined-modal/loan-action-combined-modal.component';
@@ -43,6 +35,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
   @Input() hasDeferredDocs: boolean;
   public isMaker = false;
   public committeeRole = false;
+  private dialogRef: NbDialogRef<any>;
+  isOpen = false;
 
   constructor(
       private alertService: AlertService,
@@ -73,6 +67,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
   }
 
   public loanAction(action: 'forward' | 'backward' | 'backwardCommittee' | 'approve' | 'reject' | 'close'): void {
+    this.close();
     let context;
     switch (action) {
       case 'backward':
@@ -153,11 +148,25 @@ export class LoanActionComponent implements OnInit, OnChanges {
       };
     }
     if (ObjectUtil.isEmpty(this.combinedLoanId)) {
-      this.nbDialogService.open(LoanActionModalComponent, {context});
+      this.dialogRef = this.nbDialogService.open(LoanActionModalComponent, {
+        context,
+        closeOnBackdropClick: false,
+        hasBackdrop: false,
+        hasScroll: true
+      });
+
     } else {
       context.combinedLoanId = this.combinedLoanId;
-      this.nbDialogService.open(LoanActionCombinedModalComponent, {context});
+      this.dialogRef = this.nbDialogService.open(LoanActionCombinedModalComponent,
+          {
+            context,
+            closeOnBackdropClick: false,
+            hasBackdrop: false,
+            hasScroll: true
+          });
+
     }
+    this.isOpen = true;
 
   }
 
@@ -182,6 +191,13 @@ export class LoanActionComponent implements OnInit, OnChanges {
   }
 
   openConfirmationModal() {
-    this.nbDialogService.open(this.confirmModal , {autoFocus: true});
+    this.nbDialogService.open(this.confirmModal, {autoFocus: true});
+  }
+
+  close() {
+    if (this.isOpen) {
+      this.dialogRef.close();
+      this.isOpen = false;
+    }
   }
 }
