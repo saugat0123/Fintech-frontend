@@ -27,7 +27,7 @@
       <tr>
         <th>Remarks</th>
       </tr>
-      <td class="text-justify px-2"><span>{{ciclValue?.remarks || 'NA'}}</span></td>
+      <td class="text-justify px-2"><span [innerHTML]="ciclValue?.remarks | safeHtml"></span></td>
     </table>
   </div>
 </div>
