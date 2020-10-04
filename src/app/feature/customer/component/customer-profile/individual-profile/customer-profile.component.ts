@@ -247,6 +247,9 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
       incomeSource: [this.customer.incomeSource === undefined ? undefined : this.customer.incomeSource, [Validators.required]],
       customerRelatives: this.formBuilder.array([]),
       version: [this.customer.version === undefined ? undefined : this.customer.version],
+      otherOccupation: [this.customer.otherOccupation === undefined ? undefined : this.customer.otherOccupation],
+      otherIncome: [this.customer.otherIncome === undefined ? undefined : this.customer.otherIncome],
+      introduction: [this.customer.introduction === undefined ? undefined : this.customer.introduction, [Validators.required]],
     });
   }
 
