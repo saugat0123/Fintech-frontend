@@ -340,14 +340,12 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
                 .convertToPercent(Number(profitAfterTax.controls['value'].value) / Number(balanceSheet.netWorth[index].value));
 
         keyIndicators.debtServiceCoverageRatio[index].value = Number(balanceSheet.longTermLoan[index].value) === 0 ? 0 :
-            (Number(operatingProfit.controls['value'].value)
+            ((Number(interestExpenses.controls['value'].value)
                 + Number(this.financialService.fetchValuesForSubCategories(this.incomeStatementForm
                     .get('operatingExpensesCategory'), 'Depreciation', index))
-                + Number(this.financialService.fetchValuesForSubCategories(this.incomeStatementForm
-                    .get('operatingExpensesCategory'), 'Amortization/Other Non-Cash Expenses', index))) /
+                + Number(profitAfterTax.controls['value'].value)) /
             (Number(interestExpenses.controls['value'].value)
-                + Number( index > 0 ? balanceSheet.longTermLoan[index - 1].value : balanceSheet.longTermLoan[index].value)
-                - Number(balanceSheet.longTermLoan[index].value));
+                + Number(balanceSheet.principleInstalmentPaidDuringTheYear[index].value))).toFixed(2);
 
         keyIndicators.interestCoverageRatio[index].value = Number(interestExpenses.controls['value'].value) === 0 ? 0 :
             ((Number(operatingProfit.controls['value'].value)

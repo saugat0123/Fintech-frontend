@@ -75,7 +75,8 @@ export class FinancialComponent implements OnInit {
         'otherProvisions',
         'netWorth',
         'totalLiabilitiesAndEquity',
-        'differenceBS'
+        'differenceBS',
+        'principleInstalmentPaidDuringTheYear'
     ];
     balanceSheetCategoryArray = [
         'currentAssetsCategory',
