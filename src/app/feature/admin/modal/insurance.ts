@@ -1,4 +1,6 @@
 import {BaseEntity} from '../../../@core/model/base-entity';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {Validators} from '@angular/forms';
 
 export class Insurance extends BaseEntity {
   company?: string;
@@ -8,4 +10,7 @@ export class Insurance extends BaseEntity {
   expiryDate?: Date;
   policyType?: string;
   policyNumber?: string;
+  policyDocumentPath: string;
+  remark: string;
+  assetInsured: string;
 }

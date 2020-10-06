@@ -146,7 +146,7 @@
                          (insuranceDataEmitter)="saveInsurance($event)"
                          *ngIf="itemInsurance.expanded"
                          [insuranceDataFromModel]="customerInfo?.insurance"
-                         [fromProfile]="true"></app-insurance>
+                         [fromProfile]="true" [customerInfo]="customerInfo"></app-insurance>
         </nb-accordion-item-body>
       </nb-accordion-item>
 
