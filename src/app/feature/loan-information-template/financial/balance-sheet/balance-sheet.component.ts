@@ -423,6 +423,20 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                 / Number(Number(currentLiabilities.controls['value'].value))).toFixed(2);
         }
 
+        keyIndicators.deRatioExcludingLoanFromShareholderOrDirector[index].value = (1 - (Number(this.financialService
+            .fetchValuesForSubCategories(this.balanceSheetForm.get('netWorthCategory'), 'Paid up Capital/Equity', index))
+            + Number(this.financialService
+                .fetchValuesForSubCategories(this.balanceSheetForm.get('netWorthCategory'), 'Retained Earning', index)))
+            / Number(totalAssets.controls['value'].value)).toFixed(2);
+
+        keyIndicators.deRatioIncludingLoanFromShareholderOrDirector[index].value = (1 - (Number(this.financialService
+                .fetchValuesForSubCategories(this.balanceSheetForm.get('netWorthCategory'), 'Paid up Capital/Equity', index))
+            + Number(this.financialService
+                .fetchValuesForSubCategories(this.balanceSheetForm.get('netWorthCategory'), 'Retained Earning', index))
+            + Number(this.financialService
+                .fetchValuesForSubCategories(this.balanceSheetForm.get('LongTermLoanCategory'), 'Loan From Promoters/Proprietor', index)))
+            / Number(totalAssets.controls['value'].value)).toFixed(2);
+
         keyIndicators.debtEquityRatioOverall[index].value = Number(totalAssets.controls['value'].value) === 0 ? 0 :
             this.financialService.convertToPercent((Number(this.financialService
                 .fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
