@@ -8,6 +8,7 @@ export class ContactPerson {
     name: string;
     contactNumber: string;
     email: string;
+    functionalPosition: string;
     province: Province;
     district: District;
     municipalityVdc: MunicipalityVdc;

@@ -8,10 +8,14 @@ import {CompanyInfo} from '../../../../../admin/modal/company-info';
 })
 export class CompanyProfileAdditionalInformationComponent implements OnInit {
   @Input() companyInfo: CompanyInfo;
+  companyContactPersons = [];
 
   constructor() { }
 
   ngOnInit() {
+    if (this.companyInfo.contactPersons !== undefined) {
+      this.companyContactPersons = JSON.parse(this.companyInfo.contactPersons);
+    }
   }
 
 }

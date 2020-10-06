@@ -188,44 +188,119 @@
                     </div>
                 </div>
                 <hr>
-                <div class="row" *ngIf="companyFormField.showFormField">
-                    <div class="col-md-12">
-                      <h5>Additional registration/license information
-                        <nb-checkbox id="additionalInfo"></nb-checkbox> </h5>
+                <div formGroupName="additionalCompanyInfo">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-inline">
+                                <h6>Additional registration/license information</h6>
+                                <nb-checkbox #chek id="additionalInfo" class="ml-2" (checkedChange)="onAdditionalFieldSelect(chek.checked)"></nb-checkbox>
+                            </div>
+                        </div>
                     </div>
+                    <div class="row" *ngIf="additionalFieldSelected">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="businessType"><strong> Type of Registration/License</strong></label>
-                            <ng-select>
-                                <ng-option></ng-option>
-                            </ng-select>
-                            <div *ngIf="submitted && form.businessType.errors"
+                            <label for="registrationType"><strong> Type of Registration/License</strong></label>
+                            <input placeholder="Enter Registration Type"
+                                   [ngClass]="{ 'is-invalid':submitted && additionalInfoForm.registrationType.errors }"
+                                   formControlName="registrationType" id="registrationType" class="form-control"/>
+                            <div *ngIf="submitted && additionalInfoForm.registrationType.errors"
                                  class="invalid-feedback">
-                                <div *ngIf="form.businessType.errors.required">
-                                    Business Type is required
+                                <div *ngIf="additionalInfoForm.registrationType.errors.required">
+                                    Registration/License Type is required
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="licenseHolder"><strong>Name of license holder</strong></label>
+                            <label for="licenseHolderName"><strong>Name of license holder</strong></label>
                             <div class="input-group mb-3">
                                 <input
-                                    [ngClass]="{ 'is-invalid':submitted && form.companyPAN.errors }"
+                                    [ngClass]="{ 'is-invalid':submitted && additionalInfoForm.licenseHolderName.errors }"
                                     class="form-control rounded"
-                                    id="licenseHolder"
+                                    id="licenseHolderName"
+                                    formControlName="licenseHolderName"
                                     placeholder="License Holder Name"
                                     type="text"/>
-                                <div *ngIf="submitted && form.companyPAN.errors"
+                                <div *ngIf="submitted && additionalInfoForm.licenseHolderName.errors"
                                      class="invalid-feedback">
-                                    <div *ngIf="form.companyPAN.errors.required">
-                                        PAN is required.
+                                    <div *ngIf="additionalInfoForm.licenseHolderName.errors.required">
+                                        License holder name is required.
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="registrationDate"><strong>License Issued Date</strong></label>
+                            <input *ngIf="calendarType === 'AD'" id="licenseIssuedDate" formControlName="licenseIssuedDate"
+                                   [nbDatepicker]="registrationDate" name="licenseIssuedDate"
+                                   class="form-control" placeholder="License Issued Date"
+                                   [ngClass]="{ 'is-invalid':submitted && additionalInfoForm.licenseIssuedDate.errors}">
+                            <app-calendar [ePreDate]="additionalInfoForm.licenseIssuedDate.value" *ngIf="calendarType === 'BS'"
+                                          (messageToEmit)="additionalInfoForm.get('licenseIssuedDate').patchValue($event?.eDate)"></app-calendar>
+                            <nb-datepicker #registrationDate></nb-datepicker>
+                            <div *ngIf="submitted && additionalInfoForm.licenseIssuedDate.errors" class="invalid-feedback">
+                                <div *ngIf="additionalInfoForm.licenseIssuedDate.errors.required">
+                                    Invalid License Issued Date
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="licenseExpiryDate"><strong>License Expiry Date</strong></label>
+                            <input *ngIf="calendarType === 'AD'" id="licenseExpiryDate" formControlName="licenseExpiryDate"
+                                   [nbDatepicker]="licenseExpiryDate" name="licenseExpiryDate"
+                                   class="form-control" placeholder="License Expiry Date"
+                                   [ngClass]="{ 'is-invalid':submitted && additionalInfoForm.licenseExpiryDate.errors}">
+                            <app-calendar [ePreDate]="additionalInfoForm.licenseExpiryDate.value" *ngIf="calendarType === 'BS'"
+                                          (messageToEmit)="additionalInfoForm.get('licenseExpiryDate').patchValue($event?.eDate)"></app-calendar>
+                            <nb-datepicker #licenseExpiryDate></nb-datepicker>
+                            <div *ngIf="submitted && additionalInfoForm.licenseExpiryDate.errors" class="invalid-feedback">
+                                <div *ngIf="additionalInfoForm.licenseExpiryDate.errors.required">
+                                    Invalid License Expiry Date
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="issuePlace"><strong>License Issue Place</strong></label>
+                            <ng-select [ngClass]="{ 'is-invalid':submitted && additionalInfoForm.licenseIssuePlace.errors }"
+                                       formControlName="licenseIssuePlace"
+                                       id="licenseIssuePlace"
+                                       placeholder="Select License issued place">
+                                <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
+                                    {{district?.name}}
+                                </ng-option>
+                            </ng-select>
+
+                            <div *ngIf="submitted && additionalInfoForm.licenseIssuePlace.errors "
+                                 class="invalid-feedback">asd
+                                <div *ngIf="additionalInfoForm.licenseIssuePlace.errors.required">
+                                    License Issued Place is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="additionalInfoRemark"><strong>Remarks</strong></label>
+                            <textarea id="additionalInfoRemark" formControlName="additionalInfoRemark" name="additionalInfoRemark" type="text"
+                                      class="form-control" placeholder="remark" rows="5"
+                                      [ngClass]="{ 'is-invalid': (submitted) && additionalInfoForm.additionalInfoRemark.errors }"></textarea>
+                            <div *ngIf="(submitted) && additionalInfoForm.additionalInfoRemark.invalid"
+                                 class="invalid-feedback">
+                                <div *ngIf="additionalInfoForm.additionalInfoRemark.errors.required">
+                                    Remark is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
 
                 <hr>
@@ -679,95 +754,80 @@
                 <div >
                     <h5>5.Contact Person Details</h5>
                 </div>
-                <div class="row ">
-                    <div class="col-md-4">
+                <div formArrayName="contactPersons" class="border-bottom border-dark m-4" *ngFor="let contact of companyInfoFormGroup.get('contactPersons')['controls']; let c = index">
+                <div class="row" [formGroupName]="c">
+                    <div class="col-md-12" *ngIf="companyInfoFormGroup.get('contactPersons').length>1">
+                        <input class="float-right btn btn-sm btn-danger btn-primary" type="button"
+                               (click)="removeContactPersons(c)" value="Delete"/>
+                    </div>
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label><strong>Name</strong></label>
                             <input class="form-control" formControlName="contactName"
                                    id="contactName" placeholder="Name" type="text"
-                                   [ngClass]="{ 'is-invalid': (submitted) && form.contactName.errors }">
-                            <div *ngIf="(submitted) && form.contactName.invalid"
+                                   [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactName').errors }">
+                            <div *ngIf="(submitted) &&  contact.get('contactName').invalid"
                                  class="invalid-feedback">
-                                <div *ngIf="form.contactName.errors.required">
+                                <div *ngIf=" contact.get('contactName').errors.required">
                                     Name is required
                                 </div>
                             </div>
 
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label><strong>Contact Number</strong></label>
                             <input class="form-control" formControlName="contactNumber"
                                    id="contactNumber" placeholder="Contact Number"
                                    type="text"
-                                   [ngClass]="{ 'is-invalid': (submitted) && form.contactNumber.errors }">
-                            <div *ngIf="(submitted) && form.contactNumber.invalid"
+                                   [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactNumber').errors }">
+                            <div *ngIf="(submitted) && contact.get('contactNumber').invalid"
                                  class="invalid-feedback">
-                                <div *ngIf="form.contactNumber.errors.required">
+                                <div *ngIf="contact.get('contactNumber').errors.required">
                                     Contact Number is required
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label><strong>Email</strong></label>
                             <input class="form-control" formControlName="contactEmail"
+                                   [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactEmail').errors }"
                                    id="contactEmail" placeholder="Email"
                                    type="email">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>Province</strong></label>
-                            <select class="form-control" (change)="getDistricts(companyInfoFormGroup.get('contactProvince').value.id,null)" formControlName="contactProvince"
-                                    [ngClass]="{ 'is-invalid': (submitted) && form.contactProvince.errors }">
-                                <option [ngValue]="null" hidden>Select Province</option>
-                                <option *ngFor="let province of provinceList" [ngValue]="province">{{province.name}}</option>
-                            </select>
-                            <div *ngIf="(submitted) && form.contactProvince.invalid"
+                            <div *ngIf="(submitted) && contact.get('contactEmail').invalid"
                                  class="invalid-feedback">
-                                <div *ngIf="form.contactProvince.errors.required">
-                                    Province is required
+                                <div *ngIf="contact.get('contactEmail').errors.required">
+                                    Contact Email  is required
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="functionalPosition"><strong>Functional Position</strong></label>
+                            <select id="functionalPosition" formControlName="functionalPosition" name="functionalPosition"
+                                    class="form-control"
+                                    [ngClass]="{ 'is-invalid': (submitted) && contact.get('functionalPosition').errors }">
+                                <option [ngValue]="null" hidden>Select Position</option>
+                                <option *ngFor="let designations of designation" [ngValue]="designations.id">{{designations.name}}</option>
+                            </select>
 
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>District</strong></label>
-                            <select class="form-control" (change)="getMunicipalities(companyInfoFormGroup.get('contactDistrict').value.id,null)" formControlName="contactDistrict"
-                                    [ngClass]="{ 'is-invalid': (submitted) && form.contactDistrict.errors }">
-                                <option [ngValue]="null" hidden>Select District</option>
-                                <option *ngFor="let district of districtList" [ngValue]="district">{{district.name}}</option>
-                            </select>
-                            <div *ngIf="(submitted) && form.contactDistrict.invalid"
+                            <div *ngIf="(submitted) && contact.get('functionalPosition').invalid"
                                  class="invalid-feedback">
-                                <div *ngIf="form.contactDistrict.errors.required">
-                                    District is required
+                                <div *ngIf="contact.get('functionalPosition').errors.required">
+                                    Functional Position is required
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>Municipalities/VDC</strong></label>
-                            <select class="form-control"  formControlName="contactMunicipalities"
-                                    [ngClass]="{ 'is-invalid': (submitted) && form.contactMunicipalities.errors }">
-                                <option [ngValue]="null" hidden>Select Municipalities/VDV</option>
-                                <option *ngFor="let municipalityVdc of municipalityVdcList" [ngValue]="municipalityVdc">{{municipalityVdc.name}}</option>
-                            </select>
-                            <div *ngIf="(submitted) && form.contactMunicipalities.invalid"
-                                 class="invalid-feedback">
-                                <div *ngIf="form.contactMunicipalities.errors.required">
-                                    Municipalities/VDC is required
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+                </div>
+                </div>
+                <div class="col-md-12">
+                    <input class="btn btn-sm btn-flat btn-primary float-right" type="button" (click)="addContactPersons()"
+                           value="Add More"/>
                 </div>
                 <hr>
                 <div >
@@ -812,7 +872,27 @@
                 </div>
                 <hr>
                 <div class="box-header with-border">
-                    <h5 class="box-title">7. SWOT Analysis</h5>
+                    <h5 class="box-title">7. Succession Planning</h5>
+                </div>
+                <div class="row">
+                   <div class="col-md-12">
+                       <div class="form-group">
+                           <label for="successionPlanning"><strong></strong></label>
+                           <textarea id="successionPlanning" formControlName="successionPlanning" name="successionPlanning" type="text"
+                                     class="form-control" placeholder="Succession Planning" rows="5"
+                                     [ngClass]="{ 'is-invalid': (submitted) && form.successionPlanning.errors }"></textarea>
+                           <div *ngIf="(submitted) && form.successionPlanning.invalid"
+                                class="invalid-feedback">
+                               <div *ngIf="form.successionPlanning.errors.required">
+                                   Planning is required
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+                <hr>
+                <div class="box-header with-border">
+                    <h5 class="box-title">8. SWOT Analysis</h5>
                 </div>
                 <div class="row">
                     <div class="col-md-12">

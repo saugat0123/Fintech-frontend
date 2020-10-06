@@ -18,7 +18,7 @@ import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {LoanTag} from '../../../../loan/model/loanTag';
 import {NgForm} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {CustomerType} from "../../../../customer/model/customerType";
+import {CustomerType} from '../../../../customer/model/customerType';
 
 
 @Component({

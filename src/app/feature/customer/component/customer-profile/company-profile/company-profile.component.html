@@ -376,7 +376,7 @@
                     class="float-right"><a class="cursor"><em class="fa fa-edit"></em></a></button>
           </nb-card-header>
           <nb-card-body>
-            <app-company-profile-additional-information [companyInfo]="companyInfo">
+            <app-company-profile-additional-information *ngIf="companyInfo?.registrationNumber" [companyInfo]="companyInfo">
             </app-company-profile-additional-information>
           </nb-card-body>
         </nb-card>
