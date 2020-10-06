@@ -1,5 +1,6 @@
 import {Component, Input, OnInit, QueryList} from '@angular/core';
 import {Financial} from '../../loan/model/financial';
+import {CustomerType} from '../../customer/model/customerType';
 
 @Component({
   selector: 'app-financial-view',
@@ -16,16 +17,18 @@ export class FinancialViewComponent implements OnInit {
   isBusinessLoan = false;
   activeTab: string;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     if (this.formData !== undefined) {
       this.financialData = JSON.parse(this.formData.data);
     }
-    if (this.customerType === 'COMPANY') {
+    if (CustomerType[this.customerType] === CustomerType.INSTITUTION) {
       this.isBusinessLoan = true;
     }
   }
+
   changeActiveTab(tabs: QueryList<any>) {
     tabs.forEach(tabContent => {
       if (tabContent.active) {

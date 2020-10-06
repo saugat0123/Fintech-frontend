@@ -449,12 +449,13 @@
                     <!--                        rows="3"></textarea>-->
 
 
-                    <quill-editor formControlName="borrowerInformation"
-                                  [style]="{height:'250px !important;'}"
-                                  placeholder="Insert borrower Information..." [minLength]="5"
-                                  required
-                                  [ngClass]="{'is-invalid': formControls.borrowerInformation.invalid && submitted}">
-                    </quill-editor>
+                    <ckeditor formControlName="borrowerInformation"
+                              [style]="{height:'250px !important;'}"
+                              placeholder="Insert borrower Information..."
+                              required
+                              [config]="ckeConfig"
+                              [ngClass]="{'is-invalid': formControls.borrowerInformation.invalid && submitted}">
+                    </ckeditor>
                   </div>
 
 
@@ -475,10 +476,11 @@
                     <b>Waiver/Deviation</b>
                   </nb-checkbox>
                   <div *ngIf="waiverChecked">
-<!--                    <textarea class="form-control"-->
-<!--                              formControlName="waiverConclusionRecommendation" placeholder="Waiver"-->
-<!--                              rows="2"></textarea>-->
-                    <ckeditor formControlName="waiverConclusionRecommendation" [config]="ckeConfig"></ckeditor>
+                    <!--                    <textarea class="form-control"-->
+                    <!--                              formControlName="waiverConclusionRecommendation" placeholder="Waiver"-->
+                    <!--                              rows="2"></textarea>-->
+                    <ckeditor formControlName="waiverConclusionRecommendation"
+                              [config]="ckeConfig"></ckeditor>
                   </div>
 
                 </div>
@@ -488,11 +490,12 @@
                     Obligor Limit</b>
                   </nb-checkbox>
                   <div *ngIf="solChecked">
-<!--                    <textarea class="form-control"-->
-<!--                              formControlName="solConclusionRecommendation"-->
-<!--                              placeholder="Single Obligor Limit "-->
-<!--                              rows="2"></textarea>-->
-                    <ckeditor formControlName="solConclusionRecommendation" [config]="ckeConfig"></ckeditor>
+                    <!--                    <textarea class="form-control"-->
+                    <!--                              formControlName="solConclusionRecommendation"-->
+                    <!--                              placeholder="Single Obligor Limit "-->
+                    <!--                              rows="2"></textarea>-->
+                    <ckeditor formControlName="solConclusionRecommendation"
+                              [config]="ckeConfig"></ckeditor>
                   </div>
                 </div>
                 <div class="col-md-12 form-group">
@@ -502,11 +505,12 @@
                     Mitigation</b>
                   </nb-checkbox>
                   <div *ngIf="riskChecked">
-<!--                    <textarea class="form-control"-->
-<!--                              formControlName="riskConclusionRecommendation"-->
-<!--                              placeholder="Risk & Mitigation "-->
-<!--                              rows="2"></textarea>-->
-                    <ckeditor formControlName="riskConclusionRecommendation" [config]="ckeConfig"></ckeditor>
+                    <!--                    <textarea class="form-control"-->
+                    <!--                              formControlName="riskConclusionRecommendation"-->
+                    <!--                              placeholder="Risk & Mitigation "-->
+                    <!--                              rows="2"></textarea>-->
+                    <ckeditor formControlName="riskConclusionRecommendation"
+                              [config]="ckeConfig"></ckeditor>
                   </div>
                 </div>
               </div>
