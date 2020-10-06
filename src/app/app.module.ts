@@ -19,6 +19,7 @@ import {ResentForgotPasswordComponent} from './component/resent-forgot-password/
 import {LoginBaseComponent} from './component/login-base/login-base.component';
 import {NewPasswordComponent} from './component/new-password/new-password.component';
 import {RequestInterceptor} from './@core/service/authentication/request-interceptor.service';
+import {CKEditorModule} from 'ng2-ckeditor';
 
 
 
@@ -44,7 +45,8 @@ import {RequestInterceptor} from './@core/service/authentication/request-interce
         AppRoutingModule,
         DragDropModule,
         NgxPrintModule,
-        NbDatepickerModule.forRoot()
+        NbDatepickerModule.forRoot(),
+        CKEditorModule
 
     ],
     providers: [AddressService, {

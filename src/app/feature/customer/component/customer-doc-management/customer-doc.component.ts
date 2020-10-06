@@ -12,6 +12,9 @@ import {CustomerGeneralDocumentService} from '../../service/customer-general-doc
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DmsLoanFileComponent} from '../../../loan/component/loan-main-template/dms-loan-file/dms-loan-file.component';
+import {CustomerType} from '../../model/customerType';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {RoleType} from '../../../admin/modal/roleType';
 
 @Component({
   selector: 'app-customer-doc',
@@ -36,10 +39,12 @@ export class CustomerDocComponent implements OnInit {
   documentName;
   documentId;
   index;
+  currentRoleTypeMaker = false;
+
   constructor(private documentService: DocumentService,
               private loanService: LoanFormService,
               private customerService: CustomerService,
-              private customerInfoService: CustomerInfoService ,
+              private customerInfoService: CustomerInfoService,
               private toastService: ToastService,
               private customerGeneralDocumentService: CustomerGeneralDocumentService,
               private modelService: NgbModal) {
@@ -48,6 +53,8 @@ export class CustomerDocComponent implements OnInit {
   ngOnInit() {
     this.getGeneralLoanConfigDocument();
     this.getLoanOfLoanHolder();
+    const roleType: string = LocalStorageUtil.getStorage().roleType;
+    this.currentRoleTypeMaker = roleType === RoleType.MAKER;
   }
 
   openModel(model, documentName: string, documentId, index: number) {
@@ -56,12 +63,15 @@ export class CustomerDocComponent implements OnInit {
     this.index = index;
     this.modelService.open(model);
   }
+
   uploadDoc(event) {
     this.uploadFile = event.target.files[0];
   }
+
   onClose() {
     this.modelService.dismissAll();
   }
+
   onFileChange(documentName: string, documentId, index: number) {
     const formData: FormData = new FormData();
     formData.append('file', this.uploadFile);
@@ -104,6 +114,7 @@ export class CustomerDocComponent implements OnInit {
     });
 
   }
+
   previewGeneralDoc(url: string, name: string) {
     const link = document.createElement('a');
     link.target = '_blank';
@@ -116,9 +127,9 @@ export class CustomerDocComponent implements OnInit {
   getGeneralLoanConfigDocument() {
     if (!ObjectUtil.isEmpty(this.customerInfo.customerType)) {
       let loanCycleId;
-      if (this.customerInfo.customerType === 'COMPANY') {
+      if (CustomerType[this.customerInfo.customerType] === CustomerType.INSTITUTION) {
         loanCycleId = 10;
-      } else if (this.customerInfo.customerType === 'INDIVIDUAL') {
+      } else if (CustomerType[this.customerInfo.customerType] === CustomerType.INDIVIDUAL) {
         loanCycleId = 9;
       }
       this.documentService.getByLoanCycleAndStatus(loanCycleId, 'ACTIVE').subscribe((res: any) => {
@@ -136,8 +147,7 @@ export class CustomerDocComponent implements OnInit {
         }
       });
     }
-    }
-
+  }
 
 
   getLoanOfLoanHolder() {

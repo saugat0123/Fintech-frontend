@@ -3,8 +3,10 @@ import {CommonModule} from '@angular/common';
 import {SiteVisitComponent} from './site-visit/site-visit.component';
 import {ThemeModule} from '../../@theme/theme.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+// @ts-ignore
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgSelectModule} from '@ng-select/ng-select';
+// @ts-ignore
 import {NbDatepickerModule, NbDialogModule} from '@nebular/theme';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {AgmCoreModule} from '@agm/core';
@@ -27,8 +29,9 @@ import {CreditGradingComponent} from './credit-grading/credit-grading.component'
 import {ProposalComponent} from './proposal/proposal.component';
 import {CreditRiskGradingGammaComponent} from './credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {CiclComponent} from './cicl/cicl.component';
-import { FinancialDeleteComponentComponent } from './financial/financial-delete-component/financial-delete-component.component';
-import { TemplateDocumentComponent } from './template-document/template-document.component';
+import {FinancialDeleteComponentComponent} from './financial/financial-delete-component/financial-delete-component.component';
+import {TemplateDocumentComponent} from './template-document/template-document.component';
+import {CKEditorModule} from 'ng2-ckeditor';
 
 const COMPONENTS = [
   SiteVisitComponent,
@@ -54,6 +57,7 @@ const COMPONENTS = [
   TemplateDocumentComponent
 ];
 
+
 @NgModule({
   declarations: [...COMPONENTS],
   exports: [...COMPONENTS],
@@ -72,6 +76,7 @@ const COMPONENTS = [
       apiKey: environment.GOOGLE_MAP_API_KEY
     }),
     CoreModule,
+    CKEditorModule
   ]
 })
 export class LoanInformationTemplateModule {

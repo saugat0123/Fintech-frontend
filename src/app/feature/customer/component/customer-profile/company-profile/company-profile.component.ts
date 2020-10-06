@@ -133,9 +133,9 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
   openLoanForm() {
     this.onClose();
     this.spinner = true;
-    let loanCategory = 'BUSINESS_TYPE';
+    let loanCategory = 'INSTITUTION';
     if (CustomerType.INDIVIDUAL === CustomerType[this.paramProp.customerType]) {
-      loanCategory = 'PERSONAL_TYPE';
+      loanCategory = 'INDIVIDUAL';
     }
     this.router.navigate(['/home/loan/loanForm'], {
       queryParams: {
@@ -200,7 +200,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
   }
 
   openCompanyDetailEdit(companyInfo) {
-    this.dialogService.open(CompanyDetailEditComponent, {context: {companyInfo}}).onClose.subscribe(res => this.ngOnInit());
+    this.dialogService.open(CompanyDetailEditComponent, {context: {companyInfo}}).onClose.subscribe(res => this.refreshCustomerInfo());
   }
 
   buildCompanyForm() {

@@ -5,6 +5,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {FormUtils} from '../../../@core/utils/form.utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
+import {Editor} from '../../../@core/utils/constants/editor';
 
 @Component({
   selector: 'app-cicl',
@@ -22,7 +23,7 @@ export class CiclComponent implements OnInit {
   @Output() ciclDataEmitter = new EventEmitter();
 
   submitted = false;
-
+  ckeConfig = Editor.config;
 
   constructor(
       private formBuilder: FormBuilder,
