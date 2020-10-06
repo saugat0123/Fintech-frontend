@@ -215,6 +215,32 @@
     <tbody>
     <tr>
       <th>e</th>
+      <td>DE Ratio (Excluding Loan from shareholder/director)</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('deRatioExcludingLoanFromShareholderOrDirector')['controls']; let j = index"
+          formArrayName="deRatioExcludingLoanFromShareholderOrDirector" >
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th>f</th>
+      <td>DE Ratio (Including Loan from shareholder/director)</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('deRatioIncludingLoanFromShareholderOrDirector')['controls']; let j = index"
+          formArrayName="deRatioIncludingLoanFromShareholderOrDirector" >
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th>g</th>
       <td>Debt-Equity Ratio (Overall)</td>
       <td *ngFor="let amount of keyIndicatorsForm.get('debtEquityRatioOverall')['controls']; let j = index"
           formArrayName="debtEquityRatioOverall" >
@@ -227,7 +253,7 @@
 
     <tbody>
     <tr>
-      <th>f</th>
+      <th>h</th>
       <td>Debt-Equity Ratio - Long Term (times)</td>
       <td *ngFor="let amount of keyIndicatorsForm.get('debtEquityRatioLongTerm')['controls']; let j = index"
           formArrayName="debtEquityRatioLongTerm" >
@@ -240,7 +266,7 @@
 
     <tbody>
     <tr>
-      <th >g</th>
+      <th>i</th>
       <td>Debt-Equity Ratio - Working Capital (times)</td>
       <td *ngFor="let amount of keyIndicatorsForm.get('debtEquityRatioWorkingCapital')['controls']; let j = index"
           formArrayName="debtEquityRatioWorkingCapital" >
@@ -253,7 +279,7 @@
 
     <tbody>
     <tr>
-      <th >h</th>
+      <th>j</th>
       <td>Debt-Equity Ratio - General</td>
       <td *ngFor="let amount of keyIndicatorsForm.get('debtEquityRatioGeneral')['controls']; let j = index"
           formArrayName="debtEquityRatioGeneral" >
@@ -266,7 +292,7 @@
 
     <tbody>
     <tr>
-      <th>i</th>
+      <th>k</th>
       <td>Leverage ratio</td>
       <td *ngFor="let amount of keyIndicatorsForm.get('leverageRatio')['controls']; let j = index"
           formArrayName="leverageRatio" >
@@ -279,7 +305,7 @@
 
     <tbody>
     <tr>
-      <th >4</th>
+      <th>4</th>
       <td><strong>Operating Cycle</strong></td>
       <td *ngFor="let amount of keyIndicatorsForm.get('operatingCycle')['controls']; let j = index"
           formArrayName="operatingCycle" >
@@ -292,7 +318,7 @@
 
     <tbody>
     <tr>
-      <th >a</th>
+      <th>a</th>
       <td>Inventory Turnover Ratio (times)</td>
       <td *ngFor="let amount of keyIndicatorsForm.get('inventoryTurnoverRatio')['controls']; let j = index"
           formArrayName="inventoryTurnoverRatio" >
@@ -305,7 +331,7 @@
 
     <tbody>
     <tr>
-      <th >b</th>
+      <th>b</th>
       <td>Stock in Hand - Days</td>
       <td *ngFor="let amount of keyIndicatorsForm.get('stockInHandDays')['controls']; let j = index"
           formArrayName="stockInHandDays" >
@@ -318,7 +344,7 @@
 
     <tbody>
     <tr>
-      <th >c</th>
+      <th>c</th>
       <td>Debtor Turnover Ratio (times)</td>
       <td *ngFor="let amount of keyIndicatorsForm.get('debtorTurnOverRatio')['controls']; let j = index"
           formArrayName="debtorTurnOverRatio" >
@@ -331,7 +357,7 @@
 
     <tbody>
     <tr>
-      <th >d</th>
+      <th>d</th>
       <td>Average Collection Period - Days</td>
       <td *ngFor="let amount of keyIndicatorsForm.get('averageCollectionPeriod')['controls']; let j = index"
           formArrayName="averageCollectionPeriod" >
@@ -344,7 +370,7 @@
 
     <tbody>
     <tr>
-      <th >e</th>
+      <th>e</th>
       <td>Average Payment Period - Days</td>
       <td *ngFor="let amount of keyIndicatorsForm.get('averagePaymentPeriod')['controls']; let j = index"
           formArrayName="averagePaymentPeriod" >
@@ -357,7 +383,7 @@
 
     <tbody>
     <tr>
-      <th >f</th>
+      <th>f</th>
       <td>Net Operating Cycle - Days</td>
       <td *ngFor="let amount of keyIndicatorsForm.get('netOperatingCycle')['controls']; let j = index"
           formArrayName="netOperatingCycle" >
@@ -370,7 +396,7 @@
 
     <tbody>
     <tr>
-      <th >g</th>
+      <th>g</th>
       <td>Net WC before Bank(Rs. in 000)</td>
       <td *ngFor="let amount of keyIndicatorsForm.get('netWCBeforeBank')['controls']; let j = index"
           formArrayName="netWCBeforeBank" >
