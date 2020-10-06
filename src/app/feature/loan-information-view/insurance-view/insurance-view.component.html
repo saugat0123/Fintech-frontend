@@ -4,7 +4,7 @@
     <table class="table table-bordered text-center table-responsive-md table-sm" *ngFor="let insurance of insurance; let i= index">
       <thead>
       <tr>
-        <th colspan="7">
+        <th colspan="8">
           {{i+1}}.Insurance
         </th>
       </tr>
@@ -13,8 +13,9 @@
       <tr>
         <th>S.N</th>
         <th>Policy Number</th>
-        <th>Company</th>
-        <th>Insured Amount</th>
+        <th>Assets Insured</th>
+        <th>Insured value(Amount In NRP)</th>
+        <th>Insurance Company</th>
         <th>Premium Amount</th>
         <th>Issued Date</th>
         <th>Expiry Date</th>
@@ -24,19 +25,28 @@
       <tr>
         <td>{{i+1}}.</td>
         <td>{{insurance?.policyNumber}}</td>
-        <td>{{insurance?.company}}</td>
+        <td>{{insurance?.assetInsured}}</td>
         <td>{{insurance?.insuredAmount | currencyFormatter}}</td>
+        <td>{{insurance?.company}}</td>
         <td>{{insurance?.premiumAmount | currencyFormatter}}</td>
         <td>{{insurance?.issuedDate | date}}</td>
         <td>{{insurance?.expiryDate | date}}</td>
       </tr>
       <tr>
         <th></th>
-        <th colspan="6">Policy Type</th>
+        <th colspan="7">Policy Type /Coverage</th>
       </tr>
       <tr>
         <th></th>
-        <td colspan="6">{{insurance?.policyType}}</td>
+        <td colspan="7"><span [innerHTML]=" insurance?.policyType | safeHtml"></span></td>
+      </tr>
+      <tr>
+        <th></th>
+        <th colspan="7">Remark (if any)</th>
+      </tr>
+      <tr>
+        <th></th>
+        <td colspan="7"><span [innerHTML]=" insurance?.remark | safeHtml"></span></td>
       </tr>
       <ng-container *ngIf="insurance?.remarks?.length > 0">
         <tr>
