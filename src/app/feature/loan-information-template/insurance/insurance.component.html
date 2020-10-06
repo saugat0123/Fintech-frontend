@@ -24,6 +24,18 @@
                                 Policy Number is required!
                             </div>
                         </div>
+                        <div class="col-md-4 form-group">
+                            <label for="policyNumber"><strong>Asset Insured</strong></label>
+                            <select class="form-control" formControlName="assetInsured" id="assetInsured"
+                                   placeholder="Asset Insured" required
+                                    type="text" [ngClass]="{'is-invalid': isSubmitted && formArrays.get('assetInsured').errors}">
+                                <option [ngValue]="null" hidden>Select Asset Insured</option>
+                                <option *ngFor="let assets of assetsInsured" [ngValue]="assets">{{assets}}</option>
+                            </select>
+                            <div *ngIf="isSubmitted && formArrays.get('assetInsured').invalid" class="invalid-feedback">
+                                Asset Insured is required!
+                            </div>
+                        </div>
                     </div>
 
             <div class="form-group">
@@ -79,14 +91,19 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="policyType"><strong>Insurance Policy Type</strong></label>
-                        <textarea class="form-control" formControlName="policyType"
-                                  id="policyType"
-                                  rows="4">
-                </textarea>
+                        <label for="policyType"><strong>Insurance Policy Type/ Coverage</strong></label>
+                        <ckeditor formControlName="policyType" id="policyType" [config]="ckeConfig"></ckeditor>
+                    </div>
+                    <div class="form-group">
+                        <label for="remark"><strong>Remark(if any)</strong></label>
+                        <ckeditor formControlName="remark" id="remark" [config]="ckeConfig"></ckeditor>
+
                     </div>
 
                 </div>
+                <app-template-document [customerInfo]="customerInfo" [docName]="formArrays.get('policyNumber').value" (docPathEmitter)="documentPath($event,i)" [pathValue]="formArrays.get('policyDocumentPath').value" [docTitle]="docTitle" [docFolderName]="docFolderName"></app-template-document>
+                <i class="pb-5">Note:Policy Number is required to upload file</i>
+                <hr>
             </div>
                 <div class="float-right">
                     <button (click)="addEmptyForm()" class="btn btn-sm btn-flat btn-primary">Add More Insurance</button>
