@@ -434,7 +434,7 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             + Number(this.financialService
                 .fetchValuesForSubCategories(this.balanceSheetForm.get('netWorthCategory'), 'Retained Earning', index))
             + Number(this.financialService
-                .fetchValuesForSubCategories(this.balanceSheetForm.get('LongTermLoanCategory'), 'Loan From Promoters/Proprietor', index)))
+                .fetchValuesForSubCategories(this.balanceSheetForm.get('longTermLoanCategory'), 'Loan From Promoters/Proprietor', index)))
             / Number(totalAssets.controls['value'].value)).toFixed(2);
 
         keyIndicators.debtEquityRatioOverall[index].value = Number(totalAssets.controls['value'].value) === 0 ? 0 :
