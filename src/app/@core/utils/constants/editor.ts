@@ -1,7 +1,6 @@
 export class Editor {
   static config = {
     allowedContent: false,
-    forcePasteAsPlainText: true,
     font_names: 'Arial;Times New Roman;Verdana',
     toolbarGroups: [
       { name: 'document', groups: ['mode', 'document', 'doctools'] },
