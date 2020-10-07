@@ -101,6 +101,6 @@ export class InsuranceComponent implements OnInit {
     }
 
     configEditor() {
-        this.ckeConfig = Editor.config;
+        this.ckeConfig = Editor.CK_CONFIG;
     }
 }
