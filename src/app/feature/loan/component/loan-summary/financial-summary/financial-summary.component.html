@@ -76,9 +76,9 @@
       <p><strong>Financial Highlights of the Entity</strong></p>
       <div class="row">
         <div class="col-md-12">
-          <table class="table table-bordered table-sm">
+          <table class="table table-bordered table-sm sb-small">
             <thead>
-            <tr>
+            <tr class="sb-bg-dark text-white">
               <th>S.No.</th>
               <th>Particulars/Years:</th>
               <th *ngFor="let fiscalYear of financialData?.fiscalYear">{{fiscalYear}}</th>
@@ -86,7 +86,7 @@
             </thead>
             <tbody>
 
-            <tr>
+            <tr class="sb-bg-secondary">
               <td [attr.colspan]="2 + 1 + financialData?.fiscalYear?.length" class="text-center"><strong>Major Financial Indicators</strong></td>
             </tr>
             <tr>
