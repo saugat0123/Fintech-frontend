@@ -132,24 +132,6 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label class="title" for="cibCharge"><strong>CIB Charge</strong></label>
-                    <input
-                        [ngClass]="{ 'is-invalid': (submitted) && formControls.cibCharge.errors }"
-                        class="form-control" formControlName="cibCharge"
-                        id="cibCharge"
-                        name="tenureYear" placeholder="CIB charge"
-                        type="number">
-                    <div *ngIf="(submitted) && formControls.cibCharge.invalid"
-                         class="invalid-feedback">
-                      <span
-                          *ngIf="formControls.cibCharge.errors.required">CIB Charge is required</span>
-
-                      <span *ngIf="formControls.cibCharge.errors.min">CIB Charge must be positive enumerical value.</span>
-                    </div>
-                  </div>
-                </div>
 
                 <!--                                start of repayment mode-->
                 <div class="col-md-4">
