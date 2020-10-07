@@ -15,7 +15,7 @@ import {CompanyInfoService} from '../../../../../admin/service/company-info.serv
 import {NbDialogRef} from '@nebular/theme';
 import {Company} from '../../../../../admin/modal/company';
 import {CompanyService} from '../../../../../admin/component/company/company.service';
-import {DesignationList} from "../../../../../loan/model/designationList";
+import {DesignationList} from '../../../../../loan/model/designationList';
 
 @Component({
   selector: 'app-company-detail-edit',
@@ -56,7 +56,7 @@ export class CompanyDetailEditComponent implements OnInit {
   async ngOnInit() {
     await this.buildForm();
     this.getCompanyStructure();
-    if (!ObjectUtil.isEmpty(this.companyInfo.contactPersons)){
+    if (!ObjectUtil.isEmpty(this.companyInfo.contactPersons)) {
       this.setContactPersonsData(this.companyInfo.contactPersons);
     }
   }
@@ -207,7 +207,6 @@ export class CompanyDetailEditComponent implements OnInit {
 
   setContactPersonsData(contactPerson) {
     const contactPersons = JSON.parse(contactPerson);
-    console.log(contactPerson);
     const contactPersonFormArray = new FormArray([]);
     contactPersons.forEach(data => {
       contactPersonFormArray.push(this.formBuilder.group({

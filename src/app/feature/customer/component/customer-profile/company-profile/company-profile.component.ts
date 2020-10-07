@@ -200,7 +200,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
   }
 
   openCompanyDetailEdit(companyInfo) {
-    this.dialogService.open(CompanyDetailEditComponent, {context: {companyInfo}}).onClose.subscribe(res => this.refreshCustomerInfo());
+    this.dialogService.open(CompanyDetailEditComponent, {context: {companyInfo}}).onClose.subscribe(res => this.ngOnInit());
   }
 
   buildCompanyForm() {
