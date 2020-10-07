@@ -21,7 +21,7 @@
                  class="form-control" formControlName="name"
                  id="name" placeholder="Name"/>
           <small class="text-danger text-muted">
-            Words must be strictly separated with whitespace only.
+            Words must be strictly separated with whitespace only.++
           </small>
           <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback">
             Name is invalid or should be separated by whitespace only.
