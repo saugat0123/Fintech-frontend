@@ -100,7 +100,7 @@
                                 </ng-select>
 
                                     <div *ngIf="submitted && form.issuePlace?.errors "
-                                         class="invalid-feedback">
+                                         class="text-danger small">
                                         <div *ngIf="form.issuePlace?.errors.required">
                                             Issued Place is required.
                                         </div>
@@ -181,7 +181,7 @@
                                            placeholder="Select Business Type">
                                 </ng-select>
                                 <div *ngIf="submitted && form.businessType?.errors"
-                                     class="invalid-feedback">
+                                     class="text-danger small">
                                     <div *ngIf="form.businessType?.errors.required">
                                         Business Type is required
                                     </div>
@@ -282,7 +282,7 @@
                             </ng-select>
 
                             <div *ngIf="submitted && additionalInfoForm.licenseIssuePlace.errors "
-                                 class="invalid-feedback">asd
+                                 class="text-danger small">
                                 <div *ngIf="additionalInfoForm.licenseIssuePlace.errors.required">
                                     License Issued Place is required.
                                 </div>
