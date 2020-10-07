@@ -309,7 +309,7 @@ export class CompanyFormComponent implements OnInit {
 
             // Success Planning
             successionPlanning: [ObjectUtil.isEmpty(this.companyInfo) ? undefined :
-                this.companyInfo.successionPlanning, Validators.required],
+                JSON.parse(this.companyInfo.successionPlanning), Validators.required],
 
             // additional company detail
             additionalCompanyInfo: this.formBuilder.group({
