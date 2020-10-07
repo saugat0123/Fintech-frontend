@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CompanyInfo} from '../../../../../admin/modal/company-info';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-company-profile-additional-information',
@@ -13,7 +14,7 @@ export class CompanyProfileAdditionalInformationComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if (this.companyInfo.contactPersons !== undefined) {
+    if (!ObjectUtil.isEmpty(this.companyInfo.contactPersons)) {
       this.companyContactPersons = JSON.parse(this.companyInfo.contactPersons);
     }
   }
