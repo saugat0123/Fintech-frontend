@@ -38,6 +38,8 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
             this.setCurrentRatio(keyIndicatorsData.currentRatio);
             this.setDebtServiceCoverageRatio(keyIndicatorsData.debtServiceCoverageRatio);
             this.setInterestCoverageRatio(keyIndicatorsData.interestCoverageRatio);
+            this.setDeRatioExcludingLoanFromShareholderOrDirector(keyIndicatorsData.deRatioExcludingLoanFromShareholderOrDirector);
+            this.setDeRatioIncludingLoanFromShareholderOrDirector(keyIndicatorsData.deRatioIncludingLoanFromShareholderOrDirector);
             this.setDebtEquityRatioOverall(keyIndicatorsData.debtEquityRatioOverall);
             this.setDebtEquityRatioLongTerm(keyIndicatorsData.debtEquityRatioLongTerm);
             this.setDebtEquityRatioWorkingCapital(keyIndicatorsData.debtEquityRatioWorkingCapital);
@@ -72,6 +74,8 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
             currentRatio: this.formBuilder.array([]),
             debtServiceCoverageRatio: this.formBuilder.array([]),
             interestCoverageRatio: this.formBuilder.array([]),
+            deRatioExcludingLoanFromShareholderOrDirector: this.formBuilder.array([]),
+            deRatioIncludingLoanFromShareholderOrDirector: this.formBuilder.array([]),
             debtEquityRatioOverall: this.formBuilder.array([]),
             debtEquityRatioLongTerm: this.formBuilder.array([]),
             debtEquityRatioWorkingCapital: this.formBuilder.array([]),
@@ -284,6 +288,32 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
     // interestCoverageRatio
     setInterestCoverageRatio(currentData) {
         const controls = this.keyIndicatorsForm.get('interestCoverageRatio') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    // deRatioExcludingLoanFromShareholderOrDirector
+    setDeRatioExcludingLoanFromShareholderOrDirector(currentData) {
+        const controls = this.keyIndicatorsForm.get('deRatioExcludingLoanFromShareholderOrDirector') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    // deRatioIncludingLoanFromShareholderOrDirector
+    setDeRatioIncludingLoanFromShareholderOrDirector(currentData) {
+        const controls = this.keyIndicatorsForm.get('deRatioIncludingLoanFromShareholderOrDirector') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({

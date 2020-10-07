@@ -246,6 +246,8 @@
       "currentRatio": [],
       "debtServiceCoverageRatio": [],
       "interestCoverageRatio": [],
+      "deRatioExcludingLoanFromShareholderOrDirector": [],
+      "deRatioIncludingLoanFromShareholderOrDirector": [],
       "debtEquityRatioOverall": [],
       "debtEquityRatioLongTerm": [],
       "debtEquityRatioWorkingCapital": [],

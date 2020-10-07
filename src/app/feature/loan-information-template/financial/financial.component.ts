@@ -137,6 +137,8 @@ export class FinancialComponent implements OnInit {
         'currentRatio',
         'debtServiceCoverageRatio',
         'interestCoverageRatio',
+        'deRatioExcludingLoanFromShareholderOrDirector',
+        'deRatioIncludingLoanFromShareholderOrDirector',
         'debtEquityRatioOverall',
         'debtEquityRatioLongTerm',
         'debtEquityRatioWorkingCapital',
