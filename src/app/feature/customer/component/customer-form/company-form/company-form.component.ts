@@ -384,7 +384,7 @@ export class CompanyFormComponent implements OnInit {
     contactPersonFormGroup(): FormGroup {
         return this.formBuilder.group({
             contactName: [undefined, Validators.required],
-            contactEmail: [undefined, undefined],
+            contactEmail: [undefined, Validators.required],
             contactNumber: [undefined, Validators.required],
             functionalPosition: [undefined, Validators.required],
         });
@@ -527,6 +527,10 @@ export class CompanyFormComponent implements OnInit {
                     } else {
                         this.companyFormField.isOldCustomer = true;
                         this.companyInfo = data.detail.content[0];
+                        if (!ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
+                            this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
+                            this.additionalFieldSelected = true;
+                        }
                         this.buildForm();
                         this.setCompanyInfo(this.companyInfo);
                     }
@@ -553,8 +557,6 @@ export class CompanyFormComponent implements OnInit {
     }
     onSubmit() {
         this.submitted = true;
-        console.log(this.companyInfoFormGroup);
-        console.log(this.companyInfoFormGroup.get('additionalCompanyInfo').value);
         if (this.companyInfoFormGroup.invalid) {
             this.scrollToFirstInvalidControl();
             return;

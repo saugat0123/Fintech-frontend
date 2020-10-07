@@ -122,6 +122,9 @@
                                     <div *ngIf="form.email?.errors.email">
                                         invalid email!
                                     </div>
+                                    <div *ngIf="form.email?.errors.required">
+                                        Email is required
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -177,9 +180,9 @@
                                            id="businessType"
                                            placeholder="Select Business Type">
                                 </ng-select>
-                                <div *ngIf="submitted && form.businessType.errors"
+                                <div *ngIf="submitted && form.businessType?.errors"
                                      class="invalid-feedback">
-                                    <div *ngIf="form.businessType.errors.required">
+                                    <div *ngIf="form.businessType?.errors.required">
                                         Business Type is required
                                     </div>
                                 </div>
@@ -193,7 +196,7 @@
                         <div class="col-md-12">
                             <div class="form-group form-inline">
                                 <h6>Additional registration/license information</h6>
-                                <nb-checkbox #chek id="additionalInfo" class="ml-2" (checkedChange)="onAdditionalFieldSelect(chek.checked)"></nb-checkbox>
+                                <nb-checkbox #chek id="additionalInfo" class="ml-2" (checkedChange)="onAdditionalFieldSelect(chek.checked)" [checked]="additionalFieldSelected"></nb-checkbox>
                             </div>
                         </div>
                     </div>
@@ -797,7 +800,7 @@
                                    [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactEmail').errors }"
                                    id="contactEmail" placeholder="Email"
                                    type="email">
-                            <div *ngIf="(submitted) && contact.get('contactEmail').invalid"
+                            <div *ngIf="(submitted) && contact.get('contactEmail').errors"
                                  class="invalid-feedback">
                                 <div *ngIf="contact.get('contactEmail').errors.required">
                                     Contact Email  is required
