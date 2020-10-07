@@ -21,9 +21,11 @@ export class CompanyInfo {
     establishmentDate: Date;
     businessType: BusinessType;
     panNumber: string;
-    contactPerson: ContactPerson;
+    contactPersons: string;
     profilePic: string;
     issuePlace: string;
     email: string;
     contactNum: string;
+    additionalCompanyInfo: string;
+    successionPlanning: string;
 }
