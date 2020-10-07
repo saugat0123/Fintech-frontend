@@ -1,8 +1,8 @@
 <nb-accordion>
     <nb-accordion-item>
-        <nb-accordion-item-header>
-            <h5>{{title}}</h5>
-            <p class="m-0 ml-2"> ({{label}})</p>
+        <nb-accordion-item-header class="sb-small sb-bg-secondary text-white">
+            <h6>{{title}}</h6> &nbsp;
+            <em> {{label}}</em>
         </nb-accordion-item-header>
         <nb-accordion-item-body>
             <div *ngIf="availableDocumentOptions.length > 0">

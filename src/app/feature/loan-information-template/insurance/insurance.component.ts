@@ -3,7 +3,6 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Insurance} from '../../admin/modal/insurance';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {InsuranceList} from '../../loan/model/insuranceList';
-import {Editor} from '../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-insurance',
@@ -23,7 +22,6 @@ export class InsuranceComponent implements OnInit {
     docTitle = 'Insurance Policy Document';
     docFolderName = 'insuranceDoc';
     assetsInsured = ['Stock', 'Building & Construction', 'Machineries/Equipment', 'Vehicle', 'Other'];
-    ckeConfig;
 
     constructor(
         private formBuilder: FormBuilder
@@ -35,7 +33,6 @@ export class InsuranceComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.configEditor();
         this.buildForm();
         if (ObjectUtil.isEmpty(this.insuranceDataFromModel)) {
             this.addEmptyForm();
@@ -100,7 +97,4 @@ export class InsuranceComponent implements OnInit {
         this.form.get(['formArray', index, 'policyDocumentPath']).patchValue(path);
     }
 
-    configEditor() {
-        this.ckeConfig = Editor.CK_CONFIG;
-    }
 }

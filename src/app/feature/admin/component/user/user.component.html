@@ -25,7 +25,8 @@
                     <div class="col-md-6">
                         <button (click)="isFilterCollapsed = !isFilterCollapsed" [attr.aria-expanded]="!isFilterCollapsed"
                                 nbButton
-                                status="primary">
+                                status="primary"
+                            size="small">
                             <i class="fa fa-filter"> Filter</i>
                         </button>
                     </div>
@@ -34,10 +35,11 @@
                             <button
                                     nbButton outline status="info"
                                     class="mr-2"
+                                    size="small"
                                     (click)="getCsv()">
                                 <i class="fa fa-download" aria-hidden="true"></i>
                             </button>
-                            <button nbButton outline status="success" (click)="add()">
+                            <button nbButton outline status="success" size="small" (click)="add()">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
@@ -80,9 +82,9 @@
                                 </div>
                             </div>
                             <div class="col-md-12 p-0">
-                                <button nbButton status="info" type="submit" class="mr-2">Search</button>
+                                <button nbButton status="info" size="small" type="submit" class="mr-2">Search</button>
                                 <button (click)="clearSearch()" class="mr-2" nbButton
-                                        status="danger" type="button">Clear
+                                        status="danger" size="small" type="button">Clear
                                 </button>
                             </div>
                         </form>
@@ -91,9 +93,9 @@
             </nb-card-header>
             <nb-card-body>
                 <div class="box-body">
-                    <table id="add-user-table" class="table table-bordered table-responsive-md table-hover ">
+                    <table id="add-user-table" class="table table-sm table-bordered table-responsive-md table-hover sb-small text-center">
                         <thead>
-                        <tr>
+                        <tr class="sb-bg-dark text-white">
                             <th>S.N</th>
                             <th>Name</th>
                             <th>Email</th>
@@ -121,7 +123,7 @@
                             <ng-template #branchList>
                                 <td>
                                     <div *ngIf="!allList.branch?.length > 0">
-                                        <p class="alert-danger">BRANCH IS DISABLED</p>
+                                        <em class="alert-danger">BRANCH IS DISABLED</em>
                                     </div>
                                     <div class="col-md-12 row" *ngFor="let branch of allList.branch;">
                                         {{branch?.name}}
@@ -146,15 +148,15 @@
                             </td>
                             <td>
                                 <ng-container *ngIf="allList.role?.roleName !== 'admin'">
-                                    <button nbButton status="info" size="small" class="m-1" (click)="history(allList)"
+                                    <button nbButton status="info" size="tiny" class="m-1" (click)="history(allList)"
                                             title="History">
                                         <i class="fas fa-history"></i>
                                     </button>
-                                    <button nbButton status="info" size="small" class="m-1" (click)="edit(allList)"
+                                    <button nbButton status="info" size="tiny" class="m-1" (click)="edit(allList)"
                                             title="Edit">
                                         <i class="fa fa-edit"></i>
                                     </button>
-                                    <button nbButton status="danger" size="small" class="m-1"
+                                    <button nbButton status="danger" size="tiny" class="m-1"
                                             (click)="dismiss(allList,dismissAll)"
                                             title="Dismiss  Branch & role" *ngIf="allList.role !== null;">
                                         <i class="fa fa-ban"></i>

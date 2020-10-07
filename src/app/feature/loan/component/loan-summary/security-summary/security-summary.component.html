@@ -3,12 +3,12 @@
         <p><strong>Security Position</strong></p>
         <div class="row" *ngIf= "vehicleSelected">
             <div class="col-md-12">
-                <table  class="table table-condensed table-bordered table-responsive-md text-center table-sm"  style="table-layout: fixed; width: 100%" *ngFor="let vehicleDetails of formData['initialForm']['vehicleDetails']; let i= index">
+                <table  class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"  style="table-layout: fixed; width: 100%" *ngFor="let vehicleDetails of formData['initialForm']['vehicleDetails']; let i= index">
                 <thead>
-                    <tr>
+                    <tr class="sb-bg-dark text-white">
                         <th colspan="9">{{i+1}}.Details of Security Offered: Vehicle</th>
                     </tr>
-                    <tr>
+                    <tr class="sb-bg-secondary text-white">
                         <th>S.N</th>
                         <th>Model</th>
                         <th>Valuation Amount</th>
@@ -53,12 +53,12 @@
         </div>
         <div class="row" *ngIf= "landSelected">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm" *ngFor="let landDetails of formData['initialForm']['landDetails']; let i= index">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small" *ngFor="let landDetails of formData['initialForm']['landDetails']; let i= index">
                     <thead>
                     <tr>
-                        <th class="text-center" colspan="8">{{i+1}}.Land Security Details</th>
+                        <th class="text-center sb-bg-dark text-white" colspan="8">{{i+1}}.Land Security Details</th>
                     </tr>
-                    <tr>
+                    <tr class="sb-bg-secondary text-white">
                         <th>S.N</th>
                         <th>Owner</th>
                         <th>Location</th>

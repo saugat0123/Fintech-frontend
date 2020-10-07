@@ -54,9 +54,9 @@
             </nb-card-header>
 
             <nb-card-body *ngIf="viewCompany">
-                <table id="add-branch-table" class="table  table-bordered table-hover ">
+                <table id="add-branch-table" class="table table-sm sb-small table-bordered table-hover text-center ">
                     <thead>
-                    <tr>
+                    <tr class="sb-bg-dark text-white">
                         <th>Company Structure</th>
                         <th>Action</th>
                     </tr>
@@ -68,13 +68,12 @@
                         </div>
                         <td>{{allList.name}}</td>
                         <td>
-                            <a (click)="edit(allList)" data-toggle="tooltip"
-                               data-placement="top" title="EDIT">
-                                <i class="fa fa-edit" style="color:#3c8dbc;"></i>
-                            </a>
-                            <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE" style="margin-left:10px">
-                            <i class="fa fa-trash" style="color:white;"></i>
-                          </a> -->
+                            <button (click)="edit(allList)" class="m-1" nbButton size="tiny"
+                                    status="info"
+                                    title="Edit">
+                                <em class="fa fa-edit"></em>
+                            </button>
+
                         </td>
                     </tr>
                     </tbody>
