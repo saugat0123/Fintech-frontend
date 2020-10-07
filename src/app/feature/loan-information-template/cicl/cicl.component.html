@@ -6,7 +6,7 @@
     <form [formGroup]="ciclForm">
       <div class="row">
         <div class="col-md-4 form-group">
-          <label><b>Cicl Charge</b></label>
+          <label><b>Cib Charge</b></label>
           <input class="form-control" formControlName="cibCharge" [ngClass]="{ 'is-invalid': (submitted) && (ciclForm.get('cibCharge').invalid) }"
                  type="number" placeholder="Cicl Charge">
           <div *ngIf="(submitted) && ciclForm.get('cibCharge').errors" class="invalid-feedback">
