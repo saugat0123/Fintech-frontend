@@ -10,13 +10,14 @@
                                     [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
                                     nbButton
                                     shape="rectangle"
+                                    size="small"
                                     status="primary">
                                 <em class="fa fa-filter"> Filter</em>
                             </button>
                         </div>
                         <div class="col-md-6 d-flex justify-content-end">
                             <button (click)="getCsv()" nbButton outline
-                                    status="info">
+                                    status="info" size="small">
                                 <i aria-hidden="true" class="fa fa-download"></i></button>
                         </div>
                     </div>
@@ -67,10 +68,10 @@
                         </div>
                         <div class="col-md-12 p-0">
                             <button [disabled]="!filterForm.valid" class="mr-2" nbButton shape="rectangle"
-                                    status="info" type="submit">Search
+                                    size="small" status="info" type="submit">Search
                             </button>
                             <button (click)="buildFilterForm()" nbButton shape="rectangle" status="danger"
-                                    type="button">Clear
+                                    size="small" type="button">Clear
                             </button>
                         </div>
                     </form>
@@ -78,9 +79,9 @@
             </nb-card-header>
             <nb-card-body>
                 <div class="box-body">
-                    <table class="table  table-bordered table-hover">
+                    <table class="table table-sm sb-small table-bordered table-hover">
                         <thead>
-                        <tr>
+                        <tr class="sb-bg-dark text-white">
                             <th>S.N</th>
                             <th>Branch</th>
                             <th>Name</th>
