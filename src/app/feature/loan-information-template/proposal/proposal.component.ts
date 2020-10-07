@@ -128,7 +128,7 @@ export class ProposalComponent implements OnInit {
   }
 
   configEditor() {
-    this.ckeConfig = Editor.config;
+    this.ckeConfig = Editor.CK_CONFIG;
   }
 
   scrollToFirstInvalidControl() {

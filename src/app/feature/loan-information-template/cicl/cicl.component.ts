@@ -23,7 +23,7 @@ export class CiclComponent implements OnInit {
   @Output() ciclDataEmitter = new EventEmitter();
 
   submitted = false;
-  ckeConfig = Editor.config;
+  ckeConfig = Editor.CK_CONFIG;
 
   constructor(
       private formBuilder: FormBuilder,

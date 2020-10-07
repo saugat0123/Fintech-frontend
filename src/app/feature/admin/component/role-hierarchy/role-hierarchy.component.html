@@ -22,7 +22,7 @@
 <div class="row">
     <div class="col-md-12">
         <nb-card>
-            <nb-card-header>
+            <nb-card-header class="sb-bg-dark text-white">
                 Role Order
             </nb-card-header>
             <nb-card-body>
@@ -33,7 +33,7 @@
                     <div class="drag-container">
                         <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="roleList"
                              class="item-list" (cdkDropListDropped)="drop($event)">
-                            <div class="item-box" *ngFor="let item of roleList;let i=index" cdkDrag>
+                            <div class="item-box sb-small sb-bg-secondary text-white" *ngFor="let item of roleList;let i=index" cdkDrag>
                                 <div class="col-md-2">{{i + 1}}</div>
                                 <div class="col-md-10 pull-right">{{item.role?.roleName}}</div>
                             </div>
@@ -43,7 +43,7 @@
                 </div>
             </nb-card-body>
             <nb-card-footer *ngIf="length">
-                <button nbButton status="info" (click)="save()" [disabled]="isDisabled">
+                <button nbButton status="info" size="small" (click)="save()" [disabled]="isDisabled">
                     <span *ngIf="spinner" class="spinner-border spinner-border-sm"></span>
                     SAVE
                 </button>
