@@ -92,7 +92,6 @@ export class ProposalComponent implements OnInit {
       serviceChargeMethod: [undefined, [Validators.required]],
       serviceCharge: [undefined, [Validators.required, Validators.min(0)]],
       tenureDurationInMonths: [undefined, [Validators.required, Validators.min(0)]],
-      cibCharge: [undefined, [Validators.required, Validators.min(0)]],
       repaymentMode: [undefined, [Validators.required]],
       purposeOfSubmission: [undefined, [Validators.required]],
       disbursementCriteria: [undefined, [Validators.required]],

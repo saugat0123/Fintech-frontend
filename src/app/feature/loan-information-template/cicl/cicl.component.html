@@ -4,6 +4,22 @@
   </nb-card-header>
   <nb-card-body>
     <form [formGroup]="ciclForm">
+      <div class="row">
+        <div class="col-md-4 form-group">
+          <label><b>Cib Charge</b></label>
+          <input class="form-control" formControlName="cibCharge" [ngClass]="{ 'is-invalid': (submitted) && (ciclForm.get('cibCharge').invalid) }"
+                 type="number" placeholder="Cicl Charge">
+          <div *ngIf="(submitted) && ciclForm.get('cibCharge').errors" class="invalid-feedback">
+            <div *ngIf="(ciclForm.get('cibCharge').errors.required)">
+              Cicl Charge is required
+            </div>
+            <span *ngIf="ciclForm.get('cibCharge').errors.min">CIB Charge must be positive enumerical value.</span>
+
+          </div>
+        </div>
+      </div>
+      <hr>
+
       <div *ngFor="let cicl of ciclArray['controls']; let ciclIndex = index;"
            formArrayName="ciclArray">
         <div [formGroupName]="ciclIndex.toString()">
