@@ -408,6 +408,5 @@
     </tbody>
   </table>
   <h4>Justification</h4>
-  <textarea nbInput rows="5" fullWidth placeholder="Jusification..."
-            formControlName="justificationKeyIndicators"></textarea>
+  <ckeditor formControlName="justificationKeyIndicators" [config]="ckeConfig"></ckeditor>
 </form>

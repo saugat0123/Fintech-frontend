@@ -3,6 +3,7 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FinancialDeleteComponentComponent} from '../financial-delete-component/financial-delete-component.component';
 import {ModalResponse} from '../../../../@core/utils';
+import {Editor} from '../../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-cash-flow-statement',
@@ -14,6 +15,7 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
     @Input() formData;
     @Output() removeFiscalYear = new EventEmitter<any>();
     cashFlowStatementForm: FormGroup;
+    ckeConfig = Editor.CK_CONFIG;
 
     constructor(private formBuilder: FormBuilder,
                 private modalService: NgbModal) {
