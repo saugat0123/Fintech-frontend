@@ -8,7 +8,7 @@
         <div class="col-md-4 form-group">
           <label><b>Cib Charge</b></label>
           <input class="form-control" formControlName="cibCharge" [ngClass]="{ 'is-invalid': (submitted) && (ciclForm.get('cibCharge').invalid) }"
-                 type="number" placeholder="Cicl Charge">
+                 type="number" placeholder="Cib Charge">
           <div *ngIf="(submitted) && ciclForm.get('cibCharge').errors" class="invalid-feedback">
             <div *ngIf="(ciclForm.get('cibCharge').errors.required)">
               Cicl Charge is required

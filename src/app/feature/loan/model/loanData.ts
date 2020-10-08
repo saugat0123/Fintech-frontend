@@ -26,6 +26,7 @@ import {CustomerInfoData} from './customerInfoData';
 import {CombinedLoan} from './combined-loan';
 import {Guarantor} from './guarantor';
 import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
+import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 
 
 export class LoanDataHolder {
@@ -72,4 +73,5 @@ export class LoanDataHolder {
     loanHolder: CustomerInfoData;
     combinedLoan: CombinedLoan;
     refNo: string;
+    incomeFromAccount: IncomeFromAccount;
 }

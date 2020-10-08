@@ -490,6 +490,8 @@
       <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
                              [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
+      <app-income-from-account-summery *ngIf="incomeFromAccountSummary" [formData]="incomeFromAccountData"></app-income-from-account-summery>
+
       <app-guarantor-summary *ngIf="checkGuarantorData"
                              [guarantorData]="guarantorData"></app-guarantor-summary>
       <div class="row mt-3">

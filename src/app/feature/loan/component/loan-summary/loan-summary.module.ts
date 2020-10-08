@@ -14,6 +14,7 @@ import {ReportingModule} from '../../../reporting/reporting.module';
 import {NgxPrintModule} from 'ngx-print';
 import {CoreModule} from '../../../../@core/core.module';
 import { CompanyInfoSummaryComponent } from './company-info-summary/company-info-summary.component';
+import { IncomeFromAccountSummeryComponent } from './income-from-account-summery/income-from-account-summery.component';
 
 
 const COMPONENTS = [
@@ -29,7 +30,7 @@ const COMPONENTS = [
 ];
 const ENTRY_COMPONENTS = [];
 @NgModule({
-  declarations: [...COMPONENTS, CompanyInfoSummaryComponent],
+  declarations: [...COMPONENTS, CompanyInfoSummaryComponent, IncomeFromAccountSummeryComponent],
   imports: [
     CommonModule,
     ThemeModule,
