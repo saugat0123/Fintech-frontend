@@ -50,6 +50,8 @@ import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {CustomerType} from '../../../customer/model/customerType';
 import {GuarantorAdderComponent} from '../loan-main-template/guarantor-adder/guarantor-adder.component';
 import {CreditRiskGradingGammaComponent} from '../../../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
+import {DefaultLoanTemplate} from '../../../../@core/utils/constants/default-loan-template';
+import {LoanType} from '../../model/loanType';
 
 @Component({
   selector: 'app-loan-form',
@@ -109,7 +111,7 @@ export class LoanFormComponent implements OnInit {
   priorityForm: FormGroup;
 
   docStatusForm: FormGroup;
-
+  loanTypeForm: FormGroup;
   nextButtonAction = false;
 
   loan: LoanConfig = new LoanConfig();
@@ -185,6 +187,8 @@ export class LoanFormComponent implements OnInit {
 
   loanTag: string;
   loanHolder = new CustomerInfoData();
+  loanTypeList = ['NEW_LOAN', 'RENEWED_LOAN', 'CLOSURE_LOAN', 'ENHANCED_LOAN'];
+
 
   constructor(
       private loanDataService: LoanDataService,
@@ -212,6 +216,7 @@ export class LoanFormComponent implements OnInit {
     this.docStatusForMaker();
     this.buildPriorityForm();
     this.buildDocStatusForm();
+    this.buildLoanTypeForm();
     this.activatedRoute.queryParams.subscribe(
         (paramsValue: Params) => {
           this.allId = {
@@ -232,6 +237,8 @@ export class LoanFormComponent implements OnInit {
           if (!ObjectUtil.isEmpty(this.allId.customerProfileId)) {
             if (CustomerType[this.allId.customerType] === CustomerType.INDIVIDUAL) {
               this.getCustomerInfo(this.allId.customerProfileId);
+            } else {
+              this.getCompanyInfo(this.allId.customerProfileId);
             }
           }
           if (!ObjectUtil.isEmpty(this.allId.customerInfoId)) {
@@ -255,6 +262,7 @@ export class LoanFormComponent implements OnInit {
                     this.showDocStatusDropDown = false;
                   }
                   this.docStatusForm.get('documentStatus').patchValue(this.loanDocument.documentStatus);
+                  this.loanTypeForm.get('loanType').patchValue(this.loanDocument.loanType);
                 }
             );
           } else {
@@ -262,6 +270,7 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.loanCategory = this.allId.loanCategory;
             this.loanFile = new DmsLoanFile();
             this.docStatusForm.get('documentStatus').patchValue(DocStatus.value(DocStatus.DISCUSSION));
+            this.loanTypeForm.get('loanType').patchValue(this.loanTypeList[0]);
           }
 
         });
@@ -297,10 +306,16 @@ export class LoanFormComponent implements OnInit {
     });
   }
 
+  buildLoanTypeForm() {
+    this.loanTypeForm = this.formBuilder.group({
+      loanType: [undefined, Validators.required]
+    });
+  }
+
   populateTemplate() {
     this.loanConfigService.detail(this.id).subscribe((response: any) => {
-      this.templateList = response.detail.templateList;
-
+      // this.templateList = response.detail.templateList;
+      this.templateList = DefaultLoanTemplate.DEFAULT_TEMPLATE;
       // Splicing customer loan for Personal Type Loan--
       if (this.allId.loanCategory === 'INDIVIDUAL') {
         this.templateList.forEach((value, index) => {
@@ -319,7 +334,7 @@ export class LoanFormComponent implements OnInit {
       });
 
       // Remove Customer Info Template for Business Loan Type
-      if (this.allId.loanCategory === 'INSTITUTION') {
+      if (CustomerType[this.allId.loanCategory] === CustomerType.INSTITUTION) {
         this.templateList.forEach((value, i) => {
           if (value.name === 'Customer Info') {
             this.templateList.splice(i, 1);
@@ -520,9 +535,9 @@ export class LoanFormComponent implements OnInit {
       this.loanDocument.group = this.group.modelData;
     }
 
-     if (name === 'Guarantor' && action) {
-         this.loanDocument.taggedGuarantors = this.guarantorComponent.selectedGuarantorList;
-     }
+    if (name === 'Guarantor' && action) {
+      this.loanDocument.taggedGuarantors = this.guarantorComponent.selectedGuarantorList;
+    }
 
     if (name === 'Reporting Info' && action) {
       this.reportingInfoTaggingComponent.onSubmit();
@@ -556,6 +571,12 @@ export class LoanFormComponent implements OnInit {
   getCustomerInfo(id) {
     this.customerService.detail(id).subscribe((res: any) => {
       this.loanDocument.customerInfo = res.detail;
+    });
+  }
+
+  getCompanyInfo(id) {
+    this.companyInfoService.detail(id).subscribe((res: any) => {
+      this.loanDocument.companyInfo = res.detail;
     });
   }
 
@@ -632,8 +653,9 @@ export class LoanFormComponent implements OnInit {
       this.loanDocument.loan = this.loan;
       this.loanDocument.priority = this.priorityForm.get('priority').value;
       this.loanDocument.documentStatus = this.docStatusForm.get('documentStatus').value;
+      this.loanDocument.loanType = this.loanTypeForm.get('loanType').value;
       this.loanDocument.loanCategory = this.allId.loanCategory;
-      if (this.allId.loanCategory === 'INSTITUTION') {
+      if (CustomerType[this.loanHolder.customerType] === CustomerType.INSTITUTION) {
         this.loanDocument.customerInfo = null;
       }
       if (ObjectUtil.isEmpty(this.loanDocument.loanHolder)) {
@@ -659,5 +681,11 @@ export class LoanFormComponent implements OnInit {
 
   scrollToTop() {
     this.scrollNavService.scrollNavigateTo(this.container);
+  }
+
+  onChangeSelectedLoanType(event) {
+    console.log(event);
+    this.loanDocument.loanType = event;
+
   }
 }

@@ -32,6 +32,7 @@ import {CiclComponent} from './cicl/cicl.component';
 import {FinancialDeleteComponentComponent} from './financial/financial-delete-component/financial-delete-component.component';
 import {TemplateDocumentComponent} from './template-document/template-document.component';
 import {CKEditorModule} from 'ng2-ckeditor';
+import { IncomeFromAccountComponent } from './income-from-account/income-from-account.component';
 
 const COMPONENTS = [
   SiteVisitComponent,
@@ -59,8 +60,8 @@ const COMPONENTS = [
 
 
 @NgModule({
-  declarations: [...COMPONENTS],
-  exports: [...COMPONENTS],
+  declarations: [...COMPONENTS, IncomeFromAccountComponent],
+  exports: [...COMPONENTS, IncomeFromAccountComponent],
   entryComponents: [...COMPONENTS],
   imports: [
     CommonModule,

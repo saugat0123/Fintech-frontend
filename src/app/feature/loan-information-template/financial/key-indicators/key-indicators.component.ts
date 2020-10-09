@@ -3,6 +3,7 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FinancialDeleteComponentComponent} from '../financial-delete-component/financial-delete-component.component';
 import {ModalResponse} from '../../../../@core/utils';
+import {Editor} from '../../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-key-indicators',
@@ -14,6 +15,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
     @Input() formData;
     @Output() removeFiscalYear = new EventEmitter<any>();
     keyIndicatorsForm: FormGroup;
+    ckeConfig = Editor.CK_CONFIG;
 
     constructor(private formBuilder: FormBuilder,
                 private modalService: NgbModal) {

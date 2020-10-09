@@ -1,11 +1,12 @@
 <div class="row">
   <div class="col-md-12 text-center">
     <p><strong>CICL</strong></p>
+    <p class="float-left sb-small"><b>Cib Charge:</b> Rs {{ciclValue?.cibCharge | currencyFormatter}}</p>
     <table
-        class="table table-bordered table-hover table-sm ">
+        class="table table-bordered table-hover table-sm sb-small">
       <thead>
 
-      <tr>
+      <tr class="sb-bg-dark text-white">
         <th>S.N</th>
         <th>Name of FI</th>
         <th>Facility</th>
@@ -23,8 +24,8 @@
       </tr>
       </thead>
     </table>
-    <table class="table table-bordered table-hover table-sm ">
-      <tr>
+    <table class="table table-bordered table-hover table-sm sb-small">
+      <tr class="sb-bg-dark text-white">
         <th>Remarks</th>
       </tr>
       <td class="text-justify px-2"><span [innerHTML]="ciclValue?.remarks | safeHtml"></span></td>

@@ -25,9 +25,9 @@
     <div class="col-md-12">
         <nb-card>
             <nb-card-body>
-                <table class="table  table-bordered table-hover ">
+                <table class="table table-sm  table-bordered table-hover sb-small text-center">
                     <thead>
-                    <tr>
+                    <tr class="sb-bg-dark text-white">
                         <th>S.N</th>
                         <th>Name</th>
                         <th>Role Access</th>
@@ -62,7 +62,7 @@
                             <td>{{allList.modifiedByName}}</td>
                         </ng-template>
                         <td *ngIf="allList.roleName !== 'admin'">
-                            <button nbButton size="small" status="info" (click)="openEditRole(allList)">
+                            <button nbButton size="tiny" status="info" (click)="openEditRole(allList)">
                                 <i class="fa fa-edit"></i>
                             </button>
                         </td>

@@ -92,20 +92,10 @@ export class ProposalComponent implements OnInit {
       serviceChargeMethod: [undefined, [Validators.required]],
       serviceCharge: [undefined, [Validators.required, Validators.min(0)]],
       tenureDurationInMonths: [undefined, [Validators.required, Validators.min(0)]],
-      cibCharge: [undefined, [Validators.required, Validators.min(0)]],
       repaymentMode: [undefined, [Validators.required]],
       purposeOfSubmission: [undefined, [Validators.required]],
       disbursementCriteria: [undefined, [Validators.required]],
       repayment: [undefined, Validators.required],
-      interestDuringReview: [undefined, [Validators.required]],
-      interestAfterNextReview: [undefined, [Validators.required]],
-      commissionDuringReview: [undefined, [Validators.required]],
-      commissionAfterNextReview: [undefined, [Validators.required]],
-      otherChargesDuringReview: [undefined, [Validators.required]],
-      otherChargesAfterNextReview: [undefined, [Validators.required]],
-      totalIncomeAfterNextReview: [0, [Validators.required]],
-      totalIncomeDuringReview: [0, [Validators.required]],
-      incomeFromTheAccount: [undefined, [Validators.required]],
       borrowerInformation: [undefined, [Validators.required]],
       interestAmount: [undefined],
 
@@ -129,7 +119,7 @@ export class ProposalComponent implements OnInit {
   }
 
   configEditor() {
-    this.ckeConfig = Editor.config;
+    this.ckeConfig = Editor.CK_CONFIG;
   }
 
   scrollToFirstInvalidControl() {
@@ -244,21 +234,5 @@ export class ProposalComponent implements OnInit {
     } else {
       this.proposalForm.get('installmentAmount').patchValue(undefined);
     }
-  }
-
-  calculateTotalIncomeDuringReview() {
-    let totalIncomeDuringReview = 0;
-    totalIncomeDuringReview = this.proposalForm.get('interestDuringReview').value +
-        this.proposalForm.get('commissionDuringReview').value +
-        this.proposalForm.get('otherChargesDuringReview').value;
-    this.proposalForm.get('totalIncomeDuringReview').setValue(totalIncomeDuringReview);
-  }
-
-  calculateTotalIncomeAfterReview() {
-    let totalIncomeAfterNextReview = 0;
-    totalIncomeAfterNextReview = this.proposalForm.get('interestAfterNextReview').value +
-        this.proposalForm.get('commissionAfterNextReview').value +
-        this.proposalForm.get('otherChargesAfterNextReview').value;
-    this.proposalForm.get('totalIncomeAfterNextReview').setValue(totalIncomeAfterNextReview);
   }
 }

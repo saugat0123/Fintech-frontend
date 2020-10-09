@@ -1,11 +1,12 @@
 <div class="row mt-5" >
     <div class="col-md-12">
-      <p><strong>Group Details</strong>(<i>Total Group Limit:</i><strong> Rs. {{customerGroup.groupLimit |currencyFormatter}} , </strong>
-        <i class="ml-2">Group Code:</i> <strong> {{customerGroup?.groupCode}}</strong>)</p>
+      <p><strong>Group Details</strong>(<em class="text-danger sb-small">Total Group Limit:</em><strong>
+        Rs. {{customerGroup.groupLimit |currencyFormatter}} &nbsp;|&nbsp; </strong>
+        <em class="ml-2 text-danger sb-small">Group Code:</em> <strong> {{customerGroup?.groupCode}}</strong>)</p>
       <table
-          class="table table-condensed table-bordered table-responsive-md table-sm table-hover text-center">
+          class="table sb-small table-condensed table-bordered table-responsive-md table-sm table-hover text-center">
         <thead>
-        <tr>
+        <tr class="sb-bg-dark text-white">
           <th>S.N</th>
           <th>CustomerName</th>
           <th>Approved Limit</th>
@@ -19,7 +20,7 @@
           <td>{{customer.loanHolder.name}}</td>
           <td>Rs. {{customer.totalApprovedLimit |currencyFormatter}}</td>
         </tr>
-        <tr  class="cursor font-weight-bold ">
+        <tr  class="cursor font-weight-bold sb-bg-secondary text-white ">
           <td colspan="2" class="text-center">Total</td>
           <td>Rs.{{totalGroupApprovedAmount |currencyFormatter}}</td>
         </tr>

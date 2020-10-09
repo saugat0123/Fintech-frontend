@@ -1,52 +1,6 @@
-<div class="row mt-2">
-  <div class="col-md-12">
-    <p><strong>Income From Account</strong></p>
-    <table class="table table-bordered table-responsive-md table-hover text-center table-sm">
-      <thead>
-      <tr>
-        <th>Particular</th>
-        <th>During Review Period</th>
-        <th>Projected For next Review Period</th>
-      </tr>
-      </thead>
-      <tr>
-        <td>Gross Interest</td>
-        <td>Rs. {{this.proposalAllData?.interestDuringReview |currencyFormatter}}</td>
-        <td>Rs. {{this.proposalAllData?.interestAfterNextReview |currencyFormatter}}</td>
-      </tr>
-      <tr>
-        <td>Free and Commission</td>
-        <td>Rs. {{this.proposalAllData?.commissionDuringReview |currencyFormatter}}</td>
-        <td>
-          Rs. {{this.proposalAllData?.commissionAfterNextReview |currencyFormatter}}
-        </td>
-      </tr>
-      <tr>
-        <td>Other Charges</td>
-        <td>
-          Rs. {{this.proposalAllData?.otherChargesDuringReview |currencyFormatter}}
-        </td>
-        <td>
-          Rs. {{this.proposalAllData?.otherChargesAfterNextReview |currencyFormatter}}
-        </td>
-      </tr>
-      <tr  class="font-weight-bold">
-        <td>Total</td>
-        <td>
-          Rs. {{this.proposalAllData?.totalIncomeDuringReview |currencyFormatter}}
-        </td>
-        <td>
-          Rs. {{this.proposalAllData?.totalIncomeAfterNextReview |currencyFormatter}}</td>
-      </tr>
-    </table>
-  </div>
-</div>
 <div class="row mt-1">
-  <div class="col-md-12">
-    <p><strong>Proposal Details</strong></p>
-    <p class="text-danger">
-      Bold row indicates current loan proposal.
-    </p>
+  <div class="col-md-12 sb-small">
+    <p><strong>Proposal Details</strong> <em class="text-danger sb-small"> &nbsp;Bold row indicates current loan proposal</em></p>
     <p>
       <i class="fas fa-check-circle"></i> = Approved
       <i class="fas fa-times-circle"></i> = Not Approved,
@@ -62,9 +16,9 @@
 <div class="row">
   <div class="col-md-12">
     <table
-        class="table table-bordered table-responsive-md table-sm text-center">
+        class="table table-bordered table-responsive-md table-sm sb-small text-center">
       <thead>
-      <tr>
+      <tr class="sb-bg-dark text-white">
         <th>Loan Facility</th>
         <th>Proposed Limit</th>
         <th>Interest Rate</th>
@@ -72,7 +26,6 @@
         <th>Premium Rate</th>
         <th>Service Charge</th>
         <th>Tenure Duration</th>
-        <th>CIB Charge</th>
         <th>Repayment Mode</th>
         <th>Installment Amount</th>
         <th>Interest Amount</th>
@@ -97,14 +50,13 @@
             : ''}}{{(loan?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}{{(loan?.proposal?.data | jsonParse)?.serviceChargeMethod
         === 'PERCENT' ? ' %' : ''}}</td>
         <td>{{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths}} month</td>
-        <td>Rs. {{(loan?.proposal?.data | jsonParse)?.cibCharge | currencyFormatter}}</td>
         <td>{{(loan?.proposal?.data | jsonParse)?.repaymentMode}}</td>
         <td>Rs. {{(loan?.proposal?.data | jsonParse)?.installmentAmount | currencyFormatter}}</td>
         <td>Rs. {{(loan?.proposal?.data | jsonParse)?.interestAmount | currencyFormatter}}</td>
         <td>{{(loan?.proposal?.data | jsonParse)?.moratoriumPeriod }} months</td>
         <td>Rs. {{(loan?.proposal?.data | jsonParse)?.prepaymentCharge | currencyFormatter}}</td>
       </tr>
-      <tr class="font-weight-bold">
+      <tr class="sb-bg-secondary text-white">
         <td><strong>Total</strong></td>
         <td>Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
         <td>N/A</td>
@@ -112,7 +64,6 @@
         <td>N/A</td>
         <td>N/A</td>
         <td>N/A</td>
-        <td>Rs. {{ getTotal('cibCharge') | currencyFormatter }}</td>
         <td>N/A</td>
         <td>Rs. {{ getTotal('installmentAmount') | currencyFormatter }}</td>
         <td>Rs. {{ getTotal('interestAmount') | currencyFormatter }}</td>
