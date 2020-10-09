@@ -1,0 +1,162 @@
+<nb-card [nbSpinner]="spinner"
+         accent="primary"
+         nbSpinnerMessage="Updating Fiscal year Config..."
+         nbSpinnerSize="large"
+         nbSpinnerStatus="primary">
+  <nb-card-header class="text-center">
+    <a (click)="onClose()" aria-label="Close" class="close cursor"
+       data-dismiss="modal">
+      <span aria-hidden="true">×</span></a>
+    Fiscal Year Configuration
+    <div class="d-flex justify-content-start ml-2">
+      <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
+                      name="companyInfoCalendarType">
+        <nb-radio value="AD">AD</nb-radio>
+        <nb-radio value="BS">BS</nb-radio>
+      </nb-radio-group>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <div [formGroup]="quarterForm">
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <label for="year"><strong>Fiscal Year</strong></label>
+          <input class="" formControlName="year" fullWidth id="year" nbInput
+                 placeholder="ie 2077/78"
+                 status="primary">
+        </div>
+        <div class="offset-4 col-md-4 mt-4">
+          <nb-toggle formControlName="isCurrentYear">Is Current Year?</nb-toggle>
+        </div>
+      </div>
+      <table class="table table-bordered text-center">
+        <thead>
+        <tr class="sb-bg-dark text-white">
+          <th scope="col">Quarter</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container>
+          <tr>
+            <td>
+              Q1
+            </td>
+            <td>
+              <div class="text-center">
+                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="startDate" class="text-center table-input"
+                       formControlName="qOneStartDate"
+                       nbInput>
+                <app-calendar  (messageToEmit)="quarterForm.get('qOneStartDate').patchValue($event?.eDate)"
+                              *ngIf="calendarType === 'BS'"
+                              [ePreDate]="form.qOneStartDate.value"></app-calendar>
+                <nb-datepicker #startDate></nb-datepicker>
+              </div>
+            </td>
+            <td>
+              <div class="text-center">
+                <input  *ngIf="calendarType === 'AD'" [nbDatepicker]="endDate" class="text-center table-input"
+                       formControlName="qOneEndDate"
+                       nbInput>
+                <app-calendar  (messageToEmit)="quarterForm.get('qOneEndDate').patchValue($event?.eDate)"
+                               *ngIf="calendarType === 'BS'"
+                               [ePreDate]="form.qOneEndDate.value"></app-calendar>
+                <nb-datepicker #endDate></nb-datepicker>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Q2
+            </td>
+            <td>
+              <div class="text-center">
+                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="qTwoStartDate" class="text-center table-input"
+                       formControlName="qTwoStartDate"
+                       nbInput>
+                <app-calendar  (messageToEmit)="quarterForm.get('qTwoStartDate').patchValue($event?.eDate)"
+                               *ngIf="calendarType === 'BS'"
+                               [ePreDate]="form.qTwoStartDate.value"></app-calendar>
+                <nb-datepicker #qTwoStartDate></nb-datepicker>
+              </div>
+            </td>
+            <td>
+              <div class="text-center">
+                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="qTwoEndDate" class="text-center table-input"
+                       formControlName="qTwoEndDate"
+                       nbInput>
+                <nb-datepicker #qTwoEndDate></nb-datepicker>
+                <app-calendar  (messageToEmit)="quarterForm.get('qTwoEndDate').patchValue($event?.eDate)"
+                               *ngIf="calendarType === 'BS'"
+                               [ePreDate]="form.qTwoEndDate.value"></app-calendar>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Q3
+            </td>
+            <td>
+              <div class="text-center">
+                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="qThreeStartDate" class="text-center table-input"
+                       formControlName="qThreeStartDate"
+                       nbInput>
+                <nb-datepicker #qThreeStartDate></nb-datepicker>
+                <app-calendar  (messageToEmit)="quarterForm.get('qThreeStartDate').patchValue($event?.eDate)"
+                               *ngIf="calendarType === 'BS'"
+                               [ePreDate]="form.qThreeStartDate.value"></app-calendar>
+              </div>
+            </td>
+            <td>
+              <div class="text-center">
+                <input  *ngIf="calendarType === 'AD'" [nbDatepicker]="qThreeEndDate" class="text-center table-input"
+                       formControlName="qThreeEndDate"
+                       nbInput>
+                <nb-datepicker #qThreeEndDate></nb-datepicker>
+                <app-calendar  (messageToEmit)="quarterForm.get('qThreeEndDate').patchValue($event?.eDate)"
+                               *ngIf="calendarType === 'BS'"
+                               [ePreDate]="form.qThreeEndDate.value"></app-calendar>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Q4
+            </td>
+            <td>
+              <div class="text-center">
+                <input  *ngIf="calendarType === 'AD'" [nbDatepicker]="qFourStartDate" class="text-center table-input"
+                       formControlName="qFourStartDate"
+                       nbInput>
+                <nb-datepicker #qFourStartDate></nb-datepicker>
+                <app-calendar  (messageToEmit)="quarterForm.get('qFourStartDate').patchValue($event?.eDate)"
+                               *ngIf="calendarType === 'BS'"
+                               [ePreDate]="form.qFourStartDate.value"></app-calendar>
+              </div>
+            </td>
+            <td>
+              <div class="text-center">
+                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="qFourEndDate" class="text-center table-input"
+                       formControlName="qFourEndDate"
+                       nbInput>
+                <nb-datepicker #qFourEndDate></nb-datepicker>
+                <app-calendar  (messageToEmit)="quarterForm.get('qFourEndDate').patchValue($event?.eDate)"
+                               *ngIf="calendarType === 'BS'"
+                               [ePreDate]="form.qFourEndDate.value"></app-calendar>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <button (click)="onSubmit()" [disabled]="quarterForm.invalid" class="cursor float-right"
+            nbButton
+            status="primary"
+            type="submit">
+      <i class="fa fa-save"></i></button>
+  </nb-card-footer>
+</nb-card>
