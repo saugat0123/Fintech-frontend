@@ -76,7 +76,7 @@ const COMPONENTS = [
     NgSelectModule,
     NbDatepickerModule,
     NepaliCalendarModule,
-    NbDialogModule.forRoot(),
+    NbDialogModule,
     LoanInformationTemplateModule,
     LoanInformationViewModule,
     InfiniteScrollModule,
