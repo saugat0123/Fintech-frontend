@@ -99,7 +99,7 @@
             </div>
         </div>
         <!--        BuildingDetails-->
-        <div class="row" *ngIf= "apartmentSelected">
+        <div class="row" *ngIf= "buildingSelected">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm"  *ngFor="let buildingDetails of formData['initialForm']['landBuilding']; let i= index">
                     <thead>
@@ -399,6 +399,24 @@
                     <tr>
                         <th>Description</th>
                         <th colspan="6">{{shareSecurity['securityOffered']}}</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div *ngIf="formData['initialForm']['remark']" class="row">
+            <div class="col-md-12">
+                <p><b>Security Remark</b></p>
+                <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
+                    <thead>
+                    <tr class="sb-bg-dark text-white">
+                        <th>Remark</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{formData['initialForm']['remark']}}</td>
                     </tr>
                     </tbody>
                 </table>

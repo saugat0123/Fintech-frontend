@@ -172,6 +172,24 @@
                                        type="text"/>
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title">Type of property</label>
+                                <select class="form-control rounded" formControlName="typeOfProperty"
+                                       name="typeOfProperty">
+                                    <option [value]="null" hidden>Select Type of property</option>
+                                    <option *ngFor="let property of typeOfProperty" [value]="property">{{property}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="landStaffRepresentativeName">Mode of transfer</label>
+                                <input class="form-control rounded" formControlName="modeOfTransfer"
+                                       name="modeOfTransfer" placeholder="Mode of transfer"
+                                       type="text"/>
+                            </div>
+                        </div>
                         <div *ngIf="securityForm.get('landDetails') ['length'] > 1" class="col-md-1">
                             <input (click)="removeLandDetails(i)"
                                    class="align-self-end btn btn-sm btn-danger btn-primary"
@@ -1045,6 +1063,24 @@
                                                type="text"/>
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title">Type of property</label>
+                                        <select class="form-control rounded" formControlName="typeOfProperty"
+                                                name="typeOfProperty">
+                                            <option [value]="null" hidden>Select Type of property</option>
+                                            <option *ngFor="let property of typeOfProperty" [value]="property">{{property}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title" for="landStaffRepresentativeName">Mode of transfer</label>
+                                        <input class="form-control rounded" formControlName="modeOfTransfer"
+                                               name="modeOfTransfer" placeholder="Mode of transfer"
+                                               type="text"/>
+                                    </div>
+                                </div>
                                 <div *ngIf="securityForm.get('landBuilding')['length'] > 1"
                                      class="col-md-1 pt-4">
                                     <input (click)="removeLandBuildingDetails(i)"
@@ -1236,6 +1272,24 @@
                                                    type="text"/>
                                         </div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="title">Type of property</label>
+                                            <select class="form-control rounded" formControlName="typeOfProperty"
+                                                    name="typeOfProperty">
+                                                <option [value]="null" hidden>Select Type of property</option>
+                                                <option *ngFor="let property of typeOfProperty" [value]="property">{{property}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="title" for="landStaffRepresentativeName">Mode of transfer</label>
+                                            <input class="form-control rounded" formControlName="modeOfTransfer"
+                                                   name="modeOfTransfer" placeholder="Mode of transfer"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
                                     <hr>
                                 </div>
                             </ng-template>
@@ -1391,6 +1445,24 @@
                                                    formControlName="buildingDistressValue"
                                                    id="afterDVLandBuilding"
                                                    name="buildingDistressValue" placeholder="Building DV"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="title">Type of property</label>
+                                            <select class="form-control rounded" formControlName="typeOfProperty"
+                                                    name="typeOfProperty">
+                                                <option [value]="null" hidden>Select Type of property</option>
+                                                <option *ngFor="let property of typeOfProperty" [value]="property">{{property}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="title" for="landStaffRepresentativeName">Mode of transfer</label>
+                                            <input class="form-control rounded" formControlName="modeOfTransfer"
+                                                   name="modeOfTransfer" placeholder="Mode of transfer"
                                                    type="text"/>
                                         </div>
                                     </div>
@@ -1956,5 +2028,12 @@
                 </nb-card-body>
             </nb-card>
         </nb-card>
+
+        <div class="row">
+            <div class="col-md-12">
+                <label><b>Remarks</b></label>
+                <textarea class="form-control" formControlName="remark" rows="4" placeholder="Remarks Common to all Security"></textarea>
+            </div>
+        </div>
     </form>
 </div>
