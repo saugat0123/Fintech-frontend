@@ -1,9 +1,9 @@
 <ng-template #groupModal let-ref="dialogRef">
   <nb-card accent="primary">
-    <nb-card-header>
+    <nb-card-header class="sb-bg-dark text-white">
       <a (click)="dismissModal()" aria-label="Close" class="close cursor"
          data-dismiss="modal">
-        <span aria-hidden="true">×</span></a>
+        <span aria-hidden="true" class="text-white">×</span></a>
       {{action}} Group
     </nb-card-header>
     <nb-card-body>
@@ -53,9 +53,9 @@
     </div>
   </nb-card-header>
   <nb-card-body>
-    <table class="table table-bordered table-hover">
+    <table class="table table-bordered table-hover sb-small table-sm text-center">
       <thead>
-      <tr>
+      <tr class="sb-bg-dark text-white">
         <th>S.N</th>
         <th>Group Code</th>
         <th>Group Limit</th>

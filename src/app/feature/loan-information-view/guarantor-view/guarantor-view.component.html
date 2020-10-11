@@ -2,12 +2,12 @@
   <div class="col-md-12 text-center">
     <p><strong>Guarantor Details</strong></p>
     <table *ngFor="let guarantor of guarantorData.guarantorList; let i= index"
-           class="table table-condensed table-bordered table-sm table-responsive-md text-center">
+           class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
       <thead>
       <tr>
         <th colspan="6" class="text-left">Gurantor {{i + 1}} Details</th>
       </tr>
-      <tr>
+      <tr class="text-white sb-bg-dark">
         <th>Name</th>
         <th>citizenNumber</th>
         <th>issuedYear</th>
@@ -27,7 +27,7 @@
       </tr>
       </tbody>
       <thead>
-      <tr>
+      <tr class="text-white sb-bg-dark">
         <th></th>
         <th>municipalities</th>
         <th>contactNumber</th>
