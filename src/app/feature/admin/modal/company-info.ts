@@ -5,7 +5,7 @@ import {ManagementTeam} from './management-team';
 import {Proprietors} from './proprietors';
 import {BusinessType} from './businessType';
 import {CompanyLocations} from './companyLocations';
-import {ContactPerson} from './contact-person';
+import {RelationshipWithBank} from './relationship-with-bank';
 
 export class CompanyInfo {
     id: number;
@@ -28,4 +28,10 @@ export class CompanyInfo {
     contactNum: string;
     additionalCompanyInfo: string;
     successionPlanning: string;
+    customerUniqueId: string;
+    bankingRelationship: string;
+    industryGrowth: string;
+    marketCompetition: string;
+    experience: string;
+    businessAndIndustry: string;
 }
