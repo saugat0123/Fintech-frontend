@@ -44,7 +44,7 @@
               class="fa fa-edit"></em></a>
         </div>
       </div>
-      <div class="p-5 row">
+      <div class="row">
         <div class="d-flex col-md-3">
           <div class="profile-img">
             <label class="container" for="file-input">
@@ -65,7 +65,7 @@
 
           </div>
         </div>
-        <div *ngIf="!isEdited" class="col-md-9 mt-3 py-4">
+        <div *ngIf="!isEdited" class="col-md-9 sb-small">
 
           <div class="row">
             <span> <strong>Name :</strong> {{customer.customerName}}</span></div>
@@ -84,7 +84,7 @@
           <div class="row">
             <span> <strong>Introduction :</strong> {{customer.introduction }}</span></div>
         </div>
-        <div *ngIf="isEdited" class="col-md-9 mt-3 py-4">
+        <div *ngIf="isEdited" class="col-md-9 sb-small">
           <form [formGroup]="basicForm">
             <div class="row form-inline">
                         <span> <strong>Name :</strong> <input formControlName="customerName"
