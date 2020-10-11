@@ -200,4 +200,13 @@ export class LoanActionComponent implements OnInit, OnChanges {
       this.isOpen = false;
     }
   }
+
+  detailedViewAction() {
+    this.router.navigate(['/home/loan/detailed-summary'], {
+      queryParams: {
+        loanConfigId: this.loanConfigId,
+        customerId: this.id
+      }
+    });
+  }
 }
