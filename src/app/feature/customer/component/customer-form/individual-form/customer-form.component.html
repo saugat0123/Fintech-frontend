@@ -61,6 +61,24 @@
               </div>
             </div>
           </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="customerNameForm"><strong>Customer ID</strong></label>
+              <input
+                  [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerID.errors }"
+                  class="form-control form-control-sm-error rounded" formControlName="customerID"
+                  id="customerID"
+                  name="customerID"
+                  placeholder="Customer ID"
+                  type="text">
+              <div *ngIf="(submitted) && basicInfoControls.customerID.invalid"
+                   class="invalid-feedback">
+                <div *ngIf="basicInfoControls.customerID.errors.required">Customer ID
+                  required
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="col-md-4">
             <div class="form-group">
@@ -361,6 +379,11 @@
           </div>
         </div>
           </div></div>
+        <hr>
+        <app-banking-relation #bankingRelationComponent
+                              [formValue]="customer?.bankingRelationship">
+        </app-banking-relation>
+        <hr>
         <div>
           <div
               *ngFor="let relatives of basicInfo.get('customerRelatives')['controls']; let i = index"

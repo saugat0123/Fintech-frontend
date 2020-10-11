@@ -34,6 +34,7 @@ import {CustomerListGroupComponent} from './component/customer-group-associate-l
 import {CoreModule} from '../../@core/core.module';
 import {ActivityListComponent} from './component/activity-list/activity-list.component';
 import {CustomerActivityModule} from '../customer-activity/customer-activity.module';
+import {BankingRelationComponent} from "./component/customer-form/banking-relation/banking-relation.component";
 
 const COMPONENTS = [
   CustomerComponent,
@@ -58,6 +59,7 @@ const COMPONENTS = [
   EditManagementTeamComponent,
   CustomerLoanEditComponent,
   CustomerListGroupComponent,
+  BankingRelationComponent,
 ];
 
 @NgModule({

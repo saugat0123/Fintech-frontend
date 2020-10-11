@@ -1,4 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, Output, NgModule, ElementRef} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  NgModule,
+  ElementRef,
+  ViewChild
+} from '@angular/core';
 import {Customer} from '../../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
@@ -15,6 +24,7 @@ import {DateValidator} from '../../../../../@core/validator/date-validator';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {CustomerAssociateComponent} from '../../../../loan/component/loan-main-template/customer-associate/customer-associate.component';
 import {NbDialogRef, NbDialogService, NbSelectModule} from '@nebular/theme';
+import {BankingRelationComponent} from "../banking-relation/banking-relation.component";
 
 @Component({
   selector: 'app-customer-form',
@@ -26,6 +36,9 @@ export class CustomerFormComponent implements OnInit {
   @Input() formValue: Customer;
   calendarType = 'AD';
   @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  @ViewChild('bankingRelationComponent', {static: false})
+  bankingRelationComponent: BankingRelationComponent;
 
   basicInfo: FormGroup;
   submitted = false;
@@ -236,6 +249,11 @@ export class CustomerFormComponent implements OnInit {
         this.customer.version = this.basicInfo.get('version').value;
         const rawFromValue = this.basicInfo.getRawValue();
         this.customer.customerRelatives = rawFromValue.customerRelatives;
+
+        /** banking relation setting data from child **/
+        this.bankingRelationComponent.onSubmit();
+        this.customer.bankingRelationship = JSON.stringify(this.bankingRelationComponent.bankingRelation);
+
         this.customerService.save(this.customer).subscribe(res => {
           this.spinner = false;
           this.close();
@@ -269,6 +287,7 @@ export class CustomerFormComponent implements OnInit {
   formMaker() {
     this.basicInfo = this.formBuilder.group({
       customerName: [this.customer.customerName === undefined ? undefined : this.customer.customerName, Validators.required],
+      customerID: [this.customer.customerName === undefined ? undefined : this.customer.customerName, Validators.required],
       province: [this.customer.province === null ? undefined : this.customer.province, Validators.required],
       district: [this.customer.district === null ? undefined : this.customer.district, Validators.required],
       municipalities: [this.customer.municipalities === null ? undefined : this.customer.municipalities, Validators.required],
