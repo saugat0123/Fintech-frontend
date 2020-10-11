@@ -1,8 +1,8 @@
-<nb-card>
+<nb-card class="sb-small">
     <nb-accordion>
         <nb-accordion-item #itemEmail>
             <nb-accordion-item-header>
-                Email Configuration
+                &#9993; &nbsp;Email Configuration
             </nb-accordion-item-header>
             <nb-accordion-item-body>
                 <app-email-configuration *ngIf="itemEmail.expanded"></app-email-configuration>
@@ -11,7 +11,7 @@
 
         <nb-accordion-item #itemBaseInterest>
             <nb-accordion-item-header>
-                Base Interest Configuration
+                &#9874; &nbsp;Base Interest Configuration
             </nb-accordion-item-header>
             <nb-accordion-item-body>
                 <app-base-interest *ngIf="itemBaseInterest.expanded"></app-base-interest>
@@ -21,7 +21,7 @@
 
         <nb-accordion-item #itemNepse>
             <nb-accordion-item-header>
-                Nepse Configuration
+                &#9776; &nbsp; Nepse Configuration
             </nb-accordion-item-header>
             <nb-accordion-item-body>
                 <app-nepse *ngIf="itemNepse.expanded"></app-nepse>
@@ -30,7 +30,7 @@
 
         <nb-accordion-item #itemBlackList>
             <nb-accordion-item-header>
-                Blacklisted Customers
+                &#9785; &nbsp; Blacklisted Customers
             </nb-accordion-item-header>
             <nb-accordion-item-body>
                 <app-blacklist *ngIf="itemBlackList.expanded"></app-blacklist>
@@ -39,7 +39,7 @@
 
         <nb-accordion-item #itemNotification>
             <nb-accordion-item-header>
-                Notification Master
+                &#9872; &nbsp; Notification Master
             </nb-accordion-item-header>
             <nb-accordion-item-body>
                 <app-notification-master *ngIf="itemNotification.expanded"></app-notification-master>
@@ -47,7 +47,7 @@
         </nb-accordion-item>
         <nb-accordion-item #customerGroup>
             <nb-accordion-item-header>
-                Customer Group
+                &#9890; &nbsp; Customer Group
             </nb-accordion-item-header>
             <nb-accordion-item-body>
                 <app-group-config *ngIf="customerGroup.expanded"></app-group-config>
@@ -55,7 +55,7 @@
         </nb-accordion-item>
         <nb-accordion-item #financialConfig>
             <nb-accordion-item-header>
-                Financial Config
+                &#9788; &nbsp; Fiscal Year Configuration
             </nb-accordion-item-header>
             <nb-accordion-item-body>
                 <app-financial-config *ngIf="financialConfig.expanded"></app-financial-config>
