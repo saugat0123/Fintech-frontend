@@ -3,7 +3,7 @@
     <p><strong>CICL</strong></p>
     <p class="float-left sb-small"><b>Cib Charge:</b> Rs {{ciclValue?.cibCharge | currencyFormatter}}</p>
     <table
-        class="table table-bordered table-hover table-sm sb-small">
+        class="table table-bordered table-hover table-sm sb-small text-center">
       <thead>
 
       <tr class="sb-bg-dark text-white">
@@ -24,11 +24,11 @@
       </tr>
       </thead>
     </table>
-    <table class="table table-bordered table-hover table-sm sb-small">
-      <tr class="sb-bg-dark text-white">
+    <table class="table table-bordered table-hover table-sm sb-small text-center" style="table-layout: fixed">
+      <tr class="sb-bg-dark text-white ">
         <th>Remarks</th>
       </tr>
-      <td class="text-justify px-2"><span [innerHTML]="ciclValue?.remarks | safeHtml"></span></td>
+      <td class="text-justify px-2" style="overflow-wrap: break-word; "><span [innerHTML]="ciclValue?.remarks | safeHtml"></span></td>
     </table>
   </div>
 </div>

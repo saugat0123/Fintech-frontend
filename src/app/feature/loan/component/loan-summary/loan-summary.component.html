@@ -243,9 +243,9 @@
         <div class="col-md-12">
           <div *ngIf="loanCategory === 'INDIVIDUAL'">
             <table
-                class="table table-condensed table-bordered table-sm table-responsive-md disable-print text-center">
+                class="table table-condensed table-bordered table-sm table-responsive-md disable-print text-center sb-small">
               <thead>
-              <tr>
+              <tr class="text-white sb-bg-dark">
                 <th>Name</th>
                 <th>Date Of Birth</th>
                 <th>Citizenship Number</th>
@@ -265,9 +265,9 @@
               </tr>
               </tbody>
             </table>
-            <table class="print-only table table-bordered text-center" id="print-borrower-table">
+            <table class="print-only table table-bordered text-center table-sm sb-small" id="print-borrower-table">
               <thead>
-              <tr>
+              <tr class="text-white sb-bg-dark">
                 <th>Name</th>
                 <th>Date Of Birth</th>
                 <th>Citizenship Number</th>
@@ -290,9 +290,9 @@
           </div>
           <div *ngIf="loanCategory === 'INSTITUTION'">
             <table
-                class="table table-condensed table-sm table-bordered table-responsive-md text-center">
+                class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
               <thead>
-              <tr>
+              <tr class="text-white sb-bg-dark">
                 <th>Name</th>
                 <th>Contact Number</th>
                 <th>Email</th>
@@ -314,9 +314,9 @@
           <div *ngIf="loanCategory === 'INDIVIDUAL'">
             <p><strong>Family Details</strong></p>
             <table
-                class="table table-condensed table-bordered table-responsive-md text-center table-sm">
+                class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
               <thead>
-              <tr>
+              <tr class="text-white sb-bg-dark">
                 <th>Name</th>
                 <th>Relation Name</th>
                 <th>Citizenship no.</th>
@@ -512,9 +512,9 @@
       <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row disable-print">
         <div class="col-md-12">
           <p><strong>Documents</strong></p>
-          <table class="table table-condensed table-bordered table-sm">
+          <table class="table table-condensed table-bordered table-sm sb-small text-center">
             <thead>
-            <tr>
+            <tr class="text-white sb-bg-dark">
               <th>S.N</th>
               <th>Document</th>
               <th>Download
@@ -681,9 +681,9 @@
         </div>
         <div class="col-md-12">
           <table
-              class="table table-condensed table-bordered table-responsive-md text-center">
+              class="table table-condensed table-bordered table-responsive-md text-center sb-small table-sm">
             <thead>
-            <tr>
+            <tr class="text-white sb-bg-dark">
               <th>S.N</th>
               <th>From User</th>
               <th>From Position</th>
@@ -739,9 +739,9 @@
       <div *ngIf="offerLetterDocuments.length>0" class="row disable-print">
         <div class="col-md-12">
           <p><strong>Offer Letter Documents</strong></p>
-          <table class="table table-condensed table-bordered table-responsive-md">
+          <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
             <thead>
-            <tr>
+            <tr class="text-white sb-bg-dark">
               <th>S.N</th>
               <th>Document</th>
               <th>Preview</th>

@@ -3,11 +3,14 @@
          nbSpinnerMessage="Updating Fiscal year Config..."
          nbSpinnerSize="large"
          nbSpinnerStatus="primary">
-  <nb-card-header class="text-center">
+  <nb-card-header class="text-center sb-bg-dark text-white">
     <a (click)="onClose()" aria-label="Close" class="close cursor"
        data-dismiss="modal">
-      <span aria-hidden="true">×</span></a>
-    Fiscal Year Configuration
+      <span aria-hidden="true" class="text-white ">×</span></a>
+    <h4 class="text-left text-white"> Fiscal Year Configuration </h4>
+  </nb-card-header>
+
+  <nb-card-body>
     <div class="d-flex justify-content-start ml-2">
       <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
                       name="companyInfoCalendarType">
@@ -15,8 +18,6 @@
         <nb-radio value="BS">BS</nb-radio>
       </nb-radio-group>
     </div>
-  </nb-card-header>
-  <nb-card-body>
     <div [formGroup]="quarterForm">
       <div class="row mb-4">
         <div class="col-md-4">
@@ -29,7 +30,7 @@
           <nb-toggle formControlName="isCurrentYear">Is Current Year?</nb-toggle>
         </div>
       </div>
-      <table class="table table-bordered text-center">
+      <table class="table table-bordered text-center sb-small table-sm">
         <thead>
         <tr class="sb-bg-dark text-white">
           <th scope="col">Quarter</th>
