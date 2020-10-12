@@ -13,7 +13,6 @@ import {CalendarType} from '../../../@core/model/calendar-type';
 import {ShareSecurity} from '../../admin/modal/shareSecurity';
 import {SecurityGuarantee} from '../model/security-guarantee';
 import {LandAndBuildingLocation} from '../model/land-and-building-location';
-import {LoanTag} from '../../loan/model/loanTag';
 import {VehicleSecurityCoverage} from '../model/vehicle-security-coverage';
 
 @Component({
@@ -53,7 +52,6 @@ export class SecurityComponent implements OnInit {
     coverageList = VehicleSecurityCoverage.enumObject();
     newCoverage = VehicleSecurityCoverage.getNew();
     usedCoverage = VehicleSecurityCoverage.getUsed();
-    loanTagEnum = LoanTag;
 
     constructor(
         private formBuilder: FormBuilder ,
@@ -67,6 +65,7 @@ export class SecurityComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityValueForEdit = JSON.parse(this.securityValue.data);
             this.initialSecurityValue = this.securityValueForEdit;
+            this.setCrgSecurityForm(this.securityValueForEdit);
             this.setGuarantorsDetails(this.securityValue.guarantor);
         } else {
             this.addGuarantorsDetails();
@@ -82,18 +81,17 @@ export class SecurityComponent implements OnInit {
 
     buildCrgSecurityForm() {
         this.securityForm = this.formBuilder.group({
-            securityGuarantee: [(ObjectUtil.isEmpty(this.securityValue) ||
-                ObjectUtil.isEmpty(this.securityValue.data) ||
-                ObjectUtil.isEmpty(this.securityValue.data['securityGuarantee'])) ? undefined :
-                this.securityValue.data['securityGuarantee']],
-            buildingLocation: [(ObjectUtil.isEmpty(this.securityValue) ||
-                ObjectUtil.isEmpty(this.securityValue.data) ||
-                ObjectUtil.isEmpty(this.securityValue.data['buildingLocation'])) ? undefined :
-                this.securityValue.data['buildingLocation']],
-            vehicleSecurityCoverage: [(ObjectUtil.isEmpty(this.securityValue) ||
-                ObjectUtil.isEmpty(this.securityValue.data) ||
-                ObjectUtil.isEmpty(this.securityValue.data['vehicleSecurityCoverage'])) ? undefined :
-                this.securityValue.data['vehicleSecurityCoverage']],
+            securityGuarantee: undefined,
+            buildingLocation: undefined,
+            vehicleSecurityCoverage: undefined,
+        });
+    }
+
+    setCrgSecurityForm(formData) {
+        this.securityForm = this.formBuilder.group({
+            securityGuarantee: formData.securityGuarantee,
+            buildingLocation: formData.buildingLocation,
+            vehicleSecurityCoverage: formData.vehicleSecurityCoverage,
         });
     }
 
