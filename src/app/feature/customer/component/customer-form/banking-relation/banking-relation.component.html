@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="col-md-12">
+        <h5>Company Relationship with Bank</h5>
+    </div>
+</div>
+<form (ngSubmit)="onSubmit()" [formGroup]="bankingRelationForm">
+    <nb-card>
+        <nb-card-header>
+            <label for="bankingRelationship"><h6>Banking Relationship</h6></label>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="form-group">
+                <nb-radio-group class="d-contents form-control"
+                                formControlName="bankingRelationship"
+                                id="bankingRelationship"
+                                name="bankingRelationship">
+                    <nb-radio *ngFor="let elem of bankingRelationshipList"
+                              [value]="elem?.value">{{elem?.value}}
+                    </nb-radio>
+                </nb-radio-group>
+            </div>
+        </nb-card-body>
+    </nb-card>
+    <nb-card>
+        <nb-card-header>
+            <label for="accountTurnover"><h6>Account Turnover</h6></label>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="form-group">
+                <nb-radio-group class="d-contents form-control"
+                                formControlName="accountTurnover"
+                                id="accountTurnover"
+                                name="accountTurnover">
+                    <nb-radio *ngFor="let elem of accountTurnoverList"
+                              [value]="elem?.value">{{elem?.value}}
+                    </nb-radio>
+                </nb-radio-group>
+            </div>
+        </nb-card-body>
+    </nb-card>
+    <nb-card>
+        <nb-card-header>
+            <label><h6>Repayment History</h6></label></nb-card-header>
+        <nb-card-body>
+            <div class="form-group">
+                <nb-radio-group class="d-contents form-control"
+                                formControlName="repaymentHistory"
+                                name="repaymentHistory">
+                    <nb-radio *ngFor="let history of repaymentHistoryList"
+                              [value]="history?.value">{{history?.value}}</nb-radio>
+                </nb-radio-group>
+            </div>
+        </nb-card-body>
+    </nb-card>
+</form>

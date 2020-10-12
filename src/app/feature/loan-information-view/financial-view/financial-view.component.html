@@ -1,12 +1,12 @@
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 text-center">
         <p *ngIf="!isBusinessLoan"><strong>Financial Details</strong></p>
-        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center" *ngIf="!isBusinessLoan">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
             <thead>
             <tr>
                 <th colspan="5">Income of Borrower</th>
             </tr>
-            <tr>
+            <tr class="text-white sb-bg-dark">
                 <th>S.N</th>
                 <th>Income Source</th>
                 <th>Organization</th>
@@ -30,12 +30,12 @@
             </tbody>
         </table>
 
-        <table class="table table-condensed table-sm table-bordered table-responsive-md text-center" *ngIf="!isBusinessLoan">
+        <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
             <thead>
             <tr>
                 <th colspan="4">Expenses of Borrower</th>
             </tr>
-            <tr>
+            <tr class="text-white sb-bg-dark">
                 <th>S.N</th>
                 <th>Particulars</th>
                 <th>Amount</th>
@@ -57,9 +57,9 @@
                 <td></td>
             </tr>
         </table>
-        <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center" *ngIf="!isBusinessLoan">
+        <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
             <thead>
-            <tr>
+            <tr class="text-white sb-bg-dark">
                 <th>Net Saving</th>
                 <th><b>Rs.{{ financialData['initialForm']['netSaving']}}</b></th>
             </tr>
@@ -70,7 +70,7 @@
                        fullWidth>
                 <nb-tab class="px-0" tabTitle="Income Statement">
                     <table *ngIf="activeTab === 'Income Statement'"
-                           class="table table-condensed table-sm table-bordered table-responsive-md text-center">
+                           class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                         <thead>
                         <tr>
                             <th>S.No.</th>
@@ -260,9 +260,9 @@
 
                 <nb-tab class="px-0" tabTitle="Balance Sheet">
                     <table *ngIf="activeTab === 'Balance Sheet'"
-                           class="table table-condensed table-sm table-bordered table-responsive-md text-center">
+                           class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
                         <thead>
-                        <tr>
+                        <tr class="text-white sb-bg-dark">
                             <th scope="col">S.No</th>
                             <th scope="col">Particulars</th>
                             <th *ngFor="let year of financialData['fiscalYear']">{{year}}</th>
@@ -693,9 +693,9 @@
                 </nb-tab>
                 <nb-tab class="px-0" tabTitle="Key Indicators">
                     <table *ngIf="activeTab === 'Key Indicators'"
-                           class="table table-condensed table-sm table-bordered table-responsive-md text-center">
+                           class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                         <thead>
-                        <tr>
+                        <tr class="text-white sb-bg-dark">
                             <th>S.No</th>
                             <th>Particulars</th>
                             <th *ngFor="let year of financialData['fiscalYear']">{{year}}</th>
