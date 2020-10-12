@@ -98,7 +98,7 @@ export class ProposalComponent implements OnInit {
       interestRate: [undefined, [Validators.required, Validators.min(0)]],
       baseRate: [undefined, [Validators.required, Validators.min(0)]],
       premiumRateOnBaseRate: [undefined, [Validators.required, Validators.min(0)]],
-      serviceChargeMethod: [undefined, [Validators.required]],
+      serviceChargeMethod: ['PERCENT', [Validators.required]],
       serviceCharge: [undefined, [Validators.required, Validators.min(0)]],
       tenureDurationInMonths: [undefined, [Validators.required, Validators.min(0)]],
       repaymentMode: [undefined, [Validators.required]],
