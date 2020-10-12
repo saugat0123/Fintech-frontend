@@ -6,6 +6,35 @@
           <div class="form-group">
             <form (ngSubmit)="onSubmit()" [formGroup]="proposalForm" class="form-horizontal">
               <div class="row">
+                <div class="col-md-4" *ngIf="checkApproved">
+                  <div class="form-group">
+                    <label class="title" for="existingLimit"><strong>Existing Limit</strong></label>
+                    <input class="form-control"
+                        [ngClass]="{ 'is-invalid': (submitted) && formControls.existingLimit.errors }"
+                        formControlName="existingLimit" id="existingLimit"
+                        name="existingLimit" placeholder="Existing limit"
+                        type="number">
+                    <div *ngIf=" (submitted)  && formControls.existingLimit.errors"
+                         class="invalid-feedback">
+                      <span *ngIf="(formControls.existingLimit.errors.required)">Existing Limit is required</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4" *ngIf="checkApproved">
+                  <div class="form-group">
+                    <label class="title" for="outStandingLimit"><strong>Outstanding Limit</strong></label>
+                    <input class="form-control"
+                           [ngClass]="{ 'is-invalid': (submitted) && formControls.outStandingLimit.errors }"
+                           formControlName="outStandingLimit" id="outStandingLimit"
+                           name="outStandingLimit" placeholder="Outstanding limit"
+                           type="number">
+                    <div *ngIf=" (submitted)  && formControls.outStandingLimit.errors"
+                         class="invalid-feedback">
+                      <span *ngIf="(formControls.outStandingLimit.errors.required)">Outstanding Limit is required</span>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="title" for="proposedLimit"><strong>Proposed Limit</strong></label>

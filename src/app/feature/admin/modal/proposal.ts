@@ -6,4 +6,6 @@ export class Proposal {
     proposedAmountInWords: string;
     tenureDurationInMonths: number;
     checkedData: string;
+    existingLimit: number;
+    outStandingLimit: number;
 }
