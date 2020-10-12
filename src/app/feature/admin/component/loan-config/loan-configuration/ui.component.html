@@ -28,6 +28,30 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-5 row">
+                        <div class="col-md-9 form-group">
+                            <label><h4>Nature of Loan</h4></label>
+                            <div class="row ml-2">
+                                <nb-radio-group [(ngModel)]="loanConfig.loanNature" class="col-md-12 d-contents form-control"
+                                                name="loanNature">
+                                    <nb-radio value="Revolving">Revolving</nb-radio>
+                                    <nb-radio value="Terminating">Terminating</nb-radio>
+                                </nb-radio-group>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 row">
+                        <div class="col-md-9 form-group">
+                            <label><h4>Nature of Assets financed</h4></label>
+                            <div class="row ml-2">
+                                <nb-radio-group [(ngModel)]="loanConfig.financedAssets" class="col-md-12 d-contents form-control"
+                                                name="financedAssets">
+                                    <nb-radio value="Working Capital">Working Capital</nb-radio>
+                                    <nb-radio value="Fixed Assets">Fixed Assets</nb-radio>
+                                </nb-radio-group>
+                            </div>
+                        </div>
+                    </div>
                 <div class="col-md-4">
                     <div class="form-group>">
                         <label><h4>Collateral Requirement (In %)</h4></label>

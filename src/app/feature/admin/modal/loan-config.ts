@@ -10,6 +10,8 @@ export class LoanConfig {
     eligibilityPoints: number;
     isFundable: boolean;
     shortNames: string;
+    financedAssets: string;
+    loanNature: string;
     collateralRequirement: number;
     version: number;
     templateList: Array<LoanTemplate>;
