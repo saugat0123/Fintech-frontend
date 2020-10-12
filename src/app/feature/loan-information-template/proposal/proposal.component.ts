@@ -26,6 +26,7 @@ export class ProposalComponent implements OnInit {
   proposalData: Proposal = new Proposal();
   formDataForEdit: Object;
   minimumAmountLimit = 0;
+  collateralRequirement;
   interestLimit: number;
   allId: Params;
   loanId: number;
@@ -71,10 +72,12 @@ export class ProposalComponent implements OnInit {
           this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
           this.loanConfigService.detail(this.loanId).subscribe((response: any) => {
             this.minimumAmountLimit = response.detail.minimumProposedAmount;
+            this.collateralRequirement = response.detail.collateralRequirement;
             this.proposalForm.get('proposedLimit').setValidators([Validators.required,
               MinimumAmountValidator.minimumAmountValidator(this.minimumAmountLimit)]);
             this.proposalForm.get('proposedLimit').updateValueAndValidity();
             this.interestLimit = response.detail.interestRate;
+            this.setCollateralRequirement(this.collateralRequirement);
           }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
@@ -99,13 +102,13 @@ export class ProposalComponent implements OnInit {
       serviceCharge: [undefined, [Validators.required, Validators.min(0)]],
       tenureDurationInMonths: [undefined, [Validators.required, Validators.min(0)]],
       repaymentMode: [undefined, [Validators.required]],
-      purposeOfSubmission: [undefined, [Validators.required]],
       disbursementCriteria: [undefined, [Validators.required]],
       repayment: [undefined, Validators.required],
       borrowerInformation: [undefined, [Validators.required]],
       interestAmount: [undefined],
       existingLimit: [undefined],
       outStandingLimit: [undefined],
+      collateralRequirement: [undefined, Validators.required],
 
       // Additional Fields--
       // for installment Amount--
@@ -113,9 +116,8 @@ export class ProposalComponent implements OnInit {
       // for moratoriumPeriod Amount--
       moratoriumPeriod: [undefined],
       // for prepaymentCharge Amount--
-      prepaymentCharge: [undefined],
+      prepaymentCharge: ['As Per Standard Charge'],
       // for prepaymentCharge Amount--
-      purposeOfSubmissionSummary: [undefined, Validators.required],
       // for commitmentFee Amount--
       commitmentFee: [undefined, Validators.required],
       solConclusionRecommendation: [undefined],
@@ -173,6 +175,7 @@ export class ProposalComponent implements OnInit {
     this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
     this.proposalData.existingLimit = this.proposalForm.get('existingLimit').value;
     this.proposalData.outStandingLimit = this.proposalForm.get('outStandingLimit').value;
+    this.proposalData.collateralRequirement = this.proposalForm.get('collateralRequirement').value;
 
     this.proposalData.tenureDurationInMonths = this.proposalForm.get('tenureDurationInMonths').value;
   }
@@ -251,6 +254,12 @@ export class ProposalComponent implements OnInit {
       }
     } else {
       this.proposalForm.get('installmentAmount').patchValue(undefined);
+    }
+  }
+
+  setCollateralRequirement(collateralRequirement) {
+    if (ObjectUtil.isEmpty(this.proposalForm.get('collateralRequirement').value)) {
+      this.proposalForm.get('collateralRequirement').patchValue(collateralRequirement);
     }
   }
 }

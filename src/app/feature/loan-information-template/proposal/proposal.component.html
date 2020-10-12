@@ -229,64 +229,47 @@
                 <!--                start of Prepayment charge  div-->
                 <div class="col-md-4">
                   <div class="form-group>">
-                    <label class="title"> <strong>Prepayment Charge (%)</strong></label>
+                    <label class="title"> <strong>Prepayment Charge</strong></label>
                     <input
                         class="form-control" formControlName="prepaymentCharge"
                         id="prepaymentCharge"
-                        name="prepaymentCharge" placeholder="Prepayment Amount"
-                        type="number">
+                        name="prepaymentCharge" placeholder="Prepayment Amount">
                   </div>
                 </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="title" for="commitmentFee"><strong>Commitment Fee</strong></label>
+                    <input
+                        [ngClass]="{ 'is-invalid': (submitted) && formControls.commitmentFee.errors }"
+                        class="form-control"
+                        formControlName="commitmentFee" id="commitmentFee"
+                        name="commitmentFee"
+                        placeholder="Commitment Fee" type="number"/>
+                    <div *ngIf="(submitted) && formControls.commitmentFee.invalid"
+                         class="invalid-feedback">
+                      <span *ngIf="formControls.commitmentFee.errors.required">Commitment Fee is required.</span>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="title" for="collateralRequirement"><strong>Collateral requirement (in%)</strong></label>
+                    <input
+                        [ngClass]="{ 'is-invalid': (submitted) && formControls.collateralRequirement.errors }"
+                        class="form-control"
+                        formControlName="collateralRequirement" id="collateralRequirement"
+                        name="collateralRequirement"
+                        placeholder="Collateral requirement" type="number"/>
+                    <div *ngIf="(submitted) && formControls.collateralRequirement.invalid"
+                         class="invalid-feedback">
+                      <span *ngIf="formControls.collateralRequirement.errors.required">Collateral requirement is required.</span>
+                    </div>
+
+                  </div>
+                </div>
+
                 <!--                end of Moratorium Period amount div-->
-
-
-                <!--                        purpose of submission div start-->
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="title" for="purposeOfSubmission"><strong>Purpose of
-                      Submission</strong></label>
-                    <textarea
-                        [ngClass]="{ 'is-invalid': (submitted) && formControls.purposeOfSubmission.errors }"
-                        class="form-control"
-                        formControlName="purposeOfSubmission" id="purposeOfSubmission"
-                        name="purposeOfSubmission"
-                        placeholder="Purpose of submission."
-                        rows="3"></textarea>
-                    <div *ngIf="(submitted) && formControls.purposeOfSubmission.invalid"
-                         class="invalid-feedback">
-                      <span *ngIf="formControls.purposeOfSubmission.errors.required">Purpose of Submission is required.</span>
-                    </div>
-
-
-                  </div>
-                </div>
-                <!--                                purpose of submission div end-->
-
-                <!--                                purpose of submission summary div start-->
-
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="title" for="purposeOfSubmissionSummary"><strong>Purpose of
-                      Submission Summary</strong></label>
-                    <textarea
-                        [ngClass]="{ 'is-invalid': (submitted) && formControls.purposeOfSubmissionSummary.errors }"
-                        class="form-control"
-                        formControlName="purposeOfSubmissionSummary"
-                        id="purposeOfSubmissionSummary"
-                        name="purposeOfSubmissionSummary"
-                        placeholder="Purpose of submission summary."
-                        rows="3"></textarea>
-                    <div *ngIf="(submitted) && formControls.purposeOfSubmissionSummary.invalid"
-                         class="invalid-feedback">
-                      <span *ngIf="formControls.purposeOfSubmissionSummary.errors.required">Purpose of Submission Summary is required.</span>
-                    </div>
-
-
-                  </div>
-                </div>
-
-                <!--                                purpose of submission summary div end-->
-
                 <div class="col-md-12">
                   <div class="form-group">
                     <label class="title" for="disbursementCriteria"><strong>Disbursement
@@ -321,36 +304,12 @@
                     </div>
                   </div>
                 </div>
-
-                <!--                                start of commitment fee div-->
-
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="title" for="commitmentFee"><strong>Commitment Fee</strong></label>
-                    <textarea
-                        [ngClass]="{ 'is-invalid': (submitted) && formControls.commitmentFee.errors }"
-                        class="form-control"
-                        formControlName="commitmentFee" id="commitmentFee"
-                        name="commitmentFee"
-                        placeholder="Commitment Fee"
-                        rows="3"></textarea>
-                    <div *ngIf="(submitted) && formControls.commitmentFee.invalid"
-                         class="invalid-feedback">
-                      <span *ngIf="formControls.commitmentFee.errors.required">Commitment Fee is required.</span>
-                    </div>
-
-                  </div>
-                </div>
-
-
-                <!--                                end of commitment fee div-->
-
                 <div class="col-md-12">
                   <div class="form-group" style="max-height: 300px !important;height: 250px;">
 
                     <label class="title"><strong><sup class="text-danger">*</sup>Introduction/Justification
                       of
-                      Borrower</strong></label>
+                      Loan</strong></label>
                     <!--                    <textarea-->
                     <!--                        [ngClass]="{ 'is-invalid': (submitted) && formControls.borrowerInformation.errors }"-->
                     <!--                        class="form-control"-->
