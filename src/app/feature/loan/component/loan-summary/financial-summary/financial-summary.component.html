@@ -4,12 +4,12 @@
       <p><strong>Financial Position and Repayment Capacity of the Borrower</strong></p>
       <div class="row">
         <div class="col-md-12">
-          <table class="table table-bordered text-right table-sm">
+          <table class="table table-bordered text-right table-sm sb-small text-center">
             <thead>
             <tr>
               <th class="text-center" colspan="5">Income of Borrower</th>
             </tr>
-            <tr>
+            <tr class="text-white sb-bg-dark">
               <th>S.N</th>
               <th>Source of Income</th>
               <th>Organization</th>
@@ -19,15 +19,17 @@
             </thead>
             <tbody>
             <tr *ngFor="let incomeOfBorrower of financialData?.initialForm?.incomeOfBorrower; let i = index;">
-              <td>{{i+1}}</td>
+              <td>{{i + 1}}</td>
               <td>{{incomeOfBorrower.incomeSource}}</td>
               <td>{{incomeOfBorrower.organization}}</td>
               <td>Rs. {{incomeOfBorrower.amount | currencyFormatter}}</td>
               <td>{{incomeOfBorrower.remarks}}</td>
             </tr>
             <tr>
-              <td colspan="3" class="text-center"><strong>Total Income</strong></td>
-              <td colspan="2"><strong>Rs. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</strong></td>
+              <td class="text-center" colspan="3"><strong>Total Income</strong></td>
+              <td colspan="2">
+                <strong>Rs. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</strong>
+              </td>
             </tr>
             </tbody>
           </table>
@@ -35,12 +37,12 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <table class="table table-bordered table-sm">
+          <table class="table table-bordered table-sm sb-small text-center">
             <thead>
             <tr>
               <th class="text-center" colspan="5">Expenses of Borrower</th>
             </tr>
-            <tr>
+            <tr class="text-white sb-bg-dark">
               <th>S.N</th>
               <th>Particulars</th>
               <th>Amount</th>
@@ -49,18 +51,22 @@
             </thead>
             <tbody>
             <tr *ngFor="let expensesOfBorrower of financialData?.initialForm?.expensesOfBorrower; let i = index;">
-              <td>{{i+1}}</td>
+              <td>{{i + 1}}</td>
               <td>{{expensesOfBorrower.particulars}}</td>
               <td>Rs. {{expensesOfBorrower.amount | currencyFormatter}}</td>
               <td>{{expensesOfBorrower.remarks}}</td>
             </tr>
             <tr>
-              <td colspan="3" class="text-center"><strong>Total Expense</strong></td>
-              <td colspan="2"><strong>Rs. {{financialData?.initialForm?.totalExpense | currencyFormatter}}</strong></td>
+              <td class="text-center" colspan="3"><strong>Total Expense</strong></td>
+              <td colspan="2">
+                <strong>Rs. {{financialData?.initialForm?.totalExpense | currencyFormatter}}</strong>
+              </td>
             </tr>
             <tr>
-              <td colspan="3" class="text-center"><strong>Net Saving</strong></td>
-              <td colspan="2"><strong>Rs. {{financialData?.initialForm?.netSaving | currencyFormatter}}</strong></td>
+              <td class="text-center" colspan="3"><strong>Net Saving</strong></td>
+              <td colspan="2">
+                <strong>Rs. {{financialData?.initialForm?.netSaving | currencyFormatter}}</strong>
+              </td>
             </tr>
             </tbody>
           </table>
@@ -76,9 +82,9 @@
       <p><strong>Financial Highlights of the Entity</strong></p>
       <div class="row">
         <div class="col-md-12">
-          <table class="table table-bordered table-sm">
+          <table class="table table-bordered table-sm sb-small">
             <thead>
-            <tr>
+            <tr class="sb-bg-dark text-white">
               <th>S.No.</th>
               <th>Particulars/Years:</th>
               <th *ngFor="let fiscalYear of financialData?.fiscalYear">{{fiscalYear}}</th>
@@ -86,8 +92,10 @@
             </thead>
             <tbody>
 
-            <tr>
-              <td [attr.colspan]="2 + 1 + financialData?.fiscalYear?.length" class="text-center"><strong>Major Financial Indicators</strong></td>
+            <tr class="sb-bg-secondary">
+              <td [attr.colspan]="2 + 1 + financialData?.fiscalYear?.length" class="text-center">
+                <strong>Major
+                  Financial Indicators</strong></td>
             </tr>
             <tr>
               <td>1</td>
@@ -136,5 +144,23 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-md-12">
+    <p><strong>Financial Statements Justification:</strong></p>
+    <hr>
+    <p class="sb-small"><strong>Income Statement:</strong></p>
+    <p [innerHTML]="financialData['incomeStatementData']?.justificationIncomeStatement | safeHtml"></p>
+    <hr>
+    <p class="sb-small"><strong>Balance Sheet:</strong></p>
+    <p [innerHTML]="financialData['balanceSheetData']?.justificationBalanceSheet | safeHtml"></p>
+    <hr>
+    <p class="sb-small"><strong>Cash Flow Statement:</strong></p>
+    <p [innerHTML]="financialData['cashFlowStatementData']?.justificationCashFlowStatement | safeHtml"></p>
+    <hr>
+    <p class="sb-small"><strong>Key Indicators:</strong></p>
+    <p [innerHTML]="financialData['keyIndicatorsData']?.justificationKeyIndicators | safeHtml"></p>
   </div>
 </div>

@@ -4,6 +4,7 @@ import {FinancialService} from '../financial.service';
 import {FinancialDeleteComponentComponent} from '../financial-delete-component/financial-delete-component.component';
 import {ModalResponse} from '../../../../@core/utils';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Editor} from '../../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-income-statement',
@@ -15,6 +16,7 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
     @Input() formData;
     @Output() removeFiscalYear = new EventEmitter<any>();
     incomeStatementForm: FormGroup;
+    ckeConfig = Editor.CK_CONFIG;
 
     constructor(private formBuilder: FormBuilder,
                 private modalService: NgbModal,

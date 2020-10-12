@@ -29,6 +29,7 @@ import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {Proposal} from '../../../admin/modal/proposal';
 import {CombinedLoanService} from '../../../service/combined-loan.service';
 import {CombinedLoan} from '../../model/combined-loan';
+import {IncomeFromAccount} from '../../../admin/modal/incomeFromAccount';
 
 @Component({
   selector: 'app-loan-summary',
@@ -118,6 +119,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   creditRiskAlphaScoreArray = [];
   selectedAlphaCrgIndex = 0;
   customerAllLoanList: LoanDataHolder[] = []; // current loan plus staged and combined loans
+  incomeFromAccountSummary = false;
+  incomeFromAccountData: IncomeFromAccount;
 
   constructor(
       private userService: UserService,
@@ -170,7 +173,14 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.securitySummary = true;
           }
 
-          // Setting credit risk data---
+          // Setting IncomeFromAccount data--
+          if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.incomeFromAccount)) {
+            this.incomeFromAccountData = JSON.parse(this.loanDataHolder.loanHolder.incomeFromAccount.data);
+            this.incomeFromAccountSummary = true;
+    }
+
+
+    // Setting credit risk data---
           if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.creditRiskGrading)) {
             this.creditRiskSummary = true;
             const crgParsedData = JSON.parse(this.loanDataHolder.loanHolder.creditRiskGrading.data);

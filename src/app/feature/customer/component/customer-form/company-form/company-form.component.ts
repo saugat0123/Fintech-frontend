@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {CompanyInfo} from '../../../../admin/modal/company-info';
 import {Customer} from '../../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -28,6 +28,15 @@ import {ContactPerson} from '../../../../admin/modal/contact-person';
 import {CompanyService} from '../../../../admin/component/company/company.service';
 import {Company} from '../../../../admin/modal/company';
 import {DesignationList} from '../../../../loan/model/designationList';
+import {BankingRelationComponent} from '../banking-relation/banking-relation.component';
+import {Experience} from '../../../../admin/modal/experience';
+import {Succession} from '../../../../admin/modal/succession';
+import {RegulatoryConcern} from '../../../../admin/modal/regulatory-concern';
+import {MarketCompetition} from '../../../../admin/modal/marketCompetition';
+import {IndustryGrowth} from '../../../../admin/modal/industryGrowth';
+import {Buyer} from '../../../../admin/modal/buyer';
+import {Supplier} from '../../../../admin/modal/supplier';
+import {BusinessAndIndustry} from '../../../../admin/modal/businessAndIndustry';
 
 @Component({
     selector: 'app-company-form',
@@ -71,9 +80,22 @@ export class CompanyFormComponent implements OnInit {
     private isBlackListed: boolean;
     companyStructureList: Array<Company>;
     designationList: DesignationList = new DesignationList();
+    businessAndIndustry: BusinessAndIndustry = new BusinessAndIndustry();
     designation;
     additionalFieldSelected = false;
     additionalFieldData: any;
+
+    @ViewChild('bankingRelationComponent', {static: false})
+    bankingRelationComponent: BankingRelationComponent;
+
+    experiences = Experience.enumObject();
+    successionList = Succession.enumObject();
+    regulatoryConcernList = RegulatoryConcern.enumObject();
+    supplierList = Supplier.enumObject();
+    buyerList = Buyer.enumObject();
+    industryGrowthList = IndustryGrowth.enumObject();
+    marketCompetitionList = MarketCompetition.enumObject();
+
 
     constructor(
         private formBuilder: FormBuilder,
@@ -104,6 +126,9 @@ export class CompanyFormComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
             this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
             this.additionalFieldSelected = true;
+        }
+        if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) {
+            this.businessAndIndustry = JSON.parse(this.companyInfo.businessAndIndustry);
         }
         this.buildForm();
         this.getAllDistrict();
@@ -322,10 +347,35 @@ export class CompanyFormComponent implements OnInit {
                 licenseIssuedDate: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
                     this.additionalFieldData.licenseIssuedDate, Validators.required],
                 licenseIssuePlace: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    this.additionalFieldData.licenseIssuePlace],
+                    this.additionalFieldData.licenseIssuePlace, Validators.required],
                 additionalInfoRemark: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
                     this.additionalFieldData.additionalInfoRemark, Validators.required],
-            })
+            }),
+            /** 8.business and industry */
+            regulatoryConcern: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
+                this.businessAndIndustry.regulatoryConcern, Validators.required],
+            buyer: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
+                this.businessAndIndustry.buyer, Validators.required],
+            supplier: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
+                this.businessAndIndustry.supplier, Validators.required],
+
+            /** 9. Industry Growth*/
+            industryGrowth: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.industryGrowth))? undefined :
+                this.companyInfo.industryGrowth, Validators.required],
+
+            /** 10. Market competition*/
+            marketCompetition: [ObjectUtil.isEmpty(this.companyInfo)
+            || ObjectUtil.isEmpty(this.companyInfo.marketCompetition) ? undefined :
+                this.companyInfo.marketCompetition, Validators.required],
+
+            /** 11. Experience*/
+            experience: [ObjectUtil.isEmpty(this.companyInfo)
+            || ObjectUtil.isEmpty(this.companyInfo.experience) ? undefined :
+                this.companyInfo.experience, Validators.required],
         });
         if (!this.additionalFieldSelected) {
             this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
@@ -527,9 +577,13 @@ export class CompanyFormComponent implements OnInit {
                     } else {
                         this.companyFormField.isOldCustomer = true;
                         this.companyInfo = data.detail.content[0];
+                        // change these sets in common function
                         if (!ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
                             this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
                             this.additionalFieldSelected = true;
+                        }
+                        if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) {
+                            this.businessAndIndustry = JSON.parse(this.companyInfo.businessAndIndustry);
                         }
                         this.buildForm();
                         this.setCompanyInfo(this.companyInfo);
@@ -645,6 +699,24 @@ export class CompanyFormComponent implements OnInit {
             proprietorsIndex++;
             this.companyInfo.proprietorsList.push(proprietors);
         }
+
+        /** banking relation setting data from child **/
+        this.bankingRelationComponent.onSubmit();
+        this.companyInfo.bankingRelationship = JSON.stringify(this.bankingRelationComponent.bankingRelation);
+
+        /** business and industry */
+        this.businessAndIndustry.regulatoryConcern = this.companyInfoFormGroup.get('regulatoryConcern').value;
+        this.businessAndIndustry.supplier = this.companyInfoFormGroup.get('supplier').value;
+        this.businessAndIndustry.buyer = this.companyInfoFormGroup.get('buyer').value;
+        this.companyInfo.businessAndIndustry = JSON.stringify(this.businessAndIndustry);
+
+        /** industry growth and market competition */
+        this.companyInfo.marketCompetition = this.companyInfoFormGroup.get('marketCompetition').value;
+        this.companyInfo.industryGrowth = this.companyInfoFormGroup.get('industryGrowth').value;
+
+        /** experience */
+        this.companyInfo.experience = this.companyInfoFormGroup.get('experience').value;
+
         this.companyInfoService.save(this.companyInfo).subscribe((response: any) => {
             this.close();
             this.toastService.show(new Alert(AlertType.SUCCESS, `Company Saved Successfully`));

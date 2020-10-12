@@ -1,5 +1,5 @@
 export class Editor {
-  static config = {
+  static CK_CONFIG = {
     allowedContent: false,
     font_names: 'Arial;Times New Roman;Verdana',
     toolbarGroups: [

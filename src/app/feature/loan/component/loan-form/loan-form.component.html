@@ -1,7 +1,11 @@
 <nb-card>
 
   <nb-card-header>
-    <h2 class="d-flex justify-content-center">{{loanTitle}}</h2>
+    <p><b>Loan Type:</b>{{loanTypeKeyValue[loanType]}}</p>
+    <h2 class="d-flex justify-content-center">{{loanTitle}}
+    </h2>
+    <h3 class="d-flex justify-content-center">of</h3>
+    <h3 class="d-flex justify-content-center">{{loanDocument?.loanHolder?.name}}</h3>
     <hr>
 
     <div #container class="row">
@@ -38,16 +42,16 @@
           </ng-select>
         </form>
       </div>
-      <div class="col-md-3">
-        <label for="masterCalendarType">Calendar Type</label>
-        <div>
-          <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
-                          id="masterCalendarType" name="masterCalendarType">
-            <nb-radio value="AD">AD</nb-radio>
-            <nb-radio value="BS">BS</nb-radio>
-          </nb-radio-group>
-        </div>
-      </div>
+<!--      <div class="col-md-3">-->
+<!--        <label for="masterCalendarType">Calendar Type</label>-->
+<!--        <div>-->
+<!--          <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"-->
+<!--                          id="masterCalendarType" name="masterCalendarType">-->
+<!--            <nb-radio value="AD">AD</nb-radio>-->
+<!--            <nb-radio value="BS">BS</nb-radio>-->
+<!--          </nb-radio-group>-->
+<!--        </div>-->
+<!--      </div>-->
       <!--      todo uncomment this if nepali form is required-->
       <!--      <div *ngIf="productUtils.NEP_TEMPLATE" class="col-md-3">-->
       <!--        <div class=" d-flex justify-content-end py-4">-->
@@ -99,7 +103,7 @@
             </div>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Proposal'">
-            <app-proposal [formValue]="loadProposal()" #proposalInfo></app-proposal>
+            <app-proposal [formValue]="loadProposal()" [loanType]="loanType" #proposalInfo></app-proposal>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'CICL'">
             <div class="py-4">

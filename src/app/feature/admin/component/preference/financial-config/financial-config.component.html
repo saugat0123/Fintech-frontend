@@ -1,0 +1,64 @@
+<nb-card [nbSpinner]="spinner" class="m-0"
+         nbSpinnerSize="giant"
+         nbSpinnerStatus="primary">
+  <nb-card-header class="text-center">
+    <h6>Fiscal Years</h6>
+    <div class="float-right">
+      <button class="mb-4 mt-0" nbButton outline size="small"
+              status="success" (click)="openFinancialConfigModal(null)">
+        <i class="fa fa-plus"></i>
+      </button>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <table class="table table-bordered table-hover text-center table-sm sb-small">
+      <thead>
+      <tr class="sb-bg-dark text-white">
+        <th>S.N</th>
+        <th>Fiscal Year</th>
+        <th colspan="2">Q1</th>
+        <th colspan="2">Q2</th>
+        <th colspan="2">Q3</th>
+        <th colspan="2">Q4</th>
+        <th>Active year</th>
+        <th>Action</th>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th></th>
+        <th></th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let fiscalYear of fiscalYears; let i= index">
+        <td>{{i+1}}</td>
+        <td>{{fiscalYear.year}}</td>
+        <td>{{fiscalYear.qOneStartDate}}</td>
+        <td>{{fiscalYear.qOneEndDate}}</td>
+        <td>{{fiscalYear.qTwoStartDate}}</td>
+        <td>{{fiscalYear.qTwoEndDate}}</td>
+        <td>{{fiscalYear.qThreeStartDate}}</td>
+        <td>{{fiscalYear.qThreeEndDate}}</td>
+        <td>{{fiscalYear.qFourStartDate}}</td>
+        <td>{{fiscalYear.qFourEndDate}}</td>
+        <td><nb-checkbox [checked]="fiscalYear.isCurrentYear == true"
+                         onClick="return false;"></nb-checkbox>
+        </td>
+        <td (click)="editFiscalYear(fiscalYear)"><i class="fas fa-edit cursor"></i></td>
+      </tr>
+      </tbody>
+    </table>
+    <!-- ===================table-pagination==================== -->
+    <app-paging (changePage)="changePage($event)" *ngIf="!spinner"
+                [pageable]="pageable"></app-paging>
+  </nb-card-body>
+</nb-card>

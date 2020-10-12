@@ -24,6 +24,7 @@ import {CreditGradingComponent} from '../../../loan-information-template/credit-
 import {CreditRiskGradingGammaComponent} from '../../../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {CreditRiskGradingGamma} from '../../../admin/modal/creditRiskGradingGamma';
 import {CiclArray} from '../../../admin/modal/cicl';
+import {IncomeFromAccount} from '../../../admin/modal/incomeFromAccount';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -64,7 +65,8 @@ export class CustomerLoanInformationComponent implements OnInit {
   private itemGuarantor: NbAccordionItemComponent;
   @ViewChild('itemInsurance', {static: false})
   private itemInsurance: NbAccordionItemComponent;
-
+  @ViewChild('itemIncomeFromAccount', {static: false})
+  private itemIncomeFromAccount: NbAccordionItemComponent;
   @ViewChild('ciclComponent', {static: false})
   private itemCicl: NbAccordionItemComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
@@ -79,6 +81,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   private guarantors: GuarantorDetail;
   public insurance: Array<Insurance>;
   public ciclResponse: CiclArray;
+  public incomeFromAccountDataResponse: IncomeFromAccount;
 
 
   constructor(
@@ -114,6 +117,9 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.cicl)) {
       this.ciclResponse = this.customerInfo.cicl;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.incomeFromAccount)) {
+      this.incomeFromAccountDataResponse = this.customerInfo.incomeFromAccount;
     }
   }
 
@@ -280,4 +286,21 @@ export class CustomerLoanInformationComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved CICL)!'));
     });
   }
+
+  saveIncomeFromAccount(data: IncomeFromAccount) {
+    if (ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
+      this.incomeFromAccountDataResponse = new IncomeFromAccount();
+    }
+    this.incomeFromAccountDataResponse = data;
+    this.customerInfoService.saveLoanInfo(this.incomeFromAccountDataResponse, this.customerInfoId, TemplateName.INCOME_FROM_ACCOUNT)
+    .subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Income From Account!'));
+      this.itemIncomeFromAccount.close();
+      this.triggerCustomerRefresh.emit(true);
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Income From Account)!'));
+    });
+  }
+
 }

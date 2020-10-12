@@ -10,4 +10,5 @@ export class TemplateName {
   static CRG_GAMMA = 'CrgGamma';
   static CRG = 'Crg';
   static CICL = 'CICL';
+  static INCOME_FROM_ACCOUNT = 'Income From Account';
 }

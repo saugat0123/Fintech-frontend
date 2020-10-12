@@ -84,6 +84,10 @@ import {AccountDocumentFormComponent} from './component/opening-account/config/a
 import {RemarkModalComponent} from './component/opening-account/remark-modal/remark-modal.component';
 import {AccountNumberModalComponent} from './component/opening-account/account-no-modal/account-no-modal.component';
 import { GroupConfigComponent } from './component/preference/group-config/group-config.component';
+import { FinancialConfigComponent } from './component/preference/financial-config/financial-config.component';
+import { FinancialConfigModalComponent } from './component/preference/financial-config/financial-config-modal/financial-config-modal.component';
+import {NbDialogModule} from '@nebular/theme';
+import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 
 @NgModule({
     declarations: [
@@ -154,26 +158,30 @@ import { GroupConfigComponent } from './component/preference/group-config/group-
         AccountDocumentFormComponent,
         RemarkModalComponent,
         AccountNumberModalComponent,
-        GroupConfigComponent
+        GroupConfigComponent,
+        FinancialConfigComponent,
+        FinancialConfigModalComponent,
         // SecurityComponent
     ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        NgbPaginationModule,
-        ReactiveFormsModule,
-        ReactiveFormsModule,
-        RouterModule.forChild(adminRoutes),
-        ThemeModule,
-        DragDropModule,
-        NgSelectModule,
-        NgxPrintModule,
-        CoreModule,
-        AgmCoreModule,
-        AgmCoreModule.forRoot({
-            apiKey: environment.GOOGLE_MAP_API_KEY
-        })
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    NgbPaginationModule,
+    ReactiveFormsModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(adminRoutes),
+    ThemeModule,
+    DragDropModule,
+    NgSelectModule,
+    NgxPrintModule,
+    NbDialogModule.forRoot(),
+    CoreModule,
+    AgmCoreModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.GOOGLE_MAP_API_KEY
+    }),
+    NepaliCalendarModule
+  ],
 
     entryComponents: [
         ApprovalLimitFormComponent,
@@ -202,7 +210,8 @@ import { GroupConfigComponent } from './component/preference/group-config/group-
         BlacklistFormComponent,
         AccountDocumentFormComponent,
         RemarkModalComponent,
-        AccountNumberModalComponent
+        AccountNumberModalComponent,
+        FinancialConfigModalComponent
     ]
 
 })

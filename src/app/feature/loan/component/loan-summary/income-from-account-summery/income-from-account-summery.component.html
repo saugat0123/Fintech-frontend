@@ -1,0 +1,43 @@
+<div class="row mt-2">
+  <div class="col-md-12">
+    <p><strong>Income From Account</strong></p>
+    <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
+      <thead>
+      <tr class="sb-bg-dark text-white">
+        <th>Particular</th>
+        <th>During Review Period</th>
+        <th>Projected For next Review Period</th>
+      </tr>
+      </thead>
+      <tr>
+        <td class="sb-bg-secondary text-white">Gross Interest</td>
+        <td>Rs. {{this.formData?.interestDuringReview |currencyFormatter}}</td>
+        <td>Rs. {{this.formData?.interestAfterNextReview |currencyFormatter}}</td>
+      </tr>
+      <tr>
+        <td class="sb-bg-secondary text-white">Free and Commission</td>
+        <td>Rs. {{this.formData?.commissionDuringReview |currencyFormatter}}</td>
+        <td>
+          Rs. {{this.formData?.commissionAfterNextReview |currencyFormatter}}
+        </td>
+      </tr>
+      <tr>
+        <td class="sb-bg-secondary text-white">Other Charges</td>
+        <td>
+          Rs. {{this.formData?.otherChargesDuringReview |currencyFormatter}}
+        </td>
+        <td>
+          Rs. {{this.formData?.otherChargesAfterNextReview |currencyFormatter}}
+        </td>
+      </tr>
+      <tr  class="font-weight-bold">
+        <td class="sb-bg-secondary text-white">Total</td>
+        <td>
+          Rs. {{this.formData?.totalIncomeDuringReview |currencyFormatter}}
+        </td>
+        <td>
+          Rs. {{this.formData?.totalIncomeAfterNextReview |currencyFormatter}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

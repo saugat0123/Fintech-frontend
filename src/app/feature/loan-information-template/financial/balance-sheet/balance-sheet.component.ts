@@ -4,6 +4,7 @@ import {FinancialService} from '../financial.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FinancialDeleteComponentComponent} from '../financial-delete-component/financial-delete-component.component';
 import {ModalResponse} from '../../../../@core/utils';
+import {Editor} from '../../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-balance-sheet',
@@ -15,6 +16,7 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
     @Input() formData;
     @Output() removeFiscalYear = new EventEmitter<any>();
     balanceSheetForm: FormGroup;
+    ckeConfig = Editor.CK_CONFIG;
 
     constructor(private formBuilder: FormBuilder,
                 private modalService: NgbModal,

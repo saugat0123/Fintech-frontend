@@ -30,10 +30,10 @@
                                 <div class="col-md-6">
                                     <input type="text" nbInput fullWidth [(ngModel)]="search.name"
                                            (input)="onSearchChange($event.target.value)" name="name"
-                                           placeholder="search....">
+                                          placeholder="search....">
                                 </div>
                                 <div class="col-md-4">
-                                    <button type="submit" nbButton outline status="primary">
+                                    <button type="submit" nbButton outline status="primary" size="small">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </div>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="float-right">
-                            <button nbButton outline status="success" (click)="addDocument()">
+                            <button nbButton outline status="success" size="small" (click)="addDocument()">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
@@ -50,10 +50,10 @@
                 </div>
             </nb-card-header>
             <nb-card-body>
-                <table id="add-document-table" class="table  table-bordered table-hover ">
+                <table id="add-document-table" class="table table-sm  table-bordered table-hover sb-small text-center">
 
                     <thead>
-                    <tr>
+                    <tr class="sb-bg-dark text-white">
                         <th>S.N</th>
                         <th>Document Name</th>
                         <th>Status</th>
@@ -80,7 +80,7 @@
                             {{ allList?.checkType || 'Default' | titlecase }}
                         </td>
                         <td>
-                            <button nbButton status="info" size="small" (click)="openEdit(allList)" title="Edit">
+                            <button nbButton status="info" size="tiny" (click)="openEdit(allList)" title="Edit">
                                 <i class="fa fa-edit"></i>
                             </button>
                         </td>

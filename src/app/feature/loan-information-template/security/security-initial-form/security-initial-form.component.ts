@@ -70,6 +70,7 @@ export class SecurityInitialFormComponent implements OnInit {
     isShareSecurity = false;
     shareSecurityForm: FormGroup;
     shareSecurityData: ShareSecurity = new ShareSecurity();
+    typeOfProperty = ['Rajkar', 'Guthi', 'Others'];
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -105,6 +106,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.setFixedDepositDetails(this.formDataForEdit['fixedDepositDetails']);
             this.setLandBuildingDescription(this.formDataForEdit['landBuildingDescription']);
             this.setLandBuildingUnderConstructions(this.formDataForEdit['landBuildingUnderConstruction']);
+            this.setRemark(this.formDataForEdit['remark']);
         } else {
             this.addMoreLand();
             this.addBuilding();
@@ -138,7 +140,8 @@ export class SecurityInitialFormComponent implements OnInit {
             fixedDepositDetails: this.formBuilder.array([]),
             landBuilding: this.formBuilder.array([]),
             landBuildingDescription: [undefined],
-            landBuildingUnderConstruction: this.formBuilder.array([])
+            landBuildingUnderConstruction: this.formBuilder.array([]),
+            remark: [undefined]
         });
         this.buildShareSecurityForm();
     }
@@ -211,6 +214,10 @@ export class SecurityInitialFormComponent implements OnInit {
         this.securityForm.get('description').setValue(landDescription);
     }
 
+    setRemark(remarkData) {
+        this.securityForm.get('remark').patchValue(remarkData);
+    }
+
     setLandDetails(currentData) {
         const landDetails = this.securityForm.get('landDetails') as FormArray;
         currentData.forEach((singleData, index) => {
@@ -235,7 +242,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     landValuatorRepresentative: [singleData.landValuatorRepresentative],
                     landStaffRepresentativeName: [singleData.landStaffRepresentativeName],
                     landBranch: [singleData.landBranch] ,
-                    landConsideredValue: [ObjectUtil.isEmpty(singleData.landConsideredValue) ?  undefined : singleData.landConsideredValue]
+                    landConsideredValue: [ObjectUtil.isEmpty(singleData.landConsideredValue) ?  undefined : singleData.landConsideredValue],
+                    typeOfProperty: [singleData.typeOfProperty],
+                    modeOfTransfer: [singleData.modeOfTransfer]
                 })
             );
         });
@@ -311,7 +320,9 @@ export class SecurityInitialFormComponent implements OnInit {
                         undefined : new Date(singleData.ApartmentValuatorDate)],
                     ApartmentValuatorRepresentative: [singleData.ApartmentValuatorRepresentative],
                     ApartmentStaffRepresentativeName: [singleData.ApartmentStaffRepresentativeName],
-                    apartmentBranch: [singleData.apartmentBranch]
+                    apartmentBranch: [singleData.apartmentBranch],
+                    typeOfProperty: [singleData.typeOfProperty],
+                    modeOfTransfer: [singleData.modeOfTransfer]
                 })
             );
         });
@@ -341,7 +352,9 @@ export class SecurityInitialFormComponent implements OnInit {
                         electrification: [singleData.buildingDetailsBeforeCompletion.electrification] ,
                         buildingTotalCost: [singleData.buildingDetailsBeforeCompletion.buildingTotalCost] ,
                         buildingFairMarketValue: [singleData.buildingDetailsBeforeCompletion.buildingFairMarketValue] ,
-                        buildingDistressValue: [singleData.buildingDetailsBeforeCompletion.buildingDistressValue]
+                        buildingDistressValue: [singleData.buildingDetailsBeforeCompletion.buildingDistressValue],
+                        typeOfProperty: [singleData.buildingDetailsBeforeCompletion.typeOfProperty],
+                        modeOfTransfer: [singleData.buildingDetailsBeforeCompletion.modeOfTransfer]
                     }) ,
                     buildingDetailsAfterCompletion: this.formBuilder.group({
                         buildingName: [singleData.buildingDetailsAfterCompletion.buildingName] ,
@@ -358,7 +371,9 @@ export class SecurityInitialFormComponent implements OnInit {
                         electrification: [singleData.buildingDetailsAfterCompletion.electrification] ,
                         buildingTotalCost: [singleData.buildingDetailsAfterCompletion.buildingTotalCost] ,
                         buildingFairMarketValue: [singleData.buildingDetailsAfterCompletion.buildingFairMarketValue] ,
-                        buildingDistressValue: [singleData.buildingDetailsAfterCompletion.buildingDistressValue]
+                        buildingDistressValue: [singleData.buildingDetailsAfterCompletion.buildingDistressValue],
+                        typeOfProperty: [singleData.buildingDetailsAfterCompletion.typeOfProperty],
+                        modeOfTransfer: [singleData.buildingDetailsAfterCompletion.modeOfTransfer]
                     })
                 })
             );
@@ -428,7 +443,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     electrification: [undefined] ,
                     buildingTotalCost: [undefined] ,
                     buildingFairMarketValue: [undefined] ,
-                    buildingDistressValue: [undefined]
+                    buildingDistressValue: [undefined],
+                    typeOfProperty: [undefined],
+                    modeOfTransfer: [undefined]
                 }) ,
                 buildingDetailsAfterCompletion: this.formBuilder.group({
                     buildingName: [undefined] ,
@@ -445,7 +462,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     electrification: [undefined] ,
                     buildingTotalCost: [undefined] ,
                     buildingFairMarketValue: [undefined] ,
-                    buildingDistressValue: [undefined]
+                    buildingDistressValue: [undefined],
+                    typeOfProperty: [undefined],
+                    modeOfTransfer: [undefined]
 
                 })
             })
@@ -567,7 +586,9 @@ export class SecurityInitialFormComponent implements OnInit {
             landValuatorRepresentative: [undefined],
             landStaffRepresentativeName: [undefined],
             landBranch: [undefined],
-            landConsideredValue: [undefined]
+            landConsideredValue: [undefined],
+            typeOfProperty: [undefined],
+            modeOfTransfer: [undefined]
         });
     }
 
@@ -619,7 +640,9 @@ export class SecurityInitialFormComponent implements OnInit {
             ApartmentValuatorDate: [undefined],
             ApartmentValuatorRepresentative: [undefined],
             ApartmentStaffRepresentativeName: [undefined],
-            apartmentBranch: [undefined]
+            apartmentBranch: [undefined],
+            typeOfProperty: [undefined],
+            modeOfTransfer: [undefined]
         });
     }
 

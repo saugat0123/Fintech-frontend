@@ -1,8 +1,8 @@
 <form [formGroup]="balanceSheetForm">
   <h3>Balance Sheet</h3>
-  <table class="table table-bordered">
+  <table class="table table-bordered table-sm sb-small text-center">
     <thead class="text-center">
-    <tr>
+    <tr class="text-white sb-bg-dark">
       <th scope="col">#</th>
       <th scope="col">Particulars</th>
       <th *ngFor="let year of fiscalYear; let j = index" scope="col">
@@ -438,6 +438,5 @@
     </tbody>
   </table>
   <h4>Justification</h4>
-  <textarea nbInput rows="5" fullWidth placeholder="Jusification..."
-            formControlName="justificationBalanceSheet"></textarea>
+  <ckeditor formControlName="justificationBalanceSheet" [config]="ckeConfig"></ckeditor>
 </form>
