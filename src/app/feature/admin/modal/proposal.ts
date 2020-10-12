@@ -8,4 +8,5 @@ export class Proposal {
     checkedData: string;
     existingLimit: number;
     outStandingLimit: number;
+    collateralRequirement: number;
 }
