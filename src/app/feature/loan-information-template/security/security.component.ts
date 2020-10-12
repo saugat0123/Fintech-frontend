@@ -11,7 +11,10 @@ import {Address} from '../../loan/model/address';
 import {Guarantor} from '../../loan/model/guarantor';
 import {CalendarType} from '../../../@core/model/calendar-type';
 import {ShareSecurity} from '../../admin/modal/shareSecurity';
-
+import {SecurityGuarantee} from '../model/security-guarantee';
+import {LandAndBuildingLocation} from '../model/land-and-building-location';
+import {LoanTag} from '../../loan/model/loanTag';
+import {VehicleSecurityCoverage} from '../model/vehicle-security-coverage';
 
 @Component({
     selector: 'app-security' ,
@@ -30,6 +33,7 @@ export class SecurityComponent implements OnInit {
     initialSecurity: SecurityInitialFormComponent;
     securityData: Security = new Security();
     guarantorsForm: FormGroup;
+    securityForm: FormGroup;
     initialSecurityValue: Object;
     securityValueForEdit;
     province: Province = new Province();
@@ -44,14 +48,21 @@ export class SecurityComponent implements OnInit {
     guarantorsDetails: Guarantor = new Guarantor();
     shareSecurityData: ShareSecurity = new ShareSecurity();
 
+    guaranteeList = SecurityGuarantee.enumObject();
+    locationList = LandAndBuildingLocation.enumObject();
+    coverageList = VehicleSecurityCoverage.enumObject();
+    newCoverage = VehicleSecurityCoverage.getNew();
+    usedCoverage = VehicleSecurityCoverage.getUsed();
+    loanTagEnum = LoanTag;
+
     constructor(
         private formBuilder: FormBuilder ,
         private addressServices: AddressService ,
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
         this.buildForm();
+        this.buildCrgSecurityForm();
         this.getProvince();
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityValueForEdit = JSON.parse(this.securityValue.data);
@@ -61,14 +72,28 @@ export class SecurityComponent implements OnInit {
             this.addGuarantorsDetails();
             this.initialSecurityValue = undefined;
         }
-
-
-
     }
 
     buildForm() {
         this.guarantorsForm = this.formBuilder.group({
             guarantorsDetails: this.formBuilder.array([])
+        });
+    }
+
+    buildCrgSecurityForm() {
+        this.securityForm = this.formBuilder.group({
+            securityGuarantee: [(ObjectUtil.isEmpty(this.securityValue) ||
+                ObjectUtil.isEmpty(this.securityValue.data) ||
+                ObjectUtil.isEmpty(this.securityValue.data['securityGuarantee'])) ? undefined :
+                this.securityValue.data['securityGuarantee']],
+            buildingLocation: [(ObjectUtil.isEmpty(this.securityValue) ||
+                ObjectUtil.isEmpty(this.securityValue.data) ||
+                ObjectUtil.isEmpty(this.securityValue.data['buildingLocation'])) ? undefined :
+                this.securityValue.data['buildingLocation']],
+            vehicleSecurityCoverage: [(ObjectUtil.isEmpty(this.securityValue) ||
+                ObjectUtil.isEmpty(this.securityValue.data) ||
+                ObjectUtil.isEmpty(this.securityValue.data['vehicleSecurityCoverage'])) ? undefined :
+                this.securityValue.data['vehicleSecurityCoverage']],
         });
     }
 
@@ -176,7 +201,10 @@ export class SecurityComponent implements OnInit {
             underConstructionChecked: this.initialSecurity.underConstructionChecked ,
             otherBranchcheck: this.initialSecurity.otherBranchcheck,
             guarantorsForm: this.guarantorsForm.value,
-            underBuildingConstructionChecked: this.initialSecurity.underBuildingConstructionChecked
+            underBuildingConstructionChecked: this.initialSecurity.underBuildingConstructionChecked,
+            securityGuarantee: this.securityForm.get('securityGuarantee').value,
+            buildingLocation: this.securityForm.get('buildingLocation').value,
+            vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
         };
         this.securityData.data = JSON.stringify(mergedForm);
         this.securityData.guarantor = [];
@@ -215,7 +243,6 @@ export class SecurityComponent implements OnInit {
             guarantorIndex++;
             this.securityData.guarantor.push(guarantor);
         }
-        console.log(this.securityData, 'll');
         this.securityDataEmitter.emit(this.securityData);
     }
 }
