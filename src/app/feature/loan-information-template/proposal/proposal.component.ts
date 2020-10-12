@@ -21,6 +21,7 @@ export class ProposalComponent implements OnInit {
 
   @Input() formValue: Proposal;
   @Input() loanIds;
+  @Input() loanType;
   proposalForm: FormGroup;
   proposalData: Proposal = new Proposal();
   formDataForEdit: Object;
@@ -33,6 +34,7 @@ export class ProposalComponent implements OnInit {
   riskChecked = false;
   checkedDataEdit;
   ckeConfig;
+  checkApproved = false;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -45,12 +47,16 @@ export class ProposalComponent implements OnInit {
   ngOnInit() {
     this.configEditor();
     this.buildForm();
+    this.checkLoanTypeAndBuildForm();
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.formDataForEdit = JSON.parse(this.formValue.data);
       this.checkedDataEdit = JSON.parse(this.formValue.checkedData);
       this.proposalForm.patchValue(this.formDataForEdit);
       this.setCheckedData(this.checkedDataEdit);
       this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
+      this.proposalForm.get('existingLimit').patchValue(this.formValue.existingLimit);
+      this.proposalForm.get('outStandingLimit').patchValue(this.formValue.outStandingLimit);
+
     } else {
       this.setActiveBaseRate();
     }
@@ -98,6 +104,8 @@ export class ProposalComponent implements OnInit {
       repayment: [undefined, Validators.required],
       borrowerInformation: [undefined, [Validators.required]],
       interestAmount: [undefined],
+      existingLimit: [undefined],
+      outStandingLimit: [undefined],
 
       // Additional Fields--
       // for installment Amount--
@@ -118,6 +126,14 @@ export class ProposalComponent implements OnInit {
     });
   }
 
+  checkLoanTypeAndBuildForm() {
+    if (this.loanType === 'RENEWED_LOAN' || this.loanType === 'ENHANCED_LOAN' || this.loanType === 'PARTIAL_SETTLEMENT_LOAN'
+        || this.loanType === 'FULL_SETTLEMENT_LOAN') {
+      this.checkApproved = true;
+      this.proposalForm.get('existingLimit').setValidators(Validators.required);
+      this.proposalForm.get('outStandingLimit').setValidators(Validators.required);
+    }
+}
   configEditor() {
     this.ckeConfig = Editor.CK_CONFIG;
   }
@@ -155,6 +171,8 @@ export class ProposalComponent implements OnInit {
 
     // Proposed Limit value--
     this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
+    this.proposalData.existingLimit = this.proposalForm.get('existingLimit').value;
+    this.proposalData.outStandingLimit = this.proposalForm.get('outStandingLimit').value;
 
     this.proposalData.tenureDurationInMonths = this.proposalForm.get('tenureDurationInMonths').value;
   }

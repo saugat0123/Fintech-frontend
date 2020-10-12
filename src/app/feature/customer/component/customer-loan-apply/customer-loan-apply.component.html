@@ -16,6 +16,16 @@
         </div>
       </div>
       <hr />
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label><strong>Loan Type</strong></label>
+          <select [(ngModel)]="selectedLoanType"
+                  class="form-control rounded" name="loanType" required>
+            <option *ngFor="let list of multipleSelectedLoanType" [ngValue]="list.key">{{list.value}}</option>
+          </select>
+        </div>
+      </div>
+
       <div *ngIf="radioApplyLoan.value === 'Single'" class="row">
         <div class="col-md-12">
           <select #type="ngModel"
