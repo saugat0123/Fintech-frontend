@@ -18,7 +18,8 @@ export class ProposalSummaryComponent implements OnInit {
   public EnumUtils = EnumUtils;
   proposalAllData: any;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     this.proposalAllData = JSON.parse(this.proposalData.data);
@@ -30,4 +31,7 @@ export class ProposalSummaryComponent implements OnInit {
     .reduce((a, b) => a + b, 0);
   }
 
+  public addInterest(val1, val2, val3) {
+    return val1 + val2 + val3;
+  }
 }
