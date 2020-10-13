@@ -36,6 +36,8 @@ export class ProposalComponent implements OnInit {
   checkedDataEdit;
   ckeConfig;
   checkApproved = false;
+  absoluteSelected = false;
+  customSelected = false;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -57,7 +59,9 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
       this.proposalForm.get('existingLimit').patchValue(this.formValue.existingLimit);
       this.proposalForm.get('outStandingLimit').patchValue(this.formValue.outStandingLimit);
-
+      this.proposalForm.get('dateOfExpiry').patchValue(!ObjectUtil.isEmpty(this.formValue.dateOfExpiry)
+          ? new Date(this.formValue.dateOfExpiry) : undefined);
+      this.checkLimitExpiryBuildValidation(this.formValue.limitExpiryMethod);
     } else {
       this.setActiveBaseRate();
     }
@@ -87,6 +91,7 @@ export class ProposalComponent implements OnInit {
     .patchValue((Number(value) - Number(this.proposalForm.get('baseRate').value)).toFixed(2)));
     this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
     .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(2)));
+    this.proposalForm.get('limitExpiryMethod').valueChanges.subscribe(value => this.checkLimitExpiryBuildValidation(value));
   }
 
   buildForm() {
@@ -109,6 +114,12 @@ export class ProposalComponent implements OnInit {
       existingLimit: [undefined],
       outStandingLimit: [undefined],
       collateralRequirement: [undefined, Validators.required],
+      limitExpiryMethod: [undefined, Validators.required],
+      duration: [undefined,  Validators.required],
+      condition: [undefined, Validators.required],
+      frequency: [undefined,  Validators.required],
+      dateOfExpiry: [undefined,  Validators.required],
+
 
       // Additional Fields--
       // for installment Amount--
@@ -176,8 +187,13 @@ export class ProposalComponent implements OnInit {
     this.proposalData.existingLimit = this.proposalForm.get('existingLimit').value;
     this.proposalData.outStandingLimit = this.proposalForm.get('outStandingLimit').value;
     this.proposalData.collateralRequirement = this.proposalForm.get('collateralRequirement').value;
-
     this.proposalData.tenureDurationInMonths = this.proposalForm.get('tenureDurationInMonths').value;
+    this.proposalData.limitExpiryMethod = this.proposalForm.get('limitExpiryMethod').value;
+    this.proposalData.duration = this.proposalForm.get('duration').value;
+    this.proposalData.dateOfExpiry = this.proposalForm.get('dateOfExpiry').value;
+    this.proposalData.frequency = this.proposalForm.get('frequency').value;
+    this.proposalData.condition = this.proposalForm.get('condition').value;
+
   }
 
   get formControls() {
@@ -260,6 +276,37 @@ export class ProposalComponent implements OnInit {
   setCollateralRequirement(collateralRequirement) {
     if (ObjectUtil.isEmpty(this.proposalForm.get('collateralRequirement').value)) {
       this.proposalForm.get('collateralRequirement').patchValue(collateralRequirement);
+    }
+  }
+
+  checkLimitExpiryBuildValidation(limitExpiry) {
+    if (limitExpiry === 'ABSOLUTE') {
+      this.absoluteSelected = true;
+      this.customSelected = false;
+      this.proposalForm.get('dateOfExpiry').setValidators([Validators.required]);
+      this.proposalForm.get('dateOfExpiry').updateValueAndValidity();
+      this.proposalForm.get('duration').clearValidators();
+      this.proposalForm.get('duration').patchValue(undefined);
+      this.proposalForm.get('duration').updateValueAndValidity();
+      this.proposalForm.get('condition').clearValidators();
+      this.proposalForm.get('condition').updateValueAndValidity();
+      this.proposalForm.get('condition').patchValue(undefined);
+      this.proposalForm.get('frequency').clearValidators();
+      this.proposalForm.get('frequency').updateValueAndValidity();
+      this.proposalForm.get('frequency').patchValue(undefined);
+    } else if (limitExpiry === 'CUSTOM') {
+      this.customSelected = true;
+      this.absoluteSelected = false;
+      this.proposalForm.get('duration').setValidators([Validators.required]);
+      this.proposalForm.get('duration').updateValueAndValidity();
+      this.proposalForm.get('condition').setValidators([Validators.required]);
+      this.proposalForm.get('condition').updateValueAndValidity();
+      this.proposalForm.get('frequency').setValidators([Validators.required]);
+      this.proposalForm.get('frequency').updateValueAndValidity();
+      this.proposalForm.get('dateOfExpiry').clearValidators();
+      this.proposalForm.get('dateOfExpiry').updateValueAndValidity();
+      this.proposalForm.get('dateOfExpiry').patchValue(undefined);
+
     }
   }
 }

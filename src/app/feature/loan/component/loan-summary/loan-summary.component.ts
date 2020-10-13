@@ -377,7 +377,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
   downloadAllDocument(path: string) {
 
-    this.documentService.downloadAllDoc(path).subscribe((res: any) => {
+    this.documentService.downloadAllDoc(path, this.loanDataHolder.id).subscribe((res: any) => {
       this.previewOfferLetterDocument(res.detail, res.detail);
     });
   }
