@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Cicl, CiclArray} from '../../admin/modal/cicl';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
@@ -27,7 +27,8 @@ export class CiclComponent implements OnInit {
 
   constructor(
       private formBuilder: FormBuilder,
-      private toastService: ToastService
+      private toastService: ToastService,
+      private el: ElementRef,
   ) {
   }
 
@@ -121,12 +122,27 @@ export class CiclComponent implements OnInit {
           }));
     });
   }
+  scrollToFirstInvalidControl() {
+    const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+        'form .ng-invalid'
+    );
+    window.scroll({
+      top: this.getTopOffset(firstInvalidControl),
+      left: 0,
+      behavior: 'smooth'
+    });
+    firstInvalidControl.focus();
+  }
 
+  private getTopOffset(controlEl: HTMLElement): number {
+    const labelOffset = 50;
+    return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+  }
 
   onSubmit() {
-
+    this.submitted = true;
     if (this.ciclForm.invalid) {
-      this.submitted = true;
+      this.scrollToFirstInvalidControl();
       return;
     }
 
