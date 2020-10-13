@@ -9,4 +9,9 @@ export class Proposal {
     existingLimit: number;
     outStandingLimit: number;
     collateralRequirement: number;
+    limitExpiryMethod: string;
+    dateOfExpiry: Date;
+    duration: number;
+    condition: string;
+    frequency: string;
 }
