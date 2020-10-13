@@ -184,7 +184,40 @@
         </div>
 
         <!--CRG - Alpha-->
-        <div *ngIf="creditRiskAlphaSummary" class="col-md-12">
+        <div  *ngIf="creditRiskAlphaSummary" class="col-md-12">
+          <nb-card>
+            <nb-card-header>
+              <h4>Credit Risk Gauge (Alpha)</h4>
+            </nb-card-header>
+            <nb-card-body>
+              <div class="row">
+                <div class="col-md-6 mr-0 pr-0 text-right">
+                  <app-gauge-chart [chartWidth]="275"
+                                   gaugeIdentifier="crg-alpha"
+                                   [chartHeight]="180"
+                                   [maxValue]="100"
+                                   [obtainedValue]="creditRiskAlphaScore"></app-gauge-chart>
+                </div>
+                <div class="col-md-6 ml-0 gauge-label-padding">
+                  <div class="vertical-line">
+                    <div class="text-left pl-2">
+                      Credit Risk Grade :
+                      <span [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha | titlecase}}</span>
+                    </div>
+                    <br>
+                    <div class="text-left pl-2">
+                      Credit Risk Score :
+                      <span><strong> {{ creditRiskAlphaScore }}</strong></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nb-card-body>
+          </nb-card>
+        </div>
+
+        <!--old Alpha Crg-->
+        <!--<div *ngIf="creditRiskAlphaSummary" class="col-md-12">
           <nb-card>
             <nb-card-header class="text-center">
               <nb-select placeholder="Select Fiscal year"
@@ -225,7 +258,7 @@
               </div>
             </nb-card-body>
           </nb-card>
-        </div>
+        </div>-->
       </div>
 
 

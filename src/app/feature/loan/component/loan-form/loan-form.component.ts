@@ -520,11 +520,11 @@ export class LoanFormComponent implements OnInit {
     /*if (name === 'Credit Risk Grading' && action) {
       this.creditGrading.onSubmit();
       this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
-    }
+    }*/
     if (name === 'Credit Risk Grading - Alpha' && action) {
       this.creditRiskGradingAlpha.onSubmit();
       this.loanDocument.creditRiskGradingAlpha = this.creditRiskGradingAlpha.creditRiskData;
-    }*/
+    }
 
     if (name === 'Group' && action) {
       this.group.onSubmit();

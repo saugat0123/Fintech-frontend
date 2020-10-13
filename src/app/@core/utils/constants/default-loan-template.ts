@@ -4,7 +4,6 @@ export class DefaultLoanTemplate {
       active: false,
       name: 'Guarantor',
       templateUrl: null
-
     },
     {
       active: true,
@@ -15,14 +14,16 @@ export class DefaultLoanTemplate {
       active: false,
       name: 'Customer Document',
       templateUrl: null
-
     },
     {
       active: false,
       name: 'Reporting Info',
       templateUrl: null
-
     },
-
+    {
+      active: false,
+      name: 'Credit Risk Grading - Alpha',
+      templateUrl: null
+    },
   ];
 }
