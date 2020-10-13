@@ -1,5 +1,6 @@
 export enum LoanTag {
     GENERAL = 'GENERAL',
+    VEHICLE = 'VEHICLE',
     FIXED_DEPOSIT = 'FIXED DEPOSIT',
     SHARE_SECURITY = 'SHARE SECURITY'
 }

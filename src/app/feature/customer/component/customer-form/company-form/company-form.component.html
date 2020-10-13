@@ -1048,6 +1048,24 @@
                     </div>
                 </div>
                 <hr>
+                <div class="row">
+                    <div class="col">
+                        <div>
+                            <h5>12. Succession</h5>
+                        </div>
+                        <div class="form-group">
+                            <ng-select [multiple]="false"
+                                       formControlName="succession"
+                                       placeholder="Select succession"
+                                       [dropdownPosition]="'top'">
+                                <ng-option *ngFor="let succession of successionList"
+                                           [value]="succession?.value">
+                                    {{succession?.value}}
+                                </ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+                </div>
                 <hr>
             </form>
         </div>

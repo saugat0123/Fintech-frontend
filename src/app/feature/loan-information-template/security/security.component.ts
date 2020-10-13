@@ -11,7 +11,9 @@ import {Address} from '../../loan/model/address';
 import {Guarantor} from '../../loan/model/guarantor';
 import {CalendarType} from '../../../@core/model/calendar-type';
 import {ShareSecurity} from '../../admin/modal/shareSecurity';
-
+import {SecurityGuarantee} from '../model/security-guarantee';
+import {LandAndBuildingLocation} from '../model/land-and-building-location';
+import {VehicleSecurityCoverage} from '../model/vehicle-security-coverage';
 
 @Component({
     selector: 'app-security' ,
@@ -30,6 +32,7 @@ export class SecurityComponent implements OnInit {
     initialSecurity: SecurityInitialFormComponent;
     securityData: Security = new Security();
     guarantorsForm: FormGroup;
+    securityForm: FormGroup;
     initialSecurityValue: Object;
     securityValueForEdit;
     province: Province = new Province();
@@ -44,31 +47,51 @@ export class SecurityComponent implements OnInit {
     guarantorsDetails: Guarantor = new Guarantor();
     shareSecurityData: ShareSecurity = new ShareSecurity();
 
+    guaranteeList = SecurityGuarantee.enumObject();
+    locationList = LandAndBuildingLocation.enumObject();
+    coverageList = VehicleSecurityCoverage.enumObject();
+    newCoverage = VehicleSecurityCoverage.getNew();
+    usedCoverage = VehicleSecurityCoverage.getUsed();
+
     constructor(
         private formBuilder: FormBuilder ,
         private addressServices: AddressService ,
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
         this.buildForm();
+        this.buildCrgSecurityForm();
         this.getProvince();
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityValueForEdit = JSON.parse(this.securityValue.data);
             this.initialSecurityValue = this.securityValueForEdit;
+            this.setCrgSecurityForm(this.securityValueForEdit);
             this.setGuarantorsDetails(this.securityValue.guarantor);
         } else {
             this.addGuarantorsDetails();
             this.initialSecurityValue = undefined;
         }
-
-
-
     }
 
     buildForm() {
         this.guarantorsForm = this.formBuilder.group({
             guarantorsDetails: this.formBuilder.array([])
+        });
+    }
+
+    buildCrgSecurityForm() {
+        this.securityForm = this.formBuilder.group({
+            securityGuarantee: undefined,
+            buildingLocation: undefined,
+            vehicleSecurityCoverage: undefined,
+        });
+    }
+
+    setCrgSecurityForm(formData) {
+        this.securityForm = this.formBuilder.group({
+            securityGuarantee: formData.securityGuarantee,
+            buildingLocation: formData.buildingLocation,
+            vehicleSecurityCoverage: formData.vehicleSecurityCoverage,
         });
     }
 
@@ -176,7 +199,10 @@ export class SecurityComponent implements OnInit {
             underConstructionChecked: this.initialSecurity.underConstructionChecked ,
             otherBranchcheck: this.initialSecurity.otherBranchcheck,
             guarantorsForm: this.guarantorsForm.value,
-            underBuildingConstructionChecked: this.initialSecurity.underBuildingConstructionChecked
+            underBuildingConstructionChecked: this.initialSecurity.underBuildingConstructionChecked,
+            securityGuarantee: this.securityForm.get('securityGuarantee').value,
+            buildingLocation: this.securityForm.get('buildingLocation').value,
+            vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
         };
         this.securityData.data = JSON.stringify(mergedForm);
         this.securityData.guarantor = [];
@@ -215,7 +241,6 @@ export class SecurityComponent implements OnInit {
             guarantorIndex++;
             this.securityData.guarantor.push(guarantor);
         }
-        console.log(this.securityData, 'll');
         this.securityDataEmitter.emit(this.securityData);
     }
 }

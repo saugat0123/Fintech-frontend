@@ -42,5 +42,5 @@ export class CustomerInfoData {
   loanFlags: Array<CustomerLoanFlag>;
   cicl: CiclArray;
   incomeFromAccount: IncomeFromAccount;
-
+  bankingRelationship: string;
 }
