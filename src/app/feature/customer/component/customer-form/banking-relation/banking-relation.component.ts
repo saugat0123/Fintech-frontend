@@ -24,7 +24,9 @@ export class BankingRelationComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.bankingRelation = JSON.parse(this.formValue);
+    if (!ObjectUtil.isEmpty(this.formValue)) {
+      this.bankingRelation = JSON.parse(this.formValue);
+    }
     this.buildForm();
   }
 
