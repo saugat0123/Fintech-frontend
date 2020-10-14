@@ -1,5 +1,7 @@
 <nb-card>
-    <nb-card-header class="sb-bg-dark"><h2 class="text-white">Loan Configuration</h2></nb-card-header>
+    <nb-card-header class="sb-bg-dark"><h2 class="text-white">Loan Configuration
+    {{loanConfig}}
+    </h2></nb-card-header>
     <nb-card-body>
         <form #loanConfigForm="ngForm" (ngSubmit)="onSubmit()" name="form">
             <div class="box-body">
@@ -32,11 +34,13 @@
                         <div class="col-md-9 form-group">
                             <label><h4>Nature of Loan</h4></label>
                             <div class="row ml-2">
-                                <nb-radio-group [(ngModel)]="loanConfig.loanNature" class="col-md-12 d-contents form-control"
-                                                name="loanNature">
-                                    <nb-radio value="Revolving">Revolving</nb-radio>
-                                    <nb-radio value="Terminating">Terminating</nb-radio>
-                                </nb-radio-group>
+                                    <nb-radio-group name="loanNature" class="d-inline-flex" [(ngModel)]="loanConfig.loanNature">
+                                        <nb-radio
+                                                *ngFor="let option of loanNature"
+                                                [value]="option.value">
+                                            {{ option.value }}
+                                        </nb-radio>
+                                    </nb-radio-group>
                             </div>
                         </div>
                     </div>
@@ -44,10 +48,12 @@
                         <div class="col-md-9 form-group">
                             <label><h4>Nature of Assets financed</h4></label>
                             <div class="row ml-2">
-                                <nb-radio-group [(ngModel)]="loanConfig.financedAssets" class="col-md-12 d-contents form-control"
-                                                name="financedAssets">
-                                    <nb-radio value="Working Capital">Working Capital</nb-radio>
-                                    <nb-radio value="Fixed Assets">Fixed Assets</nb-radio>
+                                <nb-radio-group name="financedAssets" class="d-inline-flex" [(ngModel)]="loanConfig.financedAssets">
+                                    <nb-radio
+                                            *ngFor="let option of financedAssets"
+                                            [value]="option.value">
+                                        {{ option.value }}
+                                    </nb-radio>
                                 </nb-radio-group>
                             </div>
                         </div>
