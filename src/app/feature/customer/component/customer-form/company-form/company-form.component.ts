@@ -364,7 +364,7 @@ export class CompanyFormComponent implements OnInit {
 
             /** 9. Industry Growth*/
             industryGrowth: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.industryGrowth))? undefined :
+                || ObjectUtil.isEmpty(this.companyInfo.industryGrowth)) ? undefined :
                 this.companyInfo.industryGrowth, Validators.required],
 
             /** 10. Market competition*/
@@ -376,6 +376,11 @@ export class CompanyFormComponent implements OnInit {
             experience: [ObjectUtil.isEmpty(this.companyInfo)
             || ObjectUtil.isEmpty(this.companyInfo.experience) ? undefined :
                 this.companyInfo.experience, Validators.required],
+
+            /** Succession*/
+            succession: [ObjectUtil.isEmpty(this.companyInfo)
+            || ObjectUtil.isEmpty(this.companyInfo.succession) ? undefined :
+                this.companyInfo.succession, Validators.required],
         });
         if (!this.additionalFieldSelected) {
             this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
@@ -714,8 +719,9 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.marketCompetition = this.companyInfoFormGroup.get('marketCompetition').value;
         this.companyInfo.industryGrowth = this.companyInfoFormGroup.get('industryGrowth').value;
 
-        /** experience */
+        /** experience & succession */
         this.companyInfo.experience = this.companyInfoFormGroup.get('experience').value;
+        this.companyInfo.succession = this.companyInfoFormGroup.get('succession').value;
 
         this.companyInfoService.save(this.companyInfo).subscribe((response: any) => {
             this.close();

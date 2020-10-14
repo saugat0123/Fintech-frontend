@@ -16,8 +16,6 @@ import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 import {GuarantorComponent} from '../../../loan-information-template/guarantor/guarantor.component';
 import {Insurance} from '../../../admin/modal/insurance';
-import {CreditRiskGradingAlphaComponent} from '../../../loan-information-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
-import {CreditRiskGradingAlpha} from '../../../admin/modal/CreditRiskGradingAlpha';
 import {CompanyInfo} from '../../../admin/modal/company-info';
 import {CreditRiskGrading} from '../../../admin/modal/creditRiskGrading';
 import {CreditGradingComponent} from '../../../loan-information-template/credit-grading/credit-grading.component';
@@ -45,10 +43,10 @@ export class CustomerLoanInformationComponent implements OnInit {
   public financialComponent: FinancialComponent;
   @ViewChild('itemFinancial', {static: false})
   private itemFinancial: NbAccordionItemComponent;
-  @ViewChild('CrgAlphaComponent', {static: false})
+  /*@ViewChild('CrgAlphaComponent', {static: false})
   public CrgAlphaComponent: CreditRiskGradingAlphaComponent;
   @ViewChild('itemCrgAlpha', {static: false})
-  private itemCrgAlpha: NbAccordionItemComponent;
+  private itemCrgAlpha: NbAccordionItemComponent;*/
   @ViewChild('CrgComponent', {static: false})
   public CrgComponent: CreditGradingComponent;
   @ViewChild('itemCrg', {static: false})
@@ -73,7 +71,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   calendarType: CalendarType = CalendarType.AD;
   private siteVisit: SiteVisit;
   private financial: Financial;
-  private creditRiskGradingAlpha: CreditRiskGradingAlpha;
+  /*private creditRiskGradingAlpha: CreditRiskGradingAlpha;*/
   private creditRiskGrading: CreditRiskGrading;
   private crgGamma: CreditRiskGradingGamma;
   private security: Security;
@@ -97,9 +95,9 @@ export class CustomerLoanInformationComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.customerInfo.financial)) {
       this.financial = this.customerInfo.financial;
     }
-    if (!ObjectUtil.isEmpty(this.customerInfo.creditRiskGradingAlpha)) {
+    /*if (!ObjectUtil.isEmpty(this.customerInfo.creditRiskGradingAlpha)) {
       this.creditRiskGradingAlpha = this.customerInfo.creditRiskGradingAlpha;
-    }
+    }*/
     if (!ObjectUtil.isEmpty(this.customerInfo.creditRiskGrading)) {
       this.creditRiskGrading = this.customerInfo.creditRiskGrading;
     }
@@ -221,7 +219,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     });
   }
 
-  saveCrgAlpha(data: string) {
+  /*saveCrgAlpha(data: string) {
     if (ObjectUtil.isEmpty(this.creditRiskGradingAlpha)) {
       this.creditRiskGradingAlpha = new CreditRiskGradingAlpha();
     }
@@ -235,7 +233,7 @@ export class CustomerLoanInformationComponent implements OnInit {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Risk Grading (Alpha)!'));
     });
-  }
+  }*/
 
   saveCrg(data: string) {
     if (ObjectUtil.isEmpty(this.creditRiskGrading)) {

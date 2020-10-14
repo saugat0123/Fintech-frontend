@@ -4,12 +4,11 @@ import {User} from '../../../admin/modal/user';
 import {Security} from '../../../admin/modal/security';
 import {LoanDataHolder} from '../../model/loanData';
 import {UserService} from '../../../../@core/service/user.service';
-import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {LoanFormService} from '../loan-form/service/loan-form.service';
 import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-service';
 import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
 import {DmsLoanFile} from '../../../admin/modal/dms-loan-file';
-import {ActionModel} from '../../model/action';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {LoanActionService} from '../../loan-action/service/loan-action.service';
 import {ApprovalLimitService} from '../../../admin/component/approvallimit/approval-limit.service';
@@ -24,7 +23,6 @@ import {Financial} from '../../model/financial';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {DocAction} from '../../model/docAction';
 import {DocumentService} from '../../../admin/component/document/document.service';
-import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {Proposal} from '../../../admin/modal/proposal';
 import {CombinedLoanService} from '../../../service/combined-loan.service';
@@ -112,12 +110,13 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   creditGradeAlphaStatusBadge;
   creditRiskGradeAlpha;
   creditRiskAlphaScore = 0;
-  noComplianceLoanAlpha = false;
+  // noComplianceLoanAlpha = false;
   creditRiskAlphaSummary = false;
-  alphaFiscalYearArray = [];
+  /*alphaFiscalYearArray = [];
   creditRiskGradeAlphaArray = [];
   creditRiskAlphaScoreArray = [];
-  selectedAlphaCrgIndex = 0;
+  selectedAlphaCrgIndex = 0;*/
+
   customerAllLoanList: LoanDataHolder[] = []; // current loan plus staged and combined loans
   incomeFromAccountSummary = false;
   incomeFromAccountData: IncomeFromAccount;
@@ -181,53 +180,53 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
 
     // Setting credit risk data---
-          if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.creditRiskGrading)) {
-            this.creditRiskSummary = true;
-            const crgParsedData = JSON.parse(this.loanDataHolder.loanHolder.creditRiskGrading.data);
-            if (crgParsedData.complianceOfCovenants === 0) {
-              this.noComplianceLoan = true;
-            }
-            this.creditRiskGrade = crgParsedData.grade;
-            this.creditRiskScore = ObjectUtil.isEmpty(crgParsedData.totalPoint) ? 0 : crgParsedData.totalPoint;
-            if (this.creditRiskGrade === 'Superior' || this.creditRiskGrade === 'Good') {
-              this.creditGradeStatusBadge = 'badge badge-success';
-            } else if (this.creditRiskGrade === 'Bad & Loss' || this.creditRiskGrade === 'Doubtful') {
-              this.creditGradeStatusBadge = 'badge badge-danger';
-            } else {
-              this.creditGradeStatusBadge = 'badge badge-warning';
-            }
-          }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.creditRiskGrading)) {
+      this.creditRiskSummary = true;
+      const crgParsedData = JSON.parse(this.loanDataHolder.loanHolder.creditRiskGrading.data);
+      if (crgParsedData.complianceOfCovenants === 0) {
+        this.noComplianceLoan = true;
+      }
+      this.creditRiskGrade = crgParsedData.grade;
+      this.creditRiskScore = ObjectUtil.isEmpty(crgParsedData.totalPoint) ? 0 : crgParsedData.totalPoint;
+      if (this.creditRiskGrade === 'Superior' || this.creditRiskGrade === 'Good') {
+        this.creditGradeStatusBadge = 'badge badge-success';
+      } else if (this.creditRiskGrade === 'Bad & Loss' || this.creditRiskGrade === 'Doubtful') {
+        this.creditGradeStatusBadge = 'badge badge-danger';
+      } else {
+        this.creditGradeStatusBadge = 'badge badge-warning';
+      }
+    }
 
-            // Setting credit risk GAMMA data---
-            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.crgGamma)) {
-                this.crgGammaSummary = true;
-                const crgParsedData = JSON.parse(this.loanDataHolder.loanHolder.crgGamma.data);
-                this.crgGammaGrade = crgParsedData.grade;
-                this.crgGammaScore = ObjectUtil.isEmpty(crgParsedData.totalPoint) ? 0 : crgParsedData.totalPoint;
-                if (this.crgGammaGrade === 'Superior' || this.crgGammaGrade === 'Good') {
-                    this.crgGammaGradeStatusBadge = 'badge badge-success';
-                } else if (this.crgGammaGrade === 'Bad & Loss' || this.crgGammaGrade === 'Doubtful') {
-                    this.crgGammaGradeStatusBadge = 'badge badge-danger';
-                } else {
-                    this.crgGammaGradeStatusBadge = 'badge badge-warning';
-                }
-            }
+    // Setting credit risk GAMMA data---
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.crgGamma)) {
+      this.crgGammaSummary = true;
+      const crgParsedData = JSON.parse(this.loanDataHolder.loanHolder.crgGamma.data);
+      this.crgGammaGrade = crgParsedData.grade;
+      this.crgGammaScore = ObjectUtil.isEmpty(crgParsedData.totalPoint) ? 0 : crgParsedData.totalPoint;
+      if (this.crgGammaGrade === 'Superior' || this.crgGammaGrade === 'Good') {
+        this.crgGammaGradeStatusBadge = 'badge badge-success';
+      } else if (this.crgGammaGrade === 'Bad & Loss' || this.crgGammaGrade === 'Doubtful') {
+        this.crgGammaGradeStatusBadge = 'badge badge-danger';
+      } else {
+        this.crgGammaGradeStatusBadge = 'badge badge-warning';
+      }
+    }
 
-          // Setting credit risk alpha data---
-          if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.creditRiskGradingAlpha)) {
-            this.creditRiskAlphaSummary = true;
-            const crgParsedData = JSON.parse(this.loanDataHolder.loanHolder.creditRiskGradingAlpha.data);
-            this.alphaFiscalYearArray = crgParsedData.fiscalYearArray;
-            if (this.alphaFiscalYearArray.length > 0) {
-              this.selectedAlphaCrgIndex = this.alphaFiscalYearArray.length - 1;
-            }
-            if (crgParsedData.complianceOfCovenants === 0) {
-              this.noComplianceLoanAlpha = true;
-            }
-            this.creditRiskGradeAlphaArray = crgParsedData.gradesArray;
-            this.creditRiskAlphaScoreArray = crgParsedData.totalPointsArray;
-            this.changeFiscalYearForAlpha(this.selectedAlphaCrgIndex);
-          }
+    // Setting CRG- Alpha data --
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.creditRiskGradingAlpha)) {
+      this.creditRiskAlphaSummary = true;
+      const crgParsedData = JSON.parse(this.loanDataHolder.creditRiskGradingAlpha.data);
+      this.creditRiskGradeAlpha = crgParsedData.creditRiskGrade;
+      this.creditRiskAlphaScore = ObjectUtil.isEmpty(crgParsedData.totalScore) || Number.isNaN(Number(crgParsedData.totalScore)) ?
+          0 : crgParsedData.totalScore;
+      if (this.creditRiskGrade === 'Excellent' || this.creditRiskGrade === 'Very Good') {
+        this.creditGradeAlphaStatusBadge = 'badge badge-success';
+      } else if (this.creditRiskGrade === 'Not Eligible for New Loans') {
+        this.creditGradeAlphaStatusBadge = 'badge badge-danger';
+      } else {
+        this.creditGradeAlphaStatusBadge = 'badge badge-warning';
+      }
+    }
 
           // Setting SiteVisit data--
           if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
@@ -432,7 +431,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
    *
    * @param $event Change event of nb-select.
    */
-  public changeFiscalYearForAlpha($event: number) {
+  /*public changeFiscalYearForAlpha($event: number) {
       if (!ObjectUtil.isEmpty(this.creditRiskAlphaScoreArray)) {
           this.creditRiskAlphaScore = ObjectUtil.isEmpty(this.creditRiskAlphaScoreArray[$event]) ? 0
               : this.creditRiskAlphaScoreArray[$event];
@@ -445,7 +444,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
               this.creditGradeAlphaStatusBadge = 'badge badge-warning';
           }
       }
-  }
+  }*/
 
   /**
    * Get array of loan stage for authority signature array.

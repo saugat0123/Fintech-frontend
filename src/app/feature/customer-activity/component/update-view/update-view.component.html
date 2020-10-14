@@ -100,10 +100,10 @@
                         *ngIf="activity === 'CRG_UPDATE' && data">
     </app-credit-grading>
 
-    <app-credit-risk-grading-alpha [creditRiskGradingAlpha]="data" [fromProfile]="false"
+    <!--<app-credit-risk-grading-alpha [creditRiskGradingAlpha]="data" [fromProfile]="false"
                                    [financial]="profile?.financial" [companyInfo]="companyInfo"
                                    *ngIf="activity === 'CRG_ALPHA_UPDATE' && data">
-    </app-credit-risk-grading-alpha>
+    </app-credit-risk-grading-alpha>-->
     <app-credit-risk-grading-gamma [fromProfile]="false" [formData]="data"
                                    *ngIf="activity === 'CRG_GAMMA_UPDATE' && data"></app-credit-risk-grading-gamma>
 
