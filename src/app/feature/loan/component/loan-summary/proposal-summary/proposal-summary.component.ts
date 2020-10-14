@@ -27,8 +27,6 @@ export class ProposalSummaryComponent implements OnInit {
 
     ngOnInit() {
         this.proposalAllData = JSON.parse(this.proposalData.data);
-        console.log(this.proposalAllData);
-
     }
 
     public getTotal(key: string): number {
