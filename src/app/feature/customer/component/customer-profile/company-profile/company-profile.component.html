@@ -249,40 +249,7 @@
           </nb-card-header>
           <nb-card-body>
             <nb-accordion>
-              <nb-accordion-item>
-                <nb-accordion-item-header>
-                  <div class="row col-md-12">
-                    <div class="col-md-6">
-                      <span>Management Team</span>
-                    </div>
-                  </div>
-                </nb-accordion-item-header>
-                <nb-accordion-item-body>
-                  <div class="py-4" *ngIf="maker">
-                    <button (click)="openKycModal()" size="tiny" nbButton
-                            class="float-right"><a class="cursor"><em class="fa fa-edit"></em></a>
-                    </button>
-                  </div>
-                  <br>
-                  <table aria-describedby="management team table" class="table  table-bordered table-hover sb-small">
-                    <thead>
-                    <tr class="sb-bg-dark text-white">
-                      <th scope="col">#</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Designation</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let singleManagementTeam of companyInfo?.managementTeamList;
-                                        let i = index">
-                      <td>{{i + 1}}</td>
-                      <td>{{singleManagementTeam?.name}}</td>
-                      <td>{{singleManagementTeam?.designation}}</td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </nb-accordion-item-body>
-              </nb-accordion-item>
+
               <nb-accordion-item>
                 <nb-accordion-item-header>
                   <div class="row col-md-12">
@@ -323,6 +290,40 @@
                       <td>{{singleProprietorInfo?.province?.name}}</td>
                       <td>{{singleProprietorInfo?.district?.name}}</td>
                       <td>{{singleProprietorInfo?.municipalityVdc?.name}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+              <nb-accordion-item>
+                <nb-accordion-item-header>
+                  <div class="row col-md-12">
+                    <div class="col-md-6">
+                      <span>Management Team</span>
+                    </div>
+                  </div>
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <div class="py-4" *ngIf="maker">
+                    <button (click)="openKycModal()" size="tiny" nbButton
+                            class="float-right"><a class="cursor"><em class="fa fa-edit"></em></a>
+                    </button>
+                  </div>
+                  <br>
+                  <table aria-describedby="management team table" class="table  table-bordered table-hover sb-small">
+                    <thead>
+                    <tr class="sb-bg-dark text-white">
+                      <th scope="col">#</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Designation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let singleManagementTeam of companyInfo?.managementTeamList;
+                                        let i = index">
+                      <td>{{i + 1}}</td>
+                      <td>{{singleManagementTeam?.name}}</td>
+                      <td>{{singleManagementTeam?.designation}}</td>
                     </tr>
                     </tbody>
                   </table>

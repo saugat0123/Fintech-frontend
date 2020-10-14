@@ -12,6 +12,9 @@ import {ActivatedRoute} from '@angular/router';
 import {Financial} from '../../loan/model/financial';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CustomerType} from '../../customer/model/customerType';
+import {SalesProjectionVsAchievement} from '../model/sales-projection-vs-achievement';
+import {NetWorthOfFirmOrCompany} from '../model/net-worth-of-firm-or-company';
+import {TaxCompliance} from '../model/tax-compliance';
 
 @Component({
     selector: 'app-financial',
@@ -35,6 +38,11 @@ export class FinancialComponent implements OnInit {
     financialForm: FormGroup;
     financialData: Financial = new Financial();
     currentFormData: Object;
+
+    // Risk factors--
+    salesProjectionVsAchievementArray = SalesProjectionVsAchievement.enumObject();
+    netWorthOfFirmOrCompanyArray = NetWorthOfFirmOrCompany.enumObject();
+    taxComplianceArray = TaxCompliance.enumObject();
 
     // Financial heading arrays---
     incomeStatementArray = [
@@ -178,6 +186,9 @@ export class FinancialComponent implements OnInit {
             this.financialForm.get('totalIncome').setValue(initialFormData.totalIncome);
             this.financialForm.get('totalExpense').setValue(initialFormData.totalExpense);
             this.financialForm.get('netSaving').setValue(initialFormData.netSaving);
+            this.financialForm.get('salesProjectionVsAchievement').setValue(initialFormData.salesProjectionVsAchievement);
+            this.financialForm.get('netWorthOfFirmOrCompany').setValue(initialFormData.netWorthOfFirmOrCompany);
+            this.financialForm.get('taxCompliance').setValue(initialFormData.taxCompliance);
         } else {
             if (this.isBusinessLoan) {
                 const currentFormDataJson = JSON.stringify(currentFormData['default']);
@@ -202,7 +213,10 @@ export class FinancialComponent implements OnInit {
             totalIncome: [0],
             totalExpense: [0],
             currentTotal: [0],
-            netSaving: [0]
+            netSaving: [0],
+            salesProjectionVsAchievement: undefined,
+            netWorthOfFirmOrCompany: undefined,
+            taxCompliance: undefined,
         });
     }
 
