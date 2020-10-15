@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit} from '@angular/core';
 import {AccountType} from '../../../../../modal/accountType';
 import {Action} from '../../../../../../../@core/Action';
 import {Violation} from '../../../../../../../@core/utils/modal/Violation';
@@ -20,6 +20,7 @@ export class AccountTypeFormComponent implements OnInit {
   @Input() action: Action = Action.ADD;
 
   errors: Array<Violation>;
+  submitted: boolean;
 
   modelForm: FormGroup;
 
@@ -27,7 +28,9 @@ export class AccountTypeFormComponent implements OnInit {
       private formBuilder: FormBuilder,
       private service: AccountTypeService,
       private modalRef: NgbActiveModal,
-      private toastService: ToastService) {
+      private toastService: ToastService,
+      private el: ElementRef,
+      ) {
   }
 
   get name() {
@@ -46,8 +49,29 @@ export class AccountTypeFormComponent implements OnInit {
         }
     );
   }
+    scrollToFirstInvalidControl() {
+        const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+            'form .ng-invalid'
+        );
+        window.scroll({
+            top: this.getTopOffset(firstInvalidControl),
+            left: 0,
+            behavior: 'smooth'
+        });
+        firstInvalidControl.focus();
+    }
+
+    private getTopOffset(controlEl: HTMLElement): number {
+        const labelOffset = 50;
+        return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+    }
 
   save() {
+      this.submitted = true;
+      if (this.modelForm.invalid) {
+          this.scrollToFirstInvalidControl();
+          return;
+      }
     switch (this.action) {
       case Action.ADD:
 
