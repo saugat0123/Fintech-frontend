@@ -19,8 +19,8 @@ import {LoanTag} from '../../../../loan/model/loanTag';
 import {NgForm} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CustomerType} from '../../../../customer/model/customerType';
-import { loanNature } from 'src/app/feature/customer/model/loanNature';
-import { financedAssets } from 'src/app/feature/customer/model/financedAssets';
+import { loanNature } from 'src/app/feature/admin/modal/loanNature';
+import { financedAssets } from 'src/app/feature/admin/modal/financedAssets';
 
 
 @Component({
