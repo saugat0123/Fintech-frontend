@@ -120,6 +120,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   customerAllLoanList: LoanDataHolder[] = []; // current loan plus staged and combined loans
   incomeFromAccountSummary = false;
   incomeFromAccountData: IncomeFromAccount;
+  minOneInsuranceDoc = false;
+  minOneGuarantorDoc = false;
+  taggedGuarantorWithDoc = [];
+  insuranceWithDoc = [];
+
 
   constructor(
       private userService: UserService,
@@ -168,6 +173,17 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
           // Setting Security data--
           if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+            this.securityData = JSON.parse(this.loanDataHolder.security.data);
+            this.securitySummary = true;
+          }
+
+          if (!ObjectUtil.isEmpty(this.loanDataHolder.insurance)) {
+            this.loanDataHolder.insurance.forEach(value => {
+              if (value.policyDocumentPath) {
+                this.insuranceWithDoc.push(value);
+                this.minOneInsuranceDoc = true;
+              }
+            });
             this.securityData = JSON.parse(this.loanDataHolder.security.data);
             this.securitySummary = true;
           }
@@ -238,6 +254,12 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             console.log(this.loanDataHolder.taggedGuarantors);
             this.guarantorData = this.loanDataHolder.taggedGuarantors;
             this.checkGuarantorData = true;
+            this.loanDataHolder.taggedGuarantors.forEach(value => {
+              if (!ObjectUtil.isEmpty(value.docPath)) {
+                this.taggedGuarantorWithDoc.push(value);
+                this.minOneGuarantorDoc = true;
+              }
+            });
           }
           if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
             this.proposalData = this.loanDataHolder.proposal;

@@ -541,19 +541,26 @@
 
       <app-insurance-summary *ngIf="loanDataHolder?.insurance"
                              [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
-
+      <div class="row">
+        <div class="col-md-12">
+          <span>
+            <b>All Documents</b>
+            <button class="float-right sb-small sb-bg-dark text-white"  (click)=downloadAllDocument(loanDataHolder?.customerDocument[0].documentPath)> Download All Document</button>
+          </span>
+        </div>
+      </div>
+      <hr>
       <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row disable-print">
         <div class="col-md-12">
-          <p><strong>Documents</strong></p>
+          <p><strong>Loan Documents</strong></p>
+        </div>
+        <div class="col-md-12">
           <table class="table table-condensed table-bordered table-sm sb-small text-center">
             <thead>
             <tr class="text-white sb-bg-dark">
               <th>S.N</th>
               <th>Document</th>
               <th>Download
-                <b (click)="downloadAllDocument(loanDataHolder?.customerDocument[0].documentPath)"
-                   class="float-right btn-link" style="cursor: pointer"> Download all
-                </b>
               </th>
             </tr>
             </thead>
@@ -571,6 +578,64 @@
           </table>
         </div>
       </div>
+      <div *ngIf="minOneGuarantorDoc > 0" class="row disable-print">
+        <div class="col-md-12">
+          <p><strong>Guarantor Documents</strong></p>
+          <table class="table table-condensed table-bordered table-sm sb-small text-center">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+              <th>S.N</th>
+              <th>Guarantor</th>
+              <th>Document</th>
+              <th>Download
+              </th>
+            </tr>
+            </thead>
+            <tbody  *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
+            <tr *ngIf="singleDoc?.docPath">
+              <td>{{i + 1}}</td>
+              <td>{{singleDoc?.name}}</td>
+              <td>Net Worth Document</td>
+              <td>
+                <i (click)="downloadCustomerDocument(singleDoc?.docPath, singleDoc.name+' Net Worth Doc')"
+                   aria-hidden="true" class="fa fa-download"
+                   style="cursor: pointer"></i>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div *ngIf="minOneInsuranceDoc" class="row disable-print">
+        <div class="col-md-12">
+          <p><strong>Insurance Documents</strong></p>
+          <table class="table table-condensed table-bordered table-sm sb-small text-center">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+              <th>S.N</th>
+              <th>Policy Number</th>
+              <th>Company</th>
+              <th>Document</th>
+              <th>Download</th>
+            </tr>
+            </thead>
+            <tbody *ngFor="let singleDoc of insuranceWithDoc; let i = index">
+            <tr *ngIf="singleDoc.policyDocumentPath">
+              <td>{{i + 1}}</td>
+              <td>{{singleDoc?.policyNumber}}</td>
+              <td>{{singleDoc?.company}}</td>
+              <td>Insurance Policy</td>
+              <td>
+                <i  (click)="downloadCustomerDocument(singleDoc?.policyDocumentPath, singleDoc?.policyNumber+' Insurance Policy Document')"
+                   aria-hidden="true" class="fa fa-download"
+                   style="cursor: pointer"></i>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <div class="row justify-content-end px-3 disable-print">{{docMsg}}</div>
 
       <div class="row mt-3 disable-print">
