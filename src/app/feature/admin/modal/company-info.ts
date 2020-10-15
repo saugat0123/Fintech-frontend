@@ -33,6 +33,7 @@ export class CompanyInfo {
     industryGrowth: string;
     marketCompetition: string;
     experience: string;
+    succession: string;
     businessAndIndustry: string;
 
     companyJsonData: string;

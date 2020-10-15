@@ -429,6 +429,11 @@ export class CompanyFormComponent implements OnInit {
             || ObjectUtil.isEmpty(this.companyInfo.experience) ? undefined :
                 this.companyInfo.experience, Validators.required],
 
+            /** Succession*/
+            succession: [ObjectUtil.isEmpty(this.companyInfo)
+            || ObjectUtil.isEmpty(this.companyInfo.succession) ? undefined :
+                this.companyInfo.succession, Validators.required],
+
             /** Groups BackGround*/
             groupsBackGround: [ObjectUtil.isEmpty(this.companyJsonData)
             || ObjectUtil.isEmpty(this.companyJsonData.groupsBackGround) ? undefined :
@@ -680,6 +685,10 @@ export class CompanyFormComponent implements OnInit {
         firstInvalidControl.focus();
     }
 
+    private getTopOffset(controlEl: HTMLElement): number {
+        const labelOffset = 50;
+        return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+    }
     onSubmit() {
         this.submitted = true;
         this.marketScenarioComponent.onSubmit();
@@ -791,7 +800,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.marketCompetition = this.companyInfoFormGroup.get('marketCompetition').value;
         this.companyInfo.industryGrowth = this.companyInfoFormGroup.get('industryGrowth').value;
 
-        /** experience */
+        /** experience & succession */
         this.companyInfo.experience = this.companyInfoFormGroup.get('experience').value;
         // todo change this to common function
         const submitData = new CompanyJsonData();
@@ -812,13 +821,6 @@ export class CompanyFormComponent implements OnInit {
             this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, `Error saving Company: ${error.error.message}`));
         });
-    }
-
-    private getTopOffset(controlEl: HTMLElement): number {
-        const labelOffset = 50;
-        if (ObjectUtil.isEmpty(controlEl)) {
-            return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
-        }
     }
 
     selectDate(value) {

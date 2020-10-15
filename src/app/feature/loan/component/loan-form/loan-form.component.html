@@ -1,6 +1,7 @@
 <nb-card>
 
   <nb-card-header>
+    <p><b>Loan Type:</b>{{loanTypeKeyValue[loanType]}}</p>
     <h2 class="d-flex justify-content-center">{{loanTitle}}
     </h2>
     <h3 class="d-flex justify-content-center">of</h3>
@@ -39,18 +40,6 @@
                      bindValue="name"
                      formControlName="documentStatus">
           </ng-select>
-        </form>
-      </div>
-      <div class="col-md-3 mb-3">
-        <form [formGroup]="loanTypeForm">
-        <label><strong>Loan Type</strong></label>
-        <ng-select   [items]="loanTypeList"
-                    [multiple]="false"
-                    bindLabel="name"
-                    bindValue="name"
-                    formControlName="loanType">
-
-        </ng-select>
         </form>
       </div>
 <!--      <div class="col-md-3">-->
@@ -114,7 +103,7 @@
             </div>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Proposal'">
-            <app-proposal [formValue]="loadProposal()" #proposalInfo></app-proposal>
+            <app-proposal [formValue]="loadProposal()" [loanType]="loanType" #proposalInfo></app-proposal>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'CICL'">
             <div class="py-4">
@@ -181,10 +170,13 @@
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Alpha'">
             <app-credit-risk-grading-alpha #creditRiskGradingAlpha
-                                           [creditRiskGradingAlpha]="loanDocument?.creditRiskGradingAlpha"
-                                           [financial]="loanDocument?.financial"
-                                           [companyInfo]="loanDocument?.companyInfo"
-                                           [fromProfile]="false"></app-credit-risk-grading-alpha>
+                                [financialData]="loanDocument?.financial?.data"
+                                [security]="loanDocument?.security"
+                                [proposedLimit]="loanDocument?.proposal?.proposedLimit"
+                                [formData]="loanDocument?.creditRiskGrading"
+                                [companyInfo]="loanDocument?.companyInfo"
+                                [customerInfo]="loanDocument?.loanHolder"
+                                [loanTag]="loanTag"></app-credit-risk-grading-alpha>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name == 'Reporting Info'">
             <app-reporting-info-tagging #reportingInfoTagging

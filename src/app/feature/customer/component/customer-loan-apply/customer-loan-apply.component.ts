@@ -11,7 +11,7 @@ import {CombinedLoan} from '../../../loan/model/combined-loan';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {CustomerType} from "../../model/customerType";
+import {CustomerType} from '../../model/customerType';
 
 @Component({
   selector: 'app-customer-loan-apply',
@@ -37,6 +37,9 @@ export class CustomerLoanApplyComponent implements OnInit {
     version: undefined
   };
   removeFromCombinedLoan = false;
+  loanTypeList = LoanType.value();
+  selectedLoanType;
+  multipleSelectedLoanType = [];
 
   constructor(
       public activeModal: NgbActiveModal,
@@ -49,6 +52,8 @@ export class CustomerLoanApplyComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.sliceLoan();
+    this.selectedLoanType = this.multipleSelectedLoanType[0]['key'];
     this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
       this.loanList = response.detail;
     });
@@ -105,7 +110,8 @@ export class CustomerLoanApplyComponent implements OnInit {
           customerInfoId: this.paramProp.customerInfoId,
           customerType: this.paramProp.customerType,
           customerProfileId: this.associateId,
-          loanCategory: this.customerType
+          loanCategory: this.customerType,
+          loanType: this.selectedLoanType
         }
       });
     }
@@ -118,5 +124,15 @@ export class CustomerLoanApplyComponent implements OnInit {
     } else if (!this.combinedLoansIds.includes(id) && checked) {
       this.combinedLoansIds.push(id);
     }
+  }
+
+  sliceLoan() {
+    this.loanTypeList.forEach((val) => {
+      if (val.key === 'CLOSURE_LOAN' || val.key === 'PARTIAL_SETTLEMENT_LOAN' || val.key === 'FULL_SETTLEMENT_LOAN') {
+        return true;
+      }
+      this.multipleSelectedLoanType.push(val);
+
+    });
   }
 }

@@ -187,7 +187,8 @@ export class LoanFormComponent implements OnInit {
 
   loanTag: string;
   loanHolder = new CustomerInfoData();
-  loanTypeList = ['NEW_LOAN', 'RENEWED_LOAN', 'CLOSURE_LOAN', 'ENHANCED_LOAN'];
+  loanTypeKeyValue = LoanType;
+  loanType;
 
 
   constructor(
@@ -216,7 +217,6 @@ export class LoanFormComponent implements OnInit {
     this.docStatusForMaker();
     this.buildPriorityForm();
     this.buildDocStatusForm();
-    this.buildLoanTypeForm();
     this.activatedRoute.queryParams.subscribe(
         (paramsValue: Params) => {
           this.allId = {
@@ -226,6 +226,7 @@ export class LoanFormComponent implements OnInit {
             customerProfileId: null,  // CustomerInfo->associateId
             customerType: null,
             customerInfoId: null,   // CustomerInfo->id
+            loanType: null
           };
 
           this.allId = paramsValue;
@@ -233,6 +234,7 @@ export class LoanFormComponent implements OnInit {
           this.loan.id = this.id;
           this.customerId = this.allId.customerId;
           this.loanHolder.id = this.allId.customerInfoId;
+          this.loanType = this.allId.loanType;
 
           if (!ObjectUtil.isEmpty(this.allId.customerProfileId)) {
             if (CustomerType[this.allId.customerType] === CustomerType.INDIVIDUAL) {
@@ -253,6 +255,7 @@ export class LoanFormComponent implements OnInit {
                   this.submitDisable = false;
                   this.loanHolder = this.loanDocument.loanHolder;
                   this.priorityForm.get('priority').patchValue(this.loanDocument.priority);
+                  this.loanType = this.loanDocument.loanType;
                   if (this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.DISCUSSION) ||
                       this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.DOCUMENTATION) ||
                       this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.VALUATION) ||
@@ -262,7 +265,6 @@ export class LoanFormComponent implements OnInit {
                     this.showDocStatusDropDown = false;
                   }
                   this.docStatusForm.get('documentStatus').patchValue(this.loanDocument.documentStatus);
-                  this.loanTypeForm.get('loanType').patchValue(this.loanDocument.loanType);
                 }
             );
           } else {
@@ -270,7 +272,6 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.loanCategory = this.allId.loanCategory;
             this.loanFile = new DmsLoanFile();
             this.docStatusForm.get('documentStatus').patchValue(DocStatus.value(DocStatus.DISCUSSION));
-            this.loanTypeForm.get('loanType').patchValue(this.loanTypeList[0]);
           }
 
         });
@@ -306,11 +307,6 @@ export class LoanFormComponent implements OnInit {
     });
   }
 
-  buildLoanTypeForm() {
-    this.loanTypeForm = this.formBuilder.group({
-      loanType: [undefined, Validators.required]
-    });
-  }
 
   populateTemplate() {
     this.loanConfigService.detail(this.id).subscribe((response: any) => {
@@ -524,11 +520,11 @@ export class LoanFormComponent implements OnInit {
     /*if (name === 'Credit Risk Grading' && action) {
       this.creditGrading.onSubmit();
       this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
-    }
+    }*/
     if (name === 'Credit Risk Grading - Alpha' && action) {
       this.creditRiskGradingAlpha.onSubmit();
       this.loanDocument.creditRiskGradingAlpha = this.creditRiskGradingAlpha.creditRiskData;
-    }*/
+    }
 
     if (name === 'Group' && action) {
       this.group.onSubmit();
@@ -653,7 +649,7 @@ export class LoanFormComponent implements OnInit {
       this.loanDocument.loan = this.loan;
       this.loanDocument.priority = this.priorityForm.get('priority').value;
       this.loanDocument.documentStatus = this.docStatusForm.get('documentStatus').value;
-      this.loanDocument.loanType = this.loanTypeForm.get('loanType').value;
+      this.loanDocument.loanType = this.loanType;
       this.loanDocument.loanCategory = this.allId.loanCategory;
       if (CustomerType[this.loanHolder.customerType] === CustomerType.INSTITUTION) {
         this.loanDocument.customerInfo = null;
@@ -681,11 +677,5 @@ export class LoanFormComponent implements OnInit {
 
   scrollToTop() {
     this.scrollNavService.scrollNavigateTo(this.container);
-  }
-
-  onChangeSelectedLoanType(event) {
-    console.log(event);
-    this.loanDocument.loanType = event;
-
   }
 }

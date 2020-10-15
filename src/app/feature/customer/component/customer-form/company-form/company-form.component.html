@@ -1403,6 +1403,21 @@
                                    </ng-select>
                                </div>
                            </div>
+                           <hr>
+                                   <div class="col-md-3">
+                                       <div>
+                                           <label><strong>Succesion </strong></label>
+                                       </div>
+                                       <ng-select [multiple]="false"
+                                                  formControlName="succession"
+                                                  placeholder="Select succession"
+                                                  [dropdownPosition]="'top'">
+                                           <ng-option *ngFor="let succession of successionList"
+                                                      [value]="succession?.value">
+                                               {{succession?.value}}
+                                           </ng-option>
+                                       </ng-select>
+                                   </div>
                        </div>
                    </nb-tab>
                </nb-tabset>

@@ -175,6 +175,54 @@
         </nb-card>
     </div>
 
+    <nb-card>
+        <nb-card-header>
+            <h4>Risk factors</h4>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="row p-2">
+                <div class="col-md-12 border-bottom border-dark mb-4">
+                    <div class="form-group">
+                        <label class="title"><strong>Sales - Projection Vs Achievement</strong></label>
+                        <nb-radio-group class="d-contents form-control"
+                                        formControlName="salesProjectionVsAchievement"
+                                        id="salesProjectionVsAchievement"
+                                        name="salesProjectionVsAchievement">
+                            <nb-radio *ngFor="let field of salesProjectionVsAchievementArray"
+                                      [value]="field?.value">{{field?.value}}
+                            </nb-radio>
+                        </nb-radio-group>
+                    </div>
+                </div>
+                <div class="col-md-12 border-bottom border-dark mb-4">
+                    <div class="form-group">
+                        <label class="title"><strong>Net Worth of Firm/Company</strong></label>
+                        <nb-radio-group class="d-contents form-control"
+                                        formControlName="netWorthOfFirmOrCompany"
+                                        id="netWorthOfFirmOrCompany"
+                                        name="netWorthOfFirmOrCompany">
+                            <nb-radio *ngFor="let field of netWorthOfFirmOrCompanyArray"
+                                      [value]="field?.value">{{field?.value}}
+                            </nb-radio>
+                        </nb-radio-group>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="title"><strong>Tax Compliance</strong></label>
+                        <nb-radio-group class="d-contents form-control"
+                                        formControlName="taxCompliance"
+                                        id="taxCompliance"
+                                        name="taxCompliance">
+                            <nb-radio *ngFor="let field of taxComplianceArray"
+                                      [value]="field?.value">{{field?.value}}
+                            </nb-radio>
+                        </nb-radio-group>
+                    </div>
+                </div>
+            </div>
+        </nb-card-body>
+    </nb-card>
 </form>
 
 <div *ngIf="isBusinessLoan">
