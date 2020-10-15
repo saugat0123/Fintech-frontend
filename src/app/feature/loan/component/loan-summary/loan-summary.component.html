@@ -584,7 +584,7 @@
               </th>
             </tr>
             </thead>
-            <tbody  *ngFor="let singleDoc of loanDataHolder?.taggedGuarantors; let i = index">
+            <tbody  *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
             <tr *ngIf="singleDoc?.docPath">
               <td>{{i + 1}}</td>
               <td>{{singleDoc?.name}}</td>
@@ -612,7 +612,7 @@
               <th>Download</th>
             </tr>
             </thead>
-            <tbody *ngFor="let singleDoc of loanDataHolder?.insurance; let i = index">
+            <tbody *ngFor="let singleDoc of insuranceWithDoc; let i = index">
             <tr *ngIf="singleDoc.policyDocumentPath">
               <td>{{i + 1}}</td>
               <td>{{singleDoc?.policyNumber}}</td>

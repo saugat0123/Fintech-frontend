@@ -122,6 +122,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   incomeFromAccountData: IncomeFromAccount;
   minOneInsuranceDoc = false;
   minOneGuarantorDoc = false;
+  taggedGuarantorWithDoc = [];
+  insuranceWithDoc = [];
 
 
   constructor(
@@ -178,6 +180,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           if (!ObjectUtil.isEmpty(this.loanDataHolder.insurance)) {
             this.loanDataHolder.insurance.forEach(value => {
               if (value.policyDocumentPath) {
+                this.insuranceWithDoc.push(value);
                 this.minOneInsuranceDoc = true;
               }
             });
@@ -253,6 +256,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.checkGuarantorData = true;
             this.loanDataHolder.taggedGuarantors.forEach(value => {
               if (!ObjectUtil.isEmpty(value.docPath)) {
+                this.taggedGuarantorWithDoc.push(value);
                 this.minOneGuarantorDoc = true;
               }
             });
