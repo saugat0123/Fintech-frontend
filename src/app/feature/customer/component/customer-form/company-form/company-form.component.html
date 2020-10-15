@@ -1,4 +1,6 @@
-<nb-card>
+<nb-card class="m-0" accent="primary" [nbSpinner]="spinner"
+    nbSpinnerStatus="primary"
+    nbSpinnerSize="giant">
     <nb-card-header>
         <div class="d-flex justify-content-end">
             <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex" name="companyInfoCalendarType">
@@ -604,242 +606,32 @@
                        <!-- END ROW -->
 
                        <hr>
-
-
-
-                       <div class="box-header with-border">
-                           <h5 class="box-title">3. Information of Proprietor/Shareholder/Partner with holder %</h5>
+                       <div>
+                           <h5>3.Contact Person Details</h5>
                        </div>
-                       <div formArrayName="proprietors" class="border-bottom border-dark m-4"
-                            *ngFor="let proprietor of companyInfoFormGroup.get('proprietors')['controls']; let proprietorIndex = index">
-                           <div [formGroupName]="proprietorIndex">
-                               <div class="row">
-                                   <div class="col-md-10 form-group">
-                                       <h5>{{proprietorIndex + 1}}) General Information</h5>
-                                   </div>
-                                   <div class="col-md-2" *ngIf="companyInfoFormGroup.get('proprietors').length>1">
-                                       <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
-                                              (click)="removeProprietor(proprietorIndex)" value="Delete"/>
-                                   </div>
-                               </div>
-                               <div class="row">
-                                   <div class="col-md-4">
-                                       <div class="form-group">
-                                           <label for="name"><strong>Type</strong></label>
-                                           <select [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('type').errors }" class="form-control" name="type" formControlName="type">
-                                               <option [ngValue]="null" hidden>Select type</option>
-                                               <option *ngFor="let designations of designation" [ngValue]="designations.id">{{designations.name}}</option>
-                                           </select>
-                                           <div *ngIf="(submitted) && proprietor.get('type').invalid"
-                                                class="invalid-feedback">
-                                               <div *ngIf="proprietor.get('type').errors.required">
-                                                   Type is required
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="row">
-                                   <div class="col-md-4">
-                                       <div class="form-group">
-                                           <label for="name"><strong>Name</strong></label>
-                                           <input id="name" formControlName="name" name="name" type="text" class="form-control"
-                                                  placeholder="Name"
-                                                  [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('name').errors }">
-                                           <div *ngIf="(submitted) && proprietor.get('name').invalid"
-                                                class="invalid-feedback">
-                                               <div *ngIf="proprietor.get('name').errors.required">
-                                                   Proprietor Name is required
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                                   <div class="col-md-4">
-                                       <div class="form-group">
-                                           <label for="contactNo"><strong>Contact No</strong></label>
-                                           <input id="contactNo" formControlName="contactNo" name="contactNo" type="text"
-                                                  class="form-control" placeholder="Contact No"
-                                                  [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('contactNo').errors }">
-                                           <div *ngIf="(submitted) && proprietor.get('contactNo').invalid"
-                                                class="invalid-feedback">
-                                               <div *ngIf="proprietor.get('contactNo').errors.required">
-                                                   Proprietor Contact No is required
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                                   <div class="col-md-4">
-                                       <div class="form-group">
-                                           <label for="share"><strong>Share</strong></label>
-                                           <input id="share" formControlName="share" name="share" type="number"
-                                                  class="form-control" placeholder="Share"
-                                                  [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('share').errors }">
-                                           <div *ngIf="(submitted) && proprietor.get('share').invalid"
-                                                class="invalid-feedback">
-                                               <div *ngIf="proprietor.get('share').errors.required">
-                                                   Share is required
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="row">
-                                   <div class="col-md-4">
-                                       <div class="form-group">
-                                           <label for="province"><strong>Province</strong></label>
-                                           <select name="province" formControlName="province" id="province"
-                                                   class="custom-select"
-                                                   (change)="getDistricts(proprietor.get('province').value, proprietorIndex)"
-                                                   [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('province').errors }">
-                                               <option [ngValue]="null" hidden>Province</option>
-                                               <option *ngFor="let provinceVal of provinceList"
-                                                       [ngValue]="provinceVal.id">
-                                                   {{provinceVal.name}}
-                                               </option>
-                                           </select>
-                                           <div *ngIf="(submitted) && proprietor.get('province').invalid"
-                                                class="invalid-feedback">
-                                               <div *ngIf="proprietor.get('province').errors.required">
-                                                   Province is required
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                                   <div class="col-md-4">
-                                       <div class="form-group">
-                                           <label for="district"><strong>District</strong></label>
-                                           <select name="district" formControlName="district" id="district"
-                                                   class="custom-select"
-                                                   (change)="getMunicipalities(proprietor.get('district').value, proprietorIndex)"
-                                                   [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('district').errors }">
-                                               <option [ngValue]="null" hidden>District</option>
-                                               <option *ngFor="let districtVal of addressList[proprietorIndex].districtList"
-                                                       [ngValue]="districtVal.id">
-                                                   {{districtVal.name}}
-                                               </option>
-                                           </select>
-                                           <div *ngIf="(submitted) && proprietor.get('district').invalid"
-                                                class="invalid-feedback">
-                                               <div *ngIf="proprietor.get('district').errors.required">
-                                                   District is required
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                                   <div class="col-md-4">
-                                       <div class="form-group">
-                                           <label for="municipality"><strong>Municipalities or VDC</strong></label>
-                                           <select name="municipality" id="municipality" formControlName="municipalityVdc"
-                                                   class="custom-select"
-                                                   [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('municipalityVdc').errors }">
-                                               <option [ngValue]="null" hidden>Municipality</option>
-                                               <option *ngFor="let municipalityVal of addressList[proprietorIndex].municipalityVdcList"
-                                                       [ngValue]="municipalityVal.id">
-                                                   {{municipalityVal.name}}
-                                               </option>
-                                           </select>
-                                           <div *ngIf="(submitted) && proprietor.get('municipalityVdc').invalid"
-                                                class="invalid-feedback">
-                                               <div *ngIf="proprietor.get('municipalityVdc').errors.required">
-                                                   Municipality Vdc is required
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="text-right">
-                           <input class="btn btn-sm btn-flat btn-primary" type="button" (click)="addProprietor()"
-                                  value="Add More"/>
-                       </div>
-
-                       <hr>
-                       <div class="box-header with-border">
-                           <h5 class="box-title title">4. Management Team</h5>
-                       </div>
-                       <div formArrayName="managementTeams" class="border-bottom border-dark m-4"
-                            *ngFor="let managementTeam of companyInfoFormGroup.get('managementTeams')['controls']; let managementTeamIndex = index">
-                           <div [formGroupName]="managementTeamIndex">
-                               <div class="row">
-                                   <div class="col-md-10 form-group">
-                                       <h5>{{managementTeamIndex + 1}}) Management Team</h5>
-                                   </div>
-                                   <div class="col-md-2 float-right" *ngIf="companyInfoFormGroup.get('managementTeams').length>1">
-                                       <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
-                                              (click)="removeManagementTeam(managementTeamIndex)" value="Delete">
-                                   </div>
-                               </div>
-                               <div class="row form-group">
-                                   <div class="col-md-6">
-                                       <label for="managementTeamName"><strong>Name</strong></label>
-                                       <input id="managementTeamName" formControlName="name" name="name" type="text"
-                                              class="form-control" placeholder="Name"
-                                              [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('name').errors }">
-                                       <div *ngIf="(submitted) && managementTeam.get('name').invalid"
-                                            class="invalid-feedback">
-                                           <div *ngIf="managementTeam.get('name').errors.required">
-                                               Management Team Name is required
-                                           </div>
-                                       </div>
-                                   </div>
-                                   <div class="col-md-6">
-                                       <div class="form-group">
-                                           <label for="designation"><strong>Designation</strong></label>
-                                           <select id="designation" formControlName="designation" name="designation"
-                                                   class="form-control"
-                                                   [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('designation').errors }">
-                                               <option [ngValue]="null" hidden>Select Designation</option>
-                                               <option *ngFor="let designations of designation" [ngValue]="designations.id">{{designations.name}}</option>
-                                           </select>
-                                           <div *ngIf="(submitted) && managementTeam.get('designation').invalid"
-                                                class="invalid-feedback">
-                                               <div *ngIf="managementTeam.get('designation').errors.required">
-                                                   Designation is required
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="col-md-12">
-                           <div class="form-group">
-                               <label for="managementTeamNote"><strong>Management Team</strong></label>
-                               <textarea id="managementTeamNote" formControlName="managementTeamNote" name="managementTeamNote" type="text"
-                                         class="form-control" placeholder="Management Team" rows="5"
-                                         [ngClass]="{ 'is-invalid': (submitted) && form.managementTeamNote.errors }"></textarea>
-                               <div *ngIf="(submitted) && form.managementTeamNote.invalid"
-                                    class="invalid-feedback">
-                                   <div *ngIf="form.managementTeamNote.errors.required">
-                                       Management Team Note is required
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="text-right">
-                           <input class="btn btn-sm btn-flat btn-primary" type="button" (click)="addManagementTeam()"
-                                  value="Add More"/>
-                       </div>
-
-                       <hr>
-                       <div >
-                           <h5>5.Contact Person Details</h5>
-                       </div>
-                       <div formArrayName="contactPersons" class="border-bottom border-dark m-4" *ngFor="let contact of companyInfoFormGroup.get('contactPersons')['controls']; let c = index">
-                           <div class="row" [formGroupName]="c">
-                               <div class="col-md-12" *ngIf="companyInfoFormGroup.get('contactPersons').length>1">
-                                   <input class="float-right btn btn-sm btn-danger btn-primary" type="button"
-                                          (click)="removeContactPersons(c)" value="Delete"/>
+                       <div
+                           *ngFor="let contact of companyInfoFormGroup.get('contactPersons')['controls']; let c = index"
+                           class="border-bottom border-dark m-4"
+                           formArrayName="contactPersons">
+                           <div [formGroupName]="c" class="row">
+                               <div *ngIf="companyInfoFormGroup.get('contactPersons').length>1"
+                                    class="col-md-12">
+                                   <input (click)="removeContactPersons(c)"
+                                          class="float-right btn btn-sm btn-danger btn-primary"
+                                          type="button" value="Delete"/>
                                </div>
                                <div class="col-md-3">
                                    <div class="form-group">
                                        <label><strong>Name</strong></label>
-                                       <input class="form-control" formControlName="contactName"
-                                              id="contactName" placeholder="Name" type="text"
-                                              [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactName').errors }">
-                                       <div *ngIf="(submitted) &&  contact.get('contactName').invalid"
-                                            class="invalid-feedback">
+                                       <input
+                                           [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactName').errors }"
+                                           class="form-control"
+                                           formControlName="contactName" id="contactName"
+                                           placeholder="Name"
+                                           type="text">
+                                       <div
+                                           *ngIf="(submitted) &&  contact.get('contactName').invalid"
+                                           class="invalid-feedback">
                                            <div *ngIf=" contact.get('contactName').errors.required">
                                                Name is required
                                            </div>
@@ -850,13 +642,17 @@
                                <div class="col-md-3">
                                    <div class="form-group">
                                        <label><strong>Contact Number</strong></label>
-                                       <input class="form-control" formControlName="contactNumber"
-                                              id="contactNumber" placeholder="Contact Number"
-                                              type="text"
-                                              [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactNumber').errors }">
-                                       <div *ngIf="(submitted) && contact.get('contactNumber').invalid"
-                                            class="invalid-feedback">
-                                           <div *ngIf="contact.get('contactNumber').errors.required">
+                                       <input
+                                           [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactNumber').errors }"
+                                           class="form-control"
+                                           formControlName="contactNumber" id="contactNumber"
+                                           placeholder="Contact Number"
+                                           type="text">
+                                       <div
+                                           *ngIf="(submitted) && contact.get('contactNumber').invalid"
+                                           class="invalid-feedback">
+                                           <div
+                                               *ngIf="contact.get('contactNumber').errors.required">
                                                Contact Number is required
                                            </div>
                                        </div>
@@ -865,31 +661,41 @@
                                <div class="col-md-3">
                                    <div class="form-group">
                                        <label><strong>Email</strong></label>
-                                       <input class="form-control" formControlName="contactEmail"
-                                              [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactEmail').errors }"
-                                              id="contactEmail" placeholder="Email"
-                                              type="email">
-                                       <div *ngIf="(submitted) && contact.get('contactEmail').errors"
-                                            class="invalid-feedback">
+                                       <input
+                                           [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactEmail').errors }"
+                                           class="form-control"
+                                           formControlName="contactEmail"
+                                           id="contactEmail" placeholder="Email"
+                                           type="email">
+                                       <div
+                                           *ngIf="(submitted) && contact.get('contactEmail').errors"
+                                           class="invalid-feedback">
                                            <div *ngIf="contact.get('contactEmail').errors.required">
-                                               Contact Email  is required
+                                               Contact Email is required
                                            </div>
                                        </div>
                                    </div>
                                </div>
                                <div class="col-md-3">
                                    <div class="form-group">
-                                       <label for="functionalPosition"><strong>Functional Position</strong></label>
-                                       <select id="functionalPosition" formControlName="functionalPosition" name="functionalPosition"
-                                               class="form-control"
-                                               [ngClass]="{ 'is-invalid': (submitted) && contact.get('functionalPosition').errors }">
+                                       <label for="functionalPosition"><strong>Functional
+                                           Position</strong></label>
+                                       <select
+                                           [ngClass]="{ 'is-invalid': (submitted) && contact.get('functionalPosition').errors }"
+                                           class="form-control"
+                                           formControlName="functionalPosition"
+                                           id="functionalPosition"
+                                           name="functionalPosition">
                                            <option [ngValue]="null" hidden>Select Position</option>
-                                           <option *ngFor="let designations of designation" [ngValue]="designations.id">{{designations.name}}</option>
+                                           <option *ngFor="let designations of designation"
+                                                   [ngValue]="designations.id">{{designations.name}}</option>
                                        </select>
 
-                                       <div *ngIf="(submitted) && contact.get('functionalPosition').invalid"
-                                            class="invalid-feedback">
-                                           <div *ngIf="contact.get('functionalPosition').errors.required">
+                                       <div
+                                           *ngIf="(submitted) && contact.get('functionalPosition').invalid"
+                                           class="invalid-feedback">
+                                           <div
+                                               *ngIf="contact.get('functionalPosition').errors.required">
                                                Functional Position is required
                                            </div>
                                        </div>
@@ -898,12 +704,15 @@
                            </div>
                        </div>
                        <div class="col-md-12">
-                           <input class="btn btn-sm btn-flat btn-primary float-right" type="button" (click)="addContactPersons()"
+                           <input (click)="addContactPersons()"
+                                  class="btn btn-sm btn-flat btn-primary float-right"
+                                  type="button"
                                   value="Add More"/>
                        </div>
                        <hr>
+                       <!--company location-->
                        <div >
-                           <h5>6.Company Location Detail</h5>
+                           <h5>4.Company Location Detail</h5>
                        </div>
                        <div class="row ">
                            <div class="col-md-4">
@@ -945,15 +754,15 @@
                        <hr>
                        <!--sister concern starts-->
                        <div>
-                           <h5>Sister Concern</h5>
+                           <h5>5.Sister Concern</h5>
                        </div>
                        <div class="row">
                            <div class="col-md-12">
                                <div class="form-group">
                                    <label for="sisterConcern"><strong></strong></label>
-                                   <textarea id="sisterConcern" formControlName="sisterConcern" name="sisterConcern" type="text"
-                                             class="form-control" placeholder="Sister Concern" rows="5"
-                                             [ngClass]="{ 'is-invalid': (submitted) && form.sisterConcern.errors }"></textarea>
+                                   <input id="sisterConcern" formControlName="sisterConcern" name="sisterConcern" type="text"
+                                             class="form-control" placeholder="Sister Concern"
+                                             [ngClass]="{ 'is-invalid': (submitted) && form.sisterConcern.errors }"/>
                                    <div *ngIf="(submitted) && form.sisterConcern.invalid"
                                         class="invalid-feedback">
                                        <div *ngIf="form.sisterConcern.errors.required">
@@ -964,15 +773,15 @@
                            </div>
                        </div>
                        <hr>
-                      <app-company-other-detail #companyOtherDetailComponent></app-company-other-detail>
+                      <app-company-other-detail [companyOtherDetail]="companyJsonData?.otherCompanyDetail" #companyOtherDetailComponent></app-company-other-detail>
                        <hr>
                        <div>
-                           <h5>Company Background</h5>
+                           <h5>7.Company Background</h5>
                        </div>
                        <div class="row">
                            <div class="col-md-12">
                                <div class="form-group">
-                                   <label for="companyBackground"><strong>Company Background</strong></label>
+                                   <label for="companyBackground"><strong></strong></label>
                                    <textarea id="companyBackground" formControlName="companyBackground" name="companyBackground" type="text"
                                              class="form-control" placeholder="Company Background" rows="5"
                                              [ngClass]="{ 'is-invalid': (submitted) && form.companyBackground.errors }"></textarea>
@@ -985,16 +794,351 @@
                                </div>
                            </div>
                        </div>
+
+                       <hr>
                        <div class="box-header with-border">
-                           <h5 class="box-title">7. Succession Planning</h5>
+                           <h5 class="box-title title">8. Management Team</h5>
+                       </div>
+                       <div *ngFor="let managementTeam of companyInfoFormGroup.get('managementTeams')['controls']; let managementTeamIndex = index" class="border-bottom border-dark m-4"
+                            formArrayName="managementTeams">
+                           <div [formGroupName]="managementTeamIndex">
+                               <div class="row">
+                                   <div class="col-md-10 form-group">
+                                       <h5>{{managementTeamIndex + 1}}) Management Team</h5>
+                                   </div>
+                                   <div *ngIf="companyInfoFormGroup.get('managementTeams').length>1"
+                                        class="col-md-2 float-right">
+                                       <input
+                                           (click)="removeManagementTeam(managementTeamIndex)"
+                                           class="align-self-end btn btn-sm btn-danger btn-primary"
+                                           type="button"
+                                           value="Delete">
+                                   </div>
+                               </div>
+                               <div class="row form-group">
+                                   <div class="col-md-6">
+                                       <label for="managementTeamName"><strong>Name</strong></label>
+                                       <input [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('name').errors }" class="form-control"
+                                              formControlName="name" id="managementTeamName"
+                                              name="name" placeholder="Name"
+                                              type="text">
+                                       <div
+                                           *ngIf="(submitted) && managementTeam.get('name').invalid"
+                                           class="invalid-feedback">
+                                           <div *ngIf="managementTeam.get('name').errors.required">
+                                               Management Team Name is required
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-6">
+                                       <div class="form-group">
+                                           <label
+                                               for="designation"><strong>Designation</strong></label>
+                                           <select [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('designation').errors }" class="form-control"
+                                                   formControlName="designation"
+                                                   id="designation"
+                                                   name="designation">
+                                               <option [ngValue]="null" hidden>Select Designation
+                                               </option>
+                                               <option *ngFor="let designations of designation"
+                                                       [ngValue]="designations.id">{{designations.name}}</option>
+                                           </select>
+                                           <div
+                                               *ngIf="(submitted) && managementTeam.get('designation').invalid"
+                                               class="invalid-feedback">
+                                               <div
+                                                   *ngIf="managementTeam.get('designation').errors.required">
+                                                   Designation is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="col-md-12">
+                           <div class="form-group">
+                               <label for="managementTeamNote"><strong>Note</strong></label>
+                               <textarea [ngClass]="{ 'is-invalid': (submitted) && form.managementTeamNote.errors }"
+                                         class="form-control"
+                                         formControlName="managementTeamNote" id="managementTeamNote"
+                                         name="managementTeamNote" placeholder="Management Team Note"
+                                         rows="5"
+                                         type="text"></textarea>
+                               <div *ngIf="(submitted) && form.managementTeamNote.invalid"
+                                    class="invalid-feedback">
+                                   <div *ngIf="form.managementTeamNote.errors.required">
+                                       Management Team Note is required
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="text-right">
+                           <input (click)="addManagementTeam()" class="btn btn-sm btn-flat btn-primary"
+                                  type="button"
+                                  value="Add More"/>
+                       </div>
+                       <hr>
+                       <!--Information of Proprietor/Shareholder/Partner-->
+                       <div class="box-header with-border">
+                           <h5 class="box-title">9. Information of Proprietor/Shareholder/Partner
+                               with holder %</h5>
+                       </div>
+                       <div *ngFor="let proprietor of companyInfoFormGroup.get('proprietors')['controls']; let proprietorIndex = index" class="border-bottom border-dark m-4"
+                            formArrayName="proprietors">
+                           <div [formGroupName]="proprietorIndex">
+                               <div class="row">
+                                   <div class="col-md-10 form-group">
+                                       <h5>{{proprietorIndex + 1}}) General Information</h5>
+                                   </div>
+                                   <div *ngIf="companyInfoFormGroup.get('proprietors').length>1"
+                                        class="col-md-2">
+                                       <input
+                                           (click)="removeProprietor(proprietorIndex)"
+                                           class="align-self-end btn btn-sm btn-danger btn-primary"
+                                           type="button"
+                                           value="Delete"/>
+                                   </div>
+                               </div>
+                               <div class="row">
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                           <label for="name"><strong>Type</strong></label>
+                                           <select
+                                               [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('type').errors }"
+                                               class="form-control" formControlName="type"
+                                               name="type">
+                                               <option [ngValue]="null" hidden>Select type</option>
+                                               <option *ngFor="let designations of designation"
+                                                       [ngValue]="designations.id">{{designations.name}}</option>
+                                           </select>
+                                           <div
+                                               *ngIf="(submitted) && proprietor.get('type').invalid"
+                                               class="invalid-feedback">
+                                               <div *ngIf="proprietor.get('type').errors.required">
+                                                   Type is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="row">
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                           <label for="name"><strong>Name</strong></label>
+                                           <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('name').errors }" class="form-control" formControlName="name"
+                                                  id="name" name="name"
+                                                  placeholder="Name"
+                                                  type="text">
+                                           <div
+                                               *ngIf="(submitted) && proprietor.get('name').invalid"
+                                               class="invalid-feedback">
+                                               <div *ngIf="proprietor.get('name').errors.required">
+                                                   Proprietor Name is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                           <label for="contactNo"><strong>Contact
+                                               No</strong></label>
+                                           <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('contactNo').errors }" class="form-control"
+                                                  formControlName="contactNo" id="contactNo"
+                                                  name="contactNo" placeholder="Contact No"
+                                                  type="text">
+                                           <div
+                                               *ngIf="(submitted) && proprietor.get('contactNo').invalid"
+                                               class="invalid-feedback">
+                                               <div
+                                                   *ngIf="proprietor.get('contactNo').errors.required">
+                                                   Proprietor Contact No is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                           <label for="share"><strong>Share</strong></label>
+                                           <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('share').errors }" class="form-control" formControlName="share"
+                                                  id="share"
+                                                  name="share" placeholder="Share"
+                                                  type="number">
+                                           <div
+                                               *ngIf="(submitted) && proprietor.get('share').invalid"
+                                               class="invalid-feedback">
+                                               <div *ngIf="proprietor.get('share').errors.required">
+                                                   Share is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="row">
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                           <label for="province"><strong>Province</strong></label>
+                                           <select (change)="getDistricts(proprietor.get('province').value, proprietorIndex)" [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('province').errors }"
+                                                   class="custom-select"
+                                                   formControlName="province"
+                                                   id="province"
+                                                   name="province">
+                                               <option [ngValue]="null" hidden>Province</option>
+                                               <option *ngFor="let provinceVal of provinceList"
+                                                       [ngValue]="provinceVal.id">
+                                                   {{provinceVal.name}}
+                                               </option>
+                                           </select>
+                                           <div
+                                               *ngIf="(submitted) && proprietor.get('province').invalid"
+                                               class="invalid-feedback">
+                                               <div
+                                                   *ngIf="proprietor.get('province').errors.required">
+                                                   Province is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                           <label for="district"><strong>District</strong></label>
+                                           <select (change)="getMunicipalities(proprietor.get('district').value, proprietorIndex)" [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('district').errors }"
+                                                   class="custom-select"
+                                                   formControlName="district"
+                                                   id="district"
+                                                   name="district">
+                                               <option [ngValue]="null" hidden>District</option>
+                                               <option
+                                                   *ngFor="let districtVal of addressList[proprietorIndex].districtList"
+                                                   [ngValue]="districtVal.id">
+                                                   {{districtVal.name}}
+                                               </option>
+                                           </select>
+                                           <div
+                                               *ngIf="(submitted) && proprietor.get('district').invalid"
+                                               class="invalid-feedback">
+                                               <div
+                                                   *ngIf="proprietor.get('district').errors.required">
+                                                   District is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                           <label for="municipality"><strong>Municipalities or
+                                               VDC</strong></label>
+                                           <select [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('municipalityVdc').errors }" class="custom-select"
+                                                   formControlName="municipalityVdc"
+                                                   id="municipality"
+                                                   name="municipality">
+                                               <option [ngValue]="null" hidden>Municipality</option>
+                                               <option
+                                                   *ngFor="let municipalityVal of addressList[proprietorIndex].municipalityVdcList"
+                                                   [ngValue]="municipalityVal.id">
+                                                   {{municipalityVal.name}}
+                                               </option>
+                                           </select>
+                                           <div
+                                               *ngIf="(submitted) && proprietor.get('municipalityVdc').invalid"
+                                               class="invalid-feedback">
+                                               <div
+                                                   *ngIf="proprietor.get('municipalityVdc').errors.required">
+                                                   Municipality Vdc is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="text-right">
+                           <input (click)="addProprietor()" class="btn btn-sm btn-flat btn-primary"
+                                  type="button"
+                                  value="Add More"/>
+                       </div>
+
+                       <hr>
+                       <!--10. SWOT Analysis-->
+                       <div class="box-header with-border">
+                           <h5 class="box-title">10. SWOT Analysis</h5>
+                       </div>
+                       <div class="row">
+                           <div class="col-md-6">
+                               <div class="form-group">
+                                   <label for="strength"><strong>Strength</strong></label>
+                                   <textarea [ngClass]="{ 'is-invalid': (submitted) && form.strength.errors }" class="form-control"
+                                             formControlName="strength" id="strength"
+                                             name="strength" placeholder="Strength" rows="5"
+                                             type="text"></textarea>
+                                   <div *ngIf="(submitted) && form.strength.invalid"
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.strength.errors.required">
+                                           Strength is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-md-6">
+                               <div class="form-group">
+                                   <label for="weakness"><strong>Weakness</strong></label>
+                                   <textarea [ngClass]="{ 'is-invalid': (submitted) && form.weakness.errors }" class="form-control"
+                                             formControlName="weakness" id="weakness"
+                                             name="weakness" placeholder="Weakness" rows="5"
+                                             type="text"></textarea>
+                                   <div *ngIf="(submitted) && form.weakness.invalid"
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.weakness.errors.required">
+                                           Weakness is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-md-6">
+                               <div class="form-group">
+                                   <label for="opportunity"><strong>Opportunity</strong></label>
+                                   <textarea [ngClass]="{ 'is-invalid': (submitted) && form.opportunity.errors }" class="form-control"
+                                             formControlName="opportunity" id="opportunity"
+                                             name="opportunity" placeholder="Opportunity" rows="5"
+                                             type="text"></textarea>
+                                   <div *ngIf="(submitted) && form.opportunity.invalid"
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.opportunity.errors.required">
+                                           Opportunity is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-md-6">
+                               <div class="form-group">
+                                   <label for="threats"><strong>Threats</strong></label>
+                                   <textarea [ngClass]="{ 'is-invalid': (submitted) && form.threats.errors }" class="form-control" formControlName="threats"
+                                             id="threats"
+                                             name="threats" placeholder="Threats" rows="5"
+                                             type="text"></textarea>
+                                   <div *ngIf="(submitted) && form.threats.invalid"
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.threats.errors.required">
+                                           Threats is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <hr>
+                       <div class="box-header with-border">
+                           <h5 class="box-title">11. Succession Planning</h5>
                        </div>
                        <div class="row">
                            <div class="col-md-12">
                                <div class="form-group">
                                    <label for="successionPlanning"><strong></strong></label>
-                                   <textarea id="successionPlanning" formControlName="successionPlanning" name="successionPlanning" type="text"
-                                             class="form-control" placeholder="Succession Planning" rows="5"
-                                             [ngClass]="{ 'is-invalid': (submitted) && form.successionPlanning.errors }"></textarea>
+                                   <textarea [ngClass]="{ 'is-invalid': (submitted) && form.successionPlanning.errors }"
+                                             class="form-control"
+                                             formControlName="successionPlanning" id="successionPlanning"
+                                             name="successionPlanning" placeholder="Succession Planning"
+                                             rows="5"
+                                             type="text"></textarea>
                                    <div *ngIf="(submitted) && form.successionPlanning.invalid"
                                         class="invalid-feedback">
                                        <div *ngIf="form.successionPlanning.errors.required">
@@ -1005,62 +1149,159 @@
                            </div>
                        </div>
                        <hr>
+                       <!--Business Objective-->
                        <div class="box-header with-border">
-                           <h5 class="box-title">8. SWOT Analysis</h5>
+                           <h5 class="box-title">12.Business Objective</h5>
                        </div>
                        <div class="row">
                            <div class="col-md-12">
                                <div class="form-group">
-                                   <label for="strength"><strong>Strength</strong></label>
-                                   <textarea id="strength" formControlName="strength" name="strength" type="text"
-                                             class="form-control" placeholder="Strength" rows="5"
-                                             [ngClass]="{ 'is-invalid': (submitted) && form.strength.errors }"></textarea>
-                                   <div *ngIf="(submitted) && form.strength.invalid"
+                                   <label for="businessObjective"><strong></strong></label>
+                                   <input
+                                       [ngClass]="{ 'is-invalid': (submitted) && form.businessObjective.errors }"
+                                       class="form-control"
+                                       formControlName="businessObjective" id="businessObjective"
+                                       name="businessObjective" placeholder="Business Objective"
+                                       type="text"/>
+                                   <div *ngIf="(submitted) && form.businessObjective.invalid"
                                         class="invalid-feedback">
-                                       <div *ngIf="form.strength.errors.required">
-                                           Strength is required
+                                       <div *ngIf="form.businessObjective.errors.required">
+                                           Business Objective is required
                                        </div>
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-12">
+                       </div>
+                       <hr>
+                       <!--Raw materials-->
+                       <div class="box-header with-border">
+                           <h5 class="box-title">13.Raw Materials</h5>
+                       </div>
+                       <div class="row">
+                           <div class="col-md-3">
+                                   <label for="rawMaterialSourcing"><strong>Raw Material
+                                       Sourcing</strong></label> <br>
+                                   <nb-radio-group class="close d-inline-flex float-left"
+                                                   [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialSourcing.errors }"
+                                                   formControlName="rawMaterialSourcing"
+                                                   id="rawMaterialSourcing"
+                                                   name="rawMaterialSourcing">
+                                       <nb-radio value="local">Local</nb-radio>
+                                       <nb-radio value="imported">Imported</nb-radio>
+                                   </nb-radio-group>
+                                   <span *ngIf="submitted && form.rawMaterialSourcing?.errors "
+                                      class="help-block" >
+                                       <span class="small text-danger" *ngIf="form.rawMaterialSourcing?.errors.required">
+                                           Raw Material Sourcing is required
+                                       </span>
+                                   </span>
+                           </div>
+                           <div class="col-md-3">
                                <div class="form-group">
-                                   <label for="weakness"><strong>Weakness</strong></label>
-                                   <textarea id="weakness" formControlName="weakness" name="weakness" type="text"
-                                             class="form-control" placeholder="Weakness" rows="5"
-                                             [ngClass]="{ 'is-invalid': (submitted) && form.weakness.errors }"></textarea>
-                                   <div *ngIf="(submitted) && form.weakness.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="form.weakness.errors.required">
-                                           Weakness is required
+                                   <label for="rawMaterialAvailability"><strong>Raw material
+                                       availability</strong></label> <br>
+                                   <nb-radio-group class="close d-inline-flex float-left"
+                                                   formControlName="rawMaterialAvailability"
+                                                   [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialAvailability.errors }"
+                                                   id="rawMaterialAvailability"
+                                                   name="rawMaterialAvailability">
+                                       <nb-radio value="local">Local</nb-radio>
+                                       <nb-radio value="imported">Imported</nb-radio>
+                                   </nb-radio-group><br>
+                                   <div *ngIf="submitted && form.rawMaterialAvailability?.errors "
+                                        class="small text-danger">
+                                       <div *ngIf="form.rawMaterialAvailability?.errors.required">
+                                           RawMaterial Availability is required
                                        </div>
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-12">
+                       </div>
+                       <hr>
+                       <!--market scenario-->
+                       <app-market-scenario [marketScenario]="companyJsonData?.marketScenario" #marketScenarioComponent></app-market-scenario>
+                       <hr>
+                       <div class="row">
+                           <div class="col-md-8">
                                <div class="form-group">
-                                   <label for="opportunity"><strong>Opportunity</strong></label>
-                                   <textarea id="opportunity" formControlName="opportunity" name="opportunity" type="text"
-                                             class="form-control" placeholder="Opportunity" rows="5"
-                                             [ngClass]="{ 'is-invalid': (submitted) && form.opportunity.errors }"></textarea>
-                                   <div *ngIf="(submitted) && form.opportunity.invalid"
+                                   <label for="groupsBackGround"><strong>15.Group’s
+                                       background</strong></label>
+                                   <input
+                                       [ngClass]="{ 'is-invalid': (submitted) && form.groupsBackGround.errors }"
+                                       class="form-control"
+                                       formControlName="groupsBackGround" id="groupsBackGround"
+                                       name="groupsBackGround" placeholder="Group’s background"
+                                       type="text"/>
+                                   <div *ngIf="(submitted) && form.groupsBackGround.invalid"
                                         class="invalid-feedback">
-                                       <div *ngIf="form.opportunity.errors.required">
-                                           Opportunity is required
+                                       <div *ngIf="form.groupsBackGround.errors.required">
+                                           Group’s background is required
                                        </div>
                                    </div>
                                </div>
                            </div>
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label for="groupsBackGround"><strong>16.Legal review
+                                       Remarks </strong></label>
+                                   <input
+                                       [ngClass]="{ 'is-invalid': (submitted) && form.legalReviewRemark.errors }"
+                                       class="form-control"
+                                       formControlName="legalReviewRemark" id="legalReviewRemark"
+                                       name="legalReviewRemark" placeholder="Group’s background"
+                                       type="text"/>
+                                   <div *ngIf="(submitted) && form.legalReviewRemark.invalid"
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.legalReviewRemark.errors.required">
+                                           Group’s background is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <hr>
+                       <div class="box-header with-border">
+                           <h5 class="box-title">17.Conduct of Account</h5>
+                       </div>
+                       <div class="row">
                            <div class="col-md-12">
                                <div class="form-group">
-                                   <label for="threats"><strong>Threats</strong></label>
-                                   <textarea id="threats" formControlName="threats" name="threats" type="text"
-                                             class="form-control" placeholder="Threats" rows="5"
-                                             [ngClass]="{ 'is-invalid': (submitted) && form.threats.errors }"></textarea>
-                                   <div *ngIf="(submitted) && form.threats.invalid"
+                                   <label for="conductOfAccount"><strong></strong></label>
+                                   <ckeditor
+                                       [ngClass]="{ 'is-invalid': (submitted) && form.conductOfAccount.errors }"
+                                       [style]="{height:'250px !important;'}"
+                                       formControlName="conductOfAccount"
+                                       id="conductOfAccount"
+                                       placeholder="Conduct of Account"></ckeditor>
+                                   <div *ngIf="(submitted) && form.conductOfAccount.invalid"
                                         class="invalid-feedback">
-                                       <div *ngIf="form.threats.errors.required">
-                                           Threats is required
+                                       <div *ngIf="form.conductOfAccount.errors.required">
+                                           Conduct Of Account is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <hr>
+                       <!--  Business Given -->
+                       <hr>
+                       <div class="box-header with-border">
+                           <h5 class="box-title">18.Business given</h5>
+                       </div>
+                       <div class="row">
+                           <div class="col-md-12">
+                               <div class="form-group">
+                                   <label for="businessGiven"><strong></strong></label>
+                                   <ckeditor
+                                       [ngClass]="{ 'is-invalid': (submitted) && form.businessGiven.errors }"
+                                       [style]="{height:'250px !important;'}"
+                                       formControlName="businessGiven"
+                                       id="businessGiven"
+                                       placeholder="Conduct of Account"></ckeditor>
+                                   <div *ngIf="(submitted) && form.businessGiven.invalid"
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.businessGiven.errors.required">
+                                           Business given is required
                                        </div>
                                    </div>
                                </div>

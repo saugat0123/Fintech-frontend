@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {RelationshipWithBank} from '../../../../admin/modal/relationship-with-bank';
@@ -30,14 +30,6 @@ export class BankingRelationComponent implements OnInit, OnChanges {
     this.buildForm();
   }
 
-  ngOnChanges() {
-    if (this.formValue && this.bankingRelationForm) {
-      this.bankingRelationForm.get('bankingRelationship').patchValue(this.formValue.bankingRelationship);
-      this.bankingRelationForm.get('accountTurnover').patchValue(this.formValue.accountTurnover);
-      this.bankingRelationForm.get('repaymentHistory').patchValue(this.formValue.repaymentHistory);
-    }
-  }
-
   buildForm() {
     this.bankingRelationForm = this.formBuilder.group({
       bankingRelationship: [ObjectUtil.isEmpty(this.bankingRelation) ? undefined :
@@ -54,6 +46,12 @@ export class BankingRelationComponent implements OnInit, OnChanges {
     this.bankingRelation.bankingRelationship = this.bankingRelationForm.get('bankingRelationship').value;
     this.bankingRelation.accountTurnover = this.bankingRelationForm.get('accountTurnover').value;
     this.bankingRelation.repaymentHistory = this.bankingRelationForm.get('repaymentHistory').value;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!ObjectUtil.isEmpty(changes.formValue.currentValue)) {
+      this.bankingRelationForm.patchValue(changes.formValue.currentValue);
+    }
   }
 
 }
