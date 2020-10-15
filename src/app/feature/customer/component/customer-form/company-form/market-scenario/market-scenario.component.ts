@@ -44,7 +44,6 @@ export class MarketScenarioComponent implements OnInit, OnChanges {
   }
 
   setMarketData() {
-    console.log(this.marketScenario);
     if (!ObjectUtil.isEmpty(this.marketScenario)) {
       this.marketScenarioForm.patchValue(this.marketScenario);
     }

@@ -26,7 +26,6 @@ export class CompanyOtherDetailComponent implements OnInit , OnChanges {
   }
 
   ngOnInit() {
-    console.log(this.companyOtherDetail, 'g');
     this.fiscalYearService.getAll().subscribe(response => {
       this.fiscalYears = response.detail;
     });
@@ -35,7 +34,6 @@ export class CompanyOtherDetailComponent implements OnInit , OnChanges {
   }
 
   setData() {
-    console.log(this.companyOtherDetail);
     if (!ObjectUtil.isEmpty(this.companyOtherDetail)) {
       this.companyOtherDetailGroupForm.patchValue(JSON.parse(this.companyOtherDetail));
     }

@@ -80,8 +80,8 @@ export class UIComponent implements OnInit {
       private el: ElementRef,
 ) {
   }
-  private loanNature = loanNature.enumObject();
-  private financedAssets = financedAssets.enumObject();
+   loanNature = loanNature.enumObject();
+   financedAssets = financedAssets.enumObject();
   static loadData(other: UIComponent) {
     other.getTemplate();
     other.offerLetterService.getAll().subscribe((responseList: any) => {
