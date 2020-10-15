@@ -95,6 +95,7 @@
         <nb-accordion-item-body>
           <app-income-from-account [incomeFromAccountDataResponse]="incomeFromAccountDataResponse"
                                    [fromProfile]="true"
+                                   *ngIf="itemIncomeFromAccount.expanded"
                                    (incomeFromAccountDataEmitter)="saveIncomeFromAccount($event)">
           </app-income-from-account>
         </nb-accordion-item-body>
@@ -117,7 +118,12 @@
           </div>
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <app-net-trading-assets></app-net-trading-assets>
+          <app-net-trading-assets
+                  (netTradingAssetsEventEmitter) = "saveNetTradingAssets($event)"
+                  [fromProfile]=true
+                  *ngIf="itemNetTradingAssets.expanded"
+                  [netTradingAssetsData]="netTradingAssets">
+          </app-net-trading-assets>
         </nb-accordion-item-body>
       </nb-accordion-item>
 
