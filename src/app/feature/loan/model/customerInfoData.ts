@@ -12,6 +12,7 @@ import {CustomerLoanFlag} from '../../../@core/model/customer-loan-flag';
 import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
 import {Cicl, CiclArray} from '../../admin/modal/cicl';
 import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
+import {NetTradingAssets} from '../../admin/modal/NetTradingAssets';
 
 export class CustomerInfoData {
   id: number;
@@ -42,5 +43,6 @@ export class CustomerInfoData {
   loanFlags: Array<CustomerLoanFlag>;
   cicl: CiclArray;
   incomeFromAccount: IncomeFromAccount;
+  netTradingAssets: NetTradingAssets;
   bankingRelationship: string;
 }

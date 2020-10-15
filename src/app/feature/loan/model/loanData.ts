@@ -27,6 +27,7 @@ import {CombinedLoan} from './combined-loan';
 import {Guarantor} from './guarantor';
 import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
 import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
+import {NetTradingAssets} from '../../admin/modal/NetTradingAssets';
 
 
 export class LoanDataHolder {
@@ -74,4 +75,5 @@ export class LoanDataHolder {
     combinedLoan: CombinedLoan;
     refNo: string;
     incomeFromAccount: IncomeFromAccount;
+    netTradingAssets: NetTradingAssets;
 }
