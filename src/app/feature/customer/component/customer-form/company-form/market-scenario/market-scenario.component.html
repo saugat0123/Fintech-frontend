@@ -50,7 +50,7 @@
           <nb-radio value="highDemand">High Demand</nb-radio>
         </nb-radio-group>
         <div *ngIf="submitted && form.marketDemandService?.errors "
-             class="invalid-feedback">
+             class="small text-danger">
           <div *ngIf="form.marketDemandService?.errors.required">
             Market Demand Service is required
           </div>

@@ -13,7 +13,7 @@
         </ng-option>
       </ng-select>
       <div *ngIf="submitted && form.taxClearanceTill?.errors "
-           class="invalid-feedback">
+           class="small text-danger">
         <div *ngIf="form.taxClearanceTill?.errors.required">
           Tax clearance till is required
         </div>
@@ -34,7 +34,7 @@
           <nb-radio value="unchecked">Unchecked</nb-radio>
         </nb-radio-group>
         <div *ngIf="submitted && form.negativeList?.errors "
-             class="invalid-feedback">
+             class="small text-danger">
           <div *ngIf="form.negativeList?.errors.required">
             Negative List is required
           </div>
