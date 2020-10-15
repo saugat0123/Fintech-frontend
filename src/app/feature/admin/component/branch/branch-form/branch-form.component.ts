@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {Province} from '../../../modal/province';
@@ -46,7 +46,8 @@ export class BranchFormComponent implements OnInit {
       private location: AddressService,
       private activeModal: NgbActiveModal,
       private toastService: ToastService,
-      private formBuilder: FormBuilder
+      private formBuilder: FormBuilder,
+      private el: ElementRef,
   ) {
 
   }
@@ -167,10 +168,27 @@ export class BranchFormComponent implements OnInit {
     this.latLng = coordinate.split(',', 2);
     this.placeMaker(+this.latLng[0], +this.latLng[1]);
   }
+  scrollToFirstInvalidControl() {
+    const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+        'form .ng-invalid'
+    );
+    window.scroll({
+      top: this.getTopOffset(firstInvalidControl),
+      left: 0,
+      behavior: 'smooth'
+    });
+    firstInvalidControl.focus();
+  }
+
+  private getTopOffset(controlEl: HTMLElement): number {
+    const labelOffset = 50;
+    return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+  }
 
   onSubmit() {
     this.submitted = true;
     if (this.branchForm.invalid) {
+      this.scrollToFirstInvalidControl();
       return;
     }
     this.spinner = true;
