@@ -1,5 +1,5 @@
 export interface NetTradingAssetsData {
-    valueOfShare: Array<number>;
+    valueOfStock: Array<number>;
     valueOfDebtors: Array<number>;
     valueOfGoodsInTrans: Array<number>;
     valueOfCreditors: Array<number>;
