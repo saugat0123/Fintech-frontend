@@ -34,7 +34,9 @@ import {CustomerListGroupComponent} from './component/customer-group-associate-l
 import {CoreModule} from '../../@core/core.module';
 import {ActivityListComponent} from './component/activity-list/activity-list.component';
 import {CustomerActivityModule} from '../customer-activity/customer-activity.module';
-import {BankingRelationComponent} from "./component/customer-form/banking-relation/banking-relation.component";
+import {BankingRelationComponent} from './component/customer-form/banking-relation/banking-relation.component';
+import { CompanyOtherDetailComponent } from './component/customer-form/company-form/company-other-detail/company-other-detail.component';
+import { MarketScenarioComponent } from './component/customer-form/company-form/market-scenario/market-scenario.component';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -63,7 +65,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  declarations: [...COMPONENTS, ActivityListComponent],
+  declarations: [...COMPONENTS, ActivityListComponent, CompanyOtherDetailComponent, MarketScenarioComponent],
   exports: [
     CustomerGroupLoanComponent,
     CompanyFormComponent
