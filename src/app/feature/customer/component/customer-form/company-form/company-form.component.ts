@@ -207,7 +207,6 @@ export class CompanyFormComponent implements OnInit {
     }
 
     buildForm() {
-        console.log(this.companyJsonData, 'bf');
         this.companyInfoFormGroup = this.formBuilder.group({
 
             // Company Information
@@ -660,7 +659,6 @@ export class CompanyFormComponent implements OnInit {
                         }
                         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
                             this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
-                            console.log(this.companyJsonData, 'bysearch');
                         }
                         this.buildForm();
                         this.setCompanyInfo(this.companyInfo);
@@ -800,13 +798,11 @@ export class CompanyFormComponent implements OnInit {
         Object.keys(submitData).forEach((k) => {
             submitData[k] = this.companyInfoFormGroup.value[k];
         });
-        console.log(this.companyOtherDetailComponent.companyOtherDetail);
         /** other company detail */
         submitData.otherCompanyDetail = this.companyOtherDetailComponent.submitData;
         /** Market Scenario detail */
         submitData.marketScenario = this.marketScenarioComponent.submitData;
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
-        console.log(this.companyInfo.companyJsonData);
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
             this.close();
