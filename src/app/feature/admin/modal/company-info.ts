@@ -28,11 +28,13 @@ export class CompanyInfo {
     contactNum: string;
     additionalCompanyInfo: string;
     successionPlanning: string;
-    customerUniqueId: string;
+    customerCode: string;
     bankingRelationship: string;
     industryGrowth: string;
     marketCompetition: string;
     experience: string;
     succession: string;
     businessAndIndustry: string;
+
+    companyJsonData: string;
 }

@@ -4,11 +4,11 @@
         <div class="row" *ngIf= "vehicleSelected">
             <div class="col-md-12">
                 <table  class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"  style="table-layout: fixed; width: 100%" *ngFor="let vehicleDetails of formData['initialForm']['vehicleDetails']; let i= index">
-                <thead>
+
                     <tr class="sb-bg-dark text-white">
                         <th colspan="9">{{i+1}}.Details of Security Offered: Vehicle</th>
                     </tr>
-                    <tr class="sb-bg-dark text-white">
+                    <tr class="sb-bg-secondary text-white">
                         <th>S.N</th>
                         <th>Model</th>
                         <th>Valuation Amount</th>
@@ -21,40 +21,33 @@
 
                     </tr>
                     <tr>
-                        <td>{{i+1}}</td>
+                        <td rowspan="3" class="align-middle">{{i+1}}</td>
                         <td>{{vehicleDetails?.model}}</td>
                         <td>{{vehicleDetails?.valuationAmount}}</td>
                         <td>{{vehicleDetails?.downPayment}}</td>
                         <td>{{vehicleDetails?.loanExposure}}</td>
                         <td>{{vehicleDetails?.registrationNumber}}</td>
-                        <td>{{vehicleDetails?.registrationDate}}</td>
+                        <td>{{vehicleDetails?.registrationDate | date}}</td>
                         <td>{{vehicleDetails?.engineNumber}}</td>
                         <td>{{vehicleDetails?.chassisNumber}}</td>
                     </tr>
-                    </thead>
-                    <thead>
-                    <tr>
-                        <th></th>
+                    <tr class="sb-bg-secondary text-white">
                         <th>Showroom Commission</th>
                         <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
                         <th>Valautor Name</th>
                     </tr>
-                    </thead>
-                    <tbody>
                     <tr>
-                        <td></td>
                         <td>{{vehicleDetails?.showroomCommission}}</td>
                         <td *ngIf="formData['otherBranchcheck']">{{vehicleDetails?.vehicalBranch?.name}}</td>
                         <td>{{vehicleDetails?.vehicalValuator?.name}}</td>
                     </tr>
-                    </tbody>
                 </table>
             </div>
         </div>
         <div class="row" *ngIf= "landSelected">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small" *ngFor="let landDetails of formData['initialForm']['landDetails']; let i= index">
-                    <thead>
+
                     <tr>
                         <th class="text-center sb-bg-dark text-white" colspan="8">{{i+1}}.Land Security Details</th>
                     </tr>
@@ -69,7 +62,7 @@
                         <th>DV</th>
                     </tr>
                     <tr>
-                        <td>{{i+1}}</td>
+                        <td rowspan="3" class="align-middle">{{i+1}}</td>
                         <td>{{landDetails?.owner}}</td>
                         <td>{{landDetails?.location}}</td>
                         <td>{{landDetails?.plotNumber}}</td>
@@ -78,35 +71,30 @@
                         <td>Rs. {{landDetails?.marketValue |currencyFormatter}}</td>
                         <td>Rs. {{landDetails?.distressValue |currencyFormatter}}</td>
                     </tr>
-                    </thead>
-                    <thead>
-                    <tr>
-                        <th></th>
+
+                    <tr class="sb-bg-secondary text-white">
                         <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
                         <th>Valautor Name</th>
                         <th>Considered Value</th>
                     </tr>
-                    </thead>
-                    <tbody>
+
                     <tr>
-                        <td></td>
                         <td *ngIf="formData['otherBranchcheck']">{{landDetails?.landBranch?.name}}</td>
                         <td>{{landDetails?.landValuator?.name}}</td>
                         <td>{{landDetails?.landConsideredValue}}</td>
                     </tr>
-                    </tbody>
+
                 </table>
             </div>
         </div>
         <!--        BuildingDetails-->
         <div class="row" *ngIf= "buildingSelected">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm"  *ngFor="let buildingDetails of formData['initialForm']['landBuilding']; let i= index">
-                    <thead>
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"  *ngFor="let buildingDetails of formData['initialForm']['landBuilding']; let i= index">
                     <tr>
-                        <th class="text-center" colspan="8">{{i+1}}.Building Security Details</th>
+                        <th  class="text-center sb-bg-dark text-white" colspan="8">{{i+1}}.Building Security Details</th>
                     </tr>
-                    <tr>
+                    <tr class="text-center sb-bg-secondary text-white">
                         <th>S.N</th>
                         <th>Building Name</th>
                         <th>Building Description</th>
@@ -117,7 +105,7 @@
                         <th>DV</th>
                     </tr>
                     <tr>
-                        <td>{{i+1}}</td>
+                        <td rowspan="3" class="align-middle">{{i+1}}</td>
                         <td>{{buildingDetails?.buildingName}}</td>
                         <td>{{buildingDetails?.buildingDescription}}</td>
                         <td>{{buildingDetails?.buildArea}}</td>
@@ -126,21 +114,16 @@
                         <td><strong>Rs. {{buildingDetails?.buildingFairMarketValue | currencyFormatter}}</strong></td>
                         <td><strong>Rs. {{buildingDetails?.buildingDistressValue | currencyFormatter}}</strong></td>
                     </tr>
-                    </thead>
-                    <thead>
-                    <tr>
-                        <th></th>
+
+                    <tr class="text-center sb-bg-secondary text-white">
                         <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
                         <th>Valautor Name</th>
                     </tr>
-                    </thead>
-                    <tbody>
+
                     <tr>
-                        <td></td>
                         <td *ngIf="formData['otherBranchcheck']">{{buildingDetails?.apartmentBranch?.name}}</td>
                         <td>{{buildingDetails?.ApartmentValuator?.name}}</td>
                     </tr>
-                    </tbody>
                 </table>
             </div>
         </div>
@@ -149,12 +132,11 @@
         <div class="row" *ngIf="formData['underBuildingConstructionChecked']">
             <div class="col-md-12">
                 <p><strong>Building Under Construction</strong></p>
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm">
-                    <thead>
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr>
-                        <th class="text-center" colspan="6">Building Before Completion</th>
+                        <th class="text-center sb-bg-dark text-white" colspan="6">Building Before Completion</th>
                     </tr>
-                    <tr>
+                    <tr class="text-center sb-bg-secondary text-white">
                         <th>S.N</th>
                         <th>Building Name</th>
                         <th>Building Description</th>
@@ -171,14 +153,13 @@
                         <td><strong>Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion.totalCost | currencyFormatter}}</strong></td>
 
                     </tr>
-                    </thead>
                 </table>
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
                     <tr>
-                        <th class="text-center" colspan="6">Building After Completion</th>
+                        <th class="text-center sb-bg-dark text-white" colspan="6">Building After Completion</th>
                     </tr>
-                    <tr>
+                    <tr class="text-center sb-bg-secondary text-white">
                         <th>S.N</th>
                         <th>Building Name</th>
                         <th>Building Description</th>
@@ -201,12 +182,11 @@
 <!--        apartmentDetails-->
         <div class="row" *ngIf= "apartmentSelected">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm"  *ngFor="let buildingDetails of formData['initialForm']['buildingDetails']; let i= index">
-                    <thead>
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"  *ngFor="let buildingDetails of formData['initialForm']['buildingDetails']; let i= index">
                     <tr>
-                        <th class="text-center" colspan="8">{{i+1}}.Apartment Security Details</th>
+                        <th class="text-center sb-bg-dark text-white" colspan="8">{{i+1}}.Apartment Security Details</th>
                     </tr>
-                    <tr>
+                    <tr class="text-center sb-bg-secondary text-white">
                         <th>S.N</th>
                         <th>Apartment Name</th>
                         <th>Apartment Description</th>
@@ -217,7 +197,7 @@
                         <th>DV</th>
                     </tr>
                     <tr>
-                        <td>{{i+1}}</td>
+                        <td rowspan="3" class="align-middle">{{i+1}}</td>
                         <td>{{buildingDetails?.buildingName}}</td>
                         <td>{{buildingDetails?.buildingDescription}}</td>
                         <td>{{buildingDetails?.buildArea}}</td>
@@ -226,21 +206,14 @@
                         <td><strong>Rs. {{buildingDetails?.buildingFairMarketValue | currencyFormatter}}</strong></td>
                         <td><strong>Rs. {{buildingDetails?.buildingDistressValue | currencyFormatter}}</strong></td>
                     </tr>
-                    </thead>
-                    <thead>
-                    <tr>
-                        <th></th>
+                    <tr class="text-center sb-bg-secondary text-white">
                         <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
                         <th>Valautor Name</th>
                     </tr>
-                    </thead>
-                    <tbody>
                     <tr>
-                        <td></td>
                         <td *ngIf="formData['otherBranchcheck']">{{buildingDetails?.apartmentBranch?.name}}</td>
                         <td>{{buildingDetails?.ApartmentValuator?.name}}</td>
                     </tr>
-                    </tbody>
                 </table>
             </div>
         </div>
@@ -254,7 +227,7 @@
                     <tr>
                         <th class="text-center" colspan="6">Apartment Before Completion</th>
                     </tr>
-                    <tr>
+                    <tr class="text-center sb-bg-secondary text-white">
                         <th>S.N</th>
                         <th>Apartment Name</th>
                         <th>Apartment Description</th>
@@ -278,7 +251,7 @@
                     <tr>
                         <th class="text-center" colspan="6">Apartment After Completion</th>
                     </tr>
-                    <tr>
+                    <tr class="text-center sb-bg-secondary text-white">
                         <th>S.N</th>
                         <th>Apartment Name</th>
                         <th>Apartment Description</th>
@@ -302,12 +275,12 @@
 
         <div class="row" *ngIf= "plantSelected">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
                     <tr>
-                        <th class="text-center" colspan="7">Plant and Machinery Details Security</th>
+                        <th class="text-center sb-bg-dark text-white" colspan="7">Plant and Machinery Details Security</th>
                     </tr>
-                    <tr>
+                    <tr class="text-center sb-bg-secondary text-white">
                         <th>S.N</th>
                         <th>Model</th>
                         <th>Quotation</th>
@@ -331,12 +304,12 @@
         </div>
         <div *ngIf="depositSelected" class="row">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
                     <tr>
-                        <th class="text-center" colspan="7">Fixed Deposit Receipt Details</th>
+                        <th class="text-center sb-bg-dark text-white" colspan="7">Fixed Deposit Receipt Details</th>
                     </tr>
-                    <tr>
+                    <tr class="text-center sb-bg-secondary text-white">
                         <th>S.N</th>
                         <th>FD Receipt Number</th>
                         <th>Amount</th>
@@ -371,7 +344,7 @@
                     Percent: {{loanSharePercent == undefined ? 0 : loanSharePercent.ordinary}})</p>
                 <table class="table table-bordered table-sm text-center sb-small">
                     <thead>
-                    <tr class="text-white sb-bg-dark">
+                    <tr class="text-center sb-bg-secondary text-white">
                         <th>S.N</th>
                         <th> Name of Company</th>
                         <th> Share Type</th>

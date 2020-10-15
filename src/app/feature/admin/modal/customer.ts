@@ -28,7 +28,7 @@ export class Customer {
     nepaliDetail: string;
     version: number;
     introduction: string;
-    customerUniqueId: string;
+    customerCode: string;
     bankingRelationship: string;
 
 }

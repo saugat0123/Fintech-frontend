@@ -15,7 +15,7 @@ import {Address} from '../../../../loan/model/address';
 import {BusinessType} from '../../../../admin/modal/businessType';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {LoanDataService} from '../../../../loan/service/loan-data.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {LoanFormService} from '../../../../loan/component/loan-form/service/loan-form.service';
 import {ToastService} from '../../../../../@core/utils';
 import {CompanyInfoService} from '../../../../admin/service/company-info.service';
@@ -37,6 +37,10 @@ import {IndustryGrowth} from '../../../../admin/modal/industryGrowth';
 import {Buyer} from '../../../../admin/modal/buyer';
 import {Supplier} from '../../../../admin/modal/supplier';
 import {BusinessAndIndustry} from '../../../../admin/modal/businessAndIndustry';
+import {CompanyOtherDetailComponent} from './company-other-detail/company-other-detail.component';
+import {CompanyJsonData} from '../../../../admin/modal/CompanyJsonData';
+import {MarketScenarioComponent} from './market-scenario/market-scenario.component';
+import {Editor} from '../../../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-company-form',
@@ -50,6 +54,7 @@ export class CompanyFormComponent implements OnInit {
     companyInfoFormGroup: FormGroup;
     englishDateSelected = true;
     customerId;
+    spinner = false;
     submitted = false;
 
     companyFormField = {
@@ -85,8 +90,19 @@ export class CompanyFormComponent implements OnInit {
     additionalFieldSelected = false;
     additionalFieldData: any;
 
+    ckeConfig = Editor.CK_CONFIG;
+
+    // json data
+    companyJsonData: CompanyJsonData = new CompanyJsonData();
+
     @ViewChild('bankingRelationComponent', {static: false})
     bankingRelationComponent: BankingRelationComponent;
+
+    @ViewChild('companyOtherDetailComponent', {static: false})
+    companyOtherDetailComponent: CompanyOtherDetailComponent;
+
+    @ViewChild('marketScenarioComponent', {static: false})
+    marketScenarioComponent: MarketScenarioComponent;
 
     experiences = Experience.enumObject();
     successionList = Succession.enumObject();
@@ -129,6 +145,9 @@ export class CompanyFormComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) {
             this.businessAndIndustry = JSON.parse(this.companyInfo.businessAndIndustry);
+        }
+        if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
+            this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
         }
         this.buildForm();
         this.getAllDistrict();
@@ -195,6 +214,9 @@ export class CompanyFormComponent implements OnInit {
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.id)) ? undefined :
                     this.companyInfo.id],
+            customerCode: [ObjectUtil.isEmpty(this.companyInfo)
+            || ObjectUtil.isEmpty(this.customer.customerCode) ? undefined :
+                this.customer.customerCode, Validators.required],
             companyInfoVersion:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.version)) ? undefined :
@@ -219,6 +241,14 @@ export class CompanyFormComponent implements OnInit {
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.businessType)) ? undefined :
                     this.companyInfo.businessType, [Validators.required]],
+            majorProductService:
+                [(ObjectUtil.isEmpty(this.companyJsonData)
+                    || ObjectUtil.isEmpty(this.companyJsonData.majorProductService)) ? undefined :
+                    this.companyJsonData.majorProductService, [Validators.required]],
+            relationshipSince:
+                [(ObjectUtil.isEmpty(this.companyJsonData)
+                    || ObjectUtil.isEmpty(this.companyJsonData.relationshipSince)) ? undefined :
+                    this.companyJsonData.relationshipSince, [Validators.required]],
             issuePlace:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.issuePlace)) ? undefined :
@@ -297,6 +327,10 @@ export class CompanyFormComponent implements OnInit {
             managementTeams: this.formBuilder.array([
                 this.managementTeamFormGroup()
             ]),
+            // managementTeamNote
+            managementTeamNote: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyJsonData.managementTeamNote)) ? undefined :
+                this.companyJsonData.managementTeamNote, Validators.required],
             // proprietors
             proprietors: this.formBuilder.array([
                 this.proprietorsFormGroup()
@@ -335,6 +369,24 @@ export class CompanyFormComponent implements OnInit {
             // Success Planning
             successionPlanning: [ObjectUtil.isEmpty(this.companyInfo) ? undefined :
                 JSON.parse(this.companyInfo.successionPlanning), Validators.required],
+
+            // Business Objective
+            businessObjective: [ObjectUtil.isEmpty(this.companyJsonData.businessObjective) ? undefined :
+                this.companyJsonData.businessObjective, Validators.required],
+
+            // Raw Materials
+            rawMaterialSourcing: [ObjectUtil.isEmpty(this.companyJsonData.rawMaterialSourcing) ? undefined :
+                this.companyJsonData.rawMaterialSourcing, Validators.required],
+            rawMaterialAvailability: [ObjectUtil.isEmpty(this.companyJsonData.rawMaterialAvailability) ? undefined :
+                this.companyJsonData.rawMaterialAvailability, Validators.required],
+
+            // Sister concert
+            sisterConcern: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.sisterConcern, Validators.required],
+
+            // company background
+            companyBackground: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.companyBackground, Validators.required],
 
             // additional company detail
             additionalCompanyInfo: this.formBuilder.group({
@@ -381,6 +433,26 @@ export class CompanyFormComponent implements OnInit {
             succession: [ObjectUtil.isEmpty(this.companyInfo)
             || ObjectUtil.isEmpty(this.companyInfo.succession) ? undefined :
                 this.companyInfo.succession, Validators.required],
+
+            /** Groups BackGround*/
+            groupsBackGround: [ObjectUtil.isEmpty(this.companyJsonData)
+            || ObjectUtil.isEmpty(this.companyJsonData.groupsBackGround) ? undefined :
+                this.companyJsonData.groupsBackGround, Validators.required],
+
+            /** legal Review Remark*/
+            legalReviewRemark: [ObjectUtil.isEmpty(this.companyJsonData)
+            || ObjectUtil.isEmpty(this.companyJsonData.legalReviewRemark) ? undefined :
+                this.companyJsonData.legalReviewRemark, Validators.required],
+
+            /** Conduct Of Account*/
+            conductOfAccount: [ObjectUtil.isEmpty(this.companyJsonData)
+            || ObjectUtil.isEmpty(this.companyJsonData.conductOfAccount) ? undefined :
+                this.companyJsonData.legalReviewRemark],
+
+            /** Business Given*/
+            businessGiven: [ObjectUtil.isEmpty(this.companyJsonData)
+            || ObjectUtil.isEmpty(this.companyJsonData.businessGiven) ? undefined :
+                this.companyJsonData.businessGiven],
         });
         if (!this.additionalFieldSelected) {
             this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
@@ -582,13 +654,16 @@ export class CompanyFormComponent implements OnInit {
                     } else {
                         this.companyFormField.isOldCustomer = true;
                         this.companyInfo = data.detail.content[0];
-                        // change these sets in common function
+                        // todo change these patching in common function
                         if (!ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
                             this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
                             this.additionalFieldSelected = true;
                         }
                         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) {
                             this.businessAndIndustry = JSON.parse(this.companyInfo.businessAndIndustry);
+                        }
+                        if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
+                            this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
                         }
                         this.buildForm();
                         this.setCompanyInfo(this.companyInfo);
@@ -616,14 +691,19 @@ export class CompanyFormComponent implements OnInit {
     }
     onSubmit() {
         this.submitted = true;
-        if (this.companyInfoFormGroup.invalid) {
+        this.marketScenarioComponent.onSubmit();
+        this.companyOtherDetailComponent.onSubmit();
+        if (this.companyInfoFormGroup.invalid || this.companyOtherDetailComponent.companyOtherDetailGroupForm.invalid
+            || this.marketScenarioComponent.marketScenarioForm.invalid) {
             this.scrollToFirstInvalidControl();
             return;
         }
+        this.spinner = true;
         this.companyInfo = new CompanyInfo();
         // Company Information--
         this.companyInfo.id = this.companyInfoFormGroup.get('companyId').value;
         this.companyInfo.companyName = this.companyInfoFormGroup.get('companyName').value;
+        this.companyInfo.customerCode = this.companyInfoFormGroup.get('customerCode').value;
         this.companyInfo.registrationNumber = this.companyInfoFormGroup.get('registrationNumber').value;
         this.companyInfo.panNumber = this.companyInfoFormGroup.get('companyPAN').value;
         this.companyInfo.establishmentDate = this.companyInfoFormGroup.get('companyEstablishmentDate').value;
@@ -665,6 +745,8 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.swot = this.swot;
         // management team list
         this.companyInfo.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
+        // management Team Note
+        this.companyJsonData.managementTeamNote = this.companyInfoFormGroup.get('managementTeamNote').value;
 
         // contactPerson
         this.companyInfo.contactPersons = JSON.stringify(this.companyInfoFormGroup.get('contactPersons').value);
@@ -674,7 +756,6 @@ export class CompanyFormComponent implements OnInit {
 
         // succession planning
         this.companyInfo.successionPlanning = JSON.stringify(this.companyInfoFormGroup.get('successionPlanning').value);
-
 
         // location
         this.locations.id = this.companyInfoFormGroup.get('locationId').value;
@@ -721,13 +802,23 @@ export class CompanyFormComponent implements OnInit {
 
         /** experience & succession */
         this.companyInfo.experience = this.companyInfoFormGroup.get('experience').value;
-        this.companyInfo.succession = this.companyInfoFormGroup.get('succession').value;
-
-        this.companyInfoService.save(this.companyInfo).subscribe((response: any) => {
+        // todo change this to common function
+        const submitData = new CompanyJsonData();
+        Object.keys(submitData).forEach((k) => {
+            submitData[k] = this.companyInfoFormGroup.value[k];
+        });
+        /** other company detail */
+        submitData.otherCompanyDetail = this.companyOtherDetailComponent.submitData;
+        /** Market Scenario detail */
+        submitData.marketScenario = this.marketScenarioComponent.submitData;
+        this.companyInfo.companyJsonData = JSON.stringify(submitData);
+        this.companyInfoService.save(this.companyInfo).subscribe(() => {
+            this.spinner = false;
             this.close();
             this.toastService.show(new Alert(AlertType.SUCCESS, `Company Saved Successfully`));
         }, error => {
             console.error(error);
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, `Error saving Company: ${error.error.message}`));
         });
     }
@@ -739,6 +830,7 @@ export class CompanyFormComponent implements OnInit {
     close() {
         this.ref.close();
     }
+
     private getAllDistrict() {
         this.commonLocation.getAllDistrict().subscribe((response: any) => {
             this.allDistrict = response.detail;
