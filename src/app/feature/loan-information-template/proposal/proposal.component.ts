@@ -39,6 +39,7 @@ export class ProposalComponent implements OnInit {
   absoluteSelected = false;
   customSelected = false;
   isFundable = false;
+  isFixedDeposit = false;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -78,11 +79,13 @@ export class ProposalComponent implements OnInit {
             this.minimumAmountLimit = response.detail.minimumProposedAmount;
             this.collateralRequirement = response.detail.collateralRequirement;
             this.isFundable = response.detail.isFundable;
+            this.isFixedDeposit = response.detail.loanTag === 'FIXED_DEPOSIT';
             this.proposalForm.get('proposedLimit').setValidators([Validators.required,
               MinimumAmountValidator.minimumAmountValidator(this.minimumAmountLimit)]);
             this.proposalForm.get('proposedLimit').updateValueAndValidity();
             this.interestLimit = response.detail.interestRate;
             this.setCollateralRequirement(this.collateralRequirement);
+            this.checkLoanConfig();
           }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
@@ -121,6 +124,13 @@ export class ProposalComponent implements OnInit {
       frequency: [undefined,  Validators.required],
       dateOfExpiry: [undefined,  Validators.required],
       remark: [undefined],
+      cashMargin: [undefined],
+      commissionPercentage: [undefined],
+      commissionFrequency: [undefined],
+      couponRate: [undefined],
+      premiumOnCouponRate: [undefined],
+
+
 
 
       // Additional Fields--
@@ -308,6 +318,23 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.get('dateOfExpiry').clearValidators();
       this.proposalForm.get('dateOfExpiry').updateValueAndValidity();
       this.proposalForm.get('dateOfExpiry').patchValue(undefined);
+
+    }
+  }
+  checkLoanConfig() {
+    if (this.isFixedDeposit) {
+      this.proposalForm.get('couponRate').setValidators(Validators.required);
+      this.proposalForm.get('couponRate').updateValueAndValidity();
+      this.proposalForm.get('premiumOnCouponRate').setValidators(Validators.required);
+      this.proposalForm.get('premiumOnCouponRate').updateValueAndValidity();
+    }
+    if (!this.isFundable) {
+      this.proposalForm.get('cashMargin').setValidators(Validators.required);
+      this.proposalForm.get('cashMargin').updateValueAndValidity();
+      this.proposalForm.get('commissionPercentage').setValidators(Validators.required);
+      this.proposalForm.get('commissionPercentage').updateValueAndValidity();
+      this.proposalForm.get('commissionFrequency').setValidators(Validators.required);
+      this.proposalForm.get('commissionFrequency').updateValueAndValidity();
 
     }
   }

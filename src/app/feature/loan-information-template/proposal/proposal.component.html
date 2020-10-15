@@ -53,6 +53,86 @@
                     </div>
                   </div>
                 </div>
+
+                <div *ngIf="!isFundable" class="col-md-4">
+                  <div class="form-group">
+                    <label class="title" for="cashMargin"><strong>Cash Margin</strong></label>
+                    <select
+                        [ngClass]="{ 'is-invalid': (submitted) && formControls.cashMargin.errors }"
+                        class="form-control"
+                        formControlName="cashMargin" id="cashMargin"
+                        name="cashMargin" (input)="checkRepaymentMode()">
+                      <option [ngValue]="null" hidden>Select Cash Margin</option>
+                      <option value="PERCENT">Percentage(%)</option>
+                      <option Value="FLAT">Flat</option>
+                    </select>
+                    <div *ngIf=" (submitted)  && formControls.cashMargin.errors"
+                         class="invalid-feedback">
+                      <span *ngIf="(formControls.cashMargin.errors.required)">Cash Margin is required</span>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="!isFundable" class="col-md-4">
+                  <div class="form-group">
+                    <label class="title" for="commissionPercentage"><strong>Commission (%)</strong></label>
+                    <input
+                        [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionPercentage.errors }"
+                        class="form-control" formControlName="commissionPercentage"
+                        id="commissionPercentage" name="commissionPercentage" placeholder="Commission (%)"
+                        type="number">
+                    <div *ngIf="(submitted) && formControls.commissionPercentage.invalid"
+                         class="invalid-feedback">
+                      <span *ngIf="formControls.commissionPercentage.errors.required">Commission % is required</span>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="!isFundable" class="col-md-4">
+                  <div class="form-group">
+                    <label class="title" for="commissionFrequency"><strong>Commission Frequency</strong></label>
+                    <select
+                        [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionFrequency.errors }"
+                        class="form-control" formControlName="commissionFrequency"
+                        id="commissionFrequency" name="commissionFrequency">
+                      <option [ngValue]="null" hidden>Select Commission Frequency</option>
+                      <option value="MONTH">Per Month</option>
+                      <option value="QUATER">Per Quarter</option>
+                      <option value="ANNUM">Per Annum</option>
+                    </select>
+                    <div *ngIf="(submitted) && formControls.commissionFrequency.invalid"
+                         class="invalid-feedback">
+                      <span *ngIf="formControls.commissionFrequency.errors.required">Commission Frequency is required</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="isFixedDeposit" class="col-md-4">
+                  <div class="form-group">
+                    <label class="title" for="couponRate"><strong>Coupon Rate</strong></label>
+                    <input
+                        [ngClass]="{ 'is-invalid': (submitted) && formControls.couponRate.errors }"
+                        class="form-control" formControlName="couponRate"
+                        id="couponRate" name="couponRate" placeholder="Coupon Rate"
+                        type="number">
+                    <div *ngIf="(submitted) && formControls.couponRate.invalid"
+                         class="invalid-feedback">
+                      <span *ngIf="formControls.couponRate.errors.required">Coupon Rate is required</span>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="isFixedDeposit"class="col-md-4">
+                  <div class="form-group">
+                    <label class="title" for="premiumOnCouponRate"><strong>Premium On Coupon Rate</strong></label>
+                    <input
+                        [ngClass]="{ 'is-invalid': (submitted) && formControls.premiumOnCouponRate.errors }"
+                        class="form-control" formControlName="premiumOnCouponRate"
+                        id="premiumOnCouponRate" name="premiumOnCouponRate" placeholder="Premium On Coupon Rate"
+                        type="number">
+                    <div *ngIf="(submitted) && formControls.premiumOnCouponRate.invalid"
+                         class="invalid-feedback">
+                      <span *ngIf="formControls.premiumOnCouponRate.errors.required">Premium On Coupon Rate is required</span>
+                    </div>
+                  </div>
+                </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="title" for="interestRate"><strong>Interest
