@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NetTradingAssets} from '../../admin/modal/NetTradingAssets';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
-import {FormArray, FormBuilder} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {FiscalYearService} from '../../admin/service/fiscal-year.service';
 import {FiscalYear} from '../../admin/modal/FiscalYear';
 
@@ -16,8 +16,9 @@ export class NetTradingAssetsComponent implements OnInit {
     @Output() netTradingAssetsEventEmitter = new EventEmitter();
 
     netTradingAssetSubmitData: NetTradingAssets;
-    netTradingAssetsFormArray: FormArray;
+    netTradingAssetsForm: FormGroup;
     fiscalYearArray = new Array<FiscalYear>();
+    selectedFiscalYearIndex = 0;
 
     constructor(protected formBuilder: FormBuilder,
                 protected fiscalYearService: FiscalYearService) {
@@ -26,7 +27,6 @@ export class NetTradingAssetsComponent implements OnInit {
     ngOnInit() {
         this.buildNtaForm();
         this.getFiscalYears();
-
     }
 
     getFiscalYears() {
@@ -39,18 +39,26 @@ export class NetTradingAssetsComponent implements OnInit {
     }
 
     buildNtaForm() {
-        this.netTradingAssetsFormArray = this.formBuilder.array([]);
+        this.netTradingAssetsForm = this.formBuilder.group({
+            valueOfShare: [],
+            valueOfDebtors: [],
+            valueOfGoodsInTrans: [],
+            valueOfCreditors: [],
+            netTradingAssetsBefore: [],
+            otherBanksFinancing: [],
+            netTradingAssetsAfter: []
+        });
     }
 
-    get netTradingAssetsFormArrayControl() {
-        return this.netTradingAssetsFormArray.controls;
+    get netTradingAssetsFormControl() {
+        return this.netTradingAssetsForm.controls;
     }
 
     onSubmit() {
         if (!ObjectUtil.isEmpty(this.netTradingAssetsData)) {
             this.netTradingAssetSubmitData = this.netTradingAssetsData;
         }
-        this.netTradingAssetSubmitData.data = JSON.stringify(this.netTradingAssetsFormArray.value);
+        this.netTradingAssetSubmitData.data = JSON.stringify(this.netTradingAssetsForm.value);
         this.netTradingAssetsEventEmitter.emit(this.netTradingAssetSubmitData);
     }
 
