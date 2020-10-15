@@ -38,6 +38,7 @@ export class ProposalComponent implements OnInit {
   checkApproved = false;
   absoluteSelected = false;
   customSelected = false;
+  isFundable = false;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -57,8 +58,6 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.patchValue(this.formDataForEdit);
       this.setCheckedData(this.checkedDataEdit);
       this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
-      this.proposalForm.get('existingLimit').patchValue(this.formValue.existingLimit);
-      this.proposalForm.get('outStandingLimit').patchValue(this.formValue.outStandingLimit);
       this.proposalForm.get('dateOfExpiry').patchValue(!ObjectUtil.isEmpty(this.formValue.dateOfExpiry)
           ? new Date(this.formValue.dateOfExpiry) : undefined);
       this.checkLimitExpiryBuildValidation(this.formValue.limitExpiryMethod);
@@ -75,8 +74,10 @@ export class ProposalComponent implements OnInit {
           this.allId = paramsValue;
           this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
           this.loanConfigService.detail(this.loanId).subscribe((response: any) => {
+            console.log(response.detail);
             this.minimumAmountLimit = response.detail.minimumProposedAmount;
             this.collateralRequirement = response.detail.collateralRequirement;
+            this.isFundable = response.detail.isFundable;
             this.proposalForm.get('proposedLimit').setValidators([Validators.required,
               MinimumAmountValidator.minimumAmountValidator(this.minimumAmountLimit)]);
             this.proposalForm.get('proposedLimit').updateValueAndValidity();
@@ -119,6 +120,7 @@ export class ProposalComponent implements OnInit {
       condition: [undefined, Validators.required],
       frequency: [undefined,  Validators.required],
       dateOfExpiry: [undefined,  Validators.required],
+      remark: [undefined],
 
 
       // Additional Fields--
