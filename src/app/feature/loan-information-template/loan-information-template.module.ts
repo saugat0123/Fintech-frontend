@@ -56,13 +56,15 @@ const COMPONENTS = [
   CreditRiskGradingGammaComponent,
   FinancialDeleteComponentComponent,
   CiclComponent,
-  TemplateDocumentComponent
+  TemplateDocumentComponent,
+  NetTradingAssetsComponent,
+  IncomeFromAccountComponent
 ];
 
 
 @NgModule({
-  declarations: [...COMPONENTS, IncomeFromAccountComponent, NetTradingAssetsComponent],
-  exports: [...COMPONENTS, IncomeFromAccountComponent],
+  declarations: [...COMPONENTS],
+  exports: [...COMPONENTS],
   entryComponents: [...COMPONENTS],
   imports: [
     CommonModule,

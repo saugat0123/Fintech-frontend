@@ -23,6 +23,7 @@ import {CreditRiskGradingGammaComponent} from '../../../loan-information-templat
 import {CreditRiskGradingGamma} from '../../../admin/modal/creditRiskGradingGamma';
 import {CiclArray} from '../../../admin/modal/cicl';
 import {IncomeFromAccount} from '../../../admin/modal/incomeFromAccount';
+import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -65,6 +66,8 @@ export class CustomerLoanInformationComponent implements OnInit {
   private itemInsurance: NbAccordionItemComponent;
   @ViewChild('itemIncomeFromAccount', {static: false})
   private itemIncomeFromAccount: NbAccordionItemComponent;
+  @ViewChild('itemNetTradingAssets', {static: false})
+  private itemNetTradingAssets: NbAccordionItemComponent;
   @ViewChild('ciclComponent', {static: false})
   private itemCicl: NbAccordionItemComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
@@ -80,6 +83,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   public insurance: Array<Insurance>;
   public ciclResponse: CiclArray;
   public incomeFromAccountDataResponse: IncomeFromAccount;
+  public netTradingAssets: NetTradingAssets;
 
 
   constructor(
@@ -118,6 +122,9 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.incomeFromAccount)) {
       this.incomeFromAccountDataResponse = this.customerInfo.incomeFromAccount;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.netTradingAssets)) {
+      this.netTradingAssets = this.customerInfo.netTradingAssets;
     }
   }
 
@@ -299,6 +306,22 @@ export class CustomerLoanInformationComponent implements OnInit {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Income From Account)!'));
     });
+  }
+
+  saveNetTradingAssets(data: NetTradingAssets) {
+    if (ObjectUtil.isEmpty(this.netTradingAssets)) {
+      this.netTradingAssets = new NetTradingAssets();
+    }
+    this.netTradingAssets = data;
+    this.customerInfoService.saveLoanInfo(this.netTradingAssets, this.customerInfoId, TemplateName.NET_TRADING_ASSETS)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Net Trading Assets!'));
+          this.itemNetTradingAssets.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Net Trading Assets)!'));
+        });
   }
 
 }
