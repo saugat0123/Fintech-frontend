@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {LoanSummaryComponent} from './loan-summary.component';
 import {SitevistSummaryComponentComponent} from './sitevist-summary-component/sitevist-summary-component.component';
 import {FinancialSummaryComponent} from './financial-summary/financial-summary.component';
@@ -13,35 +13,46 @@ import {ProposalSummaryComponent} from './proposal-summary/proposal-summary.comp
 import {ReportingModule} from '../../../reporting/reporting.module';
 import {NgxPrintModule} from 'ngx-print';
 import {CoreModule} from '../../../../@core/core.module';
-import { CompanyInfoSummaryComponent } from './company-info-summary/company-info-summary.component';
-import { IncomeFromAccountSummeryComponent } from './income-from-account-summery/income-from-account-summery.component';
+import {CompanyInfoSummaryComponent} from './company-info-summary/company-info-summary.component';
+import {IncomeFromAccountSummeryComponent} from './income-from-account-summery/income-from-account-summery.component';
+import {NetTradingAssetsSummaryComponent} from './net-trading-assets-summary/net-trading-assets-summary.component';
+import {LoanInformationTemplateModule} from '../../../loan-information-template/loan-information-template.module';
+import {ProposalJustificationSummaryComponent} from './proposal-justification-summary/proposal-justification-summary.component';
 
 
 const COMPONENTS = [
-  SitevistSummaryComponentComponent,
-  FinancialSummaryComponent,
-  SecuritySummaryComponent,
-  ProposalSummaryComponent,
-  LoanSummaryComponent,
-  InsuranceSummaryComponent,
-  GuarantorSummaryComponent,
-  CustomerGroupSummaryComponent,
-  LoanSummaryComponent,
+    SitevistSummaryComponentComponent,
+    FinancialSummaryComponent,
+    SecuritySummaryComponent,
+    ProposalSummaryComponent,
+    LoanSummaryComponent,
+    InsuranceSummaryComponent,
+    GuarantorSummaryComponent,
+    CustomerGroupSummaryComponent,
+    LoanSummaryComponent,
+    CompanyInfoSummaryComponent,
+    IncomeFromAccountSummeryComponent,
+    NetTradingAssetsSummaryComponent,
+    ProposalJustificationSummaryComponent
 ];
+
 const ENTRY_COMPONENTS = [];
+
 @NgModule({
-  declarations: [...COMPONENTS, CompanyInfoSummaryComponent, IncomeFromAccountSummeryComponent],
-  imports: [
-    CommonModule,
-    ThemeModule,
-    LoanSummaryRoutingModule,
-    ReportingModule,
-    NgxPrintModule,
-    CoreModule
-  ],
-  exports: [
-    LoanSummaryComponent
-  ],
-  entryComponents: [...ENTRY_COMPONENTS]
+    declarations: [...COMPONENTS],
+    imports: [
+        CommonModule,
+        ThemeModule,
+        LoanInformationTemplateModule,
+        LoanSummaryRoutingModule,
+        ReportingModule,
+        NgxPrintModule,
+        CoreModule
+    ],
+    exports: [
+        LoanSummaryComponent
+    ],
+    entryComponents: [...ENTRY_COMPONENTS]
 })
-export class LoanSummaryModule { }
+export class LoanSummaryModule {
+}

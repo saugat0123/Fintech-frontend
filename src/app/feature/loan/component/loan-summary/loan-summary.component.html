@@ -261,10 +261,31 @@
         </div>-->
       </div>
 
+      <!--Applicant detail-->
+      <div class="row">
+        <div class="col-md-12">
+          <strong>The Applicant</strong>
+          <hr>
+        </div>
+      </div>
+      <div class="row sb-small">
+        <div class="col-md-12">
+          <b>Purpose: {{loanDataHolder.loan.name}}</b>
+          <span class="float-right"><b>Loan Authority Under</b>- {{loanDataHolder.currentStage.toUser.name}}</span>
+        </div>
+      </div>
+      <div class="row sb-small mb-1">
+        <div class="col-md-12">
+          <span> <b>Application Received On:</b> {{loanDataHolder.createdAt | date}}</span>
+          <span
+              class="float-right"><b>Forwarded on:</b> {{loanDataHolder.lastModifiedAt | date}}</span>
+        </div>
+      </div>
 
       <div *ngIf="loanCategory === 'INSTITUTION'" class="row">
         <div class="col-md-12">
-        <app-company-info-summary [companyInfo]="loanDataHolder?.companyInfo"></app-company-info-summary>
+          <app-company-info-summary
+              [companyInfo]="loanDataHolder?.companyInfo"></app-company-info-summary>
         </div>
       </div>
 
@@ -276,7 +297,7 @@
         <div class="col-md-12">
           <div *ngIf="loanCategory === 'INDIVIDUAL'">
             <table
-                class="table table-condensed table-bordered table-sm table-responsive-md disable-print text-center sb-small">
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
               <thead>
               <tr class="text-white sb-bg-dark">
                 <th>Name</th>
@@ -517,11 +538,19 @@
       <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
       [customerGroup]="loanDataHolder.loanHolder.customerGroup" [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>
 
+      <app-proposal-justification-summary *ngIf="proposalSummary"
+                                          [customerAllLoanList]="customerAllLoanList"
+                                          [proposalData]="proposalData"></app-proposal-justification-summary>
+
       <app-security-summary *ngIf="securitySummary"
                             [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
 
       <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
                              [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
+
+      <app-net-trading-assets *ngIf="netTradingAssetsSummary"
+                              [fromProfile]="false"
+                              [netTradingAssetsData]="netTradingAssetsData"></app-net-trading-assets>
 
       <app-income-from-account-summery *ngIf="incomeFromAccountSummary" [formData]="incomeFromAccountData"></app-income-from-account-summery>
 

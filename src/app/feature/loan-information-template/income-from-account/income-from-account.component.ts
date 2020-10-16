@@ -11,7 +11,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 export class IncomeFromAccountComponent implements OnInit {
   @Input() incomeFromAccountDataResponse: IncomeFromAccount;
   @Input() fromProfile;
-  @Output() incomeFromAccountDataEmitter = new EventEmitter;
+  @Output() incomeFromAccountDataEmitter = new EventEmitter();
   incomeDataObject = new IncomeFromAccount();
   incomeFormGroup: FormGroup;
   submitted = false;
