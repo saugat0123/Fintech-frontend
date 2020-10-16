@@ -17,6 +17,7 @@ import {CompanyInfoSummaryComponent} from './company-info-summary/company-info-s
 import {IncomeFromAccountSummeryComponent} from './income-from-account-summery/income-from-account-summery.component';
 import {NetTradingAssetsSummaryComponent} from './net-trading-assets-summary/net-trading-assets-summary.component';
 import {LoanInformationTemplateModule} from '../../../loan-information-template/loan-information-template.module';
+import {ProposalJustificationSummaryComponent} from './proposal-justification-summary/proposal-justification-summary.component';
 
 
 const COMPONENTS = [
@@ -31,7 +32,8 @@ const COMPONENTS = [
     LoanSummaryComponent,
     CompanyInfoSummaryComponent,
     IncomeFromAccountSummeryComponent,
-    NetTradingAssetsSummaryComponent
+    NetTradingAssetsSummaryComponent,
+    ProposalJustificationSummaryComponent
 ];
 
 const ENTRY_COMPONENTS = [];
