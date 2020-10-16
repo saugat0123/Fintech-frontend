@@ -39,7 +39,15 @@ export class ProposalComponent implements OnInit {
   absoluteSelected = false;
   customSelected = false;
   isFundable = false;
+  fundableNonFundableSelcted = false;
   isFixedDeposit = false;
+  loanNature;
+  loanNatureSelected = false;
+  isRevolving = false;
+  isTerminating = false;
+  isGeneral = false;
+  isVehicle = false;
+  isShare = false;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -75,17 +83,29 @@ export class ProposalComponent implements OnInit {
           this.allId = paramsValue;
           this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
           this.loanConfigService.detail(this.loanId).subscribe((response: any) => {
-            console.log(response.detail);
             this.minimumAmountLimit = response.detail.minimumProposedAmount;
             this.collateralRequirement = response.detail.collateralRequirement;
             this.isFundable = response.detail.isFundable;
+            this.fundableNonFundableSelcted = !ObjectUtil.isEmpty(response.detail.isFundable);
             this.isFixedDeposit = response.detail.loanTag === 'FIXED_DEPOSIT';
+            this.isGeneral = response.detail.loanTag === 'GENERAL';
+            this.isShare = response.detail.loanTag === 'SHARE_SECURITY';
+            this.isVehicle = response.detail.loanTag === 'VEHICLE';
+            this.loanNature = response.detail.loanNature;
+            if (!ObjectUtil.isEmpty(this.loanNature)) {
+              this.loanNatureSelected = true;
+              this.isTerminating = this.loanNature === 'Terminating';
+              this.isRevolving = this.loanNature === 'Revolving';
+            }
+            if (!this.isFundable) {
+              this.isGeneral = false;
+            }
             this.proposalForm.get('proposedLimit').setValidators([Validators.required,
               MinimumAmountValidator.minimumAmountValidator(this.minimumAmountLimit)]);
             this.proposalForm.get('proposedLimit').updateValueAndValidity();
             this.interestLimit = response.detail.interestRate;
             this.setCollateralRequirement(this.collateralRequirement);
-            this.checkLoanConfig();
+            // this.checkLoanConfig();
           }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
@@ -104,15 +124,15 @@ export class ProposalComponent implements OnInit {
       // Proposed Limit--
       proposedLimit: [undefined, [Validators.required, Validators.min(0)]],
 
-      interestRate: [undefined, [Validators.required, Validators.min(0)]],
-      baseRate: [undefined, [Validators.required, Validators.min(0)]],
-      premiumRateOnBaseRate: [undefined, [Validators.required, Validators.min(0)]],
-      serviceChargeMethod: ['PERCENT', [Validators.required]],
-      serviceCharge: [undefined, [Validators.required, Validators.min(0)]],
-      tenureDurationInMonths: [undefined, [Validators.required, Validators.min(0)]],
-      repaymentMode: [undefined, [Validators.required]],
+      interestRate: [undefined],
+      baseRate: [undefined],
+      premiumRateOnBaseRate: [undefined],
+      serviceChargeMethod: ['PERCENT'],
+      serviceCharge: [undefined],
+      tenureDurationInMonths: [undefined],
+      repaymentMode: [undefined],
       disbursementCriteria: [undefined, [Validators.required]],
-      repayment: [undefined, Validators.required],
+      repayment: [undefined],
       borrowerInformation: [undefined, [Validators.required]],
       interestAmount: [undefined],
       existingLimit: [undefined],
@@ -129,6 +149,8 @@ export class ProposalComponent implements OnInit {
       commissionFrequency: [undefined],
       couponRate: [undefined],
       premiumOnCouponRate: [undefined],
+      tenorOfEachDeal: [undefined],
+      cashMarginMethod: ['PERCENT'],
 
 
 
@@ -142,7 +164,7 @@ export class ProposalComponent implements OnInit {
       prepaymentCharge: ['As Per Standard Charge'],
       // for prepaymentCharge Amount--
       // for commitmentFee Amount--
-      commitmentFee: [undefined, Validators.required],
+      commitmentFee: [undefined],
       solConclusionRecommendation: [undefined],
       waiverConclusionRecommendation: [undefined],
       riskConclusionRecommendation: [undefined],
@@ -321,21 +343,20 @@ export class ProposalComponent implements OnInit {
 
     }
   }
-  checkLoanConfig() {
-    if (this.isFixedDeposit) {
-      this.proposalForm.get('couponRate').setValidators(Validators.required);
-      this.proposalForm.get('couponRate').updateValueAndValidity();
-      this.proposalForm.get('premiumOnCouponRate').setValidators(Validators.required);
-      this.proposalForm.get('premiumOnCouponRate').updateValueAndValidity();
-    }
-    if (!this.isFundable) {
-      this.proposalForm.get('cashMargin').setValidators(Validators.required);
-      this.proposalForm.get('cashMargin').updateValueAndValidity();
-      this.proposalForm.get('commissionPercentage').setValidators(Validators.required);
-      this.proposalForm.get('commissionPercentage').updateValueAndValidity();
-      this.proposalForm.get('commissionFrequency').setValidators(Validators.required);
-      this.proposalForm.get('commissionFrequency').updateValueAndValidity();
-
-    }
-  }
+  // checkLoanConfig() {
+  //   if (this.isFixedDeposit) {
+  //     this.proposalForm.get('couponRate').setValidators(Validators.required);
+  //     this.proposalForm.get('couponRate').updateValueAndValidity();
+  //     this.proposalForm.get('premiumOnCouponRate').setValidators(Validators.required);
+  //     this.proposalForm.get('premiumOnCouponRate').updateValueAndValidity();
+  //   }
+  //   if (!this.isFundable) {
+  //     this.proposalForm.get('cashMargin').setValidators(Validators.required);
+  //     this.proposalForm.get('cashMargin').updateValueAndValidity();
+  //     this.proposalForm.get('commissionPercentage').setValidators(Validators.required);
+  //     this.proposalForm.get('commissionPercentage').updateValueAndValidity();
+  //     this.proposalForm.get('commissionFrequency').setValidators(Validators.required);
+  //     this.proposalForm.get('commissionFrequency').updateValueAndValidity();
+  //   }
+  // }
 }

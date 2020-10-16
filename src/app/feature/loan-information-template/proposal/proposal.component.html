@@ -54,39 +54,48 @@
                   </div>
                 </div>
 
-                <div *ngIf="!isFundable" class="col-md-4">
+                <div *ngIf="!isFundable && fundableNonFundableSelcted" class="col-md-4">
                   <div class="form-group">
-                    <label class="title" for="cashMargin"><strong>Cash Margin</strong></label>
-                    <select
-                        [ngClass]="{ 'is-invalid': (submitted) && formControls.cashMargin.errors }"
-                        class="form-control"
-                        formControlName="cashMargin" id="cashMargin"
-                        name="cashMargin" (input)="checkRepaymentMode()">
-                      <option [ngValue]="null" hidden>Select Cash Margin</option>
-                      <option value="PERCENT">Percentage(%)</option>
-                      <option Value="FLAT">Flat</option>
-                    </select>
-                    <div *ngIf=" (submitted)  && formControls.cashMargin.errors"
-                         class="invalid-feedback">
-                      <span *ngIf="(formControls.cashMargin.errors.required)">Cash Margin is required</span>
-                    </div>
+                    <label class="title" for="cashMargin"><strong>Cash Margin</strong>
+                      <input
+                          formControlName="cashMarginMethod"
+                          name="cashMarginMethod" type="radio"
+                          value="PERCENT"><strong>% </strong>
+                      <input formControlName="cashMarginMethod" name="cashMarginMethod"
+                             type="radio" value="FLAT"><strong> Flat</strong>
+<!--                      <small-->
+<!--                          *ngIf="(submitted) && formControls.cashMarginMethod.invalid && formControls.cashMarginMethod.errors.required"-->
+<!--                          style="color:#DC3545">-->
+<!--                        Charge method is required-->
+<!--                      </small>-->
+                    </label>
+                    <input
+                        class="form-control" formControlName="cashMargin"
+                        id="cashMargin"
+                        name="cashMargin" placeholder="Cash Margin"
+                        type="number">
+<!--                    <div *ngIf="(submitted) && formControls.cashMargin.invalid"-->
+<!--                         class="invalid-feedback">-->
+<!--                      <span *ngIf="formControls.cashMargin.errors.required">Cash Margin is required</span>-->
+
+<!--                    </div>-->
                   </div>
+
                 </div>
-                <div *ngIf="!isFundable" class="col-md-4">
+                <div *ngIf="!isFundable && fundableNonFundableSelcted" class="col-md-4">
                   <div class="form-group">
                     <label class="title" for="commissionPercentage"><strong>Commission (%)</strong></label>
                     <input
-                        [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionPercentage.errors }"
                         class="form-control" formControlName="commissionPercentage"
                         id="commissionPercentage" name="commissionPercentage" placeholder="Commission (%)"
                         type="number">
-                    <div *ngIf="(submitted) && formControls.commissionPercentage.invalid"
-                         class="invalid-feedback">
-                      <span *ngIf="formControls.commissionPercentage.errors.required">Commission % is required</span>
-                    </div>
+<!--                    <div *ngIf="(submitted) && formControls.commissionPercentage.invalid"-->
+<!--                         class="invalid-feedback">-->
+<!--                      <span *ngIf="formControls.commissionPercentage.errors.required">Commission % is required</span>-->
+<!--                    </div>-->
                   </div>
                 </div>
-                <div *ngIf="!isFundable" class="col-md-4">
+                <div *ngIf="!isFundable && fundableNonFundableSelcted" class="col-md-4">
                   <div class="form-group">
                     <label class="title" for="commissionFrequency"><strong>Commission Frequency</strong></label>
                     <select
@@ -109,14 +118,13 @@
                   <div class="form-group">
                     <label class="title" for="couponRate"><strong>Coupon Rate</strong></label>
                     <input
-                        [ngClass]="{ 'is-invalid': (submitted) && formControls.couponRate.errors }"
                         class="form-control" formControlName="couponRate"
                         id="couponRate" name="couponRate" placeholder="Coupon Rate"
                         type="number">
-                    <div *ngIf="(submitted) && formControls.couponRate.invalid"
-                         class="invalid-feedback">
-                      <span *ngIf="formControls.couponRate.errors.required">Coupon Rate is required</span>
-                    </div>
+<!--                    <div *ngIf="(submitted) && formControls.couponRate.invalid"-->
+<!--                         class="invalid-feedback">-->
+<!--                      <span *ngIf="formControls.couponRate.errors.required">Coupon Rate is required</span>-->
+<!--                    </div>-->
                   </div>
                 </div>
                 <div *ngIf="isFixedDeposit"class="col-md-4">
@@ -133,94 +141,89 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral">
                   <div class="form-group">
                     <label class="title" for="interestRate"><strong>Interest
                       Rate(%)</strong></label>
                     <input
-                        [ngClass]="{ 'is-invalid': (submitted) && formControls.interestRate.errors }"
                         class="form-control" formControlName="interestRate"
                         id="interestRate" name="interestRate" placeholder="Interest Rate(%)"
                         [(ngModel)]="interestLimit"
                         type="number" (input)="checkRepaymentMode()">
-                    <div *ngIf="(submitted) && formControls.interestRate.invalid"
-                         class="invalid-feedback">
-                      <span *ngIf="formControls.interestRate.errors.required">Interest Rate is required</span>
-                      <span *ngIf="formControls.interestRate.errors.min">Interest Rate must be positive numerical value.</span>
-                    </div>
+<!--                    <div *ngIf="(submitted) && formControls.interestRate.invalid"-->
+<!--                         class="invalid-feedback">-->
+<!--                      <span *ngIf="formControls.interestRate.errors.required">Interest Rate is required</span>-->
+<!--                      <span *ngIf="formControls.interestRate.errors.min">Interest Rate must be positive numerical value.</span>-->
+<!--                    </div>-->
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
                   <div class="form-group">
                     <label class="title" for="baseRate"><strong>Base Rate(%)</strong></label>
-                    <input [ngClass]="{ 'is-invalid': (submitted) && formControls.baseRate.errors }"
+                    <input
                            class="form-control" formControlName="baseRate" id="baseRate"
                            name="baseRate" placeholder="Base Rate(%)"
                            type="number">
-                    <div *ngIf="(submitted) && formControls.baseRate.invalid"
-                         class="invalid-feedback">
-                      <span
-                          *ngIf="formControls.baseRate.errors.required">Base Rate is required</span>
+<!--                    <div *ngIf="(submitted) && formControls.baseRate.invalid"-->
+<!--                         class="invalid-feedback">-->
+<!--                      <span-->
+<!--                          *ngIf="formControls.baseRate.errors.required">Base Rate is required</span>-->
 
-                      <span *ngIf="formControls.baseRate.errors.min">Base Rate must be positive numerical value.</span>
-                    </div>
+<!--                      <span *ngIf="formControls.baseRate.errors.min">Base Rate must be positive numerical value.</span>-->
+<!--                    </div>-->
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
                   <div class="form-group">
                     <label class="title" for="premiumRateOnBaseRate"><strong>Premium Rate On Base
                       Rate(%)</strong></label>
                     <input
-                        [ngClass]="{ 'is-invalid': (submitted) && formControls.premiumRateOnBaseRate.errors }"
                         class="form-control"
                         class="form-control" formControlName="premiumRateOnBaseRate"
                         id="premiumRateOnBaseRate" name="premiumRate"
                         placeholder="Base Rate(%)" placeholder="Premium Rate On Base Rate(%)"
                         type="number" readonly>
-                    <div *ngIf="(submitted) && formControls.premiumRateOnBaseRate.invalid"
-                         class="invalid-feedback">
-                      <span *ngIf="formControls.premiumRateOnBaseRate.errors.required">Premium Rate On Base Rate is required</span>
+<!--                    <div *ngIf="(submitted) && formControls.premiumRateOnBaseRate.invalid"-->
+<!--                         class="invalid-feedback">-->
+<!--                      <span *ngIf="formControls.premiumRateOnBaseRate.errors.required">Premium Rate On Base Rate is required</span>-->
 
-                      <span *ngIf="formControls.premiumRateOnBaseRate.errors.min">Premium Rate On Base Rate must be positive numerical value.</span>
-                    </div>
+<!--                      <span *ngIf="formControls.premiumRateOnBaseRate.errors.min">Premium Rate On Base Rate must be positive numerical value.</span>-->
+<!--                    </div>-->
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
                   <div class="form-group">
                     <label class="title" for="serviceCharge"><strong>Service Charge </strong>
                       <input
-                          [ngClass]="{ 'is-untouched': (submitted) && formControls.serviceChargeMethod.errors }"
                           formControlName="serviceChargeMethod"
                           name="serviceChargeMethod" type="radio"
                           value="PERCENT"><strong>% </strong>
                       <input formControlName="serviceChargeMethod" name="serviceChargeMethod"
                              type="radio" value="FLAT"><strong> Flat</strong>
-                      <small
-                          *ngIf="(submitted) && formControls.serviceChargeMethod.invalid && formControls.serviceChargeMethod.errors.required"
-                          style="color:#DC3545">
-                        Charge method is required
-                      </small>
+<!--                      <small-->
+<!--                          *ngIf="(submitted) && formControls.serviceChargeMethod.invalid && formControls.serviceChargeMethod.errors.required"-->
+<!--                          style="color:#DC3545">-->
+<!--                        Charge method is required-->
+<!--                      </small>-->
                     </label>
                     <input
-                        [ngClass]="{ 'is-invalid': (submitted) && formControls.serviceCharge.errors }"
                         class="form-control" formControlName="serviceCharge"
                         id="serviceCharge"
                         name="serviceCharge" placeholder="Service charge"
                         type="number">
-                    <div *ngIf="(submitted) && formControls.serviceCharge.invalid"
-                         class="invalid-feedback">
-                      <span *ngIf="formControls.serviceCharge.errors.required">Service Charge is required</span>
+<!--                    <div *ngIf="(submitted) && formControls.serviceCharge.invalid"-->
+<!--                         class="invalid-feedback">-->
+<!--                      <span *ngIf="formControls.serviceCharge.errors.required">Service Charge is required</span>-->
 
-                      <span *ngIf="formControls.serviceCharge.errors.min">Service Charge must be positive numerical value.</span>
-                    </div>
+<!--                      <span *ngIf="formControls.serviceCharge.errors.min">Service Charge must be positive numerical value.</span>-->
+<!--                    </div>-->
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">
                   <div class="form-group">
                     <label class="title" for="tenureDurationInMonths"><strong>Tenure Duration in
                       Month.</strong></label>
                     <input
-                        [ngClass]="{ 'is-invalid': (submitted) && formControls.tenureDurationInMonths.errors }"
                         class="form-control"
                         formControlName="tenureDurationInMonths" id="tenureDurationInMonths"
                         placeholder="Tenure Duration in Months"
@@ -234,20 +237,19 @@
                     <!--                                               type="text"/>-->
                     <!--                                        <nb-datepicker #tenurePicker></nb-datepicker>-->
 
-                    <div *ngIf="(submitted) && formControls.tenureDurationInMonths.invalid"
-                         class="invalid-feedback">
-                      <span *ngIf="formControls.tenureDurationInMonths.errors.required ">Tenure duration is required.</span>
-                      <span *ngIf="formControls.tenureDurationInMonths.errors.min ">Tenure duration must be positive numerical value.</span>
-                    </div>
+<!--                    <div *ngIf="(submitted) && formControls.tenureDurationInMonths.invalid"-->
+<!--                         class="invalid-feedback">-->
+<!--                      <span *ngIf="formControls.tenureDurationInMonths.errors.required ">Tenure duration is required.</span>-->
+<!--                      <span *ngIf="formControls.tenureDurationInMonths.errors.min ">Tenure duration must be positive numerical value.</span>-->
+<!--                    </div>-->
                   </div>
                 </div>
 
                 <!--                                start of repayment mode-->
-                <div class="col-md-4">
+                <div class="col-md-4" *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral">
                   <div class="form-group">
                     <label class="title" for="repaymentMode"><strong>Repayment Mode</strong></label>
                     <select
-                        [ngClass]="{ 'is-invalid': (submitted ) && formControls.repaymentMode.errors }"
                         class="custom-select" formControlName="repaymentMode"
                         id="repaymentMode"
                         name="repaymentMode"
@@ -259,17 +261,17 @@
                       <option value="QUARTERLY">Quarterly</option>
                       <option value="YEARLY">Yearly</option>
                     </select>
-                    <div *ngIf="(submitted) && formControls.repaymentMode.invalid"
-                         class="invalid-feedback">
-                      <span *ngIf="formControls.repaymentMode.errors.required">Repayment mode is required</span>
-                    </div>
+<!--                    <div *ngIf="(submitted) && formControls.repaymentMode.invalid"-->
+<!--                         class="invalid-feedback">-->
+<!--                      <span *ngIf="formControls.repaymentMode.errors.required">Repayment mode is required</span>-->
+<!--                    </div>-->
                   </div>
                 </div>
                 <!--                                end of repayment mode-->
 
                 <!--                start of installment amount div-->
                 <div class="col-md-4"
-                     *ngIf="proposalForm.get('repaymentMode').value === 'EMI' || proposalForm.get('repaymentMode').value === 'EQI'">
+                     *ngIf="(proposalForm.get('repaymentMode').value === 'EMI' || proposalForm.get('repaymentMode').value === 'EQI')  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))">
                   <div class="form-group>">
                     <label class="title"> <strong>Installment Amount</strong></label>
                     <input
@@ -281,7 +283,7 @@
                 </div>
                 <!--                end of installment amount div-->
                 <div class="col-md-4"
-                     *ngIf="proposalForm.get('repaymentMode').value === 'MONTHLY' || proposalForm.get('repaymentMode').value === 'QUARTERLY' || proposalForm.get('repaymentMode').value === 'YEARLY'">
+                     *ngIf="(proposalForm.get('repaymentMode').value === 'MONTHLY' || proposalForm.get('repaymentMode').value === 'QUARTERLY' || proposalForm.get('repaymentMode').value === 'YEARLY') &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
                   <div class="form-group>">
                     <label class="title"> <strong>Interest Amount</strong></label>
                     <input
@@ -293,7 +295,7 @@
                 </div>
 
                 <!--                start of Moratorium period amount div-->
-                <div class="col-md-4">
+                <div class="col-md-4" *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">
                   <div class="form-group>">
                     <label class="title"> <strong>Moratorium Period</strong></label>
                     <input
@@ -305,31 +307,46 @@
                 </div>
                 <!--                end of Moratorium Period amount div-->
 
+                <div class="col-md-4" *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
+                  <div class="form-group">
+                    <label class="title" for="commitmentFee"><strong>Commitment Fee</strong></label>
+                    <input
+                        class="form-control"
+                        formControlName="commitmentFee" id="commitmentFee"
+                        name="commitmentFee"
+                        placeholder="Commitment Fee" type="number"/>
+<!--                    <div *ngIf="(submitted) && formControls.commitmentFee.invalid"-->
+<!--                         class="invalid-feedback">-->
+<!--                      <span *ngIf="formControls.commitmentFee.errors.required">Commitment Fee is required.</span>-->
+<!--                    </div>-->
+
+                  </div>
+                </div>
+
+                <div class="col-md-4" *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving) || isVehicle || isShare || isGeneral">
+                  <div class="form-group">
+                    <label class="title" for="tenorOfEachDeal"><strong>Tenor of each deal</strong></label>
+                    <input
+                        class="form-control"
+                        formControlName="tenorOfEachDeal" id="tenorOfEachDeal"
+                        name="tenorOfEachDeal"
+                        placeholder="Tenor of each deal" type="number"/>
+<!--                    <div *ngIf="(submitted) && formControls.tenorOfEachDeal.invalid"-->
+<!--                         class="invalid-feedback">-->
+<!--                      <span *ngIf="formControls.tenorOfEachDeal.errors.required">Tenor of each deal</span>-->
+<!--                    </div>-->
+
+                  </div>
+                </div>
 
                 <!--                start of Prepayment charge  div-->
-                <div class="col-md-4">
+                <div class="col-md-4" *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral" >
                   <div class="form-group>">
                     <label class="title"> <strong>Prepayment Charge</strong></label>
                     <input
                         class="form-control" formControlName="prepaymentCharge"
                         id="prepaymentCharge"
                         name="prepaymentCharge" placeholder="Prepayment Amount">
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label class="title" for="commitmentFee"><strong>Commitment Fee</strong></label>
-                    <input
-                        [ngClass]="{ 'is-invalid': (submitted) && formControls.commitmentFee.errors }"
-                        class="form-control"
-                        formControlName="commitmentFee" id="commitmentFee"
-                        name="commitmentFee"
-                        placeholder="Commitment Fee" type="number"/>
-                    <div *ngIf="(submitted) && formControls.commitmentFee.invalid"
-                         class="invalid-feedback">
-                      <span *ngIf="formControls.commitmentFee.errors.required">Commitment Fee is required.</span>
-                    </div>
-
                   </div>
                 </div>
                 <div class="col-md-4">
