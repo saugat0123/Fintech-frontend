@@ -1,0 +1,31 @@
+<div class="py-2">
+    <span><strong>Justification of Facilities:</strong></span>
+    <hr>
+    <div class="py-2">
+        <ol>
+            <li class="col-md-12" *ngFor="let data of customerAllLoanList;let i = index">
+                <div class="row sb-medium">
+                    <strong><span><u>{{data.loan.name}}({{data.createdAt | date}}) :</u></span></strong>
+                </div>
+
+        <div class="text-align" [innerHTML]="(data.proposal.data |jsonParse)?.borrowerInformation | safeHtml">
+        </div>
+
+                <div>
+                    <div class="row sb-small"><strong> Disbursement criteria :</strong></div>
+                    <div class="sb-small">
+                        <span>{{(data.proposal.data |jsonParse)?.disbursementCriteria || 'NA'}}</span>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="row sb-small"><strong> Repayment criteria :</strong></div>
+                    <div class="sb-small">
+                        <span>{{(data.proposal.data |jsonParse)?.repayment || 'NA'}}</span>
+                    </div>
+                </div>
+                <hr>
+            </li>
+        </ol>
+    </div>
+</div>
