@@ -523,6 +523,10 @@
       <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
                              [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
+      <app-net-trading-assets *ngIf="netTradingAssetsSummary"
+                              [fromProfile]="false"
+                              [netTradingAssetsData]="netTradingAssetsData"></app-net-trading-assets>
+
       <app-income-from-account-summery *ngIf="incomeFromAccountSummary" [formData]="incomeFromAccountData"></app-income-from-account-summery>
 
       <app-guarantor-summary *ngIf="checkGuarantorData"

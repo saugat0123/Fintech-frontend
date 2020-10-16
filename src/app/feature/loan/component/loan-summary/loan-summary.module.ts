@@ -16,6 +16,7 @@ import {CoreModule} from '../../../../@core/core.module';
 import {CompanyInfoSummaryComponent} from './company-info-summary/company-info-summary.component';
 import {IncomeFromAccountSummeryComponent} from './income-from-account-summery/income-from-account-summery.component';
 import {NetTradingAssetsSummaryComponent} from './net-trading-assets-summary/net-trading-assets-summary.component';
+import {LoanInformationTemplateModule} from '../../../loan-information-template/loan-information-template.module';
 
 
 const COMPONENTS = [
@@ -40,6 +41,7 @@ const ENTRY_COMPONENTS = [];
     imports: [
         CommonModule,
         ThemeModule,
+        LoanInformationTemplateModule,
         LoanSummaryRoutingModule,
         ReportingModule,
         NgxPrintModule,

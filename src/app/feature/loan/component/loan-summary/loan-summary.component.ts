@@ -28,6 +28,7 @@ import {Proposal} from '../../../admin/modal/proposal';
 import {CombinedLoanService} from '../../../service/combined-loan.service';
 import {CombinedLoan} from '../../model/combined-loan';
 import {IncomeFromAccount} from '../../../admin/modal/incomeFromAccount';
+import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 
 @Component({
   selector: 'app-loan-summary',
@@ -120,6 +121,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   customerAllLoanList: LoanDataHolder[] = []; // current loan plus staged and combined loans
   incomeFromAccountSummary = false;
   incomeFromAccountData: IncomeFromAccount;
+  netTradingAssetsSummary = false;
+  netTradingAssetsData: NetTradingAssets;
   minOneInsuranceDoc = false;
   minOneGuarantorDoc = false;
   taggedGuarantorWithDoc = [];
@@ -192,7 +195,13 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.incomeFromAccount)) {
             this.incomeFromAccountData = JSON.parse(this.loanDataHolder.loanHolder.incomeFromAccount.data);
             this.incomeFromAccountSummary = true;
-    }
+          }
+
+          // Setting NetTradingAssets data--
+          if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.netTradingAssets)) {
+            this.netTradingAssetsData = this.loanDataHolder.loanHolder.netTradingAssets;
+            this.netTradingAssetsSummary = true;
+          }
 
 
     // Setting credit risk data---
