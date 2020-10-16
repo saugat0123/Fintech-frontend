@@ -22,7 +22,9 @@ export class SecuritySummaryComponent implements OnInit {
   shareTotalValue = 0;
   totalConsideredValue = 0;
   buildingSelected = false;
-
+  hypothecation = false;
+  corporate = false;
+  personal = false;
   loanSharePercent: NepseMaster = new NepseMaster();
 
   constructor() {
@@ -52,6 +54,15 @@ export class SecuritySummaryComponent implements OnInit {
             break;
           case 'ShareSecurity':
             this.shareSelected = true;
+            break;
+          case 'HypothecationOfStock':
+            this.hypothecation = true;
+            break;
+          case 'CorporateGuarantee':
+            this.corporate = true;
+            break;
+          case 'PersonalGuarantee':
+            this.personal = true;
         }
       });
     }
