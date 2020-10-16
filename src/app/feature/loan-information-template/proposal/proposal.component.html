@@ -297,7 +297,7 @@
                 <!--                start of Moratorium period amount div-->
                 <div class="col-md-4" *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">
                   <div class="form-group>">
-                    <label class="title"> <strong>Moratorium Period</strong></label>
+                    <label class="title"> <strong>Moratorium Period (Month)</strong></label>
                     <input
                         class="form-control" formControlName="moratoriumPeriod"
                         id="moratoriumPeriod"
@@ -323,14 +323,14 @@
                   </div>
                 </div>
 
-                <div class="col-md-4" *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving) || isVehicle || isShare || isGeneral">
+                <div class="col-md-4" *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving) ">
                   <div class="form-group">
                     <label class="title" for="tenorOfEachDeal"><strong>Tenor of each deal</strong></label>
                     <input
                         class="form-control"
                         formControlName="tenorOfEachDeal" id="tenorOfEachDeal"
                         name="tenorOfEachDeal"
-                        placeholder="Tenor of each deal" type="number"/>
+                        placeholder="Tenor of each deal" type="text"/>
 <!--                    <div *ngIf="(submitted) && formControls.tenorOfEachDeal.invalid"-->
 <!--                         class="invalid-feedback">-->
 <!--                      <span *ngIf="formControls.tenorOfEachDeal.errors.required">Tenor of each deal</span>-->
@@ -456,12 +456,12 @@
 
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label class="title" for="remark"><strong>Remark</strong></label>
+                    <label class="title" for="remark"><strong>Remarks</strong></label>
                     <textarea
                         class="form-control"
                         formControlName="remark" id="remark"
                         name="remark"
-                        placeholder="Remark"
+                        placeholder="Remarks"
                         rows="3"></textarea>
                   </div>
                 </div>

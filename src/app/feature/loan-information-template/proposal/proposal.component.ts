@@ -96,9 +96,16 @@ export class ProposalComponent implements OnInit {
               this.loanNatureSelected = true;
               this.isTerminating = this.loanNature === 'Terminating';
               this.isRevolving = this.loanNature === 'Revolving';
+              if (this.isRevolving) {
+                this.isGeneral = false;
+              }
             }
             if (!this.isFundable) {
               this.isGeneral = false;
+            }
+            if ( this.isFixedDeposit) {
+              this.loanNatureSelected = false;
+              this.fundableNonFundableSelcted = false;
             }
             this.proposalForm.get('proposedLimit').setValidators([Validators.required,
               MinimumAmountValidator.minimumAmountValidator(this.minimumAmountLimit)]);
