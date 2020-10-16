@@ -33,6 +33,7 @@ import {FinancialDeleteComponentComponent} from './financial/financial-delete-co
 import {TemplateDocumentComponent} from './template-document/template-document.component';
 import {CKEditorModule} from 'ng2-ckeditor';
 import { IncomeFromAccountComponent } from './income-from-account/income-from-account.component';
+import { NetTradingAssetsComponent } from './net-trading-assets/net-trading-assets.component';
 
 const COMPONENTS = [
   SiteVisitComponent,
@@ -55,13 +56,15 @@ const COMPONENTS = [
   CreditRiskGradingGammaComponent,
   FinancialDeleteComponentComponent,
   CiclComponent,
-  TemplateDocumentComponent
+  TemplateDocumentComponent,
+  NetTradingAssetsComponent,
+  IncomeFromAccountComponent
 ];
 
 
 @NgModule({
-  declarations: [...COMPONENTS, IncomeFromAccountComponent],
-  exports: [...COMPONENTS, IncomeFromAccountComponent],
+  declarations: [...COMPONENTS],
+  exports: [...COMPONENTS],
   entryComponents: [...COMPONENTS],
   imports: [
     CommonModule,

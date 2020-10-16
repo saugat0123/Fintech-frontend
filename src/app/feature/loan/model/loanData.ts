@@ -27,6 +27,7 @@ import {CombinedLoan} from './combined-loan';
 import {Guarantor} from './guarantor';
 import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
 import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
+import {NetTradingAssets} from '../../admin/modal/NetTradingAssets';
 import {BaseEntity} from '../../../@core/model/base-entity';
 
 
@@ -75,4 +76,5 @@ export class LoanDataHolder extends BaseEntity {
     combinedLoan: CombinedLoan;
     refNo: string;
     incomeFromAccount: IncomeFromAccount;
+    netTradingAssets: NetTradingAssets;
 }

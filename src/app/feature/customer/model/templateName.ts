@@ -1,6 +1,7 @@
 export class TemplateName {
   static SITE_VISIT = 'SiteVisit';
   static FINANCIAL = 'Financial';
+  static NET_TRADING_ASSETS = 'NetTradingAssets';
   static SECURITY = 'Security';
   static SHARE_SECURITY = 'Share Security';
   static GUARANTOR = 'Guarantor';
