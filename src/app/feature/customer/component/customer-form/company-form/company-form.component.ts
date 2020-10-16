@@ -368,7 +368,7 @@ export class CompanyFormComponent implements OnInit {
 
             // Success Planning
             successionPlanning: [ObjectUtil.isEmpty(this.companyInfo) ? undefined :
-                JSON.parse(this.companyInfo.successionPlanning), Validators.required],
+                JSON.parse(this.companyInfo.successionPlanning)],
 
             // Business Objective
             businessObjective: [ObjectUtil.isEmpty(this.companyJsonData.businessObjective) ? undefined :
@@ -432,7 +432,7 @@ export class CompanyFormComponent implements OnInit {
             /** Succession*/
             succession: [ObjectUtil.isEmpty(this.companyInfo)
             || ObjectUtil.isEmpty(this.companyInfo.succession) ? undefined :
-                this.companyInfo.succession, Validators.required],
+                this.companyInfo.succession],
 
             /** Groups BackGround*/
             groupsBackGround: [ObjectUtil.isEmpty(this.companyJsonData)
@@ -802,6 +802,7 @@ export class CompanyFormComponent implements OnInit {
 
         /** experience & succession */
         this.companyInfo.experience = this.companyInfoFormGroup.get('experience').value;
+        this.companyInfo.succession = this.companyInfoFormGroup.get('succession').value;
         // todo change this to common function
         const submitData = new CompanyJsonData();
         Object.keys(submitData).forEach((k) => {
