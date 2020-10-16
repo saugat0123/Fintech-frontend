@@ -28,9 +28,10 @@ import {Guarantor} from './guarantor';
 import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
 import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../admin/modal/NetTradingAssets';
+import {BaseEntity} from '../../../@core/model/base-entity';
 
 
-export class LoanDataHolder {
+export class LoanDataHolder extends BaseEntity {
     id: number;
     branch: Branch;
     loanCategory: any;
