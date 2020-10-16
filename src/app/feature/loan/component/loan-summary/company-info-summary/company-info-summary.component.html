@@ -4,18 +4,18 @@
           class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
         <tr>
           <td><b>Nature Of business</b></td>
-          <td>{{companyJsonData.majorProductService}}</td>
-          <td><b>Relationship Start Date</b>: {{companyJsonData.relationshipSince |date}}</td>
+          <td>{{companyJsonData?.majorProductService}}</td>
+          <td><b>Relationship Start Date</b>: {{companyJsonData?.relationshipSince |date}}</td>
 
         </tr>
         <tr>
           <td><b>Sister Concerns</b></td>
-          <td colspan="2">{{companyJsonData.sisterConcern}}</td>
+          <td colspan="2">{{companyJsonData?.sisterConcern}}</td>
         </tr>
         <tr>
           <td rowspan="5"><b>RegistrationDetail</b></td>
           <td><b>Dept/office</b></td>
-          <td>{{companyInfo.legalStatus.panRegistrationOffice}}</td>
+          <td>{{companyInfo?.legalStatus?.panRegistrationOffice}}</td>
         </tr>
         <tr>
           <td></td>
@@ -24,12 +24,12 @@
         <tr>
 
           <td><b>Date</b></td>
-          <td>{{companyInfo.legalStatus.registrationDate |date}}</td>
+          <td>{{companyInfo?.legalStatus?.registrationDate |date}}</td>
         </tr>
         <tr>
 
           <td><b>Regd. Number</b></td>
-          <td>{{companyInfo.registrationNumber}}</td>
+          <td>{{companyInfo?.registrationNumber}}</td>
         </tr>
         <tr>
 
@@ -37,13 +37,13 @@
           <td>
             <div class="row">
               <div class="col-md-6">
-                {{companyInfo.panNumber}}
+                {{companyInfo?.panNumber}}
                 <span class="float-right">
               |
             </span>
               </div>
               <div class="col-md-6">
-                <b>Date</b>: {{companyInfo.legalStatus.panRegistrationDate |date}}
+                <b>Date</b>: {{companyInfo?.legalStatus?.panRegistrationDate |date}}
               </div>
             </div>
           </td>
@@ -52,8 +52,8 @@
           <td>
             <b>Tax Clearance Till</b>
           </td>
-          <td>{{companyJsonData.otherCompanyDetail.taxClearanceTill}}</td>
-          <td><b>Remarks</b> , {{companyJsonData.otherCompanyDetail.taxClearanceRemark !== undefined ? companyJsonData.otherCompanyDetail.taxClearanceRemark
+          <td>{{companyJsonData?.otherCompanyDetail?.taxClearanceTill}}</td>
+          <td><b>Remarks</b> , {{companyJsonData?.otherCompanyDetail.taxClearanceRemark !== undefined ? companyJsonData?.otherCompanyDetail?.taxClearanceRemark
             :'N/A'}}</td>
         </tr>
 
@@ -62,16 +62,16 @@
             <b>Business Operation Since(if Other than registration date)</b>
           </td>
           <td colspan="2">
-            {{companyInfo.establishmentDate |date}}
+            {{companyInfo?.establishmentDate |date}}
           </td>
         </tr>
         <tr>
           <td><b>Issue Place</b></td>
-          <td colspan="2">{{companyInfo.issuePlace}}</td>
+          <td colspan="2">{{companyInfo?.issuePlace}}</td>
         </tr>
         <tr>
           <td><b>Business Address</b></td>
-          <td  colspan="2">{{companyInfo.companyLocations.address}}, {{ companyInfo.companyLocations.streetName }}, {{companyInfo.companyLocations.houseNumber}}</td>
+          <td  colspan="2">{{companyInfo?.companyLocations.address}}, {{ companyInfo?.companyLocations?.streetName }}, {{companyInfo?.companyLocations?.houseNumber}}</td>
         </tr>
         <tr>
           <td>
@@ -82,20 +82,22 @@
           </td>
           <td>
             <div><b> Key Contact Person/Position</b></div>
-            <div>{{contact[0].contactName}}</div>
-            <div>{{contact[0].contactNumber}}</div>
-            <div>{{contact[0].email}}</div>
-            <div>{{contact[0].functionalPosition}}</div>
+            <ng-container *ngIf="contact != undefined || contact != null">
+              <div>{{contact[0]?.contactName}}</div>
+              <div>{{contact[0]?.contactNumber}}</div>
+              <div>{{contact[0]?.email}}</div>
+              <div>{{contact[0]?.functionalPosition}}</div>
+            </ng-container>
           </td>
           <td>
            <div> <b>Alternative Contact Person</b></div>
-            <ng-container *ngIf="contact.length > 1">
+            <ng-container *ngIf="contact?.length > 1">
               <div>{{contact[1]?.contactName}}</div>
               <div>{{contact[1]?.contactNumber}}</div>
               <div>{{contact[1]?.email}}</div>
               <div>{{contact[1]?.functionalPosition}}</div>
             </ng-container>
-            <span *ngIf="contact.length == 1">N/A</span>
+            <span *ngIf="contact?.length == 1">N/A</span>
           </td>
         </tr>
 
@@ -108,21 +110,21 @@
         </tr>-->
         <tr>
           <td><b>Classification as per NRB Directive</b></td>
-          <td colspan="2">{{companyJsonData.otherCompanyDetail.ClassificationByNRB}}</td>
+          <td colspan="2">{{companyJsonData?.otherCompanyDetail?.ClassificationByNRB}}</td>
         </tr>
 
         <tr>
           <td><b>Negative List</b></td>
-          <td colspan="2"><span>(<i *ngIf="companyJsonData.otherCompanyDetail.negativeList === 'checked'" class="fas fa-check-circle"></i> )Checked</span>
-            <span class="ml-2">(<i *ngIf="companyJsonData.otherCompanyDetail.negativeList === 'unchecked'" class="fas fa-check-circle"></i> )Not checked</span>
-            <span class="ml-5">Remarks , {{companyJsonData.otherCompanyDetail.negativeListRemark != undefined ? companyJsonData.otherCompanyDetail.negativeListRemark : 'N/A'}}</span></td>
+          <td colspan="2"><span>(<i *ngIf="companyJsonData?.otherCompanyDetail?.negativeList === 'checked'" class="fas fa-check-circle"></i> )Checked</span>
+            <span class="ml-2">(<i *ngIf="companyJsonData?.otherCompanyDetail?.negativeList === 'unchecked'" class="fas fa-check-circle"></i> )Not checked</span>
+            <span class="ml-5">Remarks , {{companyJsonData?.otherCompanyDetail?.negativeListRemark != undefined ? companyJsonData?.otherCompanyDetail?.negativeListRemark : 'N/A'}}</span></td>
         </tr>
 
         <tr>
           <td><b>Authorized / Issue / Paid Up Capital</b></td>
-          <td colspan="2">Rs. {{companyInfo.capital.authorizedCapital |currencyFormatter}}
-            / Rs. {{companyInfo.capital.issuedCapital | currencyFormatter}}
-            / Rs. {{companyInfo.capital.paidUpCapital | currencyFormatter}} </td>
+          <td colspan="2">Rs. {{companyInfo?.capital?.authorizedCapital |currencyFormatter}}
+            / Rs. {{companyInfo?.capital?.issuedCapital | currencyFormatter}}
+            / Rs. {{companyInfo?.capital?.paidUpCapital | currencyFormatter}} </td>
         </tr>
 
       </table>
@@ -142,13 +144,13 @@
     <tbody>
     <tr *ngFor="let team of companyInfo.managementTeamList; let i=index">
       <td>{{i+1}}</td>
-      <td>{{team.name}}</td>
-      <td>{{team.designation}}</td>
-      <td>{{team.description}}</td>
+      <td>{{team?.name}}</td>
+      <td>{{team?.designation}}</td>
+      <td>{{team?.description}}</td>
     </tr>
     <tr>
       <td class="sb-bg-secondary text-white">Note</td>
-      <td colspan="2">{{companyJsonData.managementTeamNote}}</td>
+      <td colspan="2">{{companyJsonData?.managementTeamNote}}</td>
     </tr>
     </tbody>
   </table>
@@ -171,11 +173,11 @@
       <tbody>
       <tr *ngFor="let holder of companyInfo.proprietorsList;let i =index">
         <td>{{i+1}}</td>
-        <td>{{holder.name}}</td>
-        <td>{{holder.type}}</td>
-        <td>{{holder.share}}</td>
-        <td>{{holder.contactNo}}</td>
-        <td>{{holder.province.name}}, {{holder.district.name}}, {{holder.municipalityVdc.name}}</td>
+        <td>{{holder?.name}}</td>
+        <td>{{holder?.type}}</td>
+        <td>{{holder?.share}}</td>
+        <td>{{holder?.contactNo}}</td>
+        <td>{{holder?.province?.name}}, {{holder?.district?.name}}, {{holder?.municipalityVdc?.name}}</td>
       </tr>
       </tbody>
     </table>
