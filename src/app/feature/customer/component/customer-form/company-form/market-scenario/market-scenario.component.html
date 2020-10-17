@@ -61,13 +61,14 @@
     <div class="col-md-6">
       <div class="form-group">
         <label for="competitorsOverview"><strong>Competitors Overview</strong></label>
-        <input
+        <textarea
+            rows="5"
             [ngClass]="{ 'is-invalid':submitted && form.competitorsOverview?.errors }"
             class="form-control rounded"
             formControlName="competitorsOverview"
             id="competitorsOverview"
             placeholder="Competitors Overview"
-            type="text"/>
+            type="text"></textarea>
         <div *ngIf="submitted && form.competitorsOverview?.errors "
              class="invalid-feedback">
           <div *ngIf="form.competitorsOverview?.errors.required">
@@ -80,13 +81,14 @@
     <div class="col-md-6">
       <div class="form-group">
         <label for="BusinessIndustryOutlook"><strong>Business/Industry Outlook</strong></label>
-        <input
+        <textarea
+            rows="5"
             [ngClass]="{ 'is-invalid':submitted && form.BusinessIndustryOutlook?.errors }"
             class="form-control rounded"
             formControlName="BusinessIndustryOutlook"
             id="BusinessIndustryOutlook"
             placeholder="Business/Industry Outlook"
-            type="text"/>
+            type="text"></textarea>
         <div *ngIf="submitted && form.BusinessIndustryOutlook?.errors "
              class="invalid-feedback">
           <div *ngIf="form.BusinessIndustryOutlook?.errors.required">
@@ -98,13 +100,14 @@
     <div class="col-md-6">
       <div class="form-group">
         <label for="BusinessIndustryOutlook"><strong>Marketing Strategies</strong></label>
-        <input
+        <textarea
+            rows="5"
             [ngClass]="{ 'is-invalid':submitted && form.marketingStrategies?.errors }"
             class="form-control rounded"
             formControlName="marketingStrategies"
             id="marketingStrategies"
             placeholder="Marketing Strategies"
-            type="text"/>
+            type="text"></textarea>
         <div *ngIf="submitted && form.marketingStrategies?.errors "
              class="invalid-feedback">
           <div *ngIf="form.marketingStrategies?.errors.required">
@@ -116,13 +119,14 @@
     <div class="col-md-6">
       <div class="form-group">
         <label for="technicalAspect"><strong>Technical Aspect </strong></label>
-        <input
+        <textarea
+            rows="5"
             [ngClass]="{ 'is-invalid':submitted && form.technicalAspect?.errors }"
             class="form-control rounded"
             formControlName="technicalAspect"
             id="technicalAspect"
             placeholder="Technical Aspect "
-            type="text"/>
+            type="text"></textarea>
         <div *ngIf="submitted && form.technicalAspect?.errors "
              class="invalid-feedback">
           <div *ngIf="form.technicalAspect?.errors.required">

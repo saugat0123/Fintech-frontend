@@ -1216,16 +1216,17 @@
                        <app-market-scenario [marketScenario]="companyJsonData?.marketScenario" #marketScenarioComponent></app-market-scenario>
                        <hr>
                        <div class="row">
-                           <div class="col-md-8">
+                           <div class="col-md-12">
                                <div class="form-group">
                                    <label for="groupsBackGround"><strong>15.Group’s
                                        background</strong></label>
-                                   <input
+                                   <textarea
+                                       rows="4"
                                        [ngClass]="{ 'is-invalid': (submitted) && form.groupsBackGround.errors }"
                                        class="form-control"
                                        formControlName="groupsBackGround" id="groupsBackGround"
                                        name="groupsBackGround" placeholder="Group’s background"
-                                       type="text"/>
+                                       type="text"></textarea>
                                    <div *ngIf="(submitted) && form.groupsBackGround.invalid"
                                         class="invalid-feedback">
                                        <div *ngIf="form.groupsBackGround.errors.required">
@@ -1234,7 +1235,7 @@
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-4">
+                           <div class="col-md-12">
                                <div class="form-group">
                                    <label for="groupsBackGround"><strong>16.Legal review
                                        Remarks </strong></label>
