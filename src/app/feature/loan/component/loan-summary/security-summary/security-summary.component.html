@@ -378,6 +378,80 @@
             </div>
         </div>
 
+        <div class="row" *ngIf= "hypothecation">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+
+                    <tr>
+                        <th class="text-center sb-bg-dark text-white" colspan="4">Hypothecation Of Stock</th>
+                    </tr>
+                    <tr class="sb-bg-secondary text-white">
+                        <th>S.N</th>
+                        <th>Owner</th>
+                        <th>Stock Location</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr  *ngFor="let hypothecationOfStock of formData['initialForm']['hypothecationOfStock']; let i= index">
+                        <td>{{i+1}}</td>
+                        <td>{{hypothecationOfStock?.owner}}</td>
+                        <td>{{hypothecationOfStock?.stock}}</td>
+                        <td>{{hypothecationOfStock?.value}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row" *ngIf= "corporate">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small" >
+
+                    <tr>
+                        <th class="text-center sb-bg-dark text-white" colspan="6">Corporate Guarantee</th>
+                    </tr>
+                    <tr class="sb-bg-secondary text-white">
+                        <th>S.N</th>
+                        <th>Name of Guarantor</th>
+                        <th>Address</th>
+                        <th>Key person </th>
+                        <th>Email address</th>
+                        <th>Phone number</th>
+                    </tr>
+                    <tr *ngFor="let corporateGuarantee of formData['initialForm']['corporateGuarantee']; let i= index">
+                        <td>{{i+1}}</td>
+                        <td>{{corporateGuarantee?.name}}</td>
+                        <td>{{corporateGuarantee?.address}}</td>
+                        <td>{{corporateGuarantee?.keyPerson}}</td>
+                        <td>{{corporateGuarantee?.email}}</td>
+                        <td>{{corporateGuarantee?.phoneNumber}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row" *ngIf= "personal">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small" >
+
+                    <tr>
+                        <th class="text-center sb-bg-dark text-white" colspan="5">Personal Guarantee</th>
+                    </tr>
+                    <tr class="sb-bg-secondary text-white">
+                        <th>S.N</th>
+                        <th>Name of Guarantor</th>
+                        <th>Address</th>
+                        <th>Email address</th>
+                        <th>Phone number</th>
+                    </tr>
+                    <tr *ngFor="let personalGuarantee of formData['initialForm']['personalGuarantee']; let i= index">
+                        <td>{{i+1}}</td>
+                        <td>{{personalGuarantee?.name}}</td>
+                        <td>{{personalGuarantee?.address}}</td>
+                        <td>{{personalGuarantee?.email}}</td>
+                        <td>{{personalGuarantee?.phoneNumber}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
         <div *ngIf="formData['initialForm']['remark']" class="row">
             <div class="col-md-12">
                 <p><b>Security Remark</b></p>
