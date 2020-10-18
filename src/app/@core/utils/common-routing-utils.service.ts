@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import {Router} from '@angular/router';
 import {CustomerType} from '../../feature/customer/model/customerType';
+import {Location} from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonRoutingUtilsService {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private _location: Location) { }
 
    loadCustomerProfile(associateId, id, customerType) {
     if (CustomerType[customerType] === CustomerType.INDIVIDUAL) {
@@ -29,4 +31,8 @@ export class CommonRoutingUtilsService {
           });
     }
   }
+
+    goBack() {
+        this._location.back();
+    }
 }

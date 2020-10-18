@@ -1,6 +1,13 @@
 <section class="enable-print">
   <nb-card>
     <nb-card-body id="print-block">
+        <div class="row disable-print">
+            <button nbButton
+                    shape="rectangle"
+                    status="primary"
+                    size="tiny" (click)="goToCustomer()"><em class="fas fa-backward"></em> <span
+                    class="px-2 sb-small">customer Profile</span></button>
+        </div>
       <div *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId"
            class="row text-success cursor disable-print">
         <div class="col-md-6 text-left">

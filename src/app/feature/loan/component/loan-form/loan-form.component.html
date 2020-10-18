@@ -1,6 +1,10 @@
 <nb-card>
 
   <nb-card-header>
+    <button nbButton
+            shape="rectangle"
+            status="primary"
+            size="tiny" (click)="goToCustomer()"><em class="fas fa-backward" ></em> <span class="px-2 sb-small">customer Profile</span></button>
     <p><b>Loan Type:</b>{{loanTypeKeyValue[loanType]}}</p>
     <h2 class="d-flex justify-content-center">{{loanTitle}}
     </h2>
