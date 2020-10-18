@@ -53,6 +53,7 @@ import {CreditRiskGradingGammaComponent} from '../../../loan-information-templat
 import {DefaultLoanTemplate} from '../../../../@core/utils/constants/default-loan-template';
 import {LoanType} from '../../model/loanType';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
+import {Priority} from '../../model/priority';
 
 @Component({
     selector: 'app-loan-form',
@@ -210,7 +211,7 @@ export class LoanFormComponent implements OnInit {
         private scrollNavService: ScrollNavigationService,
         private customerInfoService: CustomerInfoService,
         private companyInfoService: CompanyInfoService,
-        private commonRoutingUtilsService : CommonRoutingUtilsService
+        private commonRoutingUtilsService: CommonRoutingUtilsService
     ) {
     }
 
@@ -219,6 +220,7 @@ export class LoanFormComponent implements OnInit {
         this.docStatusForMaker();
         this.buildPriorityForm();
         this.buildDocStatusForm();
+
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.allId = {
@@ -273,6 +275,7 @@ export class LoanFormComponent implements OnInit {
                     this.loanDocument = new LoanDataHolder();
                     this.loanDocument.loanCategory = this.allId.loanCategory;
                     this.loanFile = new DmsLoanFile();
+                    this.priorityForm.get('priority').patchValue('MEDIUM');
                     this.docStatusForm.get('documentStatus').patchValue(DocStatus.value(DocStatus.DISCUSSION));
                 }
 
