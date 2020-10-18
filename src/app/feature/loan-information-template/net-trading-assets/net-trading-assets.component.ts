@@ -156,11 +156,14 @@ export class NetTradingAssetsComponent implements OnInit {
     }
 
     getFiscalYears() {
+        this.spinner = true;
         this.fiscalYearService.getAll().subscribe(response => {
             this.fiscalYearArray = response.detail;
             this.verifyDataWithFiscalYear(this.fiscalYearArray);
+            this.spinner = false;
         }, error => {
             console.log(error);
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Fiscal Year!'));
         });
     }
@@ -223,11 +226,13 @@ export class NetTradingAssetsComponent implements OnInit {
     }
 
     onChangeFiscalYear(selectedFiscalYearObj) {
+        this.spinner = true;
         this.netTradingAssetsFormArray.controls.forEach(singleControl => {
             if (Number(selectedFiscalYearObj.id) === Number(singleControl.value.id)) {
                 this.selectedIndex = this.netTradingAssetsFormArray.controls.indexOf(singleControl);
             }
         });
+        this.spinner = false;
     }
 
     onSubmit() {
