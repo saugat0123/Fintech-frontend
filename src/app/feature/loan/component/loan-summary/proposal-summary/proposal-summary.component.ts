@@ -5,6 +5,7 @@ import {DocStatus} from '../../../model/docStatus';
 import {LoanType} from '../../../model/loanType';
 import {EnumUtils} from '../../../../../@core/utils/enums.utils';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
 
 @Component({
     selector: 'app-proposal-summary',
@@ -21,7 +22,6 @@ export class ProposalSummaryComponent implements OnInit {
     customerFundedLoanList: LoanDataHolder[];
     customerNonFundedLoanList: LoanDataHolder[];
 
-
     constructor() {
     }
 
@@ -30,7 +30,9 @@ export class ProposalSummaryComponent implements OnInit {
     }
 
     public getTotal(key: string): number {
-        const total = this.customerAllLoanList
+        const tempList = this.customerAllLoanList
+            .filter(l => JSON.parse(l.proposal.data)[key]);
+        const total = tempList
             .map(l => JSON.parse(l.proposal.data)[key])
             .reduce((a, b) => a + b, 0);
         return this.isNumber(total);
@@ -40,11 +42,15 @@ export class ProposalSummaryComponent implements OnInit {
         this.fundedAndNonfundedList(loanList);
         let numb;
         if (funded) {
-            numb = this.customerFundedLoanList
+            const tempList = this.customerFundedLoanList
+                .filter(l => JSON.parse(l.proposal.data)[key]);
+            numb = tempList
                 .map(l => JSON.parse(l.proposal.data)[key])
                 .reduce((a, b) => a + b, 0);
         } else {
-            numb = this.customerNonFundedLoanList
+            const tempList = this.customerNonFundedLoanList
+                .filter(l => JSON.parse(l.proposal.data)[key]);
+            numb = tempList
                 .map(l => JSON.parse(l.proposal.data)[key])
                 .reduce((a, b) => a + b, 0);
         }
@@ -65,6 +71,9 @@ export class ProposalSummaryComponent implements OnInit {
     }
 
     isNumber(value) {
+        if (ObjectUtil.isEmpty(value)) {
+            return 0;
+        }
         if (Number.isNaN(value)) {
             return 0;
         } else {
@@ -72,5 +81,6 @@ export class ProposalSummaryComponent implements OnInit {
         }
 
     }
+
 
 }
