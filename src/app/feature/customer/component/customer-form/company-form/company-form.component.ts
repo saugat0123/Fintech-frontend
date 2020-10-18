@@ -447,7 +447,7 @@ export class CompanyFormComponent implements OnInit {
             /** Conduct Of Account*/
             conductOfAccount: [ObjectUtil.isEmpty(this.companyJsonData)
             || ObjectUtil.isEmpty(this.companyJsonData.conductOfAccount) ? undefined :
-                this.companyJsonData.legalReviewRemark],
+                this.companyJsonData.conductOfAccount],
 
             /** Business Given*/
             businessGiven: [ObjectUtil.isEmpty(this.companyJsonData)
@@ -632,7 +632,8 @@ export class CompanyFormComponent implements OnInit {
         );
     }
 
-    searchByRegNO() {
+    // todo remove if not used in future
+    /*searchByRegNO() {
         this.companySearch.registrationNumber = this.companyInfoFormGroup.get('registrationNumber').value;
         const regNo = this.companyInfoFormGroup.get('registrationNumber').value;
         this.blackListService.checkBlacklistByRef(regNo).subscribe((response: any) => {
@@ -672,7 +673,7 @@ export class CompanyFormComponent implements OnInit {
                 this.companyFormField.showFormField = true;
             }
         });
-    }
+    }*/
     scrollToFirstInvalidControl() {
         const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
             'form .ng-invalid'

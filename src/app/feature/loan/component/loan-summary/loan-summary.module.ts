@@ -18,6 +18,8 @@ import {IncomeFromAccountSummeryComponent} from './income-from-account-summery/i
 import {NetTradingAssetsSummaryComponent} from './net-trading-assets-summary/net-trading-assets-summary.component';
 import {LoanInformationTemplateModule} from '../../../loan-information-template/loan-information-template.module';
 import {ProposalJustificationSummaryComponent} from './proposal-justification-summary/proposal-justification-summary.component';
+import { BusinessBackgroundComponent } from './company-info-summary/business-background/business-background.component';
+import { FinancialRiskSummaryComponent } from './financial-risk-summary/financial-risk-summary.component';
 
 
 const COMPONENTS = [
@@ -33,13 +35,15 @@ const COMPONENTS = [
     CompanyInfoSummaryComponent,
     IncomeFromAccountSummeryComponent,
     NetTradingAssetsSummaryComponent,
-    ProposalJustificationSummaryComponent
+    ProposalJustificationSummaryComponent,
+    FinancialRiskSummaryComponent,
+    BusinessBackgroundComponent
 ];
 
 const ENTRY_COMPONENTS = [];
 
 @NgModule({
-    declarations: [...COMPONENTS],
+    declarations: [...COMPONENTS ],
     imports: [
         CommonModule,
         ThemeModule,

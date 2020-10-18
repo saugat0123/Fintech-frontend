@@ -23,7 +23,7 @@
                    <nb-tab tabTitle="Company Detail">
                        <div>
                            <div class="row">
-                               <div *ngIf="companyFormField.showFormField" class="col-md-4">
+                               <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="customerCode"><strong>Company Code</strong></label>
                                        <input
@@ -38,7 +38,7 @@
                                        </div>
                                    </div>
                                </div>
-                               <div *ngIf="companyFormField.showFormField" class="col-md-4">
+                               <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="companyName"><strong>Company Name</strong></label>
                                        <input
@@ -53,7 +53,7 @@
                                        </div>
                                    </div>
                                </div>
-                               <div *ngIf="companyFormField.showFormField" class="col-md-4">
+                               <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="companyEstablishmentDate"><strong>Establishment Date</strong></label>
                                        <input *ngIf="calendarType === 'AD'" [nbDatepicker]="establishmentPicker"
@@ -80,18 +80,12 @@
                                        <label for="registrationNumber"><strong>Registration Number</strong></label>
                                        <div class="input-group mb-3">
                                            <input
-                                               (change)="searchByRegNO()"
                                                [ngClass]="{ 'is-invalid':submitted && form.registrationNumber.errors }"
                                                class="form-control rounded"
                                                formControlName="registrationNumber"
                                                id="registrationNumber"
                                                min="0" placeholder="Enter registration number"
                                                type="text"/>
-                                           <div class="input-group-append">
-                                               <button (click)="searchByRegNO()" nbButton outline size="small"
-                                                       status="primary">Search
-                                               </button>
-                                           </div>
                                            <div *ngIf="submitted && form.registrationNumber.errors "
                                                 class="invalid-feedback">
                                                <div *ngIf="form.registrationNumber.errors.required">
@@ -103,7 +97,7 @@
                                </div>
                            </div>
                            <div class="row">
-                               <div *ngIf="companyFormField.showFormField" class="col-md-4">
+                               <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="issuePlace"><strong>Issue Place</strong></label>
                                        <ng-select [multiple]="false"
@@ -126,7 +120,7 @@
                                        </div>
                                    </div>
                                </div>
-                               <div *ngIf="companyFormField.showFormField" class="col-md-4">
+                               <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="email"><strong>Email</strong></label>
                                        <input
@@ -147,7 +141,7 @@
                                        </div>
                                    </div>
                                </div>
-                               <div *ngIf="companyFormField.showFormField" class="col-md-4">
+                               <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="contactNum"><strong>Contact Number</strong></label>
                                        <input
@@ -167,7 +161,7 @@
                                </div>
                            </div>
                            <div class="row">
-                               <div *ngIf="companyFormField.showFormField" class="col-md-4">
+                               <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="panNumber"><strong>PAN</strong></label>
                                        <div class="input-group mb-3">
@@ -187,7 +181,7 @@
                                        </div>
                                    </div>
                                </div>
-                               <div *ngIf="companyFormField.showFormField" class="col-md-4">
+                               <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="businessType"><strong>Business Type</strong></label>
                                        <ng-select [items]="businessTypes"
@@ -207,7 +201,7 @@
                                        </div>
                                    </div>
                                </div>
-                               <div *ngIf="companyFormField.showFormField" class="col-md-4">
+                               <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="businessType"><strong>Major products/Service</strong></label>
                                        <input
@@ -224,7 +218,7 @@
                                        </div>
                                    </div>
                                </div>
-                               <div *ngIf="companyFormField.showFormField"  class="col-md-4">
+                               <div  class="col-md-4">
                                    <div class="form-group">
                                        <label for="businessType"><strong>Relationship Since</strong></label>
                                        <input
@@ -1222,16 +1216,17 @@
                        <app-market-scenario [marketScenario]="companyJsonData?.marketScenario" #marketScenarioComponent></app-market-scenario>
                        <hr>
                        <div class="row">
-                           <div class="col-md-8">
+                           <div class="col-md-12">
                                <div class="form-group">
                                    <label for="groupsBackGround"><strong>15.Group’s
                                        background</strong></label>
-                                   <input
+                                   <textarea
+                                       rows="4"
                                        [ngClass]="{ 'is-invalid': (submitted) && form.groupsBackGround.errors }"
                                        class="form-control"
                                        formControlName="groupsBackGround" id="groupsBackGround"
                                        name="groupsBackGround" placeholder="Group’s background"
-                                       type="text"/>
+                                       type="text"></textarea>
                                    <div *ngIf="(submitted) && form.groupsBackGround.invalid"
                                         class="invalid-feedback">
                                        <div *ngIf="form.groupsBackGround.errors.required">
@@ -1240,7 +1235,7 @@
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-4">
+                           <div class="col-md-12">
                                <div class="form-group">
                                    <label for="groupsBackGround"><strong>16.Legal review
                                        Remarks </strong></label>
@@ -1363,7 +1358,8 @@
                                </div>
                                <div class="form-group">
                                    <ng-select [multiple]="false"
-                                              appendTo="body"
+                                              [appendTo]="'body'"
+                                              [dropdownPosition]="'top'"
                                               formControlName="industryGrowth"
                                               placeholder="Select industry growth">
                                        <ng-option *ngFor="let industryGrowth of industryGrowthList"
@@ -1379,6 +1375,8 @@
                                </div>
                                <div class="form-group">
                                    <ng-select [multiple]="false"
+                                              [appendTo]="'body'"
+                                              [dropdownPosition]="'top'"
                                               formControlName="marketCompetition"
                                               placeholder="Select industry growth">
                                        <ng-option *ngFor="let marketComp of marketCompetitionList"
@@ -1394,6 +1392,8 @@
                                </div>
                                <div class="form-group">
                                    <ng-select [multiple]="false"
+                                              [appendTo]="'body'"
+                                              [dropdownPosition]="'top'"
                                               formControlName="experience"
                                               placeholder="Select experience">
                                        <ng-option *ngFor="let experience of experiences"
@@ -1411,6 +1411,7 @@
                                        <ng-select [multiple]="false"
                                                   formControlName="succession"
                                                   placeholder="Select succession"
+                                                  [appendTo]="'body'"
                                                   [dropdownPosition]="'top'">
                                            <ng-option *ngFor="let succession of successionList"
                                                       [value]="succession?.value">

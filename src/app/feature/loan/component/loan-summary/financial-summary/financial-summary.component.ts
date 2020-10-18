@@ -14,6 +14,7 @@ export class FinancialSummaryComponent implements OnInit {
   financialData: any;
 
   isBusinessLoan = false;
+  activateOldFinancialSummary = false;
 
   // Additional Summary Fields---
   totalDebtValueArray = [];
