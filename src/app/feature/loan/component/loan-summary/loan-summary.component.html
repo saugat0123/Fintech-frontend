@@ -1,6 +1,13 @@
 <section class="enable-print">
   <nb-card>
     <nb-card-body id="print-block">
+        <div class="row disable-print">
+            <button nbButton
+                    shape="rectangle"
+                    status="primary"
+                    size="tiny" (click)="goToCustomer()"><em class="fas fa-backward"></em> <span
+                    class="px-2">customer Profile</span></button>
+        </div>
       <div *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId"
            class="row text-success cursor disable-print">
         <div class="col-md-6 text-left">
@@ -96,12 +103,12 @@
         </div>
       </div>
       <hr class="print-line">
-      <div class="row">
-        <div class="col-md-6">
+      <div class="row ">
+        <div class="col-md-6 sb-small">
           <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span>
         </div>
         <div class="col-md-6">
-          <p class="text-right"><strong>Date: </strong>{{loanDataHolder?.createdAt | date}}
+          <p class="text-right sb-small" ><strong>Date: </strong>{{loanDataHolder?.createdAt | date}}
             ({{nepaliDate}})
           </p>
         </div>
@@ -783,7 +790,7 @@
         <div *ngFor="let previous of signatureList; let i=index;"
              class="col-md-3 padding-0-125">
           <div class="signature-block">
-            <div class="text-center p-2 bg-light mb-2 ">
+            <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
               <span>{{loanHandler(i, signatureList.length)}}</span>
             </div>
             <hr class="border-dark m-0">
@@ -793,10 +800,10 @@
                    class="img-thumbnail border-0 signature-height"
                    src="{{previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage}}"/>
             </div>
-            <div class="text-center signature-detail">
-              <p class="m-0">{{previous?.fromUser?.name}}</p>
-              <p class="m-0">({{previous?.fromUser?.role?.roleName}})</p>
-              <p class="m-0">{{previous?.lastModifiedAt}}</p>
+            <div class="text-center signature-detail sb-bg-secondary text-white">
+              <p class="m-0 sb-small">{{previous?.fromUser?.name}}</p>
+              <p class="m-0 sb-small">({{previous?.fromUser?.role?.roleName}})</p>
+              <p class="m-0 sb-small">{{previous?.lastModifiedAt}}</p>
             </div>
           </div>
         </div>
