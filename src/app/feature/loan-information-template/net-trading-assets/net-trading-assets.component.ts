@@ -218,40 +218,13 @@ export class NetTradingAssetsComponent implements OnInit {
                 this.selectedIndex = this.netTradingAssetsFormArray.controls.indexOf(singleControl);
             }
         });
-        /*this.spinner = true;
-        this.toBeSavedFiscalYear.ntaData = JSON.stringify(this.netTradingAssetsForm.value);
-        this.fiscalYearService.save(this.toBeSavedFiscalYear).subscribe(() => {
-            this.buildNtaForm();
-        }, error => {
-            console.log(error);
-            this.spinner = false;
-            this.buildNtaForm();
-        });
-        this.fiscalYearService.detail(fiscalYearObj.id).subscribe(res => {
-            this.toBeSavedFiscalYear = res.detail;
-            if (!ObjectUtil.isEmpty(this.toBeSavedFiscalYear.ntaData)) {
-                this.netTradingAssetsForm.patchValue(JSON.parse(this.toBeSavedFiscalYear.ntaData));
-            }
-            this.spinner = false;
-        }, error => {
-            console.log(error);
-        });*/
     }
 
     onSubmit() {
-        /*this.spinner = true;
-        this.toBeSavedFiscalYear.ntaData = JSON.stringify(this.netTradingAssetsForm.value);*/
 
         if (!ObjectUtil.isEmpty(this.netTradingAssetsData)) {
             this.netTradingAssetSubmitData = this.netTradingAssetsData;
         }
-
-        /*this.fiscalYearService.save(this.toBeSavedFiscalYear).subscribe(() => {
-            this.spinner = false;
-        }, error => {
-            console.log(error);
-            this.spinner = false;
-        });*/
         this.netTradingAssetSubmitData.data = JSON.stringify(this.netTradingAssetsFormArray.value);
         this.netTradingAssetsEventEmitter.emit(this.netTradingAssetSubmitData);
     }
