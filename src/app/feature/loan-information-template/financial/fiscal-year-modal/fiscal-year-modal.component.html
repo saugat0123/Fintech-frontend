@@ -1,4 +1,4 @@
-<form [formGroup]="financialStatementForm" (ngSubmit)="financialStatementForm.valid && onSubmit()">
+<form (ngSubmit)="financialStatementForm.valid && onSubmit()" [formGroup]="financialStatementForm">
     <nb-card [nbSpinner]="spinner" accent="primary" class="m-0"
              nbSpinnerSize="giant"
              nbSpinnerStatus="primary">
@@ -12,13 +12,13 @@
             <div class="row form-group">
                 <div class="col-md-12 mb-2">
                     <label>Financial Statement</label>
-                    <ng-select [items]="financialStatementList"
+                    <ng-select (change)="onFinancialStatementChange($event)"
+                               [items]="financialStatementList"
                                [multiple]="false"
                                [ngClass]="{'is-invalid': financialStatementFormControl.financialStatement.invalid
                                && (financialStatementFormControl.financialStatement.dirty ||
                                 financialStatementFormControl.financialStatement.touched)}"
                                formControlName="financialStatement"
-                               (change)="onFinancialStatementChange($event)"
                                placeholder="Select Financial Statement">
                     </ng-select>
                     <div *ngIf="financialStatementFormControl.financialStatement.invalid" class="invalid-feedback">
@@ -27,10 +27,12 @@
                 </div>
                 <div class="col-md-12 mb-2">
                     <label>Fiscal year</label>
-                    <ng-select [items]="fiscalYearsArray"
-                               [appendTo]="'body'"
-                                placeholder="Select fiscal year"
-                                formControlName="fiscalYear">
+                    <ng-select [appendTo]="'body'"
+                               [items]="fiscalYearsArray"
+                               bindLabel="year"
+                               bindValue="year"
+                               formControlName="fiscalYear"
+                               placeholder="Select fiscal year (From Financial configuration)">
                     </ng-select>
                 </div>
             </div>
@@ -40,58 +42,64 @@
                     <div class="row form-group" formGroupName="auditorDetails">
                         <div class="col-md-6 mb-2">
                             <label for="audited">Audited</label>
-                            <input id="audited" class="form-control" formControlName="audited" placeholder="Audited fiscal year" readonly>
+                            <input class="form-control" formControlName="audited" id="audited"
+                                   placeholder="Audited fiscal year" readonly>
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="auditFirm">Audit Firm</label>
-                            <input id="auditFirm"  class="form-control" formControlName="auditFirm" placeholder="Enter Audit Firm"
-                                   [ngClass]="{'is-invalid': auditorDetailsFormControl.auditFirm.invalid
+                            <input [ngClass]="{'is-invalid': auditorDetailsFormControl.auditFirm.invalid
                                    && (auditorDetailsFormControl.auditFirm.dirty ||
-                                auditorDetailsFormControl.auditFirm.touched)}">
+                                auditorDetailsFormControl.auditFirm.touched)}" class="form-control" formControlName="auditFirm"
+                                   id="auditFirm"
+                                   placeholder="Enter Audit Firm">
                             <div *ngIf="auditorDetailsFormControl.auditFirm.invalid" class="invalid-feedback">
-                                Invalid Fiscal year!
+                                Invalid entry!
                             </div>
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="proprietePartner">Propiete/Partner</label>
-                            <input id="proprietePartner"  class="form-control" formControlName="proprietePartner"
-                                   placeholder="Enter Propiete/Partner"
-                                   [ngClass]="{'is-invalid': auditorDetailsFormControl.proprietePartner.invalid
+                            <input [ngClass]="{'is-invalid': auditorDetailsFormControl.proprietePartner.invalid
                                    && (auditorDetailsFormControl.proprietePartner.dirty ||
-                                auditorDetailsFormControl.proprietePartner.touched)}">
+                                auditorDetailsFormControl.proprietePartner.touched)}" class="form-control" formControlName="proprietePartner"
+                                   id="proprietePartner"
+                                   placeholder="Enter Propiete/Partner">
                             <div *ngIf="auditorDetailsFormControl.proprietePartner.invalid" class="invalid-feedback">
-                                Invalid Fiscal year!
+                                Invalid entry!
                             </div>
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="membershipNo">Membership No.</label>
-                            <input id="membershipNo"  class="form-control" formControlName="membershipNo" placeholder="Enter Membership No."
-                                   [ngClass]="{'is-invalid': auditorDetailsFormControl.membershipNo.invalid
+                            <input [ngClass]="{'is-invalid': auditorDetailsFormControl.membershipNo.invalid
                                    && (auditorDetailsFormControl.membershipNo.dirty ||
-                                auditorDetailsFormControl.membershipNo.touched)}">
+                                auditorDetailsFormControl.membershipNo.touched)}" class="form-control" formControlName="membershipNo"
+                                   id="membershipNo"
+                                   placeholder="Enter Membership No.">
                             <div *ngIf="auditorDetailsFormControl.membershipNo.invalid" class="invalid-feedback">
-                                Invalid Fiscal year!
+                                Invalid entry!
                             </div>
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="certificateOfPractice">Certificate of Practice</label>
-                            <input id="certificateOfPractice"  class="form-control" formControlName="certificateOfPractice"
-                                   placeholder="Enter Certificate of Practice"
-                                   [ngClass]="{'is-invalid': auditorDetailsFormControl.certificateOfPractice.invalid
+                            <input [ngClass]="{'is-invalid': auditorDetailsFormControl.certificateOfPractice.invalid
                                    && (auditorDetailsFormControl.certificateOfPractice.dirty ||
-                                auditorDetailsFormControl.certificateOfPractice.touched)}">
-                            <div *ngIf="auditorDetailsFormControl.certificateOfPractice.invalid" class="invalid-feedback">
-                                Invalid Fiscal year!
+                                auditorDetailsFormControl.certificateOfPractice.touched)}" class="form-control"
+                                   formControlName="certificateOfPractice"
+                                   id="certificateOfPractice"
+                                   placeholder="Enter Certificate of Practice">
+                            <div *ngIf="auditorDetailsFormControl.certificateOfPractice.invalid"
+                                 class="invalid-feedback">
+                                Invalid entry!
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label for="class">Class</label>
-                            <input id="class"  class="form-control" formControlName="class" placeholder="Enter Class (A, B, C,..)"
-                                   [ngClass]="{'is-invalid': auditorDetailsFormControl.class.invalid
+                            <input [ngClass]="{'is-invalid': auditorDetailsFormControl.class.invalid
                                    && (auditorDetailsFormControl.class.dirty ||
-                                auditorDetailsFormControl.class.touched)}">
+                                auditorDetailsFormControl.class.touched)}" class="form-control" formControlName="class"
+                                   id="class"
+                                   placeholder="Enter Class (A, B, C,..)">
                             <div *ngIf="auditorDetailsFormControl.class.invalid" class="invalid-feedback">
-                                Invalid Fiscal year!
+                                Invalid entry!
                             </div>
                         </div>
                     </div>
