@@ -234,7 +234,13 @@ export class ProposalComponent implements OnInit {
     this.proposalData.dateOfExpiry = this.proposalForm.get('dateOfExpiry').value;
     this.proposalData.frequency = this.proposalForm.get('frequency').value;
     this.proposalData.condition = this.proposalForm.get('condition').value;
-
+    this.proposalData.cashMargin = this.proposalForm.get('cashMargin').value;
+    this.proposalData.commissionPercentage = this.proposalForm.get('commissionPercentage').value;
+    this.proposalData.commissionFrequency = this.proposalForm.get('commissionFrequency').value;
+    this.proposalData.couponRate = this.proposalForm.get('couponRate').value;
+    this.proposalData.premiumOnCouponRate = this.proposalForm.get('premiumOnCouponRate').value;
+    this.proposalData.tenorOfEachDeal = this.proposalForm.get('tenorOfEachDeal').value;
+    this.proposalData.cashMarginMethod = this.proposalForm.get('cashMarginMethod').value;
   }
 
   get formControls() {
