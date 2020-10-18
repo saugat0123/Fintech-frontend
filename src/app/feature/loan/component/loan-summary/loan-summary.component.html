@@ -548,6 +548,7 @@
       <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
                              [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
+      <p><strong>Net Trading Assets (NTA):</strong></p>
       <app-net-trading-assets *ngIf="netTradingAssetsSummary"
                               [fromProfile]="false"
                               [netTradingAssetsData]="netTradingAssetsData"></app-net-trading-assets>

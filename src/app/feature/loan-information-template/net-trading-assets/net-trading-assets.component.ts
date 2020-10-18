@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NetTradingAssets} from '../../admin/modal/NetTradingAssets';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
-import {AbstractControl, FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {FiscalYearService} from '../../admin/service/fiscal-year.service';
 import {FiscalYear} from '../../admin/modal/FiscalYear';
 import {ToastService} from '../../../@core/utils';
@@ -40,10 +40,6 @@ export class NetTradingAssetsComponent implements OnInit {
                 protected toastService: ToastService) {
     }
 
-    get activeFormGroup() {
-        return this.netTradingAssetsFormArray.at(this.selectedIndex) as FormGroup;
-    }
-
     ngOnInit() {
         this.parentForm = this.formBuilder.group({
             netTradingAssetsFormArray: this.formBuilder.array([])
@@ -60,8 +56,6 @@ export class NetTradingAssetsComponent implements OnInit {
             const fiscalYearComparisonArray = this.mapObjectToIdArray(fiscalYearArray);
             const parsedNtaDataComparisonArray = this.mapObjectToIdArray(parsedNtaData);
 
-            console.log(fiscalYearComparisonArray, parsedNtaDataComparisonArray, 'u');
-
             // check if new year has been added
             const newFiscalArray = fiscalYearComparisonArray.filter(f => {
                 return !parsedNtaDataComparisonArray.includes(f);
@@ -71,8 +65,6 @@ export class NetTradingAssetsComponent implements OnInit {
             const disabledFiscalArray = parsedNtaDataComparisonArray.filter(p => {
                 return !fiscalYearComparisonArray.includes(p);
             });
-
-            console.log(newFiscalArray, disabledFiscalArray, 'u');
 
             // add new array --
             if (newFiscalArray.length > 0) {
@@ -113,7 +105,9 @@ export class NetTradingAssetsComponent implements OnInit {
                             po.isCurrentYear = true;
                             this.currentYearIndex = parsedNtaData.indexOf(po);
                             return true;
-                        } else { return false; }
+                        } else {
+                            return false;
+                        }
                     });
                 }
             });
@@ -158,7 +152,6 @@ export class NetTradingAssetsComponent implements OnInit {
                     this.selectedIndex = this.currentYearIndex;
                 }
             });
-            console.log(this.netTradingAssetsFormArray.at(this.selectedIndex).value);
         }
     }
 
@@ -188,27 +181,44 @@ export class NetTradingAssetsComponent implements OnInit {
         });
     }
 
-    calculateNta(ntaFormGroup, q) {
+    calculateNta(ntaFormGroup, header, q) {
         this.calculateNtaBefore(ntaFormGroup, q);
         this.calculateNtaAfter(ntaFormGroup, q);
+        this.calculateAverage(ntaFormGroup, header);
+        this.calculateAverage(ntaFormGroup, 'netTradingAssetsBefore');
+        this.calculateAverage(ntaFormGroup, 'netTradingAssetsAfter');
+    }
+
+    calculateAverage(ntaFormGroup, header) {
+        let elementsArray = [
+            ntaFormGroup.get([header, 'q1']).value,
+            ntaFormGroup.get([header, 'q2']).value,
+            ntaFormGroup.get([header, 'q3']).value,
+            ntaFormGroup.get([header, 'q4']).value,
+        ];
+        elementsArray = elementsArray.filter(e => {
+            return !ObjectUtil.isEmpty(e);
+        });
+        ntaFormGroup.get([header, 'average']).patchValue(Number(elementsArray.reduce((x, y) => x + y, 0) / elementsArray.length)
+        );
     }
 
     calculateNtaBefore(ntaFormGroup, quarter) {
         ntaFormGroup.get(['netTradingAssetsBefore', quarter]).patchValue(
-            Number((ntaFormGroup.get(['valueOfDebtors', quarter]).value)) +
-            Number((ntaFormGroup.get(['valueOfStock', quarter]).value)) +
-            Number((ntaFormGroup.get(['valueOfGoodsInTrans', quarter]).value)) -
-            Number((ntaFormGroup.get(['valueOfCreditors', quarter]).value))
+            Number(ntaFormGroup.get(['valueOfDebtors', quarter]).value) +
+            Number(ntaFormGroup.get(['valueOfStock', quarter]).value) +
+            Number(ntaFormGroup.get(['valueOfGoodsInTrans', quarter]).value) -
+            Number(ntaFormGroup.get(['valueOfCreditors', quarter]).value)
         );
     }
 
     calculateNtaAfter(ntaFormGroup, quarter) {
         ntaFormGroup.get(['netTradingAssetsAfter', quarter]).patchValue(
-            Number((ntaFormGroup.get(['valueOfStock', quarter]).value)) +
-            Number((ntaFormGroup.get(['valueOfDebtors', quarter]).value)) +
-            Number((ntaFormGroup.get(['valueOfGoodsInTrans', quarter]).value)) -
-            Number((ntaFormGroup.get(['valueOfCreditors', quarter]).value)) -
-            Number((ntaFormGroup.get(['otherBanksFinancing', quarter]).value))
+            Number(ntaFormGroup.get(['valueOfStock', quarter]).value) +
+            Number(ntaFormGroup.get(['valueOfDebtors', quarter]).value) +
+            Number(ntaFormGroup.get(['valueOfGoodsInTrans', quarter]).value) -
+            Number(ntaFormGroup.get(['valueOfCreditors', quarter]).value) -
+            Number(ntaFormGroup.get(['otherBanksFinancing', quarter]).value)
         );
     }
 
@@ -221,7 +231,6 @@ export class NetTradingAssetsComponent implements OnInit {
     }
 
     onSubmit() {
-
         if (!ObjectUtil.isEmpty(this.netTradingAssetsData)) {
             this.netTradingAssetSubmitData = this.netTradingAssetsData;
         }

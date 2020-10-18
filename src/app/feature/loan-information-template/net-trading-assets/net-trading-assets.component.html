@@ -1,21 +1,29 @@
 <nb-card [nbSpinner]="spinner">
     <nb-card-header class="d-flex justify-content-end">
-        <strong class="mb-0 pt-2 mr-2">(Current Year) </strong>
+        <strong class="mb-0 pt-2 mr-2">Fiscal Year : </strong>
         <nb-select (selectedChange)="onChangeFiscalYear($event)" [selected]="fiscalYearArray[0]"
+                   style="width: 230px !important;"
                    placeholder="Select Fiscal year">
-            <nb-option *ngFor="let fiscalYear of fiscalYearArray" [value]="fiscalYear">{{fiscalYear.year}}</nb-option>
+            <nb-option *ngFor="let fiscalYear of fiscalYearArray" [value]="fiscalYear">
+                {{fiscalYear.year}}
+                <ng-container *ngIf="fiscalYear?.isCurrentYear"> (Current Year)</ng-container>
+            </nb-option>
         </nb-select>
     </nb-card-header>
     <nb-card-body>
-        <h5 *ngIf="netTradingAssetsFormArray.controls?.length <= 0">
-            Please add fiscal years for further processing.
-        </h5>
-        <div [formGroup]="parentForm" *ngIf="netTradingAssetsFormArray.controls?.length > 0">
+        <div class="text-center">
+            <h5 *ngIf="netTradingAssetsFormArray.controls?.length <= 0">
+                Please add fiscal years for further processing.
+            </h5>
+        </div>
+
+        <div *ngIf="netTradingAssetsFormArray.controls?.length > 0" [formGroup]="parentForm">
             <div *ngFor="let netTradingAssetsFormGroup of netTradingAssetsFormArray.controls; let i=index"
-                         formArrayName="netTradingAssetsFormArray">
+                 formArrayName="netTradingAssetsFormArray">
                 <ng-container *ngIf="selectedIndex === i">
                     <form [formGroupName]="i">
-                        <table aria-describedby="NTA Table" class="table table-bordered table-hover text-center table-sm sb-small">
+                        <table aria-describedby="NTA Table"
+                               class="table table-bordered table-hover text-center table-sm sb-small">
                             <thead class="text-center">
                             <tr class="sb-bg-dark text-white">
                                 <th scope="col">Net Trading Assets (NTA)</th>
@@ -23,6 +31,7 @@
                                 <th scope="col">Q2</th>
                                 <th scope="col">Q3</th>
                                 <th scope="col">Q4</th>
+                                <th scope="col">Average</th>
                             </tr>
                             </thead>
 
@@ -30,80 +39,112 @@
                             <tr formGroupName="valueOfStock">
                                 <td>Value of Stock</td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q1')" class="cellInput text-center" formControlName="q1"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfStock', 'q1')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q1" type="number">
                                 </td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q2')" class="cellInput text-center" formControlName="q2"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfStock', 'q2')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q2" type="number">
                                 </td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q3')" class="cellInput text-center" formControlName="q3"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfStock', 'q3')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q3" type="number">
                                 </td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q4')" class="cellInput text-center" formControlName="q4"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfStock', 'q4')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q4" type="number">
+                                </td>
+                                <td>
+                                    <input class="cellInput text-center" formControlName="average" readonly
+                                           type="number">
                                 </td>
                             </tr>
 
                             <tr formGroupName="valueOfDebtors">
                                 <td>Value of Debtors/ Receivables/ Trade Advances</td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q1')" class="cellInput text-center" formControlName="q1"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfDebtors', 'q1')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q1" type="number">
                                 </td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q2')" class="cellInput text-center" formControlName="q2"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfDebtors', 'q2')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q2" type="number">
                                 </td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q3')" class="cellInput text-center" formControlName="q3"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfDebtors', 'q3')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q3" type="number">
                                 </td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q4')" class="cellInput text-center" formControlName="q4"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfDebtors', 'q4')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q4" type="number">
+                                </td>
+                                <td>
+                                    <input class="cellInput text-center" formControlName="average" readonly
+                                           type="number">
                                 </td>
                             </tr>
 
                             <tr formGroupName="valueOfGoodsInTrans">
                                 <td>Value of Goods in transit (If applicable)</td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q1')" class="cellInput text-center" formControlName="q1"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfGoodsInTrans', 'q1')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q1" type="number">
                                 </td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q2')" class="cellInput text-center" formControlName="q2"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfGoodsInTrans', 'q2')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q2" type="number">
                                 </td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q3')" class="cellInput text-center" formControlName="q3"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfGoodsInTrans', 'q3')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q3" type="number">
                                 </td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q4')" class="cellInput text-center" formControlName="q4"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfGoodsInTrans', 'q4')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q4" type="number">
+                                </td>
+                                <td>
+                                    <input class="cellInput text-center" formControlName="average" readonly
+                                           type="number">
                                 </td>
                             </tr>
 
                             <tr formGroupName="valueOfCreditors">
                                 <td>Value of Creditors</td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q1')" class="cellInput text-center" formControlName="q1"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfCreditors', 'q1')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q1" type="number">
                                 </td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q2')" class="cellInput text-center" formControlName="q2"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfCreditors', 'q2')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q2" type="number">
                                 </td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q3')" class="cellInput text-center" formControlName="q3"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfCreditors', 'q3')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q3" type="number">
                                 </td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q4')" class="cellInput text-center" formControlName="q4"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'valueOfCreditors', 'q4')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q4" type="number">
+                                </td>
+                                <td>
+                                    <input class="cellInput text-center" formControlName="average" readonly
+                                           type="number">
                                 </td>
                             </tr>
 
@@ -121,25 +162,37 @@
                                 <td>
                                     <input class="cellInput text-center" formControlName="q4" readonly type="number">
                                 </td>
+                                <td>
+                                    <input class="cellInput text-center" formControlName="average" readonly
+                                           type="number">
+                                </td>
                             </tr>
 
                             <tr formGroupName="otherBanksFinancing">
                                 <td>Other banks' financing</td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q1')" class="cellInput text-center" formControlName="q1"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'otherBanksFinancing', 'q1')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q1" type="number">
                                 </td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q2')" class="cellInput text-center" formControlName="q2"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'otherBanksFinancing', 'q2')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q2" type="number">
                                 </td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q3')" class="cellInput text-center" formControlName="q3"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'otherBanksFinancing', 'q3')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q3" type="number">
                                 </td>
                                 <td>
-                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'q4')" class="cellInput text-center" formControlName="q4"
-                                           type="number" [readOnly]="!fromProfile">
+                                    <input (input)="calculateNta(netTradingAssetsFormGroup, 'otherBanksFinancing', 'q4')"
+                                           [readOnly]="!fromProfile" class="cellInput text-center"
+                                           formControlName="q4" type="number">
+                                </td>
+                                <td>
+                                    <input class="cellInput text-center" formControlName="average" readonly
+                                           type="number">
                                 </td>
                             </tr>
 
@@ -156,6 +209,10 @@
                                 </td>
                                 <td>
                                     <input class="cellInput text-center" formControlName="q4" readonly type="number">
+                                </td>
+                                <td>
+                                    <input class="cellInput text-center" formControlName="average" readonly
+                                           type="number">
                                 </td>
                             </tr>
                             </tbody>
