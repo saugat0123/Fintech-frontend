@@ -17,7 +17,6 @@
                     <form [formGroupName]="i">
                         <table aria-describedby="NTA Table" class="table table-bordered table-hover text-center table-sm sb-small">
                             <thead class="text-center">
-                            <tr>{{netTradingAssetsFormGroup.value.id}}{{netTradingAssetsFormGroup.value.isCurrentYear}}</tr>
                             <tr class="sb-bg-dark text-white">
                                 <th scope="col">Net Trading Assets (NTA)</th>
                                 <th scope="col">Q1</th>
@@ -166,8 +165,6 @@
 
             </div>
         </div>
-
-        <pre>{{netTradingAssetsFormArray.value | json}}</pre>
     </nb-card-body>
     <nb-card-footer>
         <div *ngIf="fromProfile && netTradingAssetsFormArray.controls?.length > 0" class="d-flex justify-content-end">
