@@ -386,7 +386,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 link.click();
             },
             error1 => {
-                console.log('erro::::',error1);
                 this.toastService.show(new Alert(AlertType.ERROR, error1.error.message));
             }
         );
