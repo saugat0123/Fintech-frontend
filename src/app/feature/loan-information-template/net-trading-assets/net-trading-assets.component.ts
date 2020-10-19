@@ -6,6 +6,7 @@ import {FiscalYearService} from '../../admin/service/fiscal-year.service';
 import {FiscalYear} from '../../admin/modal/FiscalYear';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {CalendarType} from '../../../@core/model/calendar-type';
 
 @Component({
     selector: 'app-net-trading-assets',
@@ -19,6 +20,8 @@ export class NetTradingAssetsComponent implements OnInit {
 
     currentYearIndex = 0;
     selectedIndex = 0;
+
+    calendarType = CalendarType.AD;
 
     quarterCalculationObject = {
         q1: undefined,
@@ -78,7 +81,8 @@ export class NetTradingAssetsComponent implements OnInit {
                         valueOfCreditors: this.formBuilder.group(this.quarterCalculationObject),
                         netTradingAssetsBefore: this.formBuilder.group(this.quarterCalculationObject),
                         otherBanksFinancing: this.formBuilder.group(this.quarterCalculationObject),
-                        netTradingAssetsAfter: this.formBuilder.group(this.quarterCalculationObject)
+                        netTradingAssetsAfter: this.formBuilder.group(this.quarterCalculationObject),
+                        asOnDate: this.formBuilder.group(this.quarterCalculationObject)
                     });
                 });
             }
@@ -122,6 +126,7 @@ export class NetTradingAssetsComponent implements OnInit {
                     valueOfCreditors: this.formBuilder.group(this.setNestedFormValues(v.valueOfCreditors)),
                     netTradingAssetsBefore: this.formBuilder.group(this.setNestedFormValues(v.netTradingAssetsBefore)),
                     otherBanksFinancing: this.formBuilder.group(this.setNestedFormValues(v.otherBanksFinancing)),
+                    asOnDate: this.formBuilder.group(this.setNestedDateValues(v.asOnDate)),
                     netTradingAssetsAfter: this.formBuilder.group(this.setNestedFormValues(v.netTradingAssetsAfter))
                 };
                 this.netTradingAssetsFormArray.push(
@@ -144,6 +149,7 @@ export class NetTradingAssetsComponent implements OnInit {
                     valueOfCreditors: this.formBuilder.group(this.quarterCalculationObject),
                     netTradingAssetsBefore: this.formBuilder.group(this.quarterCalculationObject),
                     otherBanksFinancing: this.formBuilder.group(this.quarterCalculationObject),
+                    asOnDate: this.formBuilder.group(this.quarterCalculationObject),
                     netTradingAssetsAfter: this.formBuilder.group(this.quarterCalculationObject)
                 };
                 this.netTradingAssetsFormArray.push(this.formBuilder.group(formObjectData));
@@ -178,6 +184,16 @@ export class NetTradingAssetsComponent implements OnInit {
         };
     }
 
+    setNestedDateValues(param) {
+        return {
+            q1: ObjectUtil.isEmpty(param.q1) ? param.q1 : new Date(param.q1),
+            q2: ObjectUtil.isEmpty(param.q2) ? param.q2 : new Date(param.q2),
+            q3: ObjectUtil.isEmpty(param.q3) ? param.q3 : new Date(param.q3),
+            q4: ObjectUtil.isEmpty(param.q4) ? param.q4 : new Date(param.q4),
+            average: ObjectUtil.isEmpty(param.average) ? param.average : new Date(param.average)
+        };
+    }
+
     mapObjectToIdArray(objectArray: Array<any>): Array<any> {
         return objectArray.map(o => {
             return o.id;
@@ -202,7 +218,8 @@ export class NetTradingAssetsComponent implements OnInit {
         elementsArray = elementsArray.filter(e => {
             return !ObjectUtil.isEmpty(e);
         });
-        ntaFormGroup.get([header, 'average']).patchValue(Number(elementsArray.reduce((x, y) => x + y, 0) / elementsArray.length)
+        ntaFormGroup.get([header, 'average'])
+            .patchValue((Number(elementsArray.reduce((x, y) => x + y, 0) / elementsArray.length).toFixed(2))
         );
     }
 
