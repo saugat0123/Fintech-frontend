@@ -44,9 +44,9 @@
                             <tr formGroupName="asOnDate">
                                 <td><strong>As on</strong></td>
                                 <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['asOnDate', 'q1']).value}}</span>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['asOnDate', 'q1']).value | date}}</span>
                                     <div class="text-center">
-                                        <input *ngIf="calendarType === 'AD'" [nbDatepicker]="q1" class="text-center table-input"
+                                        <input *ngIf="calendarType === 'AD' && fromProfile" [nbDatepicker]="q1" class="text-center table-input"
                                                formControlName="q1">
                                         <app-calendar  (messageToEmit)="netTradingAssetsFormGroup.get(['asOnDate', 'q1']).patchValue($event?.eDate)"
                                                        *ngIf="calendarType === 'BS'"
@@ -55,9 +55,9 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['asOnDate', 'q2']).value}}</span>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['asOnDate', 'q2']).value | date}}</span>
                                     <div class="text-center">
-                                        <input *ngIf="calendarType === 'AD'" [nbDatepicker]="q2" class="text-center table-input"
+                                        <input *ngIf="calendarType === 'AD' && fromProfile" [nbDatepicker]="q2" class="text-center table-input"
                                                formControlName="q2">
                                         <app-calendar  (messageToEmit)="netTradingAssetsFormGroup.get(['asOnDate', 'q2']).patchValue($event?.eDate)"
                                                        *ngIf="calendarType === 'BS'"
@@ -66,9 +66,9 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['asOnDate', 'q3']).value}}</span>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['asOnDate', 'q3']).value | date}}</span>
                                     <div class="text-center">
-                                        <input *ngIf="calendarType === 'AD'" [nbDatepicker]="q3" class="text-center table-input"
+                                        <input *ngIf="calendarType === 'AD' && fromProfile" [nbDatepicker]="q3" class="text-center table-input"
                                                formControlName="q3">
                                         <app-calendar  (messageToEmit)="netTradingAssetsFormGroup.get(['asOnDate', 'q3']).patchValue($event?.eDate)"
                                                        *ngIf="calendarType === 'BS'"
@@ -77,9 +77,9 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['asOnDate', 'q4']).value}}</span>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['asOnDate', 'q4']).value | date}}</span>
                                     <div class="text-center">
-                                        <input *ngIf="calendarType === 'AD'" [nbDatepicker]="q4" class="text-center table-input"
+                                        <input *ngIf="calendarType === 'AD' && fromProfile" [nbDatepicker]="q4" class="text-center table-input"
                                                formControlName="q4">
                                         <app-calendar  (messageToEmit)="netTradingAssetsFormGroup.get(['asOnDate', 'q4']).patchValue($event?.eDate)"
                                                        *ngIf="calendarType === 'BS'"
