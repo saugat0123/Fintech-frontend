@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ElementRef} from '@angular/core';
 import {Action} from '../../../../@core/Action';
 import {Violation} from '../../../../@core/utils/modal/Violation';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -24,14 +24,15 @@ export class RiskGroupFormComponent implements OnInit {
     action: Action = Action.ADD;
 
     errors: Array<Violation>;
-
+    submitted: boolean;
     modelForm: FormGroup;
 
     constructor(
         private formBuilder: FormBuilder,
         private service: CrgGroupService,
         private modalRef: NgbActiveModal,
-        private toast: ToastService
+        private toast: ToastService,
+        private el: ElementRef
     ) {
     }
 
@@ -71,7 +72,30 @@ export class RiskGroupFormComponent implements OnInit {
         );
     }
 
+    scrollToFirstInvalidControl() {
+        const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+            'form .ng-invalid'
+        );
+        window.scroll({
+            top: this.getTopOffset(firstInvalidControl),
+            left: 0,
+            behavior: 'smooth'
+        });
+        firstInvalidControl.focus();
+    }
+
+    private getTopOffset(controlEl: HTMLElement): number {
+        const labelOffset = 50;
+        return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+    }
+
     save() {
+        this.submitted = true;
+        if (this.modelForm.invalid) {
+            this.scrollToFirstInvalidControl();
+            return;
+        }
+
         switch (this.action) {
             case Action.ADD:
 
