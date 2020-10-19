@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {QuestionService} from '../../service/question.service';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
@@ -27,6 +27,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
 
   totalPointsArray = [];
   gradesArray = [];
+  submitted = true;
 
   nonFinancialTotalMap = new Map<string, number>();
 
@@ -138,6 +139,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   constructor(
       private questionService: QuestionService,
       private formBuilder: FormBuilder,
+      private el: ElementRef,
   ) {
   }
 
@@ -428,8 +430,28 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     this.creditRiskGrading.get('ageOfBusiness').patchValue(points);
     this.onChangeOption('ageOfBusiness', points);
   }
+  scrollToFirstInvalidControl() {
+    const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+        'form .ng-invalid'
+    );
+    window.scroll({
+      top: this.getTopOffset(firstInvalidControl),
+      left: 0,
+      behavior: 'smooth'
+    });
+    firstInvalidControl.focus();
+  }
 
+  private getTopOffset(controlEl: HTMLElement): number {
+    const labelOffset = 50;
+    return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+  }
   onSubmit() {
+    this.submitted = true;
+    if (this.creditRiskGrading.invalid) {
+      this.scrollToFirstInvalidControl();
+      return;
+    }
     if (!ObjectUtil.isEmpty(this.creditRiskGradingAlpha)) {
       this.creditRiskData = this.crgData;
     }
