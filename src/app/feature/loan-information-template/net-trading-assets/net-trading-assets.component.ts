@@ -208,7 +208,8 @@ export class NetTradingAssetsComponent implements OnInit {
         elementsArray = elementsArray.filter(e => {
             return !ObjectUtil.isEmpty(e);
         });
-        ntaFormGroup.get([header, 'average']).patchValue(Number(elementsArray.reduce((x, y) => x + y, 0) / elementsArray.length)
+        ntaFormGroup.get([header, 'average'])
+            .patchValue((Number(elementsArray.reduce((x, y) => x + y, 0) / elementsArray.length).toFixed(2))
         );
     }
 
