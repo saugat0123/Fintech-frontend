@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ElementRef} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CreditRiskGradingAlpha} from '../../admin/modal/CreditRiskGradingAlpha';
@@ -41,7 +41,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
 
   creditRiskGradingForm: FormGroup;
   creditRiskData: CreditRiskGradingAlpha = new CreditRiskGradingAlpha();
-
+  submitted = true;
   financialCurrentYearIndex: number;
   historicalDataPresent = true;
   parsedFinancialData: any;
@@ -113,7 +113,8 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   successionMap: Map<string, number> = SuccessionMap.successionMap;
 
   constructor(
-      private formBuilder: FormBuilder
+      private formBuilder: FormBuilder,
+      private el: ElementRef,
   ) {}
 
   ngOnInit() {
@@ -583,7 +584,30 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     this.missingAlerts.splice(this.missingAlerts.indexOf(alert), 1);
   }
 
+  scrollToFirstInvalidControl() {
+    const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+        'form .ng-invalid'
+    );
+    window.scroll({
+      top: this.getTopOffset(firstInvalidControl),
+      left: 0,
+      behavior: 'smooth'
+    });
+    firstInvalidControl.focus();
+  }
+
+  private getTopOffset(controlEl: HTMLElement): number {
+    const labelOffset = 50;
+    return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+  }
+
   onSubmit() {
+    this.submitted = true;
+    if (this.creditRiskGradingForm.invalid) {
+      this.scrollToFirstInvalidControl();
+      return;
+    }
+
     if (!ObjectUtil.isEmpty(this.formData)) {
       this.creditRiskData = this.formData;
     }
