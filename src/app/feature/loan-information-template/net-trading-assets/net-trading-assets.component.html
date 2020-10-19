@@ -1,5 +1,10 @@
 <nb-card [nbSpinner]="spinner">
     <nb-card-header class="d-flex justify-content-end">
+        <nb-radio-group *ngIf="fromProfile" [(ngModel)]="calendarType" class="d-inline-flex"
+                        name="calendarTypeRadio">
+            <nb-radio value="AD">AD</nb-radio>
+            <nb-radio value="BS">BS</nb-radio>
+        </nb-radio-group>
         <strong class="mb-0 pt-2 mr-2">Fiscal Year : </strong>
         <nb-select (selectedChange)="onChangeFiscalYear($event)" [selected]="fiscalYearArray[0]"
                    placeholder="Select Fiscal year"
@@ -36,6 +41,55 @@
                             </thead>
 
                             <tbody>
+                            <tr formGroupName="asOnDate">
+                                <td><strong>As on</strong></td>
+                                <td>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['asOnDate', 'q1']).value}}</span>
+                                    <div class="text-center">
+                                        <input *ngIf="calendarType === 'AD'" [nbDatepicker]="q1" class="text-center table-input"
+                                               formControlName="q1">
+                                        <app-calendar  (messageToEmit)="netTradingAssetsFormGroup.get(['asOnDate', 'q1']).patchValue($event?.eDate)"
+                                                       *ngIf="calendarType === 'BS'"
+                                                       [ePreDate]="netTradingAssetsFormGroup.get(['asOnDate', 'q1']).value"></app-calendar>
+                                        <nb-datepicker #q1></nb-datepicker>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['asOnDate', 'q2']).value}}</span>
+                                    <div class="text-center">
+                                        <input *ngIf="calendarType === 'AD'" [nbDatepicker]="q2" class="text-center table-input"
+                                               formControlName="q2">
+                                        <app-calendar  (messageToEmit)="netTradingAssetsFormGroup.get(['asOnDate', 'q2']).patchValue($event?.eDate)"
+                                                       *ngIf="calendarType === 'BS'"
+                                                       [ePreDate]="netTradingAssetsFormGroup.get(['asOnDate', 'q2']).value"></app-calendar>
+                                        <nb-datepicker #q2></nb-datepicker>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['asOnDate', 'q3']).value}}</span>
+                                    <div class="text-center">
+                                        <input *ngIf="calendarType === 'AD'" [nbDatepicker]="q3" class="text-center table-input"
+                                               formControlName="q3">
+                                        <app-calendar  (messageToEmit)="netTradingAssetsFormGroup.get(['asOnDate', 'q3']).patchValue($event?.eDate)"
+                                                       *ngIf="calendarType === 'BS'"
+                                                       [ePreDate]="netTradingAssetsFormGroup.get(['asOnDate', 'q3']).value"></app-calendar>
+                                        <nb-datepicker #q3></nb-datepicker>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['asOnDate', 'q4']).value}}</span>
+                                    <div class="text-center">
+                                        <input *ngIf="calendarType === 'AD'" [nbDatepicker]="q4" class="text-center table-input"
+                                               formControlName="q4">
+                                        <app-calendar  (messageToEmit)="netTradingAssetsFormGroup.get(['asOnDate', 'q4']).patchValue($event?.eDate)"
+                                                       *ngIf="calendarType === 'BS'"
+                                                       [ePreDate]="netTradingAssetsFormGroup.get(['asOnDate', 'q4']).value"></app-calendar>
+                                        <nb-datepicker #q4></nb-datepicker>
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
+
                             <tr formGroupName="valueOfStock">
                                 <td>Value of Stock</td>
                                 <td>

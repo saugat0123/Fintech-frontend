@@ -6,6 +6,7 @@ import {FiscalYearService} from '../../admin/service/fiscal-year.service';
 import {FiscalYear} from '../../admin/modal/FiscalYear';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {CalendarType} from '../../../@core/model/calendar-type';
 
 @Component({
     selector: 'app-net-trading-assets',
@@ -19,6 +20,8 @@ export class NetTradingAssetsComponent implements OnInit {
 
     currentYearIndex = 0;
     selectedIndex = 0;
+
+    calendarType = CalendarType.AD;
 
     quarterCalculationObject = {
         q1: undefined,
@@ -78,7 +81,8 @@ export class NetTradingAssetsComponent implements OnInit {
                         valueOfCreditors: this.formBuilder.group(this.quarterCalculationObject),
                         netTradingAssetsBefore: this.formBuilder.group(this.quarterCalculationObject),
                         otherBanksFinancing: this.formBuilder.group(this.quarterCalculationObject),
-                        netTradingAssetsAfter: this.formBuilder.group(this.quarterCalculationObject)
+                        netTradingAssetsAfter: this.formBuilder.group(this.quarterCalculationObject),
+                        asOnDate: this.formBuilder.group(this.quarterCalculationObject)
                     });
                 });
             }
@@ -122,6 +126,7 @@ export class NetTradingAssetsComponent implements OnInit {
                     valueOfCreditors: this.formBuilder.group(this.setNestedFormValues(v.valueOfCreditors)),
                     netTradingAssetsBefore: this.formBuilder.group(this.setNestedFormValues(v.netTradingAssetsBefore)),
                     otherBanksFinancing: this.formBuilder.group(this.setNestedFormValues(v.otherBanksFinancing)),
+                    asOnDate: this.formBuilder.group(this.setNestedFormValues(v.asOnDate)),
                     netTradingAssetsAfter: this.formBuilder.group(this.setNestedFormValues(v.netTradingAssetsAfter))
                 };
                 this.netTradingAssetsFormArray.push(
@@ -144,6 +149,7 @@ export class NetTradingAssetsComponent implements OnInit {
                     valueOfCreditors: this.formBuilder.group(this.quarterCalculationObject),
                     netTradingAssetsBefore: this.formBuilder.group(this.quarterCalculationObject),
                     otherBanksFinancing: this.formBuilder.group(this.quarterCalculationObject),
+                    asOnDate: this.formBuilder.group(this.quarterCalculationObject),
                     netTradingAssetsAfter: this.formBuilder.group(this.quarterCalculationObject)
                 };
                 this.netTradingAssetsFormArray.push(this.formBuilder.group(formObjectData));
