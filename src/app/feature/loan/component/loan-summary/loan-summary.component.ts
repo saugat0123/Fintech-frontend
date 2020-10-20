@@ -30,6 +30,8 @@ import {CombinedLoan} from '../../model/combined-loan';
 import {IncomeFromAccount} from '../../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
+import {ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-loan-summary',
@@ -144,7 +146,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private documentService: DocumentService,
         private customerLoanService: LoanFormService,
         private combinedLoanService: CombinedLoanService,
-        private commonRoutingUtilsService: CommonRoutingUtilsService
+        private commonRoutingUtilsService: CommonRoutingUtilsService,
+        private toastService: ToastService
     ) {
         this.client = environment.client;
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
@@ -383,8 +386,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 link.click();
             },
             error1 => {
-                console.log(error1);
-                console.log('Error downloading the file');
+                this.toastService.show(new Alert(AlertType.ERROR, error1.error.message));
             }
         );
     }
@@ -402,16 +404,16 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             },
             error => {
                 console.log(error);
-                console.log('Error downloading the file!');
+                this.toastService.show(new Alert(AlertType.ERROR, 'File not Found'));
             }
         );
     }
 
     downloadAllDocument(path: string) {
-
+        path = '/doc';
         this.documentService.downloadAllDoc(path, this.loanDataHolder.id).subscribe((res: any) => {
             this.previewOfferLetterDocument(res.detail, res.detail);
-        });
+        }, error => this.toastService.show(new Alert(AlertType.ERROR, error.error.message)));
     }
 
     loanHandler(index: number, length: number) {

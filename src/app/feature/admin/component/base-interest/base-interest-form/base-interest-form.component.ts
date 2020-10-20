@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ElementRef} from '@angular/core';
 import {BaseInterest} from '../BaseInterest';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
@@ -22,7 +22,8 @@ export class BaseInterestFormComponent implements OnInit {
   constructor(private baseInterestService: BaseInterestService,
               private activeModal: NgbActiveModal,
               private toastService: ToastService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private el: ElementRef) {
   }
 
   get rate() {
@@ -38,10 +39,32 @@ export class BaseInterestFormComponent implements OnInit {
           rate: [undefined, Validators.required]
       });
   }
+    scrollToFirstInvalidControl() {
+        const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+            'form .ng-invalid'
+        );
+        window.scroll({
+            top: this.getTopOffset(firstInvalidControl),
+            left: 0,
+            behavior: 'smooth'
+        });
+        firstInvalidControl.focus();
+    }
 
-  onSubmit(interest) {
+    private getTopOffset(controlEl: HTMLElement): number {
+        const labelOffset = 50;
+        return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+    }
+
+
+    onSubmit(interest) {
     this.spinner = true;
-    this.baseInterestService.save(interest).subscribe(() => {
+        if (this.form.invalid) {
+            this.scrollToFirstInvalidControl();
+            return;
+        }
+
+        this.baseInterestService.save(interest).subscribe(() => {
           this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Base Interest'));
           this.activeModal.close(ModalResponse.SUCCESS);
           this.spinner = false;

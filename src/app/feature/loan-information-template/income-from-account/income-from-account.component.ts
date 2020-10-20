@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ElementRef} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
@@ -17,7 +17,9 @@ export class IncomeFromAccountComponent implements OnInit {
   submitted = false;
   dataForEdit;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+             private el: ElementRef,
+              ) {
   }
 
   get formControls() {
@@ -70,10 +72,28 @@ export class IncomeFromAccountComponent implements OnInit {
         this.incomeFormGroup.get('otherChargesAfterNextReview').value;
     this.incomeFormGroup.get('totalIncomeAfterNextReview').setValue(totalIncomeAfterNextReview);
   }
+  scrollToFirstInvalidControl() {
+    const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+        'form .ng-invalid'
+    );
+    window.scroll({
+      top: this.getTopOffset(firstInvalidControl),
+      left: 0,
+      behavior: 'smooth'
+    });
+    firstInvalidControl.focus();
+  }
+
+  private getTopOffset(controlEl: HTMLElement): number {
+    const labelOffset = 50;
+    return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+  }
+
 
   submitForm() {
     this.submitted = true;
     if (this.incomeFormGroup.invalid) {
+      this.scrollToFirstInvalidControl();
       return;
     }
     if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {

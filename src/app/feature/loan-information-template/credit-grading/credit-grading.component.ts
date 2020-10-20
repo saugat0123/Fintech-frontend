@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ElementRef} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {QuestionService} from '../../service/question.service';
 import {CreditRiskGrading} from '../../admin/modal/creditRiskGrading';
@@ -15,6 +15,7 @@ export class CreditGradingComponent implements OnInit {
   @Input() fromProfile: boolean;
   @Output() crgDataEmitter = new EventEmitter();
   totalPointsColspan = 4;
+  submitted = false;
   creditRiskGrading: FormGroup;
   creditRiskData: CreditRiskGrading = new CreditRiskGrading();
   points: any;
@@ -181,6 +182,7 @@ export class CreditGradingComponent implements OnInit {
   constructor(
       private questionService: QuestionService,
       private formBuilder: FormBuilder,
+      private el: ElementRef,
   ) {
   }
 
@@ -284,9 +286,32 @@ export class CreditGradingComponent implements OnInit {
       this.creditRiskGrading.get('grade').patchValue(this.grading);
     }
   }
+    scrollToFirstInvalidControl() {
+        const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+            'form .ng-invalid'
+        );
+        window.scroll({
+            top: this.getTopOffset(firstInvalidControl),
+            left: 0,
+            behavior: 'smooth'
+        });
+        firstInvalidControl.focus();
+    }
 
-  onSubmit() {
-    if (!ObjectUtil.isEmpty(this.formData)) {
+    private getTopOffset(controlEl: HTMLElement): number {
+        const labelOffset = 50;
+        return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+    }
+
+
+    onSubmit() {
+        this.submitted = true;
+        if (this.creditRiskGrading.invalid) {
+            this.scrollToFirstInvalidControl();
+            return;
+        }
+
+        if (!ObjectUtil.isEmpty(this.formData)) {
       this.creditRiskData = this.formData;
     }
     this.creditRiskData.data = JSON.stringify(this.creditRiskGrading.value);
