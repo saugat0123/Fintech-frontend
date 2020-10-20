@@ -240,6 +240,8 @@ export class OfferLetterActionComponent implements OnInit {
                 });
                 this.formAction.get('toUser').setValidators(Validators.required);
                 this.formAction.updateValueAndValidity();
+            } else {
+                this.toastService.show(new Alert(AlertType.ERROR, 'NO User Present in this Role'));
             }
         });
     }
