@@ -34,6 +34,7 @@ import {TemplateDocumentComponent} from './template-document/template-document.c
 import {CKEditorModule} from 'ng2-ckeditor';
 import { IncomeFromAccountComponent } from './income-from-account/income-from-account.component';
 import { NetTradingAssetsComponent } from './net-trading-assets/net-trading-assets.component';
+import { CreditChecklistGeneralComponent } from './credit-checklist-general/credit-checklist-general.component';
 
 const COMPONENTS = [
   SiteVisitComponent,
@@ -63,8 +64,8 @@ const COMPONENTS = [
 
 
 @NgModule({
-  declarations: [...COMPONENTS],
-  exports: [...COMPONENTS],
+  declarations: [...COMPONENTS, CreditChecklistGeneralComponent],
+  exports: [...COMPONENTS, CreditChecklistGeneralComponent],
   entryComponents: [...COMPONENTS],
   imports: [
     CommonModule,
