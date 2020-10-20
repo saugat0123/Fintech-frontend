@@ -391,17 +391,17 @@ export class CompanyFormComponent implements OnInit {
             // additional company detail
             additionalCompanyInfo: this.formBuilder.group({
                 registrationType: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    this.additionalFieldData.registrationType, Validators.required],
+                    this.additionalFieldData.registrationType],
                 licenseHolderName: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    this.additionalFieldData.licenseHolderName, Validators.required],
+                    this.additionalFieldData.licenseHolderName],
                 licenseExpiryDate: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    this.additionalFieldData.licenseExpiryDate, Validators.required],
+                    this.additionalFieldData.licenseExpiryDate],
                 licenseIssuedDate: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    this.additionalFieldData.licenseIssuedDate, Validators.required],
+                    this.additionalFieldData.licenseIssuedDate],
                 licenseIssuePlace: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    this.additionalFieldData.licenseIssuePlace, Validators.required],
+                    this.additionalFieldData.licenseIssuePlace],
                 additionalInfoRemark: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    this.additionalFieldData.additionalInfoRemark, Validators.required],
+                    this.additionalFieldData.additionalInfoRemark],
             }),
             /** 8.business and industry */
             regulatoryConcern: [(ObjectUtil.isEmpty(this.companyInfo)
