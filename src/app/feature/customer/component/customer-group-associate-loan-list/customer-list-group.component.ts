@@ -51,12 +51,12 @@ export class CustomerListGroupComponent implements OnInit {
     const filterGroup = new CustomerGroup();
     filterGroup.groupCode = this.currentGroup.groupCode;
     await this.loanFormService.getLoanOfCustomerByGroup(this.customerInfoData.customerGroup).subscribe(loans => {
-      this.customerLoanList = loans.detail;
+      this.customerLoanList = loans.detail.customerGroupDto;
       this.spinner = false;
       this.totalLoanProposedAmount = 0;
       this.customerLoanList.forEach((l, i) => {
             this.totalLoanProposedAmount += l.totalApprovedLimit + l.totalPendingLimit;
-            if (l.loanHolder.id === this.customerInfoData.id) {
+            if (l.loanHolderId === this.customerInfoData.id) {
               currentCustomerGroupLoanProposal = l.totalApprovedLimit + l.totalPendingLimit;
               currentCustomerIndex = i;
             } else {

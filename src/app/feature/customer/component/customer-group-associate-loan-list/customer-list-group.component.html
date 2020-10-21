@@ -5,7 +5,7 @@
       <tr class="sb-bg-dark text-white">
         <th>S.N</th>
         <th>Name</th>
-        <th>Branch</th>
+        <!--<th>Branch</th>-->
         <th>Pending Limit</th>
         <th>Approved Limit</th>
         <th>Total Limit</th>
@@ -13,12 +13,12 @@
       </thead>
       <tbody>
       <ng-container *ngFor="let singleLoan of customerLoanList ;  let i=index">
-        <tr (click)="customerProfile(singleLoan.loanHolder.associateId, singleLoan.loanHolder.id, singleLoan.loanHolder.customerType)"
+        <tr (click)="customerProfile(singleLoan.associateId, singleLoan.loanHolderId, customerInfoData?.customerType)"
 
             class="cursor">
           <td>{{i + 1}}</td>
-          <td>{{singleLoan.loanHolder?.name}}</td>
-          <td>{{singleLoan.loanHolder?.branch?.name}}</td>
+          <td>{{singleLoan?.customerName}}</td>
+          <!--<td>{{singleLoan.loanHolder?.branch?.name}}</td>-->
           <td>Rs.{{(singleLoan.totalPendingLimit |currencyFormatter)}}</td>
           <td>Rs. {{(singleLoan.totalApprovedLimit |currencyFormatter)}}</td>
           <td>Rs. {{(singleLoan.totalApprovedLimit + singleLoan.totalPendingLimit |currencyFormatter)}}</td>
