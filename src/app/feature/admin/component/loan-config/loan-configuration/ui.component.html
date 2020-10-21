@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label><h4>Loan Scheme</h4></label>
+                            <label><h6>Loan Scheme</h6></label>
                             <input type="hidden" class="form-control" [(ngModel)]="loanConfig.id" name="id"
                                    placeholder="id">
                             <input type="text" class="form-control" name="name" required placeholder="Loan Scheme"
@@ -16,7 +16,7 @@
                     </div>
                     <div class="col-md-6 row">
                         <div class="col-md-12 form-group">
-                            <label for="fundable"><h4>Loan Type</h4></label>
+                            <label for="fundable"><h6>Loan Type</h6></label>
                             <div class="row ml-2">
                                 <nb-radio-group class="col-md-12 d-contents form-control" id="fundable"
                                                 [(ngModel)]="loanConfig.isFundable"
@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-5 row">
                         <div class="col-md-9 form-group">
-                            <label><h4>Nature of Loan</h4></label>
+                            <label><h6>Nature of Loan</h6></label>
                             <div class="row ml-2">
                                     <nb-radio-group name="loanNature" class="d-inline-flex" [(ngModel)]="loanConfig.loanNature">
                                         <nb-radio
@@ -45,7 +45,7 @@
                     </div>
                     <div class="col-md-5 row">
                         <div class="col-md-9 form-group">
-                            <label><h4>Nature of Assets financed</h4></label>
+                            <label><h6>Nature of Assets financed</h6></label>
                             <div class="row ml-2">
                                 <nb-radio-group name="financedAssets" class="d-inline-flex" [(ngModel)]="loanConfig.financedAssets">
                                     <nb-radio
@@ -59,7 +59,7 @@
                     </div>
                 <div class="col-md-4">
                     <div class="form-group>">
-                        <label><h4>Collateral Requirement (In %)</h4></label>
+                        <label><h6>Collateral Requirement (In %)</h6></label>
                         <input type="text" class="form-control" name="collateralrequirement" required placeholder="e.g. 13"
                                [(ngModel)]="loanConfig.collateralRequirement" #collateralRequirement="ngModel"
                                [ngClass]="{ 'is-invalid': loanConfigForm.submitted && collateralRequirement.invalid }">
@@ -73,7 +73,7 @@
                 </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label><h4>Loan Short Name</h4></label>
+                            <label><h6>Loan Short Name</h6></label>
                             <input type="text" class="form-control" name="shortNames" required placeholder="e.g. WCL for Working capital Loan"
                                    [(ngModel)]="loanConfig.shortNames" #shortNames="ngModel"
                                    [ngClass]="{ 'is-invalid': loanConfigForm.submitted && shortNames.invalid }">
@@ -88,7 +88,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label><h4>Category</h4></label>
+                            <label><h6>Category</h6></label>
                             <ng-select #category="ngModel" [items]="loanCategories"
                                        [multiple]="false"
                                        bindValue="value"
@@ -104,7 +104,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label><h4>Interest Rate</h4></label>
+                            <label><h6>Interest Rate</h6></label>
                             <input #interestRate="ngModel"
                                    [ngClass]=" { 'is-invalid': loanConfigForm.submitted && interestRate.invalid }"
                                    class="form-control" name="interestRate"
@@ -119,7 +119,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label><h4>Loan Tag</h4></label>
+                            <label><h6>Loan Tag</h6></label>
                             <ng-select #loanTag="ngModel" [items]="loanTagList"
                                        bindLabel="value"
                                        bindValue="key" name="loanTag"
@@ -134,7 +134,7 @@
                     </div>
                 </div>
 
-                <h4>Assessment</h4>
+                <h6>Assessment</h6>
                 <div class="row">
                     <div class="col-md-5 pr-0">
                         <nb-card size="small">
@@ -175,7 +175,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label for="renewable"><h4>Renewable</h4></label><br>
+                        <label for="renewable"><h6>Renewable</h6></label><br>
                         <div class="row ml-2">
                             <nb-radio-group class="col-md-12 d-contents form-control" id="renewable"
                                             [(ngModel)]="loanConfig.isRenewable"
@@ -218,7 +218,7 @@
                     </div>
                 </div>
                 <br>
-                <span><h4>Documents</h4></span>
+                <span><h6>Documents</h6></span>
                 <div class="row">
                     <div class="box box-primary col-md-6 mb-2">
                         <nb-accordion>
