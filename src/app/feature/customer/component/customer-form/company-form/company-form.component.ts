@@ -383,7 +383,7 @@ export class CompanyFormComponent implements OnInit {
 
             // Sister concert
             sisterConcern: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
-                this.companyJsonData.sisterConcern, Validators.required],
+                this.companyJsonData.sisterConcern],
 
             // company background
             companyBackground: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :

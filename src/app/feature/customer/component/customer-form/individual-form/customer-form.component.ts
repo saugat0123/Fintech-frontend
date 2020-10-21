@@ -37,8 +37,8 @@ export class CustomerFormComponent implements OnInit {
   calendarType = 'AD';
   @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  @ViewChild('bankingRelationComponent', {static: false})
-  bankingRelationComponent: BankingRelationComponent;
+  // @ViewChild('bankingRelationComponent', {static: false})
+  // bankingRelationComponent: BankingRelationComponent;
 
   basicInfo: FormGroup;
   submitted = false;
@@ -211,8 +211,8 @@ export class CustomerFormComponent implements OnInit {
         this.customer.customerRelatives = rawFromValue.customerRelatives;
 
         /** banking relation setting data from child **/
-        this.bankingRelationComponent.onSubmit();
-        this.customer.bankingRelationship = JSON.stringify(this.bankingRelationComponent.bankingRelation);
+        // this.bankingRelationComponent.onSubmit();
+        // this.customer.bankingRelationship = JSON.stringify(this.bankingRelationComponent.bankingRelation);
 
         this.customerService.save(this.customer).subscribe(res => {
           this.spinner = false;

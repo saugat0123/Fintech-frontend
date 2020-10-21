@@ -758,14 +758,13 @@
                                <div class="form-group">
                                    <label for="sisterConcern"><strong></strong></label>
                                    <input id="sisterConcern" formControlName="sisterConcern" name="sisterConcern" type="text"
-                                             class="form-control" placeholder="Sister Concern"
-                                             [ngClass]="{ 'is-invalid': (submitted) && form.sisterConcern.errors }"/>
-                                   <div *ngIf="(submitted) && form.sisterConcern.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="form.sisterConcern.errors.required">
-                                           Sister Concern is required
-                                       </div>
-                                   </div>
+                                             class="form-control" placeholder="Sister Concern"/>
+<!--                                   <div *ngIf="(submitted) && form.sisterConcern.invalid"-->
+<!--                                        class="invalid-feedback">-->
+<!--                                       <div *ngIf="form.sisterConcern.errors.required">-->
+<!--                                           Sister Concern is required-->
+<!--                                       </div>-->
+<!--                                   </div>-->
                                </div>
                            </div>
                        </div>
