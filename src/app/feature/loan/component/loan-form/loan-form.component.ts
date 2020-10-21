@@ -52,6 +52,8 @@ import {GuarantorAdderComponent} from '../loan-main-template/guarantor-adder/gua
 import {CreditRiskGradingGammaComponent} from '../../../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {DefaultLoanTemplate} from '../../../../@core/utils/constants/default-loan-template';
 import {LoanType} from '../../model/loanType';
+import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
+import {Priority} from '../../model/priority';
 
 @Component({
     selector: 'app-loan-form',
@@ -208,7 +210,8 @@ export class LoanFormComponent implements OnInit {
         private customerService: CustomerService,
         private scrollNavService: ScrollNavigationService,
         private customerInfoService: CustomerInfoService,
-        private companyInfoService: CompanyInfoService
+        private companyInfoService: CompanyInfoService,
+        private commonRoutingUtilsService: CommonRoutingUtilsService
     ) {
     }
 
@@ -217,6 +220,7 @@ export class LoanFormComponent implements OnInit {
         this.docStatusForMaker();
         this.buildPriorityForm();
         this.buildDocStatusForm();
+
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.allId = {
@@ -271,6 +275,7 @@ export class LoanFormComponent implements OnInit {
                     this.loanDocument = new LoanDataHolder();
                     this.loanDocument.loanCategory = this.allId.loanCategory;
                     this.loanFile = new DmsLoanFile();
+                    this.priorityForm.get('priority').patchValue('MEDIUM');
                     this.docStatusForm.get('documentStatus').patchValue(DocStatus.value(DocStatus.DISCUSSION));
                 }
 
@@ -681,5 +686,10 @@ export class LoanFormComponent implements OnInit {
 
     scrollToTop() {
         this.scrollNavService.scrollNavigateTo(this.container);
+    }
+
+    goToCustomer() {
+        const loanHolder = this.loanDocument.loanHolder;
+        this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
     }
 }

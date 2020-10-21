@@ -14,4 +14,12 @@ export class Proposal {
     duration: number;
     condition: string;
     frequency: string;
+    cashMargin: number;
+    commissionPercentage: number;
+    commissionFrequency: string;
+    couponRate: number;
+    premiumOnCouponRate: number;
+    tenorOfEachDeal: string;
+    cashMarginMethod: string;
+
 }

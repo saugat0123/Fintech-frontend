@@ -1,0 +1,380 @@
+<nb-card>
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
+                      name="securityInitialInfoCalendarType">
+        <nb-radio value="AD">AD</nb-radio>
+        <nb-radio value="BS">BS</nb-radio>
+      </nb-radio-group>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="formGroupCheckList">
+
+        <nb-tabset>
+          <nb-tab tabTitle="Credit Checklist-General">
+            <!--          <form [formGroup]="formGroupCheckList">-->
+            <div class="form-group col-md-5" style="display: flex">
+              <label>Date of Checklist: </label>
+              <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dateOfChecklist"
+                     class="form-control "
+                     formControlName="dateCheckList" placeholder="Date of checklist">
+              <app-calendar
+                  (messageToEmit)="formGroupCheckList.get('dateCheckList').patchValue($event?.eDate)"
+                  *ngIf="calendarType === 'BS'"
+                  [ePreDate]="formGroupCheckList.get('dateCheckList').value"></app-calendar>
+              <nb-datepicker #dateOfChecklist></nb-datepicker>
+            </div>
+            <div class="pt-2">
+              <table class="table table-bordered table-responsive-md text-justify">
+                <thead>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th colspan="4">
+                    <button (click)="creditGeneralYesToAll()"
+                            class="btn-sm sb-small sb-bg-dark text-white">Click to say yes to all
+                    </button>
+                  </th>
+
+                </tr>
+                <tr>
+                  <th>SN</th>
+                  <th>Prudence and Due Diligence</th>
+                  <th>Yes</th>
+                  <th>No</th>
+                  <th>NA</th>
+                  <th class="width">Remarks</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>1.</td>
+                  <td>Borrowing Power checked and confirmed that the company's bylaws permit Bank
+                    borrowing
+                  </td>
+                  <td *ngFor="let option of optionList"><input [value]="option"
+                                                               formControlName="permit"
+                                                               type="radio"></td>
+                  <td><input class="form-control" formControlName="permitRemark"
+                             placeholder="Remarks"></td>
+                </tr>
+                <tr>
+                  <td>2.</td>
+                  <td>Clearance from Credit Information Center Ltd obtained.Borrower and related
+                    entities (including family members) are
+                    not listed in any of the Bank's internally maintained Hot List.
+                  </td>
+                  <td *ngFor="let option of optionList"><input [value]="option"
+                                                               formControlName="clearance"
+                                                               type="radio"></td>
+
+                  <td><input class="form-control" formControlName="clearanceRemark"
+                             placeholder="Remarks"></td>
+                </tr>
+                <tr>
+                  <td>3.</td>
+                  <td>This proposal does not constitute take-over of a loan from another Financial
+                    Institution at more liberal terms and conditions.
+                  </td>
+                  <td *ngFor="let option of optionList"><input [value]="option"
+                                                               formControlName="noProposal"
+                                                               type="radio"></td>
+
+                  <td><input class="form-control" formControlName="noProposalRemark"
+                             placeholder="Remarks"></td>
+                </tr>
+                <tr>
+                  <td>4.</td>
+                  <td>All Internal & External audit comments made in the past 12 months have been
+                    satisfactorily resolved / addressed.
+                  </td>
+                  <td *ngFor="let option of optionList"><input [value]="option"
+                                                               formControlName="audit"
+                                                               type="radio"></td>
+
+                  <td><input class="form-control" formControlName="auditRemark"
+                             placeholder="Remarks"></td>
+                </tr>
+                <tr>
+                  <td>5.</td>
+                  <td>Copies of all legal Registrations, Tax Certificates (PAN/VAT), Permit /License
+                    we hold are "current".
+                  </td>
+                  <td *ngFor="let option of optionList"><input [value]="option"
+                                                               formControlName="copies"
+                                                               type="radio"></td>
+
+                  <td><input class="form-control" formControlName="copiesRemark"
+                             placeholder="Remarks"></td>
+                </tr>
+                <tr>
+                  <td>6.</td>
+                  <td>Physical verification of security conducted within the last 3 months and found
+                    to be in order.
+                  </td>
+                  <td *ngFor="let option of optionList"><input [value]="option"
+                                                               formControlName="verification"
+                                                               type="radio"></td>
+
+                  <td><input class="form-control" formControlName="verificationRemark"
+                             placeholder="Remarks"></td>
+                </tr>
+                <tr>
+                  <td>7.</td>
+                  <td>Latest valuation of Fixed Asset Security has been carried out within the last
+                    24 months.<br>
+                    Date of last valuation:
+                    <div class="row">
+                      <div class="col-md-8">
+                        <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dateOfLastValuation"
+                               class="form-control"
+                               formControlName="dateValuation"
+                               placeholder="Date of last valuation">
+                        <app-calendar
+                            (messageToEmit)="formGroupCheckList.get('dateValuation').patchValue($event?.eDate)"
+                            *ngIf="calendarType === 'BS'"
+                            [ePreDate]="formGroupCheckList.get('dateValuation').value"></app-calendar>
+                        <nb-datepicker #dateOfLastValuation></nb-datepicker>
+                      </div>
+                    </div>
+                  </td>
+                  <td *ngFor="let option of optionList"><input [value]="option"
+                                                               formControlName="valuation"
+                                                               type="radio"></td>
+
+                  <td><input class="form-control" formControlName="valuationRemark"
+                             placeholder="Remarks"></td>
+                </tr>
+                <tr>
+                  <td>8.</td>
+                  <td>Assets hypothecated /mortgaged are adequately insured as per the terms of
+                    sanction.<br>
+                    Insurance coverage of the mortgage assets and stocks will be obtained .NA
+                  </td>
+                  <td *ngFor="let option of optionList"><input [value]="option"
+                                                               formControlName="assets"
+                                                               type="radio"></td>
+
+                  <td><input class="form-control" formControlName="assetsRemark"
+                             placeholder="Remarks"></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><b>Relationship Management /Monitoring</b>
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>9.</td>
+                  <td>Regular customer contacts are evidenced by way of call Reports.<br>
+                    Number of customer contacts made and recorded in the last 12 months:<input
+                        class="form-control col-md-4" formControlName="callReportMonth"
+                        placeholder="Eg: Four"><br>
+                    Date of last customer contact /Call Report:
+                    <div class="row">
+                      <div class="col-md-8">
+                        <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dateCall"
+                               class="form-control "
+                               formControlName="callReportDate"
+                               placeholder="Eg: 2020-01-01">
+                        <app-calendar
+                            (messageToEmit)="formGroupCheckList.get('callReportDate').patchValue($event?.eDate)"
+                            *ngIf="calendarType === 'BS'"
+                            [ePreDate]="formGroupCheckList.get('callReportDate').value"></app-calendar>
+                        <nb-datepicker #dateCall></nb-datepicker>
+                      </div>
+                    </div>
+
+                    <br>
+                    Number of irregularity Report raised in the past 12 months:<input
+                        class="form-control col-md-4" formControlName="callReportIrregularityReport"
+                        placeholder="Eg: One"><br>
+                  </td>
+                  <td *ngFor="let option of optionList"><input [value]="option"
+                                                               formControlName="callReport"
+                                                               type="radio"></td>
+
+                  <td><input class="form-control" formControlName="callReportRemark"
+                             placeholder="Remarks"></td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </nb-tab>
+          <nb-tab tabTitle="Regulatory Compliance Checklist">
+            <nb-tabset>
+              <nb-tab tabTitle="NRB Directive No. 6.6 Ka">
+                <table class="table table-responsive-md table-bordered text-justify">
+                  <thead>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th colspan="3">
+                      <button (click)="directiveKaYesAll()"
+                              class="btn-sm sb-small sb-bg-dark text-white">Click to say yes to all
+                      </button>
+                    </th>
+
+                  </tr>
+                  <tr>
+                    <th>SN</th>
+                    <th>Prohibition on Lending to Directors</th>
+                    <th>Yes</th>
+                    <th>No</th>
+                    <th class="width">Remarks</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>1.</td>
+                    <td>The Borrower or members of his/her undivided family is not a Director on the
+                      Bank.
+                    </td>
+                    <td *ngFor="let option of optionListRegulatory"><input
+                        [value]="option" formControlName="director" type="radio"></td>
+                    <td><input class="form-control" formControlName="directorRemark"
+                               placeholder="Remarks"></td>
+                  </tr>
+                  <tr>
+                    <td>2.</td>
+                    <td>A Director of the Bank or his/hers undivided family member is not a Manager,
+                      Partner ,Agent and Guarantor and does not have
+                      a direct financial interest in the Borrowing firm/ company.
+                    </td>
+                    <td *ngFor="let option of optionListRegulatory"><input
+                        [value]="option" formControlName="bankPost" type="radio"></td>
+                    <td><input class="form-control" formControlName="bankPostRemark"
+                               placeholder="Remarks"></td>
+                  </tr>
+                  <tr>
+                    <td>3.</td>
+                    <td>A Director of the Bank or his/hers undivided family member does not own more
+                      than 15% shares in the Borrowing firm/company.
+                    </td>
+                    <td *ngFor="let option of optionListRegulatory"><input [value]="option"
+                                                                           formControlName="share"
+                                                                           type="radio"></td>
+                    <td><input class="form-control" formControlName="shareRemark"
+                               placeholder="Remarks"
+                    ></td>
+                  </tr>
+                  <tr>
+                    <td>4.</td>
+                    <td>A Director of the Bank or member of such Director's undivided family has not
+                      provided a Guarantee in favor of the Bank to secure
+                      loans and advances made to the Borrowing firm /company.
+                    </td>
+                    <td *ngFor="let option of optionListRegulatory"><input
+                        [value]="option" formControlName="guarantor" type="radio"></td>
+                    <td><input class="form-control" formControlName="guarantorRemark"
+                               placeholder="Remarks"></td>
+                  </tr>
+
+                  </tbody>
+                </table>
+
+              </nb-tab>
+              <nb-tab tabTitle="NRB Directive No. 6.6 Kha">
+                <table class="table table-responsive-md table-bordered text-justify">
+                  <thead>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th colspan="3">
+                      <button (click)="directiveKhaYesAll()"
+                              class="btn-sm sb-small sb-bg-dark text-white">Click to say yes to all
+                      </button>
+                    </th>
+
+                  </tr>
+                  <tr>
+                    <th>SN</th>
+                    <th>Prohibition on Lending to Promoter,Shareholder and Employee</th>
+                    <th>Yes</th>
+                    <th>No</th>
+                    <th class="width">Remarks</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>1.</td>
+                    <td>The Borrower or his undivided family member is not a Promoter of the Bank
+                    </td>
+                    <td *ngFor="let option of optionListRegulatory"><input
+                        [value]="option" formControlName="promoter" type="radio"></td>
+                    <td><input class="form-control" formControlName="promoterRemark"
+                               placeholder="Remarks"></td>
+                  </tr>
+                  <tr>
+                    <td>2.</td>
+                    <td>The Borrower or member of the Borrower's undivided family does not hold more
+                      than 1% of the total shares of <input class="form-control"
+                                                            formControlName="bankName"
+                                                            placeholder="Bank Name">.
+                    </td>
+                    <td *ngFor="let option of optionListRegulatory"><input
+                        [value]="option" formControlName="shareOfBank" type="radio"></td>
+                    <td><input class="form-control" formControlName="shareOfBankRemark"
+                               placeholder="Remarks"></td>
+                  </tr>
+                  <tr>
+                    <td>3.</td>
+                    <td>A employee of the bank is not a Partner or Guarantor.
+                    </td>
+                    <td *ngFor="let option of optionListRegulatory"><input
+                        [value]="option" formControlName="guarantorOfBank" type="radio"></td>
+                    <td><input class="form-control" formControlName="guarantorOfBankRemark"
+                               placeholder="Remarks"></td>
+                  </tr>
+                  <tr>
+                    <td>4.</td>
+                    <td>Borrower does not have any other form of financial interest in the Bank
+                    </td>
+                    <td *ngFor="let option of optionListRegulatory"><input
+                        [value]="option" formControlName="financialInterest" type="radio"></td>
+                    <td><input class="form-control" formControlName="financialInterestRemark"
+                               placeholder="Remarks"></td>
+                  </tr>
+                  <tr>
+                    <td>5.</td>
+                    <td>None of that assets that have been pledged as the collateral /security for
+                      the
+                      loan belong to a Director, Promoter, Chief Executive of the Bank or to members
+                      of his/her family.
+                    </td>
+                    <td *ngFor="let option of optionListRegulatory"><input
+                        [value]="option" formControlName="collateral" type="radio"></td>
+                    <td><input class="form-control" formControlName="collateralRemark"
+                               placeholder="Remarks"></td>
+                  </tr>
+                  <tr>
+                    <td>4.</td>
+                    <td>A Director of the Bank or an Employee of the Bank does not hold more than
+                      15%
+                      pf the total voting rights in the Borrowing firm/Company.
+                    </td>
+                    <td *ngFor="let option of optionListRegulatory"><input
+                        [value]="option" formControlName="votingRight" type="radio"></td>
+                    <td><input class="form-control" formControlName="votingRightRemark"
+                               placeholder="Remarks"></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </nb-tab>
+            </nb-tabset>
+
+          </nb-tab>
+        </nb-tabset>
+      </form>
+    </div>
+  </div>
+  <nb-card-footer>
+    <button (click)="submitForm()" class="btn float-right" nbButton type="submit">Save</button>
+  </nb-card-footer>
+</nb-card>

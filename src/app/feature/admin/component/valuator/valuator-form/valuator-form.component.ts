@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ElementRef} from '@angular/core';
 import {Valuator} from '../../../modal/valuator';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
@@ -43,7 +43,8 @@ export class ValuatorFormComponent implements OnInit {
         private activeModal: NgbActiveModal,
         private toastService: ToastService,
         private formBuilder: FormBuilder,
-        private branchService: BranchService
+        private branchService: BranchService,
+        private el: ElementRef,
     ) {
 
     }
@@ -180,10 +181,29 @@ export class ValuatorFormComponent implements OnInit {
     addCustomValuatingField(tag: string) {
         return tag;
     }
+    scrollToFirstInvalidControl() {
+        const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+            'form .ng-invalid'
+        );
+        window.scroll({
+            top: this.getTopOffset(firstInvalidControl),
+            left: 0,
+            behavior: 'smooth'
+        });
+        firstInvalidControl.focus();
+    }
+
+    private getTopOffset(controlEl: HTMLElement): number {
+        const labelOffset = 50;
+        return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+    }
+
 
     onSubmit() {
         this.submitted = true;
-        if (this.valuatorForm.invalid) { return; }
+        if (this.valuatorForm.invalid) {
+            this.scrollToFirstInvalidControl();
+            return; }
         this.spinner = true;
         this.model = this.valuatorForm.value;
         this.service.save(this.model).subscribe(() => {
