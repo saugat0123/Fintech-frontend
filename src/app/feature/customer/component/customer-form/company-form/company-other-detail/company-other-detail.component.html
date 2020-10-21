@@ -51,13 +51,14 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="ClassificationByNRB"><strong>Classification as per NRB directive</strong></label>
-        <input
+        <select
             [ngClass]="{ 'is-invalid':submitted && form.ClassificationByNRB?.errors }"
             class="form-control rounded"
             formControlName="ClassificationByNRB"
-            id="ClassificationByNRB"
-            placeholder="Classification as NRB"
-            type="text"/>
+            id="ClassificationByNRB">
+          <option [ngValue]="null" hidden>Select Classification as per NRB directive</option>
+          <option *ngFor="let nrbDirective of nrbDirective" [ngValue]="nrbDirective.key">{{nrbDirective.value}}</option>
+        </select>
         <div *ngIf="submitted && form.ClassificationByNRB?.errors "
              class="invalid-feedback">
           <div *ngIf="form.ClassificationByNRB?.errors.required">

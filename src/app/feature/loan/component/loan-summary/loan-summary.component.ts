@@ -192,8 +192,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     this.minOneInsuranceDoc = true;
                 }
             });
-            this.securityData = JSON.parse(this.loanDataHolder.security.data);
-            this.securitySummary = true;
         }
 
         // Setting IncomeFromAccount data--
