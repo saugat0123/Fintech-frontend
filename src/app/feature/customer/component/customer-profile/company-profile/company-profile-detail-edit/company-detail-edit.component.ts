@@ -108,17 +108,17 @@ export class CompanyDetailEditComponent implements OnInit {
           || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
           this.companyInfo.capital.issuedCapital, Validators.required],
 
-      totalCapital: [(ObjectUtil.isEmpty(this.companyInfo)
-          || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
-          this.companyInfo.capital.totalCapital, Validators.required],
-
-      fixedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
-          || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
-          this.companyInfo.capital.fixedCapital, Validators.required],
-
-      workingCapital: [(ObjectUtil.isEmpty(this.companyInfo)
-          || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
-          this.companyInfo.capital.workingCapital, Validators.required],
+      // totalCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+      //     || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+      //     this.companyInfo.capital.totalCapital, Validators.required],
+      //
+      // fixedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+      //     || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+      //     this.companyInfo.capital.fixedCapital, Validators.required],
+      //
+      // workingCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+      //     || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+      //     this.companyInfo.capital.workingCapital, Validators.required],
 
       numberOfShareholder: [(ObjectUtil.isEmpty(this.companyInfo)
           || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
@@ -169,9 +169,9 @@ export class CompanyDetailEditComponent implements OnInit {
     this.companyInfo.capital.authorizedCapital = this.companyInfoFormGroup.get('authorizedCapital').value;
     this.companyInfo.capital.paidUpCapital = this.companyInfoFormGroup.get('paidUpCapital').value;
     this.companyInfo.capital.issuedCapital = this.companyInfoFormGroup.get('issuedCapital').value;
-    this.companyInfo.capital.totalCapital = this.companyInfoFormGroup.get('totalCapital').value;
-    this.companyInfo.capital.fixedCapital = this.companyInfoFormGroup.get('fixedCapital').value;
-    this.companyInfo.capital.workingCapital = this.companyInfoFormGroup.get('workingCapital').value;
+    // this.companyInfo.capital.totalCapital = this.companyInfoFormGroup.get('totalCapital').value;
+    // this.companyInfo.capital.fixedCapital = this.companyInfoFormGroup.get('fixedCapital').value;
+    // this.companyInfo.capital.workingCapital = this.companyInfoFormGroup.get('workingCapital').value;
     this.companyInfo.capital.numberOfShareholder = this.companyInfoFormGroup.get('numberOfShareholder').value;
 
     // contactPerson

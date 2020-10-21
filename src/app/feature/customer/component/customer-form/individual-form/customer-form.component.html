@@ -64,17 +64,17 @@
           </div>
           <div class="col-md-4">
             <div class="form-group">
-              <label for="customerCode"><strong>Customer Code</strong></label>
+              <label for="customerCode"><strong>Customer ID</strong></label>
               <input
                   [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerCode.errors }"
                   class="form-control form-control-sm-error rounded" formControlName="customerCode"
                   id="customerCode"
                   name="customerCode"
-                  placeholder="Customer Code"
+                  placeholder="Customer ID"
                   type="text">
               <div *ngIf="(submitted) && basicInfoControls.customerCode.invalid"
                    class="invalid-feedback">
-                <div *ngIf="basicInfoControls.customerCode.errors.required">Customer Code
+                <div *ngIf="basicInfoControls.customerCode.errors.required">Customer ID
                   required
                 </div>
               </div>

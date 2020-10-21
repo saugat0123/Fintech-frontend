@@ -41,6 +41,7 @@ import {CompanyOtherDetailComponent} from './company-other-detail/company-other-
 import {CompanyJsonData} from '../../../../admin/modal/CompanyJsonData';
 import {MarketScenarioComponent} from './market-scenario/market-scenario.component';
 import {Editor} from '../../../../../@core/utils/constants/editor';
+import {WhiteSpaceValidation} from '../../../../loan/model/whiteSpaceValidation';
 
 @Component({
     selector: 'app-company-form',
@@ -232,7 +233,7 @@ export class CompanyFormComponent implements OnInit {
             companyPAN:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.panNumber)) ? undefined :
-                    this.companyInfo.panNumber, [Validators.required]],
+                    this.companyInfo.panNumber, [Validators.required, WhiteSpaceValidation.cannotContainSpace]],
             companyEstablishmentDate:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.establishmentDate)) ? undefined :
@@ -307,17 +308,17 @@ export class CompanyFormComponent implements OnInit {
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
                 this.companyInfo.capital.issuedCapital, Validators.required],
 
-            totalCapital: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
-                this.companyInfo.capital.totalCapital, Validators.required],
+            // totalCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+            //     || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+            //     this.companyInfo.capital.totalCapital, Validators.required],
 
-            fixedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
-                this.companyInfo.capital.fixedCapital, Validators.required],
+            // fixedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+            //     || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+            //     this.companyInfo.capital.fixedCapital, Validators.required],
 
-            workingCapital: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
-                this.companyInfo.capital.workingCapital, Validators.required],
+            // workingCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+            //     || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+            //     this.companyInfo.capital.workingCapital, Validators.required],
 
             numberOfShareholder: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
@@ -733,9 +734,9 @@ export class CompanyFormComponent implements OnInit {
         this.capital.authorizedCapital = this.companyInfoFormGroup.get('authorizedCapital').value;
         this.capital.paidUpCapital = this.companyInfoFormGroup.get('paidUpCapital').value;
         this.capital.issuedCapital = this.companyInfoFormGroup.get('issuedCapital').value;
-        this.capital.totalCapital = this.companyInfoFormGroup.get('totalCapital').value;
-        this.capital.fixedCapital = this.companyInfoFormGroup.get('fixedCapital').value;
-        this.capital.workingCapital = this.companyInfoFormGroup.get('workingCapital').value;
+        // this.capital.totalCapital = this.companyInfoFormGroup.get('totalCapital').value;
+        // this.capital.fixedCapital = this.companyInfoFormGroup.get('fixedCapital').value;
+        // this.capital.workingCapital = this.companyInfoFormGroup.get('workingCapital').value;
         this.capital.numberOfShareholder = this.companyInfoFormGroup.get('numberOfShareholder').value;
         this.companyInfo.capital = this.capital;
         // swot
