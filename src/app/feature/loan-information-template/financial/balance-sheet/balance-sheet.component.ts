@@ -4,6 +4,7 @@ import {FinancialService} from '../financial.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FinancialDeleteComponentComponent} from '../financial-delete-component/financial-delete-component.component';
 import {ModalResponse} from '../../../../@core/utils';
+import {Editor} from '../../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-balance-sheet',
@@ -15,6 +16,7 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
     @Input() formData;
     @Output() removeFiscalYear = new EventEmitter<any>();
     balanceSheetForm: FormGroup;
+    ckeConfig = Editor.CK_CONFIG;
 
     constructor(private formBuilder: FormBuilder,
                 private modalService: NgbModal,
@@ -45,6 +47,7 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             this.setNetWorthCategory(balanceSheetFormData.netWorthCategory);
             this.setTotalLiabilitiesAndEquity(balanceSheetFormData.totalLiabilitiesAndEquity);
             this.setDifferenceBS(balanceSheetFormData.differenceBS);
+            this.setPrincipleInstalmentPaidDuringTheYear(balanceSheetFormData.principleInstalmentPaidDuringTheYear);
             this.balanceSheetForm.get('justificationBalanceSheet').patchValue(balanceSheetFormData.justificationBalanceSheet);
         }
         this.fiscalYear.forEach((y, i) => {
@@ -161,6 +164,7 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             ]),
             totalLiabilitiesAndEquity: this.formBuilder.array([]),
             differenceBS: this.formBuilder.array([]),
+            principleInstalmentPaidDuringTheYear: this.formBuilder.array([]),
             justificationBalanceSheet: [undefined]
         });
     }
@@ -190,6 +194,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         const totalLiabilitiesAndEquity = (this.balanceSheetForm.get('totalLiabilitiesAndEquity') as FormArray)
             .controls[index] as FormGroup;
         const differenceBS = (this.balanceSheetForm.get('differenceBS') as FormArray).controls[index] as FormGroup;
+        const principleInstalmentPaidDuringTheYear = (this.balanceSheetForm.get('principleInstalmentPaidDuringTheYear') as FormArray)
+            .controls[index] as FormGroup;
 
         // Income Statement variable--
         const incomeStatement = this.formData['incomeStatementData'];
@@ -401,15 +407,12 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                 .convertToPercent(Number(incomeStatement.profitAfterTax[index].value) / Number(netWorth.controls['value'].value));
 
         keyIndicators.debtServiceCoverageRatio[index].value = Number(longTermLoan.controls['value'].value) === 0 ? 0 :
-            ((Number(incomeStatement.operatingProfit[index].value)
+            ((Number(incomeStatement.profitAfterTax[index].value)
                 + Number(this.financialService
                     .fetchValuesForJsonSubCategories(incomeStatement.operatingExpensesCategory, 'Depreciation', index))
-                + Number(this.financialService.fetchValuesForJsonSubCategories(incomeStatement.operatingExpensesCategory,
-                    'Amortization/Other Non-Cash Expenses', index))) /
+                + Number(incomeStatement.interestExpenses[index].value)) /
             (Number(incomeStatement.interestExpenses[index].value)
-                + Number(index > 0 ? (((this.balanceSheetForm.get('longTermLoan') as FormArray).controls[index - 1] as FormGroup)
-                    .controls['value'].value) : longTermLoan.controls['value'].value)
-                - Number(longTermLoan.controls['value'].value))).toFixed(2);
+                + Number(principleInstalmentPaidDuringTheYear.controls['value'].value))).toFixed(2);
 
         if (!(Number(currentAssets.controls['value'].value) === 0 || Number(currentLiabilities.controls['value'].value) === 0)) {
             keyIndicators.quickRatio[index].value =
@@ -421,6 +424,20 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             keyIndicators.currentRatio[index].value = (Number(currentAssets.controls['value'].value)
                 / Number(Number(currentLiabilities.controls['value'].value))).toFixed(2);
         }
+
+        keyIndicators.deRatioExcludingLoanFromShareholderOrDirector[index].value = (1 - (Number(this.financialService
+            .fetchValuesForSubCategories(this.balanceSheetForm.get('netWorthCategory'), 'Paid up Capital/Equity', index))
+            + Number(this.financialService
+                .fetchValuesForSubCategories(this.balanceSheetForm.get('netWorthCategory'), 'Retained Earning', index)))
+            / Number(totalAssets.controls['value'].value)).toFixed(2);
+
+        keyIndicators.deRatioIncludingLoanFromShareholderOrDirector[index].value = (1 - (Number(this.financialService
+                .fetchValuesForSubCategories(this.balanceSheetForm.get('netWorthCategory'), 'Paid up Capital/Equity', index))
+            + Number(this.financialService
+                .fetchValuesForSubCategories(this.balanceSheetForm.get('netWorthCategory'), 'Retained Earning', index))
+            + Number(this.financialService
+                .fetchValuesForSubCategories(this.balanceSheetForm.get('longTermLoanCategory'), 'Loan From Promoters/Proprietor', index)))
+            / Number(totalAssets.controls['value'].value)).toFixed(2);
 
         keyIndicators.debtEquityRatioOverall[index].value = Number(totalAssets.controls['value'].value) === 0 ? 0 :
             this.financialService.convertToPercent((Number(this.financialService
@@ -1013,6 +1030,19 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
     // differenceBS
     setDifferenceBS(currentData) {
         const controls = this.balanceSheetForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    // principleInstalmentPaidDuringTheYear
+    setPrincipleInstalmentPaidDuringTheYear(currentData) {
+        const controls = this.balanceSheetForm.get('principleInstalmentPaidDuringTheYear') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({

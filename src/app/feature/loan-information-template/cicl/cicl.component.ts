@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ElementRef} from '@angular/core';
 import {Cicl, CiclArray} from '../../admin/modal/cicl';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
@@ -23,11 +23,12 @@ export class CiclComponent implements OnInit {
   @Output() ciclDataEmitter = new EventEmitter();
 
   submitted = false;
-  ckeConfig = Editor.config;
+  ckeConfig = Editor.CK_CONFIG;
 
   constructor(
       private formBuilder: FormBuilder,
-      private toastService: ToastService
+      private toastService: ToastService,
+      private el: ElementRef,
   ) {
   }
 
@@ -60,7 +61,8 @@ export class CiclComponent implements OnInit {
   buildCiclForm() {
     this.ciclForm = this.formBuilder.group({
       ciclArray: this.formBuilder.array([]),
-      ciclRemarks: [ObjectUtil.isEmpty(this.ciclValue) ? '' : this.ciclValue.remarks]
+      ciclRemarks: [ObjectUtil.isEmpty(this.ciclValue) ? '' : this.ciclValue.remarks],
+      cibCharge: [ObjectUtil.isEmpty(this.ciclValue) ? undefined : this.ciclValue.cibCharge, [Validators.required, Validators.min(0)]]
     });
     if (!ObjectUtil.isEmpty(this.ciclList)) {
       if ((this.ciclList.length > 0)) {
@@ -120,12 +122,28 @@ export class CiclComponent implements OnInit {
           }));
     });
   }
+  scrollToFirstInvalidControl() {
+    const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+        'form .ng-invalid'
+    );
+    window.scroll({
+      top: this.getTopOffset(firstInvalidControl),
+      left: 0,
+      behavior: 'smooth'
+    });
+    firstInvalidControl.focus();
+  }
+
+  private getTopOffset(controlEl: HTMLElement): number {
+    const labelOffset = 50;
+    return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+  }
 
 
   onSubmit() {
-
+  this.submitted = true;
     if (this.ciclForm.invalid) {
-      this.submitted = true;
+      this.scrollToFirstInvalidControl();
       return;
     }
 
@@ -145,6 +163,7 @@ export class CiclComponent implements OnInit {
 
     }
     this.ciclValue.remarks = this.ciclForm.get('ciclRemarks').value === undefined ? '' : this.ciclForm.get('ciclRemarks').value;
+    this.ciclValue.cibCharge = this.ciclForm.get('cibCharge').value === undefined ? '' : this.ciclForm.get('cibCharge').value;
     this.ciclValue.data = JSON.stringify(this.ciclList);
     this.ciclDataEmitter.emit(this.ciclValue);
   }

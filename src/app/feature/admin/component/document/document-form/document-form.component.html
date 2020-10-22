@@ -1,10 +1,10 @@
-<nb-card class="mb-0">
-  <nb-card-header>
+<nb-card class="mb-0 sb-small">
+  <nb-card-header class="sb-bg-dark text-white">
     <div class="row">
       <div class="col-md-6">{{action}} Document</div>
       <div class="col-md-6">
         <a (click)="dismiss()" aria-label="Close" class="close cursor" data-dismiss="modal">
-          <span aria-hidden="true">×</span></a>
+          <span aria-hidden="true" class="text-white">×</span></a>
       </div>
     </div>
   </nb-card-header>
@@ -21,7 +21,7 @@
                  class="form-control" formControlName="name"
                  id="name" placeholder="Name"/>
           <small class="text-danger text-muted">
-            Words must be strictly separated with whitespace only.
+            Words must be strictly separated with whitespace only.++
           </small>
           <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback">
             Name is invalid or should be separated by whitespace only.

@@ -18,7 +18,9 @@ import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {LoanTag} from '../../../../loan/model/loanTag';
 import {NgForm} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {CustomerType} from "../../../../customer/model/customerType";
+import {CustomerType} from '../../../../customer/model/customerType';
+import { loanNature } from 'src/app/feature/admin/modal/loanNature';
+import { financedAssets } from 'src/app/feature/admin/modal/financedAssets';
 
 
 @Component({
@@ -75,10 +77,11 @@ export class UIComponent implements OnInit {
       private route: ActivatedRoute,
       private spinner: NgxSpinnerService,
       private productModeService: ProductModeService,
-      private el: ElementRef
-  ) {
+      private el: ElementRef,
+) {
   }
-
+   loanNature = loanNature.enumObject();
+   financedAssets = financedAssets.enumObject();
   static loadData(other: UIComponent) {
     other.getTemplate();
     other.offerLetterService.getAll().subscribe((responseList: any) => {

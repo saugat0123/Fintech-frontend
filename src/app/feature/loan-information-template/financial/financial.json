@@ -193,6 +193,7 @@
       ],
       "totalLiabilitiesAndEquity": [],
       "differenceBS": [],
+      "principleInstalmentPaidDuringTheYear": [],
       "justificationBalanceSheet": ""
     },
     "cashFlowStatementData": {
@@ -245,6 +246,8 @@
       "currentRatio": [],
       "debtServiceCoverageRatio": [],
       "interestCoverageRatio": [],
+      "deRatioExcludingLoanFromShareholderOrDirector": [],
+      "deRatioIncludingLoanFromShareholderOrDirector": [],
       "debtEquityRatioOverall": [],
       "debtEquityRatioLongTerm": [],
       "debtEquityRatioWorkingCapital": [],

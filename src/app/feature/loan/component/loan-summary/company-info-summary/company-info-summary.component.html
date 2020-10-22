@@ -1,89 +1,186 @@
-<p><strong>Details of Company</strong></p>
-<table
-    class="table table-condensed table-bordered table-sm table-responsive-md disable-print text-center">
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Establishment Date</th>
-    <th>PAN</th>
-    <th>Registration Number</th>
-    <th>Business Type</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>{{companyInfo?.companyName}}</td>
-    <td>{{companyInfo?.establishmentDate | date}}</td>
-    <td>{{companyInfo?.panNumber}}</td>
-    <td>{{companyInfo?.registrationNumber}}</td>
-    <td>{{businessType[companyInfo?.businessType]}}</td>
-  </tr>
-  </tbody>
-</table>
-<!--    shareHolder detail section-->
-<p class="mt-4"><strong>Information of Proprietor/Shareholder/Partner with holder %</strong></p>
-<table class="table table-sm table-bordered text-center table-condensed">
-  <thead>
-  <tr>
-    <th>S.N</th>
-    <th>Name</th>
-    <th>Contact No</th>
-    <th>Share</th>
-    <th>Province</th>
-    <th>District</th>
-    <th>Municipalities or VDC</th>
-  </tr>
-  </thead>
-  <tbody *ngFor="let proprietors of companyInfo?.proprietorsList; let i=index;">
-  <tr>
-    <td>{{i + 1}}</td>
-    <td>{{proprietors?.name}}</td>
-    <td>{{proprietors?.contactNo}}</td>
-    <td>{{proprietors?.share}}</td>
-    <td>{{proprietors?.province?.name}}</td>
-    <td>{{proprietors?.district?.name}}</td>
-    <td>{{proprietors?.municipalityVdc?.name}}</td>
-  </tr>
-  </tbody>
-</table>
-<table class="print-only table table-bordered text-center table-responsive-sm mt-4" id="print-company-table">
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Establishment Date</th>
-    <th>PAN</th>
-    <th>Registration Number</th>
-    <th>Business Type</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>{{companyInfo?.companyName}}</td>
-    <td>{{companyInfo?.establishmentDate | date}}</td>
-    <td>{{companyInfo?.panNumber}}</td>
-    <td>{{companyInfo?.registrationNumber}}</td>
-    <td>{{businessType[companyInfo?.businessType]}}</td>
-  </tr>
-  </tbody>
-</table>
-<hr>
-<!--SWOT Analysis-->
-<p><strong>SWOT Analysis</strong></p>
-<table aria-describedby="swot table" class="table  table-bordered table-hover sb-small mt-3">
-  <tr>
-    <td class="font-weight-bold"> Strengths</td>
-    <td>{{companyInfo?.swot?.strength}} </td>
-  </tr>
-  <tr>
-    <td class="font-weight-bold"> Weaknesses</td>
-    <td> {{companyInfo?.swot?.weakness}}</td>
-  </tr>
-  <tr>
-    <td class="font-weight-bold"> Opportunities</td>
-    <td> {{companyInfo?.swot?.opportunity}}</td>
-  </tr>
-  <tr>
-    <td class="font-weight-bold"> Threats</td>
-    <td> {{companyInfo?.swot?.threats}}</td>
-  </tr>
-</table>
+<div class="row">
+    <div class="col-md-12">
+      <table
+          class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+        <tr>
+          <td><b>Nature Of business</b></td>
+          <td>{{companyJsonData?.majorProductService}}</td>
+          <td><b>Relationship Start Date</b>: {{companyJsonData?.relationshipSince |date}}</td>
+
+        </tr>
+        <tr>
+          <td><b>Sister Concerns</b></td>
+          <td colspan="2">{{companyJsonData?.sisterConcern}}</td>
+        </tr>
+        <tr>
+          <td rowspan="5"><b>RegistrationDetail</b></td>
+          <td><b>Dept/office</b></td>
+          <td>{{companyInfo?.legalStatus?.panRegistrationOffice}}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+
+          <td><b>Date</b></td>
+          <td>{{companyInfo?.legalStatus?.registrationDate |date}}</td>
+        </tr>
+        <tr>
+
+          <td><b>Regd. Number</b></td>
+          <td>{{companyInfo?.registrationNumber}}</td>
+        </tr>
+        <tr>
+
+          <td><b>PAN Number</b></td>
+          <td>
+            <div class="row">
+              <div class="col-md-6">
+                {{companyInfo?.panNumber}}
+                <span class="float-right">
+              |
+            </span>
+              </div>
+              <div class="col-md-6">
+                <b>Date</b>: {{companyInfo?.legalStatus?.panRegistrationDate |date}}
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Tax Clearance Till</b>
+          </td>
+          <td>{{companyJsonData?.otherCompanyDetail?.taxClearanceTill}}</td>
+          <td><b>Remarks</b> , {{companyJsonData?.otherCompanyDetail.taxClearanceRemark !== undefined ? companyJsonData?.otherCompanyDetail?.taxClearanceRemark
+            :'N/A'}}</td>
+        </tr>
+
+        <tr>
+          <td>
+            <b>Business Operation Since(if Other than registration date)</b>
+          </td>
+          <td colspan="2">
+            {{companyInfo?.establishmentDate |date}}
+          </td>
+        </tr>
+        <tr>
+          <td><b>Issue Place</b></td>
+          <td colspan="2">{{companyInfo?.issuePlace}}</td>
+        </tr>
+        <tr>
+          <td><b>Business Address</b></td>
+          <td  colspan="2">{{companyInfo?.companyLocations.address}}, {{ companyInfo?.companyLocations?.streetName }}, {{companyInfo?.companyLocations?.houseNumber}}</td>
+        </tr>
+        <tr>
+          <td>
+            <div><b>Name</b></div>
+            <div><b>Contact Number</b></div>
+            <div><b>E-mail address:</b></div>
+            <div><b>Functional Position</b></div>
+          </td>
+          <td>
+            <div><b> Key Contact Person/Position</b></div>
+            <ng-container *ngIf="contact != undefined || contact != null">
+              <div>{{contact[0]?.contactName}}</div>
+              <div>{{contact[0]?.contactNumber}}</div>
+              <div>{{contact[0]?.email}}</div>
+              <div>{{contact[0]?.functionalPosition}}</div>
+            </ng-container>
+          </td>
+          <td>
+           <div> <b>Alternative Contact Person</b></div>
+            <ng-container *ngIf="contact?.length > 1">
+              <div>{{contact[1]?.contactName}}</div>
+              <div>{{contact[1]?.contactNumber}}</div>
+              <div>{{contact[1]?.email}}</div>
+              <div>{{contact[1]?.functionalPosition}}</div>
+            </ng-container>
+            <span *ngIf="contact?.length == 1">N/A</span>
+          </td>
+        </tr>
+
+      <!--
+       add in future
+        <tr>
+          <td>Existing Review Date</td>
+          <td>asd</td>
+          <td>asdas</td>
+        </tr>-->
+        <tr>
+          <td><b>Classification as per NRB Directive</b></td>
+          <td colspan="2">{{companyJsonData?.otherCompanyDetail?.ClassificationByNRB}}</td>
+        </tr>
+
+        <tr>
+          <td><b>Negative List</b></td>
+          <td colspan="2"><span>(<i *ngIf="companyJsonData?.otherCompanyDetail?.negativeList === 'checked'" class="fas fa-check-circle"></i> )Checked</span>
+            <span class="ml-2">(<i *ngIf="companyJsonData?.otherCompanyDetail?.negativeList === 'unchecked'" class="fas fa-check-circle"></i> )Not checked</span>
+            <span class="ml-5">Remarks , {{companyJsonData?.otherCompanyDetail?.negativeListRemark != undefined ? companyJsonData?.otherCompanyDetail?.negativeListRemark : 'N/A'}}</span></td>
+        </tr>
+
+        <tr>
+          <td><b>Authorized / Issue / Paid Up Capital</b></td>
+          <td colspan="2">Rs. {{companyInfo?.capital?.authorizedCapital |currencyFormatter}}
+            / Rs. {{companyInfo?.capital?.issuedCapital | currencyFormatter}}
+            / Rs. {{companyInfo?.capital?.paidUpCapital | currencyFormatter}} </td>
+        </tr>
+
+      </table>
+    </div>
+</div>
+<div class="row mt-3">
+<div class="col-md-12">
+  <strong>Management Team</strong>
+  <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+    <thead>
+    <tr class="text-white sb-bg-dark">
+      <th>S.No</th>
+      <th>Name</th>
+      <th>Designation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let team of companyInfo.managementTeamList; let i=index">
+      <td>{{i+1}}</td>
+      <td>{{team?.name}}</td>
+      <td>{{team?.designation}}</td>
+      <td>{{team?.description}}</td>
+    </tr>
+    <tr>
+      <td class="sb-bg-secondary text-white">Note</td>
+      <td colspan="2">{{companyJsonData?.managementTeamNote}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+<div class="row mt-3">
+  <div class="col-md-12">
+    <strong>Name of promoters & Shareholding pattern:</strong>
+    <table class="table table-condensed table-bordered table-responsive-md table-sm text-center sb-small table-margin">
+      <thead>
+      <tr class="text-white sb-bg-dark">
+        <th>S.No</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Share</th>
+        <th>Contact No</th>
+        <th>Address</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let holder of companyInfo.proprietorsList;let i =index">
+        <td>{{i+1}}</td>
+        <td>{{holder?.name}}</td>
+        <td>{{holder?.type}}</td>
+        <td>{{holder?.share}}</td>
+        <td>{{holder?.contactNo}}</td>
+        <td>{{holder?.province?.name}}, {{holder?.district?.name}}, {{holder?.municipalityVdc?.name}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<app-business-background [companyInfo]="companyInfo"></app-business-background>

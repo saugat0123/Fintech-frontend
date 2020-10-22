@@ -3,12 +3,12 @@
     <p><strong>Reporting Information</strong></p>
     <div class="row">
       <div class="col-md-12">
-        <table *ngIf="layout === 'vertical'" class="table table-bordered table-sm">
+        <table *ngIf="layout === 'vertical'" class="table table-bordered table-sm sb-small text-center">
           <ng-container *ngFor="let report of reportingInfoSummary">
             <tr>
               <td class="font-weight-bold" colspan="2">{{report?.name}}</td>
             </tr>
-            <tr class="font-weight-bold">
+            <tr class="font-weight-bold sb-bg-secondary text-center">
               <td>Code</td>
               <td>Description</td>
             </tr>
@@ -20,17 +20,17 @@
         </table>
         <ng-container *ngIf="layout === 'horizontal'">
           <ng-container *ngFor="let report of reportingInfoSummary">
-            <table class="table table-bordered table-sm">
-              <tr>
+            <table class="table table-bordered table-sm sb-small text-center">
+              <tr class="sb-bg-dark text-white">
                 <td [attr.colspan]="report?.reportingInfoLevels?.length + 1"
                     class="font-weight-bold">{{report?.name}}</td>
               </tr>
               <tr>
-                <td class="font-weight-bold">Code</td>
+                <td class="font-weight-bold sb-bg-secondary text-white">Code</td>
                 <td *ngFor="let level of report?.reportingInfoLevels">{{level?.code}}</td>
               </tr>
               <tr>
-                <td class="font-weight-bold">Description</td>
+                <td class="font-weight-bold sb-bg-secondary text-white">Description</td>
                 <td *ngFor="let level of report?.reportingInfoLevels">{{level?.description}}</td>
               </tr>
             </table>

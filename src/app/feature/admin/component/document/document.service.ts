@@ -41,8 +41,8 @@ export class DocumentService extends BaseService<Document> {
         return this.http.get(req.url, {headers: req.header});
     }
 
-    downloadAllDoc(path: String) {
-        const req = ApiUtils.getRequestWithFileSupport(`${DocumentService.API}/downloadDoc`);
+    downloadAllDoc(path: String, id: number) {
+        const req = ApiUtils.getRequestWithFileSupport(`${DocumentService.API}/downloadDoc/` + id);
         return this.http.post(req.url, path, {headers: req.header});
     }
 }

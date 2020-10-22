@@ -64,17 +64,17 @@
         <div class="col-md-5">{{companyInfo?.capital?.issuedCapital}}</div>
     </div>
 
-    <div class="row">
-        <div class="col-md-7">
-            <span> <strong>Fixed Capital :</strong></span></div>
-        <div class="col-md-5">{{companyInfo?.capital?.fixedCapital}}</div>
-    </div>
+<!--    <div class="row">-->
+<!--        <div class="col-md-7">-->
+<!--            <span> <strong>Fixed Capital :</strong></span></div>-->
+<!--        <div class="col-md-5">{{companyInfo?.capital?.fixedCapital}}</div>-->
+<!--    </div>-->
 
-    <div class="row">
-        <div class="col-md-7">
-            <span> <strong>Working Capital :</strong></span></div>
-        <div class="col-md-5">{{companyInfo?.capital?.workingCapital}}</div>
-    </div>
+<!--    <div class="row">-->
+<!--        <div class="col-md-7">-->
+<!--            <span> <strong>Working Capital :</strong></span></div>-->
+<!--        <div class="col-md-5">{{companyInfo?.capital?.workingCapital}}</div>-->
+<!--    </div>-->
 
     <div class="row">
         <div class="col-md-7">
@@ -82,53 +82,46 @@
         <div class="col-md-5">{{companyInfo?.capital?.numberOfShareholder}}</div>
     </div>
 
-    <div class="row">
-        <div class="col-md-7">
-            <span> <strong>Total Capital :</strong></span></div>
-        <div class="col-md-5">{{companyInfo?.capital?.totalCapital}}</div>
-    </div>
+<!--    <div class="row">-->
+<!--        <div class="col-md-7">-->
+<!--            <span> <strong>Total Capital :</strong></span></div>-->
+<!--        <div class="col-md-5">{{companyInfo?.capital?.totalCapital}}</div>-->
+<!--    </div>-->
     <hr/>
 </div>
 
-<div>
+<nb-card style="overflow-y: scroll; max-height: 150px">
     <h5>Contact Person Details</h5>
-    <div class="row">
-        <div class="col-md-7">
-            <span> <strong>Name :</strong></span></div>
-        <div class="col-md-5">{{companyInfo?.contactPerson?.name}}</div>
-    </div>
+    <ng-container *ngFor="let contactPerson of companyContactPersons">
+        <div class="row">
+            <div class="col-md-7">
+                <span> <strong>Name :</strong></span></div>
+            <div class="col-md-5">{{contactPerson?.contactNumber}}</div>
+        </div>
 
-    <div class="row">
-        <div class="col-md-7">
-            <span> <strong>Contact Number :</strong></span></div>
-        <div class="col-md-5">{{companyInfo?.contactPerson?.contactNumber}}</div>
-    </div>
+        <div class="row">
+            <div class="col-md-7">
+                <span> <strong>Contact Number :</strong></span></div>
+            <div class="col-md-5">{{contactPerson?.contactNumber}}</div>
+        </div>
 
-    <div class="row">
-        <div class="col-md-7">
-            <span> <strong>Email :</strong></span></div>
-        <div class="col-md-5">{{companyInfo?.contactPerson?.email}}</div>
-    </div>
+        <div class="row">
+            <div class="col-md-7">
+                <span> <strong>Email :</strong></span></div>
+            <div class="col-md-5">{{contactPerson?.contactEmail}}</div>
+        </div>
 
-    <div class="row">
-        <div class="col-md-7">
-            <span> <strong>Province :</strong></span></div>
-        <div class="col-md-5">{{companyInfo?.contactPerson?.province?.name}}</div>
+        <div class="row">
+            <div class="col-md-7">
+                <span> <strong>Functional Position :</strong></span></div>
+            <div class="col-md-5">{{contactPerson?.functionalPosition}}</div>
+        </div>
+        <hr/>
+    </ng-container>
+    <div class="row justify-content-center" *ngIf="companyContactPersons.length === 0">
+        <span class="text-danger">No contact found</span>
     </div>
-
-    <div class="row">
-        <div class="col-md-7">
-            <span> <strong>District :</strong></span></div>
-        <div class="col-md-5">{{companyInfo?.contactPerson?.district?.name}}</div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-7">
-            <span> <strong>Municipalities/VDC :</strong></span></div>
-        <div class="col-md-5">{{companyInfo?.contactPerson?.municipalityVdc?.name}}</div>
-    </div>
-    <hr/>
-</div>
+</nb-card>
 
 <div>
     <h5>Company Location Detail</h5>

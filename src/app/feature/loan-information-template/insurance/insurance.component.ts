@@ -13,11 +13,15 @@ export class InsuranceComponent implements OnInit {
     @Input() insuranceDataFromModel;
     @Input() fromProfile;
     @Output() insuranceDataEmitter = new EventEmitter();
+    @Input() customerInfo;
     form: FormGroup;
     isSubmitted = false;
     insurance: Array<Insurance> = new Array<Insurance>();
     insuranceList: InsuranceList = new InsuranceList();
     insuranceCompanyList = InsuranceList.insuranceCompanyList;
+    docTitle = 'Insurance Policy Document';
+    docFolderName = 'insuranceDoc';
+    assetsInsured = ['Stock', 'Building & Construction', 'Machineries/Equipment', 'Vehicle', 'Other'];
 
     constructor(
         private formBuilder: FormBuilder
@@ -56,7 +60,10 @@ export class InsuranceComponent implements OnInit {
                 issuedDate: [data.issuedDate === undefined ? undefined : new Date(data.issuedDate), [Validators.required]],
                 expiryDate: [data.expiryDate === undefined ? undefined : new Date(data.expiryDate), [Validators.required]],
                 policyType: [ObjectUtil.setUndefinedIfNull(data.policyType)],
-                policyNumber: [ObjectUtil.setUndefinedIfNull(data.policyNumber), [Validators.required]]});
+                policyNumber: [ObjectUtil.setUndefinedIfNull(data.policyNumber), [Validators.required]],
+                policyDocumentPath: [ObjectUtil.setUndefinedIfNull(data.policyDocumentPath)],
+                remark: [ObjectUtil.setUndefinedIfNull(data.remark)],
+                assetInsured: [ObjectUtil.setUndefinedIfNull(data.assetInsured), [Validators.required]]});
     }
     addEmptyForm() {
         const formArray = this.form.get('formArray') as FormArray;
@@ -85,4 +92,9 @@ export class InsuranceComponent implements OnInit {
     returnIssuedDate(path) {
         return (new Date(path.value));
     }
+
+    documentPath(path, index) {
+        this.form.get(['formArray', index, 'policyDocumentPath']).patchValue(path);
+    }
+
 }

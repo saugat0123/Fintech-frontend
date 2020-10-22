@@ -106,10 +106,10 @@ export class CustomerLoanDocumentComponent implements OnInit {
     if (file.size > CustomerLoanDocumentComponent.FILE_SIZE_5MB) {
       this.errorMessage = 'Maximum File Size Exceeds for  ' + documentName;
       (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
-    } else if (ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.citizenshipNumber)) {
+    } else if (ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.idNumber)) {
       this.toastService.show(new Alert(AlertType.ERROR, 'Citizenship Number is required to upload file.'));
       (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
-    } else if (ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.customerName)) {
+    } else if (ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.name)) {
       this.toastService.show(new Alert(AlertType.ERROR, 'Customer Name is required to upload file.'));
       (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
     } else {
@@ -118,10 +118,12 @@ export class CustomerLoanDocumentComponent implements OnInit {
 
       formData.append('file', file);
       formData.append('type', this.loanName);
-      formData.append('citizenNumber', this.loanDataHolder.customerInfo.citizenshipNumber);
-      formData.append('customerName', this.loanDataHolder.customerInfo.customerName);
+      formData.append('citizenNumber', this.loanDataHolder.loanHolder.idNumber);
+      formData.append('customerName', this.loanDataHolder.loanHolder.name);
       formData.append('documentName', documentName);
       formData.append('documentId', documentId);
+      formData.append('loanHolderId', this.loanDataHolder.loanHolder.id.toString());
+      formData.append('customerType', this.loanDataHolder.loanHolder.customerType);
       if (this.loanDataHolder.loanType === null || this.loanDataHolder.loanType === undefined) {
         formData.append('action', 'new');
       }

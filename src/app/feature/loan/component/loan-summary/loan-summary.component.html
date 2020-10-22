@@ -1,6 +1,13 @@
 <section class="enable-print">
   <nb-card>
     <nb-card-body id="print-block">
+        <div class="row disable-print">
+            <button nbButton
+                    shape="rectangle"
+                    status="primary"
+                    size="tiny" (click)="goToCustomer()"><em class="fas fa-backward"></em> <span
+                    class="px-2">customer Profile</span></button>
+        </div>
       <div *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId"
            class="row text-success cursor disable-print">
         <div class="col-md-6 text-left">
@@ -96,12 +103,12 @@
         </div>
       </div>
       <hr class="print-line">
-      <div class="row">
-        <div class="col-md-6">
+      <div class="row ">
+        <div class="col-md-6 sb-small">
           <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span>
         </div>
         <div class="col-md-6">
-          <p class="text-right"><strong>Date: </strong>{{loanDataHolder?.createdAt | date}}
+          <p class="text-right sb-small" ><strong>Date: </strong>{{loanDataHolder?.createdAt | date}}
             ({{nepaliDate}})
           </p>
         </div>
@@ -114,8 +121,8 @@
         <!-- CRG - Normal-->
         <div *ngIf="creditRiskSummary" class="col-md-12">
           <nb-card>
-            <nb-card-header class="text-center">
-              <h4>Credit Risk Gauge</h4>
+            <nb-card-header class="text-center ">
+              <h6>Credit Risk Gauge</h6>
             </nb-card-header>
             <nb-card-body>
               <div class="row disable-print">
@@ -129,7 +136,7 @@
                 <div class="col-md-6 gauge-label-padding">
                   <div class="vertical-line">
                     <div class="text-left pl-2">
-                      <h5>Manual</h5><br>
+                      <h6>Manual</h6><br>
                       Credit Risk Grade:
                       <span [class]="creditGradeStatusBadge"> {{creditRiskGrade | titlecase}}</span>
                       <span class="text-danger">
@@ -151,9 +158,9 @@
 
         <!-- CRG - Gamma-->
         <div *ngIf="crgGammaSummary" class="col-md-12">
-          <nb-card>
+          <nb-card class="sb-medium">
             <nb-card-header class="text-center">
-              <h4>Credit Risk Gauge (Gamma)</h4>
+              <h6>Credit Risk Gauge (Gamma)</h6>
             </nb-card-header>
             <nb-card-body>
               <div class="row disable-print">
@@ -184,7 +191,40 @@
         </div>
 
         <!--CRG - Alpha-->
-        <div *ngIf="creditRiskAlphaSummary" class="col-md-12">
+        <div  *ngIf="creditRiskAlphaSummary" class="col-md-12">
+          <nb-card class="sb-medium">
+            <nb-card-header>
+              <h6>Credit Risk Gauge (Alpha)</h6>
+            </nb-card-header>
+            <nb-card-body>
+              <div class="row">
+                <div class="col-md-6 mr-0 pr-0 text-right">
+                  <app-gauge-chart [chartWidth]="275"
+                                   gaugeIdentifier="crg-alpha"
+                                   [chartHeight]="180"
+                                   [maxValue]="100"
+                                   [obtainedValue]="creditRiskAlphaScore"></app-gauge-chart>
+                </div>
+                <div class="col-md-6 ml-0 gauge-label-padding">
+                  <div class="vertical-line">
+                    <div class="text-left pl-2">
+                      Credit Risk Grade :
+                      <span [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha | titlecase}}</span>
+                    </div>
+                    <br>
+                    <div class="text-left pl-2">
+                      Credit Risk Score :
+                      <span><strong> {{ creditRiskAlphaScore }}</strong></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nb-card-body>
+          </nb-card>
+        </div>
+
+        <!--old Alpha Crg-->
+        <!--<div *ngIf="creditRiskAlphaSummary" class="col-md-12">
           <nb-card>
             <nb-card-header class="text-center">
               <nb-select placeholder="Select Fiscal year"
@@ -225,13 +265,34 @@
               </div>
             </nb-card-body>
           </nb-card>
+        </div>-->
+      </div>
+
+      <!--Applicant detail-->
+      <div class="row">
+        <div class="col-md-12">
+          <strong>The Applicant</strong>
+          <hr>
+        </div>
+      </div>
+      <div class="row sb-small">
+        <div class="col-md-12">
+          <b>Purpose: {{loanDataHolder.loan.name}}</b>
+          <span class="float-right"><b>Loan Authority Under</b>- {{loanDataHolder.currentStage.toUser.name}}</span>
+        </div>
+      </div>
+      <div class="row sb-small mb-1">
+        <div class="col-md-12">
+          <span> <b>Application Received On:</b> {{loanDataHolder.createdAt | date}}</span>
+          <span
+              class="float-right"><b>Forwarded on:</b> {{loanDataHolder.lastModifiedAt | date}}</span>
         </div>
       </div>
 
-
       <div *ngIf="loanCategory === 'INSTITUTION'" class="row">
         <div class="col-md-12">
-        <app-company-info-summary [companyInfo]="loanDataHolder?.companyInfo"></app-company-info-summary>
+          <app-company-info-summary
+              [companyInfo]="loanDataHolder?.companyInfo"></app-company-info-summary>
         </div>
       </div>
 
@@ -243,9 +304,9 @@
         <div class="col-md-12">
           <div *ngIf="loanCategory === 'INDIVIDUAL'">
             <table
-                class="table table-condensed table-bordered table-sm table-responsive-md disable-print text-center">
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
               <thead>
-              <tr>
+              <tr class="text-white sb-bg-dark">
                 <th>Name</th>
                 <th>Date Of Birth</th>
                 <th>Citizenship Number</th>
@@ -265,9 +326,9 @@
               </tr>
               </tbody>
             </table>
-            <table class="print-only table table-bordered text-center" id="print-borrower-table">
+            <table class="print-only table table-bordered text-center table-sm sb-small" id="print-borrower-table">
               <thead>
-              <tr>
+              <tr class="text-white sb-bg-dark">
                 <th>Name</th>
                 <th>Date Of Birth</th>
                 <th>Citizenship Number</th>
@@ -290,9 +351,9 @@
           </div>
           <div *ngIf="loanCategory === 'INSTITUTION'">
             <table
-                class="table table-condensed table-sm table-bordered table-responsive-md text-center">
+                class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
               <thead>
-              <tr>
+              <tr class="text-white sb-bg-dark">
                 <th>Name</th>
                 <th>Contact Number</th>
                 <th>Email</th>
@@ -314,9 +375,9 @@
           <div *ngIf="loanCategory === 'INDIVIDUAL'">
             <p><strong>Family Details</strong></p>
             <table
-                class="table table-condensed table-bordered table-responsive-md text-center table-sm">
+                class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
               <thead>
-              <tr>
+              <tr class="text-white sb-bg-dark">
                 <th>Name</th>
                 <th>Relation Name</th>
                 <th>Citizenship no.</th>
@@ -350,9 +411,9 @@
       <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
         <div class="col-md-12">
           <p><strong>Detail of Present Proposal of the Facility</strong></p>
-          <table class="table table-condensed table-bordered table-responsive-md text-center">
+          <table class="table table-bordered text-center table-sm sb-small">
             <tbody>
-            <tr>
+            <tr >
               <th>Credit Facility</th>
               <td>{{loanDataHolder?.loan?.name}}</td>
 
@@ -474,7 +535,7 @@
           [customerAllLoanList]="customerAllLoanList"
           [proposalData]="proposalData"></app-proposal-summary>
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 sb-medium">
           <strong>Propose Amount:</strong>
           Rs. {{loanDataHolder?.proposal?.proposedAmountInWords}}
           Only /-
@@ -484,11 +545,23 @@
       <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
       [customerGroup]="loanDataHolder.loanHolder.customerGroup" [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>
 
+      <app-proposal-justification-summary *ngIf="proposalSummary"
+                                          [customerAllLoanList]="customerAllLoanList"
+                                          [proposalData]="proposalData"></app-proposal-justification-summary>
+
       <app-security-summary *ngIf="securitySummary"
                             [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
 
       <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
                              [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
+
+      <hr>
+      <p><strong>Net Trading Assets (NTA):</strong></p>
+      <app-net-trading-assets *ngIf="netTradingAssetsSummary"
+                              [fromProfile]="false"
+                              [netTradingAssetsData]="netTradingAssetsData"></app-net-trading-assets>
+
+      <app-income-from-account-summery *ngIf="incomeFromAccountSummary" [formData]="incomeFromAccountData"></app-income-from-account-summery>
 
       <app-guarantor-summary *ngIf="checkGuarantorData"
                              [guarantorData]="guarantorData"></app-guarantor-summary>
@@ -506,19 +579,26 @@
 
       <app-insurance-summary *ngIf="loanDataHolder?.insurance"
                              [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
-
+      <div class="row">
+        <div class="col-md-12 disable-print">
+          <span>
+            <b>All Documents</b>
+            <button class="float-right sb-small sb-bg-dark text-white"  (click)=downloadAllDocument(loanDataHolder?.customerDocument[0]?.documentPath)> Download All Document</button>
+          </span>
+        </div>
+      </div>
+      <hr>
       <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row disable-print">
         <div class="col-md-12">
-          <p><strong>Documents</strong></p>
-          <table class="table table-condensed table-bordered table-sm">
+          <p><strong>Loan Documents</strong></p>
+        </div>
+        <div class="col-md-12">
+          <table class="table table-condensed table-bordered table-sm sb-small text-center">
             <thead>
-            <tr>
+            <tr class="text-white sb-bg-dark">
               <th>S.N</th>
               <th>Document</th>
               <th>Download
-                <b (click)="downloadAllDocument(loanDataHolder?.customerDocument[0].documentPath)"
-                   class="float-right btn-link" style="cursor: pointer"> Download all
-                </b>
               </th>
             </tr>
             </thead>
@@ -536,15 +616,73 @@
           </table>
         </div>
       </div>
+      <div *ngIf="minOneGuarantorDoc" class="row disable-print">
+        <div class="col-md-12">
+          <p><strong>Guarantor Documents</strong></p>
+          <table class="table table-condensed table-bordered table-sm sb-small text-center">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+              <th>S.N</th>
+              <th>Guarantor</th>
+              <th>Document</th>
+              <th>Download
+              </th>
+            </tr>
+            </thead>
+            <tbody  *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
+            <tr *ngIf="singleDoc?.docPath">
+              <td>{{i + 1}}</td>
+              <td>{{singleDoc?.name}}</td>
+              <td>Net Worth Document</td>
+              <td>
+                <i (click)="downloadCustomerDocument(singleDoc?.docPath, singleDoc.name+' Net Worth Doc')"
+                   aria-hidden="true" class="fa fa-download"
+                   style="cursor: pointer"></i>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div *ngIf="minOneInsuranceDoc" class="row disable-print">
+        <div class="col-md-12">
+          <p><strong>Insurance Documents</strong></p>
+          <table class="table table-condensed table-bordered table-sm sb-small text-center">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+              <th>S.N</th>
+              <th>Policy Number</th>
+              <th>Company</th>
+              <th>Document</th>
+              <th>Download</th>
+            </tr>
+            </thead>
+            <tbody *ngFor="let singleDoc of insuranceWithDoc; let i = index">
+            <tr *ngIf="singleDoc.policyDocumentPath">
+              <td>{{i + 1}}</td>
+              <td>{{singleDoc?.policyNumber}}</td>
+              <td>{{singleDoc?.company}}</td>
+              <td>Insurance Policy</td>
+              <td>
+                <i  (click)="downloadCustomerDocument(singleDoc?.policyDocumentPath, singleDoc?.policyNumber+' Insurance Policy Document')"
+                   aria-hidden="true" class="fa fa-download"
+                   style="cursor: pointer"></i>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <div class="row justify-content-end px-3 disable-print">{{docMsg}}</div>
 
       <div class="row mt-3 disable-print">
         <div class="col-md-12">
           <p><strong>Authority Section</strong></p>
           <table
-              class="table table-condensed table-bordered table-responsive-md text-center table-sm">
+              class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
             <thead>
-            <tr>
+            <tr class="sb-bg-dark text-white">
               <th>S.N</th>
               <th>Date</th>
               <th>From User</th>
@@ -652,7 +790,7 @@
         <div *ngFor="let previous of signatureList; let i=index;"
              class="col-md-3 padding-0-125">
           <div class="signature-block">
-            <div class="text-center p-2 bg-light mb-2 ">
+            <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
               <span>{{loanHandler(i, signatureList.length)}}</span>
             </div>
             <hr class="border-dark m-0">
@@ -662,10 +800,10 @@
                    class="img-thumbnail border-0 signature-height"
                    src="{{previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage}}"/>
             </div>
-            <div class="text-center signature-detail">
-              <p class="m-0">{{previous?.fromUser?.name}}</p>
-              <p class="m-0">({{previous?.fromUser?.role?.roleName}})</p>
-              <p class="m-0">{{previous?.lastModifiedAt}}</p>
+            <div class="text-center signature-detail sb-bg-secondary text-white">
+              <p class="m-0 sb-small">{{previous?.fromUser?.name}}</p>
+              <p class="m-0 sb-small">({{previous?.fromUser?.role?.roleName}})</p>
+              <p class="m-0 sb-small">{{previous?.lastModifiedAt}}</p>
             </div>
           </div>
         </div>
@@ -679,9 +817,9 @@
         </div>
         <div class="col-md-12">
           <table
-              class="table table-condensed table-bordered table-responsive-md text-center">
+              class="table table-condensed table-bordered table-responsive-md text-center sb-small table-sm">
             <thead>
-            <tr>
+            <tr class="text-white sb-bg-dark">
               <th>S.N</th>
               <th>From User</th>
               <th>From Position</th>
@@ -737,9 +875,9 @@
       <div *ngIf="offerLetterDocuments.length>0" class="row disable-print">
         <div class="col-md-12">
           <p><strong>Offer Letter Documents</strong></p>
-          <table class="table table-condensed table-bordered table-responsive-md">
+          <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
             <thead>
-            <tr>
+            <tr class="text-white sb-bg-dark">
               <th>S.N</th>
               <th>Document</th>
               <th>Preview</th>

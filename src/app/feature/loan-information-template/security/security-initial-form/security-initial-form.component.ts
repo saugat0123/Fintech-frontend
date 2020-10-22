@@ -14,6 +14,7 @@ import {ShareType} from '../../../loan/model/ShareType';
 import {CustomerShareData} from '../../../admin/modal/CustomerShareData';
 import {NepseService} from '../../../admin/component/nepse/nepse.service';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
+import {Editor} from '../../../../@core/utils/constants/editor';
 
 
 @Component({
@@ -46,7 +47,10 @@ export class SecurityInitialFormComponent implements OnInit {
     shareSelected = false;
     landBuilding = false;
     underBuildingConstructionChecked = false;
-
+    hypothecation = false;
+    corporate = false;
+    ckeConfig;
+    personal = false;
     securityTypes = [
         {key: 'LandSecurity', value: 'Land Security'},
         {key: 'VehicleSecurity', value: 'Vehicle Security'},
@@ -54,7 +58,11 @@ export class SecurityInitialFormComponent implements OnInit {
         {key: 'Land and Building Security', value: 'Land and Building Security'},
         {key: 'PlantSecurity', value: 'Plant and Machinery Security'},
         {key: 'FixedDeposit', value: 'Fixed Deposit Receipt'},
-        {key: 'ShareSecurity', value: 'Share Security'}
+        {key: 'ShareSecurity', value: 'Share Security'},
+        {key: 'HypothecationOfStock', value: 'Hypothecation of Stock'},
+        {key: 'CorporateGuarantee', value: 'Corporate Guarantee'},
+        {key: 'PersonalGuarantee', value: 'Personal Guarantee'},
+
     ];
 
     areaFormat = ['R-A-P-D' , 'B-K-D' , 'SQF', 'Sq.m'];
@@ -70,6 +78,7 @@ export class SecurityInitialFormComponent implements OnInit {
     isShareSecurity = false;
     shareSecurityForm: FormGroup;
     shareSecurityData: ShareSecurity = new ShareSecurity();
+    typeOfProperty = ['Rajkar', 'Guthi', 'Others'];
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -79,6 +88,7 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.configEditor();
         this.shareService.findAllNepseCompanyData(this.search).subscribe((list) => {
             this.nepseList = list.detail;
         });
@@ -105,6 +115,11 @@ export class SecurityInitialFormComponent implements OnInit {
             this.setFixedDepositDetails(this.formDataForEdit['fixedDepositDetails']);
             this.setLandBuildingDescription(this.formDataForEdit['landBuildingDescription']);
             this.setLandBuildingUnderConstructions(this.formDataForEdit['landBuildingUnderConstruction']);
+            this.setRemark(this.formDataForEdit['remark']);
+            this.setHypothecation(this.formDataForEdit['hypothecationOfStock']);
+            this.setCorporate(this.formDataForEdit['corporateGuarantee']);
+            this.setPersonal(this.formDataForEdit['personalGuarantee']);
+
         } else {
             this.addMoreLand();
             this.addBuilding();
@@ -114,6 +129,9 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addFixedDeposit();
             this.addLandBuilding();
             this.addLandBuildingUnderConstruction();
+            this.addHypothecationOfStock();
+            this.addCorporateGuarantee();
+            this.addPersonalGuarantee();
         }
 
         if (ObjectUtil.isEmpty(this.shareSecurity)) {
@@ -138,7 +156,12 @@ export class SecurityInitialFormComponent implements OnInit {
             fixedDepositDetails: this.formBuilder.array([]),
             landBuilding: this.formBuilder.array([]),
             landBuildingDescription: [undefined],
-            landBuildingUnderConstruction: this.formBuilder.array([])
+            landBuildingUnderConstruction: this.formBuilder.array([]),
+            remark: [undefined],
+            hypothecationOfStock: this.formBuilder.array([]),
+            corporateGuarantee: this.formBuilder.array([]),
+            personalGuarantee: this.formBuilder.array([])
+
         });
         this.buildShareSecurityForm();
     }
@@ -211,6 +234,10 @@ export class SecurityInitialFormComponent implements OnInit {
         this.securityForm.get('description').setValue(landDescription);
     }
 
+    setRemark(remarkData) {
+        this.securityForm.get('remark').patchValue(remarkData);
+    }
+
     setLandDetails(currentData) {
         const landDetails = this.securityForm.get('landDetails') as FormArray;
         currentData.forEach((singleData, index) => {
@@ -235,11 +262,79 @@ export class SecurityInitialFormComponent implements OnInit {
                     landValuatorRepresentative: [singleData.landValuatorRepresentative],
                     landStaffRepresentativeName: [singleData.landStaffRepresentativeName],
                     landBranch: [singleData.landBranch] ,
-                    landConsideredValue: [ObjectUtil.isEmpty(singleData.landConsideredValue) ?  undefined : singleData.landConsideredValue]
+                    landConsideredValue: [ObjectUtil.isEmpty(singleData.landConsideredValue) ?  undefined : singleData.landConsideredValue],
+                    typeOfProperty: [singleData.typeOfProperty],
+                    modeOfTransfer: [singleData.modeOfTransfer]
                 })
             );
         });
     }
+
+    setHypothecation(currentData) {
+        if (!ObjectUtil.isEmpty(currentData)) {
+            const hypothecationDetails = this.securityForm.get('hypothecationOfStock') as FormArray;
+            currentData.forEach((singleData) => {
+                hypothecationDetails.push(
+                    this.formBuilder.group({
+                        owner: [singleData.owner] ,
+                        stock: [singleData.stock] ,
+                        value: [singleData.value] ,
+                        otherDetail: [singleData.otherDetail] ,
+                        description: [singleData.description]
+
+                    })
+                );
+            });
+        } else {
+            this.addHypothecationOfStock();
+        }
+
+    }
+
+    setCorporate(currentData) {
+        if (!ObjectUtil.isEmpty(currentData)) {
+            const corporateGuarantee = this.securityForm.get('corporateGuarantee') as FormArray;
+            currentData.forEach((singleData) => {
+                corporateGuarantee.push(
+                    this.formBuilder.group({
+                        name: [singleData.name] ,
+                        address: [singleData.address] ,
+                        keyPerson: [singleData.keyPerson] ,
+                        email: [singleData.email] ,
+                        phoneNumber: [singleData.phoneNumber] ,
+                        otherDetail: [singleData.otherDetail] ,
+                    })
+                );
+            });
+        } else {
+            this.addCorporateGuarantee();
+        }
+
+    }
+
+    setPersonal(currentData) {
+        if (!ObjectUtil.isEmpty(currentData)) {
+            const personalGuarantee = this.securityForm.get('personalGuarantee') as FormArray;
+            currentData.forEach((singleData) => {
+                personalGuarantee.push(
+                    this.formBuilder.group({
+                        name: [singleData.name] ,
+                        address: [singleData.address] ,
+                        email: [singleData.email] ,
+                        phoneNumber: [singleData.phoneNumber] ,
+                        otherDetail: [singleData.otherDetail] ,
+                        owner: [singleData.owner] ,
+
+                    })
+                );
+            });
+        } else {
+            this.addPersonalGuarantee();
+        }
+
+    }
+
+
 
     setBuildingDetails(Data) {
         const buildingDetails = this.securityForm.get('buildingDetails') as FormArray;
@@ -311,7 +406,9 @@ export class SecurityInitialFormComponent implements OnInit {
                         undefined : new Date(singleData.ApartmentValuatorDate)],
                     ApartmentValuatorRepresentative: [singleData.ApartmentValuatorRepresentative],
                     ApartmentStaffRepresentativeName: [singleData.ApartmentStaffRepresentativeName],
-                    apartmentBranch: [singleData.apartmentBranch]
+                    apartmentBranch: [singleData.apartmentBranch],
+                    typeOfProperty: [singleData.typeOfProperty],
+                    modeOfTransfer: [singleData.modeOfTransfer]
                 })
             );
         });
@@ -341,7 +438,9 @@ export class SecurityInitialFormComponent implements OnInit {
                         electrification: [singleData.buildingDetailsBeforeCompletion.electrification] ,
                         buildingTotalCost: [singleData.buildingDetailsBeforeCompletion.buildingTotalCost] ,
                         buildingFairMarketValue: [singleData.buildingDetailsBeforeCompletion.buildingFairMarketValue] ,
-                        buildingDistressValue: [singleData.buildingDetailsBeforeCompletion.buildingDistressValue]
+                        buildingDistressValue: [singleData.buildingDetailsBeforeCompletion.buildingDistressValue],
+                        typeOfProperty: [singleData.buildingDetailsBeforeCompletion.typeOfProperty],
+                        modeOfTransfer: [singleData.buildingDetailsBeforeCompletion.modeOfTransfer]
                     }) ,
                     buildingDetailsAfterCompletion: this.formBuilder.group({
                         buildingName: [singleData.buildingDetailsAfterCompletion.buildingName] ,
@@ -358,7 +457,9 @@ export class SecurityInitialFormComponent implements OnInit {
                         electrification: [singleData.buildingDetailsAfterCompletion.electrification] ,
                         buildingTotalCost: [singleData.buildingDetailsAfterCompletion.buildingTotalCost] ,
                         buildingFairMarketValue: [singleData.buildingDetailsAfterCompletion.buildingFairMarketValue] ,
-                        buildingDistressValue: [singleData.buildingDetailsAfterCompletion.buildingDistressValue]
+                        buildingDistressValue: [singleData.buildingDetailsAfterCompletion.buildingDistressValue],
+                        typeOfProperty: [singleData.buildingDetailsAfterCompletion.typeOfProperty],
+                        modeOfTransfer: [singleData.buildingDetailsAfterCompletion.modeOfTransfer]
                     })
                 })
             );
@@ -428,7 +529,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     electrification: [undefined] ,
                     buildingTotalCost: [undefined] ,
                     buildingFairMarketValue: [undefined] ,
-                    buildingDistressValue: [undefined]
+                    buildingDistressValue: [undefined],
+                    typeOfProperty: [undefined],
+                    modeOfTransfer: [undefined]
                 }) ,
                 buildingDetailsAfterCompletion: this.formBuilder.group({
                     buildingName: [undefined] ,
@@ -445,7 +548,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     electrification: [undefined] ,
                     buildingTotalCost: [undefined] ,
                     buildingFairMarketValue: [undefined] ,
-                    buildingDistressValue: [undefined]
+                    buildingDistressValue: [undefined],
+                    typeOfProperty: [undefined],
+                    modeOfTransfer: [undefined]
 
                 })
             })
@@ -547,10 +652,55 @@ export class SecurityInitialFormComponent implements OnInit {
                     break;
                 case 'ShareSecurity':
                     this.shareSelected = true;
+                    break;
+                case 'HypothecationOfStock':
+                    this.hypothecation = true;
+                    break;
+                case 'CorporateGuarantee':
+                    this.corporate = true;
+                    break;
+                case 'PersonalGuarantee':
+                    this.personal = true;
             }
         });
     }
 
+    hypothecationDetailsFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            owner: [undefined] ,
+            stock: [undefined] ,
+            value: [undefined] ,
+            otherDetail: [undefined] ,
+            description: [undefined]
+
+            }
+        ); }
+
+    corporateDetailsFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            name: [undefined] ,
+            address: [undefined] ,
+            keyPerson: [undefined] ,
+            email: [undefined] ,
+            phoneNumber: [undefined] ,
+            otherDetail: [undefined] ,
+            }
+        ); }
+
+    personalDetailsFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            name: [undefined] ,
+            address: [undefined] ,
+            email: [undefined] ,
+            phoneNumber: [undefined] ,
+            owner: [undefined] ,
+            otherDetail: [undefined] ,
+            }
+        );
+    }
+    configEditor() {
+        this.ckeConfig = Editor.CK_CONFIG;
+    }
 
     landDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
@@ -567,7 +717,9 @@ export class SecurityInitialFormComponent implements OnInit {
             landValuatorRepresentative: [undefined],
             landStaffRepresentativeName: [undefined],
             landBranch: [undefined],
-            landConsideredValue: [undefined]
+            landConsideredValue: [undefined],
+            typeOfProperty: [undefined],
+            modeOfTransfer: [undefined]
         });
     }
 
@@ -619,7 +771,9 @@ export class SecurityInitialFormComponent implements OnInit {
             ApartmentValuatorDate: [undefined],
             ApartmentValuatorRepresentative: [undefined],
             ApartmentStaffRepresentativeName: [undefined],
-            apartmentBranch: [undefined]
+            apartmentBranch: [undefined],
+            typeOfProperty: [undefined],
+            modeOfTransfer: [undefined]
         });
     }
 
@@ -669,10 +823,34 @@ export class SecurityInitialFormComponent implements OnInit {
         (this.securityForm.get('landDetails') as FormArray).push(this.landDetailsFormGroup());
     }
 
+    addHypothecationOfStock() {
+        (this.securityForm.get('hypothecationOfStock') as FormArray).push(this.hypothecationDetailsFormGroup());
+    }
+
+    addCorporateGuarantee() {
+        (this.securityForm.get('corporateGuarantee') as FormArray).push(this.corporateDetailsFormGroup());
+    }
+
+    addPersonalGuarantee() {
+        (this.securityForm.get('personalGuarantee') as FormArray).push(this.personalDetailsFormGroup());
+    }
+
     removeLandDetails(index: number) {
         (<FormArray>this.securityForm.get('landDetails')).removeAt(index);
     }
 
+    removeHypothecation(index: number) {
+        (<FormArray>this.securityForm.get('hypothecationOfStock')).removeAt(index);
+    }
+
+    removeCorporate(index: number) {
+        (<FormArray>this.securityForm.get('corporateGuarantee')).removeAt(index);
+
+    }
+
+    removePersonal(index: number) {
+        (<FormArray>this.securityForm.get('personalGuarantee')).removeAt(index);
+    }
     addBuilding() {
         (this.securityForm.get('buildingDetails') as FormArray).push(this.buildingDetailsFormGroup());
     }

@@ -1,28 +1,88 @@
-<nb-card>
-    <nb-card-header><h1>Security</h1>
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
-                                name="securityInitialInfoCalendarType">
-                    <nb-radio value="AD">AD</nb-radio>
-                    <nb-radio value="BS">BS</nb-radio>
-                </nb-radio-group>
-            </div>
-        </div></nb-card-header>
-    <div class="d-flex justify-content-end">
+<h2>Security</h2>
+<div class="row">
+    <div class="col-md-12 text-right">
+        <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
+                        name="securityInitialInfoCalendarType">
+            <nb-radio value="AD">AD</nb-radio>
+            <nb-radio value="BS">BS</nb-radio>
+        </nb-radio-group>
     </div>
-    <nb-card-body>
-        <div class="container" id="security">
-            <div class="form-group">
-                <app-security-initial-form #initialSecurity
-                                           [formData]="initialSecurityValue"
-                                           [calendarType]="calendarType"
-                                           [loanTag]="loanTag"
-                                           [shareSecurity]="shareSecurity"></app-security-initial-form>
-            </div>
+</div>
+<div class="d-flex justify-content-end">
+</div>
+
+<div class="container" id="security">
+    <div class="form-group">
+        <app-security-initial-form #initialSecurity
+                                   [calendarType]="calendarType"
+                                   [formData]="initialSecurityValue"
+                                   [loanTag]="loanTag"
+                                   [shareSecurity]="shareSecurity">
+        </app-security-initial-form>
+        <div class="form-group">
+            <form [formGroup]="securityForm">
+                <div>
+                    <h4>Guarantee</h4>
+                </div>
+                <nb-card>
+                    <nb-card-header>
+                        <label><h5>Security Guarantee</h5></label>
+                    </nb-card-header>
+                    <nb-card-body>
+                        <div class="form-group">
+                            <nb-radio-group class="d-contents form-control"
+                                            formControlName="securityGuarantee"
+                                            name="securityGuarantee">
+                                <nb-radio *ngFor="let guarantee of guaranteeList"
+                                          [value]="guarantee?.value">{{guarantee?.value}}
+                                </nb-radio>
+                            </nb-radio-group>
+                        </div>
+                    </nb-card-body>
+                </nb-card>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <div>
+                            <h5>FAC (land & building) Location</h5>
+                        </div>
+                        <div class="form-group">
+                            <nb-select formControlName="buildingLocation"
+                                       fullWidth
+                                       placeholder="Select location">
+                                <nb-option *ngFor="let location of locationList"
+                                           [value]="location?.value">
+                                    {{location?.value}}
+                                </nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <div class="col" *ngIf="isBusinessLoan">
+                        <div>
+                            <h5>Vehicle Security Coverage</h5>
+                        </div>
+                        <div class="form-group">
+                            <nb-select formControlName="vehicleSecurityCoverage"
+                                       fullWidth
+                                       placeholder="Select vechicle security coverage here">
+                                <nb-option [value]="coverageList[0]?.value">{{coverageList[0]?.value}}</nb-option>
+                                <nb-option-group style="font-weight: bold" title="New">
+                                    <nb-option *ngFor="let newC of newCoverage"
+                                               [value]="newC?.value">{{newC?.value}}</nb-option>
+                                </nb-option-group>
+                                <nb-option-group style="font-weight: bold" title="Used">
+                                    <nb-option *ngFor="let used of usedCoverage"
+                                               [value]="used?.value">{{used?.value}}</nb-option>
+                                </nb-option-group>
+                            </nb-select>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-    </nb-card-body>
-    <div class="py-4 d-flex justify-content-end" *ngIf="fromProfile">
-        <button nbButton (click)="onSubmit()">save</button>
     </div>
-</nb-card>
+</div>
+<hr>
+<div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+    <button (click)="onSubmit()" nbButton>save</button>
+</div>

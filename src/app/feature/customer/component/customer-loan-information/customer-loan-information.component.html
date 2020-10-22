@@ -75,6 +75,58 @@
                          [fromProfile]="true"></app-financial>
         </nb-accordion-item-body>
       </nb-accordion-item>
+
+      <nb-accordion-item #itemIncomeFromAccount>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>INCOME FROM ACCOUNT</span>
+            </div>
+            <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="customerInfo?.incomeFromAccount" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+              <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!customerInfo?.incomeFromAccount" class="fas fa-times-circle px-2"></em>
+              </span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-income-from-account [incomeFromAccountDataResponse]="incomeFromAccountDataResponse"
+                                   [fromProfile]="true"
+                                   *ngIf="itemIncomeFromAccount.expanded"
+                                   (incomeFromAccountDataEmitter)="saveIncomeFromAccount($event)">
+          </app-income-from-account>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item #itemNetTradingAssets>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>NET TRADING ASSETS (NTA)</span>
+            </div>
+            <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="customerInfo?.netTradingAssets" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+              <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!customerInfo?.netTradingAssets" class="fas fa-times-circle px-2"></em>
+              </span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-net-trading-assets
+                  (netTradingAssetsEventEmitter) = "saveNetTradingAssets($event)"
+                  [fromProfile]=true
+                  *ngIf="itemNetTradingAssets.expanded"
+                  [netTradingAssetsData]="netTradingAssets">
+          </app-net-trading-assets>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
       <nb-accordion-item #itemSecurity>
         <nb-accordion-item-header>
           <div class="row col-md-12">
@@ -146,11 +198,11 @@
                          (insuranceDataEmitter)="saveInsurance($event)"
                          *ngIf="itemInsurance.expanded"
                          [insuranceDataFromModel]="customerInfo?.insurance"
-                         [fromProfile]="true"></app-insurance>
+                         [fromProfile]="true" [customerInfo]="customerInfo"></app-insurance>
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-      <nb-accordion-item #itemCrgAlpha>
+      <!--<nb-accordion-item #itemCrgAlpha>
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -175,7 +227,7 @@
                          [companyInfo]="companyInfo"
                          [fromProfile]="true"></app-credit-risk-grading-alpha>
         </nb-accordion-item-body>
-      </nb-accordion-item>
+      </nb-accordion-item>-->
 
       <nb-accordion-item #itemCrg>
         <nb-accordion-item-header>
@@ -199,6 +251,33 @@
                               *ngIf="itemCrg.expanded"
                               [formData]="customerInfo?.creditRiskGrading"
                               [fromProfile]="true"></app-credit-grading>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item #itemloanChecklist>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>CREDIT CHECKLIST</span>
+            </div>
+            <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="creditChecklistGeneral" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+              <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!creditChecklistGeneral" class="fas fa-times-circle px-2"></em>
+              </span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-credit-checklist-general
+              (creditChecklistGeneralEmitter)="saveCreditChecklist($event)"
+              *ngIf="itemloanChecklist.expanded"
+              [formData]="customerInfo?.creditChecklist"
+              [fromProfile]="true"
+              [calendarType]="calendarType"
+          ></app-credit-checklist-general>
         </nb-accordion-item-body>
       </nb-accordion-item>
 
@@ -226,6 +305,8 @@
                                          [fromProfile]="true"></app-credit-risk-grading-gamma>
         </nb-accordion-item-body>
       </nb-accordion-item>
+
+
 
     </nb-accordion>
   </nb-card-body>

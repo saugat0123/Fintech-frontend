@@ -1,7 +1,7 @@
 <div [nbSpinner]="spinner">
-<div class="modal-header">
-    <h4 class="modal-title">{{action}} Base Interest</h4>
-    <a (click)="onClose()" aria-label="Close" class="close cursor"><span aria-hidden="true">×</span></a>
+<div class="modal-header sb-bg-dark ">
+    <h4 class="modal-title  text-white">{{action}} Base Interest</h4>
+    <a (click)="onClose()" aria-label="Close" class="close cursor"><span aria-hidden="true" class="text-white">×</span></a>
 </div>
 
 <div class="modal-body">
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="modal-footer  ">
-            <button nbButton status="info" type="submit" class="float-right" [disabled]="form.invalid">Save</button>
+            <button nbButton status="info" type="submit" class="float-right" >Save</button>
         </div>
     </form>
 </div>

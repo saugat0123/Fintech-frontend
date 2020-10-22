@@ -423,8 +423,20 @@
       </td>
     </tr>
     </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">E</th>
+      <td class="text-center">Principle Instalment paid/payable during the year</td>
+      <td *ngFor="let amount of balanceSheetForm.get('principleInstalmentPaidDuringTheYear')['controls']; let j = index"
+          formArrayName="principleInstalmentPaidDuringTheYear" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0">
+        </div>
+      </td>
+    </tr>
+    </tbody>
   </table>
   <h4>Justification</h4>
-  <textarea nbInput rows="5" fullWidth placeholder="Jusification..."
-            formControlName="justificationBalanceSheet"></textarea>
+  <ckeditor formControlName="justificationBalanceSheet" [config]="ckeConfig"></ckeditor>
 </form>

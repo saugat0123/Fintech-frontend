@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {CompanyInfo} from '../../../../admin/modal/company-info';
 import {Customer} from '../../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -15,7 +15,7 @@ import {Address} from '../../../../loan/model/address';
 import {BusinessType} from '../../../../admin/modal/businessType';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {LoanDataService} from '../../../../loan/service/loan-data.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {LoanFormService} from '../../../../loan/component/loan-form/service/loan-form.service';
 import {ToastService} from '../../../../../@core/utils';
 import {CompanyInfoService} from '../../../../admin/service/company-info.service';
@@ -28,6 +28,20 @@ import {ContactPerson} from '../../../../admin/modal/contact-person';
 import {CompanyService} from '../../../../admin/component/company/company.service';
 import {Company} from '../../../../admin/modal/company';
 import {DesignationList} from '../../../../loan/model/designationList';
+import {BankingRelationComponent} from '../banking-relation/banking-relation.component';
+import {Experience} from '../../../../admin/modal/experience';
+import {Succession} from '../../../../admin/modal/succession';
+import {RegulatoryConcern} from '../../../../admin/modal/regulatory-concern';
+import {MarketCompetition} from '../../../../admin/modal/marketCompetition';
+import {IndustryGrowth} from '../../../../admin/modal/industryGrowth';
+import {Buyer} from '../../../../admin/modal/buyer';
+import {Supplier} from '../../../../admin/modal/supplier';
+import {BusinessAndIndustry} from '../../../../admin/modal/businessAndIndustry';
+import {CompanyOtherDetailComponent} from './company-other-detail/company-other-detail.component';
+import {CompanyJsonData} from '../../../../admin/modal/CompanyJsonData';
+import {MarketScenarioComponent} from './market-scenario/market-scenario.component';
+import {Editor} from '../../../../../@core/utils/constants/editor';
+import {WhiteSpaceValidation} from '../../../../loan/model/whiteSpaceValidation';
 
 @Component({
     selector: 'app-company-form',
@@ -41,6 +55,7 @@ export class CompanyFormComponent implements OnInit {
     companyInfoFormGroup: FormGroup;
     englishDateSelected = true;
     customerId;
+    spinner = false;
     submitted = false;
 
     companyFormField = {
@@ -71,7 +86,33 @@ export class CompanyFormComponent implements OnInit {
     private isBlackListed: boolean;
     companyStructureList: Array<Company>;
     designationList: DesignationList = new DesignationList();
+    businessAndIndustry: BusinessAndIndustry = new BusinessAndIndustry();
     designation;
+    additionalFieldSelected = false;
+    additionalFieldData: any;
+
+    ckeConfig = Editor.CK_CONFIG;
+
+    // json data
+    companyJsonData: CompanyJsonData = new CompanyJsonData();
+
+    @ViewChild('bankingRelationComponent', {static: false})
+    bankingRelationComponent: BankingRelationComponent;
+
+    @ViewChild('companyOtherDetailComponent', {static: false})
+    companyOtherDetailComponent: CompanyOtherDetailComponent;
+
+    @ViewChild('marketScenarioComponent', {static: false})
+    marketScenarioComponent: MarketScenarioComponent;
+
+    experiences = Experience.enumObject();
+    successionList = Succession.enumObject();
+    regulatoryConcernList = RegulatoryConcern.enumObject();
+    supplierList = Supplier.enumObject();
+    buyerList = Buyer.enumObject();
+    industryGrowthList = IndustryGrowth.enumObject();
+    marketCompetitionList = MarketCompetition.enumObject();
+
 
     constructor(
         private formBuilder: FormBuilder,
@@ -84,8 +125,7 @@ export class CompanyFormComponent implements OnInit {
         private blackListService: BlacklistService,
         protected ref: NbDialogRef<CompanyFormComponent>,
         private company: CompanyService,
-        private el: ElementRef
-
+        private el: ElementRef,
     ) {
 
     }
@@ -94,8 +134,22 @@ export class CompanyFormComponent implements OnInit {
         return this.companyInfoFormGroup.controls;
     }
 
+    get additionalInfoForm() {
+        return this.companyInfoFormGroup.controls.additionalCompanyInfo['controls'];
+    }
+
     ngOnInit() {
         this.companyInfo = this.formValue;
+        if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
+            this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
+            this.additionalFieldSelected = true;
+        }
+        if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) {
+            this.businessAndIndustry = JSON.parse(this.companyInfo.businessAndIndustry);
+        }
+        if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
+            this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
+        }
         this.buildForm();
         this.getAllDistrict();
         this.getCompanyStructure();
@@ -161,6 +215,9 @@ export class CompanyFormComponent implements OnInit {
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.id)) ? undefined :
                     this.companyInfo.id],
+            customerCode: [ObjectUtil.isEmpty(this.companyInfo)
+            || ObjectUtil.isEmpty(this.customer.customerCode) ? undefined :
+                this.customer.customerCode, Validators.required],
             companyInfoVersion:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.version)) ? undefined :
@@ -176,7 +233,7 @@ export class CompanyFormComponent implements OnInit {
             companyPAN:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.panNumber)) ? undefined :
-                    this.companyInfo.panNumber, [Validators.required]],
+                    this.companyInfo.panNumber, [Validators.required, WhiteSpaceValidation.cannotContainSpace]],
             companyEstablishmentDate:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.establishmentDate)) ? undefined :
@@ -185,6 +242,14 @@ export class CompanyFormComponent implements OnInit {
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.businessType)) ? undefined :
                     this.companyInfo.businessType, [Validators.required]],
+            majorProductService:
+                [(ObjectUtil.isEmpty(this.companyJsonData)
+                    || ObjectUtil.isEmpty(this.companyJsonData.majorProductService)) ? undefined :
+                    this.companyJsonData.majorProductService, [Validators.required]],
+            relationshipSince:
+                [(ObjectUtil.isEmpty(this.companyJsonData)
+                    || ObjectUtil.isEmpty(this.companyJsonData.relationshipSince)) ? undefined :
+                    this.companyJsonData.relationshipSince, [Validators.required]],
             issuePlace:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.issuePlace)) ? undefined :
@@ -243,17 +308,17 @@ export class CompanyFormComponent implements OnInit {
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
                 this.companyInfo.capital.issuedCapital, Validators.required],
 
-            totalCapital: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
-                this.companyInfo.capital.totalCapital, Validators.required],
+            // totalCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+            //     || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+            //     this.companyInfo.capital.totalCapital, Validators.required],
 
-            fixedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
-                this.companyInfo.capital.fixedCapital, Validators.required],
+            // fixedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+            //     || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+            //     this.companyInfo.capital.fixedCapital, Validators.required],
 
-            workingCapital: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
-                this.companyInfo.capital.workingCapital, Validators.required],
+            // workingCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+            //     || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+            //     this.companyInfo.capital.workingCapital, Validators.required],
 
             numberOfShareholder: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
@@ -263,35 +328,19 @@ export class CompanyFormComponent implements OnInit {
             managementTeams: this.formBuilder.array([
                 this.managementTeamFormGroup()
             ]),
+            // managementTeamNote
+            managementTeamNote: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyJsonData.managementTeamNote)) ? undefined :
+                this.companyJsonData.managementTeamNote, Validators.required],
             // proprietors
             proprietors: this.formBuilder.array([
                 this.proprietorsFormGroup()
             ]),
             // contact person
-            contactVersion: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
-                this.companyInfo.contactPerson.version],
-            contactId: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
-                this.companyInfo.contactPerson.id],
-            contactName: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
-                this.companyInfo.contactPerson.name, Validators.required],
-            contactEmail: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
-                this.companyInfo.contactPerson.email],
-            contactNumber: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
-                this.companyInfo.contactPerson.contactNumber, Validators.required],
-            contactProvince: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
-                this.companyInfo.contactPerson.province, Validators.required],
-            contactDistrict: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
-                this.companyInfo.contactPerson.district, Validators.required],
-            contactMunicipalities: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
-                this.companyInfo.contactPerson.municipalityVdc, Validators.required],
+            contactPersons: this.formBuilder.array([
+                this.contactPersonFormGroup()
+            ]),
+
             // Location
             locationVersion: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.version],
@@ -317,7 +366,98 @@ export class CompanyFormComponent implements OnInit {
 
             threats: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.threats, Validators.required],
+
+            // Success Planning
+            successionPlanning: [ObjectUtil.isEmpty(this.companyInfo) ? undefined :
+                JSON.parse(this.companyInfo.successionPlanning)],
+
+            // Business Objective
+            businessObjective: [ObjectUtil.isEmpty(this.companyJsonData.businessObjective) ? undefined :
+                this.companyJsonData.businessObjective, Validators.required],
+
+            // Raw Materials
+            rawMaterialSourcing: [ObjectUtil.isEmpty(this.companyJsonData.rawMaterialSourcing) ? undefined :
+                this.companyJsonData.rawMaterialSourcing, Validators.required],
+            rawMaterialAvailability: [ObjectUtil.isEmpty(this.companyJsonData.rawMaterialAvailability) ? undefined :
+                this.companyJsonData.rawMaterialAvailability, Validators.required],
+
+            // Sister concert
+            sisterConcern: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.sisterConcern],
+
+            // company background
+            companyBackground: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.companyBackground, Validators.required],
+
+            // additional company detail
+            additionalCompanyInfo: this.formBuilder.group({
+                registrationType: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
+                    this.additionalFieldData.registrationType],
+                licenseHolderName: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
+                    this.additionalFieldData.licenseHolderName],
+                licenseExpiryDate: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
+                    this.additionalFieldData.licenseExpiryDate],
+                licenseIssuedDate: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
+                    this.additionalFieldData.licenseIssuedDate],
+                licenseIssuePlace: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
+                    this.additionalFieldData.licenseIssuePlace],
+                additionalInfoRemark: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
+                    this.additionalFieldData.additionalInfoRemark],
+            }),
+            /** 8.business and industry */
+            regulatoryConcern: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
+                this.businessAndIndustry.regulatoryConcern, Validators.required],
+            buyer: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
+                this.businessAndIndustry.buyer, Validators.required],
+            supplier: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
+                this.businessAndIndustry.supplier, Validators.required],
+
+            /** 9. Industry Growth*/
+            industryGrowth: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.industryGrowth)) ? undefined :
+                this.companyInfo.industryGrowth, Validators.required],
+
+            /** 10. Market competition*/
+            marketCompetition: [ObjectUtil.isEmpty(this.companyInfo)
+            || ObjectUtil.isEmpty(this.companyInfo.marketCompetition) ? undefined :
+                this.companyInfo.marketCompetition, Validators.required],
+
+            /** 11. Experience*/
+            experience: [ObjectUtil.isEmpty(this.companyInfo)
+            || ObjectUtil.isEmpty(this.companyInfo.experience) ? undefined :
+                this.companyInfo.experience, Validators.required],
+
+            /** Succession*/
+            succession: [ObjectUtil.isEmpty(this.companyInfo)
+            || ObjectUtil.isEmpty(this.companyInfo.succession) ? undefined :
+                this.companyInfo.succession],
+
+            /** Groups BackGround*/
+            groupsBackGround: [ObjectUtil.isEmpty(this.companyJsonData)
+            || ObjectUtil.isEmpty(this.companyJsonData.groupsBackGround) ? undefined :
+                this.companyJsonData.groupsBackGround, Validators.required],
+
+            /** legal Review Remark*/
+            legalReviewRemark: [ObjectUtil.isEmpty(this.companyJsonData)
+            || ObjectUtil.isEmpty(this.companyJsonData.legalReviewRemark) ? undefined :
+                this.companyJsonData.legalReviewRemark, Validators.required],
+
+            /** Conduct Of Account*/
+            conductOfAccount: [ObjectUtil.isEmpty(this.companyJsonData)
+            || ObjectUtil.isEmpty(this.companyJsonData.conductOfAccount) ? undefined :
+                this.companyJsonData.conductOfAccount],
+
+            /** Business Given*/
+            businessGiven: [ObjectUtil.isEmpty(this.companyJsonData)
+            || ObjectUtil.isEmpty(this.companyJsonData.businessGiven) ? undefined :
+                this.companyJsonData.businessGiven],
         });
+        if (!this.additionalFieldSelected) {
+            this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
+        }
     }
 
     setCompanyInfo(info: CompanyInfo) {
@@ -325,6 +465,8 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfoFormGroup.setControl('managementTeams', this.setManagementTeams(info.managementTeamList));
         // proprietors data
         this.companyInfoFormGroup.setControl('proprietors', this.setProprietors(info.proprietorsList));
+        // set contact persons data
+        this.companyInfoFormGroup.setControl('contactPersons', this.setContactPersons(info.contactPersons));
     }
 
     managementTeamFormGroup(): FormGroup {
@@ -363,8 +505,39 @@ export class CompanyFormComponent implements OnInit {
             province: [null, Validators.required],
             district: [null, Validators.required],
             municipalityVdc: [null, Validators.required],
-            type: [null , Validators.required]
+            type: [null, Validators.required]
         });
+    }
+
+    contactPersonFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            contactName: [undefined, Validators.required],
+            contactEmail: [undefined, Validators.required],
+            contactNumber: [undefined, Validators.required],
+            functionalPosition: [undefined, Validators.required],
+        });
+    }
+
+    setContactPersons(contactPerson) {
+        const contactPersons = JSON.parse(contactPerson);
+        const contactPersonFormArray = new FormArray([]);
+        contactPersons.forEach(data => {
+            contactPersonFormArray.push(this.formBuilder.group({
+                contactName: [data.contactName, Validators.required],
+                contactEmail: [data.contactEmail, Validators.required],
+                contactNumber: [data.contactNumber, Validators.required],
+                functionalPosition: [data.functionalPosition, Validators.required],
+            }));
+        });
+        return contactPersonFormArray;
+    }
+
+    addContactPersons() {
+        (<FormArray>this.companyInfoFormGroup.get('contactPersons')).push(this.contactPersonFormGroup());
+    }
+
+    removeContactPersons(index: number) {
+        (<FormArray>this.companyInfoFormGroup.get('contactPersons')).removeAt(index);
     }
 
     setProprietors(proprietorsList: Array<Proprietors>): FormArray {
@@ -460,7 +633,8 @@ export class CompanyFormComponent implements OnInit {
         );
     }
 
-    searchByRegNO() {
+    // todo remove if not used in future
+    /*searchByRegNO() {
         this.companySearch.registrationNumber = this.companyInfoFormGroup.get('registrationNumber').value;
         const regNo = this.companyInfoFormGroup.get('registrationNumber').value;
         this.blackListService.checkBlacklistByRef(regNo).subscribe((response: any) => {
@@ -482,6 +656,17 @@ export class CompanyFormComponent implements OnInit {
                     } else {
                         this.companyFormField.isOldCustomer = true;
                         this.companyInfo = data.detail.content[0];
+                        // todo change these patching in common function
+                        if (!ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
+                            this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
+                            this.additionalFieldSelected = true;
+                        }
+                        if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) {
+                            this.businessAndIndustry = JSON.parse(this.companyInfo.businessAndIndustry);
+                        }
+                        if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
+                            this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
+                        }
                         this.buildForm();
                         this.setCompanyInfo(this.companyInfo);
                     }
@@ -489,7 +674,7 @@ export class CompanyFormComponent implements OnInit {
                 this.companyFormField.showFormField = true;
             }
         });
-    }
+    }*/
     scrollToFirstInvalidControl() {
         const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
             'form .ng-invalid'
@@ -508,14 +693,19 @@ export class CompanyFormComponent implements OnInit {
     }
     onSubmit() {
         this.submitted = true;
-        if (this.companyInfoFormGroup.invalid) {
+        this.marketScenarioComponent.onSubmit();
+        this.companyOtherDetailComponent.onSubmit();
+        if (this.companyInfoFormGroup.invalid || this.companyOtherDetailComponent.companyOtherDetailGroupForm.invalid
+            || this.marketScenarioComponent.marketScenarioForm.invalid) {
             this.scrollToFirstInvalidControl();
             return;
         }
+        this.spinner = true;
         this.companyInfo = new CompanyInfo();
         // Company Information--
         this.companyInfo.id = this.companyInfoFormGroup.get('companyId').value;
         this.companyInfo.companyName = this.companyInfoFormGroup.get('companyName').value;
+        this.companyInfo.customerCode = this.companyInfoFormGroup.get('customerCode').value;
         this.companyInfo.registrationNumber = this.companyInfoFormGroup.get('registrationNumber').value;
         this.companyInfo.panNumber = this.companyInfoFormGroup.get('companyPAN').value;
         this.companyInfo.establishmentDate = this.companyInfoFormGroup.get('companyEstablishmentDate').value;
@@ -544,9 +734,9 @@ export class CompanyFormComponent implements OnInit {
         this.capital.authorizedCapital = this.companyInfoFormGroup.get('authorizedCapital').value;
         this.capital.paidUpCapital = this.companyInfoFormGroup.get('paidUpCapital').value;
         this.capital.issuedCapital = this.companyInfoFormGroup.get('issuedCapital').value;
-        this.capital.totalCapital = this.companyInfoFormGroup.get('totalCapital').value;
-        this.capital.fixedCapital = this.companyInfoFormGroup.get('fixedCapital').value;
-        this.capital.workingCapital = this.companyInfoFormGroup.get('workingCapital').value;
+        // this.capital.totalCapital = this.companyInfoFormGroup.get('totalCapital').value;
+        // this.capital.fixedCapital = this.companyInfoFormGroup.get('fixedCapital').value;
+        // this.capital.workingCapital = this.companyInfoFormGroup.get('workingCapital').value;
         this.capital.numberOfShareholder = this.companyInfoFormGroup.get('numberOfShareholder').value;
         this.companyInfo.capital = this.capital;
         // swot
@@ -557,16 +747,17 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.swot = this.swot;
         // management team list
         this.companyInfo.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
+        // management Team Note
+        this.companyJsonData.managementTeamNote = this.companyInfoFormGroup.get('managementTeamNote').value;
+
         // contactPerson
-        this.contactPerson.version = this.companyInfoFormGroup.get('contactVersion').value;
-        this.contactPerson.id = this.companyInfoFormGroup.get('contactId').value;
-        this.contactPerson.name = this.companyInfoFormGroup.get('contactName').value;
-        this.contactPerson.email = this.companyInfoFormGroup.get('contactEmail').value;
-        this.contactPerson.contactNumber = this.companyInfoFormGroup.get('contactNumber').value;
-        this.contactPerson.province = this.companyInfoFormGroup.get('contactProvince').value;
-        this.contactPerson.district = this.companyInfoFormGroup.get('contactDistrict').value;
-        this.contactPerson.municipalityVdc = this.companyInfoFormGroup.get('contactMunicipalities').value;
-        this.companyInfo.contactPerson = this.contactPerson;
+        this.companyInfo.contactPersons = JSON.stringify(this.companyInfoFormGroup.get('contactPersons').value);
+
+        // additional registration/license information
+        this.companyInfo.additionalCompanyInfo = JSON.stringify(this.companyInfoFormGroup.get('additionalCompanyInfo').value);
+
+        // succession planning
+        this.companyInfo.successionPlanning = JSON.stringify(this.companyInfoFormGroup.get('successionPlanning').value);
 
         // location
         this.locations.id = this.companyInfoFormGroup.get('locationId').value;
@@ -596,11 +787,41 @@ export class CompanyFormComponent implements OnInit {
             proprietorsIndex++;
             this.companyInfo.proprietorsList.push(proprietors);
         }
-        this.companyInfoService.save(this.companyInfo).subscribe((response: any) => {
+
+        /** banking relation setting data from child **/
+        this.bankingRelationComponent.onSubmit();
+        this.companyInfo.bankingRelationship = JSON.stringify(this.bankingRelationComponent.bankingRelation);
+
+        /** business and industry */
+        this.businessAndIndustry.regulatoryConcern = this.companyInfoFormGroup.get('regulatoryConcern').value;
+        this.businessAndIndustry.supplier = this.companyInfoFormGroup.get('supplier').value;
+        this.businessAndIndustry.buyer = this.companyInfoFormGroup.get('buyer').value;
+        this.companyInfo.businessAndIndustry = JSON.stringify(this.businessAndIndustry);
+
+        /** industry growth and market competition */
+        this.companyInfo.marketCompetition = this.companyInfoFormGroup.get('marketCompetition').value;
+        this.companyInfo.industryGrowth = this.companyInfoFormGroup.get('industryGrowth').value;
+
+        /** experience & succession */
+        this.companyInfo.experience = this.companyInfoFormGroup.get('experience').value;
+        this.companyInfo.succession = this.companyInfoFormGroup.get('succession').value;
+        // todo change this to common function
+        const submitData = new CompanyJsonData();
+        Object.keys(submitData).forEach((k) => {
+            submitData[k] = this.companyInfoFormGroup.value[k];
+        });
+        /** other company detail */
+        submitData.otherCompanyDetail = this.companyOtherDetailComponent.submitData;
+        /** Market Scenario detail */
+        submitData.marketScenario = this.marketScenarioComponent.submitData;
+        this.companyInfo.companyJsonData = JSON.stringify(submitData);
+        this.companyInfoService.save(this.companyInfo).subscribe(() => {
+            this.spinner = false;
             this.close();
             this.toastService.show(new Alert(AlertType.SUCCESS, `Company Saved Successfully`));
         }, error => {
             console.error(error);
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, `Error saving Company: ${error.error.message}`));
         });
     }
@@ -612,11 +833,13 @@ export class CompanyFormComponent implements OnInit {
     close() {
         this.ref.close();
     }
+
     private getAllDistrict() {
         this.commonLocation.getAllDistrict().subscribe((response: any) => {
             this.allDistrict = response.detail;
         });
     }
+
     getCompanyStructure() {
         this.company.getAll().subscribe(res => {
             this.companyStructureList = res.detail;
@@ -624,5 +847,16 @@ export class CompanyFormComponent implements OnInit {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Company Structure can not be Loaded'));
         });
+    }
+
+    onAdditionalFieldSelect(chk) {
+        if (!chk) {
+            this.additionalFieldSelected = false;
+            this.companyInfoFormGroup.get('additionalCompanyInfo').clearValidators();
+            this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
+        } else {
+            this.additionalFieldSelected = true;
+            this.companyInfoFormGroup.enable();
+        }
     }
 }

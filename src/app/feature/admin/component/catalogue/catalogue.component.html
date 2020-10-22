@@ -2,7 +2,7 @@
     <nb-card-header>
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-10">
                     <div class="btn-group">
                         <button
                                 (click)="isFilterCollapsed = !isFilterCollapsed"
@@ -29,7 +29,7 @@
                       </div>
                     </div>
                 </div>
-                <div class="col-md-4 d-flex justify-content-end">
+                <div class="col-md-2 d-flex justify-content-end">
                     <button nbButton outline status="info" size="small"
                             (click)="getCsv()">
                         <i class="fa fa-download" aria-hidden="true"></i></button>
@@ -107,10 +107,10 @@
                                placeholder="Enter customer name">
                     </div>
 
-                    <div class="col-md-3 mb-3">
-                        <input class="form-control rounded" formControlName="companyName" id="companyName"
-                               placeholder="Enter company name">
-                    </div>
+<!--                    <div class="col-md-3 mb-3">-->
+<!--                        <input class="form-control rounded" formControlName="companyName" id="companyName"-->
+<!--                               placeholder="Enter company name">-->
+<!--                    </div>-->
                 </div>
 
                 <div class="col-md-12 p-0">
@@ -126,7 +126,7 @@
     </nb-card-header>
     <nb-card-body>
         <br>
-        <table id="add-branch-table" class="table table-bordered table-hover sb-small">
+        <table id="add-branch-table" class="table table-sm table-bordered table-hover sb-small text-center">
             <thead>
             <tr class="sb-bg-dark text-white">
                 <th *ngIf="this.showBranch">Branch</th>
@@ -191,7 +191,7 @@
                     </div>
                 </td>
                 <td *ngIf="transferDoc">
-                    <button nbButton status="warning" size="small"
+                    <button nbButton status="warning" size="tiny"
                             (click)="onTransferClick(transferDocument,model.id,model?.currentStage?.toUser?.id)">
                         <em class="fa fa-arrow-circle-right"></em></button>
                 </td>

@@ -1,26 +1,10 @@
-.no-bottom-boarder {
-  border-style: hidden;
+tr td{
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
-.fixed-width-td-title {
-  width: 280px;
-}
-
-.fixed-width-td-obtained-score {
-  width: 180px;
-}
-
-.bg-light-red {
-  background: #ffcbc8 !important;
-}
-
-tr td {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-}
-
-ul li {
-  text-align: left !important;
+#crgTableBody tr td {
+  text-align: left;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
 }

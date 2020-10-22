@@ -1,10 +1,27 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {QuestionService} from '../../service/question.service';
+import {Component, Input, OnInit, ElementRef} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CreditRiskGradingAlpha} from '../../admin/modal/CreditRiskGradingAlpha';
 import {CompanyInfo} from '../../admin/modal/company-info';
-import {Financial} from '../../loan/model/financial';
+import {NetWorthOfFirmOrCompanyPointsMap} from '../model/net-worth-of-firm-or-company';
+import {SalesProjectionVsAchievementPointsMap} from '../model/sales-projection-vs-achievement';
+import {TaxCompliancePointsMap} from '../model/tax-compliance';
+import {LandAndBuildingLocationPointsMap} from '../model/land-and-building-location';
+import {VehicleSecurityCoveragePointsMap} from '../model/vehicle-security-coverage';
+import {SecurityGuaranteePointsMap} from '../model/security-guarantee';
+import {BankingRelationshipMap} from '../../admin/modal/banking-relationship';
+import {AccountTurnoverMap} from '../../admin/modal/account-turnover';
+import {RepaymentHistoryMap} from '../../admin/modal/repayment-history';
+import {RegulatoryConcernMap} from '../../admin/modal/regulatory-concern';
+import {IndustryGrowthMap} from '../../admin/modal/industryGrowth';
+import {MarketCompetitionMap} from '../../admin/modal/marketCompetition';
+import {SuccessionMap} from '../../admin/modal/succession';
+import {BuyerMap} from '../../admin/modal/buyer';
+import {SupplierMap} from '../../admin/modal/supplier';
+import {ExperienceMap} from '../../admin/modal/experience';
+import {Security} from '../../loan/model/security';
+import {LoanTag} from '../../loan/model/loanTag';
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 @Component({
   selector: 'app-credit-risk-grading-alpha',
@@ -12,429 +29,589 @@ import {Financial} from '../../loan/model/financial';
   styleUrls: ['./credit-risk-grading-alpha.component.scss']
 })
 export class CreditRiskGradingAlphaComponent implements OnInit {
-  creditRiskGrading: FormGroup;
-  creditRiskData: CreditRiskGradingAlpha = new CreditRiskGradingAlpha();
-
-  @Input() financial: Financial;
+  @Input() formData: CreditRiskGradingAlpha;
+  @Input() financialData;
+  @Input() security: Security;
   @Input() companyInfo: CompanyInfo;
-  @Input() creditRiskGradingAlpha: CreditRiskGradingAlpha;
-  @Input() fromProfile: boolean;
-  @Output() crgAlphaDataEmitter = new EventEmitter();
+  @Input() customerInfo: CustomerInfoData;
+  @Input() proposedLimit;
+  @Input() loanTag: string;
 
-  crgData: CreditRiskGradingAlpha;
+  missingAlerts = [];
 
-  financialTotalMapsArray = [];
+  creditRiskGradingForm: FormGroup;
+  creditRiskData: CreditRiskGradingAlpha = new CreditRiskGradingAlpha();
+  submitted = true;
+  financialCurrentYearIndex: number;
+  historicalDataPresent = true;
+  parsedFinancialData: any;
+  loanTagEnum = LoanTag;
 
-  totalPointsArray = [];
-  gradesArray = [];
+  relationshipRiskArray = [
+    'bankingRelationship',
+    'accountTurnover',
+    'repaymentHistory'
+  ];
+  businessAndIndustryArray = [
+    'regulatoryConcern',
+    'industryGrowth',
+    'marketCompetition',
+    'supplier',
+    'buyer'
+  ];
+  securityRiskArray = [
+    'FACLocation',
+    'securityCoverageVehicle',
+    'guarantee',
+    'securityCoverageFAC'
+  ];
+  managementRiskArray = [
+    'experience',
+    'succession',
+  ];
+  financialRiskCriteriaArray = [
+    'salesToWclLimit',
+    'salesGrowth',
+    'profitability',
+    'currentRatio',
+    'workingCapitalCycle',
+    'deRatio',
+    'iscrAndDscr',
+    'salesProjectionVsAchievement',
+    'netWorthOfFirmOrCompany',
+    'taxCompliance'
+  ];
 
-  nonFinancialTotalMap = new Map<string, number>();
+  // Financial points map --
+  netWorthOfFirmOrCompanyPointsMap: Map<string, number> =
+      NetWorthOfFirmOrCompanyPointsMap.netWorthOfFirmOrCompanyPointsMap;
 
-  // Financial data--
-  financialParsedData: any;
-  fiscalYearArray = [];
-  recentFiscalYearIndex = 0;
-  debtEquityRatioOverall;
-  currentRatio;
-  operatingMarginProfit;
-  interestCoverageRatio;
+  salesProjectionVsAchievementPointsMap: Map<string, number> =
+      SalesProjectionVsAchievementPointsMap.salesProjectionVsAchievementPointsMap;
 
-  ageOfBusinessValue;
-  points: any;
-  fromProfileColspan = 3;
+  taxCompliancePointsMap: Map<string, number> = TaxCompliancePointsMap.taxCompliancePointsMap;
 
-  businessOutlookMap: Map<any, any> = new Map<any, any>([
-        [2, 'Favorable'],
-        [1, 'Stable'],
-        [0, 'Cause for Concern']
-      ]
-  );
-  industryGrowthMap: Map<any, any> = new Map<any, any>([
-        [2, 'Strong (10% +)'],
-        [1, 'Good ( > 5% - 10%)'],
-        [0, 'No Growth ( < 1%)']
-      ]
-  );
-  marketCompetitionMap: Map<any, any> = new Map<any, any>([
-        [2, 'Dominant Player'],
-        [1, 'Moderately Competitive'],
-        [0, 'Highly Competitive']
-      ]
-  );
-  entryExitBarriersMap: Map<any, any> = new Map<any, any>([
-        [1, 'Difficult'],
-        [0, 'Easy']
-      ]
-  );
+  // Security points map --
+  landAndBuildingLocationPointsMap: Map<string, number> = LandAndBuildingLocationPointsMap.landAndBuildingLocationPointsMap;
+  vehicleSecurityCoveragePointsMap: Map<string, number> = VehicleSecurityCoveragePointsMap.vehicleSecurityCoveragePointsMap;
+  securityGuaranteePointsMap: Map<string, number> = SecurityGuaranteePointsMap.securityGuaranteePointsMap;
 
-  experienceMap: Map<any, any> = new Map<any, any>([
-        [5, 'More than 10 years in the related line of business'],
-        [3, '5-10 years in the related line of business'],
-        [2, '1-5 years in the related line of business'],
-        [0, 'No experience']
-      ]
-  );
-  secondLineSuccessionMap: Map<any, any> = new Map<any, any>([
-        [4, 'Ready Succession'],
-        [3, 'Succession within 1-2 years'],
-        [2, 'Succession within 2-3 years'],
-        [0, 'Succession in question']
-      ]
-  );
-  teamWorkMap: Map<any, any> = new Map<any, any>([
-        [1, 'Good'],
-        [0, 'Poor']
-      ]
-  );
+  // Relationship points map --
+  bankingRelationshipMap: Map<string, number> = BankingRelationshipMap.bankingRelationshipMap;
+  accountTurnoverMap: Map<string, number> = AccountTurnoverMap.accountTurnoverMap;
+  repaymentHistoryMap: Map<string, number> = RepaymentHistoryMap.repaymentHistoryMap;
 
-  securityCoverageMap: Map<any, any> = new Map<any, any>([
-        [15, 'Fully pledged facilities/substantially cash covered/Reg. Mortg, for HBL'],
-        [12, 'Registered Hypothecation (1st charge/1st Pari passu charge)'],
-        [7, '2nd Charge/Inferior charge'],
-        [2, 'Simple hypothecation/negative lien on assets'],
-        [0, 'No Security']
-      ]
-  );
-  collateralCoverageMap: Map<any, any> = new Map<any, any>([
-        [15, 'Registered Mortgage on Municipal Corporation/Prime area property'],
-        [12, 'Registered Mortgage on Pourashava/semi-urban area property'],
-        [7, 'Equitable Mortgage or No property but plant & machinery as collateral'],
-        [2, 'Negative lien on collateral'],
-        [0, 'No collateral']
-      ]
-  );
-  supportMap: Map<any, any> = new Map<any, any>([
-        [10, 'Personal guarantee with high net worth or Strong Corporate Guarantee'],
-        [5, 'Personal Guarantees or Corporate Guarantee with average financial strength'],
-        [0, 'No Support/Guarantee']
-      ]
-  );
+  // Business/Industry risk points map --
+  regulatoryConcernMap: Map<string, number> = RegulatoryConcernMap.regulatoryConcernMap;
+  industryGrowthMap: Map<string, number> = IndustryGrowthMap.industryGrowthMap;
+  marketCompetitionMap: Map<string, number> = MarketCompetitionMap.marketCompetitionMap;
+  supplierMap: Map<string, number> = SupplierMap.supplierMap;
+  buyerMap: Map<string, number> = BuyerMap.buyerMap;
 
-  accountConductMap: Map<any, any> = new Map<any, any>([
-        [5, 'More than 3 (three) years accounts with faultless record'],
-        [4, 'Less than 3 (three) years accounts with faultless record'],
-        [2, 'Accounts having satisfactory dealings with some late payments'],
-        [0, 'Frequent Past dues & Irregular dealings in account']
-      ]
-  );
-  utilizationOfLimitMap: Map<any, any> = new Map<any, any>([
-        [1, 'More than 60%'],
-        [0, 'Less than 40%']
-      ]
-  );
-  complianceOfCovenantsMap: Map<any, any> = new Map<any, any>([
-        [1, 'Full Compliance'],
-        [0, 'No Compliance']
-      ]
-  );
-  personalDepositsMap: Map<any, any> = new Map<any, any>([
-        [1, 'Personal accounts of the key business Sponsors/ Principals are maintained in the bank, with significant deposits'],
-        [0, 'No depository relationship']
-      ]
-  );
-
-  formDataForEdit;
+  // Management risk points map --
+  experienceMap: Map<string, number> = ExperienceMap.experienceMap;
+  successionMap: Map<string, number> = SuccessionMap.successionMap;
 
   constructor(
-      private questionService: QuestionService,
       private formBuilder: FormBuilder,
-  ) {
-  }
+      private el: ElementRef,
+  ) {}
 
   ngOnInit() {
-    if (!this.fromProfile) {
-      this.fromProfileColspan = 1;
+    this.buildForm();
+    if (!ObjectUtil.isEmpty(this.formData) && !ObjectUtil.isEmpty(this.formData.data)) {
+      const existingFormData = JSON.parse(this.formData.data);
+      this.historicalDataPresent = existingFormData.historicalDataPresent;
     }
-    if (!ObjectUtil.isEmpty(this.financial)) {
-      this.financialParsedData = JSON.parse(this.financial.data);
-      this.fiscalYearArray = this.financialParsedData.fiscalYear;
-      if (this.fiscalYearArray.length > 0) {
-        this.recentFiscalYearIndex = this.fiscalYearArray.length - 1;
-        this.fiscalYearArray.forEach( (value, index) => {
-          const map = new Map<string, number>();
-          this.setFinancialScore(map, index);
+    // Calculate risks within company info portion --
+    if (!ObjectUtil.isEmpty(this.companyInfo)) {
+      const bankingRelationshipParsed = JSON.parse(this.customerInfo.bankingRelationship);
+      const businessAndIndustryParsed = JSON.parse(this.companyInfo.businessAndIndustry);
+      this.setValueForCriteria('bankingRelationship', bankingRelationshipParsed.bankingRelationship,
+          this.bankingRelationshipMap.get(bankingRelationshipParsed.bankingRelationship));
+      this.setValueForCriteria('accountTurnover', bankingRelationshipParsed.accountTurnover,
+          this.accountTurnoverMap.get(bankingRelationshipParsed.accountTurnover));
+      this.setValueForCriteria('repaymentHistory', bankingRelationshipParsed.repaymentHistory,
+          this.repaymentHistoryMap.get(bankingRelationshipParsed.repaymentHistory));
+
+      this.setValueForCriteria('regulatoryConcern', businessAndIndustryParsed.regulatoryConcern,
+          this.regulatoryConcernMap.get(businessAndIndustryParsed.regulatoryConcern));
+      this.setValueForCriteria('supplier', businessAndIndustryParsed.supplier,
+          this.supplierMap.get(businessAndIndustryParsed.supplier));
+      this.setValueForCriteria('buyer', businessAndIndustryParsed.buyer,
+          this.buyerMap.get(businessAndIndustryParsed.buyer));
+      this.setValueForCriteria('industryGrowth', this.companyInfo.industryGrowth,
+          this.industryGrowthMap.get(this.companyInfo.industryGrowth));
+      this.setValueForCriteria('marketCompetition', this.companyInfo.marketCompetition,
+          this.marketCompetitionMap.get(this.companyInfo.marketCompetition));
+
+      this.setValueForCriteria('experience', this.companyInfo.experience,
+          this.experienceMap.get(this.companyInfo.experience));
+      this.setValueForCriteria('succession', this.companyInfo.succession,
+          this.successionMap.get(this.companyInfo.succession));
+    }
+    // Calculate financial risk portion --
+    if (!ObjectUtil.isEmpty(this.financialData)) {
+      this.parsedFinancialData = JSON.parse(this.financialData);
+      if (this.parsedFinancialData.fiscalYear.length > 0) {
+        this.financialCurrentYearIndex = Number(this.parsedFinancialData.fiscalYear.length - 1);
+        this.calculateSalesToWclLimit(this.parsedFinancialData, this.financialCurrentYearIndex);
+        this.calculateSalesGrowth(this.parsedFinancialData, this.financialCurrentYearIndex);
+        this.calculateProfitability(this.parsedFinancialData, this.financialCurrentYearIndex);
+        this.calculateCurrentRatio(this.parsedFinancialData, this.financialCurrentYearIndex);
+        this.calculateWorkingCapitalCycle(this.parsedFinancialData, this.financialCurrentYearIndex);
+        this.calculateDERatio(this.parsedFinancialData, this.financialCurrentYearIndex);
+        this.calculateIscrAndDscr(this.parsedFinancialData, this.financialCurrentYearIndex);
+      } else {
+        this.missingAlerts.push({
+          type: 'danger',
+          message: 'No Fiscal year detected for grade automation in financial section!',
         });
       }
+      this.setValueForCriteria('salesProjectionVsAchievement', this.parsedFinancialData.initialForm.salesProjectionVsAchievement,
+          this.salesProjectionVsAchievementPointsMap.get(this.parsedFinancialData.initialForm.salesProjectionVsAchievement));
+      this.setValueForCriteria('netWorthOfFirmOrCompany', this.parsedFinancialData.initialForm.netWorthOfFirmOrCompany,
+          this.netWorthOfFirmOrCompanyPointsMap.get(this.parsedFinancialData.initialForm.netWorthOfFirmOrCompany));
+      this.setValueForCriteria('taxCompliance', this.parsedFinancialData.initialForm.taxCompliance,
+          this.taxCompliancePointsMap.get(this.parsedFinancialData.initialForm.taxCompliance));
+    } else {
+      this.missingAlerts.push({
+        type: 'danger',
+        message: 'Financial data absent! Please refer financial tab for necessary data entries',
+      });
     }
-
-    // Replace with existing data --
-    if (!ObjectUtil.isEmpty(this.creditRiskGradingAlpha)) {
-      this.crgData = this.creditRiskGradingAlpha;
-      this.formDataForEdit = JSON.parse(this.crgData.data);
+    if (ObjectUtil.isEmpty(this.proposedLimit)) {
+      this.missingAlerts.push({
+        type: 'danger',
+        message: 'Proposed limit is missing! Please refer proposal tab for data entry',
+      });
     }
-    this.buildForm();
-    if (this.formDataForEdit !== undefined) {
-      this.nonFinancialTotalMap.set('sizeOfBusiness', this.formDataForEdit.sizeOfBusiness);
-      this.nonFinancialTotalMap.set('ageOfBusiness', this.formDataForEdit.ageOfBusiness);
-      this.nonFinancialTotalMap.set('businessOutlook', this.formDataForEdit.businessOutlook);
-      this.nonFinancialTotalMap.set('industryGrowth', this.formDataForEdit.industryGrowth);
-      this.nonFinancialTotalMap.set('marketCompetition', this.formDataForEdit.marketCompetition);
-      this.nonFinancialTotalMap.set('entryExitBarriers', this.formDataForEdit.entryExitBarriers);
-      this.nonFinancialTotalMap.set('experience', this.formDataForEdit.experience);
-      this.nonFinancialTotalMap.set('secondLineSuccession', this.formDataForEdit.secondLineSuccession);
-      this.nonFinancialTotalMap.set('teamWork', this.formDataForEdit.teamWork);
-      this.nonFinancialTotalMap.set('securityCoverage', this.formDataForEdit.securityCoverage);
-      this.nonFinancialTotalMap.set('collateralCoverage', this.formDataForEdit.collateralCoverage);
-      this.nonFinancialTotalMap.set('support', this.formDataForEdit.support);
-      this.nonFinancialTotalMap.set('accountConduct', this.formDataForEdit.accountConduct);
-      this.nonFinancialTotalMap.set('utilizationOfLimit', this.formDataForEdit.utilizationOfLimit);
-      this.nonFinancialTotalMap.set('complianceOfCovenants', this.formDataForEdit.complianceOfCovenants);
-      this.nonFinancialTotalMap.set('personalDeposits', this.formDataForEdit.personalDeposits);
-      this.onChangeOption();
+    // Calculate Security risk portion --
+    if (!ObjectUtil.isEmpty(this.security) && !ObjectUtil.isEmpty(this.security.data)) {
+      const parsedSecurityData = JSON.parse(this.security.data);
+      if (this.loanTag === this.loanTagEnum.GENERAL) {
+        this.calculateTotalFMV(parsedSecurityData);
+        this.setValueForCriteria('FACLocation', parsedSecurityData.buildingLocation,
+            this.landAndBuildingLocationPointsMap.get(parsedSecurityData.buildingLocation));
+      } else if (this.loanTag === this.loanTagEnum.VEHICLE) {
+        this.setValueForCriteria('securityCoverageVehicle', parsedSecurityData.vehicleSecurityCoverage,
+            this.vehicleSecurityCoveragePointsMap.get(parsedSecurityData.vehicleSecurityCoverage));
+      }
+      this.setValueForCriteria('guarantee', parsedSecurityData.securityGuarantee,
+          this.securityGuaranteePointsMap.get(parsedSecurityData.securityGuarantee));
+    } else {
+      this.missingAlerts.push({
+        type: 'danger',
+        message: 'Security data absent! Please refer security tab for necessary data entries',
+      });
     }
-    if (this.fiscalYearArray.length > 0) {
-      // enclosed within the same condition twice because size of business requires building of form group--
-      this.setSizeOfBusiness(this.recentFiscalYearIndex);
-    }
-    if (!ObjectUtil.isEmpty(this.companyInfo)
-        && !ObjectUtil.isEmpty(this.companyInfo.establishmentDate)) {
-      this.ageOfBusinessValue = this.calculateAge(new Date(this.companyInfo.establishmentDate));
-      this.setAgeOfBusiness();
-    }
-  }
-
-  /**
-   *  @description
-   *  Orders elements of particular map in insertion order wile using
-   *  keyvalue pipe
-   */
-  asIsOrder(a, b) {
-    return 1;
+    this.calculateTotalScore();
   }
 
   buildForm() {
-    this.creditRiskGrading = this.formBuilder.group({
-      sizeOfBusiness: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.sizeOfBusiness, [Validators.required]],
-      ageOfBusiness: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.ageOfBusiness, [Validators.required]],
-      businessOutlook: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.businessOutlook, [Validators.required]],
-      industryGrowth: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.industryGrowth, [Validators.required]],
-      marketCompetition: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.marketCompetition, [Validators.required]],
-      entryExitBarriers: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.entryExitBarriers, [Validators.required]],
-      experience: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.experience, [Validators.required]],
-      secondLineSuccession:
-          [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.secondLineSuccession, [Validators.required]],
-      teamWork: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.teamWork, [Validators.required]],
-      securityCoverage: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.securityCoverage, [Validators.required]],
-      collateralCoverage: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.collateralCoverage, [Validators.required]],
-      support: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.support, [Validators.required]],
-      accountConduct: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.accountConduct, [Validators.required]],
-      utilizationOfLimit: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.utilizationOfLimit, [Validators.required]],
-      complianceOfCovenants:
-          [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.complianceOfCovenants, [Validators.required]],
-      personalDeposits: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.personalDeposits, [Validators.required]],
-      totalPointsArray: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.totalPoints],
-      gradesArray: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.grading],
-      fiscalYearArray: undefined
+    this.creditRiskGradingForm = this.formBuilder.group({
+      historicalDataPresent: undefined,
+      // Relationship risk
+      bankingRelationship: this.criteriaFormGroup(),
+      accountTurnover: this.criteriaFormGroup(),
+      repaymentHistory: this.criteriaFormGroup(),
+      relationshipTotal: undefined,
+      // Financial Risk
+      salesToWclLimit: this.criteriaFormGroup(),
+      salesGrowth: this.criteriaFormGroup(),
+      profitability: this.criteriaFormGroup(),
+      currentRatio: this.criteriaFormGroup(),
+      workingCapitalCycle: this.criteriaFormGroup(),
+      deRatio: this.criteriaFormGroup(),
+      iscrAndDscr: this.criteriaFormGroup(),
+      salesProjectionVsAchievement: this.criteriaFormGroup(),
+      netWorthOfFirmOrCompany: this.criteriaFormGroup(),
+      taxCompliance: this.criteriaFormGroup(),
+      financialTotal: undefined,
+      // Security Risk
+      securityCoverageFAC: this.criteriaFormGroup(),
+      FACLocation: this.criteriaFormGroup(),
+      securityCoverageVehicle: this.criteriaFormGroup(),
+      guarantee: this.criteriaFormGroup(),
+      securityTotal: undefined,
+      // Business and Industry risk
+      regulatoryConcern: this.criteriaFormGroup(),
+      industryGrowth: this.criteriaFormGroup(),
+      marketCompetition: this.criteriaFormGroup(),
+      supplier: this.criteriaFormGroup(),
+      buyer: this.criteriaFormGroup(),
+      businessAndIndustryTotal: undefined,
+      // Management risk
+      experience: this.criteriaFormGroup(),
+      succession: this.criteriaFormGroup(),
+      managementTotal: undefined,
+      totalScore: undefined,
+      creditRiskGrade: undefined
     });
   }
 
-  calculateAge(initializationDate: Date) {
-    const currentDate = new Date();
-    const calculateYear = currentDate.getFullYear();
-    const calculateMonth = currentDate.getMonth();
-    const calculateDay = currentDate.getDate();
-
-    const birthYear = initializationDate.getFullYear();
-    const birthMonth = initializationDate.getMonth();
-    const birthDay = initializationDate.getDate();
-
-    const age = calculateYear - birthYear;
-    const ageMonth = calculateMonth - birthMonth;
-    const ageDay = calculateDay - birthDay;
-
-    if (ageMonth < 0 || (ageMonth === 0 && ageDay < 0)) {
-      Number(age - 1);
-    }
-    return age;
+  criteriaFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      parameter: undefined,
+      value: undefined,
+      automatedValue: undefined
+    });
   }
 
-  onChangeOption(field?, point?) {
-    if (field !== undefined) {
-      this.nonFinancialTotalMap.set(field, point);
-    }
-    if (this.nonFinancialTotalMap.size === 16) {
-      this.totalPointsArray = [];
-      this.gradesArray = [];
-      let nonFinancialTotal = 0;
-      this.nonFinancialTotalMap.forEach(data => {
-        nonFinancialTotal = nonFinancialTotal + Number(data);
-      });
+  setValueForCriteria(criteria, parameter, value, automatedValue?: any) {
+    this.creditRiskGradingForm.get(criteria).patchValue({
+      parameter: parameter,
+      value: value,
+      automatedValue: automatedValue
+    });
+  }
 
-      // Calculating total for each year --
-      this.financialTotalMapsArray.forEach( (map, index) => {
-        let singleFiscalYearTotal = 0;
-        map.forEach( (value: number) => {
-          singleFiscalYearTotal = singleFiscalYearTotal + value;
-        });
-        const totalPointForSingleYear = singleFiscalYearTotal + nonFinancialTotal;
-        this.totalPointsArray.push(totalPointForSingleYear);
-        this.gradesArray.push(this.calculateGrade(totalPointForSingleYear));
-      });
-      this.creditRiskGrading.get('totalPointsArray').patchValue(this.totalPointsArray);
-      this.creditRiskGrading.get('gradesArray').patchValue(this.gradesArray);
+  getDirectSales(financialData) {
+    return (financialData.incomeStatementData.totalSalesSubCategory as Array<any>).filter(
+        singleCategory => singleCategory['name'] === 'Direct Sales'
+    );
+  }
+
+  calculateTotalFMV(securityParsedData) {
+    let totalFMV = 0;
+    const containsLandSecurity = securityParsedData.selectedArray.includes('LandSecurity');
+    const containsBuildingSecurity = securityParsedData.selectedArray.includes('ApartmentSecurity');
+    securityParsedData.selectedArray.forEach(selectedSecurity => {
+      if (selectedSecurity === 'LandSecurity') {
+        const landDetailsArray = securityParsedData.initialForm.landDetails as Array<any>;
+        for (let i = 0; i < landDetailsArray.length; i++) {
+          totalFMV = Number(landDetailsArray[i].marketValue) + totalFMV;
+        }
+      } else if (selectedSecurity === 'VehicleSecurity') {
+        const vehicleDetailsArray = securityParsedData.initialForm.vehicleDetails as Array<any>;
+        for (let i = 0; i < vehicleDetailsArray.length; i++) {
+          totalFMV = Number(vehicleDetailsArray[i].valuationAmount) + totalFMV;
+        }
+      } else if (selectedSecurity === 'ApartmentSecurity') {
+        const buildingDetailsArray = securityParsedData.initialForm.buildingDetails as Array<any>;
+        for (let i = 0; i < buildingDetailsArray.length; i++) {
+          totalFMV = Number(buildingDetailsArray[i].buildingFairMarketValue) + totalFMV;
+        }
+      } else if (selectedSecurity === 'PlantSecurity') {
+        const plantDetailsArray = securityParsedData.initialForm.plantDetails as Array<any>;
+        for (let i = 0; i < plantDetailsArray.length; i++) {
+          totalFMV = Number(plantDetailsArray[i].quotation) + totalFMV;
+        }
+      }
+      if (selectedSecurity === 'Land and Building Security' && !containsLandSecurity) {
+        const landDetailsArray = securityParsedData.initialForm.landDetails as Array<any>;
+        for (let i = 0; i < landDetailsArray.length; i++) {
+          totalFMV = Number(landDetailsArray[i].marketValue) + totalFMV;
+        }
+      }
+      if (selectedSecurity === 'Land and Building Security' && !containsBuildingSecurity) {
+        const buildingDetailsArray = securityParsedData.initialForm.buildingDetails as Array<any>;
+        for (let i = 0; i < buildingDetailsArray.length; i++) {
+          totalFMV = Number(buildingDetailsArray[i].buildingFairMarketValue) + totalFMV;
+        }
+      }
+    });
+    const securityCoverageFAC = (totalFMV / Number(this.proposedLimit)) * 100;
+    const automatedValue = securityCoverageFAC.toFixed(2);
+    if (securityCoverageFAC >= 125) {
+      this.setValueForCriteria('securityCoverageFAC', '125% FMV', 40.00, automatedValue);
+    } else if (securityCoverageFAC < 125 && securityCoverageFAC >= 100) {
+      this.setValueForCriteria('securityCoverageFAC', '100% FMV', 35.00, automatedValue);
+    } else if (securityCoverageFAC < 100) {
+      this.setValueForCriteria('securityCoverageFAC', '< 100% FMV', 30.00, automatedValue);
     }
   }
 
-  calculateGrade(totalPoints) {
-    let grading = 'None';
-    if (totalPoints === 100) {
-      grading = 'Superior';
-    } else if (totalPoints >= 85) {
-      grading = 'Good';
-    } else if (totalPoints >= 75 && totalPoints < 85) {
-      grading = 'Acceptable';
-    } else if (totalPoints >= 65 && totalPoints < 75) {
-      grading = 'Marginal/Watchlist';
-    } else if (totalPoints >= 55 && totalPoints < 65) {
-      grading = 'Special Mention';
-    } else if (totalPoints >= 45 && totalPoints < 55) {
-      grading = 'Substandard';
-    } else if (totalPoints >= 35 && totalPoints < 45) {
-      grading = 'Doubtful';
-    } else if (totalPoints <= 35) {
-      grading = 'Bad & Loss';
+  calculateSalesToWclLimit(financialData, currentFiscalYearIndex) {
+    const salesToWclLimit = Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value) /
+        (Number(financialData.balanceSheetData.currentAssets[currentFiscalYearIndex].value) -
+            Number(financialData.balanceSheetData.currentLiabilities[currentFiscalYearIndex].value));
+    const automatedValue = salesToWclLimit.toFixed(2);
+    if (salesToWclLimit > 3) {
+      this.setValueForCriteria('salesToWclLimit', 'Above 3 times', 4.50, automatedValue);
+    } else if (salesToWclLimit > 2 && salesToWclLimit <= 3) {
+      this.setValueForCriteria('salesToWclLimit', 'Between 2 - 3 times', 3.50, automatedValue);
+    } else if (salesToWclLimit > 1.5 && salesToWclLimit <= 2) {
+      this.setValueForCriteria('salesToWclLimit', 'Between 1.5 - 2 times', 2.50, automatedValue);
+    } else if (salesToWclLimit >= 1 && salesToWclLimit <= 1.5) {
+      this.setValueForCriteria('salesToWclLimit', 'Between 1 - 1.5 times', 1, automatedValue);
+    } else if (salesToWclLimit < 1) {
+      this.setValueForCriteria('salesToWclLimit', 'Below 1 times', 0, automatedValue);
     }
-    return grading;
   }
 
-  setFinancialScore(map, fiscalYearIndex) {
-    this.debtEquityRatioOverall =
-        Number(this.financialParsedData.keyIndicatorsData.debtEquityRatioOverall[fiscalYearIndex].value) / 100;
-    this.currentRatio = Number(this.financialParsedData.keyIndicatorsData.currentRatio[fiscalYearIndex].value);
-    this.operatingMarginProfit =
-        (Number(this.financialParsedData.incomeStatementData.operatingProfit[fiscalYearIndex].value) * 100)
-        / Number(this.financialParsedData.incomeStatementData.totalSalesSubCategory[0].amount[fiscalYearIndex].value);
-    this.interestCoverageRatio = Number(this.financialParsedData.keyIndicatorsData.interestCoverageRatio[fiscalYearIndex].value);
-
-    if (this.debtEquityRatioOverall < 0.25) {
-      this.setDebtEquityRatioOverall(map, 5);
-    } else if (this.debtEquityRatioOverall >= 0.25 && this.debtEquityRatioOverall <= 0.50) {
-      this.setDebtEquityRatioOverall(map, 4);
-    } else if (this.debtEquityRatioOverall >= 0.51 && this.debtEquityRatioOverall <= 1.25) {
-      this.setDebtEquityRatioOverall(map, 3);
-    } else if (this.debtEquityRatioOverall >= 1.26 && this.debtEquityRatioOverall <= 2.00) {
-      this.setDebtEquityRatioOverall(map, 2);
-    } else if (this.debtEquityRatioOverall >= 2.01 && this.debtEquityRatioOverall <= 2.75) {
-      this.setDebtEquityRatioOverall(map, 1);
-    } else if (this.debtEquityRatioOverall > 2.75) {
-      this.setDebtEquityRatioOverall(map, 0);
-    }
-
-    if (this.currentRatio > 2.74) {
-      this.setCurrentRatio(map, 10);
-    } else if (this.currentRatio >= 2.50 && this.currentRatio <= 2.74) {
-      this.setCurrentRatio(map, 9);
-    } else if (this.currentRatio >= 2.00 && this.currentRatio <= 2.49) {
-      this.setCurrentRatio(map, 8);
-    } else if (this.currentRatio >= 1.50 && this.currentRatio <= 1.99) {
-      this.setCurrentRatio(map, 7);
-    } else if (this.currentRatio >= 1.10 && this.currentRatio <= 1.49) {
-      this.setCurrentRatio(map, 6);
-    } else if (this.currentRatio >= 0.90 && this.currentRatio <= 1.09) {
-      this.setCurrentRatio(map, 5);
-    } else if (this.currentRatio >= 0.80 && this.currentRatio <= 0.89) {
-      this.setCurrentRatio(map, 4);
-    } else if (this.currentRatio >= 0.70 && this.currentRatio <= 0.79) {
-      this.setCurrentRatio(map, 3);
-    } else if (this.currentRatio < 0.70) {
-      this.setCurrentRatio(map, 0);
-    }
-
-    if (this.operatingMarginProfit > 25) {
-      this.setOperatingMarginProfit(map, 10);
-    } else if (this.operatingMarginProfit >= 20 && this.operatingMarginProfit <= 24) {
-      this.setOperatingMarginProfit(map, 9);
-    } else if (this.operatingMarginProfit >= 15 && this.operatingMarginProfit <= 19) {
-      this.setOperatingMarginProfit(map, 8);
-    } else if (this.operatingMarginProfit >= 10 && this.operatingMarginProfit <= 14) {
-      this.setOperatingMarginProfit(map, 7);
-    } else if (this.operatingMarginProfit >= 7 && this.operatingMarginProfit <= 9) {
-      this.setOperatingMarginProfit(map, 6);
-    } else if (this.operatingMarginProfit >= 4 && this.operatingMarginProfit <= 6) {
-      this.setOperatingMarginProfit(map, 5);
-    } else if (this.operatingMarginProfit >= 1 && this.operatingMarginProfit <= 3) {
-      this.setOperatingMarginProfit(map, 3);
-    } else if (this.operatingMarginProfit < 1) {
-      this.setOperatingMarginProfit(map, 0);
+  calculateSalesGrowth(financialData, currentFiscalYearIndex) {
+    if (currentFiscalYearIndex === 0) {
+      this.setValueForCriteria('salesGrowth', 'Initial year (Absence of previous year data)', 0, '--');
     } else {
-      this.setOperatingMarginProfit(map, 0);
-    }
-
-    if (this.interestCoverageRatio > 2.00) {
-      this.setInterestCoverageRatio(map, 5);
-    } else if (this.interestCoverageRatio >= 1.51 && this.interestCoverageRatio <= 2) {
-      this.setInterestCoverageRatio(map, 4);
-    } else if (this.interestCoverageRatio >= 1.25 && this.interestCoverageRatio <= 1.50) {
-      this.setInterestCoverageRatio(map, 3);
-    } else if (this.interestCoverageRatio >= 1 && this.interestCoverageRatio <= 1.24) {
-      this.setInterestCoverageRatio(map, 2);
-    } else if (this.interestCoverageRatio < 1) {
-      this.setInterestCoverageRatio(map, 0);
-    }
-
-    this.financialTotalMapsArray.push(map);
-  }
-
-  setDebtEquityRatioOverall(map, points) {
-    map.set('leverage', points);
-  }
-
-  setCurrentRatio(map, points) {
-    map.set('liquidity', points);
-  }
-
-  setOperatingMarginProfit(map, points) {
-    map.set('profit', points);
-  }
-
-  setInterestCoverageRatio(map, points) {
-    map.set('coverage', points);
-  }
-
-  // Size of business automated evaluation--
-  setSizeOfBusiness(fiscalYearIndex) {
-    const sizeOfBusinessValue =
-        Number(this.financialParsedData.incomeStatementData.totalSalesSubCategory[0].amount[fiscalYearIndex].value);
-    if (sizeOfBusinessValue > 15000000) {
-      this.changeSizeOfBusinessPoints(3);
-    } else if (sizeOfBusinessValue >= 10000000 && sizeOfBusinessValue <= 15000000) {
-      this.changeSizeOfBusinessPoints(2);
-    } else if (sizeOfBusinessValue >= 5000000 && sizeOfBusinessValue < 10000000) {
-      this.changeSizeOfBusinessPoints(1);
-    } else if (sizeOfBusinessValue < 5000000) {
-      this.changeSizeOfBusinessPoints(0);
+      const salesGrowth = ((Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value) -
+          Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex - 1].value)) /
+          Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex - 1].value)) * 100;
+      const automatedValue = salesGrowth.toFixed(2);
+      if (salesGrowth > 15) {
+        this.setValueForCriteria('salesGrowth', 'Sales growth above 15%', 3, automatedValue);
+      } else if (salesGrowth >= 10 && salesGrowth <= 15) {
+        this.setValueForCriteria('salesGrowth', 'Minimum Sales growth of 10%', 2.25, automatedValue);
+      } else if (salesGrowth > 0 && salesGrowth < 10) {
+        this.setValueForCriteria('salesGrowth', 'Growing sales', 1.50, automatedValue);
+      } else if (salesGrowth <= 0) {
+        this.setValueForCriteria('salesGrowth', 'Declining Sales', 0, automatedValue);
+      }
     }
   }
 
-  changeSizeOfBusinessPoints(points) {
-    this.nonFinancialTotalMap.set('sizeOfBusiness', points);
-    this.creditRiskGrading.get('sizeOfBusiness').patchValue(points);
-    this.onChangeOption('sizeOfBusiness', points);
-  }
-
-  // Setting age of business--
-  setAgeOfBusiness() {
-    if (this.ageOfBusinessValue >= 5) {
-      this.changeAgeOfBusinessPoints(2);
-    } else if (this.ageOfBusinessValue >= 2 && this.ageOfBusinessValue < 5) {
-      this.changeAgeOfBusinessPoints(1);
-    } else if (this.ageOfBusinessValue < 2) {
-      this.changeAgeOfBusinessPoints(0);
+  calculateProfitability(financialData, currentFiscalYearIndex) {
+    const profitability = (Number(financialData.incomeStatementData.netProfitTransferredToBalanceSheet[currentFiscalYearIndex].value) /
+        Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value)) * 100;
+    const netCashFlow = Number(financialData.cashFlowStatementData.netCashFlow[currentFiscalYearIndex].value);
+    const automatedValue = `${profitability.toFixed(2)}, ${netCashFlow.toFixed(2)}`;
+    if (profitability >= 5 && netCashFlow > 0) {
+      this.setValueForCriteria('profitability', 'Minimum net profit of 5%, increasing cash flow', 3, automatedValue);
+    } else if ((profitability >= 2 && profitability < 5) && netCashFlow > 0) {
+      this.setValueForCriteria('profitability', 'Minimum net profit of 2%, increasing cash flow', 2.25, automatedValue);
+    } else if ((profitability > 0 && profitability < 2) && netCashFlow > 0) {
+      this.setValueForCriteria('profitability', 'Growing net profit and cash flow', 1.50, automatedValue);
+    } else if (profitability <= 0 && netCashFlow <= 0) {
+      this.setValueForCriteria('profitability', 'Net loss/ negative cash flow', 0, automatedValue);
+    } else {
+      this.setValueForCriteria('profitability', 'Net loss/ negative cash flow', 0, automatedValue);
     }
   }
 
-  changeAgeOfBusinessPoints(points) {
-    this.nonFinancialTotalMap.set('ageOfBusiness', points);
-    this.creditRiskGrading.get('ageOfBusiness').patchValue(points);
-    this.onChangeOption('ageOfBusiness', points);
+  calculateCurrentRatio(financialData, currentFiscalYearIndex) {
+    const currentRatio = Number(financialData.balanceSheetData.currentAssets[currentFiscalYearIndex].value) /
+        Number(financialData.balanceSheetData.currentLiabilities[currentFiscalYearIndex].value);
+    const automatedValue = currentRatio.toFixed(2);
+    if (currentRatio >= 2.50) {
+      this.setValueForCriteria('currentRatio', 'Current ratio minimum 2.5 times', 3, automatedValue);
+    } else if (currentRatio >= 2.25 && currentRatio < 2.50) {
+      this.setValueForCriteria('currentRatio', 'Current ratio minimum 2.25 times', 2.25, automatedValue);
+    } else if (currentRatio >= 2 && currentRatio < 2.25) {
+      this.setValueForCriteria('currentRatio', 'Current ratio minimum 2 times', 1.50, automatedValue);
+    } else if (currentRatio >= 1.5 && currentRatio < 2) {
+      this.setValueForCriteria('currentRatio', 'Current ratio minimum 1.5 times / Improving projection', 0.75, automatedValue);
+    } else if (currentRatio < 1.5) {
+      this.setValueForCriteria('currentRatio', 'Current ratio below 1.5 times', 0, automatedValue);
+    }
+  }
+
+  calculateWorkingCapitalCycle(financialData, currentFiscalYearIndex) {
+    const workingCapitalCycle = ((Number(financialData.balanceSheetData.currentAssets[currentFiscalYearIndex].value) -
+        Number(financialData.balanceSheetData.currentLiabilities[currentFiscalYearIndex].value)) * 365) /
+        Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value);
+
+    const receivableCollectionPeriod = (Number(
+        (financialData.balanceSheetData.currentAssetsCategory as Array<any>).filter(
+            singleCategory => singleCategory['name'] === 'Account Receivable'
+        )[0]['amount'][currentFiscalYearIndex].value
+    ) / Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value)) * 365;
+
+    const automatedValue = `${workingCapitalCycle.toFixed(2)}, ${receivableCollectionPeriod.toFixed(2)}`;
+
+    if (workingCapitalCycle < 120 && receivableCollectionPeriod < 60) {
+      this.setValueForCriteria('workingCapitalCycle',
+          'Working capital cycle below 120 days with receivable collection period below 60 days', 3, automatedValue);
+    } else if ((workingCapitalCycle >= 120 && workingCapitalCycle <= 150)
+        && (receivableCollectionPeriod >= 60 && receivableCollectionPeriod < 90)) {
+      this.setValueForCriteria('workingCapitalCycle',
+          'Working capital cycle below 150 days with receivable collection period below 90 days', 2.25, automatedValue);
+    } else if (workingCapitalCycle > 150 && workingCapitalCycle <= 180) {
+      this.setValueForCriteria('workingCapitalCycle',
+          'Working capital cycle above 150 days  to 180 days / Improving projection', 1.50, automatedValue);
+    } else if (workingCapitalCycle > 180) {
+      this.setValueForCriteria('workingCapitalCycle', 'Working capital cycle above 180 days', 0.75, automatedValue);
+    } else {
+      this.setValueForCriteria('workingCapitalCycle', 'Default', 0.75, automatedValue);
+    }
+  }
+
+  calculateDERatio(financialData, currentFiscalYearIndex) {
+    const deRatio = Number(financialData.keyIndicatorsData.debtEquityRatioOverall[currentFiscalYearIndex].value);
+    const automatedValue = deRatio.toFixed(2);
+    if (!this.historicalDataPresent) {
+      this.setValueForCriteria('deRatio',
+          'Overall DE ratio above 80% / mismatch in DE / Fully projection based / no historical data ', 0, automatedValue);
+    } else if (deRatio <= 50) {
+      this.setValueForCriteria('deRatio', 'Overall DE ratio  at 50% or below', 3, automatedValue);
+    } else if (deRatio > 50 && deRatio < 60) {
+      this.setValueForCriteria('deRatio', 'Overall DE ratio  below 60%', 2.25, automatedValue);
+    } else if (deRatio >= 60 && deRatio < 70) {
+      this.setValueForCriteria('deRatio', 'Overall DE ratio  below 70%', 1.50, automatedValue);
+    } else if (deRatio >= 70 && deRatio <= 80 ) {
+      this.setValueForCriteria('deRatio', 'Overall DE ratio  below 80% / Improving projection', 0.75, automatedValue);
+    } else if (deRatio > 80) {
+      this.setValueForCriteria('deRatio',
+          'Overall DE ratio above 80% / mismatch in DE / Fully projection based / no historical data ', 0, automatedValue);
+    }
+  }
+
+  calculateIscrAndDscr(financialData, currentFiscalYearIndex) {
+    const iscr = Number(financialData.incomeStatementData.operatingProfit[currentFiscalYearIndex].value) /
+        Number(financialData.incomeStatementData.interestExpenses[currentFiscalYearIndex].value);
+
+    const dscr = Number(financialData.incomeStatementData.operatingProfit[currentFiscalYearIndex].value) /
+        Number(financialData.balanceSheetData.currentLiabilities[currentFiscalYearIndex].value) +
+        Number(financialData.balanceSheetData.longTermLoan[currentFiscalYearIndex].value) +
+        Number(financialData.balanceSheetData.otherLongTermLiabilities[currentFiscalYearIndex].value) +
+        Number(financialData.balanceSheetData.otherProvisions[currentFiscalYearIndex].value);
+
+    const automatedValue = `${iscr.toFixed(2)}, ${dscr.toFixed(2)}`;
+
+    const setThreeScore = () => {
+      return this.setValueForCriteria('iscrAndDscr', 'ISCR and DSCR above 2.5 times', 3, automatedValue);
+    };
+    const setTwoAndQuarterScore = () => {
+      return this.setValueForCriteria('iscrAndDscr', 'ISCR and DSCR above 2 times', 2.25, automatedValue);
+    };
+    const setOneAndHalfScore = () => {
+      return this.setValueForCriteria('iscrAndDscr', 'ISCR and DSCR above 1.5 times / Improving projection', 1.50, automatedValue);
+    };
+    const setHalfAndQuarterScore = () => {
+      return this.setValueForCriteria('iscrAndDscr', 'ISCR and DSCR above 1.25 times', 0.75, automatedValue);
+    };
+    const setZeroScore = () => {
+      return this.setValueForCriteria('iscrAndDscr', 'ISCR and DSCR above 1.00 times', 0, automatedValue);
+    };
+    if (iscr >= 2.5 && dscr >= 2.5) {
+      setThreeScore();
+    } else if ((iscr < 2.5 && iscr >= 2) || (dscr < 2.5 && dscr >= 2)) {
+      if ((iscr < 2.5 && iscr >= 2) && iscr <= dscr) {
+        setTwoAndQuarterScore();
+      } else if ((dscr < 2.5 && dscr >= 2) && dscr <= iscr) {
+        setTwoAndQuarterScore();
+      }
+    } else if ((iscr < 2 && iscr >= 1.5) || (dscr < 2 && dscr >= 1.5)) {
+      if ((iscr < 2 && iscr >= 1.5) && iscr <= dscr) {
+        setOneAndHalfScore();
+      } else if ((dscr < 2 && dscr >= 1.5) && dscr <= iscr) {
+        setOneAndHalfScore();
+      }
+    } else if ((iscr < 1.5 && iscr >= 1.25) || (dscr < 1.5 && dscr >= 1.25)) {
+      if ((iscr < 1.5 && iscr >= 1.25) && iscr <= dscr) {
+        setHalfAndQuarterScore();
+      } else if ((dscr < 1.5 && dscr >= 1.25) && dscr <= iscr) {
+        setHalfAndQuarterScore();
+      }
+    } else if ((iscr < 1.25 && iscr >= 1) || (dscr < 1.25 && dscr >= 1)) {
+      if ((iscr < 1.25 && iscr >= 1) && iscr <= dscr) {
+        setZeroScore();
+      } else if ((dscr < 1.25 && dscr >= 1) && dscr <= iscr) {
+        setZeroScore();
+      }
+    } else {
+      setZeroScore();
+    }
+  }
+
+  calculateTotalScore() {
+    let total = 0;
+    total = total + this.calculateRelationshipRiskTotal();
+    total = total + this.calculateBusinessAndIndustryRiskTotal();
+    total = total + this.calculateManagementRiskTotal();
+    total = total + this.calculateSecurityRiskTotal();
+    total = total + this.calculateTotalForFinancialRisk();
+    this.creditRiskGradingForm.get('totalScore').patchValue(total.toFixed(2));
+    if (total >= 80) {
+      this.creditRiskGradingForm.get('creditRiskGrade').patchValue('Excellent');
+    } else if (total >= 65 && total < 80) {
+      this.creditRiskGradingForm.get('creditRiskGrade').patchValue('Very Good');
+    } else if (total >= 55 && total < 65) {
+      this.creditRiskGradingForm.get('creditRiskGrade').patchValue('Good');
+    } else if (total >= 40 && total < 55) {
+      this.creditRiskGradingForm.get('creditRiskGrade').patchValue('Acceptable');
+    } else if (total < 40) {
+      this.creditRiskGradingForm.get('creditRiskGrade').patchValue('Not Eligible for New Loans');
+    }
+  }
+
+  calculateRelationshipRiskTotal(): number {
+    let total = 0;
+    this.relationshipRiskArray.forEach(singleCriteria => {
+      total = Number(this.creditRiskGradingForm.get(singleCriteria).get('value').value) + total;
+    });
+    this.creditRiskGradingForm.get('relationshipTotal').patchValue(total.toFixed(2));
+    return total;
+  }
+
+  calculateBusinessAndIndustryRiskTotal(): number {
+    let total = 0;
+    this.businessAndIndustryArray.forEach(singleCriteria => {
+      total = Number(this.creditRiskGradingForm.get(singleCriteria).get('value').value) + total;
+    });
+    this.creditRiskGradingForm.get('businessAndIndustryTotal').patchValue(total.toFixed(2));
+    return total;
+  }
+
+  calculateManagementRiskTotal(): number {
+    let total = 0;
+    this.managementRiskArray.forEach(singleCriteria => {
+      total = Number(this.creditRiskGradingForm.get(singleCriteria).get('value').value) + total;
+    });
+    this.creditRiskGradingForm.get('managementTotal').patchValue(total.toFixed(2));
+    return total;
+  }
+
+  calculateSecurityRiskTotal(): number {
+    let total = 0;
+    this.securityRiskArray.forEach(singleCriteria => {
+      total = Number(this.creditRiskGradingForm.get(singleCriteria).get('value').value) + total;
+    });
+    this.creditRiskGradingForm.get('securityTotal').patchValue(total.toFixed(2));
+    return total;
+  }
+
+  calculateTotalForFinancialRisk(): number {
+    let total = 0;
+    this.financialRiskCriteriaArray.forEach(singleCriteria => {
+      total = Number(this.creditRiskGradingForm.get(singleCriteria).get('value').value) + total;
+    });
+    if (!this.historicalDataPresent) {
+      total = 0.5 * total;
+    }
+    this.creditRiskGradingForm.get('financialTotal').patchValue(total.toFixed(2));
+    return total;
+  }
+
+  toggleHistory($event: boolean) {
+    this.historicalDataPresent = $event;
+    if (this.financialCurrentYearIndex >= 0) {
+      this.calculateDERatio(this.parsedFinancialData, this.financialCurrentYearIndex);
+    }
+    this.calculateTotalScore();
+  }
+
+  close(alert) {
+    this.missingAlerts.splice(this.missingAlerts.indexOf(alert), 1);
+  }
+
+  scrollToFirstInvalidControl() {
+    const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+        'form .ng-invalid'
+    );
+    window.scroll({
+      top: this.getTopOffset(firstInvalidControl),
+      left: 0,
+      behavior: 'smooth'
+    });
+    firstInvalidControl.focus();
+  }
+
+  private getTopOffset(controlEl: HTMLElement): number {
+    const labelOffset = 50;
+    return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
   }
 
   onSubmit() {
-    if (!ObjectUtil.isEmpty(this.creditRiskGradingAlpha)) {
-      this.creditRiskData = this.crgData;
+    this.submitted = true;
+    if (this.creditRiskGradingForm.invalid) {
+      this.scrollToFirstInvalidControl();
+      return;
     }
-    this.creditRiskGrading.get('fiscalYearArray').patchValue(this.fiscalYearArray);
-    this.creditRiskData.data = JSON.stringify(this.creditRiskGrading.value);
-    this.crgAlphaDataEmitter.emit(this.creditRiskData.data);
+
+    if (!ObjectUtil.isEmpty(this.formData)) {
+      this.creditRiskData = this.formData;
+    }
+    this.creditRiskGradingForm.get('historicalDataPresent').patchValue(this.historicalDataPresent);
+    this.creditRiskData.data = JSON.stringify(this.creditRiskGradingForm.value);
   }
 }

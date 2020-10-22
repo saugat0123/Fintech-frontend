@@ -26,13 +26,14 @@
                     <div class="col-md-6">
                         <button (click)="isFilterCollapsed = !isFilterCollapsed" [attr.aria-expanded]="!isFilterCollapsed"
                                 nbButton
-                                status="primary">
+                                status="primary"
+                                size="small">
                             <i class="fa fa-filter"> Filter</i>
                         </button>
                     </div>
                     <div class="col-md-6">
                         <div class="float-right">
-                            <button nbButton outline status="success" (click)="add()">
+                            <button nbButton outline size="small" status="success" (click)="add()">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
@@ -87,9 +88,9 @@
                                 </div>
                             </div>
                             <div class="col-md-12 p-0">
-                                <button nbButton status="info" type="submit" class="mr-2">Search</button>
+                                <button nbButton status="info" type="submit" class="mr-2" size="small">Search</button>
                                 <button (click)="clearSearch()" class="mr-2" nbButton
-                                        status="danger" type="button">Clear
+                                        status="danger" type="button" size="small">Clear
                                 </button>
                             </div>
                         </form>
@@ -97,10 +98,10 @@
                 </div>
             </nb-card-header>
             <nb-card-body>
-                    <table aria-describedby="Valuator list" class="table table-bordered table-hover"
+                    <table aria-describedby="Valuator list" class="table table-sm table-bordered table-hover sb-small text-center"
                            id="add-valuator-table">
                         <thead>
-                        <tr>
+                        <tr class="sb-bg-dark text-white">
                             <th scope="col">S.N</th>
                             <th scope="col">Valuator Name</th>
                             <th scope="col">Address</th>
@@ -157,13 +158,13 @@
                                 </td>
                             </ng-template>
                             <td>
-                                <button (click)="edit(valuator)" class="m-1" nbButton size="small"
+                                <button (click)="edit(valuator)" class="m-1" nbButton size="tiny"
                                         status="info"
                                         title="Edit">
                                     <em class="fa fa-edit"></em>
                                 </button>
                                 <button (click)="deleteValuator(valuator, $event)" class="m-1"
-                                        nbButton size="small"
+                                        nbButton size="tiny"
                                         status="danger"
                                         title="Delete">
                                     <em class="fa fa-ban"></em>

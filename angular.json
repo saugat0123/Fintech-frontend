@@ -39,10 +39,10 @@
               "node_modules/angular2-draggable/css/resizable.min.css",
               "src/styles.scss",
               "src/app/@theme/styles/styles.scss"
-
             ],
             "scripts": [
-              "node_modules/pace-js/pace.min.js"
+              "node_modules/pace-js/pace.min.js",
+              "src/assets/ckeditor/ckeditor.js"
             ]
           },
           "configurations": {

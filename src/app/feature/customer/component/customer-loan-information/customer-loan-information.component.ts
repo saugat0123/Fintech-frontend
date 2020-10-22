@@ -16,14 +16,15 @@ import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 import {GuarantorComponent} from '../../../loan-information-template/guarantor/guarantor.component';
 import {Insurance} from '../../../admin/modal/insurance';
-import {CreditRiskGradingAlphaComponent} from '../../../loan-information-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
-import {CreditRiskGradingAlpha} from '../../../admin/modal/CreditRiskGradingAlpha';
 import {CompanyInfo} from '../../../admin/modal/company-info';
 import {CreditRiskGrading} from '../../../admin/modal/creditRiskGrading';
 import {CreditGradingComponent} from '../../../loan-information-template/credit-grading/credit-grading.component';
 import {CreditRiskGradingGammaComponent} from '../../../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {CreditRiskGradingGamma} from '../../../admin/modal/creditRiskGradingGamma';
 import {CiclArray} from '../../../admin/modal/cicl';
+import {IncomeFromAccount} from '../../../admin/modal/incomeFromAccount';
+import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
+import {CreditChecklistGeneral} from '../../../loan/model/creditChecklistGeneral';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -44,10 +45,10 @@ export class CustomerLoanInformationComponent implements OnInit {
   public financialComponent: FinancialComponent;
   @ViewChild('itemFinancial', {static: false})
   private itemFinancial: NbAccordionItemComponent;
-  @ViewChild('CrgAlphaComponent', {static: false})
+  /*@ViewChild('CrgAlphaComponent', {static: false})
   public CrgAlphaComponent: CreditRiskGradingAlphaComponent;
   @ViewChild('itemCrgAlpha', {static: false})
-  private itemCrgAlpha: NbAccordionItemComponent;
+  private itemCrgAlpha: NbAccordionItemComponent;*/
   @ViewChild('CrgComponent', {static: false})
   public CrgComponent: CreditGradingComponent;
   @ViewChild('itemCrg', {static: false})
@@ -64,14 +65,19 @@ export class CustomerLoanInformationComponent implements OnInit {
   private itemGuarantor: NbAccordionItemComponent;
   @ViewChild('itemInsurance', {static: false})
   private itemInsurance: NbAccordionItemComponent;
-
+  @ViewChild('itemIncomeFromAccount', {static: false})
+  private itemIncomeFromAccount: NbAccordionItemComponent;
+  @ViewChild('itemNetTradingAssets', {static: false})
+  private itemNetTradingAssets: NbAccordionItemComponent;
   @ViewChild('ciclComponent', {static: false})
   private itemCicl: NbAccordionItemComponent;
+  @ViewChild('itemloanChecklist', {static: false})
+  private itemloanChecklist: NbAccordionItemComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
   calendarType: CalendarType = CalendarType.AD;
   private siteVisit: SiteVisit;
   private financial: Financial;
-  private creditRiskGradingAlpha: CreditRiskGradingAlpha;
+  /*private creditRiskGradingAlpha: CreditRiskGradingAlpha;*/
   private creditRiskGrading: CreditRiskGrading;
   private crgGamma: CreditRiskGradingGamma;
   private security: Security;
@@ -79,6 +85,9 @@ export class CustomerLoanInformationComponent implements OnInit {
   private guarantors: GuarantorDetail;
   public insurance: Array<Insurance>;
   public ciclResponse: CiclArray;
+  public incomeFromAccountDataResponse: IncomeFromAccount;
+  public netTradingAssets: NetTradingAssets;
+  public creditChecklistGeneral: CreditChecklistGeneral;
 
 
   constructor(
@@ -94,9 +103,9 @@ export class CustomerLoanInformationComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.customerInfo.financial)) {
       this.financial = this.customerInfo.financial;
     }
-    if (!ObjectUtil.isEmpty(this.customerInfo.creditRiskGradingAlpha)) {
+    /*if (!ObjectUtil.isEmpty(this.customerInfo.creditRiskGradingAlpha)) {
       this.creditRiskGradingAlpha = this.customerInfo.creditRiskGradingAlpha;
-    }
+    }*/
     if (!ObjectUtil.isEmpty(this.customerInfo.creditRiskGrading)) {
       this.creditRiskGrading = this.customerInfo.creditRiskGrading;
     }
@@ -114,6 +123,16 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.cicl)) {
       this.ciclResponse = this.customerInfo.cicl;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.incomeFromAccount)) {
+      this.incomeFromAccountDataResponse = this.customerInfo.incomeFromAccount;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.netTradingAssets)) {
+      this.netTradingAssets = this.customerInfo.netTradingAssets;
+    }
+
+    if (!ObjectUtil.isEmpty(this.customerInfo.creditChecklist)) {
+      this.creditChecklistGeneral = this.customerInfo.creditChecklist;
     }
   }
 
@@ -215,7 +234,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     });
   }
 
-  saveCrgAlpha(data: string) {
+  /*saveCrgAlpha(data: string) {
     if (ObjectUtil.isEmpty(this.creditRiskGradingAlpha)) {
       this.creditRiskGradingAlpha = new CreditRiskGradingAlpha();
     }
@@ -229,7 +248,7 @@ export class CustomerLoanInformationComponent implements OnInit {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Risk Grading (Alpha)!'));
     });
-  }
+  }*/
 
   saveCrg(data: string) {
     if (ObjectUtil.isEmpty(this.creditRiskGrading)) {
@@ -280,4 +299,53 @@ export class CustomerLoanInformationComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved CICL)!'));
     });
   }
+
+  saveIncomeFromAccount(data: IncomeFromAccount) {
+    if (ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
+      this.incomeFromAccountDataResponse = new IncomeFromAccount();
+    }
+    this.incomeFromAccountDataResponse = data;
+    this.customerInfoService.saveLoanInfo(this.incomeFromAccountDataResponse, this.customerInfoId, TemplateName.INCOME_FROM_ACCOUNT)
+    .subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Income From Account!'));
+      this.itemIncomeFromAccount.close();
+      this.triggerCustomerRefresh.emit(true);
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Income From Account)!'));
+    });
+  }
+
+  saveNetTradingAssets(data: NetTradingAssets) {
+    if (ObjectUtil.isEmpty(this.netTradingAssets)) {
+      this.netTradingAssets = new NetTradingAssets();
+    }
+    this.netTradingAssets = data;
+    this.customerInfoService.saveLoanInfo(this.netTradingAssets, this.customerInfoId, TemplateName.NET_TRADING_ASSETS)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Net Trading Assets!'));
+          this.itemNetTradingAssets.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Net Trading Assets)!'));
+        });
+  }
+
+  saveCreditChecklist(data: CreditChecklistGeneral) {
+    if (ObjectUtil.isEmpty(this.creditChecklistGeneral)) {
+      this.creditChecklistGeneral = new CreditChecklistGeneral();
+    }
+    this.creditChecklistGeneral = data;
+    this.customerInfoService.saveLoanInfo(this.creditChecklistGeneral, this.customerInfoId, TemplateName.CREDIT_CHECKlIST)
+    .subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Checklist!'));
+      this.itemloanChecklist.close();
+      this.triggerCustomerRefresh.emit(true);
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Credit Checklist!'));
+    });
+  }
+
 }
