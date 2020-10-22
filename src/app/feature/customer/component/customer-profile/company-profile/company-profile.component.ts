@@ -249,7 +249,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     }
     if (value.type === this.fetchLoan.CUSTOMER_AS_GROUP) {
       this.totalProposedAmountByGroup = value.value;
-      this.proposeAmountOfGroup = value.otherParam;
+      this.proposeAmountOfGroup = value.value;
     }
 
     this.totalGroupAmount = this.totalProposedAmountByGroup;
