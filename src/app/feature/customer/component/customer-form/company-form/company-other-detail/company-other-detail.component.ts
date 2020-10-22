@@ -45,8 +45,8 @@ export class CompanyOtherDetailComponent implements OnInit , OnChanges {
     this.companyOtherDetailGroupForm = this.formBuilder.group({
       taxClearanceTill: [undefined, Validators.required],
       taxClearanceRemark: [undefined],
-      ClassificationByNRB: [undefined, Validators.required],
-      negativeList: [undefined, Validators.required],
+      ClassificationByNRB: [undefined],
+      negativeList: [undefined],
       negativeListRemark: [undefined],
     });
   }
