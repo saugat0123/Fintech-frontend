@@ -30,6 +30,7 @@ import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../admin/modal/NetTradingAssets';
 import {BaseEntity} from '../../../@core/model/base-entity';
 import {GroupDto} from "./GroupDto";
+import {GroupSummaryDto} from "./GroupSummaryDto";
 
 
 export class LoanDataHolder extends BaseEntity {
@@ -78,5 +79,5 @@ export class LoanDataHolder extends BaseEntity {
     refNo: string;
     incomeFromAccount: IncomeFromAccount;
     netTradingAssets: NetTradingAssets;
-    customerLoanGroupDto: GroupDto;
+    groupSummaryDto: GroupSummaryDto;
 }

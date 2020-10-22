@@ -8,7 +8,8 @@ import {CustomerType} from '../../model/customerType';
 import {Router} from '@angular/router';
 import {LoanAmountType} from '../../model/loanAmountType';
 import {FetchLoan} from '../../model/fetchLoan';
-import {CustomerLoanGroupDto} from '../../../loan/model/CustomerLoanGroupDto';
+import {GroupDto} from '../../../loan/model/GroupDto';
+import {GroupSummaryDto} from '../../../loan/model/GroupSummaryDto';
 
 @Component({
   selector: 'app-customer-list-group',
@@ -23,10 +24,7 @@ export class CustomerListGroupComponent implements OnInit {
   spinner = false;
   isAssociateGroup = false;
   currentGroup: CustomerGroup;
-  customerLoanList: Array<CustomerLoanGroupDto> = [];
-  totalLoanProposedAmount = 0;
-  totalGroupApprovedAmount = 0;
-  totalGroupPendingAmount = 0;
+  groupSummaryDto: GroupSummaryDto;
   fetchLoan = FetchLoan;
   index = 0;
 
@@ -45,33 +43,13 @@ export class CustomerListGroupComponent implements OnInit {
   }
 
   async getLoanListByCustomerGroup() {
-    let currentCustomerGroupLoanProposal = 0;
-    let currentCustomerIndex;
-    this.spinner = true;
     const filterGroup = new CustomerGroup();
     filterGroup.groupCode = this.currentGroup.groupCode;
-    await this.loanFormService.getLoanOfCustomerByGroup(this.customerInfoData.customerGroup).subscribe(loans => {
-      this.customerLoanList = loans.detail.customerGroupDto;
-      this.spinner = false;
-      this.totalLoanProposedAmount = 0;
-      this.customerLoanList.forEach((l, i) => {
-            this.totalLoanProposedAmount += l.totalApprovedLimit + l.totalPendingLimit;
-            if (l.loanHolderId === this.customerInfoData.id) {
-              currentCustomerGroupLoanProposal = l.totalApprovedLimit + l.totalPendingLimit;
-              currentCustomerIndex = i;
-            } else {
-              this.totalGroupApprovedAmount += l.totalApprovedLimit;
-              this.totalGroupPendingAmount += l.totalPendingLimit;
-            }
-          }
-      );
+    await this.loanFormService.getLoanOfCustomerByGroup(this.customerInfoData.customerGroup).subscribe(response => {
+      this.groupSummaryDto = response.detail;
       const loanAmountType = new LoanAmountType();
       loanAmountType.type = this.fetchLoan.CUSTOMER_AS_GROUP;
-      loanAmountType.value = this.totalLoanProposedAmount;
-      loanAmountType.otherParam = this.totalLoanProposedAmount - currentCustomerGroupLoanProposal;
-      if (!ObjectUtil.isEmpty(currentCustomerIndex)) {
-        this.customerLoanList.splice(currentCustomerIndex, 1);
-      }
+      loanAmountType.value = this.groupSummaryDto.grandTotalApprovedLimit + this.groupSummaryDto.grandTotalPendingLimit;
       this.messageToEmit.emit(loanAmountType);
     }, res => {
       this.toastrService.show(new Alert(AlertType.ERROR, res.message.error));

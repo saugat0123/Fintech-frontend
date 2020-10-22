@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LoanFormService} from '../../loan-form/service/loan-form.service';
-import {CustomerLoanGroupDto} from '../../../model/CustomerLoanGroupDto';
 import {CustomerInfoData} from '../../../model/customerInfoData';
 import {CommonRoutingUtilsService} from '../../../../../@core/utils/common-routing-utils.service';
 import {NbToastrService} from '@nebular/theme';
 import {GroupDto} from '../../../model/GroupDto';
+import {GroupSummaryDto} from '../../../model/GroupSummaryDto';
 
 @Component({
   selector: 'app-customer-group-summary',
@@ -12,13 +12,13 @@ import {GroupDto} from '../../../model/GroupDto';
   styleUrls: ['./customer-group-summary.component.scss']
 })
 export class CustomerGroupSummaryComponent implements OnInit {
-  @Input() groupDto: GroupDto;
+  @Input() groupDto: GroupSummaryDto;
   @Input() customerInfoData: CustomerInfoData;
-  groupAssociateCustomers: Array<CustomerLoanGroupDto> = [];
+  groupAssociateCustomers: Array<GroupDto> = [];
   totalGroupApprovedAmount = 0;
   spinner = false;
-  totalFundedAmount = 0;
-  totalNotFundedAmount = 0;
+  grandTotalFundedAmount = 0;
+  grandTotalNotFundedAmount = 0;
 
   constructor(private loanFormService: LoanFormService,
               private routerUtilsService: CommonRoutingUtilsService,
@@ -26,28 +26,17 @@ export class CustomerGroupSummaryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.groupAssociateCustomers = this.groupDto.customerLoanGroupDto;
-    this.groupDto.fundedData.forEach((l, i) => {
-                this.totalFundedAmount += l.proposal.proposedLimit;
-            }
-        );
-    this.groupDto.nonFundedData.forEach((l, i) => {
-                this.totalNotFundedAmount += l.proposal.proposedLimit;
-            }
-        );
-        /*this.removeCurrentCustomerLoan();*/
-        this.spinner = false;
-    console.log(this.spinner);
+    console.log(this.groupDto);
+    this.groupAssociateCustomers = this.groupDto.groupDtoList;
   }
 
-  removeCurrentCustomerLoan() {
+ /* removeCurrentCustomerLoan() {
     const index = this.groupAssociateCustomers.indexOf(this.groupAssociateCustomers.filter
     (value => value.loanHolderId === this.customerInfoData.id)[0]);
     this.groupAssociateCustomers.splice(index, 1);
-  }
+  }*/
 
   loadCustomerProfile(associateId, customerId, loanType) {
     this.routerUtilsService.loadCustomerProfile(associateId, customerId, loanType);
   }
-
 }

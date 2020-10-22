@@ -543,7 +543,7 @@
       </div>
 
       <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
-      [groupDto]="loanDataHolder?.customerLoanGroupDto" [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>
+      [groupDto]="loanDataHolder?.groupSummaryDto" [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>
 
       <app-proposal-justification-summary *ngIf="proposalSummary"
                                           [customerAllLoanList]="customerAllLoanList"

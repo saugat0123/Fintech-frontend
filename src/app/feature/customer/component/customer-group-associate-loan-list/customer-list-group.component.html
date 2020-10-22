@@ -1,38 +1,13 @@
 <nb-card [nbSpinner]="spinner">
   <nb-card-body>
-    <table class="table  table-bordered table-hover sb-small table-sm text-center">
-      <thead>
-      <tr class="sb-bg-dark text-white">
-        <th>S.N</th>
-        <th>Name</th>
-        <!--<th>Branch</th>-->
-        <th>Pending Limit</th>
-        <th>Approved Limit</th>
-        <th>Total Limit</th>
-      </tr>
-      </thead>
-      <tbody>
-      <ng-container *ngFor="let singleLoan of customerLoanList ;  let i=index">
-        <tr (click)="customerProfile(singleLoan.associateId, singleLoan.loanHolderId, customerInfoData?.customerType)"
-
-            class="cursor">
-          <td>{{i + 1}}</td>
-          <td>{{singleLoan?.customerName}}</td>
-          <!--<td>{{singleLoan.loanHolder?.branch?.name}}</td>-->
-          <td>Rs.{{(singleLoan.totalPendingLimit |currencyFormatter)}}</td>
-          <td>Rs. {{(singleLoan.totalApprovedLimit |currencyFormatter)}}</td>
-          <td>Rs. {{(singleLoan.totalApprovedLimit + singleLoan.totalPendingLimit |currencyFormatter)}}</td>
-        </tr>
-      </ng-container>
-      </tbody>
-    </table>
+    <app-customer-group-summary *ngIf="groupSummaryDto?.groupId" [customerInfoData]="customerInfoData" [groupDto]="groupSummaryDto"></app-customer-group-summary>
   </nb-card-body>
   <nb-card-footer class="text-right">
     <p>
       <mark><strong>Total Pending Limit</strong>:</mark>
-      <strong>Rs. {{totalGroupPendingAmount |currencyFormatter}},</strong>
+      <strong>Rs. {{groupSummaryDto?.grandTotalPendingLimit |currencyFormatter}},</strong>
       <mark class="ml-2"><strong>Total Approved Limit</strong>:</mark>
-      <strong>Rs. {{totalGroupApprovedAmount |currencyFormatter}}</strong>
+      <strong>Rs. {{groupSummaryDto?.grandTotalApprovedLimit |currencyFormatter}}</strong>
     </p>
   </nb-card-footer>
 </nb-card>
