@@ -1,11 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CustomerGroup} from '../../../../admin/modal/customer-group';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {LoanFormService} from '../../loan-form/service/loan-form.service';
-import {CustomerLoanGroupDto} from '../../../model/CustomerLoanGroupDto';
 import {CustomerInfoData} from '../../../model/customerInfoData';
 import {CommonRoutingUtilsService} from '../../../../../@core/utils/common-routing-utils.service';
 import {NbToastrService} from '@nebular/theme';
+import {GroupDto} from '../../../model/GroupDto';
+import {GroupSummaryDto} from '../../../model/GroupSummaryDto';
 
 @Component({
   selector: 'app-customer-group-summary',
@@ -13,11 +12,13 @@ import {NbToastrService} from '@nebular/theme';
   styleUrls: ['./customer-group-summary.component.scss']
 })
 export class CustomerGroupSummaryComponent implements OnInit {
-  @Input() customerGroup: CustomerGroup;
+  @Input() groupDto: GroupSummaryDto;
   @Input() customerInfoData: CustomerInfoData;
-  groupAssociateCustomers: Array<CustomerLoanGroupDto> = [];
+  groupAssociateCustomers: Array<GroupDto> = [];
   totalGroupApprovedAmount = 0;
   spinner = false;
+  grandTotalFundedAmount = 0;
+  grandTotalNotFundedAmount = 0;
 
   constructor(private loanFormService: LoanFormService,
               private routerUtilsService: CommonRoutingUtilsService,
@@ -25,33 +26,17 @@ export class CustomerGroupSummaryComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.customerGroup)) {
-      this.loanFormService.getLoanOfCustomerByGroup(this.customerGroup).subscribe(loans => {
-        this.groupAssociateCustomers = loans.detail;
-        this.groupAssociateCustomers.forEach((l, i) => {
-              if (l.loanHolder.id !== this.customerInfoData.id) {
-                this.totalGroupApprovedAmount += l.totalApprovedLimit;
-              }
-            }
-        );
-        this.removeCurrentCustomerLoan();
-        this.spinner = false;
-      } , error => {
-          this.spinner = false;
-        this.toastService.danger(error.error.message);
-      });
-    }
-    console.log(this.spinner);
+    console.log(this.groupDto);
+    this.groupAssociateCustomers = this.groupDto.groupDtoList;
   }
 
-  removeCurrentCustomerLoan() {
+ /* removeCurrentCustomerLoan() {
     const index = this.groupAssociateCustomers.indexOf(this.groupAssociateCustomers.filter
-    (value => value.loanHolder.id === this.customerInfoData.id)[0]);
+    (value => value.loanHolderId === this.customerInfoData.id)[0]);
     this.groupAssociateCustomers.splice(index, 1);
-  }
+  }*/
 
   loadCustomerProfile(associateId, customerId, loanType) {
     this.routerUtilsService.loadCustomerProfile(associateId, customerId, loanType);
   }
-
 }
