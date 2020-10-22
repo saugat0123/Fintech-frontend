@@ -17,7 +17,7 @@
         <tbody>
         <ng-container *ngFor="let group of groupDto?.groupDtoList;let i = index;">
           <tr class="font-weight-bold sb-bg-dark text-white text-left">
-            <td colspan="3 pl-1">
+            <td colspan="3" class="pl">
               <b>{{group?.fundedData?.length > 0 ? group?.fundedData[0]?.customerName : group?.nonFundedData[0]?.customerName}}</b>
             </td>
       <!--      <td>Pending Limit: <b>{{group?.totalPendingLimit}}</b></td>-->
