@@ -3,11 +3,11 @@
     <app-customer-group-summary *ngIf="groupSummaryDto?.groupId" [customerInfoData]="customerInfoData" [groupDto]="groupSummaryDto"></app-customer-group-summary>
   </nb-card-body>
   <nb-card-footer class="text-right">
-    <p>
+   <!-- <p>
       <mark><strong>Total Pending Limit</strong>:</mark>
       <strong>Rs. {{groupSummaryDto?.grandTotalPendingLimit |currencyFormatter}},</strong>
       <mark class="ml-2"><strong>Total Approved Limit</strong>:</mark>
       <strong>Rs. {{groupSummaryDto?.grandTotalApprovedLimit |currencyFormatter}}</strong>
-    </p>
+    </p>-->
   </nb-card-footer>
 </nb-card>

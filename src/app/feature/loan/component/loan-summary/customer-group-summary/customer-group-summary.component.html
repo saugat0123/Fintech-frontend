@@ -16,11 +16,11 @@
         </thead>
         <tbody>
         <ng-container *ngFor="let group of groupDto?.groupDtoList;let i = index;">
-          <tr class="font-weight-bold sb-bg-dark text-white">
-            <td colspan="2">
-              <b class="ml-1">{{group?.fundedData?.length > 0 ? group?.fundedData[0]?.customerName : group?.nonFundedData[0]?.customerName}}</b>
+          <tr class="font-weight-bold sb-bg-dark text-white text-left">
+            <td colspan="3 pl-1">
+              <b>{{group?.fundedData?.length > 0 ? group?.fundedData[0]?.customerName : group?.nonFundedData[0]?.customerName}}</b>
             </td>
-            <td>Pending Limit: <b>{{group?.totalPendingLimit}}</b></td>
+      <!--      <td>Pending Limit: <b>{{group?.totalPendingLimit}}</b></td>-->
           </tr>
           <tr *ngFor="let data of group?.fundedData; let j = index;">
               <td class="sn">{{j+1}}</td>
