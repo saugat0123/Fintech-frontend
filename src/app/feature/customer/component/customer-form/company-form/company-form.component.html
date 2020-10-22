@@ -135,9 +135,6 @@
                                            <div *ngIf="form.email?.errors.email">
                                                invalid email!
                                            </div>
-                                           <div *ngIf="form.email?.errors.required">
-                                               Email is required
-                                           </div>
                                        </div>
                                    </div>
                                </div>
@@ -410,7 +407,13 @@
                                    <label for="registeredUnderAct"><strong>Registered Under Act</strong></label>
                                    <input id="registeredUnderAct" formControlName="registeredUnderAct"
                                           name="registeredUnderAct"
-                                          type="text" class="form-control" placeholder="Registered Under Act">
+                                          type="text" class="form-control" placeholder="Registered Under Act"
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.registeredUnderAct.errors }">
+                               </div>
+                               <div *ngIf="submitted && form.registeredUnderAct.errors" class="small text-danger">
+                                   <div *ngIf="form.registeredUnderAct.errors.required">
+                                       Registered Under Act is required
+                                   </div>
                                </div>
                            </div>
                            <div class="col-md-4">
@@ -1271,7 +1274,7 @@
                                        id="conductOfAccount"
                                        placeholder="Conduct of Account"></ckeditor>
                                    <div *ngIf="(submitted) && form.conductOfAccount.invalid"
-                                        class="invalid-feedback">
+                                        class="small text-danger">
                                        <div *ngIf="form.conductOfAccount.errors.required">
                                            Conduct Of Account is required
                                        </div>
@@ -1296,7 +1299,7 @@
                                        id="businessGiven"
                                        placeholder="Conduct of Account"></ckeditor>
                                    <div *ngIf="(submitted) && form.businessGiven.invalid"
-                                        class="invalid-feedback">
+                                        class="small text-danger">
                                        <div *ngIf="form.businessGiven.errors.required">
                                            Business given is required
                                        </div>
@@ -1322,12 +1325,18 @@
                                <label><strong>Regulatory Concern</strong></label>
                                <ng-select [multiple]="false"
                                           formControlName="regulatoryConcern"
-                                          placeholder="Select regulatory concern here">
+                                          placeholder="Select regulatory concern here"
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.regulatoryConcern.errors }">
                                    <ng-option *ngFor="let regConcern of regulatoryConcernList"
                                               [value]="regConcern?.value">
                                        {{regConcern?.value}}
                                    </ng-option>
                                </ng-select>
+                               <div *ngIf="(submitted) &&  form.regulatoryConcern.errors" class="small text-danger">
+                                   <div *ngIf="form.regulatoryConcern.errors.required">
+                                       Regulatory Concern is required
+                                   </div>
+                               </div>
                            </div>
                            <div class="col-md-3">
                                <label><strong>Supplier</strong></label>
@@ -1339,6 +1348,11 @@
                                        {{supplier?.value}}
                                    </ng-option>
                                </ng-select>
+                               <div *ngIf="(submitted) &&  form.supplier.errors" class="small text-danger">
+                                   <div *ngIf="form.supplier.errors.required">
+                                       Supplier is required
+                                   </div>
+                               </div>
                            </div>
                            <div class="col-md-3">
                                <label><strong>Buyer</strong></label>
@@ -1350,6 +1364,12 @@
                                        {{buyer?.value}}
                                    </ng-option>
                                </ng-select>
+                               <div *ngIf="(submitted) &&  form.buyer.errors" class="small text-danger">
+                                   <div *ngIf="form.buyer.errors.required">
+                                       Buyer is required
+                                   </div>
+                               </div>
+
                            </div>
                        </div>
                        <hr>
@@ -1369,6 +1389,11 @@
                                            {{industryGrowth?.value}}
                                        </ng-option>
                                    </ng-select>
+                                   <div *ngIf="(submitted) &&  form.industryGrowth.errors" class="small text-danger">
+                                       <div *ngIf="form.industryGrowth.errors.required">
+                                           Industry Growth is required
+                                       </div>
+                                   </div>
                                </div>
                            </div>
                            <div class="col-md-3">
@@ -1386,6 +1411,11 @@
                                            {{marketComp?.value}}
                                        </ng-option>
                                    </ng-select>
+                                   <div *ngIf="(submitted) &&  form.marketCompetition.errors" class="small text-danger">
+                                       <div *ngIf="form.marketCompetition.errors.required">
+                                           Market Competition Growth is required
+                                       </div>
+                                   </div>
                                </div>
                            </div>
                            <div class="col-md-3">
@@ -1403,6 +1433,11 @@
                                            {{experience?.value}}
                                        </ng-option>
                                    </ng-select>
+                                   <div *ngIf="(submitted) &&  form.experience.errors" class="small text-danger">
+                                       <div *ngIf="form.experience.errors.required">
+                                           Experience Growth is required
+                                       </div>
+                                   </div>
                                </div>
                            </div>
                            <hr>

@@ -30,11 +30,11 @@ export class MarketScenarioComponent implements OnInit, OnChanges {
     this.marketScenarioForm = this.formBuilder.group({
       keySupplier: [undefined, Validators.required],
       KeyBuyers: [undefined, Validators.required],
-      competitorsOverview: [undefined, Validators.required],
-      marketDemandService: [undefined, Validators.required],
-      BusinessIndustryOutlook: [undefined, Validators.required],
-      marketingStrategies: [undefined, Validators.required],
-      technicalAspect: [undefined, Validators.required],
+      competitorsOverview: [undefined],
+      marketDemandService: [undefined],
+      BusinessIndustryOutlook: [undefined],
+      marketingStrategies: [undefined],
+      technicalAspect: [undefined],
     });
   }
 
