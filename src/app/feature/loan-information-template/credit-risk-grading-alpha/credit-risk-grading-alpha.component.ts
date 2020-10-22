@@ -266,9 +266,6 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   }
 
   getDirectSales(financialData) {
-    /*return (financialData.incomeStatementData.totalSalesSubCategory as Array<any>).filter(
-        singleCategory => singleCategory['name'] === 'Direct Sales'
-    );*/
     return this.getSubCategory(financialData, 'incomeStatementData', 'totalSalesSubCategory', 'Direct Sales');
   }
 
