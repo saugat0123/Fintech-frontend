@@ -541,6 +541,27 @@
           Only /-
         </div>
       </div>
+      <div *ngIf="loanDataHolder?.customerInfo?.withinLimitRemarks">
+        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+          <tr class="sb-bg-dark text-white">
+            <th>Within Limit Remarks (if any)</th>
+          </tr>
+          <tr>
+            <td> {{loanDataHolder?.customerInfo?.withinLimitRemarks}}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div *ngIf="loanDataHolder?.companyInfo?.withinLimitRemarks">
+        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+          <tr class="sb-bg-dark text-white">
+            <th>Within Limit Remarks (if any)</th>
+          </tr>
+          <tr>
+            <td> {{loanDataHolder?.companyInfo?.withinLimitRemarks}}</td>
+          </tr>
+        </table>
+      </div>
 
       <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
       [groupDto]="loanDataHolder?.groupSummaryDto" [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>
