@@ -53,9 +53,10 @@ const ENTRY_COMPONENTS = [];
         NgxPrintModule,
         CoreModule
     ],
-    exports: [
-        LoanSummaryComponent
-    ],
+  exports: [
+    LoanSummaryComponent,
+    CustomerGroupSummaryComponent
+  ],
     entryComponents: [...ENTRY_COMPONENTS]
 })
 export class LoanSummaryModule {
