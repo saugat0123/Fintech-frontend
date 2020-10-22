@@ -368,7 +368,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
 
   calculateProfitability(financialData, currentFiscalYearIndex) {
     const profitability = ((Number(financialData.incomeStatementData.netProfitTransferredToBalanceSheet[currentFiscalYearIndex].value) +
-        Number(this.getSubCategory(financialData, 'incomeStatementData', 'totalSalesSubCategory', 'Depreciation')
+        Number(this.getSubCategory(financialData, 'incomeStatementData', 'operatingExpensesCategory', 'Depreciation')
             [0]['amount'][currentFiscalYearIndex].value)) /
         Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value)) * 100;
     const netCashFlow = Number(financialData.cashFlowStatementData.netCashFlow[currentFiscalYearIndex].value);
