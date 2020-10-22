@@ -266,8 +266,15 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   }
 
   getDirectSales(financialData) {
-    return (financialData.incomeStatementData.totalSalesSubCategory as Array<any>).filter(
+    /*return (financialData.incomeStatementData.totalSalesSubCategory as Array<any>).filter(
         singleCategory => singleCategory['name'] === 'Direct Sales'
+    );*/
+    return this.getSubCategory(financialData, 'incomeStatementData', 'totalSalesSubCategory', 'Direct Sales');
+  }
+
+  getSubCategory(financialData, financialSection, categoryArrayName, categoryName: string) {
+    return (financialData[financialSection][categoryArrayName] as Array<any>).filter(
+        singleCategory => singleCategory['name'] === categoryName
     );
   }
 
@@ -360,7 +367,9 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   }
 
   calculateProfitability(financialData, currentFiscalYearIndex) {
-    const profitability = (Number(financialData.incomeStatementData.netProfitTransferredToBalanceSheet[currentFiscalYearIndex].value) /
+    const profitability = ((Number(financialData.incomeStatementData.netProfitTransferredToBalanceSheet[currentFiscalYearIndex].value) +
+        Number(this.getSubCategory(financialData, 'incomeStatementData', 'totalSalesSubCategory', 'Depreciation')
+            [0]['amount'][currentFiscalYearIndex].value)) /
         Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value)) * 100;
     const netCashFlow = Number(financialData.cashFlowStatementData.netCashFlow[currentFiscalYearIndex].value);
     const automatedValue = `${profitability.toFixed(2)}, ${netCashFlow.toFixed(2)}`;
