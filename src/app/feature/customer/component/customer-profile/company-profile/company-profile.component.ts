@@ -58,6 +58,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
   formData: FormData = new FormData();
   allDistrict: Array<District> = Array<District>();
   profilePic;
+  isRemarkEdited;
 
   constructor(private companyInfoService: CompanyInfoService,
               private customerInfoService: CustomerInfoService,
@@ -99,6 +100,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     this.form.streetName.setValue(companyInfoData.companyLocations.streetName);
     this.form.houseNumber.setValue(companyInfoData.companyLocations.houseNumber);
     this.form.establishmentDate.setValue(new Date(companyInfoData.establishmentDate));
+    this.form.withinLimitRemarks.setValue(companyInfoData.withinLimitRemarks);
   }
 
   getCompanyInfo(companyInfoId) {
@@ -215,13 +217,15 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
       issuePlace: [undefined, Validators.required],
       email: [undefined, Validators.required],
       contactNum: [undefined, Validators.required],
-      businessType: [undefined, Validators.required]
+      businessType: [undefined, Validators.required],
+      withinLimitRemarks: [undefined]
     });
   }
 
   saveCompanyInfoDetail() {
     this.spinner = true;
     this.isEdited = false;
+    this.isRemarkEdited = false;
     this.companyInfo.companyName = this.companyForm.get('companyName').value;
     this.companyInfo.registrationNumber = this.companyForm.get('registrationNumber').value;
     this.companyInfo.establishmentDate = this.companyForm.get('establishmentDate').value;
@@ -233,6 +237,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     this.companyInfo.email = this.companyForm.get('email').value;
     this.companyInfo.contactNum = this.companyForm.get('contactNum').value;
     this.companyInfo.businessType = this.companyForm.get('businessType').value;
+    this.companyInfo.withinLimitRemarks = this.companyForm.get('withinLimitRemarks').value;
     this.companyInfoService.save(this.companyInfo).subscribe(response => {
       this.companyInfo = response.detail;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED COMPANY DETAIL'));
@@ -286,5 +291,9 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
 
   refreshGroup() {
     this.refreshCustomerInfo();
+  }
+
+  editRemark() {
+    this.isRemarkEdited = true;
   }
 }
