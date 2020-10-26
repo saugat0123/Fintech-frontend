@@ -1,119 +1,3 @@
-<nb-card>
-    <nb-card-header>
-        <h4>Grade Summary</h4>
-    </nb-card-header>
-    <nb-card-body>
-        <table aria-describedby="scoreSummary"
-               class="table table-sm table-bordered table-responsive-md text-center">
-            <thead class="thead-light">
-            <tr>
-                <th scope="col">S.N.</th>
-                <th scope="col">Grading</th>
-                <th scope="col">Short</th>
-                <th scope="col">Remarks</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>1</td>
-                <td>Excellent</td>
-                <td>E</td>
-                <td>
-                    80 and above
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Very Good</td>
-                <td>VG</td>
-                <td>65-79</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Good</td>
-                <td>G</td>
-                <td>55-64</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Acceptable</td>
-                <td>S</td>
-                <td>40-54</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Not Eligible for New Loans</td>
-                <td>BL</td>
-                <td><40</td>
-            </tr>
-            </tbody>
-        </table>
-
-        <table aria-describedby="gradeSummary"
-               class="table table-sm table-bordered table-responsive-md text-center">
-            <thead class="thead-light">
-            <tr>
-                <th scope="col">Grading</th>
-                <th scope="col">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Excellent</td>
-                <td>Approve</td>
-            </tr>
-            <tr>
-                <td>Very Good</td>
-                <td>Approve</td>
-            </tr>
-            <tr>
-                <td>Good</td>
-                <td>Approve with comments / remarks</td>
-            </tr>
-            <tr>
-                <td>Acceptable</td>
-                <td>Seek additional info if required / Approve with covenants</td>
-            </tr>
-            <tr>
-                <td>Not Eligible for New Loan</td>
-                <td>Reject</td>
-            </tr>
-            </tbody>
-        </table>
-
-        <table aria-describedby="riskSummary"
-               class="table table-sm table-bordered table-responsive-md text-center">
-            <thead class="thead-light">
-            <tr>
-                <th scope="col">Risk Rating as per existing format</th>
-                <th scope="col">Required Premium</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Low Risk</td>
-                <td>Base Rate + Minimum 2%</td>
-            </tr>
-            <tr>
-                <td>Average Risk</td>
-                <td>Base Rate + Minimum 2.5%</td>
-            </tr>
-            <tr>
-                <td>Moderate Risk</td>
-                <td>Base Rate + Minimum 3%</td>
-            </tr>
-            <tr>
-                <td>Tolerable Risk</td>
-                <td>Base Rate + Minimum 3.5%</td>
-            </tr>
-            <tr>
-                <td>High Risk</td>
-                <td>Base Rate + Minimum 4%</td>
-            </tr>
-            </tbody>
-        </table>
-    </nb-card-body>
-</nb-card>
 <p *ngFor="let alert of missingAlerts">
     <ngb-alert [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
 </p>
@@ -121,7 +5,128 @@
     <nb-card-header>
         <h4>Credit Risk Score</h4>
     </nb-card-header>
+
     <nb-card-body>
+
+        <nb-accordion>
+            <nb-accordion-item>
+                <nb-accordion-item-header>
+                    <em><mark><strong>click me to view CREDIT RISK GRADE SHEET</strong></mark></em>
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                    <table aria-describedby="scoreSummary"
+                           class="table table-sm table-bordered table-responsive-md text-center">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">S.N.</th>
+                            <th scope="col">Grading</th>
+                            <th scope="col">Short</th>
+                            <th scope="col">Remarks</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Excellent</td>
+                            <td>E</td>
+                            <td>
+                                80 and above
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Very Good</td>
+                            <td>VG</td>
+                            <td>65-79</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Good</td>
+                            <td>G</td>
+                            <td>55-64</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Acceptable</td>
+                            <td>S</td>
+                            <td>40-54</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Reject</td>
+                            <td>BL</td>
+                            <td><40</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <table aria-describedby="gradeSummary"
+                           class="table table-sm table-bordered table-responsive-md text-center">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Grading</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Excellent</td>
+                            <td>Approve</td>
+                        </tr>
+                        <tr>
+                            <td>Very Good</td>
+                            <td>Approve</td>
+                        </tr>
+                        <tr>
+                            <td>Good</td>
+                            <td>Approve with comments / remarks</td>
+                        </tr>
+                        <tr>
+                            <td>Acceptable</td>
+                            <td>Seek additional info if required / Approve with covenants</td>
+                        </tr>
+                        <tr>
+                            <td>Reject</td>
+                            <td>Not Eligible for New Loan</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <table aria-describedby="riskSummary"
+                           class="table table-sm table-bordered table-responsive-md text-center">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Risk Rating as per existing format</th>
+                            <th scope="col">Required Premium</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Low Risk</td>
+                            <td>Base Rate + Minimum 2%</td>
+                        </tr>
+                        <tr>
+                            <td>Average Risk</td>
+                            <td>Base Rate + Minimum 2.5%</td>
+                        </tr>
+                        <tr>
+                            <td>Moderate Risk</td>
+                            <td>Base Rate + Minimum 3%</td>
+                        </tr>
+                        <tr>
+                            <td>Tolerable Risk</td>
+                            <td>Base Rate + Minimum 3.5%</td>
+                        </tr>
+                        <tr>
+                            <td>High Risk</td>
+                            <td>Base Rate + Minimum 4%</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </nb-accordion-item-body>
+            </nb-accordion-item>
+        </nb-accordion>
+
         <div class="text-right m-4">
             <nb-checkbox [checked]="historicalDataPresent" (checkedChange)="toggleHistory($event)">
                 Availability of Historical Data
