@@ -29,6 +29,11 @@ import {CustomerInfoData} from '../../loan/model/customerInfoData';
   styleUrls: ['./credit-risk-grading-alpha.component.scss']
 })
 export class CreditRiskGradingAlphaComponent implements OnInit {
+
+  constructor(
+      private formBuilder: FormBuilder,
+      private el: ElementRef,
+  ) {}
   @Input() formData: CreditRiskGradingAlpha;
   @Input() financialData;
   @Input() security: Security;
@@ -112,10 +117,10 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   experienceMap: Map<string, number> = ExperienceMap.experienceMap;
   successionMap: Map<string, number> = SuccessionMap.successionMap;
 
-  constructor(
-      private formBuilder: FormBuilder,
-      private el: ElementRef,
-  ) {}
+  private static getTopOffset(controlEl: HTMLElement): number {
+    const labelOffset = 50;
+    return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+  }
 
   ngOnInit() {
     this.buildForm();
@@ -612,16 +617,11 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
         'form .ng-invalid'
     );
     window.scroll({
-      top: this.getTopOffset(firstInvalidControl),
+      top: CreditRiskGradingAlphaComponent.getTopOffset(firstInvalidControl),
       left: 0,
       behavior: 'smooth'
     });
     firstInvalidControl.focus();
-  }
-
-  private getTopOffset(controlEl: HTMLElement): number {
-    const labelOffset = 50;
-    return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
   }
 
   onSubmit() {

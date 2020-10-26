@@ -249,7 +249,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 0 : crgParsedData.totalScore;
             if (this.creditRiskGrade === 'Excellent' || this.creditRiskGrade === 'Very Good') {
                 this.creditGradeAlphaStatusBadge = 'badge badge-success';
-            } else if (this.creditRiskGrade === 'Not Eligible for New Loans') {
+            } else if (this.creditRiskGrade === 'Reject') {
                 this.creditGradeAlphaStatusBadge = 'badge badge-danger';
             } else {
                 this.creditGradeAlphaStatusBadge = 'badge badge-warning';
