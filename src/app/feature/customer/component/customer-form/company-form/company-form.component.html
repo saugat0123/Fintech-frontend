@@ -25,16 +25,16 @@
                            <div class="row">
                                <div class="col-md-4">
                                    <div class="form-group">
-                                       <label for="customerCode"><strong>Company Code</strong></label>
+                                       <label for="customerCode"><strong>Customer ID</strong></label>
                                        <input
                                            [ngClass]="{ 'is-invalid':submitted && form.customerCode.errors }"
                                            class="form-control rounded"
                                            formControlName="customerCode"
-                                           id="customerCode" placeholder="Enter company code"
+                                           id="customerCode" placeholder="Enter Customer ID"
                                            type="text"/>
                                        <div *ngIf="submitted && form.customerCode.errors"
                                             class="invalid-feedback">
-                                           <div *ngIf="form.customerCode.errors.required">Company Code is required</div>
+                                           <div *ngIf="form.customerCode.errors.required">Customer ID is required</div>
                                        </div>
                                    </div>
                                </div>
@@ -135,9 +135,6 @@
                                            <div *ngIf="form.email?.errors.email">
                                                invalid email!
                                            </div>
-                                           <div *ngIf="form.email?.errors.required">
-                                               Email is required
-                                           </div>
                                        </div>
                                    </div>
                                </div>
@@ -176,6 +173,9 @@
                                                 class="invalid-feedback">
                                                <div *ngIf="form.companyPAN.errors.required">
                                                    PAN is required.
+                                               </div>
+                                               <div *ngIf="form.companyPAN.errors.cannotContainSpace" >
+                                                   White space is invalid
                                                </div>
                                            </div>
                                        </div>
@@ -407,7 +407,13 @@
                                    <label for="registeredUnderAct"><strong>Registered Under Act</strong></label>
                                    <input id="registeredUnderAct" formControlName="registeredUnderAct"
                                           name="registeredUnderAct"
-                                          type="text" class="form-control" placeholder="Registered Under Act">
+                                          type="text" class="form-control" placeholder="Registered Under Act"
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.registeredUnderAct.errors }">
+                               </div>
+                               <div *ngIf="submitted && form.registeredUnderAct.errors" class="small text-danger">
+                                   <div *ngIf="form.registeredUnderAct.errors.required">
+                                       Registered Under Act is required
+                                   </div>
                                </div>
                            </div>
                            <div class="col-md-4">
@@ -504,20 +510,6 @@
                            </div>
                            <div class="col-md-4">
                                <div class="form-group">
-                                   <label for="paidUpCapital"><strong>Paid Up Capital</strong></label>
-                                   <input id="paidUpCapital" formControlName="paidUpCapital" name="paidUpCapital" type="number"
-                                          class="form-control" placeholder="Paid Up Capital"
-                                          [ngClass]="{ 'is-invalid': (submitted) && form.paidUpCapital.errors }">
-                                   <div *ngIf="(submitted) && form.paidUpCapital.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="form.paidUpCapital.errors.required">
-                                           Paid Up Capital Number is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-md-4">
-                               <div class="form-group">
                                    <label for="issuedCapital"><strong>Issued Capital</strong></label>
                                    <input id="issuedCapital" formControlName="issuedCapital" name="issuedCapital" type="number"
                                           class="form-control" placeholder="Issued Capital"
@@ -530,54 +522,68 @@
                                    </div>
                                </div>
                            </div>
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label for="paidUpCapital"><strong>Paid Up Capital</strong></label>
+                                   <input id="paidUpCapital" formControlName="paidUpCapital" name="paidUpCapital" type="number"
+                                          class="form-control" placeholder="Paid Up Capital"
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.paidUpCapital.errors }">
+                                   <div *ngIf="(submitted) && form.paidUpCapital.invalid"
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.paidUpCapital.errors.required">
+                                           Paid Up Capital Number is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
                        </div>
                        <!-- END ROW -->
                        <!-- START ROW -->
-                       <div class="row">
-                           <div class="col-md-4">
-                               <div class="form-group">
-                                   <label for="totalCapital"><strong>Total Capital</strong></label>
-                                   <input id="totalCapital" formControlName="totalCapital" name="totalCapital" type="number"
-                                          class="form-control" placeholder="Total Capital"
-                                          [ngClass]="{ 'is-invalid': (submitted) && form.totalCapital.errors }">
-                                   <div *ngIf="(submitted) && form.totalCapital.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="form.totalCapital.errors.required">
-                                           Total Capital is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-md-4">
-                               <div class="form-group">
-                                   <label for="fixedCapital"><strong>Fixed Capital</strong></label>
-                                   <input id="fixedCapital" formControlName="fixedCapital" name="fixedCapital" type="number"
-                                          class="form-control" placeholder="Fixed Capital"
-                                          [ngClass]="{ 'is-invalid': (submitted) && form.fixedCapital.errors }">
-                                   <div *ngIf="(submitted) && form.fixedCapital.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="form.fixedCapital.errors.required">
-                                           Fixed Capital is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-md-4">
-                               <div class="form-group">
-                                   <label for="workingCapital"><strong>Working Capital</strong></label>
-                                   <input id="workingCapital" formControlName="workingCapital" name="workingCapital"
-                                          type="number"
-                                          class="form-control" placeholder="Working Capital"
-                                          [ngClass]="{ 'is-invalid': (submitted) && form.workingCapital.errors }">
-                                   <div *ngIf="(submitted) && form.workingCapital.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="form.workingCapital.errors.required">
-                                           Working Capital is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
+<!--                       <div class="row">-->
+<!--                           <div class="col-md-4">-->
+<!--                               <div class="form-group">-->
+<!--                                   <label for="totalCapital"><strong>Total Capital</strong></label>-->
+<!--                                   <input id="totalCapital" formControlName="totalCapital" name="totalCapital" type="number"-->
+<!--                                          class="form-control" placeholder="Total Capital"-->
+<!--                                          [ngClass]="{ 'is-invalid': (submitted) && form.totalCapital.errors }">-->
+<!--                                   <div *ngIf="(submitted) && form.totalCapital.invalid"-->
+<!--                                        class="invalid-feedback">-->
+<!--                                       <div *ngIf="form.totalCapital.errors.required">-->
+<!--                                           Total Capital is required-->
+<!--                                       </div>-->
+<!--                                   </div>-->
+<!--                               </div>-->
+<!--                           </div>-->
+<!--                           <div class="col-md-4">-->
+<!--                               <div class="form-group">-->
+<!--                                   <label for="fixedCapital"><strong>Fixed Capital</strong></label>-->
+<!--                                   <input id="fixedCapital" formControlName="fixedCapital" name="fixedCapital" type="number"-->
+<!--                                          class="form-control" placeholder="Fixed Capital"-->
+<!--                                          [ngClass]="{ 'is-invalid': (submitted) && form.fixedCapital.errors }">-->
+<!--                                   <div *ngIf="(submitted) && form.fixedCapital.invalid"-->
+<!--                                        class="invalid-feedback">-->
+<!--                                       <div *ngIf="form.fixedCapital.errors.required">-->
+<!--                                           Fixed Capital is required-->
+<!--                                       </div>-->
+<!--                                   </div>-->
+<!--                               </div>-->
+<!--                           </div>-->
+<!--                           <div class="col-md-4">-->
+<!--                               <div class="form-group">-->
+<!--                                   <label for="workingCapital"><strong>Working Capital</strong></label>-->
+<!--                                   <input id="workingCapital" formControlName="workingCapital" name="workingCapital"-->
+<!--                                          type="number"-->
+<!--                                          class="form-control" placeholder="Working Capital"-->
+<!--                                          [ngClass]="{ 'is-invalid': (submitted) && form.workingCapital.errors }">-->
+<!--                                   <div *ngIf="(submitted) && form.workingCapital.invalid"-->
+<!--                                        class="invalid-feedback">-->
+<!--                                       <div *ngIf="form.workingCapital.errors.required">-->
+<!--                                           Working Capital is required-->
+<!--                                       </div>-->
+<!--                                   </div>-->
+<!--                               </div>-->
+<!--                           </div>-->
+<!--                       </div>-->
                        <!-- END ROW -->
                        <!-- START ROW -->
                        <div class="row">
@@ -755,14 +761,13 @@
                                <div class="form-group">
                                    <label for="sisterConcern"><strong></strong></label>
                                    <input id="sisterConcern" formControlName="sisterConcern" name="sisterConcern" type="text"
-                                             class="form-control" placeholder="Sister Concern"
-                                             [ngClass]="{ 'is-invalid': (submitted) && form.sisterConcern.errors }"/>
-                                   <div *ngIf="(submitted) && form.sisterConcern.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="form.sisterConcern.errors.required">
-                                           Sister Concern is required
-                                       </div>
-                                   </div>
+                                             class="form-control" placeholder="Sister Concern"/>
+<!--                                   <div *ngIf="(submitted) && form.sisterConcern.invalid"-->
+<!--                                        class="invalid-feedback">-->
+<!--                                       <div *ngIf="form.sisterConcern.errors.required">-->
+<!--                                           Sister Concern is required-->
+<!--                                       </div>-->
+<!--                                   </div>-->
                                </div>
                            </div>
                        </div>
@@ -1199,8 +1204,8 @@
                                                    [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialAvailability.errors }"
                                                    id="rawMaterialAvailability"
                                                    name="rawMaterialAvailability">
-                                       <nb-radio value="local">Local</nb-radio>
-                                       <nb-radio value="imported">Imported</nb-radio>
+                                       <nb-radio value="Easily available">Easily available</nb-radio>
+                                       <nb-radio value="Difficult">Difficult</nb-radio>
                                    </nb-radio-group><br>
                                    <div *ngIf="submitted && form.rawMaterialAvailability?.errors "
                                         class="small text-danger">
@@ -1269,7 +1274,7 @@
                                        id="conductOfAccount"
                                        placeholder="Conduct of Account"></ckeditor>
                                    <div *ngIf="(submitted) && form.conductOfAccount.invalid"
-                                        class="invalid-feedback">
+                                        class="small text-danger">
                                        <div *ngIf="form.conductOfAccount.errors.required">
                                            Conduct Of Account is required
                                        </div>
@@ -1294,7 +1299,7 @@
                                        id="businessGiven"
                                        placeholder="Conduct of Account"></ckeditor>
                                    <div *ngIf="(submitted) && form.businessGiven.invalid"
-                                        class="invalid-feedback">
+                                        class="small text-danger">
                                        <div *ngIf="form.businessGiven.errors.required">
                                            Business given is required
                                        </div>
@@ -1320,12 +1325,18 @@
                                <label><strong>Regulatory Concern</strong></label>
                                <ng-select [multiple]="false"
                                           formControlName="regulatoryConcern"
-                                          placeholder="Select regulatory concern here">
+                                          placeholder="Select regulatory concern here"
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.regulatoryConcern.errors }">
                                    <ng-option *ngFor="let regConcern of regulatoryConcernList"
                                               [value]="regConcern?.value">
                                        {{regConcern?.value}}
                                    </ng-option>
                                </ng-select>
+                               <div *ngIf="(submitted) &&  form.regulatoryConcern.errors" class="small text-danger">
+                                   <div *ngIf="form.regulatoryConcern.errors.required">
+                                       Regulatory Concern is required
+                                   </div>
+                               </div>
                            </div>
                            <div class="col-md-3">
                                <label><strong>Supplier</strong></label>
@@ -1337,6 +1348,11 @@
                                        {{supplier?.value}}
                                    </ng-option>
                                </ng-select>
+                               <div *ngIf="(submitted) &&  form.supplier.errors" class="small text-danger">
+                                   <div *ngIf="form.supplier.errors.required">
+                                       Supplier is required
+                                   </div>
+                               </div>
                            </div>
                            <div class="col-md-3">
                                <label><strong>Buyer</strong></label>
@@ -1348,6 +1364,12 @@
                                        {{buyer?.value}}
                                    </ng-option>
                                </ng-select>
+                               <div *ngIf="(submitted) &&  form.buyer.errors" class="small text-danger">
+                                   <div *ngIf="form.buyer.errors.required">
+                                       Buyer is required
+                                   </div>
+                               </div>
+
                            </div>
                        </div>
                        <hr>
@@ -1367,6 +1389,11 @@
                                            {{industryGrowth?.value}}
                                        </ng-option>
                                    </ng-select>
+                                   <div *ngIf="(submitted) &&  form.industryGrowth.errors" class="small text-danger">
+                                       <div *ngIf="form.industryGrowth.errors.required">
+                                           Industry Growth is required
+                                       </div>
+                                   </div>
                                </div>
                            </div>
                            <div class="col-md-3">
@@ -1384,6 +1411,11 @@
                                            {{marketComp?.value}}
                                        </ng-option>
                                    </ng-select>
+                                   <div *ngIf="(submitted) &&  form.marketCompetition.errors" class="small text-danger">
+                                       <div *ngIf="form.marketCompetition.errors.required">
+                                           Market Competition Growth is required
+                                       </div>
+                                   </div>
                                </div>
                            </div>
                            <div class="col-md-3">
@@ -1401,6 +1433,11 @@
                                            {{experience?.value}}
                                        </ng-option>
                                    </ng-select>
+                                   <div *ngIf="(submitted) &&  form.experience.errors" class="small text-danger">
+                                       <div *ngIf="form.experience.errors.required">
+                                           Experience Growth is required
+                                       </div>
+                                   </div>
                                </div>
                            </div>
                            <hr>

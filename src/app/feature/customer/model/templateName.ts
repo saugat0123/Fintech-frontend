@@ -1,3 +1,5 @@
+import {CreditChecklistGeneral} from '../../loan/model/creditChecklistGeneral';
+
 export class TemplateName {
   static SITE_VISIT = 'SiteVisit';
   static FINANCIAL = 'Financial';
@@ -12,4 +14,5 @@ export class TemplateName {
   static CRG = 'Crg';
   static CICL = 'CICL';
   static INCOME_FROM_ACCOUNT = 'Income From Account';
+  static CREDIT_CHECKlIST = 'Credit Checklist';
 }

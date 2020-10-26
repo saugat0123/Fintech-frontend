@@ -87,16 +87,16 @@ export class EditManagementTeamComponent implements OnInit {
 
   createManagementArray() {
       (this.managementFormGroup.get('managementTeams') as FormArray).push(this.formBuilder.group({
-        name: [undefined, Validators.required],
-        designation: [undefined, Validators.required]
+        name: [undefined],
+        designation: [undefined]
       }));
   }
   setManagement(currentData) {
     const managementData = (this.managementFormGroup.get('managementTeams') as FormArray);
     currentData.forEach((singleData, index) => {
       managementData.push(this.formBuilder.group({
-        name: [ObjectUtil.setUndefinedIfNull(singleData.name), Validators.required],
-        designation: [ObjectUtil.setUndefinedIfNull(singleData.designation), Validators.required],
+        name: [ObjectUtil.setUndefinedIfNull(singleData.name)],
+        designation: [ObjectUtil.setUndefinedIfNull(singleData.designation)],
         id: [ObjectUtil.setUndefinedIfNull(singleData.id)],
         version: [ObjectUtil.setUndefinedIfNull(singleData.version)],
       }));
@@ -115,8 +115,8 @@ export class EditManagementTeamComponent implements OnInit {
     }
     (this.managementFormGroup.get('managementTeams') as FormArray).push(
         this.formBuilder.group({
-          name: [undefined, Validators.required],
-          designation: [undefined, Validators.required]
+          name: [undefined],
+          designation: [undefined]
         })
     );
   }

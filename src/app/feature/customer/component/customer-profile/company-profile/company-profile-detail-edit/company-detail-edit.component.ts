@@ -74,7 +74,7 @@ export class CompanyDetailEditComponent implements OnInit {
 
       registeredUnderAct: [(ObjectUtil.isEmpty(this.companyInfo)
           || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
-          this.companyInfo.legalStatus.registeredUnderAct],
+          this.companyInfo.legalStatus.registeredUnderAct, Validators.required],
 
       registrationDate: [(ObjectUtil.isEmpty(this.companyInfo)
           || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
@@ -98,7 +98,7 @@ export class CompanyDetailEditComponent implements OnInit {
       // capital
       authorizedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
           || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
-          this.companyInfo.capital.authorizedCapital, Validators.required],
+          this.companyInfo.capital.authorizedCapital],
 
       paidUpCapital: [(ObjectUtil.isEmpty(this.companyInfo)
           || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
@@ -106,23 +106,23 @@ export class CompanyDetailEditComponent implements OnInit {
 
       issuedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
           || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
-          this.companyInfo.capital.issuedCapital, Validators.required],
+          this.companyInfo.capital.issuedCapital],
 
-      totalCapital: [(ObjectUtil.isEmpty(this.companyInfo)
-          || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
-          this.companyInfo.capital.totalCapital, Validators.required],
-
-      fixedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
-          || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
-          this.companyInfo.capital.fixedCapital, Validators.required],
-
-      workingCapital: [(ObjectUtil.isEmpty(this.companyInfo)
-          || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
-          this.companyInfo.capital.workingCapital, Validators.required],
+      // totalCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+      //     || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+      //     this.companyInfo.capital.totalCapital, Validators.required],
+      //
+      // fixedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+      //     || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+      //     this.companyInfo.capital.fixedCapital, Validators.required],
+      //
+      // workingCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+      //     || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+      //     this.companyInfo.capital.workingCapital, Validators.required],
 
       numberOfShareholder: [(ObjectUtil.isEmpty(this.companyInfo)
           || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
-          this.companyInfo.capital.numberOfShareholder, Validators.required],
+          this.companyInfo.capital.numberOfShareholder],
 
       // contact person
       contactPersons: this.formBuilder.array([
@@ -137,8 +137,7 @@ export class CompanyDetailEditComponent implements OnInit {
       houseNumber: [(ObjectUtil.isEmpty(this.companyInfo)
           || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.houseNumber],
       streetName: [(ObjectUtil.isEmpty(this.companyInfo)
-          || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.streetName,
-        Validators.required],
+          || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.streetName],
       address: [(ObjectUtil.isEmpty(this.companyInfo)
           || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.address,
         Validators.required],
@@ -169,9 +168,9 @@ export class CompanyDetailEditComponent implements OnInit {
     this.companyInfo.capital.authorizedCapital = this.companyInfoFormGroup.get('authorizedCapital').value;
     this.companyInfo.capital.paidUpCapital = this.companyInfoFormGroup.get('paidUpCapital').value;
     this.companyInfo.capital.issuedCapital = this.companyInfoFormGroup.get('issuedCapital').value;
-    this.companyInfo.capital.totalCapital = this.companyInfoFormGroup.get('totalCapital').value;
-    this.companyInfo.capital.fixedCapital = this.companyInfoFormGroup.get('fixedCapital').value;
-    this.companyInfo.capital.workingCapital = this.companyInfoFormGroup.get('workingCapital').value;
+    // this.companyInfo.capital.totalCapital = this.companyInfoFormGroup.get('totalCapital').value;
+    // this.companyInfo.capital.fixedCapital = this.companyInfoFormGroup.get('fixedCapital').value;
+    // this.companyInfo.capital.workingCapital = this.companyInfoFormGroup.get('workingCapital').value;
     this.companyInfo.capital.numberOfShareholder = this.companyInfoFormGroup.get('numberOfShareholder').value;
 
     // contactPerson
@@ -199,7 +198,7 @@ export class CompanyDetailEditComponent implements OnInit {
   contactPersonFormGroup(): FormGroup {
     return this.formBuilder.group({
       contactName: [undefined, Validators.required],
-      contactEmail: [undefined, Validators.required],
+      contactEmail: [undefined],
       contactNumber: [undefined, Validators.required],
       functionalPosition: [undefined, Validators.required],
     });

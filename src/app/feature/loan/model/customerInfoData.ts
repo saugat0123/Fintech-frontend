@@ -13,6 +13,7 @@ import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
 import {Cicl, CiclArray} from '../../admin/modal/cicl';
 import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../admin/modal/NetTradingAssets';
+import {CreditChecklistGeneral} from './creditChecklistGeneral';
 
 export class CustomerInfoData {
   id: number;
@@ -45,4 +46,5 @@ export class CustomerInfoData {
   incomeFromAccount: IncomeFromAccount;
   netTradingAssets: NetTradingAssets;
   bankingRelationship: string;
+  creditChecklist: CreditChecklistGeneral;
 }
