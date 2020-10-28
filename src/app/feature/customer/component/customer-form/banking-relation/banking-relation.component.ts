@@ -19,6 +19,7 @@ export class BankingRelationComponent implements OnInit, OnChanges {
   bankingRelationshipList = BankingRelationship.enumObject();
   accountTurnoverList = AccountTurnover.enumObject();
   repaymentHistoryList = RepaymentHistory.enumObject();
+  submitted = false;
 
   constructor(private formBuilder: FormBuilder) {
   }
@@ -42,6 +43,8 @@ export class BankingRelationComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
+    console.log(this.bankingRelationForm.controls);
+    this.submitted = true;
     this.bankingRelation = new RelationshipWithBank();
     this.bankingRelation.bankingRelationship = this.bankingRelationForm.get('bankingRelationship').value;
     this.bankingRelation.accountTurnover = this.bankingRelationForm.get('accountTurnover').value;
@@ -52,6 +55,10 @@ export class BankingRelationComponent implements OnInit, OnChanges {
     if (!ObjectUtil.isEmpty(changes.formValue.currentValue)) {
       this.bankingRelationForm.patchValue(changes.formValue.currentValue);
     }
+  }
+
+  get formControl() {
+    return this.bankingRelationForm.controls;
   }
 
 }

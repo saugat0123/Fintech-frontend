@@ -3,45 +3,7 @@
 </div>
 <div [formGroup]="marketScenarioForm">
   <div class="row">
-    <div class="col-md-4">
-      <div class="form-group">
-        <label for="keySupplier"><strong>Key Suppliers</strong></label>
-        <input
-            [ngClass]="{ 'is-invalid':submitted && form.keySupplier?.errors }"
-            class="form-control rounded"
-            formControlName="keySupplier"
-            id="keySupplier"
-            placeholder="Key Supplier"
-            type="text"/>
-        <div *ngIf="submitted && form.keySupplier?.errors "
-             class="invalid-feedback">
-          <div *ngIf="form.keySupplier?.errors.required">
-            Key Suppliers is required
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <label for="keySupplier"><strong>Key Buyers</strong></label>
-        <input
-            [ngClass]="{ 'is-invalid':submitted && form.KeyBuyers?.errors }"
-            class="form-control rounded"
-            formControlName="KeyBuyers"
-            id="KeyBuyers"
-            placeholder="Key Buyers"
-            type="text"/>
-        <div *ngIf="submitted && form.KeyBuyers?.errors "
-             class="invalid-feedback">
-          <div *ngIf="form.KeyBuyers?.errors.required">
-            Key Buyers is required
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="col-md-4">
+    <div class="col-md-12">
       <div class="form-group">
         <label for="marketDemandService"><strong>Market demand of product/service</strong></label> <br>
         <nb-radio-group class="close d-inline-flex float-left" formControlName="marketDemandService" name="marketDemandService" id="marketDemandService">
@@ -57,6 +19,45 @@
         </div>
       </div>
     </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="keySupplier"><strong>Key Suppliers</strong></label>
+        <textarea rows="5"
+            [ngClass]="{ 'is-invalid':submitted && form.keySupplier?.errors }"
+            class="form-control rounded"
+            formControlName="keySupplier"
+            id="keySupplier"
+            placeholder="Key Supplier"
+            type="text"></textarea>
+        <div *ngIf="submitted && form.keySupplier?.errors "
+             class="invalid-feedback">
+          <div *ngIf="form.keySupplier?.errors.required">
+            Key Suppliers is required
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="keySupplier"><strong>Key Buyers</strong></label>
+        <textarea rows="5"
+            [ngClass]="{ 'is-invalid':submitted && form.KeyBuyers?.errors }"
+            class="form-control rounded"
+            formControlName="KeyBuyers"
+            id="KeyBuyers"
+            placeholder="Key Buyers"
+            type="text"></textarea>
+        <div *ngIf="submitted && form.KeyBuyers?.errors "
+             class="invalid-feedback">
+          <div *ngIf="form.KeyBuyers?.errors.required">
+            Key Buyers is required
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 
     <div class="col-md-6">
       <div class="form-group">

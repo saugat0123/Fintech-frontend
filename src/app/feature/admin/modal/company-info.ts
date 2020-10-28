@@ -35,6 +35,7 @@ export class CompanyInfo {
     experience: string;
     succession: string;
     businessAndIndustry: string;
+    withinLimitRemarks: string;
 
     companyJsonData: string;
 }

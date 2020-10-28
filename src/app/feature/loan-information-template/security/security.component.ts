@@ -14,6 +14,8 @@ import {ShareSecurity} from '../../admin/modal/shareSecurity';
 import {SecurityGuarantee} from '../model/security-guarantee';
 import {LandAndBuildingLocation} from '../model/land-and-building-location';
 import {VehicleSecurityCoverage} from '../model/vehicle-security-coverage';
+import {CustomerType} from '../../customer/model/customerType';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-security' ,
@@ -46,6 +48,7 @@ export class SecurityComponent implements OnInit {
     submitted: false;
     guarantorsDetails: Guarantor = new Guarantor();
     shareSecurityData: ShareSecurity = new ShareSecurity();
+    isBusinessLoan = true;
 
     guaranteeList = SecurityGuarantee.enumObject();
     locationList = LandAndBuildingLocation.enumObject();
@@ -56,9 +59,15 @@ export class SecurityComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder ,
         private addressServices: AddressService ,
+        private activatedRoute: ActivatedRoute
     ) {}
 
     ngOnInit() {
+        this.activatedRoute.queryParams.subscribe( queryParams => {
+            if (CustomerType.INDIVIDUAL === CustomerType[queryParams.customerType]) {
+                this.isBusinessLoan = false;
+            }
+        });
         this.buildForm();
         this.buildCrgSecurityForm();
         this.getProvince();

@@ -24,6 +24,7 @@ import {CreditRiskGradingGamma} from '../../../admin/modal/creditRiskGradingGamm
 import {CiclArray} from '../../../admin/modal/cicl';
 import {IncomeFromAccount} from '../../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
+import {CreditChecklistGeneral} from '../../../loan/model/creditChecklistGeneral';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -70,6 +71,8 @@ export class CustomerLoanInformationComponent implements OnInit {
   private itemNetTradingAssets: NbAccordionItemComponent;
   @ViewChild('ciclComponent', {static: false})
   private itemCicl: NbAccordionItemComponent;
+  @ViewChild('itemloanChecklist', {static: false})
+  private itemloanChecklist: NbAccordionItemComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
   calendarType: CalendarType = CalendarType.AD;
   private siteVisit: SiteVisit;
@@ -84,6 +87,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   public ciclResponse: CiclArray;
   public incomeFromAccountDataResponse: IncomeFromAccount;
   public netTradingAssets: NetTradingAssets;
+  public creditChecklistGeneral: CreditChecklistGeneral;
 
 
   constructor(
@@ -125,6 +129,10 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.netTradingAssets)) {
       this.netTradingAssets = this.customerInfo.netTradingAssets;
+    }
+
+    if (!ObjectUtil.isEmpty(this.customerInfo.creditChecklist)) {
+      this.creditChecklistGeneral = this.customerInfo.creditChecklist;
     }
   }
 
@@ -322,6 +330,22 @@ export class CustomerLoanInformationComponent implements OnInit {
           console.error(error);
           this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Net Trading Assets)!'));
         });
+  }
+
+  saveCreditChecklist(data: CreditChecklistGeneral) {
+    if (ObjectUtil.isEmpty(this.creditChecklistGeneral)) {
+      this.creditChecklistGeneral = new CreditChecklistGeneral();
+    }
+    this.creditChecklistGeneral = data;
+    this.customerInfoService.saveLoanInfo(this.creditChecklistGeneral, this.customerInfoId, TemplateName.CREDIT_CHECKlIST)
+    .subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Checklist!'));
+      this.itemloanChecklist.close();
+      this.triggerCustomerRefresh.emit(true);
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Credit Checklist!'));
+    });
   }
 
 }

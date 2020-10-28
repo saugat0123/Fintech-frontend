@@ -1,9 +1,29 @@
 import {CustomerInfoData} from './customerInfoData';
 import {LoanDataHolder} from './loanData';
+import {Proposal} from "../../admin/modal/proposal";
+import {Security} from "./security";
+import {LoanConfig} from "../../admin/modal/loan-config";
+import {DocStatus} from "./docStatus";
 
 export class CustomerLoanGroupDto {
-  totalApprovedLimit: number;
+
+  customerName: string;
+
+  loanHolderId: number;
+
   totalPendingLimit: number;
-  loanHolder: CustomerInfoData;
-  customerLoans: LoanDataHolder;
+
+  associateId: number;
+
+  totalApprovedLimit: number;
+
+  proposal: Proposal;
+
+  security: Security;
+
+  customerLoanId: number;
+
+  loanConfig: LoanConfig;
+
+  docStatus: DocStatus;
 }
