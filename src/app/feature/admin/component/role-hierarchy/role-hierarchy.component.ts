@@ -6,6 +6,7 @@ import {RoleHierarchyService} from './role-hierarchy.service';
 import {RoleService} from '../role-permission/role.service';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-role-hierarchy',
@@ -23,7 +24,7 @@ export class RoleHierarchyComponent implements OnInit {
     tempRoleOrders: RoleOrders[];
     length = false;
     title = 'Role Hierarchy';
-
+    isOfferLetter = LocalStorageUtil.getStorage().productUtil.OFFER_LETTER;
     constructor(
         private service: RoleHierarchyService,
         private roleService: RoleService,

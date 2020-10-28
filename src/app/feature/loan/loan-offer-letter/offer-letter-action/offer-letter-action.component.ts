@@ -18,6 +18,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {CustomerOfferLetterService} from '../../service/customer-offer-letter.service';
 import {CustomerOfferLetter} from '../../model/customer-offer-letter';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {ApprovalRoleHierarchyService} from '../../approval/approval-role-hierarchy.service';
 
 @Component({
     selector: 'app-offer-letter-action',
@@ -35,7 +36,7 @@ export class OfferLetterActionComponent implements OnInit {
     formAction: FormGroup;
 
     submitted = false;
-    userList;
+    userList = [];
     errorMsg;
     errorMsgStatus = false;
     currentUserId;
@@ -51,6 +52,8 @@ export class OfferLetterActionComponent implements OnInit {
     falseCredential = false;
     falseCredentialMessage = '';
     customerOfferLetter: CustomerOfferLetter;
+    sendForwardBackwardList = [];
+    roleId;
 
     constructor(
         private router: ActivatedRoute,
@@ -66,12 +69,14 @@ export class OfferLetterActionComponent implements OnInit {
         private http: HttpClient,
         private socketService: SocketService,
         private loanFormService: LoanFormService,
-        private customerOfferLetterService: CustomerOfferLetterService
+        private customerOfferLetterService: CustomerOfferLetterService,
+        private approvalRoleHierarchyService: ApprovalRoleHierarchyService,
     ) {
     }
 
     ngOnInit() {
         this.currentUserId = LocalStorageUtil.getStorage().userId;
+        this.roleId = LocalStorageUtil.getStorage().roleId;
         this.router.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.allId = {
@@ -109,6 +114,9 @@ export class OfferLetterActionComponent implements OnInit {
                     this.currentUserRoleType = true;
                     this.isForwardDisabled = false;
                     this.isApprovedDisabled = true;
+                } else {
+                    this.isForwardDisabled = false;
+                    this.isApprovedDisabled = false;
                 }
 
                 if (roleName === 'CAD') {
@@ -121,28 +129,6 @@ export class OfferLetterActionComponent implements OnInit {
                     this.isBackwardDisabled = true;
                 }
             });
-
-        this.formAction = this.formBuilder.group(
-            {
-                toUser: [undefined],
-                customerLoanId: [undefined],
-                docAction: [undefined],
-                comment: [undefined, Validators.required],
-                documentStatus: [undefined]
-            }
-        );
-
-        this.userService.getUserListByRoleCad().subscribe((res: any) => {
-            this.userList = res.detail;
-            if (this.userList.length === 1) {
-                this.formAction.patchValue({
-                        toUser: this.userList[0]
-                    }
-                );
-            }
-        });
-
-
     }
 
 
@@ -153,15 +139,10 @@ export class OfferLetterActionComponent implements OnInit {
         if (this.formAction.invalid) {
             return;
         }
-        if (this.formAction.get('docAction').value === 'FORWARD'
-            && this.formAction.get('toUser').value === null) {
-            this.errorMsg = 'User is required';
-            this.errorMsgStatus = true;
 
-        } else {
-            this.onClose();
-            this.modalService.open(templateLogin);
-        }
+        this.onClose();
+        this.modalService.open(templateLogin);
+
 
     }
 
@@ -192,13 +173,11 @@ export class OfferLetterActionComponent implements OnInit {
     }
 
     postAction() {
-
         this.customerOfferLetterService.postOfferLetterAction(this.formAction.value).subscribe((response: any) => {
             this.onClose();
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
-
-            this.route.navigate(['/home/loan/loan-offer-letter']);
+            this.route.navigate(['home/loan/loan-offer-letter']);
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
 
@@ -207,21 +186,65 @@ export class OfferLetterActionComponent implements OnInit {
 
     approvedForwardBackward(template, val) {
         this.popUpTitle = val;
-        this.formAction.patchValue({
-                customerLoanId: this.id,
-                docAction: val,
-                documentStatus: val === 'APPROVED' ? DocStatus.APPROVED : DocStatus.PENDING,
-                comment: null
-            }
-        );
+        this.userList = [];
+        if (this.popUpTitle === 'FORWARD') {
+            this.formAction = this.formBuilder.group(
+                {
+                    toRole: [undefined, Validators.required],
+                    toUser: [undefined, Validators.required],
+                    customerLoanId: [this.id],
+                    docAction: [val],
+                    comment: [undefined, Validators.required],
+                    documentStatus: [val === 'APPROVED' ? DocStatus.APPROVED : DocStatus.PENDING]
+                }
+            );
+            const approvalType = 'CAD';
+            const refId = 0;
 
-        if (this.userList.length === 0 && val === 'FORWARD') {
-            this.toastService.show(new Alert(AlertType.ERROR, 'No CAD User Present. Please Contact Admin'));
+            this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, refId)
+                .subscribe((response: any) => {
+                    this.sendForwardBackwardList = [];
+                    this.sendForwardBackwardList = response.detail;
+                    if (this.sendForwardBackwardList.length !== 0) {
+                        this.getUserList(this.sendForwardBackwardList[0].role);
+                    }
+                });
+
         } else {
-            this.modalService.open(template);
+            this.formAction = this.formBuilder.group(
+                {
+                    customerLoanId: [this.id],
+                    docAction: [val],
+                    comment: [undefined, Validators.required],
+                    documentStatus: [val === 'APPROVED' ? DocStatus.APPROVED : DocStatus.PENDING]
+                }
+            );
+
         }
+        this.modalService.open(template);
 
 
+    }
+
+    public getUserList(role) {
+        this.userService.getUserListByRoleId(role.id).subscribe((response: any) => {
+            this.userList = response.detail;
+            if (this.userList.length === 1) {
+                this.formAction.patchValue({
+                    toUser: this.userList[0],
+                    toRole: role
+                });
+            } else if (this.userList.length > 1) {
+                this.formAction.patchValue({
+                    toUser: this.userList[0],
+                    toRole: role
+                });
+                this.formAction.get('toUser').setValidators(Validators.required);
+                this.formAction.updateValueAndValidity();
+            } else {
+                this.toastService.show(new Alert(AlertType.ERROR, 'NO User Present in this Role'));
+            }
+        });
     }
 
 
