@@ -38,16 +38,16 @@ export class FeatureComponent implements OnInit {
                     };
                     this.menus.push(tempMenu);
                 }
-                if ((LocalStorageUtil.getStorage().roleType === RoleType[RoleType.MAKER]
-                    || ((LocalStorageUtil.getStorage().roleName === 'CAD'))) && LocalStorageUtil.getStorage().productUtil.OFFER_LETTER) {
-                    const temp1Menu = {
-                        id: null,
-                        title: 'Offer Letter',
-                        link: '/home/loan/loan-offer-letter',
-                        icon: 'arrowhead-down-outline'
-                    };
-                    this.menus.push(temp1Menu);
-                }
+                // if ((LocalStorageUtil.getStorage().roleType === RoleType[RoleType.MAKER]
+                //     || ((LocalStorageUtil.getStorage().roleName === 'CAD'))) && LocalStorageUtil.getStorage().productUtil.OFFER_LETTER) {
+                //     const temp1Menu = {
+                //         id: null,
+                //         title: 'Offer Letter',
+                //         link: '/home/loan/loan-offer-letter',
+                //         icon: 'arrowhead-down-outline'
+                //     };
+                //     this.menus.push(temp1Menu);
+                // }
             },
             (error) => {
                 console.log(error);
