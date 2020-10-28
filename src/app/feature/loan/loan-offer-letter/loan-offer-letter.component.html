@@ -1,23 +1,26 @@
 <nb-card>
     <nb-card-header>
         <div class="col-md-12">
-            <div class="col-md-6">
-                <button
-                        nbButton shape="rectangle" status="primary"
-                        (click)="isFilterCollapsed = !isFilterCollapsed"
-                        [attr.aria-expanded]="!isFilterCollapsed"
-                        aria-controls="searchModel">
-                    <i class="fa fa-filter"> Filter</i>
-                </button>
+            <div class="row">
+                <div class="col-md-6">
+                    <button
+                            nbButton shape="rectangle" status="primary"
+                            (click)="isFilterCollapsed = !isFilterCollapsed"
+                            [attr.aria-expanded]="!isFilterCollapsed"
+                            aria-controls="searchModel" size="small">
+                        <i class="fa fa-filter"> Filter</i>
+                    </button>
+                </div>
+
+
+                <div class="col-md-6 d-flex justify-content-end">
+
+                    <button nbButton outline status="info"
+                            (click)="getCsv()" size="small">
+                        <i class="fa fa-download" aria-hidden="true"></i></button>
+
+                </div>
             </div>
-
-        </div>
-        <div class="col-md-12 d-flex justify-content-end">
-
-            <button nbButton outline status="info"
-                    (click)="getCsv()">
-                <i class="fa fa-download" aria-hidden="true"></i></button>
-
         </div>
         <div id="searchModel" class="col-md-12" [ngbCollapse]="isFilterCollapsed">
             <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
@@ -108,7 +111,7 @@
 
                 class="cursor">
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.branch?.name}}</td>
-                <td (click)="onClick(model.loan.id,model.id)">{{model?.customerInfo?.customerName}}</td>
+                <td (click)="onClick(model.loan.id,model.id)">{{model?.loanHolder?.name}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.loan?.name}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">
                     <span
@@ -142,9 +145,9 @@
                 </td>
 
                 <td>
-                  <button (click)="generateOfferLetter(model)" nbButton size="small"
-                          status="success">Generate
-                  </button>
+                    <button (click)="generateOfferLetter(model)" nbButton size="small"
+                            status="success">Generate
+                    </button>
                 </td>
                 <td>
                     {{model.uploadedOfferLetterStat}} / {{model.offerLetterStat}}

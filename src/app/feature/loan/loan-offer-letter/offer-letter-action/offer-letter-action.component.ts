@@ -177,6 +177,7 @@ export class OfferLetterActionComponent implements OnInit {
             this.onClose();
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
+            this.route.navigate(['home/loan/loan-offer-letter']);
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
 
