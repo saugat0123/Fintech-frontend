@@ -225,13 +225,13 @@
                                                   *ngIf="calendarType === 'AD'"
                                                   [ngClass]="{'is-invalid':submitted &&  form.relationshipSince.errors}"
                                                   formControlName="relationshipSince"
-                                                  [nbDatepicker]="relationship"
+                                                  [nbDatepicker]="relationshipSince"
                                                   class="form-control"
                                                   id="relationshipSince"
                                                   placeholder="Relationship Since"/>
-                                       <app-calendar [ePreDate]="additionalInfoForm.relationship.value" *ngIf="calendarType === 'BS'"
-                                                     (messageToEmit)="additionalInfoForm.get('relationship').patchValue($event?.eDate)"></app-calendar>
-                                       <nb-datepicker #relationship></nb-datepicker>
+                                       <app-calendar [ePreDate]="form.relationshipSince?.value" *ngIf="calendarType === 'BS'"
+                                                     (messageToEmit)="form.relationshipSince.patchValue($event?.eDate)"></app-calendar>
+                                       <nb-datepicker #relationshipSince></nb-datepicker>
                                        <div *ngIf="submitted && form.relationshipSince?.errors"
                                             class="text-danger small">
                                            <div *ngIf="form.relationshipSince?.errors.required">
@@ -1272,7 +1272,8 @@
                                        [style]="{height:'250px !important;'}"
                                        formControlName="conductOfAccount"
                                        id="conductOfAccount"
-                                       placeholder="Conduct of Account"></ckeditor>
+                                       placeholder="Conduct of Account"
+                                   [config]="ckeConfig"></ckeditor>
                                    <div *ngIf="(submitted) && form.conductOfAccount.invalid"
                                         class="small text-danger">
                                        <div *ngIf="form.conductOfAccount.errors.required">
@@ -1297,7 +1298,8 @@
                                        [style]="{height:'250px !important;'}"
                                        formControlName="businessGiven"
                                        id="businessGiven"
-                                       placeholder="Conduct of Account"></ckeditor>
+                                       placeholder="Conduct of Account"
+                                       [config]="ckeConfig"></ckeditor>
                                    <div *ngIf="(submitted) && form.businessGiven.invalid"
                                         class="small text-danger">
                                        <div *ngIf="form.businessGiven.errors.required">
