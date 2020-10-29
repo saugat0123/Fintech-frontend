@@ -70,6 +70,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
   customerInfo: CustomerInfoData;
   maker = false;
   profilePic;
+  isRemarkEdited = false;
 
   constructor(private route: ActivatedRoute,
               private customerService: CustomerService,
@@ -250,6 +251,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
       otherOccupation: [this.customer.otherOccupation === undefined ? undefined : this.customer.otherOccupation],
       otherIncome: [this.customer.otherIncome === undefined ? undefined : this.customer.otherIncome],
       introduction: [this.customer.introduction === undefined ? undefined : this.customer.introduction, [Validators.required]],
+      withinLimitRemarks: [this.customer.withinLimitRemarks === undefined ? undefined : this.customer.withinLimitRemarks]
     });
   }
 
@@ -315,6 +317,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
       this.customer = res.detail;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
       this.isEdited = false;
+      this.isRemarkEdited = false;
       this.customerBasicFormBuilder();
       this.getProvince();
       this.setRelatives(this.customer.customerRelatives);
@@ -342,7 +345,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
     if (value.type === this.fetchLoan.CUSTOMER_AS_GROUP) {
       this.totalProposedAmountByGroup = value.value;
-      this.proposeAmountOfGroup = value.otherParam;
+      this.proposeAmountOfGroup = value.value;
     }
     this.totalGroupAmount = this.totalProposedAmountByGuarantor + this.totalProposedAmountByGroup;
     this.totalProposalAmount = this.totalProposedAmountByGuarantor +
@@ -360,5 +363,10 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
 
   refreshGroup() {
    this.refreshCustomerInfo();
+  }
+
+  editRemark() {
+    this.isRemarkEdited = true;
+
   }
 }

@@ -172,11 +172,11 @@ export class EditPartnerInfoComponent implements OnInit {
     this.addressList.push(new Address());
     return this.formBuilder.group({
       name: [undefined, Validators.required],
-      contactNo: [undefined, Validators.required],
+      contactNo: [undefined],
       share: [undefined, Validators.required],
-      province: [null, Validators.required],
-      district: [null, Validators.required],
-      municipalityVdc: [null, Validators.required],
+      province: [null],
+      district: [null],
+      municipalityVdc: [null],
       type: [null, Validators.required]
     });
   }
@@ -187,22 +187,23 @@ export class EditPartnerInfoComponent implements OnInit {
     let proprietorIndex = 0;
     proprietorsList.forEach(proprietors => {
       this.addressList[proprietorIndex] = new Address();
-      if (proprietors.province.id !== null) {
+      if (!ObjectUtil.isEmpty(proprietors.province) && proprietors.province.id !== null) {
         this.getDistricts(proprietors.province.id, proprietorIndex);
-        if (proprietors.district.id !== null) {
+        if (!ObjectUtil.isEmpty(proprietors.district) && proprietors.district.id !== null) {
           this.getMunicipalities(proprietors.district.id, proprietorIndex);
         }
       }
       proprietorIndex++;
       managementTeamFormArray.push(this.formBuilder.group({
         name: [proprietors.name === undefined ? '' : proprietors.name, Validators.required],
-        contactNo: [proprietors.contactNo === undefined ? '' : proprietors.contactNo, Validators.required],
+        contactNo: [proprietors.contactNo === undefined ? '' : proprietors.contactNo],
         share: [proprietors.share === undefined ? '' : proprietors.share, Validators.required],
-        province: [proprietors.province.id === undefined ? '' : proprietors.province.id, Validators.required],
-        district: [proprietors.district.id === undefined ? '' : proprietors.district.id,
-          Validators.required],
-        municipalityVdc: [proprietors.municipalityVdc.id === undefined ? '' : proprietors.municipalityVdc.id,
-          Validators.required],
+        province: [ObjectUtil.isEmpty(proprietors.province) ? undefined :
+            proprietors.province.id === undefined ? '' : proprietors.province.id],
+        district: [ObjectUtil.isEmpty(proprietors.district) ? undefined :
+            proprietors.district.id === undefined ? '' : proprietors.district.id],
+        municipalityVdc: [ObjectUtil.isEmpty(proprietors.municipalityVdc) ? undefined :
+            proprietors.municipalityVdc.id === undefined ? '' : proprietors.municipalityVdc.id],
         id: [ObjectUtil.setUndefinedIfNull(proprietors.id)],
         version: [ObjectUtil.setUndefinedIfNull(proprietors.version)],
         type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]
@@ -299,13 +300,14 @@ export class EditPartnerInfoComponent implements OnInit {
       proprietors.type = this.getProprietor()[proprietorsIndex].type;
       const province = new Province();
       province.id = this.getProprietor()[proprietorsIndex].province;
-      proprietors.province = province;
+      proprietors.province = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].province)) ?  province : undefined;
       const district = new District();
       district.id = this.getProprietor()[proprietorsIndex].district;
-      proprietors.district = district;
+      proprietors.district = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].district)) ?  district : undefined;
       const municipalityVdc = new MunicipalityVdc();
       municipalityVdc.id = this.getProprietor()[proprietorsIndex].municipalityVdc;
-      proprietors.municipalityVdc = municipalityVdc;
+      proprietors.municipalityVdc = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].municipalityVdc))
+          ? municipalityVdc : undefined;
       proprietorsIndex++;
       this.companyInfo.proprietorsList.push(proprietors);
     }

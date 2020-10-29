@@ -30,5 +30,6 @@ export class Customer {
     introduction: string;
     customerCode: string;
     bankingRelationship: string;
+    withinLimitRemarks: string;
 
 }

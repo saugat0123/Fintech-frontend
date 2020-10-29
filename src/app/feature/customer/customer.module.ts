@@ -37,6 +37,7 @@ import {CustomerActivityModule} from '../customer-activity/customer-activity.mod
 import {BankingRelationComponent} from './component/customer-form/banking-relation/banking-relation.component';
 import { CompanyOtherDetailComponent } from './component/customer-form/company-form/company-other-detail/company-other-detail.component';
 import { MarketScenarioComponent } from './component/customer-form/company-form/market-scenario/market-scenario.component';
+import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -86,7 +87,8 @@ const COMPONENTS = [
     InfiniteScrollModule,
     ReportingModule,
     CoreModule,
-    CustomerActivityModule
+    CustomerActivityModule,
+    LoanSummaryModule
 
 
   ],

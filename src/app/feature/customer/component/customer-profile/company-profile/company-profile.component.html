@@ -208,14 +208,31 @@
                                      [customerInfo]="customerInfo" *ngIf="customerInfo"
             ></app-customer-group-loan>
           </nb-card-body>
+          <nb-card-footer>
+              <div class="row">
+                <div class="col" *ngIf=" !isRemarkEdited ">
+                  <a *ngIf="maker" class="p-2 cursor" (click)="editRemark()"><em
+                      class="fa fa-edit"></em></a>
+                  <label><b>Within Limit Remarks (if any):</b></label>
+                  {{companyInfo.withinLimitRemarks}}
+                </div>
+                <div *ngIf="isRemarkEdited" class="col-md-12 form-group">
+                  <form [formGroup]="companyForm">
+                  <label><b>Within Limit Remarks (if any):</b></label>
+                  <textarea  rows="2" placeholder="Within Limit Remarks " class="form-control border"  formControlName="withinLimitRemarks"></textarea>
+                  </form>
+                  <button class="btn btn-sm float-right small" nbButton (click)="saveCompanyInfoDetail()">Save Remark</button>
+                </div>
+              </div>
+          </nb-card-footer>
         </nb-card>
 
         <nb-card accent="primary">
           <nb-card-header>
             Customer Groups
-            <div class="float-right" nbTooltip="{{totalGroupAmount | number}}">Total Group Limit
+            <!--<div class="float-right" nbTooltip="{{totalGroupAmount | number}}">Total Group Limit
               : {{customerInfo?.customerGroup?.groupLimit | number}}
-            </div>
+            </div>-->
           </nb-card-header>
           <nb-card-body>
             <nb-accordion>
@@ -226,7 +243,7 @@
                       <span>Groups</span>
                     </div>
                     <div class="col-md-6 d-flex justify-content-end">
-                      Total Amount:  {{proposeAmountOfGroup | number}}
+                     <!-- Total Amount:  {{proposeAmountOfGroup | number}}-->
                     </div>
                   </div>
                 </nb-accordion-item-header>
