@@ -213,8 +213,18 @@
                     </div>
                     <br>
                     <div class="text-left pl-2">
+                      Credit Risk Rating :
+                      <span [class]="creditGradeAlphaStatusBadge"> {{ creditRiskRatingAlpha | titlecase }}</span>
+                    </div>
+                    <br>
+                    <div class="text-left pl-2">
                       Credit Risk Score :
                       <span><strong> {{ creditRiskAlphaScore }}</strong></span>
+                    </div>
+                    <br>
+                    <div class="text-left pl-2">
+                      Premium :
+                      <span><strong> {{ creditRiskAlphaPremium }}</strong></span>
                     </div>
                   </div>
                 </div>

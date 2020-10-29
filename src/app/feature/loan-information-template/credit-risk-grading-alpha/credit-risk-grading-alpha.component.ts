@@ -29,6 +29,11 @@ import {CustomerInfoData} from '../../loan/model/customerInfoData';
   styleUrls: ['./credit-risk-grading-alpha.component.scss']
 })
 export class CreditRiskGradingAlphaComponent implements OnInit {
+
+  constructor(
+      private formBuilder: FormBuilder,
+      private el: ElementRef,
+  ) {}
   @Input() formData: CreditRiskGradingAlpha;
   @Input() financialData;
   @Input() security: Security;
@@ -112,10 +117,10 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   experienceMap: Map<string, number> = ExperienceMap.experienceMap;
   successionMap: Map<string, number> = SuccessionMap.successionMap;
 
-  constructor(
-      private formBuilder: FormBuilder,
-      private el: ElementRef,
-  ) {}
+  private static getTopOffset(controlEl: HTMLElement): number {
+    const labelOffset = 50;
+    return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+  }
 
   ngOnInit() {
     this.buildForm();
@@ -245,8 +250,11 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
       experience: this.criteriaFormGroup(),
       succession: this.criteriaFormGroup(),
       managementTotal: undefined,
+      // Aggregate properties--
       totalScore: undefined,
-      creditRiskGrade: undefined
+      creditRiskGrade: undefined,
+      creditRiskRating: undefined,
+      premium: undefined,
     });
   }
 
@@ -267,8 +275,12 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   }
 
   getDirectSales(financialData) {
-    return (financialData.incomeStatementData.totalSalesSubCategory as Array<any>).filter(
-        singleCategory => singleCategory['name'] === 'Direct Sales'
+    return this.getSubCategory(financialData, 'incomeStatementData', 'totalSalesSubCategory', 'Direct Sales');
+  }
+
+  getSubCategory(financialData, financialSection, categoryArrayName, categoryName: string) {
+    return (financialData[financialSection][categoryArrayName] as Array<any>).filter(
+        singleCategory => singleCategory['name'] === categoryName
     );
   }
 
@@ -361,7 +373,9 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   }
 
   calculateProfitability(financialData, currentFiscalYearIndex) {
-    const profitability = (Number(financialData.incomeStatementData.netProfitTransferredToBalanceSheet[currentFiscalYearIndex].value) /
+    const profitability = ((Number(financialData.incomeStatementData.netProfitTransferredToBalanceSheet[currentFiscalYearIndex].value) +
+        Number(this.getSubCategory(financialData, 'incomeStatementData', 'operatingExpensesCategory', 'Depreciation')
+            [0]['amount'][currentFiscalYearIndex].value)) /
         Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value)) * 100;
     const netCashFlow = Number(financialData.cashFlowStatementData.netCashFlow[currentFiscalYearIndex].value);
     const automatedValue = `${profitability.toFixed(2)}, ${netCashFlow.toFixed(2)}`;
@@ -513,14 +527,28 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     this.creditRiskGradingForm.get('totalScore').patchValue(total.toFixed(2));
     if (total >= 80) {
       this.creditRiskGradingForm.get('creditRiskGrade').patchValue('Excellent');
-    } else if (total >= 65 && total < 80) {
+      this.creditRiskGradingForm.get('creditRiskRating').patchValue('Low risk');
+      this.creditRiskGradingForm.get('premium').patchValue('2%');
+    } else if (total >= 70 && total < 80) {
       this.creditRiskGradingForm.get('creditRiskGrade').patchValue('Very Good');
-    } else if (total >= 55 && total < 65) {
+      this.creditRiskGradingForm.get('creditRiskRating').patchValue('Average risk');
+      this.creditRiskGradingForm.get('premium').patchValue('2.5%');
+    } else if (total >= 60 && total < 70) {
       this.creditRiskGradingForm.get('creditRiskGrade').patchValue('Good');
-    } else if (total >= 40 && total < 55) {
+      this.creditRiskGradingForm.get('creditRiskRating').patchValue('Moderate Risk');
+      this.creditRiskGradingForm.get('premium').patchValue('3%');
+    } else if (total >= 50 && total < 60) {
+      this.creditRiskGradingForm.get('creditRiskGrade').patchValue('Satisfactory');
+      this.creditRiskGradingForm.get('creditRiskRating').patchValue('Tolerable risk');
+      this.creditRiskGradingForm.get('premium').patchValue('3.5%');
+    } else if (total >= 40 && total < 50) {
       this.creditRiskGradingForm.get('creditRiskGrade').patchValue('Acceptable');
+      this.creditRiskGradingForm.get('creditRiskRating').patchValue('High risk');
+      this.creditRiskGradingForm.get('premium').patchValue('4%');
     } else if (total < 40) {
-      this.creditRiskGradingForm.get('creditRiskGrade').patchValue('Not Eligible for New Loans');
+      this.creditRiskGradingForm.get('creditRiskGrade').patchValue('Reject');
+      this.creditRiskGradingForm.get('creditRiskRating').patchValue('NA');
+      this.creditRiskGradingForm.get('premium').patchValue('NA');
     }
   }
 
@@ -589,16 +617,11 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
         'form .ng-invalid'
     );
     window.scroll({
-      top: this.getTopOffset(firstInvalidControl),
+      top: CreditRiskGradingAlphaComponent.getTopOffset(firstInvalidControl),
       left: 0,
       behavior: 'smooth'
     });
     firstInvalidControl.focus();
-  }
-
-  private getTopOffset(controlEl: HTMLElement): number {
-    const labelOffset = 50;
-    return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
   }
 
   onSubmit() {
