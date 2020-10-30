@@ -70,7 +70,6 @@ export class ApprovalLimitFormComponent implements OnInit, DoCheck {
         this.submitted = true;
         this.model.loanCategory = this.loanCategory;
         this.model.authorities = this.authorities;
-        console.log('model population', this.model);
         this.service.save(this.model).subscribe(() => {
 
                 if (this.model.id == null) {
