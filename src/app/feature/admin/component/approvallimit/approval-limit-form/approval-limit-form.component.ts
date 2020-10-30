@@ -70,6 +70,7 @@ export class ApprovalLimitFormComponent implements OnInit, DoCheck {
         this.submitted = true;
         this.model.loanCategory = this.loanCategory;
         this.model.authorities = this.authorities;
+        console.log('model population', this.model);
         this.service.save(this.model).subscribe(() => {
 
                 if (this.model.id == null) {
@@ -97,6 +98,11 @@ export class ApprovalLimitFormComponent implements OnInit, DoCheck {
 
     onClose() {
         this.activeModal.dismiss(ModalResponse.CANCEL);
+    }
+
+    setApprovalType(event) {
+        const loans = this.loanList.filter(s => s.id === event);
+        this.model.loanApprovalType = loans[0].loanCategory;
     }
 }
 
