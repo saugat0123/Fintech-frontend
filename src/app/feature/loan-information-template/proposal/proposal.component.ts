@@ -194,7 +194,7 @@ export class ProposalComponent implements OnInit {
 
   scrollToFirstInvalidControl() {
     const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
-        'form .ng-invalisd'
+        'form .ng-invalid'
     );
     window.scroll({
       top: this.getTopOffset(firstInvalidControl),
