@@ -98,6 +98,11 @@ export class ApprovalLimitFormComponent implements OnInit, DoCheck {
     onClose() {
         this.activeModal.dismiss(ModalResponse.CANCEL);
     }
+
+    setApprovalType(event) {
+        const loans = this.loanList.filter(s => s.id === event);
+        this.model.loanApprovalType = loans[0].loanCategory;
+    }
 }
 
 

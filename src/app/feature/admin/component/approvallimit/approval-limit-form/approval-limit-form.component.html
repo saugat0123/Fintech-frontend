@@ -15,7 +15,7 @@
                         <input type="hidden" class="form-control" [(ngModel)]="model.id"
                                name="id" placeholder="id">
                         <select [(ngModel)]="loanCategory.id" name="loanCategory" id="loan_Category"
-                                class="custom-select" required #Category="ngModel"
+                                class="custom-select" required #Category="ngModel" (change)="setApprovalType(loanCategory.id)"
                                 [ngClass]="{ 'is-invalid': f.submitted && Category.invalid }">
                             <option [ngValue]="undefined" hidden>Loan Category</option>
                             <option *ngFor="let allList of loanList"
@@ -59,7 +59,7 @@
                         <label for="customerType">Approval Type</label>
                         <select class="custom-select" [(ngModel)]="model.loanApprovalType"
                                 name="customerType" id="customerType"
-                                #type="ngModel" [ngClass]="{ 'is-invalid': f.submitted && type.invalid }" required>
+                                #type="ngModel" [ngClass]="{ 'is-invalid': f.submitted && type.invalid }" required disabled>
                             <option [ngValue]="undefined" hidden>Approval Type</option>
                             <option value="INDIVIDUAL">INDIVIDUAL</option>
                             <option value="INSTITUTION">INSTITUTION</option>

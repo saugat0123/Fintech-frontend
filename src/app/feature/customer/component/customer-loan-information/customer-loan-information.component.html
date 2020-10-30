@@ -101,7 +101,7 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-      <nb-accordion-item #itemNetTradingAssets>
+      <nb-accordion-item #itemNetTradingAssets *ngIf="customerInfo?.customerType === 'INSTITUTION'">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
