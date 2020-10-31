@@ -213,6 +213,8 @@ export class SecurityComponent implements OnInit {
             buildingLocation: this.securityForm.get('buildingLocation').value,
             vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
         };
+        console.log(mergedForm);
+        this.securityData.totalSecurityAmount = this.calculateTotalSecurity(mergedForm);
         this.securityData.data = JSON.stringify(mergedForm);
         this.securityData.guarantor = [];
         this.initialSecurity.selectedArray.forEach((selected) => {
@@ -251,5 +253,69 @@ export class SecurityComponent implements OnInit {
             this.securityData.guarantor.push(guarantor);
         }
         this.securityDataEmitter.emit(this.securityData);
+    }
+
+    calculateTotalSecurity(securityData): number {
+        let totalSecurityAmount = 0;
+        const isLandSelected = securityData.selectedArray.includes('LandSecurity');
+        const isBuildingSelected = securityData.selectedArray.includes('ApartmentSecurity');
+        securityData.selectedArray.forEach(selectedSecurity => {
+            switch (selectedSecurity) {
+                case 'LandSecurity':
+                    const landDetailsArray = securityData.initialForm.landDetails as Array<any>;
+                    for (let i = 0; i < landDetailsArray.length; i++) {
+                        totalSecurityAmount += Number(landDetailsArray[i].landConsideredValue);
+                        console.log(totalSecurityAmount);
+                    }
+                    break;
+                case 'VehicleSecurity':
+                    const vehicleDetailsArray = securityData.initialForm.vehicleDetails as Array<any>;
+                    for (let i = 0; i < vehicleDetailsArray.length; i++) {
+                        totalSecurityAmount += Number(vehicleDetailsArray[i].valuationAmount);
+                    }
+                    break;
+                case 'ApartmentSecurity':
+                    const buildingDetailsArray = securityData.initialForm.buildingDetails as Array<any>;
+                    for (let i = 0; i < buildingDetailsArray.length; i++) {
+                        totalSecurityAmount += Number(buildingDetailsArray[i].buildingFairMarketValue);
+                    }
+                    break;
+                case 'PlantSecurity':
+                    const plantDetailsArray = securityData.initialForm.plantDetails as Array<any>;
+                    for (let i = 0; i < plantDetailsArray.length; i++) {
+                        totalSecurityAmount += Number(plantDetailsArray[i].quotation);
+                    }
+                    break;
+
+                case 'Land and Building Security':
+                   if (!isLandSelected) {
+                       const landArray = securityData.initialForm.landDetails as Array<any>;
+                       for (let i = 0; i < landArray.length; i++) {
+                           totalSecurityAmount += Number(landArray[i].marketValue);
+                       }
+                   }
+                   if (!isBuildingSelected) {
+                       const buildingArray = securityData.initialForm.buildingDetails as Array<any>;
+                       for (let i = 0; i < buildingArray.length; i++) {
+                           totalSecurityAmount += Number(buildingArray[i].buildingFairMarketValue);
+                       }
+                   }
+                    break;
+                case 'FixedDeposit':
+                    const fixedDepositArray = selectedSecurity.initialForm.fixedDepositDetails as Array<any>;
+                    for (let i = 0; i < fixedDepositArray.length; i++) {
+                        totalSecurityAmount += Number(fixedDepositArray[i].amount);
+                    }
+                    break;
+                    case 'ShareSecurity':
+                    totalSecurityAmount += this.initialSecurity.totalConsideredValue;
+                    break;
+                default:
+                    totalSecurityAmount += 0;
+                    break;
+            }
+        });
+        console.log(totalSecurityAmount);
+        return totalSecurityAmount;
     }
 }

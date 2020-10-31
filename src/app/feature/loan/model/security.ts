@@ -8,5 +8,6 @@ export class Security {
     valuatorId: number;
     share;
     guarantor: Array<Guarantor>;
+    totalSecurityAmount: number;
 
 }
