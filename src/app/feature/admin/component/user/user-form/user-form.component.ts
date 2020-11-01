@@ -38,6 +38,10 @@ export class UserFormComponent implements OnInit {
     customerCount: String;
     hideSaveButton = false;
     editedId;
+    tempFlags = {
+        validUserName: true,
+        validUserEmail: true,
+    };
 
     constructor(
         private service: UserService,
@@ -238,6 +242,27 @@ export class UserFormComponent implements OnInit {
         this.onClose();
         this.router.navigate(['home/admin/catalogue'], {queryParams: {userId: this.editedId}});
 
+    }
+
+    checkValidUserName(username) {
+        this.spinner = true;
+        const searchObject = {
+            'username': username
+        };
+        this.service.getPaginationWithSearchObject(searchObject, 1, 1).subscribe(value => {
+            this.tempFlags.validUserName = !!value.detail.empty;
+            this.spinner = false;
+        });
+    }
+    checkValidUserEmail(email) {
+        this.spinner = true;
+        const searchObject = {
+            'email': email
+        };
+        this.service.getPaginationWithSearchObject(searchObject, 1, 1).subscribe(value => {
+            this.tempFlags.validUserEmail = !!value.detail.empty;
+            this.spinner = false;
+        });
     }
 }
 

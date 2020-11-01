@@ -2,7 +2,11 @@
     <h4 class="text-white">{{task}} User</h4>
     <a (click)="onClose()" aria-label="Close" class="close cursor"><span class="text-white" aria-hidden="true">×</span></a>
 </div>
-<div class="modal-body">
+<div class="modal-body"
+     [nbSpinner]="spinner"
+     accent="primary"
+     nbSpinnerStatus="primary"
+     nbSpinnerSize="large">
     <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" name="form">
         <div class="row form-group">
             <div class="col-md-6">
@@ -37,15 +41,18 @@
             <div class="col-md-6">
                 <label for="email"><b>Email</b></label>
                 <input #email="ngModel" [(ngModel)]="model.email"
-                       [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" class="form-control"
+                       [ngClass]="{ 'is-invalid': f.submitted && email.invalid || !tempFlags.validUserEmail }" class="form-control"
                        email
                        id="email" name="email" type="email"
-                       placeholder="Email" required app-valid-email/>
+                       placeholder="Email" required app-valid-email (change)="checkValidUserEmail(model.email)"/>
                 <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
                     <div *ngIf="email.errors.required">Email is required</div>
                     <div *ngIf="email.invalid && model.email !== '' && model.email !== undefined">Email is
                         invalid
                     </div>
+                </div>
+                <div *ngIf="!tempFlags.validUserEmail" class="invalid-feedback">
+                    Unique Email is required!
                 </div>
 
 
@@ -53,12 +60,16 @@
             <div class="col-md-6">
                 <label for="userName"><b>Username</b></label>
                 <input #userName="ngModel" [(ngModel)]="model.username"
-                       [ngClass]="{ 'is-invalid': f.submitted && userName.invalid }" class="form-control"
+                       [ngClass]="{ 'is-invalid': f.submitted && userName.invalid || !tempFlags.validUserName}" class="form-control"
                        id="userName"
                        name="userName" placeholder="Username"
+                       (change)="checkValidUserName(model.username)"
                        required type="text"/>
                 <div *ngIf="f.submitted && userName.invalid" class="invalid-feedback">
                     <div *ngIf="userName.errors.required">User Name is required</div>
+                </div>
+                <div *ngIf="!tempFlags.validUserName" class="invalid-feedback">
+                    Unique username is required!
                 </div>
             </div>
         </div>
