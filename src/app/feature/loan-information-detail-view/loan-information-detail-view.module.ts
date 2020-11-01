@@ -5,6 +5,8 @@ import {LoanInformationViewModule} from '../loan-information-view/loan-informati
 import {ThemeModule} from '../../@theme/theme.module';
 import {NgxPrintModule} from 'ngx-print';
 import {ReportingModule} from '../reporting/reporting.module';
+import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
+import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
 
 
 
@@ -16,6 +18,8 @@ import {ReportingModule} from '../reporting/reporting.module';
     ThemeModule,
     NgxPrintModule,
     ReportingModule,
+    LoanInformationTemplateModule,
+    LoanSummaryModule,
 
   ]
 })
