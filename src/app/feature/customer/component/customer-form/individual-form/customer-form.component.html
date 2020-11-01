@@ -280,9 +280,9 @@
                 </ng-option>
               </ng-select>
               <div *ngIf="(submitted) && basicInfoControls.citizenshipIssuedPlace.invalid"
-                   class="invalid-feedback">
+                   class="help-block">
                 <span *ngIf="basicInfoControls.citizenshipIssuedPlace.errors.required">
-                  citizenship issued district is required
+                  <span class="text-danger">citizenship issued district is required</span>
                 </span>
               </div>
             </div>
@@ -327,21 +327,23 @@
                 <nb-option value="Teaching Professional">Farmer</nb-option>
                 <nb-option value="Other">Other</nb-option>
               </nb-select>
+              <div *ngIf="submitted && basicInfoControls.occupation.errors"
+                   class="help-block small">
+                <span *ngIf="basicInfoControls.occupation.errors.required" class="text-danger">
+                  <span>Occupation is required</span>
+                </span>
+              </div>
               <div *ngIf="tempFlag.showOtherOccupation"
                    class="col-md-12 mt-3 form-group">
                 <label>Other occupation(s)</label>
                 <input class="form-control" formControlName="otherOccupation" id="otherOccupation"
                        name="otherOccupation" placeholder="Other occupation" type="text">
                 <div *ngIf="submitted && basicInfoControls.otherOccupation.errors"
-                     class="invalid-feedback">
-                  <div *ngIf="basicInfoControls.otherOccupation.errors.required">Other occupation is required
-                  </div>
+                     class="help-block small">
+                  <span *ngIf="basicInfoControls.otherOccupation.errors.required">
+                  <span class="text-danger">Other occupation is required</span>
+                </span>
                 </div>
-              <div *ngIf="submitted && basicInfoControls.occupation.errors"
-                   class="invalid-feedback">
-                <div *ngIf="basicInfoControls.occupation.errors.required">Occupation is required
-                </div>
-              </div>
               </div>
             </div>
           </div>
@@ -360,23 +362,23 @@
                 <nb-option value="Farming">Farming</nb-option>
                 <nb-option value="Other">Other</nb-option>
               </nb-select>
+              <div *ngIf="submitted && basicInfoControls.incomeSource.errors"
+                   class="help-block">
+                <div *ngIf="basicInfoControls.incomeSource.errors.required">
+                 <span class="text-danger small"> Income Source is required</span>
+                </div>
+              </div>
               <div *ngIf="tempFlag.showOtherIncomeSource"
                    class="col-md-12 mt-3 form-group">
                 <label>Other Income Source</label>
                 <input class="form-control" formControlName="otherIncome" id="otherIncome"
                        name="otherIncome" placeholder="Other Income source" type="text">
                 <div *ngIf="submitted && basicInfoControls.otherIncome.errors"
-                     class="invalid-feedback">
+                     class="invalid-feedback small">
                   <div *ngIf="basicInfoControls.otherIncome.errors.required">Other income Source is
                     required
                   </div>
                 </div>
-              <div *ngIf="submitted && basicInfoControls.incomeSource.errors"
-                   class="invalid-feedback">
-                <div *ngIf="basicInfoControls.incomeSource.errors.required">Income Source is
-                  required
-              </div>
-            </div>
           </div>
         </div>
           </div></div>
