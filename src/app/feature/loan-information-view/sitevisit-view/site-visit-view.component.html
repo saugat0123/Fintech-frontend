@@ -259,67 +259,83 @@
   </tr>
   <tr>
     <td>Is the customer upto date with other charges,chargeable to the other premises ?	</td>
-    <td>{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.uptoDateWithCharges}}</td>
+    <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.uptoDateWithCharges"><i class="fas fa-check" ></i> </td>
+    <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.uptoDateWithCharges"><i class="fas fa-times" ></i> </td>
   </tr>
   <tr>
     <td>All goods belongs to the borrowers and non are hold on account of third parties	</td>
-    <td>{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.borrowersPossession}}</td>
+    <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.borrowersPossession"><i class="fas fa-check" ></i> </td>
+    <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.borrowersPossession"><i class="fas fa-times" ></i> </td>
   </tr>
   <tr>
     <td>Confirm that valuation of stocks does not include and goods under TR	</td>
-    <td>{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.notUnderTR}}</td>
+    <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.notUnderTR"><i class="fas fa-check" ></i> </td>
+    <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.notUnderTR"><i class="fas fa-times" ></i> </td>
   </tr>
   <tr>
     <td>There is no evidence of any other bank interested in the goods	</td>
-    <td>{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.otherBankNotInterested}}</td>
+    <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.otherBankNotInterested"><i class="fas fa-check" ></i> </td>
+    <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.otherBankNotInterested"><i class="fas fa-times" ></i> </td>
   </tr>
   <tr>
     <td>Was the security in order ?	</td>
-    <td>{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.securityOrder}}</td>
+    <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.securityOrder"><i class="fas fa-check" ></i> </td>
+    <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.securityOrder"><i class="fas fa-times" ></i> </td>
   </tr>
   <tr>
     <td>Are the goods saleable ?	</td>
-    <td>{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.goodsSaleable}}</td>
+    <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.goodsSaleable"><i class="fas fa-check" ></i> </td>
+    <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.goodsSaleable"><i class="fas fa-times" ></i> </td>
   </tr>
   <tr>
     <td>Are the stocks registered upto date ?	</td>
-    <td>{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.stocksUptoDate}}</td>
+    <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.stocksUptoDate"><i class="fas fa-check" ></i> </td>
+    <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.stocksUptoDate"><i class="fas fa-times" ></i> </td>
   </tr>
   <tr>
     <td>Does the stocks registered match with the stock list ?	</td>
-    <td>{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.matchWithTheStockList}}</td>
+    <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.matchWithTheStockList"><i class="fas fa-check" ></i> </td>
+    <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.matchWithTheStockList"><i class="fas fa-times" ></i> </td>
   </tr>
   <tr>
     <td>Is the storage condition satisfactory ?	</td>
-    <td>{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.storageConditionSatisfactory}}</td>
+    <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.storageConditionSatisfactory"><i class="fas fa-check" ></i> </td>
+    <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.storageConditionSatisfactory"><i class="fas fa-times" ></i> </td>
   </tr>
   <tr>
     <td>Is fire fighting evidence through arrangement ?	</td>
-    <td>{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.fireFightingEvidence}}</td>
+    <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.fireFightingEvidence"><i class="fas fa-check" ></i> </td>
+    <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.fireFightingEvidence"><i class="fas fa-times" ></i> </td>
   </tr>
   <tr>
     <td>Are the building/store in the good condition?	</td>
-    <td>{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.buildingStoreCondition}}</td>
+    <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.buildingStoreCondition"><i class="fas fa-check" ></i> </td>
+    <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.buildingStoreCondition"><i class="fas fa-times" ></i> </td>
   </tr>
   <tr>
     <td>Are the special warranties in the insurance policy upto date ?	</td>
-    <td>{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.warrantiesUptoDate}}</td>
+    <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.warrantiesUptoDate"><i class="fas fa-check" ></i> </td>
+    <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.warrantiesUptoDate"><i class="fas fa-times" ></i> </td>
   </tr>
   <tr>
     <td>There is no evidence of goods hazardous nature in the premises	</td>
-    <td>{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.noHazardousNature}}</td>
+    <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.noHazardousNature"><i class="fas fa-check" ></i> </td>
+    <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.noHazardousNature"><i class="fas fa-times" ></i> </td>
   </tr>
   <tr>
     <td>Were our name board properly displayed ?	</td>
-    <td>{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.nameBoardProperlyDisplayed}}</td>
+    <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.nameBoardProperlyDisplayed"><i class="fas fa-check" ></i> </td>
+    <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.nameBoardProperlyDisplayed"><i class="fas fa-times" ></i> </td>
   </tr>
   <tr>
     <td>Were our padlocks in use ?	</td>
-    <td>{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.padlocksUse}}</td>
+    <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.padlocksUse"><i class="fas fa-check" ></i> </td>
+    <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.padlocksUse"><i class="fas fa-times" ></i> </td>
   </tr>
   <tr>
     <td>Is the PAN/Registration Certificate of the business is displayed?	</td>
-    <td>{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.certificate}}</td>
+    <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.certificate"><i class="fas fa-check" ></i> </td>
+    <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.certificate"><i class="fas fa-times" ></i> </td>
   </tr>
   <tr>
     <td colspan="2" class="text-white sb-bg-dark">Finding & Comments</td>

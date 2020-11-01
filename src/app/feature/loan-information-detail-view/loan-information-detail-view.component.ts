@@ -48,7 +48,6 @@ export class LoanInformationDetailViewComponent implements OnInit {
     this.loadSummary();
     this.customerLoanService.detail(this.customerId).subscribe(response => {
       this.loanDataHolder = response.detail;
-      console.log(this.loanDataHolder);
       this.id = this.loanDataHolder.id;
       this.loanHolder = this.loanDataHolder.loanHolder;
       this.loanCategory = this.loanDataHolder.loanCategory;
