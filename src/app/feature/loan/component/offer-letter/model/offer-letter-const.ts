@@ -7,7 +7,15 @@ export enum OfferLetterConst {
     KARARNAMA,
     KARJATAMSUK,
     MANJURINAMA,
-    PRATIGYA_PATRA
+    PRATIGYA_PATRA,
+    HAYER_PURCHASE,
+    RETAIL_MORTGAGE_LOAN,
+    RETAIL_EDUCATIONAL,
+    RETAIL_MORTGAGE_OVERDRAFT,
+    RETAIL_HOUSING,
+    RETAIL_PROFESSIONAL_LOAN,
+    RETAIL_EDUCATIONAL_ENGLISH,
+    SME
 }
 
 export namespace OfferLetterConst {
@@ -30,15 +38,31 @@ export namespace OfferLetterConst {
             return 'Birth Mark Letter';
         } else if (offerLetterConst === OfferLetterConst.SUCCESS_LETTER) {
             return 'Success Letter';
+        } else if (offerLetterConst === OfferLetterConst.HAYER_PURCHASE) {
+        return 'Hayer Purchase';
+        } else if (offerLetterConst === OfferLetterConst.RETAIL_MORTGAGE_LOAN) {
+        return 'Retail Mortgage Loan';
+        } else if (offerLetterConst === OfferLetterConst.RETAIL_EDUCATIONAL_ENGLISH) {
+        return 'Retail Educational English';
+        } else if (offerLetterConst === OfferLetterConst.RETAIL_PROFESSIONAL_LOAN) {
+        return 'Retail Professional Loan';
+        } else if (offerLetterConst === OfferLetterConst.RETAIL_HOUSING) {
+        return 'Retail Housing';
+        } else if (offerLetterConst === OfferLetterConst.RETAIL_EDUCATIONAL) {
+        return 'Retail Educational';
+        } else if (offerLetterConst === OfferLetterConst.RETAIL_MORTGAGE_OVERDRAFT) {
+        return 'Retail Mortgage Overdraft';
+        } else if (offerLetterConst === OfferLetterConst.SME) {
+            return 'SME';
         }
     }
 
 
     export function keysEnum(offerLetter: string) {
         let key = null;
-        Object.keys(OfferLetterConst).forEach(o => {
-            if (OfferLetterConst.value(OfferLetterConst[o]) === offerLetter) {
-                key = OfferLetterConst[o];
+        Object.keys(OfferLetterConst).forEach(a => {
+            if (OfferLetterConst.value(OfferLetterConst[a]) === offerLetter) {
+                key = OfferLetterConst[a];
             }
         });
         return key;
