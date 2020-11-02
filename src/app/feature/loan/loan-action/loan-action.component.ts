@@ -33,6 +33,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
   @Input() actionsList: ActionModel;
   @Input() combinedLoanId: number;
   @Input() hasDeferredDocs: boolean;
+  @Input() customerType;
   public isMaker = false;
   public committeeRole = false;
   private dialogRef: NbDialogRef<any>;
@@ -205,7 +206,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
     this.router.navigate(['/home/loan/detailed-summary'], {
       queryParams: {
         loanConfigId: this.loanConfigId,
-        customerId: this.id
+        customerId: this.id,
+        customerType: this.customerType
       }
     });
   }
