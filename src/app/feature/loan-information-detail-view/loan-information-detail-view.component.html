@@ -133,6 +133,9 @@
       <app-insurance-view *ngIf="loanDataHolder?.insurance.length >0"
                           [insurance]="loanDataHolder?.insurance"></app-insurance-view>
       <app-cicl-view *ngIf="loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
+<!--      <app-credit-risk-grading-gamma *ngIf="loanHolder?.crgGamma" [fromProfile]="false"></app-credit-risk-grading-gamma>-->
+      <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading" [fromProfile]="false"></app-credit-grading>
+
 
 
       <div class="row mt-3 disable-print">
