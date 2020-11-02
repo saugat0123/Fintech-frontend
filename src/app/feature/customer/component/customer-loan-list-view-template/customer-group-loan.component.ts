@@ -122,8 +122,6 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))
         .filter((l) => l.combinedLoan.id === loan.combinedLoan.id);
         // create single combined dto
-      /*  collateralRequirement: combinedLoans.map(l => l.loan.collateralRequirement),
-            requiredCollateral: combinedLoans[0].proposal.collateralRequirement,*/
         const dto: SingleCombinedLoanDto = {
           collateralRequirement: 0, requiredCollateral: 0,
           id: combinedLoans[0].combinedLoan.id,

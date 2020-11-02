@@ -213,7 +213,6 @@ export class SecurityComponent implements OnInit {
             buildingLocation: this.securityForm.get('buildingLocation').value,
             vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
         };
-        console.log(mergedForm);
         this.securityData.totalSecurityAmount = this.calculateTotalSecurity(mergedForm);
         this.securityData.data = JSON.stringify(mergedForm);
         this.securityData.guarantor = [];
@@ -315,7 +314,6 @@ export class SecurityComponent implements OnInit {
                     break;
             }
         });
-        console.log(totalSecurityAmount);
         return totalSecurityAmount;
     }
 }
