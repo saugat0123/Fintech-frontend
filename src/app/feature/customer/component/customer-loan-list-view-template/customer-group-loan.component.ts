@@ -54,6 +54,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   totalProposedAmountByKYC = 0;
   totalProposalAmount = 0;
   totalProposedAmountByGuarantor = 0;
+  totalRequiredCollateral = 0;
 
 
   constructor(private router: Router,
@@ -82,6 +83,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       this.customerGroupLoanList.forEach(l => {
             if (l.proposal) {
               this.totalLoanProposedAmount = this.totalLoanProposedAmount + l.proposal.proposedLimit;
+              this.totalRequiredCollateral = this.totalRequiredCollateral + l.loan.collateralRequirement * l.proposal.proposedLimit;
             }
           }
       );
@@ -107,7 +109,9 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
           proposalProposedLimit: loan.proposal.proposedLimit,
           loanType: loan.loanType,
           documentStatus: loan.documentStatus,
-          createdAt: loan.createdAt
+          createdAt: loan.createdAt,
+          collateralRequirement: loan.loan.collateralRequirement,
+          requiredCollateral: loan.proposal.collateralRequirement
         });
       } else if (   // check if combined loan is not included already
           !loanHistories.filter((l) => !ObjectUtil.isEmpty(l.combinedLoans))
@@ -118,7 +122,10 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))
         .filter((l) => l.combinedLoan.id === loan.combinedLoan.id);
         // create single combined dto
+      /*  collateralRequirement: combinedLoans.map(l => l.loan.collateralRequirement),
+            requiredCollateral: combinedLoans[0].proposal.collateralRequirement,*/
         const dto: SingleCombinedLoanDto = {
+          collateralRequirement: 0, requiredCollateral: 0,
           id: combinedLoans[0].combinedLoan.id,
           customerInfoCustomerName: combinedLoans[0].loanHolder.name,
           branchName: combinedLoans[0].branch.name,
@@ -139,7 +146,9 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
               proposalProposedLimit: l.proposal.proposedLimit,
               loanType: l.loanType,
               documentStatus: l.documentStatus,
-              createdAt: l.createdAt
+              createdAt: l.createdAt,
+              collateralRequirement: l.loan.collateralRequirement,
+              requiredCollateral: l.proposal.collateralRequirement
             };
             return singleCombinedLoanDto;
           })
@@ -240,4 +249,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
   }
 
+  addRequiredCollateral(collateralRequirement: number , proposalLimit) {
+    return collateralRequirement * proposalLimit;
+  }
 }

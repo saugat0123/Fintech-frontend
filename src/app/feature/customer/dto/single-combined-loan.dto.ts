@@ -13,4 +13,6 @@ export class SingleCombinedLoanDto {
   documentStatus?: DocStatus | string;
   createdAt?: Date;
   combinedLoans?: SingleCombinedLoanDto[];
+  requiredCollateral: number;
+  collateralRequirement: number;
 }
