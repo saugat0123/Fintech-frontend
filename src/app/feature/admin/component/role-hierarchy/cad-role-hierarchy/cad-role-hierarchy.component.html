@@ -36,7 +36,7 @@
         </div>
     </nb-card-body>
     <nb-card-footer *ngIf="length">
-        <button nbButton status="info" (click)="save()" [disabled]="isDisabled">
+        <button nbButton status="info" (click)="save()" size="small" [disabled]="isDisabled">
             <span *ngIf="spinner" class="spinner-border spinner-border-sm"></span>
             SAVE
         </button>

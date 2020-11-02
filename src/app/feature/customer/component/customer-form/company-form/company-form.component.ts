@@ -697,7 +697,7 @@ export class CompanyFormComponent implements OnInit {
         this.bankingRelationComponent.onSubmit();
         console.log(this.companyInfoFormGroup);
         if (this.companyInfoFormGroup.invalid || this.companyOtherDetailComponent.companyOtherDetailGroupForm.invalid
-            || this.marketScenarioComponent.marketScenarioForm.invalid) {
+            || this.marketScenarioComponent.marketScenarioForm.invalid || this.bankingRelationComponent.bankingRelationForm.invalid) {
             this.scrollToFirstInvalidControl();
             return;
         }

@@ -331,8 +331,8 @@
                 <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
                 <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
                 <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
-                <td>{{loanDataHolder?.customerInfo?.occupation}}</td>
-                <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>
+                <td>{{(loanDataHolder?.customerInfo?.occupation| jsonParse)?.multipleOccupation}}</td>
+                <td>{{(loanDataHolder?.customerInfo?.incomeSource| jsonParse)?.multipleIncome}}</td>
               </tr>
               </tbody>
             </table>
