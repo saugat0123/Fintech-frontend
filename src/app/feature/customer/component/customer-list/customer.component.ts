@@ -27,182 +27,197 @@ import {CustomerGroupService} from '../../../admin/component/preference/services
 import {CustomerGroup} from '../../../admin/modal/customer-group';
 
 @Component({
-  selector: 'app-customer-component',
-  templateUrl: './customer.component.html',
-  styleUrls: ['./customer.component.scss']
+    selector: 'app-customer-component',
+    templateUrl: './customer.component.html',
+    styleUrls: ['./customer.component.scss']
 })
 export class CustomerComponent implements OnInit {
 
-  page = 1;
-  spinner = false;
-  search = {};
-  customerList = [];
-  pageable: Pageable = new Pageable();
-  isFilterCollapsed = true;
-  filterForm: FormGroup;
-  loanType = LoanType;
-  customerType;
-  currentRoleTypeMaker = false;
-  allDistrict: Array<District> = Array<District>();
-  branchList: Array<Branch> = new Array<Branch>();
-  roleAccess: string;
-  isMaker = false;
+    page = 1;
+    spinner = false;
+    search = {};
+    customerList = [];
+    pageable: Pageable = new Pageable();
+    isFilterCollapsed = true;
+    filterForm: FormGroup;
+    loanType = LoanType;
+    customerType;
+    currentRoleTypeMaker = false;
+    allDistrict: Array<District> = Array<District>();
+    branchList: Array<Branch> = new Array<Branch>();
+    roleAccess: string;
+    isMaker = false;
 
-  accessSpecific: boolean;
-  accessAll: boolean;
-  showBranch = true;
-  customerGroupList: Array<CustomerGroup>;
+    accessSpecific: boolean;
+    accessAll: boolean;
+    showBranch = true;
+    customerGroupList: Array<CustomerGroup>;
 
-  constructor(private customerService: CustomerService,
-              private toastService: ToastService,
-              private modalService: NgbModal,
-              private dialogService: NbDialogService,
-              private customerLoanService: LoanFormService,
-              private router: Router,
-              private formBuilder: FormBuilder,
-              private customerInfoService: CustomerInfoService,
-              private overlay: NgxSpinnerService,
-              private commonLocation: AddressService,
-              private branchService: BranchService,
-              private customerGroupService: CustomerGroupService,
-  ) {
-  }
-
-  static loadData(other: CustomerComponent) {
-    other.overlay.show();
-    other.spinner = true;
-    other.customerInfoService.getPaginationWithSearchObject(other.filterForm.value, other.page, 10).subscribe((response: any) => {
-      other.customerList = response.detail.content;
-      other.pageable = PaginationUtils.getPageable(response.detail);
-      other.spinner = false;
-      other.overlay.hide();
-
-    }, error => {
-      console.error(error);
-      other.overlay.hide();
-      other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Customer!'));
-      other.spinner = false;
-
-    });
-  }
-
-  ngOnInit() {
-    this.buildFilterForm();
-    CustomerComponent.loadData(this);
-    this.getAllDistrict();
-    this.getBranch();
-    this.getAllGroup();
-    const roleType: string = LocalStorageUtil.getStorage().roleType;
-    this.currentRoleTypeMaker = roleType === RoleType.MAKER;
-  }
-
-  buildFilterForm() {
-    this.filterForm = this.formBuilder.group({
-      name: [undefined],
-      customerType: [undefined],
-      idRegPlace: [undefined],
-      branchIds: [undefined],
-      groupId: [undefined]
-    });
-  }
-
-  private getAllDistrict() {
-    this.commonLocation.getAllDistrict().subscribe((response: any) => {
-      this.allDistrict = response.detail;
-    });
-  }
-
-  private getAllGroup() {
-    this.customerGroupService.getAll().subscribe((res: any) => {
-      this.customerGroupList = res.detail;
-    });
-  }
-
-  changePage(page: number) {
-    this.page = page;
-    CustomerComponent.loadData(this);
-  }
-
-  /* associate id is customer or company id*/
-  customerProfile(associateId, id, customerType) {
-    if (CustomerType[customerType] === CustomerType.INDIVIDUAL) {
-      this.router.navigate(['/home/customer/profile/' + associateId], {queryParams: {customerType: customerType, customerInfoId: id}});
-    } else if (CustomerType[customerType] === CustomerType.INSTITUTION ) {
-      this.router.navigate(['/home/customer/company-profile/' + associateId],
-          {queryParams: {id: id, customerType: customerType, companyInfoId: associateId, customerInfoId: id}});
-    }
-  }
-
-  onSearch() {
-    CustomerComponent.loadData(this);
-  }
-
-
-  getForm() {
-    this.onClose();
-    if (CustomerType.INDIVIDUAL === CustomerType[this.customerType]) {
-      this.dialogService.open(CustomerFormComponent).onClose.subscribe(res => CustomerComponent.loadData(this));
-    } else if (CustomerType.INSTITUTION  === CustomerType[this.customerType]) {
-      this.dialogService.open(CompanyFormComponent).onClose.subscribe(res => CustomerComponent.loadData(this));
-    }
-  }
-
-  openTemplate(template) {
-    this.modalService.open(template);
-  }
-
-  onClose() {
-    this.modalService.dismissAll();
-  }
-
-  clear() {
-    this.buildFilterForm();
-    CustomerComponent.loadData(this);
-
-  }
-
-  download() {
-    this.overlay.show();
-    this.customerInfoService.download(this.filterForm.value).subscribe((response: any) => {
-      this.overlay.hide();
-      const link = document.createElement('a');
-      link.target = '_blank';
-      link.href = ApiConfig.URL + '/' + response.detail;
-      link.download = name;
-      link.setAttribute('visibility', 'hidden');
-      link.click();
-    }, error => {
-      this.overlay.hide();
-      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Download Customer!'));
-    });
-
-  }
-
-
-  getBranch() {
-    this.roleAccess = LocalStorageUtil.getStorage().roleAccess;
-    if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
-      this.isMaker = true;
-    }
-    if (this.roleAccess === RoleAccess.SPECIFIC) {
-      this.accessSpecific = true;
-    } else if (this.roleAccess === RoleAccess.ALL) {
-      this.accessAll = true;
-    }
-    if (this.roleAccess === RoleAccess.OWN) {
-      this.showBranch = false;
+    constructor(private customerService: CustomerService,
+                private toastService: ToastService,
+                private modalService: NgbModal,
+                private dialogService: NbDialogService,
+                private customerLoanService: LoanFormService,
+                private router: Router,
+                private formBuilder: FormBuilder,
+                private customerInfoService: CustomerInfoService,
+                private overlay: NgxSpinnerService,
+                private commonLocation: AddressService,
+                private branchService: BranchService,
+                private customerGroupService: CustomerGroupService,
+    ) {
     }
 
-    if (this.accessSpecific || this.accessAll) {
-      this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
-        this.branchList = response.detail;
-      }, error => {
-        console.error(error);
-        this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
-      });
+    static loadData(other: CustomerComponent) {
+        other.overlay.show();
+        other.spinner = true;
+        other.customerInfoService.getPaginationWithSearchObject(other.filterForm.value, other.page, 10).subscribe((response: any) => {
+            other.customerList = response.detail.content;
+            other.pageable = PaginationUtils.getPageable(response.detail);
+            other.spinner = false;
+            other.overlay.hide();
+
+        }, error => {
+            console.error(error);
+            other.overlay.hide();
+            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Customer!'));
+            other.spinner = false;
+
+        });
     }
 
-  }
+    ngOnInit() {
+        this.buildFilterForm();
+        CustomerComponent.loadData(this);
+        this.getAllDistrict();
+        this.getBranch();
+        this.getAllGroup();
+        const roleType: string = LocalStorageUtil.getStorage().roleType;
+        this.currentRoleTypeMaker = roleType === RoleType.MAKER;
+    }
+
+    buildFilterForm() {
+        this.filterForm = this.formBuilder.group({
+            name: [undefined],
+            customerType: [undefined],
+            idRegPlace: [undefined],
+            branchIds: [undefined],
+            groupId: [undefined]
+        });
+    }
+
+    private getAllDistrict() {
+        this.commonLocation.getAllDistrict().subscribe((response: any) => {
+            this.allDistrict = response.detail;
+        });
+    }
+
+    private getAllGroup() {
+        this.customerGroupService.getAll().subscribe((res: any) => {
+            this.customerGroupList = res.detail;
+        });
+    }
+
+    changePage(page: number) {
+        this.page = page;
+        CustomerComponent.loadData(this);
+    }
+
+    /* associate id is customer or company id*/
+    customerProfile(associateId, id, customerType) {
+        if (CustomerType[customerType] === CustomerType.INDIVIDUAL) {
+            this.router.navigate(['/home/customer/profile/' + associateId], {
+                queryParams: {
+                    customerType: customerType,
+                    customerInfoId: id
+                }
+            });
+        } else if (CustomerType[customerType] === CustomerType.INSTITUTION) {
+            this.router.navigate(['/home/customer/company-profile/' + associateId],
+                {queryParams: {id: id, customerType: customerType, companyInfoId: associateId, customerInfoId: id}});
+        }
+    }
+
+    onSearch() {
+        CustomerComponent.loadData(this);
+    }
+
+
+    getForm() {
+        this.onClose();
+        if (CustomerType.INDIVIDUAL === CustomerType[this.customerType]) {
+            this.dialogService.open(CustomerFormComponent, {
+                closeOnBackdropClick: false,
+                closeOnEsc: false,
+                hasBackdrop: false,
+                hasScroll: true
+            }).onClose.subscribe(res => CustomerComponent.loadData(this));
+        } else if (CustomerType.INSTITUTION === CustomerType[this.customerType]) {
+            this.dialogService.open(CompanyFormComponent, {
+                closeOnBackdropClick: false,
+                closeOnEsc: false,
+                hasBackdrop: false,
+                hasScroll: true
+            }).onClose.subscribe(res => CustomerComponent.loadData(this));
+        }
+    }
+
+    openTemplate(template) {
+        this.modalService.open(template);
+    }
+
+    onClose() {
+        this.modalService.dismissAll();
+    }
+
+    clear() {
+        this.buildFilterForm();
+        CustomerComponent.loadData(this);
+
+    }
+
+    download() {
+        this.overlay.show();
+        this.customerInfoService.download(this.filterForm.value).subscribe((response: any) => {
+            this.overlay.hide();
+            const link = document.createElement('a');
+            link.target = '_blank';
+            link.href = ApiConfig.URL + '/' + response.detail;
+            link.download = name;
+            link.setAttribute('visibility', 'hidden');
+            link.click();
+        }, error => {
+            this.overlay.hide();
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Download Customer!'));
+        });
+
+    }
+
+
+    getBranch() {
+        this.roleAccess = LocalStorageUtil.getStorage().roleAccess;
+        if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
+            this.isMaker = true;
+        }
+        if (this.roleAccess === RoleAccess.SPECIFIC) {
+            this.accessSpecific = true;
+        } else if (this.roleAccess === RoleAccess.ALL) {
+            this.accessAll = true;
+        }
+        if (this.roleAccess === RoleAccess.OWN) {
+            this.showBranch = false;
+        }
+
+        if (this.accessSpecific || this.accessAll) {
+            this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
+                this.branchList = response.detail;
+            }, error => {
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
+            });
+        }
+
+    }
 
 
 }

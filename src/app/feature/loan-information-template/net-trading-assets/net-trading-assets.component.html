@@ -1,3 +1,8 @@
+<div class="row pb-0">
+    <div class="col-md-12">
+        <p *ngIf="!fromProfile" class="float-left"><b>Net Trading Assets</b></p>
+    </div>
+</div>
 <nb-card [nbSpinner]="spinner">
     <nb-card-header class="d-flex justify-content-end">
         <nb-radio-group *ngIf="fromProfile" [(ngModel)]="calendarType" class="d-inline-flex"

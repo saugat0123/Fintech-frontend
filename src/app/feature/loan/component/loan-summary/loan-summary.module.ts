@@ -53,7 +53,8 @@ const ENTRY_COMPONENTS = [];
     ],
   exports: [
     LoanSummaryComponent,
-    CustomerGroupSummaryComponent
+    CustomerGroupSummaryComponent,
+    IncomeFromAccountSummeryComponent
   ],
     entryComponents: [...ENTRY_COMPONENTS]
 })
