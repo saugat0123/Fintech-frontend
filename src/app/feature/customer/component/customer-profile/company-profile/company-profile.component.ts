@@ -155,12 +155,24 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     this.getCustomerInfo(this.customerInfoId);
   }
 
-  openSelectLoanTemplate() {
+  openSingleSelectLoanTemplate() {
     const modalRef = this.modalService.open(CustomerLoanApplyComponent, {size: 'lg'});
     modalRef.componentInstance.customerType = this.filterLoanCat;
     modalRef.componentInstance.paramProp = this.paramProp;
     modalRef.componentInstance.associateId = this.paramProp.companyInfoId;
     modalRef.componentInstance.customerInfo = this.customerInfo;
+    modalRef.componentInstance.singleOrCombine = 'Single';
+
+  }
+
+  openCombineSelectLoanTemplate() {
+    const modalRef = this.modalService.open(CustomerLoanApplyComponent, {size: 'lg'});
+    modalRef.componentInstance.customerType = this.filterLoanCat;
+    modalRef.componentInstance.paramProp = this.paramProp;
+    modalRef.componentInstance.associateId = this.paramProp.companyInfoId;
+    modalRef.componentInstance.customerInfo = this.customerInfo;
+    modalRef.componentInstance.singleOrCombine = 'Combine';
+
   }
 
   ngAfterContentInit(): void {
