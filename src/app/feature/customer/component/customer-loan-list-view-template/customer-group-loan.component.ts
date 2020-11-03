@@ -82,12 +82,17 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
             this.loanHistories.forEach(() => this.toggleArray.push({toggled: false}));
             this.spinner = false;
             this.totalLoanProposedAmount = 0;
+            this.collateralDtoData.totalApprovedRequiredCollateral = 0;
+            this.collateralDtoData.totalApprovedLimit = 0;
+            this.collateralDtoData.totalPendingRequiredCollateral = 0;
+            this.collateralDtoData.totalPendingLimit = 0;
+            this.collateralDtoData.totalRequiredCollateral = 0;
             this.customerGroupLoanList.forEach(l => {
                     if (l.proposal) {
                         this.totalLoanProposedAmount = this.totalLoanProposedAmount + l.proposal.proposedLimit;
                         this.collateralDtoData.totalRequiredCollateral = this.collateralDtoData.totalRequiredCollateral +
                             ((l.loan.collateralRequirement * l.proposal.proposedLimit) / 100);
-                       if (l.documentStatus.toString() ===  DocStatus.value(DocStatus.APPROVED) ) {
+                        if (l.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
                             this.collateralDtoData.totalApprovedLimit = this.collateralDtoData.totalApprovedLimit +
                                 l.proposal.proposedLimit;
                             this.collateralDtoData.totalApprovedRequiredCollateral = this.collateralDtoData.totalRequiredCollateral +
@@ -96,7 +101,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
                             this.collateralDtoData.totalPendingLimit = this.collateralDtoData.totalPendingLimit +
                                 l.proposal.proposedLimit;
                             this.collateralDtoData.totalPendingRequiredCollateral = this.collateralDtoData.totalPendingRequiredCollateral
-                                +  ((l.loan.collateralRequirement * l.proposal.proposedLimit) / 100);
+                                + ((l.loan.collateralRequirement * l.proposal.proposedLimit) / 100);
                         }
                     }
                 }
@@ -110,8 +115,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     }
 
     calculateCollateralData() {
-        // tslint:disable-next-line:max-line-length
-        this.collateralDtoData.deficit_Surplus = this.customerInfo.security.totalSecurityAmount - this.collateralDtoData.totalRequiredCollateral;
+        this.collateralDtoData.deficit_Surplus = this.customerInfo.security.totalSecurityAmount -
+            this.collateralDtoData.totalRequiredCollateral;
         this.collateralDtoData.coveragePercent = (this.customerInfo.security.totalSecurityAmount /
             (this.customerInfo.security.totalSecurityAmount - this.collateralDtoData.totalRequiredCollateral)) * 100;
     }

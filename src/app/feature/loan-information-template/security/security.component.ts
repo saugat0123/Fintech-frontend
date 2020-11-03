@@ -16,6 +16,7 @@ import {LandAndBuildingLocation} from '../model/land-and-building-location';
 import {VehicleSecurityCoverage} from '../model/vehicle-security-coverage';
 import {CustomerType} from '../../customer/model/customerType';
 import {ActivatedRoute} from '@angular/router';
+import {CustomerShareData} from '../../admin/modal/CustomerShareData';
 
 @Component({
     selector: 'app-security' ,
@@ -301,13 +302,16 @@ export class SecurityComponent implements OnInit {
                    }
                     break;
                 case 'FixedDeposit':
-                    const fixedDepositArray = selectedSecurity.initialForm.fixedDepositDetails as Array<any>;
+                    const fixedDepositArray = securityData.initialForm.fixedDepositDetails as Array<any>;
                     for (let i = 0; i < fixedDepositArray.length; i++) {
                         totalSecurityAmount += Number(fixedDepositArray[i].amount);
                     }
                     break;
                     case 'ShareSecurity':
-                    totalSecurityAmount += this.initialSecurity.totalConsideredValue;
+                        const shareSecurity: Array<CustomerShareData> = this.initialSecurity.shareSecurityData.customerShareData;
+                        shareSecurity.forEach(value => {
+                            totalSecurityAmount += value.total;
+                        });
                     break;
                 default:
                     totalSecurityAmount += 0;
