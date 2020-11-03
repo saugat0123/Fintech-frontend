@@ -2,34 +2,35 @@
   <div class="col-md-12 text-center">
     <p><strong>Individual Details</strong></p>
     <table
-        class="table table-condensed table-bordered table-sm table-responsive-md text-center">
+        class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
       <thead>
 
-      <tr>
+      <tr class="text-white sb-bg-dark">
         <th>Name</th>
+        <th>Customer Id</th>
+        <th>Date of birth</th>
         <th>Citizenship no.</th>
         <th>Citizenship Issued Date</th>
         <th>Issued Place</th>
         <th>Province</th>
         <th>District</th>
-        <th>Municipalities</th>
       </tr>
       </thead>
       <tbody>
       <tr>
         <td>{{individual?.customerName}}</td>
+        <td>{{customerInfo?.customerCode}}</td>
+        <td>{{individual?.dob}}</td>
         <td>{{individual?.citizenshipNumber}}</td>
         <td>{{individual?.citizenshipIssuedDate | date}}</td>
         <td>{{individual?.citizenshipIssuedPlace}}</td>
         <td>{{individual?.province?.name}}</td>
         <td>{{individual?.district?.name}}</td>
-        <td>{{individual?.municipalities?.name}}</td>
       </tr>
       </tbody>
       <thead>
-      <tr>
-        <th></th>
-
+      <tr class="text-white sb-bg-dark">
+        <th>Municipalities</th>
         <th>Street</th>
         <th>Ward no.</th>
         <th>Contact Number</th>
@@ -40,14 +41,13 @@
       </thead>
       <tbody>
       <tr>
-        <td></td>
+        <td>{{individual?.municipalities?.name}}</td>
         <td>{{individual?.street || 'NA'}}</td>
         <td>{{individual?.wardNumber || 'NA'}}</td>
         <td>{{individual?.contactNumber || 'NA'}}</td>
         <td>{{individual?.email || 'NA'}}</td>
         <td>{{individual?.occupation || 'NA'}}</td>
         <td>{{individual?.incomeSource || 'NA'}}</td>
-
       </tr>
       </tbody>
     </table>
@@ -56,13 +56,15 @@
   <div class="col-md-12 text-center">
     <p><strong>Family Details</strong></p>
     <table
-        class="table table-sm table-condensed table-bordered table-responsive-md text-center">
+        class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
       <thead>
-      <tr>
+      <tr class="text-white sb-bg-dark">
         <th>Name</th>
         <th>Relation</th>
         <th>Citizenship no.</th>
         <th>Citizenship Issued Date</th>
+        <th>Citizenship Issued District</th>
+
 
       </tr>
       </thead>
@@ -81,9 +83,21 @@
         <td>
           {{relative.citizenshipIssuedDate | date}}
         </td>
+        <td>{{relative.citizenshipIssuedPlace}}</td>
 
       </tr>
       </tbody>
+    </table>
+  </div>
+  <div class="col-md-12 text-center">
+    <table
+        class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+      <tr class="text-white sb-bg-dark">
+        <th>Introduction</th>
+      </tr>
+      <tr>
+        <td>{{individual?.introduction}}</td>
+      </tr>
     </table>
   </div>
 </div>

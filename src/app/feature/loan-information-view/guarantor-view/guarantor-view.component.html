@@ -1,11 +1,11 @@
-<div *ngIf="guarantorData" class="row">
+<div *ngIf="guarantorData?.length > 0" class="row">
   <div class="col-md-12 text-center">
     <p><strong>Guarantor Details</strong></p>
-    <table *ngFor="let guarantor of guarantorData.guarantorList; let i= index"
+    <table *ngFor="let guarantor of guarantorData; let i= index"
            class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
       <thead>
       <tr>
-        <th colspan="6" class="text-left">Gurantor {{i + 1}} Details</th>
+        <th colspan="6" class="text-left">Guarantor {{i + 1}} Details (<i class="fas fa-check" *ngIf="guarantor?.consentOfLegalHeirs"></i><i class="fas fa-times" *ngIf="!guarantor?.consentOfLegalHeirs"></i> Consent of Legal Heirs)</th>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th>Name</th>
@@ -28,24 +28,48 @@
       </tbody>
       <thead>
       <tr class="text-white sb-bg-dark">
-        <th></th>
         <th>municipalities</th>
+        <th>Ward Number</th>
+        <th>Street Name</th>
         <th>contactNumber</th>
         <th>fatherName</th>
         <th>grandFatherName</th>
-        <th>relationship</th>
+
       </tr>
       </thead>
       <tbody>
       <tr>
-        <td></td>
         <td>{{guarantor?.municipalities?.name}}</td>
+        <td>{{guarantor?.wardNumber}}</td>
+        <td>{{guarantor?.streetName}}</td>
         <td>{{guarantor?.contactNumber}}</td>
         <td>{{guarantor?.fatherName}}</td>
         <td>{{guarantor?.grandFatherName}}</td>
-        <td>{{guarantor?.relationship}}</td>
+
       </tr>
       </tbody>
+      <tr class="text-white sb-bg-dark">
+        <th>relationship</th>
+        <th>Net Worth</th>
+        <th>Temporary Province</th>
+        <th>Temporary District</th>
+        <th>Temporary Municipalities</th>
+        <th>Temporary Ward Number</th>
+      </tr>
+      <tr>
+        <td>{{guarantor?.relationship}}</td>
+        <td>{{guarantor?.netWorth}}</td>
+        <td>{{guarantor?.provinceTemporary?.name}}</td>
+        <td>{{guarantor?.districtTemporary?.name}}</td>
+        <td>{{guarantor?.municipalitiesTemporary?.name}}</td>
+        <td>{{guarantor?.wardNumberTemporary}}</td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>Temporary Street Name</th>
+      </tr>
+      <tr>
+        <th>{{guarantor?.streetNameTemporary}}</th>
+      </tr>
     </table>
   </div>
 </div>

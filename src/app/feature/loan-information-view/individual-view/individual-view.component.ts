@@ -10,7 +10,7 @@ import {CalendarType} from '../../../@core/model/calendar-type';
 })
 export class IndividualViewComponent implements OnInit {
   @Input() individual: Customer;
-
+  @Input() customerInfo;
   customerType = CustomerType;
 
   @Input() calendarType: CalendarType;

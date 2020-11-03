@@ -1,4 +1,5 @@
 import {Guarantor} from './guarantor';
+import {ShareSecurity} from '../../admin/modal/shareSecurity';
 
 
 export class Security {
@@ -6,7 +7,7 @@ export class Security {
     version: number;
     data: string;
     valuatorId: number;
-    share;
+    share: ShareSecurity;
     guarantor: Array<Guarantor>;
     totalSecurityAmount: number;
 
