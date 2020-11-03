@@ -115,10 +115,12 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     }
 
     calculateCollateralData() {
-        this.collateralDtoData.deficit_Surplus = this.customerInfo.security.totalSecurityAmount -
-            this.collateralDtoData.totalRequiredCollateral;
-        this.collateralDtoData.coveragePercent = (this.customerInfo.security.totalSecurityAmount /
-            (this.customerInfo.security.totalSecurityAmount - this.collateralDtoData.totalRequiredCollateral)) * 100;
+      if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
+          this.collateralDtoData.deficit_Surplus = this.customerInfo.security.totalSecurityAmount -
+              this.collateralDtoData.totalRequiredCollateral;
+          this.collateralDtoData.coveragePercent = (this.customerInfo.security.totalSecurityAmount /
+              (this.customerInfo.security.totalSecurityAmount - this.collateralDtoData.totalRequiredCollateral)) * 100;
+      }
     }
 
     groupCombinedLoan(customerLoans: LoanDataHolder[]): SingleCombinedLoanDto[] {

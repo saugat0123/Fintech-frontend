@@ -54,7 +54,7 @@
                         <td>Total</td>
                         <td class="text-right">{{collateralDtoData.totalPendingLimit |currencyFormatter}}</td>
                         <td colspan="4"></td>
-                        <td >{{collateralDtoData.totalPendingRequiredCollateral}}</td>
+                        <td >{{collateralDtoData.totalPendingRequiredCollateral |currencyFormatter}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -144,7 +144,7 @@
                                 <td>Total</td>
                                 <td class="text-right">{{collateralDtoData.totalApprovedLimit |currencyFormatter}}</td>
                                 <td colspan="3"></td>
-                                <td >{{collateralDtoData.totalApprovedRequiredCollateral}}</td>
+                                <td >{{collateralDtoData.totalApprovedRequiredCollateral |currencyFormatter}}</td>
                             </tr>
                         </ng-container>
                     </ng-container>
