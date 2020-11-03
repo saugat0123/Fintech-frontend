@@ -75,6 +75,7 @@ import {LoanSummaryModule} from './component/loan-summary/loan-summary.module';
 import { SummaryBaseComponent } from './summary-base/summary-base.component';
 import {QuillModule} from 'ngx-quill';
 import { AngularDraggableModule } from 'angular2-draggable';
+import {LoanInformationDetailViewModule} from '../loan-information-detail-view/loan-information-detail-view.module';
 
 const COMPONENTS = [
   LoanFormComponent,
@@ -191,7 +192,8 @@ const modules = {
     LoanInformationViewModule,
     LoanSummaryModule,
     QuillModule.forRoot({modules: modules}),
-    AngularDraggableModule
+    AngularDraggableModule,
+    LoanInformationDetailViewModule
   ],
 
   providers: [

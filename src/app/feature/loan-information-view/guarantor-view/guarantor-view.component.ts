@@ -8,11 +8,9 @@ import {Guarantor} from '../../loan/model/guarantor';
 })
 export class GuarantorViewComponent implements OnInit {
   @Input() guarantorData;
-  guarantorList: Array<Guarantor> = [];
   constructor() { }
 
   ngOnInit() {
-    this.guarantorList = this.guarantorData.guarantorList;
   }
 
 }

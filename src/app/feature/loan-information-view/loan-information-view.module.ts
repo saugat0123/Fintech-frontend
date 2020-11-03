@@ -16,6 +16,7 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import { SecurityViewComponent } from './security-view/security-view.component';
 import { CompanyInfoViewComponent } from './company-info-view/company-info-view.component';
 import { CiclViewComponent } from './cicl-view/cicl-view.component';
+import { AllDocumentViewComponent } from './all-document-view/all-document-view.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { CiclViewComponent } from './cicl-view/cicl-view.component';
     SecurityViewComponent,
     CompanyInfoViewComponent,
     CiclViewComponent,
+    AllDocumentViewComponent,
   ],
   exports: [
     InsuranceViewComponent,
@@ -39,6 +41,7 @@ import { CiclViewComponent } from './cicl-view/cicl-view.component';
     SecurityViewComponent,
     CompanyInfoViewComponent,
     CiclViewComponent,
+    AllDocumentViewComponent,
   ],
   imports: [
     CommonModule,

@@ -125,7 +125,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     customerAllLoanList: LoanDataHolder[] = []; // current loan plus staged and combined loans
     incomeFromAccountSummary = false;
-    incomeFromAccountData: IncomeFromAccount;
+    incomeFromAccountData;
     netTradingAssetsSummary = false;
     netTradingAssetsData: NetTradingAssets;
     minOneInsuranceDoc = false;
@@ -198,7 +198,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
         // Setting IncomeFromAccount data--
         if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.incomeFromAccount)) {
-            this.incomeFromAccountData = JSON.parse(this.loanDataHolder.loanHolder.incomeFromAccount.data);
+            this.incomeFromAccountData = this.loanDataHolder.loanHolder.incomeFromAccount;
             this.incomeFromAccountSummary = true;
         }
 
