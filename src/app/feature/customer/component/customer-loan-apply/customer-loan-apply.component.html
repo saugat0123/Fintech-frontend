@@ -6,17 +6,16 @@
     </a>
   </nb-card-header>
   <nb-card-body>
-    <form #f="ngForm" (ngSubmit)="f.form.valid && openLoanForm(radioApplyLoan.value === 'Combined')">
+    <form #f="ngForm" (ngSubmit)="f.form.valid && openLoanForm(singleOrCombine === 'Combine')">
       <div class="row">
         <div class="col-md-12 text-center">
-          <nb-radio-group #radioApplyLoan value="Single" class="d-inline-flex">
-            <nb-radio value="Single">Single</nb-radio>
-            <nb-radio value="Combined">Combined</nb-radio>
-          </nb-radio-group>
+          <p class="text-center" *ngIf="singleOrCombine === 'Single'"><b>Single Loan</b></p>
+          <p class="text-center" *ngIf="singleOrCombine === 'Combine'"><b>Combine Loan</b></p>
+
         </div>
       </div>
       <hr />
-      <div class="row">
+      <div class="row" *ngIf="singleOrCombine === 'Single'">
         <div class="col-md-4 mb-3">
           <label><strong>Loan Type</strong></label>
           <select [(ngModel)]="selectedLoanType"
@@ -26,7 +25,7 @@
         </div>
       </div>
 
-      <div *ngIf="radioApplyLoan.value === 'Single'" class="row">
+      <div *ngIf="singleOrCombine === 'Single'" class="row">
         <div class="col-md-12">
           <select #type="ngModel"
                   [(ngModel)]="applyForm.loanId"
@@ -39,12 +38,12 @@
           </select>
         </div>
       </div>
-      <div *ngIf="radioApplyLoan.value === 'Combined'" class="row">
+      <div *ngIf="singleOrCombine === 'Combine'" class="row">
         <div class="col-md-12 pb-3 text-center">
           Total Combined Loans: {{combinedLoansIds?.length || 0}}
         </div>
         <div class="col-md-12">
-          <table class="table table-bordered table-hover table-responsive table-sm sb-small" *ngIf="!spinner">
+          <table class="table table-bordered table-hover table-responsive-md table-sm sb-small" *ngIf="!spinner">
             <thead>
             <tr class="text-white sb-bg-dark">
               <th scope="col">Pick</th>
