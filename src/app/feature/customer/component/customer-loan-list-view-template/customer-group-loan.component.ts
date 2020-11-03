@@ -119,7 +119,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
           this.collateralDtoData.deficit_Surplus = this.customerInfo.security.totalSecurityAmount -
               this.collateralDtoData.totalRequiredCollateral;
           this.collateralDtoData.coveragePercent = (this.customerInfo.security.totalSecurityAmount /
-              (this.customerInfo.security.totalSecurityAmount - this.collateralDtoData.totalRequiredCollateral)) * 100;
+              (this.collateralDtoData.totalRequiredCollateral)) * 100;
       }
     }
 
