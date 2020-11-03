@@ -23,6 +23,7 @@ export class CustomerLoanApplyComponent implements OnInit {
   @Input() paramProp;
   @Input() associateId;
   @Input() customerInfo: CustomerInfoData;
+  @Input() singleOrCombine;
   spinner = false;
   applyForm = {
     loanId: undefined,
