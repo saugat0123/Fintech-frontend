@@ -31,7 +31,7 @@
                             <td>{{model?.documentStatus}}</td>
                             <td>{{model?.createdAt | date}}</td>
                             <td>{{model?.collateralRequirement}}</td>
-                            <td>{{model?.collateralRequirement * model?.proposalProposedLimit}}</td>
+                            <td>{{(model?.collateralRequirement * model?.proposalProposedLimit)/100 |currencyFormatter}}</td>
                         </tr>
                         <ng-container *ngIf="toggleArray[i].toggled">
                             <tr (click)="onClick(single?.loanId, single.id)"
@@ -45,7 +45,7 @@
                                 <td>{{single?.documentStatus}}</td>
                                 <td>{{single?.createdAt | date}}</td>
                                 <td>{{single?.collateralRequirement}}</td>
-                                <td>{{addRequiredCollateral(single?.collateralRequirement , single?.proposalProposedLimit)}}</td>
+                                <td>{{(single?.collateralRequirement * single?.proposalProposedLimit)/100 |currencyFormatter}}</td>
                             </tr>
                         </ng-container>
                     </ng-container>
@@ -91,7 +91,7 @@
                             <td>{{loanType[model?.loanType] || model?.loanType}}</td>
                             <td>{{model?.createdAt | date}}</td>
                             <td>{{model?.collateralRequirement}}</td>
-                            <td>{{model?.collateralRequirement * model?.proposalProposedLimit}}</td>
+                            {{(model?.collateralRequirement * model?.proposalProposedLimit)/100 |currencyFormatter}}
                         </tr>
                         <ng-container >
                             <tr (click)="onClick(single?.loanId, single.id)"
@@ -105,8 +105,7 @@
                                 <td>{{single?.documentStatus}}</td>
                                 <td>{{single?.createdAt | date}}</td>
                                 <td>{{single?.collateralRequirement}}</td>
-                                <td>
-                                    {{addRequiredCollateral(single?.collateralRequirement , single?.proposalProposedLimit)}}</td>
+                                {{(single?.collateralRequirement * single?.proposalProposedLimit)/100 |currencyFormatter}}
                             </tr>
                         </ng-container>
                     </ng-container>
@@ -124,7 +123,7 @@
                             <td>{{loanType[model?.loanType] || model?.loanType}}</td>
                             <td>{{model?.createdAt | date}}</td>
                             <td>{{model?.collateralRequirement}}</td>
-                            <td>{{model?.collateralRequirement * model?.proposalProposedLimit}}</td>
+                            {{(model?.collateralRequirement * model?.proposalProposedLimit)/100 |currencyFormatter}}
                         </tr>
                         <ng-container >
                             <tr (click)="onClick(single?.loanId, single.id)"
@@ -138,8 +137,7 @@
                                 <td>{{single?.documentStatus}}</td>
                                 <td>{{single?.createdAt | date}}</td>
                                 <td>{{single?.collateralRequirement}}</td>
-                                <td>
-                                    {{addRequiredCollateral(single?.collateralRequirement , single?.proposalProposedLimit)}}</td>
+                                {{(single?.collateralRequirement * single?.proposalProposedLimit)/100 |currencyFormatter}}
                             </tr>
                             <tr class="sb-bg-secondary text-white">
                                 <td></td>
