@@ -49,6 +49,13 @@
                             </tr>
                         </ng-container>
                     </ng-container>
+                    <tr class="sb-bg-secondary text-white">
+                        <td></td>
+                        <td>Total</td>
+                        <td class="text-right">{{collateralDtoData.totalPendingLimit |currencyFormatter}}</td>
+                        <td colspan="4"></td>
+                        <td >{{collateralDtoData.totalPendingRequiredCollateral}}</td>
+                    </tr>
                     </tbody>
                 </table>
             </nb-card-body>
@@ -134,6 +141,13 @@
                                 <td>
                                     {{addRequiredCollateral(single?.collateralRequirement , single?.proposalProposedLimit)}}</td>
                             </tr>
+                            <tr class="sb-bg-secondary text-white">
+                                <td></td>
+                                <td>Total</td>
+                                <td class="text-right">{{collateralDtoData.totalApprovedLimit |currencyFormatter}}</td>
+                                <td colspan="3"></td>
+                                <td >{{collateralDtoData.totalApprovedRequiredCollateral}}</td>
+                            </tr>
                         </ng-container>
                     </ng-container>
                     </tbody>
@@ -142,7 +156,7 @@
             <nb-card-footer>
                 <div>
                     <mark class="alert-warning">Total Required Collateral:</mark> <strong>Rs.{{collateralDtoData.totalRequiredCollateral| currencyFormatter}}</strong>
-                    <br><mark class="alert-warning">Total FMV/Considered Value:</mark> <strong>Rs.{{customerInfo.security.totalSecurityAmount |currencyFormatter}}</strong>
+                    <br><mark class="alert-warning">Total FMV/Considered Value:</mark> <strong>Rs.{{customerInfo?.security?.totalSecurityAmount |currencyFormatter}}</strong>
                     <br><mark class="alert-warning">Deficit/(Surplus):</mark><strong> Rs. {{collateralDtoData.deficit_Surplus |currencyFormatter}}</strong>
                     <br><mark class="alert-warning">Coverage%: </mark><strong>{{collateralDtoData.coveragePercent |percent}}</strong>
                 </div>

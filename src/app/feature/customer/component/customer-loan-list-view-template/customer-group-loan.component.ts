@@ -87,16 +87,16 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
                         this.totalLoanProposedAmount = this.totalLoanProposedAmount + l.proposal.proposedLimit;
                         this.collateralDtoData.totalRequiredCollateral = this.collateralDtoData.totalRequiredCollateral +
                             (l.loan.collateralRequirement * l.proposal.proposedLimit);
-                        if (l.documentStatus === DocStatus.APPROVED) {
+                       if (l.documentStatus.toString() ===  DocStatus.value(DocStatus.APPROVED) ) {
                             this.collateralDtoData.totalApprovedLimit = this.collateralDtoData.totalApprovedLimit +
                                 l.proposal.proposedLimit;
                             this.collateralDtoData.totalApprovedRequiredCollateral = this.collateralDtoData.totalRequiredCollateral +
-                                l.proposal.collateralRequirement;
+                                (l.proposal.collateralRequirement * l.proposal.proposedLimit);
                         } else {
                             this.collateralDtoData.totalPendingLimit = this.collateralDtoData.totalPendingLimit +
                                 l.proposal.proposedLimit;
-                            this.collateralDtoData.totalPendingRequiredCollateral = this.collateralDtoData.totalPendingRequiredCollateral +
-                                l.proposal.collateralRequirement;
+                            this.collateralDtoData.totalPendingRequiredCollateral = this.collateralDtoData.totalPendingRequiredCollateral
+                                + (l.proposal.collateralRequirement * l.proposal.proposedLimit);
                         }
                     }
                 }
