@@ -297,11 +297,9 @@ export class SecurityComponent implements OnInit {
                            totalSecurityAmount += Number(landArray[i].landConsideredValue);
                        }
                    }
-                   if (!isBuildingSelected) {
-                       const buildingArray = securityData.initialForm.buildingDetails as Array<any>;
+                    const buildingArray = securityData.initialForm.landBuilding as Array<any>;
                        for (let i = 0; i < buildingArray.length; i++) {
                            totalSecurityAmount += Number(buildingArray[i].buildingFairMarketValue);
-                       }
                    }
                     break;
                 case 'FixedDeposit':
