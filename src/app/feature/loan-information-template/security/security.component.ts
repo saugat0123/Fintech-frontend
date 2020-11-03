@@ -269,7 +269,6 @@ export class SecurityComponent implements OnInit {
                     const landDetailsArray = securityData.initialForm.landDetails as Array<any>;
                     for (let i = 0; i < landDetailsArray.length; i++) {
                         totalSecurityAmount += Number(landDetailsArray[i].landConsideredValue);
-                        console.log(totalSecurityAmount);
                     }
                     break;
                 case 'VehicleSecurity':
@@ -295,7 +294,7 @@ export class SecurityComponent implements OnInit {
                    if (!isLandSelected) {
                        const landArray = securityData.initialForm.landDetails as Array<any>;
                        for (let i = 0; i < landArray.length; i++) {
-                           totalSecurityAmount += Number(landArray[i].marketValue);
+                           totalSecurityAmount += Number(landArray[i].landConsideredValue);
                        }
                    }
                    if (!isBuildingSelected) {
