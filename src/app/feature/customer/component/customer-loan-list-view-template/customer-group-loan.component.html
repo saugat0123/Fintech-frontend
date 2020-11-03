@@ -10,7 +10,7 @@
                     <tr class="sb-bg-dark text-white">
                         <th>S.N</th>
                         <th>Loan Facility</th>
-                        <th>Proposed Amount</th>
+                        <th>Proposed Limit</th>
                         <th>Type</th>
                         <th>Status</th>
                         <th>Created On</th>
@@ -62,7 +62,7 @@
                     <tr class="sb-bg-dark text-white">
                         <th>S.N</th>
                         <th>Loan Facility</th>
-                        <th>Proposed Amount</th>
+                        <th>Approved Limit</th>
                         <th>Type</th>
                         <th>Created On</th>
                         <th>Collateral Req%</th>
@@ -143,8 +143,8 @@
                 <div>
                     <mark class="alert-warning">Total Required Collateral:</mark> <strong *ngIf="totalRequiredCollateral">Rs.{{totalRequiredCollateral | currencyFormatter}}</strong>
                     <br><mark class="alert-warning">Total FMV/Considered Value:</mark> <strong>Rs.{{customerInfo.security.totalSecurityAmount |currencyFormatter}}</strong>
-                    <br><mark class="alert-warning">Deficit/(Surplus):</mark><strong>{{customerInfo.security.totalSecurityAmount - totalRequiredCollateral |currencyFormatter}}</strong>
-                    <br><mark class="alert-warning">Coverage%: </mark><strong>{{(customerInfo.security.totalSecurityAmount /(customerInfo.security.totalSecurityAmount - totalRequiredCollateral))}}</strong>
+                    <br><mark class="alert-warning">Deficit/(Surplus):</mark><strong> Rs. {{collateralDtoData.deficit_Surplus |currencyFormatter}}</strong>
+                    <br><mark class="alert-warning">Coverage%: </mark><strong>{{collateralDtoData.coveragePercent |percent}}</strong>
                 </div>
             </nb-card-footer>
         </nb-card>
