@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-income-from-account-summery',
@@ -7,13 +8,15 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class IncomeFromAccountSummeryComponent implements OnInit {
   @Input() formData;
+  incomeFromAccount;
 
   constructor() {
-    console.log(this.formData);
   }
 
   ngOnInit() {
-
+    if (!ObjectUtil.isEmpty(this.formData)) {
+      this.incomeFromAccount = JSON.parse(this.formData.data);
+    }
   }
 
 }
