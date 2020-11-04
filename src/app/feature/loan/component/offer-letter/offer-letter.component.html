@@ -155,6 +155,7 @@
                                     [offerLetterTypeId]="list.id"></app-pratigya-patra>
 
                             <!-- CAD DOC FOR MAW --->
+                <nb-accordion-item-body *ngIf="environment1 === 'Mega Bank'">
                             <app-retail-educational-loan
                                     *ngIf="loanDataHolder && list.name === offerLetterConst.value(offerLetterConst.RETAIL_EDUCATIONAL)"
                                     [customerId]="customerId"
@@ -208,6 +209,7 @@
                                                       [loanDataHolder]="loanDataHolder"
                                                       [offerLetterTypeId]="list.id">
                             </app-retail-mortgage-loan>
+                </nb-accordion-item-body>
                         </nb-accordion-item-body>
                     </nb-accordion-item>
 

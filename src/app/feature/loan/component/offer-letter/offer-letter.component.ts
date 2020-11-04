@@ -10,6 +10,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {CustomerOfferLetterPath} from '../../model/customer-offer-letter-path';
 import {OfferLetterConst} from './model/offer-letter-const';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
     selector: 'app-offer-letter',
@@ -27,6 +28,7 @@ export class OfferLetterComponent implements OnInit {
     customerOfferLetterPathList: Array<CustomerOfferLetterPath>;
     offerLetterConst = OfferLetterConst;
     fullScreenView = false;
+    environment1 = environment.client;
 
 
     constructor(
