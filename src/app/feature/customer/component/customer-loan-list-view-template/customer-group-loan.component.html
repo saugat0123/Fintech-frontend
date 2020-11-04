@@ -139,15 +139,15 @@
                                 <td>{{single?.collateralRequirement}}</td>
                                 {{(single?.collateralRequirement * single?.proposalProposedLimit)/100 |currencyFormatter}}
                             </tr>
-                            <tr class="sb-bg-secondary text-white">
-                                <td></td>
-                                <td>Total</td>
-                                <td class="text-right">{{collateralDtoData?.totalApprovedLimit |currencyFormatter}}</td>
-                                <td colspan="3"></td>
-                                <td >{{collateralDtoData?.totalApprovedRequiredCollateral |currencyFormatter}}</td>
-                            </tr>
                         </ng-container>
                     </ng-container>
+                    <tr class="sb-bg-secondary text-white">
+                        <td></td>
+                        <td>Total</td>
+                        <td class="text-right">{{collateralDtoData?.totalApprovedLimit |currencyFormatter}}</td>
+                        <td colspan="3"></td>
+                        <td >{{collateralDtoData?.totalApprovedRequiredCollateral |currencyFormatter}}</td>
+                    </tr>
                     </tbody>
                 </table>
             </nb-card-body>
@@ -156,7 +156,7 @@
                     <mark class="alert-warning">Total Required Collateral:</mark> <strong>Rs.{{collateralDtoData.totalRequiredCollateral| currencyFormatter}}</strong>
                     <br><mark class="alert-warning">Total FMV/Considered Value:</mark> <strong>Rs.{{customerInfo?.security?.totalSecurityAmount |currencyFormatter}}</strong>
                     <br><mark class="alert-warning">Deficit/(Surplus):</mark><strong> Rs. {{collateralDtoData.deficit_Surplus |currencyFormatter}}</strong>
-                    <br><mark class="alert-warning">Coverage%: </mark><strong>{{collateralDtoData.coveragePercent |roundvalue}}</strong>
+                    <br><mark class="alert-warning">Coverage%: </mark><strong>{{collateralDtoData.coveragePercent |roundvalue}}%</strong>
                 </div>
             </nb-card-footer>
         </nb-card>
