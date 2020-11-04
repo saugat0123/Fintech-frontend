@@ -576,6 +576,10 @@
       <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
       [groupDto]="loanDataHolder?.groupSummaryDto" [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>
 
+      <app-collateral-summary
+              *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
+              [customerAllLoanList]="customerAllLoanList"
+              [security]="loanDataHolder?.security"></app-collateral-summary>
       <app-proposal-justification-summary *ngIf="proposalSummary"
                                           [customerAllLoanList]="customerAllLoanList"
                                           [proposalData]="proposalData"></app-proposal-justification-summary>
@@ -587,7 +591,6 @@
                              [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
       <hr>
-      <p><strong>Net Trading Assets (NTA):</strong></p>
       <app-net-trading-assets *ngIf="netTradingAssetsSummary"
                               [fromProfile]="false"
                               [netTradingAssetsData]="netTradingAssetsData"></app-net-trading-assets>
@@ -614,7 +617,7 @@
         <div class="col-md-12 disable-print">
           <span>
             <b>All Documents</b>
-            <button class="float-right sb-small sb-bg-dark text-white"  (click)=downloadAllDocument(loanDataHolder?.customerDocument[0]?.documentPath)> Download All Document</button>
+            <button class="float-right sb-small sb-bg-dark text-white" *ngIf="loanDataHolder?.customerDocument?.length > 0"  (click)=downloadAllDocument(loanDataHolder?.customerDocument[0]?.documentPath)> Download All Document</button>
           </span>
         </div>
       </div>

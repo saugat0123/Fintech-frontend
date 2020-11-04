@@ -12,7 +12,6 @@ export class InsuranceViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.insurance);
   }
 
 }

@@ -75,6 +75,7 @@ import {LoanSummaryModule} from './component/loan-summary/loan-summary.module';
 import { SummaryBaseComponent } from './summary-base/summary-base.component';
 import {QuillModule} from 'ngx-quill';
 import { AngularDraggableModule } from 'angular2-draggable';
+import {LoanInformationDetailViewModule} from '../loan-information-detail-view/loan-information-detail-view.module';
 import {HayerPurchaseComponent} from "./component/mega-offer-letter/hayer-purchase/hayer-purchase.component";
 import {RetailHousingLoanComponent} from "./component/mega-offer-letter/retail-housing-loan/retail-housing-loan.component";
 import {RetailProfessionalLoanComponent} from "./component/mega-offer-letter/retail-professional-loan/retail-professional-loan.component";
@@ -228,7 +229,8 @@ const modules = {
     LoanInformationViewModule,
     LoanSummaryModule,
     QuillModule.forRoot({modules: modules}),
-    AngularDraggableModule
+    AngularDraggableModule,
+    LoanInformationDetailViewModule
   ],
 
   providers: [

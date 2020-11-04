@@ -16,6 +16,7 @@ import {LandAndBuildingLocation} from '../model/land-and-building-location';
 import {VehicleSecurityCoverage} from '../model/vehicle-security-coverage';
 import {CustomerType} from '../../customer/model/customerType';
 import {ActivatedRoute} from '@angular/router';
+import {CustomerShareData} from '../../admin/modal/CustomerShareData';
 
 @Component({
     selector: 'app-security' ,
@@ -49,6 +50,7 @@ export class SecurityComponent implements OnInit {
     guarantorsDetails: Guarantor = new Guarantor();
     shareSecurityData: ShareSecurity = new ShareSecurity();
     isBusinessLoan = true;
+    shareSecuritySelected = false;
 
     guaranteeList = SecurityGuarantee.enumObject();
     locationList = LandAndBuildingLocation.enumObject();
@@ -213,16 +215,20 @@ export class SecurityComponent implements OnInit {
             buildingLocation: this.securityForm.get('buildingLocation').value,
             vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
         };
+        this.securityData.totalSecurityAmount = this.calculateTotalSecurity(mergedForm);
         this.securityData.data = JSON.stringify(mergedForm);
         this.securityData.guarantor = [];
         this.initialSecurity.selectedArray.forEach((selected) => {
             if (selected === 'ShareSecurity') {
-                this.shareSecurityData = this.initialSecurity.shareSecurityData;
-                this.securityData.share = this.shareSecurityData;
-            } else {
-                this.securityData.share = undefined;
+                this.shareSecuritySelected = true;
             }
         });
+        if (this.shareSecuritySelected) {
+            this.shareSecurityData = this.initialSecurity.shareSecurityData;
+            this.securityData.share = this.shareSecurityData;
+        } else {
+            this.securityData.share = null;
+        }
         let guarantorIndex = 0;
         while (guarantorIndex < this.getGuarantor().length) {
             const guarantor = new Guarantor();
@@ -251,5 +257,68 @@ export class SecurityComponent implements OnInit {
             this.securityData.guarantor.push(guarantor);
         }
         this.securityDataEmitter.emit(this.securityData);
+    }
+
+    calculateTotalSecurity(securityData): number {
+        let totalSecurityAmount = 0;
+        const isLandSelected = securityData.selectedArray.includes('LandSecurity');
+        const isBuildingSelected = securityData.selectedArray.includes('ApartmentSecurity');
+        securityData.selectedArray.forEach(selectedSecurity => {
+            switch (selectedSecurity) {
+                case 'LandSecurity':
+                    const landDetailsArray = securityData.initialForm.landDetails as Array<any>;
+                    for (let i = 0; i < landDetailsArray.length; i++) {
+                        totalSecurityAmount += Number(landDetailsArray[i].landConsideredValue);
+                    }
+                    break;
+                case 'VehicleSecurity':
+                    const vehicleDetailsArray = securityData.initialForm.vehicleDetails as Array<any>;
+                    for (let i = 0; i < vehicleDetailsArray.length; i++) {
+                        totalSecurityAmount += Number(vehicleDetailsArray[i].valuationAmount);
+                    }
+                    break;
+                case 'ApartmentSecurity':
+                    const buildingDetailsArray = securityData.initialForm.buildingDetails as Array<any>;
+                    for (let i = 0; i < buildingDetailsArray.length; i++) {
+                        totalSecurityAmount += Number(buildingDetailsArray[i].buildingFairMarketValue);
+                    }
+                    break;
+                case 'PlantSecurity':
+                    const plantDetailsArray = securityData.initialForm.plantDetails as Array<any>;
+                    for (let i = 0; i < plantDetailsArray.length; i++) {
+                        totalSecurityAmount += Number(plantDetailsArray[i].quotation);
+                    }
+                    break;
+
+                case 'Land and Building Security':
+                   if (!isLandSelected) {
+                       const landArray = securityData.initialForm.landDetails as Array<any>;
+                       for (let i = 0; i < landArray.length; i++) {
+                           totalSecurityAmount += Number(landArray[i].landConsideredValue);
+                       }
+                   }
+                    const buildingArray = securityData.initialForm.landBuilding as Array<any>;
+                       for (let i = 0; i < buildingArray.length; i++) {
+                           totalSecurityAmount += Number(buildingArray[i].buildingFairMarketValue);
+                   }
+                    break;
+                case 'FixedDeposit':
+                    const fixedDepositArray = securityData.initialForm.fixedDepositDetails as Array<any>;
+                    for (let i = 0; i < fixedDepositArray.length; i++) {
+                        totalSecurityAmount += Number(fixedDepositArray[i].amount);
+                    }
+                    break;
+                    case 'ShareSecurity':
+                        const shareSecurity: Array<CustomerShareData> = this.initialSecurity.shareSecurityData.customerShareData;
+                        shareSecurity.forEach(value => {
+                            totalSecurityAmount += value.total;
+                        });
+                    break;
+                default:
+                    totalSecurityAmount += 0;
+                    break;
+            }
+        });
+        return totalSecurityAmount;
     }
 }

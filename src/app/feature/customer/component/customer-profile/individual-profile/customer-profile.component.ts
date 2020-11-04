@@ -165,12 +165,27 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
   }
 
 
-  openSelectLoanTemplate() {
+  openSingleSelectLoanTemplate() {
     const modalRef = this.modalService.open(CustomerLoanApplyComponent, {size: 'lg'});
     modalRef.componentInstance.customerType = this.filterLoanCat;
     modalRef.componentInstance.paramProp = this.paramProp;
     modalRef.componentInstance.associateId = this.associateId;
     modalRef.componentInstance.customerInfo = this.customerInfo;
+    modalRef.componentInstance.singleOrCombine = 'Single';
+    modalRef.result.then(close => {
+      if (close) {
+        this.refreshCustomerInfo();
+      }
+    });
+  }
+
+  openCombineSelectLoanTemplate() {
+    const modalRef = this.modalService.open(CustomerLoanApplyComponent, {size: 'lg'});
+    modalRef.componentInstance.customerType = this.filterLoanCat;
+    modalRef.componentInstance.paramProp = this.paramProp;
+    modalRef.componentInstance.associateId = this.associateId;
+    modalRef.componentInstance.customerInfo = this.customerInfo;
+    modalRef.componentInstance.singleOrCombine = 'Combine';
     modalRef.result.then(close => {
       if (close) {
         this.refreshCustomerInfo();

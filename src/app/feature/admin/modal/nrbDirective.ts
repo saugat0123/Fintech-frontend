@@ -1,7 +1,7 @@
 export enum NrbDirective {
   PASS= 'Pass',
   WATCHLIST = 'watchlist',
-  DOUBTFUL = 'Doubfful',
+  DOUBTFUL = 'Doubtful',
   SUBSTANDARD = 'Substandard',
   BAD = 'Bad'
 }
