@@ -9,6 +9,7 @@ import {PositiveDecimalNumberValidatorDirective} from './directive/positive-deci
 import {SafePipe} from '../feature/memo/pipe/safe.pipe';
 import {NepaliWordPipe} from './pipe/nepali-word.pipe';
 import { ReplacePipe } from './utils/replace.pipe';
+import { RoundvaluePipe } from './pipe/roundvalue.pipe';
 import { BooleanConvertPipe } from './pipe/boolean-convert.pipe';
 // import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 // import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
@@ -89,22 +90,24 @@ export const NB_CORE_PROVIDERS = [
     imports: [
         CommonModule
     ],
-  exports: [
-    // NbAuthModule,
-    CurrencyFormatterPipe,
-    PositiveDecimalNumberValidatorDirective,
-    NaturalNumberValidatorDirective,
-    SafePipe,
-    NepaliWordPipe,
-    ReplacePipe,
-    BooleanConvertPipe
-  ],
+    exports: [
+        // NbAuthModule,
+        CurrencyFormatterPipe,
+        PositiveDecimalNumberValidatorDirective,
+        NaturalNumberValidatorDirective,
+        SafePipe,
+        NepaliWordPipe,
+        ReplacePipe,
+        RoundvaluePipe,
+        BooleanConvertPipe
+    ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
         PositiveDecimalNumberValidatorDirective,
         SafePipe,
         NepaliWordPipe,
         ReplacePipe,
+        RoundvaluePipe,
         BooleanConvertPipe],
 })
 export class CoreModule {

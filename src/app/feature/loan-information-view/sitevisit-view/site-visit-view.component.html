@@ -1,5 +1,5 @@
 <p><b>Site Visit</b></p>
-<p *ngIf="formData['currentResidentFormChecked'] === true" class="font-weight-bold">Current Resident Details</p>
+<p *ngIf="formData['currentResidentFormChecked'] === true" class="font-weight-bold small">Current Resident Details</p>
 <table *ngIf="formData['currentResidentFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
   <tr class="text-white sb-bg-dark">
@@ -18,7 +18,7 @@
   </tr>
 </table>
 <!-- ============================================================= Business Site Visit ==============================================================-->
-<p *ngIf="formData['businessSiteVisitFormChecked'] === true" class="font-weight-bold">Business Site Visit</p>
+<p *ngIf="formData['businessSiteVisitFormChecked'] === true" class="font-weight-bold small">Business Site Visit</p>
 <table *ngIf="formData['businessSiteVisitFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
   <tr class="text-white sb-bg-dark">
@@ -45,7 +45,7 @@
 </table>
 <!-- ============================================================= Business Site Visit END ==============================================================-->
 <!-- ============================================================= Fixed Asset Collateral Form  ==============================================================-->
-<p *ngIf="formData['fixedAssetCollateralFormChecked'] === true" class="font-weight-bold">Fixed Asset Collateral & Facilities
+<p *ngIf="formData['fixedAssetCollateralFormChecked'] === true" class="font-weight-bold small">Fixed Asset Collateral & Facilities
   Details</p>
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
@@ -252,7 +252,7 @@
 
 <!-- ============================================================= Current Asset Inspection form End ==============================================================-->
 
-<table class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
+<table *ngIf="formData['currentAssetsInspectionFormChecked'] === true" class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
   <tr class="text-white sb-bg-dark">
     <th colspan="2">Current Assets Inpsection - Stock Checklist Questionaire
     </th>
@@ -353,7 +353,7 @@
   </tr>
 </table>
 
-<table class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
+<table *ngIf="formData['currentAssetsInspectionFormChecked'] === true" class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
   <tr>
     <th colspan="6">Current Assets Inspection - Receivables & Payables
     </th>
@@ -392,7 +392,7 @@
   </tr>
 </table>
 
-<table class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
+<table *ngIf="formData['currentAssetsInspectionFormChecked'] === true" class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
   <tr>
     <th colspan="6">Other Current Assets
     </th>

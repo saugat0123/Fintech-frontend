@@ -1204,5 +1204,4 @@ export class SecurityInitialFormComponent implements OnInit {
                 break;
         }
     }
-
 }

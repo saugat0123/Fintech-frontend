@@ -175,8 +175,13 @@
           </button>
         </div>
         <div class="px-2">
-          <button (click)="openSelectLoanTemplate()" *ngIf="!isEdited && maker"
+          <button (click)="openSingleSelectLoanTemplate()" *ngIf="!isEdited && maker"
                   nbButton size="small" type="button">Apply Loan
+          </button>
+        </div>
+        <div class="px-2">
+          <button (click)="openCombineSelectLoanTemplate()" *ngIf="!isEdited && maker"
+                  nbButton size="small" type="button">Combine Loan
           </button>
         </div>
       </div>
