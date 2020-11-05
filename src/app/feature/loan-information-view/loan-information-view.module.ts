@@ -17,6 +17,7 @@ import { SecurityViewComponent } from './security-view/security-view.component';
 import { CompanyInfoViewComponent } from './company-info-view/company-info-view.component';
 import { CiclViewComponent } from './cicl-view/cicl-view.component';
 import { AllDocumentViewComponent } from './all-document-view/all-document-view.component';
+import { ProposalViewComponent } from './proposal-view/proposal-view.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { AllDocumentViewComponent } from './all-document-view/all-document-view.
     CompanyInfoViewComponent,
     CiclViewComponent,
     AllDocumentViewComponent,
+    ProposalViewComponent,
   ],
   exports: [
     InsuranceViewComponent,
@@ -42,6 +44,7 @@ import { AllDocumentViewComponent } from './all-document-view/all-document-view.
     CompanyInfoViewComponent,
     CiclViewComponent,
     AllDocumentViewComponent,
+    ProposalViewComponent,
   ],
   imports: [
     CommonModule,
