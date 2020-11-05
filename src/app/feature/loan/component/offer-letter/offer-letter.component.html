@@ -155,7 +155,61 @@
                                     [offerLetterTypeId]="list.id"></app-pratigya-patra>
 
                             <!-- CAD DOC FOR MAW --->
+                <nb-accordion-item-body *ngIf="environment1 === 'Mega Bank'">
+                            <app-retail-educational-loan
+                                    *ngIf="loanDataHolder && list.name === megaofferLetterConst.value(megaofferLetterConst.RETAIL_EDUCATIONAL)"
+                                    [customerId]="customerId"
+                                    [loanDataHolder]="loanDataHolder"
+                                    [offerLetterTypeId]="list.id"></app-retail-educational-loan>
 
+                            <app-retail-mortgage
+                                    *ngIf="loanDataHolder && list.name === megaofferLetterConst.value(megaofferLetterConst.RETAIL_MORTGAGE_OVERDRAFT)"
+                                    [customerId]="customerId"
+                                    [loanDataHolder]="loanDataHolder"
+                                    [offerLetterTypeId]="list.id">
+                            </app-retail-mortgage>
+
+                            <app-hayer-purchase
+                                    *ngIf="loanDataHolder && list.name === megaofferLetterConst.value(megaofferLetterConst.HAYER_PURCHASE)"
+                                    [customerId]="customerId"
+                                    [loanDataHolder]="loanDataHolder"
+                                    [offerLetterTypeId]="list.id"></app-hayer-purchase>
+                            <!-- CAD DOC FOR MAW --->
+                            <app-retail-housing-loan
+                                    *ngIf="loanDataHolder && list.name === megaofferLetterConst.value(megaofferLetterConst.RETAIL_HOUSING)"
+                                    [customerId]="customerId"
+                                    [loanDataHolder]="loanDataHolder"
+                                    [offerLetterTypeId]="list.id">
+
+                            </app-retail-housing-loan>
+                            <app-retail-professional-loan
+                                    *ngIf="loanDataHolder && list.name === megaofferLetterConst.value(megaofferLetterConst.RETAIL_PROFESSIONAL_LOAN)"
+                                    [customerId]="customerId"
+                                    [loanDataHolder]="loanDataHolder"
+                                    [offerLetterTypeId]="list.id">
+                            </app-retail-professional-loan>
+                            <app-sme
+                                    *ngIf="loanDataHolder && list.name === megaofferLetterConst.value(megaofferLetterConst.SME)"
+                                    [customerId]="customerId"
+                                    [loanDataHolder]="loanDataHolder"
+                                    [offerLetterTypeId]="list.id">
+
+                            </app-sme>
+                            <app-retail-educational-loan-english
+                                    *ngIf="loanDataHolder && list.name === megaofferLetterConst.value(megaofferLetterConst.RETAIL_EDUCATIONAL_ENGLISH)"
+                                    [customerId]="customerId"
+                                    [loanDataHolder]="loanDataHolder"
+                                    [offerLetterTypeId]="list.id">
+
+                            </app-retail-educational-loan-english>
+
+                            <app-retail-mortgage-loan *ngIf="loanDataHolder && list.name ===
+                                megaofferLetterConst.value(megaofferLetterConst.RETAIL_MORTGAGE_LOAN)"
+                                                      [customerId]="customerId"
+                                                      [loanDataHolder]="loanDataHolder"
+                                                      [offerLetterTypeId]="list.id">
+                            </app-retail-mortgage-loan>
+                </nb-accordion-item-body>
                         </nb-accordion-item-body>
                     </nb-accordion-item>
 

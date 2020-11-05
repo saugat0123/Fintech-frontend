@@ -76,6 +76,22 @@ import { SummaryBaseComponent } from './summary-base/summary-base.component';
 import {QuillModule} from 'ngx-quill';
 import { AngularDraggableModule } from 'angular2-draggable';
 import {LoanInformationDetailViewModule} from '../loan-information-detail-view/loan-information-detail-view.module';
+import {HayerPurchaseComponent} from "./component/mega-offer-letter/hayer-purchase/hayer-purchase.component";
+import {RetailHousingLoanComponent} from "./component/mega-offer-letter/retail-housing-loan/retail-housing-loan.component";
+import {RetailProfessionalLoanComponent} from "./component/mega-offer-letter/retail-professional-loan/retail-professional-loan.component";
+import {SmeComponent} from "./component/mega-offer-letter/sme/sme.component";
+import {RetailEducationalLoanEnglishComponent} from "./component/mega-offer-letter/retail-educational-loan-english/retail-educational-loan-english.component";
+import {RetailMortgageLoanComponent} from "./component/mega-offer-letter/retail-mortgage-loan/retail-mortgage-loan.component";
+import {RetailMortgageComponent} from "./component/mega-offer-letter/retail-mortgage/retail-mortgage.component";
+import {RetailEducationalLoanComponent} from "./component/mega-offer-letter/retail-educational-loan/retail-educational-loan.component";
+import {HayerPurchasePrintComponent} from "./component/mega-offer-letter/hayer-purchase/hayer-purchase-print/hayer-purchase-print.component";
+import {RetailEducationalLoanPrintComponent} from "./component/mega-offer-letter/retail-educational-loan/retail-educational-loan-print/retail-educational-loan-print.component";
+import {RetailEducationalLoanEnglishPrintComponent} from "./component/mega-offer-letter/retail-educational-loan-english/retail-educational-loan-english-print/retail-educational-loan-english-print.component";
+import {RetailHousingLoanPrintComponent} from "./component/mega-offer-letter/retail-housing-loan/retail-housing-loan-print/retail-housing-loan-print.component";
+import {RetailMortgagePrintComponent} from "./component/mega-offer-letter/retail-mortgage/retail-mortgage-print/retail-mortgage-print.component";
+import {RetailMortgageLoanPrintComponent} from "./component/mega-offer-letter/retail-mortgage-loan/retail-mortgage-loan-print/retail-mortgage-loan-print.component";
+import {RetailProfessionalLoanPrintComponent} from "./component/mega-offer-letter/retail-professional-loan/retail-professional-loan-print/retail-professional-loan-print.component";
+import {SmePrintComponent} from "./component/mega-offer-letter/sme/sme-print/sme-print.component";
 
 const COMPONENTS = [
   LoanFormComponent,
@@ -123,6 +139,22 @@ const COMPONENTS = [
   BikeKarjaComponent,
   HayarParchesKarjaNibedanComponent,
   JamaniTamsukLetterPrintComponent,
+  HayerPurchasePrintComponent,
+  RetailEducationalLoanPrintComponent,
+  RetailEducationalLoanEnglishPrintComponent,
+  RetailHousingLoanPrintComponent,
+  RetailMortgagePrintComponent,
+  RetailMortgageLoanPrintComponent,
+  RetailProfessionalLoanPrintComponent,
+  SmePrintComponent,
+  HayerPurchaseComponent,
+  RetailEducationalLoanComponent,
+  RetailMortgageComponent,
+  RetailEducationalLoanEnglishComponent,
+  RetailHousingLoanComponent,
+  RetailMortgageLoanComponent,
+  RetailProfessionalLoanComponent,
+  SmeComponent,
   ApplicantFamilyInfoPrintComponent,
   BikeKarjaPrintComponent,
   CustomerAssociateComponent,
@@ -170,7 +202,12 @@ const modules = {
 };
 
 @NgModule({
-    declarations: [...COMPONENTS, SummaryBaseComponent],
+  declarations: [...COMPONENTS,
+    SummaryBaseComponent,
+    HayerPurchaseComponent,
+    RetailHousingLoanComponent, RetailProfessionalLoanComponent,
+    SmeComponent, RetailEducationalLoanEnglishComponent,
+    RetailMortgageLoanComponent, RetailMortgageComponent, RetailEducationalLoanComponent],
   imports: [
     ThemeModule,
     CommonModule,
