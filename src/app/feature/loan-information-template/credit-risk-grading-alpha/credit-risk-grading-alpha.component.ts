@@ -41,6 +41,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   @Input() customerInfo: CustomerInfoData;
   @Input() proposedLimit;
   @Input() loanTag: string;
+  @Input() fromSummery = false;
 
   missingAlerts = [];
 

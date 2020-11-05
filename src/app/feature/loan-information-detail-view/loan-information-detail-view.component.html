@@ -133,8 +133,11 @@
       <app-insurance-view *ngIf="loanDataHolder?.insurance.length >0"
                           [insurance]="loanDataHolder?.insurance"></app-insurance-view>
       <app-cicl-view *ngIf="loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
+      <app-credit-checklist-general *ngIf="loanHolder?.creditChecklist" [formData]="loanHolder?.creditChecklist" [fromProfile]="false"></app-credit-checklist-general>
       <app-credit-risk-grading-gamma *ngIf="loanHolder?.crgGamma" [formData]="loanHolder?.crgGamma" [fromProfile]="false"></app-credit-risk-grading-gamma>
       <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading" [fromProfile]="false"></app-credit-grading>
+      <app-credit-risk-grading-alpha *ngIf="loanDataHolder?.creditRiskGradingAlpha" [formData]="loanDataHolder?.creditRiskGradingAlpha" [fromSummery]="true"
+      [security]="loanHolder?.security" [financialData]="loanDataHolder?.financial?.data" [companyInfo]="loanDataHolder?.companyInfo" [customerInfo]="loanDataHolder?.loanHolder" [loanTag]="loanDataHolder?.loan?.loanTag" [proposedLimit]="loanDataHolder?.proposal?.proposedLimit"></app-credit-risk-grading-alpha>
       <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
 
 
