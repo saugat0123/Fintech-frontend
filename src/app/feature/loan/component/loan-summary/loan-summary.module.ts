@@ -19,6 +19,7 @@ import {LoanInformationTemplateModule} from '../../../loan-information-template/
 import {ProposalJustificationSummaryComponent} from './proposal-justification-summary/proposal-justification-summary.component';
 import { BusinessBackgroundComponent } from './company-info-summary/business-background/business-background.component';
 import { FinancialRiskSummaryComponent } from './financial-risk-summary/financial-risk-summary.component';
+import { CollateralSummaryComponent } from './collateral-summary/collateral-summary.component';
 
 
 const COMPONENTS = [
@@ -35,7 +36,8 @@ const COMPONENTS = [
     IncomeFromAccountSummeryComponent,
     ProposalJustificationSummaryComponent,
     FinancialRiskSummaryComponent,
-    BusinessBackgroundComponent
+    BusinessBackgroundComponent,
+    CollateralSummaryComponent
 ];
 
 const ENTRY_COMPONENTS = [];

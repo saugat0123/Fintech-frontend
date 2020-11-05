@@ -95,7 +95,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
                         if (l.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
                             this.collateralDtoData.totalApprovedLimit = this.collateralDtoData.totalApprovedLimit +
                                 l.proposal.proposedLimit;
-                            this.collateralDtoData.totalApprovedRequiredCollateral = this.collateralDtoData.totalRequiredCollateral +
+                            this.collateralDtoData.totalApprovedRequiredCollateral =
+                                this.collateralDtoData.totalApprovedRequiredCollateral +
                                 ((l.loan.collateralRequirement * l.proposal.proposedLimit) / 100);
                         } else {
                             this.collateralDtoData.totalPendingLimit = this.collateralDtoData.totalPendingLimit +
