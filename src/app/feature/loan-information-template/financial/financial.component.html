@@ -90,6 +90,76 @@
                                type="button" value="Add Field"/>
                     </div>
                 </div>
+              <div class="row">
+                  <div class="col-md-12">
+                      <nb-card>
+                          <nb-card-body>
+                              <div class="row">
+                                  <div class="col-md-8">
+                                      <label for="majorSourceIncomeType">
+                                          <strong>Please select how the major source of income(s) are
+                                              divided between</strong></label><strong
+                                          class="text-danger">*</strong>
+                                      <select id="majorSourceIncomeType" class="form-control"
+                                              formControlName="majorSourceIncomeType"
+                                              [ngClass]="{'is-invalid': submitted && financialForm.get('majorSourceIncomeType').invalid}">
+                                          <option value="null" hidden selected>--Select Options--</option>
+                                          <option *ngFor="let m of majorSourceIncomeType"
+                                                  [value]="m?.value">{{m?.value}}</option>
+                                      </select>
+                                      <div *ngIf="(submitted) && financialForm.get('majorSourceIncomeType').invalid"
+                                           class="invalid-feedback">
+                                             Invalid Major Source of Income
+                                      </div>
+                                  </div>
+                                  <div class="col-md-4" >
+                                      <label for="periodOfEarning"><strong>Period of earning/employment (in years)</strong></label><strong
+                                          class="text-danger">*</strong>
+                                      <input class="form-control" formControlName="periodOfEarning" id="periodOfEarning"
+                                             [ngClass]="{'is-invalid': submitted && financialForm.get('periodOfEarning').invalid}"
+                                             placeholder="Period of earning/employment">
+
+                                      <div *ngIf="(submitted) && form.periodOfEarning.invalid"
+                                           class="invalid-feedback">
+                                          <div>
+                                              Invalid Period of earning/employment
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row mt-3">
+                                  <div class="col-md-8" nbTooltip="Type NA in case there is no alternative source" nbTooltipStatus="primary" >
+                                      <label for="alternateIncomeSource"><strong>Alternate/Secondary source of income></strong></label><strong
+                                          class="text-danger">*</strong>
+                                      <input class="form-control" formControlName="alternateIncomeSource" id="alternateIncomeSource"
+                                             [ngClass]="{'is-invalid': submitted && financialForm.get('alternateIncomeSource').invalid}"
+                                             placeholder="Alternate/Secondary source of income">
+
+                                      <div *ngIf="(submitted) && form.alternateIncomeSource.invalid"
+                                           class="invalid-feedback">
+                                          <div *ngIf="form.alternateIncomeSource.errors">Alternate/Secondary source of income is
+                                              required
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-4" nbTooltip="Type 0 if there is no alternate source" nbTooltipStatus="primary" >
+                                      <label for="alternateIncomeSourceAmount"><strong>Source Amount</strong></label><strong
+                                          class="text-danger">*</strong>
+                                      <input class="form-control" formControlName="alternateIncomeSourceAmount" id="alternateIncomeSourceAmount"
+                                             [ngClass]="{'is-invalid': submitted && financialForm.get('alternateIncomeSourceAmount').invalid}"
+                                             placeholder="Amount">
+
+                                      <div *ngIf="(submitted) && form.alternateIncomeSourceAmount.invalid"
+                                           class="invalid-feedback">
+                                          <div>Invalid Source Amount
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </nb-card-body>
+                      </nb-card>
+                  </div>
+              </div>
             </nb-card-body>
         </nb-card>
 
@@ -170,7 +240,45 @@
                                type="button" value="Add Field"/>
                     </div>
                 </div>
+            </nb-card-body>
+        </nb-card>
 
+        <nb-card>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="totalNetMonthlyIncome"><strong>Total Net monthly Income</strong></label>
+                        <input class="form-control" formControlName="totalNetMonthlyIncome" id="totalNetMonthlyIncome"
+                               [ngClass]="{'is-invalid': submitted && financialForm.get('totalNetMonthlyIncome').invalid}"
+                               placeholder="Amount" readonly [value]="numberUtils.isNumber(form.totalIncome.value - form.totalExpense.value)">
+
+                        <div *ngIf="(submitted) && form.totalNetMonthlyIncome.invalid"
+                             class="invalid-feedback">Invalid Net Monthly Income
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="grossMonthlyObligation"><strong>Total Gross Monthly income/Total monthly obligations</strong></label>
+                        <input class="form-control" formControlName="grossMonthlyObligation" id="grossMonthlyObligation"
+                               [ngClass]="{'is-invalid': submitted && financialForm.get('grossMonthlyObligation').invalid}"
+                               placeholder="Amount" readonly [value]="numberUtils.isNumber(form.totalIncome.value/form.totalExpense.value)">
+
+                        <div *ngIf="(submitted) && form.grossMonthlyObligation.invalid"
+                             class="invalid-feedback">Invalid Gross Monthly Obligation
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="emiWithProposal"><strong>Total EMI of client including present proposal</strong></label><strong
+                            class="text-danger">*</strong>
+                        <input class="form-control" formControlName="emiWithProposal" id="emiWithProposal"
+                               [ngClass]="{'is-invalid': submitted && financialForm.get('emiWithProposal').invalid}"
+                               placeholder="Total EMI of client including present proposal">
+
+                        <div *ngIf="(submitted) && form.emiWithProposal.invalid"
+                             class="invalid-feedback">
+                            Invalid EMI Amount
+                        </div>
+                    </div>
+                </div>
             </nb-card-body>
         </nb-card>
     </div>
