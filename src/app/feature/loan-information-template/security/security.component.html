@@ -78,6 +78,38 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col">
+                        <div>
+                            <h5>Road access of primary property</h5>
+                        </div>
+                        <div class="form-group">
+                            <nb-select formControlName="roadAccessOfPrimaryProperty"
+                                       fullWidth
+                                       placeholder="Select Road access of primary property">
+                                <nb-option *ngFor="let val of roadAccess" [value]="val.value">{{val.value}}</nb-option>
+                            </nb-select>
+                            <div *ngIf="submitted && securityForm.get('roadAccessOfPrimaryProperty').invalid" class="neb-error-feedback">
+                                Road Access Value is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div>
+                            <h5>Primary FAC categorization</h5>
+                        </div>
+                        <div class="form-group">
+                            <nb-select formControlName="facCategory"
+                                       fullWidth
+                                       placeholder="Select Road access of primary property">
+                                <nb-option *ngFor="let val of facCategory" [value]="val.value">{{val.value}}</nb-option>
+                            </nb-select>
+                            <div *ngIf="submitted && securityForm.get('facCategory').invalid" class="neb-error-feedback">
+                                Road Access Value is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

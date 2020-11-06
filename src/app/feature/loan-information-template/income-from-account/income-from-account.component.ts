@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Pattern} from '../../../@core/utils/constants/pattern';
+import {RepaymentTrackCurrentBank} from '../../admin/modal/crg/RepaymentTrackCurrentBank';
 
 @Component({
   selector: 'app-income-from-account',
@@ -19,6 +20,7 @@ export class IncomeFromAccountComponent implements OnInit {
   dataForEdit;
   isNewCustomer = false;
   pattern = Pattern;
+  repaymentTrack = RepaymentTrackCurrentBank.enumObject();
 
   constructor(private formBuilder: FormBuilder,
               private el: ElementRef,
@@ -37,7 +39,6 @@ export class IncomeFromAccountComponent implements OnInit {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
       this.dataForEdit = JSON.parse(this.incomeFromAccountDataResponse.data);
-      console.log(this.dataForEdit);
       this.incomeFormGroup.patchValue(this.dataForEdit);
       if (!this.dataForEdit.newCustomerChecked && !ObjectUtil.isEmpty(this.dataForEdit.accountTransactionForm)) {
       this.incomeFormGroup.get('accountTransactionForm').patchValue(this.dataForEdit.accountTransactionForm);
@@ -77,6 +78,7 @@ export class IncomeFromAccountComponent implements OnInit {
       creditTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
       debitTransactionNumber: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
       debitTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
+      repaymentTrackWithCurrentBank: [undefined, [Validators.required]],
     });
   }
 

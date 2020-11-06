@@ -71,6 +71,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
   maker = false;
   profilePic;
   isRemarkEdited = false;
+  json = JSON;
 
   constructor(private route: ActivatedRoute,
               private customerService: CustomerService,

@@ -13,6 +13,7 @@ export class CiclArray {
   id: number;
   data?: any;
   remarks: string;
+  repaymentTrack: string;
   createdAt: Date;
   lastModifiedAt: Date;
   version: number;
