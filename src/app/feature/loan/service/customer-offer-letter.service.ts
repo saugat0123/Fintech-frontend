@@ -41,4 +41,24 @@ export class CustomerOfferLetterService extends BaseService<CustomerOfferLetter>
 
     return this.http.get(req.url, {headers: req.header});
   }
+
+  public assignOfferLetter(object): Observable<any> {
+    const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/assign`);
+    return this.http.post(req.url, object, {headers: req.header});
+  }
+
+  public getRolesPresentInCADHEIRARCHY(): Observable<any> {
+    const api = `${this.getApi()}/cad-role-list`;
+    const req = ApiUtils.getRequest(api);
+
+    return this.http.get(req.url, {headers: req.header});
+  }
+
+  public getAssignedOfferLetter(searchObj: any, page: number = 1, size: number = 10): Observable<any> {
+    const api = `${this.getApi()}/assigned-offer-letter?page=${page}&size=${size}`;
+    const req = ApiUtils.getRequest(api);
+    return this.http.post(req.url, searchObj, {headers: req.header});
+  }
+
+
 }

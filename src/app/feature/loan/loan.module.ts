@@ -10,7 +10,7 @@ import {CompanyInfoComponent} from './component/loan-main-template/company-info/
 import {KycInfoComponent} from './component/loan-main-template/kyc-info/kyc-info.component';
 import {DmsLoanFileComponent} from './component/loan-main-template/dms-loan-file/dms-loan-file.component';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {NbDatepickerModule} from '@nebular/theme';
+import {NbDatepickerModule, NbTooltipModule} from '@nebular/theme';
 import {ThemeModule} from '../../@theme/theme.module';
 import {LoanActionComponent} from './loan-action/loan-action.component';
 import {LoanFormService} from './component/loan-form/service/loan-form.service';
@@ -72,138 +72,140 @@ import {LoanActionCombinedModalComponent} from './loan-action/loan-action-combin
 import {GuarantorAdderComponent} from './component/loan-main-template/guarantor-adder/guarantor-adder.component';
 import {GuarantorDetailComponent} from './component/loan-main-template/guarantor-adder/guarantor-detail/guarantor-detail.component';
 import {LoanSummaryModule} from './component/loan-summary/loan-summary.module';
-import { SummaryBaseComponent } from './summary-base/summary-base.component';
+import {SummaryBaseComponent} from './summary-base/summary-base.component';
 import {QuillModule} from 'ngx-quill';
-import { AngularDraggableModule } from 'angular2-draggable';
+import {AngularDraggableModule} from 'angular2-draggable';
 import {LoanInformationDetailViewModule} from '../loan-information-detail-view/loan-information-detail-view.module';
+import {AssignedOfferLetterComponent} from './loan-offer-letter/assigned-offer-letter/assigned-offer-letter.component';
 
 const COMPONENTS = [
-  LoanFormComponent,
-  BasicInfoComponent,
-  CompanyInfoComponent,
-  KycInfoComponent,
-  DmsLoanFileComponent,
-  LoanActionComponent,
-  BirthMarkLetterNepaliComponent,
-  BirthMarkLetterPrintComponent,
-  SuccessOfferLetterComponent,
-  SuccessOfferLetterPrintComponent,
+    LoanFormComponent,
+    BasicInfoComponent,
+    CompanyInfoComponent,
+    KycInfoComponent,
+    DmsLoanFileComponent,
+    LoanActionComponent,
+    BirthMarkLetterNepaliComponent,
+    BirthMarkLetterPrintComponent,
+    SuccessOfferLetterComponent,
     SuccessOfferLetterPrintComponent,
-  ReadmoreModelComponent,
+    SuccessOfferLetterPrintComponent,
+    ReadmoreModelComponent,
 
     LoanPullComponent,
-  LoanPullComponent,
-  LoanOfferLetterComponent,
-  OfferLetterActionComponent,
-  OfferLetterUploadComponent,
-  OfferLetterComponent,
+    LoanPullComponent,
+    LoanOfferLetterComponent,
+    OfferLetterActionComponent,
+    OfferLetterUploadComponent,
     OfferLetterComponent,
-  GroupComponent,
-  GroupDetailComponent,
-  SecurityDetailComponent,
-  DhitoLikhatManjurinamaComponent,
-  DhristiBandhakComponent,
-  JamaniTamsukComponent,
-  KararnamaComponent,
-  KarjatamsukComponent,
-  ManjurinamaComponent,
-  PratigyaPatraComponent,
-  LoanMainNepaliTemplateComponent,
-  CustomerInfoNepaliComponent,
-  LoanMainNepaliTemplateComponent,
-  DhitoLikhatPrintComponent,
-  PratigyaPatraPrintComponent,
-  ApplicantFamilyInfoComponent,
-  KarjaTamsukPrintComponent,
-  KararnamaPrintComponent,
-  ManjurinamaLetterPrintComponent,
-  JamaniBasekoComponent,
-  JamaniBasekoPrintComponent,
-  DhristiBandhakPrintComponent,
-  BikeKarjaComponent,
-  HayarParchesKarjaNibedanComponent,
-  JamaniTamsukLetterPrintComponent,
-  ApplicantFamilyInfoPrintComponent,
-  BikeKarjaPrintComponent,
-  CustomerAssociateComponent,
+    OfferLetterComponent,
+    GroupComponent,
+    GroupDetailComponent,
+    SecurityDetailComponent,
+    DhitoLikhatManjurinamaComponent,
+    DhristiBandhakComponent,
+    JamaniTamsukComponent,
+    KararnamaComponent,
+    KarjatamsukComponent,
+    ManjurinamaComponent,
+    PratigyaPatraComponent,
+    LoanMainNepaliTemplateComponent,
+    CustomerInfoNepaliComponent,
+    LoanMainNepaliTemplateComponent,
+    DhitoLikhatPrintComponent,
+    PratigyaPatraPrintComponent,
+    ApplicantFamilyInfoComponent,
+    KarjaTamsukPrintComponent,
+    KararnamaPrintComponent,
+    ManjurinamaLetterPrintComponent,
+    JamaniBasekoComponent,
+    JamaniBasekoPrintComponent,
+    DhristiBandhakPrintComponent,
+    BikeKarjaComponent,
+    HayarParchesKarjaNibedanComponent,
+    JamaniTamsukLetterPrintComponent,
+    ApplicantFamilyInfoPrintComponent,
+    BikeKarjaPrintComponent,
     CustomerAssociateComponent,
-  LoanActionModalComponent,
-  LoanActionVerificationComponent,
-  LoanActionCombinedModalComponent,
-  GuarantorAdderComponent,
-  GuarantorDetailComponent,
+    CustomerAssociateComponent,
+    LoanActionModalComponent,
+    LoanActionVerificationComponent,
+    LoanActionCombinedModalComponent,
+    GuarantorAdderComponent,
+    GuarantorDetailComponent,
 ];
 
 const ENTRY_COMPONENTS = [
-  ReadmoreModelComponent,
-  LoanMainNepaliTemplateComponent,
-  CustomerInfoNepaliComponent,
-  CustomerAssociateComponent,
-  LoanActionModalComponent,
-  LoanActionVerificationComponent,
-  LoanActionCombinedModalComponent,
-  GuarantorDetailComponent
+    ReadmoreModelComponent,
+    LoanMainNepaliTemplateComponent,
+    CustomerInfoNepaliComponent,
+    CustomerAssociateComponent,
+    LoanActionModalComponent,
+    LoanActionVerificationComponent,
+    LoanActionCombinedModalComponent,
+    GuarantorDetailComponent
 ];
 
 const modules = {
 
-  toolbar: [
-    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-    ['blockquote', 'code-block'],
+    toolbar: [
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        ['blockquote', 'code-block'],
 
-    [{'header': 1}, {'header': 2}],               // custom button values
-    [{'list': 'ordered'}, {'list': 'bullet'}],
-    [{'script': 'sub'}, {'script': 'super'}],      // superscript/subscript
-    [{'indent': '-1'}, {'indent': '+1'}],          // outdent/indent
-    [{'direction': 'rtl'}],                         // text direction
+        [{'header': 1}, {'header': 2}],               // custom button values
+        [{'list': 'ordered'}, {'list': 'bullet'}],
+        [{'script': 'sub'}, {'script': 'super'}],      // superscript/subscript
+        [{'indent': '-1'}, {'indent': '+1'}],          // outdent/indent
+        [{'direction': 'rtl'}],                         // text direction
 
-    [{'size': ['small', false, 'large', 'huge']}],  // custom dropdown
-    [{'header': [1, 2, 3, 4, 5, 6, false]}],
+        [{'size': ['small', false, 'large', 'huge']}],  // custom dropdown
+        [{'header': [1, 2, 3, 4, 5, 6, false]}],
 
-    [{'color': []}, {'background': []}],          // dropdown with defaults from theme
-    [{'font': []}],
-    [{'align': []}],
+        [{'color': []}, {'background': []}],          // dropdown with defaults from theme
+        [{'font': []}],
+        [{'align': []}],
 
-    ['clean'],                                         // remove formatting button
-    // link and image, video
-  ]
+        ['clean'],                                         // remove formatting button
+        // link and image, video
+    ]
 };
 
 @NgModule({
-    declarations: [...COMPONENTS, SummaryBaseComponent],
-  imports: [
-    ThemeModule,
-    CommonModule,
-    LoanRoutingModule,
-    FormsModule,
-    NgbPaginationModule,
-    ReactiveFormsModule,
-    NgSelectModule,
-    NbDatepickerModule,
-    NgxPrintModule,
-    CoreModule,
-    AgmCoreModule.forRoot({
-      apiKey: environment.GOOGLE_MAP_API_KEY
-    }),
-    CustomerModule,
-    NepaliCalendarModule,
-    ReportingModule,
-    LoanInformationTemplateModule,
-    LoanInformationViewModule,
-    LoanSummaryModule,
-    QuillModule.forRoot({modules: modules}),
-    AngularDraggableModule,
-    LoanInformationDetailViewModule
-  ],
+    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent],
+    imports: [
+        ThemeModule,
+        CommonModule,
+        LoanRoutingModule,
+        FormsModule,
+        NgbPaginationModule,
+        ReactiveFormsModule,
+        NgSelectModule,
+        NbDatepickerModule,
+        NgxPrintModule,
+        CoreModule,
+        AgmCoreModule.forRoot({
+            apiKey: environment.GOOGLE_MAP_API_KEY
+        }),
+        CustomerModule,
+        NepaliCalendarModule,
+        ReportingModule,
+        LoanInformationTemplateModule,
+        LoanInformationViewModule,
+        LoanSummaryModule,
+        QuillModule.forRoot({modules: modules}),
+        AngularDraggableModule,
+        LoanInformationDetailViewModule,
+        NbTooltipModule
+    ],
 
-  providers: [
-    DatePipe,
-    LoanFormService,
-    NgbActiveModal
-  ],
+    providers: [
+        DatePipe,
+        LoanFormService,
+        NgbActiveModal
+    ],
 
-  entryComponents: [...ENTRY_COMPONENTS],
-  exports: []
+    entryComponents: [...ENTRY_COMPONENTS],
+    exports: []
 })
 export class LoanModule {
 }

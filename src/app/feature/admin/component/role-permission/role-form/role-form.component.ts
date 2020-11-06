@@ -47,7 +47,7 @@ export class RoleFormComponent implements OnInit {
             },
             (error) => {
                 console.log(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Role!'));
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Role!:' + error.error.message));
                 this.activeModal.dismiss(error);
             });
     }
