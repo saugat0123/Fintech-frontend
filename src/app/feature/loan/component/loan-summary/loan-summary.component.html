@@ -632,6 +632,7 @@
             <tr class="text-white sb-bg-dark">
               <th>S.N</th>
               <th>Document</th>
+              <th>Preview</th>
               <th>Download
               </th>
             </tr>
@@ -640,6 +641,7 @@
             <tr *ngFor="let singleDoc of loanDataHolder?.customerDocument; let i = index">
               <td>{{i + 1}}</td>
               <td>{{singleDoc?.document?.name}}</td>
+              <td><i (click)="previewOfferLetterDocument(singleDoc?.documentPath,singleDoc?.document?.displayName)" class="fas fa-eye"></i> </td>
               <td>
                 <i (click)="downloadCustomerDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
                    aria-hidden="true" class="fa fa-download"
@@ -647,6 +649,29 @@
               </td>
             </tr>
             </tbody>
+          </table>
+        </div>
+      </div>
+      <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row">
+        <div class="col-md-12">
+          <table class="table table-condensed table-bordered table-sm sb-small text-center">
+
+          <tr class="text-white sb-bg-dark" >
+            <th colspan="4">            Customer General Document
+            </th>
+          </tr>
+          <tr class="text-white sb-bg-dark">
+            <th>SN</th>
+            <th>Document</th>
+            <th>Preview</th>
+            <th>Download</th>
+          </tr>
+          <tr *ngFor="let generalDoc of loanDataHolder?.loanHolder?.customerGeneralDocuments; let i=index">
+            <td>{{i+1}}</td>
+            <td>{{generalDoc?.document?.displayName}}</td>
+            <td><i (click)="previewOfferLetterDocument(generalDoc?.docPath,generalDoc?.document?.displayName)" class="fas fa-eye"></i></td>
+            <td><i (click)="downloadCustomerDocument(generalDoc?.docPath,generalDoc?.document?.displayName)" class="fas fa-download"></i></td>
+          </tr>
           </table>
         </div>
       </div>
@@ -659,6 +684,7 @@
               <th>S.N</th>
               <th>Guarantor</th>
               <th>Document</th>
+              <th>Preview</th>
               <th>Download
               </th>
             </tr>
@@ -668,8 +694,10 @@
               <td>{{i + 1}}</td>
               <td>{{singleDoc?.name}}</td>
               <td>Net Worth Document</td>
+              <td><i (click)="previewOfferLetterDocument(singleDoc?.docPath,singleDoc?.name + 'Net Worth Doc')" class="fas fa-eye"></i> </td>
+
               <td>
-                <i (click)="downloadCustomerDocument(singleDoc?.docPath, singleDoc.name+' Net Worth Doc')"
+                <i (click)="downloadCustomerDocument(singleDoc?.docPath, singleDoc?.name+' Net Worth Doc')"
                    aria-hidden="true" class="fa fa-download"
                    style="cursor: pointer"></i>
               </td>
@@ -688,6 +716,7 @@
               <th>Policy Number</th>
               <th>Company</th>
               <th>Document</th>
+              <th>Preview</th>
               <th>Download</th>
             </tr>
             </thead>
@@ -697,6 +726,8 @@
               <td>{{singleDoc?.policyNumber}}</td>
               <td>{{singleDoc?.company}}</td>
               <td>Insurance Policy</td>
+              <td><i (click)="previewOfferLetterDocument(singleDoc?.policyDocumentPath,singleDoc.policyNumber+' Insurance Policy Document')" class="fas fa-eye"></i> </td>
+
               <td>
                 <i  (click)="downloadCustomerDocument(singleDoc?.policyDocumentPath, singleDoc?.policyNumber+' Insurance Policy Document')"
                    aria-hidden="true" class="fa fa-download"
