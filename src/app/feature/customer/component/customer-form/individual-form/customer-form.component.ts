@@ -39,9 +39,6 @@ export class CustomerFormComponent implements OnInit {
   calendarType = 'AD';
   @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-   @ViewChild('bankingRelationComponent', {static: false})
-   bankingRelationComponent: BankingRelationComponent;
-
   basicInfo: FormGroup;
   submitted = false;
   spinner = false;

@@ -11,7 +11,6 @@ export class FormUtils {
  public static checkEmptyProperties(formArray: FormArray , ...excludeProperties) {
     let invalid = false;
     for (const control of formArray.value) {
-      console.log(control);
       const d = Object.entries(control).filter(value => {
         return ObjectUtil.isEmpty(value[1]);
       });
