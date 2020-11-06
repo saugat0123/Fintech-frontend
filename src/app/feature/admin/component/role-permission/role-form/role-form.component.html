@@ -1,6 +1,6 @@
 <div class="modal-header sb-bg-dark">
     <h4 class="modal-title text-white">Add Role</h4>
-    <a class="close cursor" aria-label="Close" (click)="onClose()" href="#">
+    <a class="close cursor" aria-label="Close" (click)="onClose()">
         <span aria-hidden="true" class="text-white">×</span></a>
 </div>
 <div class="modal-body">
@@ -24,7 +24,7 @@
                         name="roleType">
                     <option [ngValue]="undefined" hidden>---select Role Type---</option>
                     <option *ngFor="let roleType of roleTypeList.values()   "
-                            [ngValue]="roleType">{{roleType}}</option>
+                            [ngValue]="roleType">{{roleType |  replace:'_':' '}}</option>
                 </select>
             </div>
 

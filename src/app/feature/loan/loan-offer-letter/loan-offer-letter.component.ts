@@ -28,6 +28,9 @@ import {OfferLetter} from '../../admin/modal/offerLetter';
 import {CustomerOfferLetterService} from '../service/customer-offer-letter.service';
 import {OfferLetterUploadComponent} from '../component/offer-letter/offer-letter-upload/offer-letter-upload.component';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {CustomerOfferLetter} from '../model/customer-offer-letter';
+import {NbSpinnerService} from '@nebular/theme';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-loan-offer-letter',
@@ -39,6 +42,7 @@ export class LoanOfferLetterComponent implements OnInit {
     branchList: Array<Branch> = new Array<Branch>();
     loanTypeList: Array<LoanConfig> = new Array<LoanConfig>();
     loanDataHolderList: Array<LoanDataHolder> = new Array<LoanDataHolder>();
+    assignedOfferLetterList: Array<CustomerOfferLetter> = new Array<CustomerOfferLetter>();
     roleList: Array<Role> = new Array<Role>();
     page = 1;
     spinner = false;
@@ -61,6 +65,12 @@ export class LoanOfferLetterComponent implements OnInit {
     loanConfig: LoanConfig = new LoanConfig();
     valForwardBackward;
     roleName = false;
+    userList = [];
+    roleListInCAD = [];
+    offerLetterAssignForm: FormGroup;
+    submitted = false;
+    isCAD_ADMIN = false;
+    toggleArray: { toggled: boolean }[] = [];
 
     constructor(
         private branchService: BranchService,
@@ -75,20 +85,39 @@ export class LoanOfferLetterComponent implements OnInit {
         private userService: UserService,
         private socketService: SocketService,
         private catalogueService: CatalogueService,
-        private customerOfferLetterService: CustomerOfferLetterService) {
+        private customerOfferLetterService: CustomerOfferLetterService,
+        private spinnerService: NgxSpinnerService) {
     }
 
     static loadData(other: LoanOfferLetterComponent) {
+        other.spinnerService.show();
         other.catalogueService.search.committee = 'true';
-        other.customerOfferLetterService.getIssuedOfferLetter(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
-            other.loanDataHolderList = response.detail.content;
-            other.pageable = PaginationUtils.getPageable(response.detail);
-            other.spinner = false;
-        }, error => {
-            console.error(error);
-            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
-            other.spinner = false;
-        });
+        if (other.isCAD_ADMIN) {
+            other.customerOfferLetterService.getIssuedOfferLetter(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
+                other.loanDataHolderList = response.detail.content;
+                other.pageable = PaginationUtils.getPageable(response.detail);
+                other.loanDataHolderList.forEach(() => other.toggleArray.push({toggled: false}));
+                other.spinner = false;
+                other.spinnerService.hide();
+            }, error => {
+                other.spinnerService.hide();
+                console.error(error);
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
+                other.spinner = false;
+            });
+        } else {
+            other.customerOfferLetterService.getAssignedOfferLetter(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
+                other.assignedOfferLetterList = response.detail.content;
+                other.pageable = PaginationUtils.getPageable(response.detail);
+                other.spinner = false;
+                other.spinnerService.hide();
+            }, error => {
+                console.error(error);
+                other.spinnerService.hide();
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
+                other.spinner = false;
+            });
+        }
     }
 
     ngOnInit() {
@@ -97,18 +126,20 @@ export class LoanOfferLetterComponent implements OnInit {
                 this.redirected = paramsValue.redirect === 'true';
             });
 
-        if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
-            this.roleType = true;
-        }
+        this.getRoleListPresentInCad();
+
         if (LocalStorageUtil.getStorage().roleName === 'CAD') {
             this.roleName = true;
         }
         this.buildFilterForm();
         this.buildActionForm();
-
+        this.buildOfferLetterAssignForm();
         this.roleAccess = LocalStorageUtil.getStorage().roleAccess;
         if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
             this.roleType = true;
+        }
+        if (LocalStorageUtil.getStorage().roleType === RoleType.CAD_ADMIN) {
+            this.isCAD_ADMIN = true;
         }
         if (this.roleAccess === RoleAccess.SPECIFIC) {
             this.accessSpecific = true;
@@ -169,6 +200,16 @@ export class LoanOfferLetterComponent implements OnInit {
                 documentStatus: [undefined]
             }
         );
+    }
+
+
+    buildOfferLetterAssignForm(): void {
+        this.offerLetterAssignForm = this.formBuilder.group(
+            {
+                customerLoanId: [undefined],
+                user: [undefined, Validators.required],
+                role: [undefined, Validators.required]
+            });
     }
 
     changePage(page: number) {
@@ -233,17 +274,6 @@ export class LoanOfferLetterComponent implements OnInit {
         this.isFilterCollapsed = true;
     }
 
-    onPullClick(template, customerLoanId, userId) {
-
-        this.formAction.patchValue({
-                customerLoanId: customerLoanId,
-                docAction: DocAction.value(DocAction.PULLED),
-                documentStatus: DocStatus.PENDING,
-                comment: 'PULLED'
-            }
-        );
-        this.modalService.open(template);
-    }
 
     onClose() {
         this.modalService.dismissAll();
@@ -315,6 +345,75 @@ export class LoanOfferLetterComponent implements OnInit {
         }
         this.modalService.dismissAll();
         this.modalService.open(template);
+    }
+
+    assignOfferLetter() {
+        this.submitted = true;
+        if (this.offerLetterAssignForm.invalid) {
+            return;
+        }
+        const user = this.offerLetterAssignForm.get('user').value;
+        const role = this.offerLetterAssignForm.get('role').value;
+        const assign = {
+            customerLoanId: this.offerLetterAssignForm.get('customerLoanId').value,
+            userId: user.id,
+            roleId: role.id
+        };
+
+        this.customerOfferLetterService.assignOfferLetter(assign).subscribe((res: any) => {
+            this.submitted = false;
+            this.modalService.dismissAll();
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY ASSIGN TO ' + user.username));
+            LoanOfferLetterComponent.loadData(this);
+        }, error => {
+            this.spinnerService.hide();
+            this.submitted = false;
+            this.modalService.dismissAll();
+            error.error.errors.forEach(e => {
+                this.toastService.show(new Alert(AlertType.ERROR, e.message));
+            });
+
+        });
+
+    }
+
+    openModel(template, customerLoanId) {
+        this.offerLetterAssignForm.patchValue({
+            customerLoanId: customerLoanId
+        });
+        this.modalService.open(template);
+    }
+
+
+    public getRoleListPresentInCad() {
+        this.customerOfferLetterService.getRolesPresentInCADHEIRARCHY().subscribe((res: any) => {
+            this.roleListInCAD = res.detail;
+            if (this.roleListInCAD.length > 1) {
+                this.getUserList(this.roleListInCAD[0].role);
+            }
+
+        });
+    }
+
+    public getUserList(role) {
+        console.log(role);
+        this.userService.getUserListByRoleId(role.id).subscribe((response: any) => {
+            this.userList = response.detail;
+            if (this.userList.length === 1) {
+                this.offerLetterAssignForm.patchValue({
+                    user: this.userList[0],
+                    role: role
+                });
+            } else if (this.userList.length > 1) {
+                this.offerLetterAssignForm.patchValue({
+                    user: this.userList[0],
+                    role: role
+                });
+
+            } else {
+                this.toastService.show(new Alert(AlertType.ERROR, 'NO User Present in this Role'));
+            }
+        });
     }
 
 }
