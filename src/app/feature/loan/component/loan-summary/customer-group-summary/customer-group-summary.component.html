@@ -4,7 +4,9 @@
         Limit:</em><strong>
         Rs. {{groupDto?.groupLimit |currencyFormatter}} &nbsp;|&nbsp; </strong>
         <em class="ml-2 text-danger sb-small">Group Code:</em>
-        <strong> {{groupDto?.groupCode}}</strong>)</p>
+        <strong> {{groupDto?.groupCode}} }} |</strong>
+        <em class="ml-2 text-danger sb-small">Total FMV/Considered Value:</em>
+        <strong>{{this.totalCollateral}}</strong>)</p>
       <table
           class="table sb-small table-condensed table-bordered table-responsive-md table-sm table-hover text-center">
         <thead>
@@ -17,10 +19,14 @@
         <tbody>
         <ng-container *ngFor="let group of groupDto?.groupDtoList;let i = index;">
           <tr class="font-weight-bold sb-bg-dark text-white text-left">
-            <td colspan="3" class="pl">
+            <td colspan="2" class="pl">
               <b>{{group?.fundedData?.length > 0 ? group?.fundedData[0]?.customerName : group?.nonFundedData[0]?.customerName}}</b>
             </td>
       <!--      <td>Pending Limit: <b>{{group?.totalPendingLimit}}</b></td>-->
+            <td colspan="1" class="pl">
+              <b>Total FMV/Considered Value: {{group?.fundedData?.length > 0 ? group?.fundedData[0]?.security?.totalSecurityAmount:
+                      group?.nonFundedData?.length > 0 ? group?.nonFundedData[0]?.security?.totalSecurityAmount: 0}}</b>
+            </td>
           </tr>
           <tr *ngFor="let data of group?.fundedData; let j = index;">
               <td class="sn">{{j+1}}</td>

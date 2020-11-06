@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ElementRef} from '@angul
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {Pattern} from '../../../@core/utils/constants/pattern';
 
 @Component({
   selector: 'app-income-from-account',
@@ -16,44 +17,66 @@ export class IncomeFromAccountComponent implements OnInit {
   incomeFormGroup: FormGroup;
   submitted = false;
   dataForEdit;
+  isNewCustomer = false;
+  pattern = Pattern;
 
   constructor(private formBuilder: FormBuilder,
-             private el: ElementRef,
-              ) {
+              private el: ElementRef,
+  ) {
   }
 
   get formControls() {
     return this.incomeFormGroup.controls;
   }
 
+  get transactionForm() {
+    return this.incomeFormGroup.controls.accountTransactionForm['controls'];
+  }
+
   ngOnInit() {
+    this.buildForm();
     if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
       this.dataForEdit = JSON.parse(this.incomeFromAccountDataResponse.data);
+      console.log(this.dataForEdit);
+      this.incomeFormGroup.patchValue(this.dataForEdit);
+      if (!this.dataForEdit.newCustomerChecked && !ObjectUtil.isEmpty(this.dataForEdit.accountTransactionForm)) {
+      this.incomeFormGroup.get('accountTransactionForm').patchValue(this.dataForEdit.accountTransactionForm);
+      }
     }
-    this.buildForm(this.dataForEdit);
 
   }
 
-  buildForm(data) {
+  buildForm() {
     this.incomeFormGroup = this.formBuilder.group({
-      interestDuringReview: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.interestDuringReview),
+      interestDuringReview: [undefined,
         [Validators.required]],
-      interestAfterNextReview: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.interestAfterNextReview),
+      interestAfterNextReview: [undefined,
         [Validators.required]],
-      commissionDuringReview: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.commissionDuringReview),
+      commissionDuringReview: [undefined,
         [Validators.required]],
-      commissionAfterNextReview: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.commissionAfterNextReview),
+      commissionAfterNextReview: [undefined,
         [Validators.required]],
-      otherChargesDuringReview: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.otherChargesDuringReview),
+      otherChargesDuringReview: [undefined,
         [Validators.required]],
-      otherChargesAfterNextReview: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.otherChargesAfterNextReview),
+      otherChargesAfterNextReview: [undefined,
         [Validators.required]],
-      incomeFromTheAccount: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.incomeFromTheAccount),
+      incomeFromTheAccount: [undefined,
         Validators.required],
-      totalIncomeAfterNextReview: [ObjectUtil.isEmpty(data) ? 0 : ObjectUtil.setUndefinedIfNull(data.totalIncomeAfterNextReview),
+      totalIncomeAfterNextReview: [undefined,
         [Validators.required]],
-      totalIncomeDuringReview: [ObjectUtil.isEmpty(data) ? 0 : ObjectUtil.setUndefinedIfNull(data.totalIncomeDuringReview),
+      totalIncomeDuringReview: [undefined,
         [Validators.required]],
+      newCustomerChecked: [false],
+      accountTransactionForm: this.buildAccountTransactionForm()
+    });
+  }
+
+  buildAccountTransactionForm() {
+    return this.formBuilder.group({
+      creditTransactionNumber: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
+      creditTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
+      debitTransactionNumber: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
+      debitTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
     });
   }
 
@@ -92,6 +115,7 @@ export class IncomeFromAccountComponent implements OnInit {
 
   submitForm() {
     this.submitted = true;
+    console.log(this.incomeFormGroup);
     if (this.incomeFormGroup.invalid) {
       this.scrollToFirstInvalidControl();
       return;
@@ -101,6 +125,15 @@ export class IncomeFromAccountComponent implements OnInit {
     }
     this.incomeDataObject.data = JSON.stringify(this.incomeFormGroup.value);
     this.incomeFromAccountDataEmitter.emit(this.incomeDataObject);
+  }
+
+  onAdditionalFieldSelect(chk) {
+    if (chk) {
+      this.incomeFormGroup.get('accountTransactionForm').disable();
+    } else {
+      this.incomeFormGroup.get('accountTransactionForm').enable();
+    }
+    this.isNewCustomer = chk;
   }
 
 }

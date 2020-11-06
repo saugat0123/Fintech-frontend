@@ -5,4 +5,5 @@ export class Pattern {
   static NUMBER_MOBILE = '^((\\+91-?)|0)?[0-9]{10}$';
   static NUMBER_POSITIVE = '^[0-9]*$';
   static ALPHABET_ONLY = '^[a-zA-Z ]*$';
+  static NUMBER_ONLY = '^[0-9]*$';
 }

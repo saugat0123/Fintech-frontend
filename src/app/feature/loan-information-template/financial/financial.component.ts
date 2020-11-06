@@ -15,6 +15,9 @@ import {CustomerType} from '../../customer/model/customerType';
 import {SalesProjectionVsAchievement} from '../model/sales-projection-vs-achievement';
 import {NetWorthOfFirmOrCompany} from '../model/net-worth-of-firm-or-company';
 import {TaxCompliance} from '../model/tax-compliance';
+import {MajorSourceIncomeType} from '../../admin/modal/crg/major-source-income-type';
+import {NumberUtils} from '../../../@core/utils/number-utils';
+import {Pattern} from '../../../@core/utils/constants/pattern';
 
 @Component({
     selector: 'app-financial',
@@ -38,11 +41,14 @@ export class FinancialComponent implements OnInit {
     financialForm: FormGroup;
     financialData: Financial = new Financial();
     currentFormData: Object;
+    submitted = false;
 
     // Risk factors--
     salesProjectionVsAchievementArray = SalesProjectionVsAchievement.enumObject();
     netWorthOfFirmOrCompanyArray = NetWorthOfFirmOrCompany.enumObject();
     taxComplianceArray = TaxCompliance.enumObject();
+
+    majorSourceIncomeType = MajorSourceIncomeType.enumObject();
 
     // Financial heading arrays---
     incomeStatementArray = [
@@ -162,6 +168,8 @@ export class FinancialComponent implements OnInit {
         'netWCBeforeBank'
     ];
 
+    numberUtils = NumberUtils;
+
     constructor(private formBuilder: FormBuilder,
                 private financialService: FinancialService,
                 private modalService: NgbModal,
@@ -169,7 +177,7 @@ export class FinancialComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.activatedRoute.queryParams.subscribe( queryParams => {
+        this.activatedRoute.queryParams.subscribe(queryParams => {
             if (CustomerType.INDIVIDUAL === CustomerType[queryParams.customerType]) {
                 this.isBusinessLoan = false;
             }
@@ -189,6 +197,7 @@ export class FinancialComponent implements OnInit {
             this.financialForm.get('salesProjectionVsAchievement').setValue(initialFormData.salesProjectionVsAchievement);
             this.financialForm.get('netWorthOfFirmOrCompany').setValue(initialFormData.netWorthOfFirmOrCompany);
             this.financialForm.get('taxCompliance').setValue(initialFormData.taxCompliance);
+            this.financialForm.patchValue(initialFormData);
         } else {
             if (this.isBusinessLoan) {
                 const currentFormDataJson = JSON.stringify(currentFormData['default']);
@@ -211,6 +220,15 @@ export class FinancialComponent implements OnInit {
             incomeOfBorrower: this.formBuilder.array([]),
             expensesOfBorrower: this.formBuilder.array([]),
             totalIncome: [0],
+
+            majorSourceIncomeType: [undefined, [Validators.required]],
+            periodOfEarning: [undefined, [Validators.required , Validators.pattern(Pattern.NUMBER_ONLY)]],
+            alternateIncomeSource: [undefined, [Validators.required]],
+            alternateIncomeSourceAmount: [undefined, [Validators.required , Validators.pattern(Pattern.NUMBER_ONLY)]],
+            grossMonthlyObligation: [undefined],
+            totalNetMonthlyIncome: [undefined],
+            emiWithProposal: [undefined , [Validators.required , Validators.pattern(Pattern.NUMBER_ONLY)]],
+
             totalExpense: [0],
             currentTotal: [0],
             netSaving: [0],
@@ -462,6 +480,8 @@ export class FinancialComponent implements OnInit {
     }
 
     onSubmit() {
+
+        this.submitted = true;
         switch (this.activeTab) {
             case 'Income Statement':
                 this.incomeStatement.ngOnDestroy();
@@ -478,6 +498,10 @@ export class FinancialComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.formData)) {
             this.financialData = this.formData;
         }
+        if (this.financialForm.invalid) {
+            console.log(this.financialForm);
+            return;
+        }
         this.currentFormData['fiscalYear'] = this.fiscalYear;
         this.currentFormData['initialForm'] = this.financialForm.value;
         if (this.isBusinessLoan) {
@@ -485,5 +509,9 @@ export class FinancialComponent implements OnInit {
         }
         this.financialData.data = JSON.stringify(this.currentFormData);
         this.financialDataEmitter.emit(this.financialData.data);
+    }
+
+    get form() {
+        return this.financialForm.controls;
     }
 }
