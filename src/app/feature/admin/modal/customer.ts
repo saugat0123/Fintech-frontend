@@ -31,5 +31,6 @@ export class Customer {
     customerCode: string;
     bankingRelationship: string;
     withinLimitRemarks: string;
+    netWorth: number;
 
 }
