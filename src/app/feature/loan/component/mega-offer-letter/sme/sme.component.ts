@@ -20,6 +20,7 @@ import {MegaOfferLetterConst} from "../model/mega-offer-letter-const";
 export class SmeComponent implements OnInit {
   spinner = false;
   form: FormGroup;
+  offerLetterConst = OfferLetterConst;
   megaofferLetterConst = MegaOfferLetterConst;
   customerOfferLetter: CustomerOfferLetter;
   @Input() loanDataHolder: LoanDataHolder;
