@@ -1,5 +1,5 @@
 <p><b>Site Visit</b></p>
-<p *ngIf="formData['currentResidentFormChecked'] === true" class="font-weight-bold">Current Resident Details</p>
+<p *ngIf="formData['currentResidentFormChecked'] === true" class="font-weight-bold small">Current Resident Details</p>
 <table *ngIf="formData['currentResidentFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
   <tr class="text-white sb-bg-dark">
@@ -18,7 +18,7 @@
   </tr>
 </table>
 <!-- ============================================================= Business Site Visit ==============================================================-->
-<p *ngIf="formData['businessSiteVisitFormChecked'] === true" class="font-weight-bold">Business Site Visit</p>
+<p *ngIf="formData['businessSiteVisitFormChecked'] === true" class="font-weight-bold small">Business Site Visit</p>
 <table *ngIf="formData['businessSiteVisitFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
   <tr class="text-white sb-bg-dark">
@@ -45,7 +45,7 @@
 </table>
 <!-- ============================================================= Business Site Visit END ==============================================================-->
 <!-- ============================================================= Fixed Asset Collateral Form  ==============================================================-->
-<p *ngIf="formData['fixedAssetCollateralFormChecked'] === true" class="font-weight-bold">Fixed Asset Collateral & Facilities
+<p *ngIf="formData['fixedAssetCollateralFormChecked'] === true" class="font-weight-bold small">Fixed Asset Collateral & Facilities
   Details</p>
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
@@ -84,13 +84,13 @@
   <!--   Other Facilities     ==================-->
 
   <tr>
-    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['waterSupply']}}</td>
-    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['electricity']}}</td>
-    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['boundaryWallConstruction']}}</td>
-    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['boundaryFencing']}}</td>
-    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['drainage']}}</td>
-    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['open']}}</td>
-    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['telephoneLine']}}</td>
+    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['waterSupply'] | booleanConvert}}</td>
+    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['electricity'] | booleanConvert}}</td>
+    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['boundaryWallConstruction'] | booleanConvert}}</td>
+    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['boundaryFencing']| booleanConvert}}</td>
+    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['drainage'] | booleanConvert}}</td>
+    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['open'] | booleanConvert}}</td>
+    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['telephoneLine'] | booleanConvert}}</td>
 
   <tr class="text-white sb-bg-dark">
   <th colspan="8">Remarks</th>
@@ -114,13 +114,13 @@
     <th>Furniture</th>
   </tr>
   <tr>
-    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['building']}}</td>
+    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'NO' ? 'No' : null}}</td>
     <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingArea']}}</td>
-    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['constructionYear'] |date}}</td>
-    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['loadBearingWall']}}</td>
-    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['mortarCement']}}</td>
-    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['otherRoofing']}}</td>
-    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['insideFurniture']}}</td>
+    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['constructionYear'] | date}}</td>
+    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['loadBearingWall'] | booleanConvert}}</td>
+    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['mortarCement'] | booleanConvert}}</td>
+    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['otherRoofing'] | booleanConvert}}</td>
+    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['insideFurniture'] | booleanConvert}}</td>
   </tr>
   <tr class="text-white sb-bg-dark">
     <th>Frame Structure</th>
@@ -128,9 +128,9 @@
     <th>Bathroom and Toilet</th>
   </tr>
   <tr>
-    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['frameStructure']}}</td>
-    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['rccRoofing']}}</td>
-    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['bathroomAndToilet']}}</td>
+    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['frameStructure'] | booleanConvert}}</td>
+    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['rccRoofing'] | booleanConvert}}</td>
+    <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['bathroomAndToilet'] | booleanConvert}}</td>
   </tr>
 
 </table>
@@ -252,7 +252,7 @@
 
 <!-- ============================================================= Current Asset Inspection form End ==============================================================-->
 
-<table class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
+<table *ngIf="formData['currentAssetsInspectionFormChecked'] === true" class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
   <tr class="text-white sb-bg-dark">
     <th colspan="2">Current Assets Inpsection - Stock Checklist Questionaire
     </th>
@@ -353,7 +353,7 @@
   </tr>
 </table>
 
-<table class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
+<table *ngIf="formData['currentAssetsInspectionFormChecked'] === true" class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
   <tr>
     <th colspan="6">Current Assets Inspection - Receivables & Payables
     </th>
@@ -392,7 +392,7 @@
   </tr>
 </table>
 
-<table class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
+<table *ngIf="formData['currentAssetsInspectionFormChecked'] === true" class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
   <tr>
     <th colspan="6">Other Current Assets
     </th>
