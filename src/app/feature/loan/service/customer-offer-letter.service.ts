@@ -60,5 +60,12 @@ export class CustomerOfferLetterService extends BaseService<CustomerOfferLetter>
     return this.http.post(req.url, searchObj, {headers: req.header});
   }
 
+  public getPostApprovedDocStat(): Observable<any> {
+    const api = `${this.getApi()}/stat`;
+    const req = ApiUtils.getRequest(api);
+
+    return this.http.get(req.url, {headers: req.header});
+  }
+
 
 }
