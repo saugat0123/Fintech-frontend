@@ -18,6 +18,8 @@ import {TaxCompliance} from '../model/tax-compliance';
 import {MajorSourceIncomeType} from '../../admin/modal/crg/major-source-income-type';
 import {NumberUtils} from '../../../@core/utils/number-utils';
 import {Pattern} from '../../../@core/utils/constants/pattern';
+import {TypeOfSourceOfIncome, TypeOfSourceOfIncomeArray, TypeOfSourceOfIncomeMap} from '../../admin/modal/crg/typeOfSourceOfIncome';
+import {NgSelectComponent} from '@ng-select/ng-select';
 
 @Component({
     selector: 'app-financial',
@@ -43,11 +45,13 @@ export class FinancialComponent implements OnInit {
     currentFormData: Object;
     submitted = false;
 
-    // Risk factors--
+    // Risk factors---
     salesProjectionVsAchievementArray = SalesProjectionVsAchievement.enumObject();
     netWorthOfFirmOrCompanyArray = NetWorthOfFirmOrCompany.enumObject();
     taxComplianceArray = TaxCompliance.enumObject();
 
+    // Lambda risk factors---
+    typeOfSourceOfIncomeArray = TypeOfSourceOfIncomeArray.typeOfSourceOfIncomeArray;
     majorSourceIncomeType = MajorSourceIncomeType.enumObject();
 
     // Financial heading arrays---
@@ -215,12 +219,23 @@ export class FinancialComponent implements OnInit {
         }
     }
 
+    get form() {
+        return this.financialForm.controls;
+    }
+
     buildForm() {
         this.financialForm = this.formBuilder.group({
             incomeOfBorrower: this.formBuilder.array([]),
             expensesOfBorrower: this.formBuilder.array([]),
+            typeOfSourceOfIncomeObtainedScore: undefined,
             totalIncome: [0],
-
+            totalExpense: [0],
+            currentTotal: [0],
+            netSaving: [0],
+            salesProjectionVsAchievement: undefined,
+            netWorthOfFirmOrCompany: undefined,
+            taxCompliance: undefined,
+            // crg lambda fields---
             majorSourceIncomeType: [undefined, [Validators.required]],
             periodOfEarning: [undefined, [Validators.required , Validators.pattern(Pattern.NUMBER_ONLY)]],
             alternateIncomeSource: [undefined, [Validators.required]],
@@ -228,13 +243,6 @@ export class FinancialComponent implements OnInit {
             grossMonthlyObligation: [undefined],
             totalNetMonthlyIncome: [undefined],
             emiWithProposal: [undefined , [Validators.required , Validators.pattern(Pattern.NUMBER_ONLY)]],
-
-            totalExpense: [0],
-            currentTotal: [0],
-            netSaving: [0],
-            salesProjectionVsAchievement: undefined,
-            netWorthOfFirmOrCompany: undefined,
-            taxCompliance: undefined,
         });
     }
 
@@ -479,8 +487,50 @@ export class FinancialComponent implements OnInit {
         });
     }
 
-    onSubmit() {
+    optionChangeTypeOfSourceOfIncome($event, organizationSelect: NgSelectComponent, clearField: boolean) {
+        if (clearField) { organizationSelect.clearModel(); }
+        switch ($event) {
+            case TypeOfSourceOfIncome.SALARY:
+                organizationSelect.itemsList.setItems(TypeOfSourceOfIncomeArray.salaryArray);
+                break;
+            case TypeOfSourceOfIncome.RENTAL:
+                organizationSelect.itemsList.setItems(TypeOfSourceOfIncomeArray.rentalArray);
+                break;
+            case TypeOfSourceOfIncome.BUSINESS:
+                organizationSelect.itemsList.setItems(TypeOfSourceOfIncomeArray.businessArray);
+                break;
+            case TypeOfSourceOfIncome.REMITTANCE:
+                organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.REMITTANCE]);
+                organizationSelect.select({value: TypeOfSourceOfIncome.REMITTANCE, label: TypeOfSourceOfIncome.REMITTANCE});
+                break;
+            case TypeOfSourceOfIncome.COMMISSION:
+                organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.COMMISSION]);
+                organizationSelect.select({value: TypeOfSourceOfIncome.COMMISSION, label: TypeOfSourceOfIncome.COMMISSION});
+                break;
+            case TypeOfSourceOfIncome.TRANSPORTATION:
+                organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.TRANSPORTATION]);
+                organizationSelect.select({value: TypeOfSourceOfIncome.TRANSPORTATION, label: TypeOfSourceOfIncome.TRANSPORTATION});
+                break;
+            case TypeOfSourceOfIncome.FREELANCING:
+                organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.FREELANCING]);
+                organizationSelect.select({value: TypeOfSourceOfIncome.FREELANCING, label: TypeOfSourceOfIncome.FREELANCING});
+                break;
+            case TypeOfSourceOfIncome.AGRICULTURE:
+                organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.AGRICULTURE]);
+                organizationSelect.select({value: TypeOfSourceOfIncome.AGRICULTURE, label: TypeOfSourceOfIncome.AGRICULTURE});
+                break;
+        }
+    }
 
+    calculateAndSetHighestScore() {
+        const incomeSourcePointsArray = [];
+        (this.financialForm.get('incomeOfBorrower') as FormArray).controls.forEach( group => {
+            incomeSourcePointsArray.push(TypeOfSourceOfIncomeMap.typeOfSourceOfIncomePointsMap.get(group.get('organization').value));
+        });
+        this.financialForm.get('typeOfSourceOfIncomeObtainedScore').patchValue(Math.max(...incomeSourcePointsArray));
+    }
+
+    onSubmit() {
         this.submitted = true;
         switch (this.activeTab) {
             case 'Income Statement':
@@ -499,9 +549,9 @@ export class FinancialComponent implements OnInit {
             this.financialData = this.formData;
         }
         if (this.financialForm.invalid) {
-            console.log(this.financialForm);
             return;
         }
+        this.calculateAndSetHighestScore();
         this.currentFormData['fiscalYear'] = this.fiscalYear;
         this.currentFormData['initialForm'] = this.financialForm.value;
         if (this.isBusinessLoan) {
@@ -509,9 +559,5 @@ export class FinancialComponent implements OnInit {
         }
         this.financialData.data = JSON.stringify(this.currentFormData);
         this.financialDataEmitter.emit(this.financialData.data);
-    }
-
-    get form() {
-        return this.financialForm.controls;
     }
 }
