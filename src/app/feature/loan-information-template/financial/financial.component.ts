@@ -18,7 +18,7 @@ import {TaxCompliance} from '../model/tax-compliance';
 import {MajorSourceIncomeType} from '../../admin/modal/crg/major-source-income-type';
 import {NumberUtils} from '../../../@core/utils/number-utils';
 import {Pattern} from '../../../@core/utils/constants/pattern';
-import {TypeOfSourceOfIncome, TypeOfSourceOfIncomeArray} from '../../admin/modal/crg/typeOfSourceOfIncome';
+import {TypeOfSourceOfIncome, TypeOfSourceOfIncomeArray, TypeOfSourceOfIncomeMap} from '../../admin/modal/crg/typeOfSourceOfIncome';
 import {NgSelectComponent} from '@ng-select/ng-select';
 
 @Component({
@@ -219,10 +219,15 @@ export class FinancialComponent implements OnInit {
         }
     }
 
+    get form() {
+        return this.financialForm.controls;
+    }
+
     buildForm() {
         this.financialForm = this.formBuilder.group({
             incomeOfBorrower: this.formBuilder.array([]),
             expensesOfBorrower: this.formBuilder.array([]),
+            typeOfSourceOfIncomeObtainedScore: undefined,
             totalIncome: [0],
             totalExpense: [0],
             currentTotal: [0],
@@ -482,40 +487,6 @@ export class FinancialComponent implements OnInit {
         });
     }
 
-    onSubmit() {
-        this.submitted = true;
-        switch (this.activeTab) {
-            case 'Income Statement':
-                this.incomeStatement.ngOnDestroy();
-                break;
-            case 'Balance Sheet':
-                this.balanceSheet.ngOnDestroy();
-                break;
-            case 'Cash Flow Statement':
-                this.cashFlowStatement.ngOnDestroy();
-                break;
-            case 'Key Indicators':
-                this.keyIndicators.ngOnDestroy();
-        }
-        if (!ObjectUtil.isEmpty(this.formData)) {
-            this.financialData = this.formData;
-        }
-        if (this.financialForm.invalid) {
-            return;
-        }
-        this.currentFormData['fiscalYear'] = this.fiscalYear;
-        this.currentFormData['initialForm'] = this.financialForm.value;
-        if (this.isBusinessLoan) {
-            this.currentFormData['auditorList'] = this.auditorList;
-        }
-        this.financialData.data = JSON.stringify(this.currentFormData);
-        this.financialDataEmitter.emit(this.financialData.data);
-    }
-
-    get form() {
-        return this.financialForm.controls;
-    }
-
     optionChangeTypeOfSourceOfIncome($event, organizationSelect: NgSelectComponent, clearField: boolean) {
         if (clearField) { organizationSelect.clearModel(); }
         switch ($event) {
@@ -549,5 +520,44 @@ export class FinancialComponent implements OnInit {
                 organizationSelect.select({value: TypeOfSourceOfIncome.AGRICULTURE, label: TypeOfSourceOfIncome.AGRICULTURE});
                 break;
         }
+    }
+
+    calculateAndSetHighestScore() {
+        const incomeSourcePointsArray = [];
+        (this.financialForm.get('incomeOfBorrower') as FormArray).controls.forEach( group => {
+            incomeSourcePointsArray.push(TypeOfSourceOfIncomeMap.typeOfSourceOfIncomePointsMap.get(group.get('organization').value));
+        });
+        this.financialForm.get('typeOfSourceOfIncomeObtainedScore').patchValue(Math.max(...incomeSourcePointsArray));
+    }
+
+    onSubmit() {
+        this.submitted = true;
+        switch (this.activeTab) {
+            case 'Income Statement':
+                this.incomeStatement.ngOnDestroy();
+                break;
+            case 'Balance Sheet':
+                this.balanceSheet.ngOnDestroy();
+                break;
+            case 'Cash Flow Statement':
+                this.cashFlowStatement.ngOnDestroy();
+                break;
+            case 'Key Indicators':
+                this.keyIndicators.ngOnDestroy();
+        }
+        if (!ObjectUtil.isEmpty(this.formData)) {
+            this.financialData = this.formData;
+        }
+        if (this.financialForm.invalid) {
+            return;
+        }
+        this.calculateAndSetHighestScore();
+        this.currentFormData['fiscalYear'] = this.fiscalYear;
+        this.currentFormData['initialForm'] = this.financialForm.value;
+        if (this.isBusinessLoan) {
+            this.currentFormData['auditorList'] = this.auditorList;
+        }
+        this.financialData.data = JSON.stringify(this.currentFormData);
+        this.financialDataEmitter.emit(this.financialData.data);
     }
 }
