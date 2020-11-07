@@ -11,27 +11,26 @@
                     <div [formGroupName]="incomeIndex">
                         <!-- START ROW -->
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="title"><strong>Income Source</strong></label><strong
                                         class="text-danger">*</strong>
-                                    <ng-select [items]="typeOfSourceOfIncomeArray"
+                                    <ng-select #incomeSourceSelect [items]="typeOfSourceOfIncomeArray"
                                                formControlName="incomeSource"
-                                               (change)="optionChangeTypeOfSourceOfIncome($event, organizationSelect)"
-                                               placeholder="Select Income source">
+                                               (change)="optionChangeTypeOfSourceOfIncome($event, organizationSelect, true)">
                                         <span *ngIf="incomeOfBorrower.get('incomeSource').invalid"
                                               class="text-danger small">Income source required</span>
                                     </ng-select>
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="title"><strong>Organization</strong></label><strong
                                         class="text-danger">*</strong>
                                     <ng-select #organizationSelect
-                                               formControlName="organization"
-                                               placeholder="Select Organization">
+                                               (click)="optionChangeTypeOfSourceOfIncome(incomeSourceSelect.selectedValues[0], organizationSelect, false)"
+                                               formControlName="organization">
                                     </ng-select>
                                     <span *ngIf="incomeOfBorrower.get('organization').invalid"
                                           class="text-danger small">Organization required</span>

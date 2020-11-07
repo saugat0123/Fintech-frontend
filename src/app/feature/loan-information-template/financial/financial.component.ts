@@ -19,7 +19,6 @@ import {MajorSourceIncomeType} from '../../admin/modal/crg/major-source-income-t
 import {NumberUtils} from '../../../@core/utils/number-utils';
 import {Pattern} from '../../../@core/utils/constants/pattern';
 import {TypeOfSourceOfIncome, TypeOfSourceOfIncomeArray} from '../../admin/modal/crg/typeOfSourceOfIncome';
-import {NbOptionComponent} from '@nebular/theme';
 import {NgSelectComponent} from '@ng-select/ng-select';
 
 @Component({
@@ -231,7 +230,6 @@ export class FinancialComponent implements OnInit {
             salesProjectionVsAchievement: undefined,
             netWorthOfFirmOrCompany: undefined,
             taxCompliance: undefined,
-
             // crg lambda fields---
             majorSourceIncomeType: [undefined, [Validators.required]],
             periodOfEarning: [undefined, [Validators.required , Validators.pattern(Pattern.NUMBER_ONLY)]],
@@ -518,7 +516,8 @@ export class FinancialComponent implements OnInit {
         return this.financialForm.controls;
     }
 
-    optionChangeTypeOfSourceOfIncome($event, organizationSelect: NgSelectComponent) {
+    optionChangeTypeOfSourceOfIncome($event, organizationSelect: NgSelectComponent, clearField: boolean) {
+        if (clearField) { organizationSelect.clearModel(); }
         switch ($event) {
             case TypeOfSourceOfIncome.SALARY:
                 organizationSelect.itemsList.setItems(TypeOfSourceOfIncomeArray.salaryArray);
