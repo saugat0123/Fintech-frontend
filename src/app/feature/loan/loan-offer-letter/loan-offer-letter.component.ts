@@ -393,10 +393,6 @@ export class LoanOfferLetterComponent implements OnInit {
         this.customerOfferLetterService.getRolesPresentInCADHEIRARCHY().subscribe((res: any) => {
             this.roleListInCAD = res.detail;
             if (this.roleListInCAD.length > 1) {
-                this.offerLetterAssignForm.patchValue({
-                    role: this.roleListInCAD[0].role,
-                    user: undefined
-                });
                 this.getUserList(this.roleListInCAD[0].role);
             }
 
@@ -404,6 +400,10 @@ export class LoanOfferLetterComponent implements OnInit {
     }
 
     public getUserList(role) {
+        this.offerLetterAssignForm.patchValue({
+            role: role,
+            user: undefined
+        });
         this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.selectedBranchId).subscribe((response: any) => {
             this.errorMessage = null;
             this.userList = response.detail;
