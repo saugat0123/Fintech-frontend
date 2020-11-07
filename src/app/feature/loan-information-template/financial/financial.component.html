@@ -17,6 +17,7 @@
                                         class="text-danger">*</strong>
                                     <ng-select #incomeSourceSelect [items]="typeOfSourceOfIncomeArray"
                                                formControlName="incomeSource"
+                                               [appendTo]="'body'"
                                                (change)="optionChangeTypeOfSourceOfIncome($event, organizationSelect, true)">
                                         <span *ngIf="incomeOfBorrower.get('incomeSource').invalid"
                                               class="text-danger small">Income source required</span>
@@ -29,6 +30,7 @@
                                     <label class="title"><strong>Organization</strong></label><strong
                                         class="text-danger">*</strong>
                                     <ng-select #organizationSelect
+                                               [appendTo]="'body'"
                                                (click)="optionChangeTypeOfSourceOfIncome(incomeSourceSelect.selectedValues[0], organizationSelect, false)"
                                                formControlName="organization">
                                     </ng-select>
