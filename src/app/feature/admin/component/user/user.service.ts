@@ -63,7 +63,7 @@ export class UserService extends BaseService<User> {
         return this.http.get(req.url, {headers: req.header});
     }
 
-    public updateUserPassword(obj: Object): Observable<any>  {
+    public updateUserPassword(obj: Object): Observable<any> {
         const req = ApiUtils.getRequest(`${UserService.API}/changePassword`);
         return this.http.post(req.url, obj, {headers: req.header});
     }
@@ -75,6 +75,11 @@ export class UserService extends BaseService<User> {
 
     public getUserForChat(): Observable<any> {
         const req = ApiUtils.getRequest(`${this.getApi()}/chat`);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
+    public getUserListByRoleIdAndBranchIdForDocumentAction(id, bId): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`${UserService.API}/${id}/users/branch/${bId}`);
         return this.http.get(req.url, {headers: req.header});
     }
 }
