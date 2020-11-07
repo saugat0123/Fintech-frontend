@@ -95,6 +95,7 @@ export class LoanOfferLetterComponent implements OnInit {
         other.spinnerService.show();
         other.catalogueService.search.committee = 'true';
         if (other.isCAD_ADMIN) {
+            // tslint:disable-next-line:max-line-length
             other.customerOfferLetterService.getIssuedOfferLetter(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
                 other.loanDataHolderList = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
@@ -109,6 +110,7 @@ export class LoanOfferLetterComponent implements OnInit {
                 other.spinner = false;
             });
         } else {
+            // tslint:disable-next-line:max-line-length
             other.customerOfferLetterService.getAssignedOfferLetter(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
                 other.assignedOfferLetterList = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
