@@ -313,7 +313,20 @@
 
               <hr>
 
-
+              <div class="row">
+                <div class="col-md-5">
+                  <span> <strong>Net Worth</strong></span></div>
+                <div class="col-md-1">
+                  <span> <strong>:</strong></span></div>
+                <div class="col-md-5">Rs. {{customer?.netWorth |currencyFormatter}}</div>
+              </div>
+              <div class="row">
+                <div class="col-md-5">
+                  <span> <strong>Banking RelationShip</strong></span></div>
+                <div class="col-md-1">
+                  <span> <strong>:</strong></span></div>
+                <div class="col-md-5">{{customerInfo?.bankingRelationship === undefined ?'N/A': json.parse(customerInfo?.bankingRelationship)}}</div>
+              </div>
             </div>
           </nb-card-body>
         </nb-card>

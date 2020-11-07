@@ -6,6 +6,7 @@ import {FormUtils} from '../../../@core/utils/form.utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
 import {Editor} from '../../../@core/utils/constants/editor';
+import {RepaymentTrack} from '../../admin/modal/crg/RepaymentTrack';
 
 @Component({
   selector: 'app-cicl',
@@ -24,6 +25,8 @@ export class CiclComponent implements OnInit {
 
   submitted = false;
   ckeConfig = Editor.CK_CONFIG;
+
+  repaymentTrack = RepaymentTrack.enumObject();
 
   constructor(
       private formBuilder: FormBuilder,
@@ -62,6 +65,7 @@ export class CiclComponent implements OnInit {
     this.ciclForm = this.formBuilder.group({
       ciclArray: this.formBuilder.array([]),
       ciclRemarks: [ObjectUtil.isEmpty(this.ciclValue) ? '' : this.ciclValue.remarks],
+      repaymentTrack: [ObjectUtil.isEmpty(this.ciclValue) ? '' : this.ciclValue.repaymentTrack, Validators.required],
       cibCharge: [ObjectUtil.isEmpty(this.ciclValue) ? undefined : this.ciclValue.cibCharge, [Validators.required, Validators.min(0)]]
     });
     if (!ObjectUtil.isEmpty(this.ciclList)) {
@@ -118,7 +122,7 @@ export class CiclComponent implements OnInit {
             facilityName: [cicl.facility, Validators.required],
             overdueAmount: [cicl.overdueAmount, Validators.required],
             outstandingAmount: [cicl.outstandingAmount, Validators.required],
-            ciclStatus: [cicl.status, Validators.required]
+            ciclStatus: [cicl.status, Validators.required],
           }));
     });
   }
@@ -162,8 +166,12 @@ export class CiclComponent implements OnInit {
       this.ciclList.push(cicl);
 
     }
+    // uncomment if value is need
+   /* const totalOutStanding = CalculationUtil.calculateTotalFromList(LoanDataKey.OUTSTANDING_AMOUNT, this.ciclList);*/
     this.ciclValue.remarks = this.ciclForm.get('ciclRemarks').value === undefined ? '' : this.ciclForm.get('ciclRemarks').value;
     this.ciclValue.cibCharge = this.ciclForm.get('cibCharge').value === undefined ? '' : this.ciclForm.get('cibCharge').value;
+    this.ciclValue.repaymentTrack = this.ciclForm.get('repaymentTrack').value === undefined ? '' :
+        this.ciclForm.get('repaymentTrack').value;
     this.ciclValue.data = JSON.stringify(this.ciclList);
     this.ciclDataEmitter.emit(this.ciclValue);
   }

@@ -17,10 +17,12 @@ import {VehicleSecurityCoverage} from '../model/vehicle-security-coverage';
 import {CustomerType} from '../../customer/model/customerType';
 import {ActivatedRoute} from '@angular/router';
 import {CustomerShareData} from '../../admin/modal/CustomerShareData';
+import {RoadAccess} from '../../admin/modal/crg/RoadAccess';
+import {FacCategory} from '../../admin/modal/crg/fac-category';
 
 @Component({
-    selector: 'app-security' ,
-    templateUrl: './security.component.html' ,
+    selector: 'app-security',
+    templateUrl: './security.component.html',
     styleUrls: ['./security.component.css']
 })
 export class SecurityComponent implements OnInit {
@@ -46,7 +48,7 @@ export class SecurityComponent implements OnInit {
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     addressList: Array<Address> = new Array<Address>();
     limit: number;
-    submitted: false;
+    submitted = false;
     guarantorsDetails: Guarantor = new Guarantor();
     shareSecurityData: ShareSecurity = new ShareSecurity();
     isBusinessLoan = true;
@@ -58,14 +60,18 @@ export class SecurityComponent implements OnInit {
     newCoverage = VehicleSecurityCoverage.getNew();
     usedCoverage = VehicleSecurityCoverage.getUsed();
 
+    roadAccess = RoadAccess.enumObject();
+    facCategory = FacCategory.enumObject();
+
     constructor(
-        private formBuilder: FormBuilder ,
-        private addressServices: AddressService ,
+        private formBuilder: FormBuilder,
+        private addressServices: AddressService,
         private activatedRoute: ActivatedRoute
-    ) {}
+    ) {
+    }
 
     ngOnInit() {
-        this.activatedRoute.queryParams.subscribe( queryParams => {
+        this.activatedRoute.queryParams.subscribe(queryParams => {
             if (CustomerType.INDIVIDUAL === CustomerType[queryParams.customerType]) {
                 this.isBusinessLoan = false;
             }
@@ -95,6 +101,8 @@ export class SecurityComponent implements OnInit {
             securityGuarantee: undefined,
             buildingLocation: undefined,
             vehicleSecurityCoverage: undefined,
+            roadAccessOfPrimaryProperty: [undefined, Validators.required],
+            facCategory: [undefined, Validators.required],
         });
     }
 
@@ -103,6 +111,8 @@ export class SecurityComponent implements OnInit {
             securityGuarantee: formData.securityGuarantee,
             buildingLocation: formData.buildingLocation,
             vehicleSecurityCoverage: formData.vehicleSecurityCoverage,
+            roadAccessOfPrimaryProperty: [formData.roadAccessOfPrimaryProperty , Validators.required],
+            facCategory: [formData.facCategory , Validators.required],
         });
     }
 
@@ -200,19 +210,25 @@ export class SecurityComponent implements OnInit {
 
 
     onSubmit() {
+        this.submitted = true;
+        if (this.securityForm.invalid) {
+            return;
+        }
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityData = this.securityValue;
         }
         this.initialSecurity.submit();
         const mergedForm = {
-            initialForm: this.initialSecurity.securityForm.value ,
-            selectedArray: this.initialSecurity.selectedArray ,
-            underConstructionChecked: this.initialSecurity.underConstructionChecked ,
+            initialForm: this.initialSecurity.securityForm.value,
+            selectedArray: this.initialSecurity.selectedArray,
+            underConstructionChecked: this.initialSecurity.underConstructionChecked,
             otherBranchcheck: this.initialSecurity.otherBranchcheck,
             guarantorsForm: this.guarantorsForm.value,
             underBuildingConstructionChecked: this.initialSecurity.underBuildingConstructionChecked,
             securityGuarantee: this.securityForm.get('securityGuarantee').value,
             buildingLocation: this.securityForm.get('buildingLocation').value,
+            roadAccessOfPrimaryProperty: this.securityForm.get('roadAccessOfPrimaryProperty').value,
+            facCategory: this.securityForm.get('facCategory').value,
             vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
         };
         this.securityData.totalSecurityAmount = this.calculateTotalSecurity(mergedForm);

@@ -25,6 +25,8 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {CustomerAssociateComponent} from '../../../../loan/component/loan-main-template/customer-associate/customer-associate.component';
 import {NbDialogRef, NbDialogService, NbSelectModule} from '@nebular/theme';
 import {BankingRelationComponent} from '../banking-relation/banking-relation.component';
+import {BankingRelationship} from '../../../../admin/modal/banking-relationship';
+import {Pattern} from '../../../../../@core/utils/constants/pattern';
 
 @Component({
   selector: 'app-customer-form',
@@ -36,9 +38,6 @@ export class CustomerFormComponent implements OnInit {
   @Input() formValue: Customer;
   calendarType = 'AD';
   @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  // @ViewChild('bankingRelationComponent', {static: false})
-  // bankingRelationComponent: BankingRelationComponent;
 
   basicInfo: FormGroup;
   submitted = false;
@@ -68,6 +67,8 @@ export class CustomerFormComponent implements OnInit {
     showOtherOccupation: false ,
     showOtherIncomeSource: false
   };
+
+  bankingRelationshipList = BankingRelationship.enumObject();
 
   constructor(
       private formBuilder: FormBuilder,
@@ -211,8 +212,10 @@ export class CustomerFormComponent implements OnInit {
         this.customer.customerRelatives = rawFromValue.customerRelatives;
 
         /** banking relation setting data from child **/
-        // this.bankingRelationComponent.onSubmit();
-        // this.customer.bankingRelationship = JSON.stringify(this.bankingRelationComponent.bankingRelation);
+        // possibly can have more field in banking relationship
+         this.customer.bankingRelationship = JSON.stringify(this.basicInfo.get('bankingRelationship').value);
+         this.customer.netWorth = this.basicInfo.get('netWorth').value;
+        console.log(this.customer);
 
         this.customerService.save(this.customer).subscribe(res => {
           this.spinner = false;
@@ -273,6 +276,10 @@ export class CustomerFormComponent implements OnInit {
       otherIncome: [this.customer.otherIncome === undefined ? undefined : this.customer.otherIncome],
       customerRelatives: this.formBuilder.array([]),
       introduction: [this.customer.introduction === undefined ? undefined : this.customer.introduction, [Validators.required]],
+      bankingRelationship: [this.customer.bankingRelationship === undefined ?
+          undefined : JSON.parse(this.customer.bankingRelationship), [Validators.required]],
+      netWorth: [this.customer.netWorth === undefined ?
+          undefined : this.customer.netWorth, [Validators.required , Validators.pattern(Pattern.NUMBER_ONLY)]],
     });
   }
 

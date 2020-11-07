@@ -115,7 +115,8 @@
           </div>
         </nb-card-header>
         <nb-card-body *ngIf="!chek?.checked">
-          <div class="col-md-12" formGroupName="accountTransactionForm">
+          <div formGroupName="accountTransactionForm">
+          <div class="col-md-12" >
             <table class="table table-bordered table-responsive-md table-hover text-center">
               <thead>
               <tr>
@@ -173,6 +174,23 @@
               </tr>
               </tbody>
             </table>
+          </div>
+          <div class="col">
+            <label for="repaymentTrackWithCurrentBank">
+              <strong>Repayment track in our bank</strong></label><strong
+                  class="text-danger">*</strong>
+            <select id="repaymentTrackWithCurrentBank" class="form-control"
+                    formControlName="repaymentTrackWithCurrentBank"
+                    [ngClass]="{'is-invalid': submitted && transactionForm?.repaymentTrackWithCurrentBank.invalid}">
+              <option [ngValue]="null" hidden selected>--Select Repayment Track--</option>
+              <option *ngFor="let m of repaymentTrack"
+                      [value]="m?.value">{{m?.value}}</option>
+            </select>
+            <div *ngIf="(submitted) && transactionForm?.repaymentTrackWithCurrentBank.invalid"
+                 class="invalid-feedback">
+              Repayment Track is Required
+            </div>
+          </div>
           </div>
         </nb-card-body>
       </nb-card>

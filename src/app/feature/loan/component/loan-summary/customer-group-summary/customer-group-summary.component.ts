@@ -27,7 +27,6 @@ export class CustomerGroupSummaryComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.groupDto);
     this.groupAssociateCustomers = this.groupDto.groupDtoList;
     this.totalCollateral = this.calculateTotalRequiredCollateral();
   }

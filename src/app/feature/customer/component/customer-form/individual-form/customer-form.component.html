@@ -383,10 +383,6 @@
         </div>
           </div></div>
         <hr>
-<!--        <app-banking-relation #bankingRelationComponent-->
-<!--                              [formValue]="customer?.bankingRelationship">-->
-<!--        </app-banking-relation>-->
-<!--        <hr>-->
         <div>
           <div
               *ngFor="let relatives of basicInfo.get('customerRelatives')['controls']; let i = index"
@@ -487,6 +483,43 @@
           </div>
         </div>
       </div>
+        <div>
+          <nb-card class="card-height">
+            <nb-card-header>
+              <label for="bankingRelationship"><h6>Banking Relationship</h6></label>
+            </nb-card-header>
+            <nb-card-body>
+              <div class="form-group">
+                <nb-radio-group class="d-contents form-control"
+                                formControlName="bankingRelationship"
+                                id="bankingRelationship"
+                                name="bankingRelationship"
+                                [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.bankingRelationship.errors }">
+                  <nb-radio *ngFor="let elem of bankingRelationshipList"
+                            [value]="elem?.value">{{elem?.value}}
+                  </nb-radio>
+                </nb-radio-group>
+                <div *ngIf="submitted && basicInfoControls.bankingRelationship.errors" class="invalid-feedback">
+                  <div *ngIf="basicInfoControls.bankingRelationship.errors.required">
+                    Banking relation is required
+                  </div>
+                </div>
+              </div>
+            </nb-card-body>
+          </nb-card>
+        </div>
+        <div class="col-4">
+          <label><strong>Net worth</strong></label>
+          <input id="netWorth" formControlName="netWorth" name="netWorth" type="text"
+                    class="form-control" placeholder="Net Worth Amount"
+                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.netWorth.errors }"/>
+          <div *ngIf="(submitted) && basicInfoControls.netWorth.invalid"
+               class="invalid-feedback">
+            <div *ngIf="basicInfoControls.netWorth.errors">
+              Valid Worth Amount is required
+            </div>
+        </div>
+        </div>
         <!-- END ROW -->
       </form>
     </div>
