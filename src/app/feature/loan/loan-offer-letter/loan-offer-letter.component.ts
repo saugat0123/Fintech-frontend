@@ -71,6 +71,8 @@ export class LoanOfferLetterComponent implements OnInit {
     submitted = false;
     isCAD_ADMIN = false;
     toggleArray: { toggled: boolean }[] = [];
+    selectedBranchId = 0;
+    errorMessage = null;
 
     constructor(
         private branchService: BranchService,
@@ -93,12 +95,14 @@ export class LoanOfferLetterComponent implements OnInit {
         other.spinnerService.show();
         other.catalogueService.search.committee = 'true';
         if (other.isCAD_ADMIN) {
+            // tslint:disable-next-line:max-line-length
             other.customerOfferLetterService.getIssuedOfferLetter(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
                 other.loanDataHolderList = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.loanDataHolderList.forEach(() => other.toggleArray.push({toggled: false}));
                 other.spinner = false;
                 other.spinnerService.hide();
+
             }, error => {
                 other.spinnerService.hide();
                 console.error(error);
@@ -106,6 +110,7 @@ export class LoanOfferLetterComponent implements OnInit {
                 other.spinner = false;
             });
         } else {
+            // tslint:disable-next-line:max-line-length
             other.customerOfferLetterService.getAssignedOfferLetter(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
                 other.assignedOfferLetterList = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
@@ -126,7 +131,6 @@ export class LoanOfferLetterComponent implements OnInit {
                 this.redirected = paramsValue.redirect === 'true';
             });
 
-        this.getRoleListPresentInCad();
 
         if (LocalStorageUtil.getStorage().roleName === 'CAD') {
             this.roleName = true;
@@ -377,10 +381,12 @@ export class LoanOfferLetterComponent implements OnInit {
 
     }
 
-    openModel(template, customerLoanId) {
+    openModel(template, customerLoanId, branchId) {
+        this.selectedBranchId = branchId;
         this.offerLetterAssignForm.patchValue({
             customerLoanId: customerLoanId
         });
+        this.getRoleListPresentInCad();
         this.modalService.open(template);
     }
 
@@ -396,8 +402,12 @@ export class LoanOfferLetterComponent implements OnInit {
     }
 
     public getUserList(role) {
-        console.log(role);
-        this.userService.getUserListByRoleId(role.id).subscribe((response: any) => {
+        this.offerLetterAssignForm.patchValue({
+            role: role,
+            user: undefined
+        });
+        this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.selectedBranchId).subscribe((response: any) => {
+            this.errorMessage = null;
             this.userList = response.detail;
             if (this.userList.length === 1) {
                 this.offerLetterAssignForm.patchValue({
@@ -411,7 +421,7 @@ export class LoanOfferLetterComponent implements OnInit {
                 });
 
             } else {
-                this.toastService.show(new Alert(AlertType.ERROR, 'NO User Present in this Role'));
+                this.errorMessage = 'NO User Present in this Role';
             }
         });
     }
