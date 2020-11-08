@@ -113,7 +113,7 @@
                             (messageToEmit)="basicInfo.get('dob').patchValue($event?.eDate)"></app-calendar>
               <nb-datepicker #dob></nb-datepicker>
               <div *ngIf="submitted && basicInfoControls.dob.errors"
-                   class="invalid-feedback">
+                   class="small text-danger">
                 <div
                     *ngIf="basicInfoControls.dob.errors.required || basicInfoControls.dob.errors.beforeToday">
                   Invalid date of birth
@@ -301,7 +301,7 @@
                             (messageToEmit)="basicInfo.get('citizenshipIssuedDate').patchValue($event?.eDate)"></app-calendar>
               <nb-datepicker #customerCitizenshipIssuedDate></nb-datepicker>
               <div *ngIf="submitted && basicInfoControls.citizenshipIssuedDate.errors"
-                   class="invalid-feedback">
+                   class="small text-danger">
                 <div
                     *ngIf="basicInfoControls.citizenshipIssuedDate.errors.required || basicInfoControls.citizenshipIssuedDate.errors.beforeToday">
                   Invalid Registration Date
@@ -452,7 +452,7 @@
 
                     <nb-datepicker #relationCitizenIssueDate></nb-datepicker>
                     <div *ngIf="submitted && relatives.get('citizenshipIssuedDate').errors"
-                         class="invalid-feedback">
+                         class="small text-danger">
                       Invalid Issued Date!
                     </div>
                   </div>
