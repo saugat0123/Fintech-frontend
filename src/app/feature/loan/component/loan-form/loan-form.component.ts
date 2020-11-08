@@ -316,7 +316,7 @@ export class LoanFormComponent implements OnInit {
     populateTemplate() {
         this.loanConfigService.detail(this.id).subscribe((response: any) => {
             // this.templateList = response.detail.templateList;
-            this.templateList = DefaultLoanTemplate.DEFAULT_TEMPLATE;
+            this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
             // Splicing customer loan for Personal Type Loan--
             if (CustomerType[this.allId.loanCategory] === CustomerType.INDIVIDUAL) {
                 this.templateList.forEach((value, index) => {
@@ -327,6 +327,8 @@ export class LoanFormComponent implements OnInit {
                         this.templateList.splice(index, 1);
                     }
                 });
+            } else {
+                this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
             }
 
             this.templateList.some((value, index) => {

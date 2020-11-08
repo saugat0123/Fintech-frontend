@@ -1,5 +1,5 @@
 export class DefaultLoanTemplate {
-  static DEFAULT_TEMPLATE = [
+   DEFAULT_TEMPLATE = [
     {
       active: false,
       name: 'Guarantor',
