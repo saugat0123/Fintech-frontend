@@ -32,6 +32,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
     paramProperties: any;
 
     errorMessage: string;
+    loanConfigId;
 
     constructor(private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
@@ -50,8 +51,10 @@ export class CustomerLoanDocumentComponent implements OnInit {
                 };
                 this.paramProperties = paramsValue;
                 loanId = this.paramProperties.loanId;
+                this.loanConfigId = loanId;
                 if (ObjectUtil.isEmpty(this.paramProperties.loanId) || (!ObjectUtil.isEmpty(this.loanDataHolder.loan))) {
                     loanId = this.loanDataHolder.loan.id;
+                    this.loanConfigId = loanId;
                 }
             });
 
@@ -117,7 +120,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
             const formData: FormData = new FormData();
 
             formData.append('file', file);
-            formData.append('loanId', this.loanDataHolder.loan.id.toString());
+            formData.append('loanId', this.loanConfigId.toString());
             formData.append('documentName', documentName);
             formData.append('documentId', documentId);
             formData.append('loanHolderId', this.loanDataHolder.loanHolder.id.toString());
