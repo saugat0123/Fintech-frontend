@@ -106,11 +106,11 @@
 
                 class="cursor">
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.branch?.name}}</td>
-                <td (click)="onClick(model.loan.id,model.id)">{{model?.customerInfo?.customerName}}</td>
+                <td (click)="onClick(model.loan.id,model.id)">{{model?.loanHolder?.name}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.loan?.name}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">
                     <span
-                            class="d-flex justify-content-end">{{model?.dmsLoanFile?.proposedAmount | number}}</span>
+                            class="d-flex justify-content-end">Rs .{{model?.proposal?.proposedLimit | currencyFormatter}}</span>
                 </td>
                 <td (click)="onClick(model.loan.id,model.id)">{{loanType[model?.loanType]}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.documentStatus}}</td>
