@@ -177,7 +177,7 @@ export class CustomerFormComponent implements OnInit {
     } else {
       if (this.basicInfo.invalid) {
         this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
-        // this. scrollToFirstInvalidControl();
+        this. scrollToFirstInvalidControl();
         this.spinner = false;
         return; }
       {
