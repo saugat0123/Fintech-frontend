@@ -14,6 +14,7 @@ export class CatalogueSearch {
     docAction: string;
     showShareLoanExcessingLimit: string;
     isInsuranceExpired: string;
+    postApprovalAssignStatus: string;
 }
 
 @Injectable({
