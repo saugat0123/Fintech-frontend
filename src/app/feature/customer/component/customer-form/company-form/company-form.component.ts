@@ -864,7 +864,7 @@ export class CompanyFormComponent implements OnInit {
 
     checkRegistrationNumber(regNumber: String) {
         this.companyInfoService.getCompanyInfoWithRegistrationNumber(regNumber).subscribe((res) => {
-            if (regNumber === res.detail.registrationNumber) {
+            if (regNumber.toLowerCase() === res.detail.registrationNumber.toLowerCase()) {
                 this.toastService.show(new Alert(AlertType.WARNING, 'This customer already exists. Please input a unique value or choose the customer from catalogue section'));
             }
         }, error => {
