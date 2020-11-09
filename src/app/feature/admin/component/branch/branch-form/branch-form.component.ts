@@ -202,7 +202,7 @@ export class BranchFormComponent implements OnInit {
 
         }, error => {
           console.error(error);
-          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Branch!'));
+          this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
           this.activeModal.dismiss(error);
         }
     );
