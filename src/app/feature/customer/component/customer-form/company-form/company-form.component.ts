@@ -861,4 +861,14 @@ export class CompanyFormComponent implements OnInit {
             this.companyInfoFormGroup.enable();
         }
     }
+
+    checkRegistrationNumber(regNumber: String) {
+        this.companyInfoService.getCompanyInfoWithRegistrationNumber(regNumber).subscribe((res) => {
+            if (regNumber === res.detail.registrationNumber) {
+                this.toastService.show(new Alert(AlertType.WARNING, 'This customer already exists. Please input a unique value or choose the customer from catalogue section'));
+            }
+        }, error => {
+            console.error(error);
+        });
+    }
 }
