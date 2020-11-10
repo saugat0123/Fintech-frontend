@@ -188,7 +188,8 @@ export class LoanOfferLetterComponent implements OnInit {
             startDate: [undefined],
             endDate: [undefined],
             role: [undefined],
-            customerName: [undefined]
+            customerName: [undefined],
+            postApprovalAssignStatus: [undefined]
         });
     }
 
@@ -259,6 +260,9 @@ export class LoanOfferLetterComponent implements OnInit {
             this.filterForm.get('role').value;
         this.catalogueService.search.customerName = ObjectUtil.isEmpty(this.filterForm.get('customerName').value) ? undefined :
             this.filterForm.get('customerName').value;
+        this.catalogueService.search.postApprovalAssignStatus = ObjectUtil.isEmpty(this.filterForm.get('postApprovalAssignStatus').value) ? undefined :
+            this.filterForm.get('postApprovalAssignStatus').value;
+        this.catalogueService.search.documentStatus = 'APPROVED';
         LoanOfferLetterComponent.loadData(this);
     }
 
