@@ -109,11 +109,12 @@
                      name="dob"
                      placeholder="Customer Date of birth"
                      readonly>
+              <input *ngIf="calendarType === 'BS'" formControlName="dob" hidden>
               <app-calendar *ngIf="calendarType === 'BS'" [ePreDate]="basicInfo.get('dob').value"
                             (messageToEmit)="basicInfo.get('dob').patchValue($event?.eDate)"></app-calendar>
               <nb-datepicker #dob></nb-datepicker>
               <div *ngIf="submitted && basicInfoControls.dob.errors"
-                   class="invalid-feedback">
+                   class="small text-danger">
                 <div
                     *ngIf="basicInfoControls.dob.errors.required || basicInfoControls.dob.errors.beforeToday">
                   Invalid date of birth
@@ -296,12 +297,14 @@
                      id="customerCitizenshipIssuedDate"
                      name="customerCitizenshipIssuedDate"
                      placeholder="Citizenship Issued Date">
+              <input *ngIf="calendarType === 'BS'" formControlName="citizenshipIssuedDate" hidden>
+
               <app-calendar [ePreDate]="basicInfo.get('citizenshipIssuedDate')?.value"
                             *ngIf="calendarType === 'BS'"
                             (messageToEmit)="basicInfo.get('citizenshipIssuedDate').patchValue($event?.eDate)"></app-calendar>
               <nb-datepicker #customerCitizenshipIssuedDate></nb-datepicker>
               <div *ngIf="submitted && basicInfoControls.citizenshipIssuedDate.errors"
-                   class="invalid-feedback">
+                   class="small text-danger">
                 <div
                     *ngIf="basicInfoControls.citizenshipIssuedDate.errors.required || basicInfoControls.citizenshipIssuedDate.errors.beforeToday">
                   Invalid Registration Date
@@ -446,13 +449,14 @@
                            formControlName="citizenshipIssuedDate"
                            [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipIssuedDate').errors }"
                            placeholder="Issued Date">
+                    <input *ngIf="calendarType === 'BS'" formControlName="citizenshipIssuedDate" hidden>
                     <app-calendar [ePreDate]="relatives.get('citizenshipIssuedDate').value"
                                   *ngIf="calendarType === 'BS'"
                                   (messageToEmit)="relatives.get('citizenshipIssuedDate').patchValue($event?.eDate)"></app-calendar>
 
                     <nb-datepicker #relationCitizenIssueDate></nb-datepicker>
                     <div *ngIf="submitted && relatives.get('citizenshipIssuedDate').errors"
-                         class="invalid-feedback">
+                         class="small text-danger">
                       Invalid Issued Date!
                     </div>
                   </div>

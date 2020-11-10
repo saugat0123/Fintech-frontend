@@ -176,7 +176,8 @@ export class CustomerFormComponent implements OnInit {
       return;
     } else {
       if (this.basicInfo.invalid) {
-          this. scrollToFirstInvalidControl();
+        this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
+        this. scrollToFirstInvalidControl();
         this.spinner = false;
         return; }
       {
@@ -220,7 +221,7 @@ export class CustomerFormComponent implements OnInit {
         this.customerService.save(this.customer).subscribe(res => {
           this.spinner = false;
           this.close();
-          this.toastService.show(new Alert(AlertType.INFO, 'Successfully saved Customer Info'));
+          this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Customer Info'));
         }, res => {
           this.spinner = false;
           this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
