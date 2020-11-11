@@ -73,6 +73,7 @@ export class LoanOfferLetterComponent implements OnInit {
     toggleArray: { toggled: boolean }[] = [];
     selectedBranchId = 0;
     errorMessage = null;
+    filterUserList = [];
 
     constructor(
         private branchService: BranchService,
@@ -131,7 +132,7 @@ export class LoanOfferLetterComponent implements OnInit {
                 this.redirected = paramsValue.redirect === 'true';
             });
 
-
+        this.getUserListForFilter();
         if (LocalStorageUtil.getStorage().roleName === 'CAD') {
             this.roleName = true;
         }
@@ -189,7 +190,8 @@ export class LoanOfferLetterComponent implements OnInit {
             endDate: [undefined],
             role: [undefined],
             customerName: [undefined],
-            postApprovalAssignStatus: [undefined]
+            postApprovalAssignStatus: [undefined],
+            postApprovalAssignedUser: [undefined]
         });
     }
 
@@ -263,6 +265,8 @@ export class LoanOfferLetterComponent implements OnInit {
         this.catalogueService.search.postApprovalAssignStatus = ObjectUtil.isEmpty(this.filterForm.get('postApprovalAssignStatus').value) ? undefined :
             this.filterForm.get('postApprovalAssignStatus').value;
         this.catalogueService.search.documentStatus = 'APPROVED';
+        this.catalogueService.search.postApprovalAssignedUser = ObjectUtil.isEmpty(this.filterForm.get('postApprovalAssignedUser').value) ? undefined :
+            this.filterForm.get('postApprovalAssignedUser').value;
         LoanOfferLetterComponent.loadData(this);
     }
 
@@ -430,4 +434,12 @@ export class LoanOfferLetterComponent implements OnInit {
         });
     }
 
+    getUserListForFilter() {
+        const searchDto = {};
+        this.customerOfferLetterService.getUserListForFilter(searchDto).subscribe((res: any) => {
+            console.log(res)
+            this.filterUserList = res.detail;
+        });
+    }
+    test(){alert('yoyoyoo')}
 }

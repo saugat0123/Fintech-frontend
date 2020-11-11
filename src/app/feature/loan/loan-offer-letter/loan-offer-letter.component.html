@@ -69,7 +69,7 @@
                         </select>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-3" *ngIf="isCAD_ADMIN">
                         <select class="custom-select" formControlName="postApprovalAssignStatus">
                             <option [value]="null" selected hidden>Select Assigned Type</option>
                             <option [value]="null">All Types</option>
@@ -80,18 +80,44 @@
                         </select>
                     </div>
 
-                    <!--                    <div class="col-md-3">-->
-                    <!--                        <input id="customerName" class="form-control rounded" formControlName="customerName"-->
-                    <!--                               placeholder="Enter customer name">-->
-                    <!--                    </div>-->
+                    <div class="col-md-3 mb-3" *ngIf="isCAD_ADMIN">
+
+                        <select class="custom-select" formControlName="postApprovalAssignedUser" >
+                            <option [value]="null" selected hidden>Select Possession</option>
+                            <option [value]="null">All Possession</option>
+                            <optgroup *ngFor="let roleUser of filterUserList"  class="text-white sb-bg-dark" [label]="roleUser?.name" (click)="test()">
+
+                                <option *ngFor="let user of roleUser?.userDtoList"
+                                        [value]="user?.id" style="background-color: white;color:black">{{user?.name}}</option>
+                            </optgroup>
+
+                            <nb-accordion>
+                                <nb-accordion-item>
+                                    <nb-accordion-item-header>
+                                        General Document
+                                    </nb-accordion-item-header>
+                                    <nb-accordion-item-body>
+                                    </nb-accordion-item-body>
+                                </nb-accordion-item>
+                            </nb-accordion>
+
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <input id="customerName" class="form-control rounded" formControlName="customerName"
+                               placeholder="Enter customer name">
+                    </div>
                 </div>
 
                 <div class="col-md-12 p-0">
                     <button nbButton status="info" shape="rectangle" class="mr-2"
                             [disabled]="!filterForm.valid"
+                            size="medium"
                             type="submit">Search
                     </button>
-                    <button (click)="clearSearch()" shape="rectangle" nbButton status="danger">Clear</button>
+                    <button (click)="clearSearch()" size="medium" shape="rectangle" nbButton status="danger">Clear
+                    </button>
                 </div>
             </form>
         </div>
@@ -263,7 +289,7 @@
                                 placeholder="select  User"
                                 [ngClass]="{ 'is-invalid': submitted && offerLetterAssignForm.controls['user'].errors }">
                             <option [value]="null" hidden>Select To</option>
-                            <option *ngFor="let user of userList" [ngValue]="user">{{user.username}}</option>
+                            <option *ngFor="let user of userList" [ngValue]="user">{{user.name}}</option>
                         </select>
                         <div *ngIf="submitted && offerLetterAssignForm.controls['user'].hasError('required')"
                              class="error-message"
