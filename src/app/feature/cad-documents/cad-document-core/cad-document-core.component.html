@@ -1,0 +1,88 @@
+<nb-card style="height: 90%;overflow-y: auto">
+    <nb-card-header>
+        <app-offer-letter-action></app-offer-letter-action>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-md-12">
+                <nb-accordion [multi]="true">
+                    <nb-accordion-item>
+                        <nb-accordion-item-header>
+                            Customer Information
+                        </nb-accordion-item-header>
+                        <nb-accordion-item-body>
+                            <table class="table table-bordered table-striped text-center table-sm text-center sb-small">
+                                <thead class="text-white sb-bg-dark">
+                                <th scope="col">Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Citizenship Number</th>
+                                <th scope="col">Citizenship Issued Date</th>
+                                <th scope="col">Citizenship Issued Place</th>
+                                <th scope="col">Contact Number</th>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
+                                    <td>{{loanDataHolder?.customerInfo?.province?.name}},
+                                        {{loanDataHolder?.customerInfo?.district?.name}},
+                                        {{loanDataHolder?.customerInfo?.municipalities?.name}},
+                                        {{loanDataHolder?.customerInfo?.street}},
+                                        {{loanDataHolder?.customerInfo?.wardNumber}}
+                                    </td>
+                                    <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
+                                    <td>{{loanDataHolder?.customerInfo?.citizenshipIssuedDate | date}}</td>
+                                    <td>{{loanDataHolder?.customerInfo?.citizenshipIssuedPlace}}</td>
+                                    <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <table *ngIf="loanDataHolder?.customerInfo?.customerRelatives.length > 0"
+                                   class="table table-bordered table-striped text-center table-sm sb-small text-center">
+                                <thead class="text-white sb-bg-dark">
+                                <th scope="col">Relation</th>
+                                <th scope="col">Name</th>
+                                </thead>
+                                <tbody>
+                                <ng-container
+                                        *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
+                                    <tr>
+                                        <td>{{relative.customerRelation}}</td>
+                                        <td>{{relative.customerRelativeName}}</td>
+                                    </tr>
+                                </ng-container>
+                                </tbody>
+                            </table>
+                        </nb-accordion-item-body>
+                    </nb-accordion-item>
+<nb-accordion-item>
+    <nb-accordion-item-header>
+        Offer Letters
+    </nb-accordion-item-header>
+ <nb-accordion-item-body>
+
+     <app-mega-offer-letter *ngIf="client == clientList.MEGA"
+                            [customerId]="customerId"
+                            [loanDataHolder]="loanDataHolder"
+                            [offerLetterList]="offerLetterList"
+     ></app-mega-offer-letter>
+
+     <!--SRDB-->
+     <app-srdb-offer-letter *ngIf="client == clientList.SHINE_RESUNGA"></app-srdb-offer-letter>
+ </nb-accordion-item-body>
+</nb-accordion-item>
+
+                    <nb-accordion-item>
+                        <nb-accordion-item-header>
+                            Upload Offer Letter Documents
+                        </nb-accordion-item-header>
+                        <nb-accordion-item-body>
+                     <!--       <app-offer-letter-upload *ngIf="loanDataHolder"
+                                                     [customerId]="loanDataHolder.id"
+                                                     [customerOfferLetter]="loanDataHolder?.customerOfferLetter"></app-offer-letter-upload>
+                     -->   </nb-accordion-item-body>
+                    </nb-accordion-item>
+                </nb-accordion>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

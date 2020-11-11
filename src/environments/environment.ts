@@ -1,6 +1,8 @@
 // This file can be replaced during build by using the `fweileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+import {Clients} from './Clients';
+
 /**
  This file can be replaced during build by using the `fileReplacements` array.
  `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
@@ -15,7 +17,7 @@
  */
 export const environment = {
   production: false,
-  client: 'Sb solutions Ltd',
+  client: Clients.MEGA,
   GOOGLE_MAP_API_KEY: 'AIzaSyDKERYllGf5BfVR_c_45nqHVkbHoPgXPDA',
   LOCAL_STORAGE_KEY: 'QP\'`0tWfyBni^(*rv0gB].ck$s@z(/',
   LOCAL_STORAGE_NAME: 'SBSolutionsLAS',

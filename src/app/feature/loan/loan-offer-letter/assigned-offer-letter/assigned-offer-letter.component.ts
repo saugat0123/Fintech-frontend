@@ -13,13 +13,21 @@ export class AssignedOfferLetterComponent implements OnInit {
     @Input()
     customerOfferLetterList: Array<CustomerOfferLetter>;
 
-    constructor(  private router: Router,) {
+    constructor(  private router: Router) {
     }
 
     ngOnInit() {
     }
 
     generateOfferLetter(customerLoan: LoanDataHolder) {
+        this.router.navigate(['/home/cad-document'],
+            {
+                queryParams: {
+                    customerId: customerLoan.id,
+                }
+            });
+    }
+    generateOfferLetters(customerLoan: LoanDataHolder) {
         this.router.navigate(['/home/loan/offer-letter'],
             {
                 queryParams: {
