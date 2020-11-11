@@ -249,7 +249,7 @@ export class CompanyFormComponent implements OnInit {
             relationshipSince:
                 [(ObjectUtil.isEmpty(this.companyJsonData)
                     || ObjectUtil.isEmpty(this.companyJsonData.relationshipSince)) ? undefined :
-                    this.companyJsonData.relationshipSince],
+                    this.companyJsonData.relationshipSince, DateValidator.isValidBefore],
             issuePlace:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.issuePlace)) ? undefined :
@@ -698,6 +698,7 @@ export class CompanyFormComponent implements OnInit {
         console.log(this.companyInfoFormGroup);
         if (this.companyInfoFormGroup.invalid || this.companyOtherDetailComponent.companyOtherDetailGroupForm.invalid
             || this.marketScenarioComponent.marketScenarioForm.invalid || this.bankingRelationComponent.bankingRelationForm.invalid) {
+            this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
             this.scrollToFirstInvalidControl();
             return;
         }
@@ -859,5 +860,15 @@ export class CompanyFormComponent implements OnInit {
             this.additionalFieldSelected = true;
             this.companyInfoFormGroup.enable();
         }
+    }
+
+    checkRegistrationNumber(regNumber: String) {
+        this.companyInfoService.getCompanyInfoWithRegistrationNumber(regNumber).subscribe((res) => {
+            if (regNumber.toLowerCase() === res.detail.registrationNumber.toLowerCase()) {
+                this.toastService.show(new Alert(AlertType.WARNING, 'This customer already exists. Please input a unique value or choose the customer from catalogue section'));
+            }
+        }, error => {
+            console.error(error);
+        });
     }
 }
