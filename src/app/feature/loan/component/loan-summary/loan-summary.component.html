@@ -607,9 +607,20 @@
         </div>
       </div>
 
-      <app-report-summary
-          *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0"
-          [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
+        <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
+
+            <app-report-summary
+                    [approved]="true"
+                    *ngIf="loanDataHolder?.reportingInfoLog"
+                    [reportingInfoLevelLog]="loanDataHolder?.reportingInfoLog">
+            </app-report-summary>
+        </div>
+        <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
+            <app-report-summary
+                    [approved]="false"
+                    *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0"
+                    [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
+        </div>
 
       <app-insurance-summary *ngIf="loanDataHolder?.insurance"
                              [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
