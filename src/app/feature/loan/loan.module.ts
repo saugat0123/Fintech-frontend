@@ -77,6 +77,7 @@ import {QuillModule} from 'ngx-quill';
 import {AngularDraggableModule} from 'angular2-draggable';
 import {LoanInformationDetailViewModule} from '../loan-information-detail-view/loan-information-detail-view.module';
 import {AssignedOfferLetterComponent} from './loan-offer-letter/assigned-offer-letter/assigned-offer-letter.component';
+import { PostApprovalFormComponent } from './loan-offer-letter/post-approval-form/post-approval-form.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -171,7 +172,7 @@ const modules = {
 };
 
 @NgModule({
-    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent],
+    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent, PostApprovalFormComponent],
     imports: [
         ThemeModule,
         CommonModule,
