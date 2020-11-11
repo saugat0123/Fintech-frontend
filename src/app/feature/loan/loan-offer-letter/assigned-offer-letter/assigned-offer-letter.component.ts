@@ -27,13 +27,5 @@ export class AssignedOfferLetterComponent implements OnInit {
                 }
             });
     }
-    generateOfferLetters(customerLoan: LoanDataHolder) {
-        this.router.navigate(['/home/loan/offer-letter'],
-            {
-                queryParams: {
-                    customerId: customerLoan.id,
-                }
-            });
-    }
 
 }

@@ -5,7 +5,7 @@ import {LoanDataHolder} from '../../loan/model/loanData';
 import {OfferLetter} from '../../admin/modal/offerLetter';
 import {CustomerOfferLetterPath} from '../../loan/model/customer-offer-letter-path';
 import {OfferLetterConst} from './srdb-offer-letter/offer-letter-const';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
 import {ToastService} from '../../../@core/utils';
 import {CustomerOfferLetterService} from '../../loan/service/customer-offer-letter.service';
@@ -37,6 +37,7 @@ export class CadDocumentCoreComponent implements OnInit {
       private toastService: ToastService,
       private customerOfferLetterService: CustomerOfferLetterService,
       private modalService: NgbModal,
+      private router: Router
   ) {
   }
 
@@ -88,6 +89,13 @@ export class CadDocumentCoreComponent implements OnInit {
     this.customerOfferLetterService.uploadOfferFile(formData).subscribe((response: any) => {
       this.onClose();
       this.toastService.show(new Alert(AlertType.SUCCESS, 'OFFER LETTER HAS BEEN UPLOADED'));
+      this.router.navigateByUrl('/home/dashboard').then(value => {
+        if (value) {
+          this.router.navigate(['/home/cad-document'], {
+            queryParams: {customerId: this.customerId, }
+          });
+        }
+      });
     }, error => {
       this.onClose();
       this.toastService.show(new Alert(AlertType.ERROR, error.error.message));

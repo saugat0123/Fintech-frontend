@@ -6,6 +6,7 @@ import {CustomerOfferLetterService} from '../../../loan/service/customer-offer-l
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {MegaOfferLetterConst} from './mega-offer-letter-const';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-mega-offer-letter',
@@ -27,7 +28,8 @@ export class MegaOfferLetterComponent implements OnInit {
   constructor(  private loanFormService: LoanFormService,
                 private toastService: ToastService,
                 private customerOfferLetterService: CustomerOfferLetterService,
-                private modalService: NgbModal) { }
+                private modalService: NgbModal,
+                private router: Router) { }
 
   ngOnInit() {
   }
@@ -92,6 +94,13 @@ export class MegaOfferLetterComponent implements OnInit {
     this.customerOfferLetterService.uploadOfferFile(formData).subscribe((response: any) => {
       this.onClose();
       this.toastService.show(new Alert(AlertType.SUCCESS, 'OFFER LETTER HAS BEEN UPLOADED'));
+      this.router.navigateByUrl('/home/dashboard').then(value => {
+        if (value) {
+          this.router.navigate(['/home/cad-document'], {
+            queryParams: {customerId: this.customerId, }
+          });
+        }
+      });
     }, error => {
       this.onClose();
       this.toastService.show(new Alert(AlertType.ERROR, error.error.message));

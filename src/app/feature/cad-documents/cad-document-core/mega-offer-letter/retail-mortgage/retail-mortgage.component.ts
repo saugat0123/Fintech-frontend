@@ -149,7 +149,7 @@ export class RetailMortgageComponent implements OnInit {
             this.spinner = false;
             this.router.navigateByUrl('/home/dashboard').then(value => {
                 if (value) {
-                    this.router.navigate(['/home/loan/offer-letter'], {
+                    this.router.navigate(['/home/cad-document'], {
                         queryParams: {customerId: this.customerId, }
                     });
                 }

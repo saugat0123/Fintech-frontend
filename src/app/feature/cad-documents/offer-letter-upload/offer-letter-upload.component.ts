@@ -4,6 +4,7 @@ import {ToastService} from '../../../@core/utils';
 import {CustomerOfferLetterService} from '../../loan/service/customer-offer-letter.service';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-offer-letter-upload',
@@ -21,6 +22,7 @@ export class OfferLetterUploadComponent implements OnInit {
   constructor(
       private toastService: ToastService,
       private customerOfferLetterService: CustomerOfferLetterService,
+      private router: Router
   ) {
   }
 
@@ -45,6 +47,13 @@ export class OfferLetterUploadComponent implements OnInit {
     }
     this.customerOfferLetterService.uploadOfferFile(formData).subscribe((response: any) => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'OFFER LETTER HAS BEEN UPLOADED'));
+      this.router.navigateByUrl('/home/dashboard').then(value => {
+        if (value) {
+          this.router.navigate(['/home/cad-document'], {
+            queryParams: {customerId: this.customerId, }
+          });
+        }
+      });
     }, error => {
       this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
       console.error(error);
