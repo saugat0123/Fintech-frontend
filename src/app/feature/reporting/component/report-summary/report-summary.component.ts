@@ -10,6 +10,8 @@ import {ReportingInfoLevel} from '../../model/reporting-info-level';
 })
 export class ReportSummaryComponent implements OnInit {
   @Input() public reportingInfoLevels: Array<ReportingInfoLevel>;
+  @Input() public reportingInfoLevelLog: string;
+  @Input() public approved: boolean;
   public reportingInfoSummary: Array<ReportingInfo> = new Array<ReportingInfo>();
   private savedReportTagsId: Set<number> = new Set<number>();
   public layout: 'vertical' | 'horizontal' = 'horizontal';
@@ -20,6 +22,10 @@ export class ReportSummaryComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.approved) {
+      // @ts-ignore
+      this.reportingInfoLevels = JSON.parse(this.reportingInfoLevelLog);
+    }
     this.reportingInfoService.getAllWithSearch({}).toPromise().then((response: any) => {
       const reportingInfoList: Array<ReportingInfo> = response.detail;
       this.reportingInfoLevels.forEach(v => this.savedReportTagsId.add(v.id));
