@@ -13,7 +13,7 @@ import {Clients} from './Clients';
  command to build client related product:
  ng build --configuration= 'client name'
 
- active client name in current repo: 'srdb' , 'tinau'
+ active client name in current repo: 'srdb' , 'tinau' , 'mega'
  */
 export const environment = {
   production: false,
