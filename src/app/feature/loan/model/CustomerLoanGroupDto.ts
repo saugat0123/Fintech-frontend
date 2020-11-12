@@ -1,9 +1,7 @@
-import {CustomerInfoData} from './customerInfoData';
-import {LoanDataHolder} from './loanData';
-import {Proposal} from "../../admin/modal/proposal";
-import {Security} from "./security";
-import {LoanConfig} from "../../admin/modal/loan-config";
-import {DocStatus} from "./docStatus";
+import {Proposal} from '../../admin/modal/proposal';
+import {Security} from './security';
+import {LoanConfig} from '../../admin/modal/loan-config';
+import {DocStatus} from './docStatus';
 
 export class CustomerLoanGroupDto {
 

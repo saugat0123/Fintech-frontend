@@ -548,7 +548,7 @@ export class FinancialComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.formData)) {
             this.financialData = this.formData;
         }
-        if (this.financialForm.invalid) {
+        if (!this.isBusinessLoan && this.financialForm.invalid) {
             return;
         }
         this.calculateAndSetHighestScore();

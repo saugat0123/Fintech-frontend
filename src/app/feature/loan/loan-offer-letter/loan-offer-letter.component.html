@@ -11,21 +11,21 @@
                         <i class="fa fa-filter"> Filter</i>
                     </button>
                 </div>
-<!-- todo csv download-->
+                <!-- todo csv download-->
 
-<!--                <div class="col-md-6 d-flex justify-content-end">-->
+                <!--                <div class="col-md-6 d-flex justify-content-end">-->
 
-<!--                    <button nbButton outline status="info"-->
-<!--                            (click)="getCsv()" size="small">-->
-<!--                        <i class="fa fa-download" aria-hidden="true"></i></button>-->
+                <!--                    <button nbButton outline status="info"-->
+                <!--                            (click)="getCsv()" size="small">-->
+                <!--                        <i class="fa fa-download" aria-hidden="true"></i></button>-->
 
-<!--                </div>-->
+                <!--                </div>-->
             </div>
         </div>
         <div id="searchModel" class="col-md-12" [ngbCollapse]="isFilterCollapsed">
             <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
                 <div class="row py-3">
-                    <div class="col-md-3" *ngIf="accessSpecific || accessAll">
+                    <div class="col-md-3 mb-3" *ngIf="accessSpecific || accessAll">
                         <select class="custom-select" formControlName="branch">
                             <option [value]="null" selected hidden>Select Branch</option>
                             <option [value]="null">All Branches</option>
@@ -33,7 +33,7 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-3">
                         <select class="custom-select" formControlName="loanType">
                             <option [value]="null" selected hidden>Select Loan Type</option>
                             <option [value]="null">All Loan Types</option>
@@ -43,14 +43,14 @@
                         </select>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-3">
                         <input id="startDate" [nbDatepicker]="startDate" class="form-control rounded"
                                (change)="checkIfDateFiltration()" formControlName="startDate"
                                placeholder="Enter Start Date" [ngClass]="{ 'is-invalid': !validStartDate }">
                         <nb-datepicker #startDate></nb-datepicker>
                         <div *ngIf="!validStartDate" class="invalid-feedback">Invalid start date</div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-3">
                         <input id="endDate" [nbDatepicker]="endDate" class="form-control rounded"
                                (change)="checkIfDateFiltration()" formControlName="endDate"
                                placeholder="Enter End Date" [ngClass]="{ 'is-invalid': !validEndDate }">
@@ -59,7 +59,7 @@
                     </div>
 
 
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-3">
                         <select class="custom-select" formControlName="loanNewRenew">
                             <option [value]="null" selected hidden>Select Type</option>
                             <option [value]="null">All Types</option>
@@ -69,18 +69,55 @@
                         </select>
                     </div>
 
-<!--                    <div class="col-md-3">-->
-<!--                        <input id="customerName" class="form-control rounded" formControlName="customerName"-->
-<!--                               placeholder="Enter customer name">-->
-<!--                    </div>-->
+                    <div class="col-md-3" *ngIf="isCAD_ADMIN">
+                        <select class="custom-select" formControlName="postApprovalAssignStatus">
+                            <option [value]="null" selected hidden>Select Assigned Type</option>
+                            <option [value]="null">All Types</option>
+                            <option [value]="'ASSIGNED'">Assigned Document
+                            </option>
+                            <option [value]="'NOT_ASSIGNED'">Not Assigned Document
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3" *ngIf="isCAD_ADMIN">
+
+                        <select class="custom-select" formControlName="postApprovalAssignedUser" >
+                            <option [value]="null" selected hidden>Select Possession</option>
+                            <option [value]="null">All Possession</option>
+                            <optgroup *ngFor="let roleUser of filterUserList"  class="text-white sb-bg-dark" [label]="roleUser?.name" (click)="test()">
+
+                                <option *ngFor="let user of roleUser?.userDtoList"
+                                        [value]="user?.id" style="background-color: white;color:black">{{user?.name}}</option>
+                            </optgroup>
+
+                            <nb-accordion>
+                                <nb-accordion-item>
+                                    <nb-accordion-item-header>
+                                        General Document
+                                    </nb-accordion-item-header>
+                                    <nb-accordion-item-body>
+                                    </nb-accordion-item-body>
+                                </nb-accordion-item>
+                            </nb-accordion>
+
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <input id="customerName" class="form-control rounded" formControlName="customerName"
+                               placeholder="Enter customer name">
+                    </div>
                 </div>
 
                 <div class="col-md-12 p-0">
                     <button nbButton status="info" shape="rectangle" class="mr-2"
                             [disabled]="!filterForm.valid"
+                            size="medium"
                             type="submit">Search
                     </button>
-                    <button (click)="clearSearch()" shape="rectangle" nbButton status="danger">Clear</button>
+                    <button (click)="clearSearch()" size="medium" shape="rectangle" nbButton status="danger">Clear
+                    </button>
                 </div>
             </form>
         </div>
@@ -139,7 +176,8 @@
                         {{model.uploadedOfferLetterStat}} / {{model.offerLetterStat}}
                     </td>
                     <td>
-                        <a (click)="openModel(assignCustomerLoan,model?.id,model?.branch?.id)" nbTooltip="click to assign"><em
+                        <a (click)="openModel(assignCustomerLoan,model?.id,model?.branch?.id)"
+                           nbTooltip="click to assign"><em
                                 class="fa fa-user"
                                 [ngStyle]="{'color':model?.customerOfferLetter?.offerLetterStage?.toUser === null ? 'red' : 'green' }"></em></a>
                         <a class="px-2" (click)="model?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
@@ -149,7 +187,8 @@
                     </td>
                 </tr>
                 <ng-container *ngIf="toggleArray[i].toggled">
-                    <tr class=" text-center" *ngIf="model?.customerOfferLetter?.previousList?.length > 1 || model?.customerOfferLetter?.offerLetterStage">
+                    <tr class=" text-center"
+                        *ngIf="model?.customerOfferLetter?.previousList?.length > 1 || model?.customerOfferLetter?.offerLetterStage">
                         <td colspan="9"><strong>Post Approval Document Stages</strong></td>
                     </tr>
                     <tr class=" text-center"
@@ -164,7 +203,8 @@
                         </a>
                        to assign</span></td>
                     </tr>
-                    <tr class="text-white sb-bg-dark" *ngIf="model?.customerOfferLetter?.previousList?.length > 1 || model?.customerOfferLetter?.offerLetterStage">
+                    <tr class="text-white sb-bg-dark"
+                        *ngIf="model?.customerOfferLetter?.previousList?.length > 1 || model?.customerOfferLetter?.offerLetterStage">
                         <td>Date</td>
                         <td>From User</td>
 
@@ -222,7 +262,7 @@
                 <div class="col-md-12 row">
                     <div class="col-md-6 form-group">
                         <div class="col-md-12 row text-danger sb-small" *ngIf="errorMessage">
-                            <sup>*</sup><span >{{errorMessage}}</span>
+                            <sup>*</sup><span>{{errorMessage}}</span>
                         </div>
                         <label class="role" for="role">TO</label>
                         <select (change)="getUserList(this.offerLetterAssignForm.get('role').value)"
@@ -249,7 +289,7 @@
                                 placeholder="select  User"
                                 [ngClass]="{ 'is-invalid': submitted && offerLetterAssignForm.controls['user'].errors }">
                             <option [value]="null" hidden>Select To</option>
-                            <option *ngFor="let user of userList" [ngValue]="user">{{user.username}}</option>
+                            <option *ngFor="let user of userList" [ngValue]="user">{{user.name}}</option>
                         </select>
                         <div *ngIf="submitted && offerLetterAssignForm.controls['user'].hasError('required')"
                              class="error-message"
