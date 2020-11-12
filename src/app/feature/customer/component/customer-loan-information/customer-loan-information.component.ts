@@ -174,6 +174,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(data)) {
       this.security.data = data.data;
+      this.security.totalSecurityAmount = data.totalSecurityAmount;
       this.customerInfoService.saveLoanInfo(this.security, this.customerInfoId, TemplateName.SECURITY)
       .subscribe(() => {
         this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Security Data!'));
