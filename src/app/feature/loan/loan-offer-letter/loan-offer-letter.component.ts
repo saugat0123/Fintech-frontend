@@ -72,6 +72,7 @@ export class LoanOfferLetterComponent implements OnInit {
     toggleArray: { toggled: boolean }[] = [];
     selectedBranchId = 0;
     errorMessage = null;
+    filterUserList = [];
 
     constructor(
         private branchService: BranchService,
@@ -130,7 +131,7 @@ export class LoanOfferLetterComponent implements OnInit {
                 this.redirected = paramsValue.redirect === 'true';
             });
 
-
+        this.getUserListForFilter();
         if (LocalStorageUtil.getStorage().roleName === 'CAD') {
             this.roleName = true;
         }
@@ -187,7 +188,9 @@ export class LoanOfferLetterComponent implements OnInit {
             startDate: [undefined],
             endDate: [undefined],
             role: [undefined],
-            customerName: [undefined]
+            customerName: [undefined],
+            postApprovalAssignStatus: [undefined],
+            postApprovalAssignedUser: [undefined]
         });
     }
 
@@ -258,6 +261,13 @@ export class LoanOfferLetterComponent implements OnInit {
             this.filterForm.get('role').value;
         this.catalogueService.search.customerName = ObjectUtil.isEmpty(this.filterForm.get('customerName').value) ? undefined :
             this.filterForm.get('customerName').value;
+        this.catalogueService.search.postApprovalAssignStatus = ObjectUtil.isEmpty(this.filterForm.
+        get('postApprovalAssignStatus').value) ? undefined :
+            this.filterForm.get('postApprovalAssignStatus').value;
+        this.catalogueService.search.documentStatus = 'APPROVED';
+        this.catalogueService.search.postApprovalAssignedUser = ObjectUtil.isEmpty(this.filterForm.
+        get('postApprovalAssignedUser').value) ? undefined :
+            this.filterForm.get('postApprovalAssignedUser').value;
         LoanOfferLetterComponent.loadData(this);
     }
 
@@ -425,4 +435,10 @@ export class LoanOfferLetterComponent implements OnInit {
         });
     }
 
+    getUserListForFilter() {
+        const searchDto = {};
+        this.customerOfferLetterService.getUserListForFilter(searchDto).subscribe((res: any) => {
+            this.filterUserList = res.detail;
+        });
+    }
 }
