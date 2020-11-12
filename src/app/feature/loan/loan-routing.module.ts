@@ -8,6 +8,7 @@ import {LoanOfferLetterComponent} from './loan-offer-letter/loan-offer-letter.co
 import {OfferLetterComponent} from './component/offer-letter/offer-letter.component';
 import {SummaryBaseComponent} from './summary-base/summary-base.component';
 import {LoanInformationDetailViewComponent} from '../loan-information-detail-view/loan-information-detail-view.component';
+import { PostApprovalFormComponent } from './loan-offer-letter/post-approval-form/post-approval-form.component';
 
 export const routes: Routes = [
     {path: 'loanForm', component: LoanFormComponent},
@@ -18,6 +19,7 @@ export const routes: Routes = [
     {path: 'pull', component: LoanPullComponent},
     {path: 'loan-offer-letter', component: LoanOfferLetterComponent},
     {path: 'detailed-summary', component: LoanInformationDetailViewComponent},
+    {path: 'post-approval-form', component: PostApprovalFormComponent},
 
 ];
 
