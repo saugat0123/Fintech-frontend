@@ -46,7 +46,7 @@ export class CollateralSummaryComponent implements OnInit {
     return ProposalCalculationUtils.isNumber(total);
   }
 
-  setField(key , amount){
+  setField(key , amount) {
     this[key] = amount;
     return amount;
   }

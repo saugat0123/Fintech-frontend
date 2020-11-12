@@ -26,7 +26,6 @@ import {DocAction} from '../model/docAction';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {OfferLetter} from '../../admin/modal/offerLetter';
 import {CustomerOfferLetterService} from '../service/customer-offer-letter.service';
-import {OfferLetterUploadComponent} from '../component/offer-letter/offer-letter-upload/offer-letter-upload.component';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CustomerOfferLetter} from '../model/customer-offer-letter';
 import {NbSpinnerService} from '@nebular/theme';
@@ -262,10 +261,12 @@ export class LoanOfferLetterComponent implements OnInit {
             this.filterForm.get('role').value;
         this.catalogueService.search.customerName = ObjectUtil.isEmpty(this.filterForm.get('customerName').value) ? undefined :
             this.filterForm.get('customerName').value;
-        this.catalogueService.search.postApprovalAssignStatus = ObjectUtil.isEmpty(this.filterForm.get('postApprovalAssignStatus').value) ? undefined :
+        this.catalogueService.search.postApprovalAssignStatus = ObjectUtil.isEmpty(this.filterForm.
+        get('postApprovalAssignStatus').value) ? undefined :
             this.filterForm.get('postApprovalAssignStatus').value;
         this.catalogueService.search.documentStatus = 'APPROVED';
-        this.catalogueService.search.postApprovalAssignedUser = ObjectUtil.isEmpty(this.filterForm.get('postApprovalAssignedUser').value) ? undefined :
+        this.catalogueService.search.postApprovalAssignedUser = ObjectUtil.isEmpty(this.filterForm.
+        get('postApprovalAssignedUser').value) ? undefined :
             this.filterForm.get('postApprovalAssignedUser').value;
         LoanOfferLetterComponent.loadData(this);
     }
@@ -335,7 +336,7 @@ export class LoanOfferLetterComponent implements OnInit {
     }
 
     generateOfferLetter(customerLoan: LoanDataHolder) {
-        this.router.navigate(['/home/loan/offer-letter'],
+        this.router.navigate(['/home/cad-document'],
             {
                 queryParams: {
                     customerId: customerLoan.id,
@@ -343,12 +344,12 @@ export class LoanOfferLetterComponent implements OnInit {
             });
     }
 
-    uploadOfferLetterTemplate(customerLoan: LoanDataHolder) {
+    /*uploadOfferLetterTemplate(customerLoan: LoanDataHolder) {
         const modalRef = this.modalService.open(OfferLetterUploadComponent, {backdrop: 'static'});
         modalRef.componentInstance.customerOfferLetter = customerLoan.customerOfferLetter;
         modalRef.componentInstance.customerId = customerLoan.id;
         ModalUtils.resolve(modalRef.result, LoanOfferLetterComponent.loadData, this);
-    }
+    }*/
 
     openForwardBackward(template, offerLetterId, val) {
         this.valForwardBackward = 'FORWARD to CAD ?';
@@ -437,9 +438,7 @@ export class LoanOfferLetterComponent implements OnInit {
     getUserListForFilter() {
         const searchDto = {};
         this.customerOfferLetterService.getUserListForFilter(searchDto).subscribe((res: any) => {
-            console.log(res)
             this.filterUserList = res.detail;
         });
     }
-    test(){alert('yoyoyoo')}
 }
