@@ -198,7 +198,6 @@ export class PostApprovalFormComponent implements OnInit {
                 customerLoanId: [undefined],
                 toUser: [undefined],
                 toRole: [undefined],
-                docAction: [undefined],
                 comment: [undefined, Validators.required],
                 documentStatus: [undefined]
             }
@@ -258,8 +257,6 @@ export class PostApprovalFormComponent implements OnInit {
             this.filterForm.get('role').value;
         this.catalogueService.search.customerName = ObjectUtil.isEmpty(this.filterForm.get('customerName').value) ? undefined :
             this.filterForm.get('customerName').value;
-        this.catalogueService.search.postApprovalAssignStatus = ObjectUtil.isEmpty(this.filterForm.get('postApprovalAssignStatus').value) ? undefined :
-            this.filterForm.get('postApprovalAssignStatus').value;
         this.catalogueService.search.documentStatus = 'APPROVED';
         PostApprovalFormComponent.loadData(this);
     }
@@ -286,19 +283,6 @@ export class PostApprovalFormComponent implements OnInit {
     }
 
 
-    confirm() {
-        this.onClose();
-        this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
-                this.formAction.get('docAction').value));
-
-            PostApprovalFormComponent.loadData(this);
-        }, error => {
-            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-
-        });
-    }
-
     onChange(data, onActionChange) {
         this.loanDataHolder = data;
         this.modalService.open(onActionChange);
@@ -317,49 +301,4 @@ export class PostApprovalFormComponent implements OnInit {
 
         });
     }
-    openModel(template, customerLoanId, branchId) {
-        this.selectedBranchId = branchId;
-        this.offerLetterAssignForm.patchValue({
-            customerLoanId: customerLoanId
-        });
-        this.getRoleListPresentInCad();
-        this.modalService.open(template);
-    }
-
-
-    public getRoleListPresentInCad() {
-        this.customerOfferLetterService.getRolesPresentInCADHEIRARCHY().subscribe((res: any) => {
-            this.roleListInCAD = res.detail;
-            if (this.roleListInCAD.length > 1) {
-                this.getUserList(this.roleListInCAD[0].role);
-            }
-
-        });
-    }
-
-    public getUserList(role) {
-        this.offerLetterAssignForm.patchValue({
-            role: role,
-            user: undefined
-        });
-        this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.selectedBranchId).subscribe((response: any) => {
-            this.errorMessage = null;
-            this.userList = response.detail;
-            if (this.userList.length === 1) {
-                this.offerLetterAssignForm.patchValue({
-                    user: this.userList[0],
-                    role: role
-                });
-            } else if (this.userList.length > 1) {
-                this.offerLetterAssignForm.patchValue({
-                    user: this.userList[0],
-                    role: role
-                });
-
-            } else {
-                this.errorMessage = 'NO User Present in this Role';
-            }
-        });
-    }
-
 }
