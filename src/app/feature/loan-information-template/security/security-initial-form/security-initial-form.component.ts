@@ -114,7 +114,6 @@ export class SecurityInitialFormComponent implements OnInit {
             this.setVehicleDetails(this.formDataForEdit['vehicleDetails']);
             this.setFixedDepositDetails(this.formDataForEdit['fixedDepositDetails']);
             this.setLandBuildingDescription(this.formDataForEdit['landBuildingDescription']);
-            this.setLandBuildingUnderConstructions(this.formDataForEdit['landBuildingUnderConstruction']);
             this.setRemark(this.formDataForEdit['remark']);
             this.setHypothecation(this.formDataForEdit['hypothecationOfStock']);
             this.setCorporate(this.formDataForEdit['corporateGuarantee']);
@@ -128,7 +127,6 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addVehicleSecurity();
             this.addFixedDeposit();
             this.addLandBuilding();
-            this.addLandBuildingUnderConstruction();
             this.addHypothecationOfStock();
             this.addCorporateGuarantee();
             this.addPersonalGuarantee();
@@ -156,7 +154,6 @@ export class SecurityInitialFormComponent implements OnInit {
             fixedDepositDetails: this.formBuilder.array([]),
             landBuilding: this.formBuilder.array([]),
             landBuildingDescription: [undefined],
-            landBuildingUnderConstruction: this.formBuilder.array([]),
             remark: [undefined],
             hypothecationOfStock: this.formBuilder.array([]),
             corporateGuarantee: this.formBuilder.array([]),
@@ -379,92 +376,56 @@ export class SecurityInitialFormComponent implements OnInit {
         }
         const buildingDetails = this.securityForm.get('landBuilding') as FormArray;
         Data.forEach((singleData , index) => {
-            if (this.otherBranchcheck && singleData.apartmentBranch) {
-                this.valuator(singleData['apartmentBranch']['id'], 'building', index);
+            if (this.otherBranchcheck && singleData.buildingBranch) {
+                this.valuator(singleData['buildingBranch']['id'], 'building', index);
             } else {
                 this.valuator(null, 'building', index);
             }
             buildingDetails.push(
                 this.formBuilder.group({
-                    buildingName: [singleData.buildingName] ,
-                    buildingDescription: [singleData.buildingDescription] ,
-                    buildArea: [singleData.buildArea] ,
-                    buildRate: [singleData.buildRate] ,
-                    totalCost: [singleData.totalCost] ,
-                    floorName: [singleData.floorName] ,
-                    valuationArea: [singleData.valuationArea] ,
-                    ratePerSquareFeet: [singleData.ratePerSquareFeet] ,
-                    estimatedCost: [singleData.estimatedCost] ,
-                    waterSupply: [singleData.waterSupply] ,
-                    sanitation: [singleData.sanitation] ,
-                    electrification: [singleData.electrification] ,
-                    buildingTotalCost: [singleData.buildingTotalCost] ,
-                    buildingFairMarketValue: [singleData.buildingFairMarketValue] ,
-                    buildingDistressValue: [singleData.buildingDistressValue] ,
-                    ApartmentValuator: [singleData.ApartmentValuator],
-                    ApartmentValuatorDate: [ObjectUtil.isEmpty(singleData.ApartmentValuatorDate) ?
-                        undefined : new Date(singleData.ApartmentValuatorDate)],
-                    ApartmentValuatorRepresentative: [singleData.ApartmentValuatorRepresentative],
-                    ApartmentStaffRepresentativeName: [singleData.ApartmentStaffRepresentativeName],
-                    apartmentBranch: [singleData.apartmentBranch],
+                    owner: [singleData.owner] ,
+                    location: [singleData.location] ,
+                    plotNumber: [singleData.plotNumber] ,
+                    areaFormat: [singleData.areaFormat] ,
+                    area: [singleData.area] ,
+                    marketValue: [singleData.marketValue] ,
+                    distressValue: [singleData.distressValue] ,
+                    description: [singleData.description] ,
+                    houseNumber : [singleData.houseNumber, Validators.required],
+                    totalBuildingArea: [singleData.totalBuildingArea, Validators.required],
+                    costPerSquare: [singleData.costPerSquare],
+                    totalCost: [singleData.totalCost],
+                    landConsideredValue: [singleData.landConsideredValue],
                     typeOfProperty: [singleData.typeOfProperty],
-                    modeOfTransfer: [singleData.modeOfTransfer]
+                    modeOfTransfer: [singleData.modeOfTransfer],
+                    buildingValuator: [singleData.buildingValuator],
+                    buildingValuatorDate: [ObjectUtil.isEmpty(singleData.buildingValuatorDate) ?
+                        undefined : new Date(singleData.buildingValuatorDate)],
+                    buildingValuatorRepresentative: [singleData.buildingValuatorRepresentative],
+                    buildingStaffRepresentativeName: [singleData.buildingStaffRepresentativeName],
+                    buildingBranch: [singleData.buildingBranch],
+                    ownerConstruction: [singleData.ownerConstruction],
+                    locationConstruction: [singleData.locationConstruction],
+                    plotNumberConstruction: [singleData.plotNumberConstruction],
+                    areaFormatConstruction: [singleData.areaFormatConstruction],
+                    areaConstruction: [singleData.areaConstruction],
+                    marketValueConstruction: [singleData.marketValueConstruction],
+                    distressValueConstruction: [singleData.distressValueConstruction],
+                    descriptionConstruction: [singleData.descriptionConstruction],
+                    houseNumberConstruction: [singleData.houseNumberConstruction, Validators.required],
+                    totalBuildingAreaConstruction: [singleData.totalBuildingAreaConstruction, Validators.required],
+                    costPerSquareConstruction: [singleData.costPerSquareConstruction],
+                    totalCostConstruction: [singleData.totalCostConstruction],
+                    underConstructionChecked: [singleData.underConstructionChecked],
+                    landConsideredValueConstruction: [singleData.landConsideredValueConstruction],
+                    typeOfPropertyConstruction: [singleData.typeOfPropertyConstruction],
+                    modeOfTransferConstruction: [singleData.modeOfTransferConstruction],
                 })
             );
         });
     }
 
-    setLandBuildingUnderConstructions(currentData) {
-        if (ObjectUtil.isEmpty(currentData)) {
-            this.addLandBuildingUnderConstruction();
-            return;
-        }
-        const underConstruct = this.securityForm.get('landBuildingUnderConstruction') as FormArray;
-        currentData.forEach(singleData => {
-            underConstruct.push(
-                this.formBuilder.group({
-                    buildingDetailsBeforeCompletion: this.formBuilder.group({
-                        buildingName: [singleData.buildingDetailsBeforeCompletion.buildingName] ,
-                        buildingDescription: [singleData.buildingDetailsBeforeCompletion.buildingDescription] ,
-                        buildArea: [singleData.buildingDetailsBeforeCompletion.buildArea] ,
-                        buildRate: [singleData.buildingDetailsBeforeCompletion.buildRate] ,
-                        totalCost: [singleData.buildingDetailsBeforeCompletion.totalCost] ,
-                        floorName: [singleData.buildingDetailsBeforeCompletion.floorName] ,
-                        valuationArea: [singleData.buildingDetailsBeforeCompletion.valuationArea] ,
-                        ratePerSquareFeet: [singleData.buildingDetailsBeforeCompletion.ratePerSquareFeet] ,
-                        estimatedCost: [singleData.buildingDetailsBeforeCompletion.estimatedCost] ,
-                        waterSupply: [singleData.buildingDetailsBeforeCompletion.waterSupply] ,
-                        sanitation: [singleData.buildingDetailsBeforeCompletion.sanitation] ,
-                        electrification: [singleData.buildingDetailsBeforeCompletion.electrification] ,
-                        buildingTotalCost: [singleData.buildingDetailsBeforeCompletion.buildingTotalCost] ,
-                        buildingFairMarketValue: [singleData.buildingDetailsBeforeCompletion.buildingFairMarketValue] ,
-                        buildingDistressValue: [singleData.buildingDetailsBeforeCompletion.buildingDistressValue],
-                        typeOfProperty: [singleData.buildingDetailsBeforeCompletion.typeOfProperty],
-                        modeOfTransfer: [singleData.buildingDetailsBeforeCompletion.modeOfTransfer]
-                    }) ,
-                    buildingDetailsAfterCompletion: this.formBuilder.group({
-                        buildingName: [singleData.buildingDetailsAfterCompletion.buildingName] ,
-                        buildingDescription: [singleData.buildingDetailsAfterCompletion.buildingDescription] ,
-                        buildArea: [singleData.buildingDetailsAfterCompletion.buildArea] ,
-                        buildRate: [singleData.buildingDetailsAfterCompletion.buildRate] ,
-                        totalCost: [singleData.buildingDetailsAfterCompletion.totalCost] ,
-                        floorName: [singleData.buildingDetailsAfterCompletion.floorName] ,
-                        valuationArea: [singleData.buildingDetailsAfterCompletion.valuationArea] ,
-                        ratePerSquareFeet: [singleData.buildingDetailsAfterCompletion.ratePerSquareFeet] ,
-                        estimatedCost: [singleData.buildingDetailsAfterCompletion.estimatedCost] ,
-                        waterSupply: [singleData.buildingDetailsAfterCompletion.waterSupply] ,
-                        sanitation: [singleData.buildingDetailsAfterCompletion.sanitation] ,
-                        electrification: [singleData.buildingDetailsAfterCompletion.electrification] ,
-                        buildingTotalCost: [singleData.buildingDetailsAfterCompletion.buildingTotalCost] ,
-                        buildingFairMarketValue: [singleData.buildingDetailsAfterCompletion.buildingFairMarketValue] ,
-                        buildingDistressValue: [singleData.buildingDetailsAfterCompletion.buildingDistressValue],
-                        typeOfProperty: [singleData.buildingDetailsAfterCompletion.typeOfProperty],
-                        modeOfTransfer: [singleData.buildingDetailsAfterCompletion.modeOfTransfer]
-                    })
-                })
-            );
-        });
-    }
+
 
     setBuildingUnderConstructions(currentData) {
         const underConstruct = this.securityForm.get('buildingUnderConstructions') as FormArray;
@@ -510,52 +471,7 @@ export class SecurityInitialFormComponent implements OnInit {
         });
     }
 
-    addLandBuildingUnderConstruction() {
-        const underConstruct = this.securityForm.get('landBuildingUnderConstruction') as FormArray;
-        underConstruct.push(
-            this.formBuilder.group({
-                buildingDetailsBeforeCompletion: this.formBuilder.group({
-                    buildingName: [undefined] ,
-                    buildingDescription: [undefined] ,
-                    buildArea: [undefined] ,
-                    buildRate: [undefined] ,
-                    totalCost: [undefined] ,
-                    floorName: [undefined] ,
-                    valuationArea: [undefined] ,
-                    ratePerSquareFeet: [undefined] ,
-                    estimatedCost: [undefined] ,
-                    waterSupply: [undefined] ,
-                    sanitation: [undefined] ,
-                    electrification: [undefined] ,
-                    buildingTotalCost: [undefined] ,
-                    buildingFairMarketValue: [undefined] ,
-                    buildingDistressValue: [undefined],
-                    typeOfProperty: [undefined],
-                    modeOfTransfer: [undefined]
-                }) ,
-                buildingDetailsAfterCompletion: this.formBuilder.group({
-                    buildingName: [undefined] ,
-                    buildingDescription: [undefined] ,
-                    buildArea: [undefined] ,
-                    buildRate: [undefined] ,
-                    totalCost: [undefined] ,
-                    floorName: [undefined] ,
-                    valuationArea: [undefined] ,
-                    ratePerSquareFeet: [undefined] ,
-                    estimatedCost: [undefined] ,
-                    waterSupply: [undefined] ,
-                    sanitation: [undefined] ,
-                    electrification: [undefined] ,
-                    buildingTotalCost: [undefined] ,
-                    buildingFairMarketValue: [undefined] ,
-                    buildingDistressValue: [undefined],
-                    typeOfProperty: [undefined],
-                    modeOfTransfer: [undefined]
 
-                })
-            })
-        );
-    }
 
     addBuildingUnderConstructions() {
         const underConstruct = this.securityForm.get('buildingUnderConstructions') as FormArray;
@@ -642,7 +558,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     this.apartmentSelected = true;
                     break;
                 case 'Land and Building Security' :
-                    this.landBuilding = this.landSelected = true;
+                    this.landBuilding = true;
                     break;
                 case 'PlantSecurity' :
                     this.plantSelected = true;
@@ -663,6 +579,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     this.personal = true;
             }
         });
+
     }
 
     hypothecationDetailsFormGroup(): FormGroup {
@@ -751,29 +668,42 @@ export class SecurityInitialFormComponent implements OnInit {
 
     LandBuildingDetailsFormGroup() {
         return this.formBuilder.group({
-            buildingName: [''],
-            buildingDescription: [''],
-            buildArea: [''],
-            buildRate: [''],
-            totalCost: [''],
-            floorName: [''],
-            valuationArea: [''],
-            ratePerSquareFeet: [''],
-            estimatedCost: [''],
-            waterSupply: [''],
-            sanitation: [''],
-            electrification: [''],
-            buildingTotalCost: [''],
-            buildingFairMarketValue: [''],
-            buildingDistressValue: [''],
-            buildingDetailsDescription: [''],
-            ApartmentValuator: [undefined],
-            ApartmentValuatorDate: [undefined],
-            ApartmentValuatorRepresentative: [undefined],
-            ApartmentStaffRepresentativeName: [undefined],
-            apartmentBranch: [undefined],
+            owner: undefined ,
+            location: undefined ,
+            plotNumber: undefined ,
+            areaFormat: undefined ,
+            area: undefined ,
+            marketValue: undefined ,
+            distressValue: undefined ,
+            description: undefined ,
+            houseNumber : [undefined],
+            totalBuildingArea: [undefined],
+            costPerSquare: undefined,
+            totalCost: undefined,
+            buildingValuator: [undefined],
+            buildingValuatorDate: [undefined],
+            buildingValuatorRepresentative: [undefined],
+            buildingStaffRepresentativeName: [undefined],
+            buildingBranch: [undefined],
+            landConsideredValue: [undefined],
             typeOfProperty: [undefined],
-            modeOfTransfer: [undefined]
+            modeOfTransfer: [undefined],
+            ownerConstruction: undefined,
+            locationConstruction: undefined,
+            plotNumberConstruction: undefined,
+            areaFormatConstruction: undefined,
+            areaConstruction: undefined,
+            marketValueConstruction: undefined,
+            distressValueConstruction: undefined,
+            descriptionConstruction: undefined,
+            houseNumberConstruction: undefined,
+            totalBuildingAreaConstruction: undefined,
+            costPerSquareConstruction: undefined,
+            totalCostConstruction: undefined,
+            landConsideredValueConstruction: [undefined],
+            typeOfPropertyConstruction: [undefined],
+            modeOfTransferConstruction: [undefined],
+            underConstructionChecked: undefined,
         });
     }
 
@@ -863,9 +793,6 @@ export class SecurityInitialFormComponent implements OnInit {
         (this.securityForm.get('buildingUnderConstructions') as FormArray).removeAt(index);
     }
 
-    removeLandBuildingUnderConstructions(i) {
-        (this.securityForm.get('landBuildingUnderConstruction') as FormArray).removeAt(i);
-    }
 
     removePlantDetails(index: number) {
         (this.securityForm.get('plantDetails') as FormArray).removeAt(index);
