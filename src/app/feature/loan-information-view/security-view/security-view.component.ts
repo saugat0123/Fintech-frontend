@@ -24,6 +24,7 @@ export class SecurityViewComponent implements OnInit {
   totalConsideredValue = 0;
   loanSharePercent: NepseMaster = new NepseMaster();
   buildingSelected = false;
+  landBuilding = false;
 
   constructor() {
   }
@@ -43,7 +44,7 @@ export class SecurityViewComponent implements OnInit {
           this.apartmentSelected = true;
           break;
         case 'Land and Building Security' :
-          this.buildingSelected = this.landSelected = true;
+          this.landBuilding = true;
           break;
         case 'FixedDeposit':
           this.depositSelected = true;
