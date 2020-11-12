@@ -92,10 +92,10 @@ export class PostApprovalFormComponent implements OnInit {
     static loadData(other: PostApprovalFormComponent) {
         other.spinnerService.show();
         other.catalogueService.search.committee = 'true';
-        if (other.isCAD_ADMIN) {
             // tslint:disable-next-line:max-line-length
             other.customerOfferLetterService.getIssuedOfferLetter(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
                 other.loanDataHolderList = response.detail.content;
+                console.log(response.detail.content);
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.loanDataHolderList.forEach(() => other.toggleArray.push({toggled: false}));
                 other.spinner = false;
@@ -107,32 +107,15 @@ export class PostApprovalFormComponent implements OnInit {
                 other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
                 other.spinner = false;
             });
-        } else {
-            // tslint:disable-next-line:max-line-length
-            other.customerOfferLetterService.getAssignedOfferLetter(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
-                other.assignedOfferLetterList = response.detail.content;
-                other.pageable = PaginationUtils.getPageable(response.detail);
-                other.spinner = false;
-                other.spinnerService.hide();
-            }, error => {
-                console.error(error);
-                other.spinnerService.hide();
-                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
-                other.spinner = false;
-            });
         }
-    }
+
 
     ngOnInit() {
+        console.log(this.loanDataHolderList);
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.redirected = paramsValue.redirect === 'true';
             });
-
-
-        if (LocalStorageUtil.getStorage().roleName === 'CAD') {
-            this.roleName = true;
-        }
         this.buildFilterForm();
         this.buildActionForm();
         this.buildOfferLetterAssignForm();
@@ -217,6 +200,7 @@ export class PostApprovalFormComponent implements OnInit {
     changePage(page: number) {
         this.page = page;
         PostApprovalFormComponent.loadData(this);
+
     }
 
     getDifferenceInDays(createdDate: Date): number {
