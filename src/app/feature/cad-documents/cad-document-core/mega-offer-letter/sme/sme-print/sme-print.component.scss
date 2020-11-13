@@ -1,0 +1,21 @@
+@media print {
+  div.divFooter {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 17mm 17mm 17mm 17mm;
+}
+
+.pageBreak {
+  page-break-after: always;
+}
+
+.box {
+  border-style: solid;
+
+}

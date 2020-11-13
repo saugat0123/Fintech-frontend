@@ -25,5 +25,10 @@ export class DefaultLoanTemplate {
       name: 'Credit Risk Grading - Alpha',
       templateUrl: null
     },
+    {
+        active: false,
+        name: 'Credit Risk Grading - Lambda',
+        templateUrl: null
+    }
   ];
 }

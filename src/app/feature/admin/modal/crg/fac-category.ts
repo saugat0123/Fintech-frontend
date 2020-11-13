@@ -8,7 +8,7 @@ export enum FacCategory {
 }
 
 export class FacCategoryMap {
-    static majorSourceIncomeMap: Map<FacCategory, number> = new Map([
+    static facCategoryMap: Map<FacCategory, number> = new Map([
         [FacCategory.METROPOLITAN, 3.00],
         [FacCategory.SUB_METROPOLITAN, 2.70],
         [FacCategory.MUNICIPALITY, 2.25],

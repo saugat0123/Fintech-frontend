@@ -26,7 +26,6 @@
         <td>{{individual?.citizenshipIssuedPlace}}</td>
         <td>{{individual?.province?.name}}</td>
         <td>{{individual?.district?.name}}</td>
-
       </tr>
       </tbody>
       <thead>
@@ -38,8 +37,6 @@
         <th>Email</th>
         <th>Occupation</th>
         <th>Income</th>
-        <td>Customer Client Type</td>
-
       </tr>
       </thead>
       <tbody>
@@ -49,8 +46,8 @@
         <td>{{individual?.wardNumber || 'NA'}}</td>
         <td>{{individual?.contactNumber || 'NA'}}</td>
         <td>{{individual?.email || 'NA'}}</td>
-        <td>{{individual?.occupation || 'NA'}}</td>
-        <td>{{individual?.incomeSource || 'NA'}}</td>
+        <td>{{(individual?.occupation ? individual?.occupation: ''| jsonParse)?.multipleOccupation || 'NA'}}</td>
+        <td>{{(individual?.incomeSource ? individual?.incomeSource : ''| jsonParse)?.multipleIncome || 'NA'}}</td>
         <td>{{customerInfo?.clientType}}</td>
 
       </tr>

@@ -48,6 +48,10 @@ const routes: Routes = [
                 path: 'customer-activity',
                 loadChildren: () => import('./customer-activity/customer-activity.module').then(m => m.CustomerActivityModule)
             },
+            {
+                path: 'cad-document',
+                loadChildren: () => import('./cad-documents/cad-documents.module').then(m => m.CadDocumentsModule)
+            },
             {path: '', redirectTo: 'dashboard'},
             {path: '**', redirectTo: 'dashboard'}
         ],

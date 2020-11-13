@@ -87,99 +87,77 @@
                 </table>
             </div>
         </div>
-        <!--        BuildingDetails-->
-        <div class="row" *ngIf= "buildingSelected">
+        <!--        LandBuildingDetails-->
+        <div class="row" *ngIf= "landBuilding">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"  *ngFor="let buildingDetails of formData['initialForm']['landBuilding']; let i= index">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"  *ngFor="let landBuilding of  formData['initialForm']['landBuilding']; let i= index">
+                    <thead>
                     <tr>
-                        <th  class="text-center sb-bg-dark text-white" colspan="8">{{i+1}}.Building Security Details</th>
+                        <th class="text-center sb-bg-dark text-white" colspan="8">{{i+1}}.Land & Building Security Details</th>
                     </tr>
-                    <tr class="text-center sb-bg-secondary text-white">
+                    <tr class="text-center sb-bg-dark text-white">
                         <th>S.N</th>
-                        <th>Building Name</th>
-                        <th>Building Description</th>
-                        <th>Build Area</th>
-                        <th>Build Rate</th>
-                        <th>Total Cost</th>
+                        <th>Owner</th>
+                        <th>Location</th>
+                        <th>Plot No.</th>
+                        <th>Area Format</th>
+                        <th>Area</th>
                         <th>FMV</th>
                         <th>DV</th>
                     </tr>
+                    </thead>
+                    <tbody>
                     <tr>
-                        <td rowspan="3" class="align-middle">{{i+1}}</td>
-                        <td>{{buildingDetails?.buildingName}}</td>
-                        <td>{{buildingDetails?.buildingDescription}}</td>
-                        <td>{{buildingDetails?.buildArea}}</td>
-                        <td>{{buildingDetails?.buildRate}}</td>
-                        <td><strong>Rs. {{buildingDetails?.totalCost | currencyFormatter}}</strong></td>
-                        <td><strong>Rs. {{buildingDetails?.buildingFairMarketValue | currencyFormatter}}</strong></td>
-                        <td><strong>Rs. {{buildingDetails?.buildingDistressValue | currencyFormatter}}</strong></td>
-                    </tr>
+                        <td>{{i+1}}</td>
+                        <td>{{landBuilding?.owner}}</td>
+                        <td>{{landBuilding?.location}}</td>
+                        <td>{{landBuilding?.plotNumber}}</td>
+                        <td>{{landBuilding?.areaFormat}}</td>
+                        <td>{{landBuilding?.area}}</td>
+                        <td>{{landBuilding?.marketValue}}</td>
+                        <td>{{landBuilding?.distressValue}}</td>
 
-                    <tr class="text-center sb-bg-secondary text-white">
+                    </tr>
+                    <tr class="text-center sb-bg-dark text-white">
                         <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
                         <th>Valautor Name</th>
+                        <th>Considered Value</th>
                     </tr>
-
                     <tr>
-                        <td *ngIf="formData['otherBranchcheck']">{{buildingDetails?.apartmentBranch?.name}}</td>
-                        <td>{{buildingDetails?.ApartmentValuator?.name}}</td>
+                        <td *ngIf="formData['otherBranchcheck']">{{landBuilding?.buildingBranch?.name}}</td>
+                        <td>{{landBuilding?.buildingValuator?.name}}</td>
+                        <td>{{landBuilding?.landConsideredValue}}</td>
                     </tr>
+                    <tr *ngIf="landBuilding.underConstructionChecked === true">
+                        <th colspan="8">Under Construction</th>
+                    </tr>
+                    <tr *ngIf="landBuilding.underConstructionChecked === true" class="text-center sb-bg-dark text-white">
+                        <th>Owner</th>
+                        <th>Location</th>
+                        <th>House no</th>
+                        <th>Total building area (Sqf)</th>
+                        <th>Total cost</th>
+                        <th>FMV</th>
+                        <th>DV</th>
+                        <th>Considered Value</th>
+                    </tr>
+                    <tr *ngIf="landBuilding.underConstructionChecked === true">
+                        <td>{{landBuilding?.ownerConstruction}}</td>
+                        <td>{{landBuilding?.locationConstruction}}</td>
+                        <td>{{landBuilding?.houseNumberConstruction}}</td>
+                        <td>{{landBuilding?.totalBuildingAreaConstruction}}</td>
+                        <td>Rs.{{landBuilding?.totalCostConstruction}}</td>
+                        <td>{{landBuilding?.marketValueConstruction}}</td>
+                        <td>Rs.{{landBuilding?.landConsideredValueConstruction}}</td>
+                        <td>Rs.{{landBuilding?.distressValueConstruction}}</td>
+                    </tr>
+                    </tbody>
+
                 </table>
             </div>
         </div>
 
-        <!--        buildingUndercostructions-->
-        <div class="row" *ngIf="formData['underBuildingConstructionChecked']">
-            <div class="col-md-12">
-                <p><strong>Building Under Construction</strong></p>
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                    <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="6">Building Before Completion</th>
-                    </tr>
-                    <tr class="text-center sb-bg-secondary text-white">
-                        <th>S.N</th>
-                        <th>Building Name</th>
-                        <th>Building Description</th>
-                        <th>BuildArea</th>
-                        <th>BuildRate</th>
-                        <th>TotalCost</th>
-                    </tr>
-                    <tr *ngFor="let beforeCompletion of formData['initialForm']['landBuildingUnderConstruction']; let i= index">
-                        <td>{{i+1}}</td>
-                        <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingName}}</td>
-                        <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildingDescription}}</td>
-                        <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildArea}}</td>
-                        <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildRate}}</td>
-                        <td><strong>Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion.totalCost | currencyFormatter}}</strong></td>
-
-                    </tr>
-                </table>
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                    <thead>
-                    <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="6">Building After Completion</th>
-                    </tr>
-                    <tr class="text-center sb-bg-secondary text-white">
-                        <th>S.N</th>
-                        <th>Building Name</th>
-                        <th>Building Description</th>
-                        <th>BuildArea</th>
-                        <th>BuildRate</th>
-                        <th>TotalCost</th>
-                    </tr>
-                    <tr *ngFor="let afterCompletion of formData['initialForm']['landBuildingUnderConstruction']; let i= index">
-                        <td>{{i+1}}</td>
-                        <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildingName}}</td>
-                        <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildingDescription}}</td>
-                        <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildArea}}</td>
-                        <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildRate}}</td>
-                        <td><strong>Rs.{{afterCompletion?.buildingDetailsAfterCompletion.totalCost | currencyFormatter}}</strong></td>
-                    </tr>
-                    </thead>
-                </table>
-            </div>
-        </div>
-<!--        apartmentDetails-->
+        <!--        apartmentDetails-->
         <div class="row" *ngIf= "apartmentSelected">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"  *ngFor="let buildingDetails of formData['initialForm']['buildingDetails']; let i= index">

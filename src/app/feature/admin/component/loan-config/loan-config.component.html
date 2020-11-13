@@ -62,7 +62,7 @@
                     <tr class="sb-bg-dark text-white">
                         <th>S.N</th>
                         <th>Loan Name</th>
-                        <th>Templates</th>
+<!--                        <th>Templates</th>-->
                         <th *ngIf="productUtils.ELIGIBILITY">Eligibility Status</th>
                         <!--<th>Status</th>-->
                         <th>Action</th>
@@ -76,13 +76,13 @@
                         </div>
                         <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                         <td>{{allList.name}}</td>
-                        <td>
-                            <div *ngFor="let template of allList.templateList">
-                                <a (click)="viewTemplate(template.templateView,template.name)" class="cursor">
-                                    <span>{{template.name}}</span>
-                                </a>
-                            </div>
-                        </td>
+<!--                        <td>-->
+<!--                            <div *ngFor="let template of allList.templateList">-->
+<!--                                <a (click)="viewTemplate(template.templateView,template.name)" class="cursor">-->
+<!--                                    <span>{{template.name}}</span>-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        </td>-->
 
                         <!--<td>
                             <select [(ngModel)]="allList.status" name="status"
