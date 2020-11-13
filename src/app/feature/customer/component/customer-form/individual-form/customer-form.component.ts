@@ -1,13 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  NgModule,
-  ElementRef,
-  ViewChild
-} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Customer} from '../../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
@@ -23,8 +14,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {DateValidator} from '../../../../../@core/validator/date-validator';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {CustomerAssociateComponent} from '../../../../loan/component/loan-main-template/customer-associate/customer-associate.component';
-import {NbDialogRef, NbDialogService, NbSelectModule} from '@nebular/theme';
-import {BankingRelationComponent} from '../banking-relation/banking-relation.component';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {BankingRelationship} from '../../../../admin/modal/banking-relationship';
 import {Pattern} from '../../../../../@core/utils/constants/pattern';
 
@@ -69,6 +59,8 @@ export class CustomerFormComponent implements OnInit {
   };
 
   bankingRelationshipList = BankingRelationship.enumObject();
+  subSector = [];
+  clientType = [];
 
   constructor(
       private formBuilder: FormBuilder,
@@ -86,6 +78,8 @@ export class CustomerFormComponent implements OnInit {
   ngOnInit() {
     this.getProvince();
     this.getAllDistrict();
+    this.getClientType();
+    this.getSubSector();
     this.formMaker();
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.customerDetailField.showFormField = true;
@@ -197,6 +191,8 @@ export class CustomerFormComponent implements OnInit {
         this.customer.citizenshipNumber = this.basicInfo.get('citizenshipNumber').value;
         this.customer.citizenshipIssuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
         this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
+        this.customer.clientType = this.basicInfo.get('clientType').value;
+        this.customer.subsectorDetail = this.basicInfo.get('subsectorDetail').value;
         const occupations = {
           multipleOccupation : this.basicInfo.get('occupation').value ,
           otherOccupation : this.basicInfo.get('otherOccupation').value
@@ -281,6 +277,9 @@ export class CustomerFormComponent implements OnInit {
           undefined : JSON.parse(this.customer.bankingRelationship), [Validators.required]],
       netWorth: [this.customer.netWorth === undefined ?
           undefined : this.customer.netWorth, [Validators.required , Validators.pattern(Pattern.NUMBER_ONLY)]],
+      subsectorDetail: [this.customer.subsectorDetail === undefined ? undefined : this.customer.subsectorDetail],
+      clientType: [this.customer.clientType === undefined ? undefined : this.customer.clientType]
+
     });
   }
 
@@ -381,4 +380,31 @@ export class CustomerFormComponent implements OnInit {
     }
     this.basicInfo.get('otherIncome').updateValueAndValidity();
   }
+
+  getClientType() {
+    this.customerService.clientType().subscribe((res: any) => {
+          console.log(res.detail);
+          this.clientType = res.detail;
+        }
+        , error => {
+          console.error(error);
+        });
+  }
+
+  getSubSector() {
+    this.customerService.subSector().subscribe((res: any) => {
+          const response = res.detail;
+          const sectorArray = [];
+          Object.keys(res.detail).forEach(value => {
+            sectorArray.push({
+              key: value, value: response[value]
+            });
+          });
+          this.subSector = sectorArray;
+        }
+        , error => {
+          console.error(error);
+        });
+  }
+
 }

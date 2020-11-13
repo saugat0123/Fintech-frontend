@@ -38,4 +38,7 @@ export class CompanyInfo {
     withinLimitRemarks: string;
 
     companyJsonData: string;
+    subsectorDetail: string;
+    clientType: string;
+
 }

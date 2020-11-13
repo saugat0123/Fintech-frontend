@@ -42,6 +42,7 @@ import {CompanyJsonData} from '../../../../admin/modal/CompanyJsonData';
 import {MarketScenarioComponent} from './market-scenario/market-scenario.component';
 import {Editor} from '../../../../../@core/utils/constants/editor';
 import {WhiteSpaceValidation} from '../../../../loan/model/whiteSpaceValidation';
+import {CustomerService} from '../../../../admin/service/customer.service';
 
 @Component({
     selector: 'app-company-form',
@@ -90,6 +91,8 @@ export class CompanyFormComponent implements OnInit {
     designation;
     additionalFieldSelected = false;
     additionalFieldData: any;
+    subSector = [];
+    clientType = [];
 
     ckeConfig = Editor.CK_CONFIG;
 
@@ -126,6 +129,7 @@ export class CompanyFormComponent implements OnInit {
         protected ref: NbDialogRef<CompanyFormComponent>,
         private company: CompanyService,
         private el: ElementRef,
+        private customerService: CustomerService
     ) {
 
     }
@@ -153,6 +157,8 @@ export class CompanyFormComponent implements OnInit {
         this.buildForm();
         this.getAllDistrict();
         this.getCompanyStructure();
+        this.getClientType();
+        this.getSubSector();
         this.designation = this.designationList.designation;
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
@@ -262,6 +268,14 @@ export class CompanyFormComponent implements OnInit {
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.contactNum)) ? undefined :
                     this.companyInfo.contactNum, [Validators.required]],
+            subsectorDetail:
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.subsectorDetail)) ? undefined :
+                    this.companyInfo.subsectorDetail],
+            clientType:
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.clientType)) ? undefined :
+                    this.companyInfo.clientType],
 
             // legalStatus
             corporateStructure: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus) ||
@@ -716,6 +730,9 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.email = this.companyInfoFormGroup.get('email').value;
         this.companyInfo.issuePlace = this.companyInfoFormGroup.get('issuePlace').value;
         this.companyInfo.contactNum = this.companyInfoFormGroup.get('contactNum').value;
+        this.companyInfo.clientType = this.companyInfoFormGroup.get('clientType').value;
+        this.companyInfo.subsectorDetail = this.companyInfoFormGroup.get('subsectorDetail').value;
+
 
         // legalStatus
         // this.legalStatus.companyName = this.companyInfoFormGroup.get('companyName').value;
@@ -870,5 +887,32 @@ export class CompanyFormComponent implements OnInit {
         }, error => {
             console.error(error);
         });
+    }
+
+
+    getClientType() {
+        this.customerService.clientType().subscribe((res: any) => {
+                console.log(res.detail);
+                this.clientType = res.detail;
+            }
+            , error => {
+                console.error(error);
+            });
+    }
+
+    getSubSector() {
+        this.customerService.subSector().subscribe((res: any) => {
+                const response = res.detail;
+                const sectorArray = [];
+                Object.keys(res.detail).forEach(value => {
+                    sectorArray.push({
+                        key: value, value: response[value]
+                    });
+                });
+                this.subSector = sectorArray;
+            }
+            , error => {
+                console.error(error);
+            });
     }
 }
