@@ -183,6 +183,18 @@
                                                        [customerInfo]="loanDocument?.loanHolder"
                                                        [loanTag]="loanTag"></app-credit-risk-grading-alpha>
                     </ng-template>
+
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Lambda'">
+                        <app-credit-risk-grading-lambda #creditRiskGradingLambda
+                                                        [customer]="loanDocument?.customerInfo"
+                                                        [customerInfoData]="loanDocument?.loanHolder"
+                                                        [security]="loanDocument?.security"
+                                                        [ciCl]="loanDocument?.loanHolder?.cicl"
+                                                        [incomeFromAccount]="loanDocument?.loanHolder?.incomeFromAccount"
+                                                        [proposedLimit]="loanDocument?.proposal?.proposedLimit"
+                                                       [financialData]="loanDocument?.financial?.data"></app-credit-risk-grading-lambda>
+                    </ng-template>
+
                     <ng-template ngbTabContent *ngIf="allList.name == 'Reporting Info'">
                         <app-reporting-info-tagging #reportingInfoTagging
                                                     [reportingInfoLevels]="loanDocument?.reportingInfoLevels">

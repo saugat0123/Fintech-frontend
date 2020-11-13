@@ -8,8 +8,8 @@ export enum RepaymentTrack {
 }
 
 export class RepaymentTrackMap {
-    static majorSourceIncomeMap: Map<RepaymentTrack, number> = new Map([
-        [RepaymentTrack.BEFORE_DUE, 2.500],
+    static repaymentTrackMap: Map<RepaymentTrack, number> = new Map([
+        [RepaymentTrack.BEFORE_DUE, 2.50],
         [RepaymentTrack.WITHIN_SEVEN, 1.75],
         [RepaymentTrack.WITHIN_THIRTY, 2.40],
         [RepaymentTrack.AFTER_THiRTY, 1.25],

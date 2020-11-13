@@ -31,6 +31,7 @@ import {NetTradingAssets} from '../../admin/modal/NetTradingAssets';
 import {BaseEntity} from '../../../@core/model/base-entity';
 import {GroupDto} from './GroupDto';
 import {GroupSummaryDto} from './GroupSummaryDto';
+import {CreditRiskGradingLambda} from '../../admin/modal/CreditRiskGradingLambda';
 
 
 export class LoanDataHolder extends BaseEntity {
@@ -69,6 +70,7 @@ export class LoanDataHolder extends BaseEntity {
     uploadedOfferLetterStat: number;
     creditRiskGrading: CreditRiskGrading;
     creditRiskGradingAlpha: CreditRiskGradingAlpha;
+    creditRiskGradingLambda: CreditRiskGradingLambda;
     crgGamma: CreditRiskGradingGamma;
     group: Group;
     shareSecurity: ShareSecurity;

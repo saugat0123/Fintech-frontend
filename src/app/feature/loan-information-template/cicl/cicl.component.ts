@@ -167,7 +167,6 @@ export class CiclComponent implements OnInit {
 
     }
     // uncomment if value is need
-   /* const totalOutStanding = CalculationUtil.calculateTotalFromList(LoanDataKey.OUTSTANDING_AMOUNT, this.ciclList);*/
     this.ciclValue.remarks = this.ciclForm.get('ciclRemarks').value === undefined ? '' : this.ciclForm.get('ciclRemarks').value;
     this.ciclValue.cibCharge = this.ciclForm.get('cibCharge').value === undefined ? '' : this.ciclForm.get('cibCharge').value;
     this.ciclValue.repaymentTrack = this.ciclForm.get('repaymentTrack').value === undefined ? '' :

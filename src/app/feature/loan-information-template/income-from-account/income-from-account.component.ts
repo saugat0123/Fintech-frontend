@@ -43,6 +43,8 @@ export class IncomeFromAccountComponent implements OnInit {
       this.incomeFormGroup.patchValue(this.dataForEdit);
       if (!this.dataForEdit.newCustomerChecked && !ObjectUtil.isEmpty(this.dataForEdit.accountTransactionForm)) {
       this.incomeFormGroup.get('accountTransactionForm').patchValue(this.dataForEdit.accountTransactionForm);
+      } else {
+        this.incomeFormGroup.get('accountTransactionForm').disable();
       }
     }
 
@@ -72,6 +74,24 @@ export class IncomeFromAccountComponent implements OnInit {
       interestIncomeAfterReview: [undefined, [Validators.required]],
       loanProcessingFeeDuringReview: [undefined, [Validators.required]],
       loanProcessingFeeAfterReview: [undefined, [Validators.required]],
+      lcCommissionDuringReview: [undefined, [Validators.required]],
+      lcCommissionAfterNextReview: [undefined, [Validators.required]],
+      guaranteeCommissionDuringReview: [undefined, [Validators.required]],
+      guaranteeCommissionAfterNextReview: [undefined, [Validators.required]],
+      otherCommissionDuringReview: [undefined, [Validators.required]],
+      otherCommissionAfterNextReview: [undefined, [Validators.required]],
+      savingAccountDuringReview: [undefined, [Validators.required]],
+      savingAfterNextReview: [undefined, [Validators.required]],
+      payrollAccountDuringReview: [undefined, [Validators.required]],
+      payrollAccountAfterNextReview: [undefined, [Validators.required]],
+      debitCardsDuringReview: [undefined, [Validators.required]],
+      debitCardsAfterReview: [undefined, [Validators.required]],
+      creditCardsDuringReview: [undefined, [Validators.required]],
+      creditCardsAfterReview: [undefined, [Validators.required]],
+      mobileBankingDuringReview: [undefined, [Validators.required]],
+      mobileBankingAfterReview: [undefined, [Validators.required]],
+      lockerDuringReview: [undefined, [Validators.required]],
+      lockerAfterReview: [undefined, [Validators.required]],
       newCustomerChecked: [false],
       accountTransactionForm: this.buildAccountTransactionForm()
     });
@@ -89,19 +109,41 @@ export class IncomeFromAccountComponent implements OnInit {
 
   calculateTotalIncomeDuringReview() {
     let totalIncomeDuringReview = 0;
-    totalIncomeDuringReview = this.incomeFormGroup.get('interestDuringReview').value +
+    totalIncomeDuringReview =
+        this.incomeFormGroup.get('interestDuringReview').value +
         this.incomeFormGroup.get('commissionDuringReview').value +
         this.incomeFormGroup.get('otherChargesDuringReview').value +
-        this.incomeFormGroup.get('totalIncomeDuringReview').value;
+        this.incomeFormGroup.get('interestIncomeDuringReview').value +
+        this.incomeFormGroup.get('loanProcessingFeeDuringReview').value +
+        this.incomeFormGroup.get('lcCommissionDuringReview').value +
+        this.incomeFormGroup.get('guaranteeCommissionDuringReview').value +
+        this.incomeFormGroup.get('otherCommissionDuringReview').value +
+        this.incomeFormGroup.get('savingAccountDuringReview').value +
+        this.incomeFormGroup.get('payrollAccountDuringReview').value +
+        this.incomeFormGroup.get('debitCardsDuringReview').value +
+        this.incomeFormGroup.get('creditCardsDuringReview').value +
+        this.incomeFormGroup.get('mobileBankingDuringReview').value +
+        this.incomeFormGroup.get('lockerDuringReview').value;
     this.incomeFormGroup.get('totalIncomeDuringReview').setValue(totalIncomeDuringReview);
   }
 
   calculateTotalIncomeAfterReview() {
     let totalIncomeAfterNextReview = 0;
-    totalIncomeAfterNextReview = this.incomeFormGroup.get('interestAfterNextReview').value +
+    totalIncomeAfterNextReview =
+        this.incomeFormGroup.get('interestAfterNextReview').value +
         this.incomeFormGroup.get('commissionAfterNextReview').value +
-        this.incomeFormGroup.get('otherChargesAfterNextReview').value
-    ;
+        this.incomeFormGroup.get('otherChargesAfterNextReview').value +
+        this.incomeFormGroup.get('interestIncomeAfterReview').value +
+        this.incomeFormGroup.get('loanProcessingFeeAfterReview').value +
+        this.incomeFormGroup.get('lcCommissionAfterNextReview').value +
+        this.incomeFormGroup.get('guaranteeCommissionAfterNextReview').value +
+        this.incomeFormGroup.get('otherCommissionAfterNextReview').value +
+        this.incomeFormGroup.get('savingAfterNextReview').value +
+        this.incomeFormGroup.get('payrollAccountAfterNextReview').value +
+        this.incomeFormGroup.get('debitCardsAfterReview').value +
+        this.incomeFormGroup.get('creditCardsAfterReview').value +
+        this.incomeFormGroup.get('mobileBankingAfterReview').value +
+        this.incomeFormGroup.get('lockerAfterReview').value ;
     this.incomeFormGroup.get('totalIncomeAfterNextReview').setValue(totalIncomeAfterNextReview);
   }
   scrollToFirstInvalidControl() {
@@ -137,6 +179,7 @@ export class IncomeFromAccountComponent implements OnInit {
   }
 
   onAdditionalFieldSelect(chk) {
+    console.log(chk);
     if (chk) {
       this.incomeFormGroup.get('accountTransactionForm').disable();
     } else {
@@ -144,17 +187,4 @@ export class IncomeFromAccountComponent implements OnInit {
     }
     this.isNewCustomer = chk;
   }
-
-  calcTotalIncomeDuringReview(amount) {
-    let total = this.incomeFormGroup.get('totalIncomeDuringReview').value;
-    total += amount;
-    this.incomeFormGroup.get('totalIncomeDuringReview').setValue(NumberUtils.isNumber(total));
-  }
-
-  calcTotalIncomeAfterReview(amount) {
-    let total = this.incomeFormGroup.get('totalIncomeAfterNextReview').value;
-    total += amount;
-    this.incomeFormGroup.get('totalIncomeAfterNextReview').setValue(NumberUtils.isNumber(total));
-  }
-
 }

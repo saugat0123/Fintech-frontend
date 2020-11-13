@@ -6,8 +6,8 @@ export enum PeriodOfEarning {
     LESS_TWO= 'Less than one year'
 }
 
-export class MajorSourceIncomeMap {
-    static majorSourceIncomeMap: Map<PeriodOfEarning, number> = new Map([
+export class PeriodOfEarningMap {
+    static periodOfEarningMap: Map<PeriodOfEarning, number> = new Map([
         [PeriodOfEarning.MORE_FIVE, 3],
         [PeriodOfEarning.LESS_FIVE_OR_EQUAL_MORE_TWO, 2.25],
         [PeriodOfEarning.MORE_ONE_LESS_TWO, 1.50],
