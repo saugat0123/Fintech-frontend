@@ -333,6 +333,11 @@ export class LoanFormComponent implements OnInit {
                 });
             } else {
                 this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
+                this.templateList.forEach((value, index) => {
+                    if (value.name === 'Credit Risk Grading - Lambda') {
+                        this.templateList.splice(index, 1);
+                    }
+                });
             }
 
             this.templateList.some((value, index) => {
