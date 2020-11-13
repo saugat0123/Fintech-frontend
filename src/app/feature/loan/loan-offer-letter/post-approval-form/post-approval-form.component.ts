@@ -27,8 +27,6 @@ import {RoleAccess} from "../../../admin/modal/role-access";
 import {DocStatus} from "../../model/docStatus";
 import {ObjectUtil} from "../../../../@core/utils/ObjectUtil";
 import {ApiConfig} from "../../../../@core/utils/api/ApiConfig";
-import {OfferLetterUploadComponent} from "../../component/offer-letter/offer-letter-upload/offer-letter-upload.component";
-import {LoanOfferLetterComponent} from "../loan-offer-letter.component";
 
 @Component({
     selector: 'app-post-approval-form',
