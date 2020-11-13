@@ -4,6 +4,7 @@ import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Pattern} from '../../../@core/utils/constants/pattern';
 import {RepaymentTrackCurrentBank} from '../../admin/modal/crg/RepaymentTrackCurrentBank';
+import {NumberUtils} from '../../../@core/utils/number-utils';
 
 @Component({
   selector: 'app-income-from-account',
@@ -67,6 +68,10 @@ export class IncomeFromAccountComponent implements OnInit {
         [Validators.required]],
       totalIncomeDuringReview: [undefined,
         [Validators.required]],
+      interestIncomeDuringReview: [undefined, [Validators.required]],
+      interestIncomeAfterReview: [undefined, [Validators.required]],
+      loanProcessingFeeDuringReview: [undefined, [Validators.required]],
+      loanProcessingFeeAfterReview: [undefined, [Validators.required]],
       newCustomerChecked: [false],
       accountTransactionForm: this.buildAccountTransactionForm()
     });
@@ -86,7 +91,8 @@ export class IncomeFromAccountComponent implements OnInit {
     let totalIncomeDuringReview = 0;
     totalIncomeDuringReview = this.incomeFormGroup.get('interestDuringReview').value +
         this.incomeFormGroup.get('commissionDuringReview').value +
-        this.incomeFormGroup.get('otherChargesDuringReview').value;
+        this.incomeFormGroup.get('otherChargesDuringReview').value +
+        this.incomeFormGroup.get('totalIncomeDuringReview').value;
     this.incomeFormGroup.get('totalIncomeDuringReview').setValue(totalIncomeDuringReview);
   }
 
@@ -94,7 +100,8 @@ export class IncomeFromAccountComponent implements OnInit {
     let totalIncomeAfterNextReview = 0;
     totalIncomeAfterNextReview = this.incomeFormGroup.get('interestAfterNextReview').value +
         this.incomeFormGroup.get('commissionAfterNextReview').value +
-        this.incomeFormGroup.get('otherChargesAfterNextReview').value;
+        this.incomeFormGroup.get('otherChargesAfterNextReview').value
+    ;
     this.incomeFormGroup.get('totalIncomeAfterNextReview').setValue(totalIncomeAfterNextReview);
   }
   scrollToFirstInvalidControl() {
@@ -136,6 +143,18 @@ export class IncomeFromAccountComponent implements OnInit {
       this.incomeFormGroup.get('accountTransactionForm').enable();
     }
     this.isNewCustomer = chk;
+  }
+
+  calcTotalIncomeDuringReview(amount) {
+    let total = this.incomeFormGroup.get('totalIncomeDuringReview').value;
+    total += amount;
+    this.incomeFormGroup.get('totalIncomeDuringReview').setValue(NumberUtils.isNumber(total));
+  }
+
+  calcTotalIncomeAfterReview(amount) {
+    let total = this.incomeFormGroup.get('totalIncomeAfterNextReview').value;
+    total += amount;
+    this.incomeFormGroup.get('totalIncomeAfterNextReview').setValue(NumberUtils.isNumber(total));
   }
 
 }
