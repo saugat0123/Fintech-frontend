@@ -14,7 +14,7 @@
             <tr>
               <td>Gross Interest</td>
               <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.interestDuringReview.errors }"
-                         class="form-control table-input"
+                         class="form-control"
                          formControlName="interestDuringReview"
                          type="number">
                 <div *ngIf="(submitted) && formControls.interestDuringReview.invalid"
@@ -223,7 +223,7 @@
             </tr>
             <tr>
               <td>Debit Cards</td>
-              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.debutCardsDuringReview.errors }"
+              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.debitCardsDuringReview.errors }"
                          class="form-control"
                          formControlName="debitCardsDuringReview"
                          type="number">
@@ -348,7 +348,7 @@
         <nb-card-body *ngIf="!chek?.checked">
           <div formGroupName="accountTransactionForm">
           <div class="col-md-12" >
-            <table class="table table-bordered table-responsive-md table-hover text-center">
+            <table class="table table-bordered table-responsive-md table-hover text-center sb-small table-sm">
               <thead>
               <tr>
                 <th>Particular</th>
