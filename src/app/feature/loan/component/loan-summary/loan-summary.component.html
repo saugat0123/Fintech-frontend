@@ -1,1022 +1,1043 @@
 <section class="enable-print">
-  <nb-card>
-    <nb-card-body id="print-block">
-        <div class="row disable-print">
-            <button nbButton
-                    shape="rectangle"
-                    status="primary"
-                    size="tiny" (click)="goToCustomer()"><em class="fas fa-backward"></em> <span
-                    class="px-2">customer Profile</span></button>
-        </div>
-      <div *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId"
-           class="row text-success cursor disable-print">
-        <div class="col-md-6 text-left">
-          <a (click)="renewedOrCloseFrom(loanDataHolder?.parentId)"
-             *ngIf="loanDataHolder?.parentId !=null"
-             class="text-left">{{loanType[loanDataHolder.loanType]}} From <i
-              class="p-1 fa fa-edit"></i></a>
-        </div>
-        <div class="col-md-6 text-right">
-          <a (click)="renewedOrCloseFrom(loanDataHolder?.childId)"
-             *ngIf="loanDataHolder?.childId !=null"
-             class="text-right">{{loanType[loanDataHolder.loanType]}} to <i
-              class="p-1 fa fa-edit"></i></a>
-        </div>
-        <div class="col-md-12">
-          <hr/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="row">
-            <div class="col-md-3">
+    <nb-card>
+        <nb-card-body id="print-block">
+            <div class="row disable-print">
+                <button nbButton
+                        shape="rectangle"
+                        status="primary"
+                        size="tiny" (click)="goToCustomer()"><em class="fas fa-backward"></em> <span
+                        class="px-2">customer Profile</span></button>
+            </div>
+            <div *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId"
+                 class="row text-success cursor disable-print">
+                <div class="col-md-6 text-left">
+                    <a (click)="renewedOrCloseFrom(loanDataHolder?.parentId)"
+                       *ngIf="loanDataHolder?.parentId !=null"
+                       class="text-left">{{loanType[loanDataHolder.loanType]}} From <i
+                            class="p-1 fa fa-edit"></i></a>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a (click)="renewedOrCloseFrom(loanDataHolder?.childId)"
+                       *ngIf="loanDataHolder?.childId !=null"
+                       class="text-right">{{loanType[loanDataHolder.loanType]}} to <i
+                            class="p-1 fa fa-edit"></i></a>
+                </div>
+                <div class="col-md-12">
+                    <hr/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-3">
 
-              <div>
-                Priority:
-                <span class="badge badge-danger"
-                      style="font-size: 11px">{{loanDataHolder.priority?.toString() | titlecase}}</span>
-              </div>
-              <div>
-                Loan Status:
-                <span class="badge badge-info"
-                      style="font-size: 11px">{{loanDataHolder.documentStatus?.toString() | titlecase}}</span>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="report-header">
-                <div class="report-header-heading">{{client}}</div>
-                <div class="report-header-sub-heading">
-                  Credit Appraisal of {{loanConfig?.name}}
-                  <br/>
-                  for
+                            <div>
+                                Priority:
+                                <span class="badge badge-danger"
+                                      style="font-size: 11px">{{loanDataHolder.priority?.toString() | titlecase}}</span>
+                            </div>
+                            <div>
+                                Loan Status:
+                                <span class="badge badge-info"
+                                      style="font-size: 11px">{{loanDataHolder.documentStatus?.toString() | titlecase}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="report-header">
+                                <div class="report-header-heading">{{client}}</div>
+                                <div class="report-header-sub-heading">
+                                    Credit Appraisal of {{loanConfig?.name}}
+                                    <br/>
+                                    for
+                                </div>
+                                <div
+                                        class="report-header-sub-heading">
+                                    {{loanCategory === 'INSTITUTION' ?
+                                    loanDataHolder?.companyInfo?.companyName
+                                    : loanDataHolder?.customerInfo?.customerName}}
+                                </div>
+                                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <img class="report-log img-thumbnail border-0" alt="logo"
+                                 src="../../../../../assets/img/logo.png">
+                        </div>
+                    </div>
                 </div>
-                <div
-                    class="report-header-sub-heading">
-                  {{loanCategory === 'INSTITUTION' ?
-                    loanDataHolder?.companyInfo?.companyName
-                    : loanDataHolder?.customerInfo?.customerName}}
-                </div>
-                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
-              </div>
             </div>
-            <div class="col-md-3 text-right">
-              <img class="report-log img-thumbnail border-0" alt="logo"
-                   src="../../../../../assets/img/logo.png">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row mt-1">
-        <div class="col-md-6 text-left">
-          <div *ngIf="currentDocAction === 'FORWARD' || currentDocAction === 'BACKWARD'
+            <div class="row mt-1">
+                <div class="col-md-6 text-left">
+                    <div *ngIf="currentDocAction === 'FORWARD' || currentDocAction === 'BACKWARD'
                           || currentDocAction === 'PENDING'">
                         <span><strong>Pending Under: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
-                          ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-          </div>
-          <div *ngIf="currentDocAction === 'APPROVED'">
+                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                    </div>
+                    <div *ngIf="currentDocAction === 'APPROVED'">
                         <span><strong>Approved By: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
-                          ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-          </div>
-          <div *ngIf="currentDocAction === 'REJECT'">
+                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                    </div>
+                    <div *ngIf="currentDocAction === 'REJECT'">
                         <span><strong>Rejected By: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
-                          ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-          </div>
-          <div *ngIf="currentDocAction === 'CLOSED'">
+                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                    </div>
+                    <div *ngIf="currentDocAction === 'CLOSED'">
                         <span><strong>Closed By: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
-                          ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-          </div>
-        </div>
-        <div class="col-md-6 text-right">
-          <div *ngIf="currentDocAction === 'FORWARD'">
+                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                    </div>
+                </div>
+                <div class="col-md-6 text-right">
+                    <div *ngIf="currentDocAction === 'FORWARD'">
                     <span><strong>Forwarded By: </strong>{{loanDataHolder?.currentStage?.fromUser?.name}}
-                      ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-          </div>
-          <div *ngIf="currentDocAction === 'BACKWARD'">
+                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
+                    </div>
+                    <div *ngIf="currentDocAction === 'BACKWARD'">
                     <span><strong>Backward By: </strong>{{loanDataHolder?.currentStage?.fromUser?.name}}
-                      ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-          </div>
-          <!--<div class="col-md-6">
-              <div class="text-right">
-                  <span><strong>Branch: </strong>{{loanDataHolder?.branch?.name}}</span>
-              </div>
-          </div>-->
-        </div>
-      </div>
-      <hr class="print-line">
-      <div class="row ">
-        <div class="col-md-6 sb-small">
-          <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span>
-        </div>
-        <div class="col-md-6">
-          <p class="text-right sb-small" ><strong>Date: </strong>{{loanDataHolder?.createdAt | date}}
-            ({{nepaliDate}})
-          </p>
-        </div>
-      </div>
-
-      <hr class="print-line disable-print">
-
-      <div class="row disable-print">
-
-        <!-- CRG - Normal-->
-        <div *ngIf="creditRiskSummary" class="col-md-12">
-          <nb-card>
-            <nb-card-header class="text-center ">
-              <h6>Credit Risk Gauge</h6>
-            </nb-card-header>
-            <nb-card-body>
-              <div class="row disable-print">
-                <div class="col-md-6 text-right">
-                  <app-gauge-chart [chartWidth]="275"
-                                   [chartHeight]="180"
-                                   gaugeIdentifier="crg-manual"
-                                   [maxValue]="100"
-                                   [obtainedValue]="creditRiskScore"></app-gauge-chart>
+                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
+                    </div>
+                    <!--<div class="col-md-6">
+                        <div class="text-right">
+                            <span><strong>Branch: </strong>{{loanDataHolder?.branch?.name}}</span>
+                        </div>
+                    </div>-->
                 </div>
-                <div class="col-md-6 gauge-label-padding">
-                  <div class="vertical-line">
-                    <div class="text-left pl-2">
-                      <h6>Manual</h6><br>
-                      Credit Risk Grade:
-                      <span [class]="creditGradeStatusBadge"> {{creditRiskGrade | titlecase}}</span>
-                      <span class="text-danger">
-                <em *ngIf="noComplianceLoan" class="fa fa-exclamation-triangle"> No compliance of
-                Covenants / Conditions</em>
-              </span>
-                    </div>
-                    <br>
-                    <div class="text-left pl-2">
-                      Credit Risk Score:
-                      <span><strong> {{ creditRiskScore }}</strong></span>
-                    </div>
-                  </div>
+            </div>
+            <hr class="print-line">
+            <div class="row ">
+                <div class="col-md-6 sb-small">
+                    <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span>
                 </div>
-              </div>
-            </nb-card-body>
-          </nb-card>
-        </div>
-
-        <!-- CRG - Gamma-->
-        <div *ngIf="crgGammaSummary" class="col-md-12">
-          <nb-card class="sb-medium">
-            <nb-card-header class="text-center">
-              <h6>Credit Risk Gauge (Gamma)</h6>
-            </nb-card-header>
-            <nb-card-body>
-              <div class="row disable-print">
-                <div class="col-md-6 text-right">
-                  <app-gauge-chart [chartWidth]="275"
-                                   [chartHeight]="180"
-                                   gaugeIdentifier="crg-gamma"
-                                   [maxValue]="100"
-                                   [obtainedValue]="crgGammaScore"></app-gauge-chart>
+                <div class="col-md-6">
+                    <p class="text-right sb-small"><strong>Date: </strong>{{loanDataHolder?.createdAt | date}}
+                        ({{nepaliDate}})
+                    </p>
                 </div>
-                <div class="col-md-6 gauge-label-padding">
-                  <div class="vertical-line">
-                    <div class="text-left pl-2">
-                      <h5>Gamma</h5><br>
-                      Credit Risk Grade:
-                      <span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span>
+            </div>
+
+            <hr class="print-line disable-print">
+
+            <div class="row disable-print">
+
+                <!-- CRG - Normal-->
+                <!--        <div *ngIf="creditRiskSummary" class="col-md-12">-->
+                <!--          <nb-card>-->
+                <!--            <nb-card-header class="text-center ">-->
+                <!--              <h6>Credit Risk Gauge</h6>-->
+                <!--            </nb-card-header>-->
+                <!--            <nb-card-body>-->
+                <!--              <div class="row disable-print">-->
+                <!--                <div class="col-md-6 text-right">-->
+                <!--                  <app-gauge-chart [chartWidth]="275"-->
+                <!--                                   [chartHeight]="180"-->
+                <!--                                   gaugeIdentifier="crg-manual"-->
+                <!--                                   [maxValue]="100"-->
+                <!--                                   [obtainedValue]="creditRiskScore"></app-gauge-chart>-->
+                <!--                </div>-->
+                <!--                <div class="col-md-6 gauge-label-padding">-->
+                <!--                  <div class="vertical-line">-->
+                <!--                    <div class="text-left pl-2">-->
+                <!--                      <h6>Manual</h6><br>-->
+                <!--                      Credit Risk Grade:-->
+                <!--                      <span [class]="creditGradeStatusBadge"> {{creditRiskGrade | titlecase}}</span>-->
+                <!--                      <span class="text-danger">-->
+                <!--                <em *ngIf="noComplianceLoan" class="fa fa-exclamation-triangle"> No compliance of-->
+                <!--                Covenants / Conditions</em>-->
+                <!--              </span>-->
+                <!--                    </div>-->
+                <!--                    <br>-->
+                <!--                    <div class="text-left pl-2">-->
+                <!--                      Credit Risk Score:-->
+                <!--                      <span><strong> {{ creditRiskScore }}</strong></span>-->
+                <!--                    </div>-->
+                <!--                  </div>-->
+                <!--                </div>-->
+                <!--              </div>-->
+                <!--            </nb-card-body>-->
+                <!--          </nb-card>-->
+                <!--        </div>-->
+
+                <!-- CRG - Gamma-->
+                <!--        <div *ngIf="crgGammaSummary" class="col-md-12">-->
+                <!--          <nb-card class="sb-medium">-->
+                <!--            <nb-card-header class="text-center">-->
+                <!--              <h6>Credit Risk Gauge (Gamma)</h6>-->
+                <!--            </nb-card-header>-->
+                <!--            <nb-card-body>-->
+                <!--              <div class="row disable-print">-->
+                <!--                <div class="col-md-6 text-right">-->
+                <!--                  <app-gauge-chart [chartWidth]="275"-->
+                <!--                                   [chartHeight]="180"-->
+                <!--                                   gaugeIdentifier="crg-gamma"-->
+                <!--                                   [maxValue]="100"-->
+                <!--                                   [obtainedValue]="crgGammaScore"></app-gauge-chart>-->
+                <!--                </div>-->
+                <!--                <div class="col-md-6 gauge-label-padding">-->
+                <!--                  <div class="vertical-line">-->
+                <!--                    <div class="text-left pl-2">-->
+                <!--                      <h5>Gamma</h5><br>-->
+                <!--                      Credit Risk Grade:-->
+                <!--                      <span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span>-->
+                <!--                    </div>-->
+                <!--                    <br>-->
+                <!--                    <div class="text-left pl-2">-->
+                <!--                      Credit Risk Score:-->
+                <!--                      <span><strong> {{ crgGammaScore }}</strong></span>-->
+                <!--                    </div>-->
+                <!--                  </div>-->
+                <!--                </div>-->
+                <!--              </div>-->
+                <!--            </nb-card-body>-->
+                <!--          </nb-card>-->
+                <!--        </div>-->
+
+                <!--CRG - Alpha-->
+                <div *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"  class="col-md-12">
+                    <div *ngIf="creditRiskAlphaSummary">
+                        <nb-card class="sb-medium">
+                            <nb-card-header>
+                                <h6>Credit Risk Gauge (Alpha)</h6>
+                            </nb-card-header>
+                            <nb-card-body>
+                                <div class="row">
+                                    <div class="col-md-6 mr-0 pr-0 text-right">
+                                        <app-gauge-chart [chartWidth]="275"
+                                                         gaugeIdentifier="crg-alpha"
+                                                         [chartHeight]="180"
+                                                         [maxValue]="100"
+                                                         [obtainedValue]="creditRiskAlphaScore"></app-gauge-chart>
+                                    </div>
+                                    <div class="col-md-6 ml-0 gauge-label-padding">
+                                        <div class="vertical-line">
+                                            <div class="text-left pl-2">
+                                                Credit Risk Grade :
+                                                <span [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha | titlecase}}</span>
+                                            </div>
+                                            <br>
+                                            <div class="text-left pl-2">
+                                                Credit Risk Rating :
+                                                <span [class]="creditGradeAlphaStatusBadge"> {{ creditRiskRatingAlpha | titlecase }}</span>
+                                            </div>
+                                            <br>
+                                            <div class="text-left pl-2">
+                                                Credit Risk Score :
+                                                <span><strong> {{ creditRiskAlphaScore }}</strong></span>
+                                            </div>
+                                            <br>
+                                            <div class="text-left pl-2">
+                                                Premium :
+                                                <span><strong> {{ creditRiskAlphaPremium }}</strong></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </nb-card-body>
+                        </nb-card>
                     </div>
-                    <br>
-                    <div class="text-left pl-2">
-                      Credit Risk Score:
-                      <span><strong> {{ crgGammaScore }}</strong></span>
-                    </div>
-                  </div>
                 </div>
-              </div>
-            </nb-card-body>
-          </nb-card>
-        </div>
 
-        <!--CRG - Alpha-->
-        <div  *ngIf="creditRiskAlphaSummary" class="col-md-12">
-          <nb-card class="sb-medium">
-            <nb-card-header>
-              <h6>Credit Risk Gauge (Alpha)</h6>
-            </nb-card-header>
-            <nb-card-body>
-              <div class="row">
-                <div class="col-md-6 mr-0 pr-0 text-right">
-                  <app-gauge-chart [chartWidth]="275"
-                                   gaugeIdentifier="crg-alpha"
-                                   [chartHeight]="180"
-                                   [maxValue]="100"
-                                   [obtainedValue]="creditRiskAlphaScore"></app-gauge-chart>
+                <!--CRG - Lambda-->
+                <div *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'" class="col-md-12">
+                    <div *ngIf="creditRiskLambdaSummary" >
+                        <nb-card class="sb-medium">
+                            <nb-card-header>
+                                <h6>Credit Risk Gauge (Lambda)</h6>
+                            </nb-card-header>
+                            <nb-card-body>
+                                <div class="row">
+                                    <div class="col-md-6 mr-0 pr-0 text-right">
+                                        <app-gauge-chart [chartWidth]="275"
+                                                         gaugeIdentifier="crg-lambda"
+                                                         [chartHeight]="180"
+                                                         [maxValue]="100"
+                                                         [obtainedValue]="creditRiskLambdaScore"></app-gauge-chart>
+                                    </div>
+                                    <div class="col-md-6 ml-0 gauge-label-padding">
+                                        <div class="vertical-line">
+                                            <div class="text-left pl-2">
+                                                Credit Risk Grade :
+                                                <span [class]="creditGradeLambdaStatusBadge"> {{creditRiskGradeLambda | titlecase}}</span>
+                                            </div>
+                                            <br>
+                                            <div class="text-left pl-2">
+                                                Credit Risk Rating :
+                                                <span [class]="creditGradeLambdaStatusBadge"> {{ creditRiskRatingLambda | titlecase }}</span>
+                                            </div>
+                                            <br>
+                                            <div class="text-left pl-2">
+                                                Credit Risk Score :
+                                                <span><strong> {{ creditRiskLambdaScore }}</strong></span>
+                                            </div>
+                                            <br>
+                                            <div class="text-left pl-2">
+                                                Premium :
+                                                <span><strong> {{ creditRiskLambdaPremium }}</strong></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </nb-card-body>
+                        </nb-card>
+                    </div>
                 </div>
-                <div class="col-md-6 ml-0 gauge-label-padding">
-                  <div class="vertical-line">
-                    <div class="text-left pl-2">
-                      Credit Risk Grade :
-                      <span [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha | titlecase}}</span>
-                    </div>
-                    <br>
-                    <div class="text-left pl-2">
-                      Credit Risk Rating :
-                      <span [class]="creditGradeAlphaStatusBadge"> {{ creditRiskRatingAlpha | titlecase }}</span>
-                    </div>
-                    <br>
-                    <div class="text-left pl-2">
-                      Credit Risk Score :
-                      <span><strong> {{ creditRiskAlphaScore }}</strong></span>
-                    </div>
-                    <br>
-                    <div class="text-left pl-2">
-                      Premium :
-                      <span><strong> {{ creditRiskAlphaPremium }}</strong></span>
-                    </div>
-                  </div>
+
+                <!--old Alpha Crg-->
+                <!--<div *ngIf="creditRiskAlphaSummary" class="col-md-12">
+                  <nb-card>
+                    <nb-card-header class="text-center">
+                      <nb-select placeholder="Select Fiscal year"
+                                 [(selected)]="selectedAlphaCrgIndex"
+                                 (selectedChange)="changeFiscalYearForAlpha($event)">
+                        <nb-option *ngFor="let year of alphaFiscalYearArray; let i = index"
+                                   [value]="i">{{year}}</nb-option>
+                      </nb-select>
+                    </nb-card-header>
+                    <nb-card-body>
+                      <div class="row disable-print">
+                        <div class="col-md-6 text-right">
+                          <app-gauge-chart [chartWidth]="275"
+                                           gaugeIdentifier="crg-alpha"
+                                           [chartHeight]="180"
+                                           [maxValue]="100"
+                                           [obtainedValue]="creditRiskAlphaScore"></app-gauge-chart>
+                        </div>
+                        <div class="col-md-6 gauge-label-padding">
+                          <div class="vertical-line">
+                            <div class="text-left pl-2">
+                              <h5>Alpha</h5><br>
+                              Credit Risk Grade :
+                              <span
+                                  [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha | titlecase}}</span>
+                              <span class="text-danger">
+                        <em *ngIf="noComplianceLoanAlpha" class="fa fa-exclamation-triangle"> No compliance of
+                        Covenants / Conditions</em>
+                      </span>
+                            </div>
+                            <br>
+                            <div class="text-left pl-2">
+                              Credit Risk Score :
+                              <span><strong> {{ creditRiskAlphaScore }}</strong></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </nb-card-body>
+                  </nb-card>
+                </div>-->
+            </div>
+
+            <!--Applicant detail-->
+            <div class="row">
+                <div class="col-md-12">
+                    <strong>The Applicant</strong>
+                    <hr>
                 </div>
-              </div>
-            </nb-card-body>
-          </nb-card>
-        </div>
-
-        <!--CRG - Lambda-->
-        <div  *ngIf="creditRiskLambdaSummary" class="col-md-12">
-          <nb-card class="sb-medium">
-            <nb-card-header>
-              <h6>Credit Risk Gauge (Lambda)</h6>
-            </nb-card-header>
-            <nb-card-body>
-              <div class="row">
-                <div class="col-md-6 mr-0 pr-0 text-right">
-                  <app-gauge-chart [chartWidth]="275"
-                                   gaugeIdentifier="crg-lambda"
-                                   [chartHeight]="180"
-                                   [maxValue]="100"
-                                   [obtainedValue]="creditRiskLambdaScore"></app-gauge-chart>
+            </div>
+            <div class="row sb-small">
+                <div class="col-md-12">
+                    <b>Purpose: {{loanDataHolder.loan.name}}</b>
+                    <span class="float-right"><b>Loan Authority Under</b>- {{loanDataHolder.currentStage.toUser.name}}</span>
                 </div>
-                <div class="col-md-6 ml-0 gauge-label-padding">
-                  <div class="vertical-line">
-                    <div class="text-left pl-2">
-                      Credit Risk Grade :
-                      <span [class]="creditGradeLambdaStatusBadge"> {{creditRiskGradeLambda | titlecase}}</span>
-                    </div>
-                    <br>
-                    <div class="text-left pl-2">
-                      Credit Risk Rating :
-                      <span [class]="creditGradeLambdaStatusBadge"> {{ creditRiskRatingLambda | titlecase }}</span>
-                    </div>
-                    <br>
-                    <div class="text-left pl-2">
-                      Credit Risk Score :
-                      <span><strong> {{ creditRiskLambdaScore }}</strong></span>
-                    </div>
-                    <br>
-                    <div class="text-left pl-2">
-                      Premium :
-                      <span><strong> {{ creditRiskLambdaPremium }}</strong></span>
-                    </div>
-                  </div>
+            </div>
+            <div class="row sb-small mb-1">
+                <div class="col-md-12">
+                    <span> <b>Application Received On:</b> {{loanDataHolder.createdAt | date}}</span>
+                    <span
+                            class="float-right"><b>Forwarded on:</b> {{loanDataHolder.lastModifiedAt | date}}</span>
                 </div>
-              </div>
-            </nb-card-body>
-          </nb-card>
-        </div>
+            </div>
 
-        <!--old Alpha Crg-->
-        <!--<div *ngIf="creditRiskAlphaSummary" class="col-md-12">
-          <nb-card>
-            <nb-card-header class="text-center">
-              <nb-select placeholder="Select Fiscal year"
-                         [(selected)]="selectedAlphaCrgIndex"
-                         (selectedChange)="changeFiscalYearForAlpha($event)">
-                <nb-option *ngFor="let year of alphaFiscalYearArray; let i = index"
-                           [value]="i">{{year}}</nb-option>
-              </nb-select>
-            </nb-card-header>
-            <nb-card-body>
-              <div class="row disable-print">
-                <div class="col-md-6 text-right">
-                  <app-gauge-chart [chartWidth]="275"
-                                   gaugeIdentifier="crg-alpha"
-                                   [chartHeight]="180"
-                                   [maxValue]="100"
-                                   [obtainedValue]="creditRiskAlphaScore"></app-gauge-chart>
+            <div *ngIf="loanCategory === 'INSTITUTION'" class="row">
+                <div class="col-md-12">
+                    <app-company-info-summary
+                            [companyInfo]="loanDataHolder?.companyInfo"></app-company-info-summary>
                 </div>
-                <div class="col-md-6 gauge-label-padding">
-                  <div class="vertical-line">
-                    <div class="text-left pl-2">
-                      <h5>Alpha</h5><br>
-                      Credit Risk Grade :
-                      <span
-                          [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha | titlecase}}</span>
-                      <span class="text-danger">
-                <em *ngIf="noComplianceLoanAlpha" class="fa fa-exclamation-triangle"> No compliance of
-                Covenants / Conditions</em>
-              </span>
-                    </div>
-                    <br>
-                    <div class="text-left pl-2">
-                      Credit Risk Score :
-                      <span><strong> {{ creditRiskAlphaScore }}</strong></span>
-                    </div>
-                  </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <p><strong>Details of {{loanCategory === 'INSTITUTION' ? 'Authorized Person'
+                        : 'Borrower'}}</strong></p>
                 </div>
-              </div>
-            </nb-card-body>
-          </nb-card>
-        </div>-->
-      </div>
+                <div class="col-md-12">
+                    <div *ngIf="loanCategory === 'INDIVIDUAL'">
+                        <table
+                                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                            <thead>
+                            <tr class="text-white sb-bg-dark">
+                                <th>Name</th>
+                                <th>Date Of Birth</th>
+                                <th>Citizenship Number</th>
+                                <th>Contact Number</th>
+                                <th>Occupation</th>
+                                <th>Income Source</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
+                                <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
+                                <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
+                                <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
+                                <td>{{(loanDataHolder?.customerInfo?.occupation ? loanDataHolder?.customerInfo?.occupation : ''| jsonParse)?.multipleOccupation || 'NA'}}</td>
+                                <td>{{(loanDataHolder?.customerInfo?.incomeSource ? loanDataHolder?.customerInfo?.incomeSource : ''| jsonParse)?.multipleIncome || 'NA'}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table class="print-only table table-bordered text-center table-sm sb-small"
+                               id="print-borrower-table">
+                            <thead>
+                            <tr class="text-white sb-bg-dark">
+                                <th>Name</th>
+                                <th>Date Of Birth</th>
+                                <th>Citizenship Number</th>
+                                <th>Contact Number</th>
+                                <th>Occupation</th>
+                                <th>Income Source</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
+                                <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
+                                <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
+                                <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
+                                <td>{{loanDataHolder?.customerInfo?.occupation}}</td>
+                                <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div *ngIf="loanCategory === 'INSTITUTION'">
+                        <table
+                                class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
+                            <thead>
+                            <tr class="text-white sb-bg-dark">
+                                <th>Name</th>
+                                <th>Contact Number</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{loanDataHolder?.companyInfo?.contactPerson?.name}}</td>
+                                <td>{{loanDataHolder?.companyInfo?.contactPerson?.contactNumber}}</td>
+                                <td>{{loanDataHolder?.companyInfo?.contactPerson?.email}}</td>
+                                <td>{{loanDataHolder?.companyInfo?.contactPerson?.province?.name}}
+                                    ,{{loanDataHolder?.companyInfo?.contactPerson?.district?.name}}
+                                    ,{{ loanDataHolder?.companyInfo?.contactPerson?.municipalityVdc?.name}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div *ngIf="loanCategory === 'INDIVIDUAL'">
+                        <p><strong>Family Details</strong></p>
+                        <table
+                                class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                            <thead>
+                            <tr class="text-white sb-bg-dark">
+                                <th>Name</th>
+                                <th>Relation Name</th>
+                                <th>Citizenship no.</th>
+                                <th>Citizenship Issued Date</th>
 
-      <!--Applicant detail-->
-      <div class="row">
-        <div class="col-md-12">
-          <strong>The Applicant</strong>
-          <hr>
-        </div>
-      </div>
-      <div class="row sb-small">
-        <div class="col-md-12">
-          <b>Purpose: {{loanDataHolder.loan.name}}</b>
-          <span class="float-right"><b>Loan Authority Under</b>- {{loanDataHolder.currentStage.toUser.name}}</span>
-        </div>
-      </div>
-      <div class="row sb-small mb-1">
-        <div class="col-md-12">
-          <span> <b>Application Received On:</b> {{loanDataHolder.createdAt | date}}</span>
-          <span
-              class="float-right"><b>Forwarded on:</b> {{loanDataHolder.lastModifiedAt | date}}</span>
-        </div>
-      </div>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
+                                <td>
+                                    {{relative.customerRelativeName}}
+                                </td>
 
-      <div *ngIf="loanCategory === 'INSTITUTION'" class="row">
-        <div class="col-md-12">
-          <app-company-info-summary
-              [companyInfo]="loanDataHolder?.companyInfo"></app-company-info-summary>
-        </div>
-      </div>
+                                <td>
+                                    {{relative.customerRelation}}
+                                </td>
+                                <td>
+                                    {{relative.citizenshipNumber}}
+                                </td>
+                                <td>
+                                    {{relative.citizenshipIssuedDate | date}}
+                                </td>
 
-      <div class="row">
-        <div class="col-md-12">
-          <p><strong>Details of {{loanCategory === 'INSTITUTION' ? 'Authorized Person'
-              : 'Borrower'}}</strong></p>
-        </div>
-        <div class="col-md-12">
-          <div *ngIf="loanCategory === 'INDIVIDUAL'">
-            <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-              <thead>
-              <tr class="text-white sb-bg-dark">
-                <th>Name</th>
-                <th>Date Of Birth</th>
-                <th>Citizenship Number</th>
-                <th>Contact Number</th>
-                <th>Occupation</th>
-                <th>Income Source</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
-                <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
-                <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
-                <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
-                <td>{{(loanDataHolder?.customerInfo?.occupation ? loanDataHolder?.customerInfo?.occupation : ''| jsonParse)?.multipleOccupation || 'NA'}}</td>
-                <td>{{(loanDataHolder?.customerInfo?.incomeSource ? loanDataHolder?.customerInfo?.incomeSource : ''| jsonParse)?.multipleIncome || 'NA'}}</td>
-              </tr>
-              </tbody>
-            </table>
-            <table class="print-only table table-bordered text-center table-sm sb-small" id="print-borrower-table">
-              <thead>
-              <tr class="text-white sb-bg-dark">
-                <th>Name</th>
-                <th>Date Of Birth</th>
-                <th>Citizenship Number</th>
-                <th>Contact Number</th>
-                <th>Occupation</th>
-                <th>Income Source</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
-                <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
-                <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
-                <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
-                <td>{{loanDataHolder?.customerInfo?.occupation}}</td>
-                <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-          <div *ngIf="loanCategory === 'INSTITUTION'">
-            <table
-                class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
-              <thead>
-              <tr class="text-white sb-bg-dark">
-                <th>Name</th>
-                <th>Contact Number</th>
-                <th>Email</th>
-                <th>Address</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td>{{loanDataHolder?.companyInfo?.contactPerson?.name}}</td>
-                <td>{{loanDataHolder?.companyInfo?.contactPerson?.contactNumber}}</td>
-                <td>{{loanDataHolder?.companyInfo?.contactPerson?.email}}</td>
-                <td>{{loanDataHolder?.companyInfo?.contactPerson?.province?.name}}
-                  ,{{loanDataHolder?.companyInfo?.contactPerson?.district?.name}}
-                  ,{{ loanDataHolder?.companyInfo?.contactPerson?.municipalityVdc?.name}}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-          <div *ngIf="loanCategory === 'INDIVIDUAL'">
-            <p><strong>Family Details</strong></p>
-            <table
-                class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-              <thead>
-              <tr class="text-white sb-bg-dark">
-                <th>Name</th>
-                <th>Relation Name</th>
-                <th>Citizenship no.</th>
-                <th>Citizenship Issued Date</th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
-                <td>
-                  {{relative.customerRelativeName}}
-                </td>
+                </div>
+            </div>
+            <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
+                <div class="col-md-12">
+                    <p><strong>Detail of Present Proposal of the Facility</strong></p>
+                    <table class="table table-bordered text-center table-sm sb-small">
+                        <tbody>
+                        <tr>
+                            <th>Credit Facility</th>
+                            <td>{{loanDataHolder?.loan?.name}}</td>
 
-                <td>
-                  {{relative.customerRelation}}
-                </td>
-                <td>
-                  {{relative.citizenshipNumber}}
-                </td>
-                <td>
-                  {{relative.citizenshipIssuedDate | date}}
-                </td>
+                            <th>Loan Category</th>
+                            <td>{{loanDataHolder?.loanCategory === 'INDIVIDUAL' ? 'PERSONAL'
+                                : 'BUSINESS'}}</td>
 
-              </tr>
-              </tbody>
-            </table>
-          </div>
+                            <th>Proposed Limit</th>
+                            <td>{{dmsLoanFile?.proposedAmount
+                            || loanDataHolder?.proposal?.proposedLimit | currencyFormatter}}</td>
 
-        </div>
-      </div>
-      <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
-        <div class="col-md-12">
-          <p><strong>Detail of Present Proposal of the Facility</strong></p>
-          <table class="table table-bordered text-center table-sm sb-small">
-            <tbody>
-            <tr >
-              <th>Credit Facility</th>
-              <td>{{loanDataHolder?.loan?.name}}</td>
+                            <th>Interest Rate</th>
+                            <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}} %</td>
 
-              <th>Loan Category</th>
-              <td>{{loanDataHolder?.loanCategory === 'INDIVIDUAL' ? 'PERSONAL'
-                  : 'BUSINESS'}}</td>
+                            <th>Tenure Duration In Month</th>
+                            <td>{{(dmsLoanFile?.tenureDuration
+                                || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
 
-              <th>Proposed Limit</th>
-              <td>{{dmsLoanFile?.proposedAmount
-              || loanDataHolder?.proposal?.proposedLimit | currencyFormatter}}</td>
+                        </tr>
+                        <tr>
+                            <th>Service Charge</th>
+                            <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
+                                {{dmsLoanFile?.serviceChargeAmount || loanDataHolder?.proposal?.serviceCharge}}
+                                {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}
+                            </td>
 
-              <th>Interest Rate</th>
-              <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}} %</td>
+                            <th>FMV Funding Percentage</th>
+                            <td>{{dmsLoanFile?.fmvFundingPercent}} %</td>
 
-              <th>Tenure Duration In Month</th>
-              <td>{{(dmsLoanFile?.tenureDuration
-                  || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
+                            <th>Total FMV</th>
+                            <td>{{dmsLoanFile?.fmvTotal | currencyFormatter}}</td>
 
-            </tr>
-            <tr>
-              <th>Service Charge</th>
-              <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
-                {{dmsLoanFile?.serviceChargeAmount || loanDataHolder?.proposal?.serviceCharge}}
-                {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}
-              </td>
+                            <th>Total DV</th>
+                            <td>{{dmsLoanFile?.distressValue | currencyFormatter}}</td>
 
-              <th>FMV Funding Percentage</th>
-              <td>{{dmsLoanFile?.fmvFundingPercent}} %</td>
+                            <th>Total Loan Limit</th>
+                            <td>{{dmsLoanFile?.totalLoanLimit | currencyFormatter}}</td>
+                        </tr>
+                        <tr>
+                            <th *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">Individual Exposure</th>
+                            <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">{{dmsLoanFile?.individualExposure | currencyFormatter}}</td>
 
-              <th>Total FMV</th>
-              <td>{{dmsLoanFile?.fmvTotal | currencyFormatter}}</td>
+                            <th *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">Institution Exposure</th>
+                            <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">{{dmsLoanFile?.institutionExposure | currencyFormatter}}</td>
 
-              <th>Total DV</th>
-              <td>{{dmsLoanFile?.distressValue | currencyFormatter}}</td>
+                            <th>Group Exposure</th>
+                            <td>{{dmsLoanFile?.groupExpo | currencyFormatter}}</td>
 
-              <th>Total Loan Limit</th>
-              <td>{{dmsLoanFile?.totalLoanLimit | currencyFormatter}}</td>
-            </tr>
-            <tr>
-              <th *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">Individual Exposure</th>
-              <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">{{dmsLoanFile?.individualExposure | currencyFormatter}}</td>
+                            <th *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">Interest Coverage Ratio
+                            </th>
+                            <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">{{dmsLoanFile?.incomeCoverageRatio}}</td>
 
-              <th *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">Institution Exposure</th>
-              <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">{{dmsLoanFile?.institutionExposure | currencyFormatter}}</td>
+                            <th *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">Debt Service Coverage
+                                Ratio
+                            </th>
+                            <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">{{dmsLoanFile?.debtServiceCoverageRatio}}</td>
 
-              <th>Group Exposure</th>
-              <td>{{dmsLoanFile?.groupExpo | currencyFormatter}}</td>
+                            <th *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">Dealing Product Name</th>
+                            <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">{{dmsLoanFile?.dealingProductName}}</td>
+                        </tr>
+                        <tr>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
+                <div class="col-md-12">
+                    <p><strong>Security Offered</strong></p>
+                    <p><label *ngFor="let security of securities; let i = index">{{i + 1}}
+                        . {{Security[security]}}&nbsp;&nbsp;</label>
+                    </p>
+                </div>
+            </div>
 
-              <th *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">Interest Coverage Ratio
-              </th>
-              <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">{{dmsLoanFile?.incomeCoverageRatio}}</td>
+            <!--<div class="row mt-3">
+                <div class="col-md-6">
+                    <p style="font-size: 15px"><strong>Service Charge Type</strong></p>
+                    <table class="table table-condensed table-bordered">
+                        <tbody>
+                        <tr>
+                            <td>{{dmsLoanFile?.serviceChargeType}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <p style="font-size: 15px"><strong>Service Charge Amount</strong></p>
+                    <table class="table table-condensed table-bordered">
+                        <tbody>
+                        <tr>
+                            <td>{{dmsLoanFile?.serviceChargeAmount}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>-->
 
-              <th *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">Debt Service Coverage
-                Ratio
-              </th>
-              <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">{{dmsLoanFile?.debtServiceCoverageRatio}}</td>
+            <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
+                <div class="col-md-12">
+                    <p><strong>Recommendation and Conclusion</strong></p>
+                    <p class="border text-justify p-1">
+                        {{dmsLoanFile?.recommendationConclusion}}
+                    </p>
+                </div>
+            </div>
 
-              <th *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">Dealing Product Name</th>
-              <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">{{dmsLoanFile?.dealingProductName}}</td>
-            </tr>
-            <tr>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
-        <div class="col-md-12">
-          <p><strong>Security Offered</strong></p>
-          <p><label *ngFor="let security of securities; let i = index">{{i + 1}}
-            . {{Security[security]}}&nbsp;&nbsp;</label>
-          </p>
-        </div>
-      </div>
+            <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
+                <div class="col-md-12">
+                    <p><strong>Waiver</strong></p>
+                    <p class="border text-justify p-1">
+                        {{dmsLoanFile?.waiver}}
+                    </p>
+                </div>
+            </div>
 
-      <!--<div class="row mt-3">
-          <div class="col-md-6">
-              <p style="font-size: 15px"><strong>Service Charge Type</strong></p>
-              <table class="table table-condensed table-bordered">
-                  <tbody>
-                  <tr>
-                      <td>{{dmsLoanFile?.serviceChargeType}}</td>
-                  </tr>
-                  </tbody>
-              </table>
-          </div>
-          <div class="col-md-6">
-              <p style="font-size: 15px"><strong>Service Charge Amount</strong></p>
-              <table class="table table-condensed table-bordered">
-                  <tbody>
-                  <tr>
-                      <td>{{dmsLoanFile?.serviceChargeAmount}}</td>
-                  </tr>
-                  </tbody>
-              </table>
-          </div>
-      </div>-->
+            <app-proposal-summary
+                    *ngIf="proposalSummary"
+                    [customerAllLoanList]="customerAllLoanList"
+                    [proposalData]="proposalData"></app-proposal-summary>
+            <div class="row">
+                <div class="col-md-12 sb-medium">
+                    <strong>Propose Amount:</strong>
+                    Rs. {{loanDataHolder?.proposal?.proposedAmountInWords}}
+                    Only /-
+                </div>
+            </div>
+            <div *ngIf="loanDataHolder?.customerInfo?.withinLimitRemarks">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <tr class="sb-bg-dark text-white">
+                        <th>Within Limit Remarks (if any)</th>
+                    </tr>
+                    <tr>
+                        <td> {{loanDataHolder?.customerInfo?.withinLimitRemarks}}</td>
+                    </tr>
+                </table>
+            </div>
 
-      <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
-        <div class="col-md-12">
-          <p><strong>Recommendation and Conclusion</strong></p>
-          <p class="border text-justify p-1">
-            {{dmsLoanFile?.recommendationConclusion}}
-          </p>
-        </div>
-      </div>
+            <div *ngIf="loanDataHolder?.companyInfo?.withinLimitRemarks">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <tr class="sb-bg-dark text-white">
+                        <th>Within Limit Remarks (if any)</th>
+                    </tr>
+                    <tr>
+                        <td> {{loanDataHolder?.companyInfo?.withinLimitRemarks}}</td>
+                    </tr>
+                </table>
+            </div>
 
-      <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
-        <div class="col-md-12">
-          <p><strong>Waiver</strong></p>
-          <p class="border text-justify p-1">
-            {{dmsLoanFile?.waiver}}
-          </p>
-        </div>
-      </div>
+            <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
+                                        [groupDto]="loanDataHolder?.groupSummaryDto"
+                                        [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>
 
-      <app-proposal-summary
-          *ngIf="proposalSummary"
-          [customerAllLoanList]="customerAllLoanList"
-          [proposalData]="proposalData"></app-proposal-summary>
-      <div class="row">
-        <div class="col-md-12 sb-medium">
-          <strong>Propose Amount:</strong>
-          Rs. {{loanDataHolder?.proposal?.proposedAmountInWords}}
-          Only /-
-        </div>
-      </div>
-      <div *ngIf="loanDataHolder?.customerInfo?.withinLimitRemarks">
-        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-          <tr class="sb-bg-dark text-white">
-            <th>Within Limit Remarks (if any)</th>
-          </tr>
-          <tr>
-            <td> {{loanDataHolder?.customerInfo?.withinLimitRemarks}}</td>
-          </tr>
-        </table>
-      </div>
+            <app-collateral-summary
+                    *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
+                    [customerAllLoanList]="customerAllLoanList"
+                    [security]="loanDataHolder?.security"></app-collateral-summary>
+            <app-proposal-justification-summary *ngIf="proposalSummary"
+                                                [customerAllLoanList]="customerAllLoanList"
+                                                [proposalData]="proposalData"></app-proposal-justification-summary>
 
-      <div *ngIf="loanDataHolder?.companyInfo?.withinLimitRemarks">
-        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-          <tr class="sb-bg-dark text-white">
-            <th>Within Limit Remarks (if any)</th>
-          </tr>
-          <tr>
-            <td> {{loanDataHolder?.companyInfo?.withinLimitRemarks}}</td>
-          </tr>
-        </table>
-      </div>
+            <app-security-summary *ngIf="securitySummary"
+                                  [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
 
-      <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
-      [groupDto]="loanDataHolder?.groupSummaryDto" [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>
+            <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
+                                   [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
-      <app-collateral-summary
-              *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
-              [customerAllLoanList]="customerAllLoanList"
-              [security]="loanDataHolder?.security"></app-collateral-summary>
-      <app-proposal-justification-summary *ngIf="proposalSummary"
-                                          [customerAllLoanList]="customerAllLoanList"
-                                          [proposalData]="proposalData"></app-proposal-justification-summary>
+            <hr>
+            <app-net-trading-assets *ngIf="netTradingAssetsSummary"
+                                    [fromProfile]="false"
+                                    [netTradingAssetsData]="netTradingAssetsData"></app-net-trading-assets>
 
-      <app-security-summary *ngIf="securitySummary"
-                            [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
+            <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
+                                             [formData]="incomeFromAccountData"></app-income-from-account-summery>
 
-      <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
-                             [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
+            <app-guarantor-summary *ngIf="checkGuarantorData"
+                                   [guarantorData]="guarantorData"></app-guarantor-summary>
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <app-sitevist-summary-component *ngIf="siteVisitSummary"
+                                                    [formData]="siteVisitData"
+                                                    [loanType]="loanDataHolder?.loanCategory"></app-sitevist-summary-component>
+                </div>
+            </div>
 
-      <hr>
-      <app-net-trading-assets *ngIf="netTradingAssetsSummary"
-                              [fromProfile]="false"
-                              [netTradingAssetsData]="netTradingAssetsData"></app-net-trading-assets>
+            <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
 
-      <app-income-from-account-summery *ngIf="incomeFromAccountSummary" [formData]="incomeFromAccountData"></app-income-from-account-summery>
+                <app-report-summary
+                        [approved]="true"
+                        *ngIf="loanDataHolder?.reportingInfoLog"
+                        [reportingInfoLevelLog]="loanDataHolder?.reportingInfoLog">
+                </app-report-summary>
+            </div>
+            <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
+                <app-report-summary
+                        [approved]="false"
+                        *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0"
+                        [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
+            </div>
 
-      <app-guarantor-summary *ngIf="checkGuarantorData"
-                             [guarantorData]="guarantorData"></app-guarantor-summary>
-      <div class="row mt-3">
-        <div class="col-md-12">
-          <app-sitevist-summary-component *ngIf="siteVisitSummary"
-                                          [formData]="siteVisitData"
-                                          [loanType]="loanDataHolder?.loanCategory"></app-sitevist-summary-component>
-        </div>
-      </div>
-
-        <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
-
-            <app-report-summary
-                    [approved]="true"
-                    *ngIf="loanDataHolder?.reportingInfoLog"
-                    [reportingInfoLevelLog]="loanDataHolder?.reportingInfoLog">
-            </app-report-summary>
-        </div>
-        <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
-            <app-report-summary
-                    [approved]="false"
-                    *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0"
-                    [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
-        </div>
-
-      <app-insurance-summary *ngIf="loanDataHolder?.insurance"
-                             [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
-      <div class="row">
-        <div class="col-md-12 disable-print">
+            <app-insurance-summary *ngIf="loanDataHolder?.insurance"
+                                   [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
+            <div class="row">
+                <div class="col-md-12 disable-print">
           <span>
             <b>All Documents</b>
-            <button class="float-right sb-small sb-bg-dark text-white" *ngIf="loanDataHolder?.customerDocument?.length > 0"  (click)=downloadAllDocument(loanDataHolder?.customerDocument[0]?.documentPath)> Download All Document</button>
+            <button class="float-right sb-small sb-bg-dark text-white"
+                    *ngIf="loanDataHolder?.customerDocument?.length > 0"
+                    (click)=downloadAllDocument(loanDataHolder?.customerDocument[0]?.documentPath)> Download All Document</button>
           </span>
-        </div>
-      </div>
-      <hr>
-      <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row disable-print">
-        <div class="col-md-12">
-          <p><strong>Loan Documents</strong></p>
-        </div>
-        <div class="col-md-12">
-          <table class="table table-condensed table-bordered table-sm sb-small text-center">
-            <thead>
-            <tr class="text-white sb-bg-dark">
-              <th>S.N</th>
-              <th>Document</th>
-              <th>Preview</th>
-              <th>Download
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let singleDoc of loanDataHolder?.customerDocument; let i = index">
-              <td>{{i + 1}}</td>
-              <td>{{singleDoc?.document?.name}}</td>
-              <td><i (click)="previewOfferLetterDocument(singleDoc?.documentPath,singleDoc?.document?.displayName)" class="fas fa-eye"></i> </td>
-              <td>
-                <i (click)="downloadCustomerDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
-                   aria-hidden="true" class="fa fa-download"
-                   style="cursor: pointer"></i>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row disable-print">
-        <div class="col-md-12">
-          <table class="table table-condensed table-bordered table-sm sb-small text-center">
-
-          <tr class="text-white sb-bg-dark" >
-            <th colspan="4">            Customer General Document
-            </th>
-          </tr>
-          <tr class="text-white sb-bg-dark">
-            <th>SN</th>
-            <th>Document</th>
-            <th>Preview</th>
-            <th>Download</th>
-          </tr>
-          <tr *ngFor="let generalDoc of loanDataHolder?.loanHolder?.customerGeneralDocuments; let i=index">
-            <td>{{i+1}}</td>
-            <td>{{generalDoc?.document?.displayName}}</td>
-            <td><i (click)="previewOfferLetterDocument(generalDoc?.docPath,generalDoc?.document?.displayName)" class="fas fa-eye"></i></td>
-            <td><i (click)="downloadCustomerDocument(generalDoc?.docPath,generalDoc?.document?.displayName)" class="fas fa-download"></i></td>
-          </tr>
-          </table>
-        </div>
-      </div>
-      <div *ngIf="minOneGuarantorDoc" class="row disable-print">
-        <div class="col-md-12">
-          <p><strong>Guarantor Documents</strong></p>
-          <table class="table table-condensed table-bordered table-sm sb-small text-center">
-            <thead>
-            <tr class="text-white sb-bg-dark">
-              <th>S.N</th>
-              <th>Guarantor</th>
-              <th>Document</th>
-              <th>Preview</th>
-              <th>Download
-              </th>
-            </tr>
-            </thead>
-            <tbody  *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
-            <tr *ngIf="singleDoc?.docPath">
-              <td>{{i + 1}}</td>
-              <td>{{singleDoc?.name}}</td>
-              <td>Net Worth Document</td>
-              <td><i (click)="previewOfferLetterDocument(singleDoc?.docPath,singleDoc?.name + 'Net Worth Doc')" class="fas fa-eye"></i> </td>
-
-              <td>
-                <i (click)="downloadCustomerDocument(singleDoc?.docPath, singleDoc?.name+' Net Worth Doc')"
-                   aria-hidden="true" class="fa fa-download"
-                   style="cursor: pointer"></i>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div *ngIf="minOneInsuranceDoc" class="row disable-print">
-        <div class="col-md-12">
-          <p><strong>Insurance Documents</strong></p>
-          <table class="table table-condensed table-bordered table-sm sb-small text-center">
-            <thead>
-            <tr class="text-white sb-bg-dark">
-              <th>S.N</th>
-              <th>Policy Number</th>
-              <th>Company</th>
-              <th>Document</th>
-              <th>Preview</th>
-              <th>Download</th>
-            </tr>
-            </thead>
-            <tbody *ngFor="let singleDoc of insuranceWithDoc; let i = index">
-            <tr *ngIf="singleDoc.policyDocumentPath">
-              <td>{{i + 1}}</td>
-              <td>{{singleDoc?.policyNumber}}</td>
-              <td>{{singleDoc?.company}}</td>
-              <td>Insurance Policy</td>
-              <td><i (click)="previewOfferLetterDocument(singleDoc?.policyDocumentPath,singleDoc.policyNumber+' Insurance Policy Document')" class="fas fa-eye"></i> </td>
-
-              <td>
-                <i  (click)="downloadCustomerDocument(singleDoc?.policyDocumentPath, singleDoc?.policyNumber+' Insurance Policy Document')"
-                   aria-hidden="true" class="fa fa-download"
-                   style="cursor: pointer"></i>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="row justify-content-end px-3 disable-print">{{docMsg}}</div>
-
-      <div class="row mt-3 disable-print">
-        <div class="col-md-12">
-          <p><strong>Authority Section</strong></p>
-          <table
-              class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-            <thead>
-            <tr class="sb-bg-dark text-white">
-              <th>S.N</th>
-              <th>Date</th>
-              <th>From User</th>
-
-              <th>To User</th>
-
-              <th>Status</th>
-              <th class="cmt-width">Remarks</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
-              <td>{{i + 1}}</td>
-              <td>
-                {{previousList?.lastModifiedAt | date}}
-              </td>
-              <td>
-                <div class="col-md-12">
-                  <div class="d-flex justify-content-center">
-                    {{previousList?.fromUser?.name}}</div>
                 </div>
-                <div class="col-md-12">
-                  <div class="d-flex justify-content-center">
-                    <span>({{previousList?.fromRole?.roleName}})</span>
-                  </div>
-
-                </div>
-
-              </td>
-
-              <td>
-                <div class="col-md-12">
-                  <div class="d-flex justify-content-center">
-                    {{previousList?.toUser?.name}}</div>
-                </div>
-                <div class="col-md-12">
-                  <div class="d-flex justify-content-center">
-                    ({{previousList?.toRole?.roleName}})
-                  </div>
-
-                </div>
-              </td>
-
-              <td>{{previousList?.docAction}}</td>
-              <td class="text-justify">
-                <div class="cmt-height">
-                  {{previousList?.comment?.length > 50 ?
-                    previousList?.comment?.substring(0, 49) :
-                    previousList?.comment}}
-                </div>
-                <a (click)="open(previousList?.comment)"
-                   *ngIf="previousList?.comment?.length > 50"
-                   class="justify-content-end read-margin">read more ....</a>
-              </td>
-            </tr>
-            <tr>
-              <td>{{currentIndex + 1}}</td>
-              <td>{{loanDataHolder?.currentStage?.lastModifiedAt | date}}</td>
-              <td>
-                <div class="col-md-12">
-                  <div class="d-flex justify-content-center">
-                    {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
-                </div>
-                <div class="col-md-12">
-                  <div class="d-flex justify-content-center">
-                    <span>({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                  </div>
-
-                </div>
-              </td>
-
-              <td> <div class="col-md-12">
-                <div class="d-flex justify-content-center">
-                  {{loanDataHolder?.currentStage?.toUser?.name}}</div>
-              </div>
-                <div class="col-md-12">
-                  <div class="d-flex justify-content-center">
-                    <span>({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                  </div>
-
-                </div></td>
-
-              <td>{{loanDataHolder?.currentStage?.docAction}}</td>
-              <td class="text-justify">
-                <div class="cmt-height">
-                  {{loanDataHolder?.currentStage?.comment?.length > 50 ?
-                    loanDataHolder?.currentStage?.comment?.substring(0, 49) :
-                    loanDataHolder?.currentStage?.comment}}
-                </div>
-                <a (click)="open(loanDataHolder.currentStage.comment)"
-                   *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
-                   class="justify-content-end read-margin">read more ....</a>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div *ngIf="signatureList.length > 0" class="row justify-content-between px-3"
-           id="signatureDiv">
-        <div class="col-md-12 print-only">
-          <p><strong>Approval Chain</strong></p>
-        </div>
-        <div *ngFor="let previous of signatureList; let i=index;"
-             class="col-md-3 padding-0-125">
-          <div class="signature-block">
-            <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
-              <span>{{loanHandler(i, signatureList.length)}}</span>
             </div>
-            <hr class="border-dark m-0">
-            <div class="row justify-content-center signature mx-auto">
-              <div class="print-only signature-padding"></div>
-              <img align="middle" alt="signature"
-                   class="img-thumbnail border-0 signature-height"
-                   src="{{previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage}}"/>
-            </div>
-            <div class="text-center signature-detail sb-bg-secondary text-white">
-              <p class="m-0 sb-small">{{previous?.fromUser?.name}}</p>
-              <p class="m-0 sb-small">({{previous?.fromUser?.role?.roleName}})</p>
-              <p class="m-0 sb-small">{{previous?.lastModifiedAt}}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div *ngIf="loanDataHolder?.customerOfferLetter"
-           class="row justify-content-between pt-5 disable-print"
-           id="offerLetterDiv">
-        <div class="col-md-12">
-          <p><strong>Offer Letter Authority Section</strong></p>
-        </div>
-        <div class="col-md-12">
-          <table
-              class="table table-condensed table-bordered table-responsive-md text-center sb-small table-sm">
-            <thead>
-            <tr class="text-white sb-bg-dark">
-              <th>S.N</th>
-              <th>From User</th>
-              <th>From Position</th>
-              <th>To User</th>
-              <th>To Position</th>
-              <th>Status</th>
-              <th class="cmt-width">Remarks</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let previousList of loanDataHolder?.customerOfferLetter?.previousList ; let i = index">
-              <td>{{i + 1}}</td>
-              <td>{{previousList?.fromUser?.name}}</td>
-              <td>{{previousList?.fromRole?.roleName}}</td>
-              <td>{{previousList?.toUser?.name}}</td>
-              <td>{{previousList?.toRole?.roleName}}</td>
-              <td>{{previousList?.docAction}}</td>
-              <td class="text-justify">
-                <div class="cmt-height">
-                  {{previousList?.comment?.length > 50 ?
-                    previousList?.comment?.substring(0, 49) :
-                    previousList?.comment}}
+            <hr>
+            <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row disable-print">
+                <div class="col-md-12">
+                    <p><strong>Loan Documents</strong></p>
                 </div>
-                <a (click)="open(previousList?.comment)"
-                   *ngIf="previousList?.comment?.length > 50"
-                   class="justify-content-end read-margin">read more ....</a>
-              </td>
-            </tr>
-            <tr>
-              <td>{{loanDataHolder?.customerOfferLetter?.previousList?.length + 1}}</td>
-              <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.fromUser?.name}}</td>
-              <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.fromRole?.roleName}}</td>
-              <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.toUser?.name}}</td>
-              <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.toRole?.roleName}}</td>
-              <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.docAction}}</td>
-              <td class="text-justify">
-                <div class="cmt-height">
-                  {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.length > 50 ?
-                    loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.substring(0, 49)
-                    :
-                    loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment}}
+                <div class="col-md-12">
+                    <table class="table table-condensed table-bordered table-sm sb-small text-center">
+                        <thead>
+                        <tr class="text-white sb-bg-dark">
+                            <th>S.N</th>
+                            <th>Document</th>
+                            <th>Preview</th>
+                            <th>Download
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let singleDoc of loanDataHolder?.customerDocument; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{singleDoc?.document?.name}}</td>
+                            <td>
+                                <i (click)="previewOfferLetterDocument(singleDoc?.documentPath,singleDoc?.document?.displayName)"
+                                   class="fas fa-eye"></i></td>
+                            <td>
+                                <i (click)="downloadCustomerDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
+                                   aria-hidden="true" class="fa fa-download"
+                                   style="cursor: pointer"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <a (click)="open(loanDataHolder.customerOfferLetter?.offerLetterStage.comment)"
-                   *ngIf="loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.length > 50"
-                   class="justify-content-end read-margin">read more ....</a>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+            </div>
+            <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row disable-print">
+                <div class="col-md-12">
+                    <table class="table table-condensed table-bordered table-sm sb-small text-center">
 
-      <div *ngIf="offerLetterDocuments.length>0" class="row disable-print">
-        <div class="col-md-12">
-          <p><strong>Offer Letter Documents</strong></p>
-          <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
-            <thead>
-            <tr class="text-white sb-bg-dark">
-              <th>S.N</th>
-              <th>Document</th>
-              <th>Preview</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let offerLetterDocument of offerLetterDocuments; let i = index">
-              <td>{{i + 1}}</td>
-              <td>{{offerLetterDocument?.name}}</td>
-              <td><i
-                  (click)="previewOfferLetterDocument(offerLetterDocument.url, offerLetterDocument.name)"
-                  aria-hidden="true" class="fa fa-eye"
-                  style="cursor: pointer"></i>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+                        <tr class="text-white sb-bg-dark">
+                            <th colspan="4"> Customer General Document
+                            </th>
+                        </tr>
+                        <tr class="text-white sb-bg-dark">
+                            <th>SN</th>
+                            <th>Document</th>
+                            <th>Preview</th>
+                            <th>Download</th>
+                        </tr>
+                        <tr *ngFor="let generalDoc of loanDataHolder?.loanHolder?.customerGeneralDocuments; let i=index">
+                            <td>{{i + 1}}</td>
+                            <td>{{generalDoc?.document?.displayName}}</td>
+                            <td>
+                                <i (click)="previewOfferLetterDocument(generalDoc?.docPath,generalDoc?.document?.displayName)"
+                                   class="fas fa-eye"></i></td>
+                            <td>
+                                <i (click)="downloadCustomerDocument(generalDoc?.docPath,generalDoc?.document?.displayName)"
+                                   class="fas fa-download"></i></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div *ngIf="minOneGuarantorDoc" class="row disable-print">
+                <div class="col-md-12">
+                    <p><strong>Guarantor Documents</strong></p>
+                    <table class="table table-condensed table-bordered table-sm sb-small text-center">
+                        <thead>
+                        <tr class="text-white sb-bg-dark">
+                            <th>S.N</th>
+                            <th>Guarantor</th>
+                            <th>Document</th>
+                            <th>Preview</th>
+                            <th>Download
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
+                        <tr *ngIf="singleDoc?.docPath">
+                            <td>{{i + 1}}</td>
+                            <td>{{singleDoc?.name}}</td>
+                            <td>Net Worth Document</td>
+                            <td>
+                                <i (click)="previewOfferLetterDocument(singleDoc?.docPath,singleDoc?.name + 'Net Worth Doc')"
+                                   class="fas fa-eye"></i></td>
 
-    </nb-card-body>
-  </nb-card>
+                            <td>
+                                <i (click)="downloadCustomerDocument(singleDoc?.docPath, singleDoc?.name+' Net Worth Doc')"
+                                   aria-hidden="true" class="fa fa-download"
+                                   style="cursor: pointer"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div *ngIf="minOneInsuranceDoc" class="row disable-print">
+                <div class="col-md-12">
+                    <p><strong>Insurance Documents</strong></p>
+                    <table class="table table-condensed table-bordered table-sm sb-small text-center">
+                        <thead>
+                        <tr class="text-white sb-bg-dark">
+                            <th>S.N</th>
+                            <th>Policy Number</th>
+                            <th>Company</th>
+                            <th>Document</th>
+                            <th>Preview</th>
+                            <th>Download</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngFor="let singleDoc of insuranceWithDoc; let i = index">
+                        <tr *ngIf="singleDoc.policyDocumentPath">
+                            <td>{{i + 1}}</td>
+                            <td>{{singleDoc?.policyNumber}}</td>
+                            <td>{{singleDoc?.company}}</td>
+                            <td>Insurance Policy</td>
+                            <td>
+                                <i (click)="previewOfferLetterDocument(singleDoc?.policyDocumentPath,singleDoc.policyNumber+' Insurance Policy Document')"
+                                   class="fas fa-eye"></i></td>
+
+                            <td>
+                                <i (click)="downloadCustomerDocument(singleDoc?.policyDocumentPath, singleDoc?.policyNumber+' Insurance Policy Document')"
+                                   aria-hidden="true" class="fa fa-download"
+                                   style="cursor: pointer"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row justify-content-end px-3 disable-print">{{docMsg}}</div>
+
+            <div class="row mt-3 disable-print">
+                <div class="col-md-12">
+                    <p><strong>Authority Section</strong></p>
+                    <table
+                            class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                        <thead>
+                        <tr class="sb-bg-dark text-white">
+                            <th>S.N</th>
+                            <th>Date</th>
+                            <th>From User</th>
+
+                            <th>To User</th>
+
+                            <th>Status</th>
+                            <th class="cmt-width">Remarks</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>
+                                {{previousList?.lastModifiedAt | date}}
+                            </td>
+                            <td>
+                                <div class="col-md-12">
+                                    <div class="d-flex justify-content-center">
+                                        {{previousList?.fromUser?.name}}</div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="d-flex justify-content-center">
+                                        <span>({{previousList?.fromRole?.roleName}})</span>
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td>
+                                <div class="col-md-12">
+                                    <div class="d-flex justify-content-center">
+                                        {{previousList?.toUser?.name}}</div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="d-flex justify-content-center">
+                                        ({{previousList?.toRole?.roleName}})
+                                    </div>
+
+                                </div>
+                            </td>
+
+                            <td>{{previousList?.docAction}}</td>
+                            <td class="text-justify">
+                                <div class="cmt-height">
+                                    {{previousList?.comment?.length > 50 ?
+                                    previousList?.comment?.substring(0, 49) :
+                                    previousList?.comment}}
+                                </div>
+                                <a (click)="open(previousList?.comment)"
+                                   *ngIf="previousList?.comment?.length > 50"
+                                   class="justify-content-end read-margin">read more ....</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{currentIndex + 1}}</td>
+                            <td>{{loanDataHolder?.currentStage?.lastModifiedAt | date}}</td>
+                            <td>
+                                <div class="col-md-12">
+                                    <div class="d-flex justify-content-center">
+                                        {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="d-flex justify-content-center">
+                                        <span>({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
+                                    </div>
+
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="col-md-12">
+                                    <div class="d-flex justify-content-center">
+                                        {{loanDataHolder?.currentStage?.toUser?.name}}</div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="d-flex justify-content-center">
+                                        <span>({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                                    </div>
+
+                                </div>
+                            </td>
+
+                            <td>{{loanDataHolder?.currentStage?.docAction}}</td>
+                            <td class="text-justify">
+                                <div class="cmt-height">
+                                    {{loanDataHolder?.currentStage?.comment?.length > 50 ?
+                                    loanDataHolder?.currentStage?.comment?.substring(0, 49) :
+                                    loanDataHolder?.currentStage?.comment}}
+                                </div>
+                                <a (click)="open(loanDataHolder.currentStage.comment)"
+                                   *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
+                                   class="justify-content-end read-margin">read more ....</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div *ngIf="signatureList.length > 0" class="row justify-content-between px-3"
+                 id="signatureDiv">
+                <div class="col-md-12 print-only">
+                    <p><strong>Approval Chain</strong></p>
+                </div>
+                <div *ngFor="let previous of signatureList; let i=index;"
+                     class="col-md-3 padding-0-125">
+                    <div class="signature-block">
+                        <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
+                            <span>{{loanHandler(i, signatureList.length)}}</span>
+                        </div>
+                        <hr class="border-dark m-0">
+                        <div class="row justify-content-center signature mx-auto">
+                            <div class="print-only signature-padding"></div>
+                            <img align="middle" alt="signature"
+                                 class="img-thumbnail border-0 signature-height"
+                                 src="{{previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage}}"/>
+                        </div>
+                        <div class="text-center signature-detail sb-bg-secondary text-white">
+                            <p class="m-0 sb-small">{{previous?.fromUser?.name}}</p>
+                            <p class="m-0 sb-small">({{previous?.fromUser?.role?.roleName}})</p>
+                            <p class="m-0 sb-small">{{previous?.lastModifiedAt}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="loanDataHolder?.customerOfferLetter"
+                 class="row justify-content-between pt-5 disable-print"
+                 id="offerLetterDiv">
+                <div class="col-md-12">
+                    <p><strong>Offer Letter Authority Section</strong></p>
+                </div>
+                <div class="col-md-12">
+                    <table
+                            class="table table-condensed table-bordered table-responsive-md text-center sb-small table-sm">
+                        <thead>
+                        <tr class="text-white sb-bg-dark">
+                            <th>S.N</th>
+                            <th>From User</th>
+                            <th>From Position</th>
+                            <th>To User</th>
+                            <th>To Position</th>
+                            <th>Status</th>
+                            <th class="cmt-width">Remarks</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let previousList of loanDataHolder?.customerOfferLetter?.previousList ; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{previousList?.fromUser?.name}}</td>
+                            <td>{{previousList?.fromRole?.roleName}}</td>
+                            <td>{{previousList?.toUser?.name}}</td>
+                            <td>{{previousList?.toRole?.roleName}}</td>
+                            <td>{{previousList?.docAction}}</td>
+                            <td class="text-justify">
+                                <div class="cmt-height">
+                                    {{previousList?.comment?.length > 50 ?
+                                    previousList?.comment?.substring(0, 49) :
+                                    previousList?.comment}}
+                                </div>
+                                <a (click)="open(previousList?.comment)"
+                                   *ngIf="previousList?.comment?.length > 50"
+                                   class="justify-content-end read-margin">read more ....</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{loanDataHolder?.customerOfferLetter?.previousList?.length + 1}}</td>
+                            <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.fromUser?.name}}</td>
+                            <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.fromRole?.roleName}}</td>
+                            <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.toUser?.name}}</td>
+                            <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.toRole?.roleName}}</td>
+                            <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.docAction}}</td>
+                            <td class="text-justify">
+                                <div class="cmt-height">
+                                    {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.length > 50 ?
+                                    loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.substring(0, 49)
+                                    :
+                                    loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment}}
+                                </div>
+                                <a (click)="open(loanDataHolder.customerOfferLetter?.offerLetterStage.comment)"
+                                   *ngIf="loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.length > 50"
+                                   class="justify-content-end read-margin">read more ....</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div *ngIf="offerLetterDocuments.length>0" class="row disable-print">
+                <div class="col-md-12">
+                    <p><strong>Offer Letter Documents</strong></p>
+                    <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+                        <thead>
+                        <tr class="text-white sb-bg-dark">
+                            <th>S.N</th>
+                            <th>Document</th>
+                            <th>Preview</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let offerLetterDocument of offerLetterDocuments; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{offerLetterDocument?.name}}</td>
+                            <td><i
+                                    (click)="previewOfferLetterDocument(offerLetterDocument.url, offerLetterDocument.name)"
+                                    aria-hidden="true" class="fa fa-eye"
+                                    style="cursor: pointer"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </nb-card-body>
+    </nb-card>
 </section>
