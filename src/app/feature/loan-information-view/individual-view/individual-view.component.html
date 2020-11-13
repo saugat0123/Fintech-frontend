@@ -48,6 +48,14 @@
         <td>{{individual?.email || 'NA'}}</td>
         <td>{{(individual?.occupation| jsonParse)?.multipleOccupation}}</td>
         <td>{{(individual?.incomeSource| jsonParse)?.multipleIncome}}</td>
+        <td>{{customerInfo?.clientType}}</td>
+
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>Subsector</th>
+      </tr>
+      <tr>
+        <td>{{customerInfo?.subsectorDetail}}</td>
       </tr>
       </tbody>
     </table>

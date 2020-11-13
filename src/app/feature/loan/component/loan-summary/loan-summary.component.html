@@ -349,7 +349,7 @@
             <div *ngIf="loanCategory === 'INSTITUTION'" class="row">
                 <div class="col-md-12">
                     <app-company-info-summary
-                            [companyInfo]="loanDataHolder?.companyInfo"></app-company-info-summary>
+                            [companyInfo]="loanDataHolder?.companyInfo" [loanDataHolder]="loanDataHolder"></app-company-info-summary>
                 </div>
             </div>
 
@@ -381,7 +381,16 @@
                                 <td>{{(loanDataHolder?.customerInfo?.occupation ? loanDataHolder?.customerInfo?.occupation : ''| jsonParse)?.multipleOccupation || 'NA'}}</td>
                                 <td>{{(loanDataHolder?.customerInfo?.incomeSource ? loanDataHolder?.customerInfo?.incomeSource : ''| jsonParse)?.multipleIncome || 'NA'}}</td>
                             </tr>
-                            </tbody>
+                            <tr class="text-white sb-bg-dark">
+                <td>Customer Client Type</td>
+                <td>SubSector</td>
+              </tr>
+              <tr>
+                <td>{{loanDataHolder?.loanHolder['clientType']}}</td>
+                <td>{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
+
+              </tr>
+              </tbody>
                         </table>
                         <table class="print-only table table-bordered text-center table-sm sb-small"
                                id="print-borrower-table">

@@ -83,4 +83,6 @@ export class LoanDataHolder extends BaseEntity {
     netTradingAssets: NetTradingAssets;
     groupSummaryDto: GroupSummaryDto;
     reportingInfoLog: string;
+    clientType: string;
+    subsectorDetail: string;
 }
