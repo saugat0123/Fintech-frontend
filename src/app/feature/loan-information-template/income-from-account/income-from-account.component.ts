@@ -166,7 +166,6 @@ export class IncomeFromAccountComponent implements OnInit {
 
   submitForm() {
     this.submitted = true;
-    console.log(this.incomeFormGroup);
     if (this.incomeFormGroup.invalid) {
       this.scrollToFirstInvalidControl();
       return;
