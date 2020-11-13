@@ -378,9 +378,8 @@
                                 <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
                                 <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
                                 <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
-                                <td>{{(loanDataHolder?.customerInfo?.occupation ? loanDataHolder?.customerInfo?.occupation : ''| jsonParse)?.multipleOccupation || 'NA'}}</td>
-                                <td>{{(loanDataHolder?.customerInfo?.incomeSource ? loanDataHolder?.customerInfo?.incomeSource : ''| jsonParse)?.multipleIncome || 'NA'}}</td>
-                            </tr>
+                                <td>{{(loanDataHolder?.customerInfo?.occupation| jsonParse)?.multipleOccupation}}</td>
+                                <td>{{(loanDataHolder?.customerInfo?.incomeSource| jsonParse)?.multipleIncome}}</td>   </tr>
                             </tbody>
                         </table>
                         <table class="print-only table table-bordered text-center table-sm sb-small"
