@@ -3,9 +3,9 @@
     <form (ngSubmit)="submitForm()" [formGroup]="incomeFormGroup">
       <div class="row">
         <div class="col-md-12">
-          <table class="table table-bordered table-responsive-md table-hover text-center">
+          <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
             <thead>
-            <tr>
+            <tr class="sb-bg-secondary text-white">
               <th>Particular</th>
               <th>During Review Period</th>
               <th>Projected For next Review Period</th>
@@ -14,7 +14,7 @@
             <tr>
               <td>Gross Interest</td>
               <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.interestDuringReview.errors }"
-                         class="form-control"
+                         class="form-control text-center"
                          formControlName="interestDuringReview"
                          type="number">
                 <div *ngIf="(submitted) && formControls.interestDuringReview.invalid"
@@ -23,7 +23,7 @@
                 </div>
               </td>
               <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.interestAfterNextReview.errors }"
-                         class="form-control"
+                         class="form-control text-center"
                          formControlName="interestAfterNextReview"
                          type="number">
                 <div *ngIf="(submitted) && formControls.interestAfterNextReview.invalid"
@@ -35,7 +35,7 @@
             <tr>
               <td>Fee and Commission</td>
               <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionDuringReview.errors }"
-                         class="form-control"
+                         class="form-control text-center"
                          formControlName="commissionDuringReview"
                          type="number">
                 <div *ngIf="(submitted) && formControls.commissionDuringReview.invalid"
@@ -44,7 +44,7 @@
                 </div>
               </td>
               <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionAfterNextReview.errors }"
-                         class="form-control"
+                         class="form-control text-center"
                          formControlName="commissionAfterNextReview"
                          type="number">
                 <div *ngIf="(submitted) && formControls.commissionAfterNextReview.invalid"
@@ -56,7 +56,7 @@
             <tr>
               <td>Other Charges</td>
               <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesDuringReview.errors }"
-                         class="form-control"
+                         class="form-control text-center"
                          formControlName="otherChargesDuringReview"
                          type="number">
                 <div *ngIf="(submitted) && formControls.otherChargesDuringReview.invalid"
@@ -65,7 +65,7 @@
                 </div>
               </td>
               <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesAfterNextReview.errors }"
-                         class="form-control"
+                         class="form-control text-center"
                          formControlName="otherChargesAfterNextReview"
                          type="number">
                 <div *ngIf="(submitted) && formControls.otherChargesAfterNextReview.invalid"
@@ -74,12 +74,243 @@
                 </div>
               </td>
             </tr>
+            <tr>
+              <td>Interest Income</td>
+              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.interestIncomeDuringReview.errors }"
+                         class="form-control text-center"
+                         formControlName="interestIncomeDuringReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.interestIncomeDuringReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.interestIncomeDuringReview.errors.required">Interest Income During Review is required.</span>
+                </div>
+              </td>
+              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.interestIncomeAfterReview.errors }"
+                         class="form-control text-center"
+                         formControlName="interestIncomeAfterReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.interestIncomeAfterReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.interestIncomeAfterReview.errors.required">Interest Income After Next Review is required.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Loan Processing Fee</td>
+              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.loanProcessingFeeDuringReview.errors }"
+                         class="form-control text-center"
+                         formControlName="loanProcessingFeeDuringReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.loanProcessingFeeDuringReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.loanProcessingFeeDuringReview.errors.required">Loan Processing Fee During Review is required.</span>
+                </div>
+              </td>
+              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.loanProcessingFeeAfterReview.errors }"
+                         class="form-control text-center"
+                         formControlName="loanProcessingFeeAfterReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.loanProcessingFeeAfterReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.loanProcessingFeeAfterReview.errors.required">Loan Processing Fee After Next Review is required.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>LC Commission</td>
+              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.lcCommissionDuringReview.errors }"
+                         class="form-control text-center"
+                         formControlName="lcCommissionDuringReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.lcCommissionDuringReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.lcCommissionDuringReview.errors.required">Lc Commission Fee During Review is required.</span>
+                </div>
+              </td>
+              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.loanProcessingFeeAfterReview.errors }"
+                         class="form-control text-center"
+                         formControlName="lcCommissionAfterNextReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.lcCommissionAfterNextReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.lcCommissionAfterNextReview.errors.required">Lc Commission Fee After Next Review is required.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Guarantee Commission</td>
+              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.guaranteeCommissionDuringReview.errors }"
+                         class="form-control text-center"
+                         formControlName="guaranteeCommissionDuringReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.guaranteeCommissionDuringReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.guaranteeCommissionDuringReview.errors.required">Guarantee Commission Fee During Review is required.</span>
+                </div>
+              </td>
+              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.guaranteeCommissionAfterNextReview.errors }"
+                         class="form-control text-center"
+                         formControlName="guaranteeCommissionAfterNextReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.guaranteeCommissionAfterNextReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.guaranteeCommissionAfterNextReview.errors.required">Guarantee Commission Fee After Next Review is required.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Other Commission</td>
+              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherCommissionDuringReview.errors }"
+                         class="form-control text-center"
+                         formControlName="otherCommissionDuringReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.otherCommissionDuringReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.otherCommissionDuringReview.errors.required">Other Commission Fee During Review is required.</span>
+                </div>
+              </td>
+              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherCommissionAfterNextReview.errors }"
+                         class="form-control text-center"
+                         formControlName="otherCommissionAfterNextReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.otherCommissionAfterNextReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.otherCommissionAfterNextReview.errors.required">Other Commission Fee After Next Review is required.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Saving Account</td>
+              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.savingAccountDuringReview.errors }"
+                         class="form-control text-center"
+                         formControlName="savingAccountDuringReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.savingAccountDuringReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.savingAccountDuringReview.errors.required">Saving Account During Review is required.</span>
+                </div>
+              </td>
+              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.savingAfterNextReview.errors }"
+                         class="form-control text-center"
+                         formControlName="savingAfterNextReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.savingAfterNextReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.savingAfterNextReview.errors.required">Saving Account After Next Review is required.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Payroll Account</td>
+              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.payrollAccountDuringReview.errors }"
+                         class="form-control text-center"
+                         formControlName="payrollAccountDuringReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.payrollAccountDuringReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.payrollAccountDuringReview.errors.required">Payroll Account During Review is required.</span>
+                </div>
+              </td>
+              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.payrollAccountAfterNextReview.errors }"
+                         class="form-control text-center"
+                         formControlName="payrollAccountAfterNextReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.payrollAccountAfterNextReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.payrollAccountAfterNextReview.errors.required">Payroll Account After Next Review is required.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Debit Cards</td>
+              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.debitCardsDuringReview.errors }"
+                         class="form-control text-center"
+                         formControlName="debitCardsDuringReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.debitCardsDuringReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.debitCardsDuringReview.errors.required">Debit Cards During Review is required.</span>
+                </div>
+              </td>
+              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.debitCardsAfterReview.errors }"
+                         class="form-control text-center"
+                         formControlName="debitCardsAfterReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.debitCardsAfterReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.debitCardsAfterReview.errors.required">Debit Cards After Next Review is required.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Credit Cards</td>
+              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.creditCardsDuringReview.errors }"
+                         class="form-control text-center"
+                         formControlName="creditCardsDuringReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.creditCardsDuringReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.creditCardsDuringReview.errors.required">Credit Cards During Review is required.</span>
+                </div>
+              </td>
+              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.creditCardsAfterReview.errors }"
+                         class="form-control text-center"
+                         formControlName="creditCardsAfterReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.creditCardsAfterReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.creditCardsAfterReview.errors.required">Credit Cards After Next Review is required.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Mobile Bank / Internet Banking</td>
+              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.mobileBankingDuringReview.errors }"
+                         class="form-control text-center"
+                         formControlName="mobileBankingDuringReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.mobileBankingDuringReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.mobileBankingDuringReview.errors.required">Mobile Banking During Review is required.</span>
+                </div>
+              </td>
+              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.mobileBankingAfterReview.errors }"
+                         class="form-control text-center"
+                         formControlName="mobileBankingAfterReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.mobileBankingAfterReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.mobileBankingAfterReview.errors.required">Mobile Banking After Next Review is required.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Locker</td>
+              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.lockerDuringReview.errors }"
+                         class="form-control text-center"
+                         formControlName="lockerDuringReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.lockerDuringReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.lockerDuringReview.errors.required">Locker During Review is required.</span>
+                </div>
+              </td>
+              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.lockerAfterReview.errors }"
+                         class="form-control text-center"
+                         formControlName="lockerAfterReview"
+                         type="number">
+                <div *ngIf="(submitted) && formControls.lockerAfterReview.invalid"
+                     class="invalid-feedback">
+                  <span *ngIf="formControls.lockerAfterReview.errors.required">Locking After Next Review is required.</span>
+                </div>
+              </td>
+            </tr>
             <tr class="font-weight-bold">
               <td>Total</td>
-              <td><input [readOnly]="true" class="form-control"
+              <td><input [readOnly]="true" class="form-control text-center"
                          formControlName="totalIncomeDuringReview"
                          type="number"></td>
-              <td><input [readOnly]="true" class="form-control"
+              <td><input [readOnly]="true" class="form-control text-center"
                          formControlName="totalIncomeAfterNextReview"
                          type="number"></td>
             </tr>
@@ -106,20 +337,20 @@
 
       <nb-card>
         <nb-card-header>
+          <div class="row d-flex justify-content-center">
+            <h6>Account History</h6>
+          </div>
           <nb-checkbox #chek formControlName="newCustomerChecked"
                        (checkedChange)="onAdditionalFieldSelect(chek.checked)" [checked]="formControls.newCustomerChecked.value">
             <strong>New Customer</strong>
           </nb-checkbox>
-          <div *ngIf="!chek?.checked" class="row d-flex justify-content-center">
-            <h6>Account History</h6>
-          </div>
         </nb-card-header>
         <nb-card-body *ngIf="!chek?.checked">
           <div formGroupName="accountTransactionForm">
           <div class="col-md-12" >
-            <table class="table table-bordered table-responsive-md table-hover text-center">
+            <table class="table table-bordered table-responsive-md table-hover text-center sb-small table-sm">
               <thead>
-              <tr>
+              <tr class="sb-bg-secondary text-white">
                 <th>Particular</th>
                 <th>Total Number</th>
                 <th>Total Value</th>
@@ -179,7 +410,7 @@
             <label for="repaymentTrackWithCurrentBank">
               <strong>Repayment track in our bank</strong></label><strong
                   class="text-danger">*</strong>
-            <select id="repaymentTrackWithCurrentBank" class="form-control"
+            <select id="repaymentTrackWithCurrentBank" class="form-control text-center"
                     formControlName="repaymentTrackWithCurrentBank"
                     [ngClass]="{'is-invalid': submitted && transactionForm?.repaymentTrackWithCurrentBank.invalid}">
               <option [ngValue]="null" hidden selected>--Select Repayment Track--</option>

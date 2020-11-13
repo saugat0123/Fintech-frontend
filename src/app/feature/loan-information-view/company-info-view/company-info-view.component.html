@@ -32,12 +32,17 @@
         <th>Contact Number</th>
         <th>Major products/Service</th>
         <th>Relationship Since</th>
+        <th>Client Type</th>
+        <th>Sub Sector</th>
       </tr>
       <tr>
         <td>{{formValue?.email}}</td>
         <td>{{formValue?.contactNum}}</td>
         <td>{{companyJsonData?.majorProductService}}</td>
         <td>{{companyJsonData?.relationshipSince | date}}</td>
+        <td>{{customerInfo['clientType']}}</td>
+        <td>{{customerInfo['subsectorDetail']}}</td>
+
       </tr>
     </table>
     <table
