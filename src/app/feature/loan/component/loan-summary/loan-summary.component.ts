@@ -123,6 +123,13 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     creditRiskAlphaScoreArray = [];
     selectedAlphaCrgIndex = 0;*/
 
+    creditRiskLambdaSummary = false;
+    creditRiskLambdaScore = 0;
+    creditRiskGradeLambda;
+    creditRiskRatingLambda;
+    creditRiskLambdaPremium;
+    creditGradeLambdaStatusBadge;
+
     customerAllLoanList: LoanDataHolder[] = []; // current loan plus staged and combined loans
     incomeFromAccountSummary = false;
     incomeFromAccountData;
@@ -257,6 +264,24 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 this.creditGradeAlphaStatusBadge = 'badge badge-danger';
             } else {
                 this.creditGradeAlphaStatusBadge = 'badge badge-warning';
+            }
+        }
+
+        // Setting CRG- Lambda data --
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.creditRiskGradingLambda)) {
+            const crgParsedData = JSON.parse(this.loanDataHolder.creditRiskGradingLambda.data);
+            this.creditRiskLambdaPremium = crgParsedData.premium;
+            this.creditRiskLambdaSummary = true;
+            this.creditRiskRatingLambda = crgParsedData.creditRiskRating;
+            this.creditRiskGradeLambda = crgParsedData.creditRiskGrade;
+            this.creditRiskLambdaScore = ObjectUtil.isEmpty(crgParsedData.totalScore) || Number.isNaN(Number(crgParsedData.totalScore)) ?
+                0 : crgParsedData.totalScore;
+            if (this.creditRiskGrade === 'Excellent' || this.creditRiskGrade === 'Very Good') {
+                this.creditGradeLambdaStatusBadge = 'badge badge-success';
+            } else if (this.creditRiskGrade === 'Reject') {
+                this.creditGradeLambdaStatusBadge = 'badge badge-danger';
+            } else {
+                this.creditGradeLambdaStatusBadge = 'badge badge-warning';
             }
         }
 

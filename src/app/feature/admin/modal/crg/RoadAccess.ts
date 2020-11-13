@@ -7,7 +7,7 @@ export enum RoadAccess {
 }
 
 export class RoadAccessMap {
-    static majorSourceIncomeMap: Map<RoadAccess, number> = new Map([
+    static roadAccessMap: Map<RoadAccess, number> = new Map([
         [RoadAccess.SIXTEEN_to_TWENTY, 3.00],
         [RoadAccess.TEN_TO_FIFTEEN, 2.70],
         [RoadAccess.TEN, 2.40],

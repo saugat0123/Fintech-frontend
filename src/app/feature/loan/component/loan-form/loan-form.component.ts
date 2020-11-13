@@ -54,6 +54,7 @@ import {DefaultLoanTemplate} from '../../../../@core/utils/constants/default-loa
 import {LoanType} from '../../model/loanType';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
 import {Priority} from '../../model/priority';
+import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -159,6 +160,9 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('creditRiskGradingAlpha', {static: false})
     creditRiskGradingAlpha: CreditRiskGradingAlphaComponent;
+
+    @ViewChild('creditRiskGradingLambda', {static: false})
+    creditRiskGradingLambda: CreditRiskGradingLambdaComponent;
 
     @ViewChild('crgGamma', {static: false})
     crgGamma: CreditRiskGradingGammaComponent;
@@ -329,6 +333,11 @@ export class LoanFormComponent implements OnInit {
                 });
             } else {
                 this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
+                this.templateList.forEach((value, index) => {
+                    if (value.name === 'Credit Risk Grading - Lambda') {
+                        this.templateList.splice(index, 1);
+                    }
+                });
             }
 
             this.templateList.some((value, index) => {
@@ -535,6 +544,11 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Credit Risk Grading - Alpha' && action) {
             this.creditRiskGradingAlpha.onSubmit();
             this.loanDocument.creditRiskGradingAlpha = this.creditRiskGradingAlpha.creditRiskData;
+        }
+
+        if (name === 'Credit Risk Grading - Lambda' && action) {
+            this.creditRiskGradingLambda.onSubmit();
+            this.loanDocument.creditRiskGradingLambda = this.creditRiskGradingLambda.creditRiskData;
         }
 
         if (name === 'Group' && action) {

@@ -3,9 +3,9 @@
          nbSpinnerSize="giant">
   <nb-card-header>
     <div class="row shadow-sm">
-      <div class="col-md-2">
+      <div class="col-md-4">
         <strong>Associate Group:</strong> <span> {{customerInfo?.customerGroup != undefined
-          ? customerInfo?.customerGroup?.groupCode : ' N/A'}}</span>
+          ? customerInfo?.customerGroup?.groupCode : ' No Group had been Assigned'}}</span>
         <div class="py-2">
           <button [nbPopover]="activity" nbButton size="small" [nbPopoverPlacement]="'right'">
             Customer Activity
@@ -15,7 +15,7 @@
 
         </div>
       </div>
-      <div class="offset-4 col-md-6 float-right">
+      <div class="offset-4 col-md-4 float-right">
         <button [nbPopover]="groupWindow" class="float-right mb-3" nbButton size="small"
                 [nbPopoverPlacement]="'left'">
           Groups

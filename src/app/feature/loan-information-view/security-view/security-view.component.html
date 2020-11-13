@@ -73,6 +73,138 @@
     </table>
   </div>
 
+  <div class="row" *ngIf= "landBuilding">
+    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"  *ngFor="let landBuilding of  securityData['initialForm']['landBuilding']; let i= index">
+        <thead>
+        <tr>
+          <th class="text-center" colspan="8">{{i+1}}.Land & Building Security Details</th>
+        </tr>
+        <tr class="text-white sb-bg-dark">
+          <th>S.N</th>
+          <th>Owner</th>
+          <th>Location</th>
+          <th>Plot No.</th>
+          <th>Area Format</th>
+          <th>Area</th>
+          <th>Considered Value</th>
+          <th>Fair Market Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{i + 1}}</td>
+          <td>{{landBuilding?.owner}}</td>
+          <td>{{landBuilding?.location}}</td>
+          <td>{{landBuilding?.plotNumber}}</td>
+          <td>{{landBuilding?.areaFormat}}</td>
+          <td>{{landBuilding?.area}}</td>
+          <td>{{landBuilding?.landConsideredValue}}</td>
+          <td>{{landBuilding?.marketValue}}</td>
+        </tr>
+        </tbody>
+        <thead>
+        <tr class="text-white sb-bg-dark">
+          <th></th>
+          <th>Distress Value</th>
+          <th>House Number</th>
+          <th>Total building area
+            (Sqf)</th>
+          <th>Cost per sqf</th>
+          <th>Total cost</th>
+          <th>Type of Property</th>
+          <th>Mode of Transfer</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th></th>
+          <td>{{landBuilding?.distressValue}}</td>
+          <td>{{landBuilding?.houseNumber}}</td>
+          <td>{{landBuilding?.totalBuildingArea}}</td>
+          <td>{{landBuilding?.costPerSquare}}</td>
+          <td>{{landBuilding?.totalCost}}</td>
+          <td>{{landBuilding?.typeOfProperty}}</td>
+          <td>{{landBuilding?.modeOfTransfer}}</td>
+
+        </tr>
+        <tr class="text-center sb-bg-dark text-white">
+          <th></th>
+          <th  *ngIf="securityData['otherBranchcheck']">Branch</th>
+          <th>Valuator Name</th>
+          <th>Valuator Representative Name</th>
+          <th>Staff Representative Name</th>
+          <th>Valuated Date</th>
+
+        </tr>
+        <tr>
+          <td></td>
+          <td *ngIf="securityData['otherBranchcheck']">{{landBuilding?.buildingBranch?.name}}</td>
+          <td>{{landBuilding?.buildingValuator?.name}}</td>
+          <td>{{landBuilding?.buildingValuatorRepresentative}}</td>
+          <td>{{landBuilding?.buildingStaffRepresentativeName}}</td>
+          <td>{{landBuilding?.buildingValuatorDate | date}}</td>
+
+
+        </tr>
+        <tr *ngIf="landBuilding.underConstructionChecked === true">
+          <th colspan="8">Under Construction</th>
+        </tr>
+        <tr *ngIf="landBuilding.underConstructionChecked === true" class="text-center sb-bg-dark text-white">
+          <th></th>
+          <th>Owner</th>
+          <th>Location</th>
+          <th>Plot No.</th>
+          <th>Area Format</th>
+          <th>Area</th>
+          <th>Considered Value</th>
+          <th>Distress Value</th>
+        </tr>
+        <tr *ngIf="landBuilding.underConstructionChecked === true">
+          <td></td>
+          <td>{{landBuilding?.ownerConstruction}}</td>
+          <td>{{landBuilding?.locationConstruction}}</td>
+          <td>{{landBuilding?.plotNumberConstruction}}</td>
+          <td>{{landBuilding?.areaFormatConstruction}}</td>
+          <td>{{landBuilding?.areaConstruction}}</td>
+          <td>Rs.{{landBuilding?.landConsideredValueConstruction}}</td>
+          <td>Rs.{{landBuilding?.distressValueConstruction}}</td>
+        </tr>
+        <tr class="text-center sb-bg-dark text-white" *ngIf="landBuilding.underConstructionChecked === true">
+          <th></th>
+          <th>Fair Market Value</th>
+          <th>Type of Property</th>
+          <th>Mode of Transfer</th>
+          <th>House Number</th>
+          <th>Total building area
+            (Sqf)</th>
+          <th>Cost per sqf</th>
+          <th>Total cost</th>
+        </tr>
+        <tr *ngIf="landBuilding.underConstructionChecked === true">
+          <th></th>
+          <td>{{landBuilding?.marketValueConstruction}}</td>
+          <td>{{landBuilding?.typeOfPropertyConstruction}}</td>
+          <td>{{landBuilding?.modeOfTransferConstruction}}</td>
+          <td>{{landBuilding?.houseNumberConstruction}}</td>
+          <td>{{landBuilding?.totalBuildingAreaConstruction}}</td>
+          <td>Rs.{{landBuilding?.costPerSquareConstruction}}</td>
+          <td>Rs.{{landBuilding?.totalCostConstruction}}</td>
+        </tr>
+        </tbody>
+
+      </table>
+    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+      <tr class="text-center sb-bg-dark text-white">
+        <td>Remarks  of building</td>
+      </tr>
+      <tr>
+        <td>{{securityData['initialForm']?.landBuildingDescription}}</td>
+      </tr>
+    </table>
+  </div>
+
   <!--       apartmentDetails-->
   <div *ngIf="apartmentSelected" class="row">
     <table

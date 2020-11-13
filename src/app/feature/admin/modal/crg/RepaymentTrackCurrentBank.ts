@@ -8,7 +8,7 @@ export enum RepaymentTrackCurrentBank {
 }
 
 export class RepaymentTrackCurrentBankMap {
-    static majorSourceIncomeMap: Map<RepaymentTrackCurrentBank, number> = new Map([
+    static repaymentTrackCurrentBankMap: Map<RepaymentTrackCurrentBank, number> = new Map([
         [RepaymentTrackCurrentBank.BEFORE_DUE, 2.500],
         [RepaymentTrackCurrentBank.WITHIN_SEVEN, 1.75],
         [RepaymentTrackCurrentBank.WITHIN_THIRTY, 2.40],
