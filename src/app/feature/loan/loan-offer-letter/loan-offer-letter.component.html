@@ -70,7 +70,8 @@
                     </div>
 
                     <div class="col-md-3" *ngIf="isCAD_ADMIN">
-                        <select class="custom-select" formControlName="postApprovalAssignStatus">
+                        <select class="custom-select" (change)="selectedAssign($event.target)"
+                                formControlName="postApprovalAssignStatus">
                             <option [value]="null" selected hidden>Select Assigned Type</option>
                             <option [value]="null">All Types</option>
                             <option [value]="'ASSIGNED'">Assigned Document
@@ -80,26 +81,18 @@
                         </select>
                     </div>
 
-                    <div class="col-md-3 mb-3" *ngIf="isCAD_ADMIN">
+                    <div class="col-md-3 mb-3" *ngIf="isCAD_ADMIN && isAssignSelected">
 
-                        <select class="custom-select" formControlName="postApprovalAssignedUser" >
+                        <select class="custom-select" formControlName="postApprovalAssignedUser">
                             <option [value]="null" selected hidden>Select Possession</option>
                             <option [value]="null">All Possession</option>
-                            <optgroup *ngFor="let roleUser of filterUserList"  class="text-white sb-bg-dark" [label]="roleUser?.name" (click)="test()">
+                            <optgroup *ngFor="let roleUser of filterUserList" class="text-white sb-bg-dark"
+                                      [label]="roleUser?.name" (click)="test()">
 
                                 <option *ngFor="let user of roleUser?.userDtoList"
-                                        [value]="user?.id" style="background-color: white;color:black">{{user?.name}}</option>
+                                        [value]="user?.id"
+                                        style="background-color: white;color:black">{{user?.name}}</option>
                             </optgroup>
-
-                            <nb-accordion>
-                                <nb-accordion-item>
-                                    <nb-accordion-item-header>
-                                        General Document
-                                    </nb-accordion-item-header>
-                                    <nb-accordion-item-body>
-                                    </nb-accordion-item-body>
-                                </nb-accordion-item>
-                            </nb-accordion>
 
                         </select>
                     </div>
