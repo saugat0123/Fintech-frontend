@@ -445,7 +445,7 @@ export class LoanOfferLetterComponent implements OnInit {
         if (event.value === 'NOT_ASSIGNED') {
             this.isAssignSelected = false;
             this.filterForm.patchValue({
-                postApprovalAssignedUser: [undefined],
+                postApprovalAssignedUser: null,
             });
         } else {
             this.isAssignSelected = true;
