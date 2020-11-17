@@ -87,7 +87,7 @@
                             <option [value]="null" selected hidden>Select Possession</option>
                             <option [value]="null">All Possession</option>
                             <optgroup *ngFor="let roleUser of filterUserList" class="text-white sb-bg-dark"
-                                      [label]="roleUser?.name" (click)="test()">
+                                      [label]="roleUser?.name">
 
                                 <option *ngFor="let user of roleUser?.userDtoList"
                                         [value]="user?.id"
