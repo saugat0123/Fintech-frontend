@@ -1,0 +1,88 @@
+<nb-card>
+    <nb-card-header>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="btn-group">
+                        <button
+                                (click)="isFilterCollapsed = !isFilterCollapsed"
+                                [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+                                nbButton
+                                shape="rectangle"
+                                status="primary"
+                                size="small">
+                            <em class="fa fa-filter"> Filter</em>
+                        </button>
+
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex justify-content-end">
+                    <button nbButton outline status="success" class="mr-2" size="small" routerLink="/home/template/add"
+                    >
+                        <i class="fa fa-plus"></i>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+        <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">
+
+        </div>
+
+    </nb-card-header>
+    <nb-card-body>
+        <br>
+        <table class="table table-sm table-bordered table-hover sb-small text-center" id="add-branch-table">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+
+                <th>SN</th>
+                <th>Form Title</th>
+                <th>Preview</th>
+                <th>Status</th>
+
+                <th>Created On</th>
+                <th>Action</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let model of formList;let i=index">
+                <td>{{i + 1}}</td>
+                <td>{{model?.title}}</td>
+                <td class="cursor"><em class="fa fa-eye"
+                                       (click)="previewTemplate(previewForm,model.title,model?.config,model)"></em></td>
+                <td>{{model?.status}}</td>
+                <td>{{model?.createdAt | date}}</td>
+                <td>
+                    <button nbButton size="tiny" [routerLink]="'/home/template/edit/'+model?.id"><em
+                            class="fa fa-edit"></em></button>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <!--    <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>-->
+        <!-- ===================table-pagination==================== -->
+        <app-paging (changePage)="changePage($event)" *ngIf="!spinner"
+                    [pageable]="pageable"></app-paging>
+        <!-- ===================table-pagination==================== -->
+    </nb-card-body>
+
+
+</nb-card>
+
+<ng-template #previewForm>
+    <nb-card accent="primary" style="width:90vw!important;height:80vh!important;max-height: 85vh;overflow: auto">
+        <nb-card-header>
+            {{formTitle}}
+        </nb-card-header>
+        <nb-card-body>
+            <app-dynamic-forms [config]="formConfig" [preview]="true" [baseForm]="parentForm"></app-dynamic-forms>
+        </nb-card-body>
+    </nb-card>
+</ng-template>
+
+<app-overlay-spinner></app-overlay-spinner>

@@ -1,0 +1,30 @@
+<div [formGroup]="dynamicFormGroup" class="form-group" [id]="field?.id">
+
+    <label class="sb-small"><strong>{{field?.settings[0]?.value}}</strong></label>
+    <sup class="text-danger"
+         *ngIf="field?.settings[3]?.value">*</sup>
+<!--    <input nbInput-->
+<!--            *ngIf="calendarType === 'AD'" [nbDatepicker]="datePick"-->
+<!--           class="form-control form-control-sm"-->
+<!--           [ngClass]="{ 'is-invalid': (submitted) &&  dynamicFormControl(field.id)?.errors && field?.settings[3]?.value }"-->
+<!--           [formControlName]="field?.id"-->
+<!--           [placeholder]="field?.settings[1]?.value" readonly>-->
+    <input type="date"
+           *ngIf="calendarType === 'AD'"
+           class="form-control form-control-sm"
+           [ngClass]="{ 'is-invalid': (submitted) &&  dynamicFormControl(field.id)?.errors && field?.settings[3]?.value }"
+           [formControlName]="field?.id"
+           [placeholder]="field?.settings[1]?.value" >
+    <app-calendar
+            *ngIf="calendarType === 'BS'"
+    ></app-calendar>
+<!--    <nb-datepicker #datePick></nb-datepicker>-->
+    <div *ngIf="(submitted) && dynamicFormControl(field.id)?.errors"
+         class="invalid-feedback">
+        <div *ngIf="dynamicFormControl(field.id)?.errors?.required">
+            {{field?.settings[0]?.value}} is required
+        </div>
+    </div>
+
+
+</div>
