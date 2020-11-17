@@ -216,7 +216,6 @@ export class FormBuilderAddComponent implements OnInit {
                 const element: any = event;
                 this.arrayId = this.arrayId + 1;
                 if (this.selectedField.fields.length > 0) {
-                    console.log(this.selectedField.fields.length);
                     this.arrayId = parseInt(this.selectedField.fields[this.selectedField.fields.length - 1].id, 10) + 1;
                 }
                 element.id = this.arrayId;
