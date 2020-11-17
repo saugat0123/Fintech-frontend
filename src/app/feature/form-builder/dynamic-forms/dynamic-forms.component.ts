@@ -1,5 +1,5 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
-import {EmailValidator, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Editor} from '../../../@core/utils/constants/editor';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {FormType} from '../constants/formType';
@@ -73,7 +73,7 @@ export class DynamicFormsComponent implements OnInit, AfterViewChecked {
     onSubmit() {
         this.submitted = true;
         if (this.dynamicFormGroup.invalid) {
-            console.log('final value invalid:::', this.dynamicFormGroup.controls)
+            console.log('final value invalid:::', this.dynamicFormGroup.controls);
             return;
         }
 
@@ -88,7 +88,8 @@ export class DynamicFormsComponent implements OnInit, AfterViewChecked {
             return this.fb.control(this.editPreviousValue ? this.editDynamicFormPatchValue(object, input.id) : undefined,
                 input.type === FormType.TEXT ? this.inputTypeTextValidation(input) : [Validators.required]);
         } else {
-            return this.fb.control(this.editPreviousValue ? this.editDynamicFormPatchValue(object, input.id) : undefined);
+            return this.fb.control(this.editPreviousValue ? this.editDynamicFormPatchValue(object, input.id) : undefined,
+                input.type === FormType.TEXT ? this.inputTypeTextValidation(input) : []);
         }
     }
 
@@ -144,23 +145,20 @@ export class DynamicFormsComponent implements OnInit, AfterViewChecked {
     }
 
     inputTypeTextValidation(input) {
-        console.log(input)
         const validation = [];
         const validationType = this.INPUT_TYPE.filter(i => i.value === input.settings[5].value)[0].id;
+        if (validationType === 'Email') {
+            validation.push(Validators.email);
+        } else if (validationType === 'Alphabet') {
+            validation.push(Validators.pattern('^[a-zA-Z \-\']+'));
+        } else if (validationType === 'Numeric') {
+            validation.push(Validators.pattern(Pattern.NUMBER_DOUBLE));
+        }
         if (input.settings[3].value) {
             validation.push(Validators.required);
-            if (validationType === 'Email') {
-                console.log('email type');
-                validation.push(Validators.email);
-            } else if (validationType === 'Alphabet') {
-                validation.push(Validators.pattern('^[a-zA-Z \-\']+'));
-            }else if (validationType === 'Numeric') {
-                validation.push(Validators.pattern(Pattern.NUMBER_DOUBLE));
-            }
         }
         const maxLength = input.settings[4].value;
         validation.push(Validators.maxLength(maxLength));
-        console.log('validation', validation);
         return validation;
     }
 }

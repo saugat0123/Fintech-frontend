@@ -206,21 +206,23 @@ export class FormBuilderAddComponent implements OnInit {
 
 
     eventEmitDoubleClick(event) {
-        if (this.selectedField.type === FormType.FORM_ARRAY) {
-            const element: any = event;
-            this.id = this.id + 1;
-            element.id = this.id;
-            this.selectedField.fields.push(event);
-            this.dragElements = new Inputs().DRAG_ELEMENTS;
-            this.dragElements.forEach((d, index) => {
-                if (d.type === FormType.FORM_ARRAY) {
-                    this.dragElements.splice(index, 1);
+        if (!ObjectUtil.isEmpty(event)) {
+            if (this.selectedField.type === FormType.FORM_ARRAY) {
+                const element: any = event;
+                this.id = this.id + 1;
+                element.id = this.id;
+                this.selectedField.fields.push(event);
+                this.dragElements = new Inputs().DRAG_ELEMENTS;
+                this.dragElements.forEach((d, index) => {
+                    if (d.type === FormType.FORM_ARRAY) {
+                        this.dragElements.splice(index, 1);
+                    }
+                });
+                if (element.type === 'date') {
+                    this.isDatePresent = true;
                 }
-            });
-            if (element.type === 'date') {
-                this.isDatePresent = true;
-            }
 
+            }
         }
 
     }

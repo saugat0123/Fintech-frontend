@@ -4,9 +4,9 @@
     <sup class="text-danger"
          *ngIf="field?.settings[3]?.value">*</sup>
     <input class="form-control form-control-sm" [type]="field?.type"
-           [ngClass]="{ 'is-invalid': (submitted) &&  dynamicFormControl(field.id)?.errors && field?.settings[3]?.value }"
+           [ngClass]="{ 'is-invalid': (submitted) &&  dynamicFormControl(field.id)?.errors  }"
            [placeholder]="field?.settings[1]?.value" [formControlName]="field?.id">
-    <div *ngIf="(submitted) && dynamicFormControl(field.id)?.errors && field?.settings[3]?.value"
+    <div *ngIf="(submitted) && dynamicFormControl(field.id)?.errors"
          class="invalid-feedback">
         <div *ngIf="dynamicFormControl(field.id)?.errors?.required">
             {{field?.settings[0]?.value}} is required
