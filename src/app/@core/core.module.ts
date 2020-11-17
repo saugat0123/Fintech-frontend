@@ -11,6 +11,7 @@ import {NepaliWordPipe} from './pipe/nepali-word.pipe';
 import { ReplacePipe } from './utils/replace.pipe';
 import { RoundvaluePipe } from './pipe/roundvalue.pipe';
 import { BooleanConvertPipe } from './pipe/boolean-convert.pipe';
+import { MouseScrollDisableDirective } from './directive/mouse-scroll-disable.directive';
 // import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 // import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 
@@ -99,7 +100,8 @@ export const NB_CORE_PROVIDERS = [
         NepaliWordPipe,
         ReplacePipe,
         RoundvaluePipe,
-        BooleanConvertPipe
+        BooleanConvertPipe,
+        MouseScrollDisableDirective
     ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
@@ -108,7 +110,8 @@ export const NB_CORE_PROVIDERS = [
         NepaliWordPipe,
         ReplacePipe,
         RoundvaluePipe,
-        BooleanConvertPipe],
+        BooleanConvertPipe,
+        MouseScrollDisableDirective],
 })
 export class CoreModule {
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
