@@ -182,7 +182,6 @@ export class FormBuilderAddComponent implements OnInit {
         this.selectedField.settings[5].possibleValue[index].Text = event.value;
         const formFieldSelectedIndex = this.formFields.indexOf(this.selectedField);
         this.formFields[formFieldSelectedIndex] = this.selectedField;
-        console.log(this.selectedField);
     }
 
     removeFromChoose(index) {
