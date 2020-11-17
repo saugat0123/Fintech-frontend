@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormType} from '../../constants/formType';
 
 @Component({
     selector: 'app-input-text-add',
@@ -9,6 +10,7 @@ export class InputTextAddComponent implements OnInit {
     @Input() field: any;
     @Input() selectedField: any;
     @Output() removeField = new EventEmitter<any>();
+    INPUT_TYPE = FormType.INPUT_TYPE;
 
     constructor() {
     }
@@ -18,6 +20,10 @@ export class InputTextAddComponent implements OnInit {
 
     removeElement() {
         this.removeField.emit(true);
+    }
+
+    getType(setup) {
+        return this.INPUT_TYPE.filter(r => r.value === setup)[0].type;
     }
 
 }

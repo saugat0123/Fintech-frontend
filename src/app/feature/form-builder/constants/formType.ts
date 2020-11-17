@@ -39,19 +39,24 @@ export class FormType {
         {
             'id': 'Any',
             'value': '1',
+            'type': 'text',
         }, {
             'id': 'Email',
             'value': '2',
+            'type': 'Email',
         }, {
             'id': 'Alphabet',
             'value': '3',
+            'type': 'text',
         }, {
             'id': 'Alpha Numeric',
             'value': '4',
+            'type': 'text',
         },
         {
             'id': 'Numeric',
             'value': '5',
+            'type': 'number',
         }];
 
     static DISPLAY = [
@@ -65,7 +70,7 @@ export class FormType {
         },
     ];
 
-     INPUT_TEXT = {
+    INPUT_TEXT = {
         'name': 'Text',
         'type': FormType.TEXT,
         'colspan': 'col-md-12',
@@ -93,7 +98,7 @@ export class FormType {
             'type': 'text'
         }, {
             'name': 'Input Type',
-            'value': 'col-md-3',
+            'value': '1',
             'type': 'dropdown',
             'possibleValues': FormType.INPUT_TYPE,
         },
@@ -101,7 +106,7 @@ export class FormType {
         ]
     };
 
-     INPUT_DATE = {
+    INPUT_DATE = {
         'name': 'Date',
         'type': FormType.DATE,
         'colspan': 'col-md-12',
@@ -128,7 +133,7 @@ export class FormType {
         ]
     };
 
-     INPUT_SELECT = {
+    INPUT_SELECT = {
         'name': 'Selection',
         'type': FormType.SELECT,
         'settings': [{
@@ -173,7 +178,7 @@ export class FormType {
         ]
     };
 
-      INPUT_TEXTAREA = {
+    INPUT_TEXTAREA = {
         'name': 'Paragraph',
         'type': FormType.TEXTAREA,
         'settings': [{
@@ -212,7 +217,7 @@ export class FormType {
         ]
     };
 
-     INPUT_LINEBREAK = {
+    INPUT_LINEBREAK = {
         'name': 'Line Break',
         'type': FormType.BREAK,
         'settings': [{
@@ -237,7 +242,7 @@ export class FormType {
             }]
     };
 
-     INPUT_ADDRESS = {
+    INPUT_ADDRESS = {
         'name': 'Address',
         'type': FormType.ADDRESS,
         'colspan': 'col-md-12',
@@ -262,7 +267,7 @@ export class FormType {
         ]
     };
 
-     INPUT_RADIO = {
+    INPUT_RADIO = {
         'name': 'Radio',
         'type': FormType.RADIO,
         'settings': [{
@@ -307,7 +312,7 @@ export class FormType {
         ]
     };
 
-       INPUT_CHECKBOX = {
+    INPUT_CHECKBOX = {
         'name': 'Check Box',
         'type': FormType.CHECKBOX,
         'settings': [{
@@ -327,7 +332,7 @@ export class FormType {
         ]
     };
 
-      INPUT_ARRAY = {
+    INPUT_ARRAY = {
         'name': 'Form Array',
         'type': FormType.FORM_ARRAY,
         'fields': []
