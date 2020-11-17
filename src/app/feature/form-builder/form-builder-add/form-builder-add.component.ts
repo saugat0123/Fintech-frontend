@@ -88,6 +88,13 @@ export class FormBuilderAddComponent implements OnInit {
         }
         if (element.type === FormType.FORM_ARRAY) {
             this.selectedField = element;
+            this.dragElements.forEach((d, index) => {
+                if (d.type === FormType.FORM_ARRAY) {
+                    this.dragElements.splice(index, 1);
+                }
+            });
+        } else {
+            this.dragElements = new Inputs().DRAG_ELEMENTS;
         }
 
     }
@@ -98,7 +105,13 @@ export class FormBuilderAddComponent implements OnInit {
         if (this.selectedField.type !== FormType.FORM_ARRAY) {
             this.tabsetEl.selectTab(this.settingTabEl);
             this.isArraySelected = false;
+            this.dragElements = new Inputs().DRAG_ELEMENTS;
         } else {
+            this.dragElements.forEach((d, index) => {
+                if (d.type === FormType.FORM_ARRAY) {
+                    this.dragElements.splice(index, 1);
+                }
+            });
             this.isArraySelected = true;
         }
 
@@ -199,6 +212,11 @@ export class FormBuilderAddComponent implements OnInit {
             element.id = this.id;
             this.selectedField.fields.push(event);
             this.dragElements = new Inputs().DRAG_ELEMENTS;
+            this.dragElements.forEach((d, index) => {
+                if (d.type === FormType.FORM_ARRAY) {
+                    this.dragElements.splice(index, 1);
+                }
+            });
             if (element.type === 'date') {
                 this.isDatePresent = true;
             }
