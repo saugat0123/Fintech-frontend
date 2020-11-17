@@ -33,11 +33,8 @@ export class MouseScrollDisableDirective {
         target.addEventListener('keydown', function (e) {
             key[e.keyCode] = true;
             switch (e.keyCode) {
-                case 37:
-                case 39:
                 case 38:
                 case 40:
-                case 32:
                     e.preventDefault();
                     break;
                 default:

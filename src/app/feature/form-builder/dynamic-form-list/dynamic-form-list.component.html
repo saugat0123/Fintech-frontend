@@ -1,0 +1,136 @@
+<nb-card>
+    <nb-card-header>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="btn-group">
+                        <button
+                                (click)="isFilterCollapsed = !isFilterCollapsed"
+                                [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+                                nbButton
+                                shape="rectangle"
+                                status="primary"
+                                size="small">
+                            <em class="fa fa-filter"> Filter</em>
+                        </button>
+
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex justify-content-end">
+                    <button nbButton outline status="success" class="mr-2" size="small" routerLink="/home/template/add"
+                    >
+                        <i class="fa fa-plus"></i>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+        <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">
+
+        </div>
+
+    </nb-card-header>
+    <nb-card-body>
+        <br>
+        <table class="table table-sm table-bordered table-hover sb-small text-center" id="add-branch-table">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+
+                <th>SN</th>
+                <th>Form Title</th>
+                <th>Preview</th>
+
+
+                <th>Created On</th>
+                <th>Action</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let model of formList;let i=index">
+                <td>{{i + 1}}</td>
+                <td>{{model?.title}}</td>
+                <td class="cursor"><em class="fa fa-eye"
+                                       (click)="previewTemplate(previewForm,model.title,model?.config,model)"></em></td>
+                <td>{{model?.createdAt | date}}</td>
+                <td>
+                    <div class="row d-flex justify-content-center">
+                        <div class="px-1">
+                            <button nbButton size="tiny" status="success" shape="rectangle"
+                                    [routerLink]="'/home/template/edit/'+model?.id"><em
+                                    class="fa fa-edit"></em></button>
+                        </div>
+                        <div class="px-1">
+                            <button nbButton size="tiny" shape="rectangle" (click)="confirmation(model,deleteForm)"><em
+                                    class="fa fa-trash"></em></button>
+                        </div>
+                    </div>
+
+
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <!--    <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>-->
+        <!-- ===================table-pagination==================== -->
+        <app-paging (changePage)="changePage($event)" *ngIf="!spinner"
+                    [pageable]="pageable"></app-paging>
+        <!-- ===================table-pagination==================== -->
+    </nb-card-body>
+
+
+</nb-card>
+
+<ng-template #previewForm let-dynamicTempRef="dialogRef">
+    <nb-card accent="primary" style="width:90vw!important;height:80vh!important;max-height: 85vh;overflow: auto">
+        <nb-card-header>
+
+            {{formTitle}}
+            <a (click)="dynamicTempRef.close()" aria-label="Close" class="close cursor"><span
+                    aria-hidden="true">×</span></a>
+
+
+        </nb-card-header>
+        <nb-card-body>
+            <app-dynamic-forms [config]="formConfig" [preview]="true" [baseForm]="parentForm"></app-dynamic-forms>
+        </nb-card-body>
+    </nb-card>
+</ng-template>
+
+<ng-template #deleteForm let-ref="dialogRef">
+    <nb-card accent="primary">
+        <nb-card-header>
+            Confirmation
+            <a (click)="ref.close()" aria-label="Close" class="close cursor"><span
+                    aria-hidden="true">×</span></a>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="clearfix">
+                <div class="d-flex justify-content-center">
+                    Do you want to delete {{formTitle}}?
+                </div>
+            </div>
+        </nb-card-body>
+        <nb-card-footer>
+            <div class="clearfix">
+                <div class="float-right">
+                    <div class="row">
+                        <div class="px-1">
+                            <button nbButton size="tiny" shape="rectangle" status="primary" (click)="ref.close()">No
+                            </button>
+                        </div>
+                        <div class="px-1">
+                            <button nbButton size="tiny" shape="rectangle" status="success" (click)="deleteById(parentForm);ref.close()">Yes</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>
+
+<app-overlay-spinner></app-overlay-spinner>

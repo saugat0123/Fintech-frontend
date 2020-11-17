@@ -1,0 +1,17 @@
+<div [formGroup]="dynamicFormGroup" class="form-group" [id]="field?.id">
+
+    <label class="sb-small"><strong>{{field?.settings[0].value}}</strong></label>
+    <sup class="text-danger"
+         *ngIf="field?.settings[3]?.value">*</sup>
+    <input class="form-control form-control-sm" [type]="field?.type"
+           [ngClass]="{ 'is-invalid': (submitted) &&  dynamicFormControl(field.id)?.errors && field?.settings[3]?.value }"
+           [placeholder]="field?.settings[1]?.value" [formControlName]="field?.id">
+    <div *ngIf="(submitted) && dynamicFormControl(field.id)?.errors && field?.settings[3]?.value"
+         class="invalid-feedback">
+        <div *ngIf="dynamicFormControl(field.id)?.errors?.required">
+            {{field?.settings[0]?.value}} is required
+        </div>
+    </div>
+
+
+</div>
