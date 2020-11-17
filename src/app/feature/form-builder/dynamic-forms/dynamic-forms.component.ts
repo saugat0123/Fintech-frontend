@@ -1,8 +1,9 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {EmailValidator, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Editor} from '../../../@core/utils/constants/editor';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {FormType} from '../constants/formType';
+import {Pattern} from '../../../@core/utils/constants/pattern';
 
 @Component({
     selector: 'app-dynamic-forms',
@@ -17,14 +18,14 @@ export class DynamicFormsComponent implements OnInit, AfterViewChecked {
     @Input()
     preview: boolean;
     @Input()
-    editPreviousValue:any;
+    editPreviousValue: any;
     dynamicFormGroup: FormGroup;
     ckeConfig = Editor.CK_CONFIG;
     submitted = false;
     calendarType = 'AD';
     isFormBuild = false;
     FormType = FormType;
-
+    INPUT_TYPE = FormType.INPUT_TYPE;
 
 
     constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) {
@@ -36,7 +37,6 @@ export class DynamicFormsComponent implements OnInit, AfterViewChecked {
             this.isFormBuild = true;
             this.initializeArray();
         }
-        console.log(this.dynamicFormGroup.controls);
     }
 
     ngAfterViewChecked() {
@@ -73,6 +73,7 @@ export class DynamicFormsComponent implements OnInit, AfterViewChecked {
     onSubmit() {
         this.submitted = true;
         if (this.dynamicFormGroup.invalid) {
+            console.log('final value invalid:::', this.dynamicFormGroup.controls)
             return;
         }
 
@@ -84,7 +85,8 @@ export class DynamicFormsComponent implements OnInit, AfterViewChecked {
     createNewFormControlFb(input, object) {
         if (input.settings[3].value) {
             // tslint:disable-next-line:max-line-length
-            return this.fb.control(this.editPreviousValue ? this.editDynamicFormPatchValue(object, input.id) : undefined, [Validators.required]);
+            return this.fb.control(this.editPreviousValue ? this.editDynamicFormPatchValue(object, input.id) : undefined,
+                input.type === FormType.TEXT ? this.inputTypeTextValidation(input) : [Validators.required]);
         } else {
             return this.fb.control(this.editPreviousValue ? this.editDynamicFormPatchValue(object, input.id) : undefined);
         }
@@ -94,7 +96,8 @@ export class DynamicFormsComponent implements OnInit, AfterViewChecked {
     createNewFormControlFbAddress(input, controlName, object) {
         if (input.settings[3].value) {
             // tslint:disable-next-line:max-line-length
-            return this.fb.control(this.editPreviousValue ? this.editDynamicFormPatchValue(object, controlName) : undefined, [Validators.required]);
+            return this.fb.control(this.editPreviousValue ? this.editDynamicFormPatchValue(object, controlName) : undefined,
+                [Validators.required]);
         } else {
             return this.fb.control(this.editPreviousValue ? this.editDynamicFormPatchValue(object, controlName) : undefined);
         }
@@ -138,5 +141,26 @@ export class DynamicFormsComponent implements OnInit, AfterViewChecked {
     removeControlInArray(event) {
         (this.dynamicFormGroup.controls[event.control.id] as FormArray).removeAt(event.index);
 
+    }
+
+    inputTypeTextValidation(input) {
+        console.log(input)
+        const validation = [];
+        const validationType = this.INPUT_TYPE.filter(i => i.value === input.settings[5].value)[0].id;
+        if (input.settings[3].value) {
+            validation.push(Validators.required);
+            if (validationType === 'Email') {
+                console.log('email type');
+                validation.push(Validators.email);
+            } else if (validationType === 'Alphabet') {
+                validation.push(Validators.pattern('^[a-zA-Z \-\']+'));
+            }else if (validationType === 'Numeric') {
+                validation.push(Validators.pattern(Pattern.NUMBER_DOUBLE));
+            }
+        }
+        const maxLength = input.settings[4].value;
+        validation.push(Validators.maxLength(maxLength));
+        console.log('validation', validation);
+        return validation;
     }
 }

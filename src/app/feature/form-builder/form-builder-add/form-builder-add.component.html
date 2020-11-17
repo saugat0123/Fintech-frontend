@@ -133,7 +133,7 @@
 
                                         <label>{{set.name}}</label>
                                         <select class="form-control" (change)="onChangeSettings(set,$event.target,i)">
-                                            <option *ngFor="let op of set?.possibleValues"
+                                            <option *ngFor="let op of set?.possibleValues" [selected]="op.value===set?.value"
                                                     [value]="op.value">{{op.id}}</option>
                                         </select>
                                     </div>
