@@ -12,6 +12,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {ApprovalRoleHierarchyComponent} from './loan/approval/approval-role-hierarchy.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {NepaliCalendarModule} from './nepali-calendar/nepali-calendar.module';
+import {MouseScrollDisableDirective} from '../@core/directive/mouse-scroll-disable.directive';
 
 
 @NgModule({
@@ -32,9 +33,10 @@ import {NepaliCalendarModule} from './nepali-calendar/nepali-calendar.module';
             PendingLoanComponent,
             PendingsLoanComponent,
             DataVisualizationComponent,
-            ApprovalRoleHierarchyComponent
+            ApprovalRoleHierarchyComponent,
+            MouseScrollDisableDirective
         ],
-        exports: [],
+        exports: [MouseScrollDisableDirective],
         providers: []
     }
 )

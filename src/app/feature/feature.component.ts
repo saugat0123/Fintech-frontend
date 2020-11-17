@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {NbMenuItem} from '@nebular/theme';
 import {FeatureMenuService} from './FeatureMenuService';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -9,7 +9,7 @@ import {LocalStorageUtil} from '../@core/utils/local-storage-util';
 @Component({
     selector: 'app-pages',
     template: `
-        <app-base-layout>
+        <app-base-layout appMouseScrollDisable>
             <nb-menu [items]="menus"></nb-menu>
             <router-outlet></router-outlet>
         </app-base-layout>
@@ -61,6 +61,7 @@ export class FeatureComponent implements OnInit {
             }
         });
     }
+
 
 }
 
