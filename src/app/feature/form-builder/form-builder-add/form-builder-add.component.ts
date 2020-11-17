@@ -44,6 +44,7 @@ export class FormBuilderAddComponent implements OnInit {
     isDatePresent = false;
     FormType = FormType;
     isArraySelected = false;
+    arrayId = 0;
 
     constructor(private toastService: ToastService,
                 private route: ActivatedRoute,
@@ -63,6 +64,9 @@ export class FormBuilderAddComponent implements OnInit {
     }
 
     removeElement(i, id) {
+        if (this.formFields[i].type === FormType.FORM_ARRAY) {
+            this.dragElements = new Inputs().DRAG_ELEMENTS;
+        }
         this.formFields.splice(i, 1);
         if (!ObjectUtil.isEmpty(this.selectedField)) {
             if (this.selectedField.id === id) {
@@ -73,6 +77,7 @@ export class FormBuilderAddComponent implements OnInit {
         if (isDateFieldPresent.length < 1) {
             this.isDatePresent = false;
         }
+
     }
 
 
@@ -209,9 +214,12 @@ export class FormBuilderAddComponent implements OnInit {
         if (!ObjectUtil.isEmpty(event) && (!ObjectUtil.isEmpty(this.selectedField))) {
             if (this.selectedField.type === FormType.FORM_ARRAY) {
                 const element: any = event;
-                this.id = this.id + 1;
-                element.id = this.id;
-                this.selectedField.fields.push(event);
+                this.arrayId = this.arrayId + 1;
+                if (this.selectedField.fields.length > 0) {
+                    this.arrayId = parseInt(this.selectedField.fields[this.selectedField.fields.length - 1].id, 10) + 1;
+                }
+                element.id = this.arrayId;
+                this.selectedField.fields.push(element);
                 this.dragElements = new Inputs().DRAG_ELEMENTS;
                 this.dragElements.forEach((d, index) => {
                     if (d.type === FormType.FORM_ARRAY) {
