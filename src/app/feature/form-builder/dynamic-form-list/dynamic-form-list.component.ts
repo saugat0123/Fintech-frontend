@@ -25,7 +25,7 @@ export class DynamicFormListComponent implements OnInit {
     formList: Array<Forms> = new Array<Forms>();
     formConfig;
     formTitle;
-    parentForm;
+    parentForm: Forms = new Forms();
 
     constructor(private formBuilderService: FormBuilderService, private toastService: ToastService,
                 private modalService: NbDialogService) {
@@ -63,6 +63,20 @@ export class DynamicFormListComponent implements OnInit {
             autoFocus: true
         });
 
+    }
+
+    confirmation(model, template) {
+        this.formTitle = model.title;
+        this.parentForm = model;
+        this.modalService.open(template);
+    }
+
+    deleteById(model) {
+        this.formBuilderService.delete(model.id).subscribe((res: any) => {
+            this.parentForm = new Forms();
+            DynamicFormListComponent.loadData(this);
+            this.toastService.show(new Alert(AlertType.SUCCESS, res.detail));
+        });
     }
 
 }

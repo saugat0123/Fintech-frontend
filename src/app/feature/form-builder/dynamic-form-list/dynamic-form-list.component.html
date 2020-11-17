@@ -40,7 +40,7 @@
                 <th>SN</th>
                 <th>Form Title</th>
                 <th>Preview</th>
-                <th>Status</th>
+
 
                 <th>Created On</th>
                 <th>Action</th>
@@ -54,11 +54,21 @@
                 <td>{{model?.title}}</td>
                 <td class="cursor"><em class="fa fa-eye"
                                        (click)="previewTemplate(previewForm,model.title,model?.config,model)"></em></td>
-                <td>{{model?.status}}</td>
                 <td>{{model?.createdAt | date}}</td>
                 <td>
-                    <button nbButton size="tiny" [routerLink]="'/home/template/edit/'+model?.id"><em
-                            class="fa fa-edit"></em></button>
+                    <div class="row d-flex justify-content-center">
+                        <div class="px-1">
+                            <button nbButton size="tiny" status="success" shape="rectangle"
+                                    [routerLink]="'/home/template/edit/'+model?.id"><em
+                                    class="fa fa-edit"></em></button>
+                        </div>
+                        <div class="px-1">
+                            <button nbButton size="tiny" shape="rectangle" (click)="confirmation(model,deleteForm)"><em
+                                    class="fa fa-trash"></em></button>
+                        </div>
+                    </div>
+
+
                 </td>
             </tr>
 
@@ -74,14 +84,52 @@
 
 </nb-card>
 
-<ng-template #previewForm>
+<ng-template #previewForm let-dynamicTempRef="dialogRef">
     <nb-card accent="primary" style="width:90vw!important;height:80vh!important;max-height: 85vh;overflow: auto">
         <nb-card-header>
+
             {{formTitle}}
+            <a (click)="dynamicTempRef.close()" aria-label="Close" class="close cursor"><span
+                    aria-hidden="true">×</span></a>
+
+
         </nb-card-header>
         <nb-card-body>
             <app-dynamic-forms [config]="formConfig" [preview]="true" [baseForm]="parentForm"></app-dynamic-forms>
         </nb-card-body>
+    </nb-card>
+</ng-template>
+
+<ng-template #deleteForm let-ref="dialogRef">
+    <nb-card accent="primary">
+        <nb-card-header>
+            Confirmation
+            <a (click)="ref.close()" aria-label="Close" class="close cursor"><span
+                    aria-hidden="true">×</span></a>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="clearfix">
+                <div class="d-flex justify-content-center">
+                    Do you want to delete {{formTitle}}?
+                </div>
+            </div>
+        </nb-card-body>
+        <nb-card-footer>
+            <div class="clearfix">
+                <div class="float-right">
+                    <div class="row">
+                        <div class="px-1">
+                            <button nbButton size="tiny" shape="rectangle" status="primary" (click)="ref.close()">No
+                            </button>
+                        </div>
+                        <div class="px-1">
+                            <button nbButton size="tiny" shape="rectangle" status="success" (click)="deleteById(parentForm);ref.close()">Yes</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </nb-card-footer>
     </nb-card>
 </ng-template>
 
