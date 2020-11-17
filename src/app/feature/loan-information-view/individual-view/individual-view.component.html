@@ -47,8 +47,8 @@
         <td>{{individual?.wardNumber || 'NA'}}</td>
         <td>{{individual?.contactNumber || 'NA'}}</td>
         <td>{{individual?.email || 'NA'}}</td>
-        <td>{{(individual?.occupation| jsonParse)?.multipleOccupation}}</td>
-        <td>{{(individual?.incomeSource| jsonParse)?.multipleIncome}}</td>
+        <td>{{(individual?.occupation| jsonParse)?.multipleOccupation || 'NA'}}</td>
+        <td>{{(individual?.incomeSource| jsonParse)?.multipleIncome || 'NA'}}</td>
         <td>{{customerInfo?.clientType}}</td>
 
       </tr>
