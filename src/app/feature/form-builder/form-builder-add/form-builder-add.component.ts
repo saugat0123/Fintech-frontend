@@ -94,6 +94,7 @@ export class FormBuilderAddComponent implements OnInit {
                 }
             });
         } else {
+            this.selectedField = {};
             this.dragElements = new Inputs().DRAG_ELEMENTS;
         }
 
