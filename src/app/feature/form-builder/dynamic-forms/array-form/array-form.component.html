@@ -8,7 +8,7 @@
                   <strong><span>{{i+1}}.</span></strong>
                 </div>
                 <div class="float-right">
-                    <button nbButton size="tiny" (click)="remove(i)" *ngIf="getArrayControl(fieldData?.id).controls.length > 1">remove</button>
+                    <button nbButton type="button" size="tiny" (click)="remove(i)" *ngIf="getArrayControl(fieldData?.id).controls.length > 1">remove</button>
                 </div>
             </div>
             <div class="col-md-12">
@@ -101,6 +101,6 @@
 </div>
 <div class="clearfix">
     <div class="float-right">
-        <button nbButton size="tiny" (click)="add()">add more</button>
+        <button nbButton size="tiny" (click)="add()" type="button">add more</button>
     </div>
 </div>

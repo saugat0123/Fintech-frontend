@@ -93,4 +93,4 @@
         <button nbButton>save</button>
     </div>
 </form>
-<span>{{editPreviousValue | json}}</span>
+<span *ngIf="submitted">{{editPreviousValue | json}}</span>
