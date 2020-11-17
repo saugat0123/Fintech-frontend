@@ -206,7 +206,7 @@ export class FormBuilderAddComponent implements OnInit {
 
 
     eventEmitDoubleClick(event) {
-        if (!ObjectUtil.isEmpty(event)) {
+        if (!ObjectUtil.isEmpty(event) && (!ObjectUtil.isEmpty(this.selectedField))) {
             if (this.selectedField.type === FormType.FORM_ARRAY) {
                 const element: any = event;
                 this.id = this.id + 1;
