@@ -18,6 +18,7 @@ import { CompanyInfoViewComponent } from './company-info-view/company-info-view.
 import { CiclViewComponent } from './cicl-view/cicl-view.component';
 import { AllDocumentViewComponent } from './all-document-view/all-document-view.component';
 import { ProposalViewComponent } from './proposal-view/proposal-view.component';
+import { IncomeFromAccountViewComponent } from './income-from-account-view/income-from-account-view.component';
 
 
 @NgModule({
@@ -33,19 +34,21 @@ import { ProposalViewComponent } from './proposal-view/proposal-view.component';
     CiclViewComponent,
     AllDocumentViewComponent,
     ProposalViewComponent,
+    IncomeFromAccountViewComponent,
   ],
-  exports: [
-    InsuranceViewComponent,
-    FinancialViewComponent,
-    GuarantorViewComponent,
-    SiteVisitViewComponent,
-    IndividualViewComponent,
-    SecurityViewComponent,
-    CompanyInfoViewComponent,
-    CiclViewComponent,
-    AllDocumentViewComponent,
-    ProposalViewComponent,
-  ],
+    exports: [
+        InsuranceViewComponent,
+        FinancialViewComponent,
+        GuarantorViewComponent,
+        SiteVisitViewComponent,
+        IndividualViewComponent,
+        SecurityViewComponent,
+        CompanyInfoViewComponent,
+        CiclViewComponent,
+        AllDocumentViewComponent,
+        ProposalViewComponent,
+        IncomeFromAccountViewComponent,
+    ],
   imports: [
     CommonModule,
     CoreModule,

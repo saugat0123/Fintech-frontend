@@ -127,6 +127,8 @@
             <app-net-trading-assets *ngIf="loanHolder?.netTradingAssets"
                                     [fromProfile]="false"
                                     [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
+            <app-income-from-account-view *ngIf="loanHolder?.incomeFromAccount"
+                                          [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-view>
             <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"
                                              [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-summery>
 
