@@ -105,6 +105,17 @@ $color-bank-dark: #007bff;
   font-size: 18px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .table-sm th, .table-sm td {
   padding: 0;
 }
@@ -149,3 +160,5 @@ $color-bank-dark: #007bff;
   color: red;
   margin-left: 5px;
 }
+
+

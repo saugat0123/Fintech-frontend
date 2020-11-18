@@ -1,0 +1,31 @@
+<div class="form-group" [id]="field.id" [formGroup]="dynamicFormGroup">
+
+    <div class="clearfix">
+        <div class="float-left"><label
+                class="sb-small cursor"
+        ><strong>{{field?.settings[0].value}}</strong></label>
+            <sup class="text-danger"
+                 *ngIf="field?.settings[3]?.value">*</sup></div>
+    </div>
+
+    <div>
+        <nb-radio-group [class]="field?.settings[4]?.value"
+                        [ngClass]="{ 'is-invalid': (submitted) &&  dynamicFormControl(field.id)?.errors && field?.settings[3]?.value }"
+                        [formControlName]="field?.id"
+                        [name]="field?.id"
+                        [id]="field?.id">
+            <nb-radio *ngFor="let opt of field?.settings[5]?.possibleValue"
+                      [value]="opt.Text">{{opt.Text}}</nb-radio>
+
+        </nb-radio-group>
+        <div *ngIf="(submitted) && dynamicFormControl(field.id)?.errors"
+             class="text-danger sb-medium py-1">
+            <div *ngIf="dynamicFormControl(field.id)?.errors?.required">
+                {{field?.settings[0]?.value}} is required
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
