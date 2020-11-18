@@ -150,7 +150,7 @@ export class DynamicFormsComponent implements OnInit, AfterViewChecked {
         if (validationType === 'Email') {
             validation.push(Validators.email);
         } else if (validationType === 'Alphabet') {
-            validation.push(Validators.pattern('^[a-zA-Z \-\']+'));
+            validation.push(Validators.pattern(Pattern.ALPHABET_ONLY));
         } else if (validationType === 'Numeric') {
             validation.push(Validators.pattern(Pattern.NUMBER_DOUBLE));
         }
