@@ -65,6 +65,48 @@
             </tr>
             </thead>
         </table>
+        {{financialData['initialForm'] |json}}
+        <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small">
+            <thead>
+            <tr>
+                <th colspan="7">Other Detail Of Borrower</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <td>
+                    Major Source Of Income
+                </td>
+                <td>
+                  Numbers Of years
+                </td>
+                <td>
+                   Alternative Source Of Income
+                </td>
+                <td>
+                    Source Amount
+                </td>
+                <td>
+                    Total Net monthly Income
+                </td>
+                <td>
+                    Total Gross/Monthly Obligation
+                </td>
+                <td>
+                    EMI With Proposal
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ financialData['initialForm']['majorSourceIncomeType']}}</td>
+                <td>{{ financialData['initialForm']['periodOfEarning']}}</td>
+                <td>{{ financialData['initialForm']['alternateIncomeSource'] |currencyFormatter}}</td>
+                <td>Rs.{{ financialData['initialForm']['alternateIncomeSourceAmount']}}</td>
+                <td>Rs.{{ financialData['initialForm']['totalIncome'] - financialData['initialForm']['totalExpense'] |currencyFormatter}}</td>
+                <td>Rs.{{ financialData['initialForm']['totalIncome'] / financialData['initialForm']['totalExpense'] |currencyFormatter}}</td>
+                <td>Rs.{{ financialData['initialForm']['emiWithProposal'] |currencyFormatter}}</td>
+            </tr>
+            </tbody>
+        </table>
         <div *ngIf="isBusinessLoan">
             <p class="float-left"><strong>Financial Details</strong></p>
             <table
