@@ -56,6 +56,7 @@ export class CadDocumentCoreComponent implements OnInit {
                 if (customerOfferLetterPath.offerLetter.id === offerLetter.id) {
                   offerLetter.isPresent = true;
                   offerLetter.uploadedUrl = customerOfferLetterPath.path;
+                  offerLetter.pathSigned = customerOfferLetterPath.pathSigned;
                 }
 
               });

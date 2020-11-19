@@ -3,6 +3,7 @@ import {BaseEntity} from '../../../@core/model/base-entity';
 
 export class CustomerOfferLetterPath extends BaseEntity {
   path: string;
+  pathSigned: string;
   initialInformation: string;
   supportedInformation: string;
   offerLetter: OfferLetter;

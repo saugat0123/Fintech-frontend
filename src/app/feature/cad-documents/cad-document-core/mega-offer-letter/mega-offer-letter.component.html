@@ -12,16 +12,21 @@
                                    </a>
                                     </span>
                     <span *ngIf="list.isPresent" style="color:darkgreen">
-                                     <input (change)="onFileChange($event)" class="hide-type"
+                                    <!-- <input (change)="onFileChange($event)" class="hide-type"
                                             id="uploadOfferLetterInput"
-                                            type="file">
+                                            type="file">-->
                                      <a (click)="uploadOfferLetter(list.id,uploadModel)" title="upload {{list.name}}">
                                         <i class="fa fa-upload"></i>
                                    </a>
                                    </span>
-                    <span *ngIf="list.isPresent && list.uploadedUrl !==null" style="color:#007bff">
+                    <span *ngIf="list.isPresent && list.uploadedUrl !==null" style="color:#007bff" nbTooltipStatus="primary" nbTooltip="draft document">
                                       <a (click)="previewClick(list.uploadedUrl)" title="view {{list.name}}">
                                         <i class="fa fa-eye px-2"></i>
+                                   </a>
+                                    </span>
+                    <span *ngIf="list.isPresent && list.pathSigned !==null" style="color:#007bff" nbTooltipStatus="primary" nbTooltip="signed document">
+                                      <a (click)="previewClick(list.pathSigned)" title="view {{list.name}}">
+                                       <i class="fas fa-file-signature px-2"></i>
                                    </a>
                                     </span>
                     <span *ngIf="list.isPresent" class="px-2" title="Print {{list.name}}">
@@ -127,6 +132,14 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label for="type">Select Offer Type</label>
+                                    <select [(ngModel)]="docType" class="form-control" id="type">
+                                        <option *ngFor="let type of offerLetterType" [value]="type">{{type |titlecase}} Document</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="form-group files">
                                 <label>Upload Your File </label>
                                 <input (change)="onFileChange($event)" class="form-control" multiple=""
