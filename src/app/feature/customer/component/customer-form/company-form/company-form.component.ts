@@ -43,6 +43,7 @@ import {MarketScenarioComponent} from './market-scenario/market-scenario.compone
 import {Editor} from '../../../../../@core/utils/constants/editor';
 import {WhiteSpaceValidation} from '../../../../loan/model/whiteSpaceValidation';
 import {CustomerService} from '../../../../admin/service/customer.service';
+import {RegisteredOfficeList} from '../../../../admin/modal/registeredOfficeList';
 
 @Component({
     selector: 'app-company-form',
@@ -115,6 +116,7 @@ export class CompanyFormComponent implements OnInit {
     buyerList = Buyer.enumObject();
     industryGrowthList = IndustryGrowth.enumObject();
     marketCompetitionList = MarketCompetition.enumObject();
+    registeredOffice = RegisteredOfficeList.enumObject();
 
 
     constructor(
