@@ -221,7 +221,6 @@ export class CustomerComponent implements OnInit {
     }
 
     editCustomer(model) {
-        console.log(model);
         if (CustomerType.INDIVIDUAL === CustomerType[model.customerType]) {
             this.customerService.detail(model.associateId).subscribe((res: any) => {
                 const detail = res.detail;
