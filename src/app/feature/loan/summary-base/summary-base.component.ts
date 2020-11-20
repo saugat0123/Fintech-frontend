@@ -128,6 +128,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
       } else {
         this.actionsList.closed = false;
       }
+      this.actionsList.loanApproveStatus = this.loanDataHolder.documentStatus.toString() === 'APPROVED';
 
       if (this.user.role.roleName !== 'admin') {
       await this.loanActionService.getSendForwardList().subscribe((res: any) => {

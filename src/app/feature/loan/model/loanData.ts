@@ -32,6 +32,7 @@ import {BaseEntity} from '../../../@core/model/base-entity';
 import {GroupDto} from './GroupDto';
 import {GroupSummaryDto} from './GroupSummaryDto';
 import {CreditRiskGradingLambda} from '../../admin/modal/CreditRiskGradingLambda';
+import {CadDocument} from './cadDocument';
 
 
 export class LoanDataHolder extends BaseEntity {
@@ -85,4 +86,5 @@ export class LoanDataHolder extends BaseEntity {
     reportingInfoLog: string;
     clientType: string;
     subsectorDetail: string;
+    cadDocument: Array<CadDocument>;
 }

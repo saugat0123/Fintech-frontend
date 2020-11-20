@@ -36,6 +36,7 @@ import { IncomeFromAccountComponent } from './income-from-account/income-from-ac
 import { NetTradingAssetsComponent } from './net-trading-assets/net-trading-assets.component';
 import { CreditChecklistGeneralComponent } from './credit-checklist-general/credit-checklist-general.component';
 import { CreditRiskGradingLambdaComponent } from './credit-risk-grading-lambda/credit-risk-grading-lambda.component';
+import { CadDocumentUploadComponent } from './cad-document-upload/cad-document-upload.component';
 
 const COMPONENTS = [
   SiteVisitComponent,
@@ -67,7 +68,7 @@ const COMPONENTS = [
 
 
 @NgModule({
-  declarations: [...COMPONENTS],
+  declarations: [...COMPONENTS, CadDocumentUploadComponent],
   exports: [...COMPONENTS],
   entryComponents: [...COMPONENTS],
   imports: [
