@@ -26,9 +26,16 @@
     </table>
     <table class="table table-bordered table-hover table-sm sb-small text-center" style="table-layout: fixed">
       <tr class="sb-bg-dark text-white ">
-        <th>Remarks</th>
+        <td>Remarks</td>
       </tr>
-      <td class="text-justify px-2" style="overflow-wrap: break-word; "><span [innerHTML]="ciclValue?.remarks | safeHtml"></span></td>
+      <td class="text-justify px-2" style="overflow-wrap: break-word; "><span
+              [innerHTML]="ciclValue?.remarks | safeHtml"></span></td>
+      <tr class="sb-bg-dark text-white">
+        <th>Repayment track in other BFIs</th>
+      </tr>
+      <tr>
+        <td>{{ciclValue?.repaymentTrack}}</td>
+      </tr>
     </table>
   </div>
 </div>

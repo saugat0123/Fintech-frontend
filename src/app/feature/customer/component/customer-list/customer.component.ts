@@ -146,6 +146,7 @@ export class CustomerComponent implements OnInit {
     getForm() {
         this.onClose();
         if (CustomerType.INDIVIDUAL === CustomerType[this.customerType]) {
+
             this.dialogService.open(CustomerFormComponent, {
                 closeOnBackdropClick: false,
                 closeOnEsc: false,
@@ -217,6 +218,36 @@ export class CustomerComponent implements OnInit {
             });
         }
 
+    }
+
+    editCustomer(model) {
+        if (CustomerType.INDIVIDUAL === CustomerType[model.customerType]) {
+            this.customerService.detail(model.associateId).subscribe((res: any) => {
+                const detail = res.detail;
+                this.dialogService.open(CustomerFormComponent, {
+                    context: {
+                        formValue: detail,
+                        clientTypeInput: model.clientType,
+                        customerIdInput: model.customerCode,
+                        bankingRelationshipInput: model.bankingRelationship,
+                        subSectorDetailCodeInput: model.subsectorDetail
+                    },
+                    closeOnBackdropClick: false,
+                    closeOnEsc: false,
+                    hasBackdrop: false,
+                    hasScroll: true
+                    // tslint:disable-next-line:no-shadowed-variable
+                }).onClose.subscribe((res: any) => CustomerComponent.loadData(this));
+            }, error => this.toastService.show(new Alert(AlertType.ERROR, error.error.message)));
+
+        } else if (CustomerType.INSTITUTION === CustomerType[model.customerType]) {
+            this.dialogService.open(CompanyFormComponent, {
+                closeOnBackdropClick: false,
+                closeOnEsc: false,
+                hasBackdrop: false,
+                hasScroll: true
+            }).onClose.subscribe(res => CustomerComponent.loadData(this));
+        }
     }
 
 

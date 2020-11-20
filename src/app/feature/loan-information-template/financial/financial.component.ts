@@ -553,6 +553,7 @@ export class FinancialComponent implements OnInit {
         }
         this.calculateAndSetHighestScore();
         this.currentFormData['fiscalYear'] = this.fiscalYear;
+        console.log(this.financialForm.value);
         this.currentFormData['initialForm'] = this.financialForm.value;
         if (this.isBusinessLoan) {
             this.currentFormData['auditorList'] = this.auditorList;
