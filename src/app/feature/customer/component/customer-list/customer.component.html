@@ -102,24 +102,26 @@
         <th>Email</th>
         <th>Contact No</th>
         <th>Associated Since</th>
+        <th>Action</th>
 
 
       </tr>
       </thead>
       <tbody>
-      <tr (click)="customerProfile(model.associateId,model.id,model.customerType)"
+      <tr
           *ngFor="let model of customerList;let i=index" class="cursor">
-        <td *ngIf="!isMaker">{{model?.branch?.name}}</td>
-        <td>{{model?.name}}</td>
-        <td>{{model?.customerType}}</td>
+        <td *ngIf="!isMaker" (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.branch?.name}}</td>
+        <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.name}}</td>
+        <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.customerType}}</td>
 
-        <td>{{model?.idNumber || 'NA'}}</td>
-        <td>{{model?.idRegPlace || 'NA'}}</td>
-        <td>{{model?.idRegDate | date}}</td>
-        <td>{{model?.email || 'NA'}}</td>
+        <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.idNumber || 'NA'}}</td>
+        <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.idRegPlace || 'NA'}}</td>
+        <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.idRegDate | date}}</td>
+        <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.email || 'NA'}}</td>
 
-        <td>{{model?.contactNo || 'NA'}}</td>
-        <td>{{(model?.createdAt|date) || 'NA'}}</td>
+        <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.contactNo || 'NA'}}</td>
+        <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{(model?.createdAt|date) || 'NA'}}</td>
+        <td><button  nbButton size="tiny" shape="rectangle" (click)="editCustomer(model)"><em class="fa fa-edit"></em></button></td>
 
       </tr>
 
