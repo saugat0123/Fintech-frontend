@@ -45,10 +45,12 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="registeredOffice"><strong>Registered Office</strong></label>
-                  <input [ngClass]="{ 'is-invalid': (submitted) && form.registeredOffice.errors }" class="form-control"
+                  <select [ngClass]="{ 'is-invalid': (submitted) && form.registeredOffice.errors }" class="form-control"
                          formControlName="registeredOffice"
-                         id="registeredOffice" name="registeredOffice" placeholder="Registered Office"
-                         type="text">
+                         id="registeredOffice" name="registeredOffice" placeholder="Registered Office">
+                    <option [ngValue]="null" hidden>Select Registered Office</option>
+                    <option *ngFor="let registeredOffice of registeredOffice" [ngValue]="registeredOffice.key">{{registeredOffice.value}}</option>
+                  </select>
                   <div *ngIf="(submitted) && form.registeredOffice.invalid"
                        class="invalid-feedback">
                     <div *ngIf="form.registeredOffice.errors.required">
