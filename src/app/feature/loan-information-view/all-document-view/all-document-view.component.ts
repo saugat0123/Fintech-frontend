@@ -5,6 +5,8 @@ import {ToastService} from '../../../@core/utils';
 import {DocumentService} from '../../admin/component/document/document.service';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {ProductUtils} from '../../admin/service/product-mode.service';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 
 @Component({
   selector: 'app-all-document-view',
@@ -17,6 +19,8 @@ export class AllDocumentViewComponent implements OnInit {
   minOneInsuranceDoc;
   taggedGuarantorWithDoc = [];
   insuranceWithDoc = [];
+  showCadDoc;
+  productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
 
   constructor(private dmsLoanService: DmsLoanService,
               private toastService: ToastService,
@@ -45,6 +49,7 @@ export class AllDocumentViewComponent implements OnInit {
         });
       }
     }
+    this.showCadDoc = this.productUtils.CAD_DOC_UPLOAD;
   }
 
   downloadCustomerDocument(documentPath, documentName) {
