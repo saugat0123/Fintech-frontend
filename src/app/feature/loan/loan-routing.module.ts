@@ -7,6 +7,7 @@ import {LoanPullComponent} from './component/loan-pull/loan-pull.component';
 import {LoanOfferLetterComponent} from './loan-offer-letter/loan-offer-letter.component';
 import {SummaryBaseComponent} from './summary-base/summary-base.component';
 import {LoanInformationDetailViewComponent} from '../loan-information-detail-view/loan-information-detail-view.component';
+import {CadDocumentUploadComponent} from '../loan-information-template/cad-document-upload/cad-document-upload.component';
 
 export const routes: Routes = [
     {path: 'loanForm', component: LoanFormComponent},
@@ -16,6 +17,8 @@ export const routes: Routes = [
     {path: 'pull', component: LoanPullComponent},
     {path: 'loan-offer-letter', component: LoanOfferLetterComponent},
     {path: 'detailed-summary', component: LoanInformationDetailViewComponent},
+    {path: 'cad-document', component: CadDocumentUploadComponent},
+
 
 ];
 

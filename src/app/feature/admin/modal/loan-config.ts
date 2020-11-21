@@ -31,4 +31,6 @@ export class LoanConfig {
     minimumProposedAmount: number;
     loanCategory: string;
     loanTag: string;
+    approvedDocument: Array<Document>;
+
 }
