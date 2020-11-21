@@ -90,6 +90,7 @@
       </div>
     </div>
     <app-individual-view [individual]="data"
+                         [customerInfo]="profile"
                          *ngIf="activity === 'CUSTOMER_UPDATE' && data && profile.customerType === 'INDIVIDUAL'">
     </app-individual-view>
     <app-company-info-view [formValue]="data"
