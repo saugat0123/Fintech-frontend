@@ -1,36 +1,86 @@
 <table id="assigned-table" class="table table-bordered table-hover table-sm sb-small text-center ">
     <thead>
     <tr class="text-white sb-bg-dark">
-        <th>Branch</th>
+        <th *ngIf="branchView">Branch</th>
         <th>Customer Name</th>
         <th>Loan Facility</th>
         <th>Proposed Amount</th>
         <th>Type</th>
         <th>Status</th>
+        <th>Last Modified At</th>
 
         <th>Action</th>
-
 
 
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let data of customerOfferLetterList;let i=index"
-        class="cursor">
-        <td>{{data?.customerLoan?.branch?.name}}</td>
-        <td>{{data?.customerLoan?.loanHolder?.name}}</td>
-        <td>{{data?.customerLoan?.loan?.name}}</td>
-        <td>Rs .{{data?.customerLoan?.proposal?.proposedLimit |currencyFormatter}}</td>
-        <td>{{data?.customerLoan?.loanType | replace:'_': ' '}}</td>
-        <td>{{data?.docStatus}}</td>
-        <td>
-            <button (click)="generateOfferLetter(data?.customerLoan)" nbButton size="small"
-                    status="success">Generate
-            </button>
-        </td>
+    <ng-container *ngFor="let data of customerOfferLetterList;let i=index">
+        <tr
+                class="cursor">
+            <td *ngIf="branchView">{{data?.customerLoan?.branch?.name}}</td>
+            <td>{{data?.customerLoan?.loanHolder?.name}}</td>
+            <td>{{data?.customerLoan?.loan?.name}}</td>
+            <td>Rs .{{data?.customerLoan?.proposal?.proposedLimit |currencyFormatter}}</td>
+            <td>{{data?.customerLoan?.loanType | replace:'_': ' '}}</td>
+            <td>{{data?.docStatus}}</td>
+            <td>{{data?.lastModifiedAt | date}}</td>
+            <td>
+                <a nbTooltip="click to generate Post Approval Document"
+                        (click)="generateOfferLetter(data?.customerLoan)"
+                        class="text-success"><em class="fas fa-file-contract"></em>
+                </a>
+                <a class="px-2" (click)="data?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
+                   nbTooltip="click to view detail stage of Post Approval Document">
+                    <em class="fa fa-eye"></em>
+                </a>
+            </td>
+        </tr>
+        <ng-container *ngIf="toggleArray[i].toggled">
+            <tr class=" text-center"
+                *ngIf="data?.previousList?.length > 1 || data?.offerLetterStage">
+                <td colspan="9"><strong>Post Approval Document Stages</strong></td>
+            </tr>
+            <tr class=" text-center"
+                *ngIf="data?.previousList?.length < 1
+                         && !data?.offerLetterStage">
 
+            </tr>
+            <tr class="text-white sb-bg-dark"
+                *ngIf="data?.previousList?.length > 1 || data?.offerLetterStage">
+                <td>Date</td>
+                <td>From User</td>
 
-    </tr>
+                <td>To User</td>
+                <td>Action</td>
+                <td colspan="5">Comment</td>
+            </tr>
+            <tr class=" text-center"
+                *ngFor="let data of data?.previousList;let j=index">
+                <td>{{data?.lastModifiedAt | date}}</td>
+                <td>{{data?.fromUser?.name}}</td>
+
+                <td>{{data?.toUser?.name}}</td>
+                <td>{{data?.docAction}}</td>
+
+                <td colspan="5">{{data?.comment}}</td>
+            </tr>
+            <tr class=" text-center">
+                <td>{{data?.offerLetterStage?.lastModifiedAt | date}}</td>
+                <td>{{data?.offerLetterStage?.fromUser?.name}}</td>
+
+                <td>{{data?.offerLetterStage?.toUser?.name}}</td>
+                <td>{{data?.offerLetterStage?.docAction}}</td>
+
+                <td colspan="5">{{data?.offerLetterStage?.comment}}</td>
+            </tr>
+            <tr class="sb-bg-dark"
+                *ngIf="data?.previousList?.length > 1
+                         || data?.offerLetterStage">
+                <td colspan="9">.</td>
+            </tr>
+        </ng-container>
+    </ng-container>
     </tbody>
 </table>
 <!-- ===================table-pagination==================== -->
