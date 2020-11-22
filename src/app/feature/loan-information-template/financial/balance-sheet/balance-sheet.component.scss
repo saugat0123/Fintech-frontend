@@ -1,0 +1,18 @@
+.scrollable {
+  overflow-x: auto;
+}
+
+th:first-child, td:first-child
+{
+  position:sticky;
+  left:0;
+  background-color: #c7c6c6;
+}
+
+td:nth-child(2)
+{
+  position:sticky;
+  left:0;
+  background-color: #c7c6c6;
+  min-width: 210px;
+}
