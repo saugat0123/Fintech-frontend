@@ -28,6 +28,7 @@ export class AssignedOfferLetterComponent implements OnInit {
             {
                 queryParams: {
                     customerId: customerLoan.id,
+                    branchId: customerLoan.branch.id
                 }
             });
     }

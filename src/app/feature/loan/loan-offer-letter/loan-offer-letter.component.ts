@@ -411,6 +411,7 @@ export class LoanOfferLetterComponent implements OnInit {
     }
 
     public getUserList(role) {
+        //
         this.offerLetterAssignForm.patchValue({
             role: role,
             user: undefined
