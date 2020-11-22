@@ -382,7 +382,7 @@ export class CompanyFormComponent implements OnInit {
 
             // Success Planning
             successionPlanning: [ObjectUtil.isEmpty(this.companyInfo) ? undefined :
-                JSON.parse(this.companyInfo.successionPlanning)],
+                this.companyInfo.successionPlanning],
 
             // Business Objective
             businessObjective: [ObjectUtil.isEmpty(this.companyJsonData.businessObjective) ? undefined :
