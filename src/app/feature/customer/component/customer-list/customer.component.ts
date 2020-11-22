@@ -249,6 +249,10 @@ export class CustomerComponent implements OnInit {
                 this.dialogService.open(CompanyFormComponent, {
                 context: {
                     formValue: detail,
+                    bankingRelationshipInput: model.bankingRelationship,
+                    subSectorDetailCodeInput: model.subsectorDetail,
+                    customerCode: model.customerCode,
+                    clientTypeInput: model.clientType,
                 },
                 closeOnBackdropClick: false,
                 closeOnEsc: false,
