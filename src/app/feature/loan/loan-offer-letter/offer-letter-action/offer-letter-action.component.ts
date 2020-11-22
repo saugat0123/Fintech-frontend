@@ -75,6 +75,8 @@ export class OfferLetterActionComponent implements OnInit {
     }
 
     ngOnInit() {
+
+        console.log(this.currentUserRoleType , this.isApprovedDisabled , "kjhuj");
         this.currentUserId = LocalStorageUtil.getStorage().userId;
         this.roleId = LocalStorageUtil.getStorage().roleId;
         this.router.queryParams.subscribe(
@@ -97,7 +99,7 @@ export class OfferLetterActionComponent implements OnInit {
                             this.isForwardDisabled = true;
                         }
                     } else {
-                        this.isBackwardDisabled = true;
+                       this.isBackwardDisabled = true;
                         this.isApprovedDisabled = true;
                     }
                 }, error => {
@@ -109,11 +111,11 @@ export class OfferLetterActionComponent implements OnInit {
                 if (roleName !== 'admin') {
                     this.currentUserRoleType = roleType === RoleType.MAKER;
                 }
-
                 if (roleType === RoleType.MAKER) {
                     this.currentUserRoleType = true;
                     this.isForwardDisabled = false;
                     this.isApprovedDisabled = true;
+                    this.isBackwardDisabled = true;
                 } else {
                     this.isForwardDisabled = false;
                     this.isApprovedDisabled = false;
