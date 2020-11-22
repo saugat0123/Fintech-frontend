@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -28,9 +28,6 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 })
 export class OfferLetterActionComponent implements OnInit {
 
-
-    @Input()
-    selectedBranchId;
 
     id;
     allId;
@@ -95,7 +92,6 @@ export class OfferLetterActionComponent implements OnInit {
                     if (this.customerOfferLetter !== undefined) {
                         if (this.currentUserId.toString() === this.customerOfferLetter.createdBy.toString()) {
                             this.isBackwardDisabled = true;
-                            this.selectedBranchId = this.customerOfferLetter.customerLoan.branch.id;
                         }
                         if (this.customerOfferLetter.docStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
                             this.isForwardDisabled = true;
@@ -118,7 +114,6 @@ export class OfferLetterActionComponent implements OnInit {
                     this.currentUserRoleType = true;
                     this.isForwardDisabled = false;
                     this.isApprovedDisabled = true;
-                    this.isBackwardDisabled = true;
                 } else {
                     this.isForwardDisabled = false;
                     this.isApprovedDisabled = false;
@@ -134,7 +129,6 @@ export class OfferLetterActionComponent implements OnInit {
                     this.isBackwardDisabled = true;
                 }
             });
-        console.log(this.selectedBranchId);
     }
 
 
@@ -233,7 +227,7 @@ export class OfferLetterActionComponent implements OnInit {
     }
 
     public getUserList(role) {
-        this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id , this.selectedBranchId).subscribe((response: any) => {
+        this.userService.getUserListByRoleId(role.id).subscribe((response: any) => {
             this.userList = response.detail;
             if (this.userList.length === 1) {
                 this.formAction.patchValue({
