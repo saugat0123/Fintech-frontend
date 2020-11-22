@@ -14,6 +14,7 @@ import {LoanActionModalComponent} from './loan-action-modal/loan-action-modal.co
 import {LoanFormService} from '../component/loan-form/service/loan-form.service';
 import {LoanActionCombinedModalComponent} from './loan-action-combined-modal/loan-action-combined-modal.component';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {ProductUtils} from '../../admin/service/product-mode.service';
 
 @Component({
   selector: 'app-loan-action',
@@ -38,6 +39,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
   public committeeRole = false;
   private dialogRef: NbDialogRef<any>;
   isOpen = false;
+  showCadDocumentRoute = false;
+  productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+
 
   constructor(
       private alertService: AlertService,
@@ -56,6 +60,10 @@ export class LoanActionComponent implements OnInit, OnChanges {
     }
     if (roleType === RoleType.MAKER) {
       this.isMaker = true;
+    }
+
+    if (roleName.toLowerCase() === 'cad' || roleType === RoleType.MAKER) {
+      this.showCadDocumentRoute = true;
     }
     this.committeeRole = roleType === RoleType.COMMITTEE;
   }
@@ -208,6 +216,16 @@ export class LoanActionComponent implements OnInit, OnChanges {
         loanConfigId: this.loanConfigId,
         customerId: this.id,
         customerType: this.customerType
+      }
+    });
+  }
+
+  onUploadDocument() {
+    this.router.navigate(['/home/loan/cad-document'], {
+      queryParams: {
+        loanId: this.loanConfigId,
+        customerId: this.id,
+        loanCategory: this.loanCategory
       }
     });
   }

@@ -32,6 +32,8 @@ import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {ProductUtils} from '../../../admin/service/product-mode.service';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-loan-summary',
@@ -139,6 +141,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     minOneGuarantorDoc = false;
     taggedGuarantorWithDoc = [];
     insuranceWithDoc = [];
+    showCadDoc = false;
+    productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
 
 
     constructor(
@@ -159,6 +163,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private toastService: ToastService
     ) {
         this.client = environment.client;
+        this.showCadDoc = this.productUtils.CAD_DOC_UPLOAD;
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
                 this.loadSummary();
