@@ -230,7 +230,7 @@ export class CompanyFormComponent implements OnInit {
                     || ObjectUtil.isEmpty(this.companyInfo.id)) ? undefined :
                     this.companyInfo.id],
             customerCode: [ObjectUtil.isEmpty(this.customerCode) ? undefined :
-                this.subSectorDetailCodeInput],
+                this.customerCode],
             companyInfoVersion:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.version)) ? undefined :
