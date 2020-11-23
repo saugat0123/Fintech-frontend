@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
 import {Guarantor} from '../../../model/guarantor';
 import {CustomerGroup} from '../../../../admin/modal/customer-group';
+import {CustomerDocuments} from '../../../model/customerDocuments';
 
 
 
@@ -145,6 +146,17 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         const api = `${this.getApi()}/loan-holder/${id}/for-combine`;
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
+    }
+
+    public uploadLoanCadFile(formData: FormData): Observable<object> {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/cad-document/upload`);
+        return this.http.post(req.url, formData, {headers: req.header});
+    }
+
+    public saveCustomerDocument(loanId , customerDocuments: Array<CustomerDocuments>) {
+        const api = `${this.getApi()}/cad-document?loanId=${loanId}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.post(req.url, customerDocuments, {headers: req.header});
     }
 
     protected getApi(): string {

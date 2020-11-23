@@ -63,6 +63,8 @@ export class UIComponent implements OnInit {
   selectedLoanCategory: string;
   loanTagList = LoanTag.enumObject();
   selectedLoanTag = LoanTag.getKeyByValue(LoanTag.GENERAL);
+  cadDocumentUploadList = [];
+  finalCadDocumentUploadList = Array<Document>();
 
   @ViewChild('loanConfigForm', {static: true}) loanConfigForm: NgForm;
 
@@ -245,6 +247,26 @@ export class UIComponent implements OnInit {
       }
     });
 
+    if (other.productUtils.CAD_DOC_UPLOAD) {
+      // Id of Full Settlement Loan cycle is set 12 in patch backend
+      other.documentService.getByLoanCycleAndStatus(12, Status.ACTIVE).subscribe((response: any) => {
+        other.cadDocumentUploadList = response.detail;
+
+        if (other.id !== undefined && other.id !== 0) {
+          other.service.detail(other.id).subscribe((res: any) => {
+            other.loanConfig = res.detail;
+            other.cadDocumentUploadList.forEach(cadDocument => {
+              other.loanConfig.approvedDocument.forEach(loanConfigFullDocument => {
+                if (cadDocument.id === loanConfigFullDocument.id) {
+                  other.finalCadDocumentUploadList.push(cadDocument);
+                  cadDocument.checked = true;
+                }
+              });
+            });
+          });
+        }
+      });
+    }
   }
 
   ngOnInit() {
@@ -340,6 +362,8 @@ export class UIComponent implements OnInit {
     this.loanConfig.enhance = this.finalEnhanceDocument;
     this.loanConfig.partialSettlement = this.finalPartialSettlementDocument;
     this.loanConfig.fullSettlement = this.finalFullSettlementDocument;
+    this.loanConfig.approvedDocument = this.finalCadDocumentUploadList;
+
     this.loanConfig.offerLetters = this.selectedOfferLetterList;
     this.loanConfig.loanCategory = this.selectedLoanCategory;
     this.loanConfig.loanTag = this.selectedLoanTag;

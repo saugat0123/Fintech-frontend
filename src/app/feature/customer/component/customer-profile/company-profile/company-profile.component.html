@@ -4,8 +4,8 @@
   <nb-card-header>
     <div class="row shadow-sm">
       <div class="col-md-4">
-        <strong>Associate Group:</strong> <span> {{customerInfo?.customerGroup != undefined
-          ? customerInfo?.customerGroup?.groupCode : ' No Group had been Assigned'}}</span>
+        <strong>Associated Group:</strong> <span> {{customerInfo?.customerGroup != undefined
+          ? customerInfo?.customerGroup?.groupCode : ' No group has been assigned.'}}</span>
         <div class="py-2">
           <button [nbPopover]="activity" nbButton size="small" [nbPopoverPlacement]="'right'">
             Customer Activity

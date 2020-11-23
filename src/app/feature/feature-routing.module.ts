@@ -52,6 +52,11 @@ const routes: Routes = [
                 path: 'cad-document',
                 loadChildren: () => import('./cad-documents/cad-documents.module').then(m => m.CadDocumentsModule)
             },
+
+            {
+                path: 'template',
+                loadChildren: () => import('./form-builder/form-builder.module').then(m => m.FormBuilderModule)
+            },
             {path: '', redirectTo: 'dashboard'},
             {path: '**', redirectTo: 'dashboard'}
         ],

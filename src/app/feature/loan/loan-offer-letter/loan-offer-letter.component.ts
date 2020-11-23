@@ -73,6 +73,7 @@ export class LoanOfferLetterComponent implements OnInit {
     selectedBranchId = 0;
     errorMessage = null;
     filterUserList = [];
+    isAssignSelected = false;
 
     constructor(
         private branchService: BranchService,
@@ -113,6 +114,7 @@ export class LoanOfferLetterComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             other.customerOfferLetterService.getAssignedOfferLetter(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
                 other.assignedOfferLetterList = response.detail.content;
+                other.assignedOfferLetterList.forEach(() => other.toggleArray.push({toggled: false}));
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
                 other.spinnerService.hide();
@@ -261,12 +263,10 @@ export class LoanOfferLetterComponent implements OnInit {
             this.filterForm.get('role').value;
         this.catalogueService.search.customerName = ObjectUtil.isEmpty(this.filterForm.get('customerName').value) ? undefined :
             this.filterForm.get('customerName').value;
-        this.catalogueService.search.postApprovalAssignStatus = ObjectUtil.isEmpty(this.filterForm.
-        get('postApprovalAssignStatus').value) ? undefined :
+        this.catalogueService.search.postApprovalAssignStatus = ObjectUtil.isEmpty(this.filterForm.get('postApprovalAssignStatus').value) ? undefined :
             this.filterForm.get('postApprovalAssignStatus').value;
         this.catalogueService.search.documentStatus = 'APPROVED';
-        this.catalogueService.search.postApprovalAssignedUser = ObjectUtil.isEmpty(this.filterForm.
-        get('postApprovalAssignedUser').value) ? undefined :
+        this.catalogueService.search.postApprovalAssignedUser = ObjectUtil.isEmpty(this.filterForm.get('postApprovalAssignedUser').value) ? undefined :
             this.filterForm.get('postApprovalAssignedUser').value;
         LoanOfferLetterComponent.loadData(this);
     }
@@ -440,5 +440,16 @@ export class LoanOfferLetterComponent implements OnInit {
         this.customerOfferLetterService.getUserListForFilter(searchDto).subscribe((res: any) => {
             this.filterUserList = res.detail;
         });
+    }
+
+    selectedAssign(event) {
+        if (event.value === 'NOT_ASSIGNED') {
+            this.isAssignSelected = false;
+            this.filterForm.patchValue({
+                postApprovalAssignedUser: null,
+            });
+        } else {
+            this.isAssignSelected = true;
+        }
     }
 }

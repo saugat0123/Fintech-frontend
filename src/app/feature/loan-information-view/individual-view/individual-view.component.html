@@ -47,8 +47,8 @@
         <td>{{individual?.wardNumber || 'NA'}}</td>
         <td>{{individual?.contactNumber || 'NA'}}</td>
         <td>{{individual?.email || 'NA'}}</td>
-        <td>{{(individual?.occupation| jsonParse)?.multipleOccupation}}</td>
-        <td>{{(individual?.incomeSource| jsonParse)?.multipleIncome}}</td>
+        <td>{{(individual?.occupation| jsonParse)?.multipleOccupation || 'NA'}}</td>
+        <td>{{(individual?.incomeSource| jsonParse)?.multipleIncome || 'NA'}}</td>
         <td>{{customerInfo?.clientType}}</td>
 
       </tr>
@@ -102,10 +102,18 @@
     <table
         class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
       <tr class="text-white sb-bg-dark">
-        <th>Introduction</th>
+        <th colspan="2">Introduction</th>
       </tr>
       <tr>
-        <td>{{individual?.introduction}}</td>
+        <td colspan="2">{{individual?.introduction}}</td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>Banking Relationship</th>
+        <th>Net Worth</th>
+      </tr>
+      <tr>
+        <td>{{individual?.bankingRelationship}}</td>
+        <td>Rs. {{individual?.netWorth |currencyFormatter}}</td>
       </tr>
     </table>
   </div>

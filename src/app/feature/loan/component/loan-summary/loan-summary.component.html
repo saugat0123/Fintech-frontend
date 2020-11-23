@@ -378,8 +378,8 @@
                                 <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
                                 <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
                                 <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
-                                <td>{{(loanDataHolder?.customerInfo?.occupation ? loanDataHolder?.customerInfo?.occupation : ''| jsonParse)?.multipleOccupation || 'NA'}}</td>
-                                <td>{{(loanDataHolder?.customerInfo?.incomeSource ? loanDataHolder?.customerInfo?.incomeSource : ''| jsonParse)?.multipleIncome || 'NA'}}</td>
+                                <td>{{(loanDataHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
+                                <td>{{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>
                             </tr>
                             <tr class="text-white sb-bg-dark">
                 <td>Customer Client Type</td>
@@ -820,6 +820,37 @@
                     </table>
                 </div>
             </div>
+
+            <div *ngIf="loanDataHolder?.cadDocument?.length > 0  && showCadDoc" class="row disable-print">
+                <div class="col-md-12">
+                    <p><strong>Cad Documents</strong></p>
+                    <table class="table table-condensed table-bordered table-sm sb-small text-center">
+                        <thead class="text-white sb-bg-dark">
+                        <tr>
+                            <th>S.N</th>
+                            <th>Document</th>
+                            <th>Preview</th>
+                            <th>Download</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let singleDoc of loanDataHolder?.cadDocument; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{singleDoc?.document?.name}}</td>
+                            <td>
+                                <i (click)="previewOfferLetterDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
+                                   class="fas fa-eye"></i></td>
+                            <td>
+                                <i (click)="downloadCustomerDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
+                                   aria-hidden="true" class="fa fa-download"
+                                   style="cursor: pointer"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
 
             <div class="row justify-content-end px-3 disable-print">{{docMsg}}</div>
 

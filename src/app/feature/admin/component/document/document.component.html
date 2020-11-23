@@ -103,10 +103,14 @@
             <nb-card-body>
                 <div class="row">
                     <ng-container *ngFor="let loanCycle of loanCycleList">
-                        <div class="col-md-6 mb-4" *ngIf="loanCycle?.cycle !== 'Eligibility'">
+                        <div class="col-md-6 mb-4" *ngIf="loanCycle?.cycle !== 'Eligibility' && loanCycle?.cycle !== 'Cad Document'">
                             <app-update-document [cycle]="loanCycle"></app-update-document>
                         </div>
                         <div *ngIf="loanCycle?.cycle === 'Eligibility' && productUtils.ELIGIBILITY"
+                             class="col-md-6 mb-4">
+                            <app-update-document [cycle]="loanCycle"></app-update-document>
+                        </div>
+                        <div *ngIf="loanCycle?.cycle === 'Cad Document' && productUtils.CAD_DOC_UPLOAD"
                              class="col-md-6 mb-4">
                             <app-update-document [cycle]="loanCycle"></app-update-document>
                         </div>

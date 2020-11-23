@@ -25,6 +25,7 @@ import {RoleAccess} from '../../../admin/modal/role-access';
 import {BranchService} from '../../../admin/component/branch/branch.service';
 import {CustomerGroupService} from '../../../admin/component/preference/services/customer-group.service';
 import {CustomerGroup} from '../../../admin/modal/customer-group';
+import {CompanyInfoService} from '../../../admin/service/company-info.service';
 
 @Component({
     selector: 'app-customer-component',
@@ -65,6 +66,7 @@ export class CustomerComponent implements OnInit {
                 private commonLocation: AddressService,
                 private branchService: BranchService,
                 private customerGroupService: CustomerGroupService,
+                private companyInfoService: CompanyInfoService,
     ) {
     }
 
@@ -146,6 +148,7 @@ export class CustomerComponent implements OnInit {
     getForm() {
         this.onClose();
         if (CustomerType.INDIVIDUAL === CustomerType[this.customerType]) {
+
             this.dialogService.open(CustomerFormComponent, {
                 closeOnBackdropClick: false,
                 closeOnEsc: false,
@@ -217,6 +220,48 @@ export class CustomerComponent implements OnInit {
             });
         }
 
+    }
+
+    editCustomer(model) {
+        if (CustomerType.INDIVIDUAL === CustomerType[model.customerType]) {
+            this.customerService.detail(model.associateId).subscribe((res: any) => {
+                const detail = res.detail;
+                this.dialogService.open(CustomerFormComponent, {
+                    context: {
+                        formValue: detail,
+                        clientTypeInput: model.clientType,
+                        customerIdInput: model.customerCode,
+                        bankingRelationshipInput: model.bankingRelationship,
+                        subSectorDetailCodeInput: model.subsectorDetail
+                    },
+                    closeOnBackdropClick: false,
+                    closeOnEsc: false,
+                    hasBackdrop: false,
+                    hasScroll: true
+                    // tslint:disable-next-line:no-shadowed-variable
+                }).onClose.subscribe((res: any) => CustomerComponent.loadData(this));
+            }, error => this.toastService.show(new Alert(AlertType.ERROR, error.error.message)));
+
+        } else if (CustomerType.INSTITUTION === CustomerType[model.customerType]) {
+            this.companyInfoService.detail(model.associateId).subscribe((res: any) => {
+                const detail = res.detail;
+                console.log(detail);
+                this.dialogService.open(CompanyFormComponent, {
+                context: {
+                    formValue: detail,
+                    bankingRelationshipInput: model.bankingRelationship,
+                    subSectorDetailCodeInput: model.subsectorDetail,
+                    customerCode: model.customerCode,
+                    clientTypeInput: model.clientType,
+                },
+                closeOnBackdropClick: false,
+                closeOnEsc: false,
+                hasBackdrop: false,
+                hasScroll: true
+                // tslint:disable-next-line:no-shadowed-variable
+            }).onClose.subscribe(res => CustomerComponent.loadData(this));
+            });
+        }
     }
 
 
