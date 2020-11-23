@@ -37,6 +37,7 @@ import { NetTradingAssetsComponent } from './net-trading-assets/net-trading-asse
 import { CreditChecklistGeneralComponent } from './credit-checklist-general/credit-checklist-general.component';
 import { CreditRiskGradingLambdaComponent } from './credit-risk-grading-lambda/credit-risk-grading-lambda.component';
 import { CadDocumentUploadComponent } from './cad-document-upload/cad-document-upload.component';
+import { SecurityRevaluationComponent } from './security/security-initial-form/security-revaluation/security-revaluation.component';
 
 const COMPONENTS = [
   SiteVisitComponent,
@@ -63,7 +64,8 @@ const COMPONENTS = [
   NetTradingAssetsComponent,
   IncomeFromAccountComponent,
   CreditRiskGradingLambdaComponent,
-  CreditChecklistGeneralComponent
+  CreditChecklistGeneralComponent,
+  SecurityRevaluationComponent
 ];
 
 
