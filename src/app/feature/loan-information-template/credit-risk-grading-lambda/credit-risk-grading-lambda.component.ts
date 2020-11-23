@@ -128,8 +128,10 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.incomeFromAccount)) {
       const incomeFromAccountParsed = JSON.parse(this.incomeFromAccount.data);
-      this.setValueForCriteria('repaymentHistory', incomeFromAccountParsed.accountTransactionForm.repaymentTrackWithCurrentBank,
-          this.repaymentHistoryMap.get(incomeFromAccountParsed.accountTransactionForm.repaymentTrackWithCurrentBank));
+      if (!incomeFromAccountParsed.newCustomerChecked) {
+        this.setValueForCriteria('repaymentHistory', incomeFromAccountParsed.accountTransactionForm.repaymentTrackWithCurrentBank,
+            this.repaymentHistoryMap.get(incomeFromAccountParsed.accountTransactionForm.repaymentTrackWithCurrentBank));
+      }
     } else {
       this.missingAlerts.push({
         type: 'danger',
