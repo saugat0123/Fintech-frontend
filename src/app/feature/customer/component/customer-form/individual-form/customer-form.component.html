@@ -256,19 +256,29 @@
                     </div> -->
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="contactNumber"><strong>Contact Number</strong></label>
+                            <label for="contactNumber"><strong>Mobile Number</strong></label>
                             <input
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.contactNumber.errors }"
                                     class="form-control" formControlName="contactNumber" id="contactNumber"
                                     name="contactNumber"
-                                    placeholder="Contact number"
+                                    placeholder="Mobile number"
                                     type="text">
                             <div *ngIf="(submitted) && basicInfoControls.contactNumber.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.contactNumber.errors.required">
-                                    Contact Number number is required
+                                    Mobile Number number is required
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="contactNumber"><strong>LandLine Number</strong></label>
+                            <input
+                                class="form-control" formControlName="landLineNumber" id="landLineNumber"
+                                name="landLineNumber"
+                                placeholder="LandLine number"
+                                type="text">
                         </div>
                     </div>
                     <!-- END ROW -->

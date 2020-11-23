@@ -277,6 +277,9 @@ export class CompanyFormComponent implements OnInit {
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.contactNum)) ? undefined :
                     this.companyInfo.contactNum, [Validators.required]],
+            landLineNumber: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.landLineNumber)) ? undefined :
+                this.companyInfo.landLineNumber],
             subsectorDetail:
                 [(ObjectUtil.isEmpty(this.subSectorDetailCodeInput)) ? undefined :
                     this.subSectorDetailCodeInput],
@@ -737,6 +740,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.email = this.companyInfoFormGroup.get('email').value;
         this.companyInfo.issuePlace = this.companyInfoFormGroup.get('issuePlace').value;
         this.companyInfo.contactNum = this.companyInfoFormGroup.get('contactNum').value;
+        this.companyInfo.landLineNumber = this.companyInfoFormGroup.get('landLineNumber').value;
         this.companyInfo.clientType = this.companyInfoFormGroup.get('clientType').value;
         this.companyInfo.subsectorDetail = this.companyInfoFormGroup.get('subsectorDetail').value;
 
