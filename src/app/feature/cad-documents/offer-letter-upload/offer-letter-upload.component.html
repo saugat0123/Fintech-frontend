@@ -1,11 +1,23 @@
-<div class="row">
+<!--add if need-->
+<!--<div class="row">
   <div class="col-md-12 form-group">
     <label for="offerLetter">Select Offer Letter</label>
     <select [(ngModel)]="offerLetterId" class="form-control" id="offerLetter">
+      <option selected hidden value="null">&#45;&#45;Select Offer Letter&#45;&#45;</option>
       <option *ngFor="let cusOfferLetter of customerOfferLetter?.customerOfferLetterPath;"
               [value]="cusOfferLetter.offerLetter.id">
         {{cusOfferLetter.offerLetter.name}}
       </option>
+    </select>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 form-group">
+    <label for="type">Select Offer Type</label>
+    <select [(ngModel)]="docType" class="form-control" id="type">
+      <option hidden selected value="null">&#45;&#45;Select Type&#45;&#45;</option>
+      <option value="0">Draft Document</option>
+      <option value="1">Signed Document</option>
     </select>
   </div>
 </div>
@@ -20,13 +32,13 @@
       </button>
     </div>
   </div>
-</div>
-<div class="row">
+</div>-->
+<!--<div class="row">
   <div class="col-md-12">
       <button (click)="submitOfferLetter()" [disabled]="!preview" nbButton status="success">Upload
       </button>
   </div>
-</div>
+</div>-->
 
 <div class="row">
   <div class="col-md-12">
@@ -35,8 +47,15 @@
       <tr class="text-white sb-bg-dark">
         <th>#</th>
         <th>Offer Letter</th>
-        <th>Upload Status</th>
-        <th>Preview</th>
+        <th colspan="2">Upload Status</th>
+        <th colspan="2">Preview</th>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td>Draft Doc</td>
+        <td>Signed Doc</td>
+        <td>Draft Doc Preview</td>
+        <td>Signed Doc Preview</td>
       </tr>
       </thead>
       <tbody>
@@ -53,10 +72,23 @@
             <i class="fas fa-times-circle"></i></span>
         </td>
         <td>
+          <span *ngIf="cusOfferLetter?.pathSigned !== null"
+                style="color:limegreen"><i class="fas fa-check-circle"></i></span>
+          <span *ngIf="cusOfferLetter?.pathSigned === null"
+                style="color:red">
+            <i class="fas fa-times-circle"></i></span>
+        </td>
+        <td>
           <a (click)="previewClick(cusOfferLetter.path)" *ngIf="cusOfferLetter?.path !== null"><i
               class="fas fa-eye cursor" style="color:cornflowerblue"></i>
                 </a>
           <span *ngIf="cusOfferLetter?.path === null">No preview available</span>
+        </td>
+        <td>
+          <a (click)="previewClick(cusOfferLetter.pathSigned)" *ngIf="cusOfferLetter?.pathSigned !== null"><i
+              class="fas fa-eye cursor" style="color:cornflowerblue"></i>
+                </a>
+          <span *ngIf="cusOfferLetter?.pathSigned === null">No preview available</span>
         </td>
       </tr>
       </tbody>

@@ -23,6 +23,7 @@ export class CadDocumentCoreComponent implements OnInit {
   clientList = Clients;
   loanDataHolder: LoanDataHolder;
   customerId: number;
+  branchId: number;
   offerLetterList: Array<OfferLetter>;
   offerLetterId;
   uploadFile;
@@ -43,6 +44,7 @@ export class CadDocumentCoreComponent implements OnInit {
 
   ngOnInit() {
     this.customerId = Number(this.activatedRoute.snapshot.queryParamMap.get('customerId'));
+    this.branchId = Number(this.activatedRoute.snapshot.queryParamMap.get('branchId'));
     this.loanFormService.detail(this.customerId).subscribe((response: any) => {
       this.loanDataHolder = response.detail;
       this.offerLetterList = this.loanDataHolder.loan.offerLetters;
@@ -56,6 +58,7 @@ export class CadDocumentCoreComponent implements OnInit {
                 if (customerOfferLetterPath.offerLetter.id === offerLetter.id) {
                   offerLetter.isPresent = true;
                   offerLetter.uploadedUrl = customerOfferLetterPath.path;
+                  offerLetter.pathSigned = customerOfferLetterPath.pathSigned;
                 }
 
               });

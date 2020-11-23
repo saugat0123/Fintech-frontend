@@ -4,5 +4,6 @@ export class OfferLetter {
     templateUrl: string;
     isPresent: boolean;
     uploadedUrl: string;
+    pathSigned: string;
 
 }
