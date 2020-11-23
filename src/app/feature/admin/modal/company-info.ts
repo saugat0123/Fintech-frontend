@@ -40,5 +40,6 @@ export class CompanyInfo {
     companyJsonData: string;
     subsectorDetail: string;
     clientType: string;
+    landLineNumber: string;
 
 }

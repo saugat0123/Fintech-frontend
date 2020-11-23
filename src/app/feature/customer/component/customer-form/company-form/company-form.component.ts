@@ -43,6 +43,7 @@ import {MarketScenarioComponent} from './market-scenario/market-scenario.compone
 import {Editor} from '../../../../../@core/utils/constants/editor';
 import {WhiteSpaceValidation} from '../../../../loan/model/whiteSpaceValidation';
 import {CustomerService} from '../../../../admin/service/customer.service';
+import {RegisteredOfficeList} from '../../../../admin/modal/registeredOfficeList';
 
 @Component({
     selector: 'app-company-form',
@@ -119,6 +120,7 @@ export class CompanyFormComponent implements OnInit {
     buyerList = Buyer.enumObject();
     industryGrowthList = IndustryGrowth.enumObject();
     marketCompetitionList = MarketCompetition.enumObject();
+    registeredOffice = RegisteredOfficeList.enumObject();
 
 
     constructor(
@@ -275,6 +277,9 @@ export class CompanyFormComponent implements OnInit {
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.contactNum)) ? undefined :
                     this.companyInfo.contactNum, [Validators.required]],
+            landLineNumber: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.landLineNumber)) ? undefined :
+                this.companyInfo.landLineNumber],
             subsectorDetail:
                 [(ObjectUtil.isEmpty(this.subSectorDetailCodeInput)) ? undefined :
                     this.subSectorDetailCodeInput],
@@ -735,6 +740,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.email = this.companyInfoFormGroup.get('email').value;
         this.companyInfo.issuePlace = this.companyInfoFormGroup.get('issuePlace').value;
         this.companyInfo.contactNum = this.companyInfoFormGroup.get('contactNum').value;
+        this.companyInfo.landLineNumber = this.companyInfoFormGroup.get('landLineNumber').value;
         this.companyInfo.clientType = this.companyInfoFormGroup.get('clientType').value;
         this.companyInfo.subsectorDetail = this.companyInfoFormGroup.get('subsectorDetail').value;
 

@@ -6,6 +6,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CompanyJsonData} from '../../admin/modal/CompanyJsonData';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {BusinessAndIndustry} from '../../admin/modal/businessAndIndustry';
+import {RegisteredOfficeList} from '../../admin/modal/registeredOfficeList';
 
 @Component({
   selector: 'app-company-info-view',
@@ -24,6 +25,7 @@ export class CompanyInfoViewComponent implements OnInit {
   contactPersonJsonData;
   bankingRelation;
   businessAndIndustry: BusinessAndIndustry;
+  registeredOffice: typeof RegisteredOfficeList = RegisteredOfficeList;
 
   constructor() {
   }

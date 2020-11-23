@@ -29,7 +29,8 @@
       </tbody>
       <tr class="text-white sb-bg-dark">
         <th>Email</th>
-        <th>Contact Number</th>
+        <th>Mobile Number</th>
+        <th>LandLine Number</th>
         <th>Major products/Service</th>
         <th>Relationship Since</th>
         <th>Client Type</th>
@@ -38,6 +39,7 @@
       <tr>
         <td>{{formValue?.email}}</td>
         <td>{{formValue?.contactNum}}</td>
+        <td>{{formValue?.landLineNumber}}</td>
         <td>{{companyJsonData?.majorProductService}}</td>
         <td>{{companyJsonData?.relationshipSince | date}}</td>
         <td>{{customerInfo['clientType']}}</td>
@@ -96,7 +98,7 @@
       <tbody>
       <tr>
         <td>{{formValue?.legalStatus?.corporateStructure?.name}}</td>
-        <td>{{formValue?.legalStatus?.registeredOffice}}</td>
+        <td>{{registeredOffice[formValue?.legalStatus?.registeredOffice]}}</td>
         <td>{{formValue?.legalStatus?.registeredUnderAct}}</td>
         <td>{{formValue?.legalStatus?.registrationDate | date}}</td>
         <td>{{formValue?.legalStatus?.panRegistrationOffice}}</td>

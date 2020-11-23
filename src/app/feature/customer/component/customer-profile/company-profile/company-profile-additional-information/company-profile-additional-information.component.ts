@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {CompanyInfo} from '../../../../../admin/modal/company-info';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {RegisteredOfficeList} from '../../../../../admin/modal/registeredOfficeList';
 
 @Component({
   selector: 'app-company-profile-additional-information',
@@ -10,6 +11,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 export class CompanyProfileAdditionalInformationComponent implements OnInit , OnChanges {
   @Input() companyInfo: CompanyInfo;
   companyContactPersons = [];
+  registeredOffice: typeof RegisteredOfficeList = RegisteredOfficeList;
 
   constructor() { }
 
