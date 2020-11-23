@@ -164,13 +164,13 @@
                                </div>
                                <div class="col-md-4">
                                    <div class="form-group">
-                                       <label for="contactNum"><strong>Contact Number</strong></label>
+                                       <label for="contactNum"><strong>Mobile Number</strong></label>
                                        <input
                                            [ngClass]="{ 'is-invalid':submitted && form.contactNum?.errors }"
                                            class="form-control rounded"
                                            formControlName="contactNum"
                                            id="contactNum"
-                                           placeholder="Enter contact no!"
+                                           placeholder="Enter Mobile no!"
                                            type="text"/>
                                        <div *ngIf="submitted && form.contactNum?.errors "
                                             class="invalid-feedback">
@@ -182,6 +182,17 @@
                                </div>
                            </div>
                            <div class="row">
+                               <div class="col-md-4">
+                                   <div class="form-group">
+                                       <label for="landLineNumber"><strong>LandLine Number</strong></label>
+                                       <input
+                                           class="form-control rounded"
+                                           formControlName="landLineNumber"
+                                           id="landLineNumber"
+                                           placeholder="Enter LandLine no!"
+                                           type="text"/>
+                                   </div>
+                               </div>
                                <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="panNumber"><strong>PAN</strong></label>
