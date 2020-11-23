@@ -7,7 +7,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
   templateUrl: './market-scenario.component.html',
   styleUrls: ['./market-scenario.component.scss']
 })
-export class MarketScenarioComponent implements OnInit, OnChanges {
+export class MarketScenarioComponent implements OnInit {
   @Input() marketScenario;
   marketScenarioForm: FormGroup;
   submitted = false;
@@ -46,12 +46,6 @@ export class MarketScenarioComponent implements OnInit, OnChanges {
   setMarketData() {
     if (!ObjectUtil.isEmpty(this.marketScenario)) {
       this.marketScenarioForm.patchValue(this.marketScenario);
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (!ObjectUtil.isEmpty(changes.marketScenario.currentValue)) {
-      this.marketScenarioForm.patchValue(changes.marketScenario.currentValue);
     }
   }
 

@@ -11,7 +11,7 @@ import {RepaymentHistory} from '../../../../admin/modal/repayment-history';
   templateUrl: './banking-relation.component.html',
   styleUrls: ['./banking-relation.component.scss']
 })
-export class BankingRelationComponent implements OnInit, OnChanges {
+export class BankingRelationComponent implements OnInit {
   @Input() formValue;
 
   bankingRelationForm: FormGroup;
@@ -49,12 +49,6 @@ export class BankingRelationComponent implements OnInit, OnChanges {
     this.bankingRelation.bankingRelationship = this.bankingRelationForm.get('bankingRelationship').value;
     this.bankingRelation.accountTurnover = this.bankingRelationForm.get('accountTurnover').value;
     this.bankingRelation.repaymentHistory = this.bankingRelationForm.get('repaymentHistory').value;
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (!ObjectUtil.isEmpty(changes.formValue.currentValue)) {
-      this.bankingRelationForm.patchValue(changes.formValue.currentValue);
-    }
   }
 
   get formControl() {
