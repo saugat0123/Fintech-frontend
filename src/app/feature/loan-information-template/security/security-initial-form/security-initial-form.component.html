@@ -191,7 +191,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <app-security-revaluation #revaluationComponent [valuators]="securityValuator.landValuator[i]" [data]="formDataForEdit['landDetails'][i]?.revaluationData" [revaluationId]="landId + i" [calendarType]="calendarType"></app-security-revaluation>
+                            <app-security-revaluation #revaluationComponent [valuators]="securityValuator?.landValuator[i]" [data]="formDataForEdit?.landDetails[i]?.revaluationData" [revaluationId]="landId + i" [calendarType]="calendarType"></app-security-revaluation>
                         </div>
                         <div *ngIf="securityForm.get('landDetails') ['length'] > 1" class="col-md-1">
                             <input (click)="removeLandDetails(i)"
@@ -459,7 +459,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <app-security-revaluation #revaluationComponentApartment [valuators]="securityValuator.buildingValuator[i]" [data]="formDataForEdit['buildingDetails'][i]?.revaluationData" [revaluationId]="apartmentId + i" [calendarType]="calendarType"></app-security-revaluation>
+                                    <app-security-revaluation #revaluationComponentApartment [valuators]="securityValuator?.buildingValuator[i]" [data]="formDataForEdit?.buildingDetails[i]?.revaluationData" [revaluationId]="apartmentId + i" [calendarType]="calendarType"></app-security-revaluation>
                                 </div>
                                 <div *ngIf="securityForm.get('buildingDetails')['length'] > 1"
                                      class="col-md-1 pt-4">
@@ -1096,7 +1096,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <app-security-revaluation #revaluationComponentLandBuilding [valuators]="securityValuator?.buildingValuator[i]" [data]="formDataForEdit['landBuilding'][i]?.revaluationData" [revaluationId]="land_buildingId + i" [calendarType]="calendarType"></app-security-revaluation>
+                                <app-security-revaluation #revaluationComponentLandBuilding [valuators]="securityValuator?.buildingValuator[i]" [data]="formDataForEdit?.landBuilding[i]?.revaluationData" [revaluationId]="land_buildingId + i" [calendarType]="calendarType"></app-security-revaluation>
                             </div>
 
                         </div>
