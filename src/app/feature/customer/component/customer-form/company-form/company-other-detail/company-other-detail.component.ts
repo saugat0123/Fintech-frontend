@@ -11,7 +11,7 @@ import {NrbDirective} from '../../../../../admin/modal/nrbDirective';
   templateUrl: './company-other-detail.component.html',
   styleUrls: ['./company-other-detail.component.scss']
 })
-export class CompanyOtherDetailComponent implements OnInit , OnChanges {
+export class CompanyOtherDetailComponent implements OnInit {
   @Input() companyOtherDetail;
   companyOtherDetailGroupForm: FormGroup;
   submitted = false;
@@ -36,8 +36,9 @@ export class CompanyOtherDetailComponent implements OnInit , OnChanges {
   }
 
   setData() {
+    console.log(this.companyOtherDetail);
     if (!ObjectUtil.isEmpty(this.companyOtherDetail)) {
-      this.companyOtherDetailGroupForm.patchValue(JSON.parse(this.companyOtherDetail));
+      this.companyOtherDetailGroupForm.patchValue(this.companyOtherDetail);
     }
   }
 
@@ -56,9 +57,10 @@ export class CompanyOtherDetailComponent implements OnInit , OnChanges {
     this.submitData = this.companyOtherDetailGroupForm.value;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (!ObjectUtil.isEmpty(changes.companyOtherDetail.currentValue)) {
+  /*ngOnChanges(changes: SimpleChanges): void {
+    if (!ObjectUtil.isEmpty(changes.companyOtherDetail.currentValue && !ObjectUtil.isEmpty(this.companyOtherDetailGroupForm))) {
+      console.log(changes.companyOtherDetail.currentValue);
       this.companyOtherDetailGroupForm.patchValue(changes.companyOtherDetail.currentValue);
     }
-  }
+  }*/
 }
