@@ -7,6 +7,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {MegaOfferLetterConst} from './mega-offer-letter-const';
 import {Router} from '@angular/router';
+import {OfferLetterDocType, OfferLetteDocrTypeEnum} from '../model/OfferLetteDocrTypeEnum';
 
 @Component({
   selector: 'app-mega-offer-letter',
@@ -24,6 +25,8 @@ export class MegaOfferLetterComponent implements OnInit {
   fullScreenView = false;
   uploadFile;
   preview = false;
+  docType = OfferLetteDocrTypeEnum.DRAFT;
+  offerLetterType = OfferLetterDocType.values();
 
   constructor(  private loanFormService: LoanFormService,
                 private toastService: ToastService,
@@ -87,6 +90,7 @@ export class MegaOfferLetterComponent implements OnInit {
     formData.append('customerLoanId', this.customerId.toString());
     formData.append('offerLetterId', this.offerLetterId.toString());
     formData.append('file', this.uploadFile);
+    formData.append('type', this.docType.toString());
 
     if (this.customerId === undefined) {
       return this.toastService.show(new Alert(AlertType.ERROR, 'Customer Cannot be empty'));

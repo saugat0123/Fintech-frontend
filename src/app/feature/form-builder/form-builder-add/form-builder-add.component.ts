@@ -19,6 +19,7 @@ import {FormType} from '../constants/formType';
 export class FormBuilderAddComponent implements OnInit {
     TITLE_ERROR = 'Form name is Required';
     EMPTY_FORM_ERROR = 'Form Field is Required';
+    EMPTY_FORM_ARRAY_ERROR = 'Form ARRAY is Required!!Either Remove or add field';
 
 
     dragElements = [];
@@ -157,6 +158,24 @@ export class FormBuilderAddComponent implements OnInit {
             return;
         } else {
             this.isFormEmpty = false;
+        }
+        let isArrayEmpty = false;
+        const getFormArrayFields = this.formFields.filter(f => f.type === FormType.FORM_ARRAY);
+        getFormArrayFields.forEach(f => {
+            this.selectedField = f;
+            if (f.type === FormType.FORM_ARRAY) {
+                const arrayField = f.fields;
+                if (ObjectUtil.isEmpty(arrayField)) {
+                    isArrayEmpty = true;
+                }
+                if (arrayField.length < 1) {
+                    isArrayEmpty = true;
+                }
+            }
+        });
+        if (isArrayEmpty) {
+            this.toastService.show(new Alert(AlertType.ERROR, this.EMPTY_FORM_ARRAY_ERROR));
+            return;
         }
         this.forms.title = this.formTitle;
         this.forms.config = JSON.stringify(this.formFields);

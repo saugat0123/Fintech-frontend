@@ -15,6 +15,7 @@ export class OfferLetterUploadComponent implements OnInit {
   @Input() customerOfferLetter: CustomerOfferLetter;
   @Input() customerId: number;
   offerLetterId: number;
+  docType = null;
   uploadFile;
   preview;
   uploadedOfferLetter: Array<String> = [];
@@ -42,6 +43,7 @@ export class OfferLetterUploadComponent implements OnInit {
     formData.append('file', this.uploadFile);
     formData.append('customerLoanId', this.customerId.toString());
     formData.append('offerLetterId', this.offerLetterId.toString());
+    formData.append('type', this.docType.toString());
     if (this.customerId === undefined) {
       return this.toastService.show(new Alert(AlertType.ERROR, 'Customer Cannot be empty'));
     }

@@ -12,18 +12,23 @@ export class AssignedOfferLetterComponent implements OnInit {
 
     @Input()
     customerOfferLetterList: Array<CustomerOfferLetter>;
+    @Input()
+    toggleArray: { toggled: boolean }[];
 
+    @Input()
+    branchView: boolean;
     constructor(  private router: Router) {
     }
 
     ngOnInit() {
-    }
+   }
 
     generateOfferLetter(customerLoan: LoanDataHolder) {
         this.router.navigate(['/home/cad-document'],
             {
                 queryParams: {
                     customerId: customerLoan.id,
+                    branchId: customerLoan.branch.id
                 }
             });
     }

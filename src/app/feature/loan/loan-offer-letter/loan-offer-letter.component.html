@@ -43,20 +43,20 @@
                         </select>
                     </div>
 
-                    <div class="col-md-3 mb-3">
-                        <input id="startDate" [nbDatepicker]="startDate" class="form-control rounded"
-                               (change)="checkIfDateFiltration()" formControlName="startDate"
-                               placeholder="Enter Start Date" [ngClass]="{ 'is-invalid': !validStartDate }">
-                        <nb-datepicker #startDate></nb-datepicker>
-                        <div *ngIf="!validStartDate" class="invalid-feedback">Invalid start date</div>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <input id="endDate" [nbDatepicker]="endDate" class="form-control rounded"
-                               (change)="checkIfDateFiltration()" formControlName="endDate"
-                               placeholder="Enter End Date" [ngClass]="{ 'is-invalid': !validEndDate }">
-                        <nb-datepicker #endDate></nb-datepicker>
-                        <div *ngIf="!validEndDate" class="invalid-feedback">Invalid end date</div>
-                    </div>
+<!--                    <div class="col-md-3 mb-3">-->
+<!--                        <input id="startDate" [nbDatepicker]="startDate" class="form-control rounded"-->
+<!--                               (change)="checkIfDateFiltration()" formControlName="startDate"-->
+<!--                               placeholder="Enter Start Date" [ngClass]="{ 'is-invalid': !validStartDate }">-->
+<!--                        <nb-datepicker #startDate></nb-datepicker>-->
+<!--                        <div *ngIf="!validStartDate" class="invalid-feedback">Invalid start date</div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-3 mb-3">-->
+<!--                        <input id="endDate" [nbDatepicker]="endDate" class="form-control rounded"-->
+<!--                               (change)="checkIfDateFiltration()" formControlName="endDate"-->
+<!--                               placeholder="Enter End Date" [ngClass]="{ 'is-invalid': !validEndDate }">-->
+<!--                        <nb-datepicker #endDate></nb-datepicker>-->
+<!--                        <div *ngIf="!validEndDate" class="invalid-feedback">Invalid end date</div>-->
+<!--                    </div>-->
 
 
                     <div class="col-md-3 mb-3">
@@ -118,7 +118,10 @@
     </nb-card-header>
     <nb-card-body>
         <br>
-        <app-assigned-offer-letter [customerOfferLetterList]="assignedOfferLetterList"
+        <app-assigned-offer-letter
+                [branchView]="accessSpecific || accessAll"
+                [toggleArray]="toggleArray"
+                [customerOfferLetterList]="assignedOfferLetterList"
                                    *ngIf="!isCAD_ADMIN"></app-assigned-offer-letter>
         <table *ngIf="isCAD_ADMIN" id="cad-admin"
                class="table table-bordered table-hover table-sm sb-small text-center ">

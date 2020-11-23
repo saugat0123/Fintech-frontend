@@ -52,6 +52,10 @@ import {RegisteredOfficeList} from '../../../../admin/modal/registeredOfficeList
 })
 export class CompanyFormComponent implements OnInit {
     @Input() formValue: CompanyInfo;
+    @Input() bankingRelationshipInput: any;
+    @Input() subSectorDetailCodeInput: any;
+    @Input() customerCode: any;
+    @Input() clientTypeInput: any;
 
     calendarType = 'AD';
     companyInfoFormGroup: FormGroup;
@@ -144,7 +148,11 @@ export class CompanyFormComponent implements OnInit {
         return this.companyInfoFormGroup.controls.additionalCompanyInfo['controls'];
     }
 
+    // todo replace all objectutil checking with patch value method
+
     ngOnInit() {
+        console.log(this.customerCode);
+        console.log(this.subSectorDetailCodeInput);
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
             this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
@@ -223,9 +231,8 @@ export class CompanyFormComponent implements OnInit {
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.id)) ? undefined :
                     this.companyInfo.id],
-            customerCode: [ObjectUtil.isEmpty(this.companyInfo)
-            || ObjectUtil.isEmpty(this.customer.customerCode) ? undefined :
-                this.customer.customerCode],
+            customerCode: [ObjectUtil.isEmpty(this.customerCode) ? undefined :
+                this.customerCode],
             companyInfoVersion:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.version)) ? undefined :
@@ -274,13 +281,11 @@ export class CompanyFormComponent implements OnInit {
                 || ObjectUtil.isEmpty(this.companyInfo.landLineNumber)) ? undefined :
                 this.companyInfo.landLineNumber],
             subsectorDetail:
-                [(ObjectUtil.isEmpty(this.companyInfo)
-                    || ObjectUtil.isEmpty(this.companyInfo.subsectorDetail)) ? undefined :
-                    this.companyInfo.subsectorDetail],
+                [(ObjectUtil.isEmpty(this.subSectorDetailCodeInput)) ? undefined :
+                    this.subSectorDetailCodeInput],
             clientType:
-                [(ObjectUtil.isEmpty(this.companyInfo)
-                    || ObjectUtil.isEmpty(this.companyInfo.clientType)) ? undefined :
-                    this.companyInfo.clientType],
+                [ObjectUtil.isEmpty(this.clientTypeInput) ? undefined :
+                    this.clientTypeInput],
 
             // legalStatus
             corporateStructure: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus) ||
@@ -387,7 +392,7 @@ export class CompanyFormComponent implements OnInit {
 
             // Success Planning
             successionPlanning: [ObjectUtil.isEmpty(this.companyInfo) ? undefined :
-                JSON.parse(this.companyInfo.successionPlanning)],
+                this.companyInfo.successionPlanning],
 
             // Business Objective
             businessObjective: [ObjectUtil.isEmpty(this.companyJsonData.businessObjective) ? undefined :

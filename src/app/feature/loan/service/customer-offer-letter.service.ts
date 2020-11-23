@@ -66,6 +66,11 @@ export class CustomerOfferLetterService extends BaseService<CustomerOfferLetter>
 
     return this.http.get(req.url, {headers: req.header});
   }
+  public getPostApprovedForm(): Observable<any> {
+    const api = `${this.getApi()}/stat`;
+    const req = ApiUtils.getRequest(api);
+    return this.http.get(req.url, {headers: req.header});
+  }
 
   public getUserListForFilter(searchObj: any): Observable<any> {
     const api = `${this.getApi()}/user-list`;
