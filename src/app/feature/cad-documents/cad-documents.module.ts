@@ -28,47 +28,48 @@ import {RetailProfessionalLoanComponent} from './cad-document-core/mega-offer-le
 import {RetailProfessionalLoanPrintComponent} from './cad-document-core/mega-offer-letter/retail-professional-loan/retail-professional-loan-print/retail-professional-loan-print.component';
 import {SmeComponent} from './cad-document-core/mega-offer-letter/sme/sme.component';
 import {SmePrintComponent} from './cad-document-core/mega-offer-letter/sme/sme-print/sme-print.component';
+import {PostApprovalDocApproveComponent} from './post-approval-doc-approve/post-approval-doc-approve.component';
 
 
 const COMPONENTS = [
-  CadDocumentCoreComponent,
-  MegaOfferLetterComponent,
-  SrdbOfferLetterComponent,
-  OfferLetterUploadComponent,
-  OfferLetterActionComponent,
-  HayerPurchaseComponent,
-  HayerPurchasePrintComponent,
-  RetailEducationalLoanComponent,
-  RetailEducationalLoanPrintComponent,
-  RetailEducationalLoanEnglishComponent,
-  RetailEducationalLoanEnglishPrintComponent,
-  RetailHousingLoanComponent,
-  RetailHousingLoanPrintComponent,
-  RetailHousingLoanPrintComponent,
-  RetailMortgageComponent,
-  RetailMortgagePrintComponent,
-  RetailMortgageLoanComponent,
-  RetailMortgageLoanPrintComponent,
-  RetailProfessionalLoanComponent,
-  RetailProfessionalLoanPrintComponent,
-  SmeComponent,
-  SmePrintComponent,
+    CadDocumentCoreComponent,
+    MegaOfferLetterComponent,
+    SrdbOfferLetterComponent,
+    OfferLetterUploadComponent,
+    OfferLetterActionComponent,
+    HayerPurchaseComponent,
+    HayerPurchasePrintComponent,
+    RetailEducationalLoanComponent,
+    RetailEducationalLoanPrintComponent,
+    RetailEducationalLoanEnglishComponent,
+    RetailEducationalLoanEnglishPrintComponent,
+    RetailHousingLoanComponent,
+    RetailHousingLoanPrintComponent,
+    RetailHousingLoanPrintComponent,
+    RetailMortgageComponent,
+    RetailMortgagePrintComponent,
+    RetailMortgageLoanComponent,
+    RetailMortgageLoanPrintComponent,
+    RetailProfessionalLoanComponent,
+    RetailProfessionalLoanPrintComponent,
+    SmeComponent,
+    SmePrintComponent,
 
 ];
 
 @NgModule({
-  declarations: [...COMPONENTS],
-  imports: [
-    CommonModule,
-    ThemeModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NbDatepickerModule,
-    NgxPrintModule,
-    CoreModule,
-    NbAccordionModule,
-    RouterModule.forChild(cadDocumentRoute)
-  ]
+    declarations: [...COMPONENTS, PostApprovalDocApproveComponent],
+    imports: [
+        CommonModule,
+        ThemeModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NbDatepickerModule,
+        NgxPrintModule,
+        CoreModule,
+        NbAccordionModule,
+        RouterModule.forChild(cadDocumentRoute)
+    ], entryComponents: [PostApprovalDocApproveComponent]
 })
 export class CadDocumentsModule {
 }

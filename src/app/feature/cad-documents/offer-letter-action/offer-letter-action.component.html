@@ -1,6 +1,6 @@
 <div class="row">
   <div class="d-flex justify-content-center px-5" style="margin: auto; width: 60%;">
-    <button (click)="approvedForwardBackward(sendForwardBackward,'APPROVED')"
+    <button (click)="cadDocApprovedPartial()"
             [disabled]="isApprovedDisabled"
             [ngStyle]="{ 'filter' : (isApprovedDisabled === true)? 'grayscale(100%)': 'grayscale(0%)'}"
             class="btn-sm btn-success">
