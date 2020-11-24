@@ -195,6 +195,7 @@ export class CustomerFormComponent implements OnInit {
                     this.customer.street = this.basicInfo.get('street').value;
                     this.customer.wardNumber = this.basicInfo.get('wardNumber').value;
                     this.customer.contactNumber = this.basicInfo.get('contactNumber').value;
+                    this.customer.landLineNumber = this.basicInfo.get('landLineNumber').value;
                     this.customer.email = this.basicInfo.get('email').value;
                     this.customer.dob = this.basicInfo.get('dob').value;
                     this.customer.initialRelationDate = this.basicInfo.get('initialRelationDate').value;
@@ -265,6 +266,7 @@ export class CustomerFormComponent implements OnInit {
             street: [this.customer.street === null ? undefined : this.customer.street, Validators.required],
             wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber, Validators.required],
             contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, Validators.required],
+            landLineNumber: [this.customer.landLineNumber === undefined ? undefined : this.customer.landLineNumber],
             email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.required],
             // initial Relation Date not used in ui
             initialRelationDate: [this.customer.initialRelationDate === undefined ? undefined :

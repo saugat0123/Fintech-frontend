@@ -16,6 +16,7 @@ import {NbDialogRef} from '@nebular/theme';
 import {Company} from '../../../../../admin/modal/company';
 import {CompanyService} from '../../../../../admin/component/company/company.service';
 import {DesignationList} from '../../../../../loan/model/designationList';
+import {RegisteredOfficeList} from '../../../../../admin/modal/registeredOfficeList';
 
 @Component({
   selector: 'app-company-detail-edit',
@@ -37,6 +38,7 @@ export class CompanyDetailEditComponent implements OnInit {
   companyStructureList: Array<Company>;
 
   designation = new DesignationList().designation;
+  registeredOffice = RegisteredOfficeList.enumObject();
 
 
   constructor(private formBuilder: FormBuilder,

@@ -1,42 +1,39 @@
-import {Component, OnInit} from '@angular/core';
-import {Branch} from '../../admin/modal/branch';
-import {LoanConfig} from '../../admin/modal/loan-config';
-import {LoanDataHolder} from '../model/loanData';
-import {Role} from '../../admin/modal/role';
-import {Pageable} from '../../../@core/service/baseservice/common-pageable';
-import {LoanType} from '../model/loanType';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {BranchService} from '../../admin/component/branch/branch.service';
-import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
-import {ModalUtils, ToastService} from '../../../@core/utils';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {LoanFormService} from '../component/loan-form/service/loan-form.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {LoanActionService} from '../loan-action/service/loan-action.service';
-import {UserService} from '../../admin/component/user/user.service';
-import {SocketService} from '../../../@core/service/socket.service';
-import {CatalogueSearch, CatalogueService} from '../../admin/component/catalogue/catalogue.service';
-import {PaginationUtils} from '../../../@core/utils/PaginationUtils';
-import {Alert, AlertType} from '../../../@theme/model/Alert';
-import {RoleType} from '../../admin/modal/roleType';
-import {RoleAccess} from '../../admin/modal/role-access';
-import {DocStatus} from '../model/docStatus';
-import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
-import {DocAction} from '../model/docAction';
-import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
-import {OfferLetter} from '../../admin/modal/offerLetter';
-import {CustomerOfferLetterService} from '../service/customer-offer-letter.service';
-import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
-import {CustomerOfferLetter} from '../model/customer-offer-letter';
-import {NbSpinnerService} from '@nebular/theme';
-import {NgxSpinnerService} from 'ngx-spinner';
+import {Component, Input, OnInit} from '@angular/core';
+import {CustomerOfferLetter} from '../../model/customer-offer-letter';
+import {ActivatedRoute, Params, Router} from "@angular/router";
+import {Branch} from "../../../admin/modal/branch";
+import {LoanConfig} from "../../../admin/modal/loan-config";
+import {LoanDataHolder} from "../../model/loanData";
+import {Role} from "../../../admin/modal/role";
+import {Pageable} from "../../../../@core/service/baseservice/common-pageable";
+import {LoanType} from "../../model/loanType";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {BranchService} from "../../../admin/component/branch/branch.service";
+import {LoanConfigService} from "../../../admin/component/loan-config/loan-config.service";
+import {ModalUtils, ToastService} from "../../../../@core/utils";
+import {LoanFormService} from "../../component/loan-form/service/loan-form.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {LoanActionService} from "../../loan-action/service/loan-action.service";
+import {UserService} from "../../../admin/component/user/user.service";
+import {SocketService} from "../../../../@core/service/socket.service";
+import {CatalogueSearch, CatalogueService} from "../../../admin/component/catalogue/catalogue.service";
+import {CustomerOfferLetterService} from "../../service/customer-offer-letter.service";
+import {NgxSpinnerService} from "ngx-spinner";
+import {PaginationUtils} from "../../../../@core/utils/PaginationUtils";
+import {Alert, AlertType} from "../../../../@theme/model/Alert";
+import {LocalStorageUtil} from "../../../../@core/utils/local-storage-util";
+import {RoleType} from "../../../admin/modal/roleType";
+import {RoleAccess} from "../../../admin/modal/role-access";
+import {DocStatus} from "../../model/docStatus";
+import {ObjectUtil} from "../../../../@core/utils/ObjectUtil";
+import {ApiConfig} from "../../../../@core/utils/api/ApiConfig";
 
 @Component({
-    selector: 'app-loan-offer-letter',
-    templateUrl: './loan-offer-letter.component.html',
-    styleUrls: ['./loan-offer-letter.component.scss']
+    selector: 'app-post-approval-form',
+    templateUrl: './post-approval-form.component.html',
+    styleUrls: ['./post-approval-form.component.scss']
 })
-export class LoanOfferLetterComponent implements OnInit {
+export class PostApprovalFormComponent implements OnInit {
 
     branchList: Array<Branch> = new Array<Branch>();
     loanTypeList: Array<LoanConfig> = new Array<LoanConfig>();
@@ -72,8 +69,6 @@ export class LoanOfferLetterComponent implements OnInit {
     toggleArray: { toggled: boolean }[] = [];
     selectedBranchId = 0;
     errorMessage = null;
-    filterUserList = [];
-    isAssignSelected = false;
 
     constructor(
         private branchService: BranchService,
@@ -92,13 +87,13 @@ export class LoanOfferLetterComponent implements OnInit {
         private spinnerService: NgxSpinnerService) {
     }
 
-    static loadData(other: LoanOfferLetterComponent) {
+    static loadData(other: PostApprovalFormComponent) {
         other.spinnerService.show();
         other.catalogueService.search.committee = 'true';
-        if (other.isCAD_ADMIN) {
             // tslint:disable-next-line:max-line-length
             other.customerOfferLetterService.getIssuedOfferLetter(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
                 other.loanDataHolderList = response.detail.content;
+                console.log(response.detail.content);
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.loanDataHolderList.forEach(() => other.toggleArray.push({toggled: false}));
                 other.spinner = false;
@@ -110,33 +105,15 @@ export class LoanOfferLetterComponent implements OnInit {
                 other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
                 other.spinner = false;
             });
-        } else {
-            // tslint:disable-next-line:max-line-length
-            other.customerOfferLetterService.getAssignedOfferLetter(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
-                other.assignedOfferLetterList = response.detail.content;
-                other.assignedOfferLetterList.forEach(() => other.toggleArray.push({toggled: false}));
-                other.pageable = PaginationUtils.getPageable(response.detail);
-                other.spinner = false;
-                other.spinnerService.hide();
-            }, error => {
-                console.error(error);
-                other.spinnerService.hide();
-                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
-                other.spinner = false;
-            });
         }
-    }
+
 
     ngOnInit() {
+        console.log(this.loanDataHolderList);
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.redirected = paramsValue.redirect === 'true';
             });
-
-        this.getUserListForFilter();
-        if (LocalStorageUtil.getStorage().roleName === 'CAD') {
-            this.roleName = true;
-        }
         this.buildFilterForm();
         this.buildActionForm();
         this.buildOfferLetterAssignForm();
@@ -179,7 +156,7 @@ export class LoanOfferLetterComponent implements OnInit {
             resetSearch.documentStatus = DocStatus.value(DocStatus.PENDING);
             this.catalogueService.search = resetSearch;
         }
-        LoanOfferLetterComponent.loadData(this);
+        PostApprovalFormComponent.loadData(this);
     }
 
     buildFilterForm() {
@@ -191,8 +168,7 @@ export class LoanOfferLetterComponent implements OnInit {
             endDate: [undefined],
             role: [undefined],
             customerName: [undefined],
-            postApprovalAssignStatus: [undefined],
-            postApprovalAssignedUser: [undefined]
+            postApprovalAssignStatus: [undefined]
         });
     }
 
@@ -203,7 +179,6 @@ export class LoanOfferLetterComponent implements OnInit {
                 customerLoanId: [undefined],
                 toUser: [undefined],
                 toRole: [undefined],
-                docAction: [undefined],
                 comment: [undefined, Validators.required],
                 documentStatus: [undefined]
             }
@@ -222,7 +197,8 @@ export class LoanOfferLetterComponent implements OnInit {
 
     changePage(page: number) {
         this.page = page;
-        LoanOfferLetterComponent.loadData(this);
+        PostApprovalFormComponent.loadData(this);
+
     }
 
     getDifferenceInDays(createdDate: Date): number {
@@ -263,12 +239,8 @@ export class LoanOfferLetterComponent implements OnInit {
             this.filterForm.get('role').value;
         this.catalogueService.search.customerName = ObjectUtil.isEmpty(this.filterForm.get('customerName').value) ? undefined :
             this.filterForm.get('customerName').value;
-        this.catalogueService.search.postApprovalAssignStatus = ObjectUtil.isEmpty(this.filterForm.get('postApprovalAssignStatus').value) ? undefined :
-            this.filterForm.get('postApprovalAssignStatus').value;
         this.catalogueService.search.documentStatus = 'APPROVED';
-        this.catalogueService.search.postApprovalAssignedUser = ObjectUtil.isEmpty(this.filterForm.get('postApprovalAssignedUser').value) ? undefined :
-            this.filterForm.get('postApprovalAssignedUser').value;
-        LoanOfferLetterComponent.loadData(this);
+        PostApprovalFormComponent.loadData(this);
     }
 
     onClick(loanConfigId: number, customerId: number) {
@@ -293,29 +265,6 @@ export class LoanOfferLetterComponent implements OnInit {
     }
 
 
-    docTransfer(userId, roleId) {
-        const users = {id: userId};
-        const role = {id: roleId};
-        this.formAction.patchValue({
-                toUser: users,
-                toRole: role
-            }
-        );
-    }
-
-    confirm() {
-        this.onClose();
-        this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
-                this.formAction.get('docAction').value));
-
-            LoanOfferLetterComponent.loadData(this);
-        }, error => {
-            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-
-        });
-    }
-
     onChange(data, onActionChange) {
         this.loanDataHolder = data;
         this.modalService.open(onActionChange);
@@ -333,123 +282,5 @@ export class LoanOfferLetterComponent implements OnInit {
             link.click();
 
         });
-    }
-
-    generateOfferLetter(customerLoan: LoanDataHolder) {
-        this.router.navigate(['/home/cad-document'],
-            {
-                queryParams: {
-                    customerId: customerLoan.id,
-                }
-            });
-    }
-
-    /*uploadOfferLetterTemplate(customerLoan: LoanDataHolder) {
-        const modalRef = this.modalService.open(OfferLetterUploadComponent, {backdrop: 'static'});
-        modalRef.componentInstance.customerOfferLetter = customerLoan.customerOfferLetter;
-        modalRef.componentInstance.customerId = customerLoan.id;
-        ModalUtils.resolve(modalRef.result, LoanOfferLetterComponent.loadData, this);
-    }*/
-
-    openForwardBackward(template, offerLetterId, val) {
-        this.valForwardBackward = 'FORWARD to CAD ?';
-        if (val === 0) {
-            this.valForwardBackward = 'Backward to RM ?';
-        }
-        this.modalService.dismissAll();
-        this.modalService.open(template);
-    }
-
-    assignOfferLetter() {
-        this.submitted = true;
-        if (this.offerLetterAssignForm.invalid) {
-            return;
-        }
-        const user = this.offerLetterAssignForm.get('user').value;
-        const role = this.offerLetterAssignForm.get('role').value;
-        const assign = {
-            customerLoanId: this.offerLetterAssignForm.get('customerLoanId').value,
-            userId: user.id,
-            roleId: role.id
-        };
-
-        this.customerOfferLetterService.assignOfferLetter(assign).subscribe((res: any) => {
-            this.submitted = false;
-            this.modalService.dismissAll();
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY ASSIGN TO ' + user.username));
-            LoanOfferLetterComponent.loadData(this);
-        }, error => {
-            this.spinnerService.hide();
-            this.submitted = false;
-            this.modalService.dismissAll();
-            error.error.errors.forEach(e => {
-                this.toastService.show(new Alert(AlertType.ERROR, e.message));
-            });
-
-        });
-
-    }
-
-    openModel(template, customerLoanId, branchId) {
-        this.selectedBranchId = branchId;
-        this.offerLetterAssignForm.patchValue({
-            customerLoanId: customerLoanId
-        });
-        this.getRoleListPresentInCad();
-        this.modalService.open(template);
-    }
-
-
-    public getRoleListPresentInCad() {
-        this.customerOfferLetterService.getRolesPresentInCADHEIRARCHY().subscribe((res: any) => {
-            this.roleListInCAD = res.detail;
-            if (this.roleListInCAD.length > 1) {
-                this.getUserList(this.roleListInCAD[0].role);
-            }
-
-        });
-    }
-
-    public getUserList(role) {
-        this.offerLetterAssignForm.patchValue({
-            role: role,
-            user: undefined
-        });
-        this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.selectedBranchId).subscribe((response: any) => {
-            this.errorMessage = null;
-            this.userList = response.detail;
-            if (this.userList.length === 1) {
-                this.offerLetterAssignForm.patchValue({
-                    user: this.userList[0],
-                    role: role
-                });
-            } else if (this.userList.length > 1) {
-                this.offerLetterAssignForm.patchValue({
-                    user: this.userList[0],
-                    role: role
-                });
-
-            } else {
-                this.errorMessage = 'NO User Present in this Role';
-            }
-        });
-    }
-
-    getUserListForFilter() {
-        const searchDto = {};
-        this.customerOfferLetterService.getUserListForFilter(searchDto).subscribe((res: any) => {
-            this.filterUserList = res.detail;
-        });
-    }
-
-    selectedAssign(event) {
-        if (event.value === 'NOT_ASSIGNED') {
-            this.isAssignSelected = false;
-            this.filterForm.patchValue({
-                postApprovalAssignedUser: null,
-            });
-        } else {
-            this.isAssignSelected = true;
-        }
     }
 }

@@ -367,7 +367,8 @@
                                 <th>Name</th>
                                 <th>Date Of Birth</th>
                                 <th>Citizenship Number</th>
-                                <th>Contact Number</th>
+                                <th>Mobile Number</th>
+                                <th>LandLine Number</th>
                                 <th>Occupation</th>
                                 <th>Income Source</th>
                             </tr>
@@ -378,6 +379,7 @@
                                 <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
                                 <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
                                 <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
+                                <td>{{loanDataHolder?.customerInfo?.landLineNumber}}</td>
                                 <td>{{(loanDataHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
                                 <td>{{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>
                             </tr>
@@ -392,29 +394,29 @@
               </tr>
               </tbody>
                         </table>
-                        <table class="print-only table table-bordered text-center table-sm sb-small"
-                               id="print-borrower-table">
-                            <thead>
-                            <tr class="text-white sb-bg-dark">
-                                <th>Name</th>
-                                <th>Date Of Birth</th>
-                                <th>Citizenship Number</th>
-                                <th>Contact Number</th>
-                                <th>Occupation</th>
-                                <th>Income Source</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
-                                <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
-                                <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
-                                <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
-                                <td>{{loanDataHolder?.customerInfo?.occupation}}</td>
-                                <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
+<!--                        <table class="print-only table table-bordered text-center table-sm sb-small"-->
+<!--                               id="print-borrower-table">-->
+<!--                            <thead>-->
+<!--                            <tr class="text-white sb-bg-dark">-->
+<!--                                <th>Name</th>-->
+<!--                                <th>Date Of Birth</th>-->
+<!--                                <th>Citizenship Number</th>-->
+<!--                                <th>Mobile Number</th>-->
+<!--                                <th>Occupation</th>-->
+<!--                                <th>Income Source</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                            <tr>-->
+<!--                                <td>{{loanDataHolder?.customerInfo?.customerName}}</td>-->
+<!--                                <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>-->
+<!--                                <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>-->
+<!--                                <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>-->
+<!--                                <td>{{loanDataHolder?.customerInfo?.occupation}}</td>-->
+<!--                                <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>-->
+<!--                            </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
                     </div>
                     <div *ngIf="loanCategory === 'INSTITUTION'">
                         <table

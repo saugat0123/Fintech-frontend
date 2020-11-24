@@ -33,11 +33,11 @@
         <th>Municipalities</th>
         <th>Street</th>
         <th>Ward no.</th>
-        <th>Contact Number</th>
+        <th>Mobile Number</th>
+        <th>LandLine Number</th>
         <th>Email</th>
         <th>Occupation</th>
         <th>Income</th>
-        <th>Client Type</th>
       </tr>
       </thead>
       <tbody>
@@ -46,16 +46,17 @@
         <td>{{individual?.street || 'NA'}}</td>
         <td>{{individual?.wardNumber || 'NA'}}</td>
         <td>{{individual?.contactNumber || 'NA'}}</td>
+        <td>{{individual?.landLineNumber || 'NA'}}</td>
         <td>{{individual?.email || 'NA'}}</td>
         <td>{{(individual?.occupation| jsonParse)?.multipleOccupation || 'NA'}}</td>
         <td>{{(individual?.incomeSource| jsonParse)?.multipleIncome || 'NA'}}</td>
-        <td>{{customerInfo?.clientType}}</td>
-
       </tr>
       <tr class="text-white sb-bg-dark">
+        <th>Client Type</th>
         <th>Subsector</th>
       </tr>
       <tr>
+        <td>{{customerInfo?.clientType}}</td>
         <td>{{customerInfo?.subsectorDetail}}</td>
       </tr>
       </tbody>

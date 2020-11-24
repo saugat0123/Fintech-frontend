@@ -34,5 +34,6 @@ export class Customer {
     netWorth: number;
     subsectorDetail: string;
     clientType: string;
+    landLineNumber: string;
 
 }
