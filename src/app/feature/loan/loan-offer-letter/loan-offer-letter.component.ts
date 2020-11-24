@@ -382,9 +382,14 @@ export class LoanOfferLetterComponent implements OnInit {
             this.spinnerService.hide();
             this.submitted = false;
             this.modalService.dismissAll();
-            error.error.errors.forEach(e => {
-                this.toastService.show(new Alert(AlertType.ERROR, e.message));
-            });
+            try {
+                error.error.errors.forEach(e => {
+                    this.toastService.show(new Alert(AlertType.ERROR, e.message));
+                });
+            } catch (e) {
+                this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+            }
+
 
         });
 
