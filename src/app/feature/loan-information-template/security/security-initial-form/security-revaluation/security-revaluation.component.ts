@@ -66,12 +66,10 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
         if (!ObjectUtil.isEmpty(this.oldValuation) && !ObjectUtil.isEmpty(this.formGroup)) {
             if (this.revaluationId.includes(SecurityIds.apartmentId, 0)) {
                 this.patchCalculationData('buildingFairMarketValue', 'buildingDistressValue', 'estimatedCost');
-            }
-            if (this.revaluationId.includes(SecurityIds.landId, 0)) {
+            } else if (this.revaluationId.includes(SecurityIds.landId, 0)) {
                 console.log(this.oldValuation);
                 this.patchCalculationData('marketValue', 'distressValue', 'landConsideredValue');
-            }
-            if (this.revaluationId.includes(SecurityIds.land_buildingId, 0)) {
+            } else if (this.revaluationId.includes(SecurityIds.land_buildingId, 0)) {
                 console.log(this.oldValuation);
                 this.patchCalculationData('marketValue', 'distressValue', 'landConsideredValue');
             }
@@ -79,16 +77,17 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
     }
 
     patchCalculationData(fmv, dv, considered) {
+        const i = this.revaluationId.replace(/[^0-9]/g, '');
         const calcData = {
             changeInFmv: undefined,
             changeInDv: undefined,
             changeInConsideredValue: undefined,
         };
-        calcData.changeInFmv = NumberUtils.isNumber(this.oldValuation[0][fmv]
+        calcData.changeInFmv = NumberUtils.isNumber(this.oldValuation[i][fmv]
             - this.formGroup.get('reValuatedFmv').value);
-        calcData.changeInDv = NumberUtils.isNumber(this.oldValuation[0][dv]
+        calcData.changeInDv = NumberUtils.isNumber(this.oldValuation[i][dv]
             - this.formGroup.get('reValuatedDv').value);
-        calcData.changeInConsideredValue = NumberUtils.isNumber(this.oldValuation[0][considered]
+        calcData.changeInConsideredValue = NumberUtils.isNumber(this.oldValuation[i][considered]
             - this.formGroup.get('reValuatedConsideredValue').value);
         this.formGroup.patchValue(calcData);
     }
