@@ -16,6 +16,27 @@
     <td>{{formData['currentResidentDetails']['address']}}</td>
     <td>{{formData['currentResidentDetails']['nearBy']}}</td>
   </tr>
+  <tr class="text-white sb-bg-dark">
+    <th>Staff Representative Name Designation</th>
+    <th>Staff Representative Name</th>
+    <th>Alternative Staff Representative Name Designation</th>
+    <th>Alternative Staff Representative Name</th>
+  </tr>
+  <tr>
+    <td>{{formData?.currentResidentDetails?.staffRepresentativeNameDesignation}}</td>
+    <td>{{formData?.currentResidentDetails?.staffRepresentativeName}}</td>
+    <td>{{formData?.currentResidentDetails?.alternativeStaffRepresentativeNameDesignation}}</td>
+    <td>{{formData?.currentResidentDetails?.alternativeStaffRepresentativeName}}</td>
+  </tr>
+
+</table>
+<table *ngIf="formData['currentResidentFormChecked'] === true"
+       class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">  <tr class="text-white sb-bg-dark">
+    <th colspan="4">Finding & Comment</th>
+  </tr>
+  <tr>
+    <td colspan="4">{{formData?.currentResidentDetails?.findingComment}}</td>
+  </tr>
 </table>
 <!-- ============================================================= Business Site Visit ==============================================================-->
 <p *ngIf="formData['businessSiteVisitFormChecked'] === true" class="font-weight-bold small">Business Site Visit</p>
