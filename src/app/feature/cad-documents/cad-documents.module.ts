@@ -29,6 +29,7 @@ import {RetailProfessionalLoanPrintComponent} from './cad-document-core/mega-off
 import {SmeComponent} from './cad-document-core/mega-offer-letter/sme/sme.component';
 import {SmePrintComponent} from './cad-document-core/mega-offer-letter/sme/sme-print/sme-print.component';
 import {PostApprovalDocApproveComponent} from './post-approval-doc-approve/post-approval-doc-approve.component';
+import { CadLoginComponent } from './cad-login/cad-login.component';
 
 
 const COMPONENTS = [
@@ -58,7 +59,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, PostApprovalDocApproveComponent],
+    declarations: [...COMPONENTS, PostApprovalDocApproveComponent, CadLoginComponent],
     imports: [
         CommonModule,
         ThemeModule,
