@@ -184,7 +184,11 @@ export class OfferLetterActionComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             this.toastService.show(new Alert(AlertType.ERROR, 'NO Any Document Has Been Uploaded yet!Please Upload sign document to Proceed'));
         } else {
-            const modelRef = this.modalService.open(PostApprovalDocApproveComponent);
+            const modelRef = this.modalService.open(PostApprovalDocApproveComponent, {
+                size: 'lg',
+                backdrop: 'static',
+                keyboard: false
+            });
             modelRef.componentInstance.customerOfferLetter = this.customerOfferLetter;
         }
     }

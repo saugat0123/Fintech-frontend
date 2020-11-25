@@ -3,6 +3,8 @@ import {ToastService} from '../../../@core/utils';
 import {CustomerOfferLetter} from '../../loan/model/customer-offer-letter';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CustomerOfferLetterService} from '../../loan/service/customer-offer-letter.service';
+import {Alert, AlertType} from '../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-post-approval-doc-approve',
@@ -14,10 +16,12 @@ export class PostApprovalDocApproveComponent implements OnInit {
     @Input() customerOfferLetter: CustomerOfferLetter;
     approveForm: FormGroup;
     cadDocumentIDs: number[] = [];
-    disableButton = false;
+    disableButton = true;
+
     constructor(private toastService: ToastService,
                 private modalService: NgbModal,
-                private formBuilder: FormBuilder) {
+                private formBuilder: FormBuilder,
+                private service: CustomerOfferLetterService) {
     }
 
     ngOnInit() {
@@ -42,6 +46,11 @@ export class PostApprovalDocApproveComponent implements OnInit {
         } else if (!this.cadDocumentIDs.includes(id) && checked) {
             this.cadDocumentIDs.push(id);
         }
+        if (this.cadDocumentIDs.length < 1) {
+            this.disableButton = true;
+        } else {
+            this.disableButton = false;
+        }
     }
 
     onSubmit() {
@@ -49,7 +58,13 @@ export class PostApprovalDocApproveComponent implements OnInit {
         if (this.cadDocumentIDs.length < 1) {
             return;
         }
-        console.log(this.cadDocumentIDs);
+        this.onClose();
+        this.service.postOfferLetterPartialDocument(this.cadDocumentIDs).subscribe((res: any) => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, res.detail));
+
+        }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+        });
     }
 
 }
