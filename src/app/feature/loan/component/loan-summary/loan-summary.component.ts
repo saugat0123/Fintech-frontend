@@ -34,6 +34,8 @@ import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {DocStatus} from '../../model/docStatus';
+import {LoanDataKey} from '../../../../@core/utils/constants/loan-data-key';
 
 @Component({
     selector: 'app-loan-summary',
@@ -143,6 +145,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     insuranceWithDoc = [];
     showCadDoc = false;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+    docStatus = DocStatus;
+    loanDataKey = LoanDataKey;
 
 
     constructor(

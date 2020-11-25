@@ -285,8 +285,12 @@
                 <div *ngFor="let previous of signatureList; let i=index;"
                      class="col-md-3 padding-0-125">
                     <div class="signature-block">
+                        <div *ngIf="loanDataHolder.documentStatus.toString()===docStatus.APPROVED" class="text-center p-2 bg-light mb-2 ">
+                            <!--<span>{{loanHandler(i, signatureList.length)}}</span>-->
+                            <span>{{loanDataKey.APPROVED}} :</span>
+                        </div>
                         <div class="text-center p-2 bg-light mb-2 ">
-                            <span>{{loanHandler(i, signatureList.length)}}</span>
+                            <span>{{previous.fromUser.role.authorityLabel.toUpperCase()}} :</span>
                         </div>
                         <hr class="border-dark m-0">
                         <div class="row justify-content-center signature mx-auto">
