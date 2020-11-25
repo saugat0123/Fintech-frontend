@@ -242,7 +242,7 @@
         <th>Valuation Area(Sq.ft)</th>
         <th>Rate Per Square Feet</th>
         <th>Estimated Cost</th>
-        <th>Water Supply</th>
+        <th>Water Supply %</th>
       </tr>
       </thead>
       <tbody>
@@ -252,49 +252,68 @@
         <td>{{buildingDetails?.valuationArea}}</td>
         <td>Rs.{{buildingDetails?.ratePerSquareFeet}}</td>
         <td>Rs.{{buildingDetails?.estimatedCost}}</td>
-        <td>{{buildingDetails?.waterSupply}}</td>
+        <td>{{buildingDetails?.waterSupplyPercent}}</td>
       </tr>
       </tbody>
       <thead>
       <tr class="text-white sb-bg-dark">
         <th></th>
+        <th>Water Supply</th>
+        <th>Sanitation %</th>
         <th>Sanitation</th>
+        <th>Electrification %</th>
         <th>Electrification</th>
-        <th>Apartment Total Cost</th>
-        <th>Apartment Fair Market Value</th>
-        <th>Apartment Distress Value</th>
+
       </tr>
       </thead>
       <tbody>
       <tr>
         <td></td>
-        <td>{{buildingDetails?.sanitation}}</td>
-        <td>{{buildingDetails?.electrification}}</td>
-        <td>{{buildingDetails?.buildingTotalCost}}</td>
-        <td>{{buildingDetails?.buildingFairMarketValue}}</td>
-        <td>{{buildingDetails?.buildingDistressValue}}</td>
+        <td>Rs.{{buildingDetails?.waterSupply}}</td>
+        <td>{{buildingDetails?.sanitationPercent}}</td>
+
+        <td>Rs.{{buildingDetails?.sanitation}}</td>
+        <td>{{buildingDetails?.electrificationPercent}}</td>
+
+        <td>Rs.{{buildingDetails?.electrification}}</td>
+
+
       </tr>
       </tbody>
       <thead>
       <tr class="text-white sb-bg-dark">
         <th></th>
+        <th>Apartment Total Cost</th>
+        <th>Apartment Fair Market Value</th>
+        <th>Apartment Distress Value</th>
         <th  *ngIf="securityData['otherBranchcheck']">Branch</th>
         <th>Valuator Name</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td></td>
+        <td>{{buildingDetails?.buildingTotalCost}}</td>
+        <td>{{buildingDetails?.buildingFairMarketValue}}</td>
+        <td>{{buildingDetails?.buildingDistressValue}}</td>
+        <td *ngIf="securityData['otherBranchcheck']">{{buildingDetails?.apartmentBranch?.name}}</td>
+        <td>{{buildingDetails?.ApartmentValuator?.name}}</td>
+
+      </tr>
+      </tbody>
+      <tr class="text-white sb-bg-dark">
+        <th></th>
         <th>Valuated Date</th>
         <th>Valuator Representative Name</th>
         <th>Staff Representative Name</th>
       </tr>
-      </thead>
-      <tbody>
       <tr>
         <td></td>
-        <td *ngIf="securityData['otherBranchcheck']">{{buildingDetails?.apartmentBranch?.name}}</td>
-        <td>{{buildingDetails?.ApartmentValuator?.name}}</td>
         <td>{{buildingDetails?.ApartmentValuatorDate | date}}</td>
         <td>{{buildingDetails?.ApartmentValuatorRepresentative}}</td>
         <td>{{buildingDetails?.ApartmentStaffRepresentativeName}}</td>
       </tr>
-      </tbody>
     </table>
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
       <thead>
@@ -351,7 +370,8 @@
           <th>Valuation Area</th>
           <th>Rate Per Square Feet</th>
           <th>Estimated Cost</th>
-          <th>Water Supply</th>
+          <th>Water Supply%</th>
+
         </tr>
         </thead>
         <tbody>
@@ -360,35 +380,50 @@
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.floorName}}</td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.valuationArea}}</td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.ratePerSquareFeet}}</td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.estimatedCost}}</td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.waterSupply}}</td>
+          <td>Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.estimatedCost}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.waterSupplyPercent}}</td>
         </tr>
         </tbody>
         <thead>
         <tr class="text-white sb-bg-dark">
           <th></th>
+          <th>Water Supply</th>
+          <th>Sanitation %</th>
           <th>Sanitation</th>
+          <th>Electrification %</th>
           <th>Electrification</th>
-          <th>Apartment Total Cost</th>
-          <th>Apartment Fair Market Value</th>
-          <th>Apartment Distress Value</th>
+
         </tr>
         </thead>
         <tbody>
         <tr>
           <td></td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.sanitation}}</td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.electrification}}</td>
+          <td>Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.waterSupply}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.sanitationPercent}}</td>
+          <td>Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.sanitation}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.electrificationPercent}}</td>
+          <td>Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.electrification}}</td>
+
+        </tr>
+        </tbody>
+        <tr class="text-white sb-bg-dark">
+          <th></th>
+          <th>Apartment Total Cost</th>
+          <th>Apartment Fair Market Value</th>
+          <th>Apartment Distress Value</th>
+        </tr>
+        <tr>
+          <td></td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingTotalCost}}</td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingFairMarketValue}}</td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingDistressValue}}</td>
         </tr>
-        </tbody>
       </table>
 
       <table
           *ngFor="let afterCompletion of securityData['initialForm']['buildingUnderConstructions']; let i= index"
           class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+
         <thead>
         <tr>
           <th class="text-center" colspan="6">Apartment After Completion</th>
@@ -421,7 +456,7 @@
           <th>Valuation Area</th>
           <th>Rate Per Square Feet</th>
           <th>Estimated Cost</th>
-          <th>Water Supply</th>
+          <th>Water Supply %</th>
         </tr>
         </thead>
         <tbody>
@@ -431,29 +466,42 @@
           <td>{{afterCompletion?.buildingDetailsAfterCompletion?.valuationArea}}</td>
           <td>Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.ratePerSquareFeet}}</td>
           <td>Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.estimatedCost}}</td>
-          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.waterSupply}}</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.waterSupplyPercent}}</td>
         </tr>
         </tbody>
         <thead>
         <tr class="text-white sb-bg-dark">
           <th></th>
+          <th>Water Supply</th>
+          <th>Sanitation %</th>
           <th>Sanitation</th>
+          <th>Electrification %</th>
           <th>Electrification</th>
-          <th>Apartment Total Cost</th>
-          <th>Apartment Fair Market Value</th>
-          <th>Apartment Distress Value</th>
         </tr>
         </thead>
         <tbody>
         <tr>
           <td></td>
-          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.sanitation}}</td>
-          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.electrification}}</td>
+          <td>Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.waterSupply}}</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.sanitationPercent}}</td>
+          <td>Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.sanitation}}</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.electrificationPercent}}</td>
+          <td>Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.electrification}}</td>
+
+        </tr>
+        </tbody>
+        <tr class="text-white sb-bg-dark">
+          <th></th>
+          <th>Apartment Total Cost</th>
+          <th>Apartment Fair Market Value</th>
+          <th>Apartment Distress Value</th>
+        </tr>
+        <tr>
+          <td></td>
           <td>Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.buildingTotalCost}}</td>
           <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildingFairMarketValue}}</td>
           <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildingDistressValue}}</td>
         </tr>
-        </tbody>
       </table>
   </div>
 
