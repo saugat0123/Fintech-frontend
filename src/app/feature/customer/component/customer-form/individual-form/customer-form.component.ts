@@ -268,7 +268,7 @@ export class CustomerFormComponent implements OnInit {
             contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, [Validators.required,
                 Validators.maxLength(10), Validators.minLength(10)]],
             landLineNumber: [this.customer.landLineNumber === undefined ? undefined : this.customer.landLineNumber],
-            email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.required],
+            email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.email],
             // initial Relation Date not used in ui
             initialRelationDate: [this.customer.initialRelationDate === undefined ? undefined :
                 new Date(this.customer.initialRelationDate)],
