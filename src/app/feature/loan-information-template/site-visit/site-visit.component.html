@@ -609,9 +609,12 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label class="title" for="insuranceCompany">Insurance Company</label>
-                            <input class="form-control" formControlName="insuranceCompany"
-                                   id="insuranceCompany" name="insuranceCompany"
-                                   placeholder="insurance company">
+                            <select class="form-control" formControlName="insuranceCompany"
+                                   id="insuranceCompany" name="insuranceCompany">
+                                <option [ngValue]="''" hidden>Select Insurance Company</option>
+                                <option *ngFor="let insurance of insuranceList" [ngValue]="insurance.id">{{insurance.name}}</option>
+
+                            </select>
                         </div>
                         <div class="col-md-6 form-group">
                             <label class="title" for="expiryDate">Expiry Date</label>
