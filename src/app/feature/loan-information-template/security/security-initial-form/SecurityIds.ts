@@ -1,5 +1,5 @@
 export class SecurityIds {
     static landId = 'land';
-    static land_buildingId = 'land_building';
+    static land_buildingId = 'l_apart';
     static apartmentId = 'apartment';
 }
