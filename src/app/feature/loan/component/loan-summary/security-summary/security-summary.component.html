@@ -1,12 +1,14 @@
 <div class="row mt-3">
     <div class="col-md-12">
         <p><strong>Security Position</strong></p>
-        <div class="row" *ngIf= "vehicleSelected">
+        <div class="row" *ngIf="vehicleSelected">
             <div class="col-md-12">
-                <table  class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"  style="table-layout: fixed; width: 100%" *ngFor="let vehicleDetails of formData['initialForm']['vehicleDetails']; let i= index">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+                       style="table-layout: fixed; width: 100%"
+                       *ngFor="let vehicleDetails of formData['initialForm']['vehicleDetails']; let i= index">
 
                     <tr class="sb-bg-dark text-white">
-                        <th colspan="9">{{i+1}}.Details of Security Offered: Vehicle</th>
+                        <th colspan="9">{{i + 1}}.Details of Security Offered: Vehicle</th>
                     </tr>
                     <tr class="sb-bg-secondary text-white">
                         <th>S.N</th>
@@ -21,7 +23,7 @@
 
                     </tr>
                     <tr>
-                        <td rowspan="3" class="align-middle">{{i+1}}</td>
+                        <td rowspan="3" class="align-middle">{{i + 1}}</td>
                         <td>{{vehicleDetails?.model}}</td>
                         <td>{{vehicleDetails?.valuationAmount}}</td>
                         <td>{{vehicleDetails?.downPayment}}</td>
@@ -44,12 +46,13 @@
                 </table>
             </div>
         </div>
-        <div class="row" *ngIf= "landSelected">
+        <div class="row" *ngIf="landSelected">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small" *ngFor="let landDetails of formData['initialForm']['landDetails']; let i= index">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+                       *ngFor="let landDetails of formData['initialForm']['landDetails']; let i= index">
 
                     <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="8">{{i+1}}.Land Security Details</th>
+                        <th class="text-center sb-bg-dark text-white" colspan="8">{{i + 1}}.Land Security Details</th>
                     </tr>
                     <tr class="sb-bg-secondary text-white">
                         <th>S.N</th>
@@ -62,7 +65,7 @@
                         <th>DV</th>
                     </tr>
                     <tr>
-                        <td rowspan="3" class="align-middle">{{i+1}}</td>
+                        <td rowspan="3" class="align-middle">{{i + 1}}</td>
                         <td>{{landDetails?.owner}}</td>
                         <td>{{landDetails?.location}}</td>
                         <td>{{landDetails?.plotNumber}}</td>
@@ -84,16 +87,45 @@
                         <td>{{landDetails?.landConsideredValue}}</td>
                     </tr>
 
+                  <ng-container *ngIf="landDetails?.revaluationData != null && landDetails?.revaluationData?.isReValuated">
+                      <tr>
+                          <td></td>
+                      </tr>
+                      <tr class="sb-bg-secondary text-white">
+                          <th>ReValuation Date</th>
+                          <th colspan="1">Valuator name</th>
+                          <th colspan="1">ReValuation Fmv</th>
+                          <th colspan="1">ReValuation Dv</th>
+                          <th colspan="1">ReValuation Considered Value</th>
+                          <th colspan="1">Change in Fmv</th>
+                          <th colspan="1">Change in Dv</th>
+                          <th colspan="1">Change in Considered Value</th>
+                      </tr>
+                      <tr>
+                          <td>{{landDetails?.revaluationData?.reValuationDate |date}}</td>
+                          <td colspan="1">{{landDetails?.revaluationData?.newValuator?.name}}</td>
+                          <td colspan="1">{{landDetails?.revaluationData?.reValuatedFmv}}</td>
+                          <td colspan="1">{{landDetails?.revaluationData?.reValuatedDv}}</td>
+                          <td colspan="1">{{landDetails?.revaluationData?.reValuatedConsideredValue}}</td>
+                          <td colspan="1">{{landDetails?.revaluationData?.changeInFmv}}</td>
+                          <td colspan="1">{{landDetails?.revaluationData?.changeInDv}}</td>
+                          <td colspan="1">{{landDetails?.revaluationData?.changeInConsideredValue}}</td>
+                      </tr>
+                  </ng-container>
+
                 </table>
             </div>
         </div>
         <!--        LandBuildingDetails-->
-        <div class="row" *ngIf= "landBuilding">
+        <div class="row" *ngIf="landBuilding">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"  *ngFor="let landBuilding of  formData['initialForm']['landBuilding']; let i= index">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+                       *ngFor="let landBuilding of  formData['initialForm']['landBuilding']; let i= index">
                     <thead>
                     <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="8">{{i+1}}.Land & Building Security Details</th>
+                        <th class="text-center sb-bg-dark text-white" colspan="8">{{i + 1}}.Land & Building Security
+                            Details
+                        </th>
                     </tr>
                     <tr class="text-center sb-bg-dark text-white">
                         <th>S.N</th>
@@ -108,7 +140,7 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>{{i+1}}</td>
+                        <td>{{i + 1}}</td>
                         <td>{{landBuilding?.owner}}</td>
                         <td>{{landBuilding?.location}}</td>
                         <td>{{landBuilding?.plotNumber}}</td>
@@ -131,7 +163,8 @@
                     <tr *ngIf="landBuilding.underConstructionChecked === true">
                         <th colspan="8">Under Construction</th>
                     </tr>
-                    <tr *ngIf="landBuilding.underConstructionChecked === true" class="text-center sb-bg-dark text-white">
+                    <tr *ngIf="landBuilding.underConstructionChecked === true"
+                        class="text-center sb-bg-dark text-white">
                         <th>Owner</th>
                         <th>Location</th>
                         <th>House no</th>
@@ -151,6 +184,31 @@
                         <td>Rs.{{landBuilding?.landConsideredValueConstruction}}</td>
                         <td>Rs.{{landBuilding?.distressValueConstruction}}</td>
                     </tr>
+                    <ng-container *ngIf="landBuilding?.revaluationData != null && landBuilding?.revaluationData?.isReValuated">
+                        <tr>
+                            <td colspan="8"></td>
+                        </tr>
+                        <tr class="sb-bg-secondary text-white">
+                            <th>ReValuation Date</th>
+                            <th colspan="1">Valuator name</th>
+                            <th colspan="1">ReValuation Fmv</th>
+                            <th colspan="1">ReValuation Dv</th>
+                            <th colspan="1">ReValuation Considered Value</th>
+                            <th colspan="1">Change in Fmv</th>
+                            <th colspan="1">Change in Dv</th>
+                            <th colspan="1">Change in Considered Value</th>
+                        </tr>
+                        <tr>
+                            <td>{{landBuilding?.revaluationData?.reValuationDate |date}}</td>
+                            <td colspan="1">{{landBuilding?.revaluationData?.newValuator?.name}}</td>
+                            <td colspan="1">{{landBuilding?.revaluationData?.reValuatedFmv}}</td>
+                            <td colspan="1">{{landBuilding?.revaluationData?.reValuatedDv}}</td>
+                            <td colspan="1">{{landBuilding?.revaluationData?.reValuatedConsideredValue}}</td>
+                            <td colspan="1">{{landBuilding?.revaluationData?.changeInFmv}}</td>
+                            <td colspan="1">{{landBuilding?.revaluationData?.changeInDv}}</td>
+                            <td colspan="1">{{landBuilding?.revaluationData?.changeInConsideredValue}}</td>
+                        </tr>
+                    </ng-container>
                     </tbody>
 
                 </table>
@@ -158,11 +216,13 @@
         </div>
 
         <!--        apartmentDetails-->
-        <div class="row" *ngIf= "apartmentSelected">
+        <div class="row" *ngIf="apartmentSelected">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"  *ngFor="let buildingDetails of formData['initialForm']['buildingDetails']; let i= index">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+                       *ngFor="let buildingDetails of formData['initialForm']['buildingDetails']; let i= index">
                     <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="8">{{i+1}}.Apartment Security Details</th>
+                        <th class="text-center sb-bg-dark text-white" colspan="8">{{i + 1}}.Apartment Security Details
+                        </th>
                     </tr>
                     <tr class="text-center sb-bg-secondary text-white">
                         <th>S.N</th>
@@ -175,7 +235,7 @@
                         <th>DV</th>
                     </tr>
                     <tr>
-                        <td rowspan="3" class="align-middle">{{i+1}}</td>
+                        <td rowspan="3" class="align-middle">{{i + 1}}</td>
                         <td>{{buildingDetails?.buildingName}}</td>
                         <td>{{buildingDetails?.buildingDescription}}</td>
                         <td>{{buildingDetails?.buildArea}}</td>
@@ -192,11 +252,36 @@
                         <td *ngIf="formData['otherBranchcheck']">{{buildingDetails?.apartmentBranch?.name}}</td>
                         <td>{{buildingDetails?.ApartmentValuator?.name}}</td>
                     </tr>
+                    <ng-container *ngIf="buildingDetails?.revaluationData != null && buildingDetails?.revaluationData?.isReValuated">
+                        <tr>
+                            <td colspan="8"></td>
+                        </tr>
+                        <tr class="sb-bg-secondary text-white">
+                            <th>ReValuation Date</th>
+                            <th colspan="1">Valuator name</th>
+                            <th colspan="1">ReValuation Fmv</th>
+                            <th colspan="1">ReValuation Dv</th>
+                            <th colspan="1">ReValuation Considered Value</th>
+                            <th colspan="1">Change in Fmv</th>
+                            <th colspan="1">Change in Dv</th>
+                            <th colspan="1">Change in Considered Value</th>
+                        </tr>
+                        <tr>
+                            <td>{{buildingDetails?.revaluationData?.reValuationDate |date}}</td>
+                            <td colspan="1">{{buildingDetails?.revaluationData?.newValuator?.name?.name}}</td>
+                            <td colspan="1">{{buildingDetails?.revaluationData?.reValuatedFmv}}</td>
+                            <td colspan="1">{{buildingDetails?.revaluationData?.reValuatedDv}}</td>
+                            <td colspan="1">{{buildingDetails?.revaluationData?.reValuatedConsideredValue}}</td>
+                            <td colspan="1">{{buildingDetails?.revaluationData?.changeInFmv}}</td>
+                            <td colspan="1">{{buildingDetails?.revaluationData?.changeInDv}}</td>
+                            <td colspan="1">{{buildingDetails?.revaluationData?.changeInConsideredValue}}</td>
+                        </tr>
+                    </ng-container>
                 </table>
             </div>
         </div>
 
-<!--        apartmentUndercostructions-->
+        <!--        apartmentUndercostructions-->
         <div class="row" *ngIf="formData['underConstructionChecked']">
             <div class="col-md-12">
                 <p><strong>Apartment Under Construction</strong></p>
@@ -214,12 +299,14 @@
                         <th>TotalCost</th>
                     </tr>
                     <tr *ngFor="let beforeCompletion of formData['initialForm']['buildingUnderConstructions']; let i= index">
-                        <td>{{i+1}}</td>
+                        <td>{{i + 1}}</td>
                         <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingName}}</td>
                         <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildingDescription}}</td>
                         <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildArea}}</td>
                         <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildRate}}</td>
-                        <td><strong>Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion.totalCost | currencyFormatter}}</strong></td>
+                        <td>
+                            <strong>Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion.totalCost | currencyFormatter}}</strong>
+                        </td>
 
                     </tr>
                     </thead>
@@ -238,25 +325,28 @@
                         <th>TotalCost</th>
                     </tr>
                     <tr *ngFor="let afterCompletion of formData['initialForm']['buildingUnderConstructions']; let i= index">
-                        <td>{{i+1}}</td>
+                        <td>{{i + 1}}</td>
                         <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildingName}}</td>
                         <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildingDescription}}</td>
                         <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildArea}}</td>
                         <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildRate}}</td>
-                        <td><strong>Rs.{{afterCompletion?.buildingDetailsAfterCompletion.totalCost | currencyFormatter}}</strong></td>
+                        <td>
+                            <strong>Rs.{{afterCompletion?.buildingDetailsAfterCompletion.totalCost | currencyFormatter}}</strong>
+                        </td>
                     </tr>
                     </thead>
                 </table>
             </div>
         </div>
-<!--        plantmachineryDetails-->
+        <!--        plantmachineryDetails-->
 
-        <div class="row" *ngIf= "plantSelected">
+        <div class="row" *ngIf="plantSelected">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
                     <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="7">Plant and Machinery Details Security</th>
+                        <th class="text-center sb-bg-dark text-white" colspan="7">Plant and Machinery Details Security
+                        </th>
                     </tr>
                     <tr class="text-center sb-bg-secondary text-white">
                         <th>S.N</th>
@@ -268,7 +358,7 @@
                         <th>Valautor Name</th>
                     </tr>
                     <tr *ngFor="let plantDetails of formData['initialForm']['plantDetails']; let i= index">
-                        <td>{{i+1}}</td>
+                        <td>{{i + 1}}</td>
                         <td>{{plantDetails?.model}}</td>
                         <td>{{plantDetails?.quotation}}</td>
                         <td>{{plantDetails?.supplier}}</td>
@@ -356,7 +446,7 @@
             </div>
         </div>
 
-        <div class="row" *ngIf= "hypothecation">
+        <div class="row" *ngIf="hypothecation">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
 
@@ -369,8 +459,8 @@
                         <th>Stock Location</th>
                         <th>Value</th>
                     </tr>
-                    <tr  *ngFor="let hypothecationOfStock of formData['initialForm']['hypothecationOfStock']; let i= index">
-                        <td>{{i+1}}</td>
+                    <tr *ngFor="let hypothecationOfStock of formData['initialForm']['hypothecationOfStock']; let i= index">
+                        <td>{{i + 1}}</td>
                         <td>{{hypothecationOfStock?.owner}}</td>
                         <td>{{hypothecationOfStock?.stock}}</td>
                         <td>{{hypothecationOfStock?.value}}</td>
@@ -378,9 +468,9 @@
                 </table>
             </div>
         </div>
-        <div class="row" *ngIf= "corporate">
+        <div class="row" *ngIf="corporate">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small" >
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
 
                     <tr>
                         <th class="text-center sb-bg-dark text-white" colspan="6">Corporate Guarantee</th>
@@ -389,12 +479,12 @@
                         <th>S.N</th>
                         <th>Name of Guarantor</th>
                         <th>Address</th>
-                        <th>Key person </th>
+                        <th>Key person</th>
                         <th>Email address</th>
                         <th>Phone number</th>
                     </tr>
                     <tr *ngFor="let corporateGuarantee of formData['initialForm']['corporateGuarantee']; let i= index">
-                        <td>{{i+1}}</td>
+                        <td>{{i + 1}}</td>
                         <td>{{corporateGuarantee?.name}}</td>
                         <td>{{corporateGuarantee?.address}}</td>
                         <td>{{corporateGuarantee?.keyPerson}}</td>
@@ -404,9 +494,9 @@
                 </table>
             </div>
         </div>
-        <div class="row" *ngIf= "personal">
+        <div class="row" *ngIf="personal">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small" >
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
 
                     <tr>
                         <th class="text-center sb-bg-dark text-white" colspan="5">Personal Guarantee</th>
@@ -419,7 +509,7 @@
                         <th>Phone number</th>
                     </tr>
                     <tr *ngFor="let personalGuarantee of formData['initialForm']['personalGuarantee']; let i= index">
-                        <td>{{i+1}}</td>
+                        <td>{{i + 1}}</td>
                         <td>{{personalGuarantee?.name}}</td>
                         <td>{{personalGuarantee?.address}}</td>
                         <td>{{personalGuarantee?.email}}</td>

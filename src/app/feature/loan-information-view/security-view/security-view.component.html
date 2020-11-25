@@ -57,6 +57,31 @@
         <td>{{landDetails?.modeOfTransfer}}</td>
 
       </tr>
+      <ng-container *ngIf="landDetails?.revaluationData != null && landDetails?.revaluationData?.isReValuated">
+        <tr>
+          <td colspan="8"></td>
+        </tr>
+        <tr class="sb-bg-dark text-white">
+          <th>ReValuation Date</th>
+          <th colspan="2">Valuator name</th>
+          <th colspan="1">ReValuation Fmv</th>
+          <th colspan="1">ReValuation Dv</th>
+          <th colspan="1">ReValuation Considered Value</th>
+          <th colspan="1">Change in Fmv</th>
+          <th colspan="1">Change in Dv</th>
+          <th colspan="1">Change in Considered Value</th>
+        </tr>
+        <tr>
+          <td>{{landDetails?.revaluationData?.reValuationDate |date}}</td>
+          <td colspan="2">{{landDetails?.revaluationData?.newValuator?.name}}</td>
+          <td colspan="1">{{landDetails?.revaluationData?.reValuatedFmv}}</td>
+          <td colspan="1">{{landDetails?.revaluationData?.reValuatedDv}}</td>
+          <td colspan="1">{{landDetails?.revaluationData?.reValuatedConsideredValue}}</td>
+          <td colspan="1">{{landDetails?.revaluationData?.changeInFmv}}</td>
+          <td colspan="1">{{landDetails?.revaluationData?.changeInDv}}</td>
+          <td colspan="1">{{landDetails?.revaluationData?.changeInConsideredValue}}</td>
+        </tr>
+      </ng-container>
       </tbody>
     </table>
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
@@ -192,6 +217,32 @@
           <td>Rs.{{landBuilding?.costPerSquareConstruction}}</td>
           <td>Rs.{{landBuilding?.totalCostConstruction}}</td>
         </tr>
+
+        <ng-container *ngIf="landBuilding?.revaluationData != null && landBuilding?.revaluationData?.isReValuated">
+          <tr>
+            <td colspan="8"></td>
+          </tr>
+          <tr class="sb-bg-dark text-white">
+            <th>ReValuation Date</th>
+            <th colspan="1">Valuator name</th>
+            <th colspan="1">ReValuation Fmv</th>
+            <th colspan="1">ReValuation Dv</th>
+            <th colspan="1">ReValuation Considered Value</th>
+            <th colspan="1">Change in Fmv</th>
+            <th colspan="1">Change in Dv</th>
+            <th colspan="1">Change in Considered Value</th>
+          </tr>
+          <tr>
+            <td>{{landBuilding?.revaluationData?.reValuationDate |date}}</td>
+            <td colspan="1">{{landBuilding?.revaluationData?.newValuator?.name}}</td>
+            <td colspan="1">{{landBuilding?.revaluationData?.reValuatedFmv}}</td>
+            <td colspan="1">{{landBuilding?.revaluationData?.reValuatedDv}}</td>
+            <td colspan="1">{{landBuilding?.revaluationData?.reValuatedConsideredValue}}</td>
+            <td colspan="1">{{landBuilding?.revaluationData?.changeInFmv}}</td>
+            <td colspan="1">{{landBuilding?.revaluationData?.changeInDv}}</td>
+            <td colspan="1">{{landBuilding?.revaluationData?.changeInConsideredValue}}</td>
+          </tr>
+        </ng-container>
         </tbody>
 
       </table>
@@ -294,6 +345,35 @@
         <td>{{buildingDetails?.ApartmentValuatorRepresentative}}</td>
         <td>{{buildingDetails?.ApartmentStaffRepresentativeName}}</td>
       </tr>
+      <ng-container *ngIf="buildingDetails?.revaluationData != null && buildingDetails?.revaluationData?.isReValuated">
+        <tr>
+          <td colspan="8"></td>
+        </tr>
+        <tr class="sb-bg-dark text-white">
+          <th>ReValuation Date</th>
+          <th colspan="1">Valuator name</th>
+          <th colspan="1">ReValuation Fmv</th>
+          <th colspan="1">ReValuation Dv</th>
+          <th colspan="1">ReValuation Considered Value</th>
+          <th colspan="1">Change in Fmv</th>
+        </tr>
+        <tr>
+          <td>{{buildingDetails?.revaluationData?.reValuationDate |date}}</td>
+          <td colspan="1">{{buildingDetails?.revaluationData?.newValuator?.name?.name}}</td>
+          <td colspan="1">{{buildingDetails?.revaluationData?.reValuatedFmv}}</td>
+          <td colspan="1">{{buildingDetails?.revaluationData?.reValuatedDv}}</td>
+          <td colspan="1">{{buildingDetails?.revaluationData?.reValuatedConsideredValue}}</td>
+          <td colspan="1">{{buildingDetails?.revaluationData?.changeInFmv}}</td>
+        </tr>
+        <tr class="sb-bg-dark text-white">
+          <th colspan="1">Change in Dv</th>
+          <th colspan="1">Change in Considered Value</th>
+        </tr>
+        <tr>
+          <td colspan="1">{{buildingDetails?.revaluationData?.changeInDv}}</td>
+          <td colspan="1">{{buildingDetails?.revaluationData?.changeInConsideredValue}}</td>
+        </tr>
+      </ng-container>
       </tbody>
     </table>
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
