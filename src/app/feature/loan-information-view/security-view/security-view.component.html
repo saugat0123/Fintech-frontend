@@ -40,9 +40,11 @@
         <th>Valuator Name</th>
         <th>Valuated Date</th>
         <th>Valuator Representative Name</th>
+        <th>Staff Representative Designation</th>
         <th>Staff Representative Name</th>
-        <th>Type of Property</th>
-        <th>Mode of Transfer</th>
+        <th>Alternative Staff Representative Designation</th>
+        <th>Alternative Representative Name</th>
+
       </tr>
       </thead>
       <tbody>
@@ -52,10 +54,21 @@
         <td>{{landDetails?.landValuator?.name}}</td>
         <td>{{landDetails?.landValuatorDate | date}}</td>
         <td>{{landDetails?.landValuatorRepresentative}}</td>
+        <td>{{landDetails?.landStaffRepresentativeDesignation}}</td>
         <td>{{landDetails?.landStaffRepresentativeName}}</td>
+        <td>{{landDetails?.landAlternateStaffRepresentativeDesignation}}</td>
+        <td>{{landDetails?.landAlternateStaffRepresentativeName}}</td>
+      </tr>
+      <tr>
+      <tr class="text-white sb-bg-dark">
+        <th></th>
+        <th>Type of Property</th>
+        <th>Mode of Transfer</th>
+      </tr>
+      <tr>
+        <td></td>
         <td>{{landDetails?.typeOfProperty}}</td>
         <td>{{landDetails?.modeOfTransfer}}</td>
-
       </tr>
       </tbody>
     </table>
@@ -134,19 +147,28 @@
           <th  *ngIf="securityData['otherBranchcheck']">Branch</th>
           <th>Valuator Name</th>
           <th>Valuator Representative Name</th>
-          <th>Staff Representative Name</th>
           <th>Valuated Date</th>
-
+          <th>Staff Representative Designation</th>
+          <th>Staff Representative Name</th>
+          <th>Alternative Staff Representative Designation</th>
         </tr>
         <tr>
           <td></td>
           <td *ngIf="securityData['otherBranchcheck']">{{landBuilding?.buildingBranch?.name}}</td>
           <td>{{landBuilding?.buildingValuator?.name}}</td>
           <td>{{landBuilding?.buildingValuatorRepresentative}}</td>
-          <td>{{landBuilding?.buildingStaffRepresentativeName}}</td>
           <td>{{landBuilding?.buildingValuatorDate | date}}</td>
-
-
+          <td>{{landBuilding?.landBuildingStaffRepresentativeDesignation}}</td>
+          <td>{{landBuilding?.buildingStaffRepresentativeName}}</td>
+          <td>{{landBuilding?.landBuildingAlternateStaffRepresentativeDesignation}}</td>
+        </tr>
+        <tr class="text-white sb-bg-dark">
+          <th></th>
+          <th>Alternative Representative Name</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td>{{landBuilding?.landBuildingAlternateStaffRepresentativeName}}</td>
         </tr>
         <tr *ngIf="landBuilding.underConstructionChecked === true">
           <th colspan="8">Under Construction</th>
@@ -306,13 +328,25 @@
         <th></th>
         <th>Valuated Date</th>
         <th>Valuator Representative Name</th>
+        <th>Staff Representative Designation</th>
         <th>Staff Representative Name</th>
+        <th>Alternative Staff Representative Designation</th>
       </tr>
       <tr>
         <td></td>
         <td>{{buildingDetails?.ApartmentValuatorDate | date}}</td>
         <td>{{buildingDetails?.ApartmentValuatorRepresentative}}</td>
+        <td>{{buildingDetails?.apartmentStaffRepresentativeDesignation}}</td>
         <td>{{buildingDetails?.ApartmentStaffRepresentativeName}}</td>
+        <td>{{buildingDetails?.apartmentAlternateStaffRepresentativeDesignation}}</td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th></th>
+        <th>Alternative Representative Name</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td>{{buildingDetails?.apartmentAlternateStaffRepresentativeName}}</td>
       </tr>
     </table>
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
@@ -598,8 +632,6 @@
         <td>{{landBuildingDetails?.ApartmentValuatorDate | date}}</td>
         <td>{{landBuildingDetails?.ApartmentValuatorRepresentative}}</td>
         <td>{{landBuildingDetails?.ApartmentStaffRepresentativeName}}</td>
-
-
       </tr>
       </tbody>
       <tr class="text-white sb-bg-dark">
@@ -833,7 +865,7 @@
         <th>Valuator</th>
         <th>Valuated Date</th>
         <th>Valuator Representative Name</th>
-        <th>Staff Representative</th>
+        <th>Staff Representative Designation</th>
       </tr>
       </thead>
       <tbody>
@@ -843,7 +875,20 @@
         <td>{{plantDetails?.plantMachineryValuator?.name}}</td>
         <td>{{plantDetails?.plantMachineryValuatorDate | date}}</td>
         <td>{{plantDetails?.plantMachineryValuatorRepresentative}}</td>
+        <td>{{plantDetails?.plantMachineryStaffRepresentativeDesignation}}</td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th></th>
+        <th>Staff Representative Name</th>
+        <th>Alternative Staff Representative Designation</th>
+        <th>Alternative Representative Name</th>
+      </tr>
+      <tr>
+        <td>
+        </td>
         <td>{{plantDetails?.plantMachineryStaffRepresentativeName}}</td>
+        <td>{{plantDetails?.plantMachineryAlternateStaffRepresentativeDesignation}}</td>
+        <td>{{plantDetails?.plantMachineryAlternateStaffRepresentativeName}}</td>
       </tr>
       </tbody>
     </table>
@@ -905,8 +950,9 @@
         <th>Valuator Name</th>
 
         <th>Valuator Representative Name</th>
-        <th>Staff Representative</th>
         <th>Valuated Date</th>
+
+        <th>Staff Representative D</th>
 
       </tr>
       </thead>
@@ -914,13 +960,24 @@
       <tr>
         <td></td>
         <td>{{vehicleSecurity?.vehicalValuator?.name}}</td>
-
         <td>{{vehicleSecurity?.vehicalValuatorRepresentative}}</td>
-        <td>{{vehicleSecurity?.vehicalStaffRepresentativeName}}</td>
         <td>{{vehicleSecurity?.vehicalValuatorDate | date}}</td>
-
+        <td>{{vehicleSecurity?.vehicalStaffRepresentativeDesignation}}</td>
       </tr>
       </tbody>
+      <tr class="text-white sb-bg-dark">
+        <th></th>
+        <th>Staff Representative Name</th>
+        <th>Alternative Staff Representative Designation</th>
+        <th>Alternative Representative Name</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td>{{vehicleSecurity?.vehicalStaffRepresentativeName}}</td>
+        <td>{{vehicleSecurity?.vehicalAlternateStaffRepresentativeDesignation}}</td>
+        <td>{{vehicleSecurity?.vehicalAlternateStaffRepresentativeName}}</td>
+
+      </tr>
 
     </table>
   </div>

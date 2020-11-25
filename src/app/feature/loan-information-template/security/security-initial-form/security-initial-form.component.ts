@@ -16,6 +16,7 @@ import {NepseService} from '../../../admin/component/nepse/nepse.service';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {SecurityRevaluationComponent} from './security-revaluation/security-revaluation.component';
+import {DesignationList} from '../../../loan/model/designationList';
 
 
 @Component({
@@ -93,6 +94,7 @@ export class SecurityInitialFormComponent implements OnInit {
     shareSecurityForm: FormGroup;
     shareSecurityData: ShareSecurity = new ShareSecurity();
     typeOfProperty = ['Rajkar', 'Guthi', 'Others'];
+    designationList: DesignationList = new DesignationList();
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -278,6 +280,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     typeOfProperty: [singleData.typeOfProperty],
                     modeOfTransfer: [singleData.modeOfTransfer],
                     revaluationData: [singleData.revaluationData],
+                    landStaffRepresentativeDesignation: [singleData.landStaffRepresentativeDesignation],
+                    landAlternateStaffRepresentativeName: [singleData.landAlternateStaffRepresentativeName],
+                    landAlternateStaffRepresentativeDesignation: [singleData.landAlternateStaffRepresentativeDesignation],
                 })
             );
         });
@@ -382,7 +387,10 @@ export class SecurityInitialFormComponent implements OnInit {
                     ApartmentValuatorRepresentative: [singleData.ApartmentValuatorRepresentative],
                     ApartmentStaffRepresentativeName: [singleData.ApartmentStaffRepresentativeName],
                     apartmentBranch: [singleData.apartmentBranch],
-                    revaluationData: [singleData.revaluationData]
+                    revaluationData: [singleData.revaluationData],
+                    apartmentStaffRepresentativeDesignation: [singleData.apartmentStaffRepresentativeDesignation],
+                    apartmentAlternateStaffRepresentativeDesignation: [singleData.apartmentAlternateStaffRepresentativeDesignation],
+                    apartmentAlternateStaffRepresentativeName: [singleData.apartmentAlternateStaffRepresentativeName],
                 })
             );
         });
@@ -440,6 +448,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     typeOfPropertyConstruction: [singleData.typeOfPropertyConstruction],
                     modeOfTransferConstruction: [singleData.modeOfTransferConstruction],
                     revaluationData: [singleData.revaluationData],
+                    landBuildingStaffRepresentativeDesignation: [singleData.landBuildingStaffRepresentativeDesignation],
+                    landBuildingAlternateStaffRepresentativeDesignation: [singleData.landBuildingAlternateStaffRepresentativeDesignation],
+                    landBuildingAlternateStaffRepresentativeName: [singleData.landBuildingAlternateStaffRepresentativeName],
                 })
             );
         });
@@ -570,8 +581,12 @@ export class SecurityInitialFormComponent implements OnInit {
                         undefined : new Date(singleData.plantMachineryValuatorDate)],
                     plantMachineryValuatorRepresentative: [singleData.plantMachineryValuatorRepresentative],
                     plantMachineryStaffRepresentativeName: [singleData.plantMachineryStaffRepresentativeName],
-                    plantBranch: [singleData.plantBranch]
-                })
+                    plantBranch: [singleData.plantBranch],
+                    plantMachineryStaffRepresentativeDesignation: [singleData.plantMachineryStaffRepresentativeDesignation],
+                    plantMachineryAlternateStaffRepresentativeDesignation:
+                        [singleData.plantMachineryAlternateStaffRepresentativeDesignation],
+                    plantMachineryAlternateStaffRepresentativeName: [singleData.plantMachineryAlternateStaffRepresentativeName],
+                  })
             );
         });
     }
@@ -674,7 +689,10 @@ export class SecurityInitialFormComponent implements OnInit {
             landConsideredValue: [undefined],
             typeOfProperty: [undefined],
             modeOfTransfer: [undefined],
-            revaluationData: [undefined]
+            revaluationData: [undefined],
+            landStaffRepresentativeDesignation: [undefined],
+            landAlternateStaffRepresentativeName: [undefined],
+            landAlternateStaffRepresentativeDesignation: [undefined],
         });
     }
 
@@ -705,6 +723,9 @@ export class SecurityInitialFormComponent implements OnInit {
             ApartmentStaffRepresentativeName: [undefined],
             apartmentBranch: [undefined],
             revaluationData: [undefined],
+            apartmentStaffRepresentativeDesignation: [undefined],
+            apartmentAlternateStaffRepresentativeDesignation: [undefined],
+            apartmentAlternateStaffRepresentativeName: [undefined],
         });
     }
 
@@ -747,6 +768,9 @@ export class SecurityInitialFormComponent implements OnInit {
             modeOfTransferConstruction: [undefined],
             underConstructionChecked: undefined,
             revaluationData: [undefined],
+            landBuildingStaffRepresentativeDesignation: [undefined],
+            landBuildingAlternateStaffRepresentativeDesignation: [undefined],
+            landBuildingAlternateStaffRepresentativeName: [undefined],
         });
     }
 
@@ -761,7 +785,10 @@ export class SecurityInitialFormComponent implements OnInit {
             plantMachineryValuatorDate: [undefined],
             plantMachineryValuatorRepresentative: [undefined],
             plantMachineryStaffRepresentativeName: [undefined],
-            plantBranch: [undefined]
+            plantBranch: [undefined],
+            plantMachineryStaffRepresentativeDesignation: [undefined],
+            plantMachineryAlternateStaffRepresentativeDesignation: [undefined],
+            plantMachineryAlternateStaffRepresentativeName: [undefined],
         });
     }
 
@@ -866,7 +893,10 @@ export class SecurityInitialFormComponent implements OnInit {
             vehicalValuatorDate: [undefined],
             vehicalValuatorRepresentative: [undefined],
             vehicalStaffRepresentativeName: [undefined],
-            vehicalBranch: [undefined]
+            vehicalBranch: [undefined],
+            vehicalStaffRepresentativeDesignation: [undefined],
+            vehicalAlternateStaffRepresentativeDesignation: [undefined],
+            vehicalAlternateStaffRepresentativeName: [undefined],
         });
     }
 
@@ -902,7 +932,10 @@ export class SecurityInitialFormComponent implements OnInit {
                         : new Date(singleData.vehicalValuatorDate)],
                     vehicalValuatorRepresentative: [singleData.vehicalValuatorRepresentative],
                     vehicalStaffRepresentativeName: [singleData.vehicalStaffRepresentativeName],
-                    vehicalBranch: [singleData.vehicalBranch]
+                    vehicalBranch: [singleData.vehicalBranch],
+                    vehicalStaffRepresentativeDesignation: [singleData.vehicalStaffRepresentativeDesignation],
+                    vehicalAlternateStaffRepresentativeDesignation: [singleData.vehicalAlternateStaffRepresentativeDesignation],
+                    vehicalAlternateStaffRepresentativeName: [singleData.vehicalAlternateStaffRepresentativeName],
                 })
             );
         });
