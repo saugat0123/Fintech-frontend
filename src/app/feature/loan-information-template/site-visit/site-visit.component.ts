@@ -8,6 +8,7 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {FormUtils} from '../../../@core/utils/form.utils';
 import {Pattern} from '../../../@core/utils/constants/pattern';
 import {DesignationList} from '../../loan/model/designationList';
+import {InsuranceList} from '../../loan/model/insuranceList';
 
 
 declare let google: any;
@@ -45,6 +46,7 @@ export class SiteVisitComponent implements OnInit {
   yesNo = ['Yes', 'No'];
   date: Date;
   designationList: DesignationList = new DesignationList();
+  insuranceList = InsuranceList.insuranceCompanyList;
 
   constructor(private formBuilder: FormBuilder,
               dateService: NbDateService<Date>,
