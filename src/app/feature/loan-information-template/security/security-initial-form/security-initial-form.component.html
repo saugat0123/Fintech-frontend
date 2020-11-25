@@ -282,7 +282,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="totalCost">Total Cost</label>
-                                        <input class="form-control rounded" formControlName="totalCost"
+                                        <input (ngModelChange)="calculateWaterSupply(i,'building');calculateElectrification(i,'building');calculateSanitation(i,'building')" class="form-control rounded" formControlName="totalCost"
                                                id="totalCost"
                                                name="totalCost" placeholder="total cost"
                                                type="number" readonly/>
@@ -331,11 +331,29 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
+                                        <label class="title" for="waterSupply">Water Supply %</label>
+                                        <input (input)="calculateWaterSupply(i,'building')" class="form-control rounded" formControlName="waterSupplyPercent"
+                                               id="waterSupplyPercent"
+                                               name="waterSupplyPercent" placeholder="Water Supply Percentage"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
                                         <label class="title" for="waterSupply">Water Supply</label>
                                         <input class="form-control rounded" formControlName="waterSupply"
                                                id="waterSupply"
                                                name="waterSupply" placeholder="Water Supply"
-                                               type="text"/>
+                                               type="number" readonly/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label  class="title" for="sanitationPercent">Sanitation %</label>
+                                        <input (input)="calculateSanitation(i,'building')" class="form-control rounded" formControlName="sanitationPercent"
+                                               id="sanitationPercent"
+                                               name="sanitationPercent" placeholder="Sanitation %"
+                                               type="number"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -344,7 +362,17 @@
                                         <input class="form-control rounded" formControlName="sanitation"
                                                id="sanitation"
                                                name="sanitation" placeholder="Sanitation"
-                                               type="text"/>
+                                               type="number" readonly/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="electrificationPercent">Electrification %</label>
+                                        <input (input)="calculateElectrification(i,'building')" class="form-control rounded"
+                                               formControlName="electrificationPercent"
+                                               id="electrificationPercent"
+                                               name="electrificationPercent" placeholder="Electrification %"
+                                               type="number"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -354,7 +382,7 @@
                                                formControlName="electrification"
                                                id="electrification"
                                                name="electrification" placeholder="Electrification"
-                                               type="text"/>
+                                               type="number" readonly/>
                                     </div>
                                 </div>
                             </div>
@@ -545,7 +573,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="totalCost">Total Cost</label>
-                                            <input class="form-control rounded" formControlName="totalCost"
+                                            <input (ngModelChange)="calculateSanitation(i,'before');calculateElectrification(i,'before');calculateWaterSupply(i,'before')" class="form-control rounded" formControlName="totalCost"
                                                    id="cost"
                                                    name="totalCost" placeholder="total cost"
                                                    type="number" readonly/>
@@ -555,7 +583,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="floorName">Floor Name</label>
-                                            <input class="form-control rounded" formControlName="floorName"
+                                            <input class="form-control rounded" formControlName="buildingName"
                                                    id="fname"
                                                    name="floorName" placeholder="First Floor,Second....."
                                                    type="text"/>
@@ -590,6 +618,15 @@
                                                    type="number" readonly/>
                                         </div>
                                     </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="title" for="waterSupply">Water Supply %</label>
+                                            <input (input)="calculateWaterSupply(i,'before')" class="form-control rounded" formControlName="waterSupplyPercent"
+                                                   id="beforeWaterSupplyPercent"
+                                                   name="waterSupplyPercent" placeholder="Water Supply Percentage"
+                                                   type="number"/>
+                                        </div>
+                                    </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -597,7 +634,16 @@
                                             <input class="form-control rounded" formControlName="waterSupply"
                                                    id="supply"
                                                    name="waterSupply" placeholder="Water Supply"
-                                                   type="text"/>
+                                                   type="number" readonly/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="title" for="sanitationPercent">Sanitation %</label>
+                                            <input (input)="calculateSanitation(i,'before')" class="form-control rounded" formControlName="sanitationPercent"
+                                                   id="beforeSanitationPercent"
+                                                   name="sanitationPercent" placeholder="Sanitation %"
+                                                   type="number"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -606,7 +652,16 @@
                                             <input class="form-control rounded" formControlName="sanitation"
                                                    id="san"
                                                    name="sanitation" placeholder="Sanitation"
-                                                   type="text"/>
+                                                   type="number" readonly/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="title" for="electrificationPercent">Electrification %</label>
+                                            <input (input)="calculateElectrification(i,'before')" class="form-control rounded" formControlName="electrificationPercent"
+                                                   id="beforeElectrificationPercent"
+                                                   name="electrificationPercent" placeholder="Electrification %"
+                                                   type="number"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -615,7 +670,7 @@
                                             <input class="form-control rounded" formControlName="electrification"
                                                    id="ele"
                                                    name="electrification" placeholder="Electrification"
-                                                   type="text"/>
+                                                   type="number" readonly/>
                                         </div>
                                     </div>
                                 </div>
@@ -705,7 +760,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="totalCost">Total Cost</label>
-                                            <input class="form-control rounded" formControlName="totalCost"
+                                            <input (ngModelChange)="calculateWaterSupply(i,'after');calculateElectrification(i,'after');calculateSanitation(i,'after')" class="form-control rounded" formControlName="totalCost"
                                                    id="afterTc"
                                                    name="totalCost" placeholder="total cost"
                                                    type="number" readonly/>
@@ -714,7 +769,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="floorName">Floor Name</label>
-                                            <input class="form-control rounded" formControlName="floorName"
+                                            <input class="form-control rounded" formControlName="buildingName"
                                                    id="afterFloorName"
                                                    name="floorName" placeholder="First Floor,Second....."
                                                    type="text"/>
@@ -751,11 +806,29 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
+                                            <label class="title" for="waterSupply">Water Supply %</label>
+                                            <input (input)="calculateWaterSupply(i,'after')" class="form-control rounded" formControlName="waterSupplyPercent"
+                                                   id="afterWaterSupplyPercent"
+                                                   name="waterSupplyPercent" placeholder="Water Supply Percentage"
+                                                   type="number"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
                                             <label class="title" for="waterSupply">Water Supply</label>
                                             <input class="form-control rounded" formControlName="waterSupply"
                                                    id="afterSupply"
                                                    name="waterSupply" placeholder="Water Supply"
-                                                   type="text"/>
+                                                   type="number" readonly/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="title" for="sanitationPercent">Sanitation %</label>
+                                            <input (input)="calculateSanitation(i,'after')" class="form-control rounded" formControlName="sanitationPercent"
+                                                   id="afterSanitationPercent"
+                                                   name="sanitationPercent" placeholder="Sanitation %"
+                                                   type="number"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -764,7 +837,16 @@
                                             <input class="form-control rounded" formControlName="sanitation"
                                                    id="afterSanitation"
                                                    name="sanitation" placeholder="Sanitation"
-                                                   type="text"/>
+                                                   type="number" readonly/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="title" for="electrificationPercent">Electrification %</label>
+                                            <input (input)="calculateElectrification(i,'after')" class="form-control rounded" formControlName="electrificationPercent"
+                                                   id="afterElectrificationPercent"
+                                                   name="electrificationPercent" placeholder="Electrification %"
+                                                   type="number"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -773,7 +855,7 @@
                                             <input class="form-control rounded" formControlName="electrification"
                                                    id="afterElectrification"
                                                    name="electrification" placeholder="Electrification"
-                                                   type="text"/>
+                                                   type="number" readonly/>
                                         </div>
                                     </div>
                                 </div>
