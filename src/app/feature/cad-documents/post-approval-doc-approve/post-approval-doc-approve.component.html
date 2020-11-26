@@ -30,21 +30,23 @@
                                     <td>Signed Doc</td>
                                     <td>Approve Status</td>
                                     <td>Approved By</td>
-                                    <td>Approved on</td>
 
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr *ngFor="let cusOfferLetter of customerOfferLetter?.customerOfferLetterPath; let i=index">
                                     <td>
-                                        <span>
+                                        <span *ngIf="!isPreviouslyApproved(cusOfferLetter?.id)">
                                         <nb-checkbox
                                                 (checkedChange)="updateCadDocumentIDsList(cusOfferLetter?.id, $event)"
                                                 [checked]="cadDocumentIDs?.includes(cusOfferLetter?.id)"
+                                                [disabled]="!cusOfferLetter?.pathSigned"
+                                                [indeterminate]="!cusOfferLetter?.pathSigned"
                                         ></nb-checkbox></span>
-                                        <!--                                        <span *ngIf="cusOfferLetter.isApproved && !cadDocumentIDs?.includes(cusOfferLetter?.id)">-->
-                                        <!--                                            <em class="fa fa-check text-success"></em>-->
-                                        <!--                                        </span>-->
+                                        <span *ngIf="isPreviouslyApproved(cusOfferLetter?.id)">
+                                            <em class="fa fa-check-circle text-success"></em>
+                                        </span>
+
                                     </td>
                                     <td>
                                         {{i + 1}}
@@ -58,19 +60,21 @@
             <i class="fas fa-times-circle"></i></span>
                                     </td>
                                     <td>
-          <span *ngIf="cusOfferLetter?.pathSigned !== null"
-                style="color:limegreen"><i class="fas fa-check-circle"></i></span>
+                                        <span *ngIf="cusOfferLetter?.pathSigned !== null"
+                                              style="color:limegreen"><em class="fas fa-check-circle"></em>
+                                          </span>
                                         <span *ngIf="cusOfferLetter?.pathSigned === null"
                                               style="color:red">
-            <i class="fas fa-times-circle"></i></span>
+                                         <em class="fas fa-times-circle"></em></span>
                                     </td>
-                                    <td>{{cusOfferLetter?.isApproved || '-'}}</td>
+                                    <td><span *ngIf="cusOfferLetter?.isApproved">
+                                            <em class="fa fa-check-circle text-success"></em>
+                                        </span>
+                                        <span *ngIf="!cusOfferLetter?.isApproved">
+                                            <em class="fas fa-times-circle text-danger"></em>
+                                        </span>
+                                    </td>
                                     <td>{{cusOfferLetter?.approvedBy?.name || '-'}}</td>
-                                    <td><span
-                                            *ngIf="cusOfferLetter?.isApproved">{{cusOfferLetter?.lastModifiedAt | date}}</span>
-                                        <span
-                                                *ngIf="!cusOfferLetter?.isApproved"></span>
-                                    </td>
 
                                 </tr>
                                 </tbody>
@@ -78,26 +82,26 @@
                         </div>
                     </div>
                 </div>
-<!--                <div class="col-md-12" *ngIf="showHideFinalApprove">-->
-<!--                    <nb-checkbox-->
-<!--                            (checkedChange)="isAllApproved($event)"> Check if All Post Approval Document is Completed?-->
-<!--                    </nb-checkbox>-->
-                    <div *ngIf="showHideFinalApproveComment">
-                        <div class="form-group col-md-12">
-                            <label for="commentApproved">Comment:</label>
-                            <textarea (input)="checkCommentIsEmpty()"
-                                    [ngClass]="{ 'is-invalid': showHideFinalApproveComment && approveForm.controls['comment'].errors && submitted}"
-                                    class="form-control" formControlName="comment" id="commentApproved"
-                                    name="text"
-                            ></textarea>
-                            <div *ngIf="submitted && showHideFinalApproveComment && approveForm.controls['comment'].hasError('required')"
-                                 class="invalid-feedback"
-                                 >comment is required
-                            </div>
+                <!--                <div class="col-md-12" *ngIf="showHideFinalApprove">-->
+                <!--                    <nb-checkbox-->
+                <!--                            (checkedChange)="isAllApproved($event)"> Check if All Post Approval Document is Completed?-->
+                <!--                    </nb-checkbox>-->
+                <div *ngIf="showHideFinalApproveComment">
+                    <div class="form-group col-md-12">
+                        <label for="commentApproved">Comment:</label>
+                        <textarea (input)="checkCommentIsEmpty()"
+                                  [ngClass]="{ 'is-invalid': showHideFinalApproveComment && approveForm.controls['comment'].errors && submitted}"
+                                  class="form-control" formControlName="comment" id="commentApproved"
+                                  name="text"
+                        ></textarea>
+                        <div *ngIf="submitted && showHideFinalApproveComment && approveForm.controls['comment'].hasError('required')"
+                             class="invalid-feedback"
+                        >comment is required
                         </div>
                     </div>
+                </div>
 
-<!--                </div>-->
+                <!--                </div>-->
             </div>
 
 
