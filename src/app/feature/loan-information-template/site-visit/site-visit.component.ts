@@ -523,8 +523,10 @@ export class SiteVisitComponent implements OnInit {
 
   staffsFormGroup(): FormGroup {
     return this.formBuilder.group({
-      name: [undefined, Validators.required],
-      position: [undefined, Validators.required]
+      staffRepresentativeNameDesignation: undefined,
+      staffRepresentativeName: undefined,
+      alternativeStaffRepresentativeNameDesignation: undefined,
+      alternativeStaffRepresentativeName: undefined,
     });
   }
 
@@ -960,8 +962,10 @@ export class SiteVisitComponent implements OnInit {
     currentData.forEach(data => {
       controls.push(
           this.formBuilder.group({
-            name: [data.name],
-            position: [data.position]
+            staffRepresentativeNameDesignation: [data.staffRepresentativeNameDesignation],
+            staffRepresentativeName: [data.staffRepresentativeName],
+            alternativeStaffRepresentativeNameDesignation: [data.alternativeStaffRepresentativeNameDesignation],
+            alternativeStaffRepresentativeName: [data.alternativeStaffRepresentativeName],
           })
       );
     });
@@ -976,8 +980,10 @@ export class SiteVisitComponent implements OnInit {
       currentData.forEach(data => {
         controls.push(
             this.formBuilder.group({
-              name: [data.name],
-              position: [data.position]
+              staffRepresentativeNameDesignation: [data.staffRepresentativeNameDesignation],
+              staffRepresentativeName: [data.staffRepresentativeName],
+              alternativeStaffRepresentativeNameDesignation: [data.alternativeStaffRepresentativeNameDesignation],
+              alternativeStaffRepresentativeName: [data.alternativeStaffRepresentativeName],
             })
         );
       });
