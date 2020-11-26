@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <select class="custom-select" formControlName="valuatingField">
-                                        <option [value]="null" selected hidden>Select Valuating Field</option>
+                                        <option [value]="null" selected hidden>Select Valuating Type</option>
                                         <option *ngFor="let valuatingField of valuatingFieldEnumObject"
                                                    [value]="valuatingField?.key">
                                             {{valuatingField?.value}}
@@ -108,7 +108,7 @@
                             <th scope="col">Contact Number</th>
                             <th scope="col">Email</th>
                             <th scope="col">Branches</th>
-                            <th scope="col">Valuating field</th>
+                            <th scope="col">Valuating Type</th>
                             <th scope="col">Bank Associate Date</th>
                             <th scope="col">Minimum Amount</th>
                             <th scope="col">Maximum Amount</th>

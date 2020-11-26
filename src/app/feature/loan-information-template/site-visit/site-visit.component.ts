@@ -7,6 +7,8 @@ import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {FormUtils} from '../../../@core/utils/form.utils';
 import {Pattern} from '../../../@core/utils/constants/pattern';
+import {DesignationList} from '../../loan/model/designationList';
+import {InsuranceList} from '../../loan/model/insuranceList';
 
 
 declare let google: any;
@@ -43,6 +45,8 @@ export class SiteVisitComponent implements OnInit {
   majorMarketPlaceDistance = ['less than 500M', '500M to 1KM', '1KM to 2KM', 'More than 2KM'];
   yesNo = ['Yes', 'No'];
   date: Date;
+  designationList: DesignationList = new DesignationList();
+  insuranceList = InsuranceList.insuranceCompanyList;
 
   constructor(private formBuilder: FormBuilder,
               dateService: NbDateService<Date>,
@@ -133,6 +137,20 @@ export class SiteVisitComponent implements OnInit {
             : this.formDataForEdit.currentResidentDetails.nearBy), Validators.required],
         ownerName: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
             : this.formDataForEdit.currentResidentDetails.ownerName), [Validators.required , Validators.pattern(Pattern.ALPHABET_ONLY)]],
+        staffRepresentativeNameDesignation: [this.formDataForEdit === undefined ? undefined :
+            (this.formDataForEdit.currentResidentDetails === undefined ? undefined
+            : this.formDataForEdit.currentResidentDetails.staffRepresentativeNameDesignation)],
+        staffRepresentativeName: [this.formDataForEdit === undefined ? undefined :
+            (this.formDataForEdit.currentResidentDetails === undefined ? undefined
+            : this.formDataForEdit.currentResidentDetails.staffRepresentativeName)],
+        alternativeStaffRepresentativeNameDesignation: [this.formDataForEdit === undefined ? undefined :
+            (this.formDataForEdit.currentResidentDetails === undefined ? undefined
+            : this.formDataForEdit.currentResidentDetails.alternativeStaffRepresentativeNameDesignation)],
+        alternativeStaffRepresentativeName: [this.formDataForEdit === undefined ? undefined :
+            (this.formDataForEdit.currentResidentDetails === undefined ? undefined
+            : this.formDataForEdit.currentResidentDetails.alternativeStaffRepresentativeName)],
+        findingComment: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? undefined
+            : this.formDataForEdit.currentResidentDetails.findingComment)],
         locationPreview: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
             : this.formDataForEdit.currentResidentDetails.locationPreview)]
       }),
