@@ -7,10 +7,10 @@
             <h4 class="nav  navbar-right pull-left">Post Approval Document</h4>
         </div>
 
-        <form>
+        <form [formGroup]="approveForm">
 
             <div class="clearfix">
-                <div class="form-group col-md-12 py-3">
+                <div class="form-group col-md-12">
                     <div class="row">
                         <div class="col-md-12">
                             <table class="table table-bordered table-hover table-sm sb-small text-center">
@@ -37,11 +37,14 @@
                                 <tbody>
                                 <tr *ngFor="let cusOfferLetter of customerOfferLetter?.customerOfferLetterPath; let i=index">
                                     <td>
-                                        <span >
+                                        <span>
                                         <nb-checkbox
                                                 (checkedChange)="updateCadDocumentIDsList(cusOfferLetter?.id, $event)"
                                                 [checked]="cadDocumentIDs?.includes(cusOfferLetter?.id)"
                                         ></nb-checkbox></span>
+                                        <!--                                        <span *ngIf="cusOfferLetter.isApproved && !cadDocumentIDs?.includes(cusOfferLetter?.id)">-->
+                                        <!--                                            <em class="fa fa-check text-success"></em>-->
+                                        <!--                                        </span>-->
                                     </td>
                                     <td>
                                         {{i + 1}}
@@ -75,6 +78,26 @@
                         </div>
                     </div>
                 </div>
+<!--                <div class="col-md-12" *ngIf="showHideFinalApprove">-->
+<!--                    <nb-checkbox-->
+<!--                            (checkedChange)="isAllApproved($event)"> Check if All Post Approval Document is Completed?-->
+<!--                    </nb-checkbox>-->
+                    <div *ngIf="showHideFinalApproveComment">
+                        <div class="form-group col-md-12">
+                            <label for="commentApproved">Comment:</label>
+                            <textarea (input)="checkCommentIsEmpty()"
+                                    [ngClass]="{ 'is-invalid': showHideFinalApproveComment && approveForm.controls['comment'].errors && submitted}"
+                                    class="form-control" formControlName="comment" id="commentApproved"
+                                    name="text"
+                            ></textarea>
+                            <div *ngIf="submitted && showHideFinalApproveComment && approveForm.controls['comment'].hasError('required')"
+                                 class="invalid-feedback"
+                                 >comment is required
+                            </div>
+                        </div>
+                    </div>
+
+<!--                </div>-->
             </div>
 
 
