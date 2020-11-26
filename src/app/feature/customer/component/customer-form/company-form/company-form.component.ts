@@ -248,7 +248,8 @@ export class CompanyFormComponent implements OnInit {
             companyPAN:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.panNumber)) ? undefined :
-                    this.companyInfo.panNumber, [Validators.required, WhiteSpaceValidation.cannotContainSpace]],
+                    this.companyInfo.panNumber, [Validators.required, WhiteSpaceValidation.cannotContainSpace,
+                    Validators.maxLength(9), Validators.minLength(9)]],
             companyEstablishmentDate:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.establishmentDate)) ? undefined :
@@ -276,7 +277,7 @@ export class CompanyFormComponent implements OnInit {
             contactNum:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.contactNum)) ? undefined :
-                    this.companyInfo.contactNum, [Validators.required]],
+                    this.companyInfo.contactNum, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
             landLineNumber: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.landLineNumber)) ? undefined :
                 this.companyInfo.landLineNumber],

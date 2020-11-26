@@ -111,7 +111,6 @@
                                    placeholder="eg. xyz@abc.com"
                                    type="email">
                             <div *ngIf="(submitted) && basicInfoControls.email.invalid" class="invalid-feedback">
-                                <div *ngIf="basicInfoControls.email.errors.required">Email is required</div>
                                 <div *ngIf="basicInfoControls.email.errors.email">Valid email address has form
                                     xyz@abc.com
                                 </div>
@@ -267,6 +266,9 @@
                                  class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.contactNumber.errors.required">
                                     Mobile Number number is required
+                                </div>
+                                <div *ngIf="basicInfoControls.contactNumber?.errors.minlength || basicInfoControls.contactNumber?.errors.maxlength">
+                                    Enter 10 Digit Mobile no!
                                 </div>
                             </div>
                         </div>
