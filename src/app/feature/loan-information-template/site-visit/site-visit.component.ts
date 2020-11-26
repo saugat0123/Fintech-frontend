@@ -463,7 +463,12 @@ export class SiteVisitComponent implements OnInit {
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
                       : this.formDataForEdit.currentAssetsInspectionDetails
-                          .receivablesAndPayables.findingsAndCommentsForCurrentAssetsInspection]
+                          .receivablesAndPayables.findingsAndCommentsForCurrentAssetsInspection],
+          grandTotal:   [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails
+                          .receivablesAndPayables.grandTotal],
         }),
         otherCurrentAssets: this.formBuilder.group({
           receivableAssets: this.formBuilder.array([]),
@@ -1061,6 +1066,19 @@ export class SiteVisitComponent implements OnInit {
           })
       );
     });
+  }
+
+  calculateGrandTotal() {
+    let grandTotal = 0;
+    grandTotal = this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
+          'receivablesAndPayables', 'threeMonthTotal']).value +
+        this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
+          'receivablesAndPayables', 'sixMonthTotal']).value + this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
+          'receivablesAndPayables', 'oneYearTotal']).value + this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
+          'receivablesAndPayables', 'moreThanOneYearTotal']).value ;
+    this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
+      'receivablesAndPayables', 'grandTotal']).patchValue(grandTotal);
+
   }
 }
 

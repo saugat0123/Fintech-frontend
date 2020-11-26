@@ -956,21 +956,30 @@
                             <div class="col-md-2 form-group"><label class="title">Total:</label></div>
                             <div class="col-md-2 form-group">
                                 <input class="form-control" disabled formControlName="threeMonthTotal" placeholder="0.0"
-                                       type="text">
+                                       type="text" (ngModelChange)="calculateGrandTotal()">
                             </div>
                             <div class="col-md-2 form-group">
                                 <input class="form-control" disabled formControlName="sixMonthTotal" placeholder="0.0"
-                                       type="text">
+                                       type="text" (ngModelChange)="calculateGrandTotal()">
                             </div>
                             <div class="col-md-2 form-group">
                                 <input class="form-control" disabled formControlName="oneYearTotal" placeholder="0.0"
-                                       type="text">
+                                       type="text" (ngModelChange)="calculateGrandTotal()">
                             </div>
                             <div class="col-md-2 form-group">
                                 <input class="form-control" disabled formControlName="moreThanOneYearTotal"
                                        placeholder="0.0"
-                                       type="text">
+                                       type="text" (ngModelChange)="calculateGrandTotal()">
                             </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-md-2">
+                                    <label class="title">Grand Total:</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <input readonly formControlName="grandTotal" class="form-control" placeholder="Grand Total">
+
+                                </div>
                         </div>
                     </div>
                     <div class="col-md-6 form-group">
