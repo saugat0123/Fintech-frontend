@@ -26,6 +26,7 @@ export class PostApprovalDocApproveComponent implements OnInit {
     showHideFinalApprove = false;
     showHideFinalApproveComment = false;
     submitted = false;
+    preApprovedDoc = [];
 
 
     constructor(private toastService: ToastService,
@@ -37,6 +38,12 @@ export class PostApprovalDocApproveComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
+        this.preApprovedDoc = this.customerOfferLetter.customerOfferLetterPath.filter(c => c.isApproved).map(i => i.id);
+    }
+
+    isPreviouslyApproved(id) {
+        const data = this.preApprovedDoc.filter(i => i === id);
+        return data.length > 0;
     }
 
     onClose() {
@@ -86,6 +93,7 @@ export class PostApprovalDocApproveComponent implements OnInit {
         await modelRef.componentInstance.returnAuthorizedState.subscribe((res: boolean) => {
             if (res) {
                 this.saveApprovedDoc();
+                this.onClose();
             } else {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to take action ! Please Try again'));
             }
