@@ -7,6 +7,7 @@ import {CompanyJsonData} from '../../admin/modal/CompanyJsonData';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {BusinessAndIndustry} from '../../admin/modal/businessAndIndustry';
 import {RegisteredOfficeList} from '../../admin/modal/registeredOfficeList';
+import {BusinessGiven} from '../../admin/modal/businessGiven';
 
 @Component({
   selector: 'app-company-info-view',
@@ -26,6 +27,7 @@ export class CompanyInfoViewComponent implements OnInit {
   bankingRelation;
   businessAndIndustry: BusinessAndIndustry;
   registeredOffice: typeof RegisteredOfficeList = RegisteredOfficeList;
+  businessGiven: BusinessGiven;
 
   constructor() {
   }
@@ -36,6 +38,7 @@ export class CompanyInfoViewComponent implements OnInit {
       this.additionalInfoJsonData = JSON.parse(this.formValue.additionalCompanyInfo);
       this.contactPersonJsonData = JSON.parse(this.formValue.contactPersons);
       this.businessAndIndustry = JSON.parse(this.formValue.businessAndIndustry);
+      this.businessGiven = JSON.parse(this.formValue.businessGiven);
     }
     this.bankingRelation = JSON.parse(this.customerInfo.bankingRelationship);
   }
