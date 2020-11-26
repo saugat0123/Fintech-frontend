@@ -165,8 +165,18 @@ export class SiteVisitComponent implements OnInit {
             : this.formDataForEdit.businessSiteVisitDetails.dateOfVisit, Validators.required],
         objectiveOfVisit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.objectiveOfVisit, Validators.required],
-        visitedBy: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.visitedBy, Validators.required],
+        staffRepresentativeNameDesignation: [this.formDataForEdit === undefined ? undefined :
+            (this.formDataForEdit.businessSiteVisitDetails === undefined ? undefined
+                : this.formDataForEdit.businessSiteVisitDetails.staffRepresentativeNameDesignation)],
+        staffRepresentativeName: [this.formDataForEdit === undefined ? undefined :
+            (this.formDataForEdit.businessSiteVisitDetails === undefined ? undefined
+                : this.formDataForEdit.businessSiteVisitDetails.staffRepresentativeName)],
+        alternativeStaffRepresentativeNameDesignation: [this.formDataForEdit === undefined ? undefined :
+            (this.formDataForEdit.businessSiteVisitDetails === undefined ? undefined
+                : this.formDataForEdit.businessSiteVisitDetails.alternativeStaffRepresentativeNameDesignation)],
+        alternativeStaffRepresentativeName: [this.formDataForEdit === undefined ? undefined :
+            (this.formDataForEdit.businessSiteVisitDetails === undefined ? undefined
+                : this.formDataForEdit.businessSiteVisitDetails.alternativeStaffRepresentativeName)],
         locationPreview: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.locationPreview],
         mapAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
