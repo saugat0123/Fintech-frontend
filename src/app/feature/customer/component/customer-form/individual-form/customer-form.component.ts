@@ -265,9 +265,10 @@ export class CustomerFormComponent implements OnInit {
             municipalities: [this.customer.municipalities === null ? undefined : this.customer.municipalities, Validators.required],
             street: [this.customer.street === null ? undefined : this.customer.street, Validators.required],
             wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber, Validators.required],
-            contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, Validators.required],
+            contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, [Validators.required,
+                Validators.maxLength(10), Validators.minLength(10)]],
             landLineNumber: [this.customer.landLineNumber === undefined ? undefined : this.customer.landLineNumber],
-            email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.required],
+            email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.email],
             // initial Relation Date not used in ui
             initialRelationDate: [this.customer.initialRelationDate === undefined ? undefined :
                 new Date(this.customer.initialRelationDate)],

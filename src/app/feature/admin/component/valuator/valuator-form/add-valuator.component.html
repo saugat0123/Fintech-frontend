@@ -134,20 +134,20 @@
             </div>
             <div class="row form-group">
                 <div class="col-md-6">
-                    <label>Valuating Field</label>
+                    <label>Valuating Type</label>
                     <ng-select [ngClass]="{'is-invalid': submitted && valuatorFormControl.valuatingField.errors}"
                                formControlName="valuatingField"
                                [addTag]="addCustomValuatingField"
                                [addTagText] = "null"
                                [multiple]="false"
-                               placeholder="Select valuating field">
+                               placeholder="Select Valuating Type">
                         <ng-option *ngFor="let valuatingField of valuatingFieldEnum.values()"
                                    [value]="valuatingField">
                             {{valuatingField}}
                         </ng-option>
                     </ng-select>
                     <div *ngIf="valuatorFormControl.valuatingField.invalid && submitted" class="invalid-feedback">
-                        Valuating Field is required!
+                        Valuating Type is required!
                     </div>
                 </div>
 

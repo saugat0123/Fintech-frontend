@@ -81,6 +81,61 @@
                         <span *ngIf="siteVisitFormGroup.get('currentResidentDetails')?.get('ownerName')?.errors.pattern">Invalid Owner Name</span>
                     </div>
                 </div>
+                <div class="col-md-4 form-group">
+                    <label class="staffRepresentativeNameDesignation"
+                           for="staffRepresentativeNameDesignation">Staff Representative Name
+                        Designation</label>
+                    <select class="form-control"
+                            formControlName="staffRepresentativeNameDesignation"
+                            id="staffRepresentativeNameDesignation"
+                            name="staffRepresentativeNameDesignation">
+                        <option [ngValue]="null" hidden>Staff Representative Designation</option>
+                        <option *ngFor="let designation of designationList.designation"
+                                [ngValue]="designation.id">{{designation.name}}</option>
+                    </select>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label class="staffRepresentativeName" for="staffRepresentativeName">Staff
+                        Representative Name</label>
+                    <input class="form-control" formControlName="staffRepresentativeName"
+                           id="staffRepresentativeName" name="staffRepresentativeName"
+                           placeholder="Staff Representative Name" type="text">
+                </div>
+                <div class="col-md-4 form-group">
+                    <label class="alternativeStaffRepresentativeNameDesignation"
+                           for="alternativeStaffRepresentativeNameDesignation">Alternative Staff
+                        Representative Name Designation</label>
+                    <select class="form-control"
+                            formControlName="alternativeStaffRepresentativeNameDesignation"
+                            id="alternativeStaffRepresentativeNameDesignation"
+                            name="alternativeStaffRepresentativeNameDesignation">
+                        <option [ngValue]="null" hidden>Alternative Staff Representative
+                            Designation
+                        </option>
+                        <option *ngFor="let designation of designationList.designation"
+                                [ngValue]="designation.id">{{designation.name}}</option>
+                    </select>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label class="alternativeStaffRepresentativeName"
+                           for="alternativeStaffRepresentativeName">Alternative Staff Representative
+                        Name</label>
+                    <input class="form-control" formControlName="alternativeStaffRepresentativeName"
+                           id="alternativeStaffRepresentativeName"
+                           name="alternativeStaffRepresentativeName"
+                           placeholder="Alternative Staff Representative Name" type="text">
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Finding & Comment</label>
+                        <textarea class="form-control pr-0" formControlName="findingComment"
+                                  id="findingComment"
+                                  name="findingComment" placeholder="Finding & Comment" rows="3"
+                                  type="text"></textarea>
+                    </div>
+                </div>
+
+
                 <div class=" input-group mb-3">
                     <input class="form-control pr-0" formControlName="locationPreview" id="locationPreview1"
                            name="locationPreview"
@@ -554,9 +609,12 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label class="title" for="insuranceCompany">Insurance Company</label>
-                            <input class="form-control" formControlName="insuranceCompany"
-                                   id="insuranceCompany" name="insuranceCompany"
-                                   placeholder="insurance company">
+                            <select class="form-control" formControlName="insuranceCompany"
+                                   id="insuranceCompany" name="insuranceCompany">
+                                <option [ngValue]="''" hidden>Select Insurance Company</option>
+                                <option *ngFor="let insurance of insuranceList" [ngValue]="insurance.id">{{insurance.name}}</option>
+
+                            </select>
                         </div>
                         <div class="col-md-6 form-group">
                             <label class="title" for="expiryDate">Expiry Date</label>
