@@ -78,5 +78,10 @@ export class CustomerOfferLetterService extends BaseService<CustomerOfferLetter>
     return this.http.post(req.url, searchObj, {headers: req.header});
   }
 
+  public postOfferLetterPartialDocument(object): Observable<any> {
+    const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/approve-partial`);
+    return this.http.post(req.url, object, {headers: req.header});
+  }
+
 
 }
