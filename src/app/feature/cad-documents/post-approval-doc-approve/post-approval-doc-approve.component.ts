@@ -5,6 +5,12 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerOfferLetterService} from '../../loan/service/customer-offer-letter.service';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {User} from '../../admin/modal/user';
+import {DocStatus} from '../../loan/model/docStatus';
+import {Router} from '@angular/router';
+import {CadLoginComponent} from '../cad-login/cad-login.component';
 
 @Component({
     selector: 'app-post-approval-doc-approve',
@@ -17,10 +23,15 @@ export class PostApprovalDocApproveComponent implements OnInit {
     approveForm: FormGroup;
     cadDocumentIDs: number[] = [];
     disableButton = true;
+    showHideFinalApprove = false;
+    showHideFinalApproveComment = false;
+    submitted = false;
+
 
     constructor(private toastService: ToastService,
                 private modalService: NgbModal,
                 private formBuilder: FormBuilder,
+                private route: Router,
                 private service: CustomerOfferLetterService) {
     }
 
@@ -35,7 +46,10 @@ export class PostApprovalDocApproveComponent implements OnInit {
     buildForm() {
         this.approveForm = this.formBuilder.group(
             {
-                cadDocumentIDs: [undefined],
+                customerLoanId: [this.customerOfferLetter.customerLoan.id],
+                docAction: ['APPROVED'],
+                comment: [undefined, Validators.required],
+                documentStatus: [DocStatus.APPROVED]
             });
     }
 
@@ -51,20 +65,104 @@ export class PostApprovalDocApproveComponent implements OnInit {
         } else {
             this.disableButton = false;
         }
+        this.checkWhetherAllDocAreApproved(id, checked);
     }
 
-    onSubmit() {
+    async onSubmit() {
+        this.submitted = true;
         this.disableButton = true;
         if (this.cadDocumentIDs.length < 1) {
             return;
         }
-        this.onClose();
+        if (this.showHideFinalApproveComment
+            && this.showHideFinalApprove
+            && this.approveForm.invalid) {
+            return;
+        }
+        const modelRef = this.modalService.open(CadLoginComponent, {
+            backdrop: 'static',
+            keyboard: false
+        });
+        await modelRef.componentInstance.returnAuthorizedState.subscribe((res: boolean) => {
+            if (res) {
+                this.saveApprovedDoc();
+            } else {
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to take action ! Please Try again'));
+            }
+        });
+
+    }
+
+    saveApprovedDoc() {
         this.service.postOfferLetterPartialDocument(this.cadDocumentIDs).subscribe((res: any) => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, res.detail));
+            if (this.showHideFinalApproveComment && this.showHideFinalApprove) {
+                this.service.postOfferLetterAction(this.approveForm.value).subscribe((response: any) => {
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
+                        this.approveForm.get('docAction').value));
+                    this.route.navigate(['home/loan/loan-offer-letter']);
+                }, error => {
+                    this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+
+                });
+                this.onClose();
+            } else {
+                this.toastService.show(new Alert(AlertType.SUCCESS, res.detail));
+            }
 
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
         });
+    }
+
+    checkWhetherAllDocAreApproved(id, checked) {
+        const document = this.customerOfferLetter.customerOfferLetterPath;
+        const documentConfig = this.customerOfferLetter.customerLoan.loan.offerLetters;
+        const selectedElement = document.filter(s => s.id === id);
+        if (!ObjectUtil.isEmpty(selectedElement) && selectedElement.length > 0) {
+            const user: User = new User();
+            user.name = LocalStorageUtil.getStorage().userFullName;
+            document.filter(s => s.id === id)[0].isApproved = checked;
+            if (checked) {
+                document.filter(s => s.id === id)[0].lastModifiedAt = new Date();
+                document.filter(s => s.id === id)[0].approvedBy = user;
+            } else {
+                document.filter(s => s.id === id)[0].approvedBy = null;
+            }
+        }
+
+        const approvedArray = [];
+        documentConfig.forEach(dc => {
+            const innerElement = document.filter(d => (d.offerLetter.id === dc.id) && d.isApproved);
+            if (!ObjectUtil.isEmpty(innerElement)) {
+                if (innerElement.length > 0) {
+                    approvedArray.push(innerElement[0]);
+                }
+
+            }
+
+        });
+
+        this.showHideFinalApprove = approvedArray.length === documentConfig.length;
+        if (!this.showHideFinalApprove) {
+            this.showHideFinalApproveComment = false;
+        } else {
+            this.showHideFinalApproveComment = true;
+        }
+
+    }
+
+    isAllApproved(checked: boolean) {
+        this.showHideFinalApproveComment = checked;
+    }
+
+    checkCommentIsEmpty() {
+        const val = this.approveForm.controls['comment'].value;
+        if (!ObjectUtil.isEmpty(val)) {
+            this.disableButton = false;
+        } else {
+            this.disableButton = true;
+        }
+
     }
 
 }

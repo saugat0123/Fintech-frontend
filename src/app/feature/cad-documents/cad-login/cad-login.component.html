@@ -2,7 +2,11 @@
     <div class="modal-content">
         <div class="modal-header" style="display:block">
             <div class="login-box-body">
-                <p class="login-box-msg">Please Enter Your Credential for Confirmation</p>
+                <p class="login-box-msg">Please Enter Your Credential for Confirmation
+                    <a (click)="onClose()" aria-label="Close" class="close cursor"
+                       data-dismiss="modal">
+                        <span aria-hidden="true">×</span></a>
+                </p>
                 <p *ngIf="falseCredential" class="text-danger">Please enter
                     again. {{falseCredentialMessage}}</p>
 
