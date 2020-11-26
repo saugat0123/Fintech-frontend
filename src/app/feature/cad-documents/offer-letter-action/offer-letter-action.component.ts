@@ -19,6 +19,7 @@ import {DocStatus} from '../../loan/model/docStatus';
 import {RoleType} from '../../admin/modal/roleType';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {PostApprovalDocApproveComponent} from '../post-approval-doc-approve/post-approval-doc-approve.component';
 
 
 @Component({
@@ -178,6 +179,20 @@ export class OfferLetterActionComponent implements OnInit {
 
     }
 
+    cadDocApprovedPartial() {
+        if (this.customerOfferLetter.customerOfferLetterPath.length < 1) {
+            // tslint:disable-next-line:max-line-length
+            this.toastService.show(new Alert(AlertType.ERROR, 'NO Any Document Has Been Uploaded yet!Please Upload sign document to Proceed'));
+        } else {
+            const modelRef = this.modalService.open(PostApprovalDocApproveComponent, {
+                size: 'lg',
+                backdrop: 'static',
+                keyboard: false
+            });
+            modelRef.componentInstance.customerOfferLetter = this.customerOfferLetter;
+        }
+    }
+
     postAction() {
         this.customerOfferLetterService.postOfferLetterAction(this.formAction.value).subscribe((response: any) => {
             this.onClose();
@@ -233,7 +248,7 @@ export class OfferLetterActionComponent implements OnInit {
     }
 
     public getUserList(role) {
-        this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id , this.selectedBranchId).subscribe((response: any) => {
+        this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.selectedBranchId).subscribe((response: any) => {
             this.userList = response.detail;
             if (this.userList.length === 1) {
                 this.formAction.patchValue({
