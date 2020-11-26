@@ -16,6 +16,7 @@ import {NepseService} from '../../../admin/component/nepse/nepse.service';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {SecurityRevaluationComponent} from './security-revaluation/security-revaluation.component';
+import {SecurityIds} from './SecurityIds';
 
 
 @Component({
@@ -38,9 +39,7 @@ export class SecurityInitialFormComponent implements OnInit {
     @ViewChildren('revaluationComponentLandBuilding')
     revaluationComponentLandBuilding: QueryList<SecurityRevaluationComponent>;
 
-    landId = 'land';
-    land_buildingId = 'land_building';
-    apartmentId = '';
+   securityId = SecurityIds;
 
     selectedArray = [];
     securityForm: FormGroup;
@@ -379,10 +378,15 @@ export class SecurityInitialFormComponent implements OnInit {
                     ApartmentValuatorRepresentative: [singleData.ApartmentValuatorRepresentative],
                     ApartmentStaffRepresentativeName: [singleData.ApartmentStaffRepresentativeName],
                     apartmentBranch: [singleData.apartmentBranch],
-                    revaluationData: [singleData.revaluationData]
+                    revaluationData: [singleData.revaluationData],
                 })
             );
         });
+    }
+
+    revaluateCalc(data , formGroup , i) {
+        const form = (this.securityForm.get(formGroup) as FormArray);
+        console.log(data.reValuatedFmv);
     }
 
     setLandBuildingDetails(Data) {
@@ -1051,9 +1055,10 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     submit() {
-        this.setRevaluationData('landDetails' , this.revaluationComponent , this.landId);
-        this.setRevaluationData('buildingDetails' , this.revaluationComponentApartment , this.apartmentId);
-        this.setRevaluationData('landBuilding' , this.revaluationComponentLandBuilding , this.land_buildingId);
+        this.setRevaluationData('landDetails' , this.revaluationComponent , SecurityIds.landId);
+        this.setRevaluationData('buildingDetails' , this.revaluationComponentApartment , SecurityIds.apartmentId);
+        this.setRevaluationData('landBuilding' , this.revaluationComponentLandBuilding , SecurityIds.land_buildingId);
+        console.log(this.securityForm.value);
         this.shareSecurityForm.get('loanShareRate').setValue(this.activeNepseMaster);
         this.shareSecurityData.data = JSON.stringify(this.shareSecurityForm.value);
         this.shareSecurityData.customerShareData = this.getShareDataList();
