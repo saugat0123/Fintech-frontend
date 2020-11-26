@@ -17,9 +17,9 @@
     <td>{{formData['currentResidentDetails']['nearBy']}}</td>
   </tr>
   <tr class="text-white sb-bg-dark">
-    <th>Staff Representative Name Designation</th>
+    <th>Staff Representative Designation</th>
     <th>Staff Representative Name</th>
-    <th>Alternative Staff Representative Name Designation</th>
+    <th>Alternative Staff Representative Designation</th>
     <th>Alternative Staff Representative Name</th>
   </tr>
   <tr>
@@ -46,23 +46,44 @@
     <th>Person Contacted</th>
     <th>Office Address</th>
     <th>Date of Visit</th>
+    <th>Objective of Visit</th>
+    <th>Staff Representative Designation</th>
   </tr>
   <tr>
     <td>{{formData['businessSiteVisitDetails']['nameOfThePersonContacted']}}</td>
     <td>{{formData['businessSiteVisitDetails']['officeAddress']}}</td>
     <td>{{formData['businessSiteVisitDetails']['dateOfVisit'] | date}}</td>
+    <td>{{formData['businessSiteVisitDetails']['objectiveOfVisit']}}</td>
+    <td>{{formData?.businessSiteVisitDetails?.staffRepresentativeNameDesignation}}</td>
+
+
   </tr>
   <tr class="text-white sb-bg-dark">
-    <th>Objective of Visit</th>
-    <th>Visited By</th>
-    <th>Comments and Finding</th>
+
   </tr>
   <tr>
-    <td>{{formData['businessSiteVisitDetails']['objectiveOfVisit']}}</td>
-    <td>{{formData['businessSiteVisitDetails']['visitedBy']}}</td>
+
+  </tr>
+  <tr class="text-white sb-bg-dark">
+    <th>Staff Representative Name</th>
+    <th>Alternative Staff Representative Designation</th>
+    <th>Alternative Staff Representative Name</th>
+  </tr>
+  <tr>
+    <td>{{formData?.businessSiteVisitDetails?.staffRepresentativeName}}</td>
+    <td>{{formData?.businessSiteVisitDetails?.alternativeStaffRepresentativeNameDesignation}}</td>
+    <td>{{formData?.businessSiteVisitDetails?.alternativeStaffRepresentativeName}}</td>
+  </tr>
+</table>
+<table *ngIf="formData['businessSiteVisitFormChecked'] === true"
+       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
+
+  <tr class="text-white sb-bg-dark">
+    <th>Comment & Finding</th>
+  </tr>
+  <tr>
     <td>{{formData['businessSiteVisitDetails']['findingsAndComments']}}</td>
   </tr>
-
 </table>
 <!-- ============================================================= Business Site Visit END ==============================================================-->
 <!-- ============================================================= Fixed Asset Collateral Form  ==============================================================-->
