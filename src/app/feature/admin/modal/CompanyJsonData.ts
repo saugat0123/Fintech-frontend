@@ -14,6 +14,5 @@ export class CompanyJsonData {
   marketScenario: string = undefined;
   groupsBackGround: string = undefined;
   legalReviewRemark: string = undefined;
-  conductOfAccount: string = undefined;
   businessGiven: string = undefined;
 }
