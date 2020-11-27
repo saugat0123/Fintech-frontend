@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CompanyJsonData} from '../../../../../admin/modal/CompanyJsonData';
 import {CompanyInfo} from '../../../../../admin/modal/company-info';
-import {ObjectUtil} from "../../../../../../@core/utils/ObjectUtil";
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-business-background',

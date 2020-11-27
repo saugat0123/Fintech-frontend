@@ -9,8 +9,8 @@ import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
 import {ActivatedRoute} from '@angular/router';
-import {Customer} from "../../admin/modal/customer";
-import {CustomerType} from "../../customer/model/customerType";
+import {Customer} from '../../admin/modal/customer';
+import {CustomerType} from '../../customer/model/customerType';
 
 @Component({
     selector: 'app-credit-risk-grading-gamma',

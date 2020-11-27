@@ -32,6 +32,7 @@
                         <th>Name</th>
                         <th>Role Access</th>
                         <th>Role Type</th>
+                        <th>Authority Label</th>
                         <th>Created By</th>
                         <th>Last Modified By</th>
                         <th>Action</th>
@@ -47,7 +48,10 @@
                         <td>{{allList.roleName}}</td>
                         <td>{{allList.roleAccess}}</td>
                         <td>{{allList.roleType}}</td>
-
+                        <td *ngIf="allList.authorityLabel==null || allList.authorityLabel==''; else authLabel">Not Available</td>
+                        <ng-template #authLabel>
+                            <td>{{allList.authorityLabel}}</td>
+                        </ng-template>
                         <td *ngIf="allList.createdByName==null || allList.createdByName=='' ; else createdBy">Not
                             Available
                         </td>

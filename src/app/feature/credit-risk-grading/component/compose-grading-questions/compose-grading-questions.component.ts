@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 import {CrgQuestion} from '../../model/CrgQuestion';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {CrgGroup} from '../../model/CrgGroup';
-import {CustomerType} from "../../../customer/model/customerType";
+import {CustomerType} from '../../../customer/model/customerType';
 
 @Component({
     selector: 'app-compose-grading-questions',

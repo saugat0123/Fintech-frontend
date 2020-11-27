@@ -2,5 +2,4 @@
 export class LoanDataKey {
     static PROPOSE_LIMIT = `proposedLimit`;
     static OUTSTANDING_AMOUNT = 'outstandingAmount';
-    static APPROVED = 'APPROVED';
 }
