@@ -175,8 +175,12 @@
                                        <div *ngIf="submitted && form.contactNum?.errors "
                                             class="invalid-feedback">
                                            <div *ngIf="form.contactNum?.errors.required">
-                                               Enter contact no!
+                                               Enter Mobile no!
                                            </div>
+                                           <div *ngIf="form.contactNum?.errors.minlength || form.contactNum?.errors.maxlength">
+                                               Enter 10 Digit Mobile no!
+                                           </div>
+
                                        </div>
                                    </div>
                                </div>
@@ -208,6 +212,9 @@
                                                 class="invalid-feedback">
                                                <div *ngIf="form.companyPAN.errors.required">
                                                    PAN is required.
+                                               </div>
+                                               <div *ngIf="form.companyPAN.errors.maxlength || form.companyPAN.errors.minlength">
+                                                   Length should be of 9 digit
                                                </div>
                                                <div *ngIf="form.companyPAN.errors.cannotContainSpace" >
                                                    White space is invalid
@@ -1339,26 +1346,123 @@
                        <hr>
                        <div class="box-header with-border">
                            <h5 class="box-title">18.Business given</h5>
-                       </div>
-                       <div class="row">
-                           <div class="col-md-12">
-                               <div class="form-group">
-                                   <label for="businessGiven"><strong></strong></label>
-                                   <ckeditor
-                                       [ngClass]="{ 'is-invalid': (submitted) && form.businessGiven.errors }"
-                                       [style]="{height:'250px !important;'}"
-                                       formControlName="businessGiven"
-                                       id="businessGiven"
-                                       placeholder="Conduct of Account"
-                                       [config]="ckeConfig"></ckeditor>
-                                   <div *ngIf="(submitted) && form.businessGiven.invalid"
-                                        class="small text-danger">
-                                       <div *ngIf="form.businessGiven.errors.required">
-                                           Business given is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
+                           <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center table-striped">
+                               <tr class="sb-bg-secondary text-white">
+                                   <th>Particular</th>
+                                   <th>Amount</th>
+                               </tr>
+                               <tr>
+                                   <td>Interest Income</td>
+                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                                              class="form-control text-center"
+                                              formControlName="interestIncomeDuringReview"
+                                              type="number">
+
+                                   </td>
+
+                               </tr>
+                               <tr>
+                                   <td>Loan Processing Fee</td>
+                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                                              class="form-control text-center"
+                                              formControlName="loanProcessingFeeDuringReview"
+                                              type="number">
+                                   </td>
+
+                               </tr>
+                               <tr>
+                                   <td>LC Commission</td>
+                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                                              class="form-control text-center"
+                                              formControlName="lcCommissionDuringReview"
+                                              type="number">
+
+                                   </td>
+
+                               </tr>
+                               <tr>
+                                   <td>Guarantee Commission</td>
+                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                                              class="form-control text-center"
+                                              formControlName="guaranteeCommissionDuringReview"
+                                              type="number">
+                                   </td>
+
+                               </tr>
+                               <tr>
+                                   <td>Other Commission</td>
+                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                                              class="form-control text-center"
+                                              formControlName="otherCommissionDuringReview"
+                                              type="number">
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td>Saving Account</td>
+                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                                              class="form-control text-center"
+                                              formControlName="savingAccountDuringReview"
+                                              type="number">
+
+                                   </td>
+
+                               </tr>
+                               <tr>
+                                   <td>Payroll Account</td>
+                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                                              class="form-control text-center"
+                                              formControlName="payrollAccountDuringReview"
+                                              type="number">
+
+                                   </td>
+
+                               </tr>
+                               <tr>
+                                   <td>Debit Cards</td>
+                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                                              class="form-control text-center"
+                                              formControlName="debitCardsDuringReview"
+                                              type="number">
+
+                                   </td>
+
+                               </tr>
+                               <tr>
+                                   <td>Credit Cards</td>
+                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                                              class="form-control text-center"
+                                              formControlName="creditCardsDuringReview"
+                                              type="number">
+
+                                   </td>
+
+                               </tr>
+                               <tr>
+                                   <td>Mobile Bank / Internet Banking</td>
+                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                                              class="form-control text-center"
+                                              formControlName="mobileBankingDuringReview"
+                                              type="number">
+
+                                   </td>
+
+                               </tr>
+                               <tr>
+                                   <td>Locker</td>
+                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                                              class="form-control text-center"
+                                              formControlName="lockerDuringReview"
+                                              type="number">
+
+                                   </td>
+
+                               </tr>
+                               <tr>
+                                   <td>Total</td>
+                                   <td><input readonly formControlName="total" class="form-control text-center"></td>
+                               </tr>
+
+                           </table>
                        </div>
                        <hr>
 

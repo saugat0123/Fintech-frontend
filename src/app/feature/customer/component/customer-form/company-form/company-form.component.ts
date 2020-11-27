@@ -44,6 +44,7 @@ import {Editor} from '../../../../../@core/utils/constants/editor';
 import {WhiteSpaceValidation} from '../../../../loan/model/whiteSpaceValidation';
 import {CustomerService} from '../../../../admin/service/customer.service';
 import {RegisteredOfficeList} from '../../../../admin/modal/registeredOfficeList';
+import {BusinessGiven} from '../../../../admin/modal/businessGiven';
 
 @Component({
     selector: 'app-company-form',
@@ -121,6 +122,7 @@ export class CompanyFormComponent implements OnInit {
     industryGrowthList = IndustryGrowth.enumObject();
     marketCompetitionList = MarketCompetition.enumObject();
     registeredOffice = RegisteredOfficeList.enumObject();
+    businessGiven: BusinessGiven = new BusinessGiven();
 
 
     constructor(
@@ -163,6 +165,8 @@ export class CompanyFormComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
             this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
+        } if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessGiven)) {
+            this.businessGiven = JSON.parse(this.companyInfo.businessGiven);
         }
         this.buildForm();
         this.getAllDistrict();
@@ -248,7 +252,8 @@ export class CompanyFormComponent implements OnInit {
             companyPAN:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.panNumber)) ? undefined :
-                    this.companyInfo.panNumber, [Validators.required, WhiteSpaceValidation.cannotContainSpace]],
+                    this.companyInfo.panNumber, [Validators.required, WhiteSpaceValidation.cannotContainSpace,
+                    Validators.maxLength(9), Validators.minLength(9)]],
             companyEstablishmentDate:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.establishmentDate)) ? undefined :
@@ -276,7 +281,7 @@ export class CompanyFormComponent implements OnInit {
             contactNum:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.contactNum)) ? undefined :
-                    this.companyInfo.contactNum, [Validators.required]],
+                    this.companyInfo.contactNum, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
             landLineNumber: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.landLineNumber)) ? undefined :
                 this.companyInfo.landLineNumber],
@@ -474,9 +479,44 @@ export class CompanyFormComponent implements OnInit {
                 this.companyJsonData.conductOfAccount, Validators.required],
 
             /** Business Given*/
-            businessGiven: [ObjectUtil.isEmpty(this.companyJsonData)
-            || ObjectUtil.isEmpty(this.companyJsonData.businessGiven) ? undefined :
-                this.companyJsonData.businessGiven, Validators.required],
+            interestIncomeDuringReview: [ObjectUtil.isEmpty(this.businessGiven)
+            || ObjectUtil.isEmpty(this.businessGiven.interestIncomeDuringReview) ? undefined :
+                this.businessGiven.interestIncomeDuringReview],
+            loanProcessingFeeDuringReview: [ObjectUtil.isEmpty(this.businessGiven)
+            || ObjectUtil.isEmpty(this.businessGiven.loanProcessingFeeDuringReview) ? undefined :
+                this.businessGiven.loanProcessingFeeDuringReview],
+            lcCommissionDuringReview: [ObjectUtil.isEmpty(this.businessGiven)
+            || ObjectUtil.isEmpty(this.businessGiven.lcCommissionDuringReview) ? undefined :
+                this.businessGiven.lcCommissionDuringReview],
+            guaranteeCommissionDuringReview: [ObjectUtil.isEmpty(this.businessGiven)
+            || ObjectUtil.isEmpty(this.businessGiven.guaranteeCommissionDuringReview) ? undefined :
+                this.businessGiven.guaranteeCommissionDuringReview],
+            otherCommissionDuringReview: [ObjectUtil.isEmpty(this.businessGiven)
+            || ObjectUtil.isEmpty(this.businessGiven.otherCommissionDuringReview) ? undefined :
+                this.businessGiven.otherCommissionDuringReview],
+            savingAccountDuringReview: [ObjectUtil.isEmpty(this.businessGiven)
+            || ObjectUtil.isEmpty(this.businessGiven.savingAccountDuringReview) ? undefined :
+                this.businessGiven.savingAccountDuringReview],
+            payrollAccountDuringReview: [ObjectUtil.isEmpty(this.businessGiven)
+            || ObjectUtil.isEmpty(this.businessGiven.payrollAccountDuringReview) ? undefined :
+                this.businessGiven.payrollAccountDuringReview],
+            debitCardsDuringReview: [ObjectUtil.isEmpty(this.businessGiven)
+            || ObjectUtil.isEmpty(this.businessGiven.debitCardsDuringReview) ? undefined :
+                this.businessGiven.debitCardsDuringReview],
+            creditCardsDuringReview: [ObjectUtil.isEmpty(this.businessGiven)
+            || ObjectUtil.isEmpty(this.businessGiven.creditCardsDuringReview) ? undefined :
+                this.businessGiven.creditCardsDuringReview],
+            mobileBankingDuringReview: [ObjectUtil.isEmpty(this.businessGiven)
+            || ObjectUtil.isEmpty(this.businessGiven.mobileBankingDuringReview) ? undefined :
+                this.businessGiven.mobileBankingDuringReview],
+            lockerDuringReview: [ObjectUtil.isEmpty(this.businessGiven)
+            || ObjectUtil.isEmpty(this.businessGiven.lockerDuringReview) ? undefined :
+                this.businessGiven.lockerDuringReview],
+            total: [ObjectUtil.isEmpty(this.businessGiven)
+            || ObjectUtil.isEmpty(this.businessGiven.total) ? undefined :
+                this.businessGiven.total],
+
+
         });
         if (!this.additionalFieldSelected) {
             this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
@@ -832,6 +872,22 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.marketCompetition = this.companyInfoFormGroup.get('marketCompetition').value;
         this.companyInfo.industryGrowth = this.companyInfoFormGroup.get('industryGrowth').value;
 
+        /**Business Given**/
+        this.businessGiven.interestIncomeDuringReview = this.companyInfoFormGroup.get('interestIncomeDuringReview').value;
+        this.businessGiven.loanProcessingFeeDuringReview = this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value;
+        this.businessGiven.lcCommissionDuringReview = this.companyInfoFormGroup.get('lcCommissionDuringReview').value;
+        this.businessGiven.guaranteeCommissionDuringReview = this.companyInfoFormGroup.get('guaranteeCommissionDuringReview').value;
+        this.businessGiven.otherCommissionDuringReview = this.companyInfoFormGroup.get('otherCommissionDuringReview').value;
+        this.businessGiven.savingAccountDuringReview = this.companyInfoFormGroup.get('savingAccountDuringReview').value;
+        this.businessGiven.payrollAccountDuringReview = this.companyInfoFormGroup.get('payrollAccountDuringReview').value;
+        this.businessGiven.debitCardsDuringReview = this.companyInfoFormGroup.get('debitCardsDuringReview').value;
+        this.businessGiven.creditCardsDuringReview = this.companyInfoFormGroup.get('creditCardsDuringReview').value;
+        this.businessGiven.mobileBankingDuringReview = this.companyInfoFormGroup.get('mobileBankingDuringReview').value;
+        this.businessGiven.lockerDuringReview = this.companyInfoFormGroup.get('lockerDuringReview').value;
+        this.businessGiven.total = this.companyInfoFormGroup.get('total').value;
+
+        this.companyInfo.businessGiven = JSON.stringify(this.businessGiven);
+
         /** experience & succession */
         this.companyInfo.experience = this.companyInfoFormGroup.get('experience').value;
         this.companyInfo.succession = this.companyInfoFormGroup.get('succession').value;
@@ -925,5 +981,21 @@ export class CompanyFormComponent implements OnInit {
             , error => {
                 console.error(error);
             });
+    }
+
+    calculateTotalIncomeDuringReview(){
+        let total = 0;
+        total = this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
+        this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value +
+        this.companyInfoFormGroup.get('lcCommissionDuringReview').value +
+        this.companyInfoFormGroup.get('guaranteeCommissionDuringReview').value +
+        this.companyInfoFormGroup.get('otherCommissionDuringReview').value +
+        this.companyInfoFormGroup.get('savingAccountDuringReview').value +
+        this.companyInfoFormGroup.get('payrollAccountDuringReview').value +
+        this.companyInfoFormGroup.get('debitCardsDuringReview').value +
+        this.companyInfoFormGroup.get('creditCardsDuringReview').value +
+        this.companyInfoFormGroup.get('mobileBankingDuringReview').value +
+        this.companyInfoFormGroup.get('lockerDuringReview').value ;
+        this.companyInfoFormGroup.get('total').patchValue(total);
     }
 }

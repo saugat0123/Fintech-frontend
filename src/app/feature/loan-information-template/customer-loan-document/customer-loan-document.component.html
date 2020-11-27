@@ -33,7 +33,6 @@
               <td>{{document?.checkType || 'Default' | titlecase }}</td>
 
               <td><input (change)="documentUploader($event, document.name, document.id, i)"
-                         accept=".png, .jpg"
                          class="form-control-file"
                          id="uploadDocument{{i}}" multiple=""
                          type="file">

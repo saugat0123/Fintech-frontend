@@ -609,7 +609,6 @@
                     <td>{{document.name}}</td>
                     <td><input (change)="documentUploader($event,document.name, i)"
                                [ngClass]="{'is-invalid':submitted && form.file.errors}"
-                               accept=".png, .jpg"
                                class="form-control-file"
                                formControlName="file"
                                id="uploadDocument{{i}}" multiple=""

@@ -415,16 +415,66 @@
       <tr>
         <td class="text-justify px-2" style="overflow-wrap: break-word; "><span [innerHTML]="companyJsonData?.conductOfAccount | safeHtml"></span></td>
       </tr>
-    </table>    <table
+    </table>
+    <table
       class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
-      <th>Business given</th>
+    <tr >
+      <th colspan="2">Business given</th>
     </tr>
-    <tr>
-      <td class="text-justify px-2" style="overflow-wrap: break-word; "><span [innerHTML]="companyJsonData?.businessGiven | safeHtml"></span></td>
+      <tr class="text-white sb-bg-dark">
+      <th>Particular</th>
+      <th>Amount(Rs)</th>
+    </tr>
+      <tr>
+        <td>Interest Income</td>
+        <th>{{businessGiven?.interestIncomeDuringReview}}</th>
+      </tr>
+      <tr>
+        <td>Loan Processing Fee</td>
+        <th>{{businessGiven?.loanProcessingFeeDuringReview}}</th>
+      </tr>
+      <tr>
+        <td>LC Commission</td>
+        <th>{{businessGiven?.lcCommissionDuringReview}}</th>
+      </tr>
+      <tr>
+        <td>Guarantee Commission</td>
+        <th>{{businessGiven?.guaranteeCommissionDuringReview}}</th>
+      </tr>
+      <tr>
+        <td>Other Commission</td>
+        <th>{{businessGiven?.otherCommissionDuringReview}}</th>
+      </tr>
+      <tr>
+        <td>Saving Account</td>
+        <th>{{businessGiven?.savingAccountDuringReview}}</th>
+      </tr>
+      <tr>
+        <td>Payroll Account</td>
+        <th>{{businessGiven?.payrollAccountDuringReview}}</th>
+      </tr>
+      <tr>
+        <td>Debit Cards</td>
+        <th>{{businessGiven?.debitCardsDuringReview}}</th>
+      </tr>
+      <tr>
+        <td>Credit Cards</td>
+        <th>{{businessGiven?.creditCardsDuringReview}}</th>
+      </tr>
+      <tr>
+        <td>Mobile Bank / Internet Banking</td>
+        <th>{{businessGiven?.mobileBankingDuringReview}}</th>
+      </tr>
+      <tr>
+        <td>Locker</td>
+        <th>{{businessGiven?.lockerDuringReview}}</th>
+      </tr>
+      <tr>
+        <th>Total</th>
+        <th>{{businessGiven?.total}}</th>
+      </tr>
 
-    </tr>
-  </table>
+    </table>
     <table
         class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
       <tr class="text-white sb-bg-dark">

@@ -41,5 +41,6 @@ export class CompanyInfo {
     subsectorDetail: string;
     clientType: string;
     landLineNumber: string;
+    businessGiven: string;
 
 }

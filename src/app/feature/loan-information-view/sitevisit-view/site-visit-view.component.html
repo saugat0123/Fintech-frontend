@@ -16,6 +16,27 @@
     <td>{{formData['currentResidentDetails']['address']}}</td>
     <td>{{formData['currentResidentDetails']['nearBy']}}</td>
   </tr>
+  <tr class="text-white sb-bg-dark">
+    <th>Staff Representative Designation</th>
+    <th>Staff Representative Name</th>
+    <th>Alternative Staff Representative Designation</th>
+    <th>Alternative Staff Representative Name</th>
+  </tr>
+  <tr>
+    <td>{{formData?.currentResidentDetails?.staffRepresentativeNameDesignation}}</td>
+    <td>{{formData?.currentResidentDetails?.staffRepresentativeName}}</td>
+    <td>{{formData?.currentResidentDetails?.alternativeStaffRepresentativeNameDesignation}}</td>
+    <td>{{formData?.currentResidentDetails?.alternativeStaffRepresentativeName}}</td>
+  </tr>
+
+</table>
+<table *ngIf="formData['currentResidentFormChecked'] === true"
+       class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">  <tr class="text-white sb-bg-dark">
+    <th colspan="4">Finding & Comment</th>
+  </tr>
+  <tr>
+    <td colspan="4">{{formData?.currentResidentDetails?.findingComment}}</td>
+  </tr>
 </table>
 <!-- ============================================================= Business Site Visit ==============================================================-->
 <p *ngIf="formData['businessSiteVisitFormChecked'] === true" class="font-weight-bold small">Business Site Visit</p>
@@ -25,23 +46,44 @@
     <th>Person Contacted</th>
     <th>Office Address</th>
     <th>Date of Visit</th>
+    <th>Objective of Visit</th>
+    <th>Staff Representative Designation</th>
   </tr>
   <tr>
     <td>{{formData['businessSiteVisitDetails']['nameOfThePersonContacted']}}</td>
     <td>{{formData['businessSiteVisitDetails']['officeAddress']}}</td>
     <td>{{formData['businessSiteVisitDetails']['dateOfVisit'] | date}}</td>
+    <td>{{formData['businessSiteVisitDetails']['objectiveOfVisit']}}</td>
+    <td>{{formData?.businessSiteVisitDetails?.staffRepresentativeNameDesignation}}</td>
+
+
   </tr>
   <tr class="text-white sb-bg-dark">
-    <th>Objective of Visit</th>
-    <th>Visited By</th>
-    <th>Comments and Finding</th>
+
   </tr>
   <tr>
-    <td>{{formData['businessSiteVisitDetails']['objectiveOfVisit']}}</td>
-    <td>{{formData['businessSiteVisitDetails']['visitedBy']}}</td>
+
+  </tr>
+  <tr class="text-white sb-bg-dark">
+    <th>Staff Representative Name</th>
+    <th>Alternative Staff Representative Designation</th>
+    <th>Alternative Staff Representative Name</th>
+  </tr>
+  <tr>
+    <td>{{formData?.businessSiteVisitDetails?.staffRepresentativeName}}</td>
+    <td>{{formData?.businessSiteVisitDetails?.alternativeStaffRepresentativeNameDesignation}}</td>
+    <td>{{formData?.businessSiteVisitDetails?.alternativeStaffRepresentativeName}}</td>
+  </tr>
+</table>
+<table *ngIf="formData['businessSiteVisitFormChecked'] === true"
+       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
+
+  <tr class="text-white sb-bg-dark">
+    <th>Comment & Finding</th>
+  </tr>
+  <tr>
     <td>{{formData['businessSiteVisitDetails']['findingsAndComments']}}</td>
   </tr>
-
 </table>
 <!-- ============================================================= Business Site Visit END ==============================================================-->
 <!-- ============================================================= Fixed Asset Collateral Form  ==============================================================-->
@@ -148,21 +190,28 @@
     <td>{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['schoolOrCollege']}}</td>
     <td>{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['hospitalOrNursingHome']}}</td>
   </tr>
-  <tr class="text-white sb-bg-dark">
-    <th>Position</th>
-    <th colspan="2">
-      Inspection Staff
-    </th>
-  </tr>
-  <tr *ngFor="let staff of formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['staffs']">
-    <td>{{staff.position}}</td>
-    <td colspan="2">{{staff.name}}</td>
-  </tr>
+
   <tr class="text-white sb-bg-dark">
     <th colspan="3">Comment about FAC</th>
   </tr>
   <tr>
     <td colspan="3">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['commentAboutFAC']}}</td>
+
+  </tr>
+</table>
+<table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
+       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
+  <tr class="text-white sb-bg-dark">
+    <th>Staff Representative Designation</th>
+    <th>Staff Representative Name</th>
+    <th>Alternative Staff Representative Designation</th>
+    <th>Alternative Staff Representative Name</th>
+  </tr>
+  <tr *ngFor="let staff of formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['staffs']">
+    <td>{{staff.staffRepresentativeNameDesignation}}</td>
+    <td>{{staff.staffRepresentativeName}}</td>
+    <td>{{staff.alternativeStaffRepresentativeNameDesignation}}</td>
+    <td>{{staff.alternativeStaffRepresentativeName}}</td>
 
   </tr>
 </table>
@@ -230,16 +279,7 @@
     <td>{{formData['currentAssetsInspectionDetails']['insuranceVerification']['clientsOverallRating']}}</td>
     <td>{{formData['currentAssetsInspectionDetails']['insuranceVerification']['stockValueConfirmed']}}</td>
   </tr>
-  <tr class="text-white sb-bg-dark">
-    <th colspan="3">Position</th>
-    <th colspan="3">
-      Inspection Staff
-    </th>
-  </tr>
-  <tr *ngFor="let staff of formData['currentAssetsInspectionDetails']['insuranceVerification']['inspectingStaffsDetails']">
-    <td colspan="3">{{staff.position}}</td>
-    <td colspan="4">{{staff.name}}</td>
-  </tr>
+
   <tr class="text-white sb-bg-dark">
     <th colspan="6">Comments</th>
 
@@ -247,6 +287,21 @@
   <tr>
     <td colspan="6">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['comments']}}</td>
 
+  </tr>
+</table>
+<table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
+       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
+  <tr class="text-white sb-bg-dark">
+    <th>Staff Representative Designation</th>
+    <th>Staff Representative Name</th>
+    <th>Alternative Staff Representative Designation</th>
+    <th>Alternative Staff Representative Name</th>
+  </tr>
+  <tr *ngFor="let staff of formData['currentAssetsInspectionDetails']['insuranceVerification']['inspectingStaffsDetails']">
+    <td>{{staff.staffRepresentativeNameDesignation}}</td>
+    <td>{{staff.staffRepresentativeName}}</td>
+    <td>{{staff.alternativeStaffRepresentativeNameDesignation}}</td>
+    <td>{{staff.alternativeStaffRepresentativeName}}</td>
   </tr>
 </table>
 
@@ -384,6 +439,11 @@
     <td><b>{{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.moreThanOneYearTotal}}</b></td>
   </tr>
   <tr>
+    <td></td>
+    <td>Grand Total</td>
+    <td colspan="4"><b>{{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.grandTotal}}</b></td>
+  </tr>
+
   <tr class="text-white sb-bg-dark">
   <td colspan="6">Findings & Comments
   </tr>
