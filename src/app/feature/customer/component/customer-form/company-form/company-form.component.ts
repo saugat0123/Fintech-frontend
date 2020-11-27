@@ -472,12 +472,6 @@ export class CompanyFormComponent implements OnInit {
             legalReviewRemark: [ObjectUtil.isEmpty(this.companyJsonData)
             || ObjectUtil.isEmpty(this.companyJsonData.legalReviewRemark) ? undefined :
                 this.companyJsonData.legalReviewRemark],
-
-            /** Conduct Of Account*/
-            conductOfAccount: [ObjectUtil.isEmpty(this.companyJsonData)
-            || ObjectUtil.isEmpty(this.companyJsonData.conductOfAccount) ? undefined :
-                this.companyJsonData.conductOfAccount, Validators.required],
-
             /** Business Given*/
             interestIncomeDuringReview: [ObjectUtil.isEmpty(this.businessGiven)
             || ObjectUtil.isEmpty(this.businessGiven.interestIncomeDuringReview) ? undefined :
