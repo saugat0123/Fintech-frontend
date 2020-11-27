@@ -76,7 +76,7 @@ export class OfferLetterActionComponent implements OnInit {
 
     ngOnInit() {
 
-        console.log(this.currentUserRoleType , this.isApprovedDisabled , "kjhuj");
+        console.log(this.currentUserRoleType , this.isApprovedDisabled , 'kjhuj');
         this.currentUserId = LocalStorageUtil.getStorage().userId;
         this.roleId = LocalStorageUtil.getStorage().roleId;
         this.router.queryParams.subscribe(

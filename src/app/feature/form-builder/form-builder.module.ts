@@ -31,7 +31,16 @@ import { ArrayFormComponent } from './dynamic-forms/array-form/array-form.compon
 
 
 @NgModule({
-    declarations: [FormBuilderAddComponent, AddressFormComponent, DynamicFormsComponent, DynamicFormListComponent, AddressFormAddComponent, InputTextAddComponent, InputDateAddComponent, InputTextareaAddComponent, InputSelectAddComponent, InputRadioAddComponent, LineBreakAddComponent, InputTextFormComponent, InputTextareaFormComponent, InputSelectFormComponent, InputDateFormComponent, FormInvalidFocusDirective, InputRadioFormComponent, InputArrayAddComponent, DoubleClickDirective, ArrayFormComponent],
+    declarations: [FormBuilderAddComponent, AddressFormComponent,
+        DynamicFormsComponent, DynamicFormListComponent,
+        AddressFormAddComponent, InputTextAddComponent,
+        InputDateAddComponent, InputTextareaAddComponent,
+        InputSelectAddComponent, InputRadioAddComponent,
+        LineBreakAddComponent, InputTextFormComponent,
+        InputTextareaFormComponent, InputSelectFormComponent,
+        InputDateFormComponent, FormInvalidFocusDirective,
+        InputRadioFormComponent, InputArrayAddComponent,
+        DoubleClickDirective, ArrayFormComponent],
     exports: [
         FormBuilderAddComponent,
         DynamicFormsComponent,
