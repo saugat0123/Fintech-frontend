@@ -1,13 +1,14 @@
 export enum RepaymentHistory {
+    NEW_CUSTOMER = 'New customer with no previous repayment history',
     BEFORE_DUE = 'All repayment/payment on or before due date',
     WITHIN_SEVEN_DAYS_FROM_DUE = 'Repayment/payment done within 7 working days from due date',
     WITHIN_THIRTY_DAYS_FROM_DUE = 'Repayment/payment done within 30 working days from due date/New customer with good' +
         ' credit history confirmed through account statement and CIC',
     AFTER_THIRTY_DAYS_FROM_DUE = 'Repayment/payment done after 30 working days from due date/New customer with uneven' +
         ' credit history confirmed though account statement and CIC and new customer with no credit' +
-        ' history at any bank'
+        ' history at any bank',
 }
-
+// TODO number mapping for NEW_CUSTOMER
 export class RepaymentHistoryMap {
     static repaymentHistoryMap: Map<string, number> = new Map([
         [RepaymentHistory.BEFORE_DUE, 4],
