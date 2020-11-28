@@ -177,7 +177,7 @@
                                            <div *ngIf="form.contactNum?.errors.required">
                                                Enter Mobile no!
                                            </div>
-                                           <div *ngIf="form.contactNum?.errors.minlength || form.contactNum?.errors.maxlength">
+                                           <div *ngIf="form.contactNum?.errors.min || form.contactNum?.errors.max">
                                                Enter 10 Digit Mobile no!
                                            </div>
 
