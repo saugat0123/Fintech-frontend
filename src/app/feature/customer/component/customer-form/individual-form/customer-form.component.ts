@@ -53,6 +53,9 @@ export class CustomerFormComponent implements OnInit {
     districtList: Array<District> = Array<District>();
     municipality: MunicipalityVdc = new MunicipalityVdc();
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+    temporaryDistrictList: Array<District> = Array<District>();
+    temporaryMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+
     private isBlackListed: boolean;
     allDistrict: Array<District> = Array<District>();
     private customerList: Array<Customer> = new Array<Customer>();
@@ -148,6 +151,34 @@ export class CustomerFormComponent implements OnInit {
 
     }
 
+    getTemporaryDistricts(province: Province) {
+        this.commonLocation.getDistrictByProvince(province).subscribe(
+            (response: any) => {
+                this.temporaryDistrictList = response.detail;
+                this.temporaryDistrictList.forEach(district => {
+                    if (!ObjectUtil.isEmpty(this.customer.temporaryDistrict) && district.id === this.customer.temporaryDistrict.id) {
+                        this.basicInfo.controls.temporaryDistrict.setValue(district);
+                        this.getTemporaryMunicipalities(district);
+                    }
+                });
+            }
+        );
+    }
+
+    getTemporaryMunicipalities(district: District) {
+        this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
+            (response: any) => {
+                this.temporaryMunicipalitiesList = response.detail;
+                this.temporaryMunicipalitiesList.forEach(municipality => {
+                    if (!ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) && municipality.id === this.customer.temporaryMunicipalities.id) {
+                        this.basicInfo.controls.temporaryMunicipalities.setValue(municipality);
+                    }
+                });
+            }
+        );
+
+    }
+
     scrollToFirstInvalidControl() {
         const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
             'form .ng-invalid'
@@ -194,6 +225,11 @@ export class CustomerFormComponent implements OnInit {
                     this.customer.municipalities = this.basicInfo.get('municipalities').value;
                     this.customer.street = this.basicInfo.get('street').value;
                     this.customer.wardNumber = this.basicInfo.get('wardNumber').value;
+                    this.customer.temporaryProvince = this.basicInfo.get('temporaryProvince').value;
+                    this.customer.temporaryDistrict = this.basicInfo.get('temporaryDistrict').value;
+                    this.customer.temporaryMunicipalities = this.basicInfo.get('temporaryMunicipalities').value;
+                    this.customer.temporaryStreet = this.basicInfo.get('temporaryStreet').value;
+                    this.customer.temporaryWardNumber = this.basicInfo.get('temporaryWardNumber').value;
                     this.customer.contactNumber = this.basicInfo.get('contactNumber').value;
                     this.customer.landLineNumber = this.basicInfo.get('landLineNumber').value;
                     this.customer.email = this.basicInfo.get('email').value;
@@ -250,6 +286,12 @@ export class CustomerFormComponent implements OnInit {
                                 this.getDistricts(province);
                             }
                         }
+                        if (!ObjectUtil.isEmpty(this.customer.temporaryProvince)) {
+                            if (province.id === this.customer.temporaryProvince.id) {
+                                this.basicInfo.controls.temporaryProvince.setValue(province);
+                                this.getTemporaryDistricts(province);
+                            }
+                        }
                     }
                 });
             }
@@ -266,7 +308,7 @@ export class CustomerFormComponent implements OnInit {
             street: [this.customer.street === null ? undefined : this.customer.street, Validators.required],
             wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber, Validators.required],
             contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, [Validators.required,
-                Validators.maxLength(10), Validators.minLength(10)]],
+                Validators.max(9999999999), Validators.min(1000000000)]],
             landLineNumber: [this.customer.landLineNumber === undefined ? undefined : this.customer.landLineNumber],
             email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.email],
             // initial Relation Date not used in ui
@@ -292,7 +334,17 @@ export class CustomerFormComponent implements OnInit {
             netWorth: [this.customer.netWorth === undefined ?
                 undefined : this.customer.netWorth, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
             subsectorDetail: [this.customer.subsectorDetail === undefined ? undefined : this.customer.subsectorDetail],
-            clientType: [this.customer.clientType === undefined ? undefined : this.customer.clientType]
+            clientType: [this.customer.clientType === undefined ? undefined : this.customer.clientType],
+            temporaryProvince: [this.customer.temporaryProvince === null ? undefined :
+                this.customer.temporaryProvince, Validators.required],
+            temporaryDistrict: [this.customer.temporaryDistrict === null ? undefined :
+                this.customer.temporaryDistrict, Validators.required],
+            temporaryMunicipalities: [this.customer.temporaryMunicipalities === null ? undefined :
+                this.customer.temporaryMunicipalities, Validators.required],
+            temporaryStreet: [this.customer.temporaryStreet === null ? undefined :
+                this.customer.temporaryStreet, Validators.required],
+            temporaryWardNumber: [this.customer.temporaryWardNumber === null ? undefined :
+                this.customer.temporaryWardNumber, Validators.required],
 
         });
     }
@@ -444,6 +496,20 @@ export class CustomerFormComponent implements OnInit {
             this.basicInfo.controls.subsectorDetail.patchValue(this.subSectorDetailCodeInput);
 
         }
+
+    }
+    sameAsPermanent() {
+        // if (ObjectUtil.isEmpty(this.basicInfo.get('municipalities').value)) {
+        //     this.toastService.show(new Alert(AlertType.WARNING, 'Please fill Permanent Address Completely'));
+        //     return true;
+        // }
+        this.basicInfo.get('temporaryProvince').patchValue(this.basicInfo.get('province').value);
+        this.customer.temporaryDistrict = this.basicInfo.get('district').value;
+        this.getTemporaryDistricts(this.basicInfo.get('temporaryProvince').value);
+        this.customer.temporaryMunicipalities = this.basicInfo.get('municipalities').value;
+        this.getTemporaryMunicipalities(this.basicInfo.get('municipalities').value);
+        this.basicInfo.controls.temporaryStreet.setValue(this.basicInfo.get('street').value);
+        this.basicInfo.controls.temporaryWardNumber.setValue(this.basicInfo.get('wardNumber').value);
 
     }
 
