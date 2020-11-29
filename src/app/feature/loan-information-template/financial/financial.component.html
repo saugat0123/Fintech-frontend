@@ -332,6 +332,11 @@
 </form>
 
 <div *ngIf="isBusinessLoan">
+    <div class="text-right m-4">
+        <nb-checkbox [checked]="historicalDataPresent" (checkedChange)="toggleHistory($event)">
+            Availability of Historical Data
+        </nb-checkbox>
+    </div>
     <hr>
     <div class="row my-2">
         <div class="col-md-12 text-right">

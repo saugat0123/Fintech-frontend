@@ -158,7 +158,7 @@
 <!--                                [fromProfile]="false"></app-credit-grading>-->
            <div *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'">
             <app-credit-risk-grading-alpha *ngIf="loanDataHolder?.creditRiskGradingAlpha"
-                                           [formData]="loanDataHolder?.creditRiskGradingAlpha" [fromSummery]="true"
+                                           [formData]="loanDataHolder?.creditRiskGradingAlpha"
                                            [security]="loanHolder?.security"
                                            [financialData]="loanDataHolder?.financial?.data"
                                            [companyInfo]="loanDataHolder?.companyInfo"
