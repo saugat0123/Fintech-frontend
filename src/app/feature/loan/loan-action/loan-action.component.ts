@@ -81,7 +81,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     switch (action) {
       case 'backward':
         context = {
-          popUpTitle: 'Send Backward',
+          popUpTitle: 'Return',
           isForward: false,
           loanConfigId: this.loanConfigId,
           customerLoanId: this.id,

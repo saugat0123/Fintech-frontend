@@ -85,7 +85,7 @@
                         COM:{{(loan?.proposal?.data | jsonParse)?.commissionPercentage || '0'}} %</span>
                 </td>
                 <td>{{(loan?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT' ? ' NRs. '
-                    : ''}}{{(loan?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}{{(loan?.proposal?.data | jsonParse)?.serviceChargeMethod
+                    : ''}}{{(loan?.proposal?.data | jsonParse)?.serviceCharge}}{{(loan?.proposal?.data | jsonParse)?.serviceChargeMethod
                 === 'PERCENT' ? ' %' : ''}}</td>
                 <!--        <td>{{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths}} month</td>-->
                 <!--        <td>{{(loan?.proposal?.data | jsonParse)?.repaymentMode}}</td>-->

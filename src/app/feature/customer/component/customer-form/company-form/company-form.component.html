@@ -171,13 +171,13 @@
                                            formControlName="contactNum"
                                            id="contactNum"
                                            placeholder="Enter Mobile no!"
-                                           type="text"/>
+                                           type="number"/>
                                        <div *ngIf="submitted && form.contactNum?.errors "
                                             class="invalid-feedback">
                                            <div *ngIf="form.contactNum?.errors.required">
                                                Enter Mobile no!
                                            </div>
-                                           <div *ngIf="form.contactNum?.errors.minlength || form.contactNum?.errors.maxlength">
+                                           <div *ngIf="form.contactNum?.errors.min || form.contactNum?.errors.max">
                                                Enter 10 Digit Mobile no!
                                            </div>
 
@@ -1318,34 +1318,11 @@
                            </div>
                        </div>
                        <hr>
-                       <div class="box-header with-border">
-                           <h5 class="box-title">17.Conduct of Account</h5>
-                       </div>
-                       <div class="row">
-                           <div class="col-md-12">
-                               <div class="form-group">
-                                   <label for="conductOfAccount"><strong></strong></label>
-                                   <ckeditor
-                                       [ngClass]="{ 'is-invalid': (submitted) && form.conductOfAccount.errors }"
-                                       [style]="{height:'250px !important;'}"
-                                       formControlName="conductOfAccount"
-                                       id="conductOfAccount"
-                                       placeholder="Conduct of Account"
-                                   [config]="ckeConfig"></ckeditor>
-                                   <div *ngIf="(submitted) && form.conductOfAccount.invalid"
-                                        class="small text-danger">
-                                       <div *ngIf="form.conductOfAccount.errors.required">
-                                           Conduct Of Account is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
                        <hr>
                        <!--  Business Given -->
                        <hr>
                        <div class="box-header with-border">
-                           <h5 class="box-title">18.Business given</h5>
+                           <h5 class="box-title">17.Business given</h5>
                            <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center table-striped">
                                <tr class="sb-bg-secondary text-white">
                                    <th>Particular</th>
