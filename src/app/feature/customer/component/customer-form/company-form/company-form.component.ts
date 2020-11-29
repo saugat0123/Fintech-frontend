@@ -281,7 +281,7 @@ export class CompanyFormComponent implements OnInit {
             contactNum:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.contactNum)) ? undefined :
-                    this.companyInfo.contactNum, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
+                    this.companyInfo.contactNum, [Validators.required, Validators.max(9999999999), Validators.min(1000000000)]],
             landLineNumber: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.landLineNumber)) ? undefined :
                 this.companyInfo.landLineNumber],
@@ -472,12 +472,6 @@ export class CompanyFormComponent implements OnInit {
             legalReviewRemark: [ObjectUtil.isEmpty(this.companyJsonData)
             || ObjectUtil.isEmpty(this.companyJsonData.legalReviewRemark) ? undefined :
                 this.companyJsonData.legalReviewRemark],
-
-            /** Conduct Of Account*/
-            conductOfAccount: [ObjectUtil.isEmpty(this.companyJsonData)
-            || ObjectUtil.isEmpty(this.companyJsonData.conductOfAccount) ? undefined :
-                this.companyJsonData.conductOfAccount, Validators.required],
-
             /** Business Given*/
             interestIncomeDuringReview: [ObjectUtil.isEmpty(this.businessGiven)
             || ObjectUtil.isEmpty(this.businessGiven.interestIncomeDuringReview) ? undefined :

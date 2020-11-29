@@ -35,5 +35,11 @@ export class Customer {
     subsectorDetail: string;
     clientType: string;
     landLineNumber: string;
+    temporaryProvince: Province;
+    temporaryDistrict: District;
+    temporaryMunicipalities: MunicipalityVdc;
+    temporaryStreet: string;
+    temporaryWardNumber: string;
+
 
 }
