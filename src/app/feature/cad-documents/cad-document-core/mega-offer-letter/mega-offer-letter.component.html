@@ -11,7 +11,7 @@
                                         <i class="fa fa-expand px-2"></i>
                                    </a>
                                     </span>
-                    <span *ngIf="list.isPresent" style="color:darkgreen">
+                    <span *ngIf="list.isPresent && loanDataHolder?.customerOfferLetter?.isOfferLetterApproved" style="color:darkgreen">
                                     <!-- <input (change)="onFileChange($event)" class="hide-type"
                                             id="uploadOfferLetterInput"
                                             type="file">-->
