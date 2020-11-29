@@ -9,7 +9,8 @@ import {Router} from '@angular/router';
 import {CrgQuestion} from '../../model/CrgQuestion';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {CrgGroup} from '../../model/CrgGroup';
-import {CustomerType} from '../../../customer/model/customerType';
+import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
+import {LoanConfig} from '../../../admin/modal/loan-config';
 
 @Component({
     selector: 'app-compose-grading-questions',
@@ -17,8 +18,8 @@ import {CustomerType} from '../../../customer/model/customerType';
     styleUrls: ['./compose-grading-questions.component.scss']
 })
 export class ComposeGradingQuestionsComponent implements OnInit {
-    customerTypeList = CustomerType.enumObject();
-    customerType: any;
+    schemeList: Array<LoanConfig> = new Array<LoanConfig>();
+    loanConfigId: number;
     riskGroupArray = [];
     collapsedIndex = null;
     totalObtainablePoints: number;
@@ -35,6 +36,7 @@ export class ComposeGradingQuestionsComponent implements OnInit {
 
     constructor(private crgGroupService: CrgGroupService,
                 private questionService: RiskGradingService,
+                private loanConfigService: LoanConfigService,
                 private formBuilder: FormBuilder,
                 private router: Router,
                 private modalService: NgbModal,
@@ -43,9 +45,16 @@ export class ComposeGradingQuestionsComponent implements OnInit {
 
     ngOnInit() {
         this.buildSetupForm();
+        this.getSchemeList();
         this.getGroupList();
         this.existingQuestionList = false;
         this.newQuestionList = false;
+    }
+
+    getSchemeList() {
+        this.loanConfigService.getAll().subscribe((response: any) => {
+            this.schemeList = response.detail;
+        });
     }
 
     getGroupList() {
@@ -59,7 +68,7 @@ export class ComposeGradingQuestionsComponent implements OnInit {
 
     buildSetupForm() {
         this.questionAnswerForm = this.formBuilder.group({
-            customerType: [undefined],
+            loanConfigId: [undefined],
             questionForm: this.formBuilder.array([])
         });
     }
@@ -73,7 +82,9 @@ export class ComposeGradingQuestionsComponent implements OnInit {
                 description: [undefined, Validators.required],
                 appearanceOrder: [undefined, Validators.required],
                 crgGroupId: [undefined, Validators.required],
-                customerType: this.customerType.value
+                loanConfig: this.formBuilder.group({
+                    id: [this.loanConfigId]
+                })
             })
         );
     }
@@ -98,14 +109,14 @@ export class ComposeGradingQuestionsComponent implements OnInit {
     }
 
     onChangeLoanCategory(event?) {
-        this.customerType = event;
+        this.loanConfigId = event;
         this.clearFormArray();
         this.fetchQuestionList();
     }
 
     fetchQuestionList() {
         this.totalObtainablePoints = 0;
-        this.questionService.getAllQuestions(this.customerType.value).subscribe((response: any) => {
+        this.questionService.getAllQuestions(this.loanConfigId).subscribe((response: any) => {
             this.questionList = response.detail;
             this.questionList.forEach(qsn => {
                 this.totalObtainablePoints = this.totalObtainablePoints + qsn.maximumPoints;
@@ -137,7 +148,9 @@ export class ComposeGradingQuestionsComponent implements OnInit {
             version: [this.qsnContent.version === undefined ? 1 : this.qsnContent.version],
             appearanceOrder: [this.qsnContent.appearanceOrder === undefined ? 0 : this.qsnContent.appearanceOrder],
             crgGroupId: [this.qsnContent.crgGroupId === undefined ? undefined : this.qsnContent.crgGroupId],
-            customerType: [this.customerType.value]
+            loanConfig: this.formBuilder.group({
+                id: [this.loanConfigId]
+            })
         });
         if (this.task === 'Update') {
             this.setAnswers(this.qsnContent);
@@ -228,7 +241,7 @@ export class ComposeGradingQuestionsComponent implements OnInit {
         if (newQsnContent.invalid) {
             return;
         }
-        this.questionService.editQuestion(newQsnContent.value, this.customerType.value, newQsnContent.value.id).subscribe(() => {
+        this.questionService.editQuestion(newQsnContent.value, this.loanConfigId, newQsnContent.value.id).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Questions'));
                 this.questionList = new Array<CrgQuestion>();
                 this.qsnContent = new CrgQuestion();
@@ -246,7 +259,7 @@ export class ComposeGradingQuestionsComponent implements OnInit {
 
     onDelete(qsnContent) {
         if (confirm('Are you sure to delete this question?')) {
-            this.questionService.deleteQuestion(this.customerType.value, qsnContent.id).subscribe(() => {
+            this.questionService.deleteQuestion(this.loanConfigId, qsnContent.id).subscribe(() => {
 
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Deleted Questions'));
                     this.questionList = new Array<CrgQuestion>();
