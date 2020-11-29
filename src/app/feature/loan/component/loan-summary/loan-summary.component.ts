@@ -34,6 +34,8 @@ import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {DocStatus} from '../../model/docStatus';
+import {LoanDataKey} from '../../../../@core/utils/constants/loan-data-key';
 
 @Component({
     selector: 'app-loan-summary',
@@ -451,7 +453,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     loanHandler(index: number, length: number) {
         if (index === 0) {
             return 'INITIATED BY:';
-        } else if (index === length - 1) {
+        } else
+        if (index === length - 1) {
             if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
                 return 'APPROVED BY:';
             } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {

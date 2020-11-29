@@ -12,6 +12,8 @@ import {DocAction} from '../loan/model/docAction';
 import {ApiConfig} from '../../@core/utils/api/ApiConfig';
 import {CalendarType} from '../../@core/model/calendar-type';
 import {ObjectUtil} from '../../@core/utils/ObjectUtil';
+import {DocStatus} from '../loan/model/docStatus';
+import {LoanDataKey} from '../../@core/utils/constants/loan-data-key';
 
 @Component({
     selector: 'app-loan-information-detail-view',

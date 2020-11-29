@@ -41,6 +41,15 @@
                     <div *ngIf="accessVal.errors.required">Access is required</div>
                 </div>
             </div>
+            <div class="col-md-6">
+                <label>Authority  Label</label>
+                <input type="text" class="form-control" required [(ngModel)]="role.authorityLabel"
+                       name="authorityLabel" placeholder="eg: Created By, Supported By" #authorityLabelVal="ngModel"
+                       [ngClass]="{ 'is-invalid': f.submitted && authorityLabelVal.invalid }">
+                <div *ngIf="f.submitted && authorityLabelVal.invalid" class="invalid-feedback">
+                    <div *ngIf="authorityLabelVal.errors.required">Authority label is required</div>
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
             <div><sup>*</sup>New Role will added in Lowest Order</div>

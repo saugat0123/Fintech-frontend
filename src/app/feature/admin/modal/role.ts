@@ -8,4 +8,5 @@ export class Role {
     roleAccess?: string;
     version?: number;
     name?: string;
+    authorityLabel?: string;
 }

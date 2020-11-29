@@ -263,10 +263,12 @@ export class LoanOfferLetterComponent implements OnInit {
             this.filterForm.get('role').value;
         this.catalogueService.search.customerName = ObjectUtil.isEmpty(this.filterForm.get('customerName').value) ? undefined :
             this.filterForm.get('customerName').value;
-        this.catalogueService.search.postApprovalAssignStatus = ObjectUtil.isEmpty(this.filterForm.get('postApprovalAssignStatus').value) ? undefined :
+        this.catalogueService.search.postApprovalAssignStatus = ObjectUtil.isEmpty(this.filterForm.get('postApprovalAssignStatus')
+            .value) ? undefined :
             this.filterForm.get('postApprovalAssignStatus').value;
         this.catalogueService.search.documentStatus = 'APPROVED';
-        this.catalogueService.search.postApprovalAssignedUser = ObjectUtil.isEmpty(this.filterForm.get('postApprovalAssignedUser').value) ? undefined :
+        this.catalogueService.search.postApprovalAssignedUser = ObjectUtil.isEmpty(this.filterForm.get('postApprovalAssignedUser')
+            .value) ? undefined :
             this.filterForm.get('postApprovalAssignedUser').value;
         LoanOfferLetterComponent.loadData(this);
     }

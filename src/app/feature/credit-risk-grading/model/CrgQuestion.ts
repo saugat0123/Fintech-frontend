@@ -1,6 +1,6 @@
 import {Status} from '../../../@core/Status';
 import {CrgAnswer} from './CrgAnswer';
-import {CustomerType} from "../../customer/model/customerType";
+import {CustomerType} from '../../customer/model/customerType';
 
 export class CrgQuestion {
     id: number;
