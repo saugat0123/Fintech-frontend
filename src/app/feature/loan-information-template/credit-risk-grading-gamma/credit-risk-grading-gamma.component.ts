@@ -9,8 +9,6 @@ import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
 import {ActivatedRoute} from '@angular/router';
-import {Customer} from '../../admin/modal/customer';
-import {CustomerType} from '../../customer/model/customerType';
 
 @Component({
     selector: 'app-credit-risk-grading-gamma',
@@ -20,6 +18,7 @@ import {CustomerType} from '../../customer/model/customerType';
 export class CreditRiskGradingGammaComponent implements OnInit {
     @Input() formData: CreditRiskGradingGamma;
     @Input() fromProfile: boolean;
+    @Input() loanConfigId: number;
     @Output() crgDataEmitter = new EventEmitter();
     totalPointsColspan = 4;
     creditRiskGrading: FormGroup = new FormGroup({});
@@ -50,15 +49,15 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         if (!this.fromProfile) {
             this.totalPointsColspan = 2;
         }
-        const customerType = this.route.snapshot.queryParamMap.get('customerType');
+        /*const customerType = this.route.snapshot.queryParamMap.get('customerType');
         let customerTypeParam = '';
         if (customerType) {
             customerTypeParam = customerType === 'INDIVIDUAL' ? CustomerType.INDIVIDUAL : CustomerType.INSTITUTION;
         } else {
             customerTypeParam = this.route.snapshot.queryParamMap.get('loanCategory');
-        }
+        }*/
 
-        this.questionService.getAllQuestions(customerTypeParam).subscribe((res: any) => {
+        this.questionService.getAllQuestions(this.loanConfigId).subscribe((res: any) => {
             this.crgQuestionsList = res.detail;
             this.buildFormAndCheckEdit();
         }, error => {
