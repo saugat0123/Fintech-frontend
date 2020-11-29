@@ -98,13 +98,11 @@
                 <th>Loan lifespan</th>
 
                 <th>Action</th>
-                <th>Checked</th>
+                <th>Checked/History</th>
             </tr>
             </thead>
-            <tbody>
-            <tr *ngFor="let model of loanDataHolderList;let i=index"
-
-                class="cursor">
+            <tbody *ngFor="let model of loanDataHolderList;let i=index" class="cursor">
+            <tr>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.branch?.name}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.loanHolder?.name}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.loan?.name}}</td>
@@ -145,10 +143,45 @@
                       style="color:limegreen"><i
                         class="fas fa-check-circle"></i></span>
                     <span *ngIf="!model.pulled || model.pulled === null"
-                          style="color:red"><i class="fas fa-times-circle"></i></span>
+                          style="color:red"><i class="fas fa-times-circle"></i></span>/
+                    <i class="fas fa-eye" (click)="toggleArray[i].toggled = !toggleArray[i].toggled" nbTooltip="Click to see Loan History"></i>
                 </td>
 
             </tr>
+            <ng-container *ngIf="toggleArray[i].toggled">
+                <tr><td colspan="10"> Loan History</td></tr>
+                <tr class="text-white sb-bg-secondary">
+                    <td>Date</td>
+                    <td>From User</td>
+                    <td>From Role</td>
+                    <td>To User</td>
+                    <td>To Role</td>
+                    <td>Action</td>
+                    <td colspan="4">Comment</td>
+                </tr>
+                <tr *ngFor="let previous of model?.previousList">
+                    <td>{{previous?.lastModifiedAt | date}}</td>
+                    <td>{{previous?.fromUser?.name}}</td>
+                    <td>{{previous?.fromRole?.roleName}}</td>
+
+                    <td>{{previous?.toUser.name}}</td>
+                    <td>{{previous?.toRole.roleName}}</td>
+
+                    <td>{{previous?.docAction}}</td>
+                    <td colspan="6">{{previous.comment}}</td>
+                </tr>
+                <tr>
+                    <td>{{model?.currentStage?.lastModifiedAt | date}}</td>
+                    <td>{{model?.currentStage?.fromUser?.name}}</td>
+                    <td>{{model?.currentStage?.fromRole?.roleName}}</td>
+                    <td>{{model?.currentStage?.toUser.name}}</td>
+                    <td>{{model?.currentStage?.toRole.roleName}}</td>
+                    <td>{{model?.currentStage?.docAction}}</td>
+                    <td colspan="6">{{model?.currentStage?.comment}}</td>
+
+                </tr>
+            </ng-container>
+
             </tbody>
         </table>
         <!-- ===================table-pagination==================== -->
