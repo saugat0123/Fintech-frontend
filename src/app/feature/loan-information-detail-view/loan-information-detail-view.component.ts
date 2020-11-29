@@ -103,22 +103,18 @@ export class LoanInformationDetailViewComponent implements OnInit {
     }
 
     loanHandler(index: number, length: number) {
-        // if (index === 0) {
-        //     return 'INITIATED BY:';
-        // } else
-            if (index === length - 1) {
+        if (index === 0) {
+            return 'INITIATED BY:';
+        } else if (index === length - 1) {
             if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
                 return 'APPROVED BY:';
+            } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
+                return 'REJECTED BY:';
+            } else if (this.loanDataHolder.documentStatus.toString() === 'CLOSED') {
+                return 'CLOSED BY:';
+            } else {
+                return 'SUPPORTED BY:';
             }
-            return this.loanDataHolder.currentStage.fromUser.role.authorityLabel.toString().toUpperCase();
-            // else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
-            //     return 'REJECTED BY:';
-            // } else if (this.loanDataHolder.documentStatus.toString() === 'CLOSED') {
-            //     return 'CLOSED BY:';
-            // }
-            // else {
-            //     return 'SUPPORTED BY:';
-            // }
         } else {
             return 'SUPPORTED BY:';
         }
