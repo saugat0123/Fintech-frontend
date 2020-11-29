@@ -15,25 +15,25 @@ export class RiskGradingService {
         return `v1/${loanConfigId}/crg-questions`;
     }
 
-    saveQuestionList(model: Object, loanConfigId): Observable<Object> {
+    saveQuestionList(model: Object, loanConfigId: number): Observable<Object> {
         const url = this.API(loanConfigId);
         const getUrl = ApiUtils.getRequest(url);
         return this.http.post(getUrl.url, model, {headers: getUrl.header});
     }
 
-    editQuestion(model: CrgQuestion, loanConfigId, questionId): Observable<Object> {
+    editQuestion(model: CrgQuestion, loanConfigId: number, questionId): Observable<Object> {
         const url = `${this.API(loanConfigId)}/${questionId}`;
         const getUrl = ApiUtils.getRequest(url);
         return this.http.put(getUrl.url, model, {headers: getUrl.header});
     }
 
-    getAllQuestions(loanConfigId): Observable<Object> {
+    getAllQuestions(loanConfigId: number): Observable<Object> {
         const url = this.API(loanConfigId);
         const getUrl = ApiUtils.getRequest(url);
         return this.http.get(getUrl.url, {headers: getUrl.header});
     }
 
-    deleteQuestion(loanConfigId, questionId): Observable<Object> {
+    deleteQuestion(loanConfigId: number, questionId): Observable<Object> {
         const url = `${this.API(loanConfigId)}/${questionId}`;
         const getUrl = ApiUtils.getRequest(url);
         return this.http.delete(getUrl.url, {headers: getUrl.header});
