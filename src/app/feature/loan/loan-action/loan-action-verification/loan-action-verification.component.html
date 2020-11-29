@@ -6,6 +6,19 @@
             size="tiny"
             status="primary">
       <span aria-hidden="true">×</span></button>
+    <hr>
+    <h5>Are you sure you want to forward the file?</h5><br>
+    <ng-container *ngIf="individualCombine">
+      <div *ngFor="let data of individualCombine.actions;let i=index">
+        {{data['loanName']}}
+        <p><b>To User:</b>{{data['toUser']?.name}}</p>
+        <p><b>To Role:</b>{{data['toRole']['roleName']}}</p>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="toRole || toUser">
+      <p><b>To User:</b>{{toUser?.name}}</p>
+      <p><b>To Role:</b>{{toRole?.roleName}}</p>
+    </ng-container>
   </nb-card-header>
   <nb-card-body>
       <p class="login-box-msg">Please Enter Your Credential for Confirmation</p>
