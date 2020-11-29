@@ -53,7 +53,6 @@ import {CreditRiskGradingGammaComponent} from '../../../loan-information-templat
 import {DefaultLoanTemplate} from '../../../../@core/utils/constants/default-loan-template';
 import {LoanType} from '../../model/loanType';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
-import {Priority} from '../../model/priority';
 import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
 
 @Component({
@@ -549,6 +548,11 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Credit Risk Grading - Lambda' && action) {
             this.creditRiskGradingLambda.onSubmit();
             this.loanDocument.creditRiskGradingLambda = this.creditRiskGradingLambda.creditRiskData;
+        }
+
+        if (name === 'Credit Risk Grading - Gamma' && action) {
+            this.crgGamma.onSubmit();
+            this.loanDocument.crgGamma = this.crgGamma.creditRiskData;
         }
 
         if (name === 'Group' && action) {
