@@ -32,12 +32,12 @@
                         <div class="col-md-3">
 
                             <div>
-                                Priority:
+                                <strong> Priority:</strong>
                                 <span class="badge badge-danger"
                                       style="font-size: 11px">{{loanDataHolder.priority?.toString() | titlecase}}</span>
                             </div>
                             <div>
-                                Loan Status:
+                                <strong>Loan Status:</strong>
                                 <span class="badge badge-info"
                                       style="font-size: 11px">{{loanDataHolder.documentStatus?.toString() | titlecase}}</span>
                             </div>
@@ -46,15 +46,16 @@
                             <div class="report-header">
                                 <div class="report-header-heading">{{client}}</div>
                                 <div class="report-header-sub-heading">
-                                    Credit Appraisal of {{loanConfig?.name}}
+                                    <span class="sb-small"> Credit Appraisal of</span> <span class="sb-medium"> {{loanConfig?.name}}</span>
                                     <br/>
-                                    for
+                                    <span class="sb-small"> for </span>
                                 </div>
                                 <div
-                                        class="report-header-sub-heading">
+                                        class="report-header-sub-heading"><span class="sb-medium"><strong>
                                     {{loanCategory === 'INSTITUTION' ?
                                     loanDataHolder?.companyInfo?.companyName
                                     : loanDataHolder?.customerInfo?.customerName}}
+                               </strong> </span>
                                 </div>
                                 <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
                             </div>
@@ -66,51 +67,10 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-1">
-                <div class="col-md-6 text-left">
-                    <div *ngIf="currentDocAction === 'FORWARD' || currentDocAction === 'BACKWARD'
-                          || currentDocAction === 'PENDING'">
-                        <span><strong>Pending Under: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
-                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                    </div>
-                    <div *ngIf="currentDocAction === 'APPROVED'">
-                        <span><strong>Approved By: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
-                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                    </div>
-                    <div *ngIf="currentDocAction === 'REJECT'">
-                        <span><strong>Rejected By: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
-                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                    </div>
-                    <div *ngIf="currentDocAction === 'CLOSED'">
-                        <span><strong>Closed By: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
-                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                    </div>
-                </div>
-                <div class="col-md-6 text-right">
-                    <div *ngIf="currentDocAction === 'FORWARD'">
-                    <span><strong>Forwarded By: </strong>{{loanDataHolder?.currentStage?.fromUser?.name}}
-                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                    </div>
-                    <div *ngIf="currentDocAction === 'BACKWARD'">
-                    <span><strong>Backward By: </strong>{{loanDataHolder?.currentStage?.fromUser?.name}}
-                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                    </div>
-                    <!--<div class="col-md-6">
-                        <div class="text-right">
-                            <span><strong>Branch: </strong>{{loanDataHolder?.branch?.name}}</span>
-                        </div>
-                    </div>-->
-                </div>
-            </div>
             <hr class="print-line">
             <div class="row ">
                 <div class="col-md-6 sb-small">
                     <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span>
-                </div>
-                <div class="col-md-6">
-                    <p class="text-right sb-small"><strong>Date: </strong>{{loanDataHolder?.createdAt | date}}
-                        ({{nepaliDate}})
-                    </p>
                 </div>
             </div>
 
@@ -335,14 +295,20 @@
             <div class="row sb-small">
                 <div class="col-md-12">
                     <b>Purpose: {{loanDataHolder.loan.name}}</b>
-                    <span class="float-right"><b>Loan Authority Under</b>- {{loanDataHolder.currentStage.toUser.name}}</span>
+                    <span class="float-right"><b>Loan Authority Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
+                        ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
                 </div>
             </div>
             <div class="row sb-small mb-1">
                 <div class="col-md-12">
-                    <span> <b>Application Received On:</b> {{loanDataHolder.createdAt | date}}</span>
-                    <span
-                            class="float-right"><b>Forwarded on:</b> {{loanDataHolder.lastModifiedAt | date}}</span>
+                    <span> <b>Application Received On:</b> {{loanDataHolder.createdAt | date}}  ({{nepaliDate}})</span>
+                    <span class="float-right"><b>
+                        <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
+                        <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
+                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}})<b> on:</b> {{loanDataHolder.lastModifiedAt | date}}
+
+                    </span>
+
                 </div>
             </div>
 
@@ -353,13 +319,12 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row" *ngIf="loanCategory === 'INDIVIDUAL'">
                 <div class="col-md-12">
-                    <p><strong>Details of {{loanCategory === 'INSTITUTION' ? 'Authorized Person'
-                        : 'Borrower'}}</strong></p>
+                    <p><strong>Details of Borrower</strong></p>
                 </div>
                 <div class="col-md-12">
-                    <div *ngIf="loanCategory === 'INDIVIDUAL'">
+                    <div>
                         <table
                                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                             <thead>
@@ -384,15 +349,15 @@
                                 <td>{{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>
                             </tr>
                             <tr class="text-white sb-bg-dark">
-                <td>Customer Client Type</td>
-                <td>SubSector</td>
-              </tr>
-              <tr>
-                <td>{{loanDataHolder?.loanHolder['clientType']}}</td>
-                <td>{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
+                                <td>Customer Client Type</td>
+                                <td>SubSector</td>
+                            </tr>
+                              <tr>
+                                <td>{{loanDataHolder?.loanHolder['clientType']}}</td>
+                                <td>{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
 
-              </tr>
-              </tbody>
+                              </tr>
+                              </tbody>
                         </table>
 <!--                        <table class="print-only table table-bordered text-center table-sm sb-small"-->
 <!--                               id="print-borrower-table">-->
@@ -417,29 +382,6 @@
 <!--                            </tr>-->
 <!--                            </tbody>-->
 <!--                        </table>-->
-                    </div>
-                    <div *ngIf="loanCategory === 'INSTITUTION'">
-                        <table
-                                class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
-                            <thead>
-                            <tr class="text-white sb-bg-dark">
-                                <th>Name</th>
-                                <th>Contact Number</th>
-                                <th>Email</th>
-                                <th>Address</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>{{loanDataHolder?.companyInfo?.contactPerson?.name}}</td>
-                                <td>{{loanDataHolder?.companyInfo?.contactPerson?.contactNumber}}</td>
-                                <td>{{loanDataHolder?.companyInfo?.contactPerson?.email}}</td>
-                                <td>{{loanDataHolder?.companyInfo?.contactPerson?.province?.name}}
-                                    ,{{loanDataHolder?.companyInfo?.contactPerson?.district?.name}}
-                                    ,{{ loanDataHolder?.companyInfo?.contactPerson?.municipalityVdc?.name}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
                     </div>
                     <div *ngIf="loanCategory === 'INDIVIDUAL'">
                         <p><strong>Family Details</strong></p>
