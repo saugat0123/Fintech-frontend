@@ -41,7 +41,8 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   @Input() customerInfo: CustomerInfoData;
   @Input() proposedLimit;
   @Input() loanTag: string;
-  @Input() fromSummery = false;
+
+  historicalDataPresent: boolean;
 
   missingAlerts = [];
 
@@ -49,7 +50,6 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   creditRiskData: CreditRiskGradingAlpha = new CreditRiskGradingAlpha();
   submitted = true;
   financialCurrentYearIndex: number;
-  historicalDataPresent = true;
   parsedFinancialData: any;
   loanTagEnum = LoanTag;
 
@@ -125,10 +125,6 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    if (!ObjectUtil.isEmpty(this.formData) && !ObjectUtil.isEmpty(this.formData.data)) {
-      const existingFormData = JSON.parse(this.formData.data);
-      this.historicalDataPresent = existingFormData.historicalDataPresent;
-    }
     // Calculate risks within company info portion --
     if (!ObjectUtil.isEmpty(this.companyInfo)) {
       const bankingRelationshipParsed = JSON.parse(this.customerInfo.bankingRelationship);
@@ -159,6 +155,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     // Calculate financial risk portion --
     if (!ObjectUtil.isEmpty(this.financialData)) {
       this.parsedFinancialData = JSON.parse(this.financialData);
+      this.historicalDataPresent = this.parsedFinancialData.initialForm.historicalDataPresent;
       if (this.parsedFinancialData.fiscalYear.length > 0) {
         this.financialCurrentYearIndex = Number(this.parsedFinancialData.fiscalYear.length - 1);
         this.calculateSalesToWclLimit(this.parsedFinancialData, this.financialCurrentYearIndex);
@@ -216,7 +213,6 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
 
   buildForm() {
     this.creditRiskGradingForm = this.formBuilder.group({
-      historicalDataPresent: undefined,
       // Relationship risk
       bankingRelationship: this.criteriaFormGroup(),
       accountTurnover: this.criteriaFormGroup(),
@@ -601,14 +597,6 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     return total;
   }
 
-  toggleHistory($event: boolean) {
-    this.historicalDataPresent = $event;
-    if (this.financialCurrentYearIndex >= 0) {
-      this.calculateDERatio(this.parsedFinancialData, this.financialCurrentYearIndex);
-    }
-    this.calculateTotalScore();
-  }
-
   close(alert) {
     this.missingAlerts.splice(this.missingAlerts.indexOf(alert), 1);
   }
@@ -635,7 +623,6 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.formData)) {
       this.creditRiskData = this.formData;
     }
-    this.creditRiskGradingForm.get('historicalDataPresent').patchValue(this.historicalDataPresent);
     this.creditRiskData.data = JSON.stringify(this.creditRiskGradingForm.value);
   }
 }
