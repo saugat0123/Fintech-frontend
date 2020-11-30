@@ -915,8 +915,7 @@
                      class="col-md-3 padding-0-125">
                     <div class="signature-block">
                         <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
-                            <span *ngIf="previous.fromUser?.role?.authorityLabel == undefined">{{loanHandler(i, signatureList.length)}}</span>
-                            <span *ngIf="previous.fromUser?.role?.authorityLabel != undefined">{{previous.toRole.authorityLabel}}</span>
+                            <span>{{loanHandler(i, signatureList.length , previous?.fromUser?.role?.authorityLabel)}}</span>
                         </div>
                         <hr class="border-dark m-0">
                         <div class="row justify-content-center signature mx-auto">

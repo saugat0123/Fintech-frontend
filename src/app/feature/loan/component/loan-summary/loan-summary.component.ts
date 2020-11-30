@@ -453,11 +453,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         console.log(a);
     }
 
-    loanHandler(index: number, length: number) {
-        if (index === 0) {
-            return 'INITIATED BY:';
-        } else
-        if (index === length - 1) {
+    loanHandler(index: number, length: number , label: string) {
+        if (index === length - 1 && index !== 0) {
             if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
                 return 'APPROVED BY:';
             } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
@@ -467,9 +464,16 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             } else {
                 return 'SUPPORTED BY:';
             }
-        } else {
-            return 'SUPPORTED BY:';
         }
+       if (!ObjectUtil.isEmpty(label)) {
+           return label;
+       } else {
+           if (index === 0) {
+               return 'INITIATED BY:';
+           } else {
+               return 'SUPPORTED BY:';
+           }
+       }
     }
 
     open(comments) {
