@@ -60,7 +60,7 @@
     </nb-accordion-item-header>
  <nb-accordion-item-body>
 
-     <app-mega-offer-letter *ngIf="client == clientList.MEGA"
+     <app-mega-offer-letter *ngIf="client == clientList.MEGA && offerLetterList"
                             [customerId]="customerId"
                             [loanDataHolder]="loanDataHolder"
                             [offerLetterList]="offerLetterList"

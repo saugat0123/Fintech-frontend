@@ -98,7 +98,6 @@
             <div class="col-md-8">
               <span>CREDIT RISK GRADING (ALPHA)</span>
             </div>
-
           </div>
         </nb-accordion-item-header>
         <nb-accordion-item-body>
@@ -127,26 +126,6 @@
                               [fromProfile]="false"></app-credit-grading>
         </nb-accordion-item-body>
       </nb-accordion-item>
-
-
-      <nb-accordion-item #itemCrgGamma>
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>CREDIT RISK GRADING (GAMMA)</span>
-            </div>
-
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-credit-risk-grading-gamma #CrgGammaComponent
-
-                                         *ngIf="itemCrgGamma.expanded"
-                                         [formData]="customerInfo?.crgGamma"
-                                         [fromProfile]="false"></app-credit-risk-grading-gamma>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-
     </nb-accordion>
   </nb-card-body>
 </nb-card>
