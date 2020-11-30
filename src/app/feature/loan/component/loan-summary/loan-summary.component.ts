@@ -449,6 +449,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.previewOfferLetterDocument(res.detail, res.detail);
         }, error => this.toastService.show(new Alert(AlertType.ERROR, error.error.message)));
     }
+    p(a){
+        console.log(a);
+    }
 
     loanHandler(index: number, length: number) {
         if (index === 0) {
@@ -543,6 +546,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     addedStages.set(loanStage.fromUser.id, index);
                 }
             }
+            console.log(loanStage);
         });
 
         return signatureList;
