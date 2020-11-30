@@ -665,7 +665,7 @@
 
                        <hr>
                        <div>
-                           <h5>3.Contact Person Details</h5>
+                           <h5>3.Primary Contact Person Details</h5>
                        </div>
                        <div
                            *ngFor="let contact of companyInfoFormGroup.get('contactPersons')['controls']; let c = index"
@@ -762,10 +762,10 @@
                            </div>
                        </div>
                        <div class="col-md-12">
-                           <input (click)="addContactPersons()"
+                           <input *ngIf="companyInfoFormGroup.get('contactPersons')['length']<2" (click)="addContactPersons()"
                                   class="btn btn-sm btn-flat btn-primary float-right"
                                   type="button"
-                                  value="Add More"/>
+                                  value="Add Secondary Contact"/>
                        </div>
                        <hr>
                        <!--company location-->
