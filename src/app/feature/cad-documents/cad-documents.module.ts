@@ -69,7 +69,7 @@ const COMPONENTS = [
         NgxPrintModule,
         CoreModule,
         NbAccordionModule,
-        RouterModule.forChild(cadDocumentRoute)
+        RouterModule.forChild(cadDocumentRoute),
     ], entryComponents: [PostApprovalDocApproveComponent, CadLoginComponent]
 })
 export class CadDocumentsModule {

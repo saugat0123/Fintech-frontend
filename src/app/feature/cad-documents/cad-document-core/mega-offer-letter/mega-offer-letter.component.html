@@ -6,12 +6,12 @@
                     <span>{{list.name}}</span>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
-                                      <span style="color:black">
-                                      <a (click)="showFullScreen(list.name)" title="full screen">
-                                        <i class="fa fa-expand px-2"></i>
-                                   </a>
-                                    </span>
-                    <span *ngIf="list.isPresent" style="color:darkgreen">
+<!--                                      <span style="color:black">-->
+<!--                                      <a (click)="showFullScreen(list.name)" title="full screen">-->
+<!--                                        <i class="fa fa-expand px-2"></i>-->
+<!--                                   </a>-->
+<!--                                    </span>-->
+                    <span *ngIf="list.isPresent && !list.isApproved" style="color:darkgreen">
                                     <!-- <input (change)="onFileChange($event)" class="hide-type"
                                             id="uploadOfferLetterInput"
                                             type="file">-->
@@ -31,18 +31,18 @@
                                        <i class="fas fa-file-signature px-2"></i>
                                    </a>
                                     </span>
-                    <span *ngIf="list.isPresent" class="px-2" title="Print {{list.name}}">
+                    <span *ngIf="list.isPresent && !list.isApproved" class="px-2" title="Print {{list.name}}">
                                     <button [useExistingCss]="true"
                                             class="btn btn-flat btn-sm btn-outline-info"
                                             ngxPrint printSectionId="{{offerLetterConst.keysEnum(list.name)}}Print">
                                         <i class="fas fa-print"></i>
                                     </button>
                                     </span>
-                    <span *ngIf="list.isPresent" style="color:green" title="Status : Saved">
+                    <span *ngIf="list.isApproved" style="color:green" title="Status : Approved">
                                     <i class="fas fa-check-circle px-2"></i>
                                   </span>
 
-                    <span *ngIf="!list.isPresent" style="color:red" title="Status :Not Saved">
+                    <span *ngIf="!list.isApproved" style="color:red" title="Status :Not Approved">
                                     <i class="fas fa-times-circle px-2"></i>
                                   </span>
 
