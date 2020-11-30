@@ -18,7 +18,7 @@
                                 <tr class="text-white sb-bg-dark">
                                     <th>pick</th>
                                     <th>#</th>
-                                    <th>Document</th>
+                                    <th>Document/Type</th>
                                     <th colspan="2">Upload Status</th>
                                     <th colspan="3">Approved Information</th>
 
@@ -51,7 +51,7 @@
                                     <td>
                                         {{i + 1}}
                                     </td>
-                                    <td>{{cusOfferLetter?.offerLetter?.name}}</td>
+                                    <td>{{cusOfferLetter?.offerLetter?.name}}/{{cusOfferLetter?.offerLetter?.postApprovalDocType |  replace:'_':' '}}</td>
                                     <td>
           <span *ngIf="cusOfferLetter?.path !== null"
                 style="color:limegreen"><i class="fas fa-check-circle"></i></span>
