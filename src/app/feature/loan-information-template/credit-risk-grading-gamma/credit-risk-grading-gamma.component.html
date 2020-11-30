@@ -1,4 +1,3 @@
-<p *ngIf="!fromProfile" ><b>Credit Risk Grading (GAMMA)</b></p>
 <section>
     <nb-accordion class="mb-4">
         <nb-accordion-item>
@@ -7,8 +6,8 @@
             </nb-accordion-item-header>
             <nb-accordion-item-body>
                 <table aria-describedby="Grade details table"
-                       class="table table-bordered text-center table-sm sb-small">
-                    <tr class="text-white sb-bg-dark">
+                       class="table table-bordered text-center">
+                    <tr>
                         <th scope="col">Number</th>
                         <th scope="col">Grading</th>
                         <th scope="col">Short</th>
@@ -72,9 +71,9 @@
     </nb-accordion>
 
     <form [formGroup]="creditRiskGrading">
-        <table class="table table-bordered table-striped text-center sb-small table-sm">
+        <table class="table table-bordered table-striped text-center">
             <thead>
-            <tr class="text-white sb-bg-dark">
+            <tr>
                 <th>SN.</th>
                 <th>Criteria</th>
                 <th>Weight</th>
@@ -142,8 +141,8 @@
             </tbody>
         </table>
     </form>
-    <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+    <!--<div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
         <button (click)="onSubmit()" nbButton type="button">save</button>
-    </div>
+    </div>-->
 </section>
 

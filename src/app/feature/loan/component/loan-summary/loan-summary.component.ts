@@ -242,9 +242,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
 
         // Setting credit risk GAMMA data---
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.crgGamma)) {
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.crgGamma)) {
             this.crgGammaSummary = true;
-            const crgParsedData = JSON.parse(this.loanDataHolder.loanHolder.crgGamma.data);
+            const crgParsedData = JSON.parse(this.loanDataHolder.crgGamma.data);
             this.crgGammaGrade = crgParsedData.grade;
             this.crgGammaScore = ObjectUtil.isEmpty(crgParsedData.totalPoint) ? 0 : crgParsedData.totalPoint;
             if (this.crgGammaGrade === 'Superior' || this.crgGammaGrade === 'Good') {

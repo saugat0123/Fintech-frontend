@@ -11,31 +11,30 @@ export class RiskGradingService {
     constructor(private http: HttpClient) {
     }
 
-    API = (customerType: number): string => {
-        return `v1/${customerType}/crg-questions`;
+    API = (loanConfigId: number): string => {
+        return `v1/${loanConfigId}/crg-questions`;
     }
 
-    saveQuestionList(model: Object, customerType): Observable<Object> {
-        const url = this.API(customerType);
-        console.log(url);
+    saveQuestionList(model: Object, loanConfigId: number): Observable<Object> {
+        const url = this.API(loanConfigId);
         const getUrl = ApiUtils.getRequest(url);
         return this.http.post(getUrl.url, model, {headers: getUrl.header});
     }
 
-    editQuestion(model: CrgQuestion, customerType, questionId): Observable<Object> {
-        const url = `${this.API(customerType)}/${questionId}`;
+    editQuestion(model: CrgQuestion, loanConfigId: number, questionId): Observable<Object> {
+        const url = `${this.API(loanConfigId)}/${questionId}`;
         const getUrl = ApiUtils.getRequest(url);
         return this.http.put(getUrl.url, model, {headers: getUrl.header});
     }
 
-    getAllQuestions(customerType): Observable<Object> {
-        const url = this.API(customerType);
+    getAllQuestions(loanConfigId: number): Observable<Object> {
+        const url = this.API(loanConfigId);
         const getUrl = ApiUtils.getRequest(url);
         return this.http.get(getUrl.url, {headers: getUrl.header});
     }
 
-    deleteQuestion(customerType, questionId): Observable<Object> {
-        const url = `${this.API(customerType)}/${questionId}`;
+    deleteQuestion(loanConfigId: number, questionId): Observable<Object> {
+        const url = `${this.API(loanConfigId)}/${questionId}`;
         const getUrl = ApiUtils.getRequest(url);
         return this.http.delete(getUrl.url, {headers: getUrl.header});
     }
