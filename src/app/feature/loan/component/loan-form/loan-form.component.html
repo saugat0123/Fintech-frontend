@@ -126,7 +126,8 @@
 
                     <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Gamma'">
                         <app-credit-risk-grading-gamma #crgGamma
-                                                       [fromProfile]="false"
+                                                       [fromProfile]="true"
+                                                       [loanConfigId]="id"
                                                        [formData]="loanDocument?.crgGamma"></app-credit-risk-grading-gamma>
                     </ng-template>
 

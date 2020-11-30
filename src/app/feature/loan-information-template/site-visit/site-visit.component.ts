@@ -165,8 +165,18 @@ export class SiteVisitComponent implements OnInit {
             : this.formDataForEdit.businessSiteVisitDetails.dateOfVisit, Validators.required],
         objectiveOfVisit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.objectiveOfVisit, Validators.required],
-        visitedBy: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.visitedBy, Validators.required],
+        staffRepresentativeNameDesignation: [this.formDataForEdit === undefined ? undefined :
+            (this.formDataForEdit.businessSiteVisitDetails === undefined ? undefined
+                : this.formDataForEdit.businessSiteVisitDetails.staffRepresentativeNameDesignation)],
+        staffRepresentativeName: [this.formDataForEdit === undefined ? undefined :
+            (this.formDataForEdit.businessSiteVisitDetails === undefined ? undefined
+                : this.formDataForEdit.businessSiteVisitDetails.staffRepresentativeName)],
+        alternativeStaffRepresentativeNameDesignation: [this.formDataForEdit === undefined ? undefined :
+            (this.formDataForEdit.businessSiteVisitDetails === undefined ? undefined
+                : this.formDataForEdit.businessSiteVisitDetails.alternativeStaffRepresentativeNameDesignation)],
+        alternativeStaffRepresentativeName: [this.formDataForEdit === undefined ? undefined :
+            (this.formDataForEdit.businessSiteVisitDetails === undefined ? undefined
+                : this.formDataForEdit.businessSiteVisitDetails.alternativeStaffRepresentativeName)],
         locationPreview: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.locationPreview],
         mapAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
@@ -453,7 +463,12 @@ export class SiteVisitComponent implements OnInit {
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
                       : this.formDataForEdit.currentAssetsInspectionDetails
-                          .receivablesAndPayables.findingsAndCommentsForCurrentAssetsInspection]
+                          .receivablesAndPayables.findingsAndCommentsForCurrentAssetsInspection],
+          grandTotal:   [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails
+                          .receivablesAndPayables.grandTotal],
         }),
         otherCurrentAssets: this.formBuilder.group({
           receivableAssets: this.formBuilder.array([]),
@@ -513,8 +528,10 @@ export class SiteVisitComponent implements OnInit {
 
   staffsFormGroup(): FormGroup {
     return this.formBuilder.group({
-      name: [undefined, Validators.required],
-      position: [undefined, Validators.required]
+      staffRepresentativeNameDesignation: undefined,
+      staffRepresentativeName: undefined,
+      alternativeStaffRepresentativeNameDesignation: undefined,
+      alternativeStaffRepresentativeName: undefined,
     });
   }
 
@@ -950,8 +967,10 @@ export class SiteVisitComponent implements OnInit {
     currentData.forEach(data => {
       controls.push(
           this.formBuilder.group({
-            name: [data.name],
-            position: [data.position]
+            staffRepresentativeNameDesignation: [data.staffRepresentativeNameDesignation],
+            staffRepresentativeName: [data.staffRepresentativeName],
+            alternativeStaffRepresentativeNameDesignation: [data.alternativeStaffRepresentativeNameDesignation],
+            alternativeStaffRepresentativeName: [data.alternativeStaffRepresentativeName],
           })
       );
     });
@@ -966,8 +985,10 @@ export class SiteVisitComponent implements OnInit {
       currentData.forEach(data => {
         controls.push(
             this.formBuilder.group({
-              name: [data.name],
-              position: [data.position]
+              staffRepresentativeNameDesignation: [data.staffRepresentativeNameDesignation],
+              staffRepresentativeName: [data.staffRepresentativeName],
+              alternativeStaffRepresentativeNameDesignation: [data.alternativeStaffRepresentativeNameDesignation],
+              alternativeStaffRepresentativeName: [data.alternativeStaffRepresentativeName],
             })
         );
       });
@@ -1045,6 +1066,19 @@ export class SiteVisitComponent implements OnInit {
           })
       );
     });
+  }
+
+  calculateGrandTotal() {
+    let grandTotal = 0;
+    grandTotal = this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
+          'receivablesAndPayables', 'threeMonthTotal']).value +
+        this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
+          'receivablesAndPayables', 'sixMonthTotal']).value + this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
+          'receivablesAndPayables', 'oneYearTotal']).value + this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
+          'receivablesAndPayables', 'moreThanOneYearTotal']).value ;
+    this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
+      'receivablesAndPayables', 'grandTotal']).patchValue(grandTotal);
+
   }
 }
 

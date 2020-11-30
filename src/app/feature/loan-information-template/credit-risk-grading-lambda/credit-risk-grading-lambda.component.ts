@@ -218,7 +218,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
 
   calculatePeriodOfEarningOrEmployment(periodValueInYears) {
     if (periodValueInYears >= 5) {
-      this.setValueForCriteria('periodOfEarningOrEmployment', 'Equivalent or More fthan 5 years', 3);
+      this.setValueForCriteria('periodOfEarningOrEmployment', 'Equivalent or More than 5 years', 3);
     } else if (periodValueInYears >= 2 && periodValueInYears < 5) {
       this.setValueForCriteria('periodOfEarningOrEmployment', 'Equivalent to 2 years or less than 5 years', 2.25);
     } else if (periodValueInYears >= 1 && periodValueInYears < 2) {

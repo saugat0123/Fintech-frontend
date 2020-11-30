@@ -35,7 +35,8 @@ export class FinancialComponent implements OnInit {
     @Input() fromProfile: boolean;
     @Output() financialDataEmitter = new EventEmitter();
 
-    isBusinessLoan = true; // SHOULD BE CHANGED
+    isBusinessLoan = true;
+    historicalDataPresent = true;
 
     fiscalYear = [];
     auditorList = [];
@@ -201,6 +202,8 @@ export class FinancialComponent implements OnInit {
             this.financialForm.get('salesProjectionVsAchievement').setValue(initialFormData.salesProjectionVsAchievement);
             this.financialForm.get('netWorthOfFirmOrCompany').setValue(initialFormData.netWorthOfFirmOrCompany);
             this.financialForm.get('taxCompliance').setValue(initialFormData.taxCompliance);
+            this.financialForm.get('historicalDataPresent').setValue(initialFormData.historicalDataPresent);
+            this.historicalDataPresent = initialFormData.historicalDataPresent;
             this.financialForm.patchValue(initialFormData);
         } else {
             if (this.isBusinessLoan) {
@@ -235,6 +238,7 @@ export class FinancialComponent implements OnInit {
             salesProjectionVsAchievement: undefined,
             netWorthOfFirmOrCompany: undefined,
             taxCompliance: undefined,
+            historicalDataPresent: [true],
             // crg lambda fields---
             majorSourceIncomeType: [undefined, [Validators.required]],
             periodOfEarning: [undefined, [Validators.required , Validators.pattern(Pattern.NUMBER_ONLY)]],
@@ -244,6 +248,11 @@ export class FinancialComponent implements OnInit {
             totalNetMonthlyIncome: [undefined],
             emiWithProposal: [undefined , [Validators.required , Validators.pattern(Pattern.NUMBER_ONLY)]],
         });
+    }
+
+    toggleHistory($event: boolean) {
+        this.historicalDataPresent = $event;
+        this.financialForm.get('historicalDataPresent').setValue($event);
     }
 
     // Setting existing data--
@@ -553,7 +562,6 @@ export class FinancialComponent implements OnInit {
         }
         this.calculateAndSetHighestScore();
         this.currentFormData['fiscalYear'] = this.fiscalYear;
-        console.log(this.financialForm.value);
         this.currentFormData['initialForm'] = this.financialForm.value;
         if (this.isBusinessLoan) {
             this.currentFormData['auditorList'] = this.auditorList;
