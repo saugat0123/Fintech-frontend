@@ -149,7 +149,7 @@
 
             </tr>
             <ng-container *ngIf="toggleArray[i].toggled">
-                <tr><td colspan="10"> Loan History</td></tr>
+                <tr><td colspan="10" class="sb-bg-dark text-white"> Loan History</td></tr>
                 <tr class="text-white sb-bg-secondary">
                     <td>Date</td>
                     <td>From User</td>
@@ -159,7 +159,7 @@
                     <td>Action</td>
                     <td colspan="4">Comment</td>
                 </tr>
-                <tr *ngFor="let previous of model?.previousList">
+                <tr *ngFor="let previous of model?.previousList" class="sb-bg-secondary">
                     <td>{{previous?.lastModifiedAt | date}}</td>
                     <td>{{previous?.fromUser?.name}}</td>
                     <td>{{previous?.fromRole?.roleName}}</td>
@@ -170,7 +170,7 @@
                     <td>{{previous?.docAction}}</td>
                     <td colspan="6">{{previous.comment}}</td>
                 </tr>
-                <tr>
+                <tr class="sb-bg-secondary">
                     <td>{{model?.currentStage?.lastModifiedAt | date}}</td>
                     <td>{{model?.currentStage?.fromUser?.name}}</td>
                     <td>{{model?.currentStage?.fromRole?.roleName}}</td>
