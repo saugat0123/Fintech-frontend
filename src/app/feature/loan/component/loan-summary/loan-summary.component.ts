@@ -459,8 +459,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 return 'REJECTED BY:';
             } else if (this.loanDataHolder.documentStatus.toString() === 'CLOSED') {
                 return 'CLOSED BY:';
-            } else {
-                return 'SUPPORTED BY:';
             }
         }
        if (!ObjectUtil.isEmpty(label)) {
