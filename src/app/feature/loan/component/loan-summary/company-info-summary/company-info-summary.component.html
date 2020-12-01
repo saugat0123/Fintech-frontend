@@ -2,9 +2,6 @@
     <div class="col-md-12">
       <table
           class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
-        <tr><b>Client Id</b>
-          <td>{{companyInfo?.id}}</td>
-        </tr>
         <tr>
           <td><b>Nature Of business</b></td>
           <td>{{companyJsonData?.majorProductService}}</td>
@@ -143,33 +140,6 @@
           <td>{{companyJsonData?.relationshipSince | date}}</td>
         </tr>
         <br>
-      <tbody>
-      <tr class="text-white sb-bg-dark"> Additional Information </tr>
-        <tr>
-          <td><b>Type of Registration/License</b></td>
-          <td>{{additionalInfoJsonData?.registrationType}}</td>
-        </tr>
-        <tr>
-          <td><b>Name of license holder</b></td>
-          <td>{{additionalInfoJsonData?.licenseHolderName}}</td>
-        </tr>
-        <tr>
-          <td><b>License Issued Date</b></td>
-          <td>{{additionalInfoJsonData?.licenseIssuedDate| date}}</td>
-        </tr>
-        <tr>
-          <td><b>License Expiry Date</b></td>
-          <td>{{additionalInfoJsonData?.licenseExpiryDate| date}}</td>
-        </tr>
-        <tr>
-          <td><b>License Issue Place</b></td>
-          <td>{{additionalInfoJsonData?.licenseIssuePlace}}</td>
-        </tr>
-        <tr>
-          <td><b>Remarks</b></td>
-          <td>{{additionalInfoJsonData?.additionalInfoRemark}}</td>
-        </tr>
-        </tbody>
       </table>
     </div>
 </div>
