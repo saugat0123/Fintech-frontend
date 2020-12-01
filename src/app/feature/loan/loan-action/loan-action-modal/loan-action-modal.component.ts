@@ -77,7 +77,7 @@ export class LoanActionModalComponent implements OnInit {
       return;
     }
     const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {context: {
-      toUser: this.formAction.get('toUser').value, toRole: this.formAction.get('toRole').value
+      toUser: this.formAction.get('toUser').value, toRole: this.formAction.get('toRole').value, action: this.docAction
     }});
     dialogRef.onClose.subscribe((verified: boolean) => {
       if (verified === true) {
