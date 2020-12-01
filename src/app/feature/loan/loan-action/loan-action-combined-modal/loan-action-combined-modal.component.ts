@@ -118,7 +118,8 @@ export class LoanActionCombinedModalComponent implements OnInit {
       if (this.individualType.form.invalid) {
         return;
       }
-      const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent);
+      const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent,
+          {context: {individualCombine: this.individualType.form.value}});
       dialogRef.onClose.subscribe((verified: boolean) => {
         if (verified === true) {
           this.postCombinedAction(false);
@@ -130,7 +131,9 @@ export class LoanActionCombinedModalComponent implements OnInit {
       if (this.combinedType.form.invalid) {
         return;
       }
-      const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent);
+      const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
+        context: {toUser: this.combinedType.form.get('toUser').value,
+      toRole: this.combinedType.form.get('toRole').value}});
       dialogRef.onClose.subscribe((verified: boolean) => {
         if (verified === true) {
           this.postCombinedAction(true);
@@ -164,7 +167,8 @@ export class LoanActionCombinedModalComponent implements OnInit {
         toRole: [undefined, this.isForward ? [Validators.required] : []],
         docAction: [this.docAction],
         comment: [undefined, Validators.required],
-        documentStatus: [this.documentStatus]
+        documentStatus: [this.documentStatus],
+        loanName: undefined
       }));
     });
     return form;

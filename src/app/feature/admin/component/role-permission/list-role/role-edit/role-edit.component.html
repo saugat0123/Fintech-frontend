@@ -21,11 +21,11 @@
                             <div *ngIf="roleVal.errors.required">Role name is required</div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" *ngIf="showAuthority">
                         <label>Authority Label</label>
                         <input #authVal="ngModel" [(ngModel)]="model.authorityLabel"
                                [ngClass]="{ 'is-invalid': f.submitted && authVal.invalid }" class="form-control"
-                               name="authorityLabel" placeholder="Authority Label" required
+                               name="authorityLabel" placeholder="Authority Label" [required]="authorityRequired"
                                type="text">
                         <div *ngIf="f.submitted && authVal.invalid" class="invalid-feedback">
                             <div *ngIf="authVal.errors.required">Authority label is required</div>
