@@ -451,6 +451,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     loanHandler(index: number, length: number , label: string) {
+        console.log(label);
         if (index === length - 1 && index !== 0) {
             if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
                 return 'APPROVED BY:';
