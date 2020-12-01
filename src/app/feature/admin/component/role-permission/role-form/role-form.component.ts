@@ -19,6 +19,8 @@ export class RoleFormComponent implements OnInit {
     roleAccessList = RoleAccess;
     hideRoleType = false;
     hideBranchAccess = false;
+    authorityRequired = true;
+    showAuthority = true;
 
     constructor(
         private service: RoleService,
@@ -57,14 +59,23 @@ export class RoleFormComponent implements OnInit {
     }
 
     checkRole() {
-        if (this.role.roleType === RoleType.MAKER || this.role.roleType === RoleType.COMMITTEE) {
+        if (this.role.roleType === RoleType.MAKER || this.role.roleType === RoleType.COMMITTEE || this.role.roleType === RoleType.ADMIN) {
             this.hideBranchAccess = true;
+            this.authorityRequired = true;
+            this.showAuthority = true;
             this.role.roleAccess = RoleAccess.OWN;
             if (this.role.roleType === RoleType.COMMITTEE) {
                 this.role.roleAccess = RoleAccess.ALL;
             }
+            if (this.role.roleType === RoleType.ADMIN) {
+                this.role.roleAccess = RoleAccess.ALL;
+                this.authorityRequired = false;
+                this.showAuthority = false;
+            }
         } else {
             this.hideBranchAccess = false;
+            this.authorityRequired = true;
+            this.showAuthority = true;
             this.role.roleAccess = RoleAccess.OWN;
         }
     }

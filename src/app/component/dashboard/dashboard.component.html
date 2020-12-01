@@ -58,7 +58,7 @@
     </div>
 </ng-template>
 
-<div class="row" *ngIf="!roleName">
+<div class="row" *ngIf="!(roleName || hideLoanDashboard)">
     <div class="col-md-11">
         <app-pending-loan></app-pending-loan>
     </div>
