@@ -14,6 +14,7 @@ export class IndividualViewComponent implements OnInit {
   customerType = CustomerType;
 
   @Input() calendarType: CalendarType;
+
   @Input() loanId: any;
 
   constructor() {
