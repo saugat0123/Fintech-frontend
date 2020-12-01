@@ -44,6 +44,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     businessOrPersonal;
     loggedUser: User;
     roleName;
+    hideLoanDashboard = false;
 
     constructor(
         private loanConfigService: LoanConfigService,
@@ -65,6 +66,9 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         const roleType: string = LocalStorageUtil.getStorage().roleType;
         if (roleName !== 'admin') {
             this.roleType = roleType === RoleType.MAKER;
+            if (roleType === RoleType.ADMIN) {
+                this.hideLoanDashboard = true;
+            }
         } else {
             this.roleName = true;
         }
