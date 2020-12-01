@@ -9,7 +9,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 })
 export class MarketScenarioComponent implements OnInit {
   @Input() marketScenario;
-  @Input() switchLanguageTYpe;
+  @Input() switchLanguageType;
   marketScenarioForm: FormGroup;
   submitted = false;
 

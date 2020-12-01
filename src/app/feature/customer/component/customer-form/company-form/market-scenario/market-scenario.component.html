@@ -1,11 +1,13 @@
 <div>
-  <h5>14.Market Scenario</h5>
+  <h5 *ngIf="switchLanguageType==='ENG'">14.Market Scenario</h5>
+  <h5 *ngIf="switchLanguageType==='NEP'">14. बजार परिदृश्य</h5>
 </div>
 <div [formGroup]="marketScenarioForm">
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
-        <label for="marketDemandService"><strong>Market demand of product/service</strong></label> <br>
+        <label *ngIf="switchLanguageType==='ENG'" for="marketDemandService"><strong>Market demand of product/service</strong></label> <br>
+        <label *ngIf="switchLanguageType==='NEP'" for="marketDemandService"><strong>उत्पादन / सेवाको बजार माग</strong></label> <br>
         <nb-radio-group class="close d-inline-flex float-left" formControlName="marketDemandService" name="marketDemandService" id="marketDemandService">
           <nb-radio value="lowDemand">Low Demand</nb-radio>
           <nb-radio value="moderateDemand">Moderate Demand</nb-radio>
@@ -21,15 +23,16 @@
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <label for="keySupplier"><strong>Key Suppliers</strong></label>
-        <textarea *ngIf="switchLanguageTYpe==='ENG'" rows="5"
+        <label *ngIf="switchLanguageType==='ENG'" for="keySupplier"><strong>Key Suppliers</strong></label>
+        <label *ngIf="switchLanguageType==='NEP'" for="keySupplier"><strong>कुञ्जी आपूर्तिकर्ता</strong></label>
+        <textarea *ngIf="switchLanguageType==='ENG'" rows="5"
             [ngClass]="{ 'is-invalid':submitted && form.keySupplier?.errors }"
             class="form-control rounded"
             formControlName="keySupplier"
             id="keySupplier"
             placeholder="Key Supplier"
             type="text"></textarea>
-        <textarea *ngIf="switchLanguageTYpe==='NEP'" rows="5"
+        <textarea *ngIf="switchLanguageType==='NEP'" rows="5"
                   [ngClass]="{ 'is-invalid':submitted && form.keySupplier?.errors }"
                   class="form-control rounded nepaliFont"
                   formControlName="keySupplier"
@@ -46,15 +49,16 @@
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <label for="keySupplier"><strong>Key Buyers</strong></label>
-        <textarea *ngIf="switchLanguageTYpe==='ENG'" rows="5"
+        <label *ngIf="switchLanguageType==='ENG'" for="keySupplier"><strong>Key Buyers</strong></label>
+        <label *ngIf="switchLanguageType==='NEP'" for="keySupplier"><strong>कुञ्जी खरीददारहरू</strong></label>
+        <textarea *ngIf="switchLanguageType==='ENG'" rows="5"
             [ngClass]="{ 'is-invalid':submitted && form.KeyBuyers?.errors }"
             class="form-control rounded"
             formControlName="KeyBuyers"
             id="KeyBuyers"
             placeholder="Key Buyers"
             type="text"></textarea>
-        <textarea *ngIf="switchLanguageTYpe==='NEP'" rows="5"
+        <textarea *ngIf="switchLanguageType==='NEP'" rows="5"
                   [ngClass]="{ 'is-invalid':submitted && form.KeyBuyers?.errors }"
                   class="form-control rounded nepaliFont"
                   formControlName="KeyBuyers"
@@ -74,8 +78,9 @@
 
     <div class="col-md-6">
       <div class="form-group">
-        <label for="competitorsOverview"><strong>Competitors Overview</strong></label>
-        <textarea *ngIf="switchLanguageTYpe==='ENG'"
+        <label *ngIf="switchLanguageType==='ENG'" for="competitorsOverview"><strong>Competitors Overview</strong></label>
+        <label *ngIf="switchLanguageType==='NEP'" for="competitorsOverview"><strong>प्रतिस्पर्धी अवलोकन</strong></label>
+        <textarea *ngIf="switchLanguageType==='ENG'"
             rows="5"
             [ngClass]="{ 'is-invalid':submitted && form.competitorsOverview?.errors }"
             class="form-control rounded"
@@ -83,7 +88,7 @@
             id="competitorsOverview"
             placeholder="Competitors Overview"
             type="text"></textarea>
-        <textarea *ngIf="switchLanguageTYpe==='ENG'"
+        <textarea *ngIf="switchLanguageType==='NEP'"
                 rows="5"
                 [ngClass]="{ 'is-invalid':submitted && form.competitorsOverview?.errors }"
                 class="form-control rounded nepaliFont"
@@ -102,8 +107,9 @@
 
     <div class="col-md-6">
       <div class="form-group">
-        <label for="BusinessIndustryOutlook"><strong>Business/Industry Outlook</strong></label>
-        <textarea *ngIf="switchLanguageTYpe==='ENG'"
+        <label *ngIf="switchLanguageType==='ENG'" for="BusinessIndustryOutlook"><strong>Business/Industry Outlook</strong></label>
+        <label *ngIf="switchLanguageType==='NEP'" for="BusinessIndustryOutlook"><strong>व्यवसाय / उद्योग आउटलुक</strong></label>
+        <textarea *ngIf="switchLanguageType==='ENG'"
             rows="5"
             [ngClass]="{ 'is-invalid':submitted && form.BusinessIndustryOutlook?.errors }"
             class="form-control rounded"
@@ -111,7 +117,7 @@
             id="BusinessIndustryOutlook"
             placeholder="Business/Industry Outlook"
             type="text"></textarea>
-        <textarea *ngIf="switchLanguageTYpe==='NEP'"
+        <textarea *ngIf="switchLanguageType==='NEP'"
                 rows="5"
                 [ngClass]="{ 'is-invalid':submitted && form.BusinessIndustryOutlook?.errors }"
                 class="form-control rounded nepaliFont"
@@ -129,8 +135,9 @@
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <label for="BusinessIndustryOutlook"><strong>Marketing Strategies</strong></label>
-        <textarea *ngIf="switchLanguageTYpe==='ENG'"
+        <label *ngIf="switchLanguageType==='ENG'" for="BusinessIndustryOutlook"><strong>Marketing Strategies</strong></label>
+        <label *ngIf="switchLanguageType==='NEP'" for="BusinessIndustryOutlook"><strong>बजार रणनीतिहरू</strong></label>
+        <textarea *ngIf="switchLanguageType==='ENG'"
             rows="5"
             [ngClass]="{ 'is-invalid':submitted && form.marketingStrategies?.errors }"
             class="form-control rounded"
@@ -138,7 +145,7 @@
             id="marketingStrategies"
             placeholder="Marketing Strategies"
             type="text"></textarea>
-        <textarea *ngIf="switchLanguageTYpe==='NEP'"
+        <textarea *ngIf="switchLanguageType==='NEP'"
                 rows="5"
                 [ngClass]="{ 'is-invalid':submitted && form.marketingStrategies?.errors }"
                 class="form-control rounded nepaliFont"
@@ -156,8 +163,9 @@
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <label for="technicalAspect"><strong>Technical Aspect </strong></label>
-        <textarea *ngIf="switchLanguageTYpe==='ENG'"
+        <label *ngIf="switchLanguageType==='ENG'" for="technicalAspect"><strong>Technical Aspect </strong></label>
+        <label *ngIf="switchLanguageType==='NEP'" for="technicalAspect"><strong>प्राविधिक पक्ष</strong></label>
+        <textarea *ngIf="switchLanguageType==='ENG'"
             rows="5"
             [ngClass]="{ 'is-invalid':submitted && form.technicalAspect?.errors }"
             class="form-control rounded"
@@ -165,7 +173,7 @@
             id="technicalAspect"
             placeholder="Technical Aspect "
             type="text"></textarea>
-        <textarea *ngIf="switchLanguageTYpe==='NEP'"
+        <textarea *ngIf="switchLanguageType==='NEP'"
                 rows="5"
                 [ngClass]="{ 'is-invalid':submitted && form.technicalAspect?.errors }"
                 class="form-control rounded nepaliFont"

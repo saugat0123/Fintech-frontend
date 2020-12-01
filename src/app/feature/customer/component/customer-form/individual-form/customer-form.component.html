@@ -49,7 +49,8 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="customerNameForm"><strong>Customer Client Type</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="customerNameForm"><strong>Customer Client Type</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="customerNameForm"><strong>ग्राहकको प्रकार</strong></label>
                             <select
                                     class="custom-select" formControlName="clientType">
                                 <option [ngValue]="null">Select Client Type</option>
@@ -60,7 +61,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="customerNameForm"><strong>SubSector</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="customerNameForm"><strong>SubSector</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="customerNameForm"><strong>उप क्षेत्र</strong></label>
                             <select
                                     class="custom-select" formControlName="subsectorDetail">
                                 <option [ngValue]="null">Select Subsector</option>
@@ -72,7 +74,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="customerNameForm"><strong>Customer Name</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="customerNameForm"><strong>Customer Name</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="customerNameForm"><strong>ग्राहकको नाम</strong></label>
                             <input  *ngIf="switchLanguageType==='ENG'"
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerName.errors }"
                                     class="form-control form-control-sm-error rounded" formControlName="customerName"
@@ -94,7 +97,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="customerCode"><strong>Customer ID</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="customerCode"><strong>Customer ID</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="customerCode"><strong>ग्राहक आईडी</strong></label>
                             <input  *ngIf="switchLanguageType==='ENG'"
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerCode.errors }"
                                     class="form-control form-control-sm-error rounded" formControlName="customerCode"
@@ -118,7 +122,8 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="email"><strong>Email</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="email"><strong>Email</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="email"><strong>ईमेल</strong></label>
                             <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.email.errors }"
                                    class="form-control" formControlName="email" id="email" name="email"
                                    placeholder="eg. xyz@abc.com"
@@ -135,7 +140,8 @@
                     <!-- Start Row-->
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="dob"><strong>Date of birth</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="dob"><strong>Date of birth</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="dob"><strong>जन्म मिति</strong></label>
                             <input [nbDatepicker]="dob" *ngIf="switchLanguageType === 'ENG'"
                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.dob.errors }"
                                    class="form-control date-pick" formControlName="dob"
@@ -175,7 +181,8 @@
                     </div> -->
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="contactNumber"><strong>Mobile Number</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="contactNumber"><strong>Mobile Number</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="contactNumber"><strong>मोबाइल नम्बर</strong></label>
                             <input  *ngIf="switchLanguageType==='ENG'"
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.contactNumber.errors }"
                                     class="form-control" formControlName="contactNumber" id="contactNumber"
@@ -199,7 +206,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="contactNumber"><strong>LandLine Number</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="contactNumber"><strong>LandLine Number</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="contactNumber"><strong>ल्यान्डलाइन नम्बर</strong></label>
                             <input *ngIf="switchLanguageType==='ENG'"
                                 class="form-control" formControlName="landLineNumber" id="landLineNumber"
                                 name="landLineNumber"
@@ -215,7 +223,8 @@
                     <!-- END ROW -->
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="wardNumber"><strong>Citizenship Number</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="wardNumber"><strong>Citizenship Number</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="wardNumber"><strong>नागरिकता नम्बर</strong></label>
                             <input  *ngIf="switchLanguageType==='ENG'"
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipNumber.errors }"
                                     class="form-control" formControlName="citizenshipNumber" id="citizenshipNumber"
@@ -236,8 +245,8 @@
                     <!-- START ROW -->
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="citizenshipIssuedPlace"><strong>Citizenship Issued
-                                District</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="citizenshipIssuedPlace"><strong>Citizenship Issued District</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="citizenshipIssuedPlace"><strong>नागरिकता जारी गरेको जिल्ला</strong></label>
                             <ng-select [multiple]="false"
                                        formControlName="citizenshipIssuedPlace"
                                        id="citizenshipIssuedPlace"
@@ -257,7 +266,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="customerCitizenshipIssuedDate"><strong>Issued Date</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="customerCitizenshipIssuedDate"><strong>Issued Date</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="customerCitizenshipIssuedDate"><strong>जारी मिति</strong></label>
                             <input *ngIf="switchLanguageType === 'ENG'" [nbDatepicker]="customerCitizenshipIssuedDate"
                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipIssuedDate.errors }"
                                    class="form-control" formControlName="citizenshipIssuedDate"
@@ -281,7 +291,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="otherOccupation"><strong>Occupation </strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="otherOccupation"><strong>Occupation </strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="otherOccupation"><strong>पेशा </strong></label>
                             <nb-select [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.occupation.errors }"
                                        formControlName="occupation"
                                        placeholder="Occupation" multiple fullWidth
@@ -306,9 +317,12 @@
                             </div>
                             <div *ngIf="tempFlag.showOtherOccupation"
                                  class="col-md-12 mt-3 form-group">
-                                <label>Other occupation(s)</label>
+                                <label *ngIf="switchLanguageType==='ENG'">Other occupation(s)</label>
+                                <label *ngIf="switchLanguageType==='NEP'">अन्य पेशा</label>
                                 <input class="form-control" formControlName="otherOccupation" id="otherOccupation"
                                        name="otherOccupation" placeholder="Other occupation" type="text">
+                                <input class="form-control nepaliFont" formControlName="otherOccupation"
+                                       id="otherOccupationInNepali" name="otherOccupation" placeholder="अन्य पेशा" type="text">
                                 <div *ngIf="submitted && basicInfoControls.otherOccupation.errors"
                                      class="help-block small">
                   <span *ngIf="basicInfoControls.otherOccupation.errors.required">
@@ -322,7 +336,8 @@
                     <!-- START ROW -->
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label><strong>Income Source</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'"><strong>Income Source</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'"><strong>आय स्रोत</strong></label>
                             <nb-select
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.incomeSource.errors }"
                                     formControlName="incomeSource" id="incomeSource" name="incomeSource"
@@ -343,9 +358,12 @@
                             </div>
                             <div *ngIf="tempFlag.showOtherIncomeSource"
                                  class="col-md-12 mt-3 form-group">
-                                <label>Other Income Source</label>
+                                <label *ngIf="switchLanguageType==='ENG'">Other Income Source</label>
+                                <label *ngIf="switchLanguageType==='NEP'">अन्य आय स्रोत</label>
                                 <input class="form-control" formControlName="otherIncome" id="otherIncome"
                                        name="otherIncome" placeholder="Other Income source" type="text">
+                                <input class="form-control nepaliFont" formControlName="otherIncome" id="otherIncomeInNepali"
+                                       name="otherIncome" placeholder="अन्य आय स्रोत" type="text">
                                 <div *ngIf="submitted && basicInfoControls.otherIncome.errors"
                                      class="invalid-feedback small">
                                     <div *ngIf="basicInfoControls.otherIncome.errors.required">Other income Source is
@@ -358,11 +376,13 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h6>Permanent Address</h6>
+                        <h6 *ngIf="switchLanguageType==='ENG'">Permanent Address</h6>
+                        <h6 *ngIf="switchLanguageType==='NEP'">स्थाई ठेगाना</h6>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="province"><strong>Province</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="province"><strong>Province</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="province"><strong>प्रदेश</strong></label>
                             <select (change)="getDistricts(this.basicInfo.get('province').value)"
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.province.errors }"
                                     class="custom-select"
@@ -382,7 +402,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="district"><strong>District</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="district"><strong>District</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="district"><strong>जिल्ला</strong></label>
                             <select (change)="getMunicipalities(this.basicInfo.get('district').value)"
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.district.errors }"
                                     class="custom-select"
@@ -404,7 +425,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="municipality"><strong>Municipalities or VDC</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="municipality"><strong>Municipalities or VDC</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="municipality"><strong>नगरपालिका वा गा.वि.स</strong></label>
                             <select
                                 [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.municipalities.errors }"
                                 class="custom-select" formControlName="municipalities"
@@ -428,7 +450,8 @@
                     <!-- START ROW -->
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="street"><strong>Street</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="street"><strong>Street</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="street"><strong>बाटोको नाम</strong></label>
                             <input  *ngIf="switchLanguageType==='ENG'"
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.street.errors }"
                                    class="form-control" formControlName="street" id="street"
@@ -445,7 +468,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="wardNumber"><strong>Ward Number</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="wardNumber"><strong>Ward Number</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="wardNumber"><strong>वार्ड नम्बर</strong></label>
                             <input *ngIf="switchLanguageType==='ENG'"
                                 [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.wardNumber.errors }"
                                 class="form-control" formControlName="wardNumber" id="wardNumber"
@@ -473,11 +497,13 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h6>Temporary Address</h6>
+                        <h6 *ngIf="switchLanguageType==='ENG'">Temporary Address</h6>
+                        <h6 *ngIf="switchLanguageType==='NEP'">अस्थायी ठेगाना</h6>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="temporaryProvince"><strong>Province</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="temporaryProvince"><strong>Province</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="temporaryProvince"><strong>प्रदेश</strong></label>
                             <select (change)="getTemporaryDistricts(this.basicInfo.get('temporaryProvince').value)"
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.temporaryProvince.errors }"
                                     class="custom-select"
@@ -497,7 +523,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="temporaryDistrict"><strong>District</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="temporaryDistrict"><strong>District</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="temporaryDistrict"><strong>जिल्ला</strong></label>
                             <select (change)="getTemporaryMunicipalities(this.basicInfo.get('temporaryDistrict').value)"
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.temporaryDistrict.errors }"
                                     class="custom-select"
@@ -519,7 +546,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="temporaryMunicipalities"><strong>Municipalities or VDC</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="temporaryMunicipalities"><strong>Municipalities or VDC</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="temporaryMunicipalities"><strong>नगरपालिका वा गा.वि.स</strong></label>
                             <select
                                 [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.temporaryMunicipalities.errors }"
                                 class="custom-select" formControlName="temporaryMunicipalities"
@@ -543,7 +571,8 @@
                     <!-- START ROW -->
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="temporaryStreet"><strong>Street</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="temporaryStreet"><strong>Street</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="temporaryStreet"><strong>बाटोको नाम</strong></label>
                             <input *ngIf="switchLanguageType==='ENG'"
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.temporaryStreet.errors }"
                                    class="form-control" formControlName="temporaryStreet" id="temporaryStreet"
@@ -560,7 +589,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="temporaryWardNumber"><strong>Ward Number</strong></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="temporaryWardNumber"><strong>Ward Number</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="temporaryWardNumber"><strong>वार्ड नम्बर</strong></label>
                             <input  *ngIf="switchLanguageType==='ENG'"
                                 [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.temporaryWardNumber.errors }"
                                 class="form-control" formControlName="temporaryWardNumber" id="temporaryWardNumber"
@@ -588,11 +618,16 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="customerRelation{{i}}"><strong>Relation</strong></label>
+                                        <label *ngIf="switchLanguageType==='ENG'" for="customerRelation{{i}}"><strong>Relation</strong></label>
+                                        <label *ngIf="switchLanguageType==='NEP'" for="customerRelationInNepali{{i}}"><strong>सम्बन्ध</strong></label>
                                         <input class="form-control" formControlName="customerRelation"
                                                id="customerRelation{{i}}"
                                                [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelation').errors }"
                                                placeholder="Relation" type="text">
+                                        <input class="form-control nepaliFont" formControlName="customerRelation"
+                                               id="customerRelationInNepali{{i}}"
+                                               [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelation').errors }"
+                                               placeholder="सम्बन्ध" type="text">
                                         <div *ngIf="submitted && relatives.get('customerRelation').errors"
                                              class="invalid-feedback">
                                             <div *ngIf="relatives.get('customerRelation').errors?.required">Relation
@@ -603,7 +638,8 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="relationName{{i}}"><strong>Name</strong></label>
+                                        <label *ngIf="switchLanguageType==='ENG'" for="relationName{{i}}"><strong>Name</strong></label>
+                                        <label *ngIf="switchLanguageType==='NEP'" for="relationName{{i}}"><strong>नाम</strong></label>
                                         <input *ngIf="switchLanguageType==='ENG'"
                                                 class="form-control" formControlName="customerRelativeName"
                                                [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelativeName').errors }"
@@ -621,7 +657,8 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="citizenship{{i}}"><strong>CitizenshipNumber</strong></label>
+                                        <label *ngIf="switchLanguageType==='ENG'" for="citizenship{{i}}"><strong>CitizenshipNumber</strong></label>
+                                        <label *ngIf="switchLanguageType==='NEP'" for="citizenship{{i}}"><strong>नागरिकता नम्बर</strong></label>
                                         <input *ngIf="switchLanguageType==='ENG'" class="form-control" formControlName="citizenshipNumber"
                                                id="citizenship{{i}}" placeholder="Citizenship Number" type="text">
                                         <input *ngIf="switchLanguageType==='NEP'" class="form-control nepaliFont" formControlName="citizenshipNumber"
@@ -630,7 +667,8 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="issuedLocation{{i}}"><strong>Issued District</strong></label>
+                                        <label *ngIf="switchLanguageType==='ENG'" for="issuedLocation{{i}}"><strong>Issued District</strong></label>
+                                        <label *ngIf="switchLanguageType==='NEP'" for="issuedLocation{{i}}"><strong>जारी गरिएको जिल्ला</strong></label>
                                         <ng-select [multiple]="false"
                                                    formControlName="citizenshipIssuedPlace"
                                                    id="issuedLocation{{i}}"
@@ -643,7 +681,8 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label><strong>Issued Date</strong></label>
+                                        <label *ngIf="switchLanguageType==='ENG'"><strong>Issued Date</strong></label>
+                                        <label *ngIf="switchLanguageType==='NEP'"><strong></strong>जारी मिति</label>
                                         <input *ngIf="switchLanguageType === 'ENG'" nbInput
                                                [nbDatepicker]="relationCitizenIssueDate"
                                                class="form-control"
@@ -678,7 +717,8 @@
                            type="button" value="Add More"/>
                 </div>
                 <div>
-                    <label><strong>Introduction</strong></label>
+                    <label *ngIf="switchLanguageType==='ENG'"><strong>Introduction</strong></label>
+                    <label *ngIf="switchLanguageType==='NEP'"><strong>परिचय</strong></label>
                     <textarea *ngIf="switchLanguageType==='ENG'"
                             id="introduction" formControlName="introduction" name="introduction" type="text"
                               class="form-control" placeholder="introduction"
@@ -697,7 +737,8 @@
                 <div>
                     <nb-card class="card-height">
                         <nb-card-header>
-                            <label for="bankingRelationship"><h6>Banking Relationship</h6></label>
+                            <label *ngIf="switchLanguageType==='ENG'" for="bankingRelationship"><h6>Banking Relationship</h6></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="bankingRelationship"><h6>बैंकिंग सम्बन्ध</h6></label>
                         </nb-card-header>
                         <nb-card-body>
                             <div class="form-group">
@@ -721,7 +762,8 @@
                     </nb-card>
                 </div>
                 <div class="col-4">
-                    <label><strong>Net worth</strong></label>
+                    <label *ngIf="switchLanguageType==='ENG'"><strong>Net worth</strong></label>
+                    <label *ngIf="switchLanguageType==='NEP'"><strong>कुल मूल्य</strong></label>
                     <input id="netWorth" formControlName="netWorth" name="netWorth" type="text"
                            class="form-control" placeholder="Net Worth Amount"
                            [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.netWorth.errors }"/>
