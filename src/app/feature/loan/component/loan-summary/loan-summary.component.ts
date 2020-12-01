@@ -449,9 +449,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.previewOfferLetterDocument(res.detail, res.detail);
         }, error => this.toastService.show(new Alert(AlertType.ERROR, error.error.message)));
     }
-    p(a){
-        console.log(a);
-    }
 
     loanHandler(index: number, length: number , label: string) {
         if (index === length - 1 && index !== 0) {
