@@ -31,6 +31,7 @@ export class CustomerFormComponent implements OnInit {
     @Input() bankingRelationshipInput: any;
     @Input() subSectorDetailCodeInput: any;
     calendarType = 'AD';
+    switchLanguageType = 'ENG';
     @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     basicInfo: FormGroup;
@@ -170,7 +171,8 @@ export class CustomerFormComponent implements OnInit {
             (response: any) => {
                 this.temporaryMunicipalitiesList = response.detail;
                 this.temporaryMunicipalitiesList.forEach(municipality => {
-                    if (!ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) && municipality.id === this.customer.temporaryMunicipalities.id) {
+                    if (!ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) &&
+                        municipality.id === this.customer.temporaryMunicipalities.id) {
                         this.basicInfo.controls.temporaryMunicipalities.setValue(municipality);
                     }
                 });

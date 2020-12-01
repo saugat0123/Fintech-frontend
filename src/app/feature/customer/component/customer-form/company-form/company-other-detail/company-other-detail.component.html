@@ -22,8 +22,11 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="taxClearanceRemark"><strong>Tax Clearance/Paid Remark</strong></label>
-        <input id="taxClearanceRemark" formControlName="taxClearanceRemark" name="taxClearanceRemark" type="text"
+        <input *ngIf="switchLanguageTYpe==='ENG'"
+                id="taxClearanceRemark" formControlName="taxClearanceRemark" name="taxClearanceRemark" type="text"
                   class="form-control" placeholder="remark"/>
+        <input *ngIf="switchLanguageTYpe==='NEP'" id="taxClearanceRemarkInNepali" formControlName="taxClearanceRemark" name="taxClearanceRemark" type="text"
+               class="form-control nepaliFont" placeholder="टिप्पणी"/>
       </div>
     </div>
     <div class="col-md-2">
@@ -44,8 +47,10 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="negativeListRemark"><strong>Negative List Remark</strong></label>
-        <input id="negativeListRemark" formControlName="negativeListRemark" name="negativeListRemark" type="text"
+        <input *ngIf="switchLanguageTYpe==='ENG'" id="negativeListRemark" formControlName="negativeListRemark" name="negativeListRemark" type="text"
                class="form-control" placeholder="remark"/>
+        <input *ngIf="switchLanguageTYpe==='NEP'" id="negativeListRemarkInNepali" formControlName="negativeListRemark" name="negativeListRemark" type="text"
+               class="form-control" placeholder="टिप्पणी"/>
       </div>
     </div>
     <div class="col-md-4">

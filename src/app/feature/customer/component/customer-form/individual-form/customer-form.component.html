@@ -10,10 +10,14 @@
         <h4 class="modal-title pull-left text-white">Add Customer</h4>
     </nb-card-header>
     <nb-card-body>
-        <nb-radio-group [(ngModel)]="calendarType" class="close d-inline-flex"
-                        name="basicInfoCalendarType">
-            <nb-radio value="AD">AD</nb-radio>
-            <nb-radio value="BS">BS</nb-radio>
+<!--        <nb-radio-group [(ngModel)]="calendarType" class="close d-inline-flex"-->
+<!--                        name="basicInfoCalendarType">-->
+<!--            <nb-radio value="AD">AD</nb-radio>-->
+<!--            <nb-radio value="BS">BS</nb-radio>-->
+<!--        </nb-radio-group>-->
+        <nb-radio-group [(ngModel)]="switchLanguageType" class="close d-inline-flex" name="switchLanguage">
+            <nb-radio value="ENG">English</nb-radio>
+            <nb-radio value="NEP">Nepali</nb-radio>
         </nb-radio-group>
         <!--    <button (click)="showHideNep()">NepDate</button>-->
         <div class="form-group">
@@ -69,13 +73,17 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="customerNameForm"><strong>Customer Name</strong></label>
-                            <input
+                            <input  *ngIf="switchLanguageType==='ENG'"
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerName.errors }"
                                     class="form-control form-control-sm-error rounded" formControlName="customerName"
                                     id="customerNameForm"
                                     name="customerName"
                                     placeholder="Applicant's Full Name"
                                     type="text">
+                            <input *ngIf="switchLanguageType === 'NEP'"
+                                   [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerName.errors }"
+                                   class="form-control form-control-sm-error rounded nepaliFont" formControlName="customerName"
+                                   name="customerName" type="text" placeholder="ग्राहकको नाम">
                             <div *ngIf="(submitted) && basicInfoControls.customerName.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.customerName.errors.required">Customer name is
@@ -87,13 +95,18 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="customerCode"><strong>Customer ID</strong></label>
-                            <input
+                            <input  *ngIf="switchLanguageType==='ENG'"
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerCode.errors }"
                                     class="form-control form-control-sm-error rounded" formControlName="customerCode"
                                     id="customerCode"
                                     name="customerCode"
                                     placeholder="Customer ID"
                                     type="text">
+                            <input  *ngIf="switchLanguageType==='NEP'"
+                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerCode.errors }"
+                                    class="form-control form-control-sm-error rounded nepaliFont" formControlName="customerCode"
+                                    name="customerCode"
+                                    type="text" placeholder="ग्राहकको आईडी">
                             <div *ngIf="(submitted) && basicInfoControls.customerCode.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.customerCode.errors.required">Customer ID
@@ -123,15 +136,15 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="dob"><strong>Date of birth</strong></label>
-                            <input [nbDatepicker]="dob" *ngIf="calendarType === 'AD'"
+                            <input [nbDatepicker]="dob" *ngIf="switchLanguageType === 'ENG'"
                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.dob.errors }"
                                    class="form-control date-pick" formControlName="dob"
                                    id="dob"
                                    name="dob"
                                    placeholder="Customer Date of birth"
                                    readonly>
-                            <input *ngIf="calendarType === 'BS'" formControlName="dob" hidden>
-                            <app-calendar *ngIf="calendarType === 'BS'" [ePreDate]="basicInfo.get('dob').value"
+                            <input *ngIf="switchLanguageType === 'NEP'" formControlName="dob" hidden>
+                            <app-calendar *ngIf="switchLanguageType === 'NEP'" [ePreDate]="basicInfo.get('dob').value"
                                           (messageToEmit)="basicInfo.get('dob').patchValue($event?.eDate)"></app-calendar>
                             <nb-datepicker #dob></nb-datepicker>
                             <div *ngIf="submitted && basicInfoControls.dob.errors"
@@ -163,12 +176,16 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="contactNumber"><strong>Mobile Number</strong></label>
-                            <input
+                            <input  *ngIf="switchLanguageType==='ENG'"
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.contactNumber.errors }"
                                     class="form-control" formControlName="contactNumber" id="contactNumber"
                                     name="contactNumber"
                                     placeholder="Mobile number"
                                     type="number">
+                            <input  *ngIf="switchLanguageType==='NEP'"
+                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.contactNumber.errors }"
+                                    class="form-control nepaliFont" formControlName="contactNumber"
+                                    name="contactNumber" type="text" placeholder="मोबाइल नम्बर">
                             <div *ngIf="(submitted) && basicInfoControls.contactNumber.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.contactNumber.errors.required">
@@ -183,22 +200,31 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="contactNumber"><strong>LandLine Number</strong></label>
-                            <input
+                            <input *ngIf="switchLanguageType==='ENG'"
                                 class="form-control" formControlName="landLineNumber" id="landLineNumber"
                                 name="landLineNumber"
                                 placeholder="LandLine number"
                                 type="text">
+                        </div>
+                        <div class="form-group">
+                            <input  *ngIf="switchLanguageType==='NEP'"
+                                    class="form-control nepaliFont" formControlName="landLineNumber" id="landLineNumberInNep"
+                                    name="landLineNumber" type="text" placeholder="ल्यान्डलाइन नम्बर">
                         </div>
                     </div>
                     <!-- END ROW -->
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="wardNumber"><strong>Citizenship Number</strong></label>
-                            <input
+                            <input  *ngIf="switchLanguageType==='ENG'"
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipNumber.errors }"
                                     class="form-control" formControlName="citizenshipNumber" id="citizenshipNumber"
                                     name="citizenshipNumber" placeholder="citizenship Number"
                                     type="text">
+                            <input  *ngIf="switchLanguageType==='NEP'"
+                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipNumber.errors }"
+                                    class="form-control nepaliFont" formControlName="citizenshipNumber" name="citizenshipNumber"
+                                    type="text" placeholder="नागरिकता नम्बर">
                             <div *ngIf="(submitted) && basicInfoControls.citizenshipNumber.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.citizenshipNumber.errors.required">
@@ -232,16 +258,16 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="customerCitizenshipIssuedDate"><strong>Issued Date</strong></label>
-                            <input *ngIf="calendarType === 'AD'" [nbDatepicker]="customerCitizenshipIssuedDate"
+                            <input *ngIf="switchLanguageType === 'ENG'" [nbDatepicker]="customerCitizenshipIssuedDate"
                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipIssuedDate.errors }"
                                    class="form-control" formControlName="citizenshipIssuedDate"
                                    id="customerCitizenshipIssuedDate"
                                    name="customerCitizenshipIssuedDate"
                                    >
-                            <input *ngIf="calendarType === 'BS'" formControlName="citizenshipIssuedDate" hidden>
+                            <input *ngIf="switchLanguageType === 'NEP'" formControlName="citizenshipIssuedDate" hidden>
 
                             <app-calendar [ePreDate]="basicInfo.get('citizenshipIssuedDate')?.value"
-                                          *ngIf="calendarType === 'BS'"
+                                          *ngIf="switchLanguageType === 'NEP'"
                                           (messageToEmit)="basicInfo.get('citizenshipIssuedDate').patchValue($event?.eDate)"></app-calendar>
                             <nb-datepicker #customerCitizenshipIssuedDate></nb-datepicker>
                             <div *ngIf="submitted && basicInfoControls.citizenshipIssuedDate.errors"
@@ -403,10 +429,15 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="street"><strong>Street</strong></label>
-                            <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.street.errors }"
+                            <input  *ngIf="switchLanguageType==='ENG'"
+                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.street.errors }"
                                    class="form-control" formControlName="street" id="street"
                                    name="street" placeholder="Street Name"
                                    type="text">
+                            <input  *ngIf="switchLanguageType==='NEP'"
+                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.street.errors }"
+                                    class="form-control nepaliFont" formControlName="street" name="street"
+                                    type="text" placeholder="बाटोको नाम">
                             <div *ngIf="(submitted) && basicInfoControls.street.invalid" class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.street.errors.required">Street is required</div>
                             </div>
@@ -415,11 +446,16 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="wardNumber"><strong>Ward Number</strong></label>
-                            <input
+                            <input *ngIf="switchLanguageType==='ENG'"
                                 [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.wardNumber.errors }"
                                 class="form-control" formControlName="wardNumber" id="wardNumber"
                                 name="wardNumber" placeholder="Ward Number"
                                 type="text">
+                            <input *ngIf="switchLanguageType==='NEP'"
+                                   [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.wardNumber.errors }"
+                                   class="form-control nepaliFont" formControlName="wardNumber"
+                                   name="wardNumber"
+                                   type="text" placeholder="वार्ड नम्बर">
                             <div *ngIf="(submitted) && basicInfoControls.wardNumber.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.wardNumber.errors.required">
@@ -508,10 +544,15 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="temporaryStreet"><strong>Street</strong></label>
-                            <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.temporaryStreet.errors }"
+                            <input *ngIf="switchLanguageType==='ENG'"
+                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.temporaryStreet.errors }"
                                    class="form-control" formControlName="temporaryStreet" id="temporaryStreet"
                                    name="temporaryStreet" placeholder="Street Name"
                                    type="text">
+                            <input *ngIf="switchLanguageType==='NEP'"
+                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.temporaryStreet.errors }"
+                                   class="form-control nepaliFont" formControlName="temporaryStreet"
+                                   id="temporaryStreetInNepali" name="temporaryStreet" type="text" placeholder="बाटोको नाम">
                             <div *ngIf="(submitted) && basicInfoControls.temporaryStreet.invalid" class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.temporaryStreet.errors.required">Street is required</div>
                             </div>
@@ -520,11 +561,15 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="temporaryWardNumber"><strong>Ward Number</strong></label>
-                            <input
+                            <input  *ngIf="switchLanguageType==='ENG'"
                                 [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.temporaryWardNumber.errors }"
                                 class="form-control" formControlName="temporaryWardNumber" id="temporaryWardNumber"
                                 name="temporaryWardNumber" placeholder="Ward Number"
                                 type="text">
+                            <input  *ngIf="switchLanguageType==='NEP'"
+                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.temporaryWardNumber.errors }"
+                                    class="form-control nepaliFont" formControlName="temporaryWardNumber"
+                                    id="temporaryWardNumberInNepali" name="temporaryWardNumber" type="text" placeholder="वार्ड नम्बर">
                             <div *ngIf="(submitted) && basicInfoControls.temporaryWardNumber.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.temporaryWardNumber.errors.required">
@@ -559,10 +604,15 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="relationName{{i}}"><strong>Name</strong></label>
-                                        <input class="form-control" formControlName="customerRelativeName"
+                                        <input *ngIf="switchLanguageType==='ENG'"
+                                                class="form-control" formControlName="customerRelativeName"
                                                [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelativeName').errors }"
                                                id="relationName{{i}}"
                                                placeholder="Name" type="text">
+                                        <input *ngIf="switchLanguageType==='NEP'"
+                                               class="form-control nepaliFont" formControlName="customerRelativeName"
+                                               [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelativeName').errors }"
+                                               id="relationNameInNepali{{i}}" type="text" placeholder="नाम">
                                         <div *ngIf="submitted && relatives.get('customerRelativeName').errors"
                                              class="invalid-feedback">
                                             Name is required!
@@ -572,8 +622,10 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="citizenship{{i}}"><strong>CitizenshipNumber</strong></label>
-                                        <input class="form-control" formControlName="citizenshipNumber"
+                                        <input *ngIf="switchLanguageType==='ENG'" class="form-control" formControlName="citizenshipNumber"
                                                id="citizenship{{i}}" placeholder="Citizenship Number" type="text">
+                                        <input *ngIf="switchLanguageType==='NEP'" class="form-control nepaliFont" formControlName="citizenshipNumber"
+                                               id="citizenshipInNepali{{i}}" type="text" placeholder="नागरिकता नम्बर">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -592,16 +644,16 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label><strong>Issued Date</strong></label>
-                                        <input *ngIf="calendarType === 'AD'" nbInput
+                                        <input *ngIf="switchLanguageType === 'ENG'" nbInput
                                                [nbDatepicker]="relationCitizenIssueDate"
                                                class="form-control"
                                                formControlName="citizenshipIssuedDate"
                                                [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipIssuedDate').errors }"
                                                >
-                                        <input *ngIf="calendarType === 'BS'" formControlName="citizenshipIssuedDate"
+                                        <input *ngIf="switchLanguageType === 'NEP'" formControlName="citizenshipIssuedDate"
                                                hidden>
                                         <app-calendar [ePreDate]="relatives.get('citizenshipIssuedDate').value"
-                                                      *ngIf="calendarType === 'BS'"
+                                                      *ngIf="switchLanguageType === 'NEP'"
                                                       (messageToEmit)="relatives.get('citizenshipIssuedDate').patchValue($event?.eDate)"></app-calendar>
 
                                         <nb-datepicker #relationCitizenIssueDate></nb-datepicker>
@@ -627,8 +679,13 @@
                 </div>
                 <div>
                     <label><strong>Introduction</strong></label>
-                    <textarea id="introduction" formControlName="introduction" name="introduction" type="text"
+                    <textarea *ngIf="switchLanguageType==='ENG'"
+                            id="introduction" formControlName="introduction" name="introduction" type="text"
                               class="form-control" placeholder="introduction"
+                              [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.introduction.errors }"></textarea>
+                    <textarea *ngIf="switchLanguageType==='NEP'"
+                            id="introductionInNep" formControlName="introduction" name="introduction" type="text"
+                              class="form-control nepaliFont" placeholder="परिचय"
                               [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.introduction.errors }"></textarea>
                     <div *ngIf="(submitted) && basicInfoControls.introduction.invalid"
                          class="invalid-feedback">

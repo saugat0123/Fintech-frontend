@@ -13,6 +13,7 @@ import {NrbDirective} from '../../../../../admin/modal/nrbDirective';
 })
 export class CompanyOtherDetailComponent implements OnInit {
   @Input() companyOtherDetail;
+  @Input() switchLanguageTYpe;
   companyOtherDetailGroupForm: FormGroup;
   submitted = false;
   fiscalYears: Array<FiscalYear> = [];

@@ -102,6 +102,8 @@ export class CompanyFormComponent implements OnInit {
 
     ckeConfig = Editor.CK_CONFIG;
 
+    switchLanguageType = 'ENG';
+
     // json data
     companyJsonData: CompanyJsonData = new CompanyJsonData();
 
