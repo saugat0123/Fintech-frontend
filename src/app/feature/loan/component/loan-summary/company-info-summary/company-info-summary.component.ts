@@ -16,6 +16,7 @@ export class CompanyInfoSummaryComponent implements OnInit {
   businessType = BusinessType;
   companyJsonData: CompanyJsonData = new CompanyJsonData();
   contact = [];
+  additionalInfoJsonData;
 
 
   constructor() { }

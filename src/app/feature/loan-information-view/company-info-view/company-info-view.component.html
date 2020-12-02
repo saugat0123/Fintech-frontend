@@ -19,7 +19,7 @@
       <tbody>
       <tr>
         <td>{{formValue?.companyName}}</td>
-        <td>{{formValue?.customerCode}}</td>
+        <td>{{customerInfo['customerCode']}}</td>
         <td>{{formValue?.establishmentDate | date}}</td>
         <td>{{formValue?.registrationNumber}}</td>
         <td>{{formValue?.issuePlace}}</td>
@@ -74,7 +74,7 @@
         <th>Remarks</th>
       </tr>
       <tr>
-        <td>{{additionalInfoJsonData?.Remarks}}</td>
+        <td>{{additionalInfoJsonData?.additionalInfoRemark}}</td>
 
       </tr>
       </tbody>
