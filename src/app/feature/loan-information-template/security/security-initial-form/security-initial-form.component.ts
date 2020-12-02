@@ -16,6 +16,7 @@ import {NepseService} from '../../../admin/component/nepse/nepse.service';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {SecurityRevaluationComponent} from './security-revaluation/security-revaluation.component';
+import {SecurityIds} from './SecurityIds';
 import {DesignationList} from '../../../loan/model/designationList';
 
 
@@ -39,9 +40,7 @@ export class SecurityInitialFormComponent implements OnInit {
     @ViewChildren('revaluationComponentLandBuilding')
     revaluationComponentLandBuilding: QueryList<SecurityRevaluationComponent>;
 
-    landId = 'land';
-    land_buildingId = 'land_building';
-    apartmentId = '';
+   securityId = SecurityIds;
 
     selectedArray = [];
     securityForm: FormGroup;
@@ -396,6 +395,11 @@ export class SecurityInitialFormComponent implements OnInit {
         });
     }
 
+    revaluateCalc(data , formGroup , i) {
+        const form = (this.securityForm.get(formGroup) as FormArray);
+        console.log(data.reValuatedFmv);
+    }
+
     setLandBuildingDetails(Data) {
         if (ObjectUtil.isEmpty(Data)) {
             this.addLandBuilding();
@@ -418,7 +422,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     marketValue: [singleData.marketValue],
                     distressValue: [singleData.distressValue],
                     description: [singleData.description],
-                    houseNumber: [singleData.houseNumber, Validators.required],
+                    houseNumber: [singleData.houseNumber],
                     totalBuildingArea: [singleData.totalBuildingArea, Validators.required],
                     costPerSquare: [singleData.costPerSquare],
                     totalCost: [singleData.totalCost],
@@ -439,7 +443,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     marketValueConstruction: [singleData.marketValueConstruction],
                     distressValueConstruction: [singleData.distressValueConstruction],
                     descriptionConstruction: [singleData.descriptionConstruction],
-                    houseNumberConstruction: [singleData.houseNumberConstruction, Validators.required],
+                    houseNumberConstruction: [singleData.houseNumberConstruction],
                     totalBuildingAreaConstruction: [singleData.totalBuildingAreaConstruction, Validators.required],
                     costPerSquareConstruction: [singleData.costPerSquareConstruction],
                     totalCostConstruction: [singleData.totalCostConstruction],
@@ -1106,9 +1110,10 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     submit() {
-        this.setRevaluationData('landDetails' , this.revaluationComponent , this.landId);
-        this.setRevaluationData('buildingDetails' , this.revaluationComponentApartment , this.apartmentId);
-        this.setRevaluationData('landBuilding' , this.revaluationComponentLandBuilding , this.land_buildingId);
+        this.setRevaluationData('landDetails' , this.revaluationComponent , SecurityIds.landId);
+        this.setRevaluationData('buildingDetails' , this.revaluationComponentApartment , SecurityIds.apartmentId);
+        this.setRevaluationData('landBuilding' , this.revaluationComponentLandBuilding , SecurityIds.land_buildingId);
+        console.log(this.securityForm.value);
         this.shareSecurityForm.get('loanShareRate').setValue(this.activeNepseMaster);
         this.shareSecurityData.data = JSON.stringify(this.shareSecurityForm.value);
         this.shareSecurityData.customerShareData = this.getShareDataList();
