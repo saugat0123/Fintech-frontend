@@ -128,7 +128,7 @@ export class SiteVisitComponent implements OnInit {
       currentAssetsInspectionFormChecked: [false],
       currentResidentDetails: this.formBuilder.group({
         houseNumber: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.houseNumber), Validators.required],
+            : this.formDataForEdit.currentResidentDetails.houseNumber)],
         streetName: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
             : this.formDataForEdit.currentResidentDetails.streetName), Validators.required],
         address: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''

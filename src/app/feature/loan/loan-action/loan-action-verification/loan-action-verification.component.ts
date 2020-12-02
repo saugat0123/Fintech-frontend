@@ -7,6 +7,7 @@ import {NbDialogRef} from '@nebular/theme';
 import {User} from '../../../admin/modal/user';
 import {Role} from '../../../admin/modal/role';
 import {LoanFormService} from '../../component/loan-form/service/loan-form.service';
+import {DocAction} from '../../model/docAction';
 
 @Component({
   selector: 'app-loan-action-verification',
@@ -17,6 +18,8 @@ export class LoanActionVerificationComponent implements OnInit {
   @Input() toUser: User;
   @Input() toRole: Role;
   @Input() individualCombine;
+  @Input() action;
+  forwardAction;
   falseCredential = false;
   falseCredentialMessage = '';
 
@@ -28,6 +31,7 @@ export class LoanActionVerificationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.forwardAction = DocAction.value(DocAction.FORWARD);
     if (!ObjectUtil.isEmpty(this.individualCombine)) {
       this.individualCombine.actions.forEach(action =>
           this.customerLoanService.detail(action.customerLoanId).subscribe(value => {
