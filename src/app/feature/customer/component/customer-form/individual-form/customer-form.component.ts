@@ -17,6 +17,7 @@ import {CustomerAssociateComponent} from '../../../../loan/component/loan-main-t
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {BankingRelationship} from '../../../../admin/modal/banking-relationship';
 import {Pattern} from '../../../../../@core/utils/constants/pattern';
+import {LanguageType} from '../../../model/languageType';
 
 @Component({
     selector: 'app-customer-form',
@@ -31,7 +32,8 @@ export class CustomerFormComponent implements OnInit {
     @Input() bankingRelationshipInput: any;
     @Input() subSectorDetailCodeInput: any;
     calendarType = 'AD';
-    switchLanguageType = 'ENG';
+    lanType = LanguageType;
+    switchLanguageType = this.lanType.ENGLISH;
     @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     basicInfo: FormGroup;
@@ -242,6 +244,7 @@ export class CustomerFormComponent implements OnInit {
                     this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
                     this.customer.clientType = this.basicInfo.get('clientType').value;
                     this.customer.subsectorDetail = this.basicInfo.get('subsectorDetail').value;
+                    this.customer.languageType = this.switchLanguageType;
                     const occupations = {
                         multipleOccupation: this.basicInfo.get('occupation').value,
                         otherOccupation: this.basicInfo.get('otherOccupation').value
@@ -256,13 +259,11 @@ export class CustomerFormComponent implements OnInit {
                     this.customer.version = this.basicInfo.get('version').value;
                     const rawFromValue = this.basicInfo.getRawValue();
                     this.customer.customerRelatives = rawFromValue.customerRelatives;
-
                     /** banking relation setting data from child **/
                     // possibly can have more field in banking relationship
                     this.customer.bankingRelationship = JSON.stringify(this.basicInfo.get('bankingRelationship').value);
                     this.customer.netWorth = this.basicInfo.get('netWorth').value;
                     console.log(this.customer);
-
                     this.customerService.save(this.customer).subscribe(res => {
                         this.spinner = false;
                         this.close();

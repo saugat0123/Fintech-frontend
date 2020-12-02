@@ -15,9 +15,10 @@
 <!--            <nb-radio value="AD">AD</nb-radio>-->
 <!--            <nb-radio value="BS">BS</nb-radio>-->
 <!--        </nb-radio-group>-->
-        <nb-radio-group [(ngModel)]="switchLanguageType" class="close d-inline-flex" name="switchLanguage">
-            <nb-radio value="ENG">English</nb-radio>
-            <nb-radio value="NEP">Nepali</nb-radio>
+        <nb-radio-group [(ngModel)]="switchLanguageType" class="close d-inline-flex"
+                        name="switchLanguageType">
+            <nb-radio [value]="lanType.ENGLISH">English</nb-radio>
+            <nb-radio [value]="lanType.NEPALI">Nepali</nb-radio>
         </nb-radio-group>
         <!--    <button (click)="showHideNep()">NepDate</button>-->
         <div class="form-group">
@@ -620,11 +621,11 @@
                                     <div class="form-group">
                                         <label *ngIf="switchLanguageType==='ENG'" for="customerRelation{{i}}"><strong>Relation</strong></label>
                                         <label *ngIf="switchLanguageType==='NEP'" for="customerRelationInNepali{{i}}"><strong>सम्बन्ध</strong></label>
-                                        <input class="form-control" formControlName="customerRelation"
+                                        <input *ngIf="switchLanguageType==='ENG'" class="form-control" formControlName="customerRelation"
                                                id="customerRelation{{i}}"
                                                [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelation').errors }"
                                                placeholder="Relation" type="text">
-                                        <input class="form-control nepaliFont" formControlName="customerRelation"
+                                        <input *ngIf="switchLanguageType==='NEP'" class="form-control nepaliFont" formControlName="customerRelation"
                                                id="customerRelationInNepali{{i}}"
                                                [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelation').errors }"
                                                placeholder="सम्बन्ध" type="text">

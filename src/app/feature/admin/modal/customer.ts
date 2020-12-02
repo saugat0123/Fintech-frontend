@@ -2,6 +2,7 @@ import {CustomerRelative} from './customer-relative';
 import {MunicipalityVdc} from './municipality_VDC';
 import {District} from './district';
 import {Province} from './province';
+import {LanguageType} from '../../customer/model/languageType';
 
 export class Customer {
     id: number;
@@ -40,6 +41,7 @@ export class Customer {
     temporaryMunicipalities: MunicipalityVdc;
     temporaryStreet: string;
     temporaryWardNumber: string;
+    languageType: LanguageType;
 
 
 }

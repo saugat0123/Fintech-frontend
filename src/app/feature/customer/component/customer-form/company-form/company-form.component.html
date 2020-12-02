@@ -7,9 +7,9 @@
                 <nb-radio value="AD">AD</nb-radio>
                 <nb-radio value="BS">BS</nb-radio>
             </nb-radio-group>-->
-            <nb-radio-group [(ngModel)]="switchLanguageType" class="d-inline-flex" name="companyInfoCalendarType">
-                <nb-radio value="ENG">English</nb-radio>
-                <nb-radio value="NEP">Nepali</nb-radio>
+            <nb-radio-group [(ngModel)]="switchLanguageType" class="d-inline-flex" name="switchLanguageType">
+                <nb-radio [value]="lanType.ENGLISH">English</nb-radio>
+                <nb-radio [value]="lanType.NEPALI">Nepali</nb-radio>
             </nb-radio-group>
         </div>
         <h5>Company Information

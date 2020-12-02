@@ -45,6 +45,7 @@ import {WhiteSpaceValidation} from '../../../../loan/model/whiteSpaceValidation'
 import {CustomerService} from '../../../../admin/service/customer.service';
 import {RegisteredOfficeList} from '../../../../admin/modal/registeredOfficeList';
 import {BusinessGiven} from '../../../../admin/modal/businessGiven';
+import {LanguageType} from '../../../model/languageType';
 
 @Component({
     selector: 'app-company-form',
@@ -102,7 +103,8 @@ export class CompanyFormComponent implements OnInit {
 
     ckeConfig = Editor.CK_CONFIG;
 
-    switchLanguageType = 'ENG';
+    lanType = LanguageType;
+    switchLanguageType = this.lanType.ENGLISH;
 
     // json data
     companyJsonData: CompanyJsonData = new CompanyJsonData();
@@ -779,7 +781,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.landLineNumber = this.companyInfoFormGroup.get('landLineNumber').value;
         this.companyInfo.clientType = this.companyInfoFormGroup.get('clientType').value;
         this.companyInfo.subsectorDetail = this.companyInfoFormGroup.get('subsectorDetail').value;
-
+        this.companyInfo.languageType = this.switchLanguageType;
 
         // legalStatus
         // this.legalStatus.companyName = this.companyInfoFormGroup.get('companyName').value;
@@ -979,7 +981,7 @@ export class CompanyFormComponent implements OnInit {
             });
     }
 
-    calculateTotalIncomeDuringReview(){
+    calculateTotalIncomeDuringReview() {
         let total = 0;
         total = this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
         this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value +
