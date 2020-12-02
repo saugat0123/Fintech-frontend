@@ -30,15 +30,19 @@ import {SmeComponent} from './cad-document-core/mega-offer-letter/sme/sme.compon
 import {SmePrintComponent} from './cad-document-core/mega-offer-letter/sme/sme-print/sme-print.component';
 import {PostApprovalDocApproveComponent} from './post-approval-doc-approve/post-approval-doc-approve.component';
 import {CadLoginComponent} from './cad-login/cad-login.component';
+import {ExcelOfferLetterComponent} from './cad-document-core/excel-offer-letter/excel-offer-letter.component';
+import {DpNoteGuarantorComponent} from './cad-document-core/excel-offer-letter/dp-note-borrower/dp-note-guarantor.component';
 
 
 const COMPONENTS = [
     CadDocumentCoreComponent,
     MegaOfferLetterComponent,
+    ExcelOfferLetterComponent,
     SrdbOfferLetterComponent,
     OfferLetterUploadComponent,
     OfferLetterActionComponent,
     HayerPurchaseComponent,
+    DpNoteGuarantorComponent,
     HayerPurchasePrintComponent,
     RetailEducationalLoanComponent,
     RetailEducationalLoanPrintComponent,
