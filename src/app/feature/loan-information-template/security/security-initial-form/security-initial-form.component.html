@@ -1073,20 +1073,11 @@
                                 <div class="form-group">
                                     <label class="title" for="area">House Number
                                     </label>
-                                    <input [ngClass]="{ 'is-invalid':(submitted) &&  landAndBuilding.get('houseNumber').errors }"
+                                    <input
                                            class="form-control rounded"
                                            formControlName="houseNumber" name="houseNumber"
                                            placeholder="House Number"
                                            type="text"/>
-                                    <div
-                                        *ngIf="(submitted) && landAndBuilding.get('houseNumber').invalid"
-                                        class="small text-danger">
-                                        <div
-                                            *ngIf="landAndBuilding.get('houseNumber').errors.required">
-                                            House Number required!
-                                        </div>
-
-                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -1357,15 +1348,7 @@
                                         <input class="form-control rounded"
                                                formControlName="houseNumberConstruction"
                                                name="houseNumber" placeholder="House Number"
-                                               type="text"
-                                               [ngClass]="{ 'is-invalid':(submitted) &&  securityForm.get(['landBuilding', i , 'houseNumberConstruction']).errors }"/>
-                                        <div *ngIf="(submitted) &&  securityForm.get(['landBuilding', i , 'houseNumberConstruction']).invalid"
-                                             class="invalid-feedback">
-                                            <div *ngIf=" securityForm.get(['landBuilding', i , 'houseNumberConstruction']).errors.required">
-                                                House Number required!
-                                            </div>
-
-                                        </div>
+                                               type="text"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">

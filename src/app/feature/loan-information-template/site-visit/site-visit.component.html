@@ -32,13 +32,8 @@
                 <div class="col-md-4 form-group">
                     <label class="title" for="houseNumber">House Number</label>
                     <input class="form-control" formControlName="houseNumber" id="houseNumber"
-                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('currentResidentDetails')?.get('houseNumber')?.errors }"
                            name="houseNumber"
                            placeholder="house number" type="text">
-                    <div *ngIf="(submitted) && siteVisitFormGroup.get('currentResidentDetails')?.get('houseNumber')?.invalid"
-                         class="invalid-feedback">
-                        <span *ngIf="siteVisitFormGroup.get('currentResidentDetails')?.get('houseNumber')?.errors.required">House number is required</span>
-                    </div>
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="title" for="streetName">Street Name</label>
