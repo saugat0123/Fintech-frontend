@@ -5,5 +5,7 @@ export class OfferLetter {
     isPresent: boolean;
     uploadedUrl: string;
     pathSigned: string;
+    postApprovalDocType: string;
+    isApproved: any;
 
 }

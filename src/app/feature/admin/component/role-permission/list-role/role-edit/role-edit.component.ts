@@ -16,6 +16,8 @@ export class RoleEditComponent implements OnInit {
     model: Role;
     roleType;
     checkRoleEdit: boolean;
+    authorityRequired = true;
+    showAuthority = true;
 
     constructor(private activeModal: NgbActiveModal,
                 private service: RoleService,
@@ -26,6 +28,10 @@ export class RoleEditComponent implements OnInit {
         this.roleType = this.model.roleType;
         if (this.model.roleType === RoleType.MAKER) {
             this.checkRoleEdit = true;
+        }
+        if (this.roleType === RoleType.ADMIN) {
+            this.showAuthority = false;
+            this.authorityRequired = false;
         }
     }
 

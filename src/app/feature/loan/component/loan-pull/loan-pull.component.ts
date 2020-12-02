@@ -54,6 +54,8 @@ export class LoanPullComponent implements OnInit {
     formAction: FormGroup;
     redirected = false;
     isFilterCollapsed = true;
+    toggleArray: { toggled: boolean }[] = [];
+
 
     constructor(
         private branchService: BranchService,
@@ -74,6 +76,7 @@ export class LoanPullComponent implements OnInit {
         other.catalogueService.search.committee = 'true';
         other.loanFormService.getCommitteePull(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
             other.loanDataHolderList = response.detail.content;
+            other.loanDataHolderList.forEach(() => other.toggleArray.push({toggled: false}));
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
         }, error => {

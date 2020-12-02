@@ -306,7 +306,7 @@ export class CompanyFormComponent implements OnInit {
 
             registeredUnderAct: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
-                this.companyInfo.legalStatus.registeredUnderAct, Validators.required],
+                this.companyInfo.legalStatus.registeredUnderAct],
 
             registrationDate: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)

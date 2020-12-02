@@ -1,9 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {NbDialogRef} from '@nebular/theme';
+import {User} from '../../../admin/modal/user';
+import {Role} from '../../../admin/modal/role';
+import {LoanFormService} from '../../component/loan-form/service/loan-form.service';
+import {DocAction} from '../../model/docAction';
 
 @Component({
   selector: 'app-loan-action-verification',
@@ -11,17 +15,29 @@ import {NbDialogRef} from '@nebular/theme';
   styleUrls: ['./loan-action-verification.component.scss']
 })
 export class LoanActionVerificationComponent implements OnInit {
-
+  @Input() toUser: User;
+  @Input() toRole: Role;
+  @Input() individualCombine;
+  @Input() action;
+  forwardAction;
   falseCredential = false;
   falseCredentialMessage = '';
 
   constructor(
       private http: HttpClient,
-      public nbDialogRef: NbDialogRef<LoanActionVerificationComponent>
+      public nbDialogRef: NbDialogRef<LoanActionVerificationComponent>,
+      private customerLoanService: LoanFormService
   ) {
   }
 
   ngOnInit() {
+    this.forwardAction = DocAction.value(DocAction.FORWARD);
+    if (!ObjectUtil.isEmpty(this.individualCombine)) {
+      this.individualCombine.actions.forEach(action =>
+          this.customerLoanService.detail(action.customerLoanId).subscribe(value => {
+                action.loanName = value.detail.loan.name;
+          }));
+    }
   }
 
   onLogin(dataValue) {
