@@ -162,7 +162,7 @@
           <td>{{landBuilding?.distressValue | currencyFormatter}}</td>
           <td>{{landBuilding?.houseNumber}}</td>
           <td>{{landBuilding?.totalBuildingArea}}</td>
-          <td>{{landBuilding?.costPerSquare}}</td>
+          <td>{{landBuilding?.costPerSquare  | currencyFormatter}}</td>
           <td>{{landBuilding?.totalCost | currencyFormatter}}</td>
           <td>{{landBuilding?.typeOfProperty}}</td>
           <td>{{landBuilding?.modeOfTransfer}}</td>
@@ -237,7 +237,7 @@
           <td>{{landBuilding?.modeOfTransferConstruction}}</td>
           <td>{{landBuilding?.houseNumberConstruction}}</td>
           <td>{{landBuilding?.totalBuildingAreaConstruction}}</td>
-          <td>Rs.{{landBuilding?.costPerSquareConstruction}}</td>
+          <td>Rs.{{landBuilding?.costPerSquareConstruction | currencyFormatter}}</td>
           <td>Rs.{{landBuilding?.totalCostConstruction | currencyFormatter}}</td>
         </tr>
 
@@ -1082,7 +1082,7 @@
       <tr *ngFor="let depositDetails of securityData['initialForm']['fixedDepositDetails']; let i= index">
         <td>{{i + 1}}</td>
         <td>{{depositDetails?.receiptNumber}}</td>
-        <td>{{depositDetails?.amount}}</td>
+        <td>{{depositDetails?.amount | currency}}</td>
         <td>{{depositDetails?.expiryDate | date}}</td>
         <td>{{depositDetails?.couponRate | currencyFormatter}}</td>
         <td>{{depositDetails?.beneficiary}}</td>
