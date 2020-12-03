@@ -1,6 +1,8 @@
 export enum ExcelOfferLetterConst {
     DRISTIBANDHAKI,
     DPNOTEGUARANTOR,
+    PLEDGEDEEDFIRST,
+    DPNOTEBORROWER
 }
 
 export namespace ExcelOfferLetterConst {
@@ -10,6 +12,10 @@ export namespace ExcelOfferLetterConst {
           return 'Dristibandhaki';
         case ExcelOfferLetterConst.DPNOTEGUARANTOR:
           return 'DP Note Guarantor';
+        case ExcelOfferLetterConst.PLEDGEDEEDFIRST:
+              return 'Pledge Deed First Party';
+        case ExcelOfferLetterConst.DPNOTEBORROWER:
+              return 'DP Note Borrower';
       }
     }
 
