@@ -16,7 +16,7 @@
             <tr>
                 <td>Credit Transaction in Account</td>
                 <td>
-                    {{this.data?.accountTransactionForm?.creditTransactionNumber  | currencyFormatter}}
+                    {{this.data?.accountTransactionForm?.creditTransactionNumber}}
                 </td>
                 <td>
                     {{this.data?.accountTransactionForm?.creditTransactionValue  | currencyFormatter}}
@@ -28,7 +28,7 @@
                     {{this.data?.accountTransactionForm?.debitTransactionNumber}}
                 </td>
                 <td>
-                    {{this.data?.accountTransactionForm?.debitTransactionValue}}
+                    {{this.data?.accountTransactionForm?.debitTransactionValue | currencyFormatter}}
                 </td>
             </tr>
             <tr>
