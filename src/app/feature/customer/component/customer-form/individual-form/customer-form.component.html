@@ -109,7 +109,7 @@
                                     type="text">
                             <input  *ngIf="switchLanguageType==='NEP'"
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerCode.errors }"
-                                    class="form-control form-control-sm-error rounded nepaliFont" formControlName="customerCode"
+                                    class="form-control form-control-sm-error rounded" formControlName="customerCode"
                                     name="customerCode"
                                     type="text" placeholder="ग्राहकको आईडी">
                             <div *ngIf="(submitted) && basicInfoControls.customerCode.invalid"
@@ -192,8 +192,8 @@
                                     type="number">
                             <input  *ngIf="switchLanguageType==='NEP'"
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.contactNumber.errors }"
-                                    class="form-control nepaliFont" formControlName="contactNumber"
-                                    name="contactNumber" type="text" placeholder="मोबाइल नम्बर">
+                                    class="form-control" formControlName="contactNumber"
+                                    name="contactNumber" type="number" placeholder="मोबाइल नम्बर">
                             <div *ngIf="(submitted) && basicInfoControls.contactNumber.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.contactNumber.errors.required">
@@ -217,7 +217,7 @@
                         </div>
                         <div class="form-group">
                             <input  *ngIf="switchLanguageType==='NEP'"
-                                    class="form-control nepaliFont" formControlName="landLineNumber" id="landLineNumberInNep"
+                                    class="form-control" formControlName="landLineNumber" id="landLineNumberInNep"
                                     name="landLineNumber" type="text" placeholder="ल्यान्डलाइन नम्बर">
                         </div>
                     </div>
@@ -233,7 +233,7 @@
                                     type="text">
                             <input  *ngIf="switchLanguageType==='NEP'"
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipNumber.errors }"
-                                    class="form-control nepaliFont" formControlName="citizenshipNumber" name="citizenshipNumber"
+                                    class="form-control" formControlName="citizenshipNumber" name="citizenshipNumber"
                                     type="text" placeholder="नागरिकता नम्बर">
                             <div *ngIf="(submitted) && basicInfoControls.citizenshipNumber.invalid"
                                  class="invalid-feedback">
@@ -478,7 +478,7 @@
                                 type="text">
                             <input *ngIf="switchLanguageType==='NEP'"
                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.wardNumber.errors }"
-                                   class="form-control nepaliFont" formControlName="wardNumber"
+                                   class="form-control" formControlName="wardNumber"
                                    name="wardNumber"
                                    type="text" placeholder="वार्ड नम्बर">
                             <div *ngIf="(submitted) && basicInfoControls.wardNumber.invalid"
@@ -599,7 +599,7 @@
                                 type="text">
                             <input  *ngIf="switchLanguageType==='NEP'"
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.temporaryWardNumber.errors }"
-                                    class="form-control nepaliFont" formControlName="temporaryWardNumber"
+                                    class="form-control" formControlName="temporaryWardNumber"
                                     id="temporaryWardNumberInNepali" name="temporaryWardNumber" type="text" placeholder="वार्ड नम्बर">
                             <div *ngIf="(submitted) && basicInfoControls.temporaryWardNumber.invalid"
                                  class="invalid-feedback">
@@ -662,7 +662,7 @@
                                         <label *ngIf="switchLanguageType==='NEP'" for="citizenship{{i}}"><strong>नागरिकता नम्बर</strong></label>
                                         <input *ngIf="switchLanguageType==='ENG'" class="form-control" formControlName="citizenshipNumber"
                                                id="citizenship{{i}}" placeholder="Citizenship Number" type="text">
-                                        <input *ngIf="switchLanguageType==='NEP'" class="form-control nepaliFont" formControlName="citizenshipNumber"
+                                        <input *ngIf="switchLanguageType==='NEP'" class="form-control" formControlName="citizenshipNumber"
                                                id="citizenshipInNepali{{i}}" type="text" placeholder="नागरिकता नम्बर">
                                     </div>
                                 </div>

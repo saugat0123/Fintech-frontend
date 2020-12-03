@@ -26,6 +26,7 @@ import {BranchService} from '../../../admin/component/branch/branch.service';
 import {CustomerGroupService} from '../../../admin/component/preference/services/customer-group.service';
 import {CustomerGroup} from '../../../admin/modal/customer-group';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
+import {LanguageType} from '../../model/languageType';
 
 @Component({
     selector: 'app-customer-component',
@@ -53,6 +54,7 @@ export class CustomerComponent implements OnInit {
     accessAll: boolean;
     showBranch = true;
     customerGroupList: Array<CustomerGroup>;
+    languageType = LanguageType;
 
     constructor(private customerService: CustomerService,
                 private toastService: ToastService,

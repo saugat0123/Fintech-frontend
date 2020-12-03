@@ -65,7 +65,7 @@
                                            type="text"/>
                                        <input   *ngIf="switchLanguageType==='NEP'"
                                                [ngClass]="{ 'is-invalid':submitted && form.customerCode.errors }"
-                                               class="form-control rounded nepaliFont"
+                                               class="form-control rounded"
                                                formControlName="customerCode"
                                                id="customerCodeInNepali" placeholder="ग्राहकको आईडी"
                                                type="text"/>
@@ -135,7 +135,7 @@
                                                type="text" (input)="checkRegistrationNumber(regNumber.value)"/>
                                            <input #regNumber *ngIf="switchLanguageType==='NEP'"
                                                   [ngClass]="{ 'is-invalid':submitted && form.registrationNumber.errors }"
-                                                  class="form-control rounded nepaliFont"
+                                                  class="form-control rounded"
                                                   formControlName="registrationNumber"
                                                   id="registrationNumberInNepali"
                                                   min="0" placeholder="दर्ता नम्बर प्रविष्ट गर्नुहोस्"
@@ -207,11 +207,11 @@
                                            type="number"/>
                                        <input   *ngIf="switchLanguageType==='NEP'"
                                                [ngClass]="{ 'is-invalid':submitted && form.contactNum?.errors }"
-                                               class="form-control rounded nepaliFont"
+                                               class="form-control rounded"
                                                formControlName="contactNum"
                                                id="contactNumInNepali"
                                                placeholder="मोबाइल नम्बर प्रविष्ट गर्नुहोस्"
-                                               type="text"/>
+                                               type="number"/>
                                        <div *ngIf="submitted && form.contactNum?.errors "
                                             class="invalid-feedback">
                                            <div *ngIf="form.contactNum?.errors.required">
@@ -237,7 +237,7 @@
                                            placeholder="Enter LandLine no!"
                                            type="text"/>
                                        <input *ngIf="switchLanguageType==='NEP'"
-                                              class="form-control rounded nepaliFont"
+                                              class="form-control rounded"
                                               formControlName="landLineNumber"
                                               id="landLineNumberInNepali"
                                               placeholder="ल्याण्डलाइन नम्बर प्रविष्ट गर्नुहोस्"
@@ -258,7 +258,7 @@
                                                type="text"/>
                                            <input   *ngIf="switchLanguageType==='NEP'"
                                                    [ngClass]="{ 'is-invalid':submitted && form.companyPAN.errors }"
-                                                   class="form-control rounded nepaliFont"
+                                                   class="form-control rounded"
                                                    formControlName="companyPAN"
                                                    id="panNumberInNepali"
                                                    placeholder="पान नम्बर प्रविष्ट गर्नुहोस्"
@@ -671,7 +671,7 @@
                                           [ngClass]="{ 'is-invalid': (submitted) && form.authorizedCapital.errors }">
                                    <input *ngIf="switchLanguageType==='NEP'" id="authorizedCapitalInNepali"
                                           formControlName="authorizedCapital" name="authorizedCapital"
-                                          type="text" class="form-control nepaliFont" placeholder="अधिकृत क्यापिटल"
+                                          type="number" class="form-control" placeholder="अधिकृत क्यापिटल"
                                           [ngClass]="{ 'is-invalid': (submitted) && form.authorizedCapital.errors }">
                                    <div *ngIf="(submitted) && form.authorizedCapital.invalid"
                                         class="invalid-feedback">
@@ -692,8 +692,8 @@
                                           [ngClass]="{ 'is-invalid': (submitted) && form.issuedCapital.errors }">
                                    <input *ngIf="switchLanguageType==='NEP'" id="issuedCapitalInNepali"
                                           formControlName="issuedCapital"
-                                          name="issuedCapital" type="text"
-                                          class="form-control nepaliFont" placeholder="जारी गरेको पूंजी"
+                                          name="issuedCapital" type="number"
+                                          class="form-control" placeholder="जारी गरेको पूंजी"
                                           [ngClass]="{ 'is-invalid': (submitted) && form.issuedCapital.errors }">
                                    <div *ngIf="(submitted) && form.issuedCapital.invalid"
                                         class="invalid-feedback">
@@ -712,8 +712,8 @@
                                           class="form-control" placeholder="Paid Up Capital"
                                           [ngClass]="{ 'is-invalid': (submitted) && form.paidUpCapital.errors }">
                                    <input *ngIf="switchLanguageType==='NEP'" id="paidUpCapitalInNepali" formControlName="paidUpCapital"
-                                          name="paidUpCapital" type="text"
-                                          class="form-control nepaliFont" placeholder="भुक्तानी पूंजी"
+                                          name="paidUpCapital" type="number"
+                                          class="form-control" placeholder="भुक्तानी पूंजी"
                                           [ngClass]="{ 'is-invalid': (submitted) && form.paidUpCapital.errors }">
                                    <div *ngIf="(submitted) && form.paidUpCapital.invalid"
                                         class="invalid-feedback">
@@ -784,7 +784,7 @@
                                           [ngClass]="{ 'is-invalid': (submitted) && form.numberOfShareholder.errors }">
                                    <input *ngIf="switchLanguageType==='NEP'" id="numberOfShareholderInNepali" formControlName="numberOfShareholder"
                                           name="numberOfShareholder"
-                                          type="text" class="form-control nepaliFont" placeholder="शेयरधारकको संख्या"
+                                          type="number" class="form-control" placeholder="शेयरधारकको संख्या"
                                           [ngClass]="{ 'is-invalid': (submitted) && form.numberOfShareholder.errors }">
                                    <div *ngIf="(submitted) && form.numberOfShareholder.invalid"
                                         class="invalid-feedback">
@@ -851,7 +851,7 @@
                                            type="text">
                                        <input   *ngIf="switchLanguageType==='NEP'"
                                                [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactNumber').errors }"
-                                               class="form-control nepaliFont"
+                                               class="form-control"
                                                formControlName="contactNumber" id="contactNumberInNepali"
                                                placeholder="सम्पर्क नम्बर"
                                                type="text">
@@ -930,7 +930,7 @@
                                    <label *ngIf="switchLanguageType==='NEP'"><strong>घर नम्बर</strong></label>
                                    <input *ngIf="switchLanguageType==='ENG'" class="form-control" formControlName="houseNumber"
                                           id="houseNumber" placeholder="House Number" type="text">
-                                   <input *ngIf="switchLanguageType==='NEP'" class="form-control nepaliFont" formControlName="houseNumber"
+                                   <input *ngIf="switchLanguageType==='NEP'" class="form-control" formControlName="houseNumber"
                                           id="houseNumberInNepali" placeholder="घर नम्बर" type="text">
                                </div>
                            </div>
@@ -1236,10 +1236,10 @@
                                                   type="number">
                                            <input *ngIf="switchLanguageType==='NEP'"
                                                    [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('share').errors }"
-                                                  class="form-control nepaliFont" formControlName="share"
+                                                  class="form-control" formControlName="share"
                                                   id="shareInNepali"
                                                   name="share" placeholder="सेयर"
-                                                  type="text">
+                                                  type="number">
                                            <div
                                                *ngIf="(submitted) && proprietor.get('share').invalid"
                                                class="invalid-feedback">
@@ -1508,7 +1508,7 @@
                            <div class="col-md-3">
                                    <label *ngIf="switchLanguageType==='ENG'" for="rawMaterialSourcing"><strong>Raw Material
                                        Sourcing</strong></label> <br>
-                               <label *ngIf="switchLanguageType==='ENG'" for="rawMaterialSourcing"><strong>कच्चा माल मुहान</strong></label><br>
+                               <label *ngIf="switchLanguageType==='NEP'" for="rawMaterialSourcing"><strong>कच्चा माल मुहान</strong></label><br>
                                    <nb-radio-group class="close d-inline-flex float-left"
                                                    [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialSourcing.errors }"
                                                    formControlName="rawMaterialSourcing"
