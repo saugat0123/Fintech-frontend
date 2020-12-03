@@ -87,4 +87,5 @@ export class LoanDataHolder extends BaseEntity {
     clientType: string;
     subsectorDetail: string;
     cadDocument: Array<CadDocument>;
+    cbsLoanFileNumber: number;
 }

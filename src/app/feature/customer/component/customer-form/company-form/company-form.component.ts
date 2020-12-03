@@ -323,7 +323,7 @@ export class CompanyFormComponent implements OnInit {
             registrationExpiryDate: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus.registrationExpiryDate)) ? undefined :
-                new Date(this.companyInfo.legalStatus.registrationExpiryDate), Validators.required],
+                new Date(this.companyInfo.legalStatus.registrationExpiryDate)],
             // capital
             authorizedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :

@@ -11,6 +11,8 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Document} from '../../admin/modal/document';
 import {CustomerLoanDocumentComponent} from '../customer-loan-document/customer-loan-document.component';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 
 @Component({
   selector: 'app-cad-document-upload',
@@ -25,6 +27,8 @@ export class CadDocumentUploadComponent implements OnInit {
   customerDocumentArray: Array<CadDocument> = new Array<CustomerDocuments>();
   initialDocuments: Document[] = [];
   loanDataHolder: LoanDataHolder = new LoanDataHolder();
+  cbsLoanFileNumber: number;
+  affiliatedId;
   constructor(private loanConfigService: LoanConfigService,
               private toastService: ToastService,
               private activatedRoute: ActivatedRoute,
@@ -32,6 +36,7 @@ export class CadDocumentUploadComponent implements OnInit {
               private route: Router) { }
 
   ngOnInit() {
+    this.affiliatedId = LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB;
     this.activatedRoute.queryParams.subscribe(
         (paramsValue: Params) => {
           this.paramProperties = {
@@ -46,6 +51,7 @@ export class CadDocumentUploadComponent implements OnInit {
           this.loanDataHolder = response.detail;
           console.log(this.loanDataHolder, 'ld');
           this.loanDataHolder.id = response.detail.id;
+          this.cbsLoanFileNumber = this.loanDataHolder.cbsLoanFileNumber;
           this.getLoanData();
         });
   }
@@ -105,8 +111,10 @@ export class CadDocumentUploadComponent implements OnInit {
   }
 
   saveLoan() {
+    this.loanDataHolder.cbsLoanFileNumber = this.cbsLoanFileNumber;
     this.loanDataHolder.customerDocument =  this.customerDocumentArray;
-    this.loanFormService.saveCustomerDocument(this.loanDataHolder.id , this.customerDocumentArray).subscribe(value => {
+    console.log(this.cbsLoanFileNumber);
+    this.loanFormService.saveCustomerDocument(this.loanDataHolder.id , this.loanDataHolder).subscribe(value => {
       this.route.navigate(['/home/loan/summary'], {
         queryParams: {
           loanConfigId: this.paramProperties.loanId,
