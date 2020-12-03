@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HayerPurchaseComponent } from './dp-note-guarantor.component';
+import { DpNoteGuarantorComponent } from './dp-note-guarantor.component';
 
-describe('HayerPurchaseComponent', () => {
-  let component: HayerPurchaseComponent;
-  let fixture: ComponentFixture<HayerPurchaseComponent>;
+describe('DpNoteGuarantorComponent', () => {
+  let component: DpNoteGuarantorComponent;
+  let fixture: ComponentFixture<DpNoteGuarantorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HayerPurchaseComponent ]
+      declarations: [ DpNoteGuarantorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HayerPurchaseComponent);
+    fixture = TestBed.createComponent(DpNoteGuarantorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
