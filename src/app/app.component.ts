@@ -16,7 +16,7 @@ export class AppComponent {
     public constructor(private titleService: Title,
                        public translate: TranslateService) {
         this.titleService.setTitle(environment.client);
-        translate.addLangs(['en', 'nep']);
+        translate.addLangs(['en', 'np']);
 
         translate.setDefaultLang('en');
     }

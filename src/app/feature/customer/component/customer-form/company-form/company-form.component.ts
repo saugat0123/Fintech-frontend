@@ -158,7 +158,7 @@ export class CompanyFormComponent implements OnInit {
                this.translate.use('en');
        }
        if (this.calendarType === CalendarType.AD) {
-               this.translate.use('nep');
+               this.translate.use('np');
        }
     }
 
