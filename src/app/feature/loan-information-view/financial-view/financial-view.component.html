@@ -393,7 +393,7 @@
                         <tr>
                             <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                             <td>{{category['name']}}</td>
-                            <td *ngFor="let amount of category['amount']">{{amount['value' | currencyFormatter]}}</td>
+                            <td *ngFor="let amount of category['amount']">{{amount['value'] | currencyFormatter}}</td>
                         </tr>
                         </tbody>
                         <tbody>
