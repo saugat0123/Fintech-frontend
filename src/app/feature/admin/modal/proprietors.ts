@@ -9,7 +9,7 @@ export class Proprietors {
     province: Province;
     district: District;
     municipalityVdc: MunicipalityVdc;
-    share: string;
+    share: number;
     version: string;
     type: string;
 }
