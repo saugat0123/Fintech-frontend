@@ -196,8 +196,8 @@ export class CatalogueComponent implements OnInit {
             {
                 loanConfigId: [undefined],
                 customerLoanId: [undefined],
-                toUser: [undefined],
-                toRole: [undefined],
+                toUser: [undefined , Validators.required],
+                toRole: [undefined , Validators.required],
                 docAction: [undefined],
                 comment: [undefined, Validators.required],
                 documentStatus: [undefined]
@@ -323,10 +323,11 @@ export class CatalogueComponent implements OnInit {
                 comment: 'TRANSFER'
             }
         );
-        this.modalService.open(template);
+        this.modalService.open(template , {size: 'lg' , backdrop: 'static', keyboard: false});
     }
 
     onClose() {
+        this.buildActionForm();
         this.modalService.dismissAll();
     }
 
@@ -358,12 +359,15 @@ export class CatalogueComponent implements OnInit {
     }
 
     action(templates) {
-        this.onClose();
-        this.modalService.open(templates);
+        this.modalService.dismissAll();
+        this.modalService.open(templates , {backdrop: 'static', keyboard: false});
     }
 
-    confirm() {
-        this.onClose();
+    confirm(comment: string) {
+        this.formAction.patchValue({
+           comment: comment
+        });
+        this.modalService.dismissAll();
         this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
