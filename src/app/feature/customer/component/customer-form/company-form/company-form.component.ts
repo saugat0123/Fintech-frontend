@@ -45,6 +45,8 @@ import {WhiteSpaceValidation} from '../../../../loan/model/whiteSpaceValidation'
 import {CustomerService} from '../../../../admin/service/customer.service';
 import {RegisteredOfficeList} from '../../../../admin/modal/registeredOfficeList';
 import {BusinessGiven} from '../../../../admin/modal/businessGiven';
+import {TranslateService} from '@ngx-translate/core';
+import {CalendarType} from '../../../../../@core/model/calendar-type';
 
 @Component({
     selector: 'app-company-form',
@@ -137,7 +139,8 @@ export class CompanyFormComponent implements OnInit {
         protected ref: NbDialogRef<CompanyFormComponent>,
         private company: CompanyService,
         private el: ElementRef,
-        private customerService: CustomerService
+        private customerService: CustomerService,
+        private translate: TranslateService
     ) {
 
     }
@@ -148,6 +151,15 @@ export class CompanyFormComponent implements OnInit {
 
     get additionalInfoForm() {
         return this.companyInfoFormGroup.controls.additionalCompanyInfo['controls'];
+    }
+
+    switchLang() {
+        if (this.calendarType === CalendarType.BS) {
+               this.translate.use('en');
+       }
+       if (this.calendarType === CalendarType.AD) {
+               this.translate.use('np');
+       }
     }
 
     // todo replace all objectutil checking with patch value method
@@ -977,7 +989,7 @@ export class CompanyFormComponent implements OnInit {
             });
     }
 
-    calculateTotalIncomeDuringReview(){
+    calculateTotalIncomeDuringReview() {
         let total = 0;
         total = this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
         this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value +
