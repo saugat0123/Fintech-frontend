@@ -237,73 +237,79 @@
     </nb-card-body>
 
     <ng-template #transferDocument>
-        <div class="modal-header">
-            <h4 class="modal-title pull-left">Transfer Loan Document</h4>
-            <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
-                <span aria-hidden="true">&times;</span>
-            </a>
-        </div>
-        <div class="modal-body">
+       <nb-card accent="primary" class="transfer-modal"
+                [nbSpinner]="transferSpinner"
+                nbSpinnerStatus="primary"
+                nbSpinnerSize="large"
+                nbSpinnerMessage="loading users for transfer....">
+           <nb-card-header>
+               <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
+                   <span aria-hidden="true">&times;</span>
+               </a>
+               <h4>Transfer Loan Document</h4>
+           </nb-card-header>
+           <nb-card-body>
+                   <nb-accordion>
+                       <nb-accordion-item *ngFor="let roles of transferUserList;let i=index">
+                           <nb-accordion-item-header>
+                               {{roles.name}}
+                           </nb-accordion-item-header>
+                           <nb-accordion-item-body>
 
+                               <div *ngFor="let users of roles.userDtoList;let i=index">
+                                   <div class="col-md-12 row">
+                                       <div class="col-md-6">
+                                           <a class="cursor">
+                                               <div class="radio">
+                                                   <label><input type="radio" name="optradio"
+                                                                    (click)="docTransfer(users.id,roles.id , users)">
+                                                       <strong class="ml-2">{{users.username}}</strong>
+                                                   </label>
+                                               </div>
 
-            <div style="height: 200px;max-height: 200px;overflow-y: auto;">
-                <nb-accordion>
-                    <nb-accordion-item *ngFor="let roles of transferUserList;let i=index">
-                        <nb-accordion-item-header>
-                            {{roles.name}}
-                        </nb-accordion-item-header>
-                        <nb-accordion-item-body>
-
-                            <div *ngFor="let users of roles.userDtoList;let i=index">
-                                <div class="col-md-12 row">
-                                    <div class="col-md-6">
-                                        <a class="cursor">
-                                            <div class="radio">
-                                                <label><input type="radio" name="optradio"
-                                                              (click)="docTransfer(users.id,roles.id)">{{users.username}}
-                                                </label>
-                                            </div>
-
-                                        </a>
-                                    </div>
-                                    <div class="col-md-6">
+                                           </a>
+                                       </div>
+                                       <div class="col-md-6">
                                         <span *ngFor="let branch of users.branchDtoList;">
                                             {{branch?.name}}
                                         </span>
-                                    </div>
-                                </div>
-                            </div>
+                                       </div>
+                                   </div>
+                               </div>
 
-                        </nb-accordion-item-body>
-                    </nb-accordion-item>
-                </nb-accordion>
-            </div>
-            <div class="col-md-12">
-                <button type="submit" class="btn btn-success float-right" (click)="action(confirmation)">Next</button>
-            </div>
-        </div>
+                           </nb-accordion-item-body>
+                       </nb-accordion-item>
+                   </nb-accordion>
+           </nb-card-body>
+           <nb-card-footer>
+                   <button [disabled]="formAction.invalid"
+                           [ngStyle]="{ 'filter' : (formAction.invalid)? 'grayscale(100%)': 'grayscale(0%)'}"
+                           type="submit" class="btn btn-success float-right" (click)="action(confirmation)">Next</button>
+           </nb-card-footer>
+       </nb-card>
     </ng-template>
 
     <ng-template #confirmation>
-        <div>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div>
-                        <h4 class="">Do You want to transfer this document ?</h4>
-                        <form>
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-danger  btn-flat fa-pull-left" (click)="onClose()">
-                                    NO
-                                </button>
-                                <button type="submit" class="btn btn-primary  btn-flat" (click)="confirm()">
-                                    YES
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+        <nb-card accent="primary"
+                 [nbSpinner]="transferSpinner"
+                 [nbSpinnerMessage]="'Transferring loan to ' + selectedUserForTransfer?.username + '...'">
+            <nb-card-header>Do you want to transfer this loan to <b>{{selectedUserForTransfer?.username}}</b>?</nb-card-header>
+            <nb-card-body>
+                <label for="comment">Reason to transfer loan</label>
+                <textarea rows="9" #comment id="comment" class="form-control" placeholder="Comments for transfer"></textarea>
+            </nb-card-body>
+            <nb-card-footer>
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-danger  btn-flat fa-pull-left" (click)="onClose()">
+                        Cancel
+                    </button>
+                    <button [ngStyle]="{ 'filter' : (comment.value == undefined || comment.value == '')? 'grayscale(100%)': 'grayscale(0%)'}"
+                            [disabled]="comment.value == undefined || comment.value == ''" type="submit" class="btn btn-primary  btn-flat" (click)="confirm(comment.value)">
+                        Confirm
+                    </button>
                 </div>
-            </div>
-        </div>
+            </nb-card-footer>
+        </nb-card>
 
     </ng-template>
 
