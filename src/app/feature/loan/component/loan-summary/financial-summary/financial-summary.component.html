@@ -101,43 +101,43 @@
               <td>1</td>
               <td><strong>Current Ratio (in times)</strong></td>
               <td *ngFor="let currentRatio of financialData['keyIndicatorsData']?.currentRatio">
-                {{currentRatio.value}}</td>
+                {{currentRatio.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>2</td>
               <td><strong>Operating Profit Margin (%)</strong></td>
               <td *ngFor="let operatingProfitKI of financialData['keyIndicatorsData']?.operatingProfitKI">
-                {{operatingProfitKI.value}}</td>
+                {{operatingProfitKI.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>3</td>
               <td><strong>Inventory Turnover Ratio (in times)</strong></td>
               <td *ngFor="let inventoryTurnoverRatio of financialData['keyIndicatorsData']?.inventoryTurnoverRatio">
-                {{inventoryTurnoverRatio.value}}</td>
+                {{inventoryTurnoverRatio.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>4</td>
               <td><strong>Interest Coverage Ratio (in times)</strong></td>
               <td *ngFor="let interestCoverageRatio of financialData['keyIndicatorsData']?.interestCoverageRatio">
-                {{interestCoverageRatio.value}}</td>
+                {{interestCoverageRatio.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>5</td>
               <td><strong>Debtor/Receivable Turnover Ratio (in times)</strong></td>
               <td *ngFor="let debtorTurnOverRatio of financialData['keyIndicatorsData']?.debtorTurnOverRatio">
-                {{debtorTurnOverRatio.value}}</td>
+                {{debtorTurnOverRatio.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>6</td>
               <td><strong>Debt-Equity Ratio - General (in times)</strong></td>
               <td *ngFor="let debtServiceCoverageRatio of financialData['keyIndicatorsData']?.debtServiceCoverageRatio">
-                {{debtServiceCoverageRatio.value}}</td>
+                {{debtServiceCoverageRatio.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>7</td>
               <td><strong>Net Profit Margin (%)</strong></td>
               <td *ngFor="let currentAssetValue of financialData['keyIndicatorsData']?.netProfitMargin">
-                {{currentAssetValue.value}}</td>
+                {{currentAssetValue.value | currencyFormatter}}</td>
             </tr>
             </tbody>
           </table>
