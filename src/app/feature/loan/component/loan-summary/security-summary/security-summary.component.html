@@ -104,8 +104,8 @@
                       <tr>
                           <td>{{landDetails?.revaluationData?.reValuationDate |date}}</td>
                           <td colspan="1">{{landDetails?.revaluationData?.newValuator?.name}}</td>
-                          <td colspan="1">{{landDetails?.revaluationData?.reValuatedFmv}}</td>
-                          <td colspan="1">{{landDetails?.revaluationData?.reValuatedDv}}</td>
+                          <td colspan="1">{{landDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
+                          <td colspan="1">{{landDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
                           <td colspan="1">{{landDetails?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
                           <td colspan="1">{{landDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
                           <td colspan="1">{{landDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
@@ -360,7 +360,7 @@
                     <tr *ngFor="let plantDetails of formData['initialForm']['plantDetails']; let i= index">
                         <td>{{i + 1}}</td>
                         <td>{{plantDetails?.model}}</td>
-                        <td>{{plantDetails?.quotation}}</td>
+                        <td>{{plantDetails?.quotation | currencyFormatter}}</td>
                         <td>{{plantDetails?.supplier}}</td>
                         <td>{{plantDetails?.downPay | currencyFormatter}}</td>
                         <td *ngIf="formData['otherBranchcheck']">{{plantDetails?.plantBranch?.name}}</td>
@@ -389,7 +389,7 @@
                     <tr *ngFor="let depositDetails of formData['initialForm']['fixedDepositDetails']; let i= index">
                         <td>{{i + 1}}</td>
                         <td>{{depositDetails?.receiptNumber}}</td>
-                        <td>{{depositDetails?.amount}}</td>
+                        <td>{{depositDetails?.amount | booleanConvert | currencyFormatter}}</td>
                         <td>{{depositDetails?.expiryDate | date}}</td>
                         <td>{{depositDetails?.couponRate | currencyFormatter}}</td>
                         <td>{{depositDetails?.beneficiary}}</td>

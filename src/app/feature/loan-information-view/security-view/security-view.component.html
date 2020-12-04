@@ -1082,7 +1082,7 @@
       <tr *ngFor="let depositDetails of securityData['initialForm']['fixedDepositDetails']; let i= index">
         <td>{{i + 1}}</td>
         <td>{{depositDetails?.receiptNumber}}</td>
-        <td>{{depositDetails?.amount | currency}}</td>
+        <td>{{depositDetails?.amount | booleanConvert | currencyFormatter}}</td>
         <td>{{depositDetails?.expiryDate | date}}</td>
         <td>{{depositDetails?.couponRate | currencyFormatter}}</td>
         <td>{{depositDetails?.beneficiary}}</td>
