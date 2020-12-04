@@ -450,23 +450,26 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }, error => this.toastService.show(new Alert(AlertType.ERROR, error.error.message)));
     }
 
-    loanHandler(index: number, length: number) {
-        if (index === 0) {
-            return 'INITIATED BY:';
-        } else
-        if (index === length - 1) {
+    loanHandler(index: number, length: number , label: string) {
+        console.log(label);
+        if (index === length - 1 && index !== 0) {
             if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
                 return 'APPROVED BY:';
             } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
                 return 'REJECTED BY:';
             } else if (this.loanDataHolder.documentStatus.toString() === 'CLOSED') {
                 return 'CLOSED BY:';
-            } else {
-                return 'SUPPORTED BY:';
             }
-        } else {
-            return 'SUPPORTED BY:';
         }
+       if (!ObjectUtil.isEmpty(label)) {
+           return label;
+       } else {
+           if (index === 0) {
+               return 'INITIATED BY:';
+           } else {
+               return 'SUPPORTED BY:';
+           }
+       }
     }
 
     open(comments) {
@@ -543,6 +546,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     addedStages.set(loanStage.fromUser.id, index);
                 }
             }
+            console.log(loanStage);
         });
 
         return signatureList;
