@@ -87,12 +87,12 @@
     <tr>
         <th>14</th>
         <td><strong>Interest Coverage Ratio (times)</strong></td>
-        <td *ngFor="let amount of financialData['keyIndicatorsData']['interestCoverageRatio']">{{amount.value}}</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['interestCoverageRatio']">{{amount.value | currencyFormatter}}</td>
     </tr>
     <tr>
         <th>15</th>
         <td><strong>Debt Service Coverage Ratio (times)</strong></td>
-        <td *ngFor="let amount of financialData['keyIndicatorsData']['debtServiceCoverageRatio']">{{amount.value}}</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['debtServiceCoverageRatio']">{{amount.value | currencyFormatter}}</td>
     </tr>
     </tbody>
 </table>
