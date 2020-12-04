@@ -237,7 +237,11 @@
     </nb-card-body>
 
     <ng-template #transferDocument>
-       <nb-card accent="primary" class="transfer-modal">
+       <nb-card accent="primary" class="transfer-modal"
+                [nbSpinner]="transferSpinner"
+                nbSpinnerStatus="primary"
+                nbSpinnerSize="large"
+                nbSpinnerMessage="loading users for transfer....">
            <nb-card-header>
                <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
                    <span aria-hidden="true">&times;</span>
@@ -258,7 +262,7 @@
                                            <a class="cursor">
                                                <div class="radio">
                                                    <label><input type="radio" name="optradio"
-                                                                    (click)="docTransfer(users.id,roles.id)">
+                                                                    (click)="docTransfer(users.id,roles.id , users)">
                                                        <strong class="ml-2">{{users.username}}</strong>
                                                    </label>
                                                </div>
@@ -286,18 +290,21 @@
     </ng-template>
 
     <ng-template #confirmation>
-        <nb-card accent="primary">
-            <nb-card-header>Reason for document transfer</nb-card-header>
+        <nb-card accent="primary"
+                 [nbSpinner]="transferSpinner"
+                 [nbSpinnerMessage]="'Transferring loan to ' + selectedUserForTransfer?.username + '...'">
+            <nb-card-header>Do you want to transfer this loan to <b>{{selectedUserForTransfer?.username}}</b>?</nb-card-header>
             <nb-card-body>
-                <textarea #comment class="form-control" placeholder="Comments for transfer"></textarea>
+                <label for="comment">Reason to transfer loan</label>
+                <textarea rows="9" #comment id="comment" class="form-control" placeholder="Comments for transfer"></textarea>
             </nb-card-body>
             <nb-card-footer>
                 <div class="d-flex justify-content-end">
                     <button type="submit" class="btn btn-danger  btn-flat fa-pull-left" (click)="onClose()">
                         Cancel
                     </button>
-                    <button [ngStyle]="{ 'filter' : (comment == undefined || comment === ' ')? 'grayscale(100%)': 'grayscale(0%)'}"
-                            [disabled]="comment == undefined || comment === ' '" type="submit" class="btn btn-primary  btn-flat" (click)="confirm(comment.value)">
+                    <button [ngStyle]="{ 'filter' : (comment.value == undefined || comment.value == '')? 'grayscale(100%)': 'grayscale(0%)'}"
+                            [disabled]="comment.value == undefined || comment.value == ''" type="submit" class="btn btn-primary  btn-flat" (click)="confirm(comment.value)">
                         Confirm
                     </button>
                 </div>
