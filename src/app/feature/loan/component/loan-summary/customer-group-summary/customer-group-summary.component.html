@@ -24,8 +24,8 @@
             </td>
       <!--      <td>Pending Limit: <b>{{group?.totalPendingLimit}}</b></td>-->
             <td colspan="1" class="pl">
-              <b>Total FMV/Considered Value: {{group?.fundedData?.length > 0 ? group?.fundedData[0]?.security?.totalSecurityAmount:
-                      group?.nonFundedData?.length > 0 ? group?.nonFundedData[0]?.security?.totalSecurityAmount: 0 | currencyFormatter}}</b>
+              <b>Total FMV/Considered Value: {{(group?.fundedData?.length > 0 ? group?.fundedData[0]?.security?.totalSecurityAmount:
+                      group?.nonFundedData?.length > 0 ? group?.nonFundedData[0]?.security?.totalSecurityAmount: 0) | currencyFormatter}}</b>
             </td>
           </tr>
           <tr *ngFor="let data of group?.fundedData; let j = index;">
