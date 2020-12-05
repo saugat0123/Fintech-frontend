@@ -38,6 +38,7 @@ import {BankingRelationComponent} from './component/customer-form/banking-relati
 import { CompanyOtherDetailComponent } from './component/customer-form/company-form/company-other-detail/company-other-detail.component';
 import { MarketScenarioComponent } from './component/customer-form/company-form/market-scenario/market-scenario.component';
 import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
+import {TranslateModule} from '@ngx-translate/core';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -71,27 +72,28 @@ const COMPONENTS = [
     CustomerGroupLoanComponent,
     CompanyFormComponent
   ],
-  imports: [
-    CommonModule,
-    CustomerRoutingModule,
-    ThemeModule,
-    FormsModule,
-    NgbPaginationModule,
-    ReactiveFormsModule,
-    NgSelectModule,
-    NbDatepickerModule,
-    NepaliCalendarModule,
-    NbDialogModule.forRoot(),
-    LoanInformationTemplateModule,
-    LoanInformationViewModule,
-    InfiniteScrollModule,
-    ReportingModule,
-    CoreModule,
-    CustomerActivityModule,
-    LoanSummaryModule
+    imports: [
+        CommonModule,
+        CustomerRoutingModule,
+        ThemeModule,
+        FormsModule,
+        NgbPaginationModule,
+        ReactiveFormsModule,
+        NgSelectModule,
+        NbDatepickerModule,
+        NepaliCalendarModule,
+        NbDialogModule.forRoot(),
+        LoanInformationTemplateModule,
+        LoanInformationViewModule,
+        InfiniteScrollModule,
+        ReportingModule,
+        CoreModule,
+        CustomerActivityModule,
+        LoanSummaryModule,
+        TranslateModule
 
 
-  ],
+    ],
   entryComponents: [
     CustomerFormComponent,
     CompanyFormComponent,

@@ -171,8 +171,8 @@ export class BasicInfoComponent implements OnInit {
     }
 
     onSubmit() {
-        this.customer.id = (this.customer.citizenshipIssuedPlace ===
-            this.basicInfo.get('citizenshipIssuedPlace').value) ? this.customer.id : undefined;
+        this.customer.id = (this.customer.customerName ===
+            this.basicInfo.get('customerName').value) ? this.customer.id : undefined;
         this.customer.customerName = this.basicInfo.get('customerName').value;
         this.customer.province = this.basicInfo.get('province').value;
         this.customer.district = this.basicInfo.get('district').value;
