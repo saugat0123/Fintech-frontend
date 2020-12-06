@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CreditAdministrationService} from '../../service/credit-administration.service';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
-import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {LoanType} from '../../../loan/model/loanType';
@@ -19,6 +18,7 @@ export class UnassignedLoanComponent implements OnInit {
     loanList = [];
     loanType = LoanType;
     toggleArray: { toggled: boolean }[] = [];
+
     constructor(private service: CreditAdministrationService, private spinnerService: NgxSpinnerService) {
     }
 
@@ -30,6 +30,9 @@ export class UnassignedLoanComponent implements OnInit {
             other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
 
         });
+        other.service.assignLoanToUser(other.searchObj).subscribe((res: any) => {
+            console.log(res);
+        });
     }
 
     ngOnInit() {
@@ -40,5 +43,4 @@ export class UnassignedLoanComponent implements OnInit {
         this.page = page;
         UnassignedLoanComponent.loadData(this);
     }
-
 }
