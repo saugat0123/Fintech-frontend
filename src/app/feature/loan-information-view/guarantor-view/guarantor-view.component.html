@@ -58,7 +58,7 @@
       </tr>
       <tr>
         <td>{{guarantor?.relationship}}</td>
-        <td>{{guarantor?.netWorth}}</td>
+        <td>{{guarantor?.netWorth | currencyFormatter}}</td>
         <td>{{guarantor?.provinceTemporary?.name}}</td>
         <td>{{guarantor?.districtTemporary?.name}}</td>
         <td>{{guarantor?.municipalitiesTemporary?.name}}</td>

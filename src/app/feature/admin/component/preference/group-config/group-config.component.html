@@ -68,7 +68,7 @@
       <tr *ngFor="let singleGroup of customerGroups; let i=index">
         <td>{{i + 1}}</td>
         <td>{{singleGroup.groupCode}}</td>
-        <td>{{singleGroup.groupLimit}}</td>
+        <td>{{singleGroup.groupLimit | currencyFormatter}}</td>
         <td>{{singleGroup.createdAt |date}}</td>
         <td>{{singleGroup.status}}</td>
         <td (click)="editItem(groupModal , singleGroup)"><i class="fas fa-edit cursor"></i></td>

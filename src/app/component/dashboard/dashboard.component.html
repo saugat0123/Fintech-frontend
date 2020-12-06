@@ -11,7 +11,7 @@
         </app-icon-card>
     </div>
 
-    <div *ngIf="roleName" class="col-md-4 col-sm-6 col-xs-12">
+    <div *ngIf="roleName || adminRole" class="col-md-4 col-sm-6 col-xs-12">
         <a routerLink="/home/admin/catalogue">
             <app-icon-card detail="click to transfer" title="Transfer" type="danger">
                 <i class="fas fa-exchange-alt"></i>
@@ -58,7 +58,7 @@
     </div>
 </ng-template>
 
-<div class="row" *ngIf="!(roleName || hideLoanDashboard)">
+<div class="row" *ngIf="!(roleName || adminRole)">
     <div class="col-md-11">
         <app-pending-loan></app-pending-loan>
     </div>
