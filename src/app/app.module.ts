@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './component/login/login.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {AddressService} from './@core/service/baseservice/address.service';
 import {QuillModule} from 'ngx-quill';
 import {DatePipe, HashLocationStrategy, LocationStrategy} from '@angular/common';
@@ -20,6 +20,8 @@ import {LoginBaseComponent} from './component/login-base/login-base.component';
 import {NewPasswordComponent} from './component/new-password/new-password.component';
 import {RequestInterceptor} from './@core/service/authentication/request-interceptor.service';
 import {CKEditorModule} from 'ng2-ckeditor';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 
 
@@ -46,7 +48,14 @@ import {CKEditorModule} from 'ng2-ckeditor';
         DragDropModule,
         NgxPrintModule,
         NbDatepickerModule.forRoot(),
-        CKEditorModule
+        CKEditorModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: httpTranslateLoader,
+                deps: [HttpClient]
+            }
+        })
 
     ],
     providers: [AddressService, {
@@ -60,4 +69,7 @@ import {CKEditorModule} from 'ng2-ckeditor';
 
 })
 export class AppModule {
+}
+export function httpTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http);
 }
