@@ -36,7 +36,6 @@ import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {DocStatus} from '../../model/docStatus';
 import {LoanDataKey} from '../../../../@core/utils/constants/loan-data-key';
-import {AffiliateId} from '../../../../@core/utils/constants/affiliateId';
 
 @Component({
     selector: 'app-loan-summary',
@@ -146,7 +145,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     insuranceWithDoc = [];
     showCadDoc = false;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
-    affiliatedId;
 
 
     constructor(
@@ -176,7 +174,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.affiliatedId = LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB;
         this.loanDataHolder = this.loanData;
         this.loadSummary();
     }
