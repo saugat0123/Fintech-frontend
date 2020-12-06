@@ -153,10 +153,10 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.post(req.url, formData, {headers: req.header});
     }
 
-    public saveCustomerDocument(loanId , loanDataHolder) {
+    public saveCustomerDocument(loanId , customerDocuments: Array<CustomerDocuments>) {
         const api = `${this.getApi()}/cad-document?loanId=${loanId}`;
         const req = ApiUtils.getRequest(api);
-        return this.http.post(req.url, loanDataHolder ,{headers: req.header});
+        return this.http.post(req.url, customerDocuments, {headers: req.header});
     }
 
     protected getApi(): string {
