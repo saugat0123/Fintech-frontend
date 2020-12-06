@@ -49,19 +49,19 @@
     <div class="row">
         <div class="col-md-7">
             <span> <strong>Authorized Capital :</strong></span></div>
-        <div class="col-md-5">{{companyInfo?.capital?.authorizedCapital}}</div>
+        <div class="col-md-5">{{companyInfo?.capital?.authorizedCapital | currencyFormatter}}</div>
     </div>
 
     <div class="row">
         <div class="col-md-7">
             <span> <strong>Paid Up Capital :</strong></span></div>
-        <div class="col-md-5">{{companyInfo?.capital?.paidUpCapital}}</div>
+        <div class="col-md-5">{{companyInfo?.capital?.paidUpCapital | currencyFormatter}}</div>
     </div>
 
     <div class="row">
         <div class="col-md-7">
             <span> <strong>Issued Capital :</strong></span></div>
-        <div class="col-md-5">{{companyInfo?.capital?.issuedCapital}}</div>
+        <div class="col-md-5">{{companyInfo?.capital?.issuedCapital | currencyFormatter}}</div>
     </div>
 
 <!--    <div class="row">-->
@@ -79,7 +79,7 @@
     <div class="row">
         <div class="col-md-7">
             <span> <strong>Number Of Shareholder :</strong></span></div>
-        <div class="col-md-5">{{companyInfo?.capital?.numberOfShareholder}}</div>
+        <div class="col-md-5">{{companyInfo?.capital?.numberOfShareholder | currencyFormatter}}</div>
     </div>
 
 <!--    <div class="row">-->

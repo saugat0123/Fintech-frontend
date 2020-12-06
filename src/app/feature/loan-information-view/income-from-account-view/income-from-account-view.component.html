@@ -16,19 +16,19 @@
             <tr>
                 <td>Credit Transaction in Account</td>
                 <td>
-                    {{this.data?.accountTransactionForm?.creditTransactionNumber}}
+                    {{this.data?.accountTransactionForm?.creditTransactionNumber | currencyFormatter}}
                 </td>
                 <td>
-                    {{this.data?.accountTransactionForm?.creditTransactionValue}}
+                    {{this.data?.accountTransactionForm?.creditTransactionValue  | currencyFormatter}}
                 </td>
             </tr>
             <tr>
                 <td>Debit Transaction in Account</td>
                 <td>
-                    {{this.data?.accountTransactionForm?.debitTransactionNumber}}
+                    {{this.data?.accountTransactionForm?.debitTransactionNumber | currencyFormatter}}
                 </td>
                 <td>
-                    {{this.data?.accountTransactionForm?.debitTransactionValue}}
+                    {{this.data?.accountTransactionForm?.debitTransactionValue | currencyFormatter}}
                 </td>
             </tr>
             <tr>

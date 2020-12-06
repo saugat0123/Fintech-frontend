@@ -22,9 +22,9 @@
             <tr class="sb-bg-secondary text-white">
                 <td></td>
                 <td>Funded</td>
-                <td>{{proposalUtil.calculateTotalFromProposalList(loanDataKey.PROPOSE_LIMIT, fundedList)}}</td>
+                <td>{{proposalUtil.calculateTotalFromProposalList(loanDataKey.PROPOSE_LIMIT, fundedList) | currencyFormatter}}</td>
                 <td colspan="3">
-                <td>{{calculateRequiredCollateral(fundedList)}}</td>
+                <td>{{calculateRequiredCollateral(fundedList) | currencyFormatter}}</td>
             </tr>
             <ng-container *ngFor="let model of fundedList; let i=index">
                 <tr class="cursor">
@@ -42,9 +42,9 @@
             <tr class="sb-bg-secondary text-white">
                 <td></td>
                 <td>Non Funded</td>
-                <td>{{proposalUtil.calculateTotalFromProposalList(loanDataKey.PROPOSE_LIMIT, nonFundedList)}}</td>
+                <td>{{proposalUtil.calculateTotalFromProposalList(loanDataKey.PROPOSE_LIMIT, nonFundedList) | currencyFormatter}}</td>
                 <td colspan="3"></td>
-                <td>{{calculateRequiredCollateral(nonFundedList)}}</td>
+                <td>{{calculateRequiredCollateral(nonFundedList) | currencyFormatter}}</td>
             </tr>
             <ng-container *ngFor="let model of nonFundedList; let i=index">
                 <tr class="cursor">
@@ -63,9 +63,9 @@
             <tr class="sb-bg-secondary text-white">
                 <td></td>
                 <td>Total</td>
-                <td>{{setField('totalProposedAmount' , proposalUtil.calculateTotalFromProposalList(loanDataKey.PROPOSE_LIMIT, customerAllLoanList))}}</td>
+                <td>{{setField('totalProposedAmount' , proposalUtil.calculateTotalFromProposalList(loanDataKey.PROPOSE_LIMIT, customerAllLoanList)) | currencyFormatter}}</td>
                 <td colspan="3"></td>
-                <td>{{setField('totalRequiredCollateral' , calculateRequiredCollateral(customerAllLoanList))}}</td>
+                <td>{{setField('totalRequiredCollateral' , calculateRequiredCollateral(customerAllLoanList)) | currencyFormatter}}</td>
             </tr>
             </tbody>
         </table>
@@ -84,6 +84,6 @@
     </div>
     <div  class="col-md-2 sb-small">
         <mark class="alert-warning">Coverage%:</mark>
-        <strong>{{(security?.totalSecurityAmount/totalRequiredCollateral)*100 |roundvalue}}%</strong>
+        <strong>{{(security?.totalSecurityAmount/totalRequiredCollateral)*100 |roundvalue |currencyFormatter}}%</strong>
     </div>
 </div>

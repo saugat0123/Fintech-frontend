@@ -125,9 +125,9 @@
       </thead>
       <tbody>
       <tr>
-        <td>{{formValue?.capital?.authorizedCapital}}</td>
-        <td>{{formValue?.capital?.issuedCapital}}</td>
-        <td>{{formValue?.capital?.paidUpCapital}}</td>
+        <td>{{formValue?.capital?.authorizedCapital | currencyFormatter}}</td>
+        <td>{{formValue?.capital?.issuedCapital | currencyFormatter}}</td>
+        <td>{{formValue?.capital?.paidUpCapital | currencyFormatter}}</td>
 <!--        <td>{{formValue?.capital?.totalCapital}}</td>-->
 <!--        <td>{{formValue?.capital?.fixedCapital}}</td>-->
 <!--        <td>{{formValue?.capital?.workingCapital}}</td>-->
@@ -281,7 +281,7 @@
         <td>{{proprietors?.type}}</td>
         <td>{{proprietors?.name}}</td>
         <td>{{proprietors?.contactNo}}</td>
-        <td>{{proprietors?.share}}</td>
+        <td>{{proprietors?.share | currencyFormatter}}</td>
         <td>{{proprietors?.province?.name}}</td>
         <td>{{proprietors?.district?.name}}</td>
         <td>{{proprietors?.municipalityVdc?.name}}</td>
@@ -418,51 +418,51 @@
     </tr>
       <tr>
         <td>Interest Income</td>
-        <th>{{businessGiven?.interestIncomeDuringReview}}</th>
+        <th>{{businessGiven?.interestIncomeDuringReview | currencyFormatter}}</th>
       </tr>
       <tr>
         <td>Loan Processing Fee</td>
-        <th>{{businessGiven?.loanProcessingFeeDuringReview}}</th>
+        <th>{{businessGiven?.loanProcessingFeeDuringReview | currencyFormatter}}</th>
       </tr>
       <tr>
         <td>LC Commission</td>
-        <th>{{businessGiven?.lcCommissionDuringReview}}</th>
+        <th>{{businessGiven?.lcCommissionDuringReview | currencyFormatter}}</th>
       </tr>
       <tr>
         <td>Guarantee Commission</td>
-        <th>{{businessGiven?.guaranteeCommissionDuringReview}}</th>
+        <th>{{businessGiven?.guaranteeCommissionDuringReview | currencyFormatter}}</th>
       </tr>
       <tr>
         <td>Other Commission</td>
-        <th>{{businessGiven?.otherCommissionDuringReview}}</th>
+        <th>{{businessGiven?.otherCommissionDuringReview | currencyFormatter}}</th>
       </tr>
       <tr>
         <td>Saving Account</td>
-        <th>{{businessGiven?.savingAccountDuringReview}}</th>
+        <th>{{businessGiven?.savingAccountDuringReview | currencyFormatter}}</th>
       </tr>
       <tr>
         <td>Payroll Account</td>
-        <th>{{businessGiven?.payrollAccountDuringReview}}</th>
+        <th>{{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</th>
       </tr>
       <tr>
         <td>Debit Cards</td>
-        <th>{{businessGiven?.debitCardsDuringReview}}</th>
+        <th>{{businessGiven?.debitCardsDuringReview | currencyFormatter}}</th>
       </tr>
       <tr>
         <td>Credit Cards</td>
-        <th>{{businessGiven?.creditCardsDuringReview}}</th>
+        <th>{{businessGiven?.creditCardsDuringReview | currencyFormatter}}</th>
       </tr>
       <tr>
         <td>Mobile Bank / Internet Banking</td>
-        <th>{{businessGiven?.mobileBankingDuringReview}}</th>
+        <th>{{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</th>
       </tr>
       <tr>
         <td>Locker</td>
-        <th>{{businessGiven?.lockerDuringReview}}</th>
+        <th>{{businessGiven?.lockerDuringReview | currencyFormatter}}</th>
       </tr>
       <tr>
         <th>Total</th>
-        <th>{{businessGiven?.total}}</th>
+        <th>{{businessGiven?.total | currencyFormatter}}</th>
       </tr>
 
     </table>
