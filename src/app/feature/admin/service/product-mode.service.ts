@@ -32,6 +32,11 @@ export class ProductModeService extends BaseService<ProductMode> {
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
     }
+    public getBankUtils() {
+        const api = `${this.getApi()}/bankUtils`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
 
     protected getApi(): string {
         return ProductModeService.URL;
@@ -55,4 +60,8 @@ export class ProductUtils {
     LOAN_APPROVAL_HIERARCHY_LEVEL: string;
     CAD_DOC_UPLOAD: boolean;
 
+}
+
+export class BankUtils {
+    AFFILIATED_ID: string;
 }

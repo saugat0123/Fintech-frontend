@@ -7,4 +7,5 @@ export class Pattern {
   static ALPHABET_ONLY = '^[a-zA-Z ]*$';
   static NUMBER_ONLY = '^[0-9]*$';
   static FLOAT_UPTO_TWO_PLACE = '^[0-9]+(\\.[0-9]{1,2})?$';
+  static ALPHA_NUMERIC = '^[A-Za-z0-9]*$';
 }

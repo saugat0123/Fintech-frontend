@@ -15,6 +15,7 @@ import {LoanFormService} from '../component/loan-form/service/loan-form.service'
 import {LoanActionCombinedModalComponent} from './loan-action-combined-modal/loan-action-combined-modal.component';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {ProductUtils} from '../../admin/service/product-mode.service';
+import {LoanFlag} from '../../../@core/model/enum/loan-flag.enum';
 
 @Component({
   selector: 'app-loan-action',
@@ -104,7 +105,10 @@ export class LoanActionComponent implements OnInit, OnChanges {
         if (this.loanFlags && this.loanFlags.length > 0) {
           this.loanFlags.sort((a, b) => a.order - b.order);
           this.toastService.show(new Alert(AlertType.INFO, this.loanFlags[0].description));
-          return;
+          if (!((this.loanFlags[0].flag === LoanFlag[LoanFlag.EMPTY_COMPANY_VAT_PAN_EXPIRY]) ||
+              (this.loanFlags[0].flag === LoanFlag[LoanFlag.COMPANY_VAT_PAN_EXPIRY]))){
+            return;
+          }
         }
         context = {
           popUpTitle: 'Send Forward',
@@ -119,8 +123,10 @@ export class LoanActionComponent implements OnInit, OnChanges {
         if (this.loanFlags && this.loanFlags.length > 0) {
           this.loanFlags.sort((a, b) => a.order - b.order);
           this.toastService.show(new Alert(AlertType.INFO, this.loanFlags[0].description));
-          return;
-        }
+          if (!((this.loanFlags[0].flag === LoanFlag[LoanFlag.EMPTY_COMPANY_VAT_PAN_EXPIRY]) ||
+              (this.loanFlags[0].flag === LoanFlag[LoanFlag.COMPANY_VAT_PAN_EXPIRY]))){
+            return;
+          }        }
         context = {
           popUpTitle: 'Approve',
           isForward: false,
