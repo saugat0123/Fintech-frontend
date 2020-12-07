@@ -21,7 +21,7 @@
       <tbody>
       <th scope="row">A</th>
       <td><b>ASSETS</b></td>
-      <td *ngFor="let year of fiscalYear" scope="col"></td>
+      <td *ngFor="let year of fiscalYear" scope="col" class="headingParticular"></td>
       </tbody>
 
       <tbody>
@@ -30,7 +30,7 @@
         <td><b>Current Assets</b></td>
         <td *ngFor="let amount of balanceSheetForm.get('currentAssets')['controls']; let j = index"
             formArrayName="currentAssets" scope="col">
-          <div [formGroupName]="j" class="text-center">
+          <div [formGroupName]="j" class="text-center headingParticular">
             <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
           </div>
         </td>
@@ -64,7 +64,7 @@
         <td><b>Inventories</b></td>
         <td *ngFor="let amount of balanceSheetForm.get('inventories')['controls']; let j = index"
             formArrayName="inventories" scope="col">
-          <div [formGroupName]="j" class="text-center">
+          <div [formGroupName]="j" class="text-center headingParticular">
             <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
           </div>
         </td>
@@ -105,7 +105,7 @@
         <td><b>Fixed Assets</b></td>
         <td *ngFor="let amount of balanceSheetForm.get('fixedAssets')['controls']; let j = index"
             formArrayName="fixedAssets" scope="col">
-          <div [formGroupName]="j" class="text-center">
+          <div [formGroupName]="j" class="text-center headingParticular">
             <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
           </div>
         </td>
@@ -151,7 +151,7 @@
         <td><b>Other Assets</b></td>
         <td *ngFor="let amount of balanceSheetForm.get('otherAssets')['controls']; let j = index"
             formArrayName="otherAssets" scope="col">
-          <div [formGroupName]="j" class="text-center">
+          <div [formGroupName]="j" class="text-center headingParticular">
             <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
           </div>
         </td>
@@ -197,7 +197,7 @@
         <td class="text-center"><b>Total Assets</b></td>
         <td *ngFor="let amount of balanceSheetForm.get('totalAssets')['controls']; let j = index"
             formArrayName="totalAssets" scope="col">
-          <div [formGroupName]="j" class="text-center">
+          <div [formGroupName]="j" class="text-center headingParticular">
             <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
           </div>
         </td>
@@ -207,7 +207,7 @@
       <tbody>
       <th scope="row">C</th>
       <td><b>LIABILITIES</b></td>
-      <td *ngFor="let year of fiscalYear" scope="col"></td>
+      <td *ngFor="let year of fiscalYear" scope="col" class="headingParticular"></td>
       </tbody>
 
       <tbody>
@@ -216,7 +216,7 @@
         <td><b>	Current Liabilities</b></td>
         <td *ngFor="let amount of balanceSheetForm.get('currentLiabilities')['controls']; let j = index"
             formArrayName="currentLiabilities" scope="col">
-          <div [formGroupName]="j" class="text-center">
+          <div [formGroupName]="j" class="text-center headingParticular">
             <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
           </div>
         </td>
@@ -262,7 +262,7 @@
         <td><b>Long Term Loan</b></td>
         <td *ngFor="let amount of balanceSheetForm.get('longTermLoan')['controls']; let j = index"
             formArrayName="longTermLoan" scope="col">
-          <div [formGroupName]="j" class="text-center">
+          <div [formGroupName]="j" class="text-center headingParticular">
             <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
           </div>
         </td>
@@ -291,7 +291,7 @@
         <td><b>Other Long Term Liabilities</b></td>
         <td *ngFor="let amount of balanceSheetForm.get('otherLongTermLiabilities')['controls']; let j = index"
             formArrayName="otherLongTermLiabilities" scope="col">
-          <div [formGroupName]="j" class="text-center">
+          <div [formGroupName]="j" class="text-center headingParticular">
             <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
           </div>
         </td>
@@ -352,7 +352,7 @@
         <td><b>Net Worth</b></td>
         <td *ngFor="let amount of balanceSheetForm.get('netWorth')['controls']; let j = index"
             formArrayName="netWorth" scope="col">
-          <div [formGroupName]="j" class="text-center">
+          <div [formGroupName]="j" class="text-center headingParticular">
             <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
           </div>
         </td>
@@ -371,7 +371,7 @@
         </td>
         <td *ngFor="let amount of category.get('amount')['controls']; let o = index"
             formArrayName="amount">
-          <div [formGroupName]="o" class="text-center">
+          <div [formGroupName]="o" [ngClass]="i == 1 ? 'text-center headingParticular' : 'text-center'">
             <input [readonly]="i == 1"
                    (input)="onValueChange('netWorth', o)"
                    (change)="checkForLatterFiscalYearChanges(o)"
@@ -399,7 +399,7 @@
         <td class="text-center"><b>Total Liabilities and Equity</b></td>
         <td *ngFor="let amount of balanceSheetForm.get('totalLiabilitiesAndEquity')['controls']; let j = index"
             formArrayName="totalLiabilitiesAndEquity" scope="col">
-          <div [formGroupName]="j" class="text-center">
+          <div [formGroupName]="j" class="text-center headingParticular">
             <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
           </div>
         </td>
@@ -412,7 +412,7 @@
         <td class="text-center"><b>Difference</b></td>
         <td *ngFor="let amount of balanceSheetForm.get('differenceBS')['controls']; let j = index"
             formArrayName="differenceBS" scope="col">
-          <div [formGroupName]="j" class="text-center">
+          <div [formGroupName]="j" class="text-center headingParticular">
             <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
           </div>
         </td>
@@ -421,7 +421,7 @@
 
       <tbody>
       <tr>
-        <th scope="row">E</th>
+        <th scope="row">F</th>
         <td class="text-center">Principle Instalment paid/payable during the year</td>
         <td *ngFor="let amount of balanceSheetForm.get('principleInstalmentPaidDuringTheYear')['controls']; let j = index"
             formArrayName="principleInstalmentPaidDuringTheYear" scope="col">
