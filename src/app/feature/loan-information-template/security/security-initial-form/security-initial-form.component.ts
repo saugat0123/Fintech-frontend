@@ -901,6 +901,8 @@ export class SecurityInitialFormComponent implements OnInit {
             vehicalStaffRepresentativeDesignation: [undefined],
             vehicalAlternateStaffRepresentativeDesignation: [undefined],
             vehicalAlternateStaffRepresentativeName: [undefined],
+            showroomAddress: undefined,
+            showroomName: undefined
         });
     }
 
@@ -940,6 +942,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     vehicalStaffRepresentativeDesignation: [singleData.vehicalStaffRepresentativeDesignation],
                     vehicalAlternateStaffRepresentativeDesignation: [singleData.vehicalAlternateStaffRepresentativeDesignation],
                     vehicalAlternateStaffRepresentativeName: [singleData.vehicalAlternateStaffRepresentativeName],
+                    showroomAddress: [singleData.showroomAddress],
+                    showroomName: [singleData.showroomName]
                 })
             );
         });
