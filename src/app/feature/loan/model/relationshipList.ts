@@ -1,8 +1,8 @@
 export class RelationshipList {
   relation = [
     {
-      id: 'GrandFather',
-      name: 'GrandFather',
+      id: 'Grand Father',
+      name: 'Grand Father',
     },
     {
       id: 'Grand Mother',

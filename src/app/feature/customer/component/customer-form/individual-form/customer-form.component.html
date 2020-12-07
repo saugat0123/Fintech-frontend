@@ -544,10 +544,12 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="customerRelation{{i}}"><strong>Relation</strong></label>
-                                        <input class="form-control" formControlName="customerRelation"
+                                        <select class="form-control" formControlName="customerRelation"
                                                id="customerRelation{{i}}"
-                                               [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelation').errors }"
-                                               placeholder="Relation" type="text">
+                                               [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelation').errors }">
+                                            <option [ngValue]="null" hidden>Select Relation</option>
+                                            <option [value]="relation.id" *ngFor="let relation of relationArray.relation">{{relation.name}}</option>
+                                        </select>
                                         <div *ngIf="submitted && relatives.get('customerRelation').errors"
                                              class="invalid-feedback">
                                             <div *ngIf="relatives.get('customerRelation').errors?.required">Relation
