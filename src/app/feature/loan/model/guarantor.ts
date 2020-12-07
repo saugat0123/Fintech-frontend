@@ -26,4 +26,10 @@ export class Guarantor {
     wardNumber: number;
     streetNameTemporary: string;
     wardNumberTemporary: number;
+    dateOfBirth: Date;
+    motherName: string;
+    spouseName: string;
+    fatherInLaw: string;
+    profession: string;
+    background: string;
 }
