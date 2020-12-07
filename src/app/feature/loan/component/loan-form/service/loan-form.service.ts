@@ -158,6 +158,11 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         const req = ApiUtils.getRequest(api);
         return this.http.post(req.url, customerDocuments, {headers: req.header});
     }
+    public saveCbsNumbers(loanDataHolder) {
+        const api = `${this.getApi()}/cbs`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.post(req.url, loanDataHolder, {headers: req.header});
+    }
 
     protected getApi(): string {
         return LoanFormService.API;
