@@ -1,0 +1,34 @@
+<div>
+    <div class="modal-content">
+        <div class="modal-header" style="display:block">
+            <div class="login-box-body">
+                <p class="login-box-msg">Please Enter Your Credential for Confirmation
+                    <a (click)="onClose()" aria-label="Close" class="close cursor"
+                       data-dismiss="modal">
+                        <span aria-hidden="true">×</span></a>
+                </p>
+                <p *ngIf="falseCredential" class="text-danger">Please enter
+                    again. {{falseCredentialMessage}}</p>
+
+                <form #lform="ngForm" (ngSubmit)="lform.valid && onLogin(lform)" class="login-form"
+                      name="login-form">
+                    <div class="form-group has-feedback">
+                        <input #pass="ngModel" [ngClass]="{'is-invalid': lform.submitted && pass.invalid}"
+                               class="form-control"
+                               id="password"
+                               name="password"
+                               ngModel placeholder="Password" required
+                               type="password">
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        <div *ngIf="pass.invalid && lform.submitted" class="invalid-feedback">
+                            Password is required
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-primary  btn-flat" type="submit">verify</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
