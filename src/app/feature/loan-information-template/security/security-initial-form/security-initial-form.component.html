@@ -1894,6 +1894,28 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
+                                <label class="title">FD Account Holder Name<strong></strong></label>
+                                <input class="form-control" formControlName="accountHolderName">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">FD Account Number<strong></strong></label>
+                                <input class="form-control" formControlName="accountNumber">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">FD Tenure Start Date<strong></strong></label>
+                                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="tenureStartDate" class="form-control" formControlName="tenureStartDate">
+                                <app-calendar *ngIf="calendarType === 'BS'"
+                                              (messageToEmit)="securityForm.get(['fixedDepositDetails',i,'tenureStartDate']).patchValue($event?.eDate)"
+                                              [ePreDate]="securityForm.get(['fixedDepositDetails',i,'tenureStartDate']).value"></app-calendar>
+                                <nb-datepicker #tenureStartDate></nb-datepicker>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 <label class="title">Amount<strong></strong></label>
                                 <input class="form-control" formControlName="amount" type="number">
                             </div>

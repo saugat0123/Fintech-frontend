@@ -956,7 +956,10 @@ export class SecurityInitialFormComponent implements OnInit {
             expiryDate: undefined,
             couponRate: [''],
             beneficiary: [''],
-            remarks: ['']
+            remarks: [''],
+            accountHolderName: undefined,
+            accountNumber: undefined,
+            tenureStartDate: undefined
         });
     }
 
@@ -979,7 +982,10 @@ export class SecurityInitialFormComponent implements OnInit {
                         expiryDate: [new Date(deposit.expiryDate)],
                         couponRate: [deposit.couponRate],
                         beneficiary: [deposit.beneficiary],
-                        remarks: [deposit.remarks]
+                        remarks: [deposit.remarks],
+                        accountHolderName: [deposit.accountHolderName],
+                        accountNumber: [deposit.accountNumber],
+                        tenureStartDate: [deposit.tenureStartDate]
                     })
                 );
             });

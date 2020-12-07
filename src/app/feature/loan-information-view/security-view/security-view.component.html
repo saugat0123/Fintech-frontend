@@ -1068,11 +1068,14 @@
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
       <thead>
       <tr>
-        <th class="text-center" colspan="7">Fixed Deposit Receipt Details</th>
+        <th class="text-center" colspan="10">Fixed Deposit Receipt Details</th>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th>S.N</th>
-        <th>FD Receipt Number</th>
+        <th>FD ReceiptName Number</th>
+        <th>Account Holder</th>
+        <th>Account Number</th>
+        <th>Tenure Start Date</th>
         <th>Amount</th>
         <th>Expiry Date</th>
         <th>Coupon Rate</th>
@@ -1082,6 +1085,9 @@
       <tr *ngFor="let depositDetails of securityData['initialForm']['fixedDepositDetails']; let i= index">
         <td>{{i + 1}}</td>
         <td>{{depositDetails?.receiptNumber}}</td>
+        <td>{{depositDetails?.accountHolderName}}</td>
+        <td>{{depositDetails?.accountNumber}}</td>
+        <td>{{depositDetails?.tenureStartDate | date}}</td>
         <td>{{depositDetails?.amount | roundvalue | currencyFormatter}}</td>
         <td>{{depositDetails?.expiryDate | date}}</td>
         <td>{{depositDetails?.couponRate | currencyFormatter}}</td>
@@ -1089,8 +1095,8 @@
         <td>{{depositDetails?.remarks}}</td>
       </tr>
       <tr>
-        <td colspan="2">Total</td>
-        <td colspan="5" class="text-left">{{totalAmount | currencyFormatter}}</td>
+        <td colspan="5"><b>Total</b></td>
+        <td colspan="5" class="text-left"><b>{{totalAmount | currencyFormatter}}</b></td>
       </tr>
       </thead>
     </table>
