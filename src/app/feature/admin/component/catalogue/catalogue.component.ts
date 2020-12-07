@@ -66,6 +66,7 @@ export class CatalogueComponent implements OnInit {
     showBranch = true;
     nbTrigger = NbTrigger;
     public insuranceToggle = false;
+    selectedUserForTransfer;
     public typesDropdown: {
         name: string,
         value: string,
@@ -79,6 +80,7 @@ export class CatalogueComponent implements OnInit {
         {name: 'Partial Settle Loan', value: 'PARTIAL_SETTLEMENT_LOAN', closeRenewFilter: true},
         {name: 'Full Settle Loan', value: 'FULL_SETTLEMENT_LOAN', closeRenewFilter: true},
     ];
+    transferSpinner = false;
 
     constructor(
         private branchService: BranchService,
@@ -162,7 +164,7 @@ export class CatalogueComponent implements OnInit {
         });
 
 
-        if (LocalStorageUtil.getStorage().username === 'SPADMIN') {
+        if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === 'ADMIN') {
             this.transferDoc = true;
         }
 
@@ -196,8 +198,8 @@ export class CatalogueComponent implements OnInit {
             {
                 loanConfigId: [undefined],
                 customerLoanId: [undefined],
-                toUser: [undefined],
-                toRole: [undefined],
+                toUser: [undefined , Validators.required],
+                toRole: [undefined , Validators.required],
                 docAction: [undefined],
                 comment: [undefined, Validators.required],
                 documentStatus: [undefined]
@@ -313,8 +315,10 @@ export class CatalogueComponent implements OnInit {
     }
 
     onTransferClick(template, customerLoanId, userId) {
+        this.transferSpinner = true;
         this.userService.getUserListForTransfer(userId).subscribe((res: any) => {
             this.transferUserList = res.detail;
+            this.transferSpinner = false;
         });
         this.formAction.patchValue({
                 customerLoanId: customerLoanId,
@@ -323,10 +327,11 @@ export class CatalogueComponent implements OnInit {
                 comment: 'TRANSFER'
             }
         );
-        this.modalService.open(template);
+        this.modalService.open(template , {size: 'lg' , backdrop: 'static', keyboard: false});
     }
 
     onClose() {
+        this.buildActionForm();
         this.modalService.dismissAll();
     }
 
@@ -347,7 +352,8 @@ export class CatalogueComponent implements OnInit {
 
     }
 
-    docTransfer(userId, roleId) {
+    docTransfer(userId, roleId , user) {
+        this.selectedUserForTransfer = user;
         const users = {id: userId};
         const role = {id: roleId};
         this.formAction.patchValue({
@@ -358,19 +364,25 @@ export class CatalogueComponent implements OnInit {
     }
 
     action(templates) {
-        this.onClose();
-        this.modalService.open(templates);
+        this.modalService.dismissAll();
+        this.modalService.open(templates , {backdrop: 'static', keyboard: false});
     }
 
-    confirm() {
-        this.onClose();
+    confirm(comment: string) {
+        this.transferSpinner = true;
+        this.formAction.patchValue({
+           comment: comment
+        });
         this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
+            this.transferSpinner = false;
+            this.modalService.dismissAll();
             this.sendLoanNotification(response.detail.customerLoanId);
             CatalogueComponent.loadData(this);
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+            this.modalService.dismissAll();
 
         });
     }

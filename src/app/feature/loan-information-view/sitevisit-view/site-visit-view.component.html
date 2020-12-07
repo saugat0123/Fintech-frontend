@@ -272,12 +272,12 @@
 
   <tr>
 
-    <td>{{formData['currentAssetsInspectionDetails']['insuranceVerification']['assetsMortgaged']}}</td>
-    <td>{{formData['currentAssetsInspectionDetails']['insuranceVerification']['insuredAmount']}}</td>
+    <td>{{formData['currentAssetsInspectionDetails']['insuranceVerification']['assetsMortgaged'] | currencyFormatter}}</td>
+    <td>{{formData['currentAssetsInspectionDetails']['insuranceVerification']['insuredAmount'] | currencyFormatter}}</td>
     <td>{{formData['currentAssetsInspectionDetails']['insuranceVerification']['insuranceCompany']}}</td>
     <td>{{formData['currentAssetsInspectionDetails']['insuranceVerification']['expiryDate'] | date}}</td>
     <td>{{formData['currentAssetsInspectionDetails']['insuranceVerification']['clientsOverallRating']}}</td>
-    <td>{{formData['currentAssetsInspectionDetails']['insuranceVerification']['stockValueConfirmed']}}</td>
+    <td>{{formData['currentAssetsInspectionDetails']['insuranceVerification']['stockValueConfirmed'] | currencyFormatter}}</td>
   </tr>
 
   <tr class="text-white sb-bg-dark">
@@ -423,25 +423,25 @@
   </tr>
   <tr *ngFor="let parties of formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.parties; let i=index">
     <td>{{i+1}}</td>
-    <td>{{parties?.party}}</td>
-    <td>{{parties?.withinThreeMonths}}</td>
-    <td>{{parties?.sixMonth}}</td>
-    <td>{{parties?.oneYear}}</td>
-    <td>{{parties?.oneYearPlus}}</td>
+    <td>{{parties?.party | currencyFormatter}}</td>
+    <td>{{parties?.withinThreeMonths | currencyFormatter}}</td>
+    <td>{{parties?.sixMonth | currencyFormatter}}</td>
+    <td>{{parties?.oneYear | currencyFormatter}}</td>
+    <td>{{parties?.oneYearPlus | currencyFormatter}}</td>
 
   </tr>
   <tr>
     <td></td>
     <td>Total</td>
-    <td><b>{{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.threeMonthTotal}}</b></td>
-    <td><b>{{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.sixMonthTotal}}</b></td>
-    <td><b>{{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.oneYearTotal}}</b></td>
-    <td><b>{{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.moreThanOneYearTotal}}</b></td>
+    <td><b>{{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.threeMonthTotal | currencyFormatter}}</b></td>
+    <td><b>{{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.sixMonthTotal | currencyFormatter}}</b></td>
+    <td><b>{{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.oneYearTotal | currencyFormatter}}</b></td>
+    <td><b>{{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.moreThanOneYearTotal | currencyFormatter}}</b></td>
   </tr>
   <tr>
     <td></td>
     <td>Grand Total</td>
-    <td colspan="4"><b>{{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.grandTotal}}</b></td>
+    <td colspan="4"><b>{{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.grandTotal | currencyFormatter}}</b></td>
   </tr>
 
   <tr class="text-white sb-bg-dark">
@@ -475,7 +475,7 @@
   <tr>
     <td></td>
     <td>Total</td>
-    <td><b>{{formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.receivableCurrentAssetsTotal}}</b></td>
+    <td><b>{{formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.receivableCurrentAssetsTotal | currencyFormatter}}</b></td>
   </tr>
   <tr class="text-white sb-bg-dark">
     <th colspan="3">Inspecting Staffs
@@ -511,7 +511,7 @@
   <tr>
     <td></td>
     <td>Total</td>
-    <td><b>{{formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.payableCurrentAssetsTotal}}</b></td>
+    <td><b>{{formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.payableCurrentAssetsTotal  | currencyFormatter}}</b></td>
   </tr>
   <tr>
 

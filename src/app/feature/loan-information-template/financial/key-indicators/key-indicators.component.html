@@ -21,7 +21,12 @@
       <tbody>
       <tr>
         <th >1</th>
-        <td><strong>Growth</strong></td>
+        <td>
+          <strong>Growth</strong>
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('growth')" (checkedChange)="checkForSummaryList('growth', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('growth')['controls']; let j = index"
             formArrayName="growth" >
           <div [formGroupName]="j" class="text-center">
@@ -34,7 +39,11 @@
       <tbody>
       <tr>
         <th >a</th>
-        <td>Sales</td>
+        <td>Sales
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('sales')" (checkedChange)="checkForSummaryList('sales', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('sales')['controls']; let j = index"
             formArrayName="sales" >
           <div [formGroupName]="j" class="text-center">
@@ -47,7 +56,11 @@
       <tbody>
       <tr>
         <th >b</th>
-        <td>Gross Profit</td>
+        <td>Gross Profit
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('grossProfitKI')" (checkedChange)="checkForSummaryList('grossProfitKI', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('grossProfitKI')['controls']; let j = index"
             formArrayName="grossProfitKI" >
           <div [formGroupName]="j" class="text-center">
@@ -60,7 +73,11 @@
       <tbody>
       <tr>
         <th >c</th>
-        <td>Operating Profit(EBIT)</td>
+        <td>Operating Profit(EBIT)
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('operatingProfitKI')" (checkedChange)="checkForSummaryList('operatingProfitKI', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('operatingProfitKI')['controls']; let j = index"
             formArrayName="operatingProfitKI" >
           <div [formGroupName]="j" class="text-center">
@@ -73,7 +90,11 @@
       <tbody>
       <tr>
         <th >d</th>
-        <td>PAT</td>
+        <td>PAT
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('pAT')" (checkedChange)="checkForSummaryList('pAT', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('pAT')['controls']; let j = index"
             formArrayName="pAT" >
           <div [formGroupName]="j" class="text-center">
@@ -86,7 +107,11 @@
       <tbody>
       <tr>
         <th >2</th>
-        <td><strong>Profitability</strong></td>
+        <td><strong>Profitability</strong>
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('profitability')" (checkedChange)="checkForSummaryList('profitability', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('profitability')['controls']; let j = index"
             formArrayName="profitability" >
           <div [formGroupName]="j" class="text-center">
@@ -99,7 +124,11 @@
       <tbody>
       <tr>
         <th >a</th>
-        <td>Gross Profit Margin</td>
+        <td>Gross Profit Margin
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('grossProfitMargin')" (checkedChange)="checkForSummaryList('grossProfitMargin', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('grossProfitMargin')['controls']; let j = index"
             formArrayName="grossProfitMargin" >
           <div [formGroupName]="j" class="text-center">
@@ -112,7 +141,11 @@
       <tbody>
       <tr>
         <th >b</th>
-        <td>Net Profit Margin</td>
+        <td>Net Profit Margin
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('netProfitMargin')" (checkedChange)="checkForSummaryList('netProfitMargin', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('netProfitMargin')['controls']; let j = index"
             formArrayName="netProfitMargin" >
           <div [formGroupName]="j" class="text-center">
@@ -125,7 +158,11 @@
       <tbody>
       <tr>
         <th >c</th>
-        <td>EBIT to Sales</td>
+        <td>EBIT to Sales
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('eBITtoSales')" (checkedChange)="checkForSummaryList('eBITtoSales', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('eBITtoSales')['controls']; let j = index"
             formArrayName="eBITtoSales" >
           <div [formGroupName]="j" class="text-center">
@@ -138,7 +175,11 @@
       <tbody>
       <tr>
         <th >d</th>
-        <td>Return On Equity</td>
+        <td>Return On Equity
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('returnOnEquity')" (checkedChange)="checkForSummaryList('returnOnEquity', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('returnOnEquity')['controls']; let j = index"
             formArrayName="returnOnEquity" >
           <div [formGroupName]="j" class="text-center">
@@ -151,7 +192,11 @@
       <tbody>
       <tr>
         <th >3</th>
-        <td><strong>Solvency</strong></td>
+        <td><strong>Solvency</strong>
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('solvency')" (checkedChange)="checkForSummaryList('solvency', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('solvency')['controls']; let j = index"
             formArrayName="solvency" >
           <div [formGroupName]="j" class="text-center">
@@ -164,7 +209,11 @@
       <tbody>
       <tr>
         <th >a</th>
-        <td>Quick Ratio (times)</td>
+        <td>Quick Ratio (times)
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('quickRatio')" (checkedChange)="checkForSummaryList('quickRatio', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('quickRatio')['controls']; let j = index"
             formArrayName="quickRatio" >
           <div [formGroupName]="j" class="text-center">
@@ -177,7 +226,11 @@
       <tbody>
       <tr>
         <th >b</th>
-        <td>Current Ratio (times)</td>
+        <td>Current Ratio (times)
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('currentRatio')" (checkedChange)="checkForSummaryList('currentRatio', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('currentRatio')['controls']; let j = index"
             formArrayName="currentRatio" >
           <div [formGroupName]="j" class="text-center">
@@ -190,7 +243,11 @@
       <tbody>
       <tr>
         <th >c</th>
-        <td>Debt Service Coverage Ratio (times)</td>
+        <td>Debt Service Coverage Ratio (times)
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('debtServiceCoverageRatio')" (checkedChange)="checkForSummaryList('debtServiceCoverageRatio', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('debtServiceCoverageRatio')['controls']; let j = index"
             formArrayName="debtServiceCoverageRatio" >
           <div [formGroupName]="j" class="text-center">
@@ -203,7 +260,11 @@
       <tbody>
       <tr>
         <th >d</th>
-        <td>Interest Coverage Ratio (times)</td>
+        <td>Interest Coverage Ratio (times)
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('interestCoverageRatio')" (checkedChange)="checkForSummaryList('interestCoverageRatio', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('interestCoverageRatio')['controls']; let j = index"
             formArrayName="interestCoverageRatio" >
           <div [formGroupName]="j" class="text-center">
@@ -216,7 +277,11 @@
       <tbody>
       <tr>
         <th>e</th>
-        <td>DE Ratio (Excluding Loan from shareholder/director)</td>
+        <td>DE Ratio (Excluding Loan from shareholder/director)
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('deRatioExcludingLoanFromShareholderOrDirector')" (checkedChange)="checkForSummaryList('deRatioExcludingLoanFromShareholderOrDirector', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('deRatioExcludingLoanFromShareholderOrDirector')['controls']; let j = index"
             formArrayName="deRatioExcludingLoanFromShareholderOrDirector" >
           <div [formGroupName]="j" class="text-center">
@@ -229,7 +294,11 @@
       <tbody>
       <tr>
         <th>f</th>
-        <td>DE Ratio (Including Loan from shareholder/director)</td>
+        <td>DE Ratio (Including Loan from shareholder/director)
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('deRatioIncludingLoanFromShareholderOrDirector')" (checkedChange)="checkForSummaryList('deRatioIncludingLoanFromShareholderOrDirector', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('deRatioIncludingLoanFromShareholderOrDirector')['controls']; let j = index"
             formArrayName="deRatioIncludingLoanFromShareholderOrDirector" >
           <div [formGroupName]="j" class="text-center">
@@ -242,7 +311,11 @@
       <tbody>
       <tr>
         <th>g</th>
-        <td>Debt-Equity Ratio (Overall)</td>
+        <td>Debt-Equity Ratio (Overall)
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('debtEquityRatioOverall')" (checkedChange)="checkForSummaryList('debtEquityRatioOverall', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('debtEquityRatioOverall')['controls']; let j = index"
             formArrayName="debtEquityRatioOverall" >
           <div [formGroupName]="j" class="text-center">
@@ -255,7 +328,11 @@
       <tbody>
       <tr>
         <th>h</th>
-        <td>Debt-Equity Ratio - Long Term (times)</td>
+        <td>Debt-Equity Ratio - Long Term (times)
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('debtEquityRatioLongTerm')" (checkedChange)="checkForSummaryList('debtEquityRatioLongTerm', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('debtEquityRatioLongTerm')['controls']; let j = index"
             formArrayName="debtEquityRatioLongTerm" >
           <div [formGroupName]="j" class="text-center">
@@ -268,7 +345,11 @@
       <tbody>
       <tr>
         <th>i</th>
-        <td>Debt-Equity Ratio - Working Capital (times)</td>
+        <td>Debt-Equity Ratio - Working Capital (times)
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('debtEquityRatioWorkingCapital')" (checkedChange)="checkForSummaryList('debtEquityRatioWorkingCapital', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('debtEquityRatioWorkingCapital')['controls']; let j = index"
             formArrayName="debtEquityRatioWorkingCapital" >
           <div [formGroupName]="j" class="text-center">
@@ -281,7 +362,11 @@
       <tbody>
       <tr>
         <th>j</th>
-        <td>Debt-Equity Ratio - General</td>
+        <td>Debt-Equity Ratio - General
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('debtEquityRatioGeneral')" (checkedChange)="checkForSummaryList('debtEquityRatioGeneral', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('debtEquityRatioGeneral')['controls']; let j = index"
             formArrayName="debtEquityRatioGeneral" >
           <div [formGroupName]="j" class="text-center">
@@ -294,7 +379,11 @@
       <tbody>
       <tr>
         <th>k</th>
-        <td>Leverage ratio</td>
+        <td>Leverage ratio
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('leverageRatio')" (checkedChange)="checkForSummaryList('leverageRatio', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('leverageRatio')['controls']; let j = index"
             formArrayName="leverageRatio" >
           <div [formGroupName]="j" class="text-center">
@@ -307,7 +396,11 @@
       <tbody>
       <tr>
         <th>4</th>
-        <td><strong>Operating Cycle</strong></td>
+        <td><strong>Operating Cycle</strong>
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('operatingCycle')" (checkedChange)="checkForSummaryList('operatingCycle', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('operatingCycle')['controls']; let j = index"
             formArrayName="operatingCycle" >
           <div [formGroupName]="j" class="text-center">
@@ -320,7 +413,11 @@
       <tbody>
       <tr>
         <th>a</th>
-        <td>Inventory Turnover Ratio (times)</td>
+        <td>Inventory Turnover Ratio (times)
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('inventoryTurnoverRatio')" (checkedChange)="checkForSummaryList('inventoryTurnoverRatio', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('inventoryTurnoverRatio')['controls']; let j = index"
             formArrayName="inventoryTurnoverRatio" >
           <div [formGroupName]="j" class="text-center">
@@ -333,7 +430,11 @@
       <tbody>
       <tr>
         <th>b</th>
-        <td>Stock in Hand - Days</td>
+        <td>Stock in Hand - Days
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('stockInHandDays')" (checkedChange)="checkForSummaryList('stockInHandDays', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('stockInHandDays')['controls']; let j = index"
             formArrayName="stockInHandDays" >
           <div [formGroupName]="j" class="text-center">
@@ -346,7 +447,11 @@
       <tbody>
       <tr>
         <th>c</th>
-        <td>Debtor Turnover Ratio (times)</td>
+        <td>Debtor Turnover Ratio (times)
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('debtorTurnOverRatio')" (checkedChange)="checkForSummaryList('debtorTurnOverRatio', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('debtorTurnOverRatio')['controls']; let j = index"
             formArrayName="debtorTurnOverRatio" >
           <div [formGroupName]="j" class="text-center">
@@ -359,7 +464,11 @@
       <tbody>
       <tr>
         <th>d</th>
-        <td>Average Collection Period - Days</td>
+        <td>Average Collection Period - Days
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('averageCollectionPeriod')" (checkedChange)="checkForSummaryList('averageCollectionPeriod', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('averageCollectionPeriod')['controls']; let j = index"
             formArrayName="averageCollectionPeriod" >
           <div [formGroupName]="j" class="text-center">
@@ -372,7 +481,11 @@
       <tbody>
       <tr>
         <th>e</th>
-        <td>Average Payment Period - Days</td>
+        <td>Average Payment Period - Days
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('averagePaymentPeriod')" (checkedChange)="checkForSummaryList('averagePaymentPeriod', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('averagePaymentPeriod')['controls']; let j = index"
             formArrayName="averagePaymentPeriod" >
           <div [formGroupName]="j" class="text-center">
@@ -385,7 +498,11 @@
       <tbody>
       <tr>
         <th>f</th>
-        <td>Net Operating Cycle - Days</td>
+        <td>Net Operating Cycle - Days
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('netOperatingCycle')" (checkedChange)="checkForSummaryList('netOperatingCycle', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('netOperatingCycle')['controls']; let j = index"
             formArrayName="netOperatingCycle" >
           <div [formGroupName]="j" class="text-center">
@@ -398,7 +515,11 @@
       <tbody>
       <tr>
         <th>g</th>
-        <td>Net WC before Bank(Rs. in 000)</td>
+        <td>Net WC before Bank(Rs. in 000)
+          <div class="float-right">
+            <nb-checkbox [checked]="summaryCheckListMap.get('netWCBeforeBank')" (checkedChange)="checkForSummaryList('netWCBeforeBank', $event)"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('netWCBeforeBank')['controls']; let j = index"
             formArrayName="netWCBeforeBank" >
           <div [formGroupName]="j" class="text-center">

@@ -2,8 +2,10 @@ import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angula
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FinancialDeleteComponentComponent} from '../financial-delete-component/financial-delete-component.component';
-import {ModalResponse} from '../../../../@core/utils';
+import {ModalResponse, ToastService} from '../../../../@core/utils';
 import {Editor} from '../../../../@core/utils/constants/editor';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {KeyIndicatorsConstantsEnum} from '../constants/key-indicators-constants';
 
 @Component({
     selector: 'app-key-indicators',
@@ -17,8 +19,44 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
     keyIndicatorsForm: FormGroup;
     ckeConfig = Editor.CK_CONFIG;
 
+    summaryCheckListMap: Map<string, boolean> = new Map<string, boolean>([
+        ['growth', false],
+        ['sales', false],
+        ['grossProfitKI', false],
+        ['operatingProfitKI', false],
+        ['pAT', false],
+        ['profitability', false],
+        ['grossProfitMargin', false],
+        ['netProfitMargin', false],
+        ['eBITtoSales', false],
+        ['returnOnEquity', false],
+        ['solvency', false],
+        ['quickRatio', false],
+        ['currentRatio', false],
+        ['debtServiceCoverageRatio', false],
+        ['interestCoverageRatio', false],
+        ['deRatioExcludingLoanFromShareholderOrDirector', false],
+        ['deRatioIncludingLoanFromShareholderOrDirector', false],
+        ['debtEquityRatioOverall', false],
+        ['debtEquityRatioLongTerm', false],
+        ['debtEquityRatioWorkingCapital', false],
+        ['debtEquityRatioGeneral', false],
+        ['leverageRatio', false],
+        ['operatingCycle', false],
+        ['inventoryTurnoverRatio', false],
+        ['stockInHandDays', false],
+        ['debtorTurnOverRatio', false],
+        ['averageCollectionPeriod', false],
+        ['averagePaymentPeriod', false],
+        ['netOperatingCycle', false],
+        ['netWCBeforeBank', false]
+    ]);
+
+    summaryCheckList = KeyIndicatorsConstantsEnum.values();
+
     constructor(private formBuilder: FormBuilder,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                private toastService: ToastService) {
     }
 
     ngOnInit() {
@@ -56,6 +94,18 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
             this.setNetOperatingCycle(keyIndicatorsData.netOperatingCycle);
             this.setNetWCBeforeBank(keyIndicatorsData.netWCBeforeBank);
             this.keyIndicatorsForm.get('justificationKeyIndicators').patchValue(keyIndicatorsData.justificationKeyIndicators);
+            try {
+                if (keyIndicatorsData.summaryCheckList.length > 0) {
+                    this.keyIndicatorsForm.get('summaryCheckList').patchValue(keyIndicatorsData.summaryCheckList);
+                    this.setSummaryCheckListTemplateValues(keyIndicatorsData.summaryCheckList);
+                } else {
+                    this.setSummaryCheckListTemplateValues(this.summaryCheckList);
+                }
+            } catch (e) {
+                this.toastService.show(new Alert(AlertType.WARNING, 'No existing value found for summary checklist!'));
+            }
+        } else {
+            this.setSummaryCheckListTemplateValues(this.summaryCheckList);
         }
     }
 
@@ -91,7 +141,24 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
             averagePaymentPeriod: this.formBuilder.array([]),
             netOperatingCycle: this.formBuilder.array([]),
             netWCBeforeBank: this.formBuilder.array([]),
-            justificationKeyIndicators: [undefined]
+            justificationKeyIndicators: [undefined],
+            summaryCheckList: [this.summaryCheckList]
+        });
+    }
+
+    checkForSummaryList(particular: string, event: boolean) {
+        if (event) {
+            this.summaryCheckList.push(particular);
+        } else {
+            const spliceIndex = this.summaryCheckList.indexOf(particular);
+            this.summaryCheckList.splice(spliceIndex, 1);
+        }
+    }
+
+    setSummaryCheckListTemplateValues(summaryCheckList) {
+        this.summaryCheckList = summaryCheckList;
+        summaryCheckList.forEach(singleParameter => {
+            this.summaryCheckListMap.set(singleParameter, true);
         });
     }
 
@@ -496,6 +563,8 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
+        this.keyIndicatorsForm.get('summaryCheckList').patchValue(this.summaryCheckList);
+        this.formData['keyIndicatorsData'].summaryCheckList = this.keyIndicatorsForm.get('summaryCheckList').value;
         this.formData['keyIndicatorsData'].justificationKeyIndicators = this.keyIndicatorsForm.get('justificationKeyIndicators').value;
     }
 }
