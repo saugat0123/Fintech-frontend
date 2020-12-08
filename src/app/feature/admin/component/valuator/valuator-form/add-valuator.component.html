@@ -140,7 +140,7 @@
                                [addTag]="addCustomValuatingField"
                                [addTagText] = "null"
                                [multiple]="false"
-                               placeholder="Select Valuating Type">
+                               [placeholder]="placeHolderValuatingType">
                         <ng-option *ngFor="let valuatingField of valuatingFieldEnum.values()"
                                    [value]="valuatingField">
                             {{valuatingField}}
@@ -182,25 +182,25 @@
                     </div>
                 </div>
 
-                <div class="col-md-12">
+                <div class="col-md-12 py-2">
                     <label>Branches</label>
                     <ng-select [items]="branchList"
                                [multiple]="true"
                                [ngClass]="{'is-invalid': submitted && valuatorFormControl.branch.invalid}"
                                bindLabel="name"
                                formControlName="branch"
-                               placeholder="Select Branches">
+                               [placeholder]="placeHolderBranchSelect"
+                               *ngIf="showHideBranchInput">
                         <ng-template let-index="index" let-item="item" let-search="searchTerm" ng-option-tmp>
                             {{item['name']}} | <strong>{{item['branchCode']}}</strong>
                         </ng-template>
                     </ng-select>
-                    <div *ngIf="valuatorFormControl.branch.invalid && submitted" class="invalid-feedback">
+                    <div *ngIf="valuatorFormControl.branch.invalid && submitted" class="sb-small py-2 text-danger">
                         Branch is required!
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <button class="btn bank-btn-color m-1" (click)="addAllBranch()">Add All Branch</button>
-                </div>
+                <div class="col-md-12 py-2">
+                    <nb-checkbox (checkedChange)="checkAllBranch($event)" [checked]="this.model.isAllBranch">Add All Branch</nb-checkbox></div>
             </div>
         </form>
         <nb-card-footer class="float-right">

@@ -131,9 +131,11 @@
                             <td>{{valuator?.contactNo}}</td>
                             <td>{{valuator?.email}}</td>
                             <td>
+                                <div *ngIf="!valuator?.isAllBranch">
                                 <div *ngFor="let branch of valuator?.branch">
                                     {{branch.name}}
-                                </div>
+                                </div></div>
+                                <div *ngIf="valuator?.isAllBranch">All Branch</div>
                             </td>
                             <td>{{valuator?.valuatingField}}</td>
                             <td>{{valuator?.bankAssociateDate | date}}</td>
