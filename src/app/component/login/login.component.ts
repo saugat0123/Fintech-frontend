@@ -74,6 +74,12 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
                 }, error => {
                     console.error(error);
                 });
+              await this.productModeService.getBankUtils().subscribe((response: any) => {
+                storage.bankUtil = response.detail;
+                LocalStorageUtil.setStorage(storage);
+              }, error => {
+                console.error(error);
+              });
                 await this.userService.getAuthenticatedUserBranches().toPromise().then((response: any) => {
                     storage.branch = response.detail;
                     LocalStorageUtil.setStorage(storage);

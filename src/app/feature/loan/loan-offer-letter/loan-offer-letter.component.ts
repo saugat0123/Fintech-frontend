@@ -8,7 +8,7 @@ import {LoanType} from '../model/loanType';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BranchService} from '../../admin/component/branch/branch.service';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
-import {ModalUtils, ToastService} from '../../../@core/utils';
+import {ToastService} from '../../../@core/utils';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {LoanFormService} from '../component/loan-form/service/loan-form.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -22,14 +22,13 @@ import {RoleType} from '../../admin/modal/roleType';
 import {RoleAccess} from '../../admin/modal/role-access';
 import {DocStatus} from '../model/docStatus';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
-import {DocAction} from '../model/docAction';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
-import {OfferLetter} from '../../admin/modal/offerLetter';
 import {CustomerOfferLetterService} from '../service/customer-offer-letter.service';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CustomerOfferLetter} from '../model/customer-offer-letter';
-import {NbSpinnerService} from '@nebular/theme';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
+import {Pattern} from '../../../@core/utils/constants/pattern';
 
 @Component({
     selector: 'app-loan-offer-letter',
@@ -74,6 +73,11 @@ export class LoanOfferLetterComponent implements OnInit {
     errorMessage = null;
     filterUserList = [];
     isAssignSelected = false;
+    srdbAffiliatedId = false;
+    cbsLoanFileNumber: string;
+    loanId;
+    docStatus = DocStatus;
+    alphaNumericPattern = Pattern.ALPHA_NUMERIC;
 
     constructor(
         private branchService: BranchService,
@@ -151,6 +155,9 @@ export class LoanOfferLetterComponent implements OnInit {
             this.accessSpecific = true;
         } else if (this.roleAccess === RoleAccess.ALL) {
             this.accessAll = true;
+        }
+        if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
+            this.srdbAffiliatedId = true;
         }
 
         if (this.accessSpecific || this.accessAll) {
@@ -458,5 +465,25 @@ export class LoanOfferLetterComponent implements OnInit {
         } else {
             this.isAssignSelected = true;
         }
+    }
+
+    openCadModel(template, loanId , cbsLoanFileNumber) {
+        this.cbsLoanFileNumber = cbsLoanFileNumber;
+        this.loanId = loanId;
+        this.modalService.open(template);
+    }
+
+    saveCbsNumber() {
+        const loanDataHolder = new LoanDataHolder();
+        loanDataHolder.id = this.loanId;
+        loanDataHolder.cbsLoanFileNumber = this.cbsLoanFileNumber;
+        this.loanFormService.saveCbsNumbers(loanDataHolder).subscribe(value => {
+            this.modalService.dismissAll();
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved CBS Number'));
+            LoanOfferLetterComponent.loadData(this);
+        }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+            LoanOfferLetterComponent.loadData(this);
+        });
     }
 }

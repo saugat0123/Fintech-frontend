@@ -17,6 +17,7 @@ import {CustomerAssociateComponent} from '../../../../loan/component/loan-main-t
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {BankingRelationship} from '../../../../admin/modal/banking-relationship';
 import {Pattern} from '../../../../../@core/utils/constants/pattern';
+import {RelationshipList} from '../../../../loan/model/relationshipList';
 
 @Component({
     selector: 'app-customer-form',
@@ -68,6 +69,7 @@ export class CustomerFormComponent implements OnInit {
     bankingRelationshipList = BankingRelationship.enumObject();
     subSector = [];
     clientType = [];
+    relationArray: RelationshipList = new RelationshipList();
 
     constructor(
         private formBuilder: FormBuilder,
