@@ -37,6 +37,10 @@ export class DesignationList {
       name: 'Holding Company',
     },
     {
+      id: 'Chairman',
+      name: 'Chairman',
+    },
+    {
       id: 'Other',
       name: 'Other',
     }
