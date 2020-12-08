@@ -147,12 +147,16 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
     }
 
     checkForSummaryList(particular: string, event: boolean) {
+        const onlyUnique = (value, index, self) => {
+            return self.indexOf(value) === index;
+        };
         if (event) {
             this.summaryCheckList.push(particular);
         } else {
             const spliceIndex = this.summaryCheckList.indexOf(particular);
             this.summaryCheckList.splice(spliceIndex, 1);
         }
+        this.summaryCheckList = this.summaryCheckList.filter(onlyUnique);
     }
 
     setSummaryCheckListTemplateValues(summaryCheckList) {
