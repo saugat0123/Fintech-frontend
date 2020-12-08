@@ -1046,10 +1046,12 @@
                                 <div class="form-group">
                                     <label class="title" for="areaFormat">Area
                                         Format</label>
-                                    <input class="form-control rounded"
+                                    <select class="form-control rounded"
                                            formControlName="areaFormat"
-                                           name="areaFormat" placeholder="area format"
-                                           type="text"/>
+                                           name="areaFormat">
+                                        <option [value]="null" hidden>Select Area Format</option>
+                                        <option [value]="area" *ngFor="let area of areaFormat">{{area}}</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-3">
