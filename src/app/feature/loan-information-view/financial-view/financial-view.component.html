@@ -129,11 +129,7 @@
                     <th  class="text-white sb-bg-dark">Tax Compliance</th>
                     <td>{{financialData?.initialForm?.taxCompliance | currencyFormatter}}</td>
             </table>
-
-            <nb-tabset #currentTabSet (changeTab)="changeActiveTab(currentTabSet['tabs'])" class="mb-4"
-                       fullWidth>
-                <nb-tab class="px-0" tabTitle="Income Statement">
-                    <table *ngIf="activeTab === 'Income Statement'"
+                    <table
                            class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                         <thead>
                         <tr class="text-white sb-bg-dark">
@@ -314,10 +310,8 @@
                         </tr>
                         </tbody>
                     </table>
-                </nb-tab>
 
-                <nb-tab class="px-0" tabTitle="Balance Sheet">
-                    <table *ngIf="activeTab === 'Balance Sheet'"
+                    <table
                            class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
                         <thead>
                         <tr class="text-white sb-bg-dark">
@@ -502,13 +496,10 @@
                         </tbody>
 
                     </table>
-                </nb-tab>
-
-                <nb-tab class="px-0" tabTitle="Cash Flow Statement">
-                    <table *ngIf="activeTab === 'Cash Flow Statement'"
-                           class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small">
+                    <table
+                           class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
                         <thead>
-                        <tr>
+                        <tr class="text-white sb-bg-dark">
                             <th scope="col">S.No</th>
                             <th scope="col">Particulars</th>
                             <th *ngFor="let year of financialData['fiscalYear']">
@@ -748,9 +739,7 @@
                         </tr>
                         </tbody>
                     </table>
-                </nb-tab>
-                <nb-tab class="px-0" tabTitle="Key Indicators">
-                    <table *ngIf="activeTab === 'Key Indicators'"
+                    <table
                            class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                         <thead>
                         <tr class="text-white sb-bg-dark">
@@ -908,9 +897,6 @@
                         </tr>
                         </tbody>
                     </table>
-                </nb-tab>
-
-            </nb-tabset>
             <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
                 <tr class="text-white sb-bg-dark">
                     <td><b>Justification</b></td>
