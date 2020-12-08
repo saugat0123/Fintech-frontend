@@ -136,7 +136,7 @@ export class SiteVisitComponent implements OnInit {
         nearBy: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
             : this.formDataForEdit.currentResidentDetails.nearBy), Validators.required],
         ownerName: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.ownerName), [Validators.required , Validators.pattern(Pattern.ALPHABET_ONLY)]],
+            : this.formDataForEdit.currentResidentDetails.ownerName), [Validators.pattern(Pattern.ALPHABET_ONLY)]],
         staffRepresentativeNameDesignation: [this.formDataForEdit === undefined ? undefined :
             (this.formDataForEdit.currentResidentDetails === undefined ? undefined
             : this.formDataForEdit.currentResidentDetails.staffRepresentativeNameDesignation)],

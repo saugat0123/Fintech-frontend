@@ -13,6 +13,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Guarantor} from '../../loan/model/guarantor';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {RelationshipList} from '../../loan/model/relationshipList';
+import {TypeOfSourceOfIncomeArray} from '../../admin/modal/crg/typeOfSourceOfIncome';
 
 @Component({
   selector: 'app-guarantor',
@@ -47,6 +48,8 @@ export class GuarantorComponent implements OnInit {
   relationList;
   docTitle = 'Net Worth Document';
   docFolderName = 'guarantorDoc';
+  typeOfSourceOfIncomeArray = TypeOfSourceOfIncomeArray.typeOfSourceOfIncomeArray;
+
   constructor(
       private formBuilder: FormBuilder,
       private addressServices: AddressService,
@@ -189,7 +192,13 @@ export class GuarantorComponent implements OnInit {
       wardNumberTemporary: [
         ObjectUtil.setUndefinedIfNull(data.wardNumberTemporary), Validators.required
       ],
-      consentOfLegalHeirs: [ObjectUtil.isEmpty(data.consentOfLegalHeirs) ? false : data.consentOfLegalHeirs]
+      consentOfLegalHeirs: [ObjectUtil.isEmpty(data.consentOfLegalHeirs) ? false : data.consentOfLegalHeirs],
+      dateOfBirth: [ObjectUtil.isEmpty(data.dateOfBirth) ? undefined : new Date(data.dateOfBirth), Validators.required],
+      motherName: [ObjectUtil.setUndefinedIfNull(data.motherName)],
+      spouseName: [ObjectUtil.setUndefinedIfNull(data.spouseName)],
+      fatherInLaw: [ObjectUtil.setUndefinedIfNull(data.fatherInLaw)],
+      profession: [ObjectUtil.setUndefinedIfNull(data.profession)],
+      background: [ObjectUtil.setUndefinedIfNull(data.background)],
     });
   }
 
