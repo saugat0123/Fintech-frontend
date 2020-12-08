@@ -88,10 +88,15 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
                 });
                 this.router.navigate(['/home/dashboard']);
             },
-            error => {
-                this.spinner = false;
-                this.msg = 'INVALID USERNAME OR PASSWORD';
-            }
+            ((error) => {
+                if (error.status === 401) {
+                    this.spinner = false;
+                    this.msg = 'USER IS INACTIVE PLEASE ACTIVATE USER FIRST';
+                } else if (error.status === 400) {
+                    this.spinner = false;
+                    this.msg = 'INVALID USERNAME OR PASSWORD';
+                }
+            })
         );
     }
 
