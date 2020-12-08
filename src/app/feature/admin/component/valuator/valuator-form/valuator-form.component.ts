@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ElementRef} from '@angular/core';
+import {Component, ElementRef, Input, OnInit} from '@angular/core';
 import {Valuator} from '../../../modal/valuator';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
@@ -24,7 +24,8 @@ export class ValuatorFormComponent implements OnInit {
 
     @Input()
     model: Valuator = new Valuator();
-
+    placeHolderValuatingType = 'Select Valuating Type';
+    placeHolderBranchSelect = 'Select Branches';
     task: string;
     submitted = false;
     spinner = false;
@@ -36,6 +37,7 @@ export class ValuatorFormComponent implements OnInit {
 
     valuatorForm: FormGroup;
     valuatingFieldEnum = ValuatingField;
+    showHideBranchInput = true;
 
     constructor(
         private service: ValuatorService,
@@ -53,10 +55,17 @@ export class ValuatorFormComponent implements OnInit {
         this.spinner = true;
         this.buildForm();
 
-        this.branchService.getAll().subscribe( (response: any) => {
+        this.branchService.getAll().subscribe((response: any) => {
             this.branchList = response.detail;
             if (!ObjectUtil.isEmpty(this.model) && !ObjectUtil.isEmpty(this.model.branch)) {
                 this.valuatorForm.get('branch').patchValue(this.model.branch);
+                this.placeHolderValuatingType = '';
+                this.placeHolderBranchSelect = '';
+                if (this.model.isAllBranch) {
+                    this.showHideBranchInput = false;
+                } else {
+                    this.showHideBranchInput = true;
+                }
             }
             this.spinner = false;
         }, error => {
@@ -131,6 +140,9 @@ export class ValuatorFormComponent implements OnInit {
             state: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.state)) ? undefined :
                 this.model.state],
+            isAllBranch: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.isAllBranch)) ? undefined :
+                this.model.isAllBranch],
             version: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.version)) ? undefined :
                 this.model.version]
@@ -181,6 +193,7 @@ export class ValuatorFormComponent implements OnInit {
     addCustomValuatingField(tag: string) {
         return tag;
     }
+
     scrollToFirstInvalidControl() {
         const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
             'form .ng-invalid'
@@ -203,7 +216,8 @@ export class ValuatorFormComponent implements OnInit {
         this.submitted = true;
         if (this.valuatorForm.invalid) {
             this.scrollToFirstInvalidControl();
-            return; }
+            return;
+        }
         this.spinner = true;
         this.model = this.valuatorForm.value;
         this.service.save(this.model).subscribe(() => {
@@ -228,5 +242,18 @@ export class ValuatorFormComponent implements OnInit {
 
     addAllBranch() {
         this.valuatorForm.get('branch').patchValue(this.branchList);
+        this.valuatorForm.get('isAllBranch').patchValue(true);
+    }
+
+    checkAllBranch(event) {
+        console.log(event);
+        if (event) {
+            this.addAllBranch();
+            this.showHideBranchInput = false;
+        } else {
+            this.valuatorForm.get('branch').patchValue(undefined);
+            this.valuatorForm.get('isAllBranch').patchValue(false);
+            this.showHideBranchInput = true;
+        }
     }
 }
