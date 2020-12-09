@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" xmlns="http://www.w3.org/1999/html">
     <div class="col-md-4 col-sm-6 col-xs-12">
         <app-icon-card title="Users" type="info" detail="{{users}}">
             <i class="fas fa-users"></i>
@@ -83,9 +83,7 @@
                             </div>
                             <div class="col-md-12 p-0">
                                 <button nbButton status="info" size="small" type="submit" class="mr-2">Search</button>
-                                <button (click)="clearSearch()" class="mr-2" nbButton
-                                        status="danger" size="small" type="button">Clear
-                                </button>
+                                <button (click)="clearSearch()" size="small" shape="rectangle" nbButton status="danger">Clear</button>
                             </div>
                         </form>
                     </div>
