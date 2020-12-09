@@ -594,9 +594,10 @@
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
             <hr>
-            <app-net-trading-assets *ngIf="netTradingAssetsSummary"
+<!--            <app-net-trading-assets *ngIf="netTradingAssetsSummary"
                                     [fromProfile]="false"
-                                    [netTradingAssetsData]="netTradingAssetsData"></app-net-trading-assets>
+                                    [netTradingAssetsData]="netTradingAssetsData"></app-net-trading-assets>-->
+            <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0" [fiscalYears]="fiscalYearArray" [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
 
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
