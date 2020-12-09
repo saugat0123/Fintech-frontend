@@ -7,10 +7,12 @@
   .report-header .report-header-heading {
     font-size: 16pt;
     font-weight: bold;
+    color: black !important;
   }
 
   .report-header .report-header-sub-heading {
     font-size: 14pt;
+    color: black !important;
   }
 
   .report-logo {
@@ -20,6 +22,7 @@
   #signatureDiv {
     page-break-before: auto;
     page-break-inside: avoid;
+    color: black !important;
   }
 
   .signature-height {
@@ -28,24 +31,32 @@
 
   .signature-block {
     padding: 0.5rem;
-    border: 1px solid #8c8b8b;
+    border: 1px solid black;
     margin-top: 0.2rem;
     page-break-before: auto;
     page-break-inside: avoid;
+
   }
+  .signature-block .text-white{color: black !important;}
 
   .signature-block .signature-detail {
     border-top: 1px dashed;
     padding-top: 0.5rem;
+    color: black !important;
   }
+
 
   .signature-detail p {
     margin-bottom: 0;
+    color: black !important;
   }
 
   .signature-padding {
     padding-top: 50px;
     padding-bottom: 50px;
+  }
+  .print-span{
+    color: black !important;
   }
 
   .padding-0-125 {
@@ -60,6 +71,7 @@
 
   .cmt-width {
     width: 70%;
+    color: black !important;
   }
 
   .read-margin {
@@ -70,6 +82,7 @@
     border: none;
     color: black;
     font-weight: normal;
+
   }
 
   hr.print-line {
@@ -80,17 +93,19 @@
 
   div {
     font-size: 12pt;
-    color: black;
+    color: black !important;
     //line-height: 1.5;
   }
 
   div p {
     font-size: 12pt;
     margin-bottom: 5px;
+    color: black !important;
   }
 
   .print-only {
     display: block;
+    color: black !important;
   }
 
   #print-document {
@@ -99,14 +114,17 @@
 
   .table th, .table td {
     padding: 0.1rem;
+    color: black !important;
   }
 
   #print-borrower-table tbody td {
     width: 400px;
+    color: black !important;
   }
 
   #print-company-table tbody td {
     width: 500px;
+    color: black !important;
   }
 
   #print-block {
@@ -114,6 +132,7 @@
     margin-left: 2rem;
     margin-right: -1rem;
     padding-top: 3rem;
+    color: black !important;
 
     .mt-3 {
       margin-top: 0 !important;
@@ -121,15 +140,19 @@
 
     table {
       margin-bottom: .2rem;
+      color: black !important;
     }
 
     p {
       margin-bottom: 0.2rem;
+      color: black !important;
     }
+
   }
 
   table {
-    page-break-inside: auto
+    page-break-inside: auto;
+    color: black !important;
   }
   tr {
     page-break-inside: avoid;
@@ -141,5 +164,8 @@
   tfoot {
     display: table-footer-group
   }
+
+
+
 
 }
