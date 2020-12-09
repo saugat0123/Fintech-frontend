@@ -8,13 +8,14 @@ export enum RepaymentHistory {
         ' credit history confirmed though account statement and CIC and new customer with no credit' +
         ' history at any bank',
 }
-// TODO number mapping for NEW_CUSTOMER
+
 export class RepaymentHistoryMap {
     static repaymentHistoryMap: Map<string, number> = new Map([
         [RepaymentHistory.BEFORE_DUE, 4],
         [RepaymentHistory.WITHIN_SEVEN_DAYS_FROM_DUE, 3],
         [RepaymentHistory.WITHIN_THIRTY_DAYS_FROM_DUE, 2],
         [RepaymentHistory.AFTER_THIRTY_DAYS_FROM_DUE, 0],
+        [RepaymentHistory.NEW_CUSTOMER, 0],
     ]);
 }
 

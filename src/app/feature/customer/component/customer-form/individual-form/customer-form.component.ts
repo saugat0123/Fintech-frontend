@@ -305,7 +305,7 @@ export class CustomerFormComponent implements OnInit {
     formMaker() {
         this.basicInfo = this.formBuilder.group({
             customerName: [this.customer.customerName === undefined ? undefined : this.customer.customerName, Validators.required],
-            customerCode: [this.customer.customerCode === undefined ? undefined : this.customer.customerCode, Validators.required],
+            customerCode: [this.customer.customerCode === undefined ? undefined : this.customer.customerCode],
             province: [this.customer.province === null ? undefined : this.customer.province, Validators.required],
             district: [this.customer.district === null ? undefined : this.customer.district, Validators.required],
             municipalities: [this.customer.municipalities === null ? undefined : this.customer.municipalities, Validators.required],
