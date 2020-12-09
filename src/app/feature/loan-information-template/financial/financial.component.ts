@@ -528,6 +528,18 @@ export class FinancialComponent implements OnInit {
                 organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.AGRICULTURE]);
                 organizationSelect.select({value: TypeOfSourceOfIncome.AGRICULTURE, label: TypeOfSourceOfIncome.AGRICULTURE});
                 break;
+            case TypeOfSourceOfIncome.INTEREST_INCOME:
+                organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.INTEREST_INCOME]);
+                organizationSelect.select({value: TypeOfSourceOfIncome.INTEREST_INCOME, label: TypeOfSourceOfIncome.INTEREST_INCOME});
+                break;
+            case TypeOfSourceOfIncome.DIVIDEND:
+                organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.DIVIDEND]);
+                organizationSelect.select({value: TypeOfSourceOfIncome.DIVIDEND, label: TypeOfSourceOfIncome.DIVIDEND});
+                break;
+            case TypeOfSourceOfIncome.OTHERS:
+                organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.OTHERS]);
+                organizationSelect.select({value: TypeOfSourceOfIncome.OTHERS, label: TypeOfSourceOfIncome.OTHERS});
+                break;
         }
     }
 
