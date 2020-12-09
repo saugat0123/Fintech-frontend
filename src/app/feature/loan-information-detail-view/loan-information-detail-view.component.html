@@ -285,7 +285,7 @@
                     <p><strong>Approval Chain</strong></p>
                 </div>
                 <div *ngFor="let previous of signatureList; let i=index;"
-                     class="col-md-3 padding-0-125">
+                     class="col-md-2 padding-0-125">
                     <div class="signature-block">
                         <div class="text-center p-2 bg-light mb-2 ">
                             <span>{{loanHandler(i, signatureList.length)}}</span>
@@ -294,7 +294,7 @@
                         <div class="row justify-content-center signature mx-auto">
                             <div class="print-only signature-padding"></div>
                             <img align="middle" alt="signature"
-                                 class="img-thumbnail border-0 signature-height"
+                                 class="img-thumbnail border-0 signature-height signature-width"
                                  src="{{previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage}}"/>
                         </div>
                         <div class="text-center signature-detail">
