@@ -67,10 +67,8 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
             if (this.revaluationId.includes(SecurityIds.apartmentId, 0)) {
                 this.patchCalculationData('buildingFairMarketValue', 'buildingDistressValue', 'estimatedCost');
             } else if (this.revaluationId.includes(SecurityIds.landId, 0)) {
-                console.log(this.oldValuation);
                 this.patchCalculationData('marketValue', 'distressValue', 'landConsideredValue');
             } else if (this.revaluationId.includes(SecurityIds.land_buildingId, 0)) {
-                console.log(this.oldValuation);
                 this.patchCalculationData('marketValue', 'distressValue', 'landConsideredValue');
             }
         }
