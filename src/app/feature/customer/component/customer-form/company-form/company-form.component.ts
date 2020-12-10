@@ -624,7 +624,7 @@ export class CompanyFormComponent implements OnInit {
             proprietorIndex++;
             managementTeamFormArray.push(this.formBuilder.group({
                 name: [proprietors.name === undefined ? '' : proprietors.name, Validators.required],
-                contactNo: [proprietors.contactNo === undefined ? '' : proprietors.contactNo, Validators.required],
+                contactNo: [proprietors.contactNo === undefined ? '' : proprietors.contactNo],
                 share: [proprietors.share === undefined ? '' : proprietors.share, Validators.required],
                 province: [proprietors.province === null ? null : (proprietors.province.id === null ? null : proprietors.province.id)],
                 district: [proprietors.district === null ? null : (proprietors.district.id === null ? null : proprietors.district.id)],
