@@ -12,8 +12,9 @@ import {DocAction} from '../loan/model/docAction';
 import {ApiConfig} from '../../@core/utils/api/ApiConfig';
 import {CalendarType} from '../../@core/model/calendar-type';
 import {ObjectUtil} from '../../@core/utils/ObjectUtil';
-import {DocStatus} from '../loan/model/docStatus';
-import {LoanDataKey} from '../../@core/utils/constants/loan-data-key';
+import {Alert, AlertType} from '../../@theme/model/Alert';
+import {FiscalYearService} from '../admin/service/fiscal-year.service';
+import {ToastService} from '../../@core/utils';
 
 @Component({
     selector: 'app-loan-information-detail-view',
@@ -36,12 +37,15 @@ export class LoanInformationDetailViewComponent implements OnInit {
     calendarType: CalendarType = CalendarType.AD;
     loanHolder;
     currentDocAction;
+    fiscalYearArray = [];
 
 
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
                 private customerLoanService: LoanFormService,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                private fiscalYearService: FiscalYearService,
+                private toastService: ToastService, ) {
         this.client = environment.client;
 
     }
@@ -65,6 +69,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
             this.signatureList = this.getSignatureList(new Array<LoanStage>
             (...this.loanDataHolder.previousList, this.loanDataHolder.currentStage));
         });
+        this.getFiscalYears();
 
     }
 
@@ -150,6 +155,15 @@ export class LoanInformationDetailViewComponent implements OnInit {
         });
 
         return signatureList;
+    }
+
+    getFiscalYears() {
+        this.fiscalYearService.getAll().subscribe(response => {
+            this.fiscalYearArray = response.detail;
+        }, error => {
+            console.log(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Fiscal Year!'));
+        });
     }
 
 }
