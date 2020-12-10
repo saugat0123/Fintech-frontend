@@ -550,8 +550,8 @@ export class CompanyFormComponent implements OnInit {
         const managementTeamFormArray = new FormArray([]);
         managementTeamList.forEach(managementTeam => {
             managementTeamFormArray.push(this.formBuilder.group({
-                name: [managementTeam.name === undefined ? '' : managementTeam.name, Validators.required],
-                designation: [managementTeam.designation === undefined ? '' : managementTeam.designation, Validators.required],
+                name: [managementTeam.name === undefined ? '' : managementTeam.name],
+                designation: [managementTeam.designation === undefined ? '' : managementTeam.designation],
             }));
         });
         return managementTeamFormArray;
@@ -615,7 +615,7 @@ export class CompanyFormComponent implements OnInit {
         let proprietorIndex = 0;
         proprietorsList.forEach(proprietors => {
             this.addressList[proprietorIndex] = new Address();
-            if (proprietors.province.id !== null) {
+            if (!ObjectUtil.isEmpty(proprietors.province) && proprietors.province.id !== null) {
                 this.getDistricts(proprietors.province.id, proprietorIndex);
                 if (proprietors.district.id !== null) {
                     this.getMunicipalities(proprietors.district.id, proprietorIndex);
@@ -624,13 +624,12 @@ export class CompanyFormComponent implements OnInit {
             proprietorIndex++;
             managementTeamFormArray.push(this.formBuilder.group({
                 name: [proprietors.name === undefined ? '' : proprietors.name, Validators.required],
-                contactNo: [proprietors.contactNo === undefined ? '' : proprietors.contactNo, Validators.required],
+                contactNo: [proprietors.contactNo === undefined ? '' : proprietors.contactNo],
                 share: [proprietors.share === undefined ? '' : proprietors.share, Validators.required],
-                province: [proprietors.province.id === undefined ? '' : proprietors.province.id, Validators.required],
-                district: [proprietors.district.id === undefined ? '' : proprietors.district.id,
-                    Validators.required],
-                municipalityVdc: [proprietors.municipalityVdc.id === undefined ? '' : proprietors.municipalityVdc.id,
-                    Validators.required],
+                province: [proprietors.province === null ? null : (proprietors.province.id === null ? null : proprietors.province.id)],
+                district: [proprietors.district === null ? null : (proprietors.district.id === null ? null : proprietors.district.id)],
+                municipalityVdc: [proprietors.municipalityVdc === null ? null :
+                    (proprietors.municipalityVdc.id === null ? null : proprietors.municipalityVdc.id)],
                 type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]
             }));
         });
