@@ -975,6 +975,10 @@ export class SiteVisitComponent implements OnInit {
     const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
     .get('otherCurrentAssets') as FormGroup)
     .get('inspectingStaffs') as FormArray;
+    if (FormUtils.checkEmptyProperties(controls)) {
+      this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All Staffs Data To Add More'));
+      return;
+    }
     controls.push(
         this.formBuilder.group({
           name: [undefined],
