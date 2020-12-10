@@ -260,6 +260,7 @@
                       <option value="MONTHLY">Monthly</option>
                       <option value="QUARTERLY">Quarterly</option>
                       <option value="YEARLY">Yearly</option>
+                      <option value="AT MATURITY">At Maturity</option>
                     </select>
 <!--                    <div *ngIf="(submitted) && formControls.repaymentMode.invalid"-->
 <!--                         class="invalid-feedback">-->
@@ -325,7 +326,7 @@
 
                 <div class="col-md-4" *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving) ">
                   <div class="form-group">
-                    <label class="title" for="tenorOfEachDeal"><strong>Tenor of each deal</strong></label>
+                    <label class="title" for="tenorOfEachDeal"><strong>Tenure of each deal</strong></label>
                     <input
                         class="form-control"
                         formControlName="tenorOfEachDeal" id="tenorOfEachDeal"
