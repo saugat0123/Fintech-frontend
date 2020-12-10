@@ -550,8 +550,8 @@ export class CompanyFormComponent implements OnInit {
         const managementTeamFormArray = new FormArray([]);
         managementTeamList.forEach(managementTeam => {
             managementTeamFormArray.push(this.formBuilder.group({
-                name: [managementTeam.name === undefined ? '' : managementTeam.name, Validators.required],
-                designation: [managementTeam.designation === undefined ? '' : managementTeam.designation, Validators.required],
+                name: [managementTeam.name === undefined ? '' : managementTeam.name],
+                designation: [managementTeam.designation === undefined ? '' : managementTeam.designation],
             }));
         });
         return managementTeamFormArray;
