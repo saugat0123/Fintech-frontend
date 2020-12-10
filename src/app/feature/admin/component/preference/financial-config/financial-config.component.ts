@@ -30,7 +30,7 @@ export class FinancialConfigComponent implements OnInit {
   }
 
   loadData() {
-    this.fiscalYearService.getPaginationWithSearchObject({}, 1, 5).subscribe(response => {
+    this.fiscalYearService.getPaginationWithSearchObject({}, this.page, 10).subscribe(response => {
       this.fiscalYears = response.detail.content;
       this.pageable = PaginationUtils.getPageable(response.detail);
       this.spinner = false;
