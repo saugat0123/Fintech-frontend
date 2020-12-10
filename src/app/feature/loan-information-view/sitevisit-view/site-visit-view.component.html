@@ -410,7 +410,7 @@
 
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true" class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
   <tr>
-    <th colspan="6">Current Assets Inspection - Receivables & Payables
+    <th colspan="6">Current Assets Inspection - Receivables
     </th>
   </tr>
   <tr class="text-white sb-bg-dark">
@@ -423,7 +423,7 @@
   </tr>
   <tr *ngFor="let parties of formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.parties; let i=index">
     <td>{{i+1}}</td>
-    <td>{{parties?.party | currencyFormatter}}</td>
+    <td>{{parties?.party}}</td>
     <td>{{parties?.withinThreeMonths | currencyFormatter}}</td>
     <td>{{parties?.sixMonth | currencyFormatter}}</td>
     <td>{{parties?.oneYear | currencyFormatter}}</td>
@@ -449,6 +449,49 @@
   </tr>
   <tr>
     <td colspan="6">{{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.findingsAndCommentsForCurrentAssetsInspection}}</td>
+  </tr>
+</table>
+<table *ngIf="formData['currentAssetsInspectionFormChecked'] === true" class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
+  <tr>
+    <th colspan="6">Current Assets Inspection - Payable
+    </th>
+  </tr>
+  <tr class="text-white sb-bg-dark">
+    <th>SN</th>
+    <th>Party</th>
+    <th>Within 3 Months</th>
+    <th>6 Month</th>
+    <th>One year</th>
+    <th>1+ year</th>
+  </tr>
+  <tr *ngFor="let parties of formData?.currentAssetsInspectionDetails?.payable?.parties; let i=index">
+    <td>{{i+1}}</td>
+    <td>{{parties?.party}}</td>
+    <td>{{parties?.withinThreeMonths | currencyFormatter}}</td>
+    <td>{{parties?.sixMonth | currencyFormatter}}</td>
+    <td>{{parties?.oneYear | currencyFormatter}}</td>
+    <td>{{parties?.oneYearPlus | currencyFormatter}}</td>
+
+  </tr>
+  <tr>
+    <td></td>
+    <td>Total</td>
+    <td><b>{{formData?.currentAssetsInspectionDetails?.payable?.threeMonthTotal | currencyFormatter}}</b></td>
+    <td><b>{{formData?.currentAssetsInspectionDetails?.payable?.sixMonthTotal | currencyFormatter}}</b></td>
+    <td><b>{{formData?.currentAssetsInspectionDetails?.payable?.oneYearTotal | currencyFormatter}}</b></td>
+    <td><b>{{formData?.currentAssetsInspectionDetails?.payable?.moreThanOneYearTotal | currencyFormatter}}</b></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>Grand Total</td>
+    <td colspan="4"><b>{{formData?.currentAssetsInspectionDetails?.payable?.grandTotal | currencyFormatter}}</b></td>
+  </tr>
+
+  <tr class="text-white sb-bg-dark">
+    <td colspan="6">Findings & Comments
+  </tr>
+  <tr>
+    <td colspan="6">{{formData?.currentAssetsInspectionDetails?.payable?.findingsAndCommentsForCurrentAssetsInspection}}</td>
   </tr>
 </table>
 

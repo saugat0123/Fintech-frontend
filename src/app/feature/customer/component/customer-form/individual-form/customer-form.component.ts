@@ -63,7 +63,8 @@ export class CustomerFormComponent implements OnInit {
     public showMatchingTable: boolean;
     tempFlag = {
         showOtherOccupation: false,
-        showOtherIncomeSource: false
+        showOtherIncomeSource: false,
+        hideIncomeSource: false
     };
 
     bankingRelationshipList = BankingRelationship.enumObject();
@@ -98,6 +99,7 @@ export class CustomerFormComponent implements OnInit {
             this.formMaker();
             this.setRelatives(this.customer.customerRelatives);
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
+            this.occupationChange();
 
         } else {
             this.createRelativesArray();
@@ -435,6 +437,17 @@ export class CustomerFormComponent implements OnInit {
             this.basicInfo.get('otherOccupation').setValidators(null);
         }
         this.basicInfo.get('otherOccupation').updateValueAndValidity();
+        const houseWifeSelected = !this.basicInfo.get('occupation').value.includes('House Wife') ?
+            false : this.basicInfo.get('occupation').value.length <= 1;
+        if (houseWifeSelected) {
+            this.tempFlag.hideIncomeSource = true;
+            this.basicInfo.get('incomeSource').clearValidators();
+        }  else {
+            this.tempFlag.hideIncomeSource = false;
+            this.basicInfo.get('incomeSource').setValidators(Validators.required);
+        }
+        this.basicInfo.get('incomeSource').updateValueAndValidity();
+
     }
 
     onIncomeSourceChange() {
