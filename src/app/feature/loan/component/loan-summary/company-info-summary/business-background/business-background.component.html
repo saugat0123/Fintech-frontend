@@ -12,9 +12,9 @@
        availability:</strong></div>
      <div class="sb-small">
        <span class="font-weight-bold ml-3"> Raw material sourcing:</span>
-       <span class="mr-1">Local( <i *ngIf="companyJsonData?.rawMaterialSourcing.toString() === 'local'"
+       <span class="mr-1">Local( <i *ngIf="localRaw"
                                     class="fas fa-check-circle"></i> )</span>
-       <span>Imported( <i *ngIf="companyJsonData?.rawMaterialSourcing.toString() === 'imported'"
+       <span>Imported( <i *ngIf="importedRaw"
                           class="fas fa-check-circle"></i> )</span>
        <span class="ml-3">|</span>
        <span class="font-weight-bold ml-3">  Raw material Availability:</span>
