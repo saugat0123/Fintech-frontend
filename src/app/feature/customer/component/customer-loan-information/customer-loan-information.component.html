@@ -55,7 +55,8 @@
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
-              <span>FINANCIAL</span>
+              <span *ngIf="customerInfo?.customerType === 'INDIVIDUAL'">INCOME & EXPENSES</span>
+              <span *ngIf="customerInfo?.customerType === 'INSTITUTION'">FINANCIAL</span>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="customerInfo?.financial" style="color:green" title="Status : Saved">
