@@ -903,6 +903,7 @@ export class CompanyFormComponent implements OnInit {
         });
         /** other company detail */
         submitData.otherCompanyDetail = this.companyOtherDetailComponent.submitData;
+        submitData.rawMaterialSourcing = this.companyInfoFormGroup.get('rawMaterialSourcing').value;
         /** Market Scenario detail */
         submitData.marketScenario = this.marketScenarioComponent.submitData;
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
