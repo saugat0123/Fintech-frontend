@@ -139,7 +139,6 @@
                 <th>Loan lifespan</th>
                 <th *ngIf="transferDoc">Transfer</th>
                 <th>Created On</th>
-                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -199,22 +198,6 @@
                     <div (click)="onClick(model.loan.id,model.id)">
                         {{model?.createdAt | date}}
                     </div>
-                </td>
-                <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew); else linkin">
-                    <select [(ngModel)]="tempLoanType" class="custom-select py-0"
-                            (ngModelChange)="onChange(model,onActionChange)">
-                        <option [value]="null" selected hidden>Select Type</option>
-                        <ng-container *ngIf="showUpdateLoanInfo(model?.loanHolder?.loanFlags)">
-                            <option value="UPDATE_LOAN_INFORMATION" [ngStyle]="{color: 'red'}">Update Loan Information</option>
-                        </ng-container>
-                        <ng-container *ngIf="model.documentStatus == docStatus[docStatus.APPROVED] && !model.isCloseRenew ">
-                            <option value="RENEWED_LOAN">Renew Loan</option>
-                            <option value="CLOSURE_LOAN">Close Loan</option>
-                            <option value="ENHANCED_LOAN">Enhance Loan</option>
-                            <option value="PARTIAL_SETTLEMENT_LOAN">Partial Settle Loan</option>
-                            <option value="FULL_SETTLEMENT_LOAN">Full Settle Loan</option>
-                        </ng-container>
-                    </select>
                 </td>
                 <ng-template #linkin>
                     <td *ngIf="model.parentId">
