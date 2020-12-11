@@ -27,7 +27,11 @@ export enum TypeOfSourceOfIncome {
 
     SALARY = 'Salary',
     RENTAL = 'Rental',
-    BUSINESS = 'Business'
+    BUSINESS = 'Business',
+
+    INTEREST_INCOME = 'Interest Income',
+    DIVIDEND = 'Dividend',
+    OTHERS = 'Others'
 }
 
 export class TypeOfSourceOfIncomeMap {
@@ -69,7 +73,10 @@ export class TypeOfSourceOfIncomeArray {
         TypeOfSourceOfIncome.COMMISSION,
         TypeOfSourceOfIncome.TRANSPORTATION,
         TypeOfSourceOfIncome.FREELANCING,
-        TypeOfSourceOfIncome.AGRICULTURE
+        TypeOfSourceOfIncome.AGRICULTURE,
+        TypeOfSourceOfIncome.INTEREST_INCOME,
+        TypeOfSourceOfIncome.DIVIDEND,
+        TypeOfSourceOfIncome.OTHERS
     ];
     static salaryArray: Array<string> = [
         TypeOfSourceOfIncome.GOVERNMENT,

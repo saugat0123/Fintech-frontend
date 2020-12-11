@@ -41,7 +41,7 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title"><strong>Amount</strong></label><strong
+                                    <label class="title"><strong>Amount (Monthly)</strong></label><strong
                                         class="text-danger">*</strong>
                                     <input (input)="totalAdditionInitialForm('incomeOfBorrower', 'totalIncome')"
                                            [ngClass]="{
@@ -49,7 +49,7 @@
                                 'is-valid': !incomeOfBorrower.get('amount').invalid && (incomeOfBorrower.get('amount').dirty || incomeOfBorrower.get('amount').touched)
                                 }" class="form-control"
                                            formControlName="amount" placeholder="Amount"
-                                           type="number">
+                                           type="number" appDecimalNumber>
                                     <span *ngIf="incomeOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
                                 </div>
                             </div>
@@ -190,7 +190,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="title"><strong>Amount</strong><strong
+                                    <label class="title"><strong>Amount (Monthly)</strong><strong
                                             class="text-danger">*</strong></label>
                                     <input (input)="totalAdditionInitialForm('expensesOfBorrower', 'totalExpense')"
                                            [ngClass]="{
@@ -198,7 +198,7 @@
                                 'is-valid': !expensesOfBorrower.get('amount').invalid && (expensesOfBorrower.get('amount').dirty || expensesOfBorrower.get('amount').touched)
                                 }" class="form-control"
                                            formControlName="amount" placeholder="Amount"
-                                           type="number">
+                                           type="number" appDecimalNumber>
                                     <span *ngIf="expensesOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
                                 </div>
                             </div>

@@ -53,7 +53,7 @@
         <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral">Repayment Mode</th>
         <th *ngIf="(proposalData?.repaymentMode === 'EMI' || proposalData?.repaymentMode === 'EQI')  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))">Installment Amount</th>
         <th *ngIf="(proposalData?.repaymentMode === 'MONTHLY' || proposalData?.repaymentMode === 'QUARTERLY' || proposalData?.repaymentMode === 'YEARLY') &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">Interest Amount</th>
-        <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">Moratorium Period (Month)</th>
+        <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral">Moratorium Period (Month)</th>
         <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">Commitment Fee</th>
       </tr>
       <tr>
@@ -72,7 +72,7 @@
         class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
 
       <tr class="text-white sb-bg-dark">
-        <th *ngIf="loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving">Tenor of each deal</th>
+        <th *ngIf="loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving">Tenure of each deal</th>
         <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">Prepayment Charge</th>
         <th>Collateral requirement (in%)</th>
         <th>Limit Expiry/Loan Tenure</th>
@@ -125,9 +125,7 @@
         <td>{{proposalData?.repayment}}</td>
       </tr>
       <tr class="text-white sb-bg-dark">
-        <th>Introduction/Justification
-          of
-          Loan(Rationale for Loan)</th>
+        <th>Background</th>
       </tr>
       <tr>
         <td><span [innerHTML]="proposalData?.borrowerInformation  | safeHtml"></span> </td>

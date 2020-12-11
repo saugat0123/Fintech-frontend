@@ -128,14 +128,15 @@
                 <tr>
                     <th  class="text-white sb-bg-dark">Tax Compliance</th>
                     <td>{{financialData?.initialForm?.taxCompliance | currencyFormatter}}</td>
-            </table>
 
-            <nb-tabset #currentTabSet (changeTab)="changeActiveTab(currentTabSet['tabs'])" class="mb-4"
-                       fullWidth>
-                <nb-tab class="px-0" tabTitle="Income Statement">
-                    <table *ngIf="activeTab === 'Income Statement'"
+            </table>
+            <p class="float-left"><strong>Income Statement</strong></p>
+                    <table
                            class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                         <thead>
+                        <tr>
+                            <th colspan="3"></th>
+                        </tr>
                         <tr class="text-white sb-bg-dark">
                             <th>S.No.</th>
                             <th>Particulars/Years:</th>
@@ -314,10 +315,9 @@
                         </tr>
                         </tbody>
                     </table>
-                </nb-tab>
 
-                <nb-tab class="px-0" tabTitle="Balance Sheet">
-                    <table *ngIf="activeTab === 'Balance Sheet'"
+            <p class="float-left"><strong>Balance Sheet</strong></p>
+                    <table
                            class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
                         <thead>
                         <tr class="text-white sb-bg-dark">
@@ -502,13 +502,11 @@
                         </tbody>
 
                     </table>
-                </nb-tab>
-
-                <nb-tab class="px-0" tabTitle="Cash Flow Statement">
-                    <table *ngIf="activeTab === 'Cash Flow Statement'"
-                           class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small">
+            <p class="float-left"><strong>Cashflow Statement</strong></p>
+                    <table
+                           class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
                         <thead>
-                        <tr>
+                        <tr class="text-white sb-bg-dark">
                             <th scope="col">S.No</th>
                             <th scope="col">Particulars</th>
                             <th *ngFor="let year of financialData['fiscalYear']">
@@ -748,9 +746,8 @@
                         </tr>
                         </tbody>
                     </table>
-                </nb-tab>
-                <nb-tab class="px-0" tabTitle="Key Indicators">
-                    <table *ngIf="activeTab === 'Key Indicators'"
+            <p class="float-left"><strong>key Indicators</strong></p>
+                    <table
                            class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                         <thead>
                         <tr class="text-white sb-bg-dark">
@@ -908,9 +905,6 @@
                         </tr>
                         </tbody>
                     </table>
-                </nb-tab>
-
-            </nb-tabset>
             <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
                 <tr class="text-white sb-bg-dark">
                     <td><b>Justification</b></td>
