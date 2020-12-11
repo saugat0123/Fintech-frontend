@@ -256,7 +256,7 @@ export class CalendarComponent implements OnInit {
     this.eDateRespTonDate = this.datepipe.transform(this.eDateRespTonDate, 'MMMM d, y, h:mm:ss a z');
     const date = new Date(this.eDateRespTonDate);
     if (this.emitCounter === 0 && ObjectUtil.isEmpty(this.ePreDate)) {
-
+      this.nDateRespTonDate = undefined;
     } else {
       this.outputDate.eDate = date;
       this.outputDate.nDate = this.nDateRespTonDate;
