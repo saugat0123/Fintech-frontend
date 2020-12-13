@@ -476,13 +476,12 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="title" for="remark"><strong>Remarks(Proposal for
-                                            Loan)</strong></label>
+                                        <label class="title" for="remark"><strong>Purpose of Loan</strong></label>
                                         <textarea
                                                 class="form-control"
                                                 formControlName="remark" id="remark"
                                                 name="remark"
-                                                placeholder="Remarks/Proposal for Loan"
+                                                placeholder="Purpose of Loan"
                                                 rows="3"></textarea>
                                     </div>
                                 </div>
@@ -553,9 +552,25 @@
                     <span *ngIf="formControls.borrowerInformation.invalid" class="text-danger">
                       <sup>*</sup>Borrower Information is required.</span>
                                     </div>
-                                    <h6><strong>Additional Description</strong></h6>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Summery & Recommendation</strong></label>
+                                        <ckeditor formControlName="summeryRecommendation"
+                                                  [style]="{height:'250px !important;'}"
+                                                  placeholder="Summery & Recommendation"
+                                                  [config]="ckeConfig">
+                                        </ckeditor>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="title"><b>Remarks</b></label>
+                                        <textarea class="form-control" [rows]="3" formControlName="remarks" placeholder="Remarks"></textarea>
+                                    </div>
                                 </div>
                                 <div class="col-md-12 form-group">
+                                    <h6><strong>Additional Description</strong></h6>
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
                                                  [checked]="waiverChecked">
                                         <b>Waiver/Deviation</b>

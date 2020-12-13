@@ -175,6 +175,8 @@ export class ProposalComponent implements OnInit {
       solConclusionRecommendation: [undefined],
       waiverConclusionRecommendation: [undefined],
       riskConclusionRecommendation: [undefined],
+      summeryRecommendation: undefined,
+      remarks: undefined
 
 
     });

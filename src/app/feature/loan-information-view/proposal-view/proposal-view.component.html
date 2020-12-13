@@ -105,7 +105,7 @@
     <table
         class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
       <tr class="text-white sb-bg-dark">
-        <th>Remarks(Proposal for Loan)</th>
+        <th>Purpose of Loan</th>
       </tr>
       <tr>
         <td>{{proposalData?.remark}}</td>
@@ -129,6 +129,18 @@
       </tr>
       <tr>
         <td><span [innerHTML]="proposalData?.borrowerInformation  | safeHtml"></span> </td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>Summery & Recommendation</th>
+      </tr>
+      <tr>
+        <td><span [innerHTML]="proposalData?.summeryRecommendation  | safeHtml"></span> </td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>Remarks</th>
+      </tr>
+      <tr>
+        <td><span [innerHTML]="proposalData?.remarks  | safeHtml"></span> </td>
       </tr>
       <ng-container *ngIf="recommendationChecked?.waiverChecked">
         <tr class="text-white sb-bg-dark">
