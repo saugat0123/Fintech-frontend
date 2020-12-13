@@ -72,6 +72,33 @@
                 <span *ngIf="(cicl.get('ciclStatus').errors.required)">Status is required</span>
               </div>
             </div>
+            <div class="col-md-3 form-group">
+                        <label for="obtaineddate"><b>Obtained Date</b></label>
+                        <input class="form-control" formControlName="obtaineddate" id="obtaineddate"
+                               type="date"
+                               [ngClass]="{ 'is-invalid': (submitted) && cicl.get('obtaineddate').errors.required }">
+                        <div *ngIf="(submitted) && cicl.get('obtaineddate').errors" class="invalid-feedback">
+                          <span *ngIf="(cicl.get('obtaineddate').errors.required)">Obtained date is required</span>
+                        </div>
+                      </div>
+            <div class="col-md-3 form-group">
+              <label for="loanamount"><b>Loan Amount</b></label>
+              <input class="form-control" formControlName="loanamount" id="loanamount"
+                     placeholder="loanamount"
+                     [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('loanamount').invalid) }">
+              <div *ngIf="(submitted) && cicl.get('loanamount').errors" class="invalid-feedback">
+                <span *ngIf="(cicl.get('loanamount').errors.required)">Loan Amount is required</span>
+              </div>
+            </div>
+            <div class="col-md-3 form-group">
+              <label for="overdue"><b>Number of Overdue Installment(s)</b></label>
+              <input class="form-control" formControlName="overdue" id="overdue"
+                     placeholder="overdue"
+                     [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('overdue').invalid) }">
+              <div *ngIf="(submitted) && cicl.get('overdue').errors" class="invalid-feedback">
+                <span *ngIf="(cicl.get('overdue').errors.required)">Overdue Installment is required</span>
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-12">

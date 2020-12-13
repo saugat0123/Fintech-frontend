@@ -359,7 +359,7 @@
                                         <input class="form-control rounded" formControlName="estimatedCost"
                                                id="estimatedCost"
                                                name="estimatedCost" placeholder="Estimated Cost"
-                                               type="number" readonly/>
+                                               type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'building')"/>
                                     </div>
                                 </div>
 
@@ -378,7 +378,7 @@
                                         <input class="form-control rounded" formControlName="waterSupply"
                                                id="waterSupply"
                                                name="waterSupply" placeholder="Water Supply"
-                                               type="number" readonly/>
+                                               type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'building')"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -396,7 +396,7 @@
                                         <input class="form-control rounded" formControlName="sanitation"
                                                id="sanitation"
                                                name="sanitation" placeholder="Sanitation"
-                                               type="number" readonly/>
+                                               type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'building')"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -416,7 +416,7 @@
                                                formControlName="electrification"
                                                id="electrification"
                                                name="electrification" placeholder="Electrification"
-                                               type="number" readonly/>
+                                               type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i, 'building')"/>
                                     </div>
                                 </div>
                             </div>
@@ -430,7 +430,7 @@
                                                formControlName="buildingTotalCost"
                                                id="buildingTotalCost"
                                                name="buildingTotalCost" placeholder="Apartment total cost"
-                                               type="text"/>
+                                               type="number" readonly/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -684,7 +684,7 @@
                                             <input class="form-control rounded" formControlName="estimatedCost"
                                                    id="estCost"
                                                    name="estimatedCost" placeholder="Estimated Cost"
-                                                   type="number" readonly/>
+                                                   type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'before')"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -703,7 +703,7 @@
                                             <input class="form-control rounded" formControlName="waterSupply"
                                                    id="supply"
                                                    name="waterSupply" placeholder="Water Supply"
-                                                   type="number" readonly/>
+                                                   type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'before')"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -721,7 +721,7 @@
                                             <input class="form-control rounded" formControlName="sanitation"
                                                    id="san"
                                                    name="sanitation" placeholder="Sanitation"
-                                                   type="number" readonly/>
+                                                   type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'before')"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -739,7 +739,7 @@
                                             <input class="form-control rounded" formControlName="electrification"
                                                    id="ele"
                                                    name="electrification" placeholder="Electrification"
-                                                   type="number" readonly/>
+                                                   type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'before')"/>
                                         </div>
                                     </div>
                                 </div>
@@ -751,7 +751,7 @@
                                             <input class="form-control rounded" formControlName="buildingTotalCost"
                                                    id="tc"
                                                    name="buildingTotalCost" placeholder="Apartment total cost"
-                                                   type="text"/>
+                                                   type="number" readonly/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -870,7 +870,7 @@
                                             <input class="form-control rounded" formControlName="estimatedCost"
                                                    id="afterEstCost"
                                                    name="estimatedCost" placeholder="Estimated Cost"
-                                                   type="number" readonly/>
+                                                   type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'after')"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -888,7 +888,7 @@
                                             <input class="form-control rounded" formControlName="waterSupply"
                                                    id="afterSupply"
                                                    name="waterSupply" placeholder="Water Supply"
-                                                   type="number" readonly/>
+                                                   type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'after')"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -906,7 +906,7 @@
                                             <input class="form-control rounded" formControlName="sanitation"
                                                    id="afterSanitation"
                                                    name="sanitation" placeholder="Sanitation"
-                                                   type="number" readonly/>
+                                                   type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'after')"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -924,7 +924,7 @@
                                             <input class="form-control rounded" formControlName="electrification"
                                                    id="afterElectrification"
                                                    name="electrification" placeholder="Electrification"
-                                                   type="number" readonly/>
+                                                   type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'after')"/>
                                         </div>
                                     </div>
                                 </div>
@@ -936,7 +936,7 @@
                                             <input class="form-control rounded" formControlName="buildingTotalCost"
                                                    id="afterbuildTc"
                                                    name="buildingTotalCost" placeholder="Apartment total cost"
-                                                   type="text"/>
+                                                   type="number" readonly/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -1046,10 +1046,12 @@
                                 <div class="form-group">
                                     <label class="title" for="areaFormat">Area
                                         Format</label>
-                                    <input class="form-control rounded"
+                                    <select class="form-control rounded"
                                            formControlName="areaFormat"
-                                           name="areaFormat" placeholder="area format"
-                                           type="text"/>
+                                           name="areaFormat">
+                                        <option [value]="null" hidden>Select Area Format</option>
+                                        <option [value]="area" *ngFor="let area of areaFormat">{{area}}</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -1680,7 +1682,7 @@
                                     class="form-control" formControlName="registrationNumber"
                                     id="registrationNumber"
                                     name="registrationNumber" placeholder="Registration Number"
-                                    type="number">
+                                    type="text">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -1858,6 +1860,29 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6>Showroom Details</h6>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="title" for="showroomName">Showroom Name</label>
+                                <input class="form-control rounded" formControlName="showroomName"
+                                       id="showroomName"
+                                       name="showroomName" placeholder="Showroom Name"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="title" for="showroomAddress">Showroom Address</label>
+                                <input class="form-control rounded" formControlName="showroomAddress"
+                                       id="showroomAddress"
+                                       name="showroomAddress" placeholder="Showroom Name"
+                                       type="text"/>
+                            </div>
+                        </div>
+                    </div>
                     <hr>
                 </div>
             </div>
@@ -1890,6 +1915,28 @@
                             <div class="form-group">
                                 <label class="title">FD Receipt Number<strong></strong></label>
                                 <input class="form-control" formControlName="receiptNumber">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">FD Account Holder Name<strong></strong></label>
+                                <input class="form-control" formControlName="accountHolderName">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">FD Account Number<strong></strong></label>
+                                <input class="form-control" formControlName="accountNumber">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">FD Tenure Start Date<strong></strong></label>
+                                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="tenureStartDate" class="form-control" formControlName="tenureStartDate">
+                                <app-calendar *ngIf="calendarType === 'BS'"
+                                              (messageToEmit)="securityForm.get(['fixedDepositDetails',i,'tenureStartDate']).patchValue($event?.eDate)"
+                                              [ePreDate]="securityForm.get(['fixedDepositDetails',i,'tenureStartDate']).value"></app-calendar>
+                                <nb-datepicker #tenureStartDate></nb-datepicker>
                             </div>
                         </div>
                         <div class="col-md-4">

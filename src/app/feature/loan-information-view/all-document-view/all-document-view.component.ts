@@ -7,6 +7,7 @@ import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {ProductUtils} from '../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 
 @Component({
   selector: 'app-all-document-view',
@@ -21,6 +22,7 @@ export class AllDocumentViewComponent implements OnInit {
   insuranceWithDoc = [];
   showCadDoc;
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+  affiliatedId;
 
   constructor(private dmsLoanService: DmsLoanService,
               private toastService: ToastService,
@@ -29,6 +31,7 @@ export class AllDocumentViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.affiliatedId = LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID = AffiliateId.SRDB;
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
       if (!ObjectUtil.isEmpty(this.loanDataHolder.taggedGuarantors)) {
         this.loanDataHolder.taggedGuarantors.forEach(value => {

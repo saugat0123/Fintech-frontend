@@ -72,6 +72,12 @@ export class SiteVisitComponent implements OnInit {
     .get('parties')).controls;
   }
 
+  get payablePartyForm() {
+    return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
+    .get('payable'))
+    .get('parties')).controls;
+  }
+
   get receivableAssetsForm() {
     return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
     .get('otherCurrentAssets'))
@@ -113,7 +119,8 @@ export class SiteVisitComponent implements OnInit {
       this.addStaffOfVicinity();
       this.addStaffOfInsurance();
       this.addStaffOfOtherAssets();
-      this.addDetailsOfParties();
+      this.addDetailsOfParties('receivablesAndPayables');
+      this.addDetailsOfParties('payable');
       this.addDetailsOfReceivableAssets();
       this.addDetailsOfPayableAssets();
       this.addDetailsOfBankExposure();
@@ -136,7 +143,7 @@ export class SiteVisitComponent implements OnInit {
         nearBy: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
             : this.formDataForEdit.currentResidentDetails.nearBy), Validators.required],
         ownerName: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.ownerName), [Validators.required , Validators.pattern(Pattern.ALPHABET_ONLY)]],
+            : this.formDataForEdit.currentResidentDetails.ownerName), [Validators.pattern(Pattern.ALPHABET_ONLY)]],
         staffRepresentativeNameDesignation: [this.formDataForEdit === undefined ? undefined :
             (this.formDataForEdit.currentResidentDetails === undefined ? undefined
             : this.formDataForEdit.currentResidentDetails.staffRepresentativeNameDesignation)],
@@ -470,6 +477,36 @@ export class SiteVisitComponent implements OnInit {
                       : this.formDataForEdit.currentAssetsInspectionDetails
                           .receivablesAndPayables.grandTotal],
         }),
+        payable: this.formBuilder.group({
+          parties: this.formBuilder.array([]),
+          threeMonthTotal: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.payable === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.payable.threeMonthTotal],
+          sixMonthTotal: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.payable === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.payable.sixMonthTotal],
+          oneYearTotal: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.payable === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.payable.oneYearTotal],
+          moreThanOneYearTotal: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.payable === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.payable.moreThanOneYearTotal],
+          findingsAndCommentsForCurrentAssetsInspection: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.payable === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails
+                          .payable.findingsAndCommentsForCurrentAssetsInspection],
+          grandTotal:   [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.payable === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails
+                          .payable.grandTotal],
+        }),
+
         otherCurrentAssets: this.formBuilder.group({
           receivableAssets: this.formBuilder.array([]),
           receivableCurrentAssetsTotal: [this.formDataForEdit === undefined ? ''
@@ -520,6 +557,7 @@ export class SiteVisitComponent implements OnInit {
     this.setStaffDetails(formData.staffs);
     this.setInspectingStaffsDetails(currentAssetsInspectionData.insuranceVerification.inspectingStaffsDetails);
     this.setPartyFormDetails(currentAssetsInspectionData.receivablesAndPayables.parties);
+    this.setPayablePartyFormDetails(currentAssetsInspectionData.payable ? currentAssetsInspectionData.payable.parties : undefined);
     this.setReceivableAssetsDetails(currentAssetsInspectionData.otherCurrentAssets.receivableAssets);
     this.setPayableAssetsDetails(currentAssetsInspectionData.otherCurrentAssets.payableAssets);
     this.setOtherCurrentInspectingStaffs(currentAssetsInspectionData.otherCurrentAssets.inspectingStaffs);
@@ -604,15 +642,38 @@ export class SiteVisitComponent implements OnInit {
     controls.push(this.partyFormGroup());
   }
 
+  addPayablePartyForm() {
+    const controls = (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
+    .get('payable'))
+    .get('parties'));
+    if (FormUtils.checkEmptyProperties(controls)) {
+      this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
+      return;
+    }
+    controls.push(this.partyFormGroup());
+  }
+
   deletePartyForm(i) {
     (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
     .get('receivablesAndPayables'))
     .get('parties')).removeAt(i);
   }
 
+  deletePayablePartyForm(i) {
+    (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
+    .get('payable'))
+    .get('parties')).removeAt(i);
+  }
+
   partyLength() {
     return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
     .get('receivablesAndPayables'))
+    .get('parties')).length;
+  }
+
+  payablePartyLength() {
+    return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
+    .get('payable'))
     .get('parties')).length;
   }
 
@@ -852,6 +913,16 @@ export class SiteVisitComponent implements OnInit {
     .get(`${totalFormControlName}`).patchValue(total);
   }
 
+  onChangePayableValue(childFormControlName: string, totalFormControlName) {
+    let total = 0;
+    this.payablePartyForm.forEach(party => {
+      total += Number(party.get(`${childFormControlName}`).value);
+    });
+    ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup).get('payable') as FormGroup)
+    .get(`${totalFormControlName}`).patchValue(total);
+  }
+
+
   onReceivableAssetValueChange(childFormControlName: string, totalFormControlName: string) {
     let total = 0;
     this.receivableAssetsForm.forEach(receivableAssets => {
@@ -878,8 +949,10 @@ export class SiteVisitComponent implements OnInit {
     .get('staffs') as FormArray;
     controls.push(
         this.formBuilder.group({
-          name: [undefined],
-          position: [undefined]
+          staffRepresentativeNameDesignation: undefined,
+          staffRepresentativeName: undefined,
+          alternativeStaffRepresentativeNameDesignation: undefined,
+          alternativeStaffRepresentativeName: undefined,
         })
     );
   }
@@ -890,8 +963,10 @@ export class SiteVisitComponent implements OnInit {
     .get('inspectingStaffsDetails') as FormArray;
     controls.push(
         this.formBuilder.group({
-          name: [undefined],
-          position: [undefined]
+          staffRepresentativeNameDesignation: undefined,
+          staffRepresentativeName: undefined,
+          alternativeStaffRepresentativeNameDesignation: undefined,
+          alternativeStaffRepresentativeName: undefined,
         })
     );
   }
@@ -900,6 +975,10 @@ export class SiteVisitComponent implements OnInit {
     const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
     .get('otherCurrentAssets') as FormGroup)
     .get('inspectingStaffs') as FormArray;
+    if (FormUtils.checkEmptyProperties(controls)) {
+      this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All Staffs Data To Add More'));
+      return;
+    }
     controls.push(
         this.formBuilder.group({
           name: [undefined],
@@ -908,9 +987,9 @@ export class SiteVisitComponent implements OnInit {
     );
   }
 
-  addDetailsOfParties() {
+  addDetailsOfParties(formcontrol) {
     const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
-    .get('receivablesAndPayables') as FormGroup)
+    .get(formcontrol) as FormGroup)
     .get('parties') as FormArray;
     controls.push(
         this.formBuilder.group({
@@ -1012,6 +1091,27 @@ export class SiteVisitComponent implements OnInit {
     });
   }
 
+  setPayablePartyFormDetails(currentData) {
+    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
+    .get('payable') as FormGroup)
+    .get('parties') as FormArray;
+    if (ObjectUtil.isEmpty(currentData)) {
+      this.addPayablePartyForm();
+      return;
+    }
+    currentData.forEach(data => {
+      controls.push(
+          this.formBuilder.group({
+            party: [data.party],
+            withinThreeMonths: [data.withinThreeMonths],
+            sixMonth: [data.sixMonth],
+            oneYear: [data.oneYear],
+            oneYearPlus: [data.oneYearPlus]
+          })
+      );
+    });
+  }
+
   setReceivableAssetsDetails(currentData) {
     const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
     .get('otherCurrentAssets') as FormGroup)
@@ -1068,16 +1168,16 @@ export class SiteVisitComponent implements OnInit {
     });
   }
 
-  calculateGrandTotal() {
+  calculateGrandTotal(formControl) {
     let grandTotal = 0;
     grandTotal = this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
-          'receivablesAndPayables', 'threeMonthTotal']).value +
+          formControl, 'threeMonthTotal']).value +
         this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
-          'receivablesAndPayables', 'sixMonthTotal']).value + this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
-          'receivablesAndPayables', 'oneYearTotal']).value + this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
-          'receivablesAndPayables', 'moreThanOneYearTotal']).value ;
+          formControl, 'sixMonthTotal']).value + this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
+          formControl, 'oneYearTotal']).value + this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
+          formControl, 'moreThanOneYearTotal']).value ;
     this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
-      'receivablesAndPayables', 'grandTotal']).patchValue(grandTotal);
+      formControl, 'grandTotal']).patchValue(grandTotal);
 
   }
 }

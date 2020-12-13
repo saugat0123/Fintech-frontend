@@ -98,14 +98,12 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label *ngIf="switchLanguageType==='ENG'" for="customerCode"><strong>Customer ID</strong></label>
-                            <label *ngIf="switchLanguageType==='NEP'" for="customerCode"><strong>ग्राहक आईडी</strong></label>
-                            <input  *ngIf="switchLanguageType==='ENG'"
-                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerCode.errors }"
+                            <label for="customerCode"><strong>Customer ID</strong></label>
+                            <input
                                     class="form-control form-control-sm-error rounded" formControlName="customerCode"
                                     id="customerCode"
                                     name="customerCode"
-                                    placeholder="Customer ID"
+                                    placeholder="Customer ID (Optional)"
                                     type="text">
                             <input  *ngIf="switchLanguageType==='NEP'"
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerCode.errors }"
@@ -308,6 +306,7 @@
                                 <nb-option value="Teaching Professional">Teaching Professional</nb-option>
                                 <nb-option value="Banker">Salary</nb-option>
                                 <nb-option value="Teaching Professional">Farmer</nb-option>
+                                <nb-option value="House Wife">House Wife</nb-option>
                                 <nb-option value="Other">Other</nb-option>
                             </nb-select>
                             <div *ngIf="submitted && basicInfoControls.occupation.errors"
@@ -335,7 +334,7 @@
                     </div>
                     <!-- END ROW -->
                     <!-- START ROW -->
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="!tempFlag?.hideIncomeSource">
                         <div class="form-group">
                             <label *ngIf="switchLanguageType==='ENG'"><strong>Income Source</strong></label>
                             <label *ngIf="switchLanguageType==='NEP'"><strong>आय स्रोत</strong></label>
@@ -375,10 +374,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row ml-1">
                     <div class="col-md-12">
                         <h6 *ngIf="switchLanguageType==='ENG'">Permanent Address</h6>
                         <h6 *ngIf="switchLanguageType==='NEP'">स्थाई ठेगाना</h6>
+                        <h5>Permanent Address</h5>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
@@ -490,13 +490,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row ml-1">
                     <div class="col-md-12">
-                        <button class="btn-sm" (click)="sameAsPermanent()" nbButton>Click </button>
-                        Same as Permanent Address
+                        <nb-checkbox (change)="sameAsPermanent()"><i>Check if Temporary Address is same as Permanent Address</i></nb-checkbox>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row ml-1">
                     <div class="col-md-12">
                         <h6 *ngIf="switchLanguageType==='ENG'">Temporary Address</h6>
                         <h6 *ngIf="switchLanguageType==='NEP'">अस्थायी ठेगाना</h6>
@@ -625,10 +624,10 @@
                                                id="customerRelation{{i}}"
                                                [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelation').errors }"
                                                placeholder="Relation" type="text">
-                                        <input *ngIf="switchLanguageType==='NEP'" class="form-control nepaliFont" formControlName="customerRelation"
+                                        <input *ngIf="switchLanguageType==='NEP'" class="form-control" formControlName="customerRelation"
                                                id="customerRelationInNepali{{i}}"
                                                [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelation').errors }"
-                                               placeholder="सम्बन्ध" type="text">
+                                               placeholder="Relation" type="text">
                                         <div *ngIf="submitted && relatives.get('customerRelation').errors"
                                              class="invalid-feedback">
                                             <div *ngIf="relatives.get('customerRelation').errors?.required">Relation

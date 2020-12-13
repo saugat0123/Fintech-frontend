@@ -1508,15 +1508,21 @@
                            <div class="col-md-3">
                                    <label *ngIf="switchLanguageType==='ENG'" for="rawMaterialSourcing"><strong>Raw Material
                                        Sourcing</strong></label> <br>
-                               <label *ngIf="switchLanguageType==='NEP'" for="rawMaterialSourcing"><strong>कच्चा माल मुहान</strong></label><br>
-                                   <nb-radio-group class="close d-inline-flex float-left"
-                                                   [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialSourcing.errors }"
-                                                   formControlName="rawMaterialSourcing"
-                                                   id="rawMaterialSourcing"
-                                                   name="rawMaterialSourcing">
-                                       <nb-radio value="local">Local</nb-radio>
-                                       <nb-radio value="imported">Imported</nb-radio>
-                                   </nb-radio-group>
+                               <nb-select
+                                       [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialSourcing.errors }"
+                                       formControlName="rawMaterialSourcing" id="rawMaterialSourcing" name="rawMaterialSourcing"
+                                       placeholder="Select raw material" multiple fullWidth>
+                                   <nb-option value="local">Local</nb-option>
+                                   <nb-option value="imported">Imported</nb-option>
+                               </nb-select>
+<!--                                   <nb-radio-group class="close d-inline-flex float-left"-->
+<!--                                                   [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialSourcing.errors }"-->
+<!--                                                   formControlName="rawMaterialSourcing"-->
+<!--                                                   id="rawMaterialSourcing"-->
+<!--                                                   name="rawMaterialSourcing">-->
+<!--                                       <nb-radio value="local">Local</nb-radio>-->
+<!--                                       <nb-radio value="imported">Imported</nb-radio>-->
+<!--                                   </nb-radio-group>-->
                                    <span *ngIf="submitted && form.rawMaterialSourcing?.errors "
                                       class="help-block" >
                                        <span class="small text-danger" *ngIf="form.rawMaterialSourcing?.errors.required">

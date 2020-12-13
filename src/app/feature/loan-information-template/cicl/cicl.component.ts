@@ -88,7 +88,10 @@ export class CiclComponent implements OnInit {
           facilityName: [undefined, Validators.required],
           overdueAmount: [undefined, Validators.required],
           outstandingAmount: [undefined, Validators.required],
-          ciclStatus: [undefined, Validators.required]
+          ciclStatus: [undefined, Validators.required],
+          obtaineddate: [undefined, Validators.required],
+          loanamount: [undefined, Validators.required],
+          overdue: [undefined, Validators.required]
         }));
   }
 
@@ -104,7 +107,10 @@ export class CiclComponent implements OnInit {
           facilityName: [undefined, Validators.required],
           overdueAmount: [undefined, Validators.required],
           outstandingAmount: [undefined, Validators.required],
-          ciclStatus: [undefined, Validators.required]
+          ciclStatus: [undefined, Validators.required],
+          obtaineddate: [undefined, Validators.required],
+          loanamount: [undefined, Validators.required],
+          overdue: [undefined, Validators.required]
         }));
 
   }
@@ -123,6 +129,9 @@ export class CiclComponent implements OnInit {
             overdueAmount: [cicl.overdueAmount, Validators.required],
             outstandingAmount: [cicl.outstandingAmount, Validators.required],
             ciclStatus: [cicl.status, Validators.required],
+            obtaineddate: [cicl.obtaineddate, Validators.required],
+            loanamount: [cicl.loanamount, Validators.required],
+            overdue: [cicl.overdue, Validators.required],
           }));
     });
   }
@@ -163,6 +172,9 @@ export class CiclComponent implements OnInit {
       cicl.overdueAmount = controls.overdueAmount.value;
       cicl.outstandingAmount = controls.outstandingAmount.value;
       cicl.status = controls.ciclStatus.value;
+      cicl.obtaineddate = controls.obtaineddate.value;
+      cicl.loanamount = controls.loanamount.value;
+      cicl.overdue = controls.overdue.value;
       this.ciclList.push(cicl);
 
     }

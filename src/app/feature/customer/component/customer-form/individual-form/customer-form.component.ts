@@ -18,6 +18,7 @@ import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {BankingRelationship} from '../../../../admin/modal/banking-relationship';
 import {Pattern} from '../../../../../@core/utils/constants/pattern';
 import {LanguageType} from '../../../model/languageType';
+import {RelationshipList} from '../../../../loan/model/relationshipList';
 
 @Component({
     selector: 'app-customer-form',
@@ -65,12 +66,14 @@ export class CustomerFormComponent implements OnInit {
     public showMatchingTable: boolean;
     tempFlag = {
         showOtherOccupation: false,
-        showOtherIncomeSource: false
+        showOtherIncomeSource: false,
+        hideIncomeSource: false
     };
 
     bankingRelationshipList = BankingRelationship.enumObject();
     subSector = [];
     clientType = [];
+    relationArray: RelationshipList = new RelationshipList();
 
     constructor(
         private formBuilder: FormBuilder,
@@ -99,6 +102,7 @@ export class CustomerFormComponent implements OnInit {
             this.formMaker();
             this.setRelatives(this.customer.customerRelatives);
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
+            this.occupationChange();
 
         } else {
             this.createRelativesArray();
@@ -304,7 +308,7 @@ export class CustomerFormComponent implements OnInit {
     formMaker() {
         this.basicInfo = this.formBuilder.group({
             customerName: [this.customer.customerName === undefined ? undefined : this.customer.customerName, Validators.required],
-            customerCode: [this.customer.customerCode === undefined ? undefined : this.customer.customerCode, Validators.required],
+            customerCode: [this.customer.customerCode === undefined ? undefined : this.customer.customerCode],
             province: [this.customer.province === null ? undefined : this.customer.province, Validators.required],
             district: [this.customer.district === null ? undefined : this.customer.district, Validators.required],
             municipalities: [this.customer.municipalities === null ? undefined : this.customer.municipalities, Validators.required],
@@ -436,6 +440,17 @@ export class CustomerFormComponent implements OnInit {
             this.basicInfo.get('otherOccupation').setValidators(null);
         }
         this.basicInfo.get('otherOccupation').updateValueAndValidity();
+        const houseWifeSelected = !this.basicInfo.get('occupation').value.includes('House Wife') ?
+            false : this.basicInfo.get('occupation').value.length <= 1;
+        if (houseWifeSelected) {
+            this.tempFlag.hideIncomeSource = true;
+            this.basicInfo.get('incomeSource').clearValidators();
+        } else {
+            this.tempFlag.hideIncomeSource = false;
+            this.basicInfo.get('incomeSource').setValidators(Validators.required);
+        }
+        this.basicInfo.get('incomeSource').updateValueAndValidity();
+
     }
 
     onIncomeSourceChange() {

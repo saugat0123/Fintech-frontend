@@ -34,8 +34,7 @@ import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
-import {DocStatus} from '../../model/docStatus';
-import {LoanDataKey} from '../../../../@core/utils/constants/loan-data-key';
+import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 
 @Component({
     selector: 'app-loan-summary',
@@ -145,6 +144,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     insuranceWithDoc = [];
     showCadDoc = false;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+    fiscalYearArray = [];
 
 
     constructor(
@@ -162,7 +162,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private customerLoanService: LoanFormService,
         private combinedLoanService: CombinedLoanService,
         private commonRoutingUtilsService: CommonRoutingUtilsService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private fiscalYearService: FiscalYearService
     ) {
         this.client = environment.client;
         this.showCadDoc = this.productUtils.CAD_DOC_UPLOAD;
@@ -371,6 +372,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 }
             });
         }
+        // getting fiscal years
+        this.getFiscalYears();
     }
 
     getAllLoans(customerInfoId: number): void {
@@ -451,7 +454,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     loanHandler(index: number, length: number , label: string) {
-        console.log(label);
         if (index === length - 1 && index !== 0) {
             if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
                 return 'APPROVED BY:';
@@ -555,6 +557,15 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     goToCustomer() {
         const loanHolder = this.loanDataHolder.loanHolder;
         this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
+    }
+
+    getFiscalYears() {
+        this.fiscalYearService.getAll().subscribe(response => {
+            this.fiscalYearArray = response.detail;
+        }, error => {
+            console.log(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Fiscal Year!'));
+        });
     }
 }
 

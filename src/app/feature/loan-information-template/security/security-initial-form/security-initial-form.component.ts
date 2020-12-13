@@ -901,6 +901,8 @@ export class SecurityInitialFormComponent implements OnInit {
             vehicalStaffRepresentativeDesignation: [undefined],
             vehicalAlternateStaffRepresentativeDesignation: [undefined],
             vehicalAlternateStaffRepresentativeName: [undefined],
+            showroomAddress: undefined,
+            showroomName: undefined
         });
     }
 
@@ -940,6 +942,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     vehicalStaffRepresentativeDesignation: [singleData.vehicalStaffRepresentativeDesignation],
                     vehicalAlternateStaffRepresentativeDesignation: [singleData.vehicalAlternateStaffRepresentativeDesignation],
                     vehicalAlternateStaffRepresentativeName: [singleData.vehicalAlternateStaffRepresentativeName],
+                    showroomAddress: [singleData.showroomAddress],
+                    showroomName: [singleData.showroomName]
                 })
             );
         });
@@ -956,7 +960,10 @@ export class SecurityInitialFormComponent implements OnInit {
             expiryDate: undefined,
             couponRate: [''],
             beneficiary: [''],
-            remarks: ['']
+            remarks: [''],
+            accountHolderName: undefined,
+            accountNumber: undefined,
+            tenureStartDate: undefined
         });
     }
 
@@ -979,7 +986,10 @@ export class SecurityInitialFormComponent implements OnInit {
                         expiryDate: [new Date(deposit.expiryDate)],
                         couponRate: [deposit.couponRate],
                         beneficiary: [deposit.beneficiary],
-                        remarks: [deposit.remarks]
+                        remarks: [deposit.remarks],
+                        accountHolderName: [deposit.accountHolderName],
+                        accountNumber: [deposit.accountNumber],
+                        tenureStartDate: [deposit.tenureStartDate]
                     })
                 );
             });
@@ -1302,6 +1312,41 @@ export class SecurityInitialFormComponent implements OnInit {
         this.securityForm.get(['buildingUnderConstructions', i ,
           'buildingDetailsAfterCompletion', 'electrification']).patchValue(afterElectrification);
         break;
+    }
+  }
+
+  calculateTotalApartmentCost(i, type) {
+    switch (type) {
+      case 'building':
+        const totalApartmentCost = (Number(this.securityForm.get(['buildingDetails', i , 'estimatedCost']).value) +
+             Number(this.securityForm.get(['buildingDetails', i , 'waterSupply']).value) +
+             Number(this.securityForm.get(['buildingDetails', i , 'sanitation']).value) +
+            Number(this.securityForm.get(['buildingDetails', i , 'electrification']).value)).toFixed(2);
+        this.securityForm.get(['buildingDetails', i , 'buildingTotalCost']).patchValue(totalApartmentCost);
+        break;
+      case 'before':
+        const beforeTotalApartmentCost = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+              'buildingDetailsBeforeCompletion', 'estimatedCost']).value) +
+            Number(this.securityForm.get(['buildingUnderConstructions', i ,
+              'buildingDetailsBeforeCompletion', 'waterSupply']).value) +
+            Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                  'buildingDetailsBeforeCompletion', 'sanitation']).value)+
+            Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                  'buildingDetailsBeforeCompletion', 'electrification']).value)).toFixed(2);
+        this.securityForm.get(['buildingUnderConstructions', i ,
+          'buildingDetailsBeforeCompletion', 'buildingTotalCost']).patchValue(beforeTotalApartmentCost);
+        break;
+      case 'after':
+        const afterTotalApartmentCost = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+              'buildingDetailsAfterCompletion', 'estimatedCost']).value) +
+            Number(this.securityForm.get(['buildingUnderConstructions', i ,
+              'buildingDetailsAfterCompletion', 'waterSupply']).value) +
+            Number(this.securityForm.get(['buildingUnderConstructions', i ,
+              'buildingDetailsAfterCompletion', 'sanitation']).value)+
+            Number(this.securityForm.get(['buildingUnderConstructions', i ,
+              'buildingDetailsAfterCompletion', 'electrification']).value)).toFixed(2);
+        this.securityForm.get(['buildingUnderConstructions', i ,
+          'buildingDetailsAfterCompletion', 'buildingTotalCost']).patchValue(afterTotalApartmentCost);
     }
   }
 }
