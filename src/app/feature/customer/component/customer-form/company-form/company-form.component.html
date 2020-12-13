@@ -1507,7 +1507,8 @@
                        <div class="row">
                            <div class="col-md-3">
                                    <label *ngIf="switchLanguageType==='ENG'" for="rawMaterialSourcing"><strong>Raw Material
-                                       Sourcing</strong></label> <br>
+                                       Sourcing</strong></label>
+                               <label *ngIf="switchLanguageType==='NEP'" for="rawMaterialSourcing"><strong>कच्चा माल सोर्सिंग</strong></label><br>
                                <nb-select
                                        [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialSourcing.errors }"
                                        formControlName="rawMaterialSourcing" id="rawMaterialSourcing" name="rawMaterialSourcing"
