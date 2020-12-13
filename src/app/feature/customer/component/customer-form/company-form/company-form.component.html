@@ -551,7 +551,7 @@
                                    <label for="authorizedCapital"><strong>Authorized Capital</strong></label>
                                    <input id="authorizedCapital" formControlName="authorizedCapital" name="authorizedCapital"
                                           type="number" class="form-control" placeholder="Authorized Capital"
-                                          [ngClass]="{ 'is-invalid': (submitted) && form.authorizedCapital.errors }">
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.authorizedCapital.errors }" appDecimalNumber>
                                    <div *ngIf="(submitted) && form.authorizedCapital.invalid"
                                         class="invalid-feedback">
                                        <div *ngIf="form.authorizedCapital.errors.required">
@@ -565,7 +565,7 @@
                                    <label for="issuedCapital"><strong>Issued Capital</strong></label>
                                    <input id="issuedCapital" formControlName="issuedCapital" name="issuedCapital" type="number"
                                           class="form-control" placeholder="Issued Capital"
-                                          [ngClass]="{ 'is-invalid': (submitted) && form.issuedCapital.errors }">
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.issuedCapital.errors }" appDecimalNumber>
                                    <div *ngIf="(submitted) && form.issuedCapital.invalid"
                                         class="invalid-feedback">
                                        <div *ngIf="form.issuedCapital.errors.required">
@@ -579,7 +579,7 @@
                                    <label for="paidUpCapital"><strong>Paid Up Capital</strong></label>
                                    <input id="paidUpCapital" formControlName="paidUpCapital" name="paidUpCapital" type="number"
                                           class="form-control" placeholder="Paid Up Capital"
-                                          [ngClass]="{ 'is-invalid': (submitted) && form.paidUpCapital.errors }">
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.paidUpCapital.errors }" appDecimalNumber>
                                    <div *ngIf="(submitted) && form.paidUpCapital.invalid"
                                         class="invalid-feedback">
                                        <div *ngIf="form.paidUpCapital.errors.required">

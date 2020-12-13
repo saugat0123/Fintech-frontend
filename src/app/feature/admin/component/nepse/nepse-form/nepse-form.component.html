@@ -24,7 +24,7 @@
                         <label for="amount">Share Amount per unit</label>
                         <input type="text" class="form-control" placeholder="amount" required
                                [(ngModel)]="model.amountPerUnit" id="amount" name="amount" #amountVal="ngModel"
-                               [ngClass]="{'is-invalid': nepseForm.submitted && amountVal.invalid}"/>
+                               [ngClass]="{'is-invalid': nepseForm.submitted && amountVal.invalid}" appDecimalNumber/>
                         <div *ngIf="amountVal.invalid && nepseForm.submitted" class="invalid-feedback">
                             Amount is required
                         </div>
