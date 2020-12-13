@@ -61,6 +61,11 @@ export class TypeOfSourceOfIncomeMap {
         [TypeOfSourceOfIncome.TRANSPORTATION, 18],
         [TypeOfSourceOfIncome.FREELANCING, 18],
         [TypeOfSourceOfIncome.AGRICULTURE, 12],
+
+        // TODO: recalculate score specifications--
+        [TypeOfSourceOfIncome.INTEREST_INCOME, 0],
+        [TypeOfSourceOfIncome.DIVIDEND, 0],
+        [TypeOfSourceOfIncome.OTHERS, 0],
     ]);
 }
 
