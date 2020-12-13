@@ -5,6 +5,10 @@
                 <h3><strong>Income of Borrower</strong></h3>
             </nb-card-header>
             <nb-card-body>
+                <div class="row m-2">
+                    <em class="fa fa-info-circle"><em class="ml-2">Note : Remark can be income source detail or
+                        Organization detail or any other description.</em></em>
+                </div>
                 <div *ngFor="let incomeOfBorrower of financialForm.get('incomeOfBorrower')['controls']; let incomeIndex = index"
                      class="border-bottom border-dark m-4"
                      formArrayName="incomeOfBorrower">
