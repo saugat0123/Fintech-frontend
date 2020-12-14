@@ -38,6 +38,7 @@ import { CreditChecklistGeneralComponent } from './credit-checklist-general/cred
 import { CreditRiskGradingLambdaComponent } from './credit-risk-grading-lambda/credit-risk-grading-lambda.component';
 import { CadDocumentUploadComponent } from './cad-document-upload/cad-document-upload.component';
 import { SecurityRevaluationComponent } from './security/security-initial-form/security-revaluation/security-revaluation.component';
+import {FeatureModule} from '../feature.module';
 
 const COMPONENTS = [
   SiteVisitComponent,
@@ -73,22 +74,23 @@ const COMPONENTS = [
   declarations: [...COMPONENTS, CadDocumentUploadComponent],
   exports: [...COMPONENTS],
   entryComponents: [...COMPONENTS],
-  imports: [
-    CommonModule,
-    ThemeModule,
-    FormsModule,
-    NgbPaginationModule,
-    ReactiveFormsModule,
-    NgSelectModule,
-    NbDatepickerModule,
-    NepaliCalendarModule,
-    NbDialogModule.forRoot(),
-    AgmCoreModule.forRoot({
-      apiKey: environment.GOOGLE_MAP_API_KEY
-    }),
-    CoreModule,
-    CKEditorModule
-  ]
+    imports: [
+        CommonModule,
+        ThemeModule,
+        FormsModule,
+        NgbPaginationModule,
+        ReactiveFormsModule,
+        NgSelectModule,
+        NbDatepickerModule,
+        NepaliCalendarModule,
+        NbDialogModule.forRoot(),
+        AgmCoreModule.forRoot({
+            apiKey: environment.GOOGLE_MAP_API_KEY
+        }),
+        CoreModule,
+        CKEditorModule,
+        FeatureModule
+    ]
 })
 export class LoanInformationTemplateModule {
 }

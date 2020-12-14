@@ -1,0 +1,64 @@
+<div class="row" [formGroup]="addressForm">
+    <div class="col-md-4 form-group">
+        <label for="province">Province</label>
+        <select (change)="getDistrictsById(form.province.value?.id , $event)"
+                class="custom-select"
+                formControlName="province"
+                [compareWith]="compareFn"
+                id="province">
+            <option [ngValue]="null" hidden>Province</option>
+            <option *ngFor="let provinceVal of provinceList"
+                    [ngValue]="provinceVal">
+                {{provinceVal.name}}
+            </option>
+        </select>
+        <!-- <div *ngIf="(submitted) && valuatorFormControl.province.invalid"
+              class="invalid-feedback">
+             <div *ngIf="valuatorFormControl.province.errors.required">
+                 Province is required
+             </div>
+         </div>-->
+    </div>
+    <div class="col-md-4 form-group">
+        <label for="district">District</label>
+        <select (change)="getMunicipalitiesById(form?.district.value?.id, $event)"
+                [compareWith]="compareFn"
+                class="custom-select"
+                formControlName="district"
+                id="district">
+            <option [ngValue]="null" hidden>District</option>
+            <option *ngFor="let districtVal of districts"
+                    [ngValue]="districtVal">
+                {{districtVal.name}}
+            </option>
+        </select>
+    </div>
+    <div class="col-md-4 form-group">
+        <label for="municipality">Municipalities or VDC</label>
+        <select name="municipality" id="municipality"
+                [compareWith]="compareFn"
+                formControlName="municipalityVdc"
+                class="custom-select">
+            <option [ngValue]="null" hidden>Municipality</option>
+            <option *ngFor="let municipalityVal of municipalities"
+                    [ngValue]="municipalityVal">
+                {{municipalityVal.name}}
+            </option>
+        </select>
+    </div>
+    <div class="col-md-4 form-group">
+        <label class="title" for="ward">Ward</label>
+        <input class="form-control" formControlName="address1" id="ward" name="ward"
+               placeholder="ward" type="text">
+    </div>
+    <div class="col-md-4 form-group">
+        <label class="title" for="address1">Address 1</label>
+        <input class="form-control" formControlName="address1" id="address1" name="address1"
+               placeholder="address1" type="text">
+    </div>
+    <div class="col-md-4 form-group">
+        <label class="title" for="address2">Address 2</label>
+        <input class="form-control" formControlName="address2" id="address2" name="address2"
+               placeholder="address 2" type="text">
+    </div>
+</div>

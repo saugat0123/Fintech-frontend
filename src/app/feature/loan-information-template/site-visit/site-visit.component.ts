@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {SiteVisit} from '../../admin/modal/siteVisit';
@@ -9,6 +9,7 @@ import {FormUtils} from '../../../@core/utils/form.utils';
 import {Pattern} from '../../../@core/utils/constants/pattern';
 import {DesignationList} from '../../loan/model/designationList';
 import {InsuranceList} from '../../loan/model/insuranceList';
+import {CommonAddressComponent} from '../../common-address/common-address.component';
 
 
 declare let google: any;
@@ -22,6 +23,11 @@ export class SiteVisitComponent implements OnInit {
   @Input() formValue: SiteVisit;
   @Input() fromProfile: boolean;
   @Output() siteVisitDataEmitter = new EventEmitter();
+
+  @ViewChild('currentResidentAddress', {static: true}) currentResidentAddress: CommonAddressComponent;
+  @ViewChild('fixedAssetsAddress', {static: true}) fixedAssetsAddress: CommonAddressComponent;
+  @ViewChild('businessOfficeAddress', {static: true}) businessOfficeAddress: CommonAddressComponent;
+
   siteVisitData: SiteVisit = new SiteVisit();
   siteVisitFormGroup: FormGroup;
   submitted = false;
@@ -138,8 +144,7 @@ export class SiteVisitComponent implements OnInit {
             : this.formDataForEdit.currentResidentDetails.houseNumber)],
         streetName: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
             : this.formDataForEdit.currentResidentDetails.streetName), Validators.required],
-        address: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.address), Validators.required],
+        address: [undefined],
         nearBy: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
             : this.formDataForEdit.currentResidentDetails.nearBy), Validators.required],
         ownerName: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
@@ -162,8 +167,7 @@ export class SiteVisitComponent implements OnInit {
             : this.formDataForEdit.currentResidentDetails.locationPreview)]
       }),
       businessSiteVisitDetails: this.formBuilder.group({
-        officeAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.officeAddress, Validators.required],
+        officeAddress: [undefined],
         nameOfThePersonContacted: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
                 : this.formDataForEdit.businessSiteVisitDetails.nameOfThePersonContacted,
@@ -195,8 +199,7 @@ export class SiteVisitComponent implements OnInit {
       fixedAssetCollateralDetails: this.formBuilder.group({
         date: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
             : this.formDataForEdit.fixedAssetCollateralDetails.date, Validators.required],
-        address: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
-            : this.formDataForEdit.fixedAssetCollateralDetails.address],
+        address: [undefined],
         personContacted: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
             : this.formDataForEdit.fixedAssetCollateralDetails.personContacted , Validators.pattern(Pattern.ALPHABET_ONLY)],
         phoneNoOfContact: [this.formDataForEdit === undefined ? ''
@@ -872,21 +875,31 @@ export class SiteVisitComponent implements OnInit {
       return;
     }
     if (this.currentResidentForm) {
+      // current residential details
       if (this.siteVisitFormGroup.get('currentResidentDetails').invalid) {
         this.submitted = true;
         return;
+      } else {
+        this.currentResidentAddress.onSubmit();
+        this.siteVisitFormGroup.get('currentResidentDetails').get('address').patchValue(this.currentResidentAddress.submitData);
       }
     }
     if (this.businessSiteVisitForm) {
       if (this.siteVisitFormGroup.get('businessSiteVisitDetails').invalid) {
         this.business = true;
         return;
+      } else {
+        this.businessOfficeAddress.onSubmit();
+        this.siteVisitFormGroup.get('businessSiteVisitDetails').get('officeAddress').patchValue(this.businessOfficeAddress.submitData);
       }
     }
     if (this.fixedAssetCollateralForm) {
       if (this.siteVisitFormGroup.get('fixedAssetCollateralDetails').invalid) {
         this.fixed = true;
         return;
+      } else {
+        this.fixedAssetsAddress.onSubmit();
+        this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('address').patchValue(this.fixedAssetsAddress.submitData);
       }
     }
     if (this.currentAssetsInspectionForm) {
