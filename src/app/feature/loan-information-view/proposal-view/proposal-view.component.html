@@ -105,10 +105,16 @@
     <table
         class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
       <tr class="text-white sb-bg-dark">
-        <th>Purpose of Loan</th>
+        <th>Remarks</th>
       </tr>
       <tr>
         <td>{{proposalData?.remark}}</td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>Purpose of Loan</th>
+      </tr>
+      <tr>
+        <td>{{proposalData?.purposeOfLoan}}</td>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th>Disbursement
@@ -135,12 +141,6 @@
       </tr>
       <tr>
         <td><span [innerHTML]="proposalData?.summeryRecommendation  | safeHtml"></span> </td>
-      </tr>
-      <tr class="text-white sb-bg-dark">
-        <th>Remarks</th>
-      </tr>
-      <tr>
-        <td><span [innerHTML]="proposalData?.remarks  | safeHtml"></span> </td>
       </tr>
       <ng-container *ngIf="recommendationChecked?.waiverChecked">
         <tr class="text-white sb-bg-dark">

@@ -476,13 +476,19 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="title" for="remark"><strong>Purpose of Loan</strong></label>
+                                        <label class="title" for="remark"><strong>Remarks</strong></label>
                                         <textarea
                                                 class="form-control"
                                                 formControlName="remark" id="remark"
                                                 name="remark"
-                                                placeholder="Purpose of Loan"
+                                                placeholder="Remarks"
                                                 rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="title"><b>Purpose of Loan</b></label>
+                                        <textarea class="form-control" [rows]="3" formControlName="purposeOfLoan" placeholder="Purpose of Loan"></textarea>
                                     </div>
                                 </div>
                                 <!--                end of Moratorium Period amount div-->
@@ -563,12 +569,7 @@
                                         </ckeditor>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="title"><b>Remarks</b></label>
-                                        <textarea class="form-control" [rows]="3" formControlName="remarks" placeholder="Remarks"></textarea>
-                                    </div>
-                                </div>
+
                                 <div class="col-md-12 form-group">
                                     <h6><strong>Additional Description</strong></h6>
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
