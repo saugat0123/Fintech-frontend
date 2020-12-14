@@ -59,6 +59,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
   allDistrict: Array<District> = Array<District>();
   profilePic;
   isRemarkEdited;
+  companyLocationData;
 
   constructor(private companyInfoService: CompanyInfoService,
               private customerInfoService: CustomerInfoService,
@@ -107,6 +108,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     this.spinner = true;
     this.companyInfoService.detail(companyInfoId).subscribe((res: any) => {
       this.companyInfo = res.detail;
+      this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
       this.spinner = false;
     }, error => {
       console.error(error);

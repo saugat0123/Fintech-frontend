@@ -77,9 +77,12 @@
           </div>
 
           <div class="row">
-                    <span> <strong>Address :</strong> {{companyInfo?.companyLocations?.address}}
-                      , {{companyInfo?.companyLocations?.streetName}}
-                      , {{companyInfo?.companyLocations?.houseNumber}}</span></div>
+                    <span> <strong>Address :</strong>
+                         ({{companyLocationData?.province?.name}},{{companyLocationData?.district?.name}}
+                      , {{companyLocationData?.municipalityVdc?.name}})
+                      , {{companyLocationData?.ward}}
+                      , {{companyLocationData?.address1}},
+                      {{companyLocationData?.address2}}</span></div>
           <div class="row">
             <span> <strong>PAN number :</strong> {{companyInfo?.panNumber}}</span></div>
           <div class="row">
