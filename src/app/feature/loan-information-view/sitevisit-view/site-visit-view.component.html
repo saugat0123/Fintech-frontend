@@ -23,10 +23,10 @@
     <th>Alternative Staff Representative Name</th>
   </tr>
   <tr>
-    <td>{{formData?.currentResidentDetails?.staffRepresentativeNameDesignation}}</td>
-    <td>{{formData?.currentResidentDetails?.staffRepresentativeName}}</td>
-    <td>{{formData?.currentResidentDetails?.alternativeStaffRepresentativeNameDesignation}}</td>
-    <td>{{formData?.currentResidentDetails?.alternativeStaffRepresentativeName}}</td>
+    <td>{{formData?.currentResidentDetails?.staffRepresentativeName?.roleName}}</td>
+    <td>{{formData?.currentResidentDetails?.staffRepresentativeName?.name}}</td>
+    <td>{{formData?.currentResidentDetails?.alternativeStaffRepresentativeName?.roleName}}</td>
+    <td>{{formData?.currentResidentDetails?.alternativeStaffRepresentativeName?.name}}</td>
   </tr>
 
 </table>
@@ -54,7 +54,7 @@
     <td>{{formData['businessSiteVisitDetails']['officeAddress']}}</td>
     <td>{{formData['businessSiteVisitDetails']['dateOfVisit'] | date}}</td>
     <td>{{formData['businessSiteVisitDetails']['objectiveOfVisit']}}</td>
-    <td>{{formData?.businessSiteVisitDetails?.staffRepresentativeNameDesignation}}</td>
+    <td>{{formData?.businessSiteVisitDetails?.staffRepresentativeName?.roleName}}</td>
 
 
   </tr>
@@ -70,9 +70,9 @@
     <th>Alternative Staff Representative Name</th>
   </tr>
   <tr>
-    <td>{{formData?.businessSiteVisitDetails?.staffRepresentativeName}}</td>
-    <td>{{formData?.businessSiteVisitDetails?.alternativeStaffRepresentativeNameDesignation}}</td>
-    <td>{{formData?.businessSiteVisitDetails?.alternativeStaffRepresentativeName}}</td>
+    <td>{{formData?.businessSiteVisitDetails?.staffRepresentativeName?.name}}</td>
+    <td>{{formData?.businessSiteVisitDetails?.alternativeStaffRepresentativeName?.roleName}}</td>
+    <td>{{formData?.businessSiteVisitDetails?.alternativeStaffRepresentativeName?.name}}</td>
   </tr>
 </table>
 <table *ngIf="formData['businessSiteVisitFormChecked'] === true"
@@ -208,10 +208,10 @@
     <th>Alternative Staff Representative Name</th>
   </tr>
   <tr *ngFor="let staff of formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['staffs']">
-    <td>{{staff.staffRepresentativeNameDesignation}}</td>
-    <td>{{staff.staffRepresentativeName}}</td>
-    <td>{{staff.alternativeStaffRepresentativeNameDesignation}}</td>
-    <td>{{staff.alternativeStaffRepresentativeName}}</td>
+    <td>{{staff.staffRepresentativeName?.roleName}}</td>
+    <td>{{staff.staffRepresentativeName?.name}}</td>
+    <td>{{staff.alternativeStaffRepresentativeName?.roleName}}</td>
+    <td>{{staff.alternativeStaffRepresentativeName?.name}}</td>
 
   </tr>
 </table>
@@ -298,10 +298,10 @@
     <th>Alternative Staff Representative Name</th>
   </tr>
   <tr *ngFor="let staff of formData['currentAssetsInspectionDetails']['insuranceVerification']['inspectingStaffsDetails']">
-    <td>{{staff.staffRepresentativeNameDesignation}}</td>
-    <td>{{staff.staffRepresentativeName}}</td>
-    <td>{{staff.alternativeStaffRepresentativeNameDesignation}}</td>
-    <td>{{staff.alternativeStaffRepresentativeName}}</td>
+    <td>{{staff.staffRepresentativeName?.roleName}}</td>
+    <td>{{staff.staffRepresentativeName?.name}}</td>
+    <td>{{staff.alternativeStaffRepresentativeName?.roleName}}</td>
+    <td>{{staff.alternativeStaffRepresentativeName?.name}}</td>
   </tr>
 </table>
 
@@ -531,8 +531,8 @@
   </tr>
   <tr *ngFor="let staff of formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.inspectingStaffs; let i=index">
     <td>{{i+1}}</td>
-    <td>{{staff?.name}}</td>
-    <td>{{staff?.position}}</td>
+    <td>{{staff?.name?.name}}</td>
+    <td>{{staff?.name?.roleName}}</td>
   </tr>
   <tr>
 

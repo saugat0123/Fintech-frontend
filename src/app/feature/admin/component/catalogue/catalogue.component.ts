@@ -120,7 +120,6 @@ export class CatalogueComponent implements OnInit {
             (paramsValue: Params) => {
                 this.redirected = paramsValue.redirect === 'true';
             });
-
         this.buildFilterForm();
         this.buildActionForm();
 

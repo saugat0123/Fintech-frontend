@@ -9,6 +9,8 @@ import {FormUtils} from '../../../@core/utils/form.utils';
 import {Pattern} from '../../../@core/utils/constants/pattern';
 import {DesignationList} from '../../loan/model/designationList';
 import {InsuranceList} from '../../loan/model/insuranceList';
+import {UserService} from '../../admin/component/user/user.service';
+import {User} from '../../admin/modal/user';
 
 
 declare let google: any;
@@ -47,10 +49,13 @@ export class SiteVisitComponent implements OnInit {
   date: Date;
   designationList: DesignationList = new DesignationList();
   insuranceList = InsuranceList.insuranceCompanyList;
+  userList: Array<User> = [];
+  spinner = false;
 
   constructor(private formBuilder: FormBuilder,
               dateService: NbDateService<Date>,
-              private toastService: ToastService) {
+              private toastService: ToastService,
+              private userService: UserService) {
     this.date = dateService.today();
   }
 
@@ -107,6 +112,12 @@ export class SiteVisitComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.spinner = true;
+    this.userService.getUserStaffList().subscribe(res => {
+      this.userList = res.detail;
+      this.spinner = false;
+      console.log(res , this.userList , 'hhhhh');
+    }, error => console.log(error));
     if (!ObjectUtil.isEmpty(this.formValue)) {
       const stringFormData = this.formValue.data;
       this.formDataForEdit = JSON.parse(stringFormData);
@@ -577,6 +588,7 @@ export class SiteVisitComponent implements OnInit {
     const controls =  (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('fixedAssetCollateralDetails'))
     .get('vicinityToTheBasicAmenities'))
     .get('staffs'));
+    console.log(controls);
     if (FormUtils.checkEmptyProperties(controls)) {
       this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Staffs Data To Add More'));
      return;
@@ -872,6 +884,7 @@ export class SiteVisitComponent implements OnInit {
       return;
     }
     if (this.currentResidentForm) {
+      console.log(this.siteVisitFormGroup.get('currentResidentDetails'));
       if (this.siteVisitFormGroup.get('currentResidentDetails').invalid) {
         this.submitted = true;
         return;
@@ -1179,6 +1192,15 @@ export class SiteVisitComponent implements OnInit {
     this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
       formControl, 'grandTotal']).patchValue(grandTotal);
 
+  }
+
+  getRoleFromId(id) {
+    console.log(id.selectedValues);
+  }
+
+  setRoleInFormGroup(formGroupName , formControlName , value) {
+    console.log(value);
+   /* this.siteVisitFormGroup.get(formGroupName).get(formControlName).setValue(value[0].role.roleName);*/
   }
 }
 

@@ -1,4 +1,8 @@
-<nb-card>
+<nb-card [nbSpinner]="spinner"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="large"
+         nbSpinnerMessage="Loading Form Please Wait..."
+         status="primary">
     <nb-card-body>
         <form [formGroup]="siteVisitFormGroup" class="form-horizontal">
             <div class="row justify-content-around">
@@ -80,45 +84,34 @@
                     <label class="staffRepresentativeNameDesignation"
                            for="staffRepresentativeNameDesignation">Staff Representative
                         Designation</label>
-                    <select class="form-control"
-                            formControlName="staffRepresentativeNameDesignation"
-                            id="staffRepresentativeNameDesignation"
-                            name="staffRepresentativeNameDesignation">
-                        <option [ngValue]="null" hidden>Staff Representative Designation</option>
-                        <option *ngFor="let designation of designationList.designation"
-                                [ngValue]="designation.id">{{designation.name}}</option>
-                    </select>
+                    <input [readOnly]="true" id="staffRepresentativeNameDesignation" placeholder="staff role"
+                           class="form-control" formControlName="staffRepresentativeNameDesignation" [value]="s?.selectedItems[0]?.value?.roleName">
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="staffRepresentativeName" for="staffRepresentativeName">Staff
                         Representative Name</label>
-                    <input class="form-control" formControlName="staffRepresentativeName"
-                           id="staffRepresentativeName" name="staffRepresentativeName"
-                           placeholder="Staff Representative Name" type="text">
+                   <ng-select #s bindLabel="name" [hideSelected]="true"
+                              formControlName="staffRepresentativeName" id="staffRepresentativeName" (change)="getRoleFromId(s)">
+                        <ng-option *ngFor="let u of userList" [value]="{name: u.name , roleName: u.role.roleName}">{{u.name}}</ng-option>
+                    </ng-select>
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="alternativeStaffRepresentativeNameDesignation"
                            for="alternativeStaffRepresentativeNameDesignation">Alternative Staff
                         Representative Designation</label>
-                    <select class="form-control"
-                            formControlName="alternativeStaffRepresentativeNameDesignation"
-                            id="alternativeStaffRepresentativeNameDesignation"
-                            name="alternativeStaffRepresentativeNameDesignation">
-                        <option [ngValue]="null" hidden>Alternative Staff Representative
-                            Designation
-                        </option>
-                        <option *ngFor="let designation of designationList.designation"
-                                [ngValue]="designation.id">{{designation.name}}</option>
-                    </select>
+                    <input [readOnly]="true" id="alternativeStaffRepresentativeNameDesignation" class="form-control"
+                           formControlName="alternativeStaffRepresentativeNameDesignation"
+                    [value]="cAlternateName.selectedItems[0]?.value?.roleName">
+
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="alternativeStaffRepresentativeName"
-                           for="alternativeStaffRepresentativeName">Alternative Staff Representative
+                           for="alternativeStaffRepresentativeNameCurrents">Alternative Staff Representative
                         Name</label>
-                    <input class="form-control" formControlName="alternativeStaffRepresentativeName"
-                           id="alternativeStaffRepresentativeName"
-                           name="alternativeStaffRepresentativeName"
-                           placeholder="Alternative Staff Representative Name" type="text">
+                   <ng-select #cAlternateName formControlName="alternativeStaffRepresentativeName" [hideSelected]="true"
+                               id="alternativeStaffRepresentativeNameCurrents" bindLabel="name">
+                      <ng-option *ngFor="let u of userList" [value]="{name: u.name , roleName: u.role.roleName}">{{u.name}}</ng-option>
+                    </ng-select>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
@@ -206,45 +199,33 @@
                     <label class="staffRepresentativeNameDesignation"
                            for="staffRepresentativeNameDesignation">Staff Representative
                         Designation</label>
-                    <select class="form-control"
-                            formControlName="staffRepresentativeNameDesignation"
-                            id="staffRepresentativeNameDesignationBusiness"
-                            name="staffRepresentativeNameDesignation">
-                        <option [ngValue]="null" hidden>Staff Representative Designation</option>
-                        <option *ngFor="let designation of designationList.designation"
-                                [ngValue]="designation.id">{{designation.name}}</option>
-                    </select>
+                    <input [readOnly]="true" placeholder="alternate staff role" id="staffRepresentativeNameDesignationBusiness" class="form-control"
+                           formControlName="staffRepresentativeNameDesignation" [value]="businessStaff?.selectedItems[0]?.value?.roleName">
+
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="staffRepresentativeName" for="staffRepresentativeName">Staff
                         Representative Name</label>
-                    <input class="form-control" formControlName="staffRepresentativeName"
-                           id="staffRepresentativeNameBusiness" name="staffRepresentativeName"
-                           placeholder="Staff Representative Name" type="text">
+                    <ng-select #businessStaff formControlName="staffRepresentativeName" [hideSelected]="true"
+                               id="staffRepresentativeNameBusiness" bindLabel="name">
+                        <ng-option *ngFor="let u of userList" [value]="{name: u.name , roleName: u.role.roleName}">{{u.name}}</ng-option>
+                    </ng-select>
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="alternativeStaffRepresentativeNameDesignation"
                            for="alternativeStaffRepresentativeNameDesignation">Alternative Staff
                         Representative Designation</label>
-                    <select class="form-control"
-                            formControlName="alternativeStaffRepresentativeNameDesignation"
-                            id="alternativeStaffRepresentativeNameDesignationBusiness"
-                            name="alternativeStaffRepresentativeNameDesignation">
-                        <option [ngValue]="null" hidden>Alternative Staff Representative
-                            Designation
-                        </option>
-                        <option *ngFor="let designation of designationList.designation"
-                                [ngValue]="designation.id">{{designation.name}}</option>
-                    </select>
+                    <input [readOnly]="true" id="alternativeStaffRepresentativeNameDesignationBusiness" class="form-control"
+                           formControlName="alternativeStaffRepresentativeNameDesignation" [value]="bAlternateStaff?.selectedItems[0]?.value?.roleName">
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="alternativeStaffRepresentativeName"
-                           for="alternativeStaffRepresentativeName">Alternative Staff Representative
+                           for="staffRepresentativeNameBusinessForm">Alternative Staff Representative
                         Name</label>
-                    <input class="form-control" formControlName="alternativeStaffRepresentativeName"
-                           id="alternativeStaffRepresentativeNameBusiness"
-                           name="alternativeStaffRepresentativeName"
-                           placeholder="Alternative Staff Representative Name" type="text">
+                    <ng-select #bAlternateStaff formControlName="alternativeStaffRepresentativeName" [hideSelected]="true"
+                               id="staffRepresentativeNameBusinessForm" bindLabel="name">
+                        <ng-option *ngFor="let u of userList" [value]="{name: u.name , roleName: u.role.roleName}">{{u.name}}</ng-option>
+                    </ng-select>
                 </div>
 
                 <!-- <div class="form-group col-md-4">
@@ -534,45 +515,33 @@
                                     <label class="staffRepresentativeNameDesignation"
                                            for="staffRepresentativeNameDesignation">Staff Representative
                                         Designation</label>
-                                    <select class="form-control"
-                                            formControlName="staffRepresentativeNameDesignation"
-                                            id="staffRepresentativeNameDesignationFac"
-                                            name="staffRepresentativeNameDesignation">
-                                        <option [ngValue]="null" hidden>Staff Representative Designation</option>
-                                        <option *ngFor="let designation of designationList.designation"
-                                                [ngValue]="designation.id">{{designation.name}}</option>
-                                    </select>
+                                    <input [readOnly]="true" id="staffRepresentativeNameDesignationFac" class="form-control"
+                                           formControlName="staffRepresentativeNameDesignation" [value]="assetsStaffName?.selectedItems[0]?.value?.roleName">
+
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label class="staffRepresentativeName" for="staffRepresentativeName">Staff
                                         Representative Name</label>
-                                    <input class="form-control" formControlName="staffRepresentativeName"
-                                           id="staffRepresentativeNameFac" name="staffRepresentativeName"
-                                           placeholder="Staff Representative Name" type="text">
+                                    <ng-select #assetsStaffName formControlName="staffRepresentativeName" [hideSelected]="true"
+                                               id="staffRepresentativeNameFac" bindLabel="name">
+                                        <ng-option *ngFor="let u of userList" [value]="{name: u.name , roleName: u.role.roleName}">{{u.name}}</ng-option>
+                                    </ng-select>
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label class="alternativeStaffRepresentativeNameDesignation"
                                            for="alternativeStaffRepresentativeNameDesignation">Alternative Staff
                                         Representative Designation</label>
-                                    <select class="form-control"
-                                            formControlName="alternativeStaffRepresentativeNameDesignation"
-                                            id="alternativeStaffRepresentativeNameDesignationFac"
-                                            name="alternativeStaffRepresentativeNameDesignation">
-                                        <option [ngValue]="null" hidden>Alternative Staff Representative
-                                            Designation
-                                        </option>
-                                        <option *ngFor="let designation of designationList.designation"
-                                                [ngValue]="designation.id">{{designation.name}}</option>
-                                    </select>
+                                    <input [readOnly]="true" id="alternativeStaffRepresentativeNameDesignationFac" class="form-control"
+                                           formControlName="alternativeStaffRepresentativeNameDesignation" [value]="assetsAlternateStaff?.selectedItems[0]?.value?.roleName">
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label class="alternativeStaffRepresentativeName"
                                            for="alternativeStaffRepresentativeName">Alternative Staff Representative
                                         Name</label>
-                                    <input class="form-control" formControlName="alternativeStaffRepresentativeName"
-                                           id="alternativeStaffRepresentativeNameFac"
-                                           name="alternativeStaffRepresentativeName"
-                                           placeholder="Alternative Staff Representative Name" type="text">
+                                    <ng-select #assetsAlternateStaff formControlName="alternativeStaffRepresentativeName" [hideSelected]="true"
+                                               id="alternativeStaffRepresentativeName" bindLabel="name">
+                                        <ng-option *ngFor="let u of userList" [value]="{name: u.name , roleName: u.role.roleName}">{{u.name}}</ng-option>
+                                    </ng-select>
                                 </div>
                                 <div *ngIf="staffLength()>1" class="col-md-1 pt-4">
                                     <input (click)="deleteStaff(i)"
@@ -715,45 +684,34 @@
                                     <label class="staffRepresentativeNameDesignation"
                                            for="staffRepresentativeNameDesignation">Staff Representative
                                         Designation</label>
-                                    <select class="form-control"
-                                            formControlName="staffRepresentativeNameDesignation"
-                                            id="staffRepresentativeNameDesignationCurrent"
-                                            name="staffRepresentativeNameDesignation">
-                                        <option [ngValue]="null" hidden>Staff Representative Designation</option>
-                                        <option *ngFor="let designation of designationList.designation"
-                                                [ngValue]="designation.id">{{designation.name}}</option>
-                                    </select>
+                                    <input [readOnly]="true" id="staffRepresentativeNameDesignationCurrent" class="form-control"
+                                           formControlName="staffRepresentativeNameDesignation"
+                                           [value]="currentAssetsStaff?.selectedItems[0]?.value?.roleName">
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label class="staffRepresentativeName" for="staffRepresentativeName">Staff
                                         Representative Name</label>
-                                    <input class="form-control" formControlName="staffRepresentativeName"
-                                           id="staffRepresentativeNameCurrent" name="staffRepresentativeName"
-                                           placeholder="Staff Representative Name" type="text">
+                                    <ng-select #currentAssetsStaff formControlName="staffRepresentativeName" [hideSelected]="true"
+                                               id="staffRepresentativeNameCurrent" bindLabel="name">
+                                        <ng-option *ngFor="let u of userList" [value]="{name: u.name , roleName: u.role.roleName}">{{u.name}}</ng-option>
+                                    </ng-select>
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label class="alternativeStaffRepresentativeNameDesignation"
                                            for="alternativeStaffRepresentativeNameDesignation">Alternative Staff
                                         Representative Designation</label>
-                                    <select class="form-control"
-                                            formControlName="alternativeStaffRepresentativeNameDesignation"
-                                            id="alternativeStaffRepresentativeNameDesignationCurrent"
-                                            name="alternativeStaffRepresentativeNameDesignation">
-                                        <option [ngValue]="null" hidden>Alternative Staff Representative
-                                            Designation
-                                        </option>
-                                        <option *ngFor="let designation of designationList.designation"
-                                                [ngValue]="designation.id">{{designation.name}}</option>
-                                    </select>
+                                    <input [readOnly]="true" id="alternativeStaffRepresentativeNameDesignationCurrent" class="form-control"
+                                           formControlName="alternativeStaffRepresentativeNameDesignation"
+                                           [value]="currentAssetsAlternateStaff?.selectedItems[0]?.value?.roleName">
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label class="alternativeStaffRepresentativeName"
                                            for="alternativeStaffRepresentativeName">Alternative Staff Representative
                                         Name</label>
-                                    <input class="form-control" formControlName="alternativeStaffRepresentativeName"
-                                           id="alternativeStaffRepresentativeNameCurrent"
-                                           name="alternativeStaffRepresentativeName"
-                                           placeholder="Alternative Staff Representative Name" type="text">
+                                    <ng-select #currentAssetsAlternateStaff formControlName="staffRepresentativeName" [hideSelected]="true"
+                                               id="alternativeStaffRepresentativeNameCurrent" bindLabel="name">
+                                        <ng-option *ngFor="let u of userList" [value]="{name: u.name , roleName: u.role.roleName}">{{u.name}}</ng-option>
+                                    </ng-select>
                                 </div>
                                 <div *ngIf="inspectingStaffsDetailsLength()>1" class="col-md-1 pt-4">
                                     <input (click)="deleteInspectingStaffsDetails(i)"
@@ -1127,14 +1085,15 @@
                             <div [formGroupName]="i" class="row col-md-12">
                                 <div class="col-md-5 form-group">
                                     <label class="title" for="inspectingStaff">Name</label>
-                                    <input class="form-control" formControlName="name"
-                                           id="inspectingStaff"
-                                           name="inspectingStaff" placeholder="name">
+                                    <ng-select #inspectingStaff formControlName="name" [hideSelected]="true"
+                                               id="inspectingStaff" bindLabel="name">
+                                        <ng-option *ngFor="let u of userList" [value]="{name: u.name , roleName: u.role.roleName}">{{u.name}}</ng-option>
+                                    </ng-select>
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label class="title" for="position">Position</label>
-                                    <input class="form-control" formControlName="position" id="position"
-                                           name="position" placeholder="possition">
+                                    <input class="form-control" formControlName="position" id="position" [readOnly]="true"
+                                           name="position" placeholder="possition" [value]="inspectingStaff?.selectedItems[0]?.value?.roleName">
                                 </div>
                                 <div *ngIf="inspectingStaffsLength()>1" class="col-md-2 form-group pt-4">
                                     <input (click)="deleteInspectingStaffs(i)"
