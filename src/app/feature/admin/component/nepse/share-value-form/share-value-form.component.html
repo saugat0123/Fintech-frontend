@@ -14,7 +14,7 @@
         <input #promoter="ngModel" [ngClass]="{ 'is-invalid': shareValueForm.submitted && promoter.invalid }" [(ngModel)]="nepseMaster.promoter"
                class="form-control"
                id="shareValue"
-               name="promoter" required type="number">
+               name="promoter" required type="number" appDecimalNumber>
       </div>
     </div>
     <div class="row form-group">
@@ -26,7 +26,7 @@
         <input #ordinary="ngModel" [ngClass]="{ 'is-invalid': shareValueForm.submitted && ordinary.invalid }" [(ngModel)]="nepseMaster.ordinary"
                class="form-control"
                id="ordinaryValue"
-               name="ordinary" required type="number">
+               name="ordinary" required type="number" appDecimalNumber>
       </div>
     </div>
 
