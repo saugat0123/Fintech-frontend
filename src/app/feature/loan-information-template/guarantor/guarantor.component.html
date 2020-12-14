@@ -216,7 +216,7 @@
                                                id="profession"
                                                 name="profession">
                                             <option value="null" hidden>Select Profession</option>
-                                            <option [value]="profession" *ngFor="let profession of typeOfSourceOfIncomeArray">{{profession}}</option>
+                                            <option [value]="profession.key" *ngFor="let profession of occupation">{{profession.value}}</option>
 
                                         </select>
                                     </div>

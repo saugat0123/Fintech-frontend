@@ -14,7 +14,7 @@
                                 'is-valid': !rate.invalid && (rate.dirty || rate.touched)
                                 }"
                        id="rate" formControlName="rate" placeholder="Enter Base Interest Rate" nbInput fullWidth
-                       type="number"/>
+                       type="number" appDecimalNumber/>
                 <div *ngIf="rate.invalid && rate.errors.required" class="small text-danger">
                     Base Interest is required
                 </div>

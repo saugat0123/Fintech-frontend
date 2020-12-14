@@ -5,13 +5,17 @@
                 <h3><strong>Income of Borrower</strong></h3>
             </nb-card-header>
             <nb-card-body>
+                <div class="row m-2">
+                    <em class="fa fa-info-circle"><em class="ml-2">Note : Remark can be income source detail or
+                        Type detail or any other description.</em></em>
+                </div>
                 <div *ngFor="let incomeOfBorrower of financialForm.get('incomeOfBorrower')['controls']; let incomeIndex = index"
                      class="border-bottom border-dark m-4"
                      formArrayName="incomeOfBorrower">
                     <div [formGroupName]="incomeIndex">
                         <!-- START ROW -->
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="title"><strong>Income Source</strong></label><strong
                                         class="text-danger">*</strong>
@@ -25,9 +29,9 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="form-group">
-                                    <label class="title"><strong>Organization</strong></label><strong
+                                    <label class="title"><strong>Type</strong></label><strong
                                         class="text-danger">*</strong>
                                     <ng-select #organizationSelect
                                                [appendTo]="'body'"
@@ -35,11 +39,11 @@
                                                formControlName="organization">
                                     </ng-select>
                                     <span *ngIf="incomeOfBorrower.get('organization').invalid"
-                                          class="text-danger small">Organization required</span>
+                                          class="text-danger small">Type required</span>
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="title"><strong>Amount (Monthly)</strong></label><strong
                                         class="text-danger">*</strong>
@@ -54,7 +58,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-2">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="title"><strong>Remarks</strong></label><strong
                                         class="text-danger">*</strong>
