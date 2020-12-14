@@ -98,24 +98,19 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="customerCode"><strong>Customer ID</strong></label>
-                            <input
+                            <label *ngIf="switchLanguageType==='ENG'" for="customerCode"><strong>Customer ID</strong></label>
+                            <label *ngIf="switchLanguageType==='NEP'" for="customerCodeInNepali"><strong>ग्राहकको आईडी</strong></label>
+                            <input *ngIf="switchLanguageType==='ENG'"
                                     class="form-control form-control-sm-error rounded" formControlName="customerCode"
                                     id="customerCode"
                                     name="customerCode"
                                     placeholder="Customer ID (Optional)"
                                     type="text">
                             <input  *ngIf="switchLanguageType==='NEP'"
-                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerCode.errors }"
                                     class="form-control form-control-sm-error rounded" formControlName="customerCode"
+                                    id="customerCodeInNepali"
                                     name="customerCode"
-                                    type="text" placeholder="ग्राहकको आईडी">
-                            <div *ngIf="(submitted) && basicInfoControls.customerCode.invalid"
-                                 class="invalid-feedback">
-                                <div *ngIf="basicInfoControls.customerCode.errors.required">Customer ID
-                                    required
-                                </div>
-                            </div>
+                                    type="text" placeholder="ग्राहकको आईडी (Optional)">
                         </div>
                     </div>
 
