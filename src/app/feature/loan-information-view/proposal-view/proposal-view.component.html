@@ -51,16 +51,16 @@
           Month
         </th>
         <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral">Repayment Mode</th>
-        <th *ngIf="(proposalData?.repaymentMode === 'EMI' || proposalData?.repaymentMode === 'EQI')  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))">Installment Amount</th>
-        <th *ngIf="(proposalData?.repaymentMode === 'MONTHLY' || proposalData?.repaymentMode === 'QUARTERLY' || proposalData?.repaymentMode === 'YEARLY') &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">Interest Amount</th>
+        <th *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))">Installment Amount</th>
+        <th *ngIf="!showInstallmentAmount &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">Interest Amount</th>
         <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral">Moratorium Period (Month)</th>
         <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">Commitment Fee</th>
       </tr>
       <tr>
         <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">{{proposalData?.tenureDurationInMonths}}</td>
         <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral">{{proposalData?.repaymentMode}}</td>
-        <td *ngIf="(proposalData?.repaymentMode === 'EMI' || proposalData?.repaymentMode === 'EQI')  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))">{{proposalData?.installmentAmount | currencyFormatter}}</td>
-        <td *ngIf="(proposalData?.repaymentMode === 'MONTHLY' || proposalData?.repaymentMode === 'QUARTERLY' || proposalData?.repaymentMode === 'YEARLY') &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">{{proposalData?.interestAmount | currencyFormatter}}</td>
+        <td *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))">{{proposalData?.installmentAmount | currencyFormatter}}</td>
+        <td *ngIf="!showInstallmentAmount &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">{{proposalData?.interestAmount | currencyFormatter}}</td>
         <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">{{proposalData?.moratoriumPeriod}}</td>
         <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">{{proposalData?.commitmentFee  | currencyFormatter}}</td>
 
@@ -104,12 +104,7 @@
     </table>
     <table
         class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
-      <tr class="text-white sb-bg-dark">
-        <th>Remarks(Proposal for Loan)</th>
-      </tr>
-      <tr>
-        <td>{{proposalData?.remark}}</td>
-      </tr>
+
       <tr class="text-white sb-bg-dark">
         <th>Disbursement
           Criteria
@@ -129,6 +124,24 @@
       </tr>
       <tr>
         <td><span [innerHTML]="proposalData?.borrowerInformation  | safeHtml"></span> </td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>Summery & Recommendation</th>
+      </tr>
+      <tr>
+        <td><span [innerHTML]="proposalData?.summeryRecommendation  | safeHtml"></span> </td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>Remarks</th>
+      </tr>
+      <tr>
+        <td>{{proposalData?.remark}}</td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>Purpose of Loan</th>
+      </tr>
+      <tr>
+        <td>{{proposalData?.purposeOfLoan}}</td>
       </tr>
       <ng-container *ngIf="recommendationChecked?.waiverChecked">
         <tr class="text-white sb-bg-dark">
