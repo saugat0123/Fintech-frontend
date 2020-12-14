@@ -13,7 +13,10 @@
     <td>{{formData['currentResidentDetails']['ownerName']}}</td>
     <td>{{formData['currentResidentDetails']['houseNumber']}}</td>
     <td>{{formData['currentResidentDetails']['streetName']}}</td>
-    <td>{{formData['currentResidentDetails']['address']}}</td>
+    <td>{{formData['currentResidentDetails']['address']?.province?.name}},
+    <td>{{formData['currentResidentDetails']['address']?.district?.name}},
+    <td>{{formData['currentResidentDetails']['address']?.municipalityVdc?.name}},
+    </td>
     <td>{{formData['currentResidentDetails']['nearBy']}}</td>
   </tr>
   <tr class="text-white sb-bg-dark">
@@ -51,7 +54,11 @@
   </tr>
   <tr>
     <td>{{formData['businessSiteVisitDetails']['nameOfThePersonContacted']}}</td>
-    <td>{{formData['businessSiteVisitDetails']['officeAddress']}}</td>
+    <td>
+      {{formData['businessSiteVisitDetails']['officeAddress']?.province?.name}},
+      {{formData['businessSiteVisitDetails']['officeAddress']?.district?.name}},
+      {{formData['businessSiteVisitDetails']['officeAddress']?.municipalityVdc?.name}},
+    </td>
     <td>{{formData['businessSiteVisitDetails']['dateOfVisit'] | date}}</td>
     <td>{{formData['businessSiteVisitDetails']['objectiveOfVisit']}}</td>
     <td>{{formData?.businessSiteVisitDetails?.staffRepresentativeNameDesignation}}</td>
@@ -103,7 +110,11 @@
   </tr>
   <tr>
     <td>{{formData['fixedAssetCollateralDetails']['date'] | date}} </td>
-    <td>{{formData['fixedAssetCollateralDetails']['address']}}</td>
+    <td>
+      {{formData['fixedAssetCollateralDetails']['address']?.province?.name}},
+      {{formData['fixedAssetCollateralDetails']['address']?.district?.name}},
+      {{formData['fixedAssetCollateralDetails']['address']?.municipalityVdc?.name}}
+    </td>
     <td>{{formData['fixedAssetCollateralDetails']['personContacted']}}</td>
     <td>{{formData['fixedAssetCollateralDetails']['phoneNoOfContact']}}</td>
     <td>{{formData['fixedAssetCollateralDetails']['facilities']['roadApproach']}}</td>
