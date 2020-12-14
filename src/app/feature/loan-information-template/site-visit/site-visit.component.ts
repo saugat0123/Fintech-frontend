@@ -589,10 +589,10 @@ export class SiteVisitComponent implements OnInit {
     .get('vicinityToTheBasicAmenities'))
     .get('staffs'));
     console.log(controls);
-    if (FormUtils.checkEmptyProperties(controls)) {
+    /*if (FormUtils.checkEmptyProperties(controls)) {
       this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Staffs Data To Add More'));
      return;
-    }
+    }*/
     controls.push(this.staffsFormGroup());
   }
 
@@ -613,10 +613,10 @@ export class SiteVisitComponent implements OnInit {
     const controls = (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
     .get('insuranceVerification'))
     .get('inspectingStaffsDetails'));
-    if (FormUtils.checkEmptyProperties(controls)) {
+    /*if (FormUtils.checkEmptyProperties(controls)) {
       this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Staff Detail To Add More'));
       return;
-    }
+    }*/
     controls.push(this.staffsFormGroup());
   }
 
@@ -747,10 +747,10 @@ export class SiteVisitComponent implements OnInit {
     (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
     .get('otherCurrentAssets'))
     .get('inspectingStaffs'));
-    if (FormUtils.checkEmptyProperties(controls)) {
+/*    if (FormUtils.checkEmptyProperties(controls)) {
       this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Staff Detail To Add More'));
       return;
-    }
+    }*/
     controls.push(this.staffsFormGroup());
   }
 
