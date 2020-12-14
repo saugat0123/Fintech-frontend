@@ -233,11 +233,11 @@
                                     <div class="form-group">
                                         <label class="title" for="tenureDurationInMonths"><strong>Tenure Duration in
                                             Month.</strong></label>
-                                        <input
+                                        <input (keypress)="numberOnly($event)"
                                                 class="form-control"
                                                 formControlName="tenureDurationInMonths" id="tenureDurationInMonths"
                                                 placeholder="Tenure Duration in Months"
-                                                type="number" (input)="checkRepaymentMode()" appDecimalNumber>
+                                                type="number" (input)="checkRepaymentMode()">
 
                                         <!--                                        <input [nbDatepicker]="tenurePicker"-->
                                         <!--                                               [ngClass]="{ 'is-invalid':submitted &&formControls.tenureDurationInMonths.errors}"-->
@@ -311,11 +311,11 @@
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral">
                                     <div class="form-group>">
                                         <label class="title"> <strong>Moratorium Period (Month)</strong></label>
-                                        <input
+                                        <input (keypress)="numberOnly($event)"
                                                 class="form-control" formControlName="moratoriumPeriod"
                                                 id="moratoriumPeriod"
                                                 name="moratoriumPeriod" placeholder="Example: 4 month"
-                                                type="number" appDecimalNumber>
+                                                type="number">
                                     </div>
                                 </div>
                                 <!--                end of Moratorium Period amount div-->

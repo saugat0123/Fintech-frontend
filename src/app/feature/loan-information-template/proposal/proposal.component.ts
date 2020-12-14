@@ -168,7 +168,7 @@ export class ProposalComponent implements OnInit {
       // for moratoriumPeriod Amount--
       moratoriumPeriod: [undefined],
       // for prepaymentCharge Amount--
-      prepaymentCharge: ['As Per Standard Charge'],
+      prepaymentCharge: [undefined],
       // for prepaymentCharge Amount--
       // for commitmentFee Amount--
       commitmentFee: [undefined],
@@ -246,13 +246,19 @@ export class ProposalComponent implements OnInit {
   get formControls() {
     return this.proposalForm.controls;
   }
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
 
+  }
   setActiveBaseRate() {
     this.baseInterestService.getActiveBaseRate().subscribe(value => {
       this.proposalForm.get('baseRate').setValue(value.detail.rate);
     });
   }
-
   checkChecked(event, type) {
     switch (type) {
       case 'sol':

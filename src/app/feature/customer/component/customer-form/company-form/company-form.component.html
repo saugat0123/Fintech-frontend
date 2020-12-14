@@ -642,7 +642,7 @@
                            <div class="col-md-4">
                                <div class="form-group">
                                    <label for="numberOfShareholder"><strong>Number Of Shareholder</strong></label>
-                                   <input id="numberOfShareholder" formControlName="numberOfShareholder"
+                                   <input id="numberOfShareholder" (keypress)="numberOnly($event)" formControlName="numberOfShareholder"
                                           name="numberOfShareholder"
                                           type="number" class="form-control" placeholder="Number Of Shareholder"
                                           [ngClass]="{ 'is-invalid': (submitted) && form.numberOfShareholder.errors }">
@@ -1014,7 +1014,7 @@
                                            <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('share').errors }" class="form-control" formControlName="share"
                                                   id="share"
                                                   name="share" placeholder="Share"
-                                                  type="number">
+                                                  type="number" appDecimalNumber>
                                            <div
                                                *ngIf="(submitted) && proprietor.get('share').invalid"
                                                class="invalid-feedback">
