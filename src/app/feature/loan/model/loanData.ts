@@ -33,6 +33,7 @@ import {GroupDto} from './GroupDto';
 import {GroupSummaryDto} from './GroupSummaryDto';
 import {CreditRiskGradingLambda} from '../../admin/modal/CreditRiskGradingLambda';
 import {CadDocument} from './cadDocument';
+import {User} from '../../admin/modal/user';
 
 
 export class LoanDataHolder extends BaseEntity {
@@ -88,4 +89,6 @@ export class LoanDataHolder extends BaseEntity {
     subsectorDetail: string;
     cadDocument: Array<CadDocument>;
     cbsLoanFileNumber: string;
+    isSol: boolean;
+    solUser: User;
 }
