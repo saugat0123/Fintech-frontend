@@ -70,6 +70,8 @@ export class IncomeFromAccountComponent implements OnInit {
         [Validators.required]],
       totalIncomeDuringReview: [undefined,
         [Validators.required]],
+      accountNo: [undefined,
+        [Validators.required]],
       newCustomerChecked: [false],
       accountTransactionForm: this.buildAccountTransactionForm()
     });

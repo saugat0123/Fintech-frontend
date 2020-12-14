@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CustomerOfferLetter} from '../../model/customer-offer-letter';
 import {LoanDataHolder} from '../../model/loanData';
 import {Router} from '@angular/router';
+import {Pageable} from "../../../../@core/service/baseservice/common-pageable";
 
 @Component({
     selector: 'app-assigned-offer-letter',
@@ -14,7 +15,7 @@ export class AssignedOfferLetterComponent implements OnInit {
     customerOfferLetterList: Array<CustomerOfferLetter>;
     @Input()
     toggleArray: { toggled: boolean }[];
-
+    pageable: Pageable = new Pageable();
     @Input()
     branchView: boolean;
     constructor(  private router: Router) {
