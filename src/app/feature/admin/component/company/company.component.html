@@ -57,6 +57,7 @@
                 <table id="add-branch-table" class="table table-sm sb-small table-bordered table-hover text-center ">
                     <thead>
                     <tr class="sb-bg-dark text-white">
+                        <th>S.No.</th>
                         <th>Company Structure</th>
                         <th>Action</th>
                     </tr>
@@ -66,6 +67,7 @@
                         <div *ngIf="!dataList?.length > 0">
                             <p>No Content Found</p>
                         </div>
+                        <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                         <td>{{allList.name}}</td>
                         <td>
                             <button (click)="edit(allList)" class="m-1" nbButton size="tiny"
