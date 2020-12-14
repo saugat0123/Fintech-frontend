@@ -33,22 +33,6 @@
                    <app-common-address [address]="formDataForEdit?.currentResidentDetails?.address" #currentResidentAddress></app-common-address>
                </div>
                 <div class="col-md-4 form-group">
-                    <label class="title" for="houseNumber">House Number</label>
-                    <input class="form-control" formControlName="houseNumber" id="houseNumber"
-                           name="houseNumber"
-                           placeholder="house number" type="text">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="streetName">Street Name</label>
-                    <input class="form-control" formControlName="streetName" id="streetName" name="streetName"
-                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('currentResidentDetails')?.get('streetName')?.errors }"
-                           placeholder="street name" type="text">
-                    <div *ngIf="(submitted) && siteVisitFormGroup.get('currentResidentDetails')?.get('streetName')?.invalid"
-                         class="invalid-feedback">
-                        <span *ngIf="siteVisitFormGroup.get('currentResidentDetails')?.get('streetName')?.errors.required">Street Name is required</span>
-                    </div>
-                </div>
-                <div class="col-md-4 form-group">
                     <label class="title" for="nearBy">Near By</label>
                     <input class="form-control" formControlName="nearBy" id="nearBy" name="nearBy"
                            [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('currentResidentDetails')?.get('nearBy')?.errors }"

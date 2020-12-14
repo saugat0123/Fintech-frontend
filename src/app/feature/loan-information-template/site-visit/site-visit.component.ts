@@ -140,10 +140,6 @@ export class SiteVisitComponent implements OnInit {
       fixedAssetCollateralFormChecked: [false],
       currentAssetsInspectionFormChecked: [false],
       currentResidentDetails: this.formBuilder.group({
-        houseNumber: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.houseNumber)],
-        streetName: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.streetName), Validators.required],
         address: [undefined],
         nearBy: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
             : this.formDataForEdit.currentResidentDetails.nearBy), Validators.required],
@@ -876,29 +872,29 @@ export class SiteVisitComponent implements OnInit {
     }
     if (this.currentResidentForm) {
       // current residential details
-      if (this.siteVisitFormGroup.get('currentResidentDetails').invalid) {
+      this.currentResidentAddress.onSubmit();
+      if (this.siteVisitFormGroup.get('currentResidentDetails').invalid || this.currentResidentAddress.addressForm.invalid) {
         this.submitted = true;
         return;
       } else {
-        this.currentResidentAddress.onSubmit();
         this.siteVisitFormGroup.get('currentResidentDetails').get('address').patchValue(this.currentResidentAddress.submitData);
       }
     }
     if (this.businessSiteVisitForm) {
-      if (this.siteVisitFormGroup.get('businessSiteVisitDetails').invalid) {
+      this.businessOfficeAddress.onSubmit();
+      if (this.siteVisitFormGroup.get('businessSiteVisitDetails').invalid || this.businessOfficeAddress.addressForm.invalid) {
         this.business = true;
         return;
       } else {
-        this.businessOfficeAddress.onSubmit();
         this.siteVisitFormGroup.get('businessSiteVisitDetails').get('officeAddress').patchValue(this.businessOfficeAddress.submitData);
       }
     }
-    if (this.fixedAssetCollateralForm) {
-      if (this.siteVisitFormGroup.get('fixedAssetCollateralDetails').invalid) {
+    if (this.fixedAssetCollateralForm ) {
+      this.fixedAssetsAddress.onSubmit();
+      if (this.siteVisitFormGroup.get('fixedAssetCollateralDetails').invalid || this.fixedAssetsAddress.addressForm.invalid) {
         this.fixed = true;
         return;
       } else {
-        this.fixedAssetsAddress.onSubmit();
         this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('address').patchValue(this.fixedAssetsAddress.submitData);
       }
     }

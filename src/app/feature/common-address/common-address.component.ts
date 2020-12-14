@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Province} from '../admin/modal/province';
 import {District} from '../admin/modal/district';
 import {AddressService} from '../../@core/service/baseservice/address.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MunicipalityVdc} from '../admin/modal/municipality_VDC';
 import {ObjectUtil} from '../../@core/utils/ObjectUtil';
 
@@ -18,6 +18,7 @@ export class CommonAddressComponent implements OnInit {
   municipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
   addressForm: FormGroup;
   submitData;
+  submitted = false;
   constructor(private addressService: AddressService,
               private formBuilder: FormBuilder) { }
 
@@ -38,10 +39,10 @@ export class CommonAddressComponent implements OnInit {
 
   buildForm() {
     this.addressForm = this.formBuilder.group({
-      province : [undefined],
-      district : [undefined],
-      municipalityVdc : [undefined],
-      ward : [undefined] ,
+      province : [undefined , Validators.required],
+      district : [undefined , Validators.required],
+      municipalityVdc : [undefined , Validators.required],
+      ward : [undefined , Validators.required] ,
       address1 : [undefined],
       address2 : [undefined]
     });
@@ -80,6 +81,8 @@ export class CommonAddressComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
+    console.log(this.addressForm);
     this.submitData = this.addressForm.value;
   }
 
