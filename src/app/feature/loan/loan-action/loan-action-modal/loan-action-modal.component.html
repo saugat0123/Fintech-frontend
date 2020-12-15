@@ -30,6 +30,9 @@
                                 {{forwardBackward.role?.roleName}}
                             </option>
                         </select>
+                        <div class="sb-small text-danger" *ngIf="isEmptyUser">No User Present in this Role For this
+                            branch
+                        </div>
                     </div>
                 </div>
 
@@ -62,13 +65,16 @@
 
                 <div *ngIf="isMaker">
                     <div class="col-md-12">
-                        <nb-checkbox class="cursor" (checkedChange)="isSolChecked($event)" [checked]="customerLoanHolder.isSol">is SOL?</nb-checkbox>
+                        <nb-checkbox class="cursor" (checkedChange)="isSolChecked($event)"
+                                     [checked]="customerLoanHolder.isSol">is SOL?
+                        </nb-checkbox>
                     </div>
                     <div *ngIf="isNoUserSelectedSol" class="sb-small text-danger">{{solNoUserSelectedMessage}}</div>
                     <div class="col-md-12 row" *ngIf="showHideSolUser">
                         <div class="col-md-6">
                             <label class="toRole" for="toRole">Approval Role</label>
-                            <select style="width: 100%"  (change)="getSOlUSerList(this.formAction.get('selectedRoleForSol').value)"
+                            <select style="width: 100%"
+                                    (change)="getSOlUSerList(this.formAction.get('selectedRoleForSol').value)"
                                     class="form-control form-control-sm"
                                     formControlName="selectedRoleForSol"
                                     name="toRole">
@@ -83,9 +89,9 @@
                         </div>
 
                         <div class="col-md-6" *ngIf="solUserList?.length > 1">
-                            <div  style="width:100%">
-                                <label class="solUser" for="solUser">Approval  User</label>
-                                <select  class="form-control form-control-sm" formControlName="solUser" id="solUser"
+                            <div style="width:100%">
+                                <label class="solUser" for="solUser">Approval User</label>
+                                <select class="form-control form-control-sm" formControlName="solUser" id="solUser"
                                         name="solUser">
                                     <option *ngFor="let user of solUserList"
                                             [ngValue]="user"

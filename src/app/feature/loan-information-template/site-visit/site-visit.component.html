@@ -29,32 +29,9 @@
             </div>
             <div [hidden]="!currentResidentForm" class="row mt-3" formGroupName="currentResidentDetails">
                 <h4 class="col-md-12">Current Resident</h4>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="houseNumber">House Number</label>
-                    <input class="form-control" formControlName="houseNumber" id="houseNumber"
-                           name="houseNumber"
-                           placeholder="house number" type="text">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="streetName">Street Name</label>
-                    <input class="form-control" formControlName="streetName" id="streetName" name="streetName"
-                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('currentResidentDetails')?.get('streetName')?.errors }"
-                           placeholder="street name" type="text">
-                    <div *ngIf="(submitted) && siteVisitFormGroup.get('currentResidentDetails')?.get('streetName')?.invalid"
-                         class="invalid-feedback">
-                        <span *ngIf="siteVisitFormGroup.get('currentResidentDetails')?.get('streetName')?.errors.required">Street Name is required</span>
-                    </div>
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="address">Address</label>
-                    <input class="form-control" formControlName="address" id="address" name="address"
-                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('currentResidentDetails').get('address')?.errors }"
-                           placeholder="address" type="text">
-                    <div *ngIf="(submitted) && siteVisitFormGroup.get('currentResidentDetails').get('address')?.invalid"
-                         class="invalid-feedback">
-                        <span *ngIf="siteVisitFormGroup.get('currentResidentDetails').get('address')?.errors.required">address is required</span>
-                    </div>
-                </div>
+               <div class="col-md-12">
+                   <app-common-address [address]="formDataForEdit?.currentResidentDetails?.address" #currentResidentAddress></app-common-address>
+               </div>
                 <div class="col-md-4 form-group">
                     <label class="title" for="nearBy">Near By</label>
                     <input class="form-control" formControlName="nearBy" id="nearBy" name="nearBy"
@@ -157,16 +134,8 @@
             <div [hidden]="!businessSiteVisitForm" class="row mt-3"
                  formGroupName="businessSiteVisitDetails">
                 <h4 class="col-md-12">Business Site Visit</h4>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="officeAddress">Office Address</label>
-                    <input class="form-control" formControlName="officeAddress" id="officeAddress"
-                           [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('officeAddress')?.errors }"
-                           name="officeAddress" placeholder="office address"
-                           type="text">
-                    <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('officeAddress')?.invalid"
-                         class="invalid-feedback">
-                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('officeAddress')?.errors.required">office address is required</span>
-                    </div>
+                <div class="col-md-12">
+                    <app-common-address #businessOfficeAddress [address]="formDataForEdit?.businessSiteVisitDetails?.officeAddress"></app-common-address>
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="title" for="nameOfThePersonContacted">Name Of The Person Contacted</label>
@@ -296,7 +265,7 @@
             <div [hidden]="!fixedAssetCollateralForm" class="row mt-3"
                  formGroupName="fixedAssetCollateralDetails">
                 <h4 class="col-md-12">Fixed Assets Collateral</h4>
-                <div class="col-md-3 form-group">
+                <div class="col-md-4 form-group">
                     <label class="title" for="date">Date</label>
                     <input [max]="date" [nbDatepicker]="datepicker4" class="form-control"
                            [ngClass]="{ 'is-invalid': (fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('date')?.errors }"
@@ -307,12 +276,7 @@
                         <span *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('date')?.errors.required">date is required</span>
                     </div>
                 </div>
-                <div class="col-md-3 form-group">
-                    <label class="title" for="fixedAssetCollateralAddress">Address</label>
-                    <input class="form-control" formControlName="address" id="fixedAssetCollateralAddress"
-                           name="fixedAssetCollateralAddress" placeholder="address" type="text">
-                </div>
-                <div class="col-md-3 form-group">
+                <div class="col-md-4 form-group">
                     <label class="title" for="personContacted">Person Contacted</label>
                     <input class="form-control" formControlName="personContacted" id="personContacted"
                            [ngClass]="{ 'is-invalid': (fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('personContacted')?.errors }"
@@ -324,7 +288,7 @@
                             Invalid Person Name</span>
                     </div>
                 </div>
-                <div class="col-md-3 form-group">
+                <div class="col-md-4 form-group">
                     <label class="title" for="phoneNoOfContact">Phone No. Of Contact</label>
                     <input class="form-control" formControlName="phoneNoOfContact" id="phoneNoOfContact"
                            [ngClass]="{ 'is-invalid': (fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('phoneNoOfContact')?.errors }"
@@ -335,6 +299,9 @@
                             Invalid Mobile Number
                         </span>
                     </div>
+                </div>
+                <div class="col-md-12">
+                    <app-common-address #fixedAssetsAddress [address]="formDataForEdit?.fixedAssetCollateralDetails?.address"></app-common-address>
                 </div>
                 <h5 class="col-md-12 mt-3">Facilities</h5>
                 <div class="row col-md-12 pr-0" formGroupName="facilities">
