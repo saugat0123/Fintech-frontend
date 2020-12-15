@@ -98,8 +98,8 @@ export class LoanActionModalComponent implements OnInit {
         }
         if (!this.isMaker) {
             this.formAction.patchValue({
-                solUser: null,
-                isSol: false,
+                solUser: this.customerLoanHolder.solUser,
+                isSol: this.customerLoanHolder.isSol,
             });
         } else {
             const isSolSelected = this.formAction.get('isSol').value;
@@ -222,6 +222,9 @@ export class LoanActionModalComponent implements OnInit {
                     solUser: this.solUserList[0]
                 });
             } else if (this.solUserList.length > 1) {
+                this.formAction.patchValue({
+                    solUser: this.solUserList[0]
+                });
                 this.formAction.get('solUser').setValidators(Validators.required);
                 this.formAction.updateValueAndValidity();
             } else if (this.solUserList.length === 0) {

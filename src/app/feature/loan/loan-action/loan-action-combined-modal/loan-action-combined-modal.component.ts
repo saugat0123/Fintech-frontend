@@ -18,232 +18,265 @@ import {LoanDataHolder} from '../../model/loanData';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
-  selector: 'app-loan-action-combined-modal',
-  templateUrl: './loan-action-combined-modal.component.html',
-  styleUrls: ['./loan-action-combined-modal.component.scss']
+    selector: 'app-loan-action-combined-modal',
+    templateUrl: './loan-action-combined-modal.component.html',
+    styleUrls: ['./loan-action-combined-modal.component.scss']
 })
 export class LoanActionCombinedModalComponent implements OnInit {
-  @Input() popUpTitle: 'Send Forward' | 'Approve' | 'Send Backward' | 'Reject' | 'Close' | string;
-  @Input() combinedLoanId: number;
-  @Input() docAction: string;
-  @Input() documentStatus: DocStatus;
-  @Input() isForward: boolean;
-  @Input() additionalDetails: any;
-  @Input() isMaker: boolean;
-  @Input() branchId: number;
+    @Input() popUpTitle: 'Send Forward' | 'Approve' | 'Send Backward' | 'Reject' | 'Close' | string;
+    @Input() combinedLoanId: number;
+    @Input() docAction: string;
+    @Input() documentStatus: DocStatus;
+    @Input() isForward: boolean;
+    @Input() additionalDetails: any;
+    @Input() isMaker: boolean;
+    @Input() branchId: number;
 
-  public combinedLoan: CombinedLoan;
-  public LoanType = LoanType;
-  public stageType: 'individually' | 'combined';
-  public sendForwardBackwardList: [];
-  public combinedType: {
-    form?: FormGroup,
-    userList?: User[],
-    submitted?: boolean,
-    solUsers?: Map<number, User[]>,
-  } = {};
-  public individualType: {
-    form?: FormGroup,
-    users?: Map<number, User[]>,
-    submitted?: boolean,
-    solUsers?: Map<number, User[]>,
-  } = {};
-  private roleId: number;
+    public combinedLoan: CombinedLoan;
+    public LoanType = LoanType;
+    public stageType: 'individually' | 'combined';
+    public sendForwardBackwardList: [];
+    public combinedType: {
+        form?: FormGroup,
+        userList?: User[],
+        submitted?: boolean,
+        solUsers?: Map<number, User[]>,
+    } = {};
+    public individualType: {
+        form?: FormGroup,
+        users?: Map<number, User[]>,
+        submitted?: boolean,
+        solUsers?: Map<number, User[]>,
+    } = {};
+    private roleId: number;
+    isUserPresent = [];
+    isSolUserPresent = [];
+    preSelectedSolUser = [];
+    showSolUser = [];
 
-  constructor(
-      public nbDialogRef: NbDialogRef<LoanActionCombinedModalComponent>,
-      private combinedLoanService: CombinedLoanService,
-      private toastService: ToastService,
-      private formBuilder: FormBuilder,
-      private userService: UserService,
-      private approvalRoleHierarchyService: ApprovalRoleHierarchyService,
-      private nbDialogService: NbDialogService,
-      private loanFormService: LoanFormService,
-      private router: Router
-  ) { }
-
-  ngOnInit() {
-    this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
-    this.combinedLoanService.detail(this.combinedLoanId).subscribe((response) => {
-      this.combinedLoan = response.detail;
-    }, error => {
-      console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load combined loan'));
-    });
-    this.conditionalCombinedDataLoad();
-  }
-
-  public changeStageType(value: 'individually' | 'combined'): void {
-    if (value === 'individually') {
-      this.individualType.form = this.buildIndividualForm();
-      this.individualType.users = new Map<number, User[]>();
-      this.individualType.solUsers = new Map<number, User[]>();
-      this.combinedLoan.loans.forEach((l, i) => this.individualType.users.set(i, []));
-    } else if (value === 'combined') {
-      this.combinedType.form = this.buildCombinedForm();
+    constructor(
+        public nbDialogRef: NbDialogRef<LoanActionCombinedModalComponent>,
+        private combinedLoanService: CombinedLoanService,
+        private toastService: ToastService,
+        private formBuilder: FormBuilder,
+        private userService: UserService,
+        private approvalRoleHierarchyService: ApprovalRoleHierarchyService,
+        private nbDialogService: NbDialogService,
+        private loanFormService: LoanFormService,
+        private router: Router
+    ) {
     }
-  }
 
-  public getLoanById(id: number | string): LoanDataHolder {
-    return this.combinedLoan.loans.find((l) => l.id === Number(id));
-  }
-
-  public getCombinedUserList(role) {
-    this.userService.getUserListByRoleId(role.id).subscribe((response: any) => {
-      this.combinedType.userList = response.detail;
-      if (this.combinedType.userList.length === 1) {
-        this.combinedType.form.patchValue({
-          toUser: this.combinedType.userList[0]
+    ngOnInit() {
+        this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
+        this.combinedLoanService.detail(this.combinedLoanId).subscribe((response) => {
+            this.combinedLoan = response.detail;
+            this.combinedLoan.loans.forEach((l, i) => {
+                this.isUserPresent[i] = true;
+                this.isSolUserPresent[i] = true;
+                this.preSelectedSolUser[i] = {isSol: l.isSol, solUser: l.solUser};
+            });
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load combined loan'));
         });
-      } else if (this.combinedType.userList.length > 1) {
-        this.combinedType.form.get('toUser').setValidators(Validators.required);
-        this.combinedType.form.updateValueAndValidity();
-      }
-    });
-  }
+        this.conditionalCombinedDataLoad();
+    }
 
-  public getIndividualUserList(role, i: number) {
-    this.userService.getUserListByRoleId(role.id).subscribe((response: any) => {
-      this.individualType.users.set(i, response.detail);
-      const users: User[] = response.detail;
-      if (users.length === 1) {
-        this.individualType.form.get(['actions', i]).patchValue({
-          toUser: users[0]
-        });
-      } else if (users.length > 1) {
-        this.individualType.form.get(['actions', i, 'toUser']).setValue(undefined);
-        this.individualType.form.get(['actions', i, 'toUser']).setValidators(Validators.required);
-        this.individualType.form.updateValueAndValidity();
-      }
-    });
-  }
-
-  public onSubmit(): void {
-    if (this.stageType === 'individually') {
-      this.individualType.submitted = true;
-      if (this.individualType.form.invalid) {
-        return;
-      }
-      const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent,
-          {context: {individualCombine: this.individualType.form.value, action: this. docAction}});
-      dialogRef.onClose.subscribe((verified: boolean) => {
-        if (verified === true) {
-          this.postCombinedAction(false);
-          this.nbDialogRef.close();
+    public changeStageType(value: 'individually' | 'combined'): void {
+        if (value === 'individually') {
+            this.individualType.form = this.buildIndividualForm();
+            this.individualType.users = new Map<number, User[]>();
+            this.individualType.solUsers = new Map<number, User[]>();
+            this.combinedLoan.loans.forEach((l, i) => this.individualType.users.set(i, []));
+        } else if (value === 'combined') {
+            this.combinedType.form = this.buildCombinedForm();
         }
-      });
-    } else if (this.stageType === 'combined') {
-      this.combinedType.submitted = true;
-      if (this.combinedType.form.invalid) {
-        return;
-      }
-      const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
-        context: {toUser: this.combinedType.form.get('toUser').value,
-      toRole: this.combinedType.form.get('toRole').value, action: this. docAction}});
-      dialogRef.onClose.subscribe((verified: boolean) => {
-        if (verified === true) {
-          this.postCombinedAction(true);
-          this.nbDialogRef.close();
+    }
+
+    public getLoanById(id: number | string): LoanDataHolder {
+        return this.combinedLoan.loans.find((l) => l.id === Number(id));
+    }
+
+    public getCombinedUserList(role) {
+        this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
+            this.combinedType.userList = response.detail;
+            if (this.combinedType.userList.length === 1) {
+                this.combinedType.form.patchValue({
+                    toUser: this.combinedType.userList[0]
+                });
+            } else if (this.combinedType.userList.length > 1) {
+                this.combinedType.form.get('toUser').setValidators(Validators.required);
+                this.combinedType.form.updateValueAndValidity();
+            }
+        });
+    }
+
+    public getIndividualUserList(role, i: number) {
+        this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
+            this.individualType.users.set(i, response.detail);
+            const users: User[] = response.detail;
+            this.isUserPresent[i] = true;
+            if (users.length === 1) {
+                this.individualType.form.get(['actions', i]).patchValue({
+                    toUser: users[0]
+                });
+            } else if (users.length > 1) {
+                this.individualType.form.get(['actions', i, 'toUser']).setValue(undefined);
+                this.individualType.form.get(['actions', i, 'toUser']).setValidators(Validators.required);
+                this.individualType.form.updateValueAndValidity();
+            } else if (users.length === 0) {
+                this.isUserPresent[i] = false;
+            }
+        });
+    }
+
+    public onSubmit(): void {
+        if (this.stageType === 'individually') {
+            this.individualType.submitted = true;
+            if (this.individualType.form.invalid) {
+                return;
+            }
+            const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent,
+                {context: {individualCombine: this.individualType.form.value, action: this.docAction}});
+            dialogRef.onClose.subscribe((verified: boolean) => {
+                if (verified === true) {
+                    this.postCombinedAction(false);
+                    this.nbDialogRef.close();
+                }
+            });
+        } else if (this.stageType === 'combined') {
+            this.combinedType.submitted = true;
+            if (this.combinedType.form.invalid) {
+                return;
+            }
+            const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
+                context: {
+                    toUser: this.combinedType.form.get('toUser').value,
+                    toRole: this.combinedType.form.get('toRole').value, action: this.docAction
+                }
+            });
+            dialogRef.onClose.subscribe((verified: boolean) => {
+                if (verified === true) {
+                    this.postCombinedAction(true);
+                    this.nbDialogRef.close();
+                }
+            });
         }
-      });
     }
-  }
 
-  private buildCombinedForm(): FormGroup {
-    return this.formBuilder.group({
-      loanConfigId: [undefined],
-      customerLoanId: [undefined],
-      toUser: [undefined],
-      toRole: [undefined, this.isForward ? [Validators.required] : []],
-      docAction: [this.docAction],
-      comment: [undefined, Validators.required],
-      documentStatus: [this.documentStatus],
-      isSol: [undefined],
-      solUser: [undefined],
-      selectedRoleForSol: [undefined]
-    });
-  }
-
-  private buildIndividualForm(): FormGroup {
-    const form = this.formBuilder.group({
-      actions: this.formBuilder.array([]),
-    });
-    this.combinedLoan.loans.forEach((l) => {
-      (form.get('actions') as FormArray).push(this.formBuilder.group({
-        loanConfigId: [l.loan.id],
-        customerLoanId: [l.id],
-        toUser: [undefined],
-        toRole: [undefined, this.isForward ? [Validators.required] : []],
-        docAction: [this.docAction],
-        comment: [undefined, Validators.required],
-        documentStatus: [this.documentStatus],
-        loanName: undefined,
-        isSol: [undefined],
-        solUser: [undefined],
-        selectedRoleForSol: [undefined]
-      }));
-    });
-    console.log('individual form::',form)
-    return form;
-  }
-
-  private conditionalCombinedDataLoad(): void {
-    switch (this.popUpTitle) {
-      case 'Send Forward':
-        const approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
-
-        this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, 0)
-        .subscribe((response: any) => {
-          this.sendForwardBackwardList = [];
-          this.sendForwardBackwardList = response.detail;
+    private buildCombinedForm(): FormGroup {
+        return this.formBuilder.group({
+            loanConfigId: [undefined],
+            customerLoanId: [undefined],
+            toUser: [undefined],
+            toRole: [undefined, this.isForward ? [Validators.required] : []],
+            docAction: [this.docAction],
+            comment: [undefined, Validators.required],
+            documentStatus: [this.documentStatus],
+            isSol: [undefined],
+            solUser: [undefined],
+            selectedRoleForSol: [undefined]
         });
-        break;
     }
-  }
 
-  private postCombinedAction(isCombined: boolean) {
-    let actions;
-    if (isCombined) {
-      actions = this.combinedLoan.loans.map((l) => {
-        return {
-          loanConfigId: l.loan.id,
-          customerLoanId: l.id,
-          toUser: this.combinedType.form.get('toUser').value,
-          toRole: this.combinedType.form.get('toRole').value,
-          docAction: this.combinedType.form.get('docAction').value,
-          comment: this.combinedType.form.get('comment').value,
-          documentStatus: this.combinedType.form.get('documentStatus').value,
-        };
-      });
-    } else {
-      actions = this.individualType.form.get('actions').value;
-    }
-    console.log(actions);
-    // this.loanFormService.postCombinedLoanAction(actions, !isCombined).subscribe(() => {
-    //   const msg = `Document Has been Successfully ${this.docAction}`;
-    //   this.toastService.show(new Alert(AlertType.SUCCESS, msg));
-    //   this.router.navigate(['/home/pending']);
-    // }, error => {
-    //   this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-    // });
-  }
-
-  //individual
-  public getIndividualUserSolList(role, i: number) {
-    if(!ObjectUtil.isEmpty(role)){
-    this.userService.getUserListByRoleId(role.id).subscribe((response: any) => {
-      this.individualType.solUsers.set(i, response.detail);
-      const users: User[] = response.detail;
-      if (users.length === 1) {
-        this.individualType.form.get(['actions', i]).patchValue({
-          solUser: users[0]
+    private buildIndividualForm(): FormGroup {
+        const form = this.formBuilder.group({
+            actions: this.formBuilder.array([]),
         });
-      } else if (users.length > 1) {
-        this.individualType.form.get(['actions', i, 'solUser']).setValue(undefined);
-        this.individualType.form.get(['actions', i, 'solUser']).setValidators(Validators.required);
-        this.individualType.form.updateValueAndValidity();
-      }
-    });}
-  }
+        this.combinedLoan.loans.forEach((l) => {
+            (form.get('actions') as FormArray).push(this.formBuilder.group({
+                loanConfigId: [l.loan.id],
+                customerLoanId: [l.id],
+                toUser: [undefined],
+                toRole: [undefined, this.isForward ? [Validators.required] : []],
+                docAction: [this.docAction],
+                comment: [undefined, Validators.required],
+                documentStatus: [this.documentStatus],
+                loanName: undefined,
+                isSol: [undefined],
+                solUser: [undefined],
+                selectedRoleForSol: [undefined]
+            }));
+        });
+        console.log('individual form::', form);
+        return form;
+    }
+
+    private conditionalCombinedDataLoad(): void {
+        switch (this.popUpTitle) {
+            case 'Send Forward':
+                const approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
+
+                this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, 0)
+                    .subscribe((response: any) => {
+                        this.sendForwardBackwardList = [];
+                        this.sendForwardBackwardList = response.detail;
+                    });
+                break;
+        }
+    }
+
+    private postCombinedAction(isCombined: boolean) {
+        let actions;
+        if (isCombined) {
+            actions = this.combinedLoan.loans.map((l) => {
+                return {
+                    loanConfigId: l.loan.id,
+                    customerLoanId: l.id,
+                    toUser: this.combinedType.form.get('toUser').value,
+                    toRole: this.combinedType.form.get('toRole').value,
+                    docAction: this.combinedType.form.get('docAction').value,
+                    comment: this.combinedType.form.get('comment').value,
+                    documentStatus: this.combinedType.form.get('documentStatus').value,
+                };
+            });
+        } else {
+            actions = this.individualType.form.get('actions').value;
+        }
+        console.log(actions);
+        // this.loanFormService.postCombinedLoanAction(actions, !isCombined).subscribe(() => {
+        //   const msg = `Document Has been Successfully ${this.docAction}`;
+        //   this.toastService.show(new Alert(AlertType.SUCCESS, msg));
+        //   this.router.navigate(['/home/pending']);
+        // }, error => {
+        //   this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+        // });
+    }
+
+    // individual
+    public getIndividualUserSolList(role, i: number) {
+        if (!ObjectUtil.isEmpty(role)) {
+            this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
+                this.individualType.solUsers.set(i, response.detail);
+                const users: User[] = response.detail;
+                this.isSolUserPresent[i] = true;
+                if (users.length === 1) {
+                    this.individualType.form.get(['actions', i]).patchValue({
+                        solUser: users[0]
+                    });
+                } else if (users.length > 1) {
+                    this.individualType.form.get(['actions', i]).patchValue({
+                        solUser: users[0]
+                    });
+                    this.individualType.form.get(['actions', i, 'solUser']).setValue(undefined);
+                    this.individualType.form.get(['actions', i, 'solUser']).setValidators(Validators.required);
+                    this.individualType.form.updateValueAndValidity();
+                } else if (users.length === 0) {
+                    this.isSolUserPresent[i] = false;
+                }
+            });
+        }
+    }
+
+    showHideSol(event: boolean, i: number) {
+        const val = {index: i, value: event};
+        const checkIndexPresent = this.showSolUser.filter(s => s.index === i);
+        if (checkIndexPresent.length === 0) {
+            this.showSolUser.push(val);
+        } else {
+            checkIndexPresent[0].value = event;
+        }
+    }
 
 }
