@@ -47,6 +47,7 @@ export class LoanActionModalComponent implements OnInit {
     solNoUserSelectedMessage = 'Please Select User For Sol';
     isNoUserSol = false;
     isNoUserSelectedSol = false;
+    isEmptyUser = false;
 
     // selectedRoleForSol:Role = undefined;
 
@@ -73,6 +74,7 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     public getUserList(role) {
+        this.isEmptyUser = false;
         this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
             this.userList = response.detail;
             if (this.userList.length === 1) {
@@ -82,6 +84,8 @@ export class LoanActionModalComponent implements OnInit {
             } else if (this.userList.length > 1) {
                 this.formAction.get('toUser').setValidators(Validators.required);
                 this.formAction.updateValueAndValidity();
+            } else if (this.userList.length === 0) {
+                this.isEmptyUser = true;
             }
         });
     }
