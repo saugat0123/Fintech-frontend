@@ -17,6 +17,7 @@ export class CompanyInfoSummaryComponent implements OnInit {
   companyJsonData: CompanyJsonData = new CompanyJsonData();
   contact = [];
   additionalInfoJsonData;
+  companyLocationData;
 
 
   constructor() { }
@@ -24,6 +25,7 @@ export class CompanyInfoSummaryComponent implements OnInit {
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.companyJsonData)) {
       this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
+      this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
       this.contact = JSON.parse(this.companyInfo.contactPersons);
     }
   }

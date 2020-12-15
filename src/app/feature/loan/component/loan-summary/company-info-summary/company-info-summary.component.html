@@ -71,7 +71,8 @@
         </tr>
         <tr>
           <td><b>Business Address</b></td>
-          <td  colspan="2">{{companyInfo?.companyLocations.address}}, {{ companyInfo?.companyLocations?.streetName }}, {{companyInfo?.companyLocations?.houseNumber}}</td>
+          <td  colspan="2">({{companyLocationData?.province?.name}},{{companyLocationData?.district?.name}}, {{companyLocationData?.municipalityVdc?.name}}),
+            {{companyLocationData?.ward}},  {{companyLocationData?.address1}} , {{companyLocationData?.address2}}</td>
         </tr>
         <tr>
           <td>
