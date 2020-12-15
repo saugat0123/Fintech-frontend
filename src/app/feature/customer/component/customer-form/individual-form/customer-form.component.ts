@@ -227,8 +227,7 @@ export class CustomerFormComponent implements OnInit {
                     return;
                 }
                 {
-                    this.customer.id = (this.customer.customerName ===
-                        this.basicInfo.get('customerName').value) ? this.customer.id : undefined;
+                    this.customer.id = this.customer ? (this.customer.id ? this.customer.id : undefined) : undefined;
                     this.customer.customerName = this.basicInfo.get('customerName').value;
                     this.customer.customerCode = this.basicInfo.get('customerCode').value;
                     this.customer.province = this.basicInfo.get('province').value;
