@@ -13,6 +13,7 @@ import {ApprovalRoleHierarchyComponent} from './loan/approval/approval-role-hier
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {NepaliCalendarModule} from './nepali-calendar/nepali-calendar.module';
 import {MouseScrollDisableDirective} from '../@core/directive/mouse-scroll-disable.directive';
+import {CommonAddressComponent} from './common-address/common-address.component';
 
 
 @NgModule({
@@ -34,9 +35,10 @@ import {MouseScrollDisableDirective} from '../@core/directive/mouse-scroll-disab
             PendingsLoanComponent,
             DataVisualizationComponent,
             ApprovalRoleHierarchyComponent,
-            MouseScrollDisableDirective
+            MouseScrollDisableDirective,
+            CommonAddressComponent
         ],
-        exports: [MouseScrollDisableDirective],
+    exports: [MouseScrollDisableDirective, CommonAddressComponent],
         providers: []
     }
 )
