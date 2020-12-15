@@ -50,6 +50,8 @@ export class CustomerFormComponent implements OnInit {
     @Input() customerIdInput: any;
     @Input() bankingRelationshipInput: any;
     @Input() subSectorDetailCodeInput: any;
+    @Input() gender;
+    @Input() maritalStatus;
     calendarType = 'AD';
     @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -356,10 +358,10 @@ export class CustomerFormComponent implements OnInit {
                 this.customer.temporaryStreet, Validators.required],
             temporaryWardNumber: [this.customer.temporaryWardNumber === null ? undefined :
                 this.customer.temporaryWardNumber, Validators.required],
-            gender: [this.customer.gender === null ? undefined :
-                this.customer.gender, Validators.required],
-            maritalStatus: [this.customer.maritalStatus === null ? undefined :
-                this.customer.maritalStatus, Validators.required],
+            gender: [this.gender === null ? undefined :
+                this.gender, Validators.required],
+            maritalStatus: [this.maritalStatus === null ? undefined :
+                this.maritalStatus, Validators.required],
 
         });
     }

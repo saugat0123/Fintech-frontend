@@ -106,7 +106,6 @@
                                        formControlName="maritalStatus" id="maritalStatus"
                                        [addTagText] = "null"
                                        [multiple]="false"
-                                       [bindValue]="maritalStatusEnum.values()"
                                        [placeholder]="placeHolderForMaritalStatus">
                                 <ng-option *ngFor="let maritalStatus of maritalStatusEnum.values()" [value]="maritalStatus">
                                     {{maritalStatus}}
