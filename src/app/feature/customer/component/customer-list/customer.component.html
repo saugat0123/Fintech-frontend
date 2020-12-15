@@ -124,7 +124,6 @@
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.contactNo || 'NA'}}</td>
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{(model?.createdAt|date) || 'NA'}}</td>
         <td *ngIf="isMaker"><button  nbButton size="tiny" shape="rectangle" (click)="editCustomer(model)"><em class="fa fa-edit"></em></button></td>
-
       </tr>
 
       </tbody>
