@@ -15,6 +15,7 @@ import {LoanActionVerificationComponent} from '../loan-action-verification/loan-
 import {LoanFormService} from '../../component/loan-form/service/loan-form.service';
 import {Router} from '@angular/router';
 import {LoanDataHolder} from '../../model/loanData';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-loan-action-combined-modal',
@@ -28,6 +29,8 @@ export class LoanActionCombinedModalComponent implements OnInit {
   @Input() documentStatus: DocStatus;
   @Input() isForward: boolean;
   @Input() additionalDetails: any;
+  @Input() isMaker: boolean;
+  @Input() branchId: number;
 
   public combinedLoan: CombinedLoan;
   public LoanType = LoanType;
@@ -36,12 +39,14 @@ export class LoanActionCombinedModalComponent implements OnInit {
   public combinedType: {
     form?: FormGroup,
     userList?: User[],
-    submitted?: boolean
+    submitted?: boolean,
+    solUsers?: Map<number, User[]>,
   } = {};
   public individualType: {
     form?: FormGroup,
     users?: Map<number, User[]>,
-    submitted?: boolean
+    submitted?: boolean,
+    solUsers?: Map<number, User[]>,
   } = {};
   private roleId: number;
 
@@ -72,6 +77,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     if (value === 'individually') {
       this.individualType.form = this.buildIndividualForm();
       this.individualType.users = new Map<number, User[]>();
+      this.individualType.solUsers = new Map<number, User[]>();
       this.combinedLoan.loans.forEach((l, i) => this.individualType.users.set(i, []));
     } else if (value === 'combined') {
       this.combinedType.form = this.buildCombinedForm();
@@ -151,7 +157,10 @@ export class LoanActionCombinedModalComponent implements OnInit {
       toRole: [undefined, this.isForward ? [Validators.required] : []],
       docAction: [this.docAction],
       comment: [undefined, Validators.required],
-      documentStatus: [this.documentStatus]
+      documentStatus: [this.documentStatus],
+      isSol: [undefined],
+      solUser: [undefined],
+      selectedRoleForSol: [undefined]
     });
   }
 
@@ -168,9 +177,13 @@ export class LoanActionCombinedModalComponent implements OnInit {
         docAction: [this.docAction],
         comment: [undefined, Validators.required],
         documentStatus: [this.documentStatus],
-        loanName: undefined
+        loanName: undefined,
+        isSol: [undefined],
+        solUser: [undefined],
+        selectedRoleForSol: [undefined]
       }));
     });
+    console.log('individual form::',form)
     return form;
   }
 
@@ -205,13 +218,32 @@ export class LoanActionCombinedModalComponent implements OnInit {
     } else {
       actions = this.individualType.form.get('actions').value;
     }
-    this.loanFormService.postCombinedLoanAction(actions, !isCombined).subscribe(() => {
-      const msg = `Document Has been Successfully ${this.docAction}`;
-      this.toastService.show(new Alert(AlertType.SUCCESS, msg));
-      this.router.navigate(['/home/pending']);
-    }, error => {
-      this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-    });
+    console.log(actions);
+    // this.loanFormService.postCombinedLoanAction(actions, !isCombined).subscribe(() => {
+    //   const msg = `Document Has been Successfully ${this.docAction}`;
+    //   this.toastService.show(new Alert(AlertType.SUCCESS, msg));
+    //   this.router.navigate(['/home/pending']);
+    // }, error => {
+    //   this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+    // });
+  }
+
+  //individual
+  public getIndividualUserSolList(role, i: number) {
+    if(!ObjectUtil.isEmpty(role)){
+    this.userService.getUserListByRoleId(role.id).subscribe((response: any) => {
+      this.individualType.solUsers.set(i, response.detail);
+      const users: User[] = response.detail;
+      if (users.length === 1) {
+        this.individualType.form.get(['actions', i]).patchValue({
+          solUser: users[0]
+        });
+      } else if (users.length > 1) {
+        this.individualType.form.get(['actions', i, 'solUser']).setValue(undefined);
+        this.individualType.form.get(['actions', i, 'solUser']).setValidators(Validators.required);
+        this.individualType.form.updateValueAndValidity();
+      }
+    });}
   }
 
 }

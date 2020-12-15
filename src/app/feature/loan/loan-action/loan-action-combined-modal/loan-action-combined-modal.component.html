@@ -116,6 +116,49 @@
                       </div>
                     </div>
                   </div>
+
+<!--                  //sol-->
+                  <div *ngIf="isMaker">
+                    <div class="col-md-12">
+                      <nb-checkbox class="cursor" formControlName="isSol">is SOL?</nb-checkbox>
+                    </div>
+
+                    <div class="col-md-12 row" *ngIf="getIndividualUserSolList(control?.get('isSol').value,i)">
+                      <div class="col-md-6">
+                        <label class="selectedRoleForSol" for="selectedRoleForSol{{i}}">Approval Role</label>
+                        <select style="width: 100%"
+                                (change)="getIndividualUserSolList(control?.get('selectedRoleForSol').value, i)"
+                                class="form-control form-control-sm"
+                                formControlName="selectedRoleForSol"
+                                id="selectedRoleForSol{{i}}"
+                                name="selectedRoleForSol">
+                          <option [value]="null" hidden>Select To</option>
+                          <option
+                                  *ngFor="let forwardBackward of sendForwardBackwardList"
+                                  [ngValue]="forwardBackward?.role">
+                            {{forwardBackward?.role?.roleName}}
+                          </option>
+                        </select>
+                     </div>
+
+
+                      <div *ngIf="individualType?.solUsers.get(i)?.length > 1" class="row">
+                        <div class="col-md-12 form-group">
+                          <label class="solUser" for="toUser">To User</label>
+                          <select class="form-control form-control-sm" formControlName="solUser" id="solUser{{i}}"
+                                  name="solUser">
+                            <option *ngFor="let user of individualType?.solUsers.get(i)"
+                                    [ngValue]="user">
+                              {{user.username}}
+                          </select>
+                        </div>
+                      </div>
+
+
+                    </div>
+
+
+                  </div>
                 </nb-accordion-item-body>
               </nb-accordion-item>
             </nb-accordion>
