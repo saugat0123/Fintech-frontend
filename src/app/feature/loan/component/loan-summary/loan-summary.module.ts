@@ -21,6 +21,7 @@ import { BusinessBackgroundComponent } from './company-info-summary/business-bac
 import { FinancialRiskSummaryComponent } from './financial-risk-summary/financial-risk-summary.component';
 import { CollateralSummaryComponent } from './collateral-summary/collateral-summary.component';
 import { NtaSummaryComponent } from './nta-summary/nta-summary.component';
+import { ProposalTermsAndConditionSummeryComponent } from './proposal-terms-and-condition-summery/proposal-terms-and-condition-summery.component';
 
 
 const COMPONENTS = [
@@ -45,7 +46,7 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [];
 
 @NgModule({
-    declarations: [...COMPONENTS ],
+    declarations: [...COMPONENTS, ProposalTermsAndConditionSummeryComponent ],
     imports: [
         CommonModule,
         ThemeModule,
@@ -55,12 +56,13 @@ const ENTRY_COMPONENTS = [];
         NgxPrintModule,
         CoreModule
     ],
-    exports: [
-        LoanSummaryComponent,
-        CustomerGroupSummaryComponent,
-        IncomeFromAccountSummeryComponent,
-        NtaSummaryComponent
-    ],
+  exports: [
+    LoanSummaryComponent,
+    CustomerGroupSummaryComponent,
+    IncomeFromAccountSummeryComponent,
+    NtaSummaryComponent,
+    ProposalTermsAndConditionSummeryComponent
+  ],
     entryComponents: [...ENTRY_COMPONENTS]
 })
 export class LoanSummaryModule {

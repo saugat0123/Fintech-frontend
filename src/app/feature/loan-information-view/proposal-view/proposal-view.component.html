@@ -138,6 +138,12 @@
         <td>{{proposalData?.remark}}</td>
       </tr>
       <tr class="text-white sb-bg-dark">
+        <th>Terms & Condition</th>
+      </tr>
+      <tr>
+        <td><span [innerHTML]="proposalData?.termsAndCondition  | safeHtml"></span> </td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
         <th>Purpose of Loan</th>
       </tr>
       <tr>

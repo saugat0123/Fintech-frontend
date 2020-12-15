@@ -178,7 +178,8 @@ export class ProposalComponent implements OnInit {
       waiverConclusionRecommendation: [undefined],
       riskConclusionRecommendation: [undefined],
       summeryRecommendation: undefined,
-      purposeOfLoan: undefined
+      purposeOfLoan: undefined,
+      termsAndCondition: undefined
 
 
     });
