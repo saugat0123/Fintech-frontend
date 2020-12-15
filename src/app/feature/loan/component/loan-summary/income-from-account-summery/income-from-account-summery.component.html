@@ -23,6 +23,13 @@
         </td>
       </tr>
       <tr>
+        <td class="sb-bg-secondary text-white">Loan Processing Charge</td>
+        <td>Rs. {{this.incomeFromAccount?.loanProcessingDuringReview |currencyFormatter}}</td>
+        <td>
+          Rs. {{this.incomeFromAccount?.loanProcessingAfterNextReview |currencyFormatter}}
+        </td>
+      </tr>
+      <tr>
         <td class="sb-bg-secondary text-white">Other Charges</td>
         <td>
           Rs. {{this.incomeFromAccount?.otherChargesDuringReview |currencyFormatter}}
