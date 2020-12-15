@@ -18,6 +18,9 @@ import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {BankingRelationship} from '../../../../admin/modal/banking-relationship';
 import {Pattern} from '../../../../../@core/utils/constants/pattern';
 import {RelationshipList} from '../../../../loan/model/relationshipList';
+import {EnumUtils} from '../../../../../@core/utils/enums.utils';
+import {Gender} from '../../../../../@core/model/enum/gender';
+import {MaritalStatus} from '../../../../../@core/model/enum/marital-status';
 
 @Component({
     selector: 'app-customer-form',
@@ -25,6 +28,22 @@ import {RelationshipList} from '../../../../loan/model/relationshipList';
     styleUrls: ['./customer-form.component.scss']
 })
 export class CustomerFormComponent implements OnInit {
+    constructor(
+        private formBuilder: FormBuilder,
+        private commonLocation: AddressService,
+        private customerService: CustomerService,
+        private toastService: ToastService,
+        private modalService: NgbModal,
+        private blackListService: BlacklistService,
+        private dialogService: NbDialogService,
+        protected ref: NbDialogRef<CustomerFormComponent>,
+        private el: ElementRef
+    ) {
+    }
+
+    get basicInfoControls() {
+        return this.basicInfo.controls;
+    }
 
     @Input() formValue: Customer;
     @Input() clientTypeInput: any;
@@ -71,19 +90,9 @@ export class CustomerFormComponent implements OnInit {
     subSector = [];
     clientType = [];
     relationArray: RelationshipList = new RelationshipList();
-
-    constructor(
-        private formBuilder: FormBuilder,
-        private commonLocation: AddressService,
-        private customerService: CustomerService,
-        private toastService: ToastService,
-        private modalService: NgbModal,
-        private blackListService: BlacklistService,
-        private dialogService: NbDialogService,
-        protected ref: NbDialogRef<CustomerFormComponent>,
-        private el: ElementRef
-    ) {
-    }
+    public genderPairs = EnumUtils.pairs(Gender);
+    maritalStatusEnum = MaritalStatus;
+    placeHolderForMaritalStatus = 'Select Marital Status';
 
     ngOnInit() {
         this.getProvince();
@@ -121,10 +130,6 @@ export class CustomerFormComponent implements OnInit {
 
     removeRelatives(i) {
         (this.basicInfo.get('customerRelatives') as FormArray).removeAt(i);
-    }
-
-    get basicInfoControls() {
-        return this.basicInfo.controls;
     }
 
     getDistricts(province: Province) {
@@ -244,6 +249,8 @@ export class CustomerFormComponent implements OnInit {
                     this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
                     this.customer.clientType = this.basicInfo.get('clientType').value;
                     this.customer.subsectorDetail = this.basicInfo.get('subsectorDetail').value;
+                    this.customer.gender = this.basicInfo.get('gender').value;
+                    this.customer.maritalStatus = this.basicInfo.get('maritalStatus').value;
                     const occupations = {
                         multipleOccupation: this.basicInfo.get('occupation').value,
                         otherOccupation: this.basicInfo.get('otherOccupation').value
@@ -349,6 +356,10 @@ export class CustomerFormComponent implements OnInit {
                 this.customer.temporaryStreet, Validators.required],
             temporaryWardNumber: [this.customer.temporaryWardNumber === null ? undefined :
                 this.customer.temporaryWardNumber, Validators.required],
+            gender: [this.customer.gender === null ? undefined :
+                this.customer.gender, Validators.required],
+            maritalStatus: [this.customer.maritalStatus === null ? undefined :
+                this.customer.maritalStatus, Validators.required],
 
         });
     }
