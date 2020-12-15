@@ -3,6 +3,7 @@
     <form (ngSubmit)="submitForm()" [formGroup]="incomeFormGroup">
       <div class="row">
         <div class="col-md-12">
+          <span><strong>Account No:</strong></span>
             <input [ngClass]="{ 'is-invalid': (submitted) && formControls.accountNo.errors }"
                    type="text" formControlName="accountNo"
                    placeholder="Account Number" nbInput size="medium" name="accountNo"><br>
