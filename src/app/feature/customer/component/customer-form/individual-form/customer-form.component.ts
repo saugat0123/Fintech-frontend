@@ -94,7 +94,7 @@ export class CustomerFormComponent implements OnInit {
     relationArray: RelationshipList = new RelationshipList();
     public genderPairs = EnumUtils.pairs(Gender);
     maritalStatusEnum = MaritalStatus;
-    placeHolderForMaritalStatus = 'Select Marital Status';
+    placeHolderForMaritalStatus = 'Marital Status :';
 
     ngOnInit() {
         this.getProvince();

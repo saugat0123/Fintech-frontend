@@ -104,9 +104,9 @@
                             <label for="maritalStatus"><strong>Marital Status</strong></label>
                             <ng-select [ngClass]="{'is-invalid': submitted && basicInfoControls.maritalStatus.errors}"
                                        formControlName="maritalStatus" id="maritalStatus"
-                                       [addTagText] = "null"
-                                       [multiple]="false"
-                                       [placeholder]="placeHolderForMaritalStatus">
+                                       [addTagText]="null"
+                                       [placeholder]="placeHolderForMaritalStatus"
+                                       [multiple]="false">
                                 <ng-option *ngFor="let maritalStatus of maritalStatusEnum.values()" [value]="maritalStatus">
                                     {{maritalStatus}}
                                 </ng-option>
