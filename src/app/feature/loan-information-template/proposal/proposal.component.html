@@ -264,7 +264,7 @@
                                                 class="custom-select" formControlName="repaymentMode"
                                                 id="repaymentMode"
                                                 name="repaymentMode"
-                                                (change)="checkRepaymentMode()">
+                                                (change)="checkInstallmentAmount()">
                                             <option [ngValue]="null" hidden selected>Select</option>
                                             <option value="EMI">EMI</option>
                                             <option value="EQI">EQI</option>
@@ -283,7 +283,7 @@
 
                                 <!--                start of installment amount div-->
                                 <div class="col-md-4"
-                                     *ngIf="(proposalForm.get('repaymentMode').value === 'EMI' || proposalForm.get('repaymentMode').value === 'EQI')  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))">
+                                     *ngIf="showInstallmentAmount && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))">
                                     <div class="form-group>">
                                         <label class="title"> <strong>Installment Amount</strong></label>
                                         <input
@@ -295,7 +295,7 @@
                                 </div>
                                 <!--                end of installment amount div-->
                                 <div class="col-md-4"
-                                     *ngIf="(proposalForm.get('repaymentMode').value === 'MONTHLY' || proposalForm.get('repaymentMode').value === 'QUARTERLY' || proposalForm.get('repaymentMode').value === 'YEARLY') &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
+                                     *ngIf="!showInstallmentAmount &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
                                     <div class="form-group>">
                                         <label class="title"> <strong>Interest Amount</strong></label>
                                         <input
@@ -474,18 +474,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="title" for="remark"><strong>Remarks(Proposal for
-                                            Loan)</strong></label>
-                                        <textarea
-                                                class="form-control"
-                                                formControlName="remark" id="remark"
-                                                name="remark"
-                                                placeholder="Remarks/Proposal for Loan"
-                                                rows="3"></textarea>
-                                    </div>
-                                </div>
+
                                 <!--                end of Moratorium Period amount div-->
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -553,9 +542,46 @@
                     <span *ngIf="formControls.borrowerInformation.invalid" class="text-danger">
                       <sup>*</sup>Borrower Information is required.</span>
                                     </div>
-                                    <h6><strong>Additional Description</strong></h6>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Summery & Recommendation</strong></label>
+                                        <ckeditor formControlName="summeryRecommendation"
+                                                  [style]="{height:'250px !important;'}"
+                                                  placeholder="Summery & Recommendation"
+                                                  [config]="ckeConfig">
+                                        </ckeditor>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="title" for="remark"><strong>Remarks</strong></label>
+                                        <textarea
+                                            class="form-control"
+                                            formControlName="remark" id="remark"
+                                            name="remark"
+                                            placeholder="Remarks"
+                                            rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="title"><b>Purpose of Loan</b></label>
+                                        <textarea class="form-control" [rows]="3" formControlName="purposeOfLoan" placeholder="Purpose of Loan"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Terms And Condition</strong></label>
+                                        <ckeditor formControlName="termsAndCondition"
+                                                  [style]="{height:'250px !important;'}"
+                                                  placeholder="Terms & Condition"
+                                                  [config]="ckeConfig">
+                                        </ckeditor>
+                                    </div>
                                 </div>
                                 <div class="col-md-12 form-group">
+                                    <h6><strong>Additional Description</strong></h6>
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
                                                  [checked]="waiverChecked">
                                         <b>Waiver/Deviation</b>

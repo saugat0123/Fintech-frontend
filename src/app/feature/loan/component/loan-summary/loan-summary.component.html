@@ -70,8 +70,13 @@
             </div>
             <hr class="print-line">
             <div class="row ">
-                <div class="col-md-6 sb-small">
-                    <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span>
+                <div class="col-md-12 sb-small">
+                    <div class="clearfix">
+                        <div class="float-left"><span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span></div>
+                        <div class="float-right"><span><strong>Approval User: </strong>{{loanDataHolder?.solUser?.name}}</span></div>
+
+                    </div>
+
                 </div>
             </div>
 
@@ -799,6 +804,7 @@
 
 
             <div class="row justify-content-end px-3 disable-print">{{docMsg}}</div>
+            <app-proposal-terms-and-condition-summery *ngIf="loanDataHolder && customerAllLoanList" [customerAllLoanList]="customerAllLoanList" [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
 
             <div class="row mt-3 disable-print">
                 <div class="col-md-12">
