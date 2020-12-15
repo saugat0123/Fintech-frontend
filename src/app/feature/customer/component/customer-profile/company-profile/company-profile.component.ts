@@ -24,6 +24,7 @@ import {FetchLoan} from '../../../model/fetchLoan';
 import {LoanAmountType} from '../../../model/loanAmountType';
 import {District} from '../../../../admin/modal/district';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
+import {FormUtils} from '../../../../../@core/utils/form.utils';
 
 @Component({
   selector: 'app-company-profile',
@@ -108,7 +109,9 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     this.spinner = true;
     this.companyInfoService.detail(companyInfoId).subscribe((res: any) => {
       this.companyInfo = res.detail;
-      this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
+      if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
+        this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
+      }
       this.spinner = false;
     }, error => {
       console.error(error);

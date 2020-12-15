@@ -48,6 +48,7 @@ import {BusinessGiven} from '../../../../admin/modal/businessGiven';
 import {TranslateService} from '@ngx-translate/core';
 import {CalendarType} from '../../../../../@core/model/calendar-type';
 import {CommonAddressComponent} from '../../../../common-address/common-address.component';
+import {FormUtils} from '../../../../../@core/utils/form.utils';
 
 @Component({
     selector: 'app-company-form',
@@ -184,8 +185,10 @@ export class CompanyFormComponent implements OnInit {
             this.businessGiven = JSON.parse(this.companyInfo.businessGiven);
         }
         if (!ObjectUtil.isEmpty(this.companyInfo)) {
+            if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
             this.companyAddress = JSON.parse(this.companyInfo.companyLocations.address);
             console.log(this.companyInfo.companyLocations.address);
+            }
         }
         this.buildForm();
         this.getAllDistrict();
