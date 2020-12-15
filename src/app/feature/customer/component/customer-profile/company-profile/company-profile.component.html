@@ -117,6 +117,7 @@
                          <nb-datepicker #establishmentDate></nb-datepicker></span></div>
 
             <div class="row form-inline">
+
               <div class=""><strong>Address :</strong> <input formControlName="address"
                                                               placeholder="address"
                                                               type="text"></div>
@@ -401,7 +402,9 @@
                     class="float-right"><a class="cursor"><em class="fa fa-edit"></em></a></button>
           </nb-card-header>
           <nb-card-body>
-            <app-company-profile-additional-information *ngIf="companyInfo?.registrationNumber" [companyInfo]="companyInfo">
+            <app-company-profile-additional-information *ngIf="companyInfo?.registrationNumber"
+                                                        [companyLocationData]="companyLocationData"
+                                                        [companyInfo]="companyInfo">
             </app-company-profile-additional-information>
           </nb-card-body>
         </nb-card>
