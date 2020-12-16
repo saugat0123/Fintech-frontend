@@ -251,6 +251,7 @@ export class LoanActionModalComponent implements OnInit {
                 isSol: false
             });
             this.formAction.get('solUser').clearValidators();
+            this.formAction.updateValueAndValidity();
         }
     }
 

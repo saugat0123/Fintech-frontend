@@ -22,16 +22,20 @@
                                 </div>
                                 <div class="col-md-4" *ngIf="checkApproved">
                                     <div class="form-group">
-                                        <label class="title" for="outStandingLimit"><strong>Outstanding
-                                            Limit</strong></label>
+                                        <label class="title" for="outStandingLimit">
+                                            <span [ngSwitch]="loanType">
+                                            <strong  *ngSwitchCase = "'PARTIAL_SETTLEMENT_LOAN'">Settlement Amount</strong>
+                                            <strong  *ngSwitchDefault>Outstanding Limit</strong>
+                                            </span>
+                                        </label>
                                         <input class="form-control"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.outStandingLimit.errors }"
                                                formControlName="outStandingLimit" id="outStandingLimit"
-                                               name="outStandingLimit" placeholder="Outstanding limit"
+                                               name="outStandingLimit" placeholder="Limit Amount"
                                                type="number">
                                         <div *ngIf=" (submitted)  && formControls.outStandingLimit.errors"
                                              class="invalid-feedback">
-                                            <span *ngIf="(formControls.outStandingLimit.errors.required)">Outstanding Limit is required</span>
+                                            <span *ngIf="(formControls.outStandingLimit.errors.required)">Limit is required</span>
                                         </div>
                                     </div>
                                 </div>
