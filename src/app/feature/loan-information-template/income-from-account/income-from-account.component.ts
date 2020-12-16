@@ -70,7 +70,11 @@ export class IncomeFromAccountComponent implements OnInit {
         [Validators.required]],
       totalIncomeDuringReview: [undefined,
         [Validators.required]],
+      accountNo: [undefined,
+        [Validators.required]],
       newCustomerChecked: [false],
+      loanProcessingDuringReview: undefined,
+      loanProcessingAfterNextReview: undefined,
       accountTransactionForm: this.buildAccountTransactionForm()
     });
   }
@@ -90,7 +94,9 @@ export class IncomeFromAccountComponent implements OnInit {
     totalIncomeDuringReview =
         this.incomeFormGroup.get('interestDuringReview').value +
         this.incomeFormGroup.get('commissionDuringReview').value +
-        this.incomeFormGroup.get('otherChargesDuringReview').value ;
+        this.incomeFormGroup.get('otherChargesDuringReview').value +
+        this.incomeFormGroup.get('loanProcessingDuringReview').value
+    ;
     this.incomeFormGroup.get('totalIncomeDuringReview').setValue(totalIncomeDuringReview);
   }
 
@@ -99,7 +105,8 @@ export class IncomeFromAccountComponent implements OnInit {
     totalIncomeAfterNextReview =
         this.incomeFormGroup.get('interestAfterNextReview').value +
         this.incomeFormGroup.get('commissionAfterNextReview').value +
-        this.incomeFormGroup.get('otherChargesAfterNextReview').value ;
+        this.incomeFormGroup.get('commissionAfterNextReview').value +
+        this.incomeFormGroup.get('loanProcessingAfterNextReview').value ;
     this.incomeFormGroup.get('totalIncomeAfterNextReview').setValue(totalIncomeAfterNextReview);
   }
   scrollToFirstInvalidControl() {

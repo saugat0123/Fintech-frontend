@@ -5,13 +5,12 @@
   <div class="row">
     <div class="col-md-4 form-group">
       <label><strong>Tax Clearance Till</strong></label>
-      <ng-select formControlName="taxClearanceTill"
-                 [ngClass]="{ 'is-invalid':submitted && form.taxClearanceTill?.errors }"
-                 placeholder="Select Tax Clearance Till">
-        <ng-option *ngFor="let fiscalYear of fiscalYears" [value]="fiscalYear.year">
+      <select formControlName="taxClearanceTill" id="taxClearanceTill"
+              [ngClass]="{'is-invalid':submitted &&  form.taxClearanceTill?.errors}" class="form-control">
+        <option [value]="null" hidden>Select Tax Clearance Till</option>
+        <option  *ngFor="let fiscalYear of fiscalYears" [value]="fiscalYear.year">
           {{fiscalYear.year}}
-        </ng-option>
-      </ng-select>
+      </select>
       <div *ngIf="submitted && form.taxClearanceTill?.errors "
            class="small text-danger">
         <div *ngIf="form.taxClearanceTill?.errors.required">

@@ -48,6 +48,7 @@ export class ProposalComponent implements OnInit {
   isGeneral = false;
   isVehicle = false;
   isShare = false;
+  showInstallmentAmount = false;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -123,6 +124,7 @@ export class ProposalComponent implements OnInit {
     this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
     .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(2)));
     this.proposalForm.get('limitExpiryMethod').valueChanges.subscribe(value => this.checkLimitExpiryBuildValidation(value));
+    this.checkInstallmentAmount();
   }
 
   buildForm() {
@@ -175,6 +177,9 @@ export class ProposalComponent implements OnInit {
       solConclusionRecommendation: [undefined],
       waiverConclusionRecommendation: [undefined],
       riskConclusionRecommendation: [undefined],
+      summeryRecommendation: undefined,
+      purposeOfLoan: undefined,
+      termsAndCondition: undefined
 
 
     });
@@ -292,12 +297,25 @@ export class ProposalComponent implements OnInit {
   }
 
   checkRepaymentMode() {
-    if (this.proposalForm.get('repaymentMode').value === 'EMI' || this.proposalForm.get('repaymentMode').value === 'EQI') {
+    if (this.showInstallmentAmount) {
       this.proposalForm.get('interestAmount').patchValue(0);
-      if (this.proposalForm.get('repaymentMode').value === 'EMI') {
-        this.calculateEmiEqiAmount('emi');
-      } else if (this.proposalForm.get('repaymentMode').value === 'EQI') {
-        this.calculateEmiEqiAmount('eqi');
+      const repaymentMode = this.proposalForm.get('repaymentMode').value;
+      switch (repaymentMode) {
+        case 'EMI':
+          this.calculateEmiEqiAmount('emi');
+          break;
+        case 'EQI':
+          this.calculateEmiEqiAmount('eqi');
+          break;
+        case 'MONTHLY':
+          this.calculateEmiEqiAmount('monthly');
+          break;
+        case 'QUARTERLY':
+          this.calculateEmiEqiAmount('quarterly');
+          break;
+        case 'YEARLY':
+          this.calculateEmiEqiAmount('yearly');
+          break;
       }
     } else {
       this.proposalForm.get('installmentAmount').patchValue(0);
@@ -310,16 +328,27 @@ export class ProposalComponent implements OnInit {
     const n = this.proposalForm.get('tenureDurationInMonths').value;
     if (proposedAmount && rate && n) {
       const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
-      if (repaymentMode === 'emi') {
-        this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(2)));
-      } else if (repaymentMode === 'eqi') {
-        this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(2)));
+      switch (repaymentMode) {
+        case 'emi':
+          this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(2)));
+          break;
+        case 'eqi':
+          this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(2)));
+          break;
+        case 'monthly':
+          this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(2)));
+          break;
+        case 'quarterly':
+          this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(2)));
+          break;
+        case 'yearly':
+          this.proposalForm.get('installmentAmount').patchValue(Number((emi*12).toFixed(2)));
+          break;
       }
     } else {
       this.proposalForm.get('installmentAmount').patchValue(undefined);
     }
   }
-
   setCollateralRequirement(collateralRequirement) {
     if (ObjectUtil.isEmpty(this.proposalForm.get('collateralRequirement').value)) {
       this.proposalForm.get('collateralRequirement').patchValue(collateralRequirement);
@@ -354,6 +383,16 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.get('dateOfExpiry').updateValueAndValidity();
       this.proposalForm.get('dateOfExpiry').patchValue(undefined);
 
+    }
+  }
+  checkInstallmentAmount() {
+    if (this.proposalForm.get('repaymentMode').value === 'EMI' || this.proposalForm.get('repaymentMode').value === 'EQI' ||
+      this.proposalForm.get('repaymentMode').value === 'MONTHLY' ||  this.proposalForm.get('repaymentMode').value === 'QUARTERLY'
+        ||  this.proposalForm.get('repaymentMode').value === 'YEARLY') {
+      this.showInstallmentAmount = true;
+      this.checkRepaymentMode();
+    } else {
+      this.showInstallmentAmount = false;
     }
   }
   // checkLoanConfig() {

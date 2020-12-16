@@ -96,7 +96,7 @@
         <div class="row">
             <div class="col-md-7">
                 <span> <strong>Name :</strong></span></div>
-            <div class="col-md-5">{{contactPerson?.contactNumber}}</div>
+            <div class="col-md-5">{{contactPerson?.contactName}}</div>
         </div>
 
         <div class="row">
@@ -127,20 +127,26 @@
     <h5>Company Location Detail</h5>
     <div class="row">
         <div class="col-md-7">
-            <span> <strong>House Number :</strong></span></div>
-        <div class="col-md-5">{{companyInfo?.companyLocations?.houseNumber}}</div>
+            <span> <strong>Address</strong></span></div>
+        <div class="col-md-5">{{companyLocationData?.province?.name}},{{companyLocationData?.district?.name}}
+            , {{companyLocationData?.municipalityVdc?.name}})</div>
     </div>
 
     <div class="row">
         <div class="col-md-7">
-            <span> <strong>Street Name :</strong></span></div>
-        <div class="col-md-5">{{companyInfo?.companyLocations?.streetName}}</div>
+            <span> <strong>Ward :</strong></span></div>
+        <div class="col-md-5">{{companyLocationData?.ward}}</div>
     </div>
 
     <div class="row">
         <div class="col-md-7">
-            <span> <strong>Address :</strong></span></div>
-        <div class="col-md-5">{{companyInfo?.companyLocations?.address}}</div>
+            <span> <strong>Address 1 :</strong></span></div>
+        <div class="col-md-5">{{companyLocationData?.address1}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Address 2 :</strong></span></div>
+        <div class="col-md-5">{{companyLocationData?.address2}}</div>
     </div>
 </div>
 
