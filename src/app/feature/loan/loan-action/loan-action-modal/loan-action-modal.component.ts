@@ -20,7 +20,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-loan-action-modal',
-    templateUrl: './loan-action-modal.component.html',
+    templateUrl: './loan-action-.+987modal.component.html',
     styleUrls: ['./loan-action-modal.component.scss']
 })
 export class LoanActionModalComponent implements OnInit {
