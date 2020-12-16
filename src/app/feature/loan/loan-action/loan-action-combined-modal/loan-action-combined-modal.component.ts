@@ -241,20 +241,17 @@ export class LoanActionCombinedModalComponent implements OnInit {
                     solUser: this.combinedType.form.get('solUser').value,
                 };
             });
-            console.log(this.combinedType.form);
+
         } else {
             actions = this.individualType.form.get('actions').value;
-            console.log(this.individualType.form);
         }
-        console.log(actions);
-
-        // this.loanFormService.postCombinedLoanAction(actions, !isCombined).subscribe(() => {
-        //   const msg = `Document Has been Successfully ${this.docAction}`;
-        //   this.toastService.show(new Alert(AlertType.SUCCESS, msg));
-        //   this.router.navigate(['/home/pending']);
-        // }, error => {
-        //   this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-        // });
+        this.loanFormService.postCombinedLoanAction(actions, !isCombined).subscribe(() => {
+          const msg = `Document Has been Successfully ${this.docAction}`;
+          this.toastService.show(new Alert(AlertType.SUCCESS, msg));
+          this.router.navigate(['/home/pending']);
+        }, error => {
+          this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+        });
     }
 
 
