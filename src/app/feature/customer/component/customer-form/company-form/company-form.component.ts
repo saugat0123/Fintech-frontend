@@ -174,6 +174,9 @@ export class CompanyFormComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
             this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
             this.additionalFieldSelected = true;
+            if (JSON.stringify(this.additionalFieldData).includes(null)) {
+                this.additionalFieldSelected = false;
+            }
         }
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) {
             this.businessAndIndustry = JSON.parse(this.companyInfo.businessAndIndustry);
