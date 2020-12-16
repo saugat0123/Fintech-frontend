@@ -96,12 +96,7 @@ export class LoanActionModalComponent implements OnInit {
         if (this.formAction.invalid) {
             return;
         }
-        if (!this.isMaker) {
-            this.formAction.patchValue({
-                solUser: null,
-                isSol: false,
-            });
-        } else {
+        if (this.isMaker) {
             const isSolSelected = this.formAction.get('isSol').value;
             if (isSolSelected) {
                 const selectedSolUser = this.formAction.get('solUser').value;
@@ -222,8 +217,10 @@ export class LoanActionModalComponent implements OnInit {
                     solUser: this.solUserList[0]
                 });
             } else if (this.solUserList.length > 1) {
-                this.formAction.get('solUser').setValidators(Validators.required);
-                this.formAction.updateValueAndValidity();
+                this.formAction.patchValue({
+                    solUser: this.solUserList[0]
+                });
+
             } else if (this.solUserList.length === 0) {
                 this.isNoUserSol = true;
             }
@@ -239,18 +236,20 @@ export class LoanActionModalComponent implements OnInit {
                 isSol: true
             });
             if (this.customerLoanHolder.isSol) {
-                this.formAction.get('solUser').patchValue(this.customerLoanHolder.solUser);
-                this.formAction.get('selectedRoleForSol').patchValue(this.customerLoanHolder.solUser.role);
+                this.formAction.get('solUser').patchValue(ObjectUtil.isEmpty(this.customerLoanHolder.solUser) ? null : this.customerLoanHolder.solUser);
+                this.formAction.get('selectedRoleForSol').patchValue(ObjectUtil.isEmpty(this.customerLoanHolder.solUser) ? null : this.customerLoanHolder.solUser.role);
             }
             this.formAction.get('solUser').setValidators(Validators.required);
-            this.formAction.updateValueAndValidity();
+            this.formAction.get('solUser').updateValueAndValidity();
         } else {
             this.showHideSolUser = false;
             this.formAction.patchValue({
                 solUser: null,
                 isSol: false
             });
+            this.formAction.get('solUser').setValidators([]);
             this.formAction.get('solUser').clearValidators();
+            this.formAction.get('solUser').updateValueAndValidity();
         }
     }
 
