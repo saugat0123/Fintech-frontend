@@ -96,12 +96,7 @@ export class LoanActionModalComponent implements OnInit {
         if (this.formAction.invalid) {
             return;
         }
-        if (!this.isMaker) {
-            this.formAction.patchValue({
-                solUser: ObjectUtil.isEmpty(this.customerLoanHolder.solUser) ? null : this.customerLoanHolder.solUser,
-                isSol: ObjectUtil.isEmpty(this.customerLoanHolder.isSol) ? false : this.customerLoanHolder.isSol,
-            });
-        } else {
+        if (this.isMaker) {
             const isSolSelected = this.formAction.get('isSol').value;
             if (isSolSelected) {
                 const selectedSolUser = this.formAction.get('solUser').value;
