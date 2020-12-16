@@ -53,6 +53,10 @@ export class LoanActionCombinedModalComponent implements OnInit {
     isSolUserPresent = [];
     preSelectedSolUser = [];
     showSolUser = [];
+    showHideCombineSolUser = false;
+    submitted = false;
+    isSolUserPresentForCombine = true;
+    isUserNotPresentForCombine = false;
 
     constructor(
         public nbDialogRef: NbDialogRef<LoanActionCombinedModalComponent>,
@@ -89,6 +93,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
             this.individualType.users = new Map<number, User[]>();
             this.individualType.solUsers = new Map<number, User[]>();
             this.combinedLoan.loans.forEach((l, i) => this.individualType.users.set(i, []));
+            this.combinedLoan.loans.forEach((l, i) => this.individualType.solUsers.set(i, []));
         } else if (value === 'combined') {
             this.combinedType.form = this.buildCombinedForm();
         }
@@ -99,6 +104,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     }
 
     public getCombinedUserList(role) {
+        this.isUserNotPresentForCombine = false;
         this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
             this.combinedType.userList = response.detail;
             if (this.combinedType.userList.length === 1) {
@@ -108,6 +114,8 @@ export class LoanActionCombinedModalComponent implements OnInit {
             } else if (this.combinedType.userList.length > 1) {
                 this.combinedType.form.get('toUser').setValidators(Validators.required);
                 this.combinedType.form.updateValueAndValidity();
+            } else if (this.combinedType.userList.length === 0) {
+                this.isUserNotPresentForCombine = true;
             }
         });
     }
@@ -166,6 +174,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     }
 
     private buildCombinedForm(): FormGroup {
+        const l = this.combinedLoan.loans[0];
         return this.formBuilder.group({
             loanConfigId: [undefined],
             customerLoanId: [undefined],
@@ -174,9 +183,9 @@ export class LoanActionCombinedModalComponent implements OnInit {
             docAction: [this.docAction],
             comment: [undefined, Validators.required],
             documentStatus: [this.documentStatus],
-            isSol: [undefined],
-            solUser: [undefined],
-            selectedRoleForSol: [undefined]
+            isSol: [ObjectUtil.isEmpty(l.isSol) ? undefined : l.isSol],
+            solUser: [ObjectUtil.isEmpty(l.solUser) ? undefined : l.solUser],
+            selectedRoleForSol: [ObjectUtil.isEmpty(l.solUser) ? undefined : l.solUser.role]
         });
     }
 
@@ -194,12 +203,11 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 comment: [undefined, Validators.required],
                 documentStatus: [this.documentStatus],
                 loanName: undefined,
-                isSol: [undefined],
-                solUser: [undefined],
-                selectedRoleForSol: [undefined]
+                isSol: [ObjectUtil.isEmpty(l.isSol) ? undefined : l.isSol],
+                solUser: [ObjectUtil.isEmpty(l.solUser) ? undefined : l.solUser],
+                selectedRoleForSol: [ObjectUtil.isEmpty(l.solUser) ? undefined : l.solUser.role]
             }));
         });
-        console.log('individual form::', form);
         return form;
     }
 
@@ -229,12 +237,17 @@ export class LoanActionCombinedModalComponent implements OnInit {
                     docAction: this.combinedType.form.get('docAction').value,
                     comment: this.combinedType.form.get('comment').value,
                     documentStatus: this.combinedType.form.get('documentStatus').value,
+                    isSol: this.combinedType.form.get('isSol').value,
+                    solUser: this.combinedType.form.get('solUser').value,
                 };
             });
+            console.log(this.combinedType.form);
         } else {
             actions = this.individualType.form.get('actions').value;
+            console.log(this.individualType.form);
         }
         console.log(actions);
+
         // this.loanFormService.postCombinedLoanAction(actions, !isCombined).subscribe(() => {
         //   const msg = `Document Has been Successfully ${this.docAction}`;
         //   this.toastService.show(new Alert(AlertType.SUCCESS, msg));
@@ -261,9 +274,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
                     this.individualType.form.get(['actions', i]).patchValue({
                         solUser: users[0]
                     });
-                    this.individualType.form.get(['actions', i, 'solUser']).setValue(undefined);
-                    this.individualType.form.get(['actions', i, 'solUser']).setValidators(Validators.required);
-                    this.individualType.form.updateValueAndValidity();
+
                 } else if (users.length === 0) {
                     this.isSolUserPresent[i] = false;
                 }
@@ -280,30 +291,63 @@ export class LoanActionCombinedModalComponent implements OnInit {
             checkIndexPresent[0].value = event;
         }
         if (!event) {
+            this.individualType.form.get(['actions', i]).patchValue({
+                solUser: null
+            });
             this.individualType.form.get(['actions', i, 'solUser']).clearValidators();
+            this.individualType.form.get(['actions', i, 'solUser']).updateValueAndValidity();
         } else {
+            this.individualType.form.get(['actions', i, 'solUser']).setValue(undefined);
             this.individualType.form.get(['actions', i, 'solUser']).setValidators(Validators.required);
+            this.individualType.form.get(['actions', i, 'solUser']).updateValueAndValidity();
         }
     }
 
     // combineSol
     public getCombinedSolUserList(role) {
+        this.isSolUserPresentForCombine = true;
+        this.combinedType.form.patchValue({
+            solUser: null
+        });
         this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
             this.combinedType.solUserList = response.detail;
             if (this.combinedType.solUserList.length === 1) {
                 this.combinedType.form.patchValue({
-                    toUser: this.combinedType.solUserList[0]
+                    solUser: this.combinedType.solUserList[0]
                 });
             } else if (this.combinedType.solUserList.length > 1) {
-                this.combinedType.form.get('toUser').setValidators(Validators.required);
-                this.combinedType.form.updateValueAndValidity();
+                this.combinedType.form.patchValue({
+                    solUser: this.combinedType.solUserList[0]
+                });
             } else if (this.combinedType.solUserList.length === 0) {
+                this.isSolUserPresentForCombine = false;
             }
         });
 
 
     }
 
-    showHideSolCombine(event: boolean){}
+    showHideSolCombine(event: boolean) {
+        if (event) {
+            this.showHideCombineSolUser = true;
+            this.combinedType.form.get('solUser').patchValue(undefined);
+            this.combinedType.form.get('solUser').setValidators(Validators.required);
+            this.combinedType.form.get('solUser').updateValueAndValidity();
+        } else {
+            this.combinedType.form.patchValue({
+                solUser: null,
+                selectedRoleForSol: null,
+                isSol: false
+            });
+            this.showHideCombineSolUser = false;
+            this.combinedType.form.get('solUser').clearValidators();
+            this.combinedType.form.get('solUser').updateValueAndValidity();
+        }
+    }
+
+
+    compareFn(c1: any, c2: any): boolean {
+        return c1 && c2 ? c1.id === c2.id : c1 === c2;
+    }
 
 }

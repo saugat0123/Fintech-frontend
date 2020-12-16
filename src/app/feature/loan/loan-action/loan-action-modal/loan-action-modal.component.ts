@@ -20,7 +20,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-loan-action-modal',
-    templateUrl: './loan-action-.+987modal.component.html',
+    templateUrl: './loan-action-modal.component.html',
     styleUrls: ['./loan-action-modal.component.scss']
 })
 export class LoanActionModalComponent implements OnInit {
@@ -225,8 +225,7 @@ export class LoanActionModalComponent implements OnInit {
                 this.formAction.patchValue({
                     solUser: this.solUserList[0]
                 });
-                this.formAction.get('solUser').setValidators(Validators.required);
-                this.formAction.updateValueAndValidity();
+
             } else if (this.solUserList.length === 0) {
                 this.isNoUserSol = true;
             }
@@ -246,14 +245,16 @@ export class LoanActionModalComponent implements OnInit {
                 this.formAction.get('selectedRoleForSol').patchValue(this.customerLoanHolder.solUser.role);
             }
             this.formAction.get('solUser').setValidators(Validators.required);
-            this.formAction.updateValueAndValidity();
+            this.formAction.get('solUser').updateValueAndValidity();
         } else {
             this.showHideSolUser = false;
             this.formAction.patchValue({
                 solUser: null,
                 isSol: false
             });
+            this.formAction.get('solUser').setValidators([]);
             this.formAction.get('solUser').clearValidators();
+            this.formAction.get('solUser').updateValueAndValidity();
         }
     }
 
