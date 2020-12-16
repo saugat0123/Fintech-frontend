@@ -11,6 +11,7 @@
                                         <label class="title" for="existingLimit"><strong>Existing Limit</strong></label>
                                         <input class="form-control"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.existingLimit.errors }"
+                                               (change)="calculateLimitValues()"
                                                formControlName="existingLimit" id="existingLimit"
                                                name="existingLimit" placeholder="Existing limit"
                                                type="number">
@@ -30,6 +31,7 @@
                                         </label>
                                         <input class="form-control"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.outStandingLimit.errors }"
+                                               (change)="calculateLimitValues()"
                                                formControlName="outStandingLimit" id="outStandingLimit"
                                                name="outStandingLimit" placeholder="Limit Amount"
                                                type="number">
