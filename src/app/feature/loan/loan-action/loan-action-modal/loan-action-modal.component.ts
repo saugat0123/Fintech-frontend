@@ -98,8 +98,8 @@ export class LoanActionModalComponent implements OnInit {
         }
         if (!this.isMaker) {
             this.formAction.patchValue({
-                solUser: this.customerLoanHolder.solUser,
-                isSol: this.customerLoanHolder.isSol,
+                solUser: ObjectUtil.isEmpty(this.customerLoanHolder.solUser) ? null : this.customerLoanHolder.solUser,
+                isSol: ObjectUtil.isEmpty(this.customerLoanHolder.isSol) ? false : this.customerLoanHolder.isSol,
             });
         } else {
             const isSolSelected = this.formAction.get('isSol').value;
