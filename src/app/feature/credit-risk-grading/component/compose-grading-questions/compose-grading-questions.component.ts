@@ -116,7 +116,7 @@ export class ComposeGradingQuestionsComponent implements OnInit {
 
     fetchQuestionList() {
         this.totalObtainablePoints = 0;
-        this.questionService.getAllQuestions(this.loanConfigId).subscribe((response: any) => {
+        this.questionService.getAllQuestions(this.loanConfigId).subscribe( response => {
             this.questionList = response.detail;
             this.questionList.forEach(qsn => {
                 this.totalObtainablePoints = this.totalObtainablePoints + qsn.maximumPoints;

@@ -27,7 +27,7 @@ export class RiskGradingService {
         return this.http.put(getUrl.url, model, {headers: getUrl.header});
     }
 
-    getAllQuestions(loanConfigId: number): Observable<Object> {
+    getAllQuestions(loanConfigId: number): Observable<any> {
         const url = this.API(loanConfigId);
         const getUrl = ApiUtils.getRequest(url);
         return this.http.get(getUrl.url, {headers: getUrl.header});
