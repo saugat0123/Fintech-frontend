@@ -241,8 +241,8 @@ export class LoanActionModalComponent implements OnInit {
                 isSol: true
             });
             if (this.customerLoanHolder.isSol) {
-                this.formAction.get('solUser').patchValue(this.customerLoanHolder.solUser);
-                this.formAction.get('selectedRoleForSol').patchValue(this.customerLoanHolder.solUser.role);
+                this.formAction.get('solUser').patchValue(ObjectUtil.isEmpty(this.customerLoanHolder.solUser) ? null : this.customerLoanHolder.solUser);
+                this.formAction.get('selectedRoleForSol').patchValue(ObjectUtil.isEmpty(this.customerLoanHolder.solUser) ? null : this.customerLoanHolder.solUser.role);
             }
             this.formAction.get('solUser').setValidators(Validators.required);
             this.formAction.get('solUser').updateValueAndValidity();
