@@ -18,6 +18,7 @@
         <th>Considered Value</th>
         <th>Distress Value</th>
         <th>Fair Market Value</th>
+        <th>Address as per Legal Document</th>
       </tr>
       </thead>
       <tbody>
@@ -31,6 +32,7 @@
         <td>{{landDetails?.landConsideredValue | currencyFormatter}}</td>
         <td>{{landDetails?.distressValue | currencyFormatter}}</td>
         <td>{{landDetails?.marketValue | currencyFormatter}}</td>
+        <td>{{landDetails?.landSecurityLegalDocumentAddress}}</td>
       </tr>
       </tbody>
       <thead>
@@ -129,6 +131,7 @@
           <th>Area</th>
           <th>Considered Value</th>
           <th>Fair Market Value</th>
+          <th>Address as per Legal Document</th>
         </tr>
         </thead>
         <tbody>
@@ -141,6 +144,7 @@
           <td>{{landBuilding?.area}}</td>
           <td>{{landBuilding?.landConsideredValue | currencyFormatter}}</td>
           <td>{{landBuilding?.marketValue | currencyFormatter}}</td>
+          <td>{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
         </tr>
         </tbody>
         <thead>

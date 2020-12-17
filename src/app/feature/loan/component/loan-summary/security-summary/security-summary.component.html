@@ -71,6 +71,7 @@
                         <th>Area</th>
                         <th>FMV</th>
                         <th>DV</th>
+                        <th>Address as per Legal Document</th>
                     </tr>
                     <tr>
                         <td rowspan="3" class="align-middle">{{i + 1}}</td>
@@ -81,6 +82,7 @@
                         <td>{{landDetails?.area}}</td>
                         <td>Rs. {{landDetails?.marketValue |currencyFormatter}}</td>
                         <td>Rs. {{landDetails?.distressValue |currencyFormatter}}</td>
+                        <td>{{landDetails?.landSecurityLegalDocumentAddress}}</td>
                     </tr>
 
                     <tr class="sb-bg-secondary text-white">
@@ -183,6 +185,12 @@
                         <td>{{landBuilding?.buildingValuatorRepresentative}}</td>
                         <td>{{landBuilding?.buildingStaffRepresentativeName}}</td>
                         <td colspan="2">{{landBuilding?.landBuildingAlternateStaffRepresentativeName}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-center sb-bg-dark text-white">Address as per Legal Document</th>
+                    </tr>
+                    <tr>
+                        <td>{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
                     </tr>
                     <tr *ngIf="landBuilding.underConstructionChecked === true">
                         <th colspan="8">Under Construction</th>

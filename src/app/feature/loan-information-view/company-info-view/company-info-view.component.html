@@ -35,6 +35,7 @@
                 <th>Relationship Since</th>
                 <th>Client Type</th>
                 <th>Sub Sector</th>
+                <th>Address as per Legal Document</th>
             </tr>
             <tr>
                 <td>{{formValue?.email}}</td>
@@ -44,6 +45,8 @@
                 <td>{{companyJsonData?.relationshipSince | date}}</td>
                 <td>{{customerInfo['clientType']}}</td>
                 <td>{{customerInfo['subsectorDetail']}}</td>
+                <td>{{customerInfo['subsectorDetail']}}</td>
+                <td>{{formValue?.companyLegalDocumentAddress}}</td>
 
             </tr>
         </table>
