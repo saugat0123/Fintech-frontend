@@ -344,6 +344,23 @@
                                         </div>
                                     </div>
                                 </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="title ml-3" for="guarantorLegalDocumentAddress">Address as per Legal Document</label>
+                                            <textarea class="form-control ml-3" cols="6"
+                                                      [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('guarantorLegalDocumentAddress').errors }"
+                                                      formControlName="guarantorLegalDocumentAddress"
+                                                      name="guarantorLegalDocumentAddress"
+                                                      id="guarantorLegalDocumentAddress"
+                                                      placeholder="Address as per Legal Document"
+                                                      rows="2"></textarea>
+                                            <div *ngIf="submitted && guarantorDetails.get('guarantorLegalDocumentAddress').invalid" class="invalid-feedback">
+                                                <div *ngIf="guarantorDetails.get('guarantorLegalDocumentAddress').errors.required">
+                                                    Address as per legal document is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <div class="col-md-12">
                                     <h6><b>Permanent Address as per citizenship</b></h6>
                                 </div>

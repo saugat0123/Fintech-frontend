@@ -282,6 +282,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     landStaffRepresentativeDesignation: [singleData.landStaffRepresentativeDesignation],
                     landAlternateStaffRepresentativeName: [singleData.landAlternateStaffRepresentativeName],
                     landAlternateStaffRepresentativeDesignation: [singleData.landAlternateStaffRepresentativeDesignation],
+                    landSecurityLegalDocumentAddress: [singleData.landSecurityLegalDocumentAddress],
                 })
             );
         });
@@ -455,6 +456,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     landBuildingStaffRepresentativeDesignation: [singleData.landBuildingStaffRepresentativeDesignation],
                     landBuildingAlternateStaffRepresentativeDesignation: [singleData.landBuildingAlternateStaffRepresentativeDesignation],
                     landBuildingAlternateStaffRepresentativeName: [singleData.landBuildingAlternateStaffRepresentativeName],
+                    landAndBuildingSecurityLegalDocumentAddress: [singleData.landAndBuildingSecurityLegalDocumentAddress],
                 })
             );
         });
@@ -697,6 +699,7 @@ export class SecurityInitialFormComponent implements OnInit {
             landStaffRepresentativeDesignation: [undefined],
             landAlternateStaffRepresentativeName: [undefined],
             landAlternateStaffRepresentativeDesignation: [undefined],
+            landSecurityLegalDocumentAddress: [undefined],
         });
     }
 
@@ -775,6 +778,7 @@ export class SecurityInitialFormComponent implements OnInit {
             landBuildingStaffRepresentativeDesignation: [undefined],
             landBuildingAlternateStaffRepresentativeDesignation: [undefined],
             landBuildingAlternateStaffRepresentativeName: [undefined],
+            landAndBuildingSecurityLegalDocumentAddress: [undefined],
         });
     }
 
