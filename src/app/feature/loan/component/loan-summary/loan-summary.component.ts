@@ -166,7 +166,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private fiscalYearService: FiscalYearService
     ) {
         this.client = environment.client;
-        this.showCadDoc = this.productUtils.CAD_DOC_UPLOAD;
+        this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
                 this.loadSummary();
