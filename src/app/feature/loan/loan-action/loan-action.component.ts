@@ -179,6 +179,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
 
         } else {
             context.combinedLoanId = this.combinedLoanId;
+            context.isMaker = this.isMaker;
+            context.branchId =  this.branchId,
             this.dialogRef = this.nbDialogService.open(LoanActionCombinedModalComponent,
                 {
                     context,
