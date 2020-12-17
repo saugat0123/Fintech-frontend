@@ -10,8 +10,9 @@
                                     <div class="form-group">
                                         <label class="title" for="existingLimit"><strong>Existing Limit</strong></label>
                                         <input class="form-control"
+                                               [readOnly]="loanType == 'PARTIAL_SETTLEMENT_LOAN' || loanType == 'ENHANCED_LOAN'"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.existingLimit.errors }"
-                                               (change)="calculateLimitValues()"
+                                               (keyup)="calculateLimitValues()"
                                                formControlName="existingLimit" id="existingLimit"
                                                name="existingLimit" placeholder="Existing limit"
                                                type="number">
@@ -26,18 +27,19 @@
                                         <label class="title" for="outStandingLimit">
                                             <span [ngSwitch]="loanType">
                                             <strong  *ngSwitchCase = "'PARTIAL_SETTLEMENT_LOAN'">Settlement Amount</strong>
+                                            <strong  *ngSwitchCase = "'ENHANCED_LOAN'">Enhancement Amount</strong>
                                             <strong  *ngSwitchDefault>Outstanding Limit</strong>
                                             </span>
                                         </label>
                                         <input class="form-control"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.outStandingLimit.errors }"
-                                               (change)="calculateLimitValues()"
+                                               (keyup)="calculateLimitValues()"
                                                formControlName="outStandingLimit" id="outStandingLimit"
                                                name="outStandingLimit" placeholder="Limit Amount"
                                                type="number">
                                         <div *ngIf=" (submitted)  && formControls.outStandingLimit.errors"
                                              class="invalid-feedback">
-                                            <span *ngIf="(formControls.outStandingLimit.errors.required)">Limit is required</span>
+                                            <span *ngIf="(formControls.outStandingLimit.errors.required)">Amount is required</span>
                                         </div>
                                     </div>
                                 </div>
@@ -48,6 +50,7 @@
                                         <input
                                                 [ngClass]="{ 'is-invalid': (submitted) && formControls.proposedLimit.errors }"
                                                 class="form-control"
+                                                [readOnly]="loanType == 'PARTIAL_SETTLEMENT_LOAN' || loanType == 'ENHANCED_LOAN'"
                                                 formControlName="proposedLimit" id="proposedLimit"
                                                 name="proposedLimit" placeholder="Proposed limit"
                                                 type="number" (input)="checkRepaymentMode()" appDecimalNumber>
