@@ -2,8 +2,8 @@ import {HttpClient} from '@angular/common/http';
 import {ApiUtils} from '../utils/api/ApiUtils';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {User} from "../../feature/admin/modal/user";
-import {BaseService} from "../BaseService";
+import {User} from '../../feature/admin/modal/user';
+import {BaseService} from '../BaseService';
 
 @Injectable({providedIn: 'root'})
 export class UserService extends BaseService<User> {
@@ -57,8 +57,8 @@ export class UserService extends BaseService<User> {
         return this.http.post(req.url, user, {headers: req.header});
     }
 
-    public getUserListForTransfer(id): Observable<any> {
-        const req = ApiUtils.getRequest(`${UserService.API}/get-all-doc-transfer/${id}`);
+    public getUserListForTransfer(id, branchId): Observable<any> {
+        const req = ApiUtils.getRequest(`${UserService.API}/get-all-doc-transfer/${id}/branch/${branchId}`);
 
         return this.http.get(req.url, {headers: req.header});
     }

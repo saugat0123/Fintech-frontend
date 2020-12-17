@@ -114,10 +114,12 @@
                 </div>
 
                 <div class="col-md-12 p-0">
-                    <button [disabled]="!filterForm.valid" nbButton size="small" status="info" shape="rectangle" class="mr-2"
+                    <button [disabled]="!filterForm.valid" nbButton size="small" status="info" shape="rectangle"
+                            class="mr-2"
                             type="submit">Search
                     </button>
-                    <button (click)="clearSearch()" nbButton shape="rectangle" size="small" status="danger" type="button">Clear
+                    <button (click)="clearSearch()" nbButton shape="rectangle" size="small" status="danger"
+                            type="button">Clear
                     </button>
                 </div>
             </form>
@@ -192,9 +194,21 @@
                     </div>
                 </td>
                 <td *ngIf="transferDoc">
-                    <button nbButton status="warning" size="tiny"
-                            (click)="onTransferClick(transferDocument,model.id,model?.currentStage?.toUser?.id)">
-                        <em class="fa fa-arrow-circle-right"></em></button>
+                    <div *ngIf='model?.documentStatus.toString()==="PENDING" ||
+                         model?.documentStatus.toString()==="DOCUMENTATION" ||
+                         model?.documentStatus.toString()==="DISCUSSION" ||
+                         model?.documentStatus.toString()==="UNDER_REVIEW" ||
+                         model?.documentStatus.toString()==="VALUATION"'>
+                        <button nbButton status="warning" size="tiny"
+                                (click)="onTransferClick(transferDocument,model.id,model?.currentStage?.toUser?.id,model?.branch?.id)">
+                            <em class="fa fa-arrow-circle-right"></em></button>
+                    </div>
+                    <div *ngIf='(model?.documentStatus.toString()==="CLOSED" ||
+                        model?.documentStatus.toString()==="REJECTED" ||
+                        model?.documentStatus.toString()==="APPROVED")'>
+                        NA
+                    </div>
+
                 </td>
                 <td>
                     <div (click)="onClick(model.loan.id,model.id)">
@@ -269,7 +283,8 @@
             <nb-card-footer>
                 <button [disabled]="formAction.invalid"
                         [ngStyle]="{ 'filter' : (formAction.invalid)? 'grayscale(100%)': 'grayscale(0%)'}"
-                        type="submit" class="btn btn-success float-right" (click)="action(confirmation)">Next</button>
+                        type="submit" class="btn btn-success float-right" (click)="action(confirmation)">Next
+                </button>
             </nb-card-footer>
         </nb-card>
     </ng-template>
@@ -278,10 +293,12 @@
         <nb-card accent="primary"
                  [nbSpinner]="transferSpinner"
                  [nbSpinnerMessage]="'Transferring loan to ' + selectedUserForTransfer?.username + '...'">
-            <nb-card-header>Do you want to transfer this loan to <b>{{selectedUserForTransfer?.username}}</b>?</nb-card-header>
+            <nb-card-header>Do you want to transfer this loan to <b>{{selectedUserForTransfer?.username}}</b>?
+            </nb-card-header>
             <nb-card-body>
                 <label for="comment">Reason to transfer loan</label>
-                <textarea rows="9" #comment id="comment" class="form-control" placeholder="Comments for transfer"></textarea>
+                <textarea rows="9" #comment id="comment" class="form-control"
+                          placeholder="Comments for transfer"></textarea>
             </nb-card-body>
             <nb-card-footer>
                 <div class="d-flex justify-content-end">
@@ -289,7 +306,8 @@
                         Cancel
                     </button>
                     <button [ngStyle]="{ 'filter' : (comment.value == undefined || comment.value == '')? 'grayscale(100%)': 'grayscale(0%)'}"
-                            [disabled]="comment.value == undefined || comment.value == ''" type="submit" class="btn btn-primary  btn-flat" (click)="confirm(comment.value)">
+                            [disabled]="comment.value == undefined || comment.value == ''" type="submit"
+                            class="btn btn-primary  btn-flat" (click)="confirm(comment.value)">
                         Confirm
                     </button>
                 </div>
@@ -298,15 +316,5 @@
 
     </ng-template>
 
-    <ng-template #onActionChange class="modal">
-        <div class="modal-header">
-            <h5>Do you want to change the loan type to {{loanType[tempLoanType]}}?</h5>
-        </div>
-        <div class="modal-body">
-            <div class="d-flex justify-content-end">
-                <button (click)="changeAction()" nbButton status="primary" type="submit">YES</button>
-                <button (click)="onClose()" nbButton status="warning" type="button">NO</button>
-            </div>
-        </div>
-    </ng-template>
+
 </nb-card>
