@@ -242,10 +242,8 @@
                 <h4>Transfer Loan Document</h4>
             </nb-card-header>
             <nb-card-body>
-                <div class="clearfix">
-                    <div class="float-left"><nb-icon icon=""></nb-icon></div>
-                </div>
-                <nb-accordion class="col-md-12 row">
+
+                <nb-accordion>
                     <nb-accordion-item *ngFor="let roles of transferUserList;let i=index" >
                         <nb-accordion-item-header>
                             {{roles.name}}
@@ -265,9 +263,9 @@
 
                                         </a>
                                     </div>
-<!--                                    <div class="col-md-4">-->
+<!--                                    <div class="col-md-6">-->
 <!--                                        <span *ngFor="let branch of users.branchDtoList;">-->
-<!--                                            {{branch?.name}}-->
+<!--                                            {{branch?.name}},-->
 <!--                                        </span>-->
 <!--                                    </div>-->
                                 </div>
