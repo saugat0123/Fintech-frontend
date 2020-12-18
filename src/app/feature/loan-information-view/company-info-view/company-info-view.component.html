@@ -14,6 +14,7 @@
                 <th>Issue Place</th>
                 <th>PAN</th>
                 <th>Business Type</th>
+                <th>Address as per Legal Document</th>
             </tr>
             </thead>
             <tbody>
@@ -25,6 +26,7 @@
                 <td>{{formValue?.issuePlace}}</td>
                 <td>{{formValue?.panNumber}}</td>
                 <td>{{formValue?.businessType}}</td>
+                <td>{{formValue?.companyLegalDocumentAddress}}</td>
             </tr>
             </tbody>
             <tr class="text-white sb-bg-dark">
@@ -35,7 +37,6 @@
                 <th>Relationship Since</th>
                 <th>Client Type</th>
                 <th>Sub Sector</th>
-                <th>Address as per Legal Document</th>
             </tr>
             <tr>
                 <td>{{formValue?.email}}</td>
@@ -45,8 +46,6 @@
                 <td>{{companyJsonData?.relationshipSince | date}}</td>
                 <td>{{customerInfo['clientType']}}</td>
                 <td>{{customerInfo['subsectorDetail']}}</td>
-                <td>{{customerInfo['subsectorDetail']}}</td>
-                <td>{{formValue?.companyLegalDocumentAddress}}</td>
 
             </tr>
         </table>

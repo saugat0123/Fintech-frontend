@@ -352,7 +352,7 @@
                                                   formControlName="guarantorLegalDocumentAddress" id="guarantorLegalDocumentAddress"
                                                   name="guarantorLegalDocumentAddress" placeholder="Address as per Legal Document"
                                                   rows="5"
-                                                  type="text"></textarea>
+                                                  type="text" maxlength="256"></textarea>
                                         <div *ngIf="(submitted) && guarantorDetails.get('guarantorLegalDocumentAddress').invalid"
                                              class="invalid-feedback">
                                             <div *ngIf="guarantorDetails.get('guarantorLegalDocumentAddress').errors.required">

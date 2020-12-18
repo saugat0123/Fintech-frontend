@@ -933,7 +933,7 @@
                                          formControlName="companyLegalDocumentAddress" id="companyLegalDocumentAddress"
                                          name="companyLegalDocumentAddress" placeholder="Address as per Legal Document"
                                          rows="5"
-                                         type="text"></textarea>
+                                         type="text" maxlength="256"></textarea>
                                <div *ngIf="(submitted) && form.companyLegalDocumentAddress.invalid"
                                     class="invalid-feedback">
                                    <div *ngIf="form.companyLegalDocumentAddress.errors.required">

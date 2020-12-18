@@ -367,7 +367,7 @@
                                       formControlName="customerLegalDocumentAddress"
                                       id="customerLegalDocumentAddress"
                                       placeholder="Address as per Legal Document"
-                                      rows="2"></textarea>
+                                      rows="2" maxlength="256"></textarea>
                             <div *ngIf="submitted && basicInfoControls.customerLegalDocumentAddress.errors"
                                  class="invalid-feedback small">
                                 <div *ngIf="basicInfoControls.customerLegalDocumentAddress.errors.required">

@@ -35,6 +35,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
+import {Customer} from '../../../admin/modal/customer';
 
 @Component({
     selector: 'app-loan-summary',
