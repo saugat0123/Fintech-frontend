@@ -2,6 +2,7 @@ export enum OwnershipTransfer {
   SALE = 'Sale',
   FAMILY_SEPARATION = 'Family Separation',
   GIFT_BAKASPATRA = 'Gift (Bakaspatra)',
+  OTHER = 'Other'
 }
 
 
@@ -18,6 +19,8 @@ export namespace OwnershipTransfer {
       return 'FAMILY_SEPARATION';
     } else if (ownershipTransfer === OwnershipTransfer.GIFT_BAKASPATRA) {
       return 'GIFT_BAKASPATRA';
+    } else if (ownershipTransfer === OwnershipTransfer.OTHER) {
+      return 'OTHER';
     }
   }
   export function enumObject() {

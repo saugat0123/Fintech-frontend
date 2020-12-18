@@ -72,6 +72,8 @@
         <th  *ngIf="landDetails.ownershipTransferThrough == 'SALE'">Registration amount in transfer</th>
         <th  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION'">Registration amount in transfer</th>
         <th  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Registration amount in transfer</th>
+        <th *ngIf="landDetails?.ownershipTransferThrough == 'OTHER'">Other</th>
+
 
       </tr>
       <tr>
@@ -86,6 +88,7 @@
         <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE'">{{landDetails?.saleRegistrationAmount}}</td>
         <td  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION'">{{landDetails?.familyRegistrationAmount}}</td>
         <td  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA'">{{landDetails?.giftRegistrationAmount}}</td>
+        <th *ngIf="landDetails?.ownershipTransferThrough == 'OTHER'">{{landDetails?.otherOwnershipTransferValue}}</th>
 
 
       </tr>
@@ -217,6 +220,7 @@
           <th  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'">Registration amount in transfer</th>
           <th  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION'">Registration amount in transfer</th>
           <th  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Registration amount in transfer</th>
+          <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'">Other</th>
         </tr>
         <tr>
           <td></td>
@@ -229,6 +233,8 @@
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'">{{landBuilding?.saleRegistrationAmount}}</td>
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION'">{{landBuilding?.familyRegistrationAmount}}</td>
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA'">{{landBuilding?.giftRegistrationAmount}}</td>
+          <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'">{{landBuilding?.otherOwnershipTransferValue}}</th>
+
         </tr>
         <tr *ngIf="landBuilding.underConstructionChecked === true">
           <th colspan="8">Under Construction</th>

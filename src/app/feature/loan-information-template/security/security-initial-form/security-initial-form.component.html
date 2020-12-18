@@ -244,6 +244,14 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-md-3" *ngIf="securityForm.get(['landDetails',i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.OTHER)">
+                            <div class="form-group">
+                                <label class="title">Other</label>
+                                <input class="form-control rounded" formControlName="otherOwnershipTransferValue"
+                                       name="otherOwnershipTransferValue" placeholder="Other Ownership Transfer Mode"
+                                       type="text"/>
+                            </div>
+                        </div>
                         <ng-container>
                             <div class="col-md-12"  *ngIf="securityForm.get(['landDetails' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.SALE)">
                                 <strong>Has transfer date elapsed by 1 year plus 35 days? </strong>
@@ -1352,6 +1360,14 @@
                                         <option  [value]="null" hidden>Select Ownership transfer through</option>
                                         <option  *ngFor="let ownership of ownershipTransferEnumPair" [ngValue]="ownership.key">{{ownership.value}}</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4" *ngIf="securityForm.get(['landBuilding',i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.OTHER)">
+                                <div class="form-group">
+                                    <label class="title">Other</label>
+                                    <input class="form-control rounded" formControlName="otherOwnershipTransferValue"
+                                           name="otherOwnershipTransferValue" placeholder="Other Ownership Transfer Mode"
+                                           type="text"/>
                                 </div>
                             </div>
                             <ng-container>
