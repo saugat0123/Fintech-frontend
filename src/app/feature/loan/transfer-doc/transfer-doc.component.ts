@@ -327,22 +327,6 @@ export class TransferDocComponent implements OnInit {
         this.modalService.dismissAll();
     }
 
-    changeAction() {
-        this.loanDataHolder.loanType = this.tempLoanType;
-        this.loanFormService.renewLoan(this.loanDataHolder).subscribe(() => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated loan type.'));
-                this.modalService.dismissAll('Close modal');
-                this.tempLoanType = null;
-                this.clearSearch();
-                this.transferdocservice.search.documentStatus = DocStatus.value(DocStatus.APPROVED);
-                this.onSearch();
-            }, error => {
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to update loan type.'));
-                this.modalService.dismissAll('Close modal');
-            }
-        );
-
-    }
 
     docTransfer(userId, roleId, user) {
         this.selectedUserForTransfer = user;
@@ -393,18 +377,6 @@ export class TransferDocComponent implements OnInit {
 
     }
 
-    renewedOrCloseFrom(loanConfigId, childId) {
-        this.router.navigate(['/home/loan/summary'], {
-            queryParams: {
-                loanConfigId: loanConfigId,
-                customerId: childId,
-                catalogue: true
-            }
-
-        });
-
-
-    }
 
     getCsv() {
         this.loanFormService.download(this.transferdocservice.search).subscribe((response: any) => {

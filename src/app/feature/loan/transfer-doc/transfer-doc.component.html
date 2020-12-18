@@ -1,4 +1,8 @@
-<nb-card>
+<nb-card
+        [nbSpinner]="spinner"
+        nbSpinnerStatus="primary"
+        nbSpinnerSize="large"
+        >
     <nb-card-header>
         <div class="col-md-12">
             <div class="row">
@@ -215,22 +219,12 @@
                         {{model?.createdAt | date}}
                     </div>
                 </td>
-                <ng-template #linkin>
-                    <td *ngIf="model.parentId">
-                        <a (click)="renewedOrCloseFrom(model.loan.id,model.parentId)"
-                           class="text-success cursor">{{loanType[model.loanType]}} From
-                            <em class="p-1 fa fa-edit"></em></a>
-                    </td>
 
-                    <td *ngIf="!model.parentId">
-                        <p>NA</p>
-                    </td>
-                </ng-template>
             </tr>
             </tbody>
         </table>
-        <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
-        <!-- ===================table-pagination==================== -->
+<!--        <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>-->
+<!--        &lt;!&ndash; ===================table-pagination==================== &ndash;&gt;-->
         <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
         <!-- ===================table-pagination==================== -->
     </nb-card-body>
@@ -248,8 +242,11 @@
                 <h4>Transfer Loan Document</h4>
             </nb-card-header>
             <nb-card-body>
-                <nb-accordion>
-                    <nb-accordion-item *ngFor="let roles of transferUserList;let i=index">
+                <div class="clearfix">
+                    <div class="float-left"><nb-icon icon=""></nb-icon></div>
+                </div>
+                <nb-accordion class="col-md-12 row">
+                    <nb-accordion-item *ngFor="let roles of transferUserList;let i=index" >
                         <nb-accordion-item-header>
                             {{roles.name}}
                         </nb-accordion-item-header>
@@ -257,7 +254,7 @@
 
                             <div *ngFor="let users of roles.userDtoList;let i=index">
                                 <div class="col-md-12 row">
-                                    <div class="col-md-6">
+                                    <div>
                                         <a class="cursor">
                                             <div class="radio">
                                                 <label><input type="radio" name="optradio"
@@ -268,17 +265,18 @@
 
                                         </a>
                                     </div>
-                                    <div class="col-md-6">
-                                        <span *ngFor="let branch of users.branchDtoList;">
-                                            {{branch?.name}}
-                                        </span>
-                                    </div>
+<!--                                    <div class="col-md-4">-->
+<!--                                        <span *ngFor="let branch of users.branchDtoList;">-->
+<!--                                            {{branch?.name}}-->
+<!--                                        </span>-->
+<!--                                    </div>-->
                                 </div>
                             </div>
 
                         </nb-accordion-item-body>
                     </nb-accordion-item>
                 </nb-accordion>
+
             </nb-card-body>
             <nb-card-footer>
                 <button [disabled]="formAction.invalid"
