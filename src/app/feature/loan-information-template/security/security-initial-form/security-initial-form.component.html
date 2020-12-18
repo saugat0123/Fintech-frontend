@@ -255,23 +255,23 @@
                         <ng-container>
                             <div class="col-md-12"  *ngIf="securityForm.get(['landDetails' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.SALE)">
                                 <strong>Has transfer date elapsed by 1 year plus 35 days? </strong>
-                                <input class="ml-md-3" type="radio" value="Yes" formControlName="saleOwnershipTransfer" onchange="resetOtherTransferParameter('landDetails', i,true)">
+                                <input class="ml-md-3" type="radio" value="Yes" formControlName="saleOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
                                 <label>Yes</label>
-                                <input class="ml-md-3" type="radio" value="No" formControlName="saleOwnershipTransfer" onchange="resetOtherTransferParameter('landDetails', i,true)">
+                                <input class="ml-md-3" type="radio" value="No" formControlName="saleOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
                                 <label>No</label>
                             </div>
                             <div class="col-md-12"  *ngIf="securityForm.get(['landDetails' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.FAMILY_SEPARATION)">
                                 <strong>Has transfer date elapsed by 3 month? </strong>
-                                <input class="ml-md-3" type="radio" value="Yes" formControlName="familyTransferOwnershipTransfer" onchange="resetOtherTransferParameter('landDetails', i,true)">
+                                <input class="ml-md-3" type="radio" value="Yes" formControlName="familyTransferOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
                                 <label>Yes</label>
-                                <input class="ml-md-3" type="radio" value="No" formControlName="familyTransferOwnershipTransfer" onchange="resetOtherTransferParameter('landDetails', i,true)">
+                                <input class="ml-md-3" type="radio" value="No" formControlName="familyTransferOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
                                 <label>No</label>
                             </div>
                             <div class="col-md-12"  *ngIf="securityForm.get(['landDetails' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.GIFT_BAKASPATRA)">
                                 <strong>Has transfer date elapsed by 2 year plus 35 days? </strong>
-                                <input class="ml-md-3" type="radio" value="Yes" formControlName="giftOwnershipTransfer" onchange="resetOtherTransferParameter('landDetails', i,true)">
+                                <input class="ml-md-3" type="radio" value="Yes" formControlName="giftOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
                                 <label>Yes</label>
-                                <input class="ml-md-3" type="radio" value="No" formControlName="giftOwnershipTransfer" onchange="resetOtherTransferParameter('landDetails', i,true)">
+                                <input class="ml-md-3" type="radio" value="No" formControlName="giftOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
                                 <label>No</label>
                             </div>
                         </ng-container>
@@ -1373,24 +1373,24 @@
                             <ng-container>
                                 <div class="col-md-12"  *ngIf="securityForm.get(['landBuilding' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.SALE)">
                                     <strong>Has transfer date elapsed by 1 year plus 35 days? </strong>
-                                    <input class="ml-md-3" type="radio" value="Yes" formControlName="saleOwnershipTransfer" onchange="resetOtherTransferParameter('landBuilding', i,true)">
+                                    <input class="ml-md-3" type="radio" value="Yes" formControlName="saleOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
                                     <label>Yes</label>
-                                    <input class="ml-md-3" type="radio" value="No" formControlName="saleOwnershipTransfer" onchange="resetOtherTransferParameter('landBuilding', i,true)">
+                                    <input class="ml-md-3" type="radio" value="No" formControlName="saleOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
                                     <label>No</label>
 
                                 </div>
                                 <div class="col-md-12"  *ngIf="securityForm.get(['landBuilding' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.FAMILY_SEPARATION)">
                                     <strong>Has transfer date elapsed by 3 month? </strong>
-                                    <input class="ml-md-3" type="radio" value="Yes" formControlName="familyTransferOwnershipTransfer" onchange="resetOtherTransferParameter('landBuilding', i,true)">
+                                    <input class="ml-md-3" type="radio" value="Yes" formControlName="familyTransferOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
                                     <label>Yes</label>
-                                    <input class="ml-md-3" type="radio" value="No" formControlName="familyTransferOwnershipTransfer" onchange="resetOtherTransferParameter('landBuilding', i,true)">
+                                    <input class="ml-md-3" type="radio" value="No" formControlName="familyTransferOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
                                     <label>No</label>
                                 </div>
                                 <div class="col-md-12"  *ngIf="securityForm.get(['landBuilding' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.GIFT_BAKASPATRA)">
                                     <strong>Has transfer date elapsed by 2 year plus 35 days? </strong>
-                                    <input class="ml-md-3" type="radio" value="Yes" formControlName="giftOwnershipTransfer" onchange="resetOtherTransferParameter('landBuilding', i,true)">
+                                    <input class="ml-md-3" type="radio" value="Yes" formControlName="giftOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
                                     <label>Yes</label>
-                                    <input class="ml-md-3" type="radio" value="No" formControlName="giftOwnershipTransfer" onchange="resetOtherTransferParameter('landBuilding', i,true)">
+                                    <input class="ml-md-3" type="radio" value="No" formControlName="giftOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
                                     <label>No</label>
                                 </div>
                             </ng-container>
