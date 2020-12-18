@@ -92,6 +92,7 @@ export class TransferDocComponent implements OnInit {
         other.loanFormService.getCatalogues(other.transferdocservice.search, other.page, 10).subscribe((response: any) => {
             other.loanDataHolderList = response.detail.content;
             other.pageable = PaginationUtils.getPageable(response.detail);
+            // tslint:disable-next-line:max-line-length
             other.loanDataHolderList.forEach((l) => other.showHideTransferRespectToStatus.push({toggled: other.checkApprovedRejectOrCloseByStatus(l.documentStatus)}));
             other.spinner = false;
             other.transferToggle = true;
