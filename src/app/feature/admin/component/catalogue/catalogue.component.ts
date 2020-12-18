@@ -72,7 +72,7 @@ export class CatalogueComponent implements OnInit {
         value: string,
         closeRenewFilter: boolean   // affected by loan close renew filter
     }[] = [];
-    public typesPossibleDropdown: {name: string, value: string, closeRenewFilter: boolean}[] = [
+    public typesPossibleDropdown: { name: string, value: string, closeRenewFilter: boolean }[] = [
         {name: 'Update Loan', value: 'UPDATE_LOAN', closeRenewFilter: false},
         {name: 'Renew Loan', value: 'RENEWED_LOAN', closeRenewFilter: true},
         {name: 'Close Loan', value: 'CLOSURE_LOAN', closeRenewFilter: true},
@@ -198,8 +198,8 @@ export class CatalogueComponent implements OnInit {
             {
                 loanConfigId: [undefined],
                 customerLoanId: [undefined],
-                toUser: [undefined , Validators.required],
-                toRole: [undefined , Validators.required],
+                toUser: [undefined, Validators.required],
+                toRole: [undefined, Validators.required],
                 docAction: [undefined],
                 comment: [undefined, Validators.required],
                 documentStatus: [undefined]
@@ -314,9 +314,9 @@ export class CatalogueComponent implements OnInit {
         this.buildFilterForm();
     }
 
-    onTransferClick(template, customerLoanId, userId) {
+    onTransferClick(template, customerLoanId, userId, branchId) {
         this.transferSpinner = true;
-        this.userService.getUserListForTransfer(userId).subscribe((res: any) => {
+        this.userService.getUserListForTransfer(userId, branchId).subscribe((res: any) => {
             this.transferUserList = res.detail;
             this.transferSpinner = false;
         });
@@ -327,7 +327,7 @@ export class CatalogueComponent implements OnInit {
                 comment: 'TRANSFER'
             }
         );
-        this.modalService.open(template , {size: 'lg' , backdrop: 'static', keyboard: false});
+        this.modalService.open(template, {size: 'lg', backdrop: 'static', keyboard: false});
     }
 
     onClose() {
@@ -352,7 +352,7 @@ export class CatalogueComponent implements OnInit {
 
     }
 
-    docTransfer(userId, roleId , user) {
+    docTransfer(userId, roleId, user) {
         this.selectedUserForTransfer = user;
         const users = {id: userId};
         const role = {id: roleId};
@@ -365,13 +365,13 @@ export class CatalogueComponent implements OnInit {
 
     action(templates) {
         this.modalService.dismissAll();
-        this.modalService.open(templates , {backdrop: 'static', keyboard: false});
+        this.modalService.open(templates, {backdrop: 'static', keyboard: false});
     }
 
     confirm(comment: string) {
         this.transferSpinner = true;
         this.formAction.patchValue({
-           comment: comment
+            comment: comment
         });
         this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
