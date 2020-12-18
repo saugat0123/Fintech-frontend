@@ -341,14 +341,6 @@ export class LoanFormComponent implements OnInit {
                 });
             }
 
-            this.templateList.some((value, index) => {
-                if (value.name === 'Proposal') {
-                    this.templateList.push(this.templateList.splice(index, 1)[0]);
-                    return true;
-                }
-                return false;
-            });
-
             // Remove Customer Info Template for Business Loan Type
             if (CustomerType[this.allId.loanCategory] === CustomerType.INSTITUTION) {
                 this.templateList.forEach((value, i) => {
@@ -383,16 +375,34 @@ export class LoanFormComponent implements OnInit {
             this.riskQuestionService.getAllQuestions(this.id).subscribe(riskQsnRes => {
                 const crgQuestionsList = riskQsnRes.detail as Array<any>;
                 if (!(crgQuestionsList.length > 0)) {
-                    this.templateList.forEach((value, index) => {
-                        if (value.name === 'Credit Risk Grading - Gamma') {
-                            this.templateList.splice(index, 1);
-                        }
-                    });
+                    this.removeCrgGammaFromTemplateList();
                 }
+                this.pushProposalTemplateToLast();
             }, error => {
                 console.log(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Error while checking for available CRG-GAMMA questions!'));
+                this.removeCrgGammaFromTemplateList();
+                this.pushProposalTemplateToLast();
             });
+        });
+    }
+
+    pushProposalTemplateToLast() {
+        this.templateList.some((value, index) => {
+            if (value.name === 'Proposal') {
+                this.templateList.push(this.templateList.splice(index, 1)[0]);
+                return true;
+            }
+            return false;
+        });
+        this.totalTabCount = this.templateList.length;
+    }
+
+    removeCrgGammaFromTemplateList() {
+        this.templateList.forEach((value, index) => {
+            if (value.name === 'Credit Risk Grading - Gamma') {
+                this.templateList.splice(index, 1);
+            }
         });
     }
 
