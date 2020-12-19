@@ -129,7 +129,6 @@
           <th>Area</th>
           <th>Considered Value</th>
           <th>Fair Market Value</th>
-          <th>Address as per Legal Document</th>
         </tr>
         </thead>
         <tbody>
@@ -142,7 +141,6 @@
           <td>{{landBuilding?.area}}</td>
           <td>{{landBuilding?.landConsideredValue | currencyFormatter}}</td>
           <td>{{landBuilding?.marketValue | currencyFormatter}}</td>
-          <td>{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
         </tr>
         </tbody>
         <thead>
@@ -195,10 +193,12 @@
         <tr class="text-white sb-bg-dark">
           <th></th>
           <th>Alternative Representative Name</th>
+          <th>Address as per Legal Document</th>
         </tr>
         <tr>
           <td></td>
           <td>{{landBuilding?.landBuildingAlternateStaffRepresentativeName}}</td>
+          <td>{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
         </tr>
         <tr *ngIf="landBuilding.underConstructionChecked === true">
           <th colspan="8">Under Construction</th>
