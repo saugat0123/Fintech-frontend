@@ -1191,7 +1191,7 @@
                        </div>
                        <hr>
                        <div class="box-header with-border">
-                           <h5 class="box-title">11. Succession Planning</h5>
+                           <h5 class="box-title">11. Succession Risk</h5>
                        </div>
                        <div class="row">
                            <div class="col-md-12">
@@ -1200,13 +1200,13 @@
                                    <textarea [ngClass]="{ 'is-invalid': (submitted) && form.successionPlanning.errors }"
                                              class="form-control"
                                              formControlName="successionPlanning" id="successionPlanning"
-                                             name="successionPlanning" placeholder="Succession Planning"
+                                             name="successionPlanning" placeholder="Succession Risk"
                                              rows="5"
                                              type="text"></textarea>
                                    <div *ngIf="(submitted) && form.successionPlanning.invalid"
                                         class="invalid-feedback">
                                        <div *ngIf="form.successionPlanning.errors.required">
-                                           Planning is required
+                                           Succession Risk is required
                                        </div>
                                    </div>
                                </div>
