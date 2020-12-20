@@ -37,26 +37,39 @@
             </form>
       </div>
       <div *ngIf="task == 'Add'" class="modal-body">
-        <div class="row form-group">
-          <form>
-            <div class="col-md-12">
-              <input #nepseFile name="uploadNepse" type="file">
-              <br>
-              <div class="card" style="width: 29rem">
-                <div class="card-header">
-                  <b>Upload Format</b>
-                </div>
-                <div class="card-body">
-                  <img class="report-log img-thumbnail border-0"
-                       src="../../../../../assets/img/NepseCompanyUploadFormat.jpg" width="100%">
-                </div>
-                <div class="modal-footer">
-                  <input (click)="excelUpload(nepseFile)" class="btn btn-primary" type="submit">
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
+          <div>
+              <form [formGroup]="form" (ngSubmit)="excelUpload(nepseFile)">
+                  <div class="row form-group">
+                      <div class="col-md-6">
+                          <label for="sharePrice">Company Name</label>
+                          <input type="date" class="form-control" required
+                                 id="sharePrice" formControlName="sharePrice" placeholder="sharePrice"
+                          />
+                      </div>
+                      <div class="col-md-6">
+                          <label for="avgPrice">Share Amount per unit</label>
+                          <input type="text" class="form-control" placeholder="avgPrice" required
+                                 id="avgPrice" formControlName="avgPrice"
+                                 appDecimalNumber/>
+                      </div>
+                  </div>
+                  <input #nepseFile name="uploadNepse" type="file">
+                  <br>
+                  <div class="card" style="width: 29rem">
+                      <div class="card-header">
+                          <b>Upload Format</b>
+                      </div>
+                      <div class="card-body">
+                          <img class="report-log img-thumbnail border-0"
+                               src="../../../../../assets/img/NepseCompanyUploadFormat.jpg" width="100%">
+                      </div>
+                      <div class="modal-footer">
+                          <!--<button type="button" class="btn btn-primary">Bulk Upload</button>-->
+                          <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                      </div>
+                  </div>
+              </form>
+          </div>
       </div>
     </div>
 </div>
