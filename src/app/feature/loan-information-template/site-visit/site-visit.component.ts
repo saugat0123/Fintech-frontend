@@ -1201,6 +1201,7 @@ export class SiteVisitComponent implements OnInit {
       this.spinner = false;
     } , error => {
       console.log('error' , error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Error While Fetching List'));
       this.spinner = true;
     });
   }
