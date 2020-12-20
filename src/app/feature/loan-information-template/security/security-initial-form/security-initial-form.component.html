@@ -221,6 +221,74 @@
                                        type="text"/>
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title">Ownership transfer date</label>
+                                <input class="form-control rounded" formControlName="ownershipTransferDate"
+                                       name="ownershipTransferDate" placeholder="Ownership transfer date" [nbDatepicker]="ownershipDate"
+                                       *ngIf="calendarType === 'AD'">
+                                <app-calendar
+                                    (messageToEmit)="securityForm.get(['landDetails',i,'ownershipTransferDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="securityForm.get(['landDetails',i,'ownershipTransferDate']).value"></app-calendar>
+                                <nb-datepicker #ownershipDate></nb-datepicker>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title">Ownership transfer Through</label>
+                                <select class="form-control rounded" formControlName="ownershipTransferThrough"
+                                        name="ownershipTransferThrough" (change)="resetOtherTransferParameter('landDetails', i,false)">
+                                    <option  [value]="null" hidden>Select Ownership transfer through</option>
+                                    <option  *ngFor="let ownership of ownershipTransferEnumPair" [ngValue]="ownership.key">{{ownership.value}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3" *ngIf="securityForm.get(['landDetails',i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.OTHER)">
+                            <div class="form-group">
+                                <label class="title">Other</label>
+                                <input class="form-control rounded" formControlName="otherOwnershipTransferValue"
+                                       name="otherOwnershipTransferValue" placeholder="Other Ownership Transfer Mode"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <ng-container>
+                            <div class="col-md-12"  *ngIf="securityForm.get(['landDetails' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.SALE)">
+                                <strong>Has transfer date elapsed by 1 year plus 35 days? </strong>
+                                <input class="ml-md-3" type="radio" value="Yes" formControlName="saleOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
+                                <label>Yes</label>
+                                <input class="ml-md-3" type="radio" value="No" formControlName="saleOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
+                                <label>No</label>
+                            </div>
+                            <div class="col-md-12"  *ngIf="securityForm.get(['landDetails' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.FAMILY_SEPARATION)">
+                                <strong>Has transfer date elapsed by 3 month? </strong>
+                                <input class="ml-md-3" type="radio" value="Yes" formControlName="familyTransferOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
+                                <label>Yes</label>
+                                <input class="ml-md-3" type="radio" value="No" formControlName="familyTransferOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
+                                <label>No</label>
+                            </div>
+                            <div class="col-md-12"  *ngIf="securityForm.get(['landDetails' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.GIFT_BAKASPATRA)">
+                                <strong>Has transfer date elapsed by 2 year plus 35 days? </strong>
+                                <input class="ml-md-3" type="radio" value="Yes" formControlName="giftOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
+                                <label>Yes</label>
+                                <input class="ml-md-3" type="radio" value="No" formControlName="giftOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
+                                <label>No</label>
+                            </div>
+                        </ng-container>
+                        <ng-container>
+                            <div class="col-md-12 d-inline-flex" *ngIf="securityForm.get(['landDetails' , i,'saleOwnershipTransfer']).value === 'No'">
+                                <i>*Incase of No, specify registration amount in the transfer deed (as applicable)</i>
+                                <input class="form-control col-md-3" formControlName="saleRegistrationAmount" type="number" placeholder="Amount">
+                            </div>
+                            <div class="col-md-12 d-inline-flex" *ngIf="securityForm.get(['landDetails' , i,'familyTransferOwnershipTransfer']).value === 'No'">
+                                <i>*Incase of No, specify registration amount in the transfer deed (as applicable)</i>
+                                <input class="form-control col-md-3" formControlName="familyRegistrationAmount" type="number" placeholder="Amount">
+                            </div>
+                            <div class="col-md-12 d-inline-flex" *ngIf="securityForm.get(['landDetails' , i,'giftOwnershipTransfer']).value === 'No'">
+                                <i>*Incase of No, specify registration amount in the transfer deed (as applicable)</i>
+                                <input class="form-control col-md-3" formControlName="giftRegistrationAmount" type="number" placeholder="Amount">
+                            </div>
+                        </ng-container>
                         <div class="col-md-12">
                             <app-security-revaluation #revaluationComponent [valuators]="securityValuator?.landValuator[i]"
                                                       [oldValuation]="securityForm.get('landDetails').value"
@@ -1271,6 +1339,75 @@
                                            type="text"/>
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Ownership transfer date</label>
+                                    <input class="form-control rounded" formControlName="ownershipTransferDate"
+                                           name="ownershipTransferDate" placeholder="Ownership transfer date" [nbDatepicker]="ownershipDate"
+                                           *ngIf="calendarType === 'AD'">
+                                    <app-calendar
+                                        (messageToEmit)="securityForm.get(['landBuilding',i,'ownershipTransferDate']).patchValue($event?.eDate)"
+                                        *ngIf="calendarType === 'BS'"
+                                        [ePreDate]="securityForm.get(['landBuilding',i,'ownershipTransferDate']).value"></app-calendar>
+                                    <nb-datepicker #ownershipDate></nb-datepicker>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Ownership transfer Through</label>
+                                    <select class="form-control rounded" formControlName="ownershipTransferThrough"
+                                            name="ownershipTransferThrough" (change)="resetOtherTransferParameter('landBuilding', i,false)">
+                                        <option  [value]="null" hidden>Select Ownership transfer through</option>
+                                        <option  *ngFor="let ownership of ownershipTransferEnumPair" [ngValue]="ownership.key">{{ownership.value}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4" *ngIf="securityForm.get(['landBuilding',i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.OTHER)">
+                                <div class="form-group">
+                                    <label class="title">Other</label>
+                                    <input class="form-control rounded" formControlName="otherOwnershipTransferValue"
+                                           name="otherOwnershipTransferValue" placeholder="Other Ownership Transfer Mode"
+                                           type="text"/>
+                                </div>
+                            </div>
+                            <ng-container>
+                                <div class="col-md-12"  *ngIf="securityForm.get(['landBuilding' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.SALE)">
+                                    <strong>Has transfer date elapsed by 1 year plus 35 days? </strong>
+                                    <input class="ml-md-3" type="radio" value="Yes" formControlName="saleOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
+                                    <label>Yes</label>
+                                    <input class="ml-md-3" type="radio" value="No" formControlName="saleOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
+                                    <label>No</label>
+
+                                </div>
+                                <div class="col-md-12"  *ngIf="securityForm.get(['landBuilding' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.FAMILY_SEPARATION)">
+                                    <strong>Has transfer date elapsed by 3 month? </strong>
+                                    <input class="ml-md-3" type="radio" value="Yes" formControlName="familyTransferOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
+                                    <label>Yes</label>
+                                    <input class="ml-md-3" type="radio" value="No" formControlName="familyTransferOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
+                                    <label>No</label>
+                                </div>
+                                <div class="col-md-12"  *ngIf="securityForm.get(['landBuilding' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.GIFT_BAKASPATRA)">
+                                    <strong>Has transfer date elapsed by 2 year plus 35 days? </strong>
+                                    <input class="ml-md-3" type="radio" value="Yes" formControlName="giftOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
+                                    <label>Yes</label>
+                                    <input class="ml-md-3" type="radio" value="No" formControlName="giftOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
+                                    <label>No</label>
+                                </div>
+                            </ng-container>
+                            <ng-container>
+                                <div class="col-md-12 d-inline-flex" *ngIf="securityForm.get(['landBuilding' , i,'saleOwnershipTransfer']).value === 'No'">
+                                    <i>*Incase of No, specify registration amount in the transfer deed (as applicable)</i>
+                                    <input class="form-control col-md-3" formControlName="saleRegistrationAmount"  type="number" placeholder="Amount">
+                                </div>
+                                <div class="col-md-12 d-inline-flex" *ngIf="securityForm.get(['landBuilding' , i,'familyTransferOwnershipTransfer']).value === 'No'">
+                                    <i>*Incase of No, specify registration amount in the transfer deed (as applicable)</i>
+                                    <input class="form-control col-md-3" formControlName="familyRegistrationAmount"  type="number" placeholder="Amount">
+                                </div>
+                                <div class="col-md-12 d-inline-flex" *ngIf="securityForm.get(['landBuilding' , i,'giftOwnershipTransfer']).value === 'No'">
+                                    <i>*Incase of No, specify registration amount in the transfer deed (as applicable)</i>
+                                    <input class="form-control col-md-3" formControlName="giftRegistrationAmount"  type="number" placeholder="Amount">
+                                </div>
+                            </ng-container>
                             <div class="col-md-12">
                                 <app-security-revaluation #revaluationComponentLandBuilding
                                                           [valuators]="securityValuator?.buildingValuator[i]"
@@ -1859,6 +1996,20 @@
                                        type="text"/>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">Ownership transfer date</label>
+                                <input class="form-control rounded" formControlName="ownershipTransferDate"
+                                       *ngIf="calendarType === 'AD'"
+                                       name="ownershipTransferDate" placeholder="Ownership transfer date" [nbDatepicker]="ownershipDate">
+                                <app-calendar
+                                    (messageToEmit)="securityForm.get(['vehicleDetails',i,'ownershipTransferDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="securityForm.get(['vehicleDetails',i,'ownershipTransferDate']).value"></app-calendar>
+                                <nb-datepicker #ownershipDate></nb-datepicker>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -2086,6 +2237,18 @@
                                     <label for="consideredValue">Considered Value</label>
                                     <input class="form-control" formControlName="consideredValue"
                                            id="consideredValue" name="total" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Ownership transfer date</label>
+                                    <input class="form-control rounded" formControlName="ownershipTransferDate" *ngIf="calendarType === 'AD'"
+                                           name="ownershipTransferDate" placeholder="Ownership transfer date" [nbDatepicker]="ownershipDate">
+                                    <app-calendar
+                                        (messageToEmit)="shareSecurityForm.get(['shareSecurityDetails',shareFieldIndex,'ownershipTransferDate']).patchValue($event?.eDate)"
+                                        *ngIf="calendarType === 'BS'"
+                                        [ePreDate]="shareSecurityForm.get(['shareSecurityDetails',shareFieldIndex,'ownershipTransferDate']).value"></app-calendar>
+                                    <nb-datepicker #ownershipDate></nb-datepicker>
                                 </div>
                             </div>
                         </div>
