@@ -109,7 +109,7 @@
                                                formControlName="registrationNumber"
                                                id="registrationNumber"
                                                min="0" placeholder="Enter registration number"
-                                               type="text" (input)="checkRegistrationNumber(regNumber.value)"/>
+                                               type="text"/>
                                            <div *ngIf="submitted && form.registrationNumber.errors "
                                                 class="invalid-feedback">
                                                <div *ngIf="form.registrationNumber.errors.required">
@@ -197,13 +197,13 @@
                                    <div class="form-group">
                                        <label for="panNumber"><strong>PAN</strong></label>
                                        <div class="input-group mb-3">
-                                           <input
+                                           <input #PanNumber
                                                [ngClass]="{ 'is-invalid':submitted && form.companyPAN.errors }"
                                                class="form-control rounded"
                                                formControlName="companyPAN"
                                                id="panNumber"
                                                placeholder="Enter PAN"
-                                               type="text"/>
+                                               type="text" (input)="checkPanNumberNumber(PanNumber.value)"/>
                                            <div *ngIf="submitted && form.companyPAN.errors"
                                                 class="invalid-feedback">
                                                <div *ngIf="form.companyPAN.errors.required">
