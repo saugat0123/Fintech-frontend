@@ -1104,8 +1104,14 @@
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label class="title" for="position">Position</label>
-                                    <input class="form-control" formControlName="position" id="position"
-                                           name="position" placeholder="possition">
+                                    <select class="form-control"
+                                            formControlName="possition"
+                                            id="possition"
+                                            name="possition">
+                                        <option [ngValue]="null" hidden>Staff Representative Designation</option>
+                                        <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                                    </select>
                                 </div>
                                 <div *ngIf="inspectingStaffsLength()>1" class="col-md-2 form-group pt-4">
                                     <input (click)="deleteInspectingStaffs(i)"
