@@ -268,130 +268,129 @@
                   <td *ngIf="!fromProfile">{{dataForEdit?.callReportRemark}}</td>
 
                 </tr>
-                <tr>
-                  <td></td>
-                  <td><b>Review Checklist</b>
-                  </td>
-                  <td *ngIf="!fromProfile" colspan="3"></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>10.</td>
-                  <td>Self declaration on Bank Borrowing Obtained</td>
-                  <ng-container *ngIf="fromProfile">
+                <tr></tr>
+                  <tr *ngIf="customer === 'INDIVIDUAL'">
+                    <td></td>
+                    <td><b>Review Checklist</b>
+                    </td>
+                    <td *ngIf="!fromProfile" colspan="3"></td>
+                    <td></td>
+                  </tr>
+                  <tr *ngIf="customer === 'INDIVIDUAL'">
+                    <td>10.</td>
+                    <td>Self declaration on Bank Borrowing Obtained</td>
+                    <ng-container *ngIf="fromProfile">
 
-                    <td *ngFor="let option of optionList"><input [value]="option"
-                                                                 formControlName="selfDeclaration"
-                                                                 type="radio"></td>
-                  </ng-container>
-                  <td *ngIf="!fromProfile" colspan="3">{{dataForEdit?.selfDeclaration}}</td>
+                      <td *ngFor="let option of optionList"><input [value]="option"
+                                                                   formControlName="selfDeclaration"
+                                                                   type="radio"></td>
+                    </ng-container>
+                    <td *ngIf="!fromProfile" colspan="3">{{dataForEdit?.selfDeclaration}}</td>
 
-                  <td *ngIf="fromProfile"><input class="form-control" formControlName="selfDeclarationRemark"
-                                                 placeholder="Remarks"></td>
-                  <td *ngIf="!fromProfile">{{dataForEdit?.selfDeclarationRemark}}</td>
+                    <td *ngIf="fromProfile"><input class="form-control" formControlName="selfDeclarationRemark"
+                                                   placeholder="Remarks"></td>
+                    <td *ngIf="!fromProfile">{{dataForEdit?.selfDeclarationRemark}}</td>
 
-                </tr>
-                <tr>
-                  <td>11.</td>
-                  <td>The Applicant and PG's are not Blacklisted</td>
-                  <ng-container *ngIf="fromProfile">
+                  </tr>
+                  <tr *ngIf="customer === 'INDIVIDUAL'">
+                    <td>11.</td>
+                    <td>The Applicant and PG's are not Blacklisted</td>
+                    <ng-container *ngIf="fromProfile">
 
-                    <td *ngFor="let option of optionList"><input [value]="option"
-                                                                 formControlName="applicantPG"
-                                                                 type="radio"></td>
-                  </ng-container>
-                  <td *ngIf="!fromProfile" colspan="3">{{dataForEdit?.applicantPG}}</td>
+                      <td *ngFor="let option of optionList"><input [value]="option"
+                                                                   formControlName="applicantPG"
+                                                                   type="radio"></td>
+                    </ng-container>
+                    <td *ngIf="!fromProfile" colspan="3">{{dataForEdit?.applicantPG}}</td>
 
-                  <td *ngIf="fromProfile"><input class="form-control" formControlName="applicantPGRemark"
-                                                 placeholder="Remarks"></td>
-                  <td *ngIf="!fromProfile">{{dataForEdit?.applicantPGRemark}}</td>
+                    <td *ngIf="fromProfile"><input class="form-control" formControlName="applicantPGRemark"
+                                                   placeholder="Remarks"></td>
+                    <td *ngIf="!fromProfile">{{dataForEdit?.applicantPGRemark}}</td>
 
-                </tr>
-                <tr>
-                  <td>12.</td>
-                  <td>Net-Worth Declaration of applicant and Personal Guarantor have been obtained</td>
-                  <ng-container *ngIf="fromProfile">
+                  </tr>
+                  <tr *ngIf="customer === 'INDIVIDUAL'">
+                    <td>12.</td>
+                    <td>Net-Worth Declaration of applicant and Personal Guarantor have been obtained</td>
+                    <ng-container *ngIf="fromProfile">
 
-                    <td *ngFor="let option of optionList"><input [value]="option"
-                                                                 formControlName="netWorth"
-                                                                 type="radio"></td>
-                  </ng-container>
-                  <td *ngIf="!fromProfile" colspan="3">{{dataForEdit?.netWorth}}</td>
+                      <td *ngFor="let option of optionList"><input [value]="option"
+                                                                   formControlName="netWorth"
+                                                                   type="radio"></td>
+                    </ng-container>
+                    <td *ngIf="!fromProfile" colspan="3">{{dataForEdit?.netWorth}}</td>
 
-                  <td *ngIf="fromProfile"><input class="form-control" formControlName="netWorthRemark"
-                                                 placeholder="Remarks"></td>
-                  <td *ngIf="!fromProfile">{{dataForEdit?.netWorthRemark}}</td>
+                    <td *ngIf="fromProfile"><input class="form-control" formControlName="netWorthRemark"
+                                                   placeholder="Remarks"></td>
+                    <td *ngIf="!fromProfile">{{dataForEdit?.netWorthRemark}}</td>
 
-                </tr>
-                <tr>
-                  <td>13.</td>
-                  <td>Consent from all the legal heirs of the property owner will be obtained</td>
-                  <ng-container *ngIf="fromProfile">
+                  </tr>
+                  <tr *ngIf="customer === 'INDIVIDUAL'">
+                    <td>13.</td>
+                    <td>Consent from all the legal heirs of the property owner will be obtained</td>
+                    <ng-container *ngIf="fromProfile">
 
-                    <td *ngFor="let option of optionList"><input [value]="option"
-                                                                 formControlName="consentObtained"
-                                                                 type="radio"></td>
-                  </ng-container>
-                  <td *ngIf="!fromProfile" colspan="3">{{dataForEdit?.consentObtained}}</td>
+                      <td *ngFor="let option of optionList"><input [value]="option"
+                                                                   formControlName="consentObtained"
+                                                                   type="radio"></td>
+                    </ng-container>
+                    <td *ngIf="!fromProfile" colspan="3">{{dataForEdit?.consentObtained}}</td>
 
-                  <td *ngIf="fromProfile"><input class="form-control" formControlName="consentObtainedRemark"
-                                                 placeholder="Remarks"></td>
-                  <td *ngIf="!fromProfile">{{dataForEdit?.consentObtainedRemark}}</td>
+                    <td *ngIf="fromProfile"><input class="form-control" formControlName="consentObtainedRemark"
+                                                   placeholder="Remarks"></td>
+                    <td *ngIf="!fromProfile">{{dataForEdit?.consentObtainedRemark}}</td>
 
-                </tr>
-                <tr>
-                  <td>14.</td>
-                  <td>A Director of the Bank or his/her undivided family member is not a <i>Manager,
-                  Partner, Agent and Guarantor and does not have a direct financial interest in the
-                    Borrowing firm / company</i></td>
-                  <ng-container *ngIf="fromProfile">
+                  </tr>
+                  <tr *ngIf="customer === 'INDIVIDUAL'">
+                    <td>14.</td>
+                    <td>A Director of the Bank or his/her undivided family member is not a <i>Manager,
+                    Partner, Agent and Guarantor and does not have a direct financial interest in the
+                      Borrowing firm / company</i></td>
+                    <ng-container *ngIf="fromProfile">
 
-                    <td *ngFor="let option of optionList"><input [value]="option"
-                                                                 formControlName="directorUndivided"
-                                                                 type="radio"></td>
-                  </ng-container>
-                  <td *ngIf="!fromProfile" colspan="3">{{dataForEdit?.directorUndivided}}</td>
+                      <td *ngFor="let option of optionList"><input [value]="option"
+                                                                   formControlName="directorUndivided"
+                                                                   type="radio"></td>
+                    </ng-container>
+                    <td *ngIf="!fromProfile" colspan="3">{{dataForEdit?.directorUndivided}}</td>
 
-                  <td *ngIf="fromProfile"><input class="form-control" formControlName="directorUndividedRemark"
-                                                 placeholder="Remarks"></td>
-                  <td *ngIf="!fromProfile">{{dataForEdit?.directorUndividedRemark}}</td>
+                    <td *ngIf="fromProfile"><input class="form-control" formControlName="directorUndividedRemark"
+                                                   placeholder="Remarks"></td>
+                    <td *ngIf="!fromProfile">{{dataForEdit?.directorUndividedRemark}}</td>
 
-                </tr>
-                <tr>
-                  <td>15.</td>
-                  <td>A Director of the Bank or member of such Director's undivided family has not
-                  provided a Guarantee in favor of the Bank to secure loans and advances made to the Borrowing
-                  firm / company</td>
-                  <ng-container *ngIf="fromProfile">
+                  </tr>
+                  <tr *ngIf="customer === 'INDIVIDUAL'">
+                    <td>15.</td>
+                    <td>A Director of the Bank or member of such Director's undivided family has not
+                    provided a Guarantee in favor of the Bank to secure loans and advances made to the Borrowing
+                    firm / company</td>
+                    <ng-container *ngIf="fromProfile">
 
-                    <td *ngFor="let option of optionList"><input [value]="option"
-                                                                 formControlName="borrowingFirmCompany"
-                                                                 type="radio"></td>
-                  </ng-container>
-                  <td *ngIf="!fromProfile" colspan="3">{{dataForEdit?.borrowingFirmCompany}}</td>
+                      <td *ngFor="let option of optionList"><input [value]="option"
+                                                                   formControlName="borrowingFirmCompany"
+                                                                   type="radio"></td>
+                    </ng-container>
+                    <td *ngIf="!fromProfile" colspan="3">{{dataForEdit?.borrowingFirmCompany}}</td>
 
-                  <td *ngIf="fromProfile"><input class="form-control" formControlName="borrowingFirmCompanyRemark"
-                                                 placeholder="Remarks"></td>
-                  <td *ngIf="!fromProfile">{{dataForEdit?.borrowingFirmCompanyRemark}}</td>
+                    <td *ngIf="fromProfile"><input class="form-control" formControlName="borrowingFirmCompanyRemark"
+                                                   placeholder="Remarks"></td>
+                    <td *ngIf="!fromProfile">{{dataForEdit?.borrowingFirmCompanyRemark}}</td>
 
-                </tr>
-                <tr>
-                  <td>16.</td>
-                  <td>The Borrower is not a Promoter of the Bank or a Shareholder in the Promoter Group</td>
-                  <ng-container *ngIf="fromProfile">
+                  </tr>
+                  <tr *ngIf="customer === 'INDIVIDUAL'">
+                    <td>16.</td>
+                    <td>The Borrower is not a Promoter of the Bank or a Shareholder in the Promoter Group</td>
+                    <ng-container *ngIf="fromProfile">
 
-                    <td *ngFor="let option of optionList"><input [value]="option"
-                                                                 formControlName="borrowerPromoter"
-                                                                 type="radio"></td>
-                  </ng-container>
-                  <td *ngIf="!fromProfile" colspan="3">{{dataForEdit?.borrowerPromoter}}</td>
+                      <td *ngFor="let option of optionList"><input [value]="option"
+                                                                   formControlName="borrowerPromoter"
+                                                                   type="radio"></td>
+                    </ng-container>
+                    <td *ngIf="!fromProfile" colspan="3">{{dataForEdit?.borrowerPromoter}}</td>
 
-                  <td *ngIf="fromProfile"><input class="form-control" formControlName="borrowerPromoterRemark"
-                                                 placeholder="Remarks"></td>
-                  <td *ngIf="!fromProfile">{{dataForEdit?.borrowerPromoterRemark}}</td>
-
-                </tr>
-
+                    <td *ngIf="fromProfile"><input class="form-control" formControlName="borrowerPromoterRemark"
+                                                   placeholder="Remarks"></td>
+                    <td *ngIf="!fromProfile">{{dataForEdit?.borrowerPromoterRemark}}</td>
+                    </tr>
                 </tbody>
               </table>
             </div>

@@ -14,12 +14,14 @@ export class CreditChecklistGeneralComponent implements OnInit {
   @Input() formData: CreditChecklistGeneral;
   @Input() fromProfile;
   @Input() calendarType: CalendarType;
+  @Input() customerType;
 
   formGroupCheckList: FormGroup;
   dataForEdit;
   creditChecklistGeneral: CreditChecklistGeneral = new CreditChecklistGeneral();
   optionList = ['Yes', 'No', 'Na'];
   optionListRegulatory = ['Yes', 'No'];
+  public customer: string;
 
   constructor(private formBuilder: FormBuilder) {
   }
@@ -28,6 +30,7 @@ export class CreditChecklistGeneralComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.formData)) {
       this.creditChecklistGeneral = this.formData;
       this.dataForEdit = JSON.parse(this.formData.data);
+      this.customer = this.customerType;
     }
     this.buildForm(this.dataForEdit);
   }
