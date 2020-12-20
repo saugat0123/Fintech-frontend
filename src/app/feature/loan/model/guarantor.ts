@@ -32,4 +32,5 @@ export class Guarantor {
     fatherInLaw: string;
     profession: string;
     background: string;
+    guarantorLegalDocumentAddress: string;
 }

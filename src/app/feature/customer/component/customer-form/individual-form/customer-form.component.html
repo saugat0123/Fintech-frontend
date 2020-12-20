@@ -360,6 +360,21 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-6 form-group">
+                        <label class="title ml-3" for="customerLegalDocumentAddress"><strong>Address as per Legal Document</strong></label>
+                            <textarea class="form-control ml-3" cols="6"
+                                      [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerLegalDocumentAddress.errors }"
+                                      formControlName="customerLegalDocumentAddress"
+                                      id="customerLegalDocumentAddress"
+                                      placeholder="Address as per Legal Document"
+                                      rows="2" maxlength="256"></textarea>
+                            <div *ngIf="submitted && basicInfoControls.customerLegalDocumentAddress.errors"
+                                 class="invalid-feedback small">
+                                <div *ngIf="basicInfoControls.customerLegalDocumentAddress.errors.required">
+                                    Address as per legal document is required
+                                </div>
+                            </div>
+                    </div>
                 </div>
                 <div class="row ml-1">
                     <div class="col-md-12">

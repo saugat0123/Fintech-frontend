@@ -27,7 +27,6 @@ import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {Proposal} from '../../../admin/modal/proposal';
 import {CombinedLoanService} from '../../../service/combined-loan.service';
 import {CombinedLoan} from '../../model/combined-loan';
-import {IncomeFromAccount} from '../../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
 import {ToastService} from '../../../../@core/utils';
@@ -35,6 +34,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
+import {Customer} from '../../../admin/modal/customer';
 
 @Component({
     selector: 'app-loan-summary',
