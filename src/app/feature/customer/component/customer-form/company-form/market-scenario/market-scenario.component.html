@@ -107,10 +107,8 @@
 
     <div class="col-md-6">
       <div class="form-group">
-        <label for="BusinessIndustryOutlook"><strong>Industry/Market Risk</strong></label>
-        <textarea
-        <label *ngIf="switchLanguageType==='ENG'" for="BusinessIndustryOutlook"><strong>Business/Industry Outlook</strong></label>
-        <label *ngIf="switchLanguageType==='NEP'" for="BusinessIndustryOutlook"><strong>व्यवसाय / उद्योग आउटलुक</strong></label>
+        <label *ngIf="switchLanguageType==='ENG'" for="BusinessIndustryOutlook"><strong>Industry/Market Risk</strong></label>
+        <label *ngIf="switchLanguageType==='NEP'" for="BusinessIndustryOutlook"><strong>उद्योग / बजार जोखिम</strong></label>
         <textarea *ngIf="switchLanguageType==='ENG'"
             rows="5"
             [ngClass]="{ 'is-invalid':submitted && form.BusinessIndustryOutlook?.errors }"
@@ -165,10 +163,8 @@
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <label for="technicalAspect"><strong>Management Risk </strong></label>
-        <textarea
-        <label *ngIf="switchLanguageType==='ENG'" for="technicalAspect"><strong>Technical Aspect </strong></label>
-        <label *ngIf="switchLanguageType==='NEP'" for="technicalAspect"><strong>प्राविधिक पक्ष</strong></label>
+        <label *ngIf="switchLanguageType==='ENG'" for="technicalAspect"><strong>Management Risk </strong></label>
+        <label *ngIf="switchLanguageType==='NEP'" for="technicalAspect"><strong>व्यवस्थापन जोखिम</strong></label>
         <textarea *ngIf="switchLanguageType==='ENG'"
             rows="5"
             [ngClass]="{ 'is-invalid':submitted && form.technicalAspect?.errors }"
@@ -183,7 +179,7 @@
                 class="form-control rounded nepaliFont"
                 formControlName="technicalAspect"
                 id="technicalAspectInNepali"
-                placeholder="प्राविधिक पक्ष"
+                placeholder="व्यवस्थापन जोखिम"
                 type="text"></textarea>
         <div *ngIf="submitted && form.technicalAspect?.errors "
              class="invalid-feedback">
