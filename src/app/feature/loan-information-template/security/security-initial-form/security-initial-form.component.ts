@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastService} from '../../../../@core/utils';
 import {CalendarType} from '../../../../@core/model/calendar-type';
@@ -18,6 +18,7 @@ import {Editor} from '../../../../@core/utils/constants/editor';
 import {SecurityRevaluationComponent} from './security-revaluation/security-revaluation.component';
 import {SecurityIds} from './SecurityIds';
 import {DesignationList} from '../../../loan/model/designationList';
+import {OwnershipTransfer} from '../../../loan/model/ownershipTransfer';
 
 
 @Component({
@@ -94,6 +95,8 @@ export class SecurityInitialFormComponent implements OnInit {
     shareSecurityData: ShareSecurity = new ShareSecurity();
     typeOfProperty = ['Rajkar', 'Guthi', 'Others'];
     designationList: DesignationList = new DesignationList();
+    ownershipTransferEnumPair = OwnershipTransfer.enumObject();
+    ownershipTransfers = OwnershipTransfer;
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -103,7 +106,7 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.configEditor();
+      this.configEditor();
         this.shareService.findAllNepseCompanyData(this.search).subscribe((list) => {
             this.nepseList = list.detail;
         });
@@ -283,6 +286,16 @@ export class SecurityInitialFormComponent implements OnInit {
                     landAlternateStaffRepresentativeName: [singleData.landAlternateStaffRepresentativeName],
                     landAlternateStaffRepresentativeDesignation: [singleData.landAlternateStaffRepresentativeDesignation],
                     landSecurityLegalDocumentAddress: [singleData.landSecurityLegalDocumentAddress],
+                  ownershipTransferDate:  [ObjectUtil.isEmpty(singleData.ownershipTransferDate) ?
+                      undefined : new Date(singleData.ownershipTransferDate)],
+                  ownershipTransferThrough: [singleData.ownershipTransferThrough],
+                  otherOwnershipTransferValue: [singleData.otherOwnershipTransferValue],
+                  saleOwnershipTransfer: [singleData.saleOwnershipTransfer],
+                  familyTransferOwnershipTransfer: [singleData.familyTransferOwnershipTransfer],
+                  giftOwnershipTransfer: [singleData.giftOwnershipTransfer],
+                  saleRegistrationAmount: [singleData.saleRegistrationAmount],
+                  familyRegistrationAmount: [singleData.familyRegistrationAmount],
+                  giftRegistrationAmount: [singleData.giftRegistrationAmount],
                 })
             );
         });
@@ -436,6 +449,16 @@ export class SecurityInitialFormComponent implements OnInit {
                     buildingValuatorRepresentative: [singleData.buildingValuatorRepresentative],
                     buildingStaffRepresentativeName: [singleData.buildingStaffRepresentativeName],
                     buildingBranch: [singleData.buildingBranch],
+                    ownershipTransferDate:  [ObjectUtil.isEmpty(singleData.ownershipTransferDate) ?
+                        undefined : new Date(singleData.ownershipTransferDate)],
+                    ownershipTransferThrough: [singleData.ownershipTransferThrough],
+                    saleOwnershipTransfer: [singleData.saleOwnershipTransfer],
+                    otherOwnershipTransferValue: [singleData.otherOwnershipTransferValue],
+                    familyTransferOwnershipTransfer: [singleData.familyTransferOwnershipTransfer],
+                    giftOwnershipTransfer: [singleData.giftOwnershipTransfer],
+                    saleRegistrationAmount: [singleData.saleRegistrationAmount],
+                    familyRegistrationAmount: [singleData.familyRegistrationAmount],
+                    giftRegistrationAmount: [singleData.giftRegistrationAmount],
                     ownerConstruction: [singleData.ownerConstruction],
                     locationConstruction: [singleData.locationConstruction],
                     plotNumberConstruction: [singleData.plotNumberConstruction],
@@ -700,6 +723,16 @@ export class SecurityInitialFormComponent implements OnInit {
             landAlternateStaffRepresentativeName: [undefined],
             landAlternateStaffRepresentativeDesignation: [undefined],
             landSecurityLegalDocumentAddress: [undefined],
+          ownershipTransferDate: undefined,
+          ownershipTransferThrough: undefined,
+          otherOwnershipTransferValue: undefined,
+          saleOwnershipTransfer: undefined,
+          familyTransferOwnershipTransfer: undefined,
+          giftOwnershipTransfer: undefined,
+          saleRegistrationAmount: undefined,
+          familyRegistrationAmount: undefined,
+          giftRegistrationAmount: undefined,
+
         });
     }
 
@@ -758,6 +791,15 @@ export class SecurityInitialFormComponent implements OnInit {
             landConsideredValue: [undefined],
             typeOfProperty: [undefined],
             modeOfTransfer: [undefined],
+            ownershipTransferDate: [undefined],
+            ownershipTransferThrough: [undefined],
+            otherOwnershipTransferValue: undefined,
+            saleOwnershipTransfer: [undefined],
+            familyTransferOwnershipTransfer: [undefined],
+            giftOwnershipTransfer: [undefined],
+            saleRegistrationAmount: [undefined],
+            familyRegistrationAmount: [undefined],
+            giftRegistrationAmount: [undefined],
             ownerConstruction: undefined,
             locationConstruction: undefined,
             plotNumberConstruction: undefined,
@@ -906,7 +948,8 @@ export class SecurityInitialFormComponent implements OnInit {
             vehicalAlternateStaffRepresentativeDesignation: [undefined],
             vehicalAlternateStaffRepresentativeName: [undefined],
             showroomAddress: undefined,
-            showroomName: undefined
+            showroomName: undefined,
+            ownershipTransferDate:  undefined
         });
     }
 
@@ -947,7 +990,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     vehicalAlternateStaffRepresentativeDesignation: [singleData.vehicalAlternateStaffRepresentativeDesignation],
                     vehicalAlternateStaffRepresentativeName: [singleData.vehicalAlternateStaffRepresentativeName],
                     showroomAddress: [singleData.showroomAddress],
-                    showroomName: [singleData.showroomName]
+                    showroomName: [singleData.showroomName],
+                    ownershipTransferDate:  [ObjectUtil.isEmpty(singleData.ownershipTransferDate) ?
+                      undefined : new Date(singleData.ownershipTransferDate)],
                 })
             );
         });
@@ -1099,7 +1144,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     totalShareUnit: [share.totalShareUnit],
                     amountPerUnit: [share.amountPerUnit],
                     total: [share.total],
-                    consideredValue: [share.consideredValue]
+                    consideredValue: [share.consideredValue],
+                    ownershipTransferDate:  [ObjectUtil.isEmpty(share.ownershipTransferDate) ?
+                      undefined : new Date(share.ownershipTransferDate)],
                 })
             );
         });
@@ -1115,7 +1162,8 @@ export class SecurityInitialFormComponent implements OnInit {
             totalShareUnit: [''],
             amountPerUnit: [''],
             total: [''],
-            consideredValue: ['']
+            consideredValue: [''],
+            ownershipTransferDate:  undefined
         });
     }
 
@@ -1352,5 +1400,18 @@ export class SecurityInitialFormComponent implements OnInit {
         this.securityForm.get(['buildingUnderConstructions', i ,
           'buildingDetailsAfterCompletion', 'buildingTotalCost']).patchValue(afterTotalApartmentCost);
     }
+  }
+
+  resetOtherTransferParameter(formArray, index: number, resetAmountOnly: boolean) {
+    this.securityForm.get([formArray, index, 'saleRegistrationAmount']).patchValue(undefined);
+    this.securityForm.get([formArray, index, 'familyRegistrationAmount']).patchValue(undefined);
+    this.securityForm.get([formArray, index, 'giftRegistrationAmount']).patchValue(undefined);
+    if (resetAmountOnly) {
+      return;
+    }
+    this.securityForm.get([formArray, index, 'saleOwnershipTransfer']).patchValue(undefined);
+    this.securityForm.get([formArray, index, 'familyTransferOwnershipTransfer']).patchValue(undefined);
+    this.securityForm.get([formArray, index, 'giftOwnershipTransfer']).patchValue(undefined);
+
   }
 }
