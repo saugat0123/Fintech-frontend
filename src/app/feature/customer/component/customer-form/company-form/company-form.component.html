@@ -925,6 +925,23 @@
                                   type="button"
                                   value="Add More"/>
                        </div>
+                       <div class="col-md-6">
+                           <div class="form-group">
+                               <label for="companyLegalDocumentAddress"><strong>Address as per Legal Document</strong></label>
+                               <textarea [ngClass]="{ 'is-invalid': (submitted) && form.companyLegalDocumentAddress.errors }"
+                                         class="form-control"
+                                         formControlName="companyLegalDocumentAddress" id="companyLegalDocumentAddress"
+                                         name="companyLegalDocumentAddress" placeholder="Address as per Legal Document"
+                                         rows="5"
+                                         type="text" maxlength="256"></textarea>
+                               <div *ngIf="(submitted) && form.companyLegalDocumentAddress.invalid"
+                                    class="invalid-feedback">
+                                   <div *ngIf="form.companyLegalDocumentAddress.errors.required">
+                                       Address as per legal document is required
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
                        <hr>
                        <!--Information of Proprietor/Shareholder/Partner-->
                        <div class="box-header with-border">

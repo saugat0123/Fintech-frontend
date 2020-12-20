@@ -23,5 +23,4 @@ export class IndividualViewComponent implements OnInit {
   ngOnInit() {
   }
 
-
 }
