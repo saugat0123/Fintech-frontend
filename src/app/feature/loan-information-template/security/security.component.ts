@@ -309,7 +309,7 @@ export class SecurityComponent implements OnInit {
                 case 'Land and Building Security':
                      const landBuildingArray = securityData.initialForm.landBuilding as Array<any>;
                         for (let i = 0; i < landBuildingArray.length; i++) {
-                            totalSecurityAmount = Number(landBuildingArray[i].landConsideredValue);
+                            totalSecurityAmount += Number(landBuildingArray[i].landConsideredValue);
                     }
                     break;
                 case 'FixedDeposit':

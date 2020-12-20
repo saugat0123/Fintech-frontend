@@ -13,20 +13,20 @@
                                 size="small">
                             <i class="fa fa-filter"> Filter</i>
                         </button>
-                      <div style="zoom:70%">
-                        <nb-toggle (checkedChange)="onChangeTransferToggle($event)"
-                                   class="pt-2 pl-4" [disabled]="!transferToggle" height>
-                            <strong class="f-18">Transferred</strong>
-                        </nb-toggle>
-                        <nb-toggle (checkedChange)="onChangeShareToggle($event)"
-                                   [disabled]="!shareToggle" class="pt-2 pl-4">
-                          <strong class="f-18">Show Share Loan Exceeding Limit</strong>
-                        </nb-toggle>
-                        <nb-toggle (checkedChange)="onChangeInsuranceToggle($event)"
-                                   [disabled]="!insuranceToggle" class="pt-2 pl-4">
-                          <strong class="f-18">Insurance Expiry</strong>
-                        </nb-toggle>
-                      </div>
+                        <div style="zoom:70%">
+                            <nb-toggle (checkedChange)="onChangeTransferToggle($event)"
+                                       class="pt-2 pl-4" [disabled]="!transferToggle" height>
+                                <strong class="f-18">Transferred</strong>
+                            </nb-toggle>
+                            <nb-toggle (checkedChange)="onChangeShareToggle($event)"
+                                       [disabled]="!shareToggle" class="pt-2 pl-4">
+                                <strong class="f-18">Show Share Loan Exceeding Limit</strong>
+                            </nb-toggle>
+                            <nb-toggle (checkedChange)="onChangeInsuranceToggle($event)"
+                                       [disabled]="!insuranceToggle" class="pt-2 pl-4">
+                                <strong class="f-18">Insurance Expiry</strong>
+                            </nb-toggle>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-2 d-flex justify-content-end">
@@ -107,14 +107,15 @@
                                placeholder="Enter customer name">
                     </div>
 
-<!--                    <div class="col-md-3 mb-3">-->
-<!--                        <input class="form-control rounded" formControlName="companyName" id="companyName"-->
-<!--                               placeholder="Enter company name">-->
-<!--                    </div>-->
+                    <!--                    <div class="col-md-3 mb-3">-->
+                    <!--                        <input class="form-control rounded" formControlName="companyName" id="companyName"-->
+                    <!--                               placeholder="Enter company name">-->
+                    <!--                    </div>-->
                 </div>
 
                 <div class="col-md-12 p-0">
-                    <button [disabled]="!filterForm.valid" nbButton size="small" status="info" shape="rectangle" class="mr-2"
+                    <button [disabled]="!filterForm.valid" nbButton size="small" status="info" shape="rectangle"
+                            class="mr-2"
                             type="submit">Search
                     </button>
                     <button (click)="clearSearch()" nbButton shape="rectangle" size="small" status="danger">Clear
@@ -159,7 +160,7 @@
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.loan?.name}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">
                     <span
-                        class="d-flex justify-content-end">{{model?.proposal?.proposedLimit | number}}</span>
+                            class="d-flex justify-content-end">{{model?.proposal?.proposedLimit | number}}</span>
                 </td>
                 <td (click)="onClick(model.loan.id,model.id)">{{loanType[model?.loanType]}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.documentStatus}}</td>
@@ -193,9 +194,21 @@
                     </div>
                 </td>
                 <td *ngIf="transferDoc">
-                    <button nbButton status="warning" size="tiny"
-                            (click)="onTransferClick(transferDocument,model.id,model?.currentStage?.toUser?.id)">
-                        <em class="fa fa-arrow-circle-right"></em></button>
+                    <div *ngIf='model?.documentStatus.toString()==="PENDING" ||
+                         model?.documentStatus.toString()==="DOCUMENTATION" ||
+                         model?.documentStatus.toString()==="DISCUSSION" ||
+                         model?.documentStatus.toString()==="UNDER_REVIEW" ||
+                         model?.documentStatus.toString()==="VALUATION"'>
+                        <button nbButton status="warning" size="tiny"
+                                (click)="onTransferClick(transferDocument,model.id,model?.currentStage?.toUser?.id,model?.branch?.id)">
+                            <em class="fa fa-arrow-circle-right"></em></button>
+                    </div>
+                    <div *ngIf='(model?.documentStatus.toString()==="CLOSED" ||
+                        model?.documentStatus.toString()==="REJECTED" ||
+                        model?.documentStatus.toString()==="APPROVED")'>
+                        NA
+                    </div>
+
                 </td>
                 <td>
                     <div (click)="onClick(model.loan.id,model.id)">
@@ -207,9 +220,11 @@
                             (ngModelChange)="onChange(model,onActionChange)">
                         <option [value]="null" selected hidden>Select Type</option>
                         <ng-container *ngIf="showUpdateLoanInfo(model?.loanHolder?.loanFlags)">
-                            <option value="UPDATE_LOAN_INFORMATION" [ngStyle]="{color: 'red'}">Update Loan Information</option>
+                            <option value="UPDATE_LOAN_INFORMATION" [ngStyle]="{color: 'red'}">Update Loan Information
+                            </option>
                         </ng-container>
-                        <ng-container *ngIf="model.documentStatus == docStatus[docStatus.APPROVED] && !model.isCloseRenew ">
+                        <ng-container
+                                *ngIf="model.documentStatus == docStatus[docStatus.APPROVED] && !model.isCloseRenew ">
                             <option value="RENEWED_LOAN">Renew Loan</option>
                             <option value="CLOSURE_LOAN">Close Loan</option>
                             <option value="ENHANCED_LOAN">Enhance Loan</option>
@@ -239,66 +254,69 @@
     </nb-card-body>
 
     <ng-template #transferDocument>
-       <nb-card accent="primary" class="transfer-modal"
-                [nbSpinner]="transferSpinner"
-                nbSpinnerStatus="primary"
-                nbSpinnerSize="large"
-                nbSpinnerMessage="loading users for transfer....">
-           <nb-card-header>
-               <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
-                   <span aria-hidden="true">&times;</span>
-               </a>
-               <h4>Transfer Loan Document</h4>
-           </nb-card-header>
-           <nb-card-body>
-                   <nb-accordion>
-                       <nb-accordion-item *ngFor="let roles of transferUserList;let i=index">
-                           <nb-accordion-item-header>
-                               {{roles.name}}
-                           </nb-accordion-item-header>
-                           <nb-accordion-item-body>
+        <nb-card accent="primary" class="transfer-modal"
+                 [nbSpinner]="transferSpinner"
+                 nbSpinnerStatus="primary"
+                 nbSpinnerSize="large"
+                 nbSpinnerMessage="loading users for transfer....">
+            <nb-card-header>
+                <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <h4>Transfer Loan Document</h4>
+            </nb-card-header>
+            <nb-card-body>
+                <nb-accordion>
+                    <nb-accordion-item *ngFor="let roles of transferUserList;let i=index">
+                        <nb-accordion-item-header>
+                            {{roles.name}}
+                        </nb-accordion-item-header>
+                        <nb-accordion-item-body>
 
-                               <div *ngFor="let users of roles.userDtoList;let i=index">
-                                   <div class="col-md-12 row">
-                                       <div class="col-md-6">
-                                           <a class="cursor">
-                                               <div class="radio">
-                                                   <label><input type="radio" name="optradio"
-                                                                    (click)="docTransfer(users.id,roles.id , users)">
-                                                       <strong class="ml-2">{{users.username}}</strong>
-                                                   </label>
-                                               </div>
+                            <div *ngFor="let users of roles.userDtoList;let i=index">
+                                <div class="col-md-12 row">
+                                    <div class="col-md-6">
+                                        <a class="cursor">
+                                            <div class="radio">
+                                                <label><input type="radio" name="optradio"
+                                                              (click)="docTransfer(users.id,roles.id , users)">
+                                                    <strong class="ml-2">{{users.username}}</strong>
+                                                </label>
+                                            </div>
 
-                                           </a>
-                                       </div>
-                                       <div class="col-md-6">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6">
                                         <span *ngFor="let branch of users.branchDtoList;">
                                             {{branch?.name}}
                                         </span>
-                                       </div>
-                                   </div>
-                               </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                           </nb-accordion-item-body>
-                       </nb-accordion-item>
-                   </nb-accordion>
-           </nb-card-body>
-           <nb-card-footer>
-                   <button [disabled]="formAction.invalid"
-                           [ngStyle]="{ 'filter' : (formAction.invalid)? 'grayscale(100%)': 'grayscale(0%)'}"
-                           type="submit" class="btn btn-success float-right" (click)="action(confirmation)">Next</button>
-           </nb-card-footer>
-       </nb-card>
+                        </nb-accordion-item-body>
+                    </nb-accordion-item>
+                </nb-accordion>
+            </nb-card-body>
+            <nb-card-footer>
+                <button [disabled]="formAction.invalid"
+                        [ngStyle]="{ 'filter' : (formAction.invalid)? 'grayscale(100%)': 'grayscale(0%)'}"
+                        type="submit" class="btn btn-success float-right" (click)="action(confirmation)">Next
+                </button>
+            </nb-card-footer>
+        </nb-card>
     </ng-template>
 
     <ng-template #confirmation>
         <nb-card accent="primary"
                  [nbSpinner]="transferSpinner"
                  [nbSpinnerMessage]="'Transferring loan to ' + selectedUserForTransfer?.username + '...'">
-            <nb-card-header>Do you want to transfer this loan to <b>{{selectedUserForTransfer?.username}}</b>?</nb-card-header>
+            <nb-card-header>Do you want to transfer this loan to <b>{{selectedUserForTransfer?.username}}</b>?
+            </nb-card-header>
             <nb-card-body>
                 <label for="comment">Reason to transfer loan</label>
-                <textarea rows="9" #comment id="comment" class="form-control" placeholder="Comments for transfer"></textarea>
+                <textarea rows="9" #comment id="comment" class="form-control"
+                          placeholder="Comments for transfer"></textarea>
             </nb-card-body>
             <nb-card-footer>
                 <div class="d-flex justify-content-end">
@@ -306,7 +324,8 @@
                         Cancel
                     </button>
                     <button [ngStyle]="{ 'filter' : (comment.value == undefined || comment.value == '')? 'grayscale(100%)': 'grayscale(0%)'}"
-                            [disabled]="comment.value == undefined || comment.value == ''" type="submit" class="btn btn-primary  btn-flat" (click)="confirm(comment.value)">
+                            [disabled]="comment.value == undefined || comment.value == ''" type="submit"
+                            class="btn btn-primary  btn-flat" (click)="confirm(comment.value)">
                         Confirm
                     </button>
                 </div>
