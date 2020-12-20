@@ -10,6 +10,7 @@ import {Pattern} from '../../../@core/utils/constants/pattern';
 import {DesignationList} from '../../loan/model/designationList';
 import {InsuranceList} from '../../loan/model/insuranceList';
 import {CommonAddressComponent} from '../../common-address/common-address.component';
+import {RoleService} from '../../admin/component/role-permission/role.service';
 
 
 declare let google: any;
@@ -51,12 +52,14 @@ export class SiteVisitComponent implements OnInit {
   majorMarketPlaceDistance = ['less than 500M', '500M to 1KM', '1KM to 2KM', 'More than 2KM'];
   yesNo = ['Yes', 'No'];
   date: Date;
-  designationList: DesignationList = new DesignationList();
+  designationList = [];
   insuranceList = InsuranceList.insuranceCompanyList;
+  spinner = false;
 
   constructor(private formBuilder: FormBuilder,
               dateService: NbDateService<Date>,
-              private toastService: ToastService) {
+              private toastService: ToastService,
+              private roleService: RoleService) {
     this.date = dateService.today();
   }
 
@@ -113,6 +116,7 @@ export class SiteVisitComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getRoleList();
     if (!ObjectUtil.isEmpty(this.formValue)) {
       const stringFormData = this.formValue.data;
       this.formDataForEdit = JSON.parse(stringFormData);
@@ -1184,10 +1188,21 @@ export class SiteVisitComponent implements OnInit {
         this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
           formControl, 'sixMonthTotal']).value + this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
           formControl, 'oneYearTotal']).value + this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
-          formControl, 'moreThanOneYearTotal']).value ;
+          formControl, 'moreThanOneYearTotal']).value;
     this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
       formControl, 'grandTotal']).patchValue(grandTotal);
 
+  }
+
+  getRoleList() {
+    this.spinner = true;
+    this.roleService.getAll().subscribe(res => {
+      this.designationList = res.detail;
+      this.spinner = false;
+    } , error => {
+      console.log('error' , error);
+      this.spinner = true;
+    });
   }
 }
 

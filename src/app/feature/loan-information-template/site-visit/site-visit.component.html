@@ -1,4 +1,8 @@
-<nb-card>
+<nb-card [nbSpinner]="spinner"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="large"
+         nbSpinnerMessage="Loading Data Please Wait..."
+         status="primary">
     <nb-card-body>
         <form [formGroup]="siteVisitFormGroup" class="form-horizontal">
             <div class="row justify-content-around">
@@ -62,8 +66,8 @@
                             id="staffRepresentativeNameDesignation"
                             name="staffRepresentativeNameDesignation">
                         <option [ngValue]="null" hidden>Staff Representative Designation</option>
-                        <option *ngFor="let designation of designationList.designation"
-                                [ngValue]="designation.id">{{designation.name}}</option>
+                        <option *ngFor="let designation of designationList"
+                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                     </select>
                 </div>
                 <div class="col-md-4 form-group">
@@ -84,8 +88,8 @@
                         <option [ngValue]="null" hidden>Alternative Staff Representative
                             Designation
                         </option>
-                        <option *ngFor="let designation of designationList.designation"
-                                [ngValue]="designation.id">{{designation.name}}</option>
+                         <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                     </select>
                 </div>
                 <div class="col-md-4 form-group">
@@ -180,8 +184,8 @@
                             id="staffRepresentativeNameDesignationBusiness"
                             name="staffRepresentativeNameDesignation">
                         <option [ngValue]="null" hidden>Staff Representative Designation</option>
-                        <option *ngFor="let designation of designationList.designation"
-                                [ngValue]="designation.id">{{designation.name}}</option>
+                         <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                     </select>
                 </div>
                 <div class="col-md-4 form-group">
@@ -202,8 +206,8 @@
                         <option [ngValue]="null" hidden>Alternative Staff Representative
                             Designation
                         </option>
-                        <option *ngFor="let designation of designationList.designation"
-                                [ngValue]="designation.id">{{designation.name}}</option>
+                         <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                     </select>
                 </div>
                 <div class="col-md-4 form-group">
@@ -506,8 +510,8 @@
                                             id="staffRepresentativeNameDesignationFac"
                                             name="staffRepresentativeNameDesignation">
                                         <option [ngValue]="null" hidden>Staff Representative Designation</option>
-                                        <option *ngFor="let designation of designationList.designation"
-                                                [ngValue]="designation.id">{{designation.name}}</option>
+                                         <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 form-group">
@@ -528,8 +532,8 @@
                                         <option [ngValue]="null" hidden>Alternative Staff Representative
                                             Designation
                                         </option>
-                                        <option *ngFor="let designation of designationList.designation"
-                                                [ngValue]="designation.id">{{designation.name}}</option>
+                                         <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 form-group">
@@ -687,8 +691,8 @@
                                             id="staffRepresentativeNameDesignationCurrent"
                                             name="staffRepresentativeNameDesignation">
                                         <option [ngValue]="null" hidden>Staff Representative Designation</option>
-                                        <option *ngFor="let designation of designationList.designation"
-                                                [ngValue]="designation.id">{{designation.name}}</option>
+                                         <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 form-group">
@@ -709,8 +713,8 @@
                                         <option [ngValue]="null" hidden>Alternative Staff Representative
                                             Designation
                                         </option>
-                                        <option *ngFor="let designation of designationList.designation"
-                                                [ngValue]="designation.id">{{designation.name}}</option>
+                                        <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 form-group">
