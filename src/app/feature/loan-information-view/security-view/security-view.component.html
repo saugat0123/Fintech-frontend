@@ -64,6 +64,7 @@
         <th></th>
         <th>Type of Property</th>
         <th>Mode of Transfer</th>
+        <th>Address as per Legal Document</th>
         <th>Ownership transfer date</th>
        <th> Ownership transfer Through</th>
         <th *ngIf="landDetails.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 1 year plus 35 days? </th>
@@ -80,6 +81,7 @@
         <td></td>
         <td>{{landDetails?.typeOfProperty}}</td>
         <td>{{landDetails?.modeOfTransfer}}</td>
+        <td>{{landDetails?.landSecurityLegalDocumentAddress}}</td>
         <td>{{landDetails?.ownershipTransferDate | date}}</td>
         <td>{{ownerShipTransfer[landDetails?.ownershipTransferThrough]}}</td>
         <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE'">{{landDetails?.saleOwnershipTransfer}}</td>
@@ -212,6 +214,7 @@
         <tr class="text-white sb-bg-dark">
           <th></th>
           <th>Alternative Representative Name</th>
+          <th>Address as per Legal Document</th>
           <th>Ownership transfer date</th>
           <th> Ownership transfer Through</th>
           <th *ngIf="landBuilding.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 1 year plus 35 days? </th>
@@ -225,6 +228,7 @@
         <tr>
           <td></td>
           <td>{{landBuilding?.landBuildingAlternateStaffRepresentativeName}}</td>
+          <td>{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
           <td>{{landBuilding?.ownershipTransferDate | date}}</td>
           <td>{{ownerShipTransfer[landBuilding?.ownershipTransferThrough]}}</td>
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'">{{landBuilding?.saleOwnershipTransfer}}</td>

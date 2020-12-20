@@ -52,6 +52,7 @@ export class CustomerFormComponent implements OnInit {
     @Input() subSectorDetailCodeInput: any;
     @Input() gender;
     @Input() maritalStatus;
+    @Input() customerLegalDocumentAddress;
     calendarType = 'AD';
     @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -252,6 +253,7 @@ export class CustomerFormComponent implements OnInit {
                     this.customer.subsectorDetail = this.basicInfo.get('subsectorDetail').value;
                     this.customer.gender = this.basicInfo.get('gender').value;
                     this.customer.maritalStatus = this.basicInfo.get('maritalStatus').value;
+                    this.customer.customerLegalDocumentAddress = this.basicInfo.get('customerLegalDocumentAddress').value;
                     const occupations = {
                         multipleOccupation: this.basicInfo.get('occupation').value,
                         otherOccupation: this.basicInfo.get('otherOccupation').value
@@ -361,6 +363,8 @@ export class CustomerFormComponent implements OnInit {
                 this.gender, Validators.required],
             maritalStatus: [this.maritalStatus === null ? undefined :
                 this.maritalStatus, Validators.required],
+            customerLegalDocumentAddress: [this.customerLegalDocumentAddress == null ? undefined :
+            this.customerLegalDocumentAddress, Validators.required],
 
         });
     }
