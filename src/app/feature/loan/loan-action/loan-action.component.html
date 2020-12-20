@@ -74,7 +74,7 @@
   <button class="btn-sm btn-toolbar d-flex justify-content-end" (click)="detailedViewAction()">
     DETAILED-VIEW<em class="col-md-1 fa fa-eye"></em></button>
   <button (click)="onUploadDocument()"
-          *ngIf="showCadDocumentRoute && actionsList.loanApproveStatus && productUtils.CAD_DOC_UPLOAD"
+          *ngIf="showCadDocumentRoute && actionsList.loanApproveStatus && productUtils.CAD_LITE_VERSION"
           [ngStyle]="{ 'filter' : (actionsList.approved=== false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-success">
     Documents<i class="col-md-1 fa fa-file-upload"></i></button>

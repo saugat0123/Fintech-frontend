@@ -3,35 +3,34 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {Transfersearch, TransferDocService} from './transfer-doc.service';
+import {TransferDocService, Transfersearch} from './transfer-doc.service';
 import {NbTrigger} from '@nebular/theme';
-import {Branch} from "../../admin/modal/branch";
-import {LoanConfig} from "../../admin/modal/loan-config";
-import {LoanDataHolder} from "../model/loanData";
-import {Role} from "../../admin/modal/role";
-import {DocStatus} from "../model/docStatus";
-import {LoanType} from "../model/loanType";
-import {Pageable} from "../../../@core/service/baseservice/common-pageable";
-import {BranchService} from "../../admin/component/branch/branch.service";
-import {LoanConfigService} from "../../admin/component/loan-config/loan-config.service";
-import {ToastService} from "../../../@core/utils";
-import {LoanFormService} from "../component/loan-form/service/loan-form.service";
-import {SocketService} from "../../../@core/service/socket.service";
-import {RoleService} from "../../admin/component/role-permission/role.service";
-import {UserService} from "../../../@core/service/user.service";
-import {LoanActionService} from "../loan-action/service/loan-action.service";
-import {PaginationUtils} from "../../../@core/utils/PaginationUtils";
-import {Alert, AlertType} from "../../../@theme/model/Alert";
-import {LocalStorageUtil} from "../../../@core/utils/local-storage-util";
-import {RoleType} from "../../admin/modal/roleType";
-import {RoleAccess} from "../../admin/modal/role-access";
-import {LoanStage} from "../model/loanStage";
-import {ObjectUtil} from "../../../@core/utils/ObjectUtil";
-import {ApiConfig} from "../../../@core/utils/api/ApiConfig";
-import {CustomerLoanFlag} from "../../../@core/model/customer-loan-flag";
-import {LoanFlag} from "../../../@core/model/enum/loan-flag.enum";
-import {DocAction} from "../model/docAction";
-import {CatalogueSearch, CatalogueService} from "../../admin/component/catalogue/catalogue.service";
+import {Branch} from '../../admin/modal/branch';
+import {LoanConfig} from '../../admin/modal/loan-config';
+import {LoanDataHolder} from '../model/loanData';
+import {Role} from '../../admin/modal/role';
+import {DocStatus} from '../model/docStatus';
+import {LoanType} from '../model/loanType';
+import {Pageable} from '../../../@core/service/baseservice/common-pageable';
+import {BranchService} from '../../admin/component/branch/branch.service';
+import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
+import {ToastService} from '../../../@core/utils';
+import {LoanFormService} from '../component/loan-form/service/loan-form.service';
+import {SocketService} from '../../../@core/service/socket.service';
+import {RoleService} from '../../admin/component/role-permission/role.service';
+import {UserService} from '../../../@core/service/user.service';
+import {LoanActionService} from '../loan-action/service/loan-action.service';
+import {PaginationUtils} from '../../../@core/utils/PaginationUtils';
+import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {RoleType} from '../../admin/modal/roleType';
+import {RoleAccess} from '../../admin/modal/role-access';
+import {LoanStage} from '../model/loanStage';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
+import {CustomerLoanFlag} from '../../../@core/model/customer-loan-flag';
+import {LoanFlag} from '../../../@core/model/enum/loan-flag.enum';
+import {DocAction} from '../model/docAction';
 
 @Component({
     selector: 'app-transfer-doc',
@@ -70,6 +69,7 @@ export class TransferDocComponent implements OnInit {
     public insuranceToggle = false;
     selectedUserForTransfer;
     transferSpinner = false;
+    showHideTransferRespectToStatus: { toggled: boolean }[] = [];
 
     constructor(
         private branchService: BranchService,
@@ -92,6 +92,8 @@ export class TransferDocComponent implements OnInit {
         other.loanFormService.getCatalogues(other.transferdocservice.search, other.page, 10).subscribe((response: any) => {
             other.loanDataHolderList = response.detail.content;
             other.pageable = PaginationUtils.getPageable(response.detail);
+            // tslint:disable-next-line:max-line-length
+            other.loanDataHolderList.forEach((l) => other.showHideTransferRespectToStatus.push({toggled: other.checkApprovedRejectOrCloseByStatus(l.documentStatus)}));
             other.spinner = false;
             other.transferToggle = true;
             other.shareToggle = true;
@@ -189,14 +191,14 @@ export class TransferDocComponent implements OnInit {
             {
                 loanConfigId: [undefined],
                 customerLoanId: [undefined],
-                toUser: [undefined , Validators.required],
-                toRole: [undefined , Validators.required],
+                toUser: [undefined, Validators.required],
+                toRole: [undefined, Validators.required],
                 docAction: [undefined],
                 comment: [undefined, Validators.required],
                 documentStatus: [undefined]
             }
         );
-    }
+    };
 
     changePage(page: number) {
         this.page = page;
@@ -305,9 +307,9 @@ export class TransferDocComponent implements OnInit {
         this.buildFilterForm();
     }
 
-    onTransferClick(template, customerLoanId, userId) {
+    onTransferClick(template, customerLoanId, userId, branchId) {
         this.transferSpinner = true;
-        this.userService.getUserListForTransfer(userId).subscribe((res: any) => {
+        this.userService.getUserListForTransfer(userId, branchId).subscribe((res: any) => {
             this.transferUserList = res.detail;
             this.transferSpinner = false;
         });
@@ -318,7 +320,7 @@ export class TransferDocComponent implements OnInit {
                 comment: 'TRANSFER'
             }
         );
-        this.modalService.open(template , {size: 'lg' , backdrop: 'static', keyboard: false});
+        this.modalService.open(template, {size: 'lg', backdrop: 'static', keyboard: false});
     }
 
     onClose() {
@@ -326,24 +328,8 @@ export class TransferDocComponent implements OnInit {
         this.modalService.dismissAll();
     }
 
-    changeAction() {
-        this.loanDataHolder.loanType = this.tempLoanType;
-        this.loanFormService.renewLoan(this.loanDataHolder).subscribe(() => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated loan type.'));
-                this.modalService.dismissAll('Close modal');
-                this.tempLoanType = null;
-                this.clearSearch();
-                this.transferdocservice.search.documentStatus = DocStatus.value(DocStatus.APPROVED);
-                this.onSearch();
-            }, error => {
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to update loan type.'));
-                this.modalService.dismissAll('Close modal');
-            }
-        );
 
-    }
-
-    docTransfer(userId, roleId , user) {
+    docTransfer(userId, roleId, user) {
         this.selectedUserForTransfer = user;
         const users = {id: userId};
         const role = {id: roleId};
@@ -356,7 +342,7 @@ export class TransferDocComponent implements OnInit {
 
     action(templates) {
         this.modalService.dismissAll();
-        this.modalService.open(templates , {backdrop: 'static', keyboard: false});
+        this.modalService.open(templates, {backdrop: 'static', keyboard: false});
     }
 
     confirm(comment: string) {
@@ -392,18 +378,6 @@ export class TransferDocComponent implements OnInit {
 
     }
 
-    renewedOrCloseFrom(loanConfigId, childId) {
-        this.router.navigate(['/home/loan/summary'], {
-            queryParams: {
-                loanConfigId: loanConfigId,
-                customerId: childId,
-                catalogue: true
-            }
-
-        });
-
-
-    }
 
     getCsv() {
         this.loanFormService.download(this.transferdocservice.search).subscribe((response: any) => {
@@ -452,7 +426,7 @@ export class TransferDocComponent implements OnInit {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
         });
-    }
+    };
 
     onChangeInsuranceToggle(event) {
         this.insuranceToggle = false;
@@ -473,6 +447,21 @@ export class TransferDocComponent implements OnInit {
 
     public showUpdateLoanInfo(loanFlags: CustomerLoanFlag[]): boolean {
         return loanFlags.map((f) => f.flag).includes(LoanFlag[LoanFlag.INSURANCE_EXPIRY]);
+    }
+
+    checkApprovedRejectOrCloseByStatus(status) {
+        switch (status) {
+            case DocStatus[DocStatus.APPROVED]:
+                return false;
+            case DocStatus[DocStatus.REJECTED]:
+                return false;
+            case DocStatus[DocStatus.CLOSED]:
+                return false;
+
+            default:
+                return true;
+        }
+
     }
 }
 

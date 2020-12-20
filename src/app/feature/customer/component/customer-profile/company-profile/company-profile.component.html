@@ -40,8 +40,8 @@
     <div class="bg-light mb-3">
       <div class="row">
         <div class="col">
-          <a *ngIf="!isEdited && maker" class="p-2 cursor" (click)="editCustomer(1)"><em
-              class="fa fa-edit"></em></a>
+        <!--  <a *ngIf="!isEdited && maker" class="p-2 cursor" (click)="editCustomer(1)"><em
+              class="fa fa-edit"></em></a>-->
         </div>
       </div>
       <div class="p-5 row">
@@ -77,9 +77,12 @@
           </div>
 
           <div class="row">
-                    <span> <strong>Address :</strong> {{companyInfo?.companyLocations?.address}}
-                      , {{companyInfo?.companyLocations?.streetName}}
-                      , {{companyInfo?.companyLocations?.houseNumber}}</span></div>
+                    <span> <strong>Address :</strong>
+                         ({{companyLocationData?.province?.name}},{{companyLocationData?.district?.name}}
+                      , {{companyLocationData?.municipalityVdc?.name}})
+                      , {{companyLocationData?.ward}}
+                      , {{companyLocationData?.address1}},
+                      {{companyLocationData?.address2}}</span></div>
           <div class="row">
             <span> <strong>PAN number :</strong> {{companyInfo?.panNumber}}</span></div>
           <div class="row">
@@ -114,6 +117,7 @@
                          <nb-datepicker #establishmentDate></nb-datepicker></span></div>
 
             <div class="row form-inline">
+
               <div class=""><strong>Address :</strong> <input formControlName="address"
                                                               placeholder="address"
                                                               type="text"></div>
@@ -398,7 +402,9 @@
                     class="float-right"><a class="cursor"><em class="fa fa-edit"></em></a></button>
           </nb-card-header>
           <nb-card-body>
-            <app-company-profile-additional-information *ngIf="companyInfo?.registrationNumber" [companyInfo]="companyInfo">
+            <app-company-profile-additional-information *ngIf="companyInfo?.registrationNumber"
+                                                        [companyLocationData]="companyLocationData"
+                                                        [companyInfo]="companyInfo">
             </app-company-profile-additional-information>
           </nb-card-body>
         </nb-card>

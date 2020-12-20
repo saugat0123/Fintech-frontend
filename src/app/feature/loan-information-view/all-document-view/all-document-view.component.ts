@@ -52,7 +52,7 @@ export class AllDocumentViewComponent implements OnInit {
         });
       }
     }
-    this.showCadDoc = this.productUtils.CAD_DOC_UPLOAD;
+    this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
   }
 
   downloadCustomerDocument(documentPath, documentName) {

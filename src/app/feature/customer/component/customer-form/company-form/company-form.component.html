@@ -126,20 +126,21 @@
                                        <label *ngIf="switchLanguageType==='ENG'" for="registrationNumber"><strong>Registration Number</strong></label>
                                        <label *ngIf="switchLanguageType==='NEP'" for="registrationNumber"><strong>रदर्ता नम्बर</strong></label>
                                        <div class="input-group mb-3">
-                                           <input #regNumber *ngIf="switchLanguageType==='ENG'"
+                                           <input  *ngIf="switchLanguageType==='ENG'"
                                                [ngClass]="{ 'is-invalid':submitted && form.registrationNumber.errors }"
                                                class="form-control rounded"
                                                formControlName="registrationNumber"
                                                id="registrationNumber"
                                                min="0" placeholder="Enter registration number"
-                                               type="text" (input)="checkRegistrationNumber(regNumber.value)"/>
-                                           <input #regNumber *ngIf="switchLanguageType==='NEP'"
+                                               type="text"/>
+                                           <input  *ngIf="switchLanguageType==='NEP'"
                                                   [ngClass]="{ 'is-invalid':submitted && form.registrationNumber.errors }"
                                                   class="form-control rounded"
                                                   formControlName="registrationNumber"
                                                   id="registrationNumberInNepali"
                                                   min="0" placeholder="दर्ता नम्बर प्रविष्ट गर्नुहोस्"
-                                                  type="text" (input)="checkRegistrationNumber(regNumber.value)"/>
+                                                  type="text"/>
+                                               type="text"/>
                                            <div *ngIf="submitted && form.registrationNumber.errors "
                                                 class="invalid-feedback">
                                                <div *ngIf="form.registrationNumber.errors.required">
@@ -153,6 +154,14 @@
                            <div class="row">
                                <div class="col-md-4">
                                    <div class="form-group">
+                                       <label for="issuePlace"><strong>Issue Place</strong></label>
+                                       <select formControlName="issuePlace" id="issuePlace"
+                                               [ngClass]="{'is-invalid':submitted &&  form.issuePlace?.errors}" class="form-control">
+                                           <option [value]="null" hidden>Select Issued Place</option>
+                                           <option  *ngFor="let district of allDistrict" [value]="district?.name">
+                                               {{district?.name}}</option>
+                                       </select>
+
                                        <label *ngIf="switchLanguageType==='ENG'" for="issuePlace"><strong>Issue Place</strong></label>
                                        <label *ngIf="switchLanguageType==='NEP'" for="issuePlace"><strong>दर्ता स्थान</strong></label>
                                        <ng-select [multiple]="false"
@@ -249,20 +258,21 @@
                                        <label *ngIf="switchLanguageType==='ENG'" for="panNumber"><strong>PAN</strong></label>
                                        <label *ngIf="switchLanguageType==='NEP'" for="panNumber"><strong>पान नम्बर</strong></label>
                                        <div class="input-group mb-3">
-                                           <input *ngIf="switchLanguageType==='ENG'"
+                                           <input #PanNumber *ngIf="switchLanguageType==='ENG'"
                                                [ngClass]="{ 'is-invalid':submitted && form.companyPAN.errors }"
                                                class="form-control rounded"
                                                formControlName="companyPAN"
                                                id="panNumber"
                                                placeholder="Enter PAN"
+                                               type="text" (input)="checkPanNumberNumber(PanNumber.value)"/>
                                                type="text"/>
-                                           <input   *ngIf="switchLanguageType==='NEP'"
+                                           <input #PanNumber  *ngIf="switchLanguageType==='NEP'"
                                                    [ngClass]="{ 'is-invalid':submitted && form.companyPAN.errors }"
                                                    class="form-control rounded"
                                                    formControlName="companyPAN"
                                                    id="panNumberInNepali"
                                                    placeholder="पान नम्बर प्रविष्ट गर्नुहोस्"
-                                                   type="text"/>
+                                                   type="text" (input)="checkPanNumberNumber(PanNumber.value)"/>
                                            <div *ngIf="submitted && form.companyPAN.errors"
                                                 class="invalid-feedback">
                                                <div *ngIf="form.companyPAN.errors.required">
@@ -280,6 +290,13 @@
                                </div>
                                <div class="col-md-4">
                                    <div class="form-group">
+                                       <label for="businessType"><strong>Business Type</strong></label>
+                                       <select formControlName="businessType" id="businessType"
+                                               [ngClass]="{'is-invalid':submitted &&  form.businessType.errors}" class="form-control">
+                                           <option [value]="null" hidden>Select Business Type</option>
+                                           <option *ngFor="let business of businessTypes" [value]="business.key">{{business.value}}</option>
+                                       </select>
+
                                        <label *ngIf="switchLanguageType==='ENG'" for="businessType"><strong>Business Type</strong></label>
                                        <label *ngIf="switchLanguageType==='NEP'" for="businessType"><strong>ब्यापार प्रकार</strong></label>
                                        <ng-select [items]="businessTypes"
@@ -924,7 +941,7 @@
                            <h5 *ngIf="switchLanguageType==='NEP'">4.कम्पनी स्थान विवरण</h5>
                        </div>
                        <div class="row ">
-                           <div class="col-md-4">
+                         <!--  <div class="col-md-4">
                                <div class="form-group">
                                    <label *ngIf="switchLanguageType==='ENG'"><strong>House Number</strong></label>
                                    <label *ngIf="switchLanguageType==='NEP'"><strong>घर नम्बर</strong></label>
@@ -969,6 +986,9 @@
                                        </div>
                                    </div>
                                </div>
+                           </div>-->
+                           <div class="col-md-12">
+                               <app-common-address #companyLocation [address]="companyAddress"></app-common-address>
                            </div>
                        </div>
                        <hr>
@@ -1437,6 +1457,7 @@
                        </div>
                        <hr>
                        <div class="box-header with-border">
+                           <h5 class="box-title">11. Succession Risk</h5>
                            <h5 *ngIf="switchLanguageType==='ENG'" class="box-title">11. Succession Planning</h5>
                            <h5 *ngIf="switchLanguageType==='NEP'" class="box-title">11. उत्तराधिकार योजना</h5>
                        </div>
@@ -1448,7 +1469,7 @@
                                            [ngClass]="{ 'is-invalid': (submitted) && form.successionPlanning.errors }"
                                              class="form-control"
                                              formControlName="successionPlanning" id="successionPlanning"
-                                             name="successionPlanning" placeholder="Succession Planning"
+                                             name="successionPlanning" placeholder="Succession Risk"
                                              rows="5"
                                              type="text"></textarea>
                                    <textarea *ngIf="switchLanguageType==='NEP'"
@@ -1461,7 +1482,7 @@
                                    <div *ngIf="(submitted) && form.successionPlanning.invalid"
                                         class="invalid-feedback">
                                        <div *ngIf="form.successionPlanning.errors.required">
-                                           Planning is required
+                                           Succession Risk is required
                                        </div>
                                    </div>
                                </div>
@@ -1764,6 +1785,7 @@
                        </div>
                        <div class="row">
                            <div class="col-md-6 form-group">
+                               <label><strong>Regulatory Concern</strong></label>
                                <label *ngIf="switchLanguageType==='ENG'"><strong>Regulatory Concern</strong></label>
                                <label *ngIf="switchLanguageType==='NEP'"><strong>नियामक कन्सर्न</strong></label>
                                <ng-select [multiple]="false"
@@ -1772,8 +1794,7 @@
                                           [ngClass]="{ 'is-invalid': (submitted) && form.regulatoryConcern.errors }">
                                    <ng-option *ngFor="let regConcern of regulatoryConcernList"
                                               [value]="regConcern?.value">
-                                       {{regConcern?.value}}
-                                   </ng-option>
+                                       {{regConcern?.value}}</ng-option>
                                </ng-select>
                                <div *ngIf="(submitted) &&  form.regulatoryConcern.errors" class="small text-danger">
                                    <div *ngIf="form.regulatoryConcern.errors.required">
@@ -1782,6 +1803,7 @@
                                </div>
                            </div>
                            <div class="col-md-3">
+                               <label><strong>Supplier</strong></label>
                                <label *ngIf="switchLanguageType==='ENG'"><strong>Supplier</strong></label>
                                <label *ngIf="switchLanguageType==='NEP'"><strong>आपूर्तिकर्ता</strong></label>
                                <ng-select [multiple]="false"
@@ -1799,6 +1821,7 @@
                                </div>
                            </div>
                            <div class="col-md-3">
+                               <label><strong>Buyer</strong></label>
                                <label *ngIf="switchLanguageType==='ENG'"><strong>Buyer</strong></label>
                                <label *ngIf="switchLanguageType==='NEP'"><strong>क्रेता</strong></label>
                                <ng-select [multiple]="false"
@@ -1806,8 +1829,7 @@
                                           placeholder="Select buyer">
                                    <ng-option *ngFor="let buyer of buyerList"
                                               [value]="buyer?.value">
-                                       {{buyer?.value}}
-                                   </ng-option>
+                                       {{buyer?.value}}</ng-option>
                                </ng-select>
                                <div *ngIf="(submitted) &&  form.buyer.errors" class="small text-danger">
                                    <div *ngIf="form.buyer.errors.required">
@@ -1825,16 +1847,13 @@
                                    <label *ngIf="switchLanguageType==='NEP'"><strong>उद्योग बृद्धि</strong></label>
                                </div>
                                <div class="form-group">
-                                   <ng-select [multiple]="false"
-                                              [appendTo]="'body'"
-                                              [dropdownPosition]="'top'"
-                                              formControlName="industryGrowth"
-                                              placeholder="Select industry growth">
-                                       <ng-option *ngFor="let industryGrowth of industryGrowthList"
-                                                  [value]="industryGrowth?.value">
+                                   <select formControlName="industryGrowth" id="industryGrowth"
+                                           [ngClass]="{'is-invalid':submitted &&  form.industryGrowth?.errors}" class="form-control">
+                                       <option [value]="null" hidden>Select Industry Growth</option>
+                                       <option *ngFor="let industryGrowth of industryGrowthList"
+                                               [value]="industryGrowth?.value">
                                            {{industryGrowth?.value}}
-                                       </ng-option>
-                                   </ng-select>
+                                   </select>
                                    <div *ngIf="(submitted) &&  form.industryGrowth.errors" class="small text-danger">
                                        <div *ngIf="form.industryGrowth.errors.required">
                                            Industry Growth is required
@@ -1848,16 +1867,13 @@
                                    <label *ngIf="switchLanguageType==='NEP'"><strong>बजार प्रतिस्पर्धा</strong></label>
                                </div>
                                <div class="form-group">
-                                   <ng-select [multiple]="false"
-                                              [appendTo]="'body'"
-                                              [dropdownPosition]="'top'"
-                                              formControlName="marketCompetition"
-                                              placeholder="Select industry growth">
-                                       <ng-option *ngFor="let marketComp of marketCompetitionList"
-                                                  [value]="marketComp?.value">
+                                   <select formControlName="marketCompetition" id="marketCompetition"
+                                           [ngClass]="{'is-invalid':submitted &&  form.marketCompetition?.errors}" class="form-control">
+                                       <option [value]="null" hidden>Select Market Competition</option>
+                                       <option  *ngFor="let marketComp of marketCompetitionList"
+                                                [value]="marketComp?.value">
                                            {{marketComp?.value}}
-                                       </ng-option>
-                                   </ng-select>
+                                   </select>
                                    <div *ngIf="(submitted) &&  form.marketCompetition.errors" class="small text-danger">
                                        <div *ngIf="form.marketCompetition.errors.required">
                                            Market Competition Growth is required
@@ -1871,16 +1887,13 @@
                                    <label *ngIf="switchLanguageType==='NEP'"><strong>अनुभव</strong></label>
                                </div>
                                <div class="form-group">
-                                   <ng-select [multiple]="false"
-                                              [appendTo]="'body'"
-                                              [dropdownPosition]="'top'"
-                                              formControlName="experience"
-                                              placeholder="Select experience">
-                                       <ng-option *ngFor="let experience of experiences"
-                                                  [value]="experience?.value">
+                                   <select formControlName="experience" id="experience"
+                                           [ngClass]="{'is-invalid':submitted &&  form.experience?.errors}" class="form-control">
+                                       <option [value]="null" hidden>Select Experience</option>
+                                       <option  *ngFor="let experience of experiences"
+                                                [value]="experience?.value">
                                            {{experience?.value}}
-                                       </ng-option>
-                                   </ng-select>
+                                   </select>
                                    <div *ngIf="(submitted) &&  form.experience.errors" class="small text-danger">
                                        <div *ngIf="form.experience.errors.required">
                                            Experience Growth is required
@@ -1894,16 +1907,13 @@
                                            <label *ngIf="switchLanguageType==='ENG'"><strong>Succession </strong></label>
                                            <label *ngIf="switchLanguageType==='NEP'"><strong>उत्तराधिकार</strong></label>
                                        </div>
-                                       <ng-select [multiple]="false"
-                                                  formControlName="succession"
-                                                  placeholder="Select succession"
-                                                  [appendTo]="'body'"
-                                                  [dropdownPosition]="'top'">
-                                           <ng-option *ngFor="let succession of successionList"
-                                                      [value]="succession?.value">
+                                       <select formControlName="succession" id="succession"
+                                               [ngClass]="{'is-invalid':submitted &&  form.succession?.errors}" class="form-control">
+                                           <option [value]="null" hidden>Select succession</option>
+                                           <option  *ngFor="let succession of successionList"
+                                                    [value]="succession?.value">
                                                {{succession?.value}}
-                                           </ng-option>
-                                       </ng-select>
+                                       </select>
                                    </div>
                        </div>
                    </nb-tab>

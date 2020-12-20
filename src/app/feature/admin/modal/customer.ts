@@ -2,6 +2,8 @@ import {CustomerRelative} from './customer-relative';
 import {MunicipalityVdc} from './municipality_VDC';
 import {District} from './district';
 import {Province} from './province';
+import {Gender} from '../../../@core/model/enum/gender';
+import {MaritalStatus} from '../../../@core/model/enum/marital-status';
 import {LanguageType} from '../../customer/model/languageType';
 
 export class Customer {
@@ -41,6 +43,8 @@ export class Customer {
     temporaryMunicipalities: MunicipalityVdc;
     temporaryStreet: string;
     temporaryWardNumber: string;
+    gender: Gender;
+    maritalStatus: MaritalStatus;
     languageType: LanguageType;
 
 

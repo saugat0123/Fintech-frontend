@@ -5,6 +5,11 @@
 <div [formGroup]="companyOtherDetailGroupForm">
   <div class="row">
     <div class="col-md-4 form-group">
+      <label><strong>Tax Clearance Till</strong></label>
+      <select formControlName="taxClearanceTill" id="taxClearanceTill"
+              [ngClass]="{'is-invalid':submitted &&  form.taxClearanceTill?.errors}" class="form-control">
+        <option [value]="null" hidden>Select Tax Clearance Till</option>
+        <option  *ngFor="let fiscalYear of fiscalYears" [value]="fiscalYear.year">
       <label *ngIf="switchLanguageType==='ENG'"><strong>Tax Clearance Till</strong></label>
       <label *ngIf="switchLanguageType==='NEP'"><strong>कर निकासी</strong></label>
       <ng-select formControlName="taxClearanceTill"
@@ -12,8 +17,7 @@
                  placeholder="Select Tax Clearance Till">
         <ng-option *ngFor="let fiscalYear of fiscalYears" [value]="fiscalYear.year">
           {{fiscalYear.year}}
-        </ng-option>
-      </ng-select>
+      </select>
       <div *ngIf="submitted && form.taxClearanceTill?.errors "
            class="small text-danger">
         <div *ngIf="form.taxClearanceTill?.errors.required">
