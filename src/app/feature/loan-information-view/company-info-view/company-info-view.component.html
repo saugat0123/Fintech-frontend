@@ -419,7 +419,7 @@
                 <td>{{companyJsonData?.legalReviewRemark}}</td>
             </tr>
         </table>
-        <table
+        <table *ngIf="!srdbAffiliatedId"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr>
                 <th colspan="2">Business given</th>
