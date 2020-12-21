@@ -7,7 +7,7 @@
       <label><strong>Tax Clearance Till</strong></label>
       <select formControlName="taxClearanceTill" id="taxClearanceTill"
               [ngClass]="{'is-invalid':submitted &&  form.taxClearanceTill?.errors}" class="form-control">
-        <option [value]="" hidden>Select Tax Clearance Till</option>
+        <option [value]="null" hidden>Select Tax Clearance Till</option>
         <option  *ngFor="let fiscalYear of fiscalYears" [value]="fiscalYear.year">
           {{fiscalYear.year}}
       </select>

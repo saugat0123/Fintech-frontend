@@ -83,16 +83,16 @@
                         <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                         <td>{{allList.name}}</td>
                         <td>
-                            <div *ngIf="allList.isFundable ; else elseBlock">Fundable</div>
-                            <ng-template #elseBlock>Non-Fundable</ng-template>
+                            <div *ngIf="allList.isFundable ; else nonFundable">Fundable</div>
+                            <ng-template #nonFundable>Non-Fundable</ng-template>
                         </td>
                         <td>{{allList.loanNature}}</td>
                         <td>{{allList.financedAssets}}</td>
                         <td>{{allList.loanCategory}}</td>
                         <td>{{allList.loanTag}}</td>
                         <td>
-                            <div *ngIf="allList.isRenewable; else elseBlock1">Renewable</div>
-                            <ng-template #elseBlock1>Non-Renewable</ng-template>
+                            <div *ngIf="allList.isRenewable; else nonRenewable">Renewable</div>
+                            <ng-template #nonRenewable>Non-Renewable</ng-template>
                         </td>
 <!--                        <td>-->
 <!--                            <div *ngFor="let template of allList.templateList">-->
