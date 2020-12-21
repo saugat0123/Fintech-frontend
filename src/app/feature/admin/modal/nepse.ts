@@ -5,5 +5,7 @@ export class Nepse {
     status: string;
     companyCode: string;
     shareType: string;
+    sharePriceDate: Date;
+    averageSharePrice: number;
 
 }
