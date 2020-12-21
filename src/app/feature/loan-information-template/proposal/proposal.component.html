@@ -10,7 +10,7 @@
                                     <div class="form-group">
                                         <label class="title" for="existingLimit"><strong>Existing Limit</strong></label>
                                         <input class="form-control"
-                                               [readOnly]="loanType == 'PARTIAL_SETTLEMENT_LOAN' || loanType == 'ENHANCED_LOAN'"
+                                               [readOnly]="loanType == 'PARTIAL_SETTLEMENT_LOAN'"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.existingLimit.errors }"
                                                (keyup)="calculateLimitValues()"
                                                formControlName="existingLimit" id="existingLimit"
@@ -50,7 +50,7 @@
                                         <input
                                                 [ngClass]="{ 'is-invalid': (submitted) && formControls.proposedLimit.errors }"
                                                 class="form-control"
-                                                [readOnly]="loanType == 'PARTIAL_SETTLEMENT_LOAN' || loanType == 'ENHANCED_LOAN'"
+                                                [readOnly]="loanType == 'PARTIAL_SETTLEMENT_LOAN'"
                                                 formControlName="proposedLimit" id="proposedLimit"
                                                 name="proposedLimit" placeholder="Proposed limit"
                                                 type="number" (input)="checkRepaymentMode()" appDecimalNumber>
