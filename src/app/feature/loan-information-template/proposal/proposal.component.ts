@@ -9,6 +9,8 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {MinimumAmountValidator} from '../../../@core/validator/minimum-amount-validator';
 import {BaseInterestService} from '../../admin/service/base-interest.service';
 import {Editor} from '../../../@core/utils/constants/editor';
+import {LoanType} from '../../loan/model/loanType';
+import {NumberUtils} from '../../../@core/utils/number-utils';
 
 @Component({
   selector: 'app-proposal',
@@ -49,6 +51,7 @@ export class ProposalComponent implements OnInit {
   isVehicle = false;
   isShare = false;
   showInstallmentAmount = false;
+  loanEnumType = LoanType;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -68,6 +71,7 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.patchValue(this.formDataForEdit);
       this.setCheckedData(this.checkedDataEdit);
       this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
+      this.proposalForm.get('existingLimit').patchValue(this.formValue.proposedLimit);
       this.proposalForm.get('dateOfExpiry').patchValue(!ObjectUtil.isEmpty(this.formValue.dateOfExpiry)
           ? new Date(this.formValue.dateOfExpiry) : undefined);
       this.checkLimitExpiryBuildValidation(this.formValue.limitExpiryMethod);
@@ -342,7 +346,7 @@ export class ProposalComponent implements OnInit {
           this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(2)));
           break;
         case 'yearly':
-          this.proposalForm.get('installmentAmount').patchValue(Number((emi*12).toFixed(2)));
+          this.proposalForm.get('installmentAmount').patchValue(Number((emi * 12).toFixed(2)));
           break;
       }
     } else {
@@ -411,4 +415,21 @@ export class ProposalComponent implements OnInit {
   //     this.proposalForm.get('commissionFrequency').updateValueAndValidity();
   //   }
   // }
+
+    calculateLimitValues() {
+
+        switch (this.loanType) {
+            case  'PARTIAL_SETTLEMENT_LOAN':
+                const newLimit = this.formControls.existingLimit.value - this.formControls.outStandingLimit.value;
+                this.formControls.proposedLimit.setValue(NumberUtils.isNumber(newLimit));
+                return;
+                case  'ENHANCED_LOAN':
+                const enhanceLimit = this.formControls.existingLimit.value + this.formControls.outStandingLimit.value;
+                this.formControls.proposedLimit.setValue(NumberUtils.isNumber(enhanceLimit));
+                return;
+            default:
+                return;
+        }
+
+    }
 }
