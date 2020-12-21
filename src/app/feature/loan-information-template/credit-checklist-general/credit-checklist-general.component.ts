@@ -3,6 +3,7 @@ import {CreditChecklistGeneral} from '../../loan/model/creditChecklistGeneral';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CalendarType} from '../../../@core/model/calendar-type';
+import {CustomerType} from '../../customer/model/customerType';
 
 @Component({
   selector: 'app-credit-checklist-general',
@@ -14,14 +15,13 @@ export class CreditChecklistGeneralComponent implements OnInit {
   @Input() formData: CreditChecklistGeneral;
   @Input() fromProfile;
   @Input() calendarType: CalendarType;
-  @Input() customerType;
+  @Input() customerType: CustomerType;
 
   formGroupCheckList: FormGroup;
   dataForEdit;
   creditChecklistGeneral: CreditChecklistGeneral = new CreditChecklistGeneral();
   optionList = ['Yes', 'No', 'Na'];
   optionListRegulatory = ['Yes', 'No'];
-  public customer: string;
 
   constructor(private formBuilder: FormBuilder) {
   }
@@ -30,7 +30,6 @@ export class CreditChecklistGeneralComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.formData)) {
       this.creditChecklistGeneral = this.formData;
       this.dataForEdit = JSON.parse(this.formData.data);
-      this.customer = this.customerType;
     }
     this.buildForm(this.dataForEdit);
   }
