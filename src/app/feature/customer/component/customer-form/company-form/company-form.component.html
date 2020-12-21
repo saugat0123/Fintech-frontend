@@ -1314,7 +1314,7 @@
                            </div>
                            <div class="col-md-12">
                                <div class="form-group">
-                                   <h5 class="box-title">6.Legal review
+                                   <h5 class="box-title">16.Legal review
                                        Remarks</h5>
                                    <input
                                        [ngClass]="{ 'is-invalid': (submitted) && form.legalReviewRemark.errors }"
@@ -1331,11 +1331,9 @@
                                </div>
                            </div>
                        </div>
-                       <hr>
-                       <hr>
                        <!--  Business Given -->
                        <hr>
-                       <div class="box-header with-border">
+                       <ng-container  *ngIf="!srdbAffiliatedId" class="box-header with-border">
                            <h5 class="box-title">17. Business given</h5>
                            <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center table-striped">
                                <tr class="sb-bg-secondary text-white">
@@ -1454,9 +1452,7 @@
                                </tr>
 
                            </table>
-                       </div>
-                       <hr>
-
+                       </ng-container>
                    </nb-tab>
                  <!--  new tab detail start from here-->
                    <nb-tab tabTitle="Other Detail">

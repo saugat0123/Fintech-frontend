@@ -8,6 +8,8 @@ import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {BusinessAndIndustry} from '../../admin/modal/businessAndIndustry';
 import {RegisteredOfficeList} from '../../admin/modal/registeredOfficeList';
 import {BusinessGiven} from '../../admin/modal/businessGiven';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 
 @Component({
   selector: 'app-company-info-view',
@@ -29,11 +31,15 @@ export class CompanyInfoViewComponent implements OnInit {
   registeredOffice: typeof RegisteredOfficeList = RegisteredOfficeList;
   businessGiven: BusinessGiven;
   companyLocationData;
+  srdbAffiliatedId = false;
 
   constructor() {
   }
 
   ngOnInit() {
+    if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
+      this.srdbAffiliatedId = true;
+    }
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.companyJsonData = JSON.parse(this.formValue.companyJsonData);
       this.additionalInfoJsonData = JSON.parse(this.formValue.additionalCompanyInfo);

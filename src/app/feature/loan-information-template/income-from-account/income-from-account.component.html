@@ -74,7 +74,34 @@
                          type="number">
               </td>
             </tr>
-
+            <ng-container *ngIf="srdbAffiliatedId">
+              <tr>
+                <td>LC Commission </td>
+                <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                           class="form-control text-center"
+                           formControlName="lcCommissionDuringReview"
+                           type="number">
+                </td>
+                <td><input (keyup)="calculateTotalIncomeAfterReview()"
+                           class="form-control text-center"
+                           formControlName="lcCommissionAfterNextReview"
+                           type="number">
+                </td>
+              </tr>
+              <tr>
+                <td>Guarantee Commission</td>
+                <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                           class="form-control text-center"
+                           formControlName="guaranteeCommissionDuringReview"
+                           type="number">
+                </td>
+                <td><input (keyup)="calculateTotalIncomeAfterReview()"
+                           class="form-control text-center"
+                           formControlName="guaranteeCommissionAfterNextReview"
+                           type="number">
+                </td>
+              </tr>
+            </ng-container>
             <tr>
               <td>Other Charges</td>
               <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesDuringReview.errors }"
