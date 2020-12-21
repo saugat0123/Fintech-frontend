@@ -269,14 +269,14 @@
 
                 </tr>
                 <tr></tr>
-                  <tr *ngIf="customer === 'INDIVIDUAL'">
+                  <tr *ngIf="customerType === 'INDIVIDUAL'">
                     <td></td>
                     <td><b>Review Checklist</b>
                     </td>
                     <td *ngIf="!fromProfile" colspan="3"></td>
                     <td></td>
                   </tr>
-                  <tr *ngIf="customer === 'INDIVIDUAL'">
+                  <tr *ngIf="customerType === 'INDIVIDUAL'">
                     <td>10.</td>
                     <td>Self declaration on Bank Borrowing Obtained</td>
                     <ng-container *ngIf="fromProfile">
@@ -292,7 +292,7 @@
                     <td *ngIf="!fromProfile">{{dataForEdit?.selfDeclarationRemark}}</td>
 
                   </tr>
-                  <tr *ngIf="customer === 'INDIVIDUAL'">
+                  <tr *ngIf="customerType === 'INDIVIDUAL'">
                     <td>11.</td>
                     <td>The Applicant and PG's are not Blacklisted</td>
                     <ng-container *ngIf="fromProfile">
@@ -308,7 +308,7 @@
                     <td *ngIf="!fromProfile">{{dataForEdit?.applicantPGRemark}}</td>
 
                   </tr>
-                  <tr *ngIf="customer === 'INDIVIDUAL'">
+                  <tr *ngIf="customerType === 'INDIVIDUAL'">
                     <td>12.</td>
                     <td>Net-Worth Declaration of applicant and Personal Guarantor have been obtained</td>
                     <ng-container *ngIf="fromProfile">
@@ -324,7 +324,7 @@
                     <td *ngIf="!fromProfile">{{dataForEdit?.netWorthRemark}}</td>
 
                   </tr>
-                  <tr *ngIf="customer === 'INDIVIDUAL'">
+                  <tr *ngIf="customerType === 'INDIVIDUAL'">
                     <td>13.</td>
                     <td>Consent from all the legal heirs of the property owner will be obtained</td>
                     <ng-container *ngIf="fromProfile">
@@ -340,7 +340,7 @@
                     <td *ngIf="!fromProfile">{{dataForEdit?.consentObtainedRemark}}</td>
 
                   </tr>
-                  <tr *ngIf="customer === 'INDIVIDUAL'">
+                  <tr *ngIf="customerType === 'INDIVIDUAL'">
                     <td>14.</td>
                     <td>A Director of the Bank or his/her undivided family member is not a <i>Manager,
                     Partner, Agent and Guarantor and does not have a direct financial interest in the
@@ -358,7 +358,7 @@
                     <td *ngIf="!fromProfile">{{dataForEdit?.directorUndividedRemark}}</td>
 
                   </tr>
-                  <tr *ngIf="customer === 'INDIVIDUAL'">
+                  <tr *ngIf="customerType === 'INDIVIDUAL'">
                     <td>15.</td>
                     <td>A Director of the Bank or member of such Director's undivided family has not
                     provided a Guarantee in favor of the Bank to secure loans and advances made to the Borrowing
@@ -376,7 +376,7 @@
                     <td *ngIf="!fromProfile">{{dataForEdit?.borrowingFirmCompanyRemark}}</td>
 
                   </tr>
-                  <tr *ngIf="customer === 'INDIVIDUAL'">
+                  <tr *ngIf="customerType === 'INDIVIDUAL'">
                     <td>16.</td>
                     <td>The Borrower is not a Promoter of the Bank or a Shareholder in the Promoter Group</td>
                     <ng-container *ngIf="fromProfile">
