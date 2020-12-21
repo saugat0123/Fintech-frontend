@@ -5,7 +5,7 @@
            class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
       <thead>
       <tr>
-        <th colspan="6" class="text-left">Guarantor {{i + 1}} Details (<i class="fas fa-check" *ngIf="guarantor?.consentOfLegalHeirs"></i><i class="fas fa-times" *ngIf="!guarantor?.consentOfLegalHeirs"></i> Consent of Legal Heirs)</th>
+        <th colspan="12" class="text-left">Guarantor {{i + 1}} Details (<i class="fas fa-check" *ngIf="guarantor?.consentOfLegalHeirs"></i><i class="fas fa-times" *ngIf="!guarantor?.consentOfLegalHeirs"></i> Consent of Legal Heirs)</th>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th>Name</th>
@@ -14,6 +14,7 @@
         <th>Issued Place</th>
         <th>Province</th>
         <th>District</th>
+        <th>Address as per Legal Document</th>
       </tr>
       </thead>
       <tbody>
@@ -24,6 +25,7 @@
         <td>{{guarantor?.issuedPlace}}</td>
         <td>{{guarantor?.province?.name}}</td>
         <td>{{guarantor?.district?.name}}</td>
+        <td>{{guarantor?.guarantorLegalDocumentAddress}}</td>
       </tr>
       </tbody>
       <thead>

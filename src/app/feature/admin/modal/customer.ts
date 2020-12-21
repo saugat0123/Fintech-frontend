@@ -44,5 +44,6 @@ export class Customer {
     temporaryWardNumber: string;
     gender: Gender;
     maritalStatus: MaritalStatus;
+    customerLegalDocumentAddress: string;
 
 }

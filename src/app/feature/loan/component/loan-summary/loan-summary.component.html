@@ -361,10 +361,12 @@
                             <tr class="text-white sb-bg-dark">
                                 <td>Customer Client Type</td>
                                 <td>SubSector</td>
+                                <!--<td>Address as per Legal Document</td>-->
                             </tr>
                             <tr>
                                 <td>{{loanDataHolder?.loanHolder['clientType']}}</td>
                                 <td>{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
+                                <!--<td>{{loanDataHolder?.customerInfo?.customerLegalDocumentAddress}}</td>-->
 
                             </tr>
                             </tbody>
@@ -865,7 +867,7 @@
                             </td>
 
                             <td>{{previousList?.docAction}}</td>
-                            <td class="text-justify">
+                            <td class="text-center">
                                 <div class="cmt-height">
                                     {{previousList?.comment?.length > 50 ?
                                     previousList?.comment?.substring(0, 49) :
@@ -906,7 +908,7 @@
                             </td>
 
                             <td>{{loanDataHolder?.currentStage?.docAction}}</td>
-                            <td class="text-justify">
+                            <td class="text-center">
                                 <div class="cmt-height">
                                     {{loanDataHolder?.currentStage?.comment?.length > 50 ?
                                     loanDataHolder?.currentStage?.comment?.substring(0, 49) :

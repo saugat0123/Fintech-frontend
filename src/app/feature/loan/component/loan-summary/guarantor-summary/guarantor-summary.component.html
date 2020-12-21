@@ -11,6 +11,7 @@
         <th>citizenNumber</th>
         <th>Address</th>
         <th>contactNumber</th>
+        <th>Address as per Legal Document</th>
       </tr>
       </thead>
       <tbody>
@@ -20,6 +21,7 @@
         <td>{{guarantor?.citizenNumber}}</td>
         <td>{{guarantor?.issuedPlace }},{{guarantor?.province?.name}},{{guarantor?.district?.name}}</td>
         <td>{{guarantor?.contactNumber}}</td>
+        <td>{{guarantor?.guarantorLegalDocumentAddress}}</td>
       </tr>
       </tbody>
     </table>
