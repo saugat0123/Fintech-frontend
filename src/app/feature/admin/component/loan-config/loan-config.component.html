@@ -62,6 +62,12 @@
                     <tr class="sb-bg-dark text-white">
                         <th>S.N</th>
                         <th>Loan Name</th>
+                        <th>Loan Type</th>
+                        <th>Nature of Loan</th>
+                        <th>Nature of Finance Assets</th>
+                        <th>Categories</th>
+                        <th>Loan Tag</th>
+                        <th>Renewable</th>
 <!--                        <th>Templates</th>-->
                         <th *ngIf="productUtils.ELIGIBILITY">Eligibility Status</th>
                         <!--<th>Status</th>-->
@@ -76,6 +82,18 @@
                         </div>
                         <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                         <td>{{allList.name}}</td>
+                        <td>
+                            <div *ngIf="allList.isFundable ; else elseBlock">Fundable</div>
+                            <ng-template #elseBlock>Non-Fundable</ng-template>
+                        </td>
+                        <td>{{allList.loanNature}}</td>
+                        <td>{{allList.financedAssets}}</td>
+                        <td>{{allList.loanCategory}}</td>
+                        <td>{{allList.loanTag}}</td>
+                        <td>
+                            <div *ngIf="allList.isRenewable; else elseBlock1">Renewable</div>
+                            <ng-template #elseBlock1>Non-Renewable</ng-template>
+                        </td>
 <!--                        <td>-->
 <!--                            <div *ngFor="let template of allList.templateList">-->
 <!--                                <a (click)="viewTemplate(template.templateView,template.name)" class="cursor">-->
