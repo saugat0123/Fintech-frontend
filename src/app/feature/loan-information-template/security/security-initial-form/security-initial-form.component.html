@@ -136,6 +136,31 @@
                                       rows="5"
                                       type="text" maxlength="256"></textarea>
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="landCollateralOwnerRelationship">Collateral Owner Relationship</label>
+                                <select class="form-control rounded" formControlName="landCollateralOwnerRelationship"
+                                        id="landCollateralOwnerRelationship"
+                                        name="landCollateralOwnerRelationship">
+                                    <option [ngValue]="null" hidden>--Select Relationship--</option>
+                                    <option *ngFor="let relationship of collateralOwnerRelationshipList.relation" [ngValue]="relationship.id">{{relationship.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-inline">
+                                <nb-checkbox #kycChecked id="ownerKycInfo" class="ml-2"
+                                             (checkedChange)="ownerKycRelationInfoCheck(kycChecked.checked)"
+                                             [checked]="ownerKycRelationInfoChecked">
+                                    <h6>Owner KYC Applicable</h6>
+                                </nb-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="ownerKycRelationInfoChecked">
+                            <app-owner-kyc-applicable [formData]="ownerKyc"></app-owner-kyc-applicable>
                     </div>
                     <div class="row">
                         <div class="col-md-3">
@@ -1252,6 +1277,17 @@
                                           name="landAndBuildingSecurityLegalDocumentAddress" placeholder="Address as per Legal Document"
                                           rows="5"
                                           type="text" maxlength="256"></textarea>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="landBuildingCollateralOwnerRelationship">Collateral Owner Relationship</label>
+                                    <select class="form-control rounded" formControlName="landBuildingCollateralOwnerRelationship"
+                                            id="landBuildingCollateralOwnerRelationship"
+                                            name="landBuildingCollateralOwnerRelationship">
+                                        <option [ngValue]="null" hidden>--Select Relationship--</option>
+                                        <option *ngFor="let relationship of collateralOwnerRelationshipList.relation" [ngValue]="relationship.id">{{relationship.name}}</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="row">

@@ -39,6 +39,7 @@ import { CreditRiskGradingLambdaComponent } from './credit-risk-grading-lambda/c
 import { CadDocumentUploadComponent } from './cad-document-upload/cad-document-upload.component';
 import { SecurityRevaluationComponent } from './security/security-initial-form/security-revaluation/security-revaluation.component';
 import {FeatureModule} from '../feature.module';
+import { OwnerKycApplicableComponent } from './security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 
 const COMPONENTS = [
   SiteVisitComponent,
@@ -71,7 +72,7 @@ const COMPONENTS = [
 
 
 @NgModule({
-  declarations: [...COMPONENTS, CadDocumentUploadComponent],
+  declarations: [...COMPONENTS, CadDocumentUploadComponent, OwnerKycApplicableComponent],
   exports: [...COMPONENTS],
   entryComponents: [...COMPONENTS],
     imports: [

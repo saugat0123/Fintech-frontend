@@ -19,6 +19,7 @@ import {SecurityRevaluationComponent} from './security-revaluation/security-reva
 import {SecurityIds} from './SecurityIds';
 import {DesignationList} from '../../../loan/model/designationList';
 import {OwnershipTransfer} from '../../../loan/model/ownershipTransfer';
+import {RelationshipList} from '../../../loan/model/relationshipList';
 
 
 @Component({
@@ -97,6 +98,9 @@ export class SecurityInitialFormComponent implements OnInit {
     designationList: DesignationList = new DesignationList();
     ownershipTransferEnumPair = OwnershipTransfer.enumObject();
     ownershipTransfers = OwnershipTransfer;
+    collateralOwnerRelationshipList: RelationshipList = new RelationshipList();
+    ownerKycRelationInfoChecked = false;
+    ownerKyc: string;
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -296,6 +300,7 @@ export class SecurityInitialFormComponent implements OnInit {
                   saleRegistrationAmount: [singleData.saleRegistrationAmount],
                   familyRegistrationAmount: [singleData.familyRegistrationAmount],
                   giftRegistrationAmount: [singleData.giftRegistrationAmount],
+                    landCollateralOwnerRelationship: [singleData.landCollateralOwnerRelationship],
                 })
             );
         });
@@ -480,6 +485,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     landBuildingAlternateStaffRepresentativeDesignation: [singleData.landBuildingAlternateStaffRepresentativeDesignation],
                     landBuildingAlternateStaffRepresentativeName: [singleData.landBuildingAlternateStaffRepresentativeName],
                     landAndBuildingSecurityLegalDocumentAddress: [singleData.landAndBuildingSecurityLegalDocumentAddress],
+                    landBuildingCollateralOwnerRelationship: [singleData.landBuildingCollateralOwnerRelationship],
                 })
             );
         });
@@ -732,6 +738,7 @@ export class SecurityInitialFormComponent implements OnInit {
           saleRegistrationAmount: undefined,
           familyRegistrationAmount: undefined,
           giftRegistrationAmount: undefined,
+          landCollateralOwnerRelationship: undefined,
 
         });
     }
@@ -821,6 +828,7 @@ export class SecurityInitialFormComponent implements OnInit {
             landBuildingAlternateStaffRepresentativeDesignation: [undefined],
             landBuildingAlternateStaffRepresentativeName: [undefined],
             landAndBuildingSecurityLegalDocumentAddress: [undefined],
+            landBuildingCollateralOwnerRelationship: [undefined],
         });
     }
 
@@ -1179,7 +1187,6 @@ export class SecurityInitialFormComponent implements OnInit {
         this.shareSecurityForm.get('loanShareRate').setValue(this.activeNepseMaster);
         this.shareSecurityData.data = JSON.stringify(this.shareSecurityForm.value);
         this.shareSecurityData.customerShareData = this.getShareDataList();
-
     }
 
     setRevaluationData(controlName , list: QueryList<any> , securityId) {
@@ -1414,4 +1421,12 @@ export class SecurityInitialFormComponent implements OnInit {
     this.securityForm.get([formArray, index, 'giftOwnershipTransfer']).patchValue(undefined);
 
   }
+
+    ownerKycRelationInfoCheck(kycChecked) {
+        if (!kycChecked) {
+            this.ownerKycRelationInfoChecked = false;
+        } else {
+            this.ownerKycRelationInfoChecked = true;
+        }
+    }
 }
