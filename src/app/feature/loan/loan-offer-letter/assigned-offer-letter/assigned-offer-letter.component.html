@@ -19,7 +19,7 @@
     <ng-container *ngFor="let data of customerOfferLetterList;let i=index">
         <tr
                 class="cursor">
-            <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+            <td>{{i + 1}}</td>
             <td *ngIf="branchView">{{data?.customerLoan?.branch?.name}}</td>
             <td>{{data?.customerLoan?.loanHolder?.name}}</td>
             <td>{{data?.customerLoan?.loan?.name}}</td>
