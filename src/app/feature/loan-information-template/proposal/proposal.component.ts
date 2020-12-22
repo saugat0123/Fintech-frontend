@@ -174,7 +174,7 @@ export class ProposalComponent implements OnInit {
       // for moratoriumPeriod Amount--
       moratoriumPeriod: [undefined],
       // for prepaymentCharge Amount--
-      prepaymentCharge: ['As Per Standard Charge'],
+      prepaymentCharge: [''],
       // for prepaymentCharge Amount--
       // for commitmentFee Amount--
       commitmentFee: [undefined],
