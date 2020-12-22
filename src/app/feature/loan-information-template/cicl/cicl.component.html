@@ -126,11 +126,7 @@
             <div class="col-md-3 form-group">
               <label for="overdue"><b>Number of Overdue Installment(s)</b></label>
               <input class="form-control" formControlName="overdue" id="overdue"
-                     placeholder="overdue"
-                     [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('overdue').invalid) }">
-              <div *ngIf="(submitted) && cicl.get('overdue').errors" class="invalid-feedback">
-                <span *ngIf="(cicl.get('overdue').errors.required)">Overdue Installment is required</span>
-              </div>
+                     placeholder="overdue">
             </div>
           </div>
           <div class="row">
