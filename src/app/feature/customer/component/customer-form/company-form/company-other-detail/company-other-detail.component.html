@@ -11,12 +11,12 @@
         <option  *ngFor="let fiscalYear of fiscalYears" [value]="fiscalYear.year">
           {{fiscalYear.year}}
       </select>
-      <div *ngIf="submitted && form.taxClearanceTill?.errors "
-           class="small text-danger">
-        <div *ngIf="form.taxClearanceTill?.errors.required">
-          Tax clearance till is required
-        </div>
-      </div>
+<!--      <div *ngIf="submitted && form.taxClearanceTill?.errors "-->
+<!--           class="small text-danger">-->
+<!--        <div *ngIf="form.taxClearanceTill?.errors.required">-->
+<!--          Tax clearance till is required-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
     <div class="col-md-4">
       <div class="form-group">
