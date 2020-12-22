@@ -1,4 +1,6 @@
 export class Cicl {
+  nameBORR: string;
+  relationBORR: string;
   nameOfFI: string;
   facility: string;
   outstandingAmount: number;
