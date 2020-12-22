@@ -13,7 +13,7 @@
             <div *ngIf="(ciclForm.get('cibCharge').errors.required)">
               Cicl Charge is required
             </div>
-            <span *ngIf="ciclForm.get('cibCharge').errors.min">CIB Charge must be positive enumerical value.</span>
+            <span *ngIf="ciclForm.get('cibCharge').errors.min">CIB Charge must be positive numerical value.</span>
 
           </div>
         </div>
@@ -49,7 +49,7 @@
                 <div
                         *ngIf="(submitted) && cicl.get('relation').invalid" class="invalid-feedback">
                   <div>
-                    relation is required
+                    Relation is required.
                   </div>
                 </div>
               </div>

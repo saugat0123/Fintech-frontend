@@ -132,8 +132,8 @@ export class CiclComponent implements OnInit {
     ciclList.forEach(cicl => {
       controls.push(
           this.formBuilder.group({
-            borrowerName: [cicl.nameBORR, Validators.required],
-            relation: [cicl.relationBORR, Validators.required],
+            borrowerName: [cicl.nameOfBorrower, Validators.required],
+            relation: [cicl.borrowerRelation, Validators.required],
             fiName: [cicl.nameOfFI, Validators.required],
             facilityName: [cicl.facility, Validators.required],
             overdueAmount: [cicl.overdueAmount, Validators.required],
@@ -177,8 +177,8 @@ export class CiclComponent implements OnInit {
     for (const arrayControl of ciclControls.controls) {
       const controls = (arrayControl as FormGroup).controls;
       const cicl: Cicl = new Cicl();
-      cicl.nameBORR = controls.borrowerName.value;
-      cicl.relationBORR = controls.relation.value;
+      cicl.nameOfBorrower = controls.borrowerName.value;
+      cicl.borrowerRelation = controls.relation.value;
       cicl.nameOfFI = controls.fiName.value;
       cicl.facility = controls.facilityName.value;
       cicl.overdueAmount = controls.overdueAmount.value;
