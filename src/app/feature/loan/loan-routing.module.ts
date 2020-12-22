@@ -23,7 +23,6 @@ export const routes: Routes = [
     {path: 'cad-document', component: CadDocumentUploadComponent},
     {path: 'transfer-doc', component: TransferDocComponent},
     {path: 'post-approval-form', component: PostApprovalFormComponent},
-
 ];
 
 @NgModule({

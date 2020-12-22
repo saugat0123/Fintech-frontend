@@ -2,11 +2,24 @@
     <nb-card>
         <nb-card-body id="print-block">
             <div class="row disable-print">
-                <button nbButton
-                        shape="rectangle"
-                        status="primary"
-                        size="tiny" (click)="goToCustomer()"><em class="fas fa-backward"></em> <span
-                        class="px-2">customer Profile</span></button>
+                <div class="col-md-12">
+                    <button nbButton
+                            shape="rectangle"
+                            status="primary"
+                            size="tiny" (click)="goToCustomer()"><em class="fas fa-backward"></em> <span
+                            class="px-2">customer Profile</span></button>
+
+                    <button nbButton
+                            shape="rectangle"
+                            status="primary"
+                            class="float-right"
+                            size="tiny" (click)="goToApprovalSheet()">
+                        <span class="text-right px-2">
+                            Approval Sheet
+                        </span>
+                        <em class="fas fa-forward"></em>
+                    </button>
+                </div>
             </div>
             <div *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId"
                  class="row text-success cursor disable-print">
