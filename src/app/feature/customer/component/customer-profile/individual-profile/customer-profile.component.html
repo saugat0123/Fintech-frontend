@@ -3,8 +3,13 @@
         <div class="row shadow-sm">
 
             <div class="col-md-4">
-                <strong>Associated Group:</strong> <span>{{customerInfo?.customerGroup != undefined
-                ? customerInfo?.customerGroup?.groupCode : ' No group has been assigned.'}}</span>
+                <strong>Associated Group:</strong>
+                <span *ngIf="!productUtils.CBS_ENABLE">
+                    {{customerInfo?.customerGroup != undefined ? customerInfo?.customerGroup?.groupCode : ' No group has been assigned.'}}
+                </span>
+                <span *ngIf="productUtils.CBS_ENABLE">
+                    {{customerInfo?.obligor || ' No group has been assigned.'}}
+                </span>
                 <div class="py-2">
                     <button [nbPopover]="activity" nbButton size="small" [nbPopoverPlacement]="'right'"> Customer
                         Activity
@@ -269,9 +274,7 @@
                     </nb-card-body>
 
                 </nb-card>
-                <div *ngIf="productUtils.CBS_ENABLE">
-                    <app-cbs-view-customer [customerInfo]="customerInfo" *ngIf="customerInfo"></app-cbs-view-customer>
-                </div>
+
             </div>
             <div class="col-md-4">
                 <nb-card accent="primary" style="height: 650px">
@@ -350,6 +353,14 @@
                 </nb-card>
             </div>
         </div>
+
+        <!--        //cbs Group-->
+        <div class="row" *ngIf="productUtils.CBS_ENABLE">
+            <div class="col-md-12">
+                <app-cbs-view-customer [customerInfo]="customerInfo" *ngIf="customerInfo"></app-cbs-view-customer>
+            </div>
+        </div>
+        <!--        //cbs Group-->
         <div class="row">
             <div class="col-md-12">
                 <app-customer-loan-information

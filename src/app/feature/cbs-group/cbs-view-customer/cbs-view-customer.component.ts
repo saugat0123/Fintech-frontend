@@ -12,17 +12,13 @@ import {CustomerInfoData} from '../../loan/model/customerInfoData';
 export class CbsViewCustomerComponent implements OnInit {
     @Input()
     customerInfo: CustomerInfoData;
-    list: Array<CbsGroup> = new Array<CbsGroup>();
 
-    constructor(private cbsService: CbsGroupService) {
+
+    constructor() {
     }
 
     ngOnInit() {
-        if (!ObjectUtil.isEmpty(this.customerInfo)) {
-            this.cbsService.getAllByOblId(this.customerInfo.obligor).subscribe((res: any) => {
-                this.list = res.detail;
-            });
-        }
+
     }
 
 }
