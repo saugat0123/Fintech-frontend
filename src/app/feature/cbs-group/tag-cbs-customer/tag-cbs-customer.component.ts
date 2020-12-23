@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CbsGroupService} from '../service/cbs-group.service';
 import {Province} from '../../admin/modal/province';
 import {CbsGroup} from '../model/cbsGroup';
@@ -14,7 +14,8 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
     styleUrls: ['./tag-cbs-customer.component.scss']
 })
 export class TagCbsCustomerComponent implements OnInit {
-
+    @Input()
+    previousSelectedObl: string;
     list: Array<CbsGroup> = new Array<CbsGroup>();
     page = 1;
     size = 20;
@@ -42,6 +43,9 @@ export class TagCbsCustomerComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (!ObjectUtil.isEmpty(this.previousSelectedObl)) {
+            this.selectedObl = this.previousSelectedObl;
+        }
         TagCbsCustomerComponent.loadData(this);
     }
 

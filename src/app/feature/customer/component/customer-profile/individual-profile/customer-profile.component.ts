@@ -390,6 +390,17 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     cbsGroupUpdate(event) {
-        alert('from profile::' + event);
+        this.spinner = true;
+        const customerInfo = new CustomerInfoData();
+        customerInfo.id = this.customerInfoId;
+        customerInfo.obligor = event;
+        this.customerInfoService.updateCbsGroup(customerInfo).subscribe((res: any) => {
+            this.refreshCustomerInfo();
+            this.spinner = false;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+            this.spinner = false;
+        });
     }
 }

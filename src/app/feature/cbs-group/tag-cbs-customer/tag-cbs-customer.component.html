@@ -1,8 +1,12 @@
-<button [nbPopover]="cbsList" nbButton size="small"
-        [nbPopoverPlacement]="'left'">
-    Groups
-    <nb-icon icon="arrow-down-outline"></nb-icon>
-</button>
+<div class="clearfix">
+    <div class="float-right">
+        <button [nbPopover]="cbsList" nbButton size="small"
+                [nbPopoverPlacement]="'left'">
+            Groups
+            <nb-icon icon="arrow-down-outline"></nb-icon>
+        </button>
+    </div>
+</div>
 
 <ng-template #cbsList>
     <nb-card accent="primary" [nbSpinner]="spinner">

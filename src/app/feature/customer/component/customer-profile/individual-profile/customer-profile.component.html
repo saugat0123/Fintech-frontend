@@ -14,26 +14,31 @@
                 </div>
 
             </div>
+
             <div class="offset-4 col-md-4 float-right">
-                <button [nbPopover]="groupWindow" class="float-right mb-3" nbButton size="small"
-                        [nbPopoverPlacement]="'left'" *ngIf="!productUtils.CBS_ENABLE">
-                    Groups
-                    <nb-icon icon="arrow-down-outline"></nb-icon>
-                </button>
 
-                <div class="row">
-                    <ng-template #groupWindow *ngIf="!productUtils.CBS_ENABLE">
-                        <app-group-tagging #GroupTaggingComponent [customerData]="customerInfo"
-                                           (refreshGroup)="refreshGroup()"></app-group-tagging>
-                    </ng-template>
-
+                <div *ngIf="productUtils.CBS_ENABLE">
+                    <app-tag-cbs-customer (stringValue)="cbsGroupUpdate($event)">
+                    </app-tag-cbs-customer>
                 </div>
+                <div *ngIf="!productUtils.CBS_ENABLE">
+                    <button [nbPopover]="groupWindow" class="float-right mb-3" nbButton size="small"
+                            [nbPopoverPlacement]="'left'">
+                        Groups
+                        <nb-icon icon="arrow-down-outline"></nb-icon>
+                    </button>
+
+                    <div class="row">
+                        <ng-template #groupWindow >
+                            <app-group-tagging #GroupTaggingComponent [customerData]="customerInfo"
+                                               (refreshGroup)="refreshGroup()"></app-group-tagging>
+                        </ng-template>
+
+                    </div>
+                </div>
+
             </div>
 
-            <div class="float-right mb-3">
-                <app-tag-cbs-customer (stringValue)="cbsGroupUpdate($event)" *ngIf="productUtils.CBS_ENABLE">
-
-                </app-tag-cbs-customer></div>
 
         </div>
 
