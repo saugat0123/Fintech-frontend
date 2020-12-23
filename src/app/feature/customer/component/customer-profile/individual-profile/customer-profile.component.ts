@@ -29,6 +29,7 @@ import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {CustomerLoanApplyComponent} from '../../customer-loan-apply/customer-loan-apply.component';
 import {CustomerListGroupComponent} from '../../customer-group-associate-loan-list/customer-list-group.component';
 import {ProductUtils} from '../../../../admin/service/product-mode.service';
+import {ProductUtilService} from '../../../../../@core/service/product-util.service';
 
 
 @Component({
@@ -73,7 +74,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     profilePic;
     isRemarkEdited = false;
     json = JSON;
-    productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+    productUtils: ProductUtils;
 
 
     constructor(private route: ActivatedRoute,
@@ -87,7 +88,8 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                 private loanConfigService: LoanConfigService,
                 private commonLocation: AddressService,
                 private activatedRoute: ActivatedRoute,
-                private dialogService: NbDialogService) {
+                private dialogService: NbDialogService,
+                private utilService: ProductUtilService) {
 
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
             return false;
@@ -122,7 +124,8 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             this.getProvince();
             this.setRelatives(this.customer.customerRelatives);
         });
-
+        this.utilService.getProductUtil().then(r =>
+            this.productUtils = r);
 
     }
 
@@ -403,4 +406,5 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             this.spinner = false;
         });
     }
+
 }
