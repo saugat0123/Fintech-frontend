@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastService} from '../../../../@core/utils';
 import {CalendarType} from '../../../../@core/model/calendar-type';
@@ -20,6 +20,7 @@ import {SecurityIds} from './SecurityIds';
 import {DesignationList} from '../../../loan/model/designationList';
 import {OwnershipTransfer} from '../../../loan/model/ownershipTransfer';
 import {RelationshipList} from '../../../loan/model/relationshipList';
+import {OwnerKycApplicableComponent} from './owner-kyc-applicable/owner-kyc-applicable.component';
 
 
 @Component({
@@ -41,6 +42,9 @@ export class SecurityInitialFormComponent implements OnInit {
 
     @ViewChildren('revaluationComponentLandBuilding')
     revaluationComponentLandBuilding: QueryList<SecurityRevaluationComponent>;
+
+    @ViewChild('ownerKycApplicable', {static: false})
+    ownerKycApplicable: OwnerKycApplicableComponent;
 
    securityId = SecurityIds;
 
@@ -99,8 +103,9 @@ export class SecurityInitialFormComponent implements OnInit {
     ownershipTransferEnumPair = OwnershipTransfer.enumObject();
     ownershipTransfers = OwnershipTransfer;
     collateralOwnerRelationshipList: RelationshipList = new RelationshipList();
-    ownerKycRelationInfoChecked = false;
+    ownerKycRelationInfoChecked = true;
     ownerKyc: string;
+    ownerKycApplicableData: any;
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -122,6 +127,7 @@ export class SecurityInitialFormComponent implements OnInit {
         if (this.formData !== undefined) {
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
+            this.ownerKycApplicableData = this.formData['ownerKycApplicable'];
             this.change(this.selectedArray);
             this.underConstruction(this.formData['underConstructionChecked']);
             this.underBuildingConstruction(this.formData['underBuildingConstructionChecked']);
@@ -1179,6 +1185,10 @@ export class SecurityInitialFormComponent implements OnInit {
         this.shareField.push(this.shareSecurityFormGroup());
     }
 
+    fetchOwnerKycValue() {
+        return this.ownerKycApplicable.ownerKycForm.get('ownerKycDetails').value;
+    }
+
     submit() {
         this.setRevaluationData('landDetails' , this.revaluationComponent , SecurityIds.landId);
         this.setRevaluationData('buildingDetails' , this.revaluationComponentApartment , SecurityIds.apartmentId);
@@ -1187,6 +1197,7 @@ export class SecurityInitialFormComponent implements OnInit {
         this.shareSecurityForm.get('loanShareRate').setValue(this.activeNepseMaster);
         this.shareSecurityData.data = JSON.stringify(this.shareSecurityForm.value);
         this.shareSecurityData.customerShareData = this.getShareDataList();
+        console.log(`submit value : ${JSON.stringify(this.ownerKycApplicable.ownerKycForm.value)}`);
     }
 
     setRevaluationData(controlName , list: QueryList<any> , securityId) {
@@ -1422,11 +1433,7 @@ export class SecurityInitialFormComponent implements OnInit {
 
   }
 
-    ownerKycRelationInfoCheck(kycChecked) {
-        if (!kycChecked) {
-            this.ownerKycRelationInfoChecked = false;
-        } else {
-            this.ownerKycRelationInfoChecked = true;
-        }
+    ownerKycRelationInfoCheck($event) {
+            this.ownerKycRelationInfoChecked = $event;
     }
 }

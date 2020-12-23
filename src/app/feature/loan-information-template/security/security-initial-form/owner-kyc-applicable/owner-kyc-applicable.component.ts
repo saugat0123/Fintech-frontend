@@ -3,6 +3,7 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {RelationshipList} from '../../../../loan/model/relationshipList';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {District} from '../../../../admin/modal/district';
+import {ShareSecurity} from '../../../../admin/modal/shareSecurity';
 
 @Component({
     selector: 'app-owner-kyc-applicable',
@@ -13,17 +14,19 @@ export class OwnerKycApplicableComponent implements OnInit {
 
     ownerKycForm: FormGroup;
     ownerRelationship: RelationshipList = new RelationshipList();
-    @Input() formData: string;
+    @Input() data;
+    @Input() ownerFormData;
     allDistrict: Array<District> = Array<District>();
-
+    shareSecurityData: ShareSecurity = new ShareSecurity();
+    submitValue: any;
     constructor(private formBuilder: FormBuilder,
                 private districtService: AddressService) {
     }
 
     ngOnInit() {
         this.buildForm();
-        if (this.formData !== undefined) {
-            this.setOwnerKycDetails(this.formData['ownerKycDetails']);
+        if (this.data !== undefined) {
+            this.setOwnerKycDetails(this.data);
         } else {
             this.addMoreOwnerKycDetail();
         }
@@ -82,5 +85,12 @@ export class OwnerKycApplicableComponent implements OnInit {
         }, (error) => {
             console.log(error);
         });
+    }
+
+    onSubmit() {
+        if (this.ownerKycForm.invalid) {
+            return;
+        }
+        this.submitValue = this.ownerKycForm.value;
     }
 }
