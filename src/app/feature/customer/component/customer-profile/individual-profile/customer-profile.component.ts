@@ -74,7 +74,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     profilePic;
     isRemarkEdited = false;
     json = JSON;
-    productUtils: ProductUtils;
+    productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
 
 
     constructor(private route: ActivatedRoute,
@@ -399,6 +399,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         customerInfo.obligor = event;
         this.customerInfoService.updateCbsGroup(customerInfo).subscribe((res: any) => {
             this.refreshCustomerInfo();
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY Added Group'));
             this.spinner = false;
         }, error => {
             console.error(error);

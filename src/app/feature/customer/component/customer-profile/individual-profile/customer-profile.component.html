@@ -18,7 +18,8 @@
             <div class="offset-4 col-md-4 float-right">
 
                 <div *ngIf="productUtils.CBS_ENABLE">
-                    <app-tag-cbs-customer (stringValue)="cbsGroupUpdate($event)">
+                    <app-tag-cbs-customer [customerInfo]="customerInfo" *ngIf="customerInfo"
+                                          (stringValue)="cbsGroupUpdate($event)">
                     </app-tag-cbs-customer>
                 </div>
                 <div *ngIf="!productUtils.CBS_ENABLE">
@@ -29,7 +30,7 @@
                     </button>
 
                     <div class="row">
-                        <ng-template #groupWindow >
+                        <ng-template #groupWindow>
                             <app-group-tagging #GroupTaggingComponent [customerData]="customerInfo"
                                                (refreshGroup)="refreshGroup()"></app-group-tagging>
                         </ng-template>
@@ -235,7 +236,7 @@
                         </div>
                     </nb-card-footer>
                 </nb-card>
-                <nb-card accent="primary">
+                <nb-card accent="primary" *ngIf="!productUtils.CBS_ENABLE">
                     <nb-card-header>
                         Customer Groups
                         <div class="float-right" nbTooltip="{{totalGroupAmount | number}}">Total Group Limit
@@ -268,6 +269,9 @@
                     </nb-card-body>
 
                 </nb-card>
+                <div *ngIf="productUtils.CBS_ENABLE">
+                    <app-cbs-view-customer [customerInfo]="customerInfo" *ngIf="customerInfo"></app-cbs-view-customer>
+                </div>
             </div>
             <div class="col-md-4">
                 <nb-card accent="primary" style="height: 650px">

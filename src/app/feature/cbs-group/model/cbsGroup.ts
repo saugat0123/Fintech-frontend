@@ -3,4 +3,5 @@ export class CbsGroup {
     obligor: string;
     jsonData: string;
     lastModifiedAt: Date;
+    jsonDataMap: any;
 }

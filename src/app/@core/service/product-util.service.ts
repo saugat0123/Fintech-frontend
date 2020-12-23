@@ -13,7 +13,7 @@ export class ProductUtilService {
 
     async getProductUtil() {
         const storage = LocalStorageUtil.getStorage();
-        await this.productModeService.getProductUtils().subscribe((response: any) => {
+        await this.productModeService.getProductUtils().toPromise().then((response: any) => {
             storage.productUtil = response.detail;
             LocalStorageUtil.setStorage(storage);
             this.productUtils = storage.productUtil;

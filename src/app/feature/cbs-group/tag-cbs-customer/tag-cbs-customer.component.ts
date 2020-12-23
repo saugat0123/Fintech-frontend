@@ -7,6 +7,7 @@ import {ToastService} from '../../../@core/utils';
 import {Pageable} from '../../../@core/service/baseservice/common-pageable';
 import {PaginationUtils} from '../../../@core/utils/PaginationUtils';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 @Component({
     selector: 'app-tag-cbs-customer',
@@ -14,8 +15,9 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
     styleUrls: ['./tag-cbs-customer.component.scss']
 })
 export class TagCbsCustomerComponent implements OnInit {
+
     @Input()
-    previousSelectedObl: string;
+    customerInfo: CustomerInfoData;
     list: Array<CbsGroup> = new Array<CbsGroup>();
     page = 1;
     size = 20;
@@ -43,8 +45,9 @@ export class TagCbsCustomerComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (!ObjectUtil.isEmpty(this.previousSelectedObl)) {
-            this.selectedObl = this.previousSelectedObl;
+
+        if (!ObjectUtil.isEmpty(this.customerInfo)) {
+            this.selectedObl = this.customerInfo.obligor;
         }
         TagCbsCustomerComponent.loadData(this);
     }
