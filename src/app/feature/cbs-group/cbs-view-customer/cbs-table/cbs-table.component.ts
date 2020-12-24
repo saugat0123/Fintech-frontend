@@ -50,4 +50,12 @@ export class CbsTableComponent implements OnInit {
 
     }
 
+    public twoDecimalDigit(value) {
+        const number = this.isNumber(value);
+        return parseFloat(number).toFixed(2);
+    }
+
+    Number(s: string) {
+        return this.isNumber(s);
+    }
 }
