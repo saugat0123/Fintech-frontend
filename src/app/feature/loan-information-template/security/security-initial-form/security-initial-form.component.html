@@ -151,16 +151,17 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group form-inline">
-                                <nb-checkbox #kycChecked id="ownerKycInfo" class="ml-2"
-                                             (checkedChange)="ownerKycRelationInfoCheck($event)"
-                                             [checked]="ownerKycApplicableData">
+                                <nb-checkbox #kycChecked id="ownerKycInfoForLand" class="ml-2"
+                                             (checkedChange)="ownerKycRelationInfoCheck(kycChecked.checked)"
+                                             [checked]="ownerKycRelationInfoChecked">
                                     <h6>Owner KYC Applicable</h6>
                                 </nb-checkbox>
                             </div>
                         </div>
                     </div>
                     <div class="form-group" *ngIf="ownerKycRelationInfoChecked">
-                            <app-owner-kyc-applicable #ownerKycApplicable [data]="ownerKycApplicableData"></app-owner-kyc-applicable>
+                            <app-owner-kyc-applicable #ownerKycApplicable [data]="formDataForEdit?.landDetails[i]?.ownerKycApplicableData"
+                                                      [kycId]="securityId.landId + i"></app-owner-kyc-applicable>
                     </div>
                     <div class="row">
                         <div class="col-md-3">
@@ -1289,6 +1290,21 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group form-inline">
+                                        <nb-checkbox #kycChecked id="ownerKycInfoForLandAndBuilding" class="ml-2"
+                                                     (checkedChange)="ownerKycRelationInfoCheck(kycChecked.checked)"
+                                                     [checked]="ownerKycRelationInfoChecked">
+                                            <h6>Owner KYC Applicable</h6>
+                                        </nb-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" *ngIf="ownerKycRelationInfoChecked">
+                                <app-owner-kyc-applicable #ownerKycApplicableLandBuilding [data]="formDataForEdit?.landBuilding[i]?.ownerKycApplicableData"
+                                                          [kycId]="securityId.land_buildingId + i"></app-owner-kyc-applicable>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
@@ -2382,6 +2398,30 @@
                                        placeholder="Value"
                                        type="number"/>
                             </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="hypothecationOwnerRelationship">Collateral Owner Relationship</label>
+                                <select class="form-control rounded" formControlName="hypothecationOwnerRelationship"
+                                        id="hypothecationOwnerRelationship"
+                                        name="hypothecationOwnerRelationship">
+                                    <option [ngValue]="null" hidden>Select Relationship</option>
+                                    <option *ngFor="let relationship of collateralOwnerRelationshipList.relation" [ngValue]="relationship.id">{{relationship.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <nb-checkbox #kycChecked id="ownerKycInfoForHypothecation" class="ml-2"
+                                                 (checkedChange)="ownerKycRelationInfoCheck(kycChecked.checked)"
+                                                 [checked]="ownerKycRelationInfoChecked">
+                                        <h6>Owner KYC Applicable</h6>
+                                    </nb-checkbox>
+                                </div>
+                            </div>
+                        <div class="form-group" *ngIf="ownerKycRelationInfoChecked">
+                            <app-owner-kyc-applicable #ownerKycApplicableHypothecation [data]="formDataForEdit?.hypothecationOfStock[i]?.ownerKycApplicableData"
+                                                      [kycId]="securityId.hypothecation_Id + i"></app-owner-kyc-applicable>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">

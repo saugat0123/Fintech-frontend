@@ -43,10 +43,16 @@ export class SecurityInitialFormComponent implements OnInit {
     @ViewChildren('revaluationComponentLandBuilding')
     revaluationComponentLandBuilding: QueryList<SecurityRevaluationComponent>;
 
-    @ViewChild('ownerKycApplicable', {static: false})
-    ownerKycApplicable: OwnerKycApplicableComponent;
+    @ViewChildren('ownerKycApplicable')
+    ownerKycApplicable: QueryList<OwnerKycApplicableComponent>;
 
-   securityId = SecurityIds;
+    @ViewChildren('ownerKycApplicableLandBuilding')
+    ownerKycApplicableLandBuilding: QueryList<OwnerKycApplicableComponent>;
+
+    @ViewChildren('ownerKycApplicableHypothecation')
+    ownerKycApplicableHypothecation: QueryList<OwnerKycApplicableComponent>;
+
+    securityId = SecurityIds;
 
     selectedArray = [];
     securityForm: FormGroup;
@@ -103,8 +109,7 @@ export class SecurityInitialFormComponent implements OnInit {
     ownershipTransferEnumPair = OwnershipTransfer.enumObject();
     ownershipTransfers = OwnershipTransfer;
     collateralOwnerRelationshipList: RelationshipList = new RelationshipList();
-    ownerKycRelationInfoChecked = true;
-    ownerKyc: string;
+    ownerKycRelationInfoChecked = false;
     ownerKycApplicableData: any;
 
     constructor(private formBuilder: FormBuilder,
@@ -115,7 +120,7 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.configEditor();
+        this.configEditor();
         this.shareService.findAllNepseCompanyData(this.search).subscribe((list) => {
             this.nepseList = list.detail;
         });
@@ -125,9 +130,9 @@ export class SecurityInitialFormComponent implements OnInit {
         this.checkLoanTags();
 
         if (this.formData !== undefined) {
+            this.ownerKycRelationInfoChecked = true;
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
-            this.ownerKycApplicableData = this.formData['ownerKycApplicable'];
             this.change(this.selectedArray);
             this.underConstruction(this.formData['underConstructionChecked']);
             this.underBuildingConstruction(this.formData['underBuildingConstructionChecked']);
@@ -146,7 +151,6 @@ export class SecurityInitialFormComponent implements OnInit {
             this.setHypothecation(this.formDataForEdit['hypothecationOfStock']);
             this.setCorporate(this.formDataForEdit['corporateGuarantee']);
             this.setPersonal(this.formDataForEdit['personalGuarantee']);
-
         } else {
             this.addMoreLand();
             this.addBuilding();
@@ -296,17 +300,18 @@ export class SecurityInitialFormComponent implements OnInit {
                     landAlternateStaffRepresentativeName: [singleData.landAlternateStaffRepresentativeName],
                     landAlternateStaffRepresentativeDesignation: [singleData.landAlternateStaffRepresentativeDesignation],
                     landSecurityLegalDocumentAddress: [singleData.landSecurityLegalDocumentAddress],
-                  ownershipTransferDate:  [ObjectUtil.isEmpty(singleData.ownershipTransferDate) ?
-                      undefined : new Date(singleData.ownershipTransferDate)],
-                  ownershipTransferThrough: [singleData.ownershipTransferThrough],
-                  otherOwnershipTransferValue: [singleData.otherOwnershipTransferValue],
-                  saleOwnershipTransfer: [singleData.saleOwnershipTransfer],
-                  familyTransferOwnershipTransfer: [singleData.familyTransferOwnershipTransfer],
-                  giftOwnershipTransfer: [singleData.giftOwnershipTransfer],
-                  saleRegistrationAmount: [singleData.saleRegistrationAmount],
-                  familyRegistrationAmount: [singleData.familyRegistrationAmount],
-                  giftRegistrationAmount: [singleData.giftRegistrationAmount],
+                    ownershipTransferDate: [ObjectUtil.isEmpty(singleData.ownershipTransferDate) ?
+                        undefined : new Date(singleData.ownershipTransferDate)],
+                    ownershipTransferThrough: [singleData.ownershipTransferThrough],
+                    otherOwnershipTransferValue: [singleData.otherOwnershipTransferValue],
+                    saleOwnershipTransfer: [singleData.saleOwnershipTransfer],
+                    familyTransferOwnershipTransfer: [singleData.familyTransferOwnershipTransfer],
+                    giftOwnershipTransfer: [singleData.giftOwnershipTransfer],
+                    saleRegistrationAmount: [singleData.saleRegistrationAmount],
+                    familyRegistrationAmount: [singleData.familyRegistrationAmount],
+                    giftRegistrationAmount: [singleData.giftRegistrationAmount],
                     landCollateralOwnerRelationship: [singleData.landCollateralOwnerRelationship],
+                    ownerKycApplicableData: [singleData.ownerKycApplicableData],
                 })
             );
         });
@@ -322,7 +327,9 @@ export class SecurityInitialFormComponent implements OnInit {
                         stock: [singleData.stock],
                         value: [singleData.value],
                         otherDetail: [singleData.otherDetail],
-                        description: [singleData.description]
+                        description: [singleData.description],
+                        hypothecationOwnerRelationship: [singleData.hypothecationOwnerRelationship],
+                        ownerKycApplicableData: [singleData.ownerKycApplicableData],
 
                     })
                 );
@@ -492,6 +499,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     landBuildingAlternateStaffRepresentativeName: [singleData.landBuildingAlternateStaffRepresentativeName],
                     landAndBuildingSecurityLegalDocumentAddress: [singleData.landAndBuildingSecurityLegalDocumentAddress],
                     landBuildingCollateralOwnerRelationship: [singleData.landBuildingCollateralOwnerRelationship],
+                    ownerKycApplicableData: [singleData.ownerKycApplicableData],
                 })
             );
         });
@@ -678,7 +686,9 @@ export class SecurityInitialFormComponent implements OnInit {
                 stock: [undefined],
                 value: [undefined],
                 otherDetail: [undefined],
-                description: [undefined]
+                description: [undefined],
+                hypothecationOwnerRelationship: [undefined],
+                ownerKycApplicableData: [undefined],
 
             }
         );
@@ -735,16 +745,17 @@ export class SecurityInitialFormComponent implements OnInit {
             landAlternateStaffRepresentativeName: [undefined],
             landAlternateStaffRepresentativeDesignation: [undefined],
             landSecurityLegalDocumentAddress: [undefined],
-          ownershipTransferDate: undefined,
-          ownershipTransferThrough: undefined,
-          otherOwnershipTransferValue: undefined,
-          saleOwnershipTransfer: undefined,
-          familyTransferOwnershipTransfer: undefined,
-          giftOwnershipTransfer: undefined,
-          saleRegistrationAmount: undefined,
-          familyRegistrationAmount: undefined,
-          giftRegistrationAmount: undefined,
-          landCollateralOwnerRelationship: undefined,
+            ownershipTransferDate: undefined,
+            ownershipTransferThrough: undefined,
+            otherOwnershipTransferValue: undefined,
+            saleOwnershipTransfer: undefined,
+            familyTransferOwnershipTransfer: undefined,
+            giftOwnershipTransfer: undefined,
+            saleRegistrationAmount: undefined,
+            familyRegistrationAmount: undefined,
+            giftRegistrationAmount: undefined,
+            landCollateralOwnerRelationship: undefined,
+            ownerKycApplicableData: [undefined],
 
         });
     }
@@ -835,6 +846,7 @@ export class SecurityInitialFormComponent implements OnInit {
             landBuildingAlternateStaffRepresentativeName: [undefined],
             landAndBuildingSecurityLegalDocumentAddress: [undefined],
             landBuildingCollateralOwnerRelationship: [undefined],
+            ownerKycApplicableData: [undefined],
         });
     }
 
@@ -1177,7 +1189,7 @@ export class SecurityInitialFormComponent implements OnInit {
             amountPerUnit: [''],
             total: [''],
             consideredValue: [''],
-            ownershipTransferDate:  undefined
+            ownershipTransferDate: undefined
         });
     }
 
@@ -1185,25 +1197,31 @@ export class SecurityInitialFormComponent implements OnInit {
         this.shareField.push(this.shareSecurityFormGroup());
     }
 
-    fetchOwnerKycValue() {
-        return this.ownerKycApplicable.ownerKycForm.get('ownerKycDetails').value;
-    }
-
     submit() {
-        this.setRevaluationData('landDetails' , this.revaluationComponent , SecurityIds.landId);
-        this.setRevaluationData('buildingDetails' , this.revaluationComponentApartment , SecurityIds.apartmentId);
-        this.setRevaluationData('landBuilding' , this.revaluationComponentLandBuilding , SecurityIds.land_buildingId);
+        this.setRevaluationData('landDetails', this.revaluationComponent, SecurityIds.landId);
+        this.setRevaluationData('buildingDetails', this.revaluationComponentApartment, SecurityIds.apartmentId);
+        this.setRevaluationData('landBuilding', this.revaluationComponentLandBuilding, SecurityIds.land_buildingId);
         console.log(this.securityForm.value);
         this.shareSecurityForm.get('loanShareRate').setValue(this.activeNepseMaster);
         this.shareSecurityData.data = JSON.stringify(this.shareSecurityForm.value);
         this.shareSecurityData.customerShareData = this.getShareDataList();
-        console.log(`submit value : ${JSON.stringify(this.ownerKycApplicable.ownerKycForm.value)}`);
+        this.fetchOwnerKycValue('landDetails', this.ownerKycApplicable, SecurityIds.landId);
+        this.fetchOwnerKycValue('landBuilding', this.ownerKycApplicableLandBuilding, SecurityIds.land_buildingId);
+        this.fetchOwnerKycValue('hypothecationOfStock', this.ownerKycApplicableHypothecation, SecurityIds.hypothecation_Id);
     }
 
-    setRevaluationData(controlName , list: QueryList<any> , securityId) {
+    setRevaluationData(controlName, list: QueryList<any>, securityId) {
         this.securityForm.controls[controlName]['controls'].forEach((control, index) => {
             const comp: any = list.filter(item => item.revaluationId === (securityId + index))[0];
             control.get('revaluationData').setValue(comp.formGroup.value);
+        });
+    }
+
+    fetchOwnerKycValue(controlName, list: QueryList<any>, securityId) {
+        this.securityForm.controls[controlName]['controls'].forEach((control, index) => {
+            const comp: any = list.filter(item => item.kycId === (securityId + index))[0];
+            console.log(`Comp value : ${comp}`);
+            control.get('ownerKycApplicableData').setValue(comp.ownerKycForm.value);
         });
     }
 
@@ -1433,7 +1451,11 @@ export class SecurityInitialFormComponent implements OnInit {
 
   }
 
-    ownerKycRelationInfoCheck($event) {
-            this.ownerKycRelationInfoChecked = $event;
+    ownerKycRelationInfoCheck(kycCheck) {
+        if (!kycCheck) {
+            this.ownerKycRelationInfoChecked = false;
+        }else {
+            this.ownerKycRelationInfoChecked = true;
+        }
     }
 }

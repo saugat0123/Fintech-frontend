@@ -220,7 +220,7 @@ export class SecurityComponent implements OnInit {
         this.initialSecurity.submit();
         const mergedForm = {
             initialForm: this.initialSecurity.securityForm.value,
-            ownerKycApplicable: this.initialSecurity.fetchOwnerKycValue(),
+            // ownerKycApplicable: this.initialSecurity.fetchOwnerKycValue(),
             selectedArray: this.initialSecurity.selectedArray,
             underConstructionChecked: this.initialSecurity.underConstructionChecked,
             otherBranchcheck: this.initialSecurity.otherBranchcheck,

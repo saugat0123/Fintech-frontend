@@ -4,6 +4,7 @@ import {RelationshipList} from '../../../../loan/model/relationshipList';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {District} from '../../../../admin/modal/district';
 import {ShareSecurity} from '../../../../admin/modal/shareSecurity';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-owner-kyc-applicable',
@@ -15,17 +16,23 @@ export class OwnerKycApplicableComponent implements OnInit {
     ownerKycForm: FormGroup;
     ownerRelationship: RelationshipList = new RelationshipList();
     @Input() data;
-    @Input() ownerFormData;
+    // @Input() ownerFormData;
     allDistrict: Array<District> = Array<District>();
     shareSecurityData: ShareSecurity = new ShareSecurity();
     submitValue: any;
+    @Input() kycId: string;
     constructor(private formBuilder: FormBuilder,
                 private districtService: AddressService) {
     }
 
     ngOnInit() {
         this.buildForm();
-        if (this.data !== undefined) {
+
+        console.log(this.data);
+
+        this.submitValue = this.ownerKycForm.value;
+
+        if (!ObjectUtil.isEmpty(this.data)) {
             this.setOwnerKycDetails(this.data);
         } else {
             this.addMoreOwnerKycDetail();
@@ -42,7 +49,7 @@ export class OwnerKycApplicableComponent implements OnInit {
 
     setOwnerKycDetails(currentData) {
         const ownerKycDetails = this.ownerKycForm.get('ownerKycDetails') as FormArray;
-        currentData.forEach((singleData) => {
+        currentData.ownerKycDetails.forEach((singleData) => {
             ownerKycDetails.push(
                 this.formBuilder.group({
                     ownerRelationship: [singleData.ownerRelationship],
