@@ -2419,10 +2419,13 @@
                                     </nb-checkbox>
                                 </div>
                             </div>
-                        <div class="form-group" *ngIf="ownerKycRelationInfoChecked">
-                            <app-owner-kyc-applicable #ownerKycApplicableHypothecation [data]="formDataForEdit?.hypothecationOfStock[i]?.ownerKycApplicableData"
-                                                      [kycId]="securityId.hypothecation_Id + i"></app-owner-kyc-applicable>
+                        <div class="col-md-12">
+                            <div class="form-group" *ngIf="ownerKycRelationInfoChecked">
+                                <app-owner-kyc-applicable #ownerKycApplicableHypothecation [data]="formDataForEdit?.hypothecationOfStock[i]?.ownerKycApplicableData"
+                                                          [kycId]="securityId.hypothecation_Id + i"></app-owner-kyc-applicable>
+                            </div>
                         </div>
+
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Other Detail</label>

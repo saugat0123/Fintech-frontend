@@ -1,10 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RelationshipList} from '../../../../loan/model/relationshipList';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {District} from '../../../../admin/modal/district';
 import {ShareSecurity} from '../../../../admin/modal/shareSecurity';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {Pattern} from '../../../../../@core/utils/constants/pattern';
 
 @Component({
     selector: 'app-owner-kyc-applicable',
@@ -69,10 +70,10 @@ export class OwnerKycApplicableComponent implements OnInit {
         return this.formBuilder.group({
                 ownerRelationship: [undefined],
                 relationName: [undefined],
-                citizenshipNumber: [undefined],
+                citizenshipNumber: [undefined, Validators.required],
                 issuedLocation: [undefined],
                 issuedDate: [undefined],
-                mobileNumber: [undefined],
+                mobileNumber: [undefined, Validators.pattern(Pattern.NUMBER_MOBILE)],
                 address: [undefined],
             }
         );
