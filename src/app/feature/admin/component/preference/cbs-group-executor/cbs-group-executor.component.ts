@@ -24,7 +24,7 @@ export class CbsGroupExecutorComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Executed!'));
 
             }, error => {
-                this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+                this.toastService.show(new Alert(AlertType.ERROR, 'unable to connect remote server'));
                 this.spinner = false;
             }
         );
