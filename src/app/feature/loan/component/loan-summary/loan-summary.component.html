@@ -586,9 +586,20 @@
                 </table>
             </div>
 
-            <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
-                                        [groupDto]="loanDataHolder?.groupSummaryDto"
-                                        [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>
+            <div *ngIf="!productUtils.CBS_ENABLE">
+                <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
+                                            [groupDto]="loanDataHolder?.groupSummaryDto"
+                                            [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>
+            </div>
+            <div *ngIf="productUtils.CBS_ENABLE">
+                <div class="row mt-5">
+                    <div class="col-md-12">
+                        <p><strong>Group Details</strong>
+                        </p>
+                    </div>
+                    <app-cbs-table [customerInfo]="loanDataHolder.loanHolder" *ngIf="loanDataHolder"></app-cbs-table>
+                </div>
+            </div>
 
             <app-collateral-summary
                     *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"

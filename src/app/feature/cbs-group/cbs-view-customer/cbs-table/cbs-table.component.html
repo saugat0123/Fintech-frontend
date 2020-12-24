@@ -27,8 +27,8 @@
     </tr>
     <tr>
         <td class="sb-bg-dark text-white" colspan="6"><strong>Total</strong></td>
-        <td>{{totalApprovedLimit || '-'}}</td>
-        <td>{{totalOutstandingLimit || '-'}}</td>
+        <td>{{totalApprovedLimit | currencyFormatter}}</td>
+        <td>{{totalOutstandingLimit | currencyFormatter}}</td>
         <td>-</td>
     </tr>
 

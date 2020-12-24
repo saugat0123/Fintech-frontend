@@ -13,8 +13,9 @@ export class CbsTableComponent implements OnInit {
     @Input()
     customerInfo: CustomerInfoData;
     list: Array<CbsGroup> = new Array<CbsGroup>();
-    totalApprovedLimit = 0;
-    totalOutstandingLimit = 0;
+    totalApprovedLimit;
+    totalOutstandingLimit;
+
 
     constructor(private cbsService: CbsGroupService) {
     }
@@ -23,12 +24,18 @@ export class CbsTableComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.customerInfo)) {
             this.cbsService.getAllByOblId(this.customerInfo.obligor).subscribe((res: any) => {
                 this.list = res.detail;
-                this.list.forEach(l => {
-                    this.totalApprovedLimit = this.totalApprovedLimit + this.isNumber(l.jsonDataMap.ApprovedLimit);
-                    this.totalOutstandingLimit = this.totalApprovedLimit + this.isNumber(l.jsonDataMap.OSPrincipal);
-                });
+                this.totalApprovedLimit = this.additionByKey('ApprovedLimit');
+                this.totalOutstandingLimit = this.additionByKey('OSPrincipal');
             });
         }
+    }
+
+    public additionByKey(key) {
+        const total = this.list.filter(l => l.jsonDataMap[key]).map(k => k.jsonDataMap[key])
+            .reduce((a, b) => parseFloat(this.isNumber(a)) + parseFloat(this.isNumber(b)), 0);
+        const finalTotal = this.isNumber(total);
+        return parseFloat(finalTotal).toFixed(2);
+
     }
 
     public isNumber(value) {

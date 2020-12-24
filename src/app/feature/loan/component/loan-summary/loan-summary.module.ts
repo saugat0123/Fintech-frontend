@@ -22,6 +22,7 @@ import { FinancialRiskSummaryComponent } from './financial-risk-summary/financia
 import { CollateralSummaryComponent } from './collateral-summary/collateral-summary.component';
 import { NtaSummaryComponent } from './nta-summary/nta-summary.component';
 import { ProposalTermsAndConditionSummeryComponent } from './proposal-terms-and-condition-summery/proposal-terms-and-condition-summery.component';
+import {CbsGroupModule} from '../../../cbs-group/cbs-group.module';
 
 
 const COMPONENTS = [
@@ -54,7 +55,8 @@ const ENTRY_COMPONENTS = [];
         LoanSummaryRoutingModule,
         ReportingModule,
         NgxPrintModule,
-        CoreModule
+        CoreModule,
+        CbsGroupModule
     ],
   exports: [
     LoanSummaryComponent,
