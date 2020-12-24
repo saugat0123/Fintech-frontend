@@ -21,8 +21,8 @@
         <td>{{data?.jsonDataMap?.MainCode || '-'}}</td>
         <td>{{data?.jsonDataMap?.Name || '-'}}</td>
         <td>{{data?.jsonDataMap?.TypeOfCredit || '-'}}</td>
-        <td>{{(Number(twoDecimalDigit(data?.jsonDataMap?.ApprovedLimit))| currencyFormatter) || '-'}}</td>
-        <td>{{(Number(twoDecimalDigit(data?.jsonDataMap?.OSPrincipal)) | currencyFormatter) || '-'}}</td>
+        <td class="text-right">Rs.{{(Number(twoDecimalDigit(data?.jsonDataMap?.ApprovedLimit))| currencyFormatter) || '-'}}</td>
+        <td class="text-right">Rs.{{(Number(twoDecimalDigit(data?.jsonDataMap?.OSPrincipal)) | currencyFormatter) || '-'}}</td>
         <td>{{data?.jsonDataMap?.InterestRate || '-'}}</td>
     </tr>
     <tr>

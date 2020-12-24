@@ -29,4 +29,11 @@ export class CbsGroupService extends BaseService<any> {
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
     }
+
+
+    public executeRemote() {
+        const api = `${this.getApi()}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
 }
