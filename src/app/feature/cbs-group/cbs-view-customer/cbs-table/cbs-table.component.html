@@ -22,14 +22,14 @@
         <td>{{data?.jsonDataMap?.Name || '-'}}</td>
         <td>{{data?.jsonDataMap?.TypeOfCredit || '-'}}</td>
         <td>{{data?.jsonDataMap?.ApprovedLimit || '-'}}</td>
-        <td>-</td>
+        <td>{{data?.jsonDataMap?.OSPrincipal || '-'}}</td>
         <td>{{data?.jsonDataMap?.InterestRate || '-'}}</td>
     </tr>
     <tr>
         <td class="sb-bg-dark text-white" colspan="6"><strong>Total</strong></td>
-        <td>111</td>
-        <td>1112</td>
-        <td>1112</td>
+        <td>{{totalApprovedLimit || '-'}}</td>
+        <td>{{totalOutstandingLimit || '-'}}</td>
+        <td>-</td>
     </tr>
 
 
