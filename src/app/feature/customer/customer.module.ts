@@ -40,6 +40,7 @@ import { MarketScenarioComponent } from './component/customer-form/company-form/
 import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {FeatureModule} from '../feature.module';
+import {CbsGroupModule} from '../cbs-group/cbs-group.module';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -92,7 +93,8 @@ const COMPONENTS = [
         CustomerActivityModule,
         LoanSummaryModule,
         TranslateModule,
-        FeatureModule
+        FeatureModule,
+        CbsGroupModule
 
 
     ],
