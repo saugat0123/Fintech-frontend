@@ -1,49 +1,48 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {LoanConfig} from '../../../admin/modal/loan-config';
-import {User} from '../../../admin/modal/user';
-import {Security} from '../../../admin/modal/security';
-import {LoanDataHolder} from '../../model/loanData';
-import {UserService} from '../../../../@core/service/user.service';
+import {LoanDataHolder} from '../../../model/loanData';
+import {LoanConfig} from '../../../../admin/modal/loan-config';
+import {DmsLoanFile} from '../../../../admin/modal/dms-loan-file';
+import {User} from '../../../../admin/modal/user';
+import {LoanType} from '../../../model/loanType';
+import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
+import {LoanStage} from '../../../model/loanStage';
+import {BusinessType} from '../../../../admin/modal/businessType';
+import {Financial} from '../../../model/financial';
+import {ShareSecurity} from '../../../../admin/modal/shareSecurity';
+import {Proposal} from '../../../../admin/modal/proposal';
+import {NetTradingAssets} from '../../../../admin/modal/NetTradingAssets';
+import {ProductUtils} from '../../../../admin/service/product-mode.service';
+import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
+import {UserService} from '../../../../../@core/service/user.service';
+import {LoanFormService} from '../../loan-form/service/loan-form.service';
+import {LoanActionService} from '../../../loan-action/service/loan-action.service';
+import {DmsLoanService} from '../../loan-main-template/dms-loan-file/dms-loan-service';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {LoanFormService} from '../loan-form/service/loan-form.service';
-import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-service';
-import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
-import {DmsLoanFile} from '../../../admin/modal/dms-loan-file';
-import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
-import {LoanActionService} from '../../loan-action/service/loan-action.service';
-import {ApprovalLimitService} from '../../../admin/component/approvallimit/approval-limit.service';
-import {LoanStage} from '../../model/loanStage';
-import {environment} from '../../../../../environments/environment';
-import {DateService} from '../../../../@core/service/baseservice/date.service';
+import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
+import {ApprovalLimitService} from '../../../../admin/component/approvallimit/approval-limit.service';
+import {DateService} from '../../../../../@core/service/baseservice/date.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {ReadmoreModelComponent} from '../readmore-model/readmore-model.component';
-import {LoanType} from '../../model/loanType';
-import {BusinessType} from '../../../admin/modal/businessType';
-import {Financial} from '../../model/financial';
-import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {DocAction} from '../../model/docAction';
-import {DocumentService} from '../../../admin/component/document/document.service';
-import {ShareSecurity} from '../../../admin/modal/shareSecurity';
-import {Proposal} from '../../../admin/modal/proposal';
-import {CombinedLoanService} from '../../../service/combined-loan.service';
-import {CombinedLoan} from '../../model/combined-loan';
-import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
-import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
-import {ToastService} from '../../../../@core/utils';
-import {Alert, AlertType} from '../../../../@theme/model/Alert';
-import {ProductUtils} from '../../../admin/service/product-mode.service';
-import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
-import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
-import {Customer} from '../../../admin/modal/customer';
+import {DocumentService} from '../../../../admin/component/document/document.service';
+import {CombinedLoanService} from '../../../../service/combined-loan.service';
+import {CommonRoutingUtilsService} from '../../../../../@core/utils/common-routing-utils.service';
+import {ToastService} from '../../../../../@core/utils';
+import {FiscalYearService} from '../../../../admin/service/fiscal-year.service';
+import {environment} from '../../../../../../environments/environment';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {CombinedLoan} from '../../../model/combined-loan';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {ReadmoreModelComponent} from '../../readmore-model/readmore-model.component';
+import {DocAction} from '../../../model/docAction';
+import {Security} from '../../../../admin/modal/security';
 
 @Component({
-    selector: 'app-loan-summary',
-    templateUrl: './loan-summary.component.html',
-    styleUrls: ['./loan-summary.component.scss']
+    selector: 'app-approval-sheet',
+    templateUrl: './approval-sheet.component.html',
+    styleUrls: ['./approval-sheet.component.scss']
 })
-export class LoanSummaryComponent implements OnInit, OnDestroy {
+export class ApprovalSheetComponent implements OnInit, OnDestroy {
 
-    @Output() changeToApprovalSheetActive = new EventEmitter<string>();
+    @Output() changeToLoanSummaryActive = new EventEmitter<string>();
 
     @Input() loanData;
     loanDataHolder: LoanDataHolder;
@@ -455,7 +454,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }, error => this.toastService.show(new Alert(AlertType.ERROR, error.error.message)));
     }
 
-    loanHandler(index: number, length: number , label: string) {
+    loanHandler(index: number, length: number, label: string) {
         if (index === length - 1 && index !== 0) {
             if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
                 return 'APPROVED BY:';
@@ -465,15 +464,15 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 return 'CLOSED BY:';
             }
         }
-       if (!ObjectUtil.isEmpty(label)) {
-           return label;
-       } else {
-           if (index === 0) {
-               return 'INITIATED BY:';
-           } else {
-               return 'SUPPORTED BY:';
-           }
-       }
+        if (!ObjectUtil.isEmpty(label)) {
+            return label;
+        } else {
+            if (index === 0) {
+                return 'INITIATED BY:';
+            } else {
+                return 'SUPPORTED BY:';
+            }
+        }
     }
 
     open(comments) {
@@ -503,26 +502,19 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         link.click();
     }
 
-    /**
-     * Changes Acting Fiscal year for Alpha CRG.
-     *
-     * @param $event Change event of nb-select.
-     */
+    goToCustomer() {
+        const loanHolder = this.loanDataHolder.loanHolder;
+        this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
+    }
 
-    /*public changeFiscalYearForAlpha($event: number) {
-        if (!ObjectUtil.isEmpty(this.creditRiskAlphaScoreArray)) {
-            this.creditRiskAlphaScore = ObjectUtil.isEmpty(this.creditRiskAlphaScoreArray[$event]) ? 0
-                : this.creditRiskAlphaScoreArray[$event];
-            this.creditRiskGradeAlpha = this.creditRiskGradeAlphaArray[$event];
-            if (this.creditRiskGradeAlpha === 'Superior' || this.creditRiskGradeAlpha === 'Good') {
-                this.creditGradeAlphaStatusBadge = 'badge badge-success';
-            } else if (this.creditRiskGradeAlpha === 'Bad & Loss' || this.creditRiskGradeAlpha === 'Doubtful') {
-                this.creditGradeAlphaStatusBadge = 'badge badge-danger';
-            } else {
-                this.creditGradeAlphaStatusBadge = 'badge badge-warning';
-            }
-        }
-    }*/
+    getFiscalYears() {
+        this.fiscalYearService.getAll().subscribe(response => {
+            this.fiscalYearArray = response.detail;
+        }, error => {
+            console.log(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Fiscal Year!'));
+        });
+    }
 
     /**
      * Get array of loan stage for authority signature array.
@@ -556,22 +548,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         return signatureList;
     }
 
-    goToCustomer() {
-        const loanHolder = this.loanDataHolder.loanHolder;
-        this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
-    }
-
-    getFiscalYears() {
-        this.fiscalYearService.getAll().subscribe(response => {
-            this.fiscalYearArray = response.detail;
-        }, error => {
-            console.log(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Fiscal Year!'));
-        });
-    }
-
-    goToApprovalSheet() {
-        this.changeToApprovalSheetActive.next();
+    goToLoanSummary() {
+        this.changeToLoanSummaryActive.next();
     }
 }
-

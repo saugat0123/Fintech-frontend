@@ -1,26 +1,41 @@
 <nb-card>
-  <nb-card-header>
-    <app-loan-action
-        *ngIf="loanDataHolder"
-        [actionsList]="actionsList"
-        [catalogueStatus]="catalogueStatus"
-        [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
-        [hasDeferredDocs]="hasMissingDeferredDocs"
-        [id]="customerId"
-        [loanCategory]="loanCategory"
-        [loanConfigId]="loanConfigId"
-        [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"
-        [customerType]="loanDataHolder?.loanCategory"
-        [branchId]="loanDataHolder?.branch?.id"
-        [customerLoanHolder]="loanDataHolder"
-    ></app-loan-action>
-  </nb-card-header>
-  <nb-card-body>
-    <app-loan-summary *ngIf="loanDataHolder?.id"
-                      [loanData]="loanDataHolder"
-                      [loanConfig]="loanConfig"
-                      [nepaliDate]="nepaliDate">
-    </app-loan-summary>
+    <nb-card-header>
+        <app-loan-action
+                *ngIf="loanDataHolder && loanSummaryActive"
+                [actionsList]="actionsList"
+                [branchId]="loanDataHolder?.branch?.id"
+                [catalogueStatus]="catalogueStatus"
+                [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
+                [customerLoanHolder]="loanDataHolder"
+                [customerType]="loanDataHolder?.loanCategory"
+                [hasDeferredDocs]="hasMissingDeferredDocs"
+                [id]="customerId"
+                [loanCategory]="loanCategory"
+                [loanConfigId]="loanConfigId"
+                [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"
+        ></app-loan-action>
 
-  </nb-card-body>
+        <button *ngIf="loanDataHolder && approvalSheetActive"
+                [useExistingCss]="true" class="btn-sm btn-warning float-right"
+                ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss">
+            PRINT<i class="col-md-1 fa fa-print"></i>
+        </button>
+
+    </nb-card-header>
+    <nb-card-body>
+        <app-loan-summary (changeToApprovalSheetActive)="activeApprovalSheet()"
+                          *ngIf="loanSummaryActive && loanDataHolder?.id"
+                          [loanConfig]="loanConfig"
+                          [loanData]="loanDataHolder"
+                          [nepaliDate]="nepaliDate">
+        </app-loan-summary>
+
+        <app-approval-sheet (changeToLoanSummaryActive)="activeLoanSummary()"
+                            *ngIf="approvalSheetActive && loanDataHolder?.id"
+                            [loanConfig]="loanConfig"
+                            [loanData]="loanDataHolder"
+                            [nepaliDate]="nepaliDate">
+        </app-approval-sheet>
+
+    </nb-card-body>
 </nb-card>
