@@ -599,18 +599,30 @@
                 </table>
             </div>
 
-            <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
-                                        [groupDto]="loanDataHolder?.groupSummaryDto"
-                                        [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>
-
-            <app-collateral-summary
-                    *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
-                    [customerAllLoanList]="customerAllLoanList"
-                    [security]="loanDataHolder?.security"></app-collateral-summary>
-            <app-proposal-justification-summary *ngIf="proposalSummary"
-                                                [customerAllLoanList]="customerAllLoanList"
-                                                [proposalData]="proposalData"></app-proposal-justification-summary>
-
+            <div *ngIf="!productUtils.CBS_ENABLE">
+                <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
+                                            [groupDto]="loanDataHolder?.groupSummaryDto"
+                                            [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>
+            </div>
+            <div *ngIf="productUtils.CBS_ENABLE">
+                <div class="row mt-5">
+                    <div class="col-md-12">
+                        <p><strong>Group Details</strong>
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+                    <app-cbs-table [customerInfo]="loanDataHolder.loanHolder" *ngIf="loanDataHolder"></app-cbs-table>
+                    </div> </div>
+            </div>
+            <div *ngIf="!productUtils.CBS_ENABLE">
+                <app-collateral-summary
+                        *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
+                        [customerAllLoanList]="customerAllLoanList"
+                        [security]="loanDataHolder?.security"></app-collateral-summary>
+                <app-proposal-justification-summary *ngIf="proposalSummary"
+                                                    [customerAllLoanList]="customerAllLoanList"
+                                                    [proposalData]="proposalData"></app-proposal-justification-summary>
+            </div>
             <app-security-summary *ngIf="securitySummary"
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
 
