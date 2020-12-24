@@ -1,5 +1,5 @@
 <table
-        class="table sb-small  table-bordered table-sm text-center">
+        class="table table-bordered table-responsive-md table-sm sb-small text-center">
     <thead>
     <tr class="sb-bg-dark text-white">
         <th>S.N</th>
@@ -27,8 +27,8 @@
     </tr>
     <tr>
         <td class="sb-bg-dark text-white" colspan="6"><strong>Total</strong></td>
-        <td><strong>Rs.{{totalApprovedLimit | currencyFormatter}}</strong></td>
-        <td><strong>Rs.{{totalOutstandingLimit | currencyFormatter}}</strong></td>
+        <td class="text-right"><strong>Rs.{{totalApprovedLimit | currencyFormatter}}</strong></td>
+        <td class="text-right"><strong>Rs.{{totalOutstandingLimit | currencyFormatter}}</strong></td>
         <td>-</td>
     </tr>
 

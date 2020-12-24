@@ -610,18 +610,19 @@
                         <p><strong>Group Details</strong>
                         </p>
                     </div>
+                    <div class="col-md-12">
                     <app-cbs-table [customerInfo]="loanDataHolder.loanHolder" *ngIf="loanDataHolder"></app-cbs-table>
-                </div>
+                    </div> </div>
             </div>
-
-            <app-collateral-summary
-                    *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
-                    [customerAllLoanList]="customerAllLoanList"
-                    [security]="loanDataHolder?.security"></app-collateral-summary>
-            <app-proposal-justification-summary *ngIf="proposalSummary"
-                                                [customerAllLoanList]="customerAllLoanList"
-                                                [proposalData]="proposalData"></app-proposal-justification-summary>
-
+            <div *ngIf="!productUtils.CBS_ENABLE">
+                <app-collateral-summary
+                        *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
+                        [customerAllLoanList]="customerAllLoanList"
+                        [security]="loanDataHolder?.security"></app-collateral-summary>
+                <app-proposal-justification-summary *ngIf="proposalSummary"
+                                                    [customerAllLoanList]="customerAllLoanList"
+                                                    [proposalData]="proposalData"></app-proposal-justification-summary>
+            </div>
             <app-security-summary *ngIf="securitySummary"
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
 
