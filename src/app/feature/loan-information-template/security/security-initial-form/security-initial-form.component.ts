@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastService} from '../../../../@core/utils';
 import {CalendarType} from '../../../../@core/model/calendar-type';
@@ -109,7 +109,9 @@ export class SecurityInitialFormComponent implements OnInit {
     ownershipTransferEnumPair = OwnershipTransfer.enumObject();
     ownershipTransfers = OwnershipTransfer;
     collateralOwnerRelationshipList: RelationshipList = new RelationshipList();
-    ownerKycRelationInfoChecked = false;
+    ownerKycRelationInfoCheckedForLand = false;
+    ownerKycRelationInfoCheckedForLandBuilding = false;
+    ownerKycRelationInfoCheckedForHypothecation = false;
     ownerKycApplicableData: any;
 
     constructor(private formBuilder: FormBuilder,
@@ -130,7 +132,9 @@ export class SecurityInitialFormComponent implements OnInit {
         this.checkLoanTags();
 
         if (this.formData !== undefined) {
-            this.ownerKycRelationInfoChecked = true;
+            this.ownerKycRelationInfoCheckedForLand = true;
+            this.ownerKycRelationInfoCheckedForLandBuilding = true;
+            this.ownerKycRelationInfoCheckedForHypothecation = true;
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
             this.change(this.selectedArray);
@@ -1441,21 +1445,31 @@ export class SecurityInitialFormComponent implements OnInit {
   resetOtherTransferParameter(formArray, index: number, resetAmountOnly: boolean) {
     this.securityForm.get([formArray, index, 'saleRegistrationAmount']).patchValue(undefined);
     this.securityForm.get([formArray, index, 'familyRegistrationAmount']).patchValue(undefined);
-    this.securityForm.get([formArray, index, 'giftRegistrationAmount']).patchValue(undefined);
-    if (resetAmountOnly) {
-      return;
-    }
-    this.securityForm.get([formArray, index, 'saleOwnershipTransfer']).patchValue(undefined);
-    this.securityForm.get([formArray, index, 'familyTransferOwnershipTransfer']).patchValue(undefined);
-    this.securityForm.get([formArray, index, 'giftOwnershipTransfer']).patchValue(undefined);
+      this.securityForm.get([formArray, index, 'giftRegistrationAmount']).patchValue(undefined);
+      if (resetAmountOnly) {
+          return;
+      }
+      this.securityForm.get([formArray, index, 'saleOwnershipTransfer']).patchValue(undefined);
+      this.securityForm.get([formArray, index, 'familyTransferOwnershipTransfer']).patchValue(undefined);
+      this.securityForm.get([formArray, index, 'giftOwnershipTransfer']).patchValue(undefined);
 
   }
 
-    ownerKycRelationInfoCheck(kycCheck) {
+    ownerKycRelationInfoCheck(kycCheck, kycCheckId) {
         if (!kycCheck) {
-            this.ownerKycRelationInfoChecked = false;
-        }else {
-            this.ownerKycRelationInfoChecked = true;
+            this.ownerKycRelationInfoCheckedForLand = false;
+            this.ownerKycRelationInfoCheckedForLandBuilding = false;
+            this.ownerKycRelationInfoCheckedForHypothecation = false;
+        } else {
+            if (kycCheckId === 'land') {
+                this.ownerKycRelationInfoCheckedForLand = true;
+            }
+            if (kycCheckId === 'land_building') {
+                this.ownerKycRelationInfoCheckedForLandBuilding = true;
+            }
+            if (kycCheckId === 'hypothecation') {
+                this.ownerKycRelationInfoCheckedForHypothecation = true;
+            }
         }
     }
 }
