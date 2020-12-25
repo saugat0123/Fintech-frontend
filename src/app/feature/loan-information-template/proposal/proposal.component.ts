@@ -352,15 +352,15 @@ export class ProposalComponent implements OnInit {
       switch (repaymentMode) {
         case 'MONTHLY':
           interestAmount = (proposedAmount * rate) / 12;
-          principleAmount = (proposedAmount / tenure) / 12;
+          principleAmount = (proposedAmount / tenure) * 12;
           break;
         case 'QUARTERLY':
           interestAmount = (proposedAmount * rate) / 4;
-          principleAmount = (proposedAmount / tenure) / 4;
+          principleAmount = (proposedAmount / tenure) * 4;
           break;
         case 'SEMI-ANNUALLY' :
           interestAmount = (proposedAmount * rate) / 2;
-          principleAmount = (proposedAmount / tenure) / 2;
+          principleAmount = (proposedAmount / tenure) * 2;
           break;
         default:
           principleAmount = 0;
