@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {LoanConfig} from '../../../admin/modal/loan-config';
 import {User} from '../../../admin/modal/user';
 import {Security} from '../../../admin/modal/security';
@@ -42,6 +42,8 @@ import {Customer} from '../../../admin/modal/customer';
     styleUrls: ['./loan-summary.component.scss']
 })
 export class LoanSummaryComponent implements OnInit, OnDestroy {
+
+    @Output() changeToApprovalSheetActive = new EventEmitter<string>();
 
     @Input() loanData;
     loanDataHolder: LoanDataHolder;
@@ -566,6 +568,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             console.log(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Fiscal Year!'));
         });
+    }
+
+    goToApprovalSheet() {
+        this.changeToApprovalSheetActive.next();
     }
 }
 
