@@ -53,7 +53,7 @@
                                                 [readOnly]="loanType == 'PARTIAL_SETTLEMENT_LOAN'"
                                                 formControlName="proposedLimit" id="proposedLimit"
                                                 name="proposedLimit" placeholder="Proposed limit"
-                                                type="number" (input)="checkRepaymentMode()" appDecimalNumber>
+                                                type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()" appDecimalNumber>
                                         <div *ngIf=" (submitted)  && formControls.proposedLimit.errors"
                                              class="invalid-feedback">
                                             <span *ngIf="(formControls.proposedLimit.errors.required)">Proposed Limit is required</span>
@@ -164,7 +164,7 @@
                                                 class="form-control" formControlName="interestRate"
                                                 id="interestRate" name="interestRate" placeholder="Interest Rate(%)"
                                                 [(ngModel)]="interestLimit"
-                                                type="number" (input)="checkRepaymentMode()" appDecimalNumber>
+                                                type="number" (input)="checkRepaymentMode(); checkCustomRepaymentMode()" appDecimalNumber>
                                         <!--                    <div *ngIf="(submitted) && formControls.interestRate.invalid"-->
                                         <!--                         class="invalid-feedback">-->
                                         <!--                      <span *ngIf="formControls.interestRate.errors.required">Interest Rate is required</span>-->
@@ -246,7 +246,7 @@
                                                 class="form-control"
                                                 formControlName="tenureDurationInMonths" id="tenureDurationInMonths"
                                                 placeholder="Tenure Duration in Months"
-                                                type="number" (input)="checkRepaymentMode()" appDecimalNumber>
+                                                type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()" appDecimalNumber>
 
                                         <!--                                        <input [nbDatepicker]="tenurePicker"-->
                                         <!--                                               [ngClass]="{ 'is-invalid':submitted &&formControls.tenureDurationInMonths.errors}"-->
@@ -361,7 +361,7 @@
                                 <div class="col-md-4"
                                      *ngIf="(!showInstallmentAmount || showRepaymentMode) &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
                                     <div class="form-group>">
-                                        <label class="title"> <strong>Principle Amount</strong></label>
+                                        <label class="title"> <strong>Principal Amount</strong></label>
                                         <input
                                                 class="form-control" formControlName="principalAmount"
                                                 id="principalAmount"

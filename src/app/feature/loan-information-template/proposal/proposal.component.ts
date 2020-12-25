@@ -321,6 +321,13 @@ export class ProposalComponent implements OnInit {
     }
   }
 
+  checkCustomRepaymentMode() {
+   if (this.showRepaymentMode) {
+     this.calculateRepaymentModeAmounts(this.proposalForm.get('repaymentModePrincipal').value , 'PRINCIPAL');
+     this.calculateRepaymentModeAmounts(this.proposalForm.get('repaymentModeInterest').value , 'INTEREST');
+   }
+  }
+
   calculateEmiEqiAmount(repaymentMode) {
     const proposedAmount = this.proposalForm.get('proposedLimit').value;
     const rate = Number(this.proposalForm.get('interestRate').value) / (12 * 100);
@@ -368,8 +375,7 @@ export class ProposalComponent implements OnInit {
       }
       if (key === 'INTEREST') {
         this.proposalForm.get('interestAmount').patchValue(Number((interestAmount).toFixed(2)));
-      }
-      if (key === 'PRINCIPAL') {
+      }if (key === 'PRINCIPAL') {
         this.proposalForm.get('principalAmount').patchValue(Number((principleAmount).toFixed(2)));
       }
     }
