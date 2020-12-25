@@ -50,8 +50,9 @@ export class ProposalComponent implements OnInit {
   isGeneral = false;
   isVehicle = false;
   isShare = false;
-  showInstallmentAmount = false;
   loanEnumType = LoanType;
+  showInstallmentAmount = false;
+  showRepaymentMode = false;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -144,6 +145,8 @@ export class ProposalComponent implements OnInit {
       serviceCharge: [undefined],
       tenureDurationInMonths: [undefined],
       repaymentMode: [undefined],
+      repaymentModeInterest: [undefined],
+      repaymentModePrincipal: [undefined],
       disbursementCriteria: [undefined, [Validators.required]],
       repayment: [undefined],
       borrowerInformation: [undefined, [Validators.required]],
@@ -152,7 +155,7 @@ export class ProposalComponent implements OnInit {
       outStandingLimit: [undefined],
       collateralRequirement: [undefined, Validators.required],
       limitExpiryMethod: [undefined, Validators.required],
-      duration: [undefined,  Validators.required],
+      duration: [undefined, Validators.required],
       condition: [undefined, Validators.required],
       frequency: [undefined,  Validators.required],
       dateOfExpiry: [undefined,  Validators.required],
@@ -171,6 +174,7 @@ export class ProposalComponent implements OnInit {
       // Additional Fields--
       // for installment Amount--
       installmentAmount: [undefined],
+      principalAmount: [undefined],
       // for moratoriumPeriod Amount--
       moratoriumPeriod: [undefined],
       // for prepaymentCharge Amount--
@@ -311,19 +315,17 @@ export class ProposalComponent implements OnInit {
         case 'EQI':
           this.calculateEmiEqiAmount('eqi');
           break;
-        case 'MONTHLY':
-          this.calculateEmiEqiAmount('monthly');
-          break;
-        case 'QUARTERLY':
-          this.calculateEmiEqiAmount('quarterly');
-          break;
-        case 'YEARLY':
-          this.calculateEmiEqiAmount('yearly');
-          break;
       }
     } else {
       this.proposalForm.get('installmentAmount').patchValue(0);
     }
+  }
+
+  checkCustomRepaymentMode() {
+   if (this.showRepaymentMode) {
+     this.calculateRepaymentModeAmounts(this.proposalForm.get('repaymentModePrincipal').value , 'PRINCIPAL');
+     this.calculateRepaymentModeAmounts(this.proposalForm.get('repaymentModeInterest').value , 'INTEREST');
+   }
   }
 
   calculateEmiEqiAmount(repaymentMode) {
@@ -339,20 +341,46 @@ export class ProposalComponent implements OnInit {
         case 'eqi':
           this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(2)));
           break;
-        case 'monthly':
-          this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(2)));
-          break;
-        case 'quarterly':
-          this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(2)));
-          break;
-        case 'yearly':
-          this.proposalForm.get('installmentAmount').patchValue(Number((emi * 12).toFixed(2)));
-          break;
       }
     } else {
       this.proposalForm.get('installmentAmount').patchValue(undefined);
     }
   }
+
+  /** @param key - calculate type identifier,
+   * @param repaymentMode - period of calculation*/
+  calculateRepaymentModeAmounts(repaymentMode, key) {
+    let principleAmount = 0;
+    let interestAmount = 0;
+    const rate = Number(this.proposalForm.get('interestRate').value) / 100;
+    const proposedAmount = this.proposalForm.get('proposedLimit').value;
+    const tenure = this.proposalForm.get('tenureDurationInMonths').value;
+    if (proposedAmount) {
+      switch (repaymentMode) {
+        case 'MONTHLY':
+          interestAmount = (proposedAmount * rate) / 12;
+          principleAmount = (proposedAmount / tenure) * 12;
+          break;
+        case 'QUARTERLY':
+          interestAmount = (proposedAmount * rate) / 4;
+          principleAmount = (proposedAmount / tenure) * 4;
+          break;
+        case 'SEMI-ANNUALLY' :
+          interestAmount = (proposedAmount * rate) / 2;
+          principleAmount = (proposedAmount / tenure) * 2;
+          break;
+        default:
+          principleAmount = 0;
+          interestAmount = 0;
+      }
+      if (key === 'INTEREST') {
+        this.proposalForm.get('interestAmount').patchValue(Number((interestAmount).toFixed(2)));
+      }if (key === 'PRINCIPAL') {
+        this.proposalForm.get('principalAmount').patchValue(Number((principleAmount).toFixed(2)));
+      }
+    }
+  }
+
   setCollateralRequirement(collateralRequirement) {
     if (ObjectUtil.isEmpty(this.proposalForm.get('collateralRequirement').value)) {
       this.proposalForm.get('collateralRequirement').patchValue(collateralRequirement);
@@ -389,16 +417,34 @@ export class ProposalComponent implements OnInit {
 
     }
   }
+
   checkInstallmentAmount() {
-    if (this.proposalForm.get('repaymentMode').value === 'EMI' || this.proposalForm.get('repaymentMode').value === 'EQI' ||
-      this.proposalForm.get('repaymentMode').value === 'MONTHLY' ||  this.proposalForm.get('repaymentMode').value === 'QUARTERLY'
-        ||  this.proposalForm.get('repaymentMode').value === 'YEARLY') {
+    if (this.proposalForm.get('repaymentMode').value === 'EMI' || this.proposalForm.get('repaymentMode').value === 'EQI') {
       this.showInstallmentAmount = true;
+      this.showRepaymentMode = false;
       this.checkRepaymentMode();
+      this.controlValidation(['repaymentModeInterest' , 'repaymentModePrincipal'] , false);
+    } else if (this.proposalForm.get('repaymentMode').value === 'CUSTOM') {
+      this.showRepaymentMode = true;
+      this.showInstallmentAmount = false;
+      this.controlValidation(['repaymentModeInterest' , 'repaymentModePrincipal'] , true);
     } else {
       this.showInstallmentAmount = false;
+      this.showRepaymentMode = false;
     }
   }
+
+  controlValidation(controlNames, addValidation) {
+    controlNames.forEach(s => {
+      if (addValidation) {
+        this.proposalForm.get(s).setValidators(Validators.required);
+      } else {
+      this.proposalForm.get(s).clearValidators();
+      }
+      this.proposalForm.get(s).updateValueAndValidity();
+    });
+  }
+
   // checkLoanConfig() {
   //   if (this.isFixedDeposit) {
   //     this.proposalForm.get('couponRate').setValidators(Validators.required);

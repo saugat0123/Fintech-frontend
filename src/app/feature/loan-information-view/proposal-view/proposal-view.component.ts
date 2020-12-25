@@ -28,6 +28,7 @@ export class ProposalViewComponent implements OnInit {
   isShare = false;
   allId;
   showInstallmentAmount = false;
+  showRepaymentMode = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private loanConfigService: LoanConfigService) {
@@ -75,10 +76,11 @@ export class ProposalViewComponent implements OnInit {
         });
   }
   checkInstallmentAmount() {
-    if (this.proposalData.repaymentMode === 'EMI' || this.proposalData.repaymentMode === 'EQI' ||
-        this.proposalData.repaymentMode === 'MONTHLY' || this.proposalData.repaymentMode === 'QUARTERLY'
-        || this.proposalData.repaymentMode === 'YEARLY') {
+    if (this.proposalData.repaymentMode === 'EMI' || this.proposalData.repaymentMode === 'EQI') {
       this.showInstallmentAmount = true;
+    }
+    if (this.proposalData.repaymentMode === 'CUSTOM') {
+      this.showRepaymentMode = true;
     }
   }
 }
