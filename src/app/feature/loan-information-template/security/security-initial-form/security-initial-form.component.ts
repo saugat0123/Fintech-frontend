@@ -1224,7 +1224,6 @@ export class SecurityInitialFormComponent implements OnInit {
     fetchOwnerKycValue(controlName, list: QueryList<any>, securityId) {
         this.securityForm.controls[controlName]['controls'].forEach((control, index) => {
             const comp: any = list.filter(item => item.kycId === (securityId + index))[0];
-            console.log(`Comp value : ${comp}`);
             control.get('ownerKycApplicableData').setValue(comp.ownerKycForm.value);
         });
     }

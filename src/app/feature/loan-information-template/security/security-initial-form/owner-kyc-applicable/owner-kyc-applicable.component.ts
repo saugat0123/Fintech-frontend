@@ -17,7 +17,6 @@ export class OwnerKycApplicableComponent implements OnInit {
     ownerKycForm: FormGroup;
     ownerRelationship: RelationshipList = new RelationshipList();
     @Input() data;
-    // @Input() ownerFormData;
     allDistrict: Array<District> = Array<District>();
     shareSecurityData: ShareSecurity = new ShareSecurity();
     submitValue: any;
@@ -27,10 +26,8 @@ export class OwnerKycApplicableComponent implements OnInit {
     }
 
     ngOnInit() {
+
         this.buildForm();
-
-        console.log(this.data);
-
         this.submitValue = this.ownerKycForm.value;
 
         if (!ObjectUtil.isEmpty(this.data)) {
