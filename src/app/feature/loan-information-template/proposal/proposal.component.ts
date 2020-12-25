@@ -420,6 +420,7 @@ export class ProposalComponent implements OnInit {
       this.controlValidation(['repaymentModeInterest' , 'repaymentModePrincipal'] , false);
     } else if (this.proposalForm.get('repaymentMode').value === 'CUSTOM') {
       this.showRepaymentMode = true;
+      this.showInstallmentAmount = false;
       this.controlValidation(['repaymentModeInterest' , 'repaymentModePrincipal'] , true);
     } else {
       this.showInstallmentAmount = false;
