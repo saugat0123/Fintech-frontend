@@ -203,7 +203,9 @@ const modules = {
     ],
 
     entryComponents: [...ENTRY_COMPONENTS],
-    exports: []
+    exports: [
+        KycInfoComponent
+    ]
 })
 export class LoanModule {
 }
