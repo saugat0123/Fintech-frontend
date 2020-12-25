@@ -5,7 +5,8 @@
             <nb-card-header>Initial, Pending, Rejected, Closed</nb-card-header>
             <nb-card-body>
                 <table *ngIf="!spinner"
-                       class="table table-bordered table-hover table-sm sb-small text-center" style="max-height: 400px;overflow-y: auto">
+                       class="table table-bordered table-hover table-sm sb-small text-center"
+                       style="max-height: 400px;overflow-y: auto">
                     <thead>
                     <tr class="sb-bg-dark text-white">
                         <th>S.N</th>
@@ -20,8 +21,8 @@
                     </thead>
                     <tbody>
                     <ng-container
-                        *ngFor="let model of loanHistoriesGroup(loanHistories).pending; let i=index">
-                        <tr (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id)"
+                            *ngFor="let model of loanHistoriesGroup(loanHistories).pending; let i=index">
+                        <tr (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)"
                             class="cursor">
                             <td>{{i + 1}}</td>
                             <td>{{model?.loanName}}</td>
@@ -31,7 +32,7 @@
                             <td>{{model?.documentStatus}}</td>
                             <td>{{model?.createdAt | date}}</td>
                             <td>{{model?.collateralRequirement}}</td>
-                            <td>{{(model?.collateralRequirement * model?.proposalProposedLimit)/100 |currencyFormatter}}</td>
+                            <td>{{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                         </tr>
                         <ng-container *ngIf="toggleArray[i].toggled">
                             <tr (click)="onClick(single?.loanId, single.id)"
@@ -45,7 +46,7 @@
                                 <td>{{single?.documentStatus}}</td>
                                 <td>{{single?.createdAt | date}}</td>
                                 <td>{{single?.collateralRequirement}}</td>
-                                <td>{{(single?.collateralRequirement * single?.proposalProposedLimit)/100 |currencyFormatter}}</td>
+                                <td>{{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                             </tr>
                         </ng-container>
                     </ng-container>
@@ -54,7 +55,7 @@
                         <td>Total</td>
                         <td class="text-right">{{collateralDtoData?.totalPendingLimit |currencyFormatter}}</td>
                         <td colspan="4"></td>
-                        <td >{{collateralDtoData?.totalPendingRequiredCollateral |currencyFormatter}}</td>
+                        <td>{{collateralDtoData?.totalPendingRequiredCollateral |currencyFormatter}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -64,7 +65,8 @@
             <nb-card-header>Approved</nb-card-header>
             <nb-card-body>
                 <table *ngIf="!spinner"
-                       class="table table-bordered table-hover table-sm sb-small text-center" style="max-height: 400px;overflow-y: auto">
+                       class="table table-bordered table-hover table-sm sb-small text-center"
+                       style="max-height: 400px;overflow-y: auto">
                     <thead>
                     <tr class="sb-bg-dark text-white">
                         <th>S.N</th>
@@ -82,7 +84,7 @@
                     </tr>
                     <ng-container
                             *ngFor="let model of loanHistoriesGroup(loanHistories).funded;let i=index">
-                        <tr (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id)"
+                        <tr (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)"
                             class="cursor">
                             <td>{{i + 1}}</td>
                             <td>{{model?.loanName}}</td>
@@ -91,10 +93,10 @@
                             <td>{{loanType[model?.loanType] || model?.loanType}}</td>
                             <td>{{model?.createdAt | date}}</td>
                             <td>{{model?.collateralRequirement}}</td>
-                            {{(model?.collateralRequirement * model?.proposalProposedLimit)/100 |currencyFormatter}}
+                            {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}
                         </tr>
-                        <ng-container >
-                            <tr (click)="onClick(single?.loanId, single.id)"
+                        <ng-container>
+                            <tr (click)="onClick(single?.loanId, single.id,single?.currentStage)"
                                 *ngFor="let single of model?.combinedLoans;let i=index"
                                 class="cursor" style="background-color: #cccccc;">
                                 <td>{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
@@ -105,7 +107,7 @@
                                 <td>{{single?.documentStatus}}</td>
                                 <td>{{single?.createdAt | date}}</td>
                                 <td>{{single?.collateralRequirement}}</td>
-                                {{(single?.collateralRequirement * single?.proposalProposedLimit)/100 |currencyFormatter}}
+                                {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}
                             </tr>
                         </ng-container>
                     </ng-container>
@@ -114,7 +116,7 @@
                     </tr>
                     <ng-container
                             *ngFor="let model of loanHistoriesGroup(loanHistories).nonFunded;let i=index">
-                        <tr (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id)"
+                        <tr (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)"
                             class="cursor">
                             <td>{{i + 1}}</td>
                             <td>{{model?.loanName}}</td>
@@ -123,10 +125,10 @@
                             <td>{{loanType[model?.loanType] || model?.loanType}}</td>
                             <td>{{model?.createdAt | date}}</td>
                             <td>{{model?.collateralRequirement}}</td>
-                            {{(model?.collateralRequirement * model?.proposalProposedLimit)/100 |currencyFormatter}}
+                            {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}
                         </tr>
-                        <ng-container >
-                            <tr (click)="onClick(single?.loanId, single.id)"
+                        <ng-container>
+                            <tr (click)="onClick(single?.loanId, single.id,single?.currentStage)"
                                 *ngFor="let single of model?.combinedLoans;let i=index"
                                 class="cursor" style="background-color: #cccccc;">
                                 <td>{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
@@ -137,7 +139,7 @@
                                 <td>{{single?.documentStatus}}</td>
                                 <td>{{single?.createdAt | date}}</td>
                                 <td>{{single?.collateralRequirement}}</td>
-                                {{(single?.collateralRequirement * single?.proposalProposedLimit)/100 |currencyFormatter}}
+                                {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}
                             </tr>
                         </ng-container>
                     </ng-container>
@@ -146,17 +148,24 @@
                         <td>Total</td>
                         <td class="text-right">{{collateralDtoData?.totalApprovedLimit |currencyFormatter}}</td>
                         <td colspan="3"></td>
-                        <td >{{collateralDtoData?.totalApprovedRequiredCollateral |currencyFormatter}}</td>
+                        <td>{{collateralDtoData?.totalApprovedRequiredCollateral |currencyFormatter}}</td>
                     </tr>
                     </tbody>
                 </table>
             </nb-card-body>
             <nb-card-footer>
                 <div>
-                    <mark class="alert-warning">Total Required Collateral:</mark> <strong>Rs.{{collateralDtoData.totalRequiredCollateral| currencyFormatter}}</strong>
-                    <br><mark class="alert-warning">Total FMV/Considered Value:</mark> <strong>Rs.{{customerInfo?.security?.totalSecurityAmount |currencyFormatter}}</strong>
-                    <br><mark class="alert-warning">Surplus/(Deficit):</mark><strong> Rs. {{collateralDtoData.deficit_Surplus |currencyFormatter}}</strong>
-                    <br><mark class="alert-warning">Coverage%: </mark><strong>{{collateralDtoData.coveragePercent |roundvalue |currencyFormatter}}%</strong>
+                    <mark class="alert-warning">Total Required Collateral:</mark>
+                    <strong>Rs.{{collateralDtoData.totalRequiredCollateral| currencyFormatter}}</strong>
+                    <br>
+                    <mark class="alert-warning">Total FMV/Considered Value:</mark>
+                    <strong>Rs.{{customerInfo?.security?.totalSecurityAmount |currencyFormatter}}</strong>
+                    <br>
+                    <mark class="alert-warning">Surplus/(Deficit):</mark>
+                    <strong> Rs. {{collateralDtoData.deficit_Surplus |currencyFormatter}}</strong>
+                    <br>
+                    <mark class="alert-warning">Coverage%:</mark>
+                    <strong>{{collateralDtoData.coveragePercent |roundvalue |currencyFormatter}}%</strong>
                 </div>
             </nb-card-footer>
         </nb-card>
