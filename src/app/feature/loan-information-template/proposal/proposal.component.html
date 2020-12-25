@@ -286,54 +286,56 @@
                                         <!--                    </div>-->
                                     </div>
                                 </div>
-                                <ng-container *ngIf="showRepaymentMode">
-                                <div  class="col-md-4">
-                                    <label class="title" for="repaymentModeInterest"><strong>Interest Payment</strong></label>
-                                    <select
+                                <div  *ngIf="showRepaymentMode" class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="repaymentModeInterest"><strong>Interest Payment</strong></label>
+                                        <select
                                             #interestRepayment
                                             [ngClass]="{ 'is-invalid': (submitted) && formControls.repaymentModeInterest.errors }"
                                             class="custom-select" formControlName="repaymentModeInterest"
                                             id="repaymentModeInterest"
                                             name="repaymentModeInterest"
                                             (change)="calculateRepaymentModeAmounts(interestRepayment.value , 'INTEREST')">
-                                        <option [ngValue]="null" hidden selected>Select</option>
-                                        <option value="MONTHLY">Monthly</option>
-                                        <option value="QUARTERLY">Quarterly</option>
-                                        <option value="SEMI-ANNUALLY">Semi-Annually</option>
-                                    </select>
+                                            <option [ngValue]="null" hidden selected>Select</option>
+                                            <option value="MONTHLY">Monthly</option>
+                                            <option value="QUARTERLY">Quarterly</option>
+                                            <option value="SEMI-ANNUALLY">Semi-Annually</option>
+                                        </select>
 
-                                    <div *ngIf="(submitted) && formControls.repaymentModeInterest.invalid"
-                                         class="invalid-feedback">
+                                        <div *ngIf="(submitted) && formControls.repaymentModeInterest.invalid"
+                                             class="invalid-feedback">
                                         <span *ngIf="formControls.repaymentModeInterest.errors.required">
                                             Repayment Frequency is required</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div  class="col-md-4">
-                                    <label class="title" for="repaymentModePrincipal"><strong>Principal Payment</strong></label>
-                                    <select
+                                <div  class="col-md-4" *ngIf="showRepaymentMode">
+                                    <div class="form-group">
+                                        <label class="title" for="repaymentModePrincipal"><strong>Principal Payment</strong></label>
+                                        <select
                                             #repaymentModePrincipal
                                             [ngClass]="{ 'is-invalid': (submitted) && formControls.repaymentModePrincipal.errors }"
                                             class="custom-select" formControlName="repaymentModePrincipal"
                                             id="repaymentModePrincipal"
                                             name="repaymentModePrincipal"
                                             (change)="calculateRepaymentModeAmounts(repaymentModePrincipal.value , 'PRINCIPAL')">
-                                        <option [ngValue]="null" hidden selected>Select</option>
-                                        <option value="MONTHLY">Monthly</option>
-                                        <option value="QUARTERLY">Quarterly</option>
-                                        <option value="SEMI-ANNUALLY">Semi-Annually</option>
-                                    </select>
-                                    <div *ngIf="(submitted) && formControls.repaymentModePrincipal.invalid"
-                                         class="invalid-feedback">
+                                            <option [ngValue]="null" hidden selected>Select</option>
+                                            <option value="MONTHLY">Monthly</option>
+                                            <option value="QUARTERLY">Quarterly</option>
+                                            <option value="SEMI-ANNUALLY">Semi-Annually</option>
+                                        </select>
+                                        <div *ngIf="(submitted) && formControls.repaymentModePrincipal.invalid"
+                                             class="invalid-feedback">
                                         <span *ngIf="formControls.repaymentModePrincipal.errors.required">
                                             Repayment Frequency is required</span>
+                                        </div>
                                     </div>
                                 </div>
-                                </ng-container>
                                 <!--                                end of repayment mode-->
 
                                 <!--                start of installment amount div-->
                                 <div class="col-md-4"
-                                     *ngIf="(showInstallmentAmount || showRepaymentMode) && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))">
+                                     *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))">
                                     <div class="form-group>">
                                         <label class="title"> <strong>Installment Amount</strong></label>
                                         <input
