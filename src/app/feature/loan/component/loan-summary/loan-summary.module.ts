@@ -21,6 +21,9 @@ import { BusinessBackgroundComponent } from './company-info-summary/business-bac
 import { FinancialRiskSummaryComponent } from './financial-risk-summary/financial-risk-summary.component';
 import { CollateralSummaryComponent } from './collateral-summary/collateral-summary.component';
 import { NtaSummaryComponent } from './nta-summary/nta-summary.component';
+import { ProposalTermsAndConditionSummeryComponent } from './proposal-terms-and-condition-summery/proposal-terms-and-condition-summery.component';
+import { ApprovalSheetComponent } from './approval-sheet/approval-sheet.component';
+import {CbsGroupModule} from '../../../cbs-group/cbs-group.module';
 
 
 const COMPONENTS = [
@@ -39,7 +42,9 @@ const COMPONENTS = [
     FinancialRiskSummaryComponent,
     BusinessBackgroundComponent,
     CollateralSummaryComponent,
-    NtaSummaryComponent
+    NtaSummaryComponent,
+    ProposalTermsAndConditionSummeryComponent,
+    ApprovalSheetComponent
 ];
 
 const ENTRY_COMPONENTS = [];
@@ -53,13 +58,16 @@ const ENTRY_COMPONENTS = [];
         LoanSummaryRoutingModule,
         ReportingModule,
         NgxPrintModule,
-        CoreModule
+        CoreModule,
+        CbsGroupModule
     ],
     exports: [
         LoanSummaryComponent,
         CustomerGroupSummaryComponent,
         IncomeFromAccountSummeryComponent,
-        NtaSummaryComponent
+        NtaSummaryComponent,
+        ProposalTermsAndConditionSummeryComponent,
+        ApprovalSheetComponent
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

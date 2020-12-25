@@ -2,11 +2,24 @@
     <nb-card>
         <nb-card-body id="print-block">
             <div class="row disable-print">
-                <button nbButton
-                        shape="rectangle"
-                        status="primary"
-                        size="tiny" (click)="goToCustomer()"><em class="fas fa-backward"></em> <span
-                        class="px-2">customer Profile</span></button>
+                <div class="col-md-12">
+                    <button nbButton
+                            shape="rectangle"
+                            status="primary"
+                            size="tiny" (click)="goToCustomer()"><em class="fas fa-backward"></em> <span
+                            class="px-2">customer Profile</span></button>
+
+                    <button nbButton
+                            shape="rectangle"
+                            status="primary"
+                            class="float-right"
+                            size="tiny" (click)="goToApprovalSheet()">
+                        <span class="text-right px-2">
+                            Approval Sheet
+                        </span>
+                        <em class="fas fa-forward"></em>
+                    </button>
+                </div>
             </div>
             <div *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId"
                  class="row text-success cursor disable-print">
@@ -46,7 +59,8 @@
                             <div class="report-header">
                                 <div class="report-header-heading">{{client}}</div>
                                 <div class="report-header-sub-heading">
-                                    <span class="sb-small"> Credit Appraisal of</span> <span class="sb-medium"> {{loanConfig?.name}}</span>
+                                    <span class="sb-small"> Credit Appraisal of</span> <span
+                                        class="sb-medium"> {{loanConfig?.name}}</span>
                                     <br/>
                                     <span class="sb-small"> for </span>
                                 </div>
@@ -70,8 +84,14 @@
             </div>
             <hr class="print-line">
             <div class="row ">
-                <div class="col-md-6 sb-small">
-                    <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span>
+                <div class="col-md-12 sb-small">
+                    <div class="clearfix">
+                        <div class="float-left"><span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span></div>
+                        <div class="float-right" *ngIf="loanDataHolder?.isSol">
+                            <span><strong>Approval User: </strong>{{loanDataHolder?.solUser?.name}}</span></div>
+
+                    </div>
+
                 </div>
             </div>
 
@@ -152,7 +172,7 @@
                 </div>
 
                 <!--CRG - Alpha-->
-                <div *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"  class="col-md-12">
+                <div *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'" class="col-md-12">
                     <div *ngIf="creditRiskAlphaSummary">
                         <nb-card class="sb-medium">
                             <nb-card-header>
@@ -198,7 +218,7 @@
 
                 <!--CRG - Lambda-->
                 <div *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'" class="col-md-12">
-                    <div *ngIf="creditRiskLambdaSummary" >
+                    <div *ngIf="creditRiskLambdaSummary">
                         <nb-card class="sb-medium">
                             <nb-card-header>
                                 <h6>Credit Risk Gauge (Lambda)</h6>
@@ -306,7 +326,8 @@
                     <span class="float-right"><b>
                         <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
                         <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
-                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}})<b> on:</b> {{loanDataHolder.lastModifiedAt | date}}
+                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}}
+                        )<b> on:</b> {{loanDataHolder.lastModifiedAt | date}}
 
                     </span>
 
@@ -316,7 +337,8 @@
             <div *ngIf="loanCategory === 'INSTITUTION'" class="row">
                 <div class="col-md-12">
                     <app-company-info-summary
-                            [companyInfo]="loanDataHolder?.companyInfo" [loanDataHolder]="loanDataHolder"></app-company-info-summary>
+                            [companyInfo]="loanDataHolder?.companyInfo"
+                            [loanDataHolder]="loanDataHolder"></app-company-info-summary>
                 </div>
             </div>
 
@@ -352,37 +374,39 @@
                             <tr class="text-white sb-bg-dark">
                                 <td>Customer Client Type</td>
                                 <td>SubSector</td>
+                                <!--<td>Address as per Legal Document</td>-->
                             </tr>
-                              <tr>
+                            <tr>
                                 <td>{{loanDataHolder?.loanHolder['clientType']}}</td>
                                 <td>{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
+                                <!--<td>{{loanDataHolder?.customerInfo?.customerLegalDocumentAddress}}</td>-->
 
-                              </tr>
-                              </tbody>
+                            </tr>
+                            </tbody>
                         </table>
-<!--                        <table class="print-only table table-bordered text-center table-sm sb-small"-->
-<!--                               id="print-borrower-table">-->
-<!--                            <thead>-->
-<!--                            <tr class="text-white sb-bg-dark">-->
-<!--                                <th>Name</th>-->
-<!--                                <th>Date Of Birth</th>-->
-<!--                                <th>Citizenship Number</th>-->
-<!--                                <th>Mobile Number</th>-->
-<!--                                <th>Occupation</th>-->
-<!--                                <th>Income Source</th>-->
-<!--                            </tr>-->
-<!--                            </thead>-->
-<!--                            <tbody>-->
-<!--                            <tr>-->
-<!--                                <td>{{loanDataHolder?.customerInfo?.customerName}}</td>-->
-<!--                                <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>-->
-<!--                                <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>-->
-<!--                                <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>-->
-<!--                                <td>{{loanDataHolder?.customerInfo?.occupation}}</td>-->
-<!--                                <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>-->
-<!--                            </tr>-->
-<!--                            </tbody>-->
-<!--                        </table>-->
+                        <!--                        <table class="print-only table table-bordered text-center table-sm sb-small"-->
+                        <!--                               id="print-borrower-table">-->
+                        <!--                            <thead>-->
+                        <!--                            <tr class="text-white sb-bg-dark">-->
+                        <!--                                <th>Name</th>-->
+                        <!--                                <th>Date Of Birth</th>-->
+                        <!--                                <th>Citizenship Number</th>-->
+                        <!--                                <th>Mobile Number</th>-->
+                        <!--                                <th>Occupation</th>-->
+                        <!--                                <th>Income Source</th>-->
+                        <!--                            </tr>-->
+                        <!--                            </thead>-->
+                        <!--                            <tbody>-->
+                        <!--                            <tr>-->
+                        <!--                                <td>{{loanDataHolder?.customerInfo?.customerName}}</td>-->
+                        <!--                                <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>-->
+                        <!--                                <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>-->
+                        <!--                                <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>-->
+                        <!--                                <td>{{loanDataHolder?.customerInfo?.occupation}}</td>-->
+                        <!--                                <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>-->
+                        <!--                            </tr>-->
+                        <!--                            </tbody>-->
+                        <!--                        </table>-->
                     </div>
                     <div *ngIf="loanCategory === 'INDIVIDUAL'">
                         <p><strong>Family Details</strong></p>
@@ -575,18 +599,30 @@
                 </table>
             </div>
 
-            <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
-                                        [groupDto]="loanDataHolder?.groupSummaryDto"
-                                        [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>
-
-            <app-collateral-summary
-                    *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
-                    [customerAllLoanList]="customerAllLoanList"
-                    [security]="loanDataHolder?.security"></app-collateral-summary>
-            <app-proposal-justification-summary *ngIf="proposalSummary"
-                                                [customerAllLoanList]="customerAllLoanList"
-                                                [proposalData]="proposalData"></app-proposal-justification-summary>
-
+            <div *ngIf="!productUtils.CBS_ENABLE">
+                <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
+                                            [groupDto]="loanDataHolder?.groupSummaryDto"
+                                            [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>
+            </div>
+            <div *ngIf="productUtils.CBS_ENABLE">
+                <div class="row mt-5">
+                    <div class="col-md-12">
+                        <p><strong>Group Details</strong>
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+                    <app-cbs-table [customerInfo]="loanDataHolder.loanHolder" *ngIf="loanDataHolder"></app-cbs-table>
+                    </div> </div>
+            </div>
+            <div *ngIf="!productUtils.CBS_ENABLE">
+                <app-collateral-summary
+                        *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
+                        [customerAllLoanList]="customerAllLoanList"
+                        [security]="loanDataHolder?.security"></app-collateral-summary>
+                <app-proposal-justification-summary *ngIf="proposalSummary"
+                                                    [customerAllLoanList]="customerAllLoanList"
+                                                    [proposalData]="proposalData"></app-proposal-justification-summary>
+            </div>
             <app-security-summary *ngIf="securitySummary"
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
 
@@ -594,10 +630,12 @@
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
             <hr>
-<!--            <app-net-trading-assets *ngIf="netTradingAssetsSummary"
-                                    [fromProfile]="false"
-                                    [netTradingAssetsData]="netTradingAssetsData"></app-net-trading-assets>-->
-            <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0" [fiscalYears]="fiscalYearArray" [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
+            <!--            <app-net-trading-assets *ngIf="netTradingAssetsSummary"
+                                                [fromProfile]="false"
+                                                [netTradingAssetsData]="netTradingAssetsData"></app-net-trading-assets>-->
+            <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
+                             [fiscalYears]="fiscalYearArray"
+                             [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
 
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
@@ -799,6 +837,9 @@
 
 
             <div class="row justify-content-end px-3 disable-print">{{docMsg}}</div>
+            <app-proposal-terms-and-condition-summery *ngIf="loanDataHolder && customerAllLoanList"
+                                                      [customerAllLoanList]="customerAllLoanList"
+                                                      [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
 
             <div class="row mt-3 disable-print">
                 <div class="col-md-12">
@@ -851,7 +892,7 @@
                             </td>
 
                             <td>{{previousList?.docAction}}</td>
-                            <td class="text-justify">
+                            <td class="text-center">
                                 <div class="cmt-height">
                                     {{previousList?.comment?.length > 50 ?
                                     previousList?.comment?.substring(0, 49) :
@@ -892,7 +933,7 @@
                             </td>
 
                             <td>{{loanDataHolder?.currentStage?.docAction}}</td>
-                            <td class="text-justify">
+                            <td class="text-center">
                                 <div class="cmt-height">
                                     {{loanDataHolder?.currentStage?.comment?.length > 50 ?
                                     loanDataHolder?.currentStage?.comment?.substring(0, 49) :
@@ -917,7 +958,7 @@
                      class="col-md-2 padding-0-125">
                     <div class="signature-block">
                         <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
-                            <span>{{loanHandler(i, signatureList.length , previous?.fromUser?.role?.authorityLabel)}}</span>
+                            <span>{{loanHandler(i, signatureList.length, previous?.fromUser?.role?.authorityLabel)}}</span>
                         </div>
                         <hr class="border-dark m-0">
                         <div class="row justify-content-center signature mx-auto">
@@ -963,7 +1004,7 @@
                             <td>{{previousList?.toUser?.name}}</td>
                             <td>{{previousList?.toRole?.roleName}}</td>
                             <td>{{previousList?.docAction}}</td>
-                            <td class="text-justify">
+                            <td class="text-center">
                                 <div class="cmt-height">
                                     {{previousList?.comment?.length > 50 ?
                                     previousList?.comment?.substring(0, 49) :
@@ -981,7 +1022,7 @@
                             <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.toUser?.name}}</td>
                             <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.toRole?.roleName}}</td>
                             <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.docAction}}</td>
-                            <td class="text-justify">
+                            <td class="text-center">
                                 <div class="cmt-height">
                                     {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.length > 50 ?
                                     loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.substring(0, 49)

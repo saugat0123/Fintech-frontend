@@ -18,6 +18,9 @@ import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {BankingRelationship} from '../../../../admin/modal/banking-relationship';
 import {Pattern} from '../../../../../@core/utils/constants/pattern';
 import {RelationshipList} from '../../../../loan/model/relationshipList';
+import {EnumUtils} from '../../../../../@core/utils/enums.utils';
+import {Gender} from '../../../../../@core/model/enum/gender';
+import {MaritalStatus} from '../../../../../@core/model/enum/marital-status';
 
 @Component({
     selector: 'app-customer-form',
@@ -25,12 +28,31 @@ import {RelationshipList} from '../../../../loan/model/relationshipList';
     styleUrls: ['./customer-form.component.scss']
 })
 export class CustomerFormComponent implements OnInit {
+    constructor(
+        private formBuilder: FormBuilder,
+        private commonLocation: AddressService,
+        private customerService: CustomerService,
+        private toastService: ToastService,
+        private modalService: NgbModal,
+        private blackListService: BlacklistService,
+        private dialogService: NbDialogService,
+        protected ref: NbDialogRef<CustomerFormComponent>,
+        private el: ElementRef
+    ) {
+    }
+
+    get basicInfoControls() {
+        return this.basicInfo.controls;
+    }
 
     @Input() formValue: Customer;
     @Input() clientTypeInput: any;
     @Input() customerIdInput: any;
     @Input() bankingRelationshipInput: any;
     @Input() subSectorDetailCodeInput: any;
+    @Input() gender;
+    @Input() maritalStatus;
+    @Input() customerLegalDocumentAddress;
     calendarType = 'AD';
     @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -71,19 +93,9 @@ export class CustomerFormComponent implements OnInit {
     subSector = [];
     clientType = [];
     relationArray: RelationshipList = new RelationshipList();
-
-    constructor(
-        private formBuilder: FormBuilder,
-        private commonLocation: AddressService,
-        private customerService: CustomerService,
-        private toastService: ToastService,
-        private modalService: NgbModal,
-        private blackListService: BlacklistService,
-        private dialogService: NbDialogService,
-        protected ref: NbDialogRef<CustomerFormComponent>,
-        private el: ElementRef
-    ) {
-    }
+    public genderPairs = EnumUtils.pairs(Gender);
+    maritalStatusEnum = MaritalStatus;
+    placeHolderForMaritalStatus = 'Marital Status :';
 
     ngOnInit() {
         this.getProvince();
@@ -121,10 +133,6 @@ export class CustomerFormComponent implements OnInit {
 
     removeRelatives(i) {
         (this.basicInfo.get('customerRelatives') as FormArray).removeAt(i);
-    }
-
-    get basicInfoControls() {
-        return this.basicInfo.controls;
     }
 
     getDistricts(province: Province) {
@@ -220,8 +228,7 @@ export class CustomerFormComponent implements OnInit {
                     return;
                 }
                 {
-                    this.customer.id = (this.customer.customerName ===
-                        this.basicInfo.get('customerName').value) ? this.customer.id : undefined;
+                    this.customer.id = this.customer ? (this.customer.id ? this.customer.id : undefined) : undefined;
                     this.customer.customerName = this.basicInfo.get('customerName').value;
                     this.customer.customerCode = this.basicInfo.get('customerCode').value;
                     this.customer.province = this.basicInfo.get('province').value;
@@ -244,6 +251,9 @@ export class CustomerFormComponent implements OnInit {
                     this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
                     this.customer.clientType = this.basicInfo.get('clientType').value;
                     this.customer.subsectorDetail = this.basicInfo.get('subsectorDetail').value;
+                    this.customer.gender = this.basicInfo.get('gender').value;
+                    this.customer.maritalStatus = this.basicInfo.get('maritalStatus').value;
+                    this.customer.customerLegalDocumentAddress = this.basicInfo.get('customerLegalDocumentAddress').value;
                     const occupations = {
                         multipleOccupation: this.basicInfo.get('occupation').value,
                         otherOccupation: this.basicInfo.get('otherOccupation').value
@@ -349,6 +359,12 @@ export class CustomerFormComponent implements OnInit {
                 this.customer.temporaryStreet, Validators.required],
             temporaryWardNumber: [this.customer.temporaryWardNumber === null ? undefined :
                 this.customer.temporaryWardNumber, Validators.required],
+            gender: [this.gender === null ? undefined :
+                this.gender, Validators.required],
+            maritalStatus: [this.maritalStatus === null ? undefined :
+                this.maritalStatus, Validators.required],
+            customerLegalDocumentAddress: [this.customerLegalDocumentAddress == null ? undefined :
+            this.customerLegalDocumentAddress, Validators.required],
 
         });
     }

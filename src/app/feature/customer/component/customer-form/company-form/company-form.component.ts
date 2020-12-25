@@ -47,6 +47,10 @@ import {RegisteredOfficeList} from '../../../../admin/modal/registeredOfficeList
 import {BusinessGiven} from '../../../../admin/modal/businessGiven';
 import {TranslateService} from '@ngx-translate/core';
 import {CalendarType} from '../../../../../@core/model/calendar-type';
+import {CommonAddressComponent} from '../../../../common-address/common-address.component';
+import {FormUtils} from '../../../../../@core/utils/form.utils';
+import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
+import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
 
 @Component({
     selector: 'app-company-form',
@@ -59,6 +63,8 @@ export class CompanyFormComponent implements OnInit {
     @Input() subSectorDetailCodeInput: any;
     @Input() customerCode: any;
     @Input() clientTypeInput: any;
+
+    @ViewChild('companyLocation', {static: true}) companyLocation: CommonAddressComponent;
 
     calendarType = 'AD';
     companyInfoFormGroup: FormGroup;
@@ -125,6 +131,8 @@ export class CompanyFormComponent implements OnInit {
     marketCompetitionList = MarketCompetition.enumObject();
     registeredOffice = RegisteredOfficeList.enumObject();
     businessGiven: BusinessGiven = new BusinessGiven();
+    companyAddress;
+    srdbAffiliatedId = false;
 
 
     constructor(
@@ -155,30 +163,38 @@ export class CompanyFormComponent implements OnInit {
 
     switchLang() {
         if (this.calendarType === CalendarType.BS) {
-               this.translate.use('en');
-       }
-       if (this.calendarType === CalendarType.AD) {
-               this.translate.use('np');
-       }
+            this.translate.use('en');
+        }
+        if (this.calendarType === CalendarType.AD) {
+            this.translate.use('np');
+        }
     }
 
     // todo replace all objectutil checking with patch value method
 
     ngOnInit() {
-        console.log(this.customerCode);
-        console.log(this.subSectorDetailCodeInput);
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
             this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
             this.additionalFieldSelected = true;
+            if (JSON.stringify(this.additionalFieldData).includes(null)) {
+                this.additionalFieldSelected = false;
+            }
         }
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) {
             this.businessAndIndustry = JSON.parse(this.companyInfo.businessAndIndustry);
         }
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
             this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
-        } if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessGiven)) {
+        }
+        if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessGiven)) {
             this.businessGiven = JSON.parse(this.companyInfo.businessGiven);
+        }
+        if (!ObjectUtil.isEmpty(this.companyInfo)) {
+            if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
+            this.companyAddress = JSON.parse(this.companyInfo.companyLocations.address);
+            console.log(this.companyInfo.companyLocations.address);
+            }
         }
         this.buildForm();
         this.getAllDistrict();
@@ -237,6 +253,9 @@ export class CompanyFormComponent implements OnInit {
             showFormField: (!ObjectUtil.isEmpty(this.formValue)),
             isOldCustomer: (ObjectUtil.isEmpty(this.formValue))
         };
+        if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
+            this.srdbAffiliatedId = true;
+        }
     }
 
     buildForm() {
@@ -391,9 +410,7 @@ export class CompanyFormComponent implements OnInit {
                 || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.houseNumber],
             streetName: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.streetName],
-            address: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.address,
-                Validators.required],
+            address: [undefined],
             // swot
             strength: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.strength, Validators.required],
@@ -521,6 +538,10 @@ export class CompanyFormComponent implements OnInit {
             total: [ObjectUtil.isEmpty(this.businessGiven)
             || ObjectUtil.isEmpty(this.businessGiven.total) ? undefined :
                 this.businessGiven.total],
+            companyLegalDocumentAddress:
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.companyLegalDocumentAddress)) ? undefined :
+                    this.companyInfo.companyLegalDocumentAddress, [Validators.required]]
 
 
         });
@@ -766,14 +787,16 @@ export class CompanyFormComponent implements OnInit {
         const labelOffset = 50;
         return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
     }
+
     onSubmit() {
         this.submitted = true;
         this.marketScenarioComponent.onSubmit();
         this.companyOtherDetailComponent.onSubmit();
         this.bankingRelationComponent.onSubmit();
-        console.log(this.companyInfoFormGroup);
+        this.companyLocation.onSubmit();
         if (this.companyInfoFormGroup.invalid || this.companyOtherDetailComponent.companyOtherDetailGroupForm.invalid
-            || this.marketScenarioComponent.marketScenarioForm.invalid || this.bankingRelationComponent.bankingRelationForm.invalid) {
+            || this.marketScenarioComponent.marketScenarioForm.invalid || this.bankingRelationComponent.bankingRelationForm.invalid
+            || this.companyLocation.addressForm.invalid) {
             this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
             this.scrollToFirstInvalidControl();
             return;
@@ -795,6 +818,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.landLineNumber = this.companyInfoFormGroup.get('landLineNumber').value;
         this.companyInfo.clientType = this.companyInfoFormGroup.get('clientType').value;
         this.companyInfo.subsectorDetail = this.companyInfoFormGroup.get('subsectorDetail').value;
+        this.companyInfo.companyLegalDocumentAddress = this.companyInfoFormGroup.get('companyLegalDocumentAddress').value;
 
 
         // legalStatus
@@ -844,7 +868,7 @@ export class CompanyFormComponent implements OnInit {
         // location
         this.locations.id = this.companyInfoFormGroup.get('locationId').value;
         this.locations.version = this.companyInfoFormGroup.get('locationVersion').value;
-        this.locations.address = this.companyInfoFormGroup.get('address').value;
+        this.locations.address = JSON.stringify(this.companyLocation.submitData);
         this.locations.houseNumber = this.companyInfoFormGroup.get('houseNumber').value;
         this.locations.streetName = this.companyInfoFormGroup.get('streetName').value;
         this.companyInfo.companyLocations = this.locations;
@@ -859,10 +883,10 @@ export class CompanyFormComponent implements OnInit {
             proprietors.type = this.getProprietor()[proprietorsIndex].type;
             const province = new Province();
             province.id = this.getProprietor()[proprietorsIndex].province;
-            proprietors.province = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].province)) ?  province : undefined;
+            proprietors.province = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].province)) ? province : undefined;
             const district = new District();
             district.id = this.getProprietor()[proprietorsIndex].district;
-            proprietors.district = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].district)) ?  district : undefined;
+            proprietors.district = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].district)) ? district : undefined;
             const municipalityVdc = new MunicipalityVdc();
             municipalityVdc.id = this.getProprietor()[proprietorsIndex].municipalityVdc;
             proprietors.municipalityVdc = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].municipalityVdc))
@@ -959,9 +983,9 @@ export class CompanyFormComponent implements OnInit {
         }
     }
 
-    checkRegistrationNumber(regNumber: String) {
-        this.companyInfoService.getCompanyInfoWithRegistrationNumber(regNumber).subscribe((res) => {
-            if (regNumber.toLowerCase() === res.detail.registrationNumber.toLowerCase()) {
+    checkPanNumberNumber(regNumber: String) {
+        this.companyInfoService.getCompanyInfoWithPanNumber(regNumber).subscribe((res) => {
+            if (regNumber.toLowerCase() === res.detail.panNumber.toLowerCase()) {
                 this.toastService.show(new Alert(AlertType.WARNING, 'This customer already exists. Please input a unique value or choose the customer from catalogue section'));
             }
         }, error => {
@@ -999,16 +1023,16 @@ export class CompanyFormComponent implements OnInit {
     calculateTotalIncomeDuringReview() {
         let total = 0;
         total = this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
-        this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value +
-        this.companyInfoFormGroup.get('lcCommissionDuringReview').value +
-        this.companyInfoFormGroup.get('guaranteeCommissionDuringReview').value +
-        this.companyInfoFormGroup.get('otherCommissionDuringReview').value +
-        this.companyInfoFormGroup.get('savingAccountDuringReview').value +
-        this.companyInfoFormGroup.get('payrollAccountDuringReview').value +
-        this.companyInfoFormGroup.get('debitCardsDuringReview').value +
-        this.companyInfoFormGroup.get('creditCardsDuringReview').value +
-        this.companyInfoFormGroup.get('mobileBankingDuringReview').value +
-        this.companyInfoFormGroup.get('lockerDuringReview').value ;
+            this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value +
+            this.companyInfoFormGroup.get('lcCommissionDuringReview').value +
+            this.companyInfoFormGroup.get('guaranteeCommissionDuringReview').value +
+            this.companyInfoFormGroup.get('otherCommissionDuringReview').value +
+            this.companyInfoFormGroup.get('savingAccountDuringReview').value +
+            this.companyInfoFormGroup.get('payrollAccountDuringReview').value +
+            this.companyInfoFormGroup.get('debitCardsDuringReview').value +
+            this.companyInfoFormGroup.get('creditCardsDuringReview').value +
+            this.companyInfoFormGroup.get('mobileBankingDuringReview').value +
+            this.companyInfoFormGroup.get('lockerDuringReview').value;
         this.companyInfoFormGroup.get('total').patchValue(total);
     }
 }

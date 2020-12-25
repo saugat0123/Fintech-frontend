@@ -3,6 +3,7 @@
     <form (ngSubmit)="submitForm()" [formGroup]="incomeFormGroup">
       <div class="row">
         <div class="col-md-12">
+          <span><strong>Account No:</strong></span>
             <input [ngClass]="{ 'is-invalid': (submitted) && formControls.accountNo.errors }"
                    type="text" formControlName="accountNo"
                    placeholder="Account Number" nbInput size="medium" name="accountNo"><br>
@@ -60,6 +61,47 @@
                 </div>
               </td>
             </tr>
+            <tr>
+              <td>Loan Processing Charge </td>
+              <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                         class="form-control text-center"
+                         formControlName="loanProcessingDuringReview"
+                         type="number">
+              </td>
+              <td><input (keyup)="calculateTotalIncomeAfterReview()"
+                         class="form-control text-center"
+                         formControlName="loanProcessingAfterNextReview"
+                         type="number">
+              </td>
+            </tr>
+            <ng-container *ngIf="srdbAffiliatedId">
+              <tr>
+                <td>LC Commission </td>
+                <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                           class="form-control text-center"
+                           formControlName="lcCommissionDuringReview"
+                           type="number">
+                </td>
+                <td><input (keyup)="calculateTotalIncomeAfterReview()"
+                           class="form-control text-center"
+                           formControlName="lcCommissionAfterNextReview"
+                           type="number">
+                </td>
+              </tr>
+              <tr>
+                <td>Guarantee Commission</td>
+                <td><input (keyup)="calculateTotalIncomeDuringReview()"
+                           class="form-control text-center"
+                           formControlName="guaranteeCommissionDuringReview"
+                           type="number">
+                </td>
+                <td><input (keyup)="calculateTotalIncomeAfterReview()"
+                           class="form-control text-center"
+                           formControlName="guaranteeCommissionAfterNextReview"
+                           type="number">
+                </td>
+              </tr>
+            </ng-container>
             <tr>
               <td>Other Charges</td>
               <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesDuringReview.errors }"

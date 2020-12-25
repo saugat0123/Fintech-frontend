@@ -150,8 +150,7 @@ export class GuarantorComponent implements OnInit {
         Validators.required
       ],
       issuedYear: [
-        ObjectUtil.setUndefinedIfNull(data.issuedYear),
-        Validators.required
+        ObjectUtil.isEmpty(data.issuedYear) ? undefined : new Date(data.issuedYear), Validators.required,
       ],
       issuedPlace: [
         ObjectUtil.setUndefinedIfNull(data.issuedPlace),
@@ -199,6 +198,10 @@ export class GuarantorComponent implements OnInit {
       fatherInLaw: [ObjectUtil.setUndefinedIfNull(data.fatherInLaw)],
       profession: [ObjectUtil.setUndefinedIfNull(data.profession)],
       background: [ObjectUtil.setUndefinedIfNull(data.background)],
+      guarantorLegalDocumentAddress: [
+        ObjectUtil.setUndefinedIfNull(data.guarantorLegalDocumentAddress),
+        Validators.required
+      ],
     });
   }
 

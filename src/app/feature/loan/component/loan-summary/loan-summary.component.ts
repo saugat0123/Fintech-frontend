@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {LoanConfig} from '../../../admin/modal/loan-config';
 import {User} from '../../../admin/modal/user';
 import {Security} from '../../../admin/modal/security';
@@ -27,7 +27,6 @@ import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {Proposal} from '../../../admin/modal/proposal';
 import {CombinedLoanService} from '../../../service/combined-loan.service';
 import {CombinedLoan} from '../../model/combined-loan';
-import {IncomeFromAccount} from '../../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
 import {ToastService} from '../../../../@core/utils';
@@ -35,6 +34,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
+import {Customer} from '../../../admin/modal/customer';
 
 @Component({
     selector: 'app-loan-summary',
@@ -42,6 +42,8 @@ import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
     styleUrls: ['./loan-summary.component.scss']
 })
 export class LoanSummaryComponent implements OnInit, OnDestroy {
+
+    @Output() changeToApprovalSheetActive = new EventEmitter<string>();
 
     @Input() loanData;
     loanDataHolder: LoanDataHolder;
@@ -166,7 +168,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private fiscalYearService: FiscalYearService
     ) {
         this.client = environment.client;
-        this.showCadDoc = this.productUtils.CAD_DOC_UPLOAD;
+        this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
                 this.loadSummary();
@@ -566,6 +568,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             console.log(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Fiscal Year!'));
         });
+    }
+
+    goToApprovalSheet() {
+        this.changeToApprovalSheetActive.next();
     }
 }
 

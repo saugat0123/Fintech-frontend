@@ -18,7 +18,7 @@
       <tr>
         <td>{{individual?.customerName}}</td>
         <td>{{customerInfo?.customerCode}}</td>
-        <td>{{individual?.dob}}</td>
+        <td>{{individual?.dob | date}}</td>
         <td>{{individual?.citizenshipNumber}}</td>
         <td>{{individual?.citizenshipIssuedDate | date}}</td>
         <td>{{individual?.citizenshipIssuedPlace}}</td>
@@ -45,9 +45,11 @@
       </tr>
       <tr class="text-white sb-bg-dark">
         <th>Subsector</th>
+        <th>Address as per Legal Document</th>
       </tr>
       <tr>
         <td>{{customerInfo?.subsectorDetail}}</td>
+        <td>{{customerInfo?.customerLegalDocumentAddress}}</td>
       </tr>
       </tbody>
     </table>

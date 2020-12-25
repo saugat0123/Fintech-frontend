@@ -58,7 +58,8 @@ export class ProductUtils {
     DMS: boolean;
     nepTemplate: boolean;
     LOAN_APPROVAL_HIERARCHY_LEVEL: string;
-    CAD_DOC_UPLOAD: boolean;
+    CAD_LITE_VERSION: boolean;
+    CBS_ENABLE: boolean;
 
 }
 

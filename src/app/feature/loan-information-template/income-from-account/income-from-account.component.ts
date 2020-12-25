@@ -5,6 +5,8 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Pattern} from '../../../@core/utils/constants/pattern';
 import {RepaymentTrackCurrentBank} from '../../admin/modal/crg/RepaymentTrackCurrentBank';
 import {NumberUtils} from '../../../@core/utils/number-utils';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 
 @Component({
   selector: 'app-income-from-account',
@@ -22,6 +24,7 @@ export class IncomeFromAccountComponent implements OnInit {
   isNewCustomer = false;
   pattern = Pattern;
   repaymentTrack = RepaymentTrackCurrentBank.enumObject();
+  srdbAffiliatedId = false;
 
   constructor(private formBuilder: FormBuilder,
               private el: ElementRef,
@@ -37,6 +40,9 @@ export class IncomeFromAccountComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
+      this.srdbAffiliatedId = true;
+    }
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
       this.dataForEdit = JSON.parse(this.incomeFromAccountDataResponse.data);
@@ -47,7 +53,6 @@ export class IncomeFromAccountComponent implements OnInit {
         this.incomeFormGroup.get('accountTransactionForm').disable();
       }
     }
-
   }
 
   buildForm() {
@@ -73,6 +78,12 @@ export class IncomeFromAccountComponent implements OnInit {
       accountNo: [undefined,
         [Validators.required]],
       newCustomerChecked: [false],
+      loanProcessingDuringReview: undefined,
+      loanProcessingAfterNextReview: undefined,
+      lcCommissionDuringReview: undefined,
+      lcCommissionAfterNextReview: undefined,
+      guaranteeCommissionDuringReview: undefined,
+      guaranteeCommissionAfterNextReview: undefined,
       accountTransactionForm: this.buildAccountTransactionForm()
     });
   }
@@ -92,7 +103,10 @@ export class IncomeFromAccountComponent implements OnInit {
     totalIncomeDuringReview =
         this.incomeFormGroup.get('interestDuringReview').value +
         this.incomeFormGroup.get('commissionDuringReview').value +
-        this.incomeFormGroup.get('otherChargesDuringReview').value ;
+        this.incomeFormGroup.get('otherChargesDuringReview').value +
+        this.incomeFormGroup.get('loanProcessingDuringReview').value +
+        this.incomeFormGroup.get('lcCommissionDuringReview').value +
+        this.incomeFormGroup.get('guaranteeCommissionDuringReview').value;
     this.incomeFormGroup.get('totalIncomeDuringReview').setValue(totalIncomeDuringReview);
   }
 
@@ -101,7 +115,10 @@ export class IncomeFromAccountComponent implements OnInit {
     totalIncomeAfterNextReview =
         this.incomeFormGroup.get('interestAfterNextReview').value +
         this.incomeFormGroup.get('commissionAfterNextReview').value +
-        this.incomeFormGroup.get('otherChargesAfterNextReview').value ;
+        this.incomeFormGroup.get('otherChargesAfterNextReview').value +
+        this.incomeFormGroup.get('loanProcessingAfterNextReview').value +
+        this.incomeFormGroup.get('lcCommissionAfterNextReview').value +
+        this.incomeFormGroup.get('guaranteeCommissionAfterNextReview').value;
     this.incomeFormGroup.get('totalIncomeAfterNextReview').setValue(totalIncomeAfterNextReview);
   }
   scrollToFirstInvalidControl() {

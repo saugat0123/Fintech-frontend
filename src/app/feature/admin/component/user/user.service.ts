@@ -57,8 +57,8 @@ export class UserService extends BaseService<User> {
         return this.http.post(req.url, user, {headers: req.header});
     }
 
-    public getUserListForTransfer(id): Observable<any> {
-        const req = ApiUtils.getRequest(`${UserService.API}/get-all-doc-transfer/${id}`);
+    public getUserListForTransfer(id, branchId): Observable<any> {
+        const req = ApiUtils.getRequest(`${UserService.API}/get-all-doc-transfer/${id}/branch/${branchId}`);
 
         return this.http.get(req.url, {headers: req.header});
     }
@@ -81,5 +81,10 @@ export class UserService extends BaseService<User> {
     public getUserListByRoleIdAndBranchIdForDocumentAction(id, bId): Observable<any> {
         const req = ApiUtils.getRequestWithFileSupport(`${UserService.API}/${id}/users/branch/${bId}`);
         return this.http.get(req.url, {headers: req.header});
+    }
+
+    public getUserListByRoleIdListAndBranchId(idList, id): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`${UserService.API}/role-list/branch/${id}`);
+        return this.http.post(req.url, idList, {headers: req.header});
     }
 }

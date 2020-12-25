@@ -84,6 +84,43 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-4 form-group">
+                        <div class="form-group">
+                            <label for="gender"><strong>Gender</strong></label>
+                            <br />
+                            <nb-radio-group class="d-flex" formControlName="gender" id="gender">
+                                <nb-radio *ngFor="let gender of genderPairs"
+                                          [value]="gender?.key">
+                                    {{ gender?.value }}</nb-radio>
+                            </nb-radio-group>
+                            <div *ngIf="(submitted) && basicInfoControls.gender.invalid"
+                                 class="help-block">
+                            <span *ngIf="basicInfoControls.gender.errors.required">
+                              <span class="text-danger">Gender is required</span>
+                            </span>
+                            </div>
+                        </div>
+                        </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="maritalStatus"><strong>Marital Status</strong></label>
+                            <ng-select [ngClass]="{'is-invalid': submitted && basicInfoControls.maritalStatus.errors}"
+                                       formControlName="maritalStatus" id="maritalStatus"
+                                       [addTagText]="null"
+                                       [placeholder]="placeHolderForMaritalStatus"
+                                       [multiple]="false">
+                                <ng-option *ngFor="let maritalStatus of maritalStatusEnum.values()" [value]="maritalStatus">
+                                    {{maritalStatus}}
+                                </ng-option>
+                            </ng-select>
+                            <div *ngIf="(submitted) && basicInfoControls.maritalStatus.invalid"
+                                 class="help-block">
+                <span *ngIf="basicInfoControls.maritalStatus.errors.required">
+                  <span class="text-danger">Marital status is required</span>
+                </span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="customerCode"><strong>Customer ID</strong></label>
@@ -322,6 +359,21 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label class="title ml-3" for="customerLegalDocumentAddress"><strong>Address as per Legal Document</strong></label>
+                            <textarea class="form-control ml-3" cols="6"
+                                      [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerLegalDocumentAddress.errors }"
+                                      formControlName="customerLegalDocumentAddress"
+                                      id="customerLegalDocumentAddress"
+                                      placeholder="Address as per Legal Document"
+                                      rows="2" maxlength="256"></textarea>
+                            <div *ngIf="submitted && basicInfoControls.customerLegalDocumentAddress.errors"
+                                 class="invalid-feedback small">
+                                <div *ngIf="basicInfoControls.customerLegalDocumentAddress.errors.required">
+                                    Address as per legal document is required
+                                </div>
+                            </div>
                     </div>
                 </div>
                 <div class="row ml-1">

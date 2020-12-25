@@ -6,7 +6,7 @@ export class ApiConfig {
   // public static URL = 'http://3.17.141.198:8080/LAS';
 
   // SBSolutions las v2
- /* public static TOKEN = 'http://150.107.205.62:8080/las-v2/oauth/token';
+/*  public static TOKEN = 'http://150.107.205.62:8080/las-v2/oauth/token';
   public static URL = 'http://150.107.205.62:8080/las-v2';*/
 
   // United Finance server info
