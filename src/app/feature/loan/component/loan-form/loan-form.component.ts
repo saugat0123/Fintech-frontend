@@ -55,6 +55,7 @@ import {LoanType} from '../../model/loanType';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
 import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
 import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
+import {environment} from '../../../../../environments/environment.srdb';
 
 @Component({
     selector: 'app-loan-form',
@@ -336,6 +337,14 @@ export class LoanFormComponent implements OnInit {
                 this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
                 this.templateList.forEach((value, index) => {
                     if (value.name === 'Credit Risk Grading - Lambda') {
+                        this.templateList.splice(index, 1);
+                    }
+                });
+            }
+
+            if (environment.disableCrgAlpha) {
+                this.templateList.forEach((value, index) => {
+                    if (value.name === 'Credit Risk Grading - Alpha') {
                         this.templateList.splice(index, 1);
                     }
                 });
