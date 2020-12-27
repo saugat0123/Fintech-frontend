@@ -107,6 +107,12 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
 
 
     getLoanDataHolder() {
+        this.actionsList.approved = false;
+        this.actionsList.sendForward = false;
+        this.actionsList.edit = false;
+        this.actionsList.sendBackward = false;
+        this.actionsList.rejected = false;
+        this.actionsList.closed = false;
         this.loanFormService.detail(this.customerId).subscribe(async (response: any) => {
             this.loanDataHolder = response.detail;
             this.loanCategory = this.loanDataHolder.loanCategory;
