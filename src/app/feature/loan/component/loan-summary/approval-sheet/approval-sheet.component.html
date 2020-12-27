@@ -97,131 +97,6 @@
 
             <hr class="print-line disable-print">
 
-            <div class="row disable-print">
-                <div *ngIf="crgGammaSummary" class="col-md-12">
-                    <nb-card class="sb-medium">
-                        <nb-card-header class="text-center">
-                            <h6>Credit Risk Gauge (Gamma)</h6>
-                        </nb-card-header>
-                        <nb-card-body>
-                            <div class="row disable-print">
-                                <div class="col-md-6 text-right">
-                                    <app-gauge-chart [chartHeight]="180"
-                                                     [chartWidth]="275"
-                                                     [maxValue]="100"
-                                                     [obtainedValue]="crgGammaScore"
-                                                     gaugeIdentifier="crg-gamma"></app-gauge-chart>
-                                </div>
-                                <div class="col-md-6 gauge-label-padding">
-                                    <div class="vertical-line">
-                                        <div class="text-left pl-2">
-                                            <h5>Gamma</h5><br>
-                                            Credit Risk Grade:
-                                            <span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span>
-                                        </div>
-                                        <br>
-                                        <div class="text-left pl-2">
-                                            Credit Risk Score:
-                                            <span><strong> {{ crgGammaScore }}</strong></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </nb-card-body>
-                    </nb-card>
-                </div>
-
-                <!--CRG - Alpha-->
-                <div *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'" class="col-md-12">
-                    <div *ngIf="creditRiskAlphaSummary">
-                        <nb-card class="sb-medium">
-                            <nb-card-header>
-                                <h6>Credit Risk Gauge (Alpha)</h6>
-                            </nb-card-header>
-                            <nb-card-body>
-                                <div class="row">
-                                    <div class="col-md-6 mr-0 pr-0 text-right">
-                                        <app-gauge-chart [chartHeight]="180"
-                                                         [chartWidth]="275"
-                                                         [maxValue]="100"
-                                                         [obtainedValue]="creditRiskAlphaScore"
-                                                         gaugeIdentifier="crg-alpha"></app-gauge-chart>
-                                    </div>
-                                    <div class="col-md-6 ml-0 gauge-label-padding">
-                                        <div class="vertical-line">
-                                            <div class="text-left pl-2">
-                                                Credit Risk Grade :
-                                                <span [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha | titlecase}}</span>
-                                            </div>
-                                            <br>
-                                            <div class="text-left pl-2">
-                                                Credit Risk Rating :
-                                                <span [class]="creditGradeAlphaStatusBadge"> {{ creditRiskRatingAlpha | titlecase }}</span>
-                                            </div>
-                                            <br>
-                                            <div class="text-left pl-2">
-                                                Credit Risk Score :
-                                                <span><strong> {{ creditRiskAlphaScore }}</strong></span>
-                                            </div>
-                                            <br>
-                                            <div class="text-left pl-2">
-                                                Premium :
-                                                <span><strong> {{ creditRiskAlphaPremium }}</strong></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </nb-card-body>
-                        </nb-card>
-                    </div>
-                </div>
-
-                <!--CRG - Lambda-->
-                <div *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'" class="col-md-12">
-                    <div *ngIf="creditRiskLambdaSummary">
-                        <nb-card class="sb-medium">
-                            <nb-card-header>
-                                <h6>Credit Risk Gauge (Lambda)</h6>
-                            </nb-card-header>
-                            <nb-card-body>
-                                <div class="row">
-                                    <div class="col-md-6 mr-0 pr-0 text-right">
-                                        <app-gauge-chart [chartHeight]="180"
-                                                         [chartWidth]="275"
-                                                         [maxValue]="100"
-                                                         [obtainedValue]="creditRiskLambdaScore"
-                                                         gaugeIdentifier="crg-lambda"></app-gauge-chart>
-                                    </div>
-                                    <div class="col-md-6 ml-0 gauge-label-padding">
-                                        <div class="vertical-line">
-                                            <div class="text-left pl-2">
-                                                Credit Risk Grade :
-                                                <span [class]="creditGradeLambdaStatusBadge"> {{creditRiskGradeLambda | titlecase}}</span>
-                                            </div>
-                                            <br>
-                                            <div class="text-left pl-2">
-                                                Credit Risk Rating :
-                                                <span [class]="creditGradeLambdaStatusBadge"> {{ creditRiskRatingLambda | titlecase }}</span>
-                                            </div>
-                                            <br>
-                                            <div class="text-left pl-2">
-                                                Credit Risk Score :
-                                                <span><strong> {{ creditRiskLambdaScore }}</strong></span>
-                                            </div>
-                                            <br>
-                                            <div class="text-left pl-2">
-                                                Premium :
-                                                <span><strong> {{ creditRiskLambdaPremium }}</strong></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </nb-card-body>
-                        </nb-card>
-                    </div>
-                </div>
-            </div>
-
             <!--Applicant detail-->
             <div class="row">
                 <div class="col-md-12">
@@ -413,6 +288,22 @@
                     Only /-
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-12 sb-medium">
+                    <strong>Credit Risk Grade : </strong>
+                    <span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 sb-medium">
+                    <strong>Credit Risk Score : </strong>
+                    <span><strong> {{ crgGammaScore }}</strong></span>
+                </div>
+            </div>
+
+            <hr>
 
             <app-collateral-summary
                     *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
