@@ -20,6 +20,7 @@ import {NumberUtils} from '../../../@core/utils/number-utils';
 import {Pattern} from '../../../@core/utils/constants/pattern';
 import {TypeOfSourceOfIncome, TypeOfSourceOfIncomeArray, TypeOfSourceOfIncomeMap} from '../../admin/modal/crg/typeOfSourceOfIncome';
 import {NgSelectComponent} from '@ng-select/ng-select';
+import {environment} from '../../../../environments/environment.srdb';
 
 @Component({
     selector: 'app-financial',
@@ -34,6 +35,8 @@ export class FinancialComponent implements OnInit {
     @Input() formData: Financial;
     @Input() fromProfile: boolean;
     @Output() financialDataEmitter = new EventEmitter();
+
+    disableCrgAlphaParams = environment.disableCrgAlpha;
 
     isBusinessLoan = true;
     historicalDataPresent = true;
