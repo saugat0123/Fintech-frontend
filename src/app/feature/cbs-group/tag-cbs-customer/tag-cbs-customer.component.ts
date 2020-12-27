@@ -18,7 +18,7 @@ export class TagCbsCustomerComponent implements OnInit {
 
     @Input()
     customerInfo: CustomerInfoData;
-    list: Array<CbsGroup> = new Array<CbsGroup>();
+    list: Array<any> = new Array<any>();
     page = 1;
     size = 20;
     searchObj = {obligor: null};
@@ -36,6 +36,7 @@ export class TagCbsCustomerComponent implements OnInit {
         other.cbsService.getPaginationWithSearchObject(other.searchObj, other.page, other.size).subscribe(response => {
             other.list = response.detail.content;
             other.list = other.list.filter(value => !ObjectUtil.isEmpty(value.obligor));
+            other.list = [...new Set(other.list.map(item => item.obligor))];
             other.pageable = PaginationUtils.getPageable(response.detail);
         }, error => {
             other.spinner = false;
