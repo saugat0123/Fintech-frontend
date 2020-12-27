@@ -6,6 +6,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NepseService} from '../nepse.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {Pattern} from '../../../../../@core/utils/constants/pattern';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class NepseFormComponent implements OnInit, DoCheck {
     ngOnInit() {
         this.nepsePriceInfoForm = this.fb.group({
             sharePriceDate: [undefined, Validators.required],
-            avgDaysForPrice: [undefined, Validators.required]
+            avgDaysForPrice: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_POSITIVE)]]
         });
     }
 
