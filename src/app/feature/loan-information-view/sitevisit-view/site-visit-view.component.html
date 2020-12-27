@@ -592,7 +592,7 @@
     <tr *ngFor="let asset of formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.receivableAssets; let i = index;">
         <td>{{i + 1}}</td>
         <td>{{asset?.particulars}}</td>
-        <td class="text-right">Rs. {{asset?.amount}}</td>
+        <td class="text-right">Rs. {{asset?.amount | currencyFormatter}}</td>
     </tr>
     <tr>
         <td></td>
@@ -630,7 +630,7 @@
     <tr *ngFor="let asset of formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.payableAssets; let i=index">
         <td>{{i + 1}}</td>
         <td>{{asset?.particulars}}</td>
-        <td class="text-right">Rs. {{asset?.amount}}</td>
+        <td class="text-right">Rs. {{asset?.amount | currencyFormatter}}</td>
     </tr>
     <tr>
         <td></td>
@@ -653,7 +653,7 @@
     <tr *ngFor="let bank of formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.bankExposures; let i=index">
         <td>{{i + 1}}</td>
         <td>{{bank?.bankName}}</td>
-        <td class="text-right">Rs. {{bank?.amount}}</td>
+        <td class="text-right">Rs. {{bank?.amount | currencyFormatter}}</td>
     </tr>
     <tr class="text-white sb-bg-dark">
         <td colspan="3">

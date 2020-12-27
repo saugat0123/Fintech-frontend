@@ -14,7 +14,7 @@
       <tr>
         <th *ngIf="checkApproved">{{proposalData?.existingLimit | currencyFormatter}}</th>
         <th *ngIf="checkApproved">{{proposalData?.outStandingLimit | currencyFormatter}}</th>
-        <th>{{proposalData?.proposedLimit | currencyFormatter}}</th>
+        <th class="text-right">Rs. {{proposalData?.proposedLimit | currencyFormatter}}</th>
         <th *ngIf="!isFundable && fundableNonFundableSelcted">{{proposalData?.cashMargin}}</th>
         <th *ngIf="!isFundable && fundableNonFundableSelcted">{{proposalData?.commissionPercentage}}</th>
         <th *ngIf="!isFundable && fundableNonFundableSelcted">{{proposalData?.commissionFrequency}}</th>
@@ -59,10 +59,10 @@
       <tr>
         <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">{{proposalData?.tenureDurationInMonths}}</td>
         <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral">{{proposalData?.repaymentMode}}</td>
-        <td *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))">{{proposalData?.installmentAmount | currencyFormatter}}</td>
-        <td *ngIf="!showInstallmentAmount &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">{{proposalData?.interestAmount | currencyFormatter}}</td>
+        <td *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))" class="text-right">Rs. {{proposalData?.installmentAmount | currencyFormatter}}</td>
+        <td *ngIf="!showInstallmentAmount &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class="text-right">Rs. {{proposalData?.interestAmount | currencyFormatter}}</td>
         <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">{{proposalData?.moratoriumPeriod}}</td>
-        <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">{{proposalData?.commitmentFee  | currencyFormatter}}</td>
+        <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral" class="text-right">Rs. {{proposalData?.commitmentFee  | currencyFormatter}}</td>
 
       </tr>
 
@@ -81,7 +81,7 @@
       </tr>
       <tr>
         <td *ngIf="loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving">{{proposalData?.tenorOfEachDeal}}</td>
-        <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">{{proposalData?.prepaymentCharge  | currencyFormatter}}</td>
+        <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral" class="text-right">Rs. {{proposalData?.prepaymentCharge  | currencyFormatter}}</td>
         <td>{{proposalData?.collateralRequirement}}</td>
         <td>{{proposalData?.limitExpiryMethod}}</td>
         <td *ngIf="proposalData?.limitExpiryMethod === 'ABSOLUTE'">{{proposalData?.dateOfExpiry | date}}</td>

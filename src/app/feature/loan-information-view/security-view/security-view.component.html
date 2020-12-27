@@ -87,10 +87,10 @@
         <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE'">{{landDetails?.saleOwnershipTransfer}}</td>
         <td  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION'">{{landDetails?.familyTransferOwnershipTransfer}}</td>
         <td  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA'">{{landDetails?.giftOwnershipTransfer}}</td>
-        <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE'">{{landDetails?.saleRegistrationAmount}}</td>
-        <td  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION'">{{landDetails?.familyRegistrationAmount}}</td>
-        <td  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA'">{{landDetails?.giftRegistrationAmount}}</td>
-        <th *ngIf="landDetails?.ownershipTransferThrough == 'OTHER'">{{landDetails?.otherOwnershipTransferValue}}</th>
+        <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE'" class="text-right">Rs. {{landDetails?.saleRegistrationAmount | currencyFormatter}}</td>
+        <td  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-right">Rs. {{landDetails?.familyRegistrationAmount}}</td>
+        <td  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-right">Rs. {{landDetails?.giftRegistrationAmount}}</td>
+        <th *ngIf="landDetails?.ownershipTransferThrough == 'OTHER'" class="text-right">Rs. {{landDetails?.otherOwnershipTransferValue}}</th>
 
 
       </tr>
@@ -234,10 +234,10 @@
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'">{{landBuilding?.saleOwnershipTransfer}}</td>
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION'">{{landBuilding?.familyTransferOwnershipTransfer}}</td>
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA'">{{landBuilding?.giftOwnershipTransfer}}</td>
-          <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'">{{landBuilding?.saleRegistrationAmount}}</td>
-          <td  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION'">{{landBuilding?.familyRegistrationAmount}}</td>
-          <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA'">{{landBuilding?.giftRegistrationAmount}}</td>
-          <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'">{{landBuilding?.otherOwnershipTransferValue}}</th>
+          <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'" class="text-right">Rs. {{landBuilding?.saleRegistrationAmount}}</td>
+          <td  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-right">Rs. {{landBuilding?.familyRegistrationAmount}}</td>
+          <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-right">Rs. {{landBuilding?.giftRegistrationAmount}}</td>
+          <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'" class="text-right">Rs. {{landBuilding?.otherOwnershipTransferValue}}</th>
 
         </tr>
         <tr *ngIf="landBuilding.underConstructionChecked === true">
@@ -980,7 +980,7 @@
         <td class="text-right">Rs. {{plantDetails?.quotation | currencyFormatter}}</td>
         <td>{{plantDetails?.supplier}}</td>
         <td class="text-right">Rs. {{plantDetails?.downPay | currencyFormatter}}</td>
-        <td>{{plantDetails?.loanExp}}</td>
+        <td class="text-right">Rs. {{plantDetails?.loanExp | currencyFormatter}}</td>
       </tr>
       </tbody>
       <thead>
