@@ -285,7 +285,7 @@
         </nb-card>
     </div>
 
-    <nb-card *ngIf="isBusinessLoan">
+    <nb-card *ngIf="!disableCrgAlphaParams && isBusinessLoan">
         <nb-card-header>
             <h4>Risk factors</h4>
         </nb-card-header>
