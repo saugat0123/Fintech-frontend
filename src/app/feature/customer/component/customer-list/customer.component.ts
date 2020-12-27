@@ -236,7 +236,8 @@ export class CustomerComponent implements OnInit {
                         bankingRelationshipInput: model.bankingRelationship,
                         subSectorDetailCodeInput: model.subsectorDetail,
                         gender: model.gender,
-                        maritalStatus: model.maritalStatus
+                        maritalStatus: model.maritalStatus,
+                        customerLegalDocumentAddress: model.customerLegalDocumentAddress
                     },
                     closeOnBackdropClick: false,
                     closeOnEsc: false,

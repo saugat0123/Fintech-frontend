@@ -10,7 +10,9 @@
                                     <div class="form-group">
                                         <label class="title" for="existingLimit"><strong>Existing Limit</strong></label>
                                         <input class="form-control"
+                                               [readOnly]="loanType == 'PARTIAL_SETTLEMENT_LOAN'"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.existingLimit.errors }"
+                                               (keyup)="calculateLimitValues()"
                                                formControlName="existingLimit" id="existingLimit"
                                                name="existingLimit" placeholder="Existing limit"
                                                type="number">
@@ -22,16 +24,22 @@
                                 </div>
                                 <div class="col-md-4" *ngIf="checkApproved">
                                     <div class="form-group">
-                                        <label class="title" for="outStandingLimit"><strong>Outstanding
-                                            Limit</strong></label>
+                                        <label class="title" for="outStandingLimit">
+                                            <span [ngSwitch]="loanType">
+                                            <strong  *ngSwitchCase = "'PARTIAL_SETTLEMENT_LOAN'">Settlement Amount</strong>
+                                            <strong  *ngSwitchCase = "'ENHANCED_LOAN'">Enhancement Amount</strong>
+                                            <strong  *ngSwitchDefault>Outstanding Limit</strong>
+                                            </span>
+                                        </label>
                                         <input class="form-control"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.outStandingLimit.errors }"
+                                               (keyup)="calculateLimitValues()"
                                                formControlName="outStandingLimit" id="outStandingLimit"
-                                               name="outStandingLimit" placeholder="Outstanding limit"
+                                               name="outStandingLimit" placeholder="Limit Amount"
                                                type="number">
                                         <div *ngIf=" (submitted)  && formControls.outStandingLimit.errors"
                                              class="invalid-feedback">
-                                            <span *ngIf="(formControls.outStandingLimit.errors.required)">Outstanding Limit is required</span>
+                                            <span *ngIf="(formControls.outStandingLimit.errors.required)">Amount is required</span>
                                         </div>
                                     </div>
                                 </div>
@@ -42,9 +50,10 @@
                                         <input
                                                 [ngClass]="{ 'is-invalid': (submitted) && formControls.proposedLimit.errors }"
                                                 class="form-control"
+                                                [readOnly]="loanType == 'PARTIAL_SETTLEMENT_LOAN'"
                                                 formControlName="proposedLimit" id="proposedLimit"
                                                 name="proposedLimit" placeholder="Proposed limit"
-                                                type="number" (input)="checkRepaymentMode()" appDecimalNumber>
+                                                type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()" appDecimalNumber>
                                         <div *ngIf=" (submitted)  && formControls.proposedLimit.errors"
                                              class="invalid-feedback">
                                             <span *ngIf="(formControls.proposedLimit.errors.required)">Proposed Limit is required</span>
@@ -155,7 +164,7 @@
                                                 class="form-control" formControlName="interestRate"
                                                 id="interestRate" name="interestRate" placeholder="Interest Rate(%)"
                                                 [(ngModel)]="interestLimit"
-                                                type="number" (input)="checkRepaymentMode()" appDecimalNumber>
+                                                type="number" (input)="checkRepaymentMode(); checkCustomRepaymentMode()" appDecimalNumber>
                                         <!--                    <div *ngIf="(submitted) && formControls.interestRate.invalid"-->
                                         <!--                         class="invalid-feedback">-->
                                         <!--                      <span *ngIf="formControls.interestRate.errors.required">Interest Rate is required</span>-->
@@ -237,7 +246,7 @@
                                                 class="form-control"
                                                 formControlName="tenureDurationInMonths" id="tenureDurationInMonths"
                                                 placeholder="Tenure Duration in Months"
-                                                type="number" (input)="checkRepaymentMode()" appDecimalNumber>
+                                                type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()" appDecimalNumber>
 
                                         <!--                                        <input [nbDatepicker]="tenurePicker"-->
                                         <!--                                               [ngClass]="{ 'is-invalid':submitted &&formControls.tenureDurationInMonths.errors}"-->
@@ -259,7 +268,7 @@
                                 <div class="col-md-4"
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral">
                                     <div class="form-group">
-                                        <label class="title" for="repaymentMode"><strong>Repayment Mode</strong></label>
+                                        <label class="title" for="repaymentMode" ><strong>Repayment Mode</strong></label>
                                         <select
                                                 class="custom-select" formControlName="repaymentMode"
                                                 id="repaymentMode"
@@ -268,10 +277,8 @@
                                             <option [ngValue]="null" hidden selected>Select</option>
                                             <option value="EMI">EMI</option>
                                             <option value="EQI">EQI</option>
-                                            <option value="MONTHLY">Monthly</option>
-                                            <option value="QUARTERLY">Quarterly</option>
-                                            <option value="YEARLY">Yearly</option>
                                             <option value="AT MATURITY">At Maturity</option>
+                                            <option value="CUSTOM">Custom</option>
                                         </select>
                                         <!--                    <div *ngIf="(submitted) && formControls.repaymentMode.invalid"-->
                                         <!--                         class="invalid-feedback">-->
@@ -279,11 +286,56 @@
                                         <!--                    </div>-->
                                     </div>
                                 </div>
+                                <div  *ngIf="showRepaymentMode" class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="repaymentModeInterest"><strong>Interest Payment</strong></label>
+                                        <select
+                                            #interestRepayment
+                                            [ngClass]="{ 'is-invalid': (submitted) && formControls.repaymentModeInterest.errors }"
+                                            class="custom-select" formControlName="repaymentModeInterest"
+                                            id="repaymentModeInterest"
+                                            name="repaymentModeInterest"
+                                            (change)="calculateRepaymentModeAmounts(interestRepayment.value , 'INTEREST')">
+                                            <option [ngValue]="null" hidden selected>Select</option>
+                                            <option value="MONTHLY">Monthly</option>
+                                            <option value="QUARTERLY">Quarterly</option>
+                                            <option value="SEMI-ANNUALLY">Semi-Annually</option>
+                                        </select>
+
+                                        <div *ngIf="(submitted) && formControls.repaymentModeInterest.invalid"
+                                             class="invalid-feedback">
+                                        <span *ngIf="formControls.repaymentModeInterest.errors.required">
+                                            Repayment Frequency is required</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div  class="col-md-4" *ngIf="showRepaymentMode">
+                                    <div class="form-group">
+                                        <label class="title" for="repaymentModePrincipal"><strong>Principal Payment</strong></label>
+                                        <select
+                                            #repaymentModePrincipal
+                                            [ngClass]="{ 'is-invalid': (submitted) && formControls.repaymentModePrincipal.errors }"
+                                            class="custom-select" formControlName="repaymentModePrincipal"
+                                            id="repaymentModePrincipal"
+                                            name="repaymentModePrincipal"
+                                            (change)="calculateRepaymentModeAmounts(repaymentModePrincipal.value , 'PRINCIPAL')">
+                                            <option [ngValue]="null" hidden selected>Select</option>
+                                            <option value="MONTHLY">Monthly</option>
+                                            <option value="QUARTERLY">Quarterly</option>
+                                            <option value="SEMI-ANNUALLY">Semi-Annually</option>
+                                        </select>
+                                        <div *ngIf="(submitted) && formControls.repaymentModePrincipal.invalid"
+                                             class="invalid-feedback">
+                                        <span *ngIf="formControls.repaymentModePrincipal.errors.required">
+                                            Repayment Frequency is required</span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!--                                end of repayment mode-->
 
                                 <!--                start of installment amount div-->
                                 <div class="col-md-4"
-                                     *ngIf="showInstallmentAmount && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))">
+                                     *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))">
                                     <div class="form-group>">
                                         <label class="title"> <strong>Installment Amount</strong></label>
                                         <input
@@ -293,15 +345,27 @@
                                                 type="number" readonly>
                                     </div>
                                 </div>
-                                <!--                end of installment amount div-->
+                                <!--                end of ng s
+                                installment amount div-->
                                 <div class="col-md-4"
-                                     *ngIf="!showInstallmentAmount &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
+                                     *ngIf="(!showInstallmentAmount || showRepaymentMode) &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
                                     <div class="form-group>">
                                         <label class="title"> <strong>Interest Amount</strong></label>
                                         <input
                                                 class="form-control" formControlName="interestAmount"
                                                 id="interestAmount"
                                                 name="interestAmount" placeholder="Interest Amount"
+                                                type="number">
+                                    </div>
+                                </div>
+                                <div class="col-md-4"
+                                     *ngIf="(!showInstallmentAmount || showRepaymentMode) &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
+                                    <div class="form-group>">
+                                        <label class="title"> <strong>Principal Amount</strong></label>
+                                        <input
+                                                class="form-control" formControlName="principalAmount"
+                                                id="principalAmount"
+                                                name="principalAmount" placeholder="Principle Amount"
                                                 type="number">
                                     </div>
                                 </div>
@@ -358,7 +422,7 @@
                                 <div class="col-md-4"
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">
                                     <div class="form-group>">
-                                        <label class="title"> <strong>Prepayment Charge</strong></label>
+                                        <label class="title"> <strong>Prepayment Charge (in%) </strong></label>
                                         <input
                                                 class="form-control" formControlName="prepaymentCharge"
                                                 id="prepaymentCharge"

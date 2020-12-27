@@ -44,6 +44,9 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
     nepaliDate;
     hasMissingDeferredDocs = false;
 
+    loanSummaryActive = true;
+    approvalSheetActive = false;
+
     constructor(private userService: UserService,
                 private loanFormService: LoanFormService,
                 private loanActionService: LoanActionService,
@@ -201,5 +204,15 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
             const uploadedDocIds = this.loanDataHolder.customerDocument.map(d => d.document.id);
             this.hasMissingDeferredDocs = !deferredDocs.every(d => uploadedDocIds.includes(d.id));
         });
+    }
+
+    activeApprovalSheet() {
+        this.approvalSheetActive = true;
+        this.loanSummaryActive = false;
+    }
+
+    activeLoanSummary() {
+        this.approvalSheetActive = false;
+        this.loanSummaryActive = true;
     }
 }

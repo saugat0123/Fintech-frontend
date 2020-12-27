@@ -49,6 +49,8 @@ import {TranslateService} from '@ngx-translate/core';
 import {CalendarType} from '../../../../../@core/model/calendar-type';
 import {CommonAddressComponent} from '../../../../common-address/common-address.component';
 import {FormUtils} from '../../../../../@core/utils/form.utils';
+import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
+import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
 import {LanguageType} from '../../../model/languageType';
 
 @Component({
@@ -134,6 +136,7 @@ export class CompanyFormComponent implements OnInit {
     registeredOffice = RegisteredOfficeList.enumObject();
     businessGiven: BusinessGiven = new BusinessGiven();
     companyAddress;
+    srdbAffiliatedId = false;
 
 
     constructor(
@@ -254,6 +257,9 @@ export class CompanyFormComponent implements OnInit {
             showFormField: (!ObjectUtil.isEmpty(this.formValue)),
             isOldCustomer: (ObjectUtil.isEmpty(this.formValue))
         };
+        if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
+            this.srdbAffiliatedId = true;
+        }
     }
 
     buildForm() {
@@ -536,6 +542,10 @@ export class CompanyFormComponent implements OnInit {
             total: [ObjectUtil.isEmpty(this.businessGiven)
             || ObjectUtil.isEmpty(this.businessGiven.total) ? undefined :
                 this.businessGiven.total],
+            companyLegalDocumentAddress:
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.companyLegalDocumentAddress)) ? undefined :
+                    this.companyInfo.companyLegalDocumentAddress, [Validators.required]]
 
 
         });
@@ -805,6 +815,8 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.landLineNumber = this.companyInfoFormGroup.get('landLineNumber').value;
         this.companyInfo.clientType = this.companyInfoFormGroup.get('clientType').value;
         this.companyInfo.subsectorDetail = this.companyInfoFormGroup.get('subsectorDetail').value;
+        this.companyInfo.companyLegalDocumentAddress = this.companyInfoFormGroup.get('companyLegalDocumentAddress').value;
+
         this.companyInfo.languageType = this.switchLanguageType;
 
         // legalStatus

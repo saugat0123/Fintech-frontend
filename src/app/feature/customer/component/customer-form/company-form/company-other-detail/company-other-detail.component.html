@@ -12,6 +12,13 @@
                  placeholder="Select Tax Clearance Till">
         <ng-option *ngFor="let fiscalYear of fiscalYears" [value]="fiscalYear.year">
           {{fiscalYear.year}}
+<!--      </select>-->
+<!--      <div *ngIf="submitted && form.taxClearanceTill?.errors "-->
+<!--           class="small text-danger">-->
+<!--        <div *ngIf="form.taxClearanceTill?.errors.required">-->
+<!--          Tax clearance till is required-->
+<!--        </div>-->
+<!--      </div>-->
         </ng-option>
       </ng-select>
       <div *ngIf="submitted && form.taxClearanceTill?.errors "

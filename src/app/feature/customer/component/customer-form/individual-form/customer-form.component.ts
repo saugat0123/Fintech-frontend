@@ -53,6 +53,7 @@ export class CustomerFormComponent implements OnInit {
     @Input() subSectorDetailCodeInput: any;
     @Input() gender;
     @Input() maritalStatus;
+    @Input() customerLegalDocumentAddress;
     calendarType = 'AD';
     lanType = LanguageType;
     switchLanguageType = this.lanType.ENGLISH;
@@ -256,6 +257,7 @@ export class CustomerFormComponent implements OnInit {
                     this.customer.subsectorDetail = this.basicInfo.get('subsectorDetail').value;
                     this.customer.gender = this.basicInfo.get('gender').value;
                     this.customer.maritalStatus = this.basicInfo.get('maritalStatus').value;
+                    this.customer.customerLegalDocumentAddress = this.basicInfo.get('customerLegalDocumentAddress').value;
                     this.customer.languageType = this.switchLanguageType;
                     const occupations = {
                         multipleOccupation: this.basicInfo.get('occupation').value,
@@ -364,6 +366,8 @@ export class CustomerFormComponent implements OnInit {
                 this.gender, Validators.required],
             maritalStatus: [this.maritalStatus === null ? undefined :
                 this.maritalStatus, Validators.required],
+            customerLegalDocumentAddress: [this.customerLegalDocumentAddress == null ? undefined :
+            this.customerLegalDocumentAddress, Validators.required],
 
         });
     }

@@ -43,6 +43,7 @@ export class CompanyInfo {
     clientType: string;
     landLineNumber: string;
     businessGiven: string;
+    companyLegalDocumentAddress: string;
     languageType: LanguageType;
 
 }

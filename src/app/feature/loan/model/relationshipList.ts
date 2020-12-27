@@ -85,6 +85,10 @@ export class RelationshipList {
       name: 'Shareholder',
     },
     {
+      id: 'Self',
+      name: 'Self',
+    },
+    {
       id: 'Other',
       name: 'Other',
     }

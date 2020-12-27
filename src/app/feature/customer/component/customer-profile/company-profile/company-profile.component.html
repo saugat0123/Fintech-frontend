@@ -4,8 +4,13 @@
   <nb-card-header>
     <div class="row shadow-sm">
       <div class="col-md-4">
-        <strong>Associated Group:</strong> <span> {{customerInfo?.customerGroup != undefined
-          ? customerInfo?.customerGroup?.groupCode : ' No group has been assigned.'}}</span>
+        <strong>Associated Group:</strong>
+         <span *ngIf="!productUtils.CBS_ENABLE">
+                    {{customerInfo?.customerGroup != undefined ? customerInfo?.customerGroup?.groupCode : ' No group has been assigned.'}}
+                </span>
+        <span *ngIf="productUtils.CBS_ENABLE">
+                    {{customerInfo?.obligor || ' No group has been assigned.'}}
+                </span>
         <div class="py-2">
           <button [nbPopover]="activity" nbButton size="small" [nbPopoverPlacement]="'right'">
             Customer Activity
@@ -16,17 +21,28 @@
         </div>
       </div>
       <div class="offset-4 col-md-4 float-right">
-        <button [nbPopover]="groupWindow" class="float-right mb-3" nbButton size="small"
-                [nbPopoverPlacement]="'left'">
-          Groups
-          <nb-icon icon="arrow-down-outline"></nb-icon>
-        </button>
-        <div class="row">
-          <ng-template #groupWindow>
-            <app-group-tagging [customerData]="customerInfo"
-                               (refreshGroup)="refreshGroup()"></app-group-tagging>
-          </ng-template>
+
+        <div *ngIf="productUtils.CBS_ENABLE">
+          <app-tag-cbs-customer [customerInfo]="customerInfo" *ngIf="customerInfo"
+                                (stringValue)="cbsGroupUpdate($event)">
+          </app-tag-cbs-customer>
         </div>
+        <div *ngIf="!productUtils.CBS_ENABLE">
+          <button [nbPopover]="groupWindow" class="float-right mb-3" nbButton size="small"
+                  [nbPopoverPlacement]="'left'">
+            Groups
+            <nb-icon icon="arrow-down-outline"></nb-icon>
+          </button>
+
+          <div class="row">
+            <ng-template #groupWindow>
+              <app-group-tagging #GroupTaggingComponent [customerData]="customerInfo"
+                                 (refreshGroup)="refreshGroup()"></app-group-tagging>
+            </ng-template>
+
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -236,7 +252,7 @@
           </nb-card-footer>
         </nb-card>
 
-        <nb-card accent="primary">
+        <nb-card accent="primary" *ngIf="!productUtils.CBS_ENABLE">
           <nb-card-header>
             Customer Groups
             <!--<div class="float-right" nbTooltip="{{totalGroupAmount | number}}">Total Group Limit
@@ -292,7 +308,7 @@
                     </button>
                   </div>
                   <br>
-                  <table aria-describedby="proprietor info table" class="table  table-bordered table-hover sb-small">
+                  <table aria-describedby="proprietor info table" class="table  table-bordered table-hover sb-small text-center">
                     <thead>
                     <tr class="text-white sb-bg-dark">
                       <th scope="col">#</th>
@@ -336,7 +352,7 @@
                     </button>
                   </div>
                   <br>
-                  <table aria-describedby="management team table" class="table  table-bordered table-hover sb-small">
+                  <table aria-describedby="management team table" class="table  table-bordered table-hover sb-small text-center">
                     <thead>
                     <tr class="sb-bg-dark text-white">
                       <th scope="col">#</th>
@@ -410,6 +426,14 @@
         </nb-card>
       </div>
     </div>
+
+    <!--        //cbs Group-->
+    <div class="row" *ngIf="productUtils.CBS_ENABLE">
+      <div class="col-md-12">
+        <app-cbs-view-customer [customerInfo]="customerInfo" *ngIf="customerInfo"></app-cbs-view-customer>
+      </div>
+    </div>
+    <!--        //cbs Group-->
     <div class="row">
       <div class="col-md-12">
         <app-customer-loan-information

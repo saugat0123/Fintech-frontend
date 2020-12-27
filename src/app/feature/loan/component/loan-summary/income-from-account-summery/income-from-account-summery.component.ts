@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
+import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
 
 @Component({
   selector: 'app-income-from-account-summery',
@@ -9,11 +11,15 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 export class IncomeFromAccountSummeryComponent implements OnInit {
   @Input() formData;
   incomeFromAccount;
+  srdbAffiliatedId = false;
 
   constructor() {
   }
 
   ngOnInit() {
+    if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
+      this.srdbAffiliatedId = true;
+    }
     if (!ObjectUtil.isEmpty(this.formData)) {
       this.incomeFromAccount = JSON.parse(this.formData.data);
     }
