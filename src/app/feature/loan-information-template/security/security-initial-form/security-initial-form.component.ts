@@ -21,6 +21,9 @@ import {DesignationList} from '../../../loan/model/designationList';
 import {OwnershipTransfer} from '../../../loan/model/ownershipTransfer';
 import {RelationshipList} from '../../../loan/model/relationshipList';
 import {OwnerKycApplicableComponent} from './owner-kyc-applicable/owner-kyc-applicable.component';
+import {NepsePriceInfoService} from '../../../admin/component/nepse/nepse-price-info.service';
+import {NepsePriceInfo} from '../../../admin/modal/NepsePriceInfo';
+import {DatePipe} from '@angular/common';
 
 
 @Component({
@@ -113,12 +116,15 @@ export class SecurityInitialFormComponent implements OnInit {
     ownerKycRelationInfoCheckedForLandBuilding = false;
     ownerKycRelationInfoCheckedForHypothecation = false;
     ownerKycApplicableData: any;
+    nepsePriceInfo: NepsePriceInfo = new NepsePriceInfo();
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
                 private valuatorService: ValuatorService,
                 private branchService: BranchService,
-                private shareService: NepseService) {
+                private shareService: NepseService,
+                private nepsePriceInfoService: NepsePriceInfoService,
+                private datePipe: DatePipe) {
     }
 
     ngOnInit() {
@@ -130,6 +136,13 @@ export class SecurityInitialFormComponent implements OnInit {
         this.buildForm();
         this.branchList();
         this.checkLoanTags();
+         this.nepsePriceInfoService.getActiveNepsePriceInfoData().subscribe((response) => {
+             this.nepsePriceInfo = response.detail;
+             this.shareSecurityForm.get('sharePriceDate').patchValue(this.datePipe.transform(this.nepsePriceInfo.sharePriceDate, 'yyyy-MM-dd'));
+             this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo.avgDaysForPrice);
+         }, error => {
+             console.log(error);
+         });
 
         if (this.formData !== undefined) {
             this.ownerKycRelationInfoCheckedForLand = true;
@@ -203,7 +216,9 @@ export class SecurityInitialFormComponent implements OnInit {
         this.shareSecurityForm = this.formBuilder.group({
             shareSecurityDetails: this.formBuilder.array([]),
             securityOffered: undefined,
-            loanShareRate: undefined
+            loanShareRate: undefined,
+            sharePriceDate: undefined,
+            avgDaysForPrice: undefined,
         });
         if (!ObjectUtil.isEmpty(this.shareSecurity)) {
             this.shareSecurityForm.get('securityOffered').patchValue(JSON.parse(this.shareSecurity.data)['securityOffered']);

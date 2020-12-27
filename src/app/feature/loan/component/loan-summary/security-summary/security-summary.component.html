@@ -508,6 +508,12 @@
                         <td class="text-right">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
                     </tr>
                     <tr>
+                        <th></th>
+                        <th class="sb-bg-secondary text-white">Price As per Date</th>
+                        <td colspan="2">{{shareSecurity?.sharePriceDate |date}}</td>
+                        <th class="sb-bg-secondary text-white">Average Price of days</th>
+                        <td colspan="2">{{shareSecurity?.avgDaysForPrice}} days</td>
+                    </tr> <tr>
                         <th class="text-right" colspan="5">Total</th>
                         <th class="text-right">Rs. {{shareTotalValue |currencyFormatter}}</th>
                         <th class="text-right">Rs. {{totalConsideredValue |currencyFormatter}}</th>
