@@ -5,6 +5,7 @@ import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NepseService} from '../nepse.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 
 @Component({
@@ -73,11 +74,12 @@ export class NepseFormComponent implements OnInit, DoCheck {
     }
 
     excelUpload(event) {
-        if (this.nepsePriceInfoForm.invalid) {
-            this.toastService.show(new Alert(AlertType.INFO, 'Please Provide Upload Detail First !'));
+        const excelFile = <File>event.files[0];
+        if (this.nepsePriceInfoForm.invalid || ObjectUtil.isEmpty(excelFile)) {
+            this.toastService.show(new Alert(AlertType.INFO, 'Please Provide all Upload Detail First !'));
             return;
         }
-        const excelFile = <File>event.files[0];
+        console.log(excelFile);
         const formdata: FormData = new FormData();
         formdata.append('excelFile', excelFile);
         formdata.append('type', 'nepseFile');
