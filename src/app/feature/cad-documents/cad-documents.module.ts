@@ -31,7 +31,13 @@ import {SmePrintComponent} from './cad-document-core/mega-offer-letter/sme/sme-p
 import {PostApprovalDocApproveComponent} from './post-approval-doc-approve/post-approval-doc-approve.component';
 import {CadLoginComponent} from './cad-login/cad-login.component';
 import {ExcelOfferLetterComponent} from './cad-document-core/excel-offer-letter/excel-offer-letter.component';
-import {DpNoteGuarantorComponent} from './cad-document-core/excel-offer-letter/dp-note-borrower/dp-note-guarantor.component';
+import {DpNoteGuarantorComponent} from './cad-document-core/excel-offer-letter/dp-note-guarantor/dp-note-guarantor.component';
+import { DpNoteBorrowerComponent } from './cad-document-core/excel-offer-letter/dp-note-borrower/dp-note-borrower.component';
+import { PledgeDeedFirstComponent } from './cad-document-core/excel-offer-letter/pledge-deed-first/pledge-deed-first.component';
+import { PgFirmComponent } from './cad-document-core/excel-offer-letter/pg-firm/pg-firm.component';
+import { PgRetailLoanComponent } from './cad-document-core/excel-offer-letter/pg-retail-loan/pg-retail-loan.component';
+import { ContinuationDeedComponent } from './cad-document-core/excel-offer-letter/continuation-deed/continuation-deed.component';
+import { CorporateGteeComponent } from './cad-document-core/excel-offer-letter/corporate-gtee/corporate-gtee.component';
 
 
 const COMPONENTS = [
@@ -63,7 +69,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, PostApprovalDocApproveComponent, CadLoginComponent],
+    declarations: [...COMPONENTS, PostApprovalDocApproveComponent, CadLoginComponent, DpNoteBorrowerComponent, PledgeDeedFirstComponent, PgFirmComponent, PgRetailLoanComponent, ContinuationDeedComponent, CorporateGteeComponent],
     imports: [
         CommonModule,
         ThemeModule,

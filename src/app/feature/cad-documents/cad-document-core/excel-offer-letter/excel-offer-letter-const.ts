@@ -2,7 +2,10 @@ export enum ExcelOfferLetterConst {
     DRISTIBANDHAKI,
     DPNOTEGUARANTOR,
     PLEDGEDEEDFIRST,
-    DPNOTEBORROWER
+    DPNOTEBORROWER,
+    PGFIRM,
+    PGRETAILLOAN,
+    CONTINUATIONDEED
 }
 
 export namespace ExcelOfferLetterConst {
@@ -16,6 +19,12 @@ export namespace ExcelOfferLetterConst {
               return 'Pledge Deed First Party';
         case ExcelOfferLetterConst.DPNOTEBORROWER:
               return 'DP Note Borrower';
+        case ExcelOfferLetterConst.PGFIRM:
+              return 'PG Firm';
+        case ExcelOfferLetterConst.PGRETAILLOAN:
+              return 'PG Retail Loan';
+        case ExcelOfferLetterConst.CONTINUATIONDEED:
+              return 'Continuation Deed';
       }
     }
 
