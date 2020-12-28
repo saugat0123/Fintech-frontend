@@ -127,9 +127,9 @@
             </thead>
             <tbody>
             <tr>
-                <td>{{formValue?.capital?.authorizedCapital | currencyFormatter}}</td>
-                <td>{{formValue?.capital?.issuedCapital | currencyFormatter}}</td>
-                <td>{{formValue?.capital?.paidUpCapital | currencyFormatter}}</td>
+                <td class="text-right">Rs. {{formValue?.capital?.authorizedCapital | currencyFormatter}}</td>
+                <td class="text-right">Rs. {{formValue?.capital?.issuedCapital | currencyFormatter}}</td>
+                <td class="text-right">Rs. {{formValue?.capital?.paidUpCapital | currencyFormatter}}</td>
                 <!--        <td>{{formValue?.capital?.totalCapital}}</td>-->
                 <!--        <td>{{formValue?.capital?.fixedCapital}}</td>-->
                 <!--        <td>{{formValue?.capital?.workingCapital}}</td>-->
@@ -280,7 +280,7 @@
                 <th>Type</th>
                 <th>Name</th>
                 <th>Contact No</th>
-                <th>Share</th>
+                <th>Share %</th>
                 <th>Province</th>
                 <th>District</th>
                 <th>Municipalities or VDC</th>
@@ -383,7 +383,7 @@
                 <td>{{companyJsonData?.marketScenario['competitorsOverview']}}</td>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Business/Industry Outlook</th>
+                <th>Industry/Market Risk</th>
             </tr>
             <tr>
                 <td>{{companyJsonData?.marketScenario['BusinessIndustryOutlook']}}</td>
@@ -395,7 +395,7 @@
                 <td>{{companyJsonData?.marketScenario['marketingStrategies']}}</td>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Technical Aspect</th>
+                <th>Management Risk</th>
             </tr>
             <tr>
                 <td>{{companyJsonData?.marketScenario['technicalAspect']}}</td>
@@ -430,51 +430,51 @@
             </tr>
             <tr>
                 <td>Interest Income</td>
-                <th>{{businessGiven?.interestIncomeDuringReview | currencyFormatter}}</th>
+                <th class="text-right">Rs. {{businessGiven?.interestIncomeDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Loan Processing Fee</td>
-                <th>{{businessGiven?.loanProcessingFeeDuringReview | currencyFormatter}}</th>
+                <th class="text-right">Rs. {{businessGiven?.loanProcessingFeeDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>LC Commission</td>
-                <th>{{businessGiven?.lcCommissionDuringReview | currencyFormatter}}</th>
+                <th class="text-right">Rs. {{businessGiven?.lcCommissionDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Guarantee Commission</td>
-                <th>{{businessGiven?.guaranteeCommissionDuringReview | currencyFormatter}}</th>
+                <th class="text-right">Rs. {{businessGiven?.guaranteeCommissionDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Other Commission</td>
-                <th>{{businessGiven?.otherCommissionDuringReview | currencyFormatter}}</th>
+                <th class="text-right">Rs. {{businessGiven?.otherCommissionDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Saving Account</td>
-                <th>{{businessGiven?.savingAccountDuringReview | currencyFormatter}}</th>
+                <th class="text-right">Rs. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Payroll Account</td>
-                <th>{{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</th>
+                <th class="text-right">Rs. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Debit Cards</td>
-                <th>{{businessGiven?.debitCardsDuringReview | currencyFormatter}}</th>
+                <th class="text-right">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Credit Cards</td>
-                <th>{{businessGiven?.creditCardsDuringReview | currencyFormatter}}</th>
+                <th class="text-right">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Mobile Bank / Internet Banking</td>
-                <th>{{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</th>
+                <th class="text-right">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Locker</td>
-                <th>{{businessGiven?.lockerDuringReview | currencyFormatter}}</th>
+                <th class="text-right">{{businessGiven?.lockerDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <th>Total</th>
-                <th>{{businessGiven?.total | currencyFormatter}}</th>
+                <th class="text-right">Rs. {{businessGiven?.total | currencyFormatter}}</th>
             </tr>
 
         </table>
