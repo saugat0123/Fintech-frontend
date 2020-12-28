@@ -7,5 +7,6 @@ export const environment = {
     LOCAL_STORAGE_KEY: 'QP\'`0tWfyBni^(*rv0gB].ck$s@z(/',
     LOCAL_STORAGE_NAME: 'SBSolutionsSRDBLAS',
     enablePreAddingAccountNumber: true,
-    disableCrgAlpha: true
+    disableCrgAlpha: true,
+    disableApprovalSheet: false,
 };

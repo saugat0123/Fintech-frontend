@@ -9,7 +9,8 @@
                             size="tiny" (click)="goToCustomer()"><em class="fas fa-backward"></em> <span
                             class="px-2">customer Profile</span></button>
 
-                    <button nbButton
+                    <button *ngIf="!disableApprovalSheetFlag"
+                            nbButton
                             shape="rectangle"
                             status="primary"
                             class="float-right"
