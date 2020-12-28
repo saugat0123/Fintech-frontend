@@ -21,11 +21,11 @@
         <td>{{i + 1}}</td>
         <td>{{data?.nameOfFI || 'NA'}}</td>
         <td>{{data?.facility || 'NA'}}</td>
-        <td>{{data?.overdueAmount | currencyFormatter}}</td>
-        <td>{{data?.outstandingAmount | currencyFormatter}}</td>
+        <td class="text-right">Rs. {{data?.overdueAmount | currencyFormatter}}</td>
+        <td class="text-right">Rs. {{data?.outstandingAmount | currencyFormatter}}</td>
         <td>{{data?.status || 'NA'}}</td>
         <td>{{data?.obtaineddate | date}}</td>
-        <td>{{data?.loanamount | currencyFormatter}}</td>
+        <td class="text-right">Rs. {{data?.loanamount | currencyFormatter}}</td>
         <td>{{data?.overdue}}</td>
       </tr>
       </thead>

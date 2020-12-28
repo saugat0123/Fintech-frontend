@@ -15,20 +15,20 @@
             <tbody>
             <tr>
                 <td>Credit Transaction in Account</td>
-                <td>
-                    {{this.data?.accountTransactionForm?.creditTransactionNumber | currencyFormatter}}
+                <td class="text-right">
+                    Rs. {{this.data?.accountTransactionForm?.creditTransactionNumber | currencyFormatter}}
                 </td>
-                <td>
-                    {{this.data?.accountTransactionForm?.creditTransactionValue  | currencyFormatter}}
+                <td class="text-right">
+                    Rs. {{this.data?.accountTransactionForm?.creditTransactionValue  | currencyFormatter}}
                 </td>
             </tr>
             <tr>
                 <td>Debit Transaction in Account</td>
-                <td>
-                    {{this.data?.accountTransactionForm?.debitTransactionNumber | currencyFormatter}}
+                <td class="text-right">
+                    Rs. {{this.data?.accountTransactionForm?.debitTransactionNumber | currencyFormatter}}
                 </td>
-                <td>
-                    {{this.data?.accountTransactionForm?.debitTransactionValue | currencyFormatter}}
+                <td class="text-right">
+                    Rs. {{this.data?.accountTransactionForm?.debitTransactionValue | currencyFormatter}}
                 </td>
             </tr>
             <tr>
