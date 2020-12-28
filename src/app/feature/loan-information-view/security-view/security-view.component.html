@@ -1022,7 +1022,9 @@
   <div *ngIf="vehicleSelected" class="row">
     <div class="col-md-12">
       <p class="text-center"><strong>Vehicle Security Details</strong></p>
-
+      <div class="d-flex justify-content-sm-end">
+        <p class="font-weight-bolder sb-medium">Vehicle Exposure: {{securityData['initialForm']?.vehicleLoanExposure}}%</p>
+      </div>
     </div>
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" *ngFor="let vehicleSecurity of securityData['initialForm']['vehicleDetails']; let i=index"  style="table-layout: fixed; width: 100%">
       <thead>

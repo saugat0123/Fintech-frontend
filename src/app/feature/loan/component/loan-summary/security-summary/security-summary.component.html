@@ -3,6 +3,9 @@
         <p><strong>Security Position</strong></p>
         <div class="row" *ngIf="vehicleSelected">
             <div class="col-md-12">
+                <div class="d-flex justify-content-sm-end">
+                    <p class="font-weight-bolder sb-medium">Vehicle Exposure: {{formData['initialForm']?.vehicleLoanExposure}}%</p>
+                </div>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
                        style="table-layout: fixed; width: 100%"
                        *ngFor="let vehicleDetails of formData['initialForm']['vehicleDetails']; let i= index">
