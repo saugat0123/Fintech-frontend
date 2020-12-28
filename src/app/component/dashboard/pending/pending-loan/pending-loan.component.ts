@@ -4,6 +4,8 @@ import {LoanFormService} from '../../../../feature/loan/component/loan-form/serv
 import {CatalogueSearch, CatalogueService} from '../../../../feature/admin/component/catalogue/catalogue.service';
 import {DocStatus} from '../../../../feature/loan/model/docStatus';
 import {CustomerOfferLetterService} from '../../../../feature/loan/service/customer-offer-letter.service';
+import {ProductUtils} from "../../../../feature/admin/service/product-mode.service";
+import {LocalStorageUtil} from "../../../../@core/utils/local-storage-util";
 
 
 @Component({
@@ -18,6 +20,7 @@ export class PendingLoanComponent implements OnInit {
     closedCount: number;
     initCount: number;
     postApprovalDocStat;
+    productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
 
     constructor(
         private router: Router,
