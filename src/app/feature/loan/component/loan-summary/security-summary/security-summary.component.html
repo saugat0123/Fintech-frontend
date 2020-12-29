@@ -4,7 +4,7 @@
         <div class="row" *ngIf="vehicleSelected">
             <div class="col-md-12">
                 <div class="d-flex justify-content-sm-end">
-                    <p class="font-weight-bolder sb-medium">Vehicle Exposure: {{formData['initialForm']?.vehicleLoanExposure}}%</p>
+                    <p class="font-weight-bolder sb-medium">Vehicle Exposure: {{formData['initialForm']?.vehicleLoanExposure |number}}%</p>
                 </div>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
                        style="table-layout: fixed; width: 100%"
@@ -18,11 +18,11 @@
                         <th>Model</th>
                         <th>Valuation Amount</th>
                         <th>Down Payment</th>
+                        <th>Remaining Amount</th>
                         <th>Loan Exposure %</th>
                         <th>Registration Number</th>
                         <th>Registration Date</th>
                         <th>Engine Number</th>
-                        <th>Chassis Number</th>
 
                     </tr>
                     <tr>
@@ -30,26 +30,28 @@
                         <td>{{vehicleDetails?.model}}</td>
                         <td class="text-right">Rs. {{vehicleDetails?.valuationAmount | currencyFormatter}}</td>
                         <td class="text-right">Rs. {{vehicleDetails?.downPayment | currencyFormatter}}</td>
+                        <td class="text-right">Rs. {{vehicleDetails?.remainingAmount | currencyFormatter}}</td>
                         <td>{{vehicleDetails?.loanExposure}}</td>
                         <td>{{vehicleDetails?.registrationNumber}}</td>
                         <td>{{vehicleDetails?.registrationDate | date}}</td>
                         <td>{{vehicleDetails?.engineNumber}}</td>
-                        <td>{{vehicleDetails?.chassisNumber}}</td>
                     </tr>
                     <tr class="sb-bg-secondary text-white">
+                        <th>Chassis Number</th>
                         <th>Showroom Commission</th>
                         <th>Valuated Date</th>
                         <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
-                        <th colspan="2">Valautor Name</th>
+                        <th>Valautor Name</th>
                         <th>Valuator Representative Name</th>
                         <th>Staff Representative Name</th>
                         <th colspan="2">Alternative Staff Representative Name</th>
                     </tr>
                     <tr>
+                        <td>{{vehicleDetails?.chassisNumber}}</td>
                         <td class="text-right">Rs. {{vehicleDetails?.showroomCommission | currencyFormatter}}</td>
                         <td>{{vehicleDetails?.vehicalValuatorDate |date}}</td>
                         <td *ngIf="formData['otherBranchcheck']">{{vehicleDetails?.vehicalBranch?.name}}</td>
-                        <td colspan="2">{{vehicleDetails?.vehicalValuator?.name}}</td>
+                        <td >{{vehicleDetails?.vehicalValuator?.name}}</td>
                         <td>{{vehicleDetails?.vehicalValuatorRepresentative}}</td>
                         <td>{{vehicleDetails?.vehicalStaffRepresentativeName}}</td>
                         <td colspan="2">{{vehicleDetails?.vehicalAlternateStaffRepresentativeName}}</td>
