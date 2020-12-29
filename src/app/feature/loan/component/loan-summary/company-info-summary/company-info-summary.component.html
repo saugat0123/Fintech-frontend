@@ -136,10 +136,6 @@
           <td><b>SubSector</b></td>
           <td>{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
         </tr>
-        <tr>
-          <td><b>Address as per Legal Document</b></td>
-          <td colspan="2">{{companyInfo?.companyLegalDocumentAddress}}</td>
-        </tr>
         <br>
       </table>
     </div>
@@ -153,6 +149,7 @@
       <th>S.No</th>
       <th>Name</th>
       <th>Designation</th>
+      <th>Address as per Legal Document</th>
     </tr>
     </thead>
     <tbody>
@@ -160,7 +157,7 @@
       <td>{{i+1}}</td>
       <td>{{team?.name}}</td>
       <td>{{team?.designation}}</td>
-      <td>{{team?.description}}</td>
+      <td>{{team?.companyLegalDocumentAddress}}</td>
     </tr>
     <tr>
       <td class="sb-bg-secondary text-white">Note</td>
