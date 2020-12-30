@@ -1022,7 +1022,9 @@
   <div *ngIf="vehicleSelected" class="row">
     <div class="col-md-12">
       <p class="text-center"><strong>Vehicle Security Details</strong></p>
-
+      <div class="d-flex justify-content-sm-end">
+        <p class="font-weight-bolder sb-medium">Vehicle Exposure: {{securityData['initialForm']?.vehicleLoanExposure |number}}%</p>
+      </div>
     </div>
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" *ngFor="let vehicleSecurity of securityData['initialForm']['vehicleDetails']; let i=index"  style="table-layout: fixed; width: 100%">
       <thead>
@@ -1055,7 +1057,7 @@
         <th>Chassis Number</th>
 
         <th>Down Payment</th>
-        <th  *ngIf="securityData['otherBranchcheck']">Branch</th>
+        <th>Remaining Amount</th>
       </tr>
       </thead>
       <tbody>
@@ -1066,7 +1068,7 @@
         <td style="word-wrap: break-word">{{vehicleSecurity['chassisNumber']}}</td>
 
         <td class="text-right">Rs. {{vehicleSecurity['downPayment'] | currencyFormatter}}</td>
-        <td *ngIf="securityData['otherBranchcheck']">{{vehicleSecurity?.vehicalBranch?.name}}</td>
+        <td class="text-right">Rs. {{vehicleSecurity['remainingAmount'] | currencyFormatter}}</td>
       </tr>
       </tbody>
       <thead>
@@ -1110,12 +1112,13 @@
         <th></th>
         <th>Showroom Address</th>
         <th>Ownership transfer date</th>
+        <th *ngIf="securityData['otherBranchcheck']">Branch</th>
       </tr>
       <tr>
         <td></td>
         <td>{{vehicleSecurity?.showroomAddress}}</td>
         <td>{{vehicleSecurity?.ownershipTransferDate | date}}</td>
-
+        <td *ngIf="securityData['otherBranchcheck']">{{securityData['otherBranchcheck'] ? vehicleSecurity?.vehicalBranch?.name : 'N/A'}}</td>
 
       </tr>
     </table>
