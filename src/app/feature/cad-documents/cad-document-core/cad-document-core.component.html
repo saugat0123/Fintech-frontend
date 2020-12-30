@@ -67,16 +67,13 @@
         Post Approval Documents
     </nb-accordion-item-header>
  <nb-accordion-item-body>
-     <app-excel-offer-letter *ngIf="client == clientList.EXCEL && offerLetterList"
-                             [customerId]="customerId"
-                             [loanDataHolder]="loanDataHolder"
-                             [offerLetterList]="offerLetterList"
-     ></app-excel-offer-letter>
+
      <app-mega-offer-letter *ngIf="client == clientList.MEGA && offerLetterList"
                             [customerId]="customerId"
                             [loanDataHolder]="loanDataHolder"
                             [offerLetterList]="offerLetterList"
      ></app-mega-offer-letter>
+
      <!--SRDB-->
      <app-srdb-offer-letter *ngIf="client == clientList.SHINE_RESUNGA"></app-srdb-offer-letter>
  </nb-accordion-item-body>
