@@ -352,11 +352,11 @@ export class CustomerFormComponent implements OnInit {
             customerRelatives: this.formBuilder.array([]),
             introduction: [this.customer.introduction === undefined ? undefined : this.customer.introduction, [Validators.required]],
             securityRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
-                this.individualJsonData.securityRisk, [Validators.required]],
+                this.individualJsonData.securityRisk],
             incomeRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
-                this.individualJsonData.incomeRisk, [Validators.required]],
+                this.individualJsonData.incomeRisk],
             successionRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
-                this.individualJsonData.successionRisk, [Validators.required]],
+                this.individualJsonData.successionRisk],
             bankingRelationship: [this.customer.bankingRelationship === undefined ?
                 undefined : JSON.parse(this.customer.bankingRelationship), [Validators.required]],
             netWorth: [this.customer.netWorth === undefined ?
