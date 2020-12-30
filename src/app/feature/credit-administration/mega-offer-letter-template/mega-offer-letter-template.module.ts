@@ -23,11 +23,6 @@ import {SmeComponent} from '../../cad-documents/cad-document-core/mega-offer-let
 import {SmePrintComponent} from '../../cad-documents/cad-document-core/mega-offer-letter/sme/sme-print/sme-print.component';
 
 const COMPONENTS = [
-
-  MegaOfferLetterComponent,
-  SrdbOfferLetterComponent,
-  OfferLetterUploadComponent,
-  OfferLetterActionComponent,
   HayerPurchaseComponent,
   HayerPurchasePrintComponent,
   RetailEducationalLoanComponent,
