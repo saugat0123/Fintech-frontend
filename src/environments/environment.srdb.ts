@@ -8,5 +8,6 @@ export const environment = {
     LOCAL_STORAGE_NAME: 'SBSolutionsSRDBLAS',
     enablePreAddingAccountNumber: true,
     disableCrgAlpha: true,
+    disableCrgLambda: false,
     disableApprovalSheet: false,
 };
