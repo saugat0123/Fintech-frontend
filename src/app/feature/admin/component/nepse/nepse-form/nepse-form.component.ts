@@ -4,6 +4,9 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NepseService} from '../nepse.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {Pattern} from '../../../../../@core/utils/constants/pattern';
 
 
 @Component({
@@ -14,19 +17,25 @@ export class NepseFormComponent implements OnInit, DoCheck {
 
     @Input()
     model: Nepse = new Nepse();
-
+    calendarType = 'AD';
     task: string;
     submitted = false;
     spinner = false;
+    nepsePriceInfoForm: FormGroup;
 
     constructor(
+        public fb: FormBuilder,
         private nepseService: NepseService,
         private activeModal: NgbActiveModal,
-        private toastService: ToastService
+        private toastService: ToastService,
     ) {
     }
 
     ngOnInit() {
+        this.nepsePriceInfoForm = this.fb.group({
+            sharePriceDate: [undefined, Validators.required],
+            avgDaysForPrice: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_POSITIVE)]]
+        });
     }
 
     ngDoCheck(): void {
@@ -37,6 +46,10 @@ export class NepseFormComponent implements OnInit, DoCheck {
         }
     }
 
+    get nepsePriceForm() {
+        return this.nepsePriceInfoForm.controls;
+    }
+
     onSubmit() {
         this.submitted = true;
         this.nepseService.save(this.model).subscribe(result => {
@@ -45,7 +58,7 @@ export class NepseFormComponent implements OnInit, DoCheck {
 
                 this.model = new Nepse();
 
-                this.activeModal.close(ModalResponse.SUCCESS);
+            this.activeModal.close(ModalResponse.SUCCESS);
 
             }, error => {
 
@@ -63,9 +76,15 @@ export class NepseFormComponent implements OnInit, DoCheck {
 
     excelUpload(event) {
         const excelFile = <File>event.files[0];
+        if (this.nepsePriceInfoForm.invalid || ObjectUtil.isEmpty(excelFile)) {
+            this.toastService.show(new Alert(AlertType.INFO, 'Please Provide all Upload Detail First !'));
+            return;
+        }
+        console.log(excelFile);
         const formdata: FormData = new FormData();
         formdata.append('excelFile', excelFile);
         formdata.append('type', 'nepseFile');
+        formdata.append('nepsePriceInfo', JSON.stringify(this.nepsePriceInfoForm.value));
         this.nepseService.uploadNepseFile(formdata).subscribe(result => {
             this.activeModal.close(ModalResponse.SUCCESS);
             this.toastService.show(new Alert(AlertType.SUCCESS, 'sucessfully saved'));

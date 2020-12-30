@@ -1,6 +1,7 @@
 <div class="row" [formGroup]="addressForm">
     <div class="col-md-4 form-group">
-        <label for="province">Province</label>
+        <label *ngIf="switchLanguageType==='ENG'" for="province">Province</label>
+        <label *ngIf="switchLanguageType==='NEP'" for="province"><strong>प्रदेश</strong></label>
         <select (change)="getDistrictsById(form.province.value?.id , $event)"
                 class="custom-select"
                 [ngClass]="{'is-invalid': submitted && form.province.errors}"
@@ -21,7 +22,8 @@
          </div>
     </div>
     <div class="col-md-4 form-group">
-        <label for="district">District</label>
+        <label *ngIf="switchLanguageType==='ENG'" for="district">District</label>
+        <label *ngIf="switchLanguageType==='NEP'" for="district"><strong>जिल्ला</strong></label>
         <select (change)="getMunicipalitiesById(form?.district.value?.id, $event)"
                 [compareWith]="compareFn"
                 [ngClass]="{'is-invalid': submitted && form.district.errors}"
@@ -42,7 +44,8 @@
         </div>
     </div>
     <div class="col-md-4 form-group">
-        <label for="municipality">Municipalities or VDC</label>
+        <label *ngIf="switchLanguageType==='ENG'" for="municipality">Municipalities or VDC</label>
+        <label *ngIf="switchLanguageType==='NEP'" for="municipality"><strong>नगरपालिका वा गा.वि.स</strong></label>
         <select name="municipality" id="municipality"
                 [compareWith]="compareFn"
                 [ngClass]="{'is-invalid': submitted && form.municipalityVdc.errors}"
@@ -60,7 +63,8 @@
         </div>
     </div>
     <div class="col-md-4 form-group">
-        <label class="title" for="ward">Ward</label>
+        <label *ngIf="switchLanguageType==='ENG'" class="title" for="ward">Ward Number</label>
+        <label *ngIf="switchLanguageType==='NEP'" class="title" for="ward"><strong>वार्ड नम्बर</strong></label>
         <input class="form-control" formControlName="ward"
                [ngClass]="{'is-invalid': submitted && form.ward.errors}"
                id="ward" name="ward"
@@ -73,13 +77,15 @@
         </div>
     </div>
     <div class="col-md-4 form-group">
-        <label class="title" for="address1">Address 1</label>
+        <label *ngIf="switchLanguageType==='ENG'" class="title" for="address1">Address Line 1</label>
+        <label *ngIf="switchLanguageType==='NEP'" class="title" for="address1"><strong>ठेगाना लाइन १</strong></label>
         <input class="form-control" formControlName="address1" id="address1" name="address1"
-               placeholder="address1" type="text">
+               placeholder="Address Line 1" type="text">
     </div>
     <div class="col-md-4 form-group">
-        <label class="title" for="address2">Address 2</label>
+        <label *ngIf="switchLanguageType==='ENG'" class="title" for="address2">Address Line 2</label>
+        <label *ngIf="switchLanguageType==='NEP'" class="title" for="address2"><strong>ठेगाना लाइन २</strong></label>
         <input class="form-control" formControlName="address2" id="address2" name="address2"
-               placeholder="address 2" type="text">
+               placeholder="Address Line 2" type="text">
     </div>
 </div>

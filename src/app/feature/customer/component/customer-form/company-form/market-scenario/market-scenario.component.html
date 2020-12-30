@@ -8,10 +8,15 @@
       <div class="form-group">
         <label *ngIf="switchLanguageType==='ENG'" for="marketDemandService"><strong>Market demand of product/service</strong></label> <br>
         <label *ngIf="switchLanguageType==='NEP'" for="marketDemandService"><strong>उत्पादन / सेवाको बजार माग</strong></label> <br>
-        <nb-radio-group class="close d-inline-flex float-left" formControlName="marketDemandService" name="marketDemandService" id="marketDemandService">
+        <nb-radio-group *ngIf="switchLanguageType==='ENG'" class="close d-inline-flex float-left" formControlName="marketDemandService" name="marketDemandService" id="marketDemandService">
           <nb-radio value="lowDemand">Low Demand</nb-radio>
           <nb-radio value="moderateDemand">Moderate Demand</nb-radio>
           <nb-radio value="highDemand">High Demand</nb-radio>
+        </nb-radio-group>
+        <nb-radio-group *ngIf="switchLanguageType==='NEP'" class="close d-inline-flex float-left" formControlName="marketDemandService" name="marketDemandService" id="marketDemandServiceInNepali">
+          <nb-radio value="lowDemand">कम माग</nb-radio>
+          <nb-radio value="moderateDemand">मध्यम माग</nb-radio>
+          <nb-radio value="highDemand">उच्च माग</nb-radio>
         </nb-radio-group>
         <div *ngIf="submitted && form.marketDemandService?.errors "
              class="small text-danger">

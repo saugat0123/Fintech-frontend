@@ -1,8 +1,11 @@
-<div class="row mt-3" *ngIf="showTitle">
+<div class="row mt-3">
     <div class="col-md-12">
         <p><strong>Security Position</strong></p>
         <div class="row" *ngIf="vehicleSelected">
             <div class="col-md-12">
+                <div class="d-flex justify-content-sm-end">
+                    <p class="font-weight-bolder sb-medium">Vehicle Exposure: {{formData['initialForm']?.vehicleLoanExposure |number}}%</p>
+                </div>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
                        style="table-layout: fixed; width: 100%"
                        *ngFor="let vehicleDetails of formData['initialForm']['vehicleDetails']; let i= index">
@@ -15,11 +18,11 @@
                         <th>Model</th>
                         <th>Valuation Amount</th>
                         <th>Down Payment</th>
-                        <th>Loan Exposure</th>
+                        <th>Remaining Amount</th>
+                        <th>Loan Exposure %</th>
                         <th>Registration Number</th>
                         <th>Registration Date</th>
                         <th>Engine Number</th>
-                        <th>Chassis Number</th>
 
                     </tr>
                     <tr>
@@ -27,26 +30,28 @@
                         <td>{{vehicleDetails?.model}}</td>
                         <td class="text-right">Rs. {{vehicleDetails?.valuationAmount | currencyFormatter}}</td>
                         <td class="text-right">Rs. {{vehicleDetails?.downPayment | currencyFormatter}}</td>
+                        <td class="text-right">Rs. {{vehicleDetails?.remainingAmount | currencyFormatter}}</td>
                         <td>{{vehicleDetails?.loanExposure}}</td>
                         <td>{{vehicleDetails?.registrationNumber}}</td>
                         <td>{{vehicleDetails?.registrationDate | date}}</td>
                         <td>{{vehicleDetails?.engineNumber}}</td>
-                        <td>{{vehicleDetails?.chassisNumber}}</td>
                     </tr>
                     <tr class="sb-bg-secondary text-white">
+                        <th>Chassis Number</th>
                         <th>Showroom Commission</th>
                         <th>Valuated Date</th>
                         <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
-                        <th colspan="2">Valautor Name</th>
+                        <th>Valautor Name</th>
                         <th>Valuator Representative Name</th>
                         <th>Staff Representative Name</th>
                         <th colspan="2">Alternative Staff Representative Name</th>
                     </tr>
                     <tr>
+                        <td>{{vehicleDetails?.chassisNumber}}</td>
                         <td class="text-right">Rs. {{vehicleDetails?.showroomCommission | currencyFormatter}}</td>
                         <td>{{vehicleDetails?.vehicalValuatorDate |date}}</td>
                         <td *ngIf="formData['otherBranchcheck']">{{vehicleDetails?.vehicalBranch?.name}}</td>
-                        <td colspan="2">{{vehicleDetails?.vehicalValuator?.name}}</td>
+                        <td >{{vehicleDetails?.vehicalValuator?.name}}</td>
                         <td>{{vehicleDetails?.vehicalValuatorRepresentative}}</td>
                         <td>{{vehicleDetails?.vehicalStaffRepresentativeName}}</td>
                         <td colspan="2">{{vehicleDetails?.vehicalAlternateStaffRepresentativeName}}</td>
@@ -105,38 +110,31 @@
                         <td colspan="2">{{landDetails?.landAlternateStaffRepresentativeName}}</td>
                     </tr>
 
-                    <ng-container
-                            *ngIf="landDetails?.revaluationData != null && landDetails?.revaluationData?.isReValuated">
-                        <tr>
-                            <td></td>
-                        </tr>
-                        <tr class="sb-bg-secondary text-white">
-                            <th>ReValuation Date</th>
-                            <th colspan="1">Valuator name</th>
-                            <th colspan="1">ReValuation Fmv</th>
-                            <th colspan="1">ReValuation Dv</th>
-                            <th colspan="1">ReValuation Considered Value</th>
-                            <th colspan="1">Change in Fmv</th>
-                            <th colspan="1">Change in Dv</th>
-                            <th colspan="1">Change in Considered Value</th>
-                        </tr>
-                        <tr>
-                            <td>{{landDetails?.revaluationData?.reValuationDate |date}}</td>
-                            <td colspan="1">{{landDetails?.revaluationData?.newValuator?.name}}</td>
-                            <td colspan="1" class="text-right">
-                                Rs. {{landDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right">
-                                Rs. {{landDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right">
-                                Rs. {{landDetails?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right">
-                                Rs. {{landDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right">
-                                Rs. {{landDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right">
-                                Rs. {{landDetails?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
-                        </tr>
-                    </ng-container>
+                  <ng-container *ngIf="landDetails?.revaluationData != null && landDetails?.revaluationData?.isReValuated">
+                      <tr>
+                          <td></td>
+                      </tr>
+                      <tr class="sb-bg-secondary text-white">
+                          <th>ReValuation Date</th>
+                          <th colspan="1">Valuator name</th>
+                          <th colspan="1">ReValuation Fmv</th>
+                          <th colspan="1">ReValuation Dv</th>
+                          <th colspan="1">ReValuation Considered Value</th>
+                          <th colspan="1">Change in Fmv</th>
+                          <th colspan="1">Change in Dv</th>
+                          <th colspan="1">Change in Considered Value</th>
+                      </tr>
+                      <tr>
+                          <td>{{landDetails?.revaluationData?.reValuationDate |date}}</td>
+                          <td colspan="1">{{landDetails?.revaluationData?.newValuator?.name}}</td>
+                          <td colspan="1" class="text-right">Rs. {{landDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
+                          <td colspan="1" class="text-right">Rs. {{landDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+                          <td colspan="1" class="text-right">Rs. {{landDetails?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
+                          <td colspan="1" class="text-right">Rs. {{landDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
+                          <td colspan="1" class="text-right">Rs. {{landDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
+                          <td colspan="1" class="text-right">Rs. {{landDetails?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+                      </tr>
+                  </ng-container>
 
                 </table>
             </div>
@@ -220,12 +218,10 @@
                         <td>{{landBuilding?.totalBuildingAreaConstruction}}</td>
                         <td class="text-right">Rs.{{landBuilding?.totalCostConstruction | currencyFormatter}}</td>
                         <td class="text-right">Rs. {{landBuilding?.marketValueConstruction | currencyFormatter}}</td>
-                        <td class="text-right">
-                            Rs.{{landBuilding?.landConsideredValueConstruction | currencyFormatter}}</td>
+                        <td class="text-right">Rs.{{landBuilding?.landConsideredValueConstruction | currencyFormatter}}</td>
                         <td class="text-right">Rs.{{landBuilding?.distressValueConstruction | currencyFormatter}}</td>
                     </tr>
-                    <ng-container
-                            *ngIf="landBuilding?.revaluationData != null && landBuilding?.revaluationData?.isReValuated">
+                    <ng-container *ngIf="landBuilding?.revaluationData != null && landBuilding?.revaluationData?.isReValuated">
                         <tr>
                             <td colspan="8"></td>
                         </tr>
@@ -242,18 +238,12 @@
                         <tr>
                             <td>{{landBuilding?.revaluationData?.reValuationDate |date}}</td>
                             <td colspan="1">{{landBuilding?.revaluationData?.newValuator?.name}}</td>
-                            <td colspan="1" class="text-right">
-                                Rs. {{landBuilding?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right">
-                                Rs. {{landBuilding?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right">
-                                Rs. {{landBuilding?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right">
-                                Rs. {{landBuilding?.revaluationData?.changeInFmv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right">
-                                Rs. {{landBuilding?.revaluationData?.changeInDv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right">
-                                Rs. {{landBuilding?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right">Rs. {{landBuilding?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right">Rs. {{landBuilding?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right">Rs. {{landBuilding?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right">Rs. {{landBuilding?.revaluationData?.changeInFmv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right">Rs. {{landBuilding?.revaluationData?.changeInDv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right">Rs. {{landBuilding?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
                         </tr>
                     </ng-container>
                     </tbody>
@@ -287,12 +277,9 @@
                         <td>{{buildingDetails?.buildingDescription}}</td>
                         <td>{{buildingDetails?.buildArea}}</td>
                         <td>{{buildingDetails?.buildRate | currencyFormatter}}</td>
-                        <td class="text-right"><strong>Rs. {{buildingDetails?.totalCost | currencyFormatter}}</strong>
-                        </td>
-                        <td class="text-right">
-                            <strong>Rs. {{buildingDetails?.buildingFairMarketValue | currencyFormatter}}</strong></td>
-                        <td class="text-right">
-                            <strong>Rs. {{buildingDetails?.buildingDistressValue | currencyFormatter}}</strong></td>
+                        <td class="text-right"><strong>Rs. {{buildingDetails?.totalCost | currencyFormatter}}</strong></td>
+                        <td class="text-right"><strong>Rs. {{buildingDetails?.buildingFairMarketValue | currencyFormatter}}</strong></td>
+                        <td class="text-right"><strong>Rs. {{buildingDetails?.buildingDistressValue | currencyFormatter}}</strong></td>
                     </tr>
                     <tr class="text-center sb-bg-secondary text-white">
                         <th>Valuated Date</th>
@@ -310,8 +297,7 @@
                         <td>{{buildingDetails?.ApartmentStaffRepresentativeName}}</td>
                         <td colspan="2">{{buildingDetails?.apartmentAlternateStaffRepresentativeName}}</td>
                     </tr>
-                    <ng-container
-                            *ngIf="buildingDetails?.revaluationData != null && buildingDetails?.revaluationData?.isReValuated">
+                    <ng-container *ngIf="buildingDetails?.revaluationData != null && buildingDetails?.revaluationData?.isReValuated">
                         <tr>
                             <td colspan="8"></td>
                         </tr>
@@ -328,18 +314,12 @@
                         <tr>
                             <td>{{buildingDetails?.revaluationData?.reValuationDate |date}}</td>
                             <td colspan="1">Rs. {{buildingDetails?.revaluationData?.newValuator?.name?.name}}</td>
-                            <td colspan="1" class="text-right">
-                                Rs. {{buildingDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right">
-                                Rs. {{buildingDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right">
-                                Rs. {{buildingDetails?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right">
-                                Rs. {{buildingDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right">
-                                Rs. {{buildingDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right">
-                                Rs. {{buildingDetails?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right">Rs. {{buildingDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right">Rs. {{buildingDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right">Rs. {{buildingDetails?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right">Rs. {{buildingDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right">Rs. {{buildingDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right">Rs. {{buildingDetails?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
                         </tr>
                     </ng-container>
                 </table>
@@ -350,10 +330,10 @@
         <div class="row" *ngIf="formData['underConstructionChecked']">
             <div class="col-md-12">
                 <p><strong>Apartment Under Construction</strong></p>
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
                     <tr>
-                        <th class="text-center" colspan="6">Apartment Before Completion</th>
+                        <th class="sb-bg-dark text-center" colspan="6">Apartment Before Completion</th>
                     </tr>
                     <tr class="text-center sb-bg-secondary text-white">
                         <th>S.N</th>
@@ -368,8 +348,7 @@
                         <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingName}}</td>
                         <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildingDescription}}</td>
                         <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildArea}}</td>
-                        <td class="text-right">
-                            Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion.buildRate | currencyFormatter}}</td>
+                        <td class="text-right">Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion.buildRate | currencyFormatter}}</td>
                         <td>
                             <strong class="text-right">Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion.totalCost | currencyFormatter}}</strong>
                         </td>
@@ -377,10 +356,10 @@
                     </tr>
                     </thead>
                 </table>
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
                     <tr>
-                        <th class="text-center" colspan="6">Apartment After Completion</th>
+                        <th class="text-center sb-bg-dark" colspan="6">Apartment After Completion</th>
                     </tr>
                     <tr class="text-center sb-bg-secondary text-white">
                         <th>S.N</th>
@@ -395,8 +374,7 @@
                         <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildingName}}</td>
                         <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildingDescription}}</td>
                         <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildArea}}</td>
-                        <td class="text-right">
-                            Rs. {{afterCompletion?.buildingDetailsAfterCompletion.buildRate | currencyFormatter}}</td>
+                        <td class="text-right">Rs. {{afterCompletion?.buildingDetailsAfterCompletion.buildRate | currencyFormatter}}</td>
                         <td>
                             <strong class="text-right">Rs.{{afterCompletion?.buildingDetailsAfterCompletion.totalCost | currencyFormatter}}</strong>
                         </td>
@@ -471,7 +449,7 @@
                         <td>{{depositDetails?.remarks}}</td>
                     </tr>
                     <tr class="sb-bg-secondary text-white">
-                        <td colspan="2">Total</td>
+                        <td colspan="2" >Total</td>
                         <td colspan="5" class="text-right">Rs. {{totalAmount | currencyFormatter}}</td>
                     </tr>
                     </thead>
@@ -508,6 +486,12 @@
                         <td class="text-right">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
                     </tr>
                     <tr>
+                        <th></th>
+                        <th class="sb-bg-secondary text-white">Price As per Date</th>
+                        <td colspan="2">{{shareSecurity?.sharePriceDate |date}}</td>
+                        <th class="sb-bg-secondary text-white">Average Price of days</th>
+                        <td colspan="2">{{shareSecurity?.avgDaysForPrice}} days</td>
+                    </tr> <tr>
                         <th class="text-right" colspan="5">Total</th>
                         <th class="text-right">Rs. {{shareTotalValue |currencyFormatter}}</th>
                         <th class="text-right">Rs. {{totalConsideredValue |currencyFormatter}}</th>

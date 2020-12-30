@@ -541,11 +541,7 @@ export class CompanyFormComponent implements OnInit {
                 this.businessGiven.lockerDuringReview],
             total: [ObjectUtil.isEmpty(this.businessGiven)
             || ObjectUtil.isEmpty(this.businessGiven.total) ? undefined :
-                this.businessGiven.total],
-            companyLegalDocumentAddress:
-                [(ObjectUtil.isEmpty(this.companyInfo)
-                    || ObjectUtil.isEmpty(this.companyInfo.companyLegalDocumentAddress)) ? undefined :
-                    this.companyInfo.companyLegalDocumentAddress, [Validators.required]]
+                this.businessGiven.total]
 
 
         });
@@ -566,7 +562,8 @@ export class CompanyFormComponent implements OnInit {
     managementTeamFormGroup(): FormGroup {
         return this.formBuilder.group({
             name: [undefined],
-            designation: [undefined]
+            designation: [undefined],
+            companyLegalDocumentAddress: [undefined],
         });
     }
 
@@ -577,6 +574,7 @@ export class CompanyFormComponent implements OnInit {
             managementTeamFormArray.push(this.formBuilder.group({
                 name: [managementTeam.name === undefined ? '' : managementTeam.name],
                 designation: [managementTeam.designation === undefined ? '' : managementTeam.designation],
+                companyLegalDocumentAddress: [managementTeam.companyLegalDocumentAddress === undefined ? '' : managementTeam.companyLegalDocumentAddress],
             }));
         });
         return managementTeamFormArray;
@@ -815,7 +813,6 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.landLineNumber = this.companyInfoFormGroup.get('landLineNumber').value;
         this.companyInfo.clientType = this.companyInfoFormGroup.get('clientType').value;
         this.companyInfo.subsectorDetail = this.companyInfoFormGroup.get('subsectorDetail').value;
-        this.companyInfo.companyLegalDocumentAddress = this.companyInfoFormGroup.get('companyLegalDocumentAddress').value;
 
         this.companyInfo.languageType = this.switchLanguageType;
 

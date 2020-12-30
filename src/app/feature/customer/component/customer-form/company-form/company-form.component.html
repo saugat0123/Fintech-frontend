@@ -971,7 +971,8 @@
                                </div>
                            </div>-->
                            <div class="col-md-12">
-                               <app-common-address #companyLocation [address]="companyAddress"></app-common-address>
+                               <app-common-address #companyLocation [address]="companyAddress"
+                                                   [switchLanguageType]="switchLanguageType.toString().toUpperCase()"></app-common-address>
                            </div>
                        </div>
                        <hr>
@@ -1096,6 +1097,30 @@
                                            </div>
                                        </div>
                                    </div>
+                                   <div class="col-md-6">
+                                       <div class="form-group">
+                                           <label *ngIf="switchLanguageType=== 'ENG'" for="companyLegalDocumentAddress"><strong>Address as per Legal Document</strong></label>
+                                           <label *ngIf="switchLanguageType=== 'NEP'" for="companyLegalDocumentAddress"><strong>कानूनी कागजात अनुसार ठेगाना</strong></label>
+                                           <textarea *ngIf="switchLanguageType==='ENG'" [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('companyLegalDocumentAddress').errors }"
+                                                     class="form-control"
+                                                     formControlName="companyLegalDocumentAddress" id="companyLegalDocumentAddress"
+                                                     name="companyLegalDocumentAddress" placeholder="Address as per Legal Document"
+                                                     rows="2"
+                                                     type="text" maxlength="256"></textarea>
+                                           <textarea *ngIf="switchLanguageType==='NEP'" [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('companyLegalDocumentAddress').errors }"
+                                                     class="form-control"
+                                                     formControlName="companyLegalDocumentAddress" id="companyLegalDocumentAddressInNepali"
+                                                     name="companyLegalDocumentAddress" placeholder="कानूनी कागजात अनुसार ठेगाना"
+                                                     rows="2"
+                                                     type="text" maxlength="256"></textarea>
+                                           <div *ngIf="(submitted) && managementTeam.get('companyLegalDocumentAddress').invalid"
+                                                class="invalid-feedback">
+                                               <div *ngIf="managementTeam.get('companyLegalDocumentAddress').errors.required">
+                                                   Address as per legal document is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
                                </div>
                            </div>
                        </div>
@@ -1130,31 +1155,7 @@
                                   type="button"
                                   value="Add More"/>
                        </div>
-                       <div class="col-md-6">
-                           <div class="form-group">
-                               <label *ngIf="switchLanguageType==='ENG'" for="companyLegalDocumentAddress"><strong>Address as per Legal Document</strong></label>
-                               <label *ngIf="switchLanguageType==='NEP'" for="companyLegalDocumentAddressInNepali"><strong>कानूनी कागजात अनुसार ठेगाना</strong></label>
-                               <textarea *ngIf="switchLanguageType==='ENG'" [ngClass]="{ 'is-invalid': (submitted) && form.companyLegalDocumentAddress.errors }"
-                                         class="form-control"
-                                         formControlName="companyLegalDocumentAddress" id="companyLegalDocumentAddress"
-                                         name="companyLegalDocumentAddress" placeholder="Address as per Legal Document"
-                                         rows="5"
-                                         type="text" maxlength="256"></textarea>
-                               <textarea *ngIf="switchLanguageType==='NEP'" [ngClass]="{ 'is-invalid': (submitted) && form.companyLegalDocumentAddress.errors }"
-                                         class="form-control"
-                                         formControlName="companyLegalDocumentAddress" id="companyLegalDocumentAddressInNepali"
-                                         name="companyLegalDocumentAddress" placeholder="कानूनी कागजात अनुसार ठेगाना"
-                                         rows="5"
-                                         type="text" maxlength="256"></textarea>
-                               <div *ngIf="(submitted) && form.companyLegalDocumentAddress.invalid"
-                                    class="invalid-feedback">
-                                   <div *ngIf="form.companyLegalDocumentAddress.errors.required">
-                                       Address as per legal document is required
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                       <hr>
+
                        <!--Information of Proprietor/Shareholder/Partner-->
                        <div class="box-header with-border">
                            <h5 *ngIf="switchLanguageType==='ENG'" class="box-title">9. Information of Proprietor/Shareholder/Partner
@@ -1563,13 +1564,21 @@
                                <div class="form-group">
                                    <label *ngIf="switchLanguageType==='ENG'" for="rawMaterialAvailability"><strong>Raw material availability</strong></label> <br>
                                    <label *ngIf="switchLanguageType==='NEP'" for="rawMaterialAvailability"><strong>कच्चा माल उपलब्धता</strong></label> <br>
-                                   <nb-radio-group class="close d-inline-flex float-left"
+                                   <nb-radio-group *ngIf="switchLanguageType==='ENG'" class="close d-inline-flex float-left"
                                                    formControlName="rawMaterialAvailability"
                                                    [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialAvailability.errors }"
                                                    id="rawMaterialAvailability"
                                                    name="rawMaterialAvailability">
                                        <nb-radio value="Easily available">Easily available</nb-radio>
                                        <nb-radio value="Difficult">Difficult</nb-radio>
+                                   </nb-radio-group><br>
+                                   <nb-radio-group *ngIf="switchLanguageType==='NEP'" class="close d-inline-flex float-left"
+                                                   formControlName="rawMaterialAvailability"
+                                                   [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialAvailability.errors }"
+                                                   id="rawMaterialAvailabilityInNepali"
+                                                   name="rawMaterialAvailability">
+                                       <nb-radio value="Easily available">सजीलै उपलब्ध</nb-radio>
+                                       <nb-radio value="Difficult">गाह्रो</nb-radio>
                                    </nb-radio-group><br>
                                    <div *ngIf="submitted && form.rawMaterialAvailability?.errors "
                                         class="small text-danger">
@@ -1791,7 +1800,6 @@
                        </div>
                        <div class="row">
                            <div class="col-md-6 form-group">
-                               <label><strong>Regulatory Concern</strong></label>
                                <label *ngIf="switchLanguageType==='ENG'"><strong>Regulatory Concern</strong></label>
                                <label *ngIf="switchLanguageType==='NEP'"><strong>नियामक कन्सर्न</strong></label>
                                <ng-select [multiple]="false"

@@ -179,15 +179,11 @@ export class GuarantorComponent implements OnInit {
       docPath: [
           ObjectUtil.setUndefinedIfNull(data.docPath)
       ],
-      streetName: [
-        ObjectUtil.setUndefinedIfNull(data.streetName), Validators.required
-      ],
+
       wardNumber: [
         ObjectUtil.setUndefinedIfNull(data.wardNumber), Validators.required
       ],
-      streetNameTemporary: [
-        ObjectUtil.setUndefinedIfNull(data.streetNameTemporary), Validators.required
-      ],
+
       wardNumberTemporary: [
         ObjectUtil.setUndefinedIfNull(data.wardNumberTemporary), Validators.required
       ],
@@ -323,7 +319,6 @@ export class GuarantorComponent implements OnInit {
     .patchValue(this.form.get(['guarantorDetails', i, 'municipalities']).value);
     this.getMunicipalitiesTemporary(this.form.get(['guarantorDetails', i, 'district']).value, i);
     this.getDistrictTemporary(this.form.get(['guarantorDetails', i, 'province']).value, i);
-    this.form.get(['guarantorDetails', i, 'streetNameTemporary']).patchValue(this.form.get(['guarantorDetails', i, 'streetName']).value);
     this.form.get(['guarantorDetails', i, 'wardNumberTemporary']).patchValue(this.form.get(['guarantorDetails', i, 'wardNumber']).value);
   }
 }
