@@ -17,6 +17,11 @@ import {CustomerAssociateComponent} from '../../../../loan/component/loan-main-t
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {BankingRelationship} from '../../../../admin/modal/banking-relationship';
 import {Pattern} from '../../../../../@core/utils/constants/pattern';
+import {RelationshipList} from '../../../../loan/model/relationshipList';
+import {EnumUtils} from '../../../../../@core/utils/enums.utils';
+import {Gender} from '../../../../../@core/model/enum/gender';
+import {MaritalStatus} from '../../../../../@core/model/enum/marital-status';
+import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
 
 @Component({
     selector: 'app-customer-form',
@@ -24,12 +29,31 @@ import {Pattern} from '../../../../../@core/utils/constants/pattern';
     styleUrls: ['./customer-form.component.scss']
 })
 export class CustomerFormComponent implements OnInit {
+    constructor(
+        private formBuilder: FormBuilder,
+        private commonLocation: AddressService,
+        private customerService: CustomerService,
+        private toastService: ToastService,
+        private modalService: NgbModal,
+        private blackListService: BlacklistService,
+        private dialogService: NbDialogService,
+        protected ref: NbDialogRef<CustomerFormComponent>,
+        private el: ElementRef
+    ) {
+    }
+
+    get basicInfoControls() {
+        return this.basicInfo.controls;
+    }
 
     @Input() formValue: Customer;
     @Input() clientTypeInput: any;
     @Input() customerIdInput: any;
     @Input() bankingRelationshipInput: any;
     @Input() subSectorDetailCodeInput: any;
+    @Input() gender;
+    @Input() maritalStatus;
+    @Input() customerLegalDocumentAddress;
     calendarType = 'AD';
     @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -62,25 +86,18 @@ export class CustomerFormComponent implements OnInit {
     public showMatchingTable: boolean;
     tempFlag = {
         showOtherOccupation: false,
-        showOtherIncomeSource: false
+        showOtherIncomeSource: false,
+        hideIncomeSource: false
     };
 
     bankingRelationshipList = BankingRelationship.enumObject();
     subSector = [];
     clientType = [];
-
-    constructor(
-        private formBuilder: FormBuilder,
-        private commonLocation: AddressService,
-        private customerService: CustomerService,
-        private toastService: ToastService,
-        private modalService: NgbModal,
-        private blackListService: BlacklistService,
-        private dialogService: NbDialogService,
-        protected ref: NbDialogRef<CustomerFormComponent>,
-        private el: ElementRef
-    ) {
-    }
+    relationArray: RelationshipList = new RelationshipList();
+    public genderPairs = EnumUtils.pairs(Gender);
+    maritalStatusEnum = MaritalStatus;
+    placeHolderForMaritalStatus = 'Marital Status :';
+    individualJsonData: IndividualJsonData;
 
     ngOnInit() {
         this.getProvince();
@@ -89,6 +106,9 @@ export class CustomerFormComponent implements OnInit {
         this.getSubSector();
         this.formMaker();
         if (!ObjectUtil.isEmpty(this.formValue)) {
+            if (!ObjectUtil.isEmpty(this.formValue.individualJsonData)) {
+                this.individualJsonData = JSON.parse(this.formValue.individualJsonData);
+            }
             this.customerDetailField.showFormField = true;
             this.customer = this.formValue;
             this.customer.clientType = this.clientTypeInput;
@@ -96,6 +116,7 @@ export class CustomerFormComponent implements OnInit {
             this.formMaker();
             this.setRelatives(this.customer.customerRelatives);
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
+            this.occupationChange();
 
         } else {
             this.createRelativesArray();
@@ -117,10 +138,6 @@ export class CustomerFormComponent implements OnInit {
 
     removeRelatives(i) {
         (this.basicInfo.get('customerRelatives') as FormArray).removeAt(i);
-    }
-
-    get basicInfoControls() {
-        return this.basicInfo.controls;
     }
 
     getDistricts(province: Province) {
@@ -170,7 +187,8 @@ export class CustomerFormComponent implements OnInit {
             (response: any) => {
                 this.temporaryMunicipalitiesList = response.detail;
                 this.temporaryMunicipalitiesList.forEach(municipality => {
-                    if (!ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) && municipality.id === this.customer.temporaryMunicipalities.id) {
+                    if (!ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) &&
+                        municipality.id === this.customer.temporaryMunicipalities.id) {
                         this.basicInfo.controls.temporaryMunicipalities.setValue(municipality);
                     }
                 });
@@ -216,8 +234,7 @@ export class CustomerFormComponent implements OnInit {
                     return;
                 }
                 {
-                    this.customer.id = (this.customer.customerName ===
-                        this.basicInfo.get('customerName').value) ? this.customer.id : undefined;
+                    this.customer.id = this.customer ? (this.customer.id ? this.customer.id : undefined) : undefined;
                     this.customer.customerName = this.basicInfo.get('customerName').value;
                     this.customer.customerCode = this.basicInfo.get('customerCode').value;
                     this.customer.province = this.basicInfo.get('province').value;
@@ -240,6 +257,9 @@ export class CustomerFormComponent implements OnInit {
                     this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
                     this.customer.clientType = this.basicInfo.get('clientType').value;
                     this.customer.subsectorDetail = this.basicInfo.get('subsectorDetail').value;
+                    this.customer.gender = this.basicInfo.get('gender').value;
+                    this.customer.maritalStatus = this.basicInfo.get('maritalStatus').value;
+                    this.customer.customerLegalDocumentAddress = this.basicInfo.get('customerLegalDocumentAddress').value;
                     const occupations = {
                         multipleOccupation: this.basicInfo.get('occupation').value,
                         otherOccupation: this.basicInfo.get('otherOccupation').value
@@ -259,7 +279,9 @@ export class CustomerFormComponent implements OnInit {
                     // possibly can have more field in banking relationship
                     this.customer.bankingRelationship = JSON.stringify(this.basicInfo.get('bankingRelationship').value);
                     this.customer.netWorth = this.basicInfo.get('netWorth').value;
-                    console.log(this.customer);
+
+                    /** Remaining static read-write only data*/
+                    this.customer.individualJsonData = this.setIndividualJsonData();
 
                     this.customerService.save(this.customer).subscribe(res => {
                         this.spinner = false;
@@ -301,7 +323,7 @@ export class CustomerFormComponent implements OnInit {
     formMaker() {
         this.basicInfo = this.formBuilder.group({
             customerName: [this.customer.customerName === undefined ? undefined : this.customer.customerName, Validators.required],
-            customerCode: [this.customer.customerCode === undefined ? undefined : this.customer.customerCode, Validators.required],
+            customerCode: [this.customer.customerCode === undefined ? undefined : this.customer.customerCode],
             province: [this.customer.province === null ? undefined : this.customer.province, Validators.required],
             district: [this.customer.district === null ? undefined : this.customer.district, Validators.required],
             municipalities: [this.customer.municipalities === null ? undefined : this.customer.municipalities, Validators.required],
@@ -329,6 +351,12 @@ export class CustomerFormComponent implements OnInit {
             otherIncome: [this.customer.otherIncome === undefined ? undefined : this.customer.otherIncome],
             customerRelatives: this.formBuilder.array([]),
             introduction: [this.customer.introduction === undefined ? undefined : this.customer.introduction, [Validators.required]],
+            securityRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
+                this.individualJsonData.securityRisk],
+            incomeRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
+                this.individualJsonData.incomeRisk],
+            successionRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
+                this.individualJsonData.successionRisk],
             bankingRelationship: [this.customer.bankingRelationship === undefined ?
                 undefined : JSON.parse(this.customer.bankingRelationship), [Validators.required]],
             netWorth: [this.customer.netWorth === undefined ?
@@ -345,8 +373,22 @@ export class CustomerFormComponent implements OnInit {
                 this.customer.temporaryStreet, Validators.required],
             temporaryWardNumber: [this.customer.temporaryWardNumber === null ? undefined :
                 this.customer.temporaryWardNumber, Validators.required],
+            gender: [this.gender === null ? undefined :
+                this.gender, Validators.required],
+            maritalStatus: [this.maritalStatus === null ? undefined :
+                this.maritalStatus, Validators.required],
+            customerLegalDocumentAddress: [this.customerLegalDocumentAddress == null ? undefined :
+                this.customerLegalDocumentAddress, Validators.required],
 
         });
+    }
+
+    setIndividualJsonData() {
+        const individualJsonData = new IndividualJsonData();
+        individualJsonData.incomeRisk = this.basicInfoControls.incomeRisk.value;
+        individualJsonData.securityRisk = this.basicInfoControls.securityRisk.value;
+        individualJsonData.successionRisk = this.basicInfoControls.successionRisk.value;
+        return  JSON.stringify(individualJsonData);
     }
 
     createRelativesArray() {
@@ -433,6 +475,17 @@ export class CustomerFormComponent implements OnInit {
             this.basicInfo.get('otherOccupation').setValidators(null);
         }
         this.basicInfo.get('otherOccupation').updateValueAndValidity();
+        const houseWifeSelected = !this.basicInfo.get('occupation').value.includes('House Wife') ?
+            false : this.basicInfo.get('occupation').value.length <= 1;
+        if (houseWifeSelected) {
+            this.tempFlag.hideIncomeSource = true;
+            this.basicInfo.get('incomeSource').clearValidators();
+        }  else {
+            this.tempFlag.hideIncomeSource = false;
+            this.basicInfo.get('incomeSource').setValidators(Validators.required);
+        }
+        this.basicInfo.get('incomeSource').updateValueAndValidity();
+
     }
 
     onIncomeSourceChange() {

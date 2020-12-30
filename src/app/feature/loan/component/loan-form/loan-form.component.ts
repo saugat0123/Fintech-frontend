@@ -54,6 +54,8 @@ import {DefaultLoanTemplate} from '../../../../@core/utils/constants/default-loa
 import {LoanType} from '../../model/loanType';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
 import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
+import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
+import {environment} from '../../../../../environments/environment.srdb';
 
 @Component({
     selector: 'app-loan-form',
@@ -214,7 +216,8 @@ export class LoanFormComponent implements OnInit {
         private scrollNavService: ScrollNavigationService,
         private customerInfoService: CustomerInfoService,
         private companyInfoService: CompanyInfoService,
-        private commonRoutingUtilsService: CommonRoutingUtilsService
+        private commonRoutingUtilsService: CommonRoutingUtilsService,
+        protected riskQuestionService: RiskGradingService
     ) {
     }
 
@@ -339,13 +342,13 @@ export class LoanFormComponent implements OnInit {
                 });
             }
 
-            this.templateList.some((value, index) => {
-                if (value.name === 'Proposal') {
-                    this.templateList.push(this.templateList.splice(index, 1)[0]);
-                    return true;
-                }
-                return false;
-            });
+            if (environment.disableCrgAlpha) {
+                this.templateList.forEach((value, index) => {
+                    if (value.name === 'Credit Risk Grading - Alpha') {
+                        this.templateList.splice(index, 1);
+                    }
+                });
+            }
 
             // Remove Customer Info Template for Business Loan Type
             if (CustomerType[this.allId.loanCategory] === CustomerType.INSTITUTION) {
@@ -376,6 +379,38 @@ export class LoanFormComponent implements OnInit {
             if (this.templateList.length === 0) {
                 this.toastService.show(new Alert(AlertType.INFO, 'NO FORM ARE AVAILABLE'));
                 this.router.navigate(['/home/dashboard']);
+            }
+
+            this.riskQuestionService.getAllQuestions(this.id).subscribe(riskQsnRes => {
+                const crgQuestionsList = riskQsnRes.detail as Array<any>;
+                if (!(crgQuestionsList.length > 0)) {
+                    this.removeCrgGammaFromTemplateList();
+                }
+                this.pushProposalTemplateToLast();
+            }, error => {
+                console.log(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Error while checking for available CRG-GAMMA questions!'));
+                this.removeCrgGammaFromTemplateList();
+                this.pushProposalTemplateToLast();
+            });
+        });
+    }
+
+    pushProposalTemplateToLast() {
+        this.templateList.some((value, index) => {
+            if (value.name === 'Proposal') {
+                this.templateList.push(this.templateList.splice(index, 1)[0]);
+                return true;
+            }
+            return false;
+        });
+        this.totalTabCount = this.templateList.length;
+    }
+
+    removeCrgGammaFromTemplateList() {
+        this.templateList.forEach((value, index) => {
+            if (value.name === 'Credit Risk Grading - Gamma') {
+                this.templateList.splice(index, 1);
             }
         });
     }

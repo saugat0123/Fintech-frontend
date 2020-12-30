@@ -1,9 +1,14 @@
 export class Cicl {
+  nameOfBorrower: string;
+  borrowerRelation: string;
   nameOfFI: string;
   facility: string;
   outstandingAmount: number;
   overdueAmount: number;
   status: string;
+  obtaineddate: Date;
+  loanamount: number;
+  overdue: string;
   createdAt: Date;
   lastModifiedAt: Date;
   version: number;

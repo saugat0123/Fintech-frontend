@@ -13,7 +13,7 @@
             <div *ngIf="(ciclForm.get('cibCharge').errors.required)">
               Cicl Charge is required
             </div>
-            <span *ngIf="ciclForm.get('cibCharge').errors.min">CIB Charge must be positive enumerical value.</span>
+            <span *ngIf="ciclForm.get('cibCharge').errors.min">CIB Charge must be positive numerical value.</span>
 
           </div>
         </div>
@@ -23,10 +23,43 @@
       <div *ngFor="let cicl of ciclArray['controls']; let ciclIndex = index;"
            formArrayName="ciclArray">
         <div [formGroupName]="ciclIndex.toString()">
+
+            <div class="row">
+              <div class="col-md-3 form-group">
+                <label for="borrowerName"><b>Name of Borrower</b></label>
+                <input class="form-control" formControlName="borrowerName" id="borrowerName"
+                       placeholder="Borrower Name"
+                       [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('borrowerName').invalid) }">
+                <div *ngIf="(submitted) && cicl.get('borrowerName').errors" class="invalid-feedback">
+                  <span *ngIf="(cicl.get('borrowerName').errors.required)">Borrower Name is required</span>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <label><strong>Relation</strong></label>
+                <select
+                        class="form-control form-control-sm-error rounded"
+                        formControlName="relation"
+                        id="relation"
+                        name="relation"
+                        [ngClass]="{'is-invalid': submitted && cicl.get('relation').invalid}">
+                  <option [ngValue]="null" hidden>--Select relation--</option>
+                  <option *ngFor="let relationship of relationlist" [ngValue]="relationship.id">{{relationship.name}}</option>
+                </select>
+                <div
+                        *ngIf="(submitted) && cicl.get('relation').invalid" class="invalid-feedback">
+                  <div>
+                    Relation is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
           <div class="row">
+
             <div class="col-md-3 form-group">
               <label for="fiName"><b>Name of FI</b></label>
-              <input class="form-control" formControlName="fiName" id="fiName" 
+              <input class="form-control" formControlName="fiName" id="fiName"
                      placeholder="FI name"
                      [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('fiName').invalid) }">
               <div *ngIf="(submitted) && cicl.get('fiName').errors" class="invalid-feedback">
@@ -65,12 +98,35 @@
           <div class="row">
             <div class="col-md-3 form-group">
               <label for="ciclStatus"><b>Status</b></label>
-              <input class="form-control" formControlName="ciclStatus" id="ciclStatus" 
+              <input class="form-control" formControlName="ciclStatus" id="ciclStatus"
                      placeholder="Status"
                      [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('ciclStatus').invalid) }">
               <div *ngIf="(submitted) && cicl.get('ciclStatus').errors" class="invalid-feedback">
                 <span *ngIf="(cicl.get('ciclStatus').errors.required)">Status is required</span>
               </div>
+            </div>
+            <div class="col-md-3 form-group">
+                        <label for="obtaineddate"><b>Obtained Date</b></label>
+                        <input class="form-control" formControlName="obtaineddate" id="obtaineddate"
+                               type="date"
+                               [ngClass]="{ 'is-invalid': (submitted) && cicl.get('obtaineddate').errors.required }">
+                        <div *ngIf="(submitted) && cicl.get('obtaineddate').errors" class="invalid-feedback">
+                          <span *ngIf="(cicl.get('obtaineddate').errors.required)">Obtained date is required</span>
+                        </div>
+                      </div>
+            <div class="col-md-3 form-group">
+              <label for="loanamount"><b>Loan Amount</b></label>
+              <input class="form-control" formControlName="loanamount" id="loanamount"
+                     placeholder="loanamount"
+                     [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('loanamount').invalid) }">
+              <div *ngIf="(submitted) && cicl.get('loanamount').errors" class="invalid-feedback">
+                <span *ngIf="(cicl.get('loanamount').errors.required)">Loan Amount is required</span>
+              </div>
+            </div>
+            <div class="col-md-3 form-group">
+              <label for="overdue"><b>Number of Overdue Installment(s)</b></label>
+              <input class="form-control" formControlName="overdue" id="overdue"
+                     placeholder="overdue">
             </div>
           </div>
           <div class="row">

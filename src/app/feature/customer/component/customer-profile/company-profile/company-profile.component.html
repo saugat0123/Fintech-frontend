@@ -4,8 +4,13 @@
   <nb-card-header>
     <div class="row shadow-sm">
       <div class="col-md-4">
-        <strong>Associated Group:</strong> <span> {{customerInfo?.customerGroup != undefined
-          ? customerInfo?.customerGroup?.groupCode : ' No group has been assigned.'}}</span>
+        <strong>Associated Group:</strong>
+         <span *ngIf="!productUtils.CBS_ENABLE">
+                    {{customerInfo?.customerGroup != undefined ? customerInfo?.customerGroup?.groupCode : ' No group has been assigned.'}}
+                </span>
+        <span *ngIf="productUtils.CBS_ENABLE">
+                    {{customerInfo?.obligor || ' No group has been assigned.'}}
+                </span>
         <div class="py-2">
           <button [nbPopover]="activity" nbButton size="small" [nbPopoverPlacement]="'right'">
             Customer Activity
@@ -16,17 +21,28 @@
         </div>
       </div>
       <div class="offset-4 col-md-4 float-right">
-        <button [nbPopover]="groupWindow" class="float-right mb-3" nbButton size="small"
-                [nbPopoverPlacement]="'left'">
-          Groups
-          <nb-icon icon="arrow-down-outline"></nb-icon>
-        </button>
-        <div class="row">
-          <ng-template #groupWindow>
-            <app-group-tagging [customerData]="customerInfo"
-                               (refreshGroup)="refreshGroup()"></app-group-tagging>
-          </ng-template>
+
+        <div *ngIf="productUtils.CBS_ENABLE">
+          <app-tag-cbs-customer [customerInfo]="customerInfo" *ngIf="customerInfo"
+                                (stringValue)="cbsGroupUpdate($event)">
+          </app-tag-cbs-customer>
         </div>
+        <div *ngIf="!productUtils.CBS_ENABLE">
+          <button [nbPopover]="groupWindow" class="float-right mb-3" nbButton size="small"
+                  [nbPopoverPlacement]="'left'">
+            Groups
+            <nb-icon icon="arrow-down-outline"></nb-icon>
+          </button>
+
+          <div class="row">
+            <ng-template #groupWindow>
+              <app-group-tagging #GroupTaggingComponent [customerData]="customerInfo"
+                                 (refreshGroup)="refreshGroup()"></app-group-tagging>
+            </ng-template>
+
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -40,8 +56,8 @@
     <div class="bg-light mb-3">
       <div class="row">
         <div class="col">
-          <a *ngIf="!isEdited && maker" class="p-2 cursor" (click)="editCustomer(1)"><em
-              class="fa fa-edit"></em></a>
+        <!--  <a *ngIf="!isEdited && maker" class="p-2 cursor" (click)="editCustomer(1)"><em
+              class="fa fa-edit"></em></a>-->
         </div>
       </div>
       <div class="p-5 row">
@@ -77,9 +93,12 @@
           </div>
 
           <div class="row">
-                    <span> <strong>Address :</strong> {{companyInfo?.companyLocations?.address}}
-                      , {{companyInfo?.companyLocations?.streetName}}
-                      , {{companyInfo?.companyLocations?.houseNumber}}</span></div>
+                    <span> <strong>Address :</strong>
+                         ({{companyLocationData?.province?.name}},{{companyLocationData?.district?.name}}
+                      , {{companyLocationData?.municipalityVdc?.name}})
+                      , {{companyLocationData?.ward}}
+                      , {{companyLocationData?.address1}},
+                      {{companyLocationData?.address2}}</span></div>
           <div class="row">
             <span> <strong>PAN number :</strong> {{companyInfo?.panNumber}}</span></div>
           <div class="row">
@@ -114,6 +133,7 @@
                          <nb-datepicker #establishmentDate></nb-datepicker></span></div>
 
             <div class="row form-inline">
+
               <div class=""><strong>Address :</strong> <input formControlName="address"
                                                               placeholder="address"
                                                               type="text"></div>
@@ -232,7 +252,7 @@
           </nb-card-footer>
         </nb-card>
 
-        <nb-card accent="primary">
+        <nb-card accent="primary" *ngIf="!productUtils.CBS_ENABLE">
           <nb-card-header>
             Customer Groups
             <!--<div class="float-right" nbTooltip="{{totalGroupAmount | number}}">Total Group Limit
@@ -288,7 +308,7 @@
                     </button>
                   </div>
                   <br>
-                  <table aria-describedby="proprietor info table" class="table  table-bordered table-hover sb-small">
+                  <table aria-describedby="proprietor info table" class="table  table-bordered table-hover sb-small text-center">
                     <thead>
                     <tr class="text-white sb-bg-dark">
                       <th scope="col">#</th>
@@ -332,7 +352,7 @@
                     </button>
                   </div>
                   <br>
-                  <table aria-describedby="management team table" class="table  table-bordered table-hover sb-small">
+                  <table aria-describedby="management team table" class="table  table-bordered table-hover sb-small text-center">
                     <thead>
                     <tr class="sb-bg-dark text-white">
                       <th scope="col">#</th>
@@ -366,7 +386,7 @@
                     </button>
                   </div>
                   <br>
-                  <table aria-describedby="swot table" class="table  table-bordered table-hover sb-small">
+                  <table aria-describedby="swot table" class="table  table-bordered table-hover sb-small text-center">
                     <tr>
                       <td class="sb-bg-dark text-white"> Strengths</td>
                       <td>{{companyInfo?.swot?.strength}} </td>
@@ -398,12 +418,22 @@
                     class="float-right"><a class="cursor"><em class="fa fa-edit"></em></a></button>
           </nb-card-header>
           <nb-card-body>
-            <app-company-profile-additional-information *ngIf="companyInfo?.registrationNumber" [companyInfo]="companyInfo">
+            <app-company-profile-additional-information *ngIf="companyInfo?.registrationNumber"
+                                                        [companyLocationData]="companyLocationData"
+                                                        [companyInfo]="companyInfo">
             </app-company-profile-additional-information>
           </nb-card-body>
         </nb-card>
       </div>
     </div>
+
+    <!--        //cbs Group-->
+    <div class="row" *ngIf="productUtils.CBS_ENABLE">
+      <div class="col-md-12">
+        <app-cbs-view-customer [customerInfo]="customerInfo" *ngIf="customerInfo"></app-cbs-view-customer>
+      </div>
+    </div>
+    <!--        //cbs Group-->
     <div class="row">
       <div class="col-md-12">
         <app-customer-loan-information

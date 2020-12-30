@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Security} from '../../loan/model/security';
 import {NepseMaster} from '../../admin/modal/NepseMaster';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {OwnershipTransfer} from '../../loan/model/ownershipTransfer';
 
 @Component({
   selector: 'app-security-view',
@@ -25,6 +26,7 @@ export class SecurityViewComponent implements OnInit {
   loanSharePercent: NepseMaster = new NepseMaster();
   buildingSelected = false;
   landBuilding = false;
+  ownerShipTransfer = OwnershipTransfer;
 
   constructor() {
   }

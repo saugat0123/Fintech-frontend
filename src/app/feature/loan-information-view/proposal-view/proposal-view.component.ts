@@ -27,6 +27,8 @@ export class ProposalViewComponent implements OnInit {
   isVehicle = false;
   isShare = false;
   allId;
+  showInstallmentAmount = false;
+  showRepaymentMode = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private loanConfigService: LoanConfigService) {
@@ -37,6 +39,7 @@ export class ProposalViewComponent implements OnInit {
     this.proposalData = JSON.parse(this.formData.data);
     this.recommendationChecked = JSON.parse(this.formData.checkedData);
     this.getLoanConfig();
+    this.checkInstallmentAmount();
   }
 
   getLoanConfig() {
@@ -71,5 +74,13 @@ export class ProposalViewComponent implements OnInit {
             }
           });
         });
+  }
+  checkInstallmentAmount() {
+    if (this.proposalData.repaymentMode === 'EMI' || this.proposalData.repaymentMode === 'EQI') {
+      this.showInstallmentAmount = true;
+    }
+    if (this.proposalData.repaymentMode === 'CUSTOM') {
+      this.showRepaymentMode = true;
+    }
   }
 }

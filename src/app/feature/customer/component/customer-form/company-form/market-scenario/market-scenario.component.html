@@ -1,5 +1,5 @@
 <div>
-  <h5>14.Market Scenario</h5>
+  <h5>14. Market Scenario</h5>
 </div>
 <div [formGroup]="marketScenarioForm">
   <div class="row">
@@ -81,19 +81,19 @@
 
     <div class="col-md-6">
       <div class="form-group">
-        <label for="BusinessIndustryOutlook"><strong>Business/Industry Outlook</strong></label>
+        <label for="BusinessIndustryOutlook"><strong>Industry/Market Risk</strong></label>
         <textarea
             rows="5"
             [ngClass]="{ 'is-invalid':submitted && form.BusinessIndustryOutlook?.errors }"
             class="form-control rounded"
             formControlName="BusinessIndustryOutlook"
             id="BusinessIndustryOutlook"
-            placeholder="Business/Industry Outlook"
+            placeholder="Industry/Market risk"
             type="text"></textarea>
         <div *ngIf="submitted && form.BusinessIndustryOutlook?.errors "
              class="invalid-feedback">
           <div *ngIf="form.BusinessIndustryOutlook?.errors.required">
-            Business Industry Outlook is required
+            Industry/Market Risk is required
           </div>
         </div>
       </div>
@@ -119,19 +119,57 @@
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <label for="technicalAspect"><strong>Technical Aspect </strong></label>
+        <label for="technicalAspect"><strong>Business/Management Risk </strong></label>
         <textarea
             rows="5"
             [ngClass]="{ 'is-invalid':submitted && form.technicalAspect?.errors }"
             class="form-control rounded"
             formControlName="technicalAspect"
             id="technicalAspect"
-            placeholder="Technical Aspect "
+            placeholder="Management Risk "
             type="text"></textarea>
         <div *ngIf="submitted && form.technicalAspect?.errors "
              class="invalid-feedback">
           <div *ngIf="form.technicalAspect?.errors.required">
-            Technical Aspect is required
+            Business/Management Risk is required
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="technicalAspect"><strong>Security Risk </strong></label>
+        <textarea
+            rows="5"
+            [ngClass]="{ 'is-invalid':submitted && form.securityRisk?.errors }"
+            class="form-control rounded"
+            formControlName="securityRisk"
+            id="securityRisk"
+            placeholder="Security Risk "
+            type="text"></textarea>
+        <div *ngIf="submitted && form.securityRisk?.errors "
+             class="invalid-feedback">
+          <div *ngIf="form.securityRisk?.errors.required">
+            Security Risk is required
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="technicalAspect"><strong>Financial and Cash Flow Risk </strong></label>
+        <textarea
+            rows="5"
+            [ngClass]="{ 'is-invalid':submitted && form.financialAndCashFlowRisk?.errors }"
+            class="form-control rounded"
+            formControlName="financialAndCashFlowRisk"
+            id="financialAndCashFlowRisk"
+            placeholder="Management Risk "
+            type="text"></textarea>
+        <div *ngIf="submitted && form.financialAndCashFlowRisk?.errors "
+             class="invalid-feedback">
+          <div *ngIf="form.financialAndCashFlowRisk?.errors.required">
+            Financial and Cash Flow Risk  is required
           </div>
         </div>
       </div>

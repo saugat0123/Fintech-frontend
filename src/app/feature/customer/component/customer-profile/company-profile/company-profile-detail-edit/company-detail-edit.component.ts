@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {DateValidator} from '../../../../../../@core/validator/date-validator';
@@ -17,6 +17,8 @@ import {Company} from '../../../../../admin/modal/company';
 import {CompanyService} from '../../../../../admin/component/company/company.service';
 import {DesignationList} from '../../../../../loan/model/designationList';
 import {RegisteredOfficeList} from '../../../../../admin/modal/registeredOfficeList';
+import {CommonAddressComponent} from '../../../../../common-address/common-address.component';
+import {FormUtils} from '../../../../../../@core/utils/form.utils';
 
 @Component({
   selector: 'app-company-detail-edit',
@@ -24,6 +26,8 @@ import {RegisteredOfficeList} from '../../../../../admin/modal/registeredOfficeL
   styleUrls: ['./company-detail-edit.component.scss']
 })
 export class CompanyDetailEditComponent implements OnInit {
+  @ViewChild('companyLocation', {static: true}) companyLocation: CommonAddressComponent;
+
   companyInfo: CompanyInfo;
 
   calendarType = CalendarType.AD;
@@ -39,6 +43,7 @@ export class CompanyDetailEditComponent implements OnInit {
 
   designation = new DesignationList().designation;
   registeredOffice = RegisteredOfficeList.enumObject();
+  companyAddress;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -56,6 +61,12 @@ export class CompanyDetailEditComponent implements OnInit {
   }
 
   async ngOnInit() {
+    if (!ObjectUtil.isEmpty(this.companyInfo)) {
+      if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
+        this.companyAddress = JSON.parse(this.companyInfo.companyLocations.address);
+        console.log(this.companyInfo.companyLocations.address);
+      }
+    }
     await this.buildForm();
     this.getCompanyStructure();
     if (!ObjectUtil.isEmpty(this.companyInfo.contactPersons)) {
@@ -95,7 +106,7 @@ export class CompanyDetailEditComponent implements OnInit {
       registrationExpiryDate: [(ObjectUtil.isEmpty(this.companyInfo)
           || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
           || ObjectUtil.isEmpty(this.companyInfo.legalStatus.registrationExpiryDate)) ? undefined :
-          new Date(this.companyInfo.legalStatus.registrationExpiryDate), [Validators.required]],
+          new Date(this.companyInfo.legalStatus.registrationExpiryDate)],
 
       // capital
       authorizedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
@@ -148,8 +159,9 @@ export class CompanyDetailEditComponent implements OnInit {
   }
 
   onSubmit() {
+    this.companyLocation.onSubmit();
     this.submitted = true;
-    if (this.companyInfoFormGroup.invalid) {
+    if (this.companyInfoFormGroup.invalid || this.companyLocation.addressForm.invalid) {
       return;
     }
     this.spinner = true;
@@ -181,7 +193,7 @@ export class CompanyDetailEditComponent implements OnInit {
     // location
     this.companyInfo.companyLocations.id = this.companyInfoFormGroup.get('locationId').value;
     this.companyInfo.companyLocations.version = this.companyInfoFormGroup.get('locationVersion').value;
-    this.companyInfo.companyLocations.address = this.companyInfoFormGroup.get('address').value;
+    this.companyInfo.companyLocations.address = JSON.stringify(this.companyLocation.submitData);
     this.companyInfo.companyLocations.houseNumber = this.companyInfoFormGroup.get('houseNumber').value;
     this.companyInfo.companyLocations.streetName = this.companyInfoFormGroup.get('streetName').value;
 

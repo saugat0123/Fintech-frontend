@@ -109,7 +109,7 @@
                                                formControlName="registrationNumber"
                                                id="registrationNumber"
                                                min="0" placeholder="Enter registration number"
-                                               type="text" (input)="checkRegistrationNumber(regNumber.value)"/>
+                                               type="text"/>
                                            <div *ngIf="submitted && form.registrationNumber.errors "
                                                 class="invalid-feedback">
                                                <div *ngIf="form.registrationNumber.errors.required">
@@ -124,17 +124,13 @@
                                <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="issuePlace"><strong>Issue Place</strong></label>
-                                       <ng-select [multiple]="false"
-                                                  [appendTo]="'body'"
-                                                  [ngClass]="{ 'is-invalid':submitted && form.issuePlace?.errors }"
-                                                  formControlName="issuePlace"
-                                                  id="issuePlace"
-                                                  placeholder="Enter issued place"
-                                                  type="text">
-                                           <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
-                                               {{district?.name}}
-                                           </ng-option>
-                                       </ng-select>
+                                       <select formControlName="issuePlace" id="issuePlace"
+                                               [ngClass]="{'is-invalid':submitted &&  form.issuePlace?.errors}" class="form-control">
+                                           <option [value]="null" hidden>Select Issued Place</option>
+                                           <option  *ngFor="let district of allDistrict" [value]="district?.name">
+                                               {{district?.name}}</option>
+                                       </select>
+
 
                                        <div *ngIf="submitted && form.issuePlace?.errors "
                                             class="text-danger small">
@@ -201,13 +197,13 @@
                                    <div class="form-group">
                                        <label for="panNumber"><strong>PAN</strong></label>
                                        <div class="input-group mb-3">
-                                           <input
+                                           <input #PanNumber
                                                [ngClass]="{ 'is-invalid':submitted && form.companyPAN.errors }"
                                                class="form-control rounded"
                                                formControlName="companyPAN"
                                                id="panNumber"
                                                placeholder="Enter PAN"
-                                               type="text"/>
+                                               type="text" (input)="checkPanNumberNumber(PanNumber.value)"/>
                                            <div *ngIf="submitted && form.companyPAN.errors"
                                                 class="invalid-feedback">
                                                <div *ngIf="form.companyPAN.errors.required">
@@ -226,15 +222,12 @@
                                <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="businessType"><strong>Business Type</strong></label>
-                                       <ng-select [items]="businessTypes"
-                                                  [multiple]="false"
-                                                  [ngClass]="{'is-invalid':submitted &&  form.businessType.errors}"
-                                                  bindLabel="value"
-                                                  bindValue="key"
-                                                  formControlName="businessType"
-                                                  id="businessType"
-                                                  placeholder="Select Business Type">
-                                       </ng-select>
+                                       <select formControlName="businessType" id="businessType"
+                                               [ngClass]="{'is-invalid':submitted &&  form.businessType.errors}" class="form-control">
+                                           <option [value]="null" hidden>Select Business Type</option>
+                                           <option *ngFor="let business of businessTypes" [value]="business.key">{{business.value}}</option>
+                                       </select>
+
                                        <div *ngIf="submitted && form.businessType?.errors"
                                             class="text-danger small">
                                            <div *ngIf="form.businessType?.errors.required">
@@ -551,7 +544,7 @@
                                    <label for="authorizedCapital"><strong>Authorized Capital</strong></label>
                                    <input id="authorizedCapital" formControlName="authorizedCapital" name="authorizedCapital"
                                           type="number" class="form-control" placeholder="Authorized Capital"
-                                          [ngClass]="{ 'is-invalid': (submitted) && form.authorizedCapital.errors }">
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.authorizedCapital.errors }" appDecimalNumber>
                                    <div *ngIf="(submitted) && form.authorizedCapital.invalid"
                                         class="invalid-feedback">
                                        <div *ngIf="form.authorizedCapital.errors.required">
@@ -565,7 +558,7 @@
                                    <label for="issuedCapital"><strong>Issued Capital</strong></label>
                                    <input id="issuedCapital" formControlName="issuedCapital" name="issuedCapital" type="number"
                                           class="form-control" placeholder="Issued Capital"
-                                          [ngClass]="{ 'is-invalid': (submitted) && form.issuedCapital.errors }">
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.issuedCapital.errors }" appDecimalNumber>
                                    <div *ngIf="(submitted) && form.issuedCapital.invalid"
                                         class="invalid-feedback">
                                        <div *ngIf="form.issuedCapital.errors.required">
@@ -579,7 +572,7 @@
                                    <label for="paidUpCapital"><strong>Paid Up Capital</strong></label>
                                    <input id="paidUpCapital" formControlName="paidUpCapital" name="paidUpCapital" type="number"
                                           class="form-control" placeholder="Paid Up Capital"
-                                          [ngClass]="{ 'is-invalid': (submitted) && form.paidUpCapital.errors }">
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.paidUpCapital.errors }" appDecimalNumber>
                                    <div *ngIf="(submitted) && form.paidUpCapital.invalid"
                                         class="invalid-feedback">
                                        <div *ngIf="form.paidUpCapital.errors.required">
@@ -764,10 +757,10 @@
                        <hr>
                        <!--company location-->
                        <div >
-                           <h5>4.Company Location Detail</h5>
+                           <h5>4. Company Location Detail</h5>
                        </div>
                        <div class="row ">
-                           <div class="col-md-4">
+                         <!--  <div class="col-md-4">
                                <div class="form-group">
                                    <label><strong>House Number</strong></label>
                                    <input class="form-control" formControlName="houseNumber"
@@ -801,12 +794,15 @@
                                        </div>
                                    </div>
                                </div>
+                           </div>-->
+                           <div class="col-md-12">
+                               <app-common-address #companyLocation [address]="companyAddress"></app-common-address>
                            </div>
                        </div>
                        <hr>
                        <!--sister concern starts-->
                        <div>
-                           <h5>5.Sister Concern</h5>
+                           <h5>5. Sister Concern</h5>
                        </div>
                        <div class="row">
                            <div class="col-md-6">
@@ -827,7 +823,7 @@
                       <app-company-other-detail [companyOtherDetail]="companyJsonData?.otherCompanyDetail" #companyOtherDetailComponent></app-company-other-detail>
                        <hr>
                        <div>
-                           <h5>7.Company Background</h5>
+                           <h5>7. Company Background</h5>
                        </div>
                        <div class="row">
                            <div class="col-md-12">
@@ -904,6 +900,23 @@
                                            </div>
                                        </div>
                                    </div>
+                                   <div class="col-md-6">
+                                       <div class="form-group">
+                                           <label for="companyLegalDocumentAddress"><strong>Address as per Legal Document</strong></label>
+                                           <textarea [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('companyLegalDocumentAddress').errors }"
+                                                     class="form-control"
+                                                     formControlName="companyLegalDocumentAddress" id="companyLegalDocumentAddress"
+                                                     name="companyLegalDocumentAddress" placeholder="Address as per Legal Document"
+                                                     rows="2"
+                                                     type="text" maxlength="256"></textarea>
+                                           <div *ngIf="(submitted) && managementTeam.get('companyLegalDocumentAddress').invalid"
+                                                class="invalid-feedback">
+                                               <div *ngIf="managementTeam.get('companyLegalDocumentAddress').errors.required">
+                                                   Address as per legal document is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
                                </div>
                            </div>
                        </div>
@@ -929,7 +942,7 @@
                                   type="button"
                                   value="Add More"/>
                        </div>
-                       <hr>
+
                        <!--Information of Proprietor/Shareholder/Partner-->
                        <div class="box-header with-border">
                            <h5 class="box-title">9. Information of Proprietor/Shareholder/Partner
@@ -1010,7 +1023,7 @@
                                    </div>
                                    <div class="col-md-4">
                                        <div class="form-group">
-                                           <label for="share"><strong>Share</strong></label>
+                                           <label for="share"><strong>Share %</strong></label>
                                            <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('share').errors }" class="form-control" formControlName="share"
                                                   id="share"
                                                   name="share" placeholder="Share"
@@ -1178,7 +1191,7 @@
                        </div>
                        <hr>
                        <div class="box-header with-border">
-                           <h5 class="box-title">11. Succession Planning</h5>
+                           <h5 class="box-title">11. Succession Risk</h5>
                        </div>
                        <div class="row">
                            <div class="col-md-12">
@@ -1187,13 +1200,13 @@
                                    <textarea [ngClass]="{ 'is-invalid': (submitted) && form.successionPlanning.errors }"
                                              class="form-control"
                                              formControlName="successionPlanning" id="successionPlanning"
-                                             name="successionPlanning" placeholder="Succession Planning"
+                                             name="successionPlanning" placeholder="Succession Risk"
                                              rows="5"
                                              type="text"></textarea>
                                    <div *ngIf="(submitted) && form.successionPlanning.invalid"
                                         class="invalid-feedback">
                                        <div *ngIf="form.successionPlanning.errors.required">
-                                           Planning is required
+                                           Succession Risk is required
                                        </div>
                                    </div>
                                </div>
@@ -1202,7 +1215,7 @@
                        <hr>
                        <!--Business Objective-->
                        <div class="box-header with-border">
-                           <h5 class="box-title">12.Business Objective</h5>
+                           <h5 class="box-title">12. Business Objective</h5>
                        </div>
                        <div class="row">
                            <div class="col-md-12">
@@ -1226,20 +1239,27 @@
                        <hr>
                        <!--Raw materials-->
                        <div class="box-header with-border">
-                           <h5 class="box-title">13.Raw Materials</h5>
+                           <h5 class="box-title">13. Raw Materials</h5>
                        </div>
                        <div class="row">
                            <div class="col-md-3">
                                    <label for="rawMaterialSourcing"><strong>Raw Material
                                        Sourcing</strong></label> <br>
-                                   <nb-radio-group class="close d-inline-flex float-left"
-                                                   [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialSourcing.errors }"
-                                                   formControlName="rawMaterialSourcing"
-                                                   id="rawMaterialSourcing"
-                                                   name="rawMaterialSourcing">
-                                       <nb-radio value="local">Local</nb-radio>
-                                       <nb-radio value="imported">Imported</nb-radio>
-                                   </nb-radio-group>
+                               <nb-select
+                                       [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialSourcing.errors }"
+                                       formControlName="rawMaterialSourcing" id="rawMaterialSourcing" name="rawMaterialSourcing"
+                                       placeholder="Select raw material" multiple fullWidth>
+                                   <nb-option value="local">Local</nb-option>
+                                   <nb-option value="imported">Imported</nb-option>
+                               </nb-select>
+<!--                                   <nb-radio-group class="close d-inline-flex float-left"-->
+<!--                                                   [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialSourcing.errors }"-->
+<!--                                                   formControlName="rawMaterialSourcing"-->
+<!--                                                   id="rawMaterialSourcing"-->
+<!--                                                   name="rawMaterialSourcing">-->
+<!--                                       <nb-radio value="local">Local</nb-radio>-->
+<!--                                       <nb-radio value="imported">Imported</nb-radio>-->
+<!--                                   </nb-radio-group>-->
                                    <span *ngIf="submitted && form.rawMaterialSourcing?.errors "
                                       class="help-block" >
                                        <span class="small text-danger" *ngIf="form.rawMaterialSourcing?.errors.required">
@@ -1275,7 +1295,7 @@
                        <div class="row">
                            <div class="col-md-12">
                                <div class="form-group">
-                                   <h5 class="box-title">15.Group’s
+                                   <h5 class="box-title">15. Group’s
                                        background</h5>
                                    <textarea
                                        rows="4"
@@ -1294,7 +1314,7 @@
                            </div>
                            <div class="col-md-12">
                                <div class="form-group">
-                                   <h5 class="box-title">6.Legal review
+                                   <h5 class="box-title">16.Legal review
                                        Remarks</h5>
                                    <input
                                        [ngClass]="{ 'is-invalid': (submitted) && form.legalReviewRemark.errors }"
@@ -1311,12 +1331,10 @@
                                </div>
                            </div>
                        </div>
-                       <hr>
-                       <hr>
                        <!--  Business Given -->
                        <hr>
-                       <div class="box-header with-border">
-                           <h5 class="box-title">17.Business given</h5>
+                       <ng-container  *ngIf="!srdbAffiliatedId" class="box-header with-border">
+                           <h5 class="box-title">17. Business given</h5>
                            <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center table-striped">
                                <tr class="sb-bg-secondary text-white">
                                    <th>Particular</th>
@@ -1434,12 +1452,12 @@
                                </tr>
 
                            </table>
-                       </div>
-                       <hr>
-
+                       </ng-container>
                    </nb-tab>
                  <!--  new tab detail start from here-->
                    <nb-tab tabTitle="Other Detail">
+                       <em class="fa fa-info-circle"><em class="ml-2">Note : These are mandatory fields for generating CRG (Alpha). In case
+                       of absence of CRG (Alpha), please select random answers to be able to submit the form.</em></em>
                        <hr>
                        <app-banking-relation #bankingRelationComponent
                                              [formValue]="bankingRelationshipInput">
@@ -1451,15 +1469,13 @@
                        <div class="row">
                            <div class="col-md-6 form-group">
                                <label><strong>Regulatory Concern</strong></label>
-                               <ng-select [multiple]="false"
-                                          formControlName="regulatoryConcern"
-                                          placeholder="Select regulatory concern here"
-                                          [ngClass]="{ 'is-invalid': (submitted) && form.regulatoryConcern.errors }">
-                                   <ng-option *ngFor="let regConcern of regulatoryConcernList"
-                                              [value]="regConcern?.value">
+                               <select formControlName="regulatoryConcern" id="regulatoryConcern"
+                                       [ngClass]="{'is-invalid':submitted &&  form.regulatoryConcern?.errors}" class="form-control">
+                                   <option [value]="null" hidden>Select regulatory concern here</option>
+                                   <option *ngFor="let regConcern of regulatoryConcernList"
+                                           [value]="regConcern?.value">
                                        {{regConcern?.value}}
-                                   </ng-option>
-                               </ng-select>
+                               </select>
                                <div *ngIf="(submitted) &&  form.regulatoryConcern.errors" class="small text-danger">
                                    <div *ngIf="form.regulatoryConcern.errors.required">
                                        Regulatory Concern is required
@@ -1468,14 +1484,13 @@
                            </div>
                            <div class="col-md-3">
                                <label><strong>Supplier</strong></label>
-                               <ng-select [multiple]="false"
-                                          formControlName="supplier"
-                                          placeholder="Select supplier">
-                                   <ng-option *ngFor="let supplier of supplierList"
-                                              [value]="supplier?.value">
+                               <select formControlName="supplier" id="supplier" class="form-control">
+                                   <option [value]="null" hidden>Select supplier</option>
+                                   <option *ngFor="let supplier of supplierList"
+                                           [value]="supplier?.value">
                                        {{supplier?.value}}
-                                   </ng-option>
-                               </ng-select>
+                                   </option>
+                               </select>
                                <div *ngIf="(submitted) &&  form.supplier.errors" class="small text-danger">
                                    <div *ngIf="form.supplier.errors.required">
                                        Supplier is required
@@ -1484,14 +1499,13 @@
                            </div>
                            <div class="col-md-3">
                                <label><strong>Buyer</strong></label>
-                               <ng-select [multiple]="false"
-                                          formControlName="buyer"
-                                          placeholder="Select buyer">
-                                   <ng-option *ngFor="let buyer of buyerList"
-                                              [value]="buyer?.value">
+                               <select formControlName="buyer" id="buyer"
+                                       [ngClass]="{'is-invalid':submitted &&  form.buyer?.errors}" class="form-control">
+                                   <option [value]="null" hidden>Select Buyer</option>
+                                   <option *ngFor="let buyer of buyerList"
+                                           [value]="buyer?.value">
                                        {{buyer?.value}}
-                                   </ng-option>
-                               </ng-select>
+                               </select>
                                <div *ngIf="(submitted) &&  form.buyer.errors" class="small text-danger">
                                    <div *ngIf="form.buyer.errors.required">
                                        Buyer is required
@@ -1507,16 +1521,13 @@
                                    <label><strong>Industry Growth </strong></label>
                                </div>
                                <div class="form-group">
-                                   <ng-select [multiple]="false"
-                                              [appendTo]="'body'"
-                                              [dropdownPosition]="'top'"
-                                              formControlName="industryGrowth"
-                                              placeholder="Select industry growth">
-                                       <ng-option *ngFor="let industryGrowth of industryGrowthList"
-                                                  [value]="industryGrowth?.value">
+                                   <select formControlName="industryGrowth" id="industryGrowth"
+                                           [ngClass]="{'is-invalid':submitted &&  form.industryGrowth?.errors}" class="form-control">
+                                       <option [value]="null" hidden>Select Industry Growth</option>
+                                       <option *ngFor="let industryGrowth of industryGrowthList"
+                                               [value]="industryGrowth?.value">
                                            {{industryGrowth?.value}}
-                                       </ng-option>
-                                   </ng-select>
+                                   </select>
                                    <div *ngIf="(submitted) &&  form.industryGrowth.errors" class="small text-danger">
                                        <div *ngIf="form.industryGrowth.errors.required">
                                            Industry Growth is required
@@ -1529,16 +1540,13 @@
                                    <label><strong>Market Competition</strong></label>
                                </div>
                                <div class="form-group">
-                                   <ng-select [multiple]="false"
-                                              [appendTo]="'body'"
-                                              [dropdownPosition]="'top'"
-                                              formControlName="marketCompetition"
-                                              placeholder="Select industry growth">
-                                       <ng-option *ngFor="let marketComp of marketCompetitionList"
-                                                  [value]="marketComp?.value">
+                                   <select formControlName="marketCompetition" id="marketCompetition"
+                                           [ngClass]="{'is-invalid':submitted &&  form.marketCompetition?.errors}" class="form-control">
+                                       <option [value]="null" hidden>Select Market Competition</option>
+                                       <option  *ngFor="let marketComp of marketCompetitionList"
+                                                [value]="marketComp?.value">
                                            {{marketComp?.value}}
-                                       </ng-option>
-                                   </ng-select>
+                                   </select>
                                    <div *ngIf="(submitted) &&  form.marketCompetition.errors" class="small text-danger">
                                        <div *ngIf="form.marketCompetition.errors.required">
                                            Market Competition Growth is required
@@ -1551,16 +1559,13 @@
                                    <label><strong>Experience </strong></label>
                                </div>
                                <div class="form-group">
-                                   <ng-select [multiple]="false"
-                                              [appendTo]="'body'"
-                                              [dropdownPosition]="'top'"
-                                              formControlName="experience"
-                                              placeholder="Select experience">
-                                       <ng-option *ngFor="let experience of experiences"
-                                                  [value]="experience?.value">
+                                   <select formControlName="experience" id="experience"
+                                           [ngClass]="{'is-invalid':submitted &&  form.experience?.errors}" class="form-control">
+                                       <option [value]="null" hidden>Select Experience</option>
+                                       <option  *ngFor="let experience of experiences"
+                                                [value]="experience?.value">
                                            {{experience?.value}}
-                                       </ng-option>
-                                   </ng-select>
+                                   </select>
                                    <div *ngIf="(submitted) &&  form.experience.errors" class="small text-danger">
                                        <div *ngIf="form.experience.errors.required">
                                            Experience Growth is required
@@ -1573,16 +1578,13 @@
                                        <div>
                                            <label><strong>Succession </strong></label>
                                        </div>
-                                       <ng-select [multiple]="false"
-                                                  formControlName="succession"
-                                                  placeholder="Select succession"
-                                                  [appendTo]="'body'"
-                                                  [dropdownPosition]="'top'">
-                                           <ng-option *ngFor="let succession of successionList"
-                                                      [value]="succession?.value">
+                                       <select formControlName="succession" id="succession"
+                                               [ngClass]="{'is-invalid':submitted &&  form.succession?.errors}" class="form-control">
+                                           <option [value]="null" hidden>Select succession</option>
+                                           <option  *ngFor="let succession of successionList"
+                                                    [value]="succession?.value">
                                                {{succession?.value}}
-                                           </ng-option>
-                                       </ng-select>
+                                       </select>
                                    </div>
                        </div>
                    </nb-tab>

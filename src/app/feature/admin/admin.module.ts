@@ -89,6 +89,7 @@ import { FinancialConfigModalComponent } from './component/preference/financial-
 import {NbDialogModule} from '@nebular/theme';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import { CadRoleHierarchyComponent } from './component/role-hierarchy/cad-role-hierarchy/cad-role-hierarchy.component';
+import { CbsGroupExecutorComponent } from './component/preference/cbs-group-executor/cbs-group-executor.component';
 
 @NgModule({
     declarations: [
@@ -163,6 +164,7 @@ import { CadRoleHierarchyComponent } from './component/role-hierarchy/cad-role-h
         FinancialConfigComponent,
         FinancialConfigModalComponent,
         CadRoleHierarchyComponent,
+        CbsGroupExecutorComponent,
         // SecurityComponent
     ],
   imports: [

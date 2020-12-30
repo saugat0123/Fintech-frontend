@@ -12,8 +12,11 @@ import {DocAction} from '../loan/model/docAction';
 import {ApiConfig} from '../../@core/utils/api/ApiConfig';
 import {CalendarType} from '../../@core/model/calendar-type';
 import {ObjectUtil} from '../../@core/utils/ObjectUtil';
-import {DocStatus} from '../loan/model/docStatus';
-import {LoanDataKey} from '../../@core/utils/constants/loan-data-key';
+import {Alert, AlertType} from '../../@theme/model/Alert';
+import {FiscalYearService} from '../admin/service/fiscal-year.service';
+import {ToastService} from '../../@core/utils';
+import {CombinedLoan} from '../loan/model/combined-loan';
+import {CombinedLoanService} from '../service/combined-loan.service';
 
 @Component({
     selector: 'app-loan-information-detail-view',
@@ -36,12 +39,18 @@ export class LoanInformationDetailViewComponent implements OnInit {
     calendarType: CalendarType = CalendarType.AD;
     loanHolder;
     currentDocAction;
+    fiscalYearArray = [];
+    customerAllLoanList: Array<LoanDataHolder> = [];
 
 
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
                 private customerLoanService: LoanFormService,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                private fiscalYearService: FiscalYearService,
+                private toastService: ToastService,
+                private combinedLoanService: CombinedLoanService,
+    ) {
         this.client = environment.client;
 
     }
@@ -64,7 +73,10 @@ export class LoanInformationDetailViewComponent implements OnInit {
 
             this.signatureList = this.getSignatureList(new Array<LoanStage>
             (...this.loanDataHolder.previousList, this.loanDataHolder.currentStage));
+            this.getAllLoans(this.loanHolder.id);
+
         });
+        this.getFiscalYears();
 
     }
 
@@ -151,5 +163,48 @@ export class LoanInformationDetailViewComponent implements OnInit {
 
         return signatureList;
     }
+
+    getFiscalYears() {
+        this.fiscalYearService.getAll().subscribe(response => {
+            this.fiscalYearArray = response.detail;
+        }, error => {
+            console.log(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Fiscal Year!'));
+        });
+    }
+
+    getAllLoans(customerInfoId: number): void {
+        const search = {
+            loanHolderId: customerInfoId.toString(),
+            isStaged: 'true'
+        };
+        this.customerLoanService.getAllWithSearch(search)
+        .subscribe((res: any) => {
+            this.customerAllLoanList = res.detail;
+            // push current loan if not fetched from staged spec response
+            if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
+                this.customerAllLoanList.push(this.loanDataHolder);
+            }
+            // push loans from combined loan if not in the existing array
+            const combinedLoans = this.customerAllLoanList
+            .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan));
+            if (combinedLoans.length > 0) {
+                const combinedLoanId = combinedLoans[0].combinedLoan.id;
+                this.combinedLoanService.detail(combinedLoanId).subscribe((response: any) => {
+                    (response.detail as CombinedLoan).loans.forEach((cl) => {
+                        const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
+                        if (!allLoanIds.includes(cl.id)) {
+                            this.customerAllLoanList.push(cl);
+                        }
+                    });
+                }, err => {
+                    console.error(err);
+                });
+            }
+        }, error => {
+            console.error(error);
+        });
+    }
+
 
 }

@@ -13,6 +13,8 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Guarantor} from '../../loan/model/guarantor';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {RelationshipList} from '../../loan/model/relationshipList';
+import {TypeOfSourceOfIncomeArray} from '../../admin/modal/crg/typeOfSourceOfIncome';
+import {Occupation} from '../../admin/modal/occupation';
 
 @Component({
   selector: 'app-guarantor',
@@ -47,6 +49,7 @@ export class GuarantorComponent implements OnInit {
   relationList;
   docTitle = 'Net Worth Document';
   docFolderName = 'guarantorDoc';
+  occupation = Occupation.enumObject();
   constructor(
       private formBuilder: FormBuilder,
       private addressServices: AddressService,
@@ -147,8 +150,7 @@ export class GuarantorComponent implements OnInit {
         Validators.required
       ],
       issuedYear: [
-        ObjectUtil.setUndefinedIfNull(data.issuedYear),
-        Validators.required
+        ObjectUtil.isEmpty(data.issuedYear) ? undefined : new Date(data.issuedYear), Validators.required,
       ],
       issuedPlace: [
         ObjectUtil.setUndefinedIfNull(data.issuedPlace),
@@ -177,19 +179,25 @@ export class GuarantorComponent implements OnInit {
       docPath: [
           ObjectUtil.setUndefinedIfNull(data.docPath)
       ],
-      streetName: [
-        ObjectUtil.setUndefinedIfNull(data.streetName), Validators.required
-      ],
+
       wardNumber: [
         ObjectUtil.setUndefinedIfNull(data.wardNumber), Validators.required
       ],
-      streetNameTemporary: [
-        ObjectUtil.setUndefinedIfNull(data.streetNameTemporary), Validators.required
-      ],
+
       wardNumberTemporary: [
         ObjectUtil.setUndefinedIfNull(data.wardNumberTemporary), Validators.required
       ],
-      consentOfLegalHeirs: [ObjectUtil.isEmpty(data.consentOfLegalHeirs) ? false : data.consentOfLegalHeirs]
+      consentOfLegalHeirs: [ObjectUtil.isEmpty(data.consentOfLegalHeirs) ? false : data.consentOfLegalHeirs],
+      dateOfBirth: [ObjectUtil.isEmpty(data.dateOfBirth) ? undefined : new Date(data.dateOfBirth), Validators.required],
+      motherName: [ObjectUtil.setUndefinedIfNull(data.motherName)],
+      spouseName: [ObjectUtil.setUndefinedIfNull(data.spouseName)],
+      fatherInLaw: [ObjectUtil.setUndefinedIfNull(data.fatherInLaw)],
+      profession: [ObjectUtil.setUndefinedIfNull(data.profession)],
+      background: [ObjectUtil.setUndefinedIfNull(data.background)],
+      guarantorLegalDocumentAddress: [
+        ObjectUtil.setUndefinedIfNull(data.guarantorLegalDocumentAddress),
+        Validators.required
+      ],
     });
   }
 
@@ -311,7 +319,6 @@ export class GuarantorComponent implements OnInit {
     .patchValue(this.form.get(['guarantorDetails', i, 'municipalities']).value);
     this.getMunicipalitiesTemporary(this.form.get(['guarantorDetails', i, 'district']).value, i);
     this.getDistrictTemporary(this.form.get(['guarantorDetails', i, 'province']).value, i);
-    this.form.get(['guarantorDetails', i, 'streetNameTemporary']).patchValue(this.form.get(['guarantorDetails', i, 'streetName']).value);
     this.form.get(['guarantorDetails', i, 'wardNumberTemporary']).patchValue(this.form.get(['guarantorDetails', i, 'wardNumber']).value);
   }
 }

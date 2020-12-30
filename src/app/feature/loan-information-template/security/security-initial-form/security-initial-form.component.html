@@ -128,6 +128,42 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label for="landSecurityLegalDocumentAddress"><strong>Address as per Legal Document</strong></label>
+                            <textarea class="form-control"
+                                      formControlName="landSecurityLegalDocumentAddress" id="landSecurityLegalDocumentAddress"
+                                      name="landSecurityLegalDocumentAddress" placeholder="Address as per Legal Document"
+                                      rows="5"
+                                      type="text" maxlength="256"></textarea>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="landCollateralOwnerRelationship">Collateral Owner Relationship</label>
+                                <select class="form-control rounded" formControlName="landCollateralOwnerRelationship"
+                                        id="landCollateralOwnerRelationship"
+                                        name="landCollateralOwnerRelationship">
+                                    <option [ngValue]="null" hidden>--Select Relationship--</option>
+                                    <option *ngFor="let relationship of collateralOwnerRelationshipList.relation" [ngValue]="relationship.id">{{relationship.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-inline">
+                                <nb-checkbox #kycChecked id="ownerKycInfoForLand" class="ml-2"
+                                             (checkedChange)="ownerKycRelationInfoCheck(kycChecked.checked, 'land')"
+                                             [checked]="ownerKycRelationInfoCheckedForLand">
+                                    <h6>Owner KYC Applicable</h6>
+                                </nb-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="ownerKycRelationInfoCheckedForLand">
+                            <app-owner-kyc-applicable #ownerKycApplicable [data]="formDataForEdit?.landDetails[i]?.ownerKycApplicableData"
+                                                      [kycId]="securityId.landId + i"></app-owner-kyc-applicable>
+                    </div>
+                    <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Valuator Name</label>
@@ -221,6 +257,74 @@
                                        type="text"/>
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title">Ownership transfer date</label>
+                                <input class="form-control rounded" formControlName="ownershipTransferDate"
+                                       name="ownershipTransferDate" placeholder="Ownership transfer date" [nbDatepicker]="ownershipDate"
+                                       *ngIf="calendarType === 'AD'">
+                                <app-calendar
+                                    (messageToEmit)="securityForm.get(['landDetails',i,'ownershipTransferDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="securityForm.get(['landDetails',i,'ownershipTransferDate']).value"></app-calendar>
+                                <nb-datepicker #ownershipDate></nb-datepicker>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title">Ownership transfer Through</label>
+                                <select class="form-control rounded" formControlName="ownershipTransferThrough"
+                                        name="ownershipTransferThrough" (change)="resetOtherTransferParameter('landDetails', i,false)">
+                                    <option  [value]="null" hidden>Select Ownership transfer through</option>
+                                    <option  *ngFor="let ownership of ownershipTransferEnumPair" [ngValue]="ownership.key">{{ownership.value}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3" *ngIf="securityForm.get(['landDetails',i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.OTHER)">
+                            <div class="form-group">
+                                <label class="title">Other</label>
+                                <input class="form-control rounded" formControlName="otherOwnershipTransferValue"
+                                       name="otherOwnershipTransferValue" placeholder="Other Ownership Transfer Mode"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <ng-container>
+                            <div class="col-md-12"  *ngIf="securityForm.get(['landDetails' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.SALE)">
+                                <strong>Has transfer date elapsed by 1 year plus 35 days? </strong>
+                                <input class="ml-md-3" type="radio" value="Yes" formControlName="saleOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
+                                <label>Yes</label>
+                                <input class="ml-md-3" type="radio" value="No" formControlName="saleOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
+                                <label>No</label>
+                            </div>
+                            <div class="col-md-12"  *ngIf="securityForm.get(['landDetails' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.FAMILY_SEPARATION)">
+                                <strong>Has transfer date elapsed by 3 month? </strong>
+                                <input class="ml-md-3" type="radio" value="Yes" formControlName="familyTransferOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
+                                <label>Yes</label>
+                                <input class="ml-md-3" type="radio" value="No" formControlName="familyTransferOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
+                                <label>No</label>
+                            </div>
+                            <div class="col-md-12"  *ngIf="securityForm.get(['landDetails' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.GIFT_BAKASPATRA)">
+                                <strong>Has transfer date elapsed by 2 year plus 35 days? </strong>
+                                <input class="ml-md-3" type="radio" value="Yes" formControlName="giftOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
+                                <label>Yes</label>
+                                <input class="ml-md-3" type="radio" value="No" formControlName="giftOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
+                                <label>No</label>
+                            </div>
+                        </ng-container>
+                        <ng-container>
+                            <div class="col-md-12 d-inline-flex" *ngIf="securityForm.get(['landDetails' , i,'saleOwnershipTransfer']).value === 'No'">
+                                <i>*Incase of No, specify registration amount in the transfer deed (as applicable)</i>
+                                <input class="form-control col-md-3" formControlName="saleRegistrationAmount" type="number" placeholder="Amount">
+                            </div>
+                            <div class="col-md-12 d-inline-flex" *ngIf="securityForm.get(['landDetails' , i,'familyTransferOwnershipTransfer']).value === 'No'">
+                                <i>*Incase of No, specify registration amount in the transfer deed (as applicable)</i>
+                                <input class="form-control col-md-3" formControlName="familyRegistrationAmount" type="number" placeholder="Amount">
+                            </div>
+                            <div class="col-md-12 d-inline-flex" *ngIf="securityForm.get(['landDetails' , i,'giftOwnershipTransfer']).value === 'No'">
+                                <i>*Incase of No, specify registration amount in the transfer deed (as applicable)</i>
+                                <input class="form-control col-md-3" formControlName="giftRegistrationAmount" type="number" placeholder="Amount">
+                            </div>
+                        </ng-container>
                         <div class="col-md-12">
                             <app-security-revaluation #revaluationComponent [valuators]="securityValuator?.landValuator[i]"
                                                       [oldValuation]="securityForm.get('landDetails').value"
@@ -243,10 +347,10 @@
                        value="Add More Land"/>
             </div>
             <div class="row">
-                <div class="form-group">
-                    <label class="title ml-3" for="description">Description/Details of Security
+                <div class="form-group col-md-12">
+                    <label class="title rounded" for="description">Description/Details of Security
                         Offered</label>
-                    <textarea class="form-control ml-3" cols="150" formControlName="description"
+                    <textarea class="form-control rounded" cols="150" formControlName="description"
                               id="description"
                               placeholder="details of security offered"
                               rows="5"></textarea>
@@ -359,7 +463,7 @@
                                         <input class="form-control rounded" formControlName="estimatedCost"
                                                id="estimatedCost"
                                                name="estimatedCost" placeholder="Estimated Cost"
-                                               type="number" readonly/>
+                                               type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'building')"/>
                                     </div>
                                 </div>
 
@@ -378,7 +482,7 @@
                                         <input class="form-control rounded" formControlName="waterSupply"
                                                id="waterSupply"
                                                name="waterSupply" placeholder="Water Supply"
-                                               type="number" readonly/>
+                                               type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'building')"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -396,7 +500,7 @@
                                         <input class="form-control rounded" formControlName="sanitation"
                                                id="sanitation"
                                                name="sanitation" placeholder="Sanitation"
-                                               type="number" readonly/>
+                                               type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'building')"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -416,7 +520,7 @@
                                                formControlName="electrification"
                                                id="electrification"
                                                name="electrification" placeholder="Electrification"
-                                               type="number" readonly/>
+                                               type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i, 'building')"/>
                                     </div>
                                 </div>
                             </div>
@@ -430,7 +534,7 @@
                                                formControlName="buildingTotalCost"
                                                id="buildingTotalCost"
                                                name="buildingTotalCost" placeholder="Apartment total cost"
-                                               type="text"/>
+                                               type="number" readonly/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -684,7 +788,7 @@
                                             <input class="form-control rounded" formControlName="estimatedCost"
                                                    id="estCost"
                                                    name="estimatedCost" placeholder="Estimated Cost"
-                                                   type="number" readonly/>
+                                                   type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'before')"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -703,7 +807,7 @@
                                             <input class="form-control rounded" formControlName="waterSupply"
                                                    id="supply"
                                                    name="waterSupply" placeholder="Water Supply"
-                                                   type="number" readonly/>
+                                                   type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'before')"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -721,7 +825,7 @@
                                             <input class="form-control rounded" formControlName="sanitation"
                                                    id="san"
                                                    name="sanitation" placeholder="Sanitation"
-                                                   type="number" readonly/>
+                                                   type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'before')"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -739,7 +843,7 @@
                                             <input class="form-control rounded" formControlName="electrification"
                                                    id="ele"
                                                    name="electrification" placeholder="Electrification"
-                                                   type="number" readonly/>
+                                                   type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'before')"/>
                                         </div>
                                     </div>
                                 </div>
@@ -751,7 +855,7 @@
                                             <input class="form-control rounded" formControlName="buildingTotalCost"
                                                    id="tc"
                                                    name="buildingTotalCost" placeholder="Apartment total cost"
-                                                   type="text"/>
+                                                   type="number" readonly/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -870,7 +974,7 @@
                                             <input class="form-control rounded" formControlName="estimatedCost"
                                                    id="afterEstCost"
                                                    name="estimatedCost" placeholder="Estimated Cost"
-                                                   type="number" readonly/>
+                                                   type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'after')"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -888,7 +992,7 @@
                                             <input class="form-control rounded" formControlName="waterSupply"
                                                    id="afterSupply"
                                                    name="waterSupply" placeholder="Water Supply"
-                                                   type="number" readonly/>
+                                                   type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'after')"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -906,7 +1010,7 @@
                                             <input class="form-control rounded" formControlName="sanitation"
                                                    id="afterSanitation"
                                                    name="sanitation" placeholder="Sanitation"
-                                                   type="number" readonly/>
+                                                   type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'after')"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -924,7 +1028,7 @@
                                             <input class="form-control rounded" formControlName="electrification"
                                                    id="afterElectrification"
                                                    name="electrification" placeholder="Electrification"
-                                                   type="number" readonly/>
+                                                   type="number" readonly (ngModelChange)="calculateTotalApartmentCost(i,'after')"/>
                                         </div>
                                     </div>
                                 </div>
@@ -936,7 +1040,7 @@
                                             <input class="form-control rounded" formControlName="buildingTotalCost"
                                                    id="afterbuildTc"
                                                    name="buildingTotalCost" placeholder="Apartment total cost"
-                                                   type="text"/>
+                                                   type="number" readonly/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -1046,10 +1150,12 @@
                                 <div class="form-group">
                                     <label class="title" for="areaFormat">Area
                                         Format</label>
-                                    <input class="form-control rounded"
+                                    <select class="form-control rounded"
                                            formControlName="areaFormat"
-                                           name="areaFormat" placeholder="area format"
-                                           type="text"/>
+                                           name="areaFormat">
+                                        <option [value]="null" hidden>Select Area Format</option>
+                                        <option [value]="area" *ngFor="let area of areaFormat">{{area}}</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -1165,6 +1271,42 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label for="landAndBuildingSecurityLegalDocumentAddress"><strong>Address as per Legal Document</strong></label>
+                                <textarea class="form-control"
+                                          formControlName="landAndBuildingSecurityLegalDocumentAddress" id="landAndBuildingSecurityLegalDocumentAddress"
+                                          name="landAndBuildingSecurityLegalDocumentAddress" placeholder="Address as per Legal Document"
+                                          rows="5"
+                                          type="text" maxlength="256"></textarea>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="landBuildingCollateralOwnerRelationship">Collateral Owner Relationship</label>
+                                    <select class="form-control rounded" formControlName="landBuildingCollateralOwnerRelationship"
+                                            id="landBuildingCollateralOwnerRelationship"
+                                            name="landBuildingCollateralOwnerRelationship">
+                                        <option [ngValue]="null" hidden>--Select Relationship--</option>
+                                        <option *ngFor="let relationship of collateralOwnerRelationshipList.relation" [ngValue]="relationship.id">{{relationship.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group form-inline">
+                                        <nb-checkbox #kycChecked id="ownerKycInfoForLandAndBuilding" class="ml-2"
+                                                     (checkedChange)="ownerKycRelationInfoCheck(kycChecked.checked, 'land_building')"
+                                                     [checked]="ownerKycRelationInfoCheckedForLandBuilding">
+                                            <h6>Owner KYC Applicable</h6>
+                                        </nb-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" *ngIf="ownerKycRelationInfoCheckedForLandBuilding">
+                                <app-owner-kyc-applicable #ownerKycApplicableLandBuilding [data]="formDataForEdit?.landBuilding[i]?.ownerKycApplicableData"
+                                                          [kycId]="securityId.land_buildingId + i"></app-owner-kyc-applicable>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Valuator Name</label>
@@ -1269,6 +1411,75 @@
                                            type="text"/>
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Ownership transfer date</label>
+                                    <input class="form-control rounded" formControlName="ownershipTransferDate"
+                                           name="ownershipTransferDate" placeholder="Ownership transfer date" [nbDatepicker]="ownershipDate"
+                                           *ngIf="calendarType === 'AD'">
+                                    <app-calendar
+                                        (messageToEmit)="securityForm.get(['landBuilding',i,'ownershipTransferDate']).patchValue($event?.eDate)"
+                                        *ngIf="calendarType === 'BS'"
+                                        [ePreDate]="securityForm.get(['landBuilding',i,'ownershipTransferDate']).value"></app-calendar>
+                                    <nb-datepicker #ownershipDate></nb-datepicker>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Ownership transfer Through</label>
+                                    <select class="form-control rounded" formControlName="ownershipTransferThrough"
+                                            name="ownershipTransferThrough" (change)="resetOtherTransferParameter('landBuilding', i,false)">
+                                        <option  [value]="null" hidden>Select Ownership transfer through</option>
+                                        <option  *ngFor="let ownership of ownershipTransferEnumPair" [ngValue]="ownership.key">{{ownership.value}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4" *ngIf="securityForm.get(['landBuilding',i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.OTHER)">
+                                <div class="form-group">
+                                    <label class="title">Other</label>
+                                    <input class="form-control rounded" formControlName="otherOwnershipTransferValue"
+                                           name="otherOwnershipTransferValue" placeholder="Other Ownership Transfer Mode"
+                                           type="text"/>
+                                </div>
+                            </div>
+                            <ng-container>
+                                <div class="col-md-12"  *ngIf="securityForm.get(['landBuilding' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.SALE)">
+                                    <strong>Has transfer date elapsed by 1 year plus 35 days? </strong>
+                                    <input class="ml-md-3" type="radio" value="Yes" formControlName="saleOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
+                                    <label>Yes</label>
+                                    <input class="ml-md-3" type="radio" value="No" formControlName="saleOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
+                                    <label>No</label>
+
+                                </div>
+                                <div class="col-md-12"  *ngIf="securityForm.get(['landBuilding' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.FAMILY_SEPARATION)">
+                                    <strong>Has transfer date elapsed by 3 month? </strong>
+                                    <input class="ml-md-3" type="radio" value="Yes" formControlName="familyTransferOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
+                                    <label>Yes</label>
+                                    <input class="ml-md-3" type="radio" value="No" formControlName="familyTransferOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
+                                    <label>No</label>
+                                </div>
+                                <div class="col-md-12"  *ngIf="securityForm.get(['landBuilding' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.GIFT_BAKASPATRA)">
+                                    <strong>Has transfer date elapsed by 2 year plus 35 days? </strong>
+                                    <input class="ml-md-3" type="radio" value="Yes" formControlName="giftOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
+                                    <label>Yes</label>
+                                    <input class="ml-md-3" type="radio" value="No" formControlName="giftOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
+                                    <label>No</label>
+                                </div>
+                            </ng-container>
+                            <ng-container>
+                                <div class="col-md-12 d-inline-flex" *ngIf="securityForm.get(['landBuilding' , i,'saleOwnershipTransfer']).value === 'No'">
+                                    <i>*Incase of No, specify registration amount in the transfer deed (as applicable)</i>
+                                    <input class="form-control col-md-3" formControlName="saleRegistrationAmount"  type="number" placeholder="Amount">
+                                </div>
+                                <div class="col-md-12 d-inline-flex" *ngIf="securityForm.get(['landBuilding' , i,'familyTransferOwnershipTransfer']).value === 'No'">
+                                    <i>*Incase of No, specify registration amount in the transfer deed (as applicable)</i>
+                                    <input class="form-control col-md-3" formControlName="familyRegistrationAmount"  type="number" placeholder="Amount">
+                                </div>
+                                <div class="col-md-12 d-inline-flex" *ngIf="securityForm.get(['landBuilding' , i,'giftOwnershipTransfer']).value === 'No'">
+                                    <i>*Incase of No, specify registration amount in the transfer deed (as applicable)</i>
+                                    <input class="form-control col-md-3" formControlName="giftRegistrationAmount"  type="number" placeholder="Amount">
+                                </div>
+                            </ng-container>
                             <div class="col-md-12">
                                 <app-security-revaluation #revaluationComponentLandBuilding
                                                           [valuators]="securityValuator?.buildingValuator[i]"
@@ -1680,7 +1891,7 @@
                                     class="form-control" formControlName="registrationNumber"
                                     id="registrationNumber"
                                     name="registrationNumber" placeholder="Registration Number"
-                                    type="number">
+                                    type="text">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -1722,6 +1933,7 @@
                                 <label class="title" for="valuationAmount"><strong>Valuation
                                     Amount</strong></label>
                                 <input
+                                        (keyup)="vehicleRemainingAmount(i)"
                                     class="form-control" formControlName="valuationAmount" id="valuationAmount"
                                     name="valuationAmount"
                                     placeholder="Valuation Amount" type="number">
@@ -1736,19 +1948,21 @@
                             <div class="form-group">
                                 <label class="title" for="downPayment"><strong>Down Payment</strong></label>
                                 <input
+                                    (keyup)="vehicleRemainingAmount(i)"
                                     class="form-control" formControlName="downPayment" id="downPayment"
                                     name="downPayment"
-                                    placeholder="Down Payment" type="text">
+                                    placeholder="Down Payment" type="number">
                             </div>
                         </div>
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title" for="loanExposure"><strong>Loan Exposure(%)</strong></label>
+                                <label class="title" for="remainingAmount"><strong>Remaining Amount</strong></label>
                                 <input
-                                    class="form-control" formControlName="loanExposure" id="loanExposure"
-                                    name="loanExposure"
-                                    placeholder="Loan Exposure" type="number">
+                                    class="form-control" formControlName="remainingAmount" id="remainingAmount"
+                                    [readOnly]="true"
+                                    name="remainingAmount"
+                                    placeholder="Remaining Amount" type="number">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -1857,14 +2071,57 @@
                                        type="text"/>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">Ownership transfer date</label>
+                                <input class="form-control rounded" formControlName="ownershipTransferDate"
+                                       *ngIf="calendarType === 'AD'"
+                                       name="ownershipTransferDate" placeholder="Ownership transfer date" [nbDatepicker]="ownershipDate">
+                                <app-calendar
+                                    (messageToEmit)="securityForm.get(['vehicleDetails',i,'ownershipTransferDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="securityForm.get(['vehicleDetails',i,'ownershipTransferDate']).value"></app-calendar>
+                                <nb-datepicker #ownershipDate></nb-datepicker>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6>Showroom Details</h6>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="title" for="showroomName">Showroom Name</label>
+                                <input class="form-control rounded" formControlName="showroomName"
+                                       id="showroomName"
+                                       name="showroomName" placeholder="Showroom Name"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="title" for="showroomAddress">Showroom Address</label>
+                                <input class="form-control rounded" formControlName="showroomAddress"
+                                       id="showroomAddress"
+                                       name="showroomAddress" placeholder="Showroom Name"
+                                       type="text"/>
+                            </div>
+                        </div>
                     </div>
                     <hr>
                 </div>
+            </div>
+            <div class="d-flex justify-content-sm-end">
+                <p class="font-weight-bolder">Vehicle Exposure: {{totalVehicleExposure |number}}%</p>
             </div>
             <div class="text-right">
                 <input (click)="addVehicleSecurity()" class="btn btn-sm btn-flat btn-primary"
                        type="button"
                        value="Add More"/>
+            </div>
+            <div>
+
             </div>
         </nb-card>
         <!-- Fixed Deposit Receipt -->
@@ -1890,6 +2147,28 @@
                             <div class="form-group">
                                 <label class="title">FD Receipt Number<strong></strong></label>
                                 <input class="form-control" formControlName="receiptNumber">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">FD Account Holder Name<strong></strong></label>
+                                <input class="form-control" formControlName="accountHolderName">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">FD Account Number<strong></strong></label>
+                                <input class="form-control" formControlName="accountNumber">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">FD Tenure Start Date<strong></strong></label>
+                                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="tenureStartDate" class="form-control" formControlName="tenureStartDate">
+                                <app-calendar *ngIf="calendarType === 'BS'"
+                                              (messageToEmit)="securityForm.get(['fixedDepositDetails',i,'tenureStartDate']).patchValue($event?.eDate)"
+                                              [ePreDate]="securityForm.get(['fixedDepositDetails',i,'tenureStartDate']).value"></app-calendar>
+                                <nb-datepicker #tenureStartDate></nb-datepicker>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -1948,6 +2227,20 @@
             </nb-card-header>
             <nb-card-body>
                 <div class="row">
+                    <div class="col-md-3">
+                        <label for="sharePriceDate"><b>Price Updated Date</b></label>
+                        <input formControlName="sharePriceDate"
+                               class="form-control"
+                               [readOnly]="true"
+                               id="sharePriceDate">
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="avgDaysForPrice"><b>Average Price of days</b></label>
+                        <input formControlName="avgDaysForPrice"
+                               class="form-control"
+                               [readOnly]="true"
+                               id="avgDaysForPrice">
+                    </div>
                     <div class="col-md-3">
                         <label for="promoter"><b>Loan Promoter Percent</b></label>
                         <input [(ngModel)]="activeNepseMaster.promoter"
@@ -2041,6 +2334,18 @@
                                            id="consideredValue" name="total" readonly>
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Ownership transfer date</label>
+                                    <input class="form-control rounded" formControlName="ownershipTransferDate" *ngIf="calendarType === 'AD'"
+                                           name="ownershipTransferDate" placeholder="Ownership transfer date" [nbDatepicker]="ownershipDate">
+                                    <app-calendar
+                                        (messageToEmit)="shareSecurityForm.get(['shareSecurityDetails',shareFieldIndex,'ownershipTransferDate']).patchValue($event?.eDate)"
+                                        *ngIf="calendarType === 'BS'"
+                                        [ePreDate]="shareSecurityForm.get(['shareSecurityDetails',shareFieldIndex,'ownershipTransferDate']).value"></app-calendar>
+                                    <nb-datepicker #ownershipDate></nb-datepicker>
+                                </div>
+                            </div>
                         </div>
                         <div *ngIf="shareSecurityForm.get('shareSecurityDetails')['length'] > 1"
                              class="d-flex justify-content-sm-end">
@@ -2117,6 +2422,33 @@
                                        type="number"/>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="hypothecationOwnerRelationship">Collateral Owner Relationship</label>
+                                <select class="form-control rounded" formControlName="hypothecationOwnerRelationship"
+                                        id="hypothecationOwnerRelationship"
+                                        name="hypothecationOwnerRelationship">
+                                    <option [ngValue]="null" hidden>Select Relationship</option>
+                                    <option *ngFor="let relationship of collateralOwnerRelationshipList.relation" [ngValue]="relationship.id">{{relationship.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <nb-checkbox #kycChecked id="ownerKycInfoForHypothecation" class="ml-2"
+                                                 (checkedChange)="ownerKycRelationInfoCheck(kycChecked.checked, 'hypothecation')"
+                                                 [checked]="ownerKycRelationInfoCheckedForHypothecation">
+                                        <h6>Owner KYC Applicable</h6>
+                                    </nb-checkbox>
+                                </div>
+                            </div>
+                        <div class="col-md-12">
+                            <div class="form-group" *ngIf="ownerKycRelationInfoCheckedForHypothecation">
+                                <app-owner-kyc-applicable #ownerKycApplicableHypothecation [data]="formDataForEdit?.hypothecationOfStock[i]?.ownerKycApplicableData"
+                                                          [kycId]="securityId.hypothecation_Id + i"></app-owner-kyc-applicable>
+                            </div>
+                        </div>
+
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Other Detail</label>

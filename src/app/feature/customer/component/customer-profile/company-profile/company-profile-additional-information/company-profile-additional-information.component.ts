@@ -10,6 +10,7 @@ import {RegisteredOfficeList} from '../../../../../admin/modal/registeredOfficeL
 })
 export class CompanyProfileAdditionalInformationComponent implements OnInit , OnChanges {
   @Input() companyInfo: CompanyInfo;
+  @Input() companyLocationData;
   companyContactPersons = [];
   registeredOffice: typeof RegisteredOfficeList = RegisteredOfficeList;
 

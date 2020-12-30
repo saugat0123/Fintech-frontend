@@ -11,6 +11,7 @@ import {NepaliWordPipe} from './pipe/nepali-word.pipe';
 import {ReplacePipe} from './utils/replace.pipe';
 import {RoundvaluePipe} from './pipe/roundvalue.pipe';
 import {BooleanConvertPipe} from './pipe/boolean-convert.pipe';
+import { DecimalNumberDirective } from './directive/decimal-number.directive';
 // import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 // import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 
@@ -100,6 +101,7 @@ export const NB_CORE_PROVIDERS = [
         ReplacePipe,
         RoundvaluePipe,
         BooleanConvertPipe,
+        DecimalNumberDirective,
     ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
@@ -109,6 +111,7 @@ export const NB_CORE_PROVIDERS = [
         ReplacePipe,
         RoundvaluePipe,
         BooleanConvertPipe,
+        DecimalNumberDirective,
     ],
 })
 export class CoreModule {

@@ -19,6 +19,7 @@ import {ActivatedRoute} from '@angular/router';
 import {CustomerShareData} from '../../admin/modal/CustomerShareData';
 import {RoadAccess} from '../../admin/modal/crg/RoadAccess';
 import {FacCategory} from '../../admin/modal/crg/fac-category';
+import {environment} from '../../../../environments/environment.srdb';
 
 @Component({
     selector: 'app-security',
@@ -62,6 +63,8 @@ export class SecurityComponent implements OnInit {
 
     roadAccess = RoadAccess.enumObject();
     facCategory = FacCategory.enumObject();
+
+    disableCrgAlphaParams = environment.disableCrgAlpha;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -309,8 +312,7 @@ export class SecurityComponent implements OnInit {
                 case 'Land and Building Security':
                      const landBuildingArray = securityData.initialForm.landBuilding as Array<any>;
                         for (let i = 0; i < landBuildingArray.length; i++) {
-                            totalSecurityAmount = totalSecurityAmount + (Number(landBuildingArray[i].marketValue) +
-                                Number(landBuildingArray[i].landConsideredValue));
+                            totalSecurityAmount += Number(landBuildingArray[i].landConsideredValue);
                     }
                     break;
                 case 'FixedDeposit':

@@ -74,6 +74,12 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
                 }, error => {
                     console.error(error);
                 });
+              await this.productModeService.getBankUtils().subscribe((response: any) => {
+                storage.bankUtil = response.detail;
+                LocalStorageUtil.setStorage(storage);
+              }, error => {
+                console.error(error);
+              });
                 await this.userService.getAuthenticatedUserBranches().toPromise().then((response: any) => {
                     storage.branch = response.detail;
                     LocalStorageUtil.setStorage(storage);
@@ -88,10 +94,15 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
                 });
                 this.router.navigate(['/home/dashboard']);
             },
-            error => {
-                this.spinner = false;
-                this.msg = 'INVALID USERNAME OR PASSWORD';
-            }
+            ((error) => {
+                if (error.status === 401) {
+                    this.spinner = false;
+                    this.msg = 'USER IS INACTIVE PLEASE ACTIVATE USER FIRST';
+                } else if (error.status === 400) {
+                    this.spinner = false;
+                    this.msg = 'INVALID USERNAME OR PASSWORD';
+                }
+            })
         );
     }
 

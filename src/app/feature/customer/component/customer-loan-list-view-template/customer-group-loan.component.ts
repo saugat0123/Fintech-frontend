@@ -14,6 +14,10 @@ import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {SingleCombinedLoanDto} from '../../dto/single-combined-loan.dto';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {DocStatus} from '../../../loan/model/docStatus';
+import {Stage} from '../../../loan/model/stage';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {Local} from 'protractor/built/driverProviders';
+import {LoanStage} from '../../../loan/model/loanStage';
 
 
 @Component({
@@ -53,10 +57,13 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         deficit_Surplus: 0,
         coveragePercent: 0,
         totalApprovedLimit: 0,
-        totalPendingLimit: 0 ,
+        totalPendingLimit: 0,
         totalApprovedRequiredCollateral: 0,
         totalPendingRequiredCollateral: 0,
     };
+
+    currentUserId = LocalStorageUtil.getStorage().userId;
+    currentUserRoleType = LocalStorageUtil.getStorage().roleType;
 
 
     constructor(private router: Router,
@@ -116,12 +123,12 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     }
 
     calculateCollateralData() {
-      if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
-          this.collateralDtoData.deficit_Surplus = this.customerInfo.security.totalSecurityAmount -
-              this.collateralDtoData.totalRequiredCollateral;
-          this.collateralDtoData.coveragePercent = (this.customerInfo.security.totalSecurityAmount /
-              (this.collateralDtoData.totalRequiredCollateral)) * 100;
-      }
+        if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
+            this.collateralDtoData.deficit_Surplus = this.customerInfo.security.totalSecurityAmount -
+                this.collateralDtoData.totalRequiredCollateral;
+            this.collateralDtoData.coveragePercent = (this.customerInfo.security.totalSecurityAmount /
+                (this.collateralDtoData.totalRequiredCollateral)) * 100;
+        }
     }
 
     groupCombinedLoan(customerLoans: LoanDataHolder[]): SingleCombinedLoanDto[] {
@@ -141,7 +148,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
                     documentStatus: loan.documentStatus,
                     createdAt: loan.createdAt,
                     collateralRequirement: loan.loan.collateralRequirement,
-                    requiredCollateral: loan.proposal.collateralRequirement
+                    requiredCollateral: loan.proposal.collateralRequirement,
+                    currentStage: loan.currentStage
                 });
             } else if (   // check if combined loan is not included already
                 !loanHistories.filter((l) => !ObjectUtil.isEmpty(l.combinedLoans))
@@ -164,6 +172,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
                     loanType: 'N/A',
                     documentStatus: 'N/A',
                     createdAt: combinedLoans[0].combinedLoan.createdAt,
+                    currentStage: null,
                     combinedLoans: combinedLoans.map((l) => {
                         const singleCombinedLoanDto: SingleCombinedLoanDto = {
                             id: l.id,
@@ -176,7 +185,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
                             documentStatus: l.documentStatus,
                             createdAt: l.createdAt,
                             collateralRequirement: l.loan.collateralRequirement,
-                            requiredCollateral: l.proposal.collateralRequirement
+                            requiredCollateral: l.proposal.collateralRequirement,
+                            currentStage: l.currentStage
                         };
                         return singleCombinedLoanDto;
                     })
@@ -222,14 +232,35 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         });
     }
 
-    onClick(loanConfigId: number, customerId: number) {
+    onClick(loanConfigId: number, customerId: number, currentStage: LoanStage) {
         this.modalService.dismissAll();
-        this.router.navigate(['/home/loan/summary'], {
-            queryParams: {
-                loanConfigId: loanConfigId,
-                customerId: customerId
+        if (!ObjectUtil.isEmpty(currentStage)) {
+            if ((currentStage.toUser.id.toString() === this.currentUserId) && (this.currentUserRoleType === 'MAKER')) {
+                this.router.navigate(['/home/loan/summary'], {
+                    queryParams: {
+                        loanConfigId: loanConfigId,
+                        customerId: customerId
+                    }
+                });
+            } else {
+                this.router.navigate(['/home/loan/summary'], {
+                    queryParams: {
+                        loanConfigId: loanConfigId,
+                        customerId: customerId,
+                        catalogue: true
+                    }
+                });
             }
-        });
+        } else {
+            this.router.navigate(['/home/loan/summary'], {
+                queryParams: {
+                    loanConfigId: loanConfigId,
+                    customerId: customerId,
+                    catalogue: true
+                }
+            });
+        }
+
     }
 
     initial() {

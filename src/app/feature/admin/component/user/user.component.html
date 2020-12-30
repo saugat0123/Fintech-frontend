@@ -84,7 +84,7 @@
                             <div class="col-md-12 p-0">
                                 <button nbButton status="info" size="small" type="submit" class="mr-2">Search</button>
                                 <button (click)="clearSearch()" class="mr-2" nbButton
-                                        status="danger" size="small" type="button">Clear
+                                        status="danger" size="small">Clear
                                 </button>
                             </div>
                         </form>
@@ -125,7 +125,7 @@
                                     <div *ngIf="!allList.branch?.length > 0">
                                         <em class="alert-danger">BRANCH IS DISABLED</em>
                                     </div>
-                                    <div class="col-md-12 row" *ngFor="let branch of allList.branch;">
+                                    <div class="col-md-12 justify-content-center" *ngFor="let branch of allList.branch;">
                                         {{branch?.name}}
                                     </div>
                                 </td>
