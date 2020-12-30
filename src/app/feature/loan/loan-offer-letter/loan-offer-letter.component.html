@@ -196,7 +196,7 @@
                         *ngIf="model?.customerOfferLetter?.previousList?.length < 1
                          && !model?.customerOfferLetter?.offerLetterStage">
                         <td colspan="9"><span class="text-danger">This File is not assigned Yet. Please click  <a
-                                (click)="openModel(assignCustomerLoan,model?.id)" nbTooltip="click to assign"><em
+                                (click)="openModel(assignCustomerLoan,model?.id,model?.branch?.id)" nbTooltip="click to assign"><em
                                 class="fa fa-user px-2"
                                 [ngStyle]="{'color':model?.customerOfferLetter?.offerLetterStage?.toUser === null ? 'red' : 'green' }">
 
