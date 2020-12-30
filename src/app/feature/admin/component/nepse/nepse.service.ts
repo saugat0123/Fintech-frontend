@@ -18,10 +18,10 @@ export class NepseService extends BaseService<Nepse> {
         return NepseService.API;
     }
 
-    public uploadNepseFile(excelData: FormData) {
+    public uploadNepseFile(uploadData) {
         const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/uploadNepseFile`);
 
-        return this.http.post(req.url, excelData, {headers: req.header});
+        return this.http.post(req.url, uploadData, {headers: req.header});
     }
 
     public addShare(nepseMaster: NepseMaster): Observable<any> {

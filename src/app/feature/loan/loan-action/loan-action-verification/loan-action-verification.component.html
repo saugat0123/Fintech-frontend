@@ -10,6 +10,7 @@
   <nb-card-body>
     <ng-container *ngIf="action == forwardAction">
       <p><b>Are you sure you want to forward the file?</b></p>
+      <br>
       <ng-container *ngIf="individualCombine" >
         <div *ngFor="let data of individualCombine.actions;let i=index">
           <p><b>{{data['loanName']}}</b></p>
@@ -20,6 +21,7 @@
       <ng-container *ngIf="toRole || toUser">
         <p><b>To User:</b>{{toUser?.name}}</p>
         <p><b>To Role:</b>{{toRole?.roleName}}</p>
+        <br>
       </ng-container>
     </ng-container>
 
@@ -28,7 +30,7 @@
         again. {{falseCredentialMessage}}</p>
 
       <form #lform="ngForm" class="login-form" name="login-form">
-        <div class="form-group has-feedback">
+        <div class="form-group has-feedback mt-2">
           <input #pass="ngModel" [ngClass]="{'is-invalid': lform.submitted && pass.invalid}"
                  class="form-control"
                  id="password"
