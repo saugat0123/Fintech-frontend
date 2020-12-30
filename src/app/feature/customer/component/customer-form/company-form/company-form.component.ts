@@ -51,6 +51,7 @@ import {CommonAddressComponent} from '../../../../common-address/common-address.
 import {FormUtils} from '../../../../../@core/utils/form.utils';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
+import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
 
 @Component({
     selector: 'app-company-form',
@@ -133,7 +134,7 @@ export class CompanyFormComponent implements OnInit {
     businessGiven: BusinessGiven = new BusinessGiven();
     companyAddress;
     srdbAffiliatedId = false;
-
+    disableCrgAlpha = envSrdb.disableCrgAlpha;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -461,31 +462,32 @@ export class CompanyFormComponent implements OnInit {
                 additionalInfoRemark: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
                     this.additionalFieldData.additionalInfoRemark],
             }),
+
             /** 8.business and industry */
             regulatoryConcern: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
-                this.businessAndIndustry.regulatoryConcern, Validators.required],
+                this.businessAndIndustry.regulatoryConcern, this.disableCrgAlpha ? undefined : Validators.required],
             buyer: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
-                this.businessAndIndustry.buyer, Validators.required],
+                this.businessAndIndustry.buyer, this.disableCrgAlpha ? undefined : Validators.required],
             supplier: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
-                this.businessAndIndustry.supplier, Validators.required],
+                this.businessAndIndustry.supplier, this.disableCrgAlpha ? undefined : Validators.required],
 
             /** 9. Industry Growth*/
             industryGrowth: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.industryGrowth)) ? undefined :
-                this.companyInfo.industryGrowth, Validators.required],
+                this.companyInfo.industryGrowth, this.disableCrgAlpha ? undefined : Validators.required],
 
             /** 10. Market competition*/
             marketCompetition: [ObjectUtil.isEmpty(this.companyInfo)
             || ObjectUtil.isEmpty(this.companyInfo.marketCompetition) ? undefined :
-                this.companyInfo.marketCompetition, Validators.required],
+                this.companyInfo.marketCompetition, this.disableCrgAlpha ? undefined : Validators.required],
 
             /** 11. Experience*/
             experience: [ObjectUtil.isEmpty(this.companyInfo)
             || ObjectUtil.isEmpty(this.companyInfo.experience) ? undefined :
-                this.companyInfo.experience, Validators.required],
+                this.companyInfo.experience, this.disableCrgAlpha ? undefined : Validators.required],
 
             /** Succession*/
             succession: [ObjectUtil.isEmpty(this.companyInfo)
@@ -783,10 +785,13 @@ export class CompanyFormComponent implements OnInit {
         this.submitted = true;
         this.marketScenarioComponent.onSubmit();
         this.companyOtherDetailComponent.onSubmit();
-        this.bankingRelationComponent.onSubmit();
+        if (!this.disableCrgAlpha) {
+            this.bankingRelationComponent.onSubmit();
+        }
         this.companyLocation.onSubmit();
         if (this.companyInfoFormGroup.invalid || this.companyOtherDetailComponent.companyOtherDetailGroupForm.invalid
-            || this.marketScenarioComponent.marketScenarioForm.invalid || this.bankingRelationComponent.bankingRelationForm.invalid
+            || this.marketScenarioComponent.marketScenarioForm.invalid ||
+            (this.disableCrgAlpha ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
             || this.companyLocation.addressForm.invalid) {
             this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
             this.scrollToFirstInvalidControl();
@@ -885,18 +890,24 @@ export class CompanyFormComponent implements OnInit {
             this.companyInfo.proprietorsList.push(proprietors);
         }
 
-        /** banking relation setting data from child **/
-        this.companyInfo.bankingRelationship = JSON.stringify(this.bankingRelationComponent.bankingRelation);
+        if (!this.disableCrgAlpha) {
+            /** banking relation setting data from child **/
+            this.companyInfo.bankingRelationship = JSON.stringify(this.bankingRelationComponent.bankingRelation);
 
-        /** business and industry */
-        this.businessAndIndustry.regulatoryConcern = this.companyInfoFormGroup.get('regulatoryConcern').value;
-        this.businessAndIndustry.supplier = this.companyInfoFormGroup.get('supplier').value;
-        this.businessAndIndustry.buyer = this.companyInfoFormGroup.get('buyer').value;
-        this.companyInfo.businessAndIndustry = JSON.stringify(this.businessAndIndustry);
+            /** business and industry */
+            this.businessAndIndustry.regulatoryConcern = this.companyInfoFormGroup.get('regulatoryConcern').value;
+            this.businessAndIndustry.supplier = this.companyInfoFormGroup.get('supplier').value;
+            this.businessAndIndustry.buyer = this.companyInfoFormGroup.get('buyer').value;
+            this.companyInfo.businessAndIndustry = JSON.stringify(this.businessAndIndustry);
 
-        /** industry growth and market competition */
-        this.companyInfo.marketCompetition = this.companyInfoFormGroup.get('marketCompetition').value;
-        this.companyInfo.industryGrowth = this.companyInfoFormGroup.get('industryGrowth').value;
+            /** industry growth and market competition */
+            this.companyInfo.marketCompetition = this.companyInfoFormGroup.get('marketCompetition').value;
+            this.companyInfo.industryGrowth = this.companyInfoFormGroup.get('industryGrowth').value;
+
+            /** experience & succession */
+            this.companyInfo.experience = this.companyInfoFormGroup.get('experience').value;
+            this.companyInfo.succession = this.companyInfoFormGroup.get('succession').value;
+        }
 
         /**Business Given**/
         this.businessGiven.interestIncomeDuringReview = this.companyInfoFormGroup.get('interestIncomeDuringReview').value;
@@ -914,9 +925,6 @@ export class CompanyFormComponent implements OnInit {
 
         this.companyInfo.businessGiven = JSON.stringify(this.businessGiven);
 
-        /** experience & succession */
-        this.companyInfo.experience = this.companyInfoFormGroup.get('experience').value;
-        this.companyInfo.succession = this.companyInfoFormGroup.get('succession').value;
         // todo change this to common function
         const submitData = new CompanyJsonData();
         Object.keys(submitData).forEach((k) => {
