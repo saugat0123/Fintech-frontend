@@ -112,6 +112,7 @@ export class CustomerFormComponent implements OnInit {
             this.formMaker();
             this.setRelatives(this.customer.customerRelatives);
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
+            this.setCustomerRisk(this.formValue);
             this.occupationChange();
 
         } else {
@@ -539,7 +540,16 @@ export class CustomerFormComponent implements OnInit {
             this.basicInfo.controls.subsectorDetail.patchValue(this.subSectorDetailCodeInput);
 
         }
+        console.log('This is form valueee' + formValue.customerRisk);
 
+    }
+    setCustomerRisk(formValue){
+        if (!ObjectUtil.isEmpty(formValue.customerRisk)) {
+            const customerRisk = JSON.parse(formValue.customerRisk);
+            this.basicInfo.controls.incomeRisk.patchValue(customerRisk.incomeRisk);
+            this.basicInfo.controls.securityRisk.patchValue(customerRisk.securityRisk);
+            this.basicInfo.controls.successionRisk.patchValue(customerRisk.successionRisk);
+        }
     }
     sameAsPermanent() {
         // if (ObjectUtil.isEmpty(this.basicInfo.get('municipalities').value)) {

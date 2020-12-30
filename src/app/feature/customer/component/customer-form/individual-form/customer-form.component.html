@@ -684,6 +684,46 @@
                         </div>
                     </div>
                 </div>
+                <br>
+                <div>
+                    <label><strong>Income Risk</strong></label>
+                    <textarea id="incomeRisk" formControlName="incomeRisk" name="incomeRisk" type="text"
+                              class="form-control" placeholder="income Risk"
+                              [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.incomeRisk.errors }"></textarea>
+                    <div *ngIf="(submitted) && basicInfoControls.incomeRisk.invalid"
+                         class="invalid-feedback">
+                        <div *ngIf="basicInfoControls.incomeRisk.errors.required">
+                            Income Risk is required
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <label><strong>Security Risk</strong></label>
+                    <textarea id="securityRisk" formControlName="securityRisk" name="securityRisk" type="text"
+                              class="form-control" placeholder="security Risk"
+                              [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.securityRisk.errors }"></textarea>
+                    <div *ngIf="(submitted) && basicInfoControls.securityRisk.invalid"
+                         class="invalid-feedback">
+                        <div *ngIf="basicInfoControls.securityRisk.errors.required">
+                            Security Risk is required
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <label><strong>Succession risk</strong></label>
+                    <textarea id="successionRisk" formControlName="successionRisk" name="successionRisk" type="text"
+                              class="form-control" placeholder="Succession Risk"
+                              [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.successionRisk.errors }"></textarea>
+                    <div *ngIf="(submitted) && basicInfoControls.successionRisk.invalid"
+                         class="invalid-feedback">
+                        <div *ngIf="basicInfoControls.successionRisk.errors.required">
+                            succession Risk is required
+                        </div>
+                    </div>
+                </div>
+
                 <div>
                     <nb-card class="card-height">
                         <nb-card-header>
