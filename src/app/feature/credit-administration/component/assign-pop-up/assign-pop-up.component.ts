@@ -13,6 +13,7 @@ export class AssignPopUpComponent implements OnInit {
     userList = [];
     selectedBranchId;
     submitted = false;
+    roleListInCAD = [];
 
     constructor(private userService: UserService,
                 private formBuilder: FormBuilder) {
@@ -58,6 +59,9 @@ export class AssignPopUpComponent implements OnInit {
                 user: [undefined, Validators.required],
                 role: [undefined, Validators.required]
             });
+    }
+
+    onClose() {
     }
 
 }
