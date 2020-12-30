@@ -119,7 +119,7 @@
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <label for="technicalAspect"><strong>Management Risk </strong></label>
+        <label for="technicalAspect"><strong>Business/Management Risk </strong></label>
         <textarea
             rows="5"
             [ngClass]="{ 'is-invalid':submitted && form.technicalAspect?.errors }"
@@ -131,7 +131,45 @@
         <div *ngIf="submitted && form.technicalAspect?.errors "
              class="invalid-feedback">
           <div *ngIf="form.technicalAspect?.errors.required">
-            Management Risk is required
+            Business/Management Risk is required
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="technicalAspect"><strong>Security Risk </strong></label>
+        <textarea
+            rows="5"
+            [ngClass]="{ 'is-invalid':submitted && form.securityRisk?.errors }"
+            class="form-control rounded"
+            formControlName="securityRisk"
+            id="securityRisk"
+            placeholder="Security Risk "
+            type="text"></textarea>
+        <div *ngIf="submitted && form.securityRisk?.errors "
+             class="invalid-feedback">
+          <div *ngIf="form.securityRisk?.errors.required">
+            Security Risk is required
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="technicalAspect"><strong>Financial and Cash Flow Risk </strong></label>
+        <textarea
+            rows="5"
+            [ngClass]="{ 'is-invalid':submitted && form.financialAndCashFlowRisk?.errors }"
+            class="form-control rounded"
+            formControlName="financialAndCashFlowRisk"
+            id="financialAndCashFlowRisk"
+            placeholder="Management Risk "
+            type="text"></textarea>
+        <div *ngIf="submitted && form.financialAndCashFlowRisk?.errors "
+             class="invalid-feedback">
+          <div *ngIf="form.financialAndCashFlowRisk?.errors.required">
+            Financial and Cash Flow Risk  is required
           </div>
         </div>
       </div>

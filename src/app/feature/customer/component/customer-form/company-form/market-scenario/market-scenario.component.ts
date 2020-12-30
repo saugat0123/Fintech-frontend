@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 
@@ -35,6 +35,8 @@ export class MarketScenarioComponent implements OnInit {
       BusinessIndustryOutlook: [undefined],
       marketingStrategies: [undefined],
       technicalAspect: [undefined],
+      securityRisk: [undefined],
+      financialAndCashFlowRisk: [undefined],
     });
   }
 
