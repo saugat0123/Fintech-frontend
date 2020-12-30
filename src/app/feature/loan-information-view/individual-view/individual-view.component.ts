@@ -26,10 +26,9 @@ export class IndividualViewComponent implements OnInit {
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.individual)) {
       if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
-        console.log(this.individualJsonData);
         this.individualJsonData = JSON.parse(this.individual.individualJsonData);
       }
     }
-
   }
+
 }

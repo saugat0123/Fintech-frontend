@@ -107,7 +107,6 @@ export class CustomerFormComponent implements OnInit {
         this.formMaker();
         if (!ObjectUtil.isEmpty(this.formValue)) {
             if (!ObjectUtil.isEmpty(this.formValue.individualJsonData)) {
-                console.log(this.individualJsonData);
                 this.individualJsonData = JSON.parse(this.formValue.individualJsonData);
             }
             this.customerDetailField.showFormField = true;
