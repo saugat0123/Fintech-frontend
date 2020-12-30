@@ -693,7 +693,7 @@
                        <div class="form-group">
                            <label><strong>Income Risk</strong></label>
                            <textarea id="incomeRisk" formControlName="incomeRisk" name="introduction" type="text"
-                                     class="form-control" placeholder="Security Risk"
+                                     class="form-control" placeholder="Security Risk" rows="4"
                                      [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls?.incomeRisk?.errors }"></textarea>
                            <div *ngIf="(submitted) && basicInfoControls?.incomeRisk?.invalid"
                                 class="invalid-feedback">
@@ -707,7 +707,7 @@
                        <div class="form-group">
                            <label><strong>Security Risk</strong></label>
                            <textarea id="securityRisk" formControlName="securityRisk" name="introduction" type="text"
-                                     class="form-control" placeholder="Security Risk"
+                                     class="form-control" placeholder="Security Risk" rows="4"
                                      [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls?.securityRisk?.errors }"></textarea>
                            <div *ngIf="(submitted) && basicInfoControls?.securityRisk?.invalid"
                                 class="invalid-feedback">
@@ -721,7 +721,7 @@
                        <div class="form-group">
                            <label><strong>Succession Risk</strong></label>
                            <textarea id="successionRisk" formControlName="successionRisk" name="introduction" type="text"
-                                     class="form-control" placeholder="Succession Risk"
+                                     class="form-control" placeholder="Succession Risk" rows="4"
                                      [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls?.successionRisk?.errors }"></textarea>
                            <div *ngIf="(submitted) && basicInfoControls?.successionRisk?.invalid"
                                 class="invalid-feedback">
