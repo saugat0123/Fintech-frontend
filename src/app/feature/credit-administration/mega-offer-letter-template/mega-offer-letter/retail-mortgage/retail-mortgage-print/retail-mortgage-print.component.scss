@@ -1,0 +1,15 @@
+.nep {
+  font-size: 16px;
+  line-height: 1.9;
+  text-align: justify;
+  text-justify: inter-word;
+  margin: 10px 50px;
+}
+
+@media print {
+  div.divFooter {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+}
