@@ -1,5 +1,7 @@
-<nb-card>
-    <nb-card-header></nb-card-header>
+<nb-card [nbSpinner]="spinner">
+    <nb-card-header>
+
+    </nb-card-header>
     <nb-card-body>
         <table id="unassign-loan"
                class="table table-bordered table-hover table-sm sb-small text-center ">
@@ -32,6 +34,9 @@
                            nbTooltip="click to view detail Loan ">
                             <em class="fa fa-eye"></em>
                         </a>
+                        <a  (click)="openAssignPopUp()"
+                           nbTooltip="click to assign"><em
+                                class="fa fa-user"></em></a>
                     </td>
 
 
