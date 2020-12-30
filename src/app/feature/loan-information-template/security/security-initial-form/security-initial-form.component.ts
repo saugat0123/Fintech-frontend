@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastService} from '../../../../@core/utils';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
@@ -24,6 +24,7 @@ import {OwnerKycApplicableComponent} from './owner-kyc-applicable/owner-kyc-appl
 import {NepsePriceInfoService} from '../../../admin/component/nepse/nepse-price-info.service';
 import {NepsePriceInfo} from '../../../admin/modal/NepsePriceInfo';
 import {DatePipe} from '@angular/common';
+import {NumberUtils} from '../../../../@core/utils/number-utils';
 
 
 @Component({
@@ -144,6 +145,7 @@ export class SecurityInitialFormComponent implements OnInit {
              console.log(error);
          });
 
+         // todo : While setting data replace with patch value for non array field
         if (this.formData !== undefined) {
             this.ownerKycRelationInfoCheckedForLand = true;
             this.ownerKycRelationInfoCheckedForLandBuilding = true;
@@ -168,6 +170,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.setHypothecation(this.formDataForEdit['hypothecationOfStock']);
             this.setCorporate(this.formDataForEdit['corporateGuarantee']);
             this.setPersonal(this.formDataForEdit['personalGuarantee']);
+            this.securityForm.get('vehicleLoanExposure').patchValue(this.formDataForEdit['vehicleLoanExposure']);
         } else {
             this.addMoreLand();
             this.addBuilding();
@@ -200,6 +203,7 @@ export class SecurityInitialFormComponent implements OnInit {
             buildingUnderConstructions: this.formBuilder.array([]),
             plantDetails: this.formBuilder.array([]),
             vehicleDetails: this.formBuilder.array([]),
+            vehicleLoanExposure: [undefined],
             fixedDepositDetails: this.formBuilder.array([]),
             landBuilding: this.formBuilder.array([]),
             landBuildingDescription: [undefined],
@@ -982,6 +986,7 @@ export class SecurityInitialFormComponent implements OnInit {
             chassisNumber: [''],
             valuationAmount: [''],
             downPayment: [''],
+            remainingAmount: [undefined],
             loanExposure: [''],
             showroomCommission: [''],
             vehicalValuator: [undefined],
@@ -1022,6 +1027,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     engineNumber: [singleData.engineNumber],
                     chassisNumber: [singleData.chassisNumber],
                     valuationAmount: [singleData.valuationAmount],
+                    remainingAmount: [singleData.remainingAmount],
                     downPayment: [singleData.downPayment],
                     loanExposure: [singleData.loanExposure],
                     showroomCommission: [singleData.showroomCommission],
@@ -1041,6 +1047,10 @@ export class SecurityInitialFormComponent implements OnInit {
                 })
             );
         });
+    }
+
+    get vehicleDetails() {
+        return this.securityForm.get('vehicleDetails') as FormArray;
     }
 
     removeLandBuildingDetails(i) {
@@ -1436,7 +1446,7 @@ export class SecurityInitialFormComponent implements OnInit {
             Number(this.securityForm.get(['buildingUnderConstructions', i ,
               'buildingDetailsBeforeCompletion', 'waterSupply']).value) +
             Number(this.securityForm.get(['buildingUnderConstructions', i ,
-                  'buildingDetailsBeforeCompletion', 'sanitation']).value)+
+                  'buildingDetailsBeforeCompletion', 'sanitation']).value) +
             Number(this.securityForm.get(['buildingUnderConstructions', i ,
                   'buildingDetailsBeforeCompletion', 'electrification']).value)).toFixed(2);
         this.securityForm.get(['buildingUnderConstructions', i ,
@@ -1448,7 +1458,7 @@ export class SecurityInitialFormComponent implements OnInit {
             Number(this.securityForm.get(['buildingUnderConstructions', i ,
               'buildingDetailsAfterCompletion', 'waterSupply']).value) +
             Number(this.securityForm.get(['buildingUnderConstructions', i ,
-              'buildingDetailsAfterCompletion', 'sanitation']).value)+
+              'buildingDetailsAfterCompletion', 'sanitation']).value) +
             Number(this.securityForm.get(['buildingUnderConstructions', i ,
               'buildingDetailsAfterCompletion', 'electrification']).value)).toFixed(2);
         this.securityForm.get(['buildingUnderConstructions', i ,
@@ -1485,5 +1495,23 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.ownerKycRelationInfoCheckedForHypothecation = true;
             }
         }
+    }
+
+    vehicleRemainingAmount(index: number) {
+        const v = this.vehicleDetails.at(index);
+        v.get('remainingAmount').setValue(v.get('valuationAmount').value - v.get('downPayment').value);
+    }
+
+    get totalVehicleExposure() {
+        let totalRemaining =  0;
+        let totalValuation =  0;
+        let exposures = 0;
+        this.vehicleDetails.controls.forEach((c: AbstractControl) => {
+            totalRemaining += c.get('remainingAmount').value;
+            totalValuation += c.get('valuationAmount').value;
+        });
+        exposures = NumberUtils.isNumber((totalRemaining / totalValuation) * 100);
+        this.securityForm.get('vehicleLoanExposure').setValue(exposures);
+        return exposures;
     }
 }
