@@ -21,6 +21,7 @@ import {RelationshipList} from '../../../../loan/model/relationshipList';
 import {EnumUtils} from '../../../../../@core/utils/enums.utils';
 import {Gender} from '../../../../../@core/model/enum/gender';
 import {MaritalStatus} from '../../../../../@core/model/enum/marital-status';
+import {log} from 'util';
 
 @Component({
     selector: 'app-customer-form',
@@ -182,6 +183,7 @@ export class CustomerFormComponent implements OnInit {
             (response: any) => {
                 this.temporaryMunicipalitiesList = response.detail;
                 this.temporaryMunicipalitiesList.forEach(municipality => {
+                    // tslint:disable-next-line:max-line-length
                     if (!ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) && municipality.id === this.customer.temporaryMunicipalities.id) {
                         this.basicInfo.controls.temporaryMunicipalities.setValue(municipality);
                     }
@@ -269,6 +271,13 @@ export class CustomerFormComponent implements OnInit {
                     const rawFromValue = this.basicInfo.getRawValue();
                     this.customer.customerRelatives = rawFromValue.customerRelatives;
 
+                    const customerRisk = {
+                        incomeRisk: this.basicInfo.get('incomeRisk').value,
+                        securityRisk: this.basicInfo.get('securityRisk').value,
+                        successionRisk: this.basicInfo.get('successionRisk').value
+                    };
+                    this.customer.customerRisk = JSON.stringify(customerRisk);
+
                     /** banking relation setting data from child **/
                     // possibly can have more field in banking relationship
                     this.customer.bankingRelationship = JSON.stringify(this.basicInfo.get('bankingRelationship').value);
@@ -343,6 +352,9 @@ export class CustomerFormComponent implements OnInit {
             otherIncome: [this.customer.otherIncome === undefined ? undefined : this.customer.otherIncome],
             customerRelatives: this.formBuilder.array([]),
             introduction: [this.customer.introduction === undefined ? undefined : this.customer.introduction, [Validators.required]],
+            incomeRisk: [this.customer.incomeRisk === undefined ? undefined : this.customer.incomeRisk, [Validators.required]],
+            successionRisk: [this.customer.successionRisk === undefined ? undefined : this.customer.successionRisk, [Validators.required]],
+            securityRisk: [this.customer.securityRisk === undefined ? undefined : this.customer.securityRisk, [Validators.required]],
             bankingRelationship: [this.customer.bankingRelationship === undefined ?
                 undefined : JSON.parse(this.customer.bankingRelationship), [Validators.required]],
             netWorth: [this.customer.netWorth === undefined ?

@@ -30,6 +30,9 @@ export class Customer {
     nepaliDetail: string;
     version: number;
     introduction: string;
+    incomeRisk: string;
+    securityRisk: string;
+    successionRisk: string;
     customerCode: string;
     bankingRelationship: string;
     withinLimitRemarks: string;
@@ -45,5 +48,6 @@ export class Customer {
     gender: Gender;
     maritalStatus: MaritalStatus;
     customerLegalDocumentAddress: string;
+    customerRisk: string;
 
 }
