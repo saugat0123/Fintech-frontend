@@ -1123,6 +1123,118 @@
                        </div>
 
                        <hr>
+                       <div class="col-md-12 form-inline">
+                           <nb-checkbox #kycCheck id="shareholderkyccheck" class="ml-2"
+                                        (checkedChange)="checkShareholdeKycBox(kycCheck.checked)"
+                                        [checked]="shareholderKycCheck"><h6>Shareholder KYC</h6> </nb-checkbox>
+                       </div>
+                       <div *ngIf="shareholderKycCheck">
+                           <div *ngFor="let shareholderKyc of companyInfoFormGroup.get('shareholderKycDetails')['controls']; let shareholderKycIndex = index" class="border-bottom border-dark m-4"
+                                formArrayName="shareholderKycDetails">
+                               <div [formGroupName]="shareholderKycIndex">
+                                   <div class="row">
+                                       <div class="col-md-10 form-group">
+                                           <h5>{{shareholderKycIndex + 1}}) Shareholder KYC Details</h5>
+                                       </div>
+                                       <div *ngIf="companyInfoFormGroup.get('shareholderKycDetails').length>1"
+                                            class="col-md-2 float-right">
+                                           <input (click)="removeShareholderKycDetail(shareholderKycIndex)"
+                                                  class="align-self-end btn btn-sm btn-danger btn-primary"
+                                                  type="button"
+                                                  value="Delete">
+                                       </div>
+                                   </div>
+                                   <div class="row form-group">
+                                       <div class="col-md-4">
+                                           <div class="form-group">
+                                               <label class="title" for="shareholderRelationship">Relation</label>
+                                               <select class="form-control rounded" formControlName="shareholderRelationship"
+                                                       id="shareholderRelationship"
+                                                       name="shareholderRelationship">
+                                                   <option [ngValue]="null" hidden>Select Relationship</option>
+                                                   <option *ngFor="let relationship of shareholderRelationship.relation" [ngValue]="relationship.id">{{relationship.name}}</option>
+                                               </select>
+                                           </div>
+                                       </div>
+                                       <div class="col-md-4">
+                                           <div class="form-group">
+                                               <label for="relationName"><strong>Name</strong></label>
+                                               <input class="form-control" formControlName="relationName"
+                                                      id="relationName"
+                                                      name="relationName"
+                                                      placeholder="Name" type="text">
+                                           </div>
+                                       </div>
+                                       <div class="col-md-4">
+                                           <div class="form-group">
+                                               <label for="citizenshipNumber"><strong>Citizenship Number</strong></label>
+                                               <input [ngClass]="{
+                                                       'is-invalid': shareholderKyc.get('citizenshipNumber').invalid && (shareholderKyc.get('citizenshipNumber').dirty || shareholderKyc.get('citizenshipNumber').touched),
+                                                        'is-valid': !shareholderKyc.get('citizenshipNumber').invalid && (shareholderKyc.get('citizenshipNumber').dirty || shareholderKyc.get('citizenshipNumber').touched)
+                                                        }"
+                                                      class="form-control"
+                                                      formControlName="citizenshipNumber"
+                                                      name="citizenshipNumber"
+                                                      id="citizenshipNumber" placeholder="Citizenship Number" type="number">
+                                               <span *ngIf="shareholderKyc.get('citizenshipNumber').invalid" class="invalid-feedback">Citizenship number is required</span>
+                                           </div>
+                                       </div>
+                                       <div class="col-md-4">
+                                           <div class="form-group">
+                                               <label class="title" for="issuedDistrict">Issued District</label>
+                                               <select class="form-control rounded" formControlName="district"
+                                                       id="issuedDistrict"
+                                                       name="district">
+                                                   <option [ngValue]="null" hidden>Select District</option>
+                                                   <option *ngFor="let district of allDistrict" [ngValue]="district.id">{{district.name}}</option>
+                                               </select>
+                                           </div>
+                                       </div>
+                                       <div class="col-md-4">
+                                           <div class="form-group">
+                                               <label for="citizenshipIssuedDate"><strong>Issued Date</strong></label>
+                                               <div class="input-group">
+                                                   <input nbInput [nbDatepicker]="relationCitizenIssueDate"
+                                                          class="form-control"
+                                                          formControlName="citizenshipIssuedDate"
+                                                          name="citizenshipIssuedDate"
+                                                          id="citizenshipIssuedDate" placeholder="Issued Date">
+                                                   <nb-datepicker #relationCitizenIssueDate></nb-datepicker>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-md-4">
+                                           <div class="form-group">
+                                               <label for="mobileNumber"><strong>Mobile Number</strong></label>
+                                               <input [ngClass]="{
+                                                       'is-invalid': shareholderKyc.get('mobileNumber').errors && (shareholderKyc.get('mobileNumber').dirty || shareholderKyc.get('mobileNumber').touched),
+                                                        'is-valid': !shareholderKyc.get('mobileNumber').errors && (shareholderKyc.get('mobileNumber').dirty || shareholderKyc.get('mobileNumber').touched)
+                                                        }" class="form-control"
+                                                      formControlName="mobileNumber"
+                                                      id="mobileNumber"
+                                                      name="mobileNumber"
+                                                      placeholder="Mobile Number" type="number">
+                                               <span *ngIf="shareholderKyc.get('mobileNumber').errors?.pattern" class="invalid-feedback">Invalid mobile number</span>
+                                           </div>
+                                       </div>
+                                       <div class="col-md-4">
+                                           <div class="form-group">
+                                               <label for="shareholderKycAddress"><strong>Address</strong></label>
+                                               <input class="form-control"
+                                                      formControlName="shareholderKycAddress"
+                                                      id="shareholderKycAddress"
+                                                      name="shareholderKycAddress"
+                                                      placeholder="Address" type="text">
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div>
+                               <button [disabled]="!companyInfoFormGroup.get('shareholderKycDetails').valid" (click)="addMoreShareholderKycDetail()" class="btn btn-primary btn-sm float-right " size="tiny">Add more</button>
+                           </div>
+                       </div>
+                        <br>
                        <!--10. SWOT Analysis-->
                        <div class="box-header with-border">
                            <h5 class="box-title">10. SWOT Analysis</h5>

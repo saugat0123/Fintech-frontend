@@ -52,6 +52,9 @@ import {FormUtils} from '../../../../../@core/utils/form.utils';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
 import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
+import {Pattern} from '../../../../../@core/utils/constants/pattern';
+import {RelationshipList} from '../../../../loan/model/relationshipList';
+import {ShareholderKyc} from '../../../../admin/modal/shareholder-kyc';
 
 @Component({
     selector: 'app-company-form',
@@ -136,6 +139,9 @@ export class CompanyFormComponent implements OnInit {
     srdbAffiliatedId = false;
     disableCrgAlpha = envSrdb.disableCrgAlpha;
 
+    // list of relationship
+    shareholderRelationship: RelationshipList = new RelationshipList();
+    shareholderKycCheck = false;
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
@@ -181,6 +187,7 @@ export class CompanyFormComponent implements OnInit {
             if (JSON.stringify(this.additionalFieldData).includes(null)) {
                 this.additionalFieldSelected = false;
             }
+            this.shareholderKycCheck = true;
         }
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) {
             this.businessAndIndustry = JSON.parse(this.companyInfo.businessAndIndustry);
@@ -539,7 +546,16 @@ export class CompanyFormComponent implements OnInit {
                 this.businessGiven.lockerDuringReview],
             total: [ObjectUtil.isEmpty(this.businessGiven)
             || ObjectUtil.isEmpty(this.businessGiven.total) ? undefined :
-                this.businessGiven.total]
+                this.businessGiven.total],
+            companyLegalDocumentAddress:
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.companyLegalDocumentAddress)) ? undefined :
+                    this.companyInfo.companyLegalDocumentAddress, [Validators.required]],
+
+            // shareholder kyc
+            shareholderKycDetails: this.formBuilder.array([
+                this.shareholderKycFormGroup()
+            ]),
 
 
         });
@@ -555,6 +571,8 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfoFormGroup.setControl('proprietors', this.setProprietors(info.proprietorsList));
         // set contact persons data
         this.companyInfoFormGroup.setControl('contactPersons', this.setContactPersons(info.contactPersons));
+        // set shareholder kyc data
+        this.companyInfoFormGroup.setControl('shareholderKycDetails', this.setShareholderKycData(info.shareholderKycList));
     }
 
     managementTeamFormGroup(): FormGroup {
@@ -655,6 +673,23 @@ export class CompanyFormComponent implements OnInit {
             }));
         });
         return managementTeamFormArray;
+    }
+
+    // set shareholder kyc data
+    setShareholderKycData(shareholderKycList: ShareholderKyc[]): FormArray {
+        const shareholderKycFormArray = new FormArray([]);
+        shareholderKycList.forEach(shareholderKycDetail => {
+            shareholderKycFormArray.push(this.formBuilder.group({
+                shareholderRelationship: [shareholderKycDetail.shareholderRelationship === undefined ? '' : shareholderKycDetail.shareholderRelationship],
+                relationName: [shareholderKycDetail.relationName === undefined ? '' : shareholderKycDetail.relationName],
+                citizenshipNumber: [shareholderKycDetail.citizenshipNumber === undefined ? '' : shareholderKycDetail.citizenshipNumber],
+                district: [shareholderKycDetail.district === null ? null : (shareholderKycDetail.district.id === null ? null : shareholderKycDetail.district.id)],
+                citizenshipIssuedDate: [shareholderKycDetail.citizenshipIssuedDate === undefined ? '' : shareholderKycDetail.citizenshipIssuedDate],
+                mobileNumber: [shareholderKycDetail.mobileNumber === undefined ? '' : shareholderKycDetail.mobileNumber],
+                shareholderKycAddress: [shareholderKycDetail.shareholderKycAddress === undefined ? '' : shareholderKycDetail.shareholderKycAddress],
+            }));
+        });
+        return shareholderKycFormArray;
     }
 
     // return proprietors formArray
@@ -936,6 +971,25 @@ export class CompanyFormComponent implements OnInit {
         /** Market Scenario detail */
         submitData.marketScenario = this.marketScenarioComponent.submitData;
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
+
+        // shareholder kyc list
+        this.companyInfo.shareholderKycList = new Array<ShareholderKyc>();
+        let shareholderKycIndex = 0;
+        while (shareholderKycIndex < this.getShareholderKyc().length) {
+            const shareholderKyc = new ShareholderKyc();
+            shareholderKyc.shareholderRelationship = this.getShareholderKyc()[shareholderKycIndex].shareholderRelationship;
+            shareholderKyc.relationName = this.getShareholderKyc()[shareholderKycIndex].relationName;
+            shareholderKyc.citizenshipNumber = this.getShareholderKyc()[shareholderKycIndex].citizenshipNumber;
+            const district = new District();
+            district.id = this.getShareholderKyc()[shareholderKycIndex].district;
+            shareholderKyc.district = (!ObjectUtil.isEmpty(this.getShareholderKyc()[shareholderKycIndex].district)) ? district : undefined;
+            shareholderKyc.citizenshipIssuedDate = this.getShareholderKyc()[shareholderKycIndex].citizenshipIssuedDate;
+            shareholderKyc.mobileNumber = this.getShareholderKyc()[shareholderKycIndex].mobileNumber;
+            shareholderKyc.shareholderKycAddress = this.getShareholderKyc()[shareholderKycIndex].shareholderKycAddress;
+            shareholderKycIndex++;
+            this.companyInfo.shareholderKycList.push(shareholderKyc);
+        }
+
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
             this.close();
@@ -1032,5 +1086,42 @@ export class CompanyFormComponent implements OnInit {
             this.companyInfoFormGroup.get('mobileBankingDuringReview').value +
             this.companyInfoFormGroup.get('lockerDuringReview').value;
         this.companyInfoFormGroup.get('total').patchValue(total);
+    }
+
+    // return shareholder formArray
+    getShareholderKyc() {
+        return (this.companyInfoFormGroup.value.shareholderKycDetails as FormArray);
+    }
+
+    shareholderKycFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            shareholderRelationship: [undefined],
+            relationName: [undefined],
+            citizenshipNumber: [undefined, Validators.required],
+            district: [null],
+            citizenshipIssuedDate: [undefined, Validators.required],
+            mobileNumber: [undefined, Validators.pattern(Pattern.NUMBER_MOBILE)],
+            shareholderKycAddress: [undefined]
+        });
+    }
+
+    addMoreShareholderKycDetail() {
+        (this.companyInfoFormGroup.get('shareholderKycDetails') as FormArray).push(this.shareholderKycFormGroup());
+    }
+
+    removeShareholderKycDetail(index: number) {
+        (<FormArray>this.companyInfoFormGroup.get('shareholderKycDetails')).removeAt(index);
+    }
+
+    get shareholderInfoForm() {
+        return this.companyInfoFormGroup.controls.shareholderKycDetails['controls'];
+    }
+
+    checkShareholdeKycBox(kycCheck) {
+        if (!kycCheck) {
+            this.shareholderKycCheck = false;
+        } else {
+            this.shareholderKycCheck = true;
+        }
     }
 }
