@@ -13,7 +13,7 @@ import {LegalAndDisbursementComponent} from './cad-work-flow/cad-work-flow-base/
 import {CadActionComponent} from './cad-work-flow/cad-work-flow-base/cad-action/cad-action.component';
 import {DisbursementComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/disbursement/disbursement.component';
 import {MegaOfferLetterTemplateModule} from './mega-offer-letter-template/mega-offer-letter-template.module';
-import {CadDocumentTemplateModule} from './cad-document-temp;ate/cad-document-template.module';
+import {CadDocumentTemplateModule} from './cad-document-template/cad-document-template.module';
 import {NbDialogModule} from '@nebular/theme';
 
 
