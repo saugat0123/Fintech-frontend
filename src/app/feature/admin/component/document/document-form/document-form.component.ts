@@ -45,7 +45,8 @@ export class DocumentFormComponent implements OnInit {
           id: [this.model.id === undefined ? '' : this.model.id],
           name: [this.model.displayName === undefined ? '' : this.model.displayName,
             [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
-          checkType: [ObjectUtil.setUndefinedIfNull(this.model.checkType)]
+          checkType: [ObjectUtil.setUndefinedIfNull(this.model.checkType)],
+          containsTemplate: [ObjectUtil.isEmpty(this.model.containsTemplate) ? false : this.model.containsTemplate],
         }
     );
   }
@@ -53,6 +54,7 @@ export class DocumentFormComponent implements OnInit {
   onSubmit() {
     this.model.displayName = this.modelForm.get('name').value;
     this.model.checkType = this.modelForm.get('checkType').value;
+    this.model.containsTemplate = this.modelForm.get('containsTemplate').value;
     this.service.save(this.model).subscribe((response) => {
           this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Document!'));
           this.model = new Document();
