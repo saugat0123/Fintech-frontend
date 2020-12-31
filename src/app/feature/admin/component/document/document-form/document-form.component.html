@@ -30,13 +30,20 @@
         <br>
       </div>
       <div class="row">
-        <div class="col-md-12 form-group">
+        <div class="col-md-6 form-group">
           <label for="checkType">Check Type</label>
-          <nb-radio-group formControlName="checkType" id="checkType">
+          <nb-radio-group formControlName="checkType" id="checkType" name="checkType">
             <nb-radio [value]="null">Default</nb-radio>
             <nb-radio *ngFor="let type of DocumentCheckTypeEnum" [value]="type">
               {{ type | titlecase }}
             </nb-radio>
+          </nb-radio-group>
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="containsTemplate">Contains Template</label>
+          <nb-radio-group formControlName="containsTemplate" name="containsTemplate" id="containsTemplate">
+            <nb-radio [value]="true">Yes</nb-radio>
+            <nb-radio [value]="false">No</nb-radio>
           </nb-radio-group>
         </div>
       </div>
