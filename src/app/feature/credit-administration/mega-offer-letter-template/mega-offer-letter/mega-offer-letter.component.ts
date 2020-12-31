@@ -7,7 +7,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {MegaOfferLetterConst} from './mega-offer-letter-const';
 import {Router} from '@angular/router';
-import {OfferLetterDocType, OfferLetteDocrTypeEnum} from '../model/OfferLetteDocrTypeEnum';
+import {OfferLetteDocrTypeEnum} from '../../model/OfferLetteDocrTypeEnum';
+import {OfferLetterDocType} from '../../../cad-documents/cad-document-core/model/OfferLetteDocrTypeEnum';
 
 @Component({
   selector: 'app-mega-offer-letter',

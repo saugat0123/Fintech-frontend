@@ -45,5 +45,6 @@ export class Customer {
     gender: Gender;
     maritalStatus: MaritalStatus;
     customerLegalDocumentAddress: string;
+    individualJsonData: string;
 
 }

@@ -4,6 +4,10 @@ import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {LoanType} from '../../../loan/model/loanType';
+import {NbDialogService} from '@nebular/theme';
+import {AssignPopUpComponent} from '../assign-pop-up/assign-pop-up.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
     selector: 'app-unassigned-loan',
@@ -19,19 +23,22 @@ export class UnassignedLoanComponent implements OnInit {
     loanType = LoanType;
     toggleArray: { toggled: boolean }[] = [];
 
-    constructor(private service: CreditAdministrationService, private spinnerService: NgxSpinnerService) {
+    constructor(private service: CreditAdministrationService,
+                private spinnerService: NgxSpinnerService,
+                private nbModalService: NbDialogService,
+                private modalService:NgbModal) {
     }
 
     static loadData(other: UnassignedLoanComponent) {
         other.spinnerService.show();
+        other.spinner = true;
         other.service.getPaginationWithSearchObject(other.searchObj, other.page, 10).subscribe((res: any) => {
             other.loanList = res.detail.content;
             other.pageable = PaginationUtils.getPageable(res.detail);
             other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
+            other.spinnerService.hide();
+            other.spinner = false;
 
-        });
-        other.service.assignLoanToUser(other.searchObj).subscribe((res: any) => {
-            console.log(res);
         });
     }
 
@@ -42,5 +49,10 @@ export class UnassignedLoanComponent implements OnInit {
     changePage(page: number) {
         this.page = page;
         UnassignedLoanComponent.loadData(this);
+    }
+
+    openAssignPopUp(data:CustomerApprovedLoanCadDocumentation) {
+       const comp = this.modalService.open(AssignPopUpComponent);
+       comp.componentInstance.cadData = data;
     }
 }
