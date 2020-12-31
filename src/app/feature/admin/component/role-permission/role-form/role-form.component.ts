@@ -59,13 +59,17 @@ export class RoleFormComponent implements OnInit {
     }
 
     checkRole() {
-        if (this.role.roleType === RoleType.MAKER || this.role.roleType === RoleType.COMMITTEE || this.role.roleType === RoleType.ADMIN) {
+        if (this.role.roleType === RoleType.MAKER || this.role.roleType === RoleType.COMMITTEE || this.role.roleType === RoleType.ADMIN
+        || this.role.roleType === RoleType.CAD_SUPERVISOR) {
             this.hideBranchAccess = true;
             this.authorityRequired = true;
             this.showAuthority = true;
             this.role.roleAccess = RoleAccess.OWN;
             if (this.role.roleType === RoleType.COMMITTEE) {
                 this.role.roleAccess = RoleAccess.ALL;
+            }
+            if (this.role.roleType === RoleType.CAD_SUPERVISOR) {
+                this.role.roleAccess = RoleAccess.SPECIFIC;
             }
             if (this.role.roleType === RoleType.ADMIN) {
                 this.role.roleAccess = RoleAccess.ALL;

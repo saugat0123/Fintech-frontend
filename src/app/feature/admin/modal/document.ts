@@ -10,4 +10,5 @@ export class Document {
     status: string;
     checked: boolean;
     checkType: DocumentCheckType | string;
+    containsTemplate: boolean;
 }
