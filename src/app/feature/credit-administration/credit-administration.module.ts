@@ -11,6 +11,7 @@ import { CadWorkFlowBaseComponent } from './cad-work-flow/cad-work-flow-base/cad
 import { OfferLetterComponent } from './cad-work-flow/cad-work-flow-base/offer-letter/offer-letter.component';
 import { LegalAndDisbursementComponent } from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/legal-and-disbursement.component';
 import { CadActionComponent } from './cad-work-flow/cad-work-flow-base/cad-action/cad-action.component';
+import { DisbursementComponent } from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/disbursement/disbursement.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { CadActionComponent } from './cad-work-flow/cad-work-flow-base/cad-actio
         CadWorkFlowBaseComponent,
         OfferLetterComponent,
         LegalAndDisbursementComponent,
-        CadActionComponent],
+        CadActionComponent,
+        DisbursementComponent],
     imports: [
         ThemeModule,
         CommonModule,
