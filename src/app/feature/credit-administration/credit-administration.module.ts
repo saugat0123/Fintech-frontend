@@ -7,13 +7,21 @@ import {ThemeModule} from '../../@theme/theme.module';
 import {AssignPopUpComponent} from './component/assign-pop-up/assign-pop-up.component';
 import {LoanListComponent} from './component/loan-list/loan-list.component';
 import {VerifyPopUpComponent} from './component/verify-pop-up/verify-pop-up.component';
+import { CadWorkFlowBaseComponent } from './cad-work-flow/cad-work-flow-base/cad-work-flow-base.component';
+import { OfferLetterComponent } from './cad-work-flow/cad-work-flow-base/offer-letter/offer-letter.component';
+import { LegalAndDisbursementComponent } from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/legal-and-disbursement.component';
+import { CadActionComponent } from './cad-work-flow/cad-work-flow-base/cad-action/cad-action.component';
 
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
         AssignPopUpComponent,
         LoanListComponent,
-        VerifyPopUpComponent],
+        VerifyPopUpComponent,
+        CadWorkFlowBaseComponent,
+        OfferLetterComponent,
+        LegalAndDisbursementComponent,
+        CadActionComponent],
     imports: [
         ThemeModule,
         CommonModule,
