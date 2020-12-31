@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OfferLetterComponent } from './offer-letter.component';
+import { OfferLetterBaseComponent } from './offer-letter-base.component';
 
 describe('OfferLetterComponent', () => {
-  let component: OfferLetterComponent;
-  let fixture: ComponentFixture<OfferLetterComponent>;
+  let component: OfferLetterBaseComponent;
+  let fixture: ComponentFixture<OfferLetterBaseComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OfferLetterComponent ]
+      declarations: [ OfferLetterBaseComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OfferLetterComponent);
+    fixture = TestBed.createComponent(OfferLetterBaseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

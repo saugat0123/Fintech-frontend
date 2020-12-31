@@ -19,10 +19,17 @@ export class CreditAdministrationService extends BaseService<any> {
         return CreditAdministrationService.API;
     }
 
-    public assignLoanToUser(loanList: any): Observable<any> {
+    public assignLoanToUser(obj: any): Observable<any> {
         const api = `${this.getApi()}/assign`;
         const req = ApiUtils.getRequest(api);
 
-        return this.http.post(req.url, loanList, {headers: req.header});
+        return this.http.post(req.url, obj, {headers: req.header});
+    }
+
+    public getRoleInCad(): Observable<any> {
+        const api = `${this.getApi()}/cad-role-list`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.get(req.url, {headers: req.header});
     }
 }

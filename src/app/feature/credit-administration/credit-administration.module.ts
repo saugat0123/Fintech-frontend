@@ -7,11 +7,14 @@ import {ThemeModule} from '../../@theme/theme.module';
 import {AssignPopUpComponent} from './component/assign-pop-up/assign-pop-up.component';
 import {LoanListComponent} from './component/loan-list/loan-list.component';
 import {VerifyPopUpComponent} from './component/verify-pop-up/verify-pop-up.component';
-import { CadWorkFlowBaseComponent } from './cad-work-flow/cad-work-flow-base/cad-work-flow-base.component';
-import { OfferLetterComponent } from './cad-work-flow/cad-work-flow-base/offer-letter/offer-letter.component';
-import { LegalAndDisbursementComponent } from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/legal-and-disbursement.component';
-import { CadActionComponent } from './cad-work-flow/cad-work-flow-base/cad-action/cad-action.component';
-import { DisbursementComponent } from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/disbursement/disbursement.component';
+import {CadWorkFlowBaseComponent} from './cad-work-flow/cad-work-flow-base/cad-work-flow-base.component';
+import {OfferLetterBaseComponent} from './cad-work-flow/cad-work-flow-base/offer-letter-base/offer-letter-base.component';
+import {LegalAndDisbursementComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/legal-and-disbursement.component';
+import {CadActionComponent} from './cad-work-flow/cad-work-flow-base/cad-action/cad-action.component';
+import {DisbursementComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/disbursement/disbursement.component';
+import {MegaOfferLetterTemplateModule} from './mega-offer-letter-template/mega-offer-letter-template.module';
+import {CadDocumentTemplateModule} from './cad-document-temp;ate/cad-document-template.module';
+import {NbDialogModule} from '@nebular/theme';
 
 
 @NgModule({
@@ -20,16 +23,18 @@ import { DisbursementComponent } from './cad-work-flow/cad-work-flow-base/legal-
         LoanListComponent,
         VerifyPopUpComponent,
         CadWorkFlowBaseComponent,
-        OfferLetterComponent,
+        OfferLetterBaseComponent,
         LegalAndDisbursementComponent,
         CadActionComponent,
         DisbursementComponent],
     imports: [
         ThemeModule,
         CommonModule,
+        NbDialogModule.forRoot(),
+        MegaOfferLetterTemplateModule,
+        CadDocumentTemplateModule,
         RouterModule.forChild(routes)
     ],
-    exports: [AssignPopUpComponent, VerifyPopUpComponent],
     entryComponents: [AssignPopUpComponent, VerifyPopUpComponent]
 })
 export class CreditAdministrationModule {
