@@ -247,8 +247,8 @@ export class UIComponent implements OnInit {
       }
     });
 
-    if (other.productUtils.CAD_LITE_VERSION) {
-      // Id of Full Settlement Loan cycle is set 12 in patch backend
+    if (other.productUtils.CAD_LITE_VERSION || other.productUtils.FULL_CAD) {
+      // Id of cad Loan cycle is set 12 in patch backend
       other.documentService.getByLoanCycleAndStatus(12, Status.ACTIVE).subscribe((response: any) => {
         other.cadDocumentUploadList = response.detail;
 

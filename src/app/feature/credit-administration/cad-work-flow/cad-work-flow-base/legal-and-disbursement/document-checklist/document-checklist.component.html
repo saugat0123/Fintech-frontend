@@ -1,0 +1,29 @@
+<div class="col-md-12">
+    <table class="table table-bordered table-hover text-center sb-small table-sm">
+    <thead class="sb-bg-dark text-white">
+        <th>
+            Facility
+        </th>
+        <th rowspan="5">
+            Documents
+        </th>
+
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let customerLoan of customerLoanList">
+            <tr>
+                <td>
+                    {{customerLoan?.loan?.name}}
+                </td>
+            </tr>
+            <ng-container>
+                <tr *ngFor="let data of customerLoan?.loan?.approvedDocument">
+                    <td>{{data?.name}}</td>
+                    <td>{{data?.containsTemplate}}</td>
+                </tr>
+            </ng-container>
+        </ng-container>
+        </tbody>
+    </table>
+
+</div>

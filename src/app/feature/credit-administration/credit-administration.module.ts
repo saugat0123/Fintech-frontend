@@ -11,13 +11,16 @@ import {CadWorkFlowBaseComponent} from './cad-work-flow/cad-work-flow-base/cad-w
 import {OfferLetterBaseComponent} from './cad-work-flow/cad-work-flow-base/offer-letter-base/offer-letter-base.component';
 import {LegalAndDisbursementComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/legal-and-disbursement.component';
 import {CadActionComponent} from './cad-work-flow/cad-work-flow-base/cad-action/cad-action.component';
-import {DisbursementComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/disbursement/disbursement.component';
+import {ExposureComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/exposure/exposure.component';
 import {MegaOfferLetterTemplateModule} from './mega-offer-letter-template/mega-offer-letter-template.module';
 import {CadDocumentTemplateModule} from './cad-document-template/cad-document-template.module';
 import {NbDialogModule} from '@nebular/theme';
-import { OfferLetterListComponent } from './component/offer-letter-list/offer-letter-list.component';
-import { CadOfferLetterProfileComponent } from './cad-offerletter-profile/cad-offerletter-profile.component';
+import {OfferLetterListComponent} from './component/offer-letter-list/offer-letter-list.component';
+import {CadOfferLetterProfileComponent} from './cad-offerletter-profile/cad-offerletter-profile.component';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {DocumentChecklistComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/document-checklist/document-checklist.component';
+import { FeesCommissionComponent } from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/fees-commission/fees-commission.component';
+import {CoreModule} from '../../@core/core.module';
 
 
 @NgModule({
@@ -29,9 +32,11 @@ import {NgSelectModule} from '@ng-select/ng-select';
         OfferLetterBaseComponent,
         LegalAndDisbursementComponent,
         CadActionComponent,
-        DisbursementComponent,
+        ExposureComponent,
         OfferLetterListComponent,
-        CadOfferLetterProfileComponent],
+        CadOfferLetterProfileComponent,
+        DocumentChecklistComponent,
+        FeesCommissionComponent],
     imports: [
         ThemeModule,
         CommonModule,
@@ -39,7 +44,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
         MegaOfferLetterTemplateModule,
         CadDocumentTemplateModule,
         RouterModule.forChild(routes),
-        NgSelectModule
+        NgSelectModule,
+        CoreModule
     ],
     entryComponents: [AssignPopUpComponent, VerifyPopUpComponent]
 })
