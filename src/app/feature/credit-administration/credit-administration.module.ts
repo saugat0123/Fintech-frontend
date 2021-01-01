@@ -15,6 +15,8 @@ import {DisbursementComponent} from './cad-work-flow/cad-work-flow-base/legal-an
 import {MegaOfferLetterTemplateModule} from './mega-offer-letter-template/mega-offer-letter-template.module';
 import {CadDocumentTemplateModule} from './cad-document-template/cad-document-template.module';
 import {NbDialogModule} from '@nebular/theme';
+import { OfferLetterListComponent } from './component/offer-letter-list/offer-letter-list.component';
+import { CadOfferLetterProfileComponent } from './cad-offerletter-profile/cad-offerletter-profile.component';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import {NbDialogModule} from '@nebular/theme';
         OfferLetterBaseComponent,
         LegalAndDisbursementComponent,
         CadActionComponent,
-        DisbursementComponent],
+        DisbursementComponent,
+        OfferLetterListComponent,
+        CadOfferLetterProfileComponent],
     imports: [
         ThemeModule,
         CommonModule,
