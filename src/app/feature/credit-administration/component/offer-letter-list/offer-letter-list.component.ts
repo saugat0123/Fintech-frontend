@@ -33,6 +33,8 @@ export class OfferLetterListComponent implements OnInit {
       other.pageable = PaginationUtils.getPageable(res.detail);
       other.spinner = false;
 
+    }, error => {
+      console.log(error);
     });
   }
 
@@ -45,7 +47,13 @@ export class OfferLetterListComponent implements OnInit {
     OfferLetterListComponent.loadData(this);
   }
 
-  loadProfile() {
-    this.router.navigate(['/home/credit/offer-letter-profile']);
+  loadProfile(offerLetterId, loanHolderId) {
+    this.router.navigate(['/home/credit/offer-letter-profile'],
+        {
+          queryParams: {
+                offerLetterId: offerLetterId,
+                loanHolderId: loanHolderId
+              }
+        });
   }
 }

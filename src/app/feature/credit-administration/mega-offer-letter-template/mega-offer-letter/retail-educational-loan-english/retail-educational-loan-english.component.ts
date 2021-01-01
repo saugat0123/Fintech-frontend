@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {MegaOfferLetterConst} from '../mega-offer-letter-const';
+import {MegaOfferLetterConst} from '../../../mega-offer-letter-const';
 import {CustomerOfferLetter} from '../../../../loan/model/customer-offer-letter';
 import {LoanDataHolder} from '../../../../loan/model/loanData';
 import {CustomerOfferLetterService} from '../../../../loan/service/customer-offer-letter.service';

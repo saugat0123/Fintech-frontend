@@ -17,6 +17,7 @@ import {CadDocumentTemplateModule} from './cad-document-template/cad-document-te
 import {NbDialogModule} from '@nebular/theme';
 import { OfferLetterListComponent } from './component/offer-letter-list/offer-letter-list.component';
 import { CadOfferLetterProfileComponent } from './cad-offerletter-profile/cad-offerletter-profile.component';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { CadOfferLetterProfileComponent } from './cad-offerletter-profile/cad-of
         NbDialogModule.forRoot(),
         MegaOfferLetterTemplateModule,
         CadDocumentTemplateModule,
-        RouterModule.forChild(routes)
+        RouterModule.forChild(routes),
+        NgSelectModule
     ],
     entryComponents: [AssignPopUpComponent, VerifyPopUpComponent]
 })

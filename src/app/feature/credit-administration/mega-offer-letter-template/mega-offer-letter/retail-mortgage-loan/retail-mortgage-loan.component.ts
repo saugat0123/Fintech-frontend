@@ -10,7 +10,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {DocStatus} from '../../../../loan/model/docStatus';
 import {CustomerOfferLetterPath} from '../../../../loan/model/customer-offer-letter-path';
 import {OfferLetter} from '../../../../admin/modal/offerLetter';
-import {MegaOfferLetterConst} from '../mega-offer-letter-const';
+import {MegaOfferLetterConst} from '../../../mega-offer-letter-const';
 
 @Component({
   selector: 'app-retail-mortgage-loan',
