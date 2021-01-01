@@ -9,7 +9,7 @@ import {LoanDataHolder} from '../../../../loan/model/loanData';
 import {CustomerOfferLetterService} from '../../../../loan/service/customer-offer-letter.service';
 import {CustomerOfferLetterPath} from '../../../../loan/model/customer-offer-letter-path';
 import {DocStatus} from '../../../../loan/model/docStatus';
-import {MegaOfferLetterConst} from '../mega-offer-letter-const';
+import {MegaOfferLetterConst} from '../../../mega-offer-letter-const';
 
 @Component({
   selector: 'app-sme',

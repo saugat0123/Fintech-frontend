@@ -1,0 +1,128 @@
+ <nb-card class="m-0" [nbSpinner]="spinner"
+          nbSpinnerStatus="primary"
+          accent="info"
+          nbSpinnerSize="giant">
+     <nb-card-header></nb-card-header>
+     <nb-card-body>
+         <div class="main-body">
+
+             <div class="row gutters-sm">
+                 <div class="col-md-4 mb-3">
+                     <div class="card">
+                         <div class="card-body">
+                             <div class="d-flex flex-column align-items-center text-center">
+                                 <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                                 <div class="mt-3">
+                                     <h4>XYZ Company</h4>
+                                     <p class="text-secondary mb-1">Institutional Customer</p>
+                                     <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     <nb-card class="mt-3">
+                         <nb-card-header>
+                             <h6>Generate Offer Letter</h6>
+                         </nb-card-header>
+                       <nb-card-body>
+                           <div class="row">
+                        <div class="col-md-12">
+                            <nb-select placeholder="Select Offer Letter"
+                                       fullWidth
+                                       status="info">
+                                <nb-option *ngFor="let i of offerLetterTypes" [value]="i.key">
+                                    {{i.key}}
+                                </nb-option>
+                            </nb-select>
+                        </div>
+                       </div>
+
+                       </nb-card-body>
+                     </nb-card>
+                     <nb-card>
+                         <nb-card-header>Offer Letter Documents</nb-card-header>
+                         <nb-card-body>
+
+                         </nb-card-body>
+                     </nb-card>
+                 </div>
+                 <div class="col-md-8">
+                     <div class="card mb-3">
+                         <div class="card-body">
+                             <div class="row">
+                                 <div class="col-sm-3">
+                                     <h6 class="mb-0">Full Name</h6>
+                                 </div>
+                                 <div class="col-sm-9 text-secondary">
+                                     Kenneth Valdez
+                                 </div>
+                             </div>
+                             <hr>
+                             <div class="row">
+                                 <div class="col-sm-3">
+                                     <h6 class="mb-0">Email</h6>
+                                 </div>
+                                 <div class="col-sm-9 text-secondary">
+                                     fip@jukmuh.al
+                                 </div>
+                             </div>
+                             <hr>
+                             <div class="row">
+                                 <div class="col-sm-3">
+                                     <h6 class="mb-0">Phone</h6>
+                                 </div>
+                                 <div class="col-sm-9 text-secondary">
+                                     (239) 816-9029
+                                 </div>
+                             </div>
+                             <hr>
+                             <div class="row">
+                                 <div class="col-sm-3">
+                                     <h6 class="mb-0">Mobile</h6>
+                                 </div>
+                                 <div class="col-sm-9 text-secondary">
+                                     (320) 380-4539
+                                 </div>
+                             </div>
+                             <hr>
+                             <div class="row">
+                                 <div class="col-sm-3">
+                                     <h6 class="mb-0">Address</h6>
+                                 </div>
+                                 <div class="col-sm-9 text-secondary">
+                                     Bay Area, San Francisco, CA
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="row">
+                         <div class="col-md-12 mb-3">
+                             <div class="card h-100">
+                                 <div class="card-body">
+                                      <table class="table table-bordered table-hover text-center sb-small table-sm">
+                                          <thead>
+                                          <tr class="sb-bg-dark text-white">
+                                              <th>S.No.</th>
+                                              <th>Loan Facility</th>
+                                              <th>Proposed Amount</th>
+                                              <th>Type</th>
+                                              <th>Status</th>
+                                              <th>Loan lifespan</th>
+                                              <th>Created On</th>
+                                          </tr>
+                                          </thead>
+                                          <tbody>
+                                          <tr>
+
+                                          </tr>
+                                          </tbody>
+                                      </table>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </nb-card-body>
+ </nb-card>

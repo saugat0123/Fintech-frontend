@@ -1,3 +1,4 @@
+
 export enum MegaOfferLetterConst {
     RETAIL_HOUSING,
     RETAIL_EDUCATIONAL,
@@ -40,6 +41,23 @@ export namespace MegaOfferLetterConst {
             }
         });
         return key;
+    }
+
+    export function values() {
+        return Object.keys(MegaOfferLetterConst).filter(
+            (type) => isNaN(<any>type) && type !== 'values' && type !== 'enumObject'
+        );
+    }
+
+    export function enumObject() {
+        const enums = [];
+        values().forEach( v => {
+            enums.push({
+                key: v,
+                value: MegaOfferLetterConst[v]
+            });
+        });
+        return enums;
     }
 
 }

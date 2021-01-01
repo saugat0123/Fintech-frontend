@@ -6,7 +6,7 @@ import {ToastService} from '../../../../../@core/utils';
 import {Router} from '@angular/router';
 import {LoanDataHolder} from '../../../../loan/model/loanData';
 import {CustomerOfferLetter} from '../../../../loan/model/customer-offer-letter';
-import {MegaOfferLetterConst} from '../mega-offer-letter-const';
+import {MegaOfferLetterConst} from '../../../mega-offer-letter-const';
 import {CustomerOfferLetterService} from '../../../../loan/service/customer-offer-letter.service';
 import {DocStatus} from '../../../../loan/model/docStatus';
 import {CustomerOfferLetterPath} from '../../../../loan/model/customer-offer-letter-path';
