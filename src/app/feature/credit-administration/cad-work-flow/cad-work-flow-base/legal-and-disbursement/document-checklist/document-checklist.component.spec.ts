@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DisbursementComponent } from './disbursement.component';
+import { DocumentChecklistComponent } from './document-checklist.component';
 
-describe('DisbursementComponent', () => {
-  let component: DisbursementComponent;
-  let fixture: ComponentFixture<DisbursementComponent>;
+describe('DocumentChecklistComponent', () => {
+  let component: DocumentChecklistComponent;
+  let fixture: ComponentFixture<DocumentChecklistComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DisbursementComponent ]
+      declarations: [ DocumentChecklistComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DisbursementComponent);
+    fixture = TestBed.createComponent(DocumentChecklistComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
