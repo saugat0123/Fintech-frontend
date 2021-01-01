@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
   selector: 'app-legal-and-disbursement',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./legal-and-disbursement.component.scss']
 })
 export class LegalAndDisbursementComponent implements OnInit {
-
+  @Input() cadData: CustomerApprovedLoanCadDocumentation;
   constructor() { }
 
   ngOnInit() {
