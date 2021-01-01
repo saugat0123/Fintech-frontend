@@ -9,7 +9,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {DocStatus} from '../../../../loan/model/docStatus';
 import {OfferLetter} from '../../../../admin/modal/offerLetter';
 import {CustomerOfferLetterPath} from '../../../../loan/model/customer-offer-letter-path';
-import {MegaOfferLetterConst} from '../mega-offer-letter-const';
+import {MegaOfferLetterConst} from '../../../mega-offer-letter-const';
 
 @Component({
     selector: 'app-retail-housing-loan',

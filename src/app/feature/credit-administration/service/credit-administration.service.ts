@@ -32,4 +32,11 @@ export class CreditAdministrationService extends BaseService<any> {
 
         return this.http.get(req.url, {headers: req.header});
     }
+
+    public getCadListPaginationWithSearchObject(searchObj: any, page: number = 1, size: number = 20): Observable<any> {
+        const api = `${this.getApi()}/cad-list?page=${page}&size=${size}`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.post(req.url, searchObj, {headers: req.header});
+    }
 }

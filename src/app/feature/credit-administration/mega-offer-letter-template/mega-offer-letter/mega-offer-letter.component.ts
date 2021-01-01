@@ -5,7 +5,7 @@ import {ToastService} from '../../../../@core/utils';
 import {CustomerOfferLetterService} from '../../../loan/service/customer-offer-letter.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
-import {MegaOfferLetterConst} from './mega-offer-letter-const';
+import {MegaOfferLetterConst} from '../../mega-offer-letter-const';
 import {Router} from '@angular/router';
 import {OfferLetteDocrTypeEnum} from '../../model/OfferLetteDocrTypeEnum';
 import {OfferLetterDocType} from '../../../cad-documents/cad-document-core/model/OfferLetteDocrTypeEnum';
