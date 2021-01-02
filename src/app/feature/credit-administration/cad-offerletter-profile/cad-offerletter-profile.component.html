@@ -110,28 +110,35 @@
                      </div>
                      <div class="row">
                          <div class="col-md-12 mb-3">
-                             <div class="card h-100" style="min-height: 500px">
-                                 <div class="card-body">
+                             <nb-card class="h-100" style="min-height: 500px">
+                                 <nb-card-header><strong>Loan Information</strong></nb-card-header>
+                                 <nb-card-body>
                                       <table class="table table-bordered table-hover text-center sb-small table-sm">
                                           <thead>
                                           <tr class="sb-bg-dark text-white">
                                               <th>S.No.</th>
                                               <th>Loan Facility</th>
                                               <th>Proposed Amount</th>
-                                              <th>Type</th>
                                               <th>Status</th>
-                                              <th>Loan lifespan</th>
                                               <th>Created On</th>
                                           </tr>
                                           </thead>
                                           <tbody>
-                                          <tr>
-
-                                          </tr>
+                                         <ng-container>
+                                             <tr *ngFor="let model of cadOfferLetterApprovedDoc?.assignedLoan;let i=index">
+                                                 <td>{{i + 1}}</td>
+                                                 <td>{{model?.loan?.name}}</td>
+                                                 <td class="text-right">Rs. {{model?.proposal?.proposedLimit | number}}
+                                                 <td>{{model?.documentStatus}}</td>
+                                                 <td>
+                                                         {{model?.createdAt | date}}
+                                                 </td>
+                                             </tr>
+                                         </ng-container>
                                           </tbody>
                                       </table>
-                                 </div>
-                             </div>
+                                 </nb-card-body>
+                             </nb-card>
                          </div>
                      </div>
                  </div>
