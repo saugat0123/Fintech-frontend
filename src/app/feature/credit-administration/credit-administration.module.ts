@@ -21,6 +21,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {DocumentChecklistComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/document-checklist/document-checklist.component';
 import { FeesCommissionComponent } from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/fees-commission/fees-commission.component';
 import {CoreModule} from '../../@core/core.module';
+import { CadOfferLetterModalComponent } from './cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {CoreModule} from '../../@core/core.module';
         OfferLetterListComponent,
         CadOfferLetterProfileComponent,
         DocumentChecklistComponent,
-        FeesCommissionComponent],
+        FeesCommissionComponent,
+        CadOfferLetterModalComponent],
     imports: [
         ThemeModule,
         CommonModule,
@@ -47,7 +49,7 @@ import {CoreModule} from '../../@core/core.module';
         NgSelectModule,
         CoreModule
     ],
-    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent]
+    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent , CadOfferLetterModalComponent]
 })
 export class CreditAdministrationModule {
 }

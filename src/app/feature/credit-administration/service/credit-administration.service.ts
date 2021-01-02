@@ -3,6 +3,7 @@ import {BaseService} from '../../../@core/BaseService';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ApiUtils} from '../../../@core/utils/api/ApiUtils';
+import {CustomerApprovedLoanCadDocumentation} from '../model/customerApprovedLoanCadDocumentation';
 
 @Injectable({
     providedIn: 'root'
@@ -38,5 +39,12 @@ export class CreditAdministrationService extends BaseService<any> {
         const req = ApiUtils.getRequest(api);
 
         return this.http.post(req.url, searchObj, {headers: req.header});
+    }
+
+    public saveCadDocumentBulk(obj: CustomerApprovedLoanCadDocumentation): Observable<any> {
+        const api = `${this.getApi()}/cad/save`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.patch(req.url, obj, {headers: req.header});
     }
 }
