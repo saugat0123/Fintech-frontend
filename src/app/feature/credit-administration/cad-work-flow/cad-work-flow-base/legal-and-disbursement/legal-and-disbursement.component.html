@@ -1,6 +1,10 @@
+<app-cad-action></app-cad-action>
 <nb-card>
     <nb-card-body>
         <nb-tabset>
+            <nb-tab tabTitle="Basic Info">
+        <app-cad-offerletter-profile></app-cad-offerletter-profile>
+            </nb-tab>
             <nb-tab tabTitle="Exposure Detail">
                 <app-exposure [cadData]="cadData" *ngIf="cadData"></app-exposure>
             </nb-tab>
