@@ -10,6 +10,13 @@ import {DocStatus} from '../../../../loan/model/docStatus';
 import {CustomerOfferLetterPath} from '../../../../loan/model/customer-offer-letter-path';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {MegaOfferLetterConst} from '../../../mega-offer-letter-const';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {OfferDocument} from '../../../model/OfferDocument';
+import {CadDocStatus} from '../../../model/CadDocStatus';
+import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {CreditAdministrationService} from '../../../service/credit-administration.service';
+import {NbDialogRef} from '@nebular/theme';
+import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 
 @Component({
   selector: 'app-retail-educational-loan',
@@ -18,24 +25,25 @@ import {MegaOfferLetterConst} from '../../../mega-offer-letter-const';
 })
 export class RetailEducationalLoanComponent implements OnInit {
   form: FormGroup;
-  spinner = false;
-  existingData;
+  // todo replace enum constant string compare
+   spinner = false;
+  existingOfferLetter = false;
   initialInfoPrint;
-  @Input() loanDataHolder: LoanDataHolder;
-  customerOfferLetter: CustomerOfferLetter;
-  @Input() customerId: number;
-  @Input() offerLetterTypeId: number;
   offerLetterConst = MegaOfferLetterConst;
+  offerLetterDocument: OfferDocument;
+
+  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
-              private customerOfferLetterService: CustomerOfferLetterService,
-              private toastService: ToastService) {
+              private toastService: ToastService,
+              private administrationService: CreditAdministrationService,
+              protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>) {
   }
 
   ngOnInit() {
     this.buildForm();
-    this.fillForm();
+    this.checkOfferLetterData();
   }
 
   buildForm() {
@@ -78,82 +86,56 @@ export class RetailEducationalLoanComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
+
+  checkOfferLetterData() {
+    if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
+      this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.
+      filter(value => value.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.RETAIL_EDUCATIONAL).toString())[0];
+      console.log(this.offerLetterDocument , "jj");
+      if (ObjectUtil.isEmpty(this.offerLetterDocument.id)) {
+        this.offerLetterDocument = new OfferDocument();
+        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_EDUCATIONAL);
+      } else  {
+        const  initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+        console.log(initialInfo);
+        this.initialInfoPrint = initialInfo;
+        console.log(this.offerLetterDocument);
+        this.existingOfferLetter = true;
+        this.form.patchValue(initialInfo, {emitEvent: false});
+        this.initialInfoPrint = initialInfo;
+      }
+    }
+  }
+
+
+  submit(): void {
     this.spinner = true;
-    this.customerOfferLetter.docStatus = DocStatus.PENDING;
-    const customerLoan = new LoanDataHolder();
-    customerLoan.id = this.customerId;
-    this.customerOfferLetter.customerLoan = customerLoan;
-    if (this.existingData) {
-      this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
-        if (offerLetterPath.offerLetter.id === this.offerLetterTypeId) {
+    this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
+
+    if (this.existingOfferLetter) {
+      this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
+        if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.RETAIL_EDUCATIONAL).toString()) {
           offerLetterPath.initialInformation = JSON.stringify(this.form.value);
         }
       });
     } else {
-      const offerLetter = new OfferLetter();
-      offerLetter.id = this.offerLetterTypeId;
-      const customerOfferLetterPathArray = this.customerOfferLetter.customerOfferLetterPath ?
-          this.customerOfferLetter.customerOfferLetterPath : [];
-      const customerOfferLetterPath = new CustomerOfferLetterPath();
-      customerOfferLetterPath.offerLetter = offerLetter;
-      customerOfferLetterPath.initialInformation = JSON.stringify(this.form.value);
-      customerOfferLetterPathArray.push(customerOfferLetterPath);
-      this.customerOfferLetter.customerOfferLetterPath = customerOfferLetterPathArray;
+      const offerDocument = new OfferDocument();
+      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_EDUCATIONAL);
+      offerDocument.initialInformation = JSON.stringify(this.form.value);
+      this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
-    // TODO: Assign Supported Information in OfferLetter
-    this.customerOfferLetterService.save(this.customerOfferLetter).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+
+    this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe( () => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Retail Educational Offer Letter'));
       this.spinner = false;
-      this.router.navigateByUrl('/home/dashboard').then(value => {
-        if (value) {
-          this.router.navigate(['/home/cad-document'], {
-            queryParams: {customerId: this.customerId, }
-          });
-        }
-      });
-    }, error => {
+      this.dialogRef.close();
+    } ,  error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save retail educational loan Letter'));
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save  Retail Educational Offer Letter'));
       this.spinner = false;
+      this.dialogRef.close();
     });
+
   }
 
-  fillForm(): void {
-    if (this.loanDataHolder.customerOfferLetter) {
-      this.loanDataHolder.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
-        if (offerLetterPath.offerLetter.id === this.offerLetterTypeId) {
-          this.existingData = true;
-        }
-      });
-    }
-    if (!this.existingData) {
-      if (this.loanDataHolder.customerOfferLetter) {
-        this.customerOfferLetterService.detail(this.loanDataHolder.customerOfferLetter.id).subscribe(response => {
-          this.customerOfferLetter = response.detail;
-        }, error => {
-          console.error(error);
-          this.toastService.show(new Alert(AlertType.ERROR, 'Error loading Offer Letter'));
-        });
-      } else {
-        this.customerOfferLetter = new CustomerOfferLetter();
-      }
-     /* this.addCustomerDetail();*/
-    } else {
-      this.customerOfferLetterService.detail(this.loanDataHolder.customerOfferLetter.id).subscribe(response => {
-        this.customerOfferLetter = response.detail;
-        let initialInfo = null;
-        this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
-          if (offerLetterPath.offerLetter.id === this.offerLetterTypeId) {
-            initialInfo = JSON.parse(offerLetterPath.initialInformation);
-            this.initialInfoPrint = initialInfo;
-          }
-        });
-        this.form.patchValue(initialInfo);
-      }, error => {
-        console.error(error);
-        this.toastService.show(new Alert(AlertType.ERROR, 'Error loading Offer Letter'));
-      });
-    }
-  }
 }

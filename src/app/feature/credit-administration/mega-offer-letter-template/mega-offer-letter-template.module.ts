@@ -46,6 +46,11 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: [...COMPONENTS],
+    exports: [
+        HayerPurchaseComponent,
+        RetailEducationalLoanComponent,
+        SmeComponent
+    ],
     imports: [
         ThemeModule,
         CommonModule,

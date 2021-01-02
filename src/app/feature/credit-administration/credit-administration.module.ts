@@ -18,6 +18,7 @@ import {NbDialogModule} from '@nebular/theme';
 import { OfferLetterListComponent } from './component/offer-letter-list/offer-letter-list.component';
 import { CadOfferLetterProfileComponent } from './cad-offerletter-profile/cad-offerletter-profile.component';
 import {NgSelectModule} from '@ng-select/ng-select';
+import { CadOfferLetterModalComponent } from './cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
         CadActionComponent,
         DisbursementComponent,
         OfferLetterListComponent,
-        CadOfferLetterProfileComponent],
+        CadOfferLetterProfileComponent,
+        CadOfferLetterModalComponent],
     imports: [
         ThemeModule,
         CommonModule,
@@ -41,7 +43,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
         RouterModule.forChild(routes),
         NgSelectModule
     ],
-    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent]
+    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent , CadOfferLetterModalComponent]
 })
 export class CreditAdministrationModule {
 }

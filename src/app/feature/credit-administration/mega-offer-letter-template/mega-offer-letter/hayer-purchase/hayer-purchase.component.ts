@@ -5,11 +5,15 @@ import {OfferLetter} from '../../../../admin/modal/offerLetter';
 import {ToastService} from '../../../../../@core/utils';
 import {Router} from '@angular/router';
 import {LoanDataHolder} from '../../../../loan/model/loanData';
-import {CustomerOfferLetter} from '../../../../loan/model/customer-offer-letter';
 import {MegaOfferLetterConst} from '../../../mega-offer-letter-const';
 import {CustomerOfferLetterService} from '../../../../loan/service/customer-offer-letter.service';
-import {DocStatus} from '../../../../loan/model/docStatus';
-import {CustomerOfferLetterPath} from '../../../../loan/model/customer-offer-letter-path';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {OfferDocument} from '../../../model/OfferDocument';
+import {CadDocStatus} from '../../../model/CadDocStatus';
+import {CreditAdministrationService} from '../../../service/credit-administration.service';
+import {NbDialogRef} from '@nebular/theme';
+import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 
 @Component({
   selector: 'app-hayer-purchase',
@@ -17,26 +21,30 @@ import {CustomerOfferLetterPath} from '../../../../loan/model/customer-offer-let
   styleUrls: ['./hayer-purchase.component.scss']
 })
 export class HayerPurchaseComponent implements OnInit {
+  // todo replace enum constant string compare
   hayarPurchase: FormGroup;
   spinner = false;
   existingOfferLetter = false;
-  @Input() loanDataHolder: LoanDataHolder;
   initialInfoPrint;
-  customerOfferLetter: CustomerOfferLetter;
-  @Input() customerId: number;
-  @Input() offerLetterTypeId: number;
+  /*customerOfferLetter: CustomerOfferLetter;
+*/
   offerLetterConst = MegaOfferLetterConst;
+  hayerPurchaseLetter: OfferDocument;
+  isPresentPrevious = false;
+
+  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
 
 
   constructor(private formBuilder: FormBuilder,
-              private customerOfferLetterService: CustomerOfferLetterService,
               private toastService: ToastService,
-              private router: Router) {
+              private router: Router,
+              private administrationService: CreditAdministrationService,
+              protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>) {
   }
 
   ngOnInit() {
     this.buildForm();
-    this.fillForm();
+    this.checkOfferLetterData();
   }
 
   buildForm() {
@@ -77,86 +85,55 @@ export class HayerPurchaseComponent implements OnInit {
     });
   }
 
-  fillForm(): void {
-    if (this.loanDataHolder.customerOfferLetter) {
-      this.loanDataHolder.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
-        if (offerLetterPath.offerLetter.id === this.offerLetterTypeId) {
-          this.existingOfferLetter = true;
-        }
-      });
-    }
-    if (!this.existingOfferLetter) {
-      if (this.loanDataHolder.customerOfferLetter) {
-        this.customerOfferLetterService.detail(this.loanDataHolder.customerOfferLetter.id).subscribe(response => {
-          this.customerOfferLetter = response.detail;
-        }, error => {
-          console.error(error);
-          this.toastService.show(new Alert(AlertType.ERROR, 'Error loading Offer Letter'));
-        });
-      } else {
-        this.customerOfferLetter = new CustomerOfferLetter();
-      }
-    } else {
-      this.customerOfferLetterService.detail(this.loanDataHolder.customerOfferLetter.id).subscribe(response => {
-        this.customerOfferLetter = response.detail;
-        let initialInfo = null;
-        this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
-          if (offerLetterPath.offerLetter.id === this.offerLetterTypeId) {
-            initialInfo = JSON.parse(offerLetterPath.initialInformation);
-            this.initialInfoPrint = initialInfo;
-          }
-        });
+  checkOfferLetterData() {
+    if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
+      this.hayerPurchaseLetter = this.cadOfferLetterApprovedDoc.offerDocumentList.
+      filter(value => value.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.HAYER_PURCHASE).toString())[0];
+      console.log(this.hayerPurchaseLetter , "jj");
+      if (ObjectUtil.isEmpty(this.hayerPurchaseLetter.id)) {
+        this.hayerPurchaseLetter = new OfferDocument();
+        this.hayerPurchaseLetter.docName = this.offerLetterConst.value(this.offerLetterConst.HAYER_PURCHASE);
+      } else  {
+        const  initialInfo = JSON.parse(this.hayerPurchaseLetter.initialInformation);
+        console.log(initialInfo);
+        this.initialInfoPrint = initialInfo;
+        console.log(this.hayerPurchaseLetter);
+        this.existingOfferLetter = true;
         this.hayarPurchase.patchValue(initialInfo, {emitEvent: false});
-
-      }, error => {
-        console.error(error);
-        this.toastService.show(new Alert(AlertType.ERROR, 'Error loading Offer Letter'));
-      });
+        this.initialInfoPrint = initialInfo;
+      }
     }
-    this.hayarPurchase.valueChanges.subscribe((value) => {
-      this.hayarPurchase.patchValue(value, {emitEvent: false});
-    });
   }
+
 
   submit(): void {
     this.spinner = true;
-    this.customerOfferLetter.docStatus = DocStatus.PENDING;
-    const customerLoan = new LoanDataHolder();
-    customerLoan.id = this.customerId;
-    this.customerOfferLetter.customerLoan = customerLoan;
+    this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
+
     if (this.existingOfferLetter) {
-      this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
-        if (offerLetterPath.offerLetter.id === this.offerLetterTypeId) {
+      this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
+        if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.HAYER_PURCHASE).toString()) {
           offerLetterPath.initialInformation = JSON.stringify(this.hayarPurchase.value);
         }
       });
     } else {
-      const offerLetter = new OfferLetter();
-      offerLetter.id = this.offerLetterTypeId;
-      const customerOfferLetterPathArray = this.customerOfferLetter.customerOfferLetterPath ?
-          this.customerOfferLetter.customerOfferLetterPath : [];
-      const customerOfferLetterPath = new CustomerOfferLetterPath();
-      customerOfferLetterPath.offerLetter = offerLetter;
-      customerOfferLetterPath.initialInformation = JSON.stringify(this.hayarPurchase.value);
-      customerOfferLetterPathArray.push(customerOfferLetterPath);
-      this.customerOfferLetter.customerOfferLetterPath = customerOfferLetterPathArray;
+      const offerDocument = new OfferDocument();
+      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.HAYER_PURCHASE);
+      offerDocument.initialInformation = JSON.stringify(this.hayarPurchase.value);
+      this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
 
-    this.customerOfferLetterService.save(this.customerOfferLetter).subscribe(() => {
+    this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe( () => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Hayer Purchase Offer Letter'));
       this.spinner = false;
-      this.router.navigateByUrl('/home/dashboard').then(value => {
-        if (value) {
-          this.router.navigate(['/home/cad-document'], {
-            queryParams: {customerId: this.customerId, }
-          });
-        }
-      });
-    }, error => {
+      this.dialogRef.close();
+    } ,  error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save  Hayer Purchase Offer Letter'));
       this.spinner = false;
+      this.dialogRef.close();
     });
+
   }
 }
 
