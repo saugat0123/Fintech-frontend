@@ -1,0 +1,30 @@
+<nb-card>
+    <nb-card-header>
+        Exposure Detail
+    </nb-card-header>
+    <nb-card-body>
+        <table class="table table-bordered table-hover table-sm sb-small text-center ">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>Facility</th>
+                <th>Limit</th>
+                <th>Disbursement</th>
+                <th>Init Rate</th>
+                <th>Maturity</th>
+                <th>Frequency</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let customerLoan of customerLoanList">
+                <td>{{customerLoan?.loan?.name}}</td>
+                <td>{{customerLoan?.proposal?.proposedLimit |currencyFormatter}}</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            </tbody>
+        </table>
+    </nb-card-body>
+</nb-card>
