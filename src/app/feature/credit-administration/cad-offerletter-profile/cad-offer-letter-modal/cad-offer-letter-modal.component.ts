@@ -18,8 +18,8 @@ export class CadOfferLetterModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.offerLetterTypeConst.HAYER_PURCHASE);
-    console.log(this.offerLetterType === this.offerLetterTypeConst.HAYER_PURCHASE);
+    console.log(this.offerLetterType);
+    console.log(this.cadOfferLetterApprovedDoc);
   }
 
   onClose() {

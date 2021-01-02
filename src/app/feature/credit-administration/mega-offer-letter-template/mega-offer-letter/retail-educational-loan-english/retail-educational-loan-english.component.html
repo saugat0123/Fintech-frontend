@@ -1,5 +1,9 @@
-<div [nbSpinner]="spinner" class="" id="{{offerLetterConst.RETAIL_EDUCATIONAL_ENGLISH}}">
-    <div class="col-md-12 viewFull" style="overflow-y: auto;height:500px;">
+<div  class="nep" id="{{offerLetterConst.RETAIL_EDUCATIONAL_ENGLISH}}">
+        <nb-card  [nbSpinner]="spinner" nbSpinnerStatus="primary"
+                  nbSpinnerSize="large"
+                  nbSpinnerMessage="Saving Retail Educational Loan English offer letter.....">
+            <nb-card-body>
+    <div class="col-md-12 viewFull" >
         <form (ngSubmit)="submit()" [formGroup]="form" class="nep">
             <div class="row mb-2">
                 <div class="col-md-6">
@@ -351,11 +355,14 @@
 
         </form>
     </div>
+            </nb-card-body>
+            <nb-card-footer class="mb-3">
+                <button  nbButton status="info" class="mb-4 float-right" [disabled]="!initialInfoPrint" [useExistingCss]="true"
+                         ngxPrint printSectionId="{{offerLetterConst.RETAIL_EDUCATIONAL_ENGLISH}}Print">Print
+                </button>
+            </nb-card-footer>
+        </nb-card>
 </div>
-<button *ngIf="initialInfoPrint" [useExistingCss]="true"
-        class="btn btn-flat btn-lg btn-secondary m-4"
-        ngxPrint printSectionId="{{offerLetterConst.RETAIL_EDUCATIONAL_ENGLISH}}Print">Print
-</button>
 <app-retail-educational-loan-english-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint"
                                            hidden></app-retail-educational-loan-english-print>
 

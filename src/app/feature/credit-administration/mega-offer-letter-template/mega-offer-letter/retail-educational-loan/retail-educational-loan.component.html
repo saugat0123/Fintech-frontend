@@ -1,8 +1,8 @@
 <!--todo refactor ui-->
-<div class="nep" id="{{offerLetterConst.RETAIL_EDUCATIONAL}}">
+<div class="nep" id="{{offerLetterConst.RETAIL_PROFESSIONAL_LOAN}}">
     <nb-card [nbSpinner]="spinner" nbSpinnerStatus="primary"
              nbSpinnerSize="large"
-             nbSpinnerMessage="Saving Hayer purchase offer letter.....">
+             nbSpinnerMessage="Saving Retail Educational offer letter.....">
       <nb-card-body>
         <div class="row">
           <div class="col-md-12">
@@ -778,7 +778,7 @@
       </nb-card-body>
       <nb-card-footer class="mb-3">
         <button [disabled]="!initialInfoPrint" nbButton status="info" [useExistingCss]="true" class="mb-4 float-right"
-                ngxPrint printSectionId="{{offerLetterConst.RETAIL_EDUCATIONAL}}Print">Print
+                ngxPrint printSectionId="{{offerLetterConst.RETAIL_PROFESSIONAL_LOAN}}Print">Print
         </button>
       </nb-card-footer>
     </nb-card>

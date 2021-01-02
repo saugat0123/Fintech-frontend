@@ -36,7 +36,7 @@ export class CadOfferLetterProfileComponent implements OnInit {
   offerLetterTypes = MegaOfferLetterConst.enumObject();
 
   static loadData(other: CadOfferLetterProfileComponent) {
-    /*other.spinner = true;*/
+    other.spinner = true;
     other.service.detail(other.offerLetterId).subscribe((res: any) => {
       other.cadOfferLetterApprovedDoc = res.detail;
       other.customerInfoData = other.cadOfferLetterApprovedDoc.loanHolder;

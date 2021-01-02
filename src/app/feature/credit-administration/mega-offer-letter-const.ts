@@ -45,7 +45,7 @@ export namespace MegaOfferLetterConst {
 
     export function values() {
         return Object.keys(MegaOfferLetterConst).filter(
-            (type) => isNaN(<any>type) && type !== 'values' && type !== 'enumObject'
+            (type) => isNaN(<any>type) && type !== 'values' && type !== 'value' && type !== 'keysEnum' && type !== 'enumObject'
         );
     }
 

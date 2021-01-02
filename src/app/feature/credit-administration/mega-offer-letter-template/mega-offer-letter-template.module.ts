@@ -49,7 +49,12 @@ const COMPONENTS = [
     exports: [
         HayerPurchaseComponent,
         RetailEducationalLoanComponent,
-        SmeComponent
+        SmeComponent,
+        RetailEducationalLoanEnglishComponent,
+        RetailHousingLoanComponent,
+        RetailMortgageComponent,
+        RetailMortgageLoanComponent,
+        RetailProfessionalLoanComponent
     ],
     imports: [
         ThemeModule,
