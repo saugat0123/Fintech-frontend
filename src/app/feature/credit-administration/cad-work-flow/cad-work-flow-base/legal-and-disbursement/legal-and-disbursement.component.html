@@ -1,12 +1,15 @@
-<app-cad-action></app-cad-action>
+
 <nb-card>
+    <nb-card-header>
+        <app-cad-action></app-cad-action>
+    </nb-card-header>
     <nb-card-body>
         <nb-tabset>
             <nb-tab tabTitle="Basic Info">
         <app-cad-offerletter-profile></app-cad-offerletter-profile>
             </nb-tab>
             <nb-tab tabTitle="Exposure Detail">
-                <app-exposure [cadData]="cadData" *ngIf="cadData"></app-exposure>
+                <app-exposure  *ngIf="cadData"></app-exposure>
             </nb-tab>
             <nb-tab tabTitle="Fees And Commission">
                 <app-fees-commission></app-fees-commission>
@@ -15,5 +18,8 @@
                 <app-document-checklist [cadData]="cadData" *ngIf="cadData"></app-document-checklist>
             </nb-tab>
         </nb-tabset>
+        <app-comment>
+
+        </app-comment>
     </nb-card-body>
 </nb-card>
