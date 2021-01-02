@@ -1,7 +1,7 @@
 
 <nb-card>
     <nb-card-header>
-        <app-cad-action></app-cad-action>
+        <app-cad-action [cadId]="cadData?.id" [selectedBranchId]="cadData?.loanHolder?.branch?.id"></app-cad-action>
     </nb-card-header>
     <nb-card-body>
         <nb-tabset fullWidth>
@@ -18,7 +18,8 @@
                 <app-document-checklist [cadData]="cadData" *ngIf="cadData"></app-document-checklist>
             </nb-tab>
         </nb-tabset>
-        <app-comment>
+        dd
+        <app-comment [cadData]="cadData" *ngIf="cadData">
 
         </app-comment>
     </nb-card-body>
