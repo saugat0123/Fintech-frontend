@@ -1,3 +1,4 @@
+<!--
 <nb-accordion>
     <nb-accordion-item>
         <nb-accordion-item-header>
@@ -12,15 +13,15 @@
                                 <span>{{list.name}}</span>
                             </div>
                             <div class="col-md-4 d-flex justify-content-end">
-                                <!--                                      <span style="color:black">-->
-                                <!--                                      <a (click)="showFullScreen(list.name)" title="full screen">-->
-                                <!--                                        <i class="fa fa-expand px-2"></i>-->
-                                <!--                                   </a>-->
-                                <!--                                    </span>-->
+                                &lt;!&ndash;                                      <span style="color:black">&ndash;&gt;
+                                &lt;!&ndash;                                      <a (click)="showFullScreen(list.name)" title="full screen">&ndash;&gt;
+                                &lt;!&ndash;                                        <i class="fa fa-expand px-2"></i>&ndash;&gt;
+                                &lt;!&ndash;                                   </a>&ndash;&gt;
+                                &lt;!&ndash;                                    </span>&ndash;&gt;
                                 <span *ngIf="list.isPresent && !list.isApproved" style="color:darkgreen">
-                                    <!-- <input (change)="onFileChange($event)" class="hide-type"
+                                    &lt;!&ndash; <input (change)="onFileChange($event)" class="hide-type"
                                             id="uploadOfferLetterInput"
-                                            type="file">-->
+                                            type="file">&ndash;&gt;
                                      <a (click)="uploadOfferLetter(list.id,uploadModel)" title="upload {{list.name}}">
                                         <i class="fa fa-upload"></i>
                                    </a>
@@ -76,7 +77,7 @@
                                 [customerId]="customerId"
                                 [loanDataHolder]="loanDataHolder"
                                 [offerLetterTypeId]="list.id"></app-hayer-purchase>
-                        <!-- CAD DOC FOR MAW --->
+                        &lt;!&ndash; CAD DOC FOR MAW -&ndash;&gt;
                         <app-retail-housing-loan
                                 *ngIf="loanDataHolder && list.name === offerLetterConst.value(offerLetterConst.RETAIL_HOUSING)"
                                 [customerId]="customerId"
@@ -139,16 +140,16 @@
 
     </nb-accordion-item>
 
-    <!--        <nb-accordion-item>-->
-    <!--            <nb-accordion-item-header>-->
-    <!--                Upload Offer Letter Documents-->
-    <!--            </nb-accordion-item-header>-->
-    <!--            <nb-accordion-item-body>-->
-    <!--                <app-offer-letter-upload *ngIf="loanDataHolder"-->
-    <!--                                         [customerId]="loanDataHolder.id"-->
-    <!--                                         [customerOfferLetter]="loanDataHolder?.customerOfferLetter"></app-offer-letter-upload>-->
-    <!--            </nb-accordion-item-body>-->
-    <!--        </nb-accordion-item>-->
+    &lt;!&ndash;        <nb-accordion-item>&ndash;&gt;
+    &lt;!&ndash;            <nb-accordion-item-header>&ndash;&gt;
+    &lt;!&ndash;                Upload Offer Letter Documents&ndash;&gt;
+    &lt;!&ndash;            </nb-accordion-item-header>&ndash;&gt;
+    &lt;!&ndash;            <nb-accordion-item-body>&ndash;&gt;
+    &lt;!&ndash;                <app-offer-letter-upload *ngIf="loanDataHolder"&ndash;&gt;
+    &lt;!&ndash;                                         [customerId]="loanDataHolder.id"&ndash;&gt;
+    &lt;!&ndash;                                         [customerOfferLetter]="loanDataHolder?.customerOfferLetter"></app-offer-letter-upload>&ndash;&gt;
+    &lt;!&ndash;            </nb-accordion-item-body>&ndash;&gt;
+    &lt;!&ndash;        </nb-accordion-item>&ndash;&gt;
 
 
 </nb-accordion>
@@ -210,3 +211,4 @@
 
     </nb-card>
 </ng-template>
+-->
