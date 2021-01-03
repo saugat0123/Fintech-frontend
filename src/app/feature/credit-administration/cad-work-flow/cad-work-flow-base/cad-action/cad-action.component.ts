@@ -57,6 +57,7 @@ export class CadActionComponent implements OnInit {
     customerOfferLetter: CustomerOfferLetter;
     sendForwardBackwardList = [];
     roleId;
+    isMaker = false;
 
     constructor(private router: ActivatedRoute,
                 private route: Router,
@@ -75,6 +76,9 @@ export class CadActionComponent implements OnInit {
     ngOnInit() {
         this.currentUserId = LocalStorageUtil.getStorage().userId;
         this.roleId = LocalStorageUtil.getStorage().roleId;
+        if (LocalStorageUtil.getStorage().roleType === 'MAKER') {
+            this.isMaker = true;
+        }
     }
 
     onSubmit(templateLogin) {
@@ -153,7 +157,7 @@ export class CadActionComponent implements OnInit {
                     cadId: [this.cadId],
                     docAction: [val],
                     comment: [undefined, Validators.required],
-                    documentStatus: [val === 'APPROVED' ? DocStatus.APPROVED : DocStatus.PENDING]
+                    documentStatus: [this.currentStatus]
                 }
             );
             const approvalType = 'CAD';
@@ -168,13 +172,23 @@ export class CadActionComponent implements OnInit {
                     }
                 });
 
+        } else if (this.popUpTitle === 'APPROVED') {
+            const newDocStatus = this.getNewDocStatusOnApprove();
+            this.formAction = this.formBuilder.group(
+                {
+                    cadId: [this.cadId],
+                    docAction: [val],
+                    comment: [undefined, Validators.required],
+                    documentStatus: [newDocStatus]
+                }
+            );
         } else {
             this.formAction = this.formBuilder.group(
                 {
                     cadId: [this.cadId],
                     docAction: [val],
                     comment: [undefined, Validators.required],
-                    documentStatus: [val === 'APPROVED' ? DocStatus.APPROVED : DocStatus.PENDING]
+                    documentStatus: [this.currentStatus]
                 }
             );
 
@@ -184,9 +198,13 @@ export class CadActionComponent implements OnInit {
 
     }
 
-    public statusByCurrentStatus() {
+    public getNewDocStatusOnApprove() {
         if (this.currentStatus === 'OFFER_PENDING') {
-            this.approvedType = 'OFFER APPROVED';
+            return 'OFFER_APPROVED';
+        } else if (this.currentStatus === 'LEGAL_PENDING') {
+            return 'LEGAL_APPROVED';
+        } else {
+            return 'DISBURSEMENT_APPROVED';
         }
     }
 

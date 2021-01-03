@@ -1,7 +1,9 @@
 
 <nb-card>
     <nb-card-header>
-        <app-cad-action [cadId]="cadData?.id" [selectedBranchId]="cadData?.loanHolder?.branch?.id"></app-cad-action>
+        <app-cad-action [cadId]="cadData?.id"
+                        [currentStatus]="cadData?.docStatus"
+                        [selectedBranchId]="cadData?.loanHolder?.branch?.id"></app-cad-action>
     </nb-card-header>
     <nb-card-body>
         <nb-tabset>
