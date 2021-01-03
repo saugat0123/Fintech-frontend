@@ -10,8 +10,11 @@ import {LoanDataHolder} from '../../../../../loan/model/loanData';
 })
 export class DocumentChecklistComponent implements OnInit {
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
-    customerLoanList : Array<LoanDataHolder>;
+    customerLoanList: Array<LoanDataHolder>;
     customerCadFile = [];
+
+    uploadFile;
+
     constructor() {
     }
 
@@ -19,6 +22,10 @@ export class DocumentChecklistComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData)) {
             this.customerLoanList = this.cadData.assignedLoan;
         }
+    }
+
+    uploadOfferLetter(event) {
+        this.uploadFile = event.target.files[0];
     }
 
 }
