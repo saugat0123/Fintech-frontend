@@ -305,6 +305,36 @@
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
+                <th colspan="8">Shareholder KYC Details</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>S.N</th>
+                <th>Relation</th>
+                <th>Name</th>
+                <th>Citizenship No</th>
+                <th>Issued District</th>
+                <th>Issued Date</th>
+                <th>Contact No</th>
+                <th>Address</th>
+            </tr>
+            </thead>
+            <tbody *ngFor="let shareholderKyc of formValue?.shareholderKycList; let i=index;">
+            <tr>
+                <td>{{i + 1}}</td>
+                <td>{{shareholderKyc?.shareholderRelationship}}</td>
+                <td>{{shareholderKyc?.relationName}}</td>
+                <td>{{shareholderKyc?.citizenshipNumber}}</td>
+                <td>{{shareholderKyc?.district?.name}}</td>
+                <td>{{shareholderKyc?.citizenshipIssuedDate | date}}</td>
+                <td>{{shareholderKyc?.mobileNumber}}</td>
+                <td>{{shareholderKyc?.shareholderKycAddress}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
                 <th colspan="4">SWOT Analysis</th>
             </tr>
             <tr class="text-white sb-bg-dark">
