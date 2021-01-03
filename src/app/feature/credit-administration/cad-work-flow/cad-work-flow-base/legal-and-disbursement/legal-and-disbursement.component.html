@@ -1,7 +1,7 @@
 
 <nb-card>
     <nb-card-header>
-        <app-cad-action [cadId]="cadData?.id" [selectedBranchId]="cadData?.loanHolder?.branch?.id"></app-cad-action>
+        <app-cad-action [cadId]="cadOfferLetterApprovedDoc?.id" [selectedBranchId]="cadOfferLetterApprovedDoc?.loanHolder?.branch?.id"></app-cad-action>
     </nb-card-header>
     <nb-card-body>
         <nb-tabset fullWidth>
@@ -9,17 +9,17 @@
         <app-cad-offerletter-profile></app-cad-offerletter-profile>
             </nb-tab>
             <nb-tab tabTitle="Exposure Detail">
-                <app-exposure  *ngIf="cadData"></app-exposure>
+                <app-exposure  *ngIf="cadOfferLetterApprovedDoc"></app-exposure>
             </nb-tab>
             <nb-tab tabTitle="Fees And Commission">
                 <app-fees-commission></app-fees-commission>
             </nb-tab>
             <nb-tab tabTitle="Document CheckList">
-                <app-document-checklist [cadData]="cadData" *ngIf="cadData"></app-document-checklist>
+                <app-document-checklist [cadData]="cadOfferLetterApprovedDoc" *ngIf="cadOfferLetterApprovedDoc"></app-document-checklist>
             </nb-tab>
         </nb-tabset>
         dd
-        <app-comment [cadData]="cadData" *ngIf="cadData">
+        <app-comment [cadData]="cadOfferLetterApprovedDoc" *ngIf="cadOfferLetterApprovedDoc">
 
         </app-comment>
     </nb-card-body>

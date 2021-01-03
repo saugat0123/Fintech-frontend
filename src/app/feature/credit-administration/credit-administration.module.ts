@@ -23,6 +23,7 @@ import { FeesCommissionComponent } from './cad-work-flow/cad-work-flow-base/lega
 import {CoreModule} from '../../@core/core.module';
 import { CadOfferLetterModalComponent } from './cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import { CommentComponent } from './comment/comment.component';
+import { OfferLetterDocumentUploadComponent } from './cad-offerletter-profile/offer-letter-document-upload/offer-letter-document-upload.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { CommentComponent } from './comment/comment.component';
         DocumentChecklistComponent,
         FeesCommissionComponent,
         CadOfferLetterModalComponent,
-        CommentComponent],
+        CommentComponent,
+        OfferLetterDocumentUploadComponent],
     imports: [
         ThemeModule,
         CommonModule,
