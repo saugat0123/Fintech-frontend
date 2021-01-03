@@ -78,7 +78,6 @@ export class CadOfferLetterProfileComponent implements OnInit {
   openModel(model, documentName: string, documentId, index: number) {
     this.documentName = documentName;
     this.documentId = documentId;
-    this.index = index;
     this.modelService.open(model);
   }
 
@@ -88,7 +87,7 @@ export class CadOfferLetterProfileComponent implements OnInit {
 
     formData.append('file', this.uploadFile);
     formData.append('customerApprovedDocId', this.cadOfferLetterApprovedDoc.id.toString());
-    formData.append('offerLetterId', this.offerLetterId.toString());
+    formData.append('offerLetterId', this.documentId.toString());
     formData.append('type', this.docType.toString());
     if (this.customerInfoData.id === undefined) {
       return this.toastrService.show(new Alert(AlertType.ERROR, 'Customer Cannot be empty'));
