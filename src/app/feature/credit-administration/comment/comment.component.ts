@@ -13,7 +13,7 @@ export class CommentComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.currentIndex = this.cadData.previousList.length;
+    // this.currentIndex = this.cadData.previousList.length;
   }
 
 }
