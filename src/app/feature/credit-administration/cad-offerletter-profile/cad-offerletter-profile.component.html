@@ -1,141 +1,236 @@
-<nb-card class="m-0" [nbSpinner]="spinner"
-          nbSpinnerStatus="primary"
-          accent="primary"
-          nbSpinnerSize="giant"
-          nbSpinnerMessage="Loading data please wait.....">
+<nb-card [nbSpinner]="spinner" accent="primary"
+         class="m-0"
+         nbSpinnerMessage="Loading data please wait....."
+         nbSpinnerSize="giant"
+         nbSpinnerStatus="primary">
 
-     <nb-card-body>
-         <div class="main-body">
+    <nb-card-body>
+        <div class="main-body">
 
-             <div class="row gutters-sm">
-                 <div class="col-md-4 mb-3">
-                     <div class="card">
-                         <div class="card-body">
-                             <div class="d-flex flex-column align-items-center text-center">
-                                 <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
-                                 <div class="mt-3">
-                                     <h4>{{customerInfoData?.name}}</h4>
-                                     <p class="text-secondary mb-1">{{customerInfoData?.customerType |titlecase}} Customer</p>
-                                     <!--todo change to address -->
-                                     <p class="text-muted font-size-sm">
-                                         {{customerInfoData?.branch?.province?.name}} ,
-                                         {{customerInfoData?.branch?.district?.name}} ,
-                                         {{customerInfoData?.branch?.municipalityVdc?.name}}</p>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                     <nb-card class="mt-3">
-                         <nb-card-header>
-                             <h6>Generate Offer Letter</h6>
-                         </nb-card-header>
-                       <nb-card-body>
-                           <div class="row">
-                        <div class="col-md-12">
-                            <nb-select
-                                    #offerLetterType
-                                    placeholder="Select Offer Letter"
-                                       fullWidth
-                                       status="info">
-                                <nb-option *ngFor="let i of offerLetterTypes" [value]="i.value">
-                                    {{i.key}}
-                                </nb-option>
-                            </nb-select>
+            <div class="row gutters-sm">
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                <img alt="Admin" class="rounded-circle"
+                                     src="https://bootdey.com/img/Content/avatar/avatar7.png" width="150">
+                                <div class="mt-3">
+                                    <h4>{{customerInfoData?.name}}</h4>
+                                    <p class="text-secondary mb-1">{{customerInfoData?.customerType |titlecase}}
+                                        Customer</p>
+                                    <!--todo change to address -->
+                                    <p class="text-muted font-size-sm">
+                                        {{customerInfoData?.branch?.province?.name}} ,
+                                        {{customerInfoData?.branch?.district?.name}} ,
+                                        {{customerInfoData?.branch?.municipalityVdc?.name}}</p>
+                                </div>
+                            </div>
                         </div>
-                               <div class="col-md-12 mt-3">
-                                   <button nbButton size="small" class="float-right"
-                                           (click)="openOfferLetterDocumentModal(offerLetterType?.selected)">Generate</button>
-                               </div>
-                       </div>
+                    </div>
+                    <nb-card class="mt-3">
+                        <nb-card-header>
+                            <h6>Generate Offer Letter</h6>
+                        </nb-card-header>
+                        <nb-card-body>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <nb-select
+                                        #offerLetterType
+                                        fullWidth
+                                        placeholder="Select Offer Letter"
+                                        status="info">
+                                        <nb-option *ngFor="let i of offerLetterTypes" [value]="i.value">
+                                            {{i.key}}
+                                        </nb-option>
+                                    </nb-select>
+                                </div>
+                                <div class="col-md-12 mt-3">
+                                    <button (click)="openOfferLetterDocumentModal(offerLetterType?.selected)"
+                                            class="float-right" nbButton
+                                            size="small">Generate
+                                    </button>
+                                </div>
+                            </div>
 
-                       </nb-card-body>
-                     </nb-card>
-                     <nb-card>
-                         <nb-card-header>Offer Letter Documents</nb-card-header>
-                         <nb-card-body>
+                        </nb-card-body>
+                    </nb-card>
+                    <nb-card>
+                        <nb-card-header>Offer Letter Documents</nb-card-header>
+                        <nb-card-body>
+                                    <table class="table table-bordered table-hover table-sm sb-small text-center">
+                                        <thead>
+                                        <tr class="text-white sb-bg-dark">
+                                            <th>#</th>
+                                            <th>Offer Letter</th>
+                                            <th colspan="2">Upload Status</th>
+                                            <th colspan="2">Action</th>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td>Draft Doc</td>
+                                            <td>Signed Doc</td>
+                                            <td></td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr *ngFor="let cusOfferLetter of cadOfferLetterApprovedDoc?.offerDocumentList; let i=index">
+                                            <td>
+                                                {{i + 1}}
+                                            </td>
+                                            <td>{{cusOfferLetter?.docName}}</td>
+                                            <td>
+                                                <span [ngStyle]="{'color': (cusOfferLetter?.draftPath == null) ? 'red': 'limegreen'}">
+                                                    <i [ngClass]="cusOfferLetter?.draftPath == null ?  'fas fa-times-circle' : 'fas fa-check-circle'"></i></span>
+                                                <span class="ml-1">
+                                                    <a (click)="previewClick(cusOfferLetter.draftPath)"
+                                                       *ngIf="cusOfferLetter?.draftPath !== null"><i
+                                                            class="fas fa-eye cursor" style="color:cornflowerblue"></i>
+                                                   </a>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span [ngStyle]="{'color': (cusOfferLetter?.pathSigned == null) ? 'red': 'limegreen'}">
+                                                    <i [ngClass]="cusOfferLetter?.pathSigned == null ?  'fas fa-times-circle' : 'fas fa-check-circle'"></i>
+                                                </span>
+                                                <span class="ml-1">
+                                                    <a (click)="previewClick(cusOfferLetter.pathSigned)"
+                                                       *ngIf="cusOfferLetter?.pathSigned !== null"><i
+                                                            class="fas fa-eye cursor" style="color:cornflowerblue"></i>
+                                                   </a>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <a (click)="openModel(uploadModel,cusOfferLetter.docName,cusOfferLetter.id,i)"  title="upload {{cusOfferLetter.docName}}">
+                                                    <i class="fa fa-upload cursor"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                        </nb-card-body>
+                    </nb-card>
+                </div>
+                <div class="col-md-8">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Branch</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{customerInfoData?.branch?.name}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"> Customer ID</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{customerInfoData?.customerCode}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"> Subsector Code</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{customerInfoData?.subSectorDetailCode}}
+                                </div>
+                            </div>
 
-                         </nb-card-body>
-                     </nb-card>
-                 </div>
-                 <div class="col-md-8">
-                     <div class="card mb-3">
-                         <div class="card-body">
-                             <div class="row">
-                                     <div class="col-sm-3">
-                                         <h6 class="mb-0">Branch</h6>
-                                     </div>
-                                     <div class="col-sm-9 text-secondary">
-                                         {{customerInfoData?.branch?.name}}
-                                     </div>
-                                 </div>
-                                 <hr>
-                                     <div class="row">
-                                 <div class="col-sm-3">
-                                     <h6 class="mb-0"> Customer ID</h6>
-                                 </div>
-                                 <div class="col-sm-9 text-secondary">
-                                     {{customerInfoData?.customerCode}}
-                                 </div>
-                             </div>
-                             <hr>
-                             <div class="row">
-                                 <div class="col-sm-3">
-                                     <h6 class="mb-0"> Subsector Code</h6>
-                                 </div>
-                                 <div class="col-sm-9 text-secondary">
-                                     {{customerInfoData?.subSectorDetailCode}}
-                                 </div>
-                             </div>
-
-                             <hr>
-                             <div class="row">
-                                 <div class="col-sm-3">
-                                     <h6 class="mb-0">Email</h6>
-                                 </div>
-                                 <div class="col-sm-9 text-secondary">
-                                   {{customerInfoData?.email}}
-                                 </div>
-                             </div>
-                             <hr>
-                             <div class="row">
-                                 <div class="col-sm-3">
-                                     <h6 class="mb-0">Phone</h6>
-                                 </div>
-                                 <div class="col-sm-9 text-secondary">
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{customerInfoData?.email}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Phone</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
                                     {{customerInfoData?.contactNo}}
-                                 </div>
-                             </div>
-                             <hr>
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="col-md-12 mb-3">
-                             <div class="card h-100" style="min-height: 500px">
-                                 <div class="card-body">
-                                      <table class="table table-bordered table-hover text-center sb-small table-sm">
-                                          <thead>
-                                          <tr class="sb-bg-dark text-white">
-                                              <th>S.No.</th>
-                                              <th>Loan Facility</th>
-                                              <th>Proposed Amount</th>
-                                              <th>Type</th>
-                                              <th>Status</th>
-                                              <th>Loan lifespan</th>
-                                              <th>Created On</th>
-                                          </tr>
-                                          </thead>
-                                          <tbody>
-                                          <tr>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="card h-100" style="min-height: 500px">
+                                <div class="card-header">
+                                    <strong>Loan Information</strong>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered table-hover text-center sb-small table-sm">
+                                        <thead>
+                                        <tr class="sb-bg-dark text-white">
+                                            <th>S.No.</th>
+                                            <th>Loan Facility</th>
+                                            <th>Proposed Amount</th>
+                                            <th>Status</th>
+                                            <th>Created On</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <ng-container>
+                                            <tr *ngFor="let model of cadOfferLetterApprovedDoc?.assignedLoan;let i=index">
+                                                <td>{{i + 1}}</td>
+                                                <td>{{model?.loan?.name}}</td>
+                                                <td class="text-right">Rs. {{model?.proposal?.proposedLimit | number}}
+                                                <td>{{model?.documentStatus}}</td>
+                                                <td>
+                                                    {{model?.createdAt | date}}
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
 
-                                          </tr>
-                                          </tbody>
-                                      </table>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </nb-card-body>
- </nb-card>
+<!-- todo migrate this to separate component-->
+<ng-template #uploadModel>
+   <nb-card accent="primary">
+       <nb-card-header>
+           <strong>Upload {{documentName}} Document</strong>
+       </nb-card-header>
+       <nb-card-body>
+           <div class="row">
+               <div class="col-md-12 form-group">
+                   <label for="type">Select Offer Type</label>
+                   <select [(ngModel)]="docType" class="form-control" id="type">
+                       <option hidden selected value="null">--Select Type--</option>
+                       <option value="DRAFT">Draft Document</option>
+                       <option value="SIGNED">Signed Document</option>
+                   </select>
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-md-12 form-group">
+                   <label>Upload Your File </label>
+                   <input  class="form-control"
+                           type="file" (change)="uploadOfferLetter($event)">
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-md-12">
+                   <button  nbButton status="success" class="float-right" (click)="submitOfferLetter()">Upload</button>
+               </div>
+           </div>
+       </nb-card-body>
+   </nb-card>
+</ng-template>

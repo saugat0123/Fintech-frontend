@@ -1,16 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {CreditAdministrationService} from '../service/credit-administration.service';
-import {PaginationUtils} from '../../../@core/utils/PaginationUtils';
 import {MegaOfferLetterConst} from '../mega-offer-letter-const';
 import {CustomerApprovedLoanCadDocumentation} from '../model/customerApprovedLoanCadDocumentation';
-import {LoanDataHolder} from '../../loan/model/loanData';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {NbDialogService} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from './cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 
 @Component({
   selector: 'app-cad-offerletter-profile',
@@ -19,11 +19,14 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 })
 export class CadOfferLetterProfileComponent implements OnInit {
 
+/*  todo get data from input and remove fetch here
+  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;*/
 
   constructor(
       private activatedRoute: ActivatedRoute,
       private service: CreditAdministrationService,
       private nbDialogService: NbDialogService ,
+      private modelService: NgbModal,
       private toastrService: ToastService,
   ) {
   }
@@ -34,6 +37,13 @@ export class CadOfferLetterProfileComponent implements OnInit {
   cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   customerInfoData: CustomerInfoData;
   offerLetterTypes = MegaOfferLetterConst.enumObject();
+
+  // todo move document upload to different to component
+  documentName;
+  documentId;
+  docType = null;
+  uploadFile;
+  index;
 
   static loadData(other: CadOfferLetterProfileComponent) {
     other.spinner = true;
@@ -63,6 +73,58 @@ export class CadOfferLetterProfileComponent implements OnInit {
     const cadOfferLetterApprovedDoc = this.cadOfferLetterApprovedDoc;
     this.nbDialogService.open(CadOfferLetterModalComponent, {context: {offerLetterType, cadOfferLetterApprovedDoc}
         }).onClose.subscribe(() => CadOfferLetterProfileComponent.loadData(this));
+  }
+
+  openModel(model, documentName: string, documentId, index: number) {
+    this.documentName = documentName;
+    this.documentId = documentId;
+    this.index = index;
+    this.modelService.open(model);
+  }
+
+  // todo move document upload to seperate to component
+  submitOfferLetter() {
+    const formData: FormData = new FormData();
+
+    formData.append('file', this.uploadFile);
+    formData.append('customerApprovedDocId', this.cadOfferLetterApprovedDoc.id.toString());
+    formData.append('offerLetterId', this.offerLetterId.toString());
+    formData.append('type', this.docType.toString());
+    if (this.customerInfoData.id === undefined) {
+      return this.toastrService.show(new Alert(AlertType.ERROR, 'Customer Cannot be empty'));
+    }
+    this.service.uploadOfferFile(formData).subscribe((response: any) => {
+      this.toastrService.show(new Alert(AlertType.SUCCESS, 'OFFER LETTER HAS BEEN UPLOADED'));
+     this.modelService.dismissAll();
+     CadOfferLetterProfileComponent.loadData(this);
+    }, error => {
+      this.toastrService.show(new Alert(AlertType.ERROR, error.error.message));
+      console.error(error);
+    });
+
+  }
+
+
+  uploadOfferLetter(event) {
+    this.uploadFile = event.target.files[0];
+  }
+
+  previewClick(file) {
+    let fileName = this.uploadFile;
+    if (file !== null) {
+      fileName = ApiConfig.URL + '/' + file;
+
+      const link = document.createElement('a');
+      link.href = fileName;
+      link.target = '_blank';
+      link.click();
+    } else {
+      const downloadUrl = window.URL.createObjectURL(fileName);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.target = '_blank';
+      link.click();
+    }
   }
 
 }
