@@ -5,7 +5,8 @@
                 <button nbButton size="small" status="primary" (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD')">RETURN</button>
             </div>
             <div class="float-right">
-                <button nbButton size="small" status="primary" (click)="approvedForwardBackward(sendForwardBackward,'FORWARD')">FORWARD</button>
+                <button nbButton size="small" status="primary" (click)="approvedForwardBackward(sendForwardBackward,'FORWARD')" *ngIf="isMaker">FORWARD</button>
+                <button nbButton size="small" status="primary" (click)="approvedForwardBackward(sendForwardBackward,'APPROVED')" *ngIf="!isMaker">APPROVED</button>
             </div>
         </div>
     </nb-card-header>
