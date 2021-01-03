@@ -35,6 +35,11 @@ export class LegalAndDisbursementComponent implements OnInit {
         other.service.detail(other.offerLetterId).subscribe((res: any) => {
             other.cadOfferLetterApprovedDoc = res.detail;
             other.customerInfoData = other.cadOfferLetterApprovedDoc.loanHolder;
+            console.log('from local storage', other.currentUserLocalStorage.toString());
+            console.log('from local storage', other.cadOfferLetterApprovedDoc);
+            if (other.currentUserLocalStorage.toString() === other.cadOfferLetterApprovedDoc.cadCurrentStage.toUser.id.toString()) {
+                other.showHideAction = true;
+            }
             console.log(res.detail);
             other.spinner = false;
         }, error => {
@@ -46,15 +51,8 @@ export class LegalAndDisbursementComponent implements OnInit {
     ngOnInit() {
         this.offerLetterId = Number(this.activatedRoute.snapshot.queryParamMap.get('offerLetterId'));
         LegalAndDisbursementComponent.loadData(this);
-        this.checkDocInCurrentUserForAction();
+
     }
 
-    public checkDocInCurrentUserForAction() {
-        console.log(this.currentUserLocalStorage.toString());
-        console.log(this.cadOfferLetterApprovedDoc.cadCurrentStage.toUser.id);
-        if (this.currentUserLocalStorage.toString() === this.cadOfferLetterApprovedDoc.cadCurrentStage.toUser.id.toString()) {
-            this.showHideAction = true;
-        }
-    }
 
 }
