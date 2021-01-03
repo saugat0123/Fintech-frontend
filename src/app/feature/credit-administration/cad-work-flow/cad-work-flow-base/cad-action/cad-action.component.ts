@@ -16,6 +16,7 @@ import {SocketService} from '../../../../../@core/service/socket.service';
 import {CustomerOfferLetter} from '../../../../loan/model/customer-offer-letter';
 import {DocStatus} from '../../../../loan/model/docStatus';
 import {ApprovalRoleHierarchyService} from '../../../../loan/approval/approval-role-hierarchy.service';
+import {CreditAdministrationService} from '../../../service/credit-administration.service';
 
 @Component({
     selector: 'app-cad-action',
@@ -70,6 +71,7 @@ export class CadActionComponent implements OnInit {
                 private modalService: NgbModal,
                 private http: HttpClient,
                 private approvalRoleHierarchyService: ApprovalRoleHierarchyService,
+                private cadService: CreditAdministrationService,
                 private socketService: SocketService,) {
     }
 
@@ -122,6 +124,14 @@ export class CadActionComponent implements OnInit {
     }
 
     postAction() {
+        this.cadService.saveAction(this.formAction.value).subscribe((response: any) => {
+            this.onClose();
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
+                this.formAction.get('docAction').value));
+        }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+
+        });
 
     }
 
