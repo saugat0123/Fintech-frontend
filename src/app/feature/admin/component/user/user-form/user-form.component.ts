@@ -36,7 +36,7 @@ export class UserFormComponent implements OnInit {
     isSpecific = false;
     isAll = false;
     tempBranch;
-    tempProvince;
+    tempProvince = [];
     finalBranchList = [];
     branchIdList;
     disableRoleBranch = false;

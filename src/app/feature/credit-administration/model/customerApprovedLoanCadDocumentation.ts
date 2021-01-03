@@ -10,7 +10,7 @@ export class CustomerApprovedLoanCadDocumentation extends BaseEntity {
 
     loanHolder: CustomerInfoData;
     assignedLoan: Array<LoanDataHolder>;
-    cadCurrentStage: Stage;
+    cadCurrentStage: any;
     cadFileList: Array<CadFile>;
     offerDocumentList: Array<OfferDocument>;
     cadStageList: string;
