@@ -10,6 +10,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 
 @Component({
   selector: 'app-cad-offerletter-profile',
@@ -106,6 +107,24 @@ export class CadOfferLetterProfileComponent implements OnInit {
 
   uploadOfferLetter(event) {
     this.uploadFile = event.target.files[0];
+  }
+
+  previewClick(file) {
+    let fileName = this.uploadFile;
+    if (file !== null) {
+      fileName = ApiConfig.URL + '/' + file;
+
+      const link = document.createElement('a');
+      link.href = fileName;
+      link.target = '_blank';
+      link.click();
+    } else {
+      const downloadUrl = window.URL.createObjectURL(fileName);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.target = '_blank';
+      link.click();
+    }
   }
 
 }

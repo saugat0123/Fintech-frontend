@@ -81,22 +81,28 @@
                                             <td>
                                                 <span [ngStyle]="{'color': (cusOfferLetter?.draftPath == null) ? 'red': 'limegreen'}">
                                                     <i [ngClass]="cusOfferLetter?.draftPath == null ?  'fas fa-times-circle' : 'fas fa-check-circle'"></i></span>
+                                                <span class="ml-1">
+                                                    <a (click)="previewClick(cusOfferLetter.draftPath)"
+                                                       *ngIf="cusOfferLetter?.draftPath !== null"><i
+                                                            class="fas fa-eye cursor" style="color:cornflowerblue"></i>
+                                                   </a>
+                                                </span>
                                             </td>
                                             <td>
-                       <span *ngIf="cusOfferLetter?.pathSigned !== null" style="color:limegreen"><i class="fas fa-check-circle"></i></span>
-                                                <span *ngIf="cusOfferLetter?.pathSigned === null"
-                                                        style="color:red">
-                               <i class="fas fa-times-circle"></i></span>
-                                                                      </td>
+                                                <span [ngStyle]="{'color': (cusOfferLetter?.pathSigned == null) ? 'red': 'limegreen'}">
+                                                    <i [ngClass]="cusOfferLetter?.pathSigned == null ?  'fas fa-times-circle' : 'fas fa-check-circle'"></i>
+                                                </span>
+                                                <span class="ml-1">
+                                                    <a (click)="previewClick(cusOfferLetter.pathSigned)"
+                                                       *ngIf="cusOfferLetter?.pathSigned !== null"><i
+                                                            class="fas fa-eye cursor" style="color:cornflowerblue"></i>
+                                                   </a>
+                                                </span>
+                                            </td>
                                             <td>
                                                 <a (click)="openModel(uploadModel,cusOfferLetter.docName,cusOfferLetter.id,i)"  title="upload {{cusOfferLetter.docName}}">
                                                     <i class="fa fa-upload cursor"></i>
                                                 </a>
-                                                <!--   <a (click)="previewClick(cusOfferLetter.path)"
-                                                      *ngIf="cusOfferLetter?.path !== null"><i
-                                                           class="fas fa-eye cursor" style="color:cornflowerblue"></i>
-                                                   </a>
-                                                   <span *ngIf="cusOfferLetter?.path === null">No preview available</span>-->
                                             </td>
                                         </tr>
                                         </tbody>
