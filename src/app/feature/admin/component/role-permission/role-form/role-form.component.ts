@@ -60,7 +60,7 @@ export class RoleFormComponent implements OnInit {
 
     checkRole() {
         if (this.role.roleType === RoleType.MAKER || this.role.roleType === RoleType.COMMITTEE || this.role.roleType === RoleType.ADMIN
-        || this.role.roleType === RoleType.CAD_SUPERVISOR) {
+            || this.role.roleType === RoleType.CAD_LEGAL  || this.role.roleType === RoleType.CAD_SUPERVISOR) {
             this.hideBranchAccess = true;
             this.authorityRequired = true;
             this.showAuthority = true;
@@ -75,6 +75,9 @@ export class RoleFormComponent implements OnInit {
                 this.role.roleAccess = RoleAccess.ALL;
                 this.authorityRequired = false;
                 this.showAuthority = false;
+            }
+            if (this.role.roleType === RoleType.CAD_LEGAL) {
+                this.role.roleAccess = RoleAccess.SPECIFIC;
             }
         } else {
             this.hideBranchAccess = false;
