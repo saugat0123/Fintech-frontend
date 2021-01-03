@@ -29,6 +29,9 @@ export class CadActionComponent implements OnInit {
     @Input()
     cadId: number;
 
+    @Input()
+    currentStatus: any;
+
     popUpTitle: string;
     currentUserRoleType = false;
 
@@ -42,6 +45,7 @@ export class CadActionComponent implements OnInit {
     isBackwardDisabled = false;
     isForwardDisabled = false;
     isApprovedDisabled = false;
+    approvedType;
 
     private securityUrl = ApiConfig.TOKEN;
     private headers = new HttpHeaders({
@@ -178,6 +182,12 @@ export class CadActionComponent implements OnInit {
         this.modalService.open(template);
 
 
+    }
+
+    public statusByCurrentStatus() {
+        if (this.currentStatus === 'OFFER_PENDING') {
+            this.approvedType = 'OFFER APPROVED';
+        }
     }
 
 
