@@ -141,8 +141,8 @@ export class SecurityInitialFormComponent implements OnInit {
              this.nepsePriceInfo = response.detail;
              this.shareSecurityForm.get('sharePriceDate').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.sharePriceDate ?
                  this.datePipe.transform(this.nepsePriceInfo.sharePriceDate, 'yyyy-MM-dd') : undefined);
-             this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.sharePriceDate
-                 ? this.nepsePriceInfo.avgDaysForPrice: undefined);
+             this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.avgDaysForPrice
+                 ? this.nepsePriceInfo.avgDaysForPrice : undefined);
          }, error => {
              console.log(error);
          });
