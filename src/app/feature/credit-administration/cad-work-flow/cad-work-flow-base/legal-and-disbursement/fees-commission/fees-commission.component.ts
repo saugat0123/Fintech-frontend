@@ -27,17 +27,35 @@ export class FeesCommissionComponent implements OnInit {
       feeAmountDetails : this.formBuilder.array([])
     });
     this.addFeeAmountDetails();
-    if (!ObjectUtil.isEmpty(this.cadData.feesAndCommission)) {
-      this.feeAmountDetails.patchValue(JSON.parse(this.cadData.feesAndCommission));
-    }
+    this.setFeeAmountDetails();
   }
 
+  setFeeAmountDetails() {
+    let data;
+    if (!ObjectUtil.isEmpty(this.cadData.feesAndCommission)) {
+       data = JSON.parse(this.cadData.feesAndCommission);
+      console.log(data);
+      this.feeAmountDetails.patchValue(data.feeAmountDetails);
+     /* data.feeAmountDetails.forEach(v => {
+        this.feeAmountDetails.push(this.formBuilder.group({
+          loanName: [v.loanName],
+          feeType: [v.feeType , Validators.required],
+          feePercent: [v.feePercent , Validators.required],
+          feeAmount: [v.feeAmount , Validators.required],
+        }));
+      });*/
+    }
+    }
+
   addFeeAmountDetails () {
-    this.feeAmountDetails.push(this.formBuilder.group({
-      feeType: [undefined , Validators.required],
-      feePercent: [0 , Validators.required],
-      feeAmount: [0 , Validators.required],
-    }));
+    this.cadData.assignedLoan.forEach(value => {
+      this.feeAmountDetails.push(this.formBuilder.group({
+        loanName: [value.loan.name],
+        feeType: [undefined , Validators.required],
+        feePercent: [0 , Validators.required],
+        feeAmount: [0 , Validators.required],
+      }));
+    });
   }
   get feeCommissionForm() {
     return this.feeCommissionFormGroup.controls;
