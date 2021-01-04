@@ -12,22 +12,26 @@
                          <div class="col-md-4">
                              <div class="form-group">
                                  <label for="feeType"><strong>Fees/Commission</strong></label>
-                                 <input class="form-control" formControlName="feeType" name="feeType" id="feeType"
-                                        placeholder="Fees/Commission">
+                                 <select class="form-control" id="feeType">
+                                 <option [value]="undefined">Select Fee Type</option>
+                                     <option></option>
+                                     <option></option>
+                                     <option></option>
+                                 </select>
                              </div>
                          </div>
                          <div class="col-md-3">
                          <div class="form-group">
                              <label for="feePercent"><strong>Fees Percent</strong></label>
                              <input class="form-control" formControlName="feePercent" name="feePercent" id="feePercent"
-                                    placeholder=" Fee Percent">
+                                    placeholder=" Fee Percent" type="number">
                          </div>
                        </div>
                          <div class="col-md-4">
                          <div class="form-group">
                              <label for="feeAmount"><strong>Fees Amount</strong></label>
                              <input  class="form-control" formControlName="feeAmount" name="feeAmount" id="feeAmount"
-                                     placeholder="Fees Amount">
+                                     placeholder="Fees Amount" type="number">
                          </div>
                      </div>
                          <div class="col">
@@ -60,7 +64,7 @@
                     <ng-container *ngFor="let f of feeAmountDetails.value;  let i = index">
                         <tr>
                             <td>{{f?.feeType}}</td>
-                            <td>{{f?.feePercent}}</td>
+                            <td>{{f?.feePercent}}%</td>
                             <td>{{f?.feeAmount}}</td>
                         </tr>
                     </ng-container>

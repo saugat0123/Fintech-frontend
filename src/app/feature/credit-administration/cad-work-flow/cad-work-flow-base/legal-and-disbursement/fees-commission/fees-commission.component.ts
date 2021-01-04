@@ -23,8 +23,8 @@ export class FeesCommissionComponent implements OnInit {
   addFeeAmountDetails () {
     this.feeAmountDetails.push(this.formBuilder.group({
       feeType: [undefined , Validators.required],
-      feePercent: [undefined , Validators.required],
-      feeAmount: [undefined , Validators.required],
+      feePercent: [0 , Validators.required],
+      feeAmount: [0 , Validators.required],
     }));
   }
   get feeCommissionForm() {

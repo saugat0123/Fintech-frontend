@@ -12,6 +12,7 @@ import {CadDocStatus} from '../../../model/CadDocStatus';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
+import {RouterUtilsService} from '../../../utils/router-utils.service';
 
 @Component({
   selector: 'app-sme',
@@ -34,7 +35,8 @@ export class SmeComponent implements OnInit {
                private router: Router,
                private toastService: ToastService,
                private administrationService: CreditAdministrationService,
-               protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>) { }
+               protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
+               private routerUtilsService: RouterUtilsService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -110,11 +112,13 @@ export class SmeComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
+      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     } ,  error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
+      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     });
 
   }

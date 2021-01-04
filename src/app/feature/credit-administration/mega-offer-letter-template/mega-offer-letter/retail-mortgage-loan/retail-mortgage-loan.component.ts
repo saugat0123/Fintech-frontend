@@ -12,6 +12,7 @@ import {CreditAdministrationService} from '../../../service/credit-administratio
 import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {CadDocStatus} from '../../../model/CadDocStatus';
+import {RouterUtilsService} from '../../../utils/router-utils.service';
 
 @Component({
     selector: 'app-retail-mortgage-loan',
@@ -34,7 +35,8 @@ export class RetailMortgageLoanComponent implements OnInit {
                 private customerOfferLetterService: CustomerOfferLetterService,
                 private toastService: ToastService,
                 private administrationService: CreditAdministrationService,
-                protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>
+                protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
+                private routerUtilsService: RouterUtilsService
     ) {
     }
 
@@ -137,11 +139,13 @@ export class RetailMortgageLoanComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
             this.spinner = false;
             this.dialogRef.close();
+            this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
             this.spinner = false;
             this.dialogRef.close();
+            this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
         });
 
     }

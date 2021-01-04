@@ -47,12 +47,11 @@ export class OfferLetterListComponent implements OnInit {
     OfferLetterListComponent.loadData(this);
   }
 
-  loadProfile(offerLetterId, loanHolderId) {
+  loadProfile(cadDocumentId) {
     this.router.navigate(['/home/credit/offer-letter-profile'],
         {
           queryParams: {
-                offerLetterId: offerLetterId,
-                loanHolderId: loanHolderId
+            cadDocumentId: cadDocumentId,
               }
         });
   }
