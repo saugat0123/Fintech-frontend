@@ -139,8 +139,10 @@ export class SecurityInitialFormComponent implements OnInit {
         this.checkLoanTags();
          this.nepsePriceInfoService.getActiveNepsePriceInfoData().subscribe((response) => {
              this.nepsePriceInfo = response.detail;
-             this.shareSecurityForm.get('sharePriceDate').patchValue(this.datePipe.transform(this.nepsePriceInfo.sharePriceDate, 'yyyy-MM-dd'));
-             this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo.avgDaysForPrice);
+             this.shareSecurityForm.get('sharePriceDate').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.sharePriceDate ?
+                 this.datePipe.transform(this.nepsePriceInfo.sharePriceDate, 'yyyy-MM-dd') : undefined);
+             this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.avgDaysForPrice
+                 ? this.nepsePriceInfo.avgDaysForPrice : undefined);
          }, error => {
              console.log(error);
          });
@@ -1234,9 +1236,17 @@ export class SecurityInitialFormComponent implements OnInit {
         this.shareSecurityForm.get('loanShareRate').setValue(this.activeNepseMaster);
         this.shareSecurityData.data = JSON.stringify(this.shareSecurityForm.value);
         this.shareSecurityData.customerShareData = this.getShareDataList();
-        this.fetchOwnerKycValue('landDetails', this.ownerKycApplicable, SecurityIds.landId);
-        this.fetchOwnerKycValue('landBuilding', this.ownerKycApplicableLandBuilding, SecurityIds.land_buildingId);
-        this.fetchOwnerKycValue('hypothecationOfStock', this.ownerKycApplicableHypothecation, SecurityIds.hypothecation_Id);
+
+        if(this.ownerKycRelationInfoCheckedForLand) {
+          this.fetchOwnerKycValue('landDetails', this.ownerKycApplicable, SecurityIds.landId);
+        }
+        if (this.ownerKycRelationInfoCheckedForLandBuilding) {
+          this.fetchOwnerKycValue('landBuilding', this.ownerKycApplicableLandBuilding, SecurityIds.land_buildingId);
+        }
+        if (this.ownerKycRelationInfoCheckedForHypothecation){
+          this.fetchOwnerKycValue('hypothecationOfStock', this.ownerKycApplicableHypothecation, SecurityIds.hypothecation_Id);
+        }
+
     }
 
     setRevaluationData(controlName, list: QueryList<any>, securityId) {
@@ -1247,7 +1257,7 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     fetchOwnerKycValue(controlName, list: QueryList<any>, securityId) {
-        this.securityForm.controls[controlName]['controls'].forEach((control, index) => {
+      this.securityForm.controls[controlName]['controls'].forEach((control, index) => {
             const comp: any = list.filter(item => item.kycId === (securityId + index))[0];
             control.get('ownerKycApplicableData').setValue(comp.ownerKycForm.value);
         });
