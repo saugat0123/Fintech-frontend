@@ -16,8 +16,8 @@
                          <div class="col-md-4">
                              <div class="form-group">
                                  <label for="feeType"><strong>Fees/Commission</strong></label>
-                                 <select class="form-control" id="feeType">
-                                 <option [value]="undefined">Select Fee Type</option>
+                                 <select class="form-control" id="feeType" formControlName="feeType">
+                                 <option [value]="null">Select Fee Type</option>
                                      <option [ngValue]="'STRF'">STRF</option>
                                      <option [ngValue]="'LRF'">LRF</option>
                                      <option [ngValue]="'LMF'">LMF</option>
