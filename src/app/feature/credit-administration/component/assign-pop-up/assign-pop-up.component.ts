@@ -2,8 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../admin/component/user/user.service';
 import {CreditAdministrationService} from '../../service/credit-administration.service';
-import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-assign-pop-up',
@@ -22,7 +23,7 @@ export class AssignPopUpComponent implements OnInit {
 
     constructor(private userService: UserService,
                 private formBuilder: FormBuilder,
-                private cadService: CreditAdministrationService) {
+                private cadService: CreditAdministrationService, private toastService: ToastService) {
     }
 
     ngOnInit() {
@@ -40,8 +41,10 @@ export class AssignPopUpComponent implements OnInit {
     assignOfferLetter() {
         console.log(this.offerLetterAssignForm.value);
         this.cadService.assignLoanToUser(this.offerLetterAssignForm.value).subscribe((res: any) => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Assigned'));
 
-        });
+        }, error =>   this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Assigned'))
+    );
     }
 
     public getRoleListPresentInCad() {
@@ -88,7 +91,7 @@ export class AssignPopUpComponent implements OnInit {
                 toRole: [undefined, Validators.required],
                 docAction: ['ASSIGNED'],
                 comment: ['assigned'],
-                loanHolderId:[this.cadData.id]
+                loanHolderId: [this.cadData.id]
             });
     }
 
