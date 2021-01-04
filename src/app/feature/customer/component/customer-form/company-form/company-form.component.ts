@@ -52,6 +52,7 @@ import {FormUtils} from '../../../../../@core/utils/form.utils';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
 import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
+import {RelationshipList} from '../../../../loan/model/relationshipList';
 
 @Component({
     selector: 'app-company-form',
@@ -135,7 +136,6 @@ export class CompanyFormComponent implements OnInit {
     companyAddress;
     srdbAffiliatedId = false;
     disableCrgAlpha = envSrdb.disableCrgAlpha;
-
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
@@ -174,6 +174,9 @@ export class CompanyFormComponent implements OnInit {
     // todo replace all objectutil checking with patch value method
 
     ngOnInit() {
+        if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
+            this.srdbAffiliatedId = true;
+        }
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
             this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
@@ -254,9 +257,7 @@ export class CompanyFormComponent implements OnInit {
             showFormField: (!ObjectUtil.isEmpty(this.formValue)),
             isOldCustomer: (ObjectUtil.isEmpty(this.formValue))
         };
-        if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
-            this.srdbAffiliatedId = true;
-        }
+
     }
 
     buildForm() {
@@ -401,7 +402,6 @@ export class CompanyFormComponent implements OnInit {
             contactPersons: this.formBuilder.array([
                 this.contactPersonFormGroup()
             ]),
-
             // Location
             locationVersion: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.version],
@@ -611,15 +611,19 @@ export class CompanyFormComponent implements OnInit {
     setContactPersons(contactPerson) {
         const contactPersons = JSON.parse(contactPerson);
         const contactPersonFormArray = new FormArray([]);
-        contactPersons.forEach(data => {
-            contactPersonFormArray.push(this.formBuilder.group({
-                contactName: [data.contactName, Validators.required],
-                contactEmail: [data.contactEmail],
-                contactNumber: [data.contactNumber, Validators.required],
-                functionalPosition: [data.functionalPosition, Validators.required],
-            }));
-        });
-        return contactPersonFormArray;
+        if (!ObjectUtil.isEmpty(contactPersons)) {
+            contactPersons.forEach(data => {
+                contactPersonFormArray.push(this.formBuilder.group({
+                    contactName: [data.contactName, Validators.required],
+                    contactEmail: [data.contactEmail],
+                    contactNumber: [data.contactNumber, Validators.required],
+                    functionalPosition: [data.functionalPosition, Validators.required],
+                }));
+            });
+        } else {
+            contactPersonFormArray.push(this.contactPersonFormGroup());
+        }
+            return contactPersonFormArray;
     }
 
     addContactPersons() {
@@ -1033,4 +1037,10 @@ export class CompanyFormComponent implements OnInit {
             this.companyInfoFormGroup.get('lockerDuringReview').value;
         this.companyInfoFormGroup.get('total').patchValue(total);
     }
+
+
+
+
+
+
 }
