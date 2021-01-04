@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {CreditAdministrationService} from '../../service/credit-administration.service';
-import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
-import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
-import {LoanType} from '../../../loan/model/loanType';
+import {CreditAdministrationService} from '../../../service/credit-administration.service';
+import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
+import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
+import {LoanType} from '../../../../loan/model/loanType';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Router} from '@angular/router';
 

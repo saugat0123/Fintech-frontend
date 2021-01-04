@@ -15,7 +15,7 @@ import {ExposureComponent} from './cad-work-flow/cad-work-flow-base/legal-and-di
 import {MegaOfferLetterTemplateModule} from './mega-offer-letter-template/mega-offer-letter-template.module';
 import {CadDocumentTemplateModule} from './cad-document-template/cad-document-template.module';
 import {NbDialogModule} from '@nebular/theme';
-import {OfferLetterListComponent} from './component/offer-letter-list/offer-letter-list.component';
+import {OfferLetterListComponent} from './component/offer-letter/offer-letter-list/offer-letter-list.component';
 import {CadOfferLetterProfileComponent} from './cad-offerletter-profile/cad-offerletter-profile.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {DocumentChecklistComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/document-checklist/document-checklist.component';
@@ -24,6 +24,11 @@ import {CoreModule} from '../../@core/core.module';
 import { CadOfferLetterModalComponent } from './cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import { CommentComponent } from './comment/comment.component';
 import { OfferLetterDocumentUploadComponent } from './cad-offerletter-profile/offer-letter-document-upload/offer-letter-document-upload.component';
+import { OfferLetterApprovedComponent } from './component/offer-letter/offer-letter-approved/offer-letter-approved.component';
+import { LegalReviewPendingComponent } from './component/legal/legal-review-pending/legal-review-pending.component';
+import { LegalReviewApprovedComponent } from './component/legal/legal-review-approved/legal-review-approved.component';
+import { DisbursementApprovedComponent } from './component/disbursement/disbursement-approved/disbursement-approved.component';
+import { DisbursementPendingComponent } from './component/disbursement/disbursement-pending/disbursement-pending.component';
 
 
 @NgModule({
@@ -42,7 +47,12 @@ import { OfferLetterDocumentUploadComponent } from './cad-offerletter-profile/of
         FeesCommissionComponent,
         CadOfferLetterModalComponent,
         CommentComponent,
-        OfferLetterDocumentUploadComponent],
+        OfferLetterDocumentUploadComponent,
+        OfferLetterApprovedComponent,
+        LegalReviewPendingComponent,
+        LegalReviewApprovedComponent,
+        DisbursementApprovedComponent,
+        DisbursementPendingComponent],
     imports: [
         ThemeModule,
         CommonModule,
