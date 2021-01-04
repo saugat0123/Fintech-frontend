@@ -1,5 +1,9 @@
 <nb-card accent="primary">
-    <nb-card-header>
+    <nb-card-header [nbSpinner]="spinner"
+                    nbSpinnerStatus="primary"
+                    nbSpinnerSize="large"
+                    nbSpinnerMessage="Saving Fees/Commission data..."
+                    >
 
         <h6 class="text-center">Fee Details</h6>
     </nb-card-header>
@@ -14,9 +18,11 @@
                                  <label for="feeType"><strong>Fees/Commission</strong></label>
                                  <select class="form-control" id="feeType">
                                  <option [value]="undefined">Select Fee Type</option>
-                                     <option></option>
-                                     <option></option>
-                                     <option></option>
+                                     <option [ngValue]="'STRF'">STRF</option>
+                                     <option [ngValue]="'LRF'">LRF</option>
+                                     <option [ngValue]="'LMF'">LMF</option>
+                                     <option [ngValue]="'CIC'">CIC</option>
+                                     <option [ngValue]="'CIC'">LOAN COMMITMENT FEE</option>
                                  </select>
                              </div>
                          </div>
@@ -77,4 +83,7 @@
             </div>
         </div>
     </nb-card-body>
+    <nb-card-footer>
+        <button [disabled]="feeCommissionFormGroup.invalid" nbButton status="success" class="float-right" (click)="submitFeeForm()">Save</button>
+    </nb-card-footer>
 </nb-card>

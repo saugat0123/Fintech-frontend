@@ -1,6 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CreditAdministrationService} from '../../../../service/credit-administration.service';
+import {RouterUtilsService} from '../../../../utils/router-utils.service';
+import {ToastService} from '../../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-fees-commission',
@@ -9,15 +14,22 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class FeesCommissionComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
+  spinner = false;
 
   feeCommissionFormGroup: FormGroup;
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              private routerUtilsService: RouterUtilsService,
+              private service: CreditAdministrationService,
+              private toastService: ToastService) { }
 
   ngOnInit() {
     this.feeCommissionFormGroup = this.formBuilder.group({
       feeAmountDetails : this.formBuilder.array([])
     });
     this.addFeeAmountDetails();
+    if (!ObjectUtil.isEmpty(this.cadData.feesAndCommission)) {
+      this.feeAmountDetails.patchValue(JSON.parse(this.cadData.feesAndCommission));
+    }
   }
 
   addFeeAmountDetails () {
@@ -48,6 +60,20 @@ export class FeesCommissionComponent implements OnInit {
 
   removeFeeAmountDetail(i) {
     this.feeAmountDetails.removeAt(i);
+  }
+
+  submitFeeForm() {
+    this.spinner = true;
+    this.cadData.feesAndCommission = JSON.stringify(this.feeCommissionFormGroup.value);
+    this.service.saveCadDocumentBulk(this.cadData).subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS , 'Successfully saved Fee/Commission data!!!'));
+      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
+      this.spinner = false;
+    }, error => {
+      console.log(error);
+      this.spinner = false;
+      this.toastService.show(new Alert(AlertType.SUCCESS , 'Unable to save Fee/Commission data!!!'));
+    });
   }
 
 }
