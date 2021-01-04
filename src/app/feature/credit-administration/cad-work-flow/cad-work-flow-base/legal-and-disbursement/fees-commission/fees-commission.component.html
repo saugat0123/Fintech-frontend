@@ -1,1 +1,76 @@
-<p>fees-commission works!</p>
+<nb-card accent="primary">
+    <nb-card-header>
+
+        <h6 class="text-center">Fee Details</h6>
+    </nb-card-header>
+    <nb-card-body>
+                <div class="form" [formGroup]="feeCommissionFormGroup">
+                    <div
+                            *ngFor="let shareField of feeCommissionFormGroup.get('feeAmountDetails')['controls'];  let i = index"
+                            class="row" formArrayName="feeAmountDetails">
+                     <ng-container [formGroupName]="i">
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label for="feeType"><strong>Fees/Commission</strong></label>
+                                 <input class="form-control" formControlName="feeType" name="feeType" id="feeType"
+                                        placeholder="Fees/Commission">
+                             </div>
+                         </div>
+                         <div class="col-md-3">
+                         <div class="form-group">
+                             <label for="feePercent"><strong>Fees Percent</strong></label>
+                             <input class="form-control" formControlName="feePercent" name="feePercent" id="feePercent"
+                                    placeholder=" Fee Percent">
+                         </div>
+                       </div>
+                         <div class="col-md-4">
+                         <div class="form-group">
+                             <label for="feeAmount"><strong>Fees Amount</strong></label>
+                             <input  class="form-control" formControlName="feeAmount" name="feeAmount" id="feeAmount"
+                                     placeholder="Fees Amount">
+                         </div>
+                     </div>
+                         <div class="col">
+                             <div *ngIf="feeAmountDetails.length > 1">
+                                 <button (click)="removeFeeAmountDetail(i)"
+                                         class="btn btn-sm btn-flat btn-danger" style="margin-top: 30px;">
+                                     <em class="fa fa-trash bg-transparent"></em>
+                                 </button>
+                             </div>
+                         </div>
+                     </ng-container>
+                    </div>
+                    <hr>
+                    <div class="col-md-12 d-flex justify-content-end">
+                        <button class="btn btn-sm btn-flat btn-primary mb-4" [disabled]="feeAmountDetails.invalid" (click)="addFeeAmountDetails()"><i
+                                class="fa fa-plus"></i></button>
+                    </div>
+                </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
+                    <thead>
+                    <tr class="sb-bg-dark text-white">
+                        <th>Fees/Commission</th>
+                        <th>Fees Percent</th>
+                        <th>Fees Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody >
+                    <ng-container *ngFor="let f of feeAmountDetails.value;  let i = index">
+                        <tr>
+                            <td>{{f?.feeType}}</td>
+                            <td>{{f?.feePercent}}</td>
+                            <td>{{f?.feeAmount}}</td>
+                        </tr>
+                    </ng-container>
+                    <tr>
+                        <td colspan="2" class="text-center"><strong>Total Amount</strong></td>
+                        <td>Rs. {{totalFeeAmount |currencyFormatter}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
