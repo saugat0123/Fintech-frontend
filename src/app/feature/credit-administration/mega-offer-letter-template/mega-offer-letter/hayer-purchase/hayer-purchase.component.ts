@@ -11,6 +11,7 @@ import {CadDocStatus} from '../../../model/CadDocStatus';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
+import {RouterUtilsService} from '../../../utils/router-utils.service';
 
 @Component({
     selector: 'app-hayer-purchase',
@@ -33,6 +34,7 @@ export class HayerPurchaseComponent implements OnInit {
     constructor(private formBuilder: FormBuilder,
                 private toastService: ToastService,
                 private router: Router,
+                private routerUtilsService: RouterUtilsService,
                 private administrationService: CreditAdministrationService,
                 protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>) {
     }
@@ -121,11 +123,13 @@ export class HayerPurchaseComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Hayer Purchase Offer Letter'));
             this.spinner = false;
             this.dialogRef.close();
+            this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save  Hayer Purchase Offer Letter'));
             this.spinner = false;
             this.dialogRef.close();
+            this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
         });
 
     }

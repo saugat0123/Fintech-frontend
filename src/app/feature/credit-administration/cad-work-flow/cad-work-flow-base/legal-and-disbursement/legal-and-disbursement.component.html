@@ -1,4 +1,8 @@
-<nb-card>
+<nb-card [nbSpinner]="spinner" accent="primary"
+         class="m-0"
+         nbSpinnerMessage="Loading data please wait....."
+         nbSpinnerSize="giant"
+         nbSpinnerStatus="primary">
     <nb-card-header>
         <app-cad-action [cadId]="cadOfferLetterApprovedDoc?.id"
                         [selectedBranchId]="cadOfferLetterApprovedDoc?.loanHolder?.branch?.id"
@@ -8,7 +12,8 @@
     <nb-card-body>
         <nb-tabset fullWidth>
             <nb-tab tabTitle="Basic Info">
-                <app-cad-offerletter-profile></app-cad-offerletter-profile>
+                <app-cad-offerletter-profile *ngIf="cadOfferLetterApprovedDoc"
+                                             [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-cad-offerletter-profile>
             </nb-tab>
             <nb-tab tabTitle="Exposure Detail">
                 <app-exposure *ngIf="cadOfferLetterApprovedDoc" [cadData]="cadOfferLetterApprovedDoc"></app-exposure>

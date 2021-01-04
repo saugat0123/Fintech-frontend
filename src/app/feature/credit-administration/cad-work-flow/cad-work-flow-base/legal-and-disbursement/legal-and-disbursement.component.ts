@@ -17,7 +17,7 @@ export class LegalAndDisbursementComponent implements OnInit {
 
     cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
     customerInfoData: CustomerInfoData;
-    offerLetterId;
+    cadDocumentId;
     spinner = false;
     currentUserLocalStorage = LocalStorageUtil.getStorage().userId;
     showHideAction = false;
@@ -32,7 +32,7 @@ export class LegalAndDisbursementComponent implements OnInit {
 
     static loadData(other: LegalAndDisbursementComponent) {
         other.spinner = true;
-        other.service.detail(other.offerLetterId).subscribe((res: any) => {
+        other.service.detail(other.cadDocumentId).subscribe((res: any) => {
             other.cadOfferLetterApprovedDoc = res.detail;
             other.customerInfoData = other.cadOfferLetterApprovedDoc.loanHolder;
             console.log('from local storage', other.currentUserLocalStorage.toString());
@@ -49,7 +49,7 @@ export class LegalAndDisbursementComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.offerLetterId = Number(this.activatedRoute.snapshot.queryParamMap.get('offerLetterId'));
+        this.cadDocumentId = Number(this.activatedRoute.snapshot.queryParamMap.get('cadDocumentId'));
         LegalAndDisbursementComponent.loadData(this);
 
     }

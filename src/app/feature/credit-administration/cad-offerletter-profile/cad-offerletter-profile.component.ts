@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CreditAdministrationService} from '../service/credit-administration.service';
 import {MegaOfferLetterConst} from '../mega-offer-letter-const';
 import {CustomerApprovedLoanCadDocumentation} from '../model/customerApprovedLoanCadDocumentation';
@@ -11,6 +11,8 @@ import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
+import {RouterUtilsService} from '../utils/router-utils.service';
+import {RouteConst} from '../model/RouteConst';
 
 @Component({
   selector: 'app-cad-offerletter-profile',
@@ -19,8 +21,8 @@ import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 })
 export class CadOfferLetterProfileComponent implements OnInit {
 
-/*  todo get data from input and remove fetch here
-  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;*/
+  /*todo get data from input and remove fetch here*/
+  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
 
   constructor(
       private activatedRoute: ActivatedRoute,
@@ -28,13 +30,14 @@ export class CadOfferLetterProfileComponent implements OnInit {
       private nbDialogService: NbDialogService ,
       private modelService: NgbModal,
       private toastrService: ToastService,
+      private router: Router,
+      private routerUtilsService: RouterUtilsService
   ) {
   }
 
   spinner = false;
   offerLetterId;
   loanHolderId;
-  cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   customerInfoData: CustomerInfoData;
   offerLetterTypes = MegaOfferLetterConst.enumObject();
 
@@ -45,24 +48,8 @@ export class CadOfferLetterProfileComponent implements OnInit {
   uploadFile;
   index;
 
-  static loadData(other: CadOfferLetterProfileComponent) {
-    other.spinner = true;
-    other.service.detail(other.offerLetterId).subscribe((res: any) => {
-      other.cadOfferLetterApprovedDoc = res.detail;
-      other.customerInfoData = other.cadOfferLetterApprovedDoc.loanHolder;
-      console.log(res.detail);
-      other.spinner = false;
-    }, error => {
-      console.log(error);
-      other.spinner = false;
-    });
-  }
-
   ngOnInit() {
-    console.log(this.offerLetterTypes);
-    this.offerLetterId = Number(this.activatedRoute.snapshot.queryParamMap.get('offerLetterId'));
-    this.loanHolderId = Number(this.activatedRoute.snapshot.queryParamMap.get('loanHolderId'));
-    CadOfferLetterProfileComponent.loadData(this);
+    this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
   }
 
   openOfferLetterDocumentModal(offerLetterType) {
@@ -72,7 +59,7 @@ export class CadOfferLetterProfileComponent implements OnInit {
     }
     const cadOfferLetterApprovedDoc = this.cadOfferLetterApprovedDoc;
     this.nbDialogService.open(CadOfferLetterModalComponent, {context: {offerLetterType, cadOfferLetterApprovedDoc}
-        }).onClose.subscribe(() => CadOfferLetterProfileComponent.loadData(this));
+        });
   }
 
   openModel(model, documentName: string, documentId, index: number) {
@@ -83,6 +70,7 @@ export class CadOfferLetterProfileComponent implements OnInit {
 
   // todo move document upload to seperate to component
   submitOfferLetter() {
+    this.spinner = true;
     const formData: FormData = new FormData();
 
     formData.append('file', this.uploadFile);
@@ -95,7 +83,8 @@ export class CadOfferLetterProfileComponent implements OnInit {
     this.service.uploadOfferFile(formData).subscribe((response: any) => {
       this.toastrService.show(new Alert(AlertType.SUCCESS, 'OFFER LETTER HAS BEEN UPLOADED'));
      this.modelService.dismissAll();
-     CadOfferLetterProfileComponent.loadData(this);
+     this.spinner = false;
+      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     }, error => {
       this.toastrService.show(new Alert(AlertType.ERROR, error.error.message));
       console.error(error);

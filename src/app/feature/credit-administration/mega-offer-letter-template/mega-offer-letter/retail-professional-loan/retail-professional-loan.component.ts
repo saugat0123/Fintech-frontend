@@ -12,6 +12,7 @@ import {OfferDocument} from '../../../model/OfferDocument';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../model/CadDocStatus';
+import {RouterUtilsService} from '../../../utils/router-utils.service';
 
 @Component({
     selector: 'app-retail-professional-loan',
@@ -34,7 +35,8 @@ export class RetailProfessionalLoanComponent implements OnInit {
                 private toastService: ToastService,
                 private router: Router,
                 private administrationService: CreditAdministrationService,
-                protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>
+                protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
+                private routerUtilsService: RouterUtilsService
     ) {
     }
 
@@ -111,11 +113,13 @@ export class RetailProfessionalLoanComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
             this.spinner = false;
             this.dialogRef.close();
+            this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
             this.spinner = false;
             this.dialogRef.close();
+            this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
         });
 
     }
