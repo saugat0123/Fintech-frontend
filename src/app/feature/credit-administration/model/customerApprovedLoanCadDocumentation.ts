@@ -14,7 +14,7 @@ export class CustomerApprovedLoanCadDocumentation extends BaseEntity {
     cadFileList: Array<CadFile>;
     offerDocumentList: Array<OfferDocument>;
     cadStageList: string;
-    previousList: any;
+    previousList: Array<any>;
     docStatus: CadDocStatus;
 
 
