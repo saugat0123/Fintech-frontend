@@ -86,6 +86,8 @@ export class CadOfferLetterProfileComponent implements OnInit {
      this.spinner = false;
       this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     }, error => {
+      this.modelService.dismissAll();
+      this.spinner = false;
       this.toastrService.show(new Alert(AlertType.ERROR, error.error.message));
       console.error(error);
     });
