@@ -29,19 +29,20 @@
                              <input  class="form-control" formControlName="feeAmount" name="feeAmount" id="feeAmount"
                                      placeholder="Fees Amount">
                          </div>
-                             <div class="col-md-1">
-                         <div class="form-group">
-                             <div class="col-md-12 d-flex justify-content-end">
-                                 <button class="btn btn-sm btn-flat btn-primary" (click)="addFeeAmountDetails()"><i
-                                         class="fa fa-plus"></i></button>
+                     </div>
+                         <div class="col">
+                             <div *ngIf="feeAmountDetails.length > 1">
+                                 <button (click)="removeFeeAmountDetail(i)"
+                                         class="btn btn-sm btn-flat btn-danger" style="margin-top: 30px;">
+                                     <em class="fa fa-trash bg-transparent"></em>
+                                 </button>
                              </div>
                          </div>
-                             </div>
-                     </div>
                      </ng-container>
                     </div>
+                    <hr>
                     <div class="col-md-12 d-flex justify-content-end">
-                        <button class="btn btn-sm btn-flat btn-primary" (click)="addFeeAmountDetails()"><i
+                        <button class="btn btn-sm btn-flat btn-primary mb-4" [disabled]="feeAmountDetails.invalid" (click)="addFeeAmountDetails()"><i
                                 class="fa fa-plus"></i></button>
                     </div>
                 </div>

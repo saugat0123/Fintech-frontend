@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-fees-commission',
@@ -22,9 +22,9 @@ export class FeesCommissionComponent implements OnInit {
 
   addFeeAmountDetails () {
     this.feeAmountDetails.push(this.formBuilder.group({
-      feeType: [undefined],
-      feePercent: [undefined],
-      feeAmount: [undefined],
+      feeType: [undefined , Validators.required],
+      feePercent: [undefined , Validators.required],
+      feeAmount: [undefined , Validators.required],
     }));
   }
   get feeCommissionForm() {
@@ -44,6 +44,10 @@ export class FeesCommissionComponent implements OnInit {
     let t = 0;
     this.feeAmountDetails.controls.forEach(value => t += Number(value.get('feeAmount').value));
     return t;
+  }
+
+  removeFeeAmountDetail(i) {
+    this.feeAmountDetails.removeAt(i);
   }
 
 }
