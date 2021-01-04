@@ -184,10 +184,14 @@ export class CadActionComponent implements OnInit {
 
         } else if (this.popUpTitle === 'APPROVED') {
             const newDocStatus = this.getNewDocStatusOnApprove();
+            if (newDocStatus === '0') {
+                this.toastService.show(new Alert(AlertType.ERROR, 'This Document is Already Approved'));
+                return;
+            }
             this.formAction = this.formBuilder.group(
                 {
                     cadId: [this.cadId],
-                    docAction: [val],
+                    docAction: [newDocStatus],
                     comment: [undefined, Validators.required],
                     documentStatus: [newDocStatus]
                 }
@@ -213,6 +217,12 @@ export class CadActionComponent implements OnInit {
             return 'OFFER_APPROVED';
         } else if (this.currentStatus === 'LEGAL_PENDING') {
             return 'LEGAL_APPROVED';
+        } else if (this.currentStatus === 'OFFER_APPROVED') {
+            return '0';
+        } else if (this.currentStatus === 'LEGAL_APPROVED') {
+            return '0';
+        } else if (this.currentStatus === 'DISBURSEMENT_APPROVED') {
+            return '0';
         } else {
             return 'DISBURSEMENT_APPROVED';
         }
