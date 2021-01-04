@@ -139,8 +139,10 @@ export class SecurityInitialFormComponent implements OnInit {
         this.checkLoanTags();
          this.nepsePriceInfoService.getActiveNepsePriceInfoData().subscribe((response) => {
              this.nepsePriceInfo = response.detail;
-             this.shareSecurityForm.get('sharePriceDate').patchValue(this.datePipe.transform(this.nepsePriceInfo.sharePriceDate, 'yyyy-MM-dd'));
-             this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo.avgDaysForPrice);
+             this.shareSecurityForm.get('sharePriceDate').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.sharePriceDate ?
+                 this.datePipe.transform(this.nepsePriceInfo.sharePriceDate, 'yyyy-MM-dd') : undefined);
+             this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.avgDaysForPrice
+                 ? this.nepsePriceInfo.avgDaysForPrice : undefined);
          }, error => {
              console.log(error);
          });
