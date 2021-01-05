@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Guarantor} from '../../loan/model/guarantor';
+import {Occupation} from '../../admin/modal/occupation';
 
 @Component({
   selector: 'app-guarantor-view',
@@ -8,6 +9,7 @@ import {Guarantor} from '../../loan/model/guarantor';
 })
 export class GuarantorViewComponent implements OnInit {
   @Input() guarantorData;
+  Occupation = Occupation;
   constructor() { }
 
   ngOnInit() {

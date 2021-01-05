@@ -12,6 +12,9 @@ import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {CustomerType} from '../../model/customerType';
+import {LoanConfig} from '../../../admin/modal/loan-config';
+import {CustomerInfoService} from '../../service/customer-info.service';
+import {LoanTag} from '../../../loan/model/loanTag';
 
 @Component({
   selector: 'app-customer-loan-apply',
@@ -41,6 +44,7 @@ export class CustomerLoanApplyComponent implements OnInit {
   loanTypeList = LoanType.value();
   selectedLoanType;
   multipleSelectedLoanType = [];
+  loanTag = LoanTag;
 
   constructor(
       public activeModal: NgbActiveModal,
@@ -48,7 +52,8 @@ export class CustomerLoanApplyComponent implements OnInit {
       private loanConfigService: LoanConfigService,
       private customerLoanService: LoanFormService,
       private combinedLoanService: CombinedLoanService,
-      private toastService: ToastService
+      private toastService: ToastService,
+      private customerInfoService: CustomerInfoService
   ) {
   }
 
@@ -105,17 +110,68 @@ export class CustomerLoanApplyComponent implements OnInit {
       });
     } else {
       this.activeModal.dismiss();
-      this.router.navigate(['/home/loan/loanForm'], {
-        queryParams: {
-          loanId: this.applyForm.loanId,
-          customerInfoId: this.paramProp.customerInfoId,
-          customerType: this.paramProp.customerType,
-          customerProfileId: this.associateId,
-          loanCategory: this.customerType,
-          loanType: this.selectedLoanType
+      this.loanConfigService.detail(this.applyForm.loanId).subscribe(res => {
+        const loanConfig: LoanConfig = res.detail;
+        if (ObjectUtil.isEmpty(loanConfig.loanTag)) {
+          this.toastService.show(new Alert(AlertType.INFO, 'Configure Loan Tag From Loan Configuration'));
+          return;
+        } else if (!((loanConfig.loanTag === LoanTag.getKeyByValue(LoanTag.FIXED_DEPOSIT)) ||
+            (loanConfig.loanTag === LoanTag.getKeyByValue(LoanTag.SHARE_SECURITY) ||
+                (loanConfig.loanTag === LoanTag.getKeyByValue(LoanTag.VEHICLE))))) {
+          this.routeToLoanForm();
+
         }
+        this.customerInfoService.detail(this.paramProp.customerInfoId).subscribe(customerInfoResponse => {
+              const customerInfo: CustomerInfoData = customerInfoResponse.detail;
+              const securityData = customerInfo.security ? JSON.parse(customerInfo.security.data) : undefined;
+              if (!ObjectUtil.isEmpty(securityData)) {
+                switch (loanConfig.loanTag) {
+                  case LoanTag.getKeyByValue(LoanTag.SHARE_SECURITY) :
+                    if (!securityData.selectedArray.includes('ShareSecurity')) {
+                      this.toastService.show(new Alert(AlertType.INFO, 'Fill Share Security for Share Loan'));
+                    } else {
+                      this.routeToLoanForm();
+                    }
+                    break;
+                  case LoanTag.getKeyByValue(LoanTag.FIXED_DEPOSIT) :
+                    if (!securityData.selectedArray.includes('FixedDeposit')) {
+                      this.toastService.show(new Alert(AlertType.INFO, 'Fill Fixed Deposit Security for Fixed Deposit Loan'));
+                    } else {
+                      this.routeToLoanForm();
+
+                    }
+                    break;
+                  case LoanTag.getKeyByValue(LoanTag.VEHICLE) :
+                    if (!securityData.selectedArray.includes('VehicleSecurity')) {
+                      this.toastService.show(new Alert(AlertType.INFO, 'Fill Vehicle Security for Vehicle Loan'));
+                    } else {
+                      this.routeToLoanForm();
+
+                    }
+                    break;
+                }
+              } else {
+                this.toastService.show(new Alert(AlertType.INFO, 'Security is Empty'));
+                return;
+              }
+            }
+        );
       });
     }
+  }
+
+  routeToLoanForm() {
+    this.router.navigate(['/home/loan/loanForm'], {
+      queryParams: {
+        loanId: this.applyForm.loanId,
+        customerInfoId: this.paramProp.customerInfoId,
+        customerType: this.paramProp.customerType,
+        customerProfileId: this.associateId,
+        loanCategory: this.customerType,
+        loanType: this.selectedLoanType
+      }
+    });
+
   }
 
   updateCombinedList(id: number, checked: boolean) {

@@ -9,6 +9,8 @@ import {SummaryBaseComponent} from './summary-base/summary-base.component';
 import {LoanInformationDetailViewComponent} from '../loan-information-detail-view/loan-information-detail-view.component';
 import {CadDocumentUploadComponent} from '../loan-information-template/cad-document-upload/cad-document-upload.component';
 import { PostApprovalFormComponent } from './loan-offer-letter/post-approval-form/post-approval-form.component';
+import {CatalogueComponent} from "../admin/component/catalogue/catalogue.component";
+import {TransferDocComponent} from "./transfer-doc/transfer-doc.component";
 
 export const routes: Routes = [
     {path: 'loanForm', component: LoanFormComponent},
@@ -19,9 +21,8 @@ export const routes: Routes = [
     {path: 'loan-offer-letter', component: LoanOfferLetterComponent},
     {path: 'detailed-summary', component: LoanInformationDetailViewComponent},
     {path: 'cad-document', component: CadDocumentUploadComponent},
-
+    {path: 'transfer-doc', component: TransferDocComponent},
     {path: 'post-approval-form', component: PostApprovalFormComponent},
-
 ];
 
 @NgModule({

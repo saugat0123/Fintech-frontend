@@ -14,7 +14,8 @@ export class BusinessBackgroundComponent implements OnInit {
   companyJsonData: CompanyJsonData;
 
   marketScenario;
-
+  localRaw;
+  importedRaw;
   constructor() {
   }
 
@@ -25,6 +26,8 @@ export class BusinessBackgroundComponent implements OnInit {
         console.log(this.companyJsonData.marketScenario);
         this.marketScenario = this.companyJsonData.marketScenario;
       }
+      this.localRaw = this.companyJsonData.rawMaterialSourcing.includes('local');
+      this.importedRaw = this.companyJsonData.rawMaterialSourcing.includes('imported');
     }
   }
 

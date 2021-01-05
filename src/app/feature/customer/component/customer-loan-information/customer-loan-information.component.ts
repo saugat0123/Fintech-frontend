@@ -25,6 +25,7 @@ import {CiclArray} from '../../../admin/modal/cicl';
 import {IncomeFromAccount} from '../../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 import {CreditChecklistGeneral} from '../../../loan/model/creditChecklistGeneral';
+import {CustomerType} from '../../model/customerType';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -88,6 +89,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   public incomeFromAccountDataResponse: IncomeFromAccount;
   public netTradingAssets: NetTradingAssets;
   public creditChecklistGeneral: CreditChecklistGeneral;
+  customerType = CustomerType;
 
 
   constructor(

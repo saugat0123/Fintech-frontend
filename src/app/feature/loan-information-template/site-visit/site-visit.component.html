@@ -1,4 +1,8 @@
-<nb-card>
+<nb-card [nbSpinner]="spinner"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="large"
+         nbSpinnerMessage="Loading Data Please Wait..."
+         status="primary">
     <nb-card-body>
         <form [formGroup]="siteVisitFormGroup" class="form-horizontal">
             <div class="row justify-content-around">
@@ -29,32 +33,9 @@
             </div>
             <div [hidden]="!currentResidentForm" class="row mt-3" formGroupName="currentResidentDetails">
                 <h4 class="col-md-12">Current Resident</h4>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="houseNumber">House Number</label>
-                    <input class="form-control" formControlName="houseNumber" id="houseNumber"
-                           name="houseNumber"
-                           placeholder="house number" type="text">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="streetName">Street Name</label>
-                    <input class="form-control" formControlName="streetName" id="streetName" name="streetName"
-                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('currentResidentDetails')?.get('streetName')?.errors }"
-                           placeholder="street name" type="text">
-                    <div *ngIf="(submitted) && siteVisitFormGroup.get('currentResidentDetails')?.get('streetName')?.invalid"
-                         class="invalid-feedback">
-                        <span *ngIf="siteVisitFormGroup.get('currentResidentDetails')?.get('streetName')?.errors.required">Street Name is required</span>
-                    </div>
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="address">Address</label>
-                    <input class="form-control" formControlName="address" id="address" name="address"
-                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('currentResidentDetails').get('address')?.errors }"
-                           placeholder="address" type="text">
-                    <div *ngIf="(submitted) && siteVisitFormGroup.get('currentResidentDetails').get('address')?.invalid"
-                         class="invalid-feedback">
-                        <span *ngIf="siteVisitFormGroup.get('currentResidentDetails').get('address')?.errors.required">address is required</span>
-                    </div>
-                </div>
+               <div class="col-md-12">
+                   <app-common-address [address]="formDataForEdit?.currentResidentDetails?.address" #currentResidentAddress></app-common-address>
+               </div>
                 <div class="col-md-4 form-group">
                     <label class="title" for="nearBy">Near By</label>
                     <input class="form-control" formControlName="nearBy" id="nearBy" name="nearBy"
@@ -85,8 +66,8 @@
                             id="staffRepresentativeNameDesignation"
                             name="staffRepresentativeNameDesignation">
                         <option [ngValue]="null" hidden>Staff Representative Designation</option>
-                        <option *ngFor="let designation of designationList.designation"
-                                [ngValue]="designation.id">{{designation.name}}</option>
+                        <option *ngFor="let designation of designationList"
+                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                     </select>
                 </div>
                 <div class="col-md-4 form-group">
@@ -107,8 +88,8 @@
                         <option [ngValue]="null" hidden>Alternative Staff Representative
                             Designation
                         </option>
-                        <option *ngFor="let designation of designationList.designation"
-                                [ngValue]="designation.id">{{designation.name}}</option>
+                         <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                     </select>
                 </div>
                 <div class="col-md-4 form-group">
@@ -157,16 +138,8 @@
             <div [hidden]="!businessSiteVisitForm" class="row mt-3"
                  formGroupName="businessSiteVisitDetails">
                 <h4 class="col-md-12">Business Site Visit</h4>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="officeAddress">Office Address</label>
-                    <input class="form-control" formControlName="officeAddress" id="officeAddress"
-                           [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('officeAddress')?.errors }"
-                           name="officeAddress" placeholder="office address"
-                           type="text">
-                    <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('officeAddress')?.invalid"
-                         class="invalid-feedback">
-                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('officeAddress')?.errors.required">office address is required</span>
-                    </div>
+                <div class="col-md-12">
+                    <app-common-address #businessOfficeAddress [address]="formDataForEdit?.businessSiteVisitDetails?.officeAddress"></app-common-address>
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="title" for="nameOfThePersonContacted">Name Of The Person Contacted</label>
@@ -211,8 +184,8 @@
                             id="staffRepresentativeNameDesignationBusiness"
                             name="staffRepresentativeNameDesignation">
                         <option [ngValue]="null" hidden>Staff Representative Designation</option>
-                        <option *ngFor="let designation of designationList.designation"
-                                [ngValue]="designation.id">{{designation.name}}</option>
+                         <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                     </select>
                 </div>
                 <div class="col-md-4 form-group">
@@ -233,8 +206,8 @@
                         <option [ngValue]="null" hidden>Alternative Staff Representative
                             Designation
                         </option>
-                        <option *ngFor="let designation of designationList.designation"
-                                [ngValue]="designation.id">{{designation.name}}</option>
+                         <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                     </select>
                 </div>
                 <div class="col-md-4 form-group">
@@ -296,7 +269,7 @@
             <div [hidden]="!fixedAssetCollateralForm" class="row mt-3"
                  formGroupName="fixedAssetCollateralDetails">
                 <h4 class="col-md-12">Fixed Assets Collateral</h4>
-                <div class="col-md-3 form-group">
+                <div class="col-md-4 form-group">
                     <label class="title" for="date">Date</label>
                     <input [max]="date" [nbDatepicker]="datepicker4" class="form-control"
                            [ngClass]="{ 'is-invalid': (fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('date')?.errors }"
@@ -307,12 +280,7 @@
                         <span *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('date')?.errors.required">date is required</span>
                     </div>
                 </div>
-                <div class="col-md-3 form-group">
-                    <label class="title" for="fixedAssetCollateralAddress">Address</label>
-                    <input class="form-control" formControlName="address" id="fixedAssetCollateralAddress"
-                           name="fixedAssetCollateralAddress" placeholder="address" type="text">
-                </div>
-                <div class="col-md-3 form-group">
+                <div class="col-md-4 form-group">
                     <label class="title" for="personContacted">Person Contacted</label>
                     <input class="form-control" formControlName="personContacted" id="personContacted"
                            [ngClass]="{ 'is-invalid': (fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('personContacted')?.errors }"
@@ -324,7 +292,7 @@
                             Invalid Person Name</span>
                     </div>
                 </div>
-                <div class="col-md-3 form-group">
+                <div class="col-md-4 form-group">
                     <label class="title" for="phoneNoOfContact">Phone No. Of Contact</label>
                     <input class="form-control" formControlName="phoneNoOfContact" id="phoneNoOfContact"
                            [ngClass]="{ 'is-invalid': (fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('phoneNoOfContact')?.errors }"
@@ -335,6 +303,9 @@
                             Invalid Mobile Number
                         </span>
                     </div>
+                </div>
+                <div class="col-md-12">
+                    <app-common-address #fixedAssetsAddress [address]="formDataForEdit?.fixedAssetCollateralDetails?.address"></app-common-address>
                 </div>
                 <h5 class="col-md-12 mt-3">Facilities</h5>
                 <div class="row col-md-12 pr-0" formGroupName="facilities">
@@ -372,7 +343,7 @@
                             <tr class="text-white sb-bg-dark">
                                 <th>SN</th>
                                 <th>Particulars</th>
-                                <th>Yes or No</th>
+                                <th>Check for Yes</th>
                             </tr>
                             <tr>
                                 <td>1</td>
@@ -447,6 +418,7 @@
                         <tr class="text-white sb-bg-dark">
                             <th>SN</th>
                             <th>Particulars</th>
+                            <th>Check for Yes</th>
                         </tr>
                         <tr>
                             <td>1</td>
@@ -539,8 +511,8 @@
                                             id="staffRepresentativeNameDesignationFac"
                                             name="staffRepresentativeNameDesignation">
                                         <option [ngValue]="null" hidden>Staff Representative Designation</option>
-                                        <option *ngFor="let designation of designationList.designation"
-                                                [ngValue]="designation.id">{{designation.name}}</option>
+                                         <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 form-group">
@@ -561,8 +533,8 @@
                                         <option [ngValue]="null" hidden>Alternative Staff Representative
                                             Designation
                                         </option>
-                                        <option *ngFor="let designation of designationList.designation"
-                                                [ngValue]="designation.id">{{designation.name}}</option>
+                                         <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 form-group">
@@ -659,18 +631,17 @@
 
                 <h4 class="col-md-12 mt-3">Insurance Verification</h4>
                 <div class="row col-md-12 mt-3" formGroupName="insuranceVerification">
-                    <div class="row col-md-6">
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-4 form-group">
                             <label class="title" for="assetsMortgaged">Assets Mortgaged</label>
                             <input class="form-control" formControlName="assetsMortgaged" id="assetsMortgaged"
                                    name="assetsMortgaged" placeholder="assets mortgaged">
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-4 form-group">
                             <label class="title" for="insuredAmount">Insured Amount</label>
                             <input class="form-control" formControlName="insuredAmount" id="insuredAmount"
                                    name="insuredAmount" placeholder="insured amount" type="number">
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-4 form-group">
                             <label class="title" for="insuranceCompany">Insurance Company</label>
                             <select class="form-control" formControlName="insuranceCompany"
                                    id="insuranceCompany" name="insuranceCompany">
@@ -679,13 +650,13 @@
 
                             </select>
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-4 form-group">
                             <label class="title" for="expiryDate">Expiry Date</label>
                             <input [nbDatepicker]="datepicker2" class="form-control" formControlName="expiryDate"
                                    id="expiryDate" placeholder="expiry date">
                             <nb-datepicker #datepicker2></nb-datepicker>
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-4 form-group">
                             <label class="title" for="clientsOverallRating">clients Overall Rating</label>
                             <select class="custom-select" formControlName="clientsOverallRating"
                                     id="clientsOverallRating"
@@ -697,18 +668,17 @@
                                 <option value="EXCELLENT">Excellent</option>
                             </select>
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-4 form-group">
                             <label class="title" for="comments">Comments</label>
                             <input class="form-control" formControlName="comments" id="comments"
                                    name="comments" placeholder="comments">
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-4 form-group">
                             <label class="title" for="stockValueConfirmed">Stock Value Confirmed</label>
                             <input class="form-control" formControlName="stockValueConfirmed"
                                    id="stockValueConfirmed" name="stockValueConfirmed"
                                    placeholder="0.0" type="number">
                         </div>
-                    </div>
                     <div class="col-md-12">
                         <div *ngFor="let inspectingStaff of inspectingStaffsDetailsForm; let i = index;"
                              formArrayName="inspectingStaffsDetails">
@@ -722,8 +692,8 @@
                                             id="staffRepresentativeNameDesignationCurrent"
                                             name="staffRepresentativeNameDesignation">
                                         <option [ngValue]="null" hidden>Staff Representative Designation</option>
-                                        <option *ngFor="let designation of designationList.designation"
-                                                [ngValue]="designation.id">{{designation.name}}</option>
+                                         <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 form-group">
@@ -744,8 +714,8 @@
                                         <option [ngValue]="null" hidden>Alternative Staff Representative
                                             Designation
                                         </option>
-                                        <option *ngFor="let designation of designationList.designation"
-                                                [ngValue]="designation.id">{{designation.name}}</option>
+                                        <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 form-group">
@@ -774,12 +744,12 @@
                     </div>
                 </div>
                 <h4 class="col-md-12 mt-3">Current Assets Inpsection - Stock Checklist Questionaire</h4>
-                <div class="row col-md-12 mt-3" formGroupName="stockCheckListQuestionaire">
-                    <table class="table table-sm sb-small text-center">
+                <div class="col-md-12 mt-3" formGroupName="stockCheckListQuestionaire">
+                    <table class="table table-sm sb-small text-center table-bordered">
                         <tr class="text-white sb-bg-dark">
                             <th>SN</th>
                             <th>Particulars</th>
-                            <th>Yes Or No</th>
+                            <th>Check for Yes</th>
                         </tr>
                         <tr>
                             <td>1</td>
@@ -879,21 +849,24 @@
                             <td><input formControlName="certificate" type="checkbox"></td>
                         </tr>
                     </table>
-                    <div class="col-md-6 form-group">
-                        <label class="title" for="findingAndComments">Finding & Comments</label>
-                        <textarea class="form-control" formControlName="findingAndComments"
-                                  id="findingAndComments" name="findingAndComments"
-                                  placeholder="findings and comments"
-                                  row="3" type="text"></textarea>
+                    <div class="row">
+                        <div class=" col-md-6 form-group">
+                            <label class="title" for="findingAndComments">Finding & Comments</label>
+                            <textarea class="form-control" formControlName="findingAndComments"
+                                      id="findingAndComments" name="findingAndComments"
+                                      placeholder="findings and comments"
+                                      row="3" type="text"></textarea>
+                        </div>
+                        <div class=" col-md-6 form-group">
+                            <label class="title" for="remarksForNoOption">Remarks for 'NO' Option</label>
+                            <textarea class="form-control" formControlName="remarksForNoOption"
+                                      id="remarksForNoOption" name="remarksForNoOption" placeholder="remarks"
+                                      row="3" type="text"></textarea>
+                        </div>
                     </div>
-                    <div class="col-md-6 form-group">
-                        <label class="title" for="remarksForNoOption">Remarks for 'NO' Option</label>
-                        <textarea class="form-control" formControlName="remarksForNoOption"
-                                  id="remarksForNoOption" name="remarksForNoOption" placeholder="remarks"
-                                  row="3" type="text"></textarea>
                     </div>
-                </div>
-                <h4 class="col-md-12 mt-3">Current Assets Inspection - Receivables & Payables</h4>
+
+                <h4 class="col-md-12 mt-3">Current Assets Inspection - Receivables</h4>
                 <div class="row col-md-12 mt-3" formGroupName="receivablesAndPayables">
                     <div *ngFor="let party of partyForm; let i = index;"
                          formArrayName="parties">
@@ -951,38 +924,132 @@
                             <div class="col-md-2 form-group"><label class="title">Total:</label></div>
                             <div class="col-md-2 form-group">
                                 <input class="form-control" disabled formControlName="threeMonthTotal" placeholder="0.0"
-                                       type="text" (ngModelChange)="calculateGrandTotal()">
+                                       type="text" (ngModelChange)="calculateGrandTotal('receivablesAndPayables')">
                             </div>
                             <div class="col-md-2 form-group">
                                 <input class="form-control" disabled formControlName="sixMonthTotal" placeholder="0.0"
-                                       type="text" (ngModelChange)="calculateGrandTotal()">
+                                       type="text" (ngModelChange)="calculateGrandTotal('receivablesAndPayables')">
                             </div>
                             <div class="col-md-2 form-group">
                                 <input class="form-control" disabled formControlName="oneYearTotal" placeholder="0.0"
-                                       type="text" (ngModelChange)="calculateGrandTotal()">
+                                       type="text" (ngModelChange)="calculateGrandTotal('receivablesAndPayables')">
                             </div>
                             <div class="col-md-2 form-group">
                                 <input class="form-control" disabled formControlName="moreThanOneYearTotal"
                                        placeholder="0.0"
-                                       type="text" (ngModelChange)="calculateGrandTotal()">
+                                       type="text" (ngModelChange)="calculateGrandTotal('receivablesAndPayables')">
                             </div>
                         </div>
                         <div class="row">
                                 <div class="col-md-2">
                                     <label class="title">Grand Total:</label>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-8">
                                     <input readonly formControlName="grandTotal" class="form-control" placeholder="Grand Total">
 
                                 </div>
                         </div>
                     </div>
-                    <div class="col-md-6 form-group">
+                    <div class="col-md-12 form-group">
                         <label class="title" for="findingsAndCommentsForCurrentAssetsInspection">Findings &
                             Comments</label>
                         <textarea class="form-control"
                                   formControlName="findingsAndCommentsForCurrentAssetsInspection"
                                   id="findingsAndCommentsForCurrentAssetsInspection"
+                                  name="findingsAndCommentsForCurrentAssetsInspection"
+                                  placeholder="findings and comments"
+                                  row="3" type="text"></textarea>
+                    </div>
+                </div>
+                <h4 class="col-md-12 mt-3">Current Assets Inspection - Payable</h4>
+                <div class="row col-md-12 mt-3" formGroupName="payable">
+                    <div *ngFor="let party of payablePartyForm; let i = index;"
+                         formArrayName="parties">
+                        <div [formGroupName]="i" class="row">
+                            <div class="col-md-2 form-group ml-3">
+                                <label class="title" for="party">Party</label>
+                                <input class="form-control" formControlName="party"
+                                       name="party" placeholder="party">
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="title" for="withinThreeMonths">Within 3 Months</label>
+                                <input (keyup)="onChangePayableValue('withinThreeMonths','threeMonthTotal')"
+                                       class="form-control"
+                                       formControlName="withinThreeMonths"
+                                       name="party"
+                                       placeholder="0.0" type="number">
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="title" for="sixMonth">6 Month</label>
+                                <input (keyup)="onChangePayableValue('sixMonth', 'sixMonthTotal')" class="form-control"
+                                       formControlName="sixMonth"
+                                       id="sixMonth" name="sixMonth"
+                                       placeholder="0.0" type="number">
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="title" for="oneYear">One year</label>
+                                <input (keyup)="onChangePayableValue('oneYear', 'oneYearTotal')" class="form-control"
+                                       formControlName="oneYear"
+                                        name="oneYear"
+                                       placeholder="0.0" type="number">
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="title" for="oneYearPlus">1+ year</label>
+                                <input (keyup)="onChangePayableValue('oneYearPlus', 'moreThanOneYearTotal')"
+                                       class="form-control" formControlName="oneYearPlus"
+                                        name="oneYeaPlus"
+                                       placeholder="0.0" type="number">
+                            </div>
+                            <div *ngIf="payablePartyLength()>1" class="col-md-1 pt-4">
+                                <input (click)="deletePayablePartyForm(i)"
+                                       class="align-self-end btn btn-sm btn-danger btn-primary"
+                                       type="button" value="Delete"/>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 justify-content-end">
+                        <input (click)="addPayablePartyForm()"
+                               class="btn btn-sm btn-flat btn-primary"
+                               type="button"
+                               value="Add Party"/>
+                    </div>
+                    <div class="col-md-12 pl-4">
+                        <div class="row">
+                            <div class="col-md-2 form-group"><label class="title">Total:</label></div>
+                            <div class="col-md-2 form-group">
+                                <input class="form-control" disabled formControlName="threeMonthTotal" placeholder="0.0"
+                                       type="text" (ngModelChange)="calculateGrandTotal('payable')">
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <input class="form-control" disabled formControlName="sixMonthTotal" placeholder="0.0"
+                                       type="text" (ngModelChange)="calculateGrandTotal('payable')">
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <input class="form-control" disabled formControlName="oneYearTotal" placeholder="0.0"
+                                       type="text" (ngModelChange)="calculateGrandTotal('payable')">
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <input class="form-control" disabled formControlName="moreThanOneYearTotal"
+                                       placeholder="0.0"
+                                       type="text" (ngModelChange)="calculateGrandTotal('payable')">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="title">Grand Total:</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input readonly formControlName="grandTotal" class="form-control" placeholder="Grand Total">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label class="title" for="findingsAndCommentsForCurrentAssetsInspection">Findings &
+                            Comments</label>
+                        <textarea class="form-control"
+                                  formControlName="findingsAndCommentsForCurrentAssetsInspection"
                                   name="findingsAndCommentsForCurrentAssetsInspection"
                                   placeholder="findings and comments"
                                   row="3" type="text"></textarea>
@@ -1038,8 +1105,14 @@
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label class="title" for="position">Position</label>
-                                    <input class="form-control" formControlName="position" id="position"
-                                           name="position" placeholder="possition">
+                                    <select class="form-control"
+                                            formControlName="position"
+                                            id="position"
+                                            name="position">
+                                        <option [ngValue]="null" hidden>Staff Representative Designation</option>
+                                        <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                                    </select>
                                 </div>
                                 <div *ngIf="inspectingStaffsLength()>1" class="col-md-2 form-group pt-4">
                                     <input (click)="deleteInspectingStaffs(i)"
@@ -1049,7 +1122,7 @@
                             </div>
                         </div>
                         <div class="row col-md-12 justify-content-start">
-                            <button (click)="addInspectingStaffs()"
+                            <button (click)="addStaffOfOtherAssets()"
                                    class="col-md-9 btn btn-sm btn-flat btn-primary"
                                  >+Add Inspecting Staffs</button>
                         </div>

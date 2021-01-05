@@ -149,6 +149,41 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong>Date Of Birth</strong></label>
+                                        <input [nbDatepicker]="dob"
+                                               *ngIf="calendarType === 'AD'"
+                                               [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('dateOfBirth').errors }"
+                                               class="form-control form-control-sm-error rounded"
+                                               formControlName="dateOfBirth"
+                                               id="dateOfBirth"
+                                               name="dateOfBirth"
+                                               placeholder="Date of Birth"
+                                               type="text">
+                                        <app-calendar
+                                            [ePreDate]="form.get(['guarantorDetails', i, 'dateOfBirth']).value"
+                                            *ngIf="calendarType === 'BS'"
+                                            (messageToEmit)="form.get(['guarantorDetails', i, 'dateOfBirth']).patchValue($event?.eDate)"></app-calendar>
+
+                                        <nb-datepicker #dob></nb-datepicker>
+                                        <div *ngIf="(submitted) && guarantorDetails.get('dateOfBirth').invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails.get('dateOfBirth').errors.required">
+                                               Date of birth is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('dateOfBirth').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('dateOfBirth').errors.required">
+                                                Please fill  Date of birth
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><strong>Contact</strong></label>
@@ -171,6 +206,19 @@
                                                 Please fill Contact Number
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong>Profession</strong></label>
+                                        <select class="form-control form-control-sm-error rounded"
+                                               formControlName="profession"
+                                               id="profession"
+                                                name="profession">
+                                            <option value="null" hidden>Select Profession</option>
+                                            <option [value]="profession.key" *ngFor="let profession of occupation">{{profession.value}}</option>
+
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -199,6 +247,28 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
+                                        <label><strong>Guarantor's Mother Name</strong></label>
+                                        <input class="form-control form-control-sm-error rounded"
+                                               formControlName="motherName"
+                                               id="motherName"
+                                               name="motherName"
+                                               placeholder="Mother's Name"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong>Guarantor's Spouse Name</strong></label>
+                                        <input class="form-control form-control-sm-error rounded"
+                                               formControlName="spouseName"
+                                               id="spouseName"
+                                               name="spouseName"
+                                               placeholder="Spouse's Name"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
                                         <label><strong>Guarantor's Grandfather Name</strong></label>
                                         <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('grandFatherName').errors }"
                                                class="form-control form-control-sm-error rounded"
@@ -219,6 +289,18 @@
                                                 Please fill Guarantors Grandfathers name
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong>Guarantor's Father-in-Law </strong></label>
+                                        <input
+                                            class="form-control form-control-sm-error rounded"
+                                            formControlName="fatherInLaw"
+                                            id="fatherInLaw"
+                                            name="fatherInLaw"
+                                            placeholder="Grandfather's Father-in-Law "
+                                            type="text"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -262,8 +344,9 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-12">
-                                    <h6><b>Permanent Address as per citizenship</b></h6>
+                                    <h6><b>Permanent Address</b></h6>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -367,30 +450,25 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label><strong> Street Name</strong></label>
-                                        <input [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails.get('streetName').errors }"
-                                               class="form-control form-control-sm-error rounded"
-                                               formControlName="streetName"
-                                               id="streetName"
-                                               name="streetName"
-                                               placeholder="Street Name"
-                                               type="text">
-                                        <div *ngIf="(submitted) && guarantorDetails.get('streetName').invalid"
-                                             class="invalid-feedback">
-                                            <div *ngIf="guarantorDetails.get('streetName').errors.required">Street Name is
-                                                required
-                                            </div>
-                                        </div>
-                                        <div *ngIf="(addMore) && guarantorDetails.get('streetName').invalid"
-                                             class="alert-warning">
-                                            <div *ngIf="guarantorDetails.get('streetName').errors.required">
-                                                Please fill Street name
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="guarantorLegalDocumentAddress"><strong>Address as per Legal Document</strong></label>
+                                            <textarea [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('guarantorLegalDocumentAddress').errors }"
+                                                      class="form-control"
+                                                      formControlName="guarantorLegalDocumentAddress" id="guarantorLegalDocumentAddress"
+                                                      name="guarantorLegalDocumentAddress" placeholder="Address as per Legal Document"
+                                                      rows="2"
+                                                      type="text" maxlength="256"></textarea>
+                                            <div *ngIf="(submitted) && guarantorDetails.get('guarantorLegalDocumentAddress').invalid"
+                                                 class="invalid-feedback">
+                                                <div *ngIf="guarantorDetails.get('guarantorLegalDocumentAddress').errors.required">
+                                                    Address as per legal document is required
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+
                                 <div class="col-md-12">
                                     <nb-checkbox (change)="sameAsAbove(i)"><i>Same as Permanent Address for Current Address</i></nb-checkbox>
                                 </div>
@@ -500,29 +578,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label><strong> Street Name</strong></label>
-                                        <input [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails.get('streetNameTemporary').errors }"
-                                               class="form-control form-control-sm-error rounded"
-                                               formControlName="streetNameTemporary"
-                                               id="streetNameTemporary"
-                                               name="streetNameTemporary"
-                                               placeholder="Street Name"
-                                               type="text">
-                                        <div *ngIf="(submitted) && guarantorDetails.get('streetNameTemporary').invalid"
-                                             class="invalid-feedback">
-                                            <div *ngIf="guarantorDetails.get('streetNameTemporary').errors.required">Street Name is
-                                                required
-                                            </div>
-                                        </div>
-                                        <div *ngIf="(addMore) && guarantorDetails.get('streetNameTemporary').invalid"
-                                             class="alert-warning">
-                                            <div *ngIf="guarantorDetails.get('streetNameTemporary').errors.required">
-                                                Please fill Street name
-                                            </div>
-                                        </div>
-                                    </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label><b>Background</b></label>
+                                    <textarea rows="3" class="form-control" formControlName="background" placeholder="Background Details"></textarea>
                                 </div>
                             </div>
                             <app-template-document [customerInfo]="customerInfo" [docName]="guarantorDetails.get('citizenNumber').value" (docPathEmitter)="documentPath($event,i)" [pathValue]="guarantorDetails.get('docPath').value" [docTitle]="docTitle" [docFolderName]="docFolderName"></app-template-document>

@@ -22,12 +22,12 @@
               <td>{{i + 1}}</td>
               <td>{{incomeOfBorrower.incomeSource}}</td>
               <td>{{incomeOfBorrower.organization}}</td>
-              <td>Rs. {{incomeOfBorrower.amount | currencyFormatter}}</td>
+              <td class="text-right">Rs. {{incomeOfBorrower.amount | currencyFormatter}}</td>
               <td>{{incomeOfBorrower.remarks}}</td>
             </tr>
             <tr>
               <td class="text-center" colspan="3"><strong>Total Income</strong></td>
-              <td colspan="2">
+              <td colspan="2" class="text-right">
                 <strong>Rs. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</strong>
               </td>
             </tr>
@@ -53,18 +53,18 @@
             <tr *ngFor="let expensesOfBorrower of financialData?.initialForm?.expensesOfBorrower; let i = index;">
               <td>{{i + 1}}</td>
               <td>{{expensesOfBorrower.particulars}}</td>
-              <td>Rs. {{expensesOfBorrower.amount | currencyFormatter}}</td>
+              <td class="text-right">Rs. {{expensesOfBorrower.amount | currencyFormatter}}</td>
               <td>{{expensesOfBorrower.remarks}}</td>
             </tr>
             <tr>
               <td class="text-center" colspan="3"><strong>Total Expense</strong></td>
-              <td colspan="2">
+              <td colspan="2" class="text-right">
                 <strong>Rs. {{financialData?.initialForm?.totalExpense | currencyFormatter}}</strong>
               </td>
             </tr>
             <tr>
               <td class="text-center" colspan="3"><strong>Net Saving</strong></td>
-              <td colspan="2">
+              <td colspan="2" class="text-right">
                 <strong>Rs. {{financialData?.initialForm?.netSaving | currencyFormatter}}</strong>
               </td>
             </tr>
@@ -101,43 +101,43 @@
               <td>1</td>
               <td><strong>Current Ratio (in times)</strong></td>
               <td *ngFor="let currentRatio of financialData['keyIndicatorsData']?.currentRatio">
-                {{currentRatio.value}}</td>
+                {{currentRatio.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>2</td>
               <td><strong>Operating Profit Margin (%)</strong></td>
               <td *ngFor="let operatingProfitKI of financialData['keyIndicatorsData']?.operatingProfitKI">
-                {{operatingProfitKI.value}}</td>
+                {{operatingProfitKI.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>3</td>
               <td><strong>Inventory Turnover Ratio (in times)</strong></td>
               <td *ngFor="let inventoryTurnoverRatio of financialData['keyIndicatorsData']?.inventoryTurnoverRatio">
-                {{inventoryTurnoverRatio.value}}</td>
+                {{inventoryTurnoverRatio.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>4</td>
               <td><strong>Interest Coverage Ratio (in times)</strong></td>
               <td *ngFor="let interestCoverageRatio of financialData['keyIndicatorsData']?.interestCoverageRatio">
-                {{interestCoverageRatio.value}}</td>
+                {{interestCoverageRatio.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>5</td>
               <td><strong>Debtor/Receivable Turnover Ratio (in times)</strong></td>
               <td *ngFor="let debtorTurnOverRatio of financialData['keyIndicatorsData']?.debtorTurnOverRatio">
-                {{debtorTurnOverRatio.value}}</td>
+                {{debtorTurnOverRatio.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>6</td>
               <td><strong>Debt-Equity Ratio - General (in times)</strong></td>
               <td *ngFor="let debtServiceCoverageRatio of financialData['keyIndicatorsData']?.debtServiceCoverageRatio">
-                {{debtServiceCoverageRatio.value}}</td>
+                {{debtServiceCoverageRatio.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>7</td>
               <td><strong>Net Profit Margin (%)</strong></td>
               <td *ngFor="let currentAssetValue of financialData['keyIndicatorsData']?.netProfitMargin">
-                {{currentAssetValue.value}}</td>
+                {{currentAssetValue.value | currencyFormatter}}</td>
             </tr>
             </tbody>
           </table>
@@ -151,7 +151,7 @@
 
 </div>
 
-<div class="row mt-3">
+<div class="row mt-3" *ngIf="isBusinessLoan">
   <div class="col-md-12">
     <p><strong>Financial Statements Justification:</strong></p>
     <hr>

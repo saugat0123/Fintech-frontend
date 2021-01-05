@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {LoanConfig} from '../../../admin/modal/loan-config';
 import {User} from '../../../admin/modal/user';
 import {Security} from '../../../admin/modal/security';
@@ -14,6 +14,7 @@ import {LoanActionService} from '../../loan-action/service/loan-action.service';
 import {ApprovalLimitService} from '../../../admin/component/approvallimit/approval-limit.service';
 import {LoanStage} from '../../model/loanStage';
 import {environment} from '../../../../../environments/environment';
+import {environment as envSrdb} from '../../../../../environments/environment.srdb';
 import {DateService} from '../../../../@core/service/baseservice/date.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ReadmoreModelComponent} from '../readmore-model/readmore-model.component';
@@ -27,15 +28,14 @@ import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {Proposal} from '../../../admin/modal/proposal';
 import {CombinedLoanService} from '../../../service/combined-loan.service';
 import {CombinedLoan} from '../../model/combined-loan';
-import {IncomeFromAccount} from '../../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
-import {DocStatus} from '../../model/docStatus';
-import {LoanDataKey} from '../../../../@core/utils/constants/loan-data-key';
+import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
+import {Customer} from '../../../admin/modal/customer';
 
 @Component({
     selector: 'app-loan-summary',
@@ -43,6 +43,8 @@ import {LoanDataKey} from '../../../../@core/utils/constants/loan-data-key';
     styleUrls: ['./loan-summary.component.scss']
 })
 export class LoanSummaryComponent implements OnInit, OnDestroy {
+
+    @Output() changeToApprovalSheetActive = new EventEmitter<string>();
 
     @Input() loanData;
     loanDataHolder: LoanDataHolder;
@@ -145,6 +147,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     insuranceWithDoc = [];
     showCadDoc = false;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+    fiscalYearArray = [];
+
+    disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
 
 
     constructor(
@@ -162,10 +167,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private customerLoanService: LoanFormService,
         private combinedLoanService: CombinedLoanService,
         private commonRoutingUtilsService: CommonRoutingUtilsService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private fiscalYearService: FiscalYearService
     ) {
         this.client = environment.client;
-        this.showCadDoc = this.productUtils.CAD_DOC_UPLOAD;
+        this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
                 this.loadSummary();
@@ -371,6 +377,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 }
             });
         }
+        // getting fiscal years
+        this.getFiscalYears();
     }
 
     getAllLoans(customerInfoId: number): void {
@@ -451,7 +459,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     loanHandler(index: number, length: number , label: string) {
-        console.log(label);
         if (index === length - 1 && index !== 0) {
             if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
                 return 'APPROVED BY:';
@@ -555,6 +562,19 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     goToCustomer() {
         const loanHolder = this.loanDataHolder.loanHolder;
         this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
+    }
+
+    getFiscalYears() {
+        this.fiscalYearService.getAll().subscribe(response => {
+            this.fiscalYearArray = response.detail;
+        }, error => {
+            console.log(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Fiscal Year!'));
+        });
+    }
+
+    goToApprovalSheet() {
+        this.changeToApprovalSheetActive.next();
     }
 }
 

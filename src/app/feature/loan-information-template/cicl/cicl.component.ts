@@ -7,6 +7,8 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
 import {Editor} from '../../../@core/utils/constants/editor';
 import {RepaymentTrack} from '../../admin/modal/crg/RepaymentTrack';
+import {RelationshipList} from '../../loan/model/relationshipList';
+import {CiclRelationListEnum} from '../../loan/model/ciclRelationListEnum';
 
 @Component({
   selector: 'app-cicl',
@@ -27,6 +29,9 @@ export class CiclComponent implements OnInit {
   ckeConfig = Editor.CK_CONFIG;
 
   repaymentTrack = RepaymentTrack.enumObject();
+  relationshipList: RelationshipList = new RelationshipList();
+  relationlist;
+  ciclRelation = CiclRelationListEnum.pair();
 
   constructor(
       private formBuilder: FormBuilder,
@@ -57,6 +62,7 @@ export class CiclComponent implements OnInit {
       this.ciclValue = new CiclArray();
     }
     this.buildCiclForm();
+    this.relationlist = this.relationshipList.relation;
 
 
   }
@@ -84,11 +90,17 @@ export class CiclComponent implements OnInit {
 
     controls.push(
         this.formBuilder.group({
+          borrowerName: [undefined, Validators.required],
+          relation: [undefined, Validators.required],
           fiName: [undefined, Validators.required],
           facilityName: [undefined, Validators.required],
           overdueAmount: [undefined, Validators.required],
           outstandingAmount: [undefined, Validators.required],
-          ciclStatus: [undefined, Validators.required]
+          ciclStatus: [undefined, Validators.required],
+          obtaineddate: [undefined, Validators.required],
+          loanamount: [undefined, Validators.required],
+          overdue: [undefined],
+          ciclRelation: [undefined]
         }));
   }
 
@@ -100,11 +112,18 @@ export class CiclComponent implements OnInit {
     }
     controls.push(
         this.formBuilder.group({
+          borrowerName: [undefined, Validators.required],
+          relation: [undefined, Validators.required],
           fiName: [undefined, Validators.required],
           facilityName: [undefined, Validators.required],
           overdueAmount: [undefined, Validators.required],
           outstandingAmount: [undefined, Validators.required],
-          ciclStatus: [undefined, Validators.required]
+          ciclStatus: [undefined, Validators.required],
+          obtaineddate: [undefined, Validators.required],
+          loanamount: [undefined, Validators.required],
+          overdue: [undefined],
+          ciclRelation: [undefined]
+
         }));
 
   }
@@ -118,11 +137,18 @@ export class CiclComponent implements OnInit {
     ciclList.forEach(cicl => {
       controls.push(
           this.formBuilder.group({
+            borrowerName: [cicl.nameOfBorrower, Validators.required],
+            relation: [cicl.borrowerRelation, Validators.required],
             fiName: [cicl.nameOfFI, Validators.required],
             facilityName: [cicl.facility, Validators.required],
             overdueAmount: [cicl.overdueAmount, Validators.required],
             outstandingAmount: [cicl.outstandingAmount, Validators.required],
             ciclStatus: [cicl.status, Validators.required],
+            obtaineddate: [cicl.obtaineddate, Validators.required],
+            loanamount: [cicl.loanamount, Validators.required],
+            overdue: [cicl.overdue],
+            ciclRelation: [cicl.ciclRelation]
+
           }));
     });
   }
@@ -158,11 +184,18 @@ export class CiclComponent implements OnInit {
     for (const arrayControl of ciclControls.controls) {
       const controls = (arrayControl as FormGroup).controls;
       const cicl: Cicl = new Cicl();
+      cicl.nameOfBorrower = controls.borrowerName.value;
+      cicl.borrowerRelation = controls.relation.value;
       cicl.nameOfFI = controls.fiName.value;
       cicl.facility = controls.facilityName.value;
       cicl.overdueAmount = controls.overdueAmount.value;
       cicl.outstandingAmount = controls.outstandingAmount.value;
       cicl.status = controls.ciclStatus.value;
+      cicl.obtaineddate = controls.obtaineddate.value;
+      cicl.loanamount = controls.loanamount.value;
+      cicl.overdue = controls.overdue.value;
+      cicl.ciclRelation = controls.ciclRelation.value;
+
       this.ciclList.push(cicl);
 
     }

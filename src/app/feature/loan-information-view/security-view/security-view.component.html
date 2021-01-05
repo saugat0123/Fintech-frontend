@@ -28,9 +28,9 @@
         <td>{{landDetails?.plotNumber}}</td>
         <td>{{landDetails?.areaFormat}}</td>
         <td>{{landDetails?.area}}</td>
-        <td>{{landDetails?.landConsideredValue}}</td>
-        <td>{{landDetails?.distressValue}}</td>
-        <td>{{landDetails?.marketValue}}</td>
+        <td class="text-right">Rs. {{landDetails?.landConsideredValue | currencyFormatter}}</td>
+        <td class="text-right">Rs. {{landDetails?.distressValue | currencyFormatter}}</td>
+        <td class="text-right">Rs. {{landDetails?.marketValue | currencyFormatter}}</td>
       </tr>
       </tbody>
       <thead>
@@ -64,11 +64,34 @@
         <th></th>
         <th>Type of Property</th>
         <th>Mode of Transfer</th>
+        <th>Address as per Legal Document</th>
+        <th>Ownership transfer date</th>
+       <th> Ownership transfer Through</th>
+        <th *ngIf="landDetails.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 1 year plus 35 days? </th>
+        <th  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION'">Has transfer date elapsed by 3 month?</th>
+        <th  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Has transfer date elapsed by 2 year plus 35 days? </th>
+        <th  *ngIf="landDetails.ownershipTransferThrough == 'SALE'">Registration amount in transfer</th>
+        <th  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION'">Registration amount in transfer</th>
+        <th  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Registration amount in transfer</th>
+        <th *ngIf="landDetails?.ownershipTransferThrough == 'OTHER'">Other</th>
+
+
       </tr>
       <tr>
         <td></td>
         <td>{{landDetails?.typeOfProperty}}</td>
         <td>{{landDetails?.modeOfTransfer}}</td>
+        <td>{{landDetails?.landSecurityLegalDocumentAddress}}</td>
+        <td>{{landDetails?.ownershipTransferDate | date}}</td>
+        <td>{{ownerShipTransfer[landDetails?.ownershipTransferThrough]}}</td>
+        <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE'">{{landDetails?.saleOwnershipTransfer}}</td>
+        <td  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION'">{{landDetails?.familyTransferOwnershipTransfer}}</td>
+        <td  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA'">{{landDetails?.giftOwnershipTransfer}}</td>
+        <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE'" class="text-right">Rs. {{landDetails?.saleRegistrationAmount | currencyFormatter}}</td>
+        <td  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-right">Rs. {{landDetails?.familyRegistrationAmount}}</td>
+        <td  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-right">Rs. {{landDetails?.giftRegistrationAmount}}</td>
+        <th *ngIf="landDetails?.ownershipTransferThrough == 'OTHER'" class="text-right">Rs. {{landDetails?.otherOwnershipTransferValue}}</th>
+
 
       </tr>
       <ng-container *ngIf="landDetails?.revaluationData != null && landDetails?.revaluationData?.isReValuated">
@@ -85,15 +108,15 @@
           <th colspan="1">Change in Dv</th>
           <th colspan="1">Change in Considered Value</th>
         </tr>
-        <tr>
-          <td>{{landDetails?.revaluationData?.reValuationDate |date}}</td>
-          <td colspan="2">{{landDetails?.revaluationData?.newValuator?.name}}</td>
-          <td colspan="1">{{landDetails?.revaluationData?.reValuatedFmv}}</td>
-          <td colspan="1">{{landDetails?.revaluationData?.reValuatedDv}}</td>
-          <td colspan="1">{{landDetails?.revaluationData?.reValuatedConsideredValue}}</td>
-          <td colspan="1">{{landDetails?.revaluationData?.changeInFmv}}</td>
-          <td colspan="1">{{landDetails?.revaluationData?.changeInDv}}</td>
-          <td colspan="1">{{landDetails?.revaluationData?.changeInConsideredValue}}</td>
+        <tr class="text-right">
+          <td class="text-center">{{landDetails?.revaluationData?.reValuationDate |date}}</td>
+          <td colspan="2" class="text-center">{{landDetails?.revaluationData?.newValuator?.name}}</td>
+          <td colspan="1">Rs. {{landDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
+          <td colspan="1">Rs. {{landDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+          <td colspan="1">Rs. {{landDetails?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
+          <td colspan="1">Rs. {{landDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
+          <td colspan="1">Rs. {{landDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
+          <td colspan="1">Rs. {{landDetails?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
         </tr>
       </ng-container>
       </tbody>
@@ -137,8 +160,8 @@
           <td>{{landBuilding?.plotNumber}}</td>
           <td>{{landBuilding?.areaFormat}}</td>
           <td>{{landBuilding?.area}}</td>
-          <td>{{landBuilding?.landConsideredValue}}</td>
-          <td>{{landBuilding?.marketValue}}</td>
+          <td class="text-right">Rs. {{landBuilding?.landConsideredValue | currencyFormatter}}</td>
+          <td class="text-right">Rs. {{landBuilding?.marketValue | currencyFormatter}}</td>
         </tr>
         </tbody>
         <thead>
@@ -159,11 +182,11 @@
         <tbody>
         <tr>
           <th></th>
-          <td>{{landBuilding?.distressValue}}</td>
+          <td class="text-right">Rs. {{landBuilding?.distressValue | currencyFormatter}}</td>
           <td>{{landBuilding?.houseNumber}}</td>
           <td>{{landBuilding?.totalBuildingArea}}</td>
-          <td>{{landBuilding?.costPerSquare}}</td>
-          <td>{{landBuilding?.totalCost}}</td>
+          <td class="text-right">Rs. {{landBuilding?.costPerSquare  | currencyFormatter}}</td>
+          <td class="text-right">Rs. {{landBuilding?.totalCost | currencyFormatter}}</td>
           <td>{{landBuilding?.typeOfProperty}}</td>
           <td>{{landBuilding?.modeOfTransfer}}</td>
 
@@ -191,10 +214,31 @@
         <tr class="text-white sb-bg-dark">
           <th></th>
           <th>Alternative Representative Name</th>
+          <th>Address as per Legal Document</th>
+          <th>Ownership transfer date</th>
+          <th> Ownership transfer Through</th>
+          <th *ngIf="landBuilding.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 1 year plus 35 days? </th>
+          <th  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION'">Has transfer date elapsed by 3 month?</th>
+          <th  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Has transfer date elapsed by 2 year plus 35 days? </th>
+          <th  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'">Registration amount in transfer</th>
+          <th  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION'">Registration amount in transfer</th>
+          <th  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Registration amount in transfer</th>
+          <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'">Other</th>
         </tr>
         <tr>
           <td></td>
           <td>{{landBuilding?.landBuildingAlternateStaffRepresentativeName}}</td>
+          <td>{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
+          <td>{{landBuilding?.ownershipTransferDate | date}}</td>
+          <td>{{ownerShipTransfer[landBuilding?.ownershipTransferThrough]}}</td>
+          <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'">{{landBuilding?.saleOwnershipTransfer}}</td>
+          <td  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION'">{{landBuilding?.familyTransferOwnershipTransfer}}</td>
+          <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA'">{{landBuilding?.giftOwnershipTransfer}}</td>
+          <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'" class="text-right">Rs. {{landBuilding?.saleRegistrationAmount}}</td>
+          <td  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-right">Rs. {{landBuilding?.familyRegistrationAmount}}</td>
+          <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-right">Rs. {{landBuilding?.giftRegistrationAmount}}</td>
+          <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'" class="text-right">Rs. {{landBuilding?.otherOwnershipTransferValue}}</th>
+
         </tr>
         <tr *ngIf="landBuilding.underConstructionChecked === true">
           <th colspan="8">Under Construction</th>
@@ -216,8 +260,8 @@
           <td>{{landBuilding?.plotNumberConstruction}}</td>
           <td>{{landBuilding?.areaFormatConstruction}}</td>
           <td>{{landBuilding?.areaConstruction}}</td>
-          <td>Rs.{{landBuilding?.landConsideredValueConstruction}}</td>
-          <td>Rs.{{landBuilding?.distressValueConstruction}}</td>
+          <td class="text-right">Rs.{{landBuilding?.landConsideredValueConstruction | currencyFormatter}}</td>
+          <td class="text-right">Rs.{{landBuilding?.distressValueConstruction | currencyFormatter}}</td>
         </tr>
         <tr class="text-center sb-bg-dark text-white" *ngIf="landBuilding.underConstructionChecked === true">
           <th></th>
@@ -232,13 +276,13 @@
         </tr>
         <tr *ngIf="landBuilding.underConstructionChecked === true">
           <th></th>
-          <td>{{landBuilding?.marketValueConstruction}}</td>
+          <td class="text-right">Rs. {{landBuilding?.marketValueConstruction | currencyFormatter}}</td>
           <td>{{landBuilding?.typeOfPropertyConstruction}}</td>
           <td>{{landBuilding?.modeOfTransferConstruction}}</td>
           <td>{{landBuilding?.houseNumberConstruction}}</td>
           <td>{{landBuilding?.totalBuildingAreaConstruction}}</td>
-          <td>Rs.{{landBuilding?.costPerSquareConstruction}}</td>
-          <td>Rs.{{landBuilding?.totalCostConstruction}}</td>
+          <td class="text-right">Rs.{{landBuilding?.costPerSquareConstruction | currencyFormatter}}</td>
+          <td class="text-right">Rs.{{landBuilding?.totalCostConstruction | currencyFormatter}}</td>
         </tr>
 
         <ng-container *ngIf="landBuilding?.revaluationData != null && landBuilding?.revaluationData?.isReValuated">
@@ -255,15 +299,15 @@
             <th colspan="1">Change in Dv</th>
             <th colspan="1">Change in Considered Value</th>
           </tr>
-          <tr>
-            <td>{{landBuilding?.revaluationData?.reValuationDate |date}}</td>
-            <td colspan="1">{{landBuilding?.revaluationData?.newValuator?.name}}</td>
-            <td colspan="1">{{landBuilding?.revaluationData?.reValuatedFmv}}</td>
-            <td colspan="1">{{landBuilding?.revaluationData?.reValuatedDv}}</td>
-            <td colspan="1">{{landBuilding?.revaluationData?.reValuatedConsideredValue}}</td>
-            <td colspan="1">{{landBuilding?.revaluationData?.changeInFmv}}</td>
-            <td colspan="1">{{landBuilding?.revaluationData?.changeInDv}}</td>
-            <td colspan="1">{{landBuilding?.revaluationData?.changeInConsideredValue}}</td>
+          <tr class="text-right">
+            <td class="text-center"> {{landBuilding?.revaluationData?.reValuationDate |date}}</td>
+            <td colspan="1" class="text-center">{{landBuilding?.revaluationData?.newValuator?.name}}</td>
+            <td colspan="1">Rs. {{landBuilding?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
+            <td colspan="1">Rs. {{landBuilding?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+            <td colspan="1">Rs. {{landBuilding?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
+            <td colspan="1">Rs. {{landBuilding?.revaluationData?.changeInFmv | currencyFormatter}}</td>
+            <td colspan="1">Rs. {{landBuilding?.revaluationData?.changeInDv | currencyFormatter}}</td>
+            <td colspan="1">Rs. {{landBuilding?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
           </tr>
         </ng-container>
         </tbody>
@@ -305,8 +349,8 @@
         <td>{{buildingDetails?.buildingName}}</td>
         <td>{{buildingDetails?.buildingDescription}}</td>
         <td>{{buildingDetails?.buildArea}}</td>
-        <td>Rs.{{buildingDetails?.buildRate}}</td>
-        <td><strong>Rs. {{buildingDetails?.totalCost | currencyFormatter}}</strong></td>
+        <td class="text-right">Rs.{{buildingDetails?.buildRate | currencyFormatter}}</td>
+        <td class="text-right"><strong>Rs. {{buildingDetails?.totalCost | currencyFormatter}}</strong></td>
       </tr>
       </tbody>
       <thead>
@@ -316,7 +360,7 @@
         <th>Valuation Area(Sq.ft)</th>
         <th>Rate Per Square Feet</th>
         <th>Estimated Cost</th>
-        <th>Water Supply</th>
+        <th>Water Supply %</th>
       </tr>
       </thead>
       <tbody>
@@ -324,8 +368,8 @@
         <td></td>
         <td>{{buildingDetails?.floorName}}</td>
         <td>{{buildingDetails?.valuationArea}}</td>
-        <td>Rs.{{buildingDetails?.ratePerSquareFeet}}</td>
-        <td>Rs.{{buildingDetails?.estimatedCost}}</td>
+        <td class="text-right">Rs.{{buildingDetails?.ratePerSquareFeet | currencyFormatter}}</td>
+        <td class="text-right">Rs.{{buildingDetails?.estimatedCost | currencyFormatter}}</td>
         <td>{{buildingDetails?.waterSupplyPercent}}</td>
       </tr>
       </tbody>
@@ -343,13 +387,13 @@
       <tbody>
       <tr>
         <td></td>
-        <td>Rs.{{buildingDetails?.waterSupply}}</td>
+        <td class="text-right">Rs.{{buildingDetails?.waterSupply | currencyFormatter}}</td>
         <td>{{buildingDetails?.sanitationPercent}}</td>
 
-        <td>Rs.{{buildingDetails?.sanitation}}</td>
+        <td class="text-right">Rs.{{buildingDetails?.sanitation | currencyFormatter}}</td>
         <td>{{buildingDetails?.electrificationPercent}}</td>
 
-        <td>Rs.{{buildingDetails?.electrification}}</td>
+        <td class="text-right">Rs.{{buildingDetails?.electrification | currencyFormatter}}</td>
 
 
       </tr>
@@ -368,9 +412,9 @@
       <tbody>
       <tr>
         <td></td>
-        <td>{{buildingDetails?.buildingTotalCost}}</td>
-        <td>{{buildingDetails?.buildingFairMarketValue}}</td>
-        <td>{{buildingDetails?.buildingDistressValue}}</td>
+        <td class="text-right">Rs. {{buildingDetails?.buildingTotalCost | currencyFormatter}}</td>
+        <td class="text-right">Rs. {{buildingDetails?.buildingFairMarketValue | currencyFormatter}}</td>
+        <td class="text-right">Rs. {{buildingDetails?.buildingDistressValue | currencyFormatter}}</td>
         <td *ngIf="securityData['otherBranchcheck']">{{buildingDetails?.apartmentBranch?.name}}</td>
         <td>{{buildingDetails?.ApartmentValuator?.name}}</td>
 
@@ -415,18 +459,18 @@
         <tr>
           <td>{{buildingDetails?.revaluationData?.reValuationDate |date}}</td>
           <td colspan="1">{{buildingDetails?.revaluationData?.newValuator?.name?.name}}</td>
-          <td colspan="1">{{buildingDetails?.revaluationData?.reValuatedFmv}}</td>
-          <td colspan="1">{{buildingDetails?.revaluationData?.reValuatedDv}}</td>
-          <td colspan="1">{{buildingDetails?.revaluationData?.reValuatedConsideredValue}}</td>
-          <td colspan="1">{{buildingDetails?.revaluationData?.changeInFmv}}</td>
+          <td colspan="1" class="text-right">Rs. {{buildingDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
+          <td colspan="1" class="text-right">Rs. {{buildingDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+          <td colspan="1" class="text-right">Rs. {{buildingDetails?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
+          <td colspan="1" class="text-right">Rs. {{buildingDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
         </tr>
         <tr class="sb-bg-dark text-white">
           <th colspan="1">Change in Dv</th>
           <th colspan="1">Change in Considered Value</th>
         </tr>
         <tr>
-          <td colspan="1">{{buildingDetails?.revaluationData?.changeInDv}}</td>
-          <td colspan="1">{{buildingDetails?.revaluationData?.changeInConsideredValue}}</td>
+          <td colspan="1" class="text-right">Rs. {{buildingDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
+          <td colspan="1" class="text-right">Rs. {{buildingDetails?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
         </tr>
       </ng-container>
     </table>
@@ -472,8 +516,8 @@
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingName}}</td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildingDescription}}</td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildArea}}</td>
-          <td>Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion.buildRate}}</td>
-          <td>
+          <td class="text-right">Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion.buildRate | currencyFormatter}}</td>
+          <td class="text-right">
             <strong>Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion.totalCost | currencyFormatter}}</strong>
           </td>
         </tr>
@@ -494,9 +538,9 @@
           <td></td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.floorName}}</td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.valuationArea}}</td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.ratePerSquareFeet}}</td>
-          <td>Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.estimatedCost}}</td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.waterSupplyPercent}}</td>
+          <td class="text-right">Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion?.ratePerSquareFeet | currencyFormatter}}</td>
+          <td class="text-right">Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.estimatedCost | currencyFormatter}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.waterSupplyPercent | currencyFormatter}}</td>
         </tr>
         </tbody>
         <thead>
@@ -513,11 +557,11 @@
         <tbody>
         <tr>
           <td></td>
-          <td>Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.waterSupply}}</td>
+          <td class="text-right">Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.waterSupply | currencyFormatter}}</td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.sanitationPercent}}</td>
-          <td>Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.sanitation}}</td>
+          <td class="text-right">Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.sanitation | currencyFormatter}}</td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.electrificationPercent}}</td>
-          <td>Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.electrification}}</td>
+          <td class="text-right">Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.electrification | currencyFormatter}}</td>
 
         </tr>
         </tbody>
@@ -527,11 +571,11 @@
           <th>Apartment Fair Market Value</th>
           <th>Apartment Distress Value</th>
         </tr>
-        <tr>
+        <tr class="text-right">
           <td></td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingTotalCost}}</td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingFairMarketValue}}</td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingDistressValue}}</td>
+          <td>Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingTotalCost | currencyFormatter}}</td>
+          <td>Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingFairMarketValue | currencyFormatter}}</td>
+          <td>Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingDistressValue | currencyFormatter}}</td>
         </tr>
       </table>
 
@@ -558,8 +602,8 @@
           <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildingName}}</td>
           <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildingDescription}}</td>
           <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildArea}}</td>
-          <td>Rs.{{afterCompletion?.buildingDetailsAfterCompletion.buildRate}}</td>
-          <td>
+          <td class="text-right">Rs.{{afterCompletion?.buildingDetailsAfterCompletion.buildRate | currencyFormatter}}</td>
+          <td class="text-right">
             <strong>Rs.{{afterCompletion?.buildingDetailsAfterCompletion.totalCost | currencyFormatter}}</strong>
           </td>
         </tr>
@@ -579,8 +623,8 @@
           <td></td>
           <td>{{afterCompletion?.buildingDetailsAfterCompletion?.floorName}}</td>
           <td>{{afterCompletion?.buildingDetailsAfterCompletion?.valuationArea}}</td>
-          <td>Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.ratePerSquareFeet}}</td>
-          <td>Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.estimatedCost}}</td>
+          <td class="text-right">Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.ratePerSquareFeet | currencyFormatter}}</td>
+          <td class="text-right">Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.estimatedCost | currencyFormatter}}</td>
           <td>{{afterCompletion?.buildingDetailsAfterCompletion?.waterSupplyPercent}}</td>
         </tr>
         </tbody>
@@ -597,11 +641,11 @@
         <tbody>
         <tr>
           <td></td>
-          <td>Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.waterSupply}}</td>
+          <td class="text-right">Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.waterSupply | currencyFormatter}}</td>
           <td>{{afterCompletion?.buildingDetailsAfterCompletion?.sanitationPercent}}</td>
-          <td>Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.sanitation}}</td>
+          <td class="text-right">Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.sanitation | currencyFormatter}}</td>
           <td>{{afterCompletion?.buildingDetailsAfterCompletion?.electrificationPercent}}</td>
-          <td>Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.electrification}}</td>
+          <td class="text-right">Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.electrification | currencyFormatter}}</td>
 
         </tr>
         </tbody>
@@ -611,11 +655,11 @@
           <th>Apartment Fair Market Value</th>
           <th>Apartment Distress Value</th>
         </tr>
-        <tr>
+        <tr class="text-right">
           <td></td>
-          <td>Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.buildingTotalCost}}</td>
-          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildingFairMarketValue}}</td>
-          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildingDistressValue}}</td>
+          <td>Rs.{{afterCompletion?.buildingDetailsAfterCompletion?.buildingTotalCost | currencyFormatter}}</td>
+          <td>Rs. {{afterCompletion?.buildingDetailsAfterCompletion?.buildingFairMarketValue | currencyFormatter}}</td>
+          <td>Rs. {{afterCompletion?.buildingDetailsAfterCompletion?.buildingDistressValue | currencyFormatter}}</td>
         </tr>
       </table>
   </div>
@@ -650,8 +694,8 @@
         <td>{{landBuildingDetails?.buildingName}}</td>
         <td>{{landBuildingDetails?.buildingDescription}}</td>
         <td>{{landBuildingDetails?.buildArea}}</td>
-        <td>Rs.{{landBuildingDetails?.buildRate}}</td>
-        <td><strong>Rs. {{landBuildingDetails?.totalCost | currencyFormatter}}</strong></td>
+        <td class="text-right">Rs.{{landBuildingDetails?.buildRate | currencyFormatter}}</td>
+        <td class="text-right"><strong>Rs. {{landBuildingDetails?.totalCost | currencyFormatter}}</strong></td>
       </tr>
       </tbody>
       <thead>
@@ -669,8 +713,8 @@
         <td></td>
         <td>{{landBuildingDetails?.floorName}}</td>
         <td>{{landBuildingDetails?.valuationArea}}</td>
-        <td>Rs.{{landBuildingDetails?.ratePerSquareFeet}}</td>
-        <td>Rs.{{landBuildingDetails?.estimatedCost}}</td>
+        <td class="text-right">Rs.{{landBuildingDetails?.ratePerSquareFeet | currencyFormatter}}</td>
+        <td class="text-right">Rs.{{landBuildingDetails?.estimatedCost | currencyFormatter}}</td>
         <td>{{landBuildingDetails?.waterSupply}}</td>
       </tr>
       </tbody>
@@ -685,13 +729,13 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
+      <tr class="text-right">
         <td></td>
-        <td>{{landBuildingDetails?.sanitation}}</td>
-        <td>{{landBuildingDetails?.electrification}}</td>
-        <td>Rs.{{landBuildingDetails?.buildingTotalCost}}</td>
-        <td>{{landBuildingDetails?.buildingFairMarketValue}}</td>
-        <td>{{landBuildingDetails?.buildingDistressValue}}</td>
+        <td>Rs. {{landBuildingDetails?.sanitation | currencyFormatter}}</td>
+        <td>Rs. {{landBuildingDetails?.electrification | currencyFormatter}}</td>
+        <td>Rs.{{landBuildingDetails?.buildingTotalCost | currencyFormatter}}</td>
+        <td>Rs. {{landBuildingDetails?.buildingFairMarketValue | currencyFormatter}}</td>
+        <td>Rs. {{landBuildingDetails?.buildingDistressValue | currencyFormatter}}</td>
       </tr>
       </tbody>
       <thead>
@@ -766,8 +810,8 @@
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingName}}</td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingDescription}}</td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildArea}}</td>
-          <td>Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildRate}}</td>
-          <td>
+          <td class="text-right">Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildRate | currencyFormatter}}</td>
+          <td class="text-right">
             <strong>Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion.totalCost | currencyFormatter}}</strong>
           </td>
         </tr>
@@ -787,9 +831,9 @@
           <td></td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.floorName}}</td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.valuationArea}}</td>
-          <td>Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.ratePerSquareFeet}}</td>
-          <td>Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.estimatedCost}}</td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.waterSupply}}</td>
+          <td class="text-right">Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.ratePerSquareFeet | currencyFormatter}}</td>
+          <td class="text-right">Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.estimatedCost | currencyFormatter}}</td>
+          <td class="text-right">Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion?.waterSupply | currencyFormatter}}</td>
         </tr>
         </tbody>
         <thead>
@@ -803,13 +847,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="text-right">
           <td></td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.sanitation}}</td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.electrification}}</td>
-          <td>Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingTotalCost}}</td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingFairMarketValue}}</td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingDistressValue}}</td>
+          <td>Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion?.sanitation | currencyFormatter}}</td>
+          <td>Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion?.electrification | currencyFormatter}}</td>
+          <td>Rs.{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingTotalCost | currencyFormatter}}</td>
+          <td>Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingFairMarketValue | currencyFormatter}}</td>
+          <td>Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingDistressValue | currencyFormatter}}</td>
         </tr>
         </tbody>
         <tr class="text-white sb-bg-dark">
@@ -847,8 +891,8 @@
           <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildingName}}</td>
           <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildingDescription}}</td>
           <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildArea}}</td>
-          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildRate}}</td>
-          <td>
+          <td class="text-right">Rs. {{afterCompletion?.buildingDetailsAfterCompletion?.buildRate | currencyFormatter}}</td>
+          <td class="text-right">
             <strong>Rs.{{afterCompletion?.buildingDetailsAfterCompletion.totalCost | currencyFormatter}}</strong>
           </td>
         </tr>
@@ -868,9 +912,9 @@
           <td></td>
           <td>{{afterCompletion?.buildingDetailsAfterCompletion?.floorName}}</td>
           <td>{{afterCompletion?.buildingDetailsAfterCompletion?.valuationArea}}</td>
-          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.ratePerSquareFeet}}</td>
-          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.estimatedCost}}</td>
-          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.waterSupply}}</td>
+          <td class="text-right">Rs. {{afterCompletion?.buildingDetailsAfterCompletion?.ratePerSquareFeet | currencyFormatter}}</td>
+          <td class="text-right">Rs. {{afterCompletion?.buildingDetailsAfterCompletion?.estimatedCost | currencyFormatter}}</td>
+          <td class="text-right">Rs. {{afterCompletion?.buildingDetailsAfterCompletion?.waterSupply | currencyFormatter}}</td>
         </tr>
         </tbody>
         <thead>
@@ -884,13 +928,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="text-right">
           <td></td>
-          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.sanitation}}</td>
-          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.electrification}}</td>
-          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildingTotalCost}}</td>
-          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildingFairMarketValue}}</td>
-          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildingDistressValue}}</td>
+          <td>Rs. {{afterCompletion?.buildingDetailsAfterCompletion?.sanitation | currencyFormatter}}</td>
+          <td>Rs. {{afterCompletion?.buildingDetailsAfterCompletion?.electrification | currencyFormatter}}</td>
+          <td>Rs. {{afterCompletion?.buildingDetailsAfterCompletion?.buildingTotalCost | currencyFormatter}}</td>
+          <td>Rs. {{afterCompletion?.buildingDetailsAfterCompletion?.buildingFairMarketValue | currencyFormatter}}</td>
+          <td>Rs. {{afterCompletion?.buildingDetailsAfterCompletion?.buildingDistressValue | currencyFormatter}}</td>
         </tr>
         </tbody>
         <tr class="text-white sb-bg-dark">
@@ -933,10 +977,10 @@
       <tr>
         <td>{{i + 1}}</td>
         <td>{{plantDetails?.model}}</td>
-        <td>{{plantDetails?.quotation}}</td>
+        <td class="text-right">Rs. {{plantDetails?.quotation | currencyFormatter}}</td>
         <td>{{plantDetails?.supplier}}</td>
-        <td>{{plantDetails?.downPay}}</td>
-        <td>{{plantDetails?.loanExp}}</td>
+        <td class="text-right">Rs. {{plantDetails?.downPay | currencyFormatter}}</td>
+        <td class="text-right">Rs. {{plantDetails?.loanExp | currencyFormatter}}</td>
       </tr>
       </tbody>
       <thead>
@@ -978,7 +1022,9 @@
   <div *ngIf="vehicleSelected" class="row">
     <div class="col-md-12">
       <p class="text-center"><strong>Vehicle Security Details</strong></p>
-
+      <div class="d-flex justify-content-sm-end">
+        <p class="font-weight-bolder sb-medium">Vehicle Exposure: {{securityData['initialForm']?.vehicleLoanExposure |number}}%</p>
+      </div>
     </div>
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" *ngFor="let vehicleSecurity of securityData['initialForm']['vehicleDetails']; let i=index"  style="table-layout: fixed; width: 100%">
       <thead>
@@ -999,7 +1045,7 @@
         <td>{{vehicleSecurity['model']}}</td>
         <td>{{vehicleSecurity?.registrationNumber}}</td>
         <td>{{vehicleSecurity?.registrationDate | date}}</td>
-        <td>{{vehicleSecurity['valuationAmount']}}</td>
+        <td class="text-right">Rs. {{vehicleSecurity['valuationAmount'] | currencyFormatter}}</td>
 
       </tr>
       </tbody>
@@ -1011,7 +1057,7 @@
         <th>Chassis Number</th>
 
         <th>Down Payment</th>
-        <th  *ngIf="securityData['otherBranchcheck']">Branch</th>
+        <th>Remaining Amount</th>
       </tr>
       </thead>
       <tbody>
@@ -1021,8 +1067,8 @@
 
         <td style="word-wrap: break-word">{{vehicleSecurity['chassisNumber']}}</td>
 
-        <td>{{vehicleSecurity['downPayment']}}</td>
-        <td *ngIf="securityData['otherBranchcheck']">{{vehicleSecurity?.vehicalBranch?.name}}</td>
+        <td class="text-right">Rs. {{vehicleSecurity['downPayment'] | currencyFormatter}}</td>
+        <td class="text-right">Rs. {{vehicleSecurity['remainingAmount'] | currencyFormatter}}</td>
       </tr>
       </tbody>
       <thead>
@@ -1051,15 +1097,30 @@
         <th>Staff Representative Name</th>
         <th>Alternative Staff Representative Designation</th>
         <th>Alternative Representative Name</th>
+        <th>Showroom Name</th>
+
       </tr>
       <tr>
         <td></td>
         <td>{{vehicleSecurity?.vehicalStaffRepresentativeName}}</td>
         <td>{{vehicleSecurity?.vehicalAlternateStaffRepresentativeDesignation}}</td>
         <td>{{vehicleSecurity?.vehicalAlternateStaffRepresentativeName}}</td>
+        <td>{{vehicleSecurity?.showroomName}}</td>
 
       </tr>
+      <tr class="text-white sb-bg-dark">
+        <th></th>
+        <th>Showroom Address</th>
+        <th>Ownership transfer date</th>
+        <th *ngIf="securityData['otherBranchcheck']">Branch</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td>{{vehicleSecurity?.showroomAddress}}</td>
+        <td>{{vehicleSecurity?.ownershipTransferDate | date}}</td>
+        <td *ngIf="securityData['otherBranchcheck']">{{securityData['otherBranchcheck'] ? vehicleSecurity?.vehicalBranch?.name : 'N/A'}}</td>
 
+      </tr>
     </table>
   </div>
 
@@ -1068,11 +1129,14 @@
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
       <thead>
       <tr>
-        <th class="text-center" colspan="7">Fixed Deposit Receipt Details</th>
+        <th class="text-center" colspan="10">Fixed Deposit Receipt Details</th>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th>S.N</th>
-        <th>FD Receipt Number</th>
+        <th>FD ReceiptName Number</th>
+        <th>Account Holder</th>
+        <th>Account Number</th>
+        <th>Tenure Start Date</th>
         <th>Amount</th>
         <th>Expiry Date</th>
         <th>Coupon Rate</th>
@@ -1082,15 +1146,18 @@
       <tr *ngFor="let depositDetails of securityData['initialForm']['fixedDepositDetails']; let i= index">
         <td>{{i + 1}}</td>
         <td>{{depositDetails?.receiptNumber}}</td>
-        <td>{{depositDetails?.amount}}</td>
+        <td>{{depositDetails?.accountHolderName}}</td>
+        <td>{{depositDetails?.accountNumber}}</td>
+        <td>{{depositDetails?.tenureStartDate | date}}</td>
+        <td class="text-right">Rs. {{depositDetails?.amount | roundvalue | currencyFormatter}}</td>
         <td>{{depositDetails?.expiryDate | date}}</td>
-        <td>{{depositDetails?.couponRate}}</td>
+        <td class="text-right">Rs. {{depositDetails?.couponRate | currencyFormatter}}</td>
         <td>{{depositDetails?.beneficiary}}</td>
         <td>{{depositDetails?.remarks}}</td>
       </tr>
       <tr>
-        <td colspan="2">Total</td>
-        <td colspan="5" class="text-left">{{totalAmount}}</td>
+        <td colspan="5"><b>Total</b></td>
+        <td colspan="5" class="text-right"><b>Rs. {{totalAmount | currencyFormatter}}</b></td>
       </tr>
       </thead>
     </table>
@@ -1100,7 +1167,7 @@
       <table class="table table-sm table-bordered text-center table-sm sb-small">
         <thead>
         <tr>
-          <th colspan="7">
+          <th colspan="8">
             Share Security Detail(Promoter Percent: {{loanSharePercent == undefined? 0: loanSharePercent.promoter}} , Ordinary Percent: {{loanSharePercent == undefined? 0 : loanSharePercent.ordinary}})
           </th>
         </tr>
@@ -1112,6 +1179,7 @@
           <th> Rate</th>
           <th>Total Value</th>
           <th>Considered Value</th>
+          <th>Ownership transfer Date</th>
         </tr>
         </thead>
         <tbody>
@@ -1120,18 +1188,28 @@
           <td>{{singleShareData?.companyName}}</td>
           <td>{{singleShareData?.shareType}}</td>
           <td>{{singleShareData?.totalShareUnit}}</td>
-          <td>{{singleShareData?.amountPerUnit |currencyFormatter}}</td>
-          <td>{{singleShareData?.total |currencyFormatter}}</td>
-          <td>{{singleShareData?.consideredValue |currencyFormatter}}</td>
+          <td class="text-right">Rs. {{singleShareData?.amountPerUnit |currencyFormatter}}</td>
+          <td class="text-right">Rs. {{singleShareData?.total |currencyFormatter}}</td>
+          <td class="text-right">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
+          <td>{{singleShareData?.ownershipTransferDate |date}}</td>
+
         </tr>
         <tr>
-          <th class="text-right" colspan="5">Total</th>
-          <th>{{shareTotalValue |currencyFormatter}}</th>
-          <th>{{totalConsideredValue |currencyFormatter}}</th>
+          <th class="text-center" colspan="5">Total</th>
+          <th class="text-right">Rs. {{shareTotalValue |currencyFormatter}}</th>
+          <th class="text-right">Rs. {{totalConsideredValue |currencyFormatter}}</th>
+          <th></th>
+        </tr>
+        <tr>
+          <th></th>
+          <th class="sb-bg-secondary text-white">Price As per Date</th>
+          <td colspan="2">{{shareSecurity?.sharePriceDate |date}}</td>
+          <th class="sb-bg-secondary text-white">Average Price of days</th>
+          <td colspan="2">{{shareSecurity?.avgDaysForPrice}} days</td>
         </tr>
         <tr>
           <th>Description</th>
-          <th colspan="6">{{shareSecurity['securityOffered']}}</th>
+          <th colspan="7">{{shareSecurity['securityOffered']}}</th>
         </tr>
         </tbody>
       </table>

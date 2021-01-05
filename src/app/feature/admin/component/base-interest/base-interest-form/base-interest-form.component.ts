@@ -6,6 +6,7 @@ import {BaseInterestService} from '../../../service/base-interest.service';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {Action} from '../../../../../@core/Action';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Pattern} from '../../../../../@core/utils/constants/pattern';
 
 @Component({
   selector: 'app-base-interest-form',
@@ -36,7 +37,7 @@ export class BaseInterestFormComponent implements OnInit {
 
   buildForm(): void {
       this.form = this.formBuilder.group({
-          rate: [undefined, Validators.required]
+          rate: [undefined, [Validators.required, Validators.pattern(Pattern.FLOAT_UPTO_TWO_PLACE)]]
       });
   }
     scrollToFirstInvalidControl() {
@@ -58,8 +59,9 @@ export class BaseInterestFormComponent implements OnInit {
 
 
     onSubmit(interest) {
-    this.spinner = true;
+      this.spinner = true;
         if (this.form.invalid) {
+          this.spinner = false;
             this.scrollToFirstInvalidControl();
             return;
         }

@@ -8,19 +8,31 @@
 
       <tr class="sb-bg-dark text-white">
         <th>S.N</th>
+        <th>Name of Borrower</th>
+        <th>Relation</th>
+        <th>Cicl Relation</th>
         <th>Name of FI</th>
         <th>Facility</th>
         <th>OverDue Amount</th>
         <th>Outstanding Amount</th>
         <th>status</th>
+        <th>Obtained Date</th>
+        <th>Loan Amount</th>
+        <th>Overdue Installment(s)</th>
       </tr>
       <tr *ngFor="let data of ciclList; let i=index">
         <td>{{i + 1}}</td>
+        <td>{{data?.nameOfBorrower}}</td>
+        <td>{{data?.borrowerRelation}}</td>
+        <td>{{ciclRelationList[data.ciclRelation]}}</td>
         <td>{{data?.nameOfFI || 'NA'}}</td>
         <td>{{data?.facility || 'NA'}}</td>
-        <td>{{data?.overdueAmount | currencyFormatter}}</td>
-        <td>{{data?.outstandingAmount | currencyFormatter}}</td>
+        <td class="text-right">Rs. {{data?.overdueAmount | currencyFormatter}}</td>
+        <td class="text-right">Rs. {{data?.outstandingAmount | currencyFormatter}}</td>
         <td>{{data?.status || 'NA'}}</td>
+        <td>{{data?.obtaineddate | date}}</td>
+        <td class="text-right">Rs. {{data?.loanamount | currencyFormatter}}</td>
+        <td>{{data?.overdue}}</td>
       </tr>
       </thead>
     </table>

@@ -84,22 +84,52 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-4 form-group">
+                        <div class="form-group">
+                            <label for="gender"><strong>Gender</strong></label>
+                            <br />
+                            <nb-radio-group class="d-flex" formControlName="gender" id="gender">
+                                <nb-radio *ngFor="let gender of genderPairs"
+                                          [value]="gender?.key">
+                                    {{ gender?.value }}</nb-radio>
+                            </nb-radio-group>
+                            <div *ngIf="(submitted) && basicInfoControls.gender.invalid"
+                                 class="help-block">
+                            <span *ngIf="basicInfoControls.gender.errors.required">
+                              <span class="text-danger">Gender is required</span>
+                            </span>
+                            </div>
+                        </div>
+                        </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="maritalStatus"><strong>Marital Status</strong></label>
+                            <ng-select [ngClass]="{'is-invalid': submitted && basicInfoControls.maritalStatus.errors}"
+                                       formControlName="maritalStatus" id="maritalStatus"
+                                       [addTagText]="null"
+                                       [placeholder]="placeHolderForMaritalStatus"
+                                       [multiple]="false">
+                                <ng-option *ngFor="let maritalStatus of maritalStatusEnum.values()" [value]="maritalStatus">
+                                    {{maritalStatus}}
+                                </ng-option>
+                            </ng-select>
+                            <div *ngIf="(submitted) && basicInfoControls.maritalStatus.invalid"
+                                 class="help-block">
+                <span *ngIf="basicInfoControls.maritalStatus.errors.required">
+                  <span class="text-danger">Marital status is required</span>
+                </span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="customerCode"><strong>Customer ID</strong></label>
                             <input
-                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerCode.errors }"
                                     class="form-control form-control-sm-error rounded" formControlName="customerCode"
                                     id="customerCode"
                                     name="customerCode"
-                                    placeholder="Customer ID"
+                                    placeholder="Customer ID (Optional)"
                                     type="text">
-                            <div *ngIf="(submitted) && basicInfoControls.customerCode.invalid"
-                                 class="invalid-feedback">
-                                <div *ngIf="basicInfoControls.customerCode.errors.required">Customer ID
-                                    required
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -270,6 +300,7 @@
                                 <nb-option value="Teaching Professional">Teaching Professional</nb-option>
                                 <nb-option value="Banker">Salary</nb-option>
                                 <nb-option value="Teaching Professional">Farmer</nb-option>
+                                <nb-option value="House Wife">House Wife</nb-option>
                                 <nb-option value="Other">Other</nb-option>
                             </nb-select>
                             <div *ngIf="submitted && basicInfoControls.occupation.errors"
@@ -294,7 +325,7 @@
                     </div>
                     <!-- END ROW -->
                     <!-- START ROW -->
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="!tempFlag?.hideIncomeSource">
                         <div class="form-group">
                             <label><strong>Income Source</strong></label>
                             <nb-select
@@ -329,10 +360,11 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
-                <div class="row">
+                <div class="row ml-1">
                     <div class="col-md-12">
-                        <h6>Permanent Address</h6>
+                        <h5>Permanent Address</h5>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
@@ -428,16 +460,32 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <button class="btn-sm" (click)="sameAsPermanent()" nbButton>Click </button>
-                        Same as Permanent Address
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title ml-3" for="customerLegalDocumentAddress"><strong>Address as per Legal Document</strong></label>
+                            <textarea class="form-control" cols="6"
+                                      [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerLegalDocumentAddress.errors }"
+                                      formControlName="customerLegalDocumentAddress"
+                                      id="customerLegalDocumentAddress"
+                                      placeholder="Address as per Legal Document"
+                                      rows="2" maxlength="256"></textarea>
+                            <div *ngIf="submitted && basicInfoControls.customerLegalDocumentAddress.errors"
+                                 class="invalid-feedback small">
+                                <div *ngIf="basicInfoControls.customerLegalDocumentAddress.errors.required">
+                                    Address as per legal document is required
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row ml-1">
                     <div class="col-md-12">
-                        <h6>Temporary Address</h6>
+                        <nb-checkbox (change)="sameAsPermanent()"><i>Check if Temporary Address is same as Permanent Address</i></nb-checkbox>
+                    </div>
+                </div>
+                <div class="row ml-1">
+                    <div class="col-md-12">
+                        <h5>Temporary Address</h5>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
@@ -544,10 +592,12 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="customerRelation{{i}}"><strong>Relation</strong></label>
-                                        <input class="form-control" formControlName="customerRelation"
+                                        <select class="form-control" formControlName="customerRelation"
                                                id="customerRelation{{i}}"
-                                               [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelation').errors }"
-                                               placeholder="Relation" type="text">
+                                               [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelation').errors }">
+                                            <option [ngValue]="null" hidden>Select Relation</option>
+                                            <option [value]="relation.id" *ngFor="let relation of relationArray.relation">{{relation.name}}</option>
+                                        </select>
                                         <div *ngIf="submitted && relatives.get('customerRelation').errors"
                                              class="invalid-feedback">
                                             <div *ngIf="relatives.get('customerRelation').errors?.required">Relation
@@ -625,18 +675,66 @@
                     <input (click)="addRelatives()" class="btn btn-sm btn-flat btn-primary"
                            type="button" value="Add More"/>
                 </div>
-                <div>
-                    <label><strong>Introduction</strong></label>
-                    <textarea id="introduction" formControlName="introduction" name="introduction" type="text"
-                              class="form-control" placeholder="introduction"
-                              [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.introduction.errors }"></textarea>
-                    <div *ngIf="(submitted) && basicInfoControls.introduction.invalid"
-                         class="invalid-feedback">
-                        <div *ngIf="basicInfoControls.introduction.errors.required">
-                            Introduction is required
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label><strong>Introduction</strong></label>
+                            <textarea id="introduction" formControlName="introduction" name="introduction" type="text"
+                                      class="form-control" placeholder="introduction"
+                                      [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.introduction.errors }"></textarea>
+                            <div *ngIf="(submitted) && basicInfoControls.introduction.invalid"
+                                 class="invalid-feedback">
+                                <div *ngIf="basicInfoControls.introduction.errors.required">
+                                    Introduction is required
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+               <div class="row">
+                   <div class="col-md-12">
+                       <div class="form-group">
+                           <label><strong>Income Risk</strong></label>
+                           <textarea id="incomeRisk" formControlName="incomeRisk" name="introduction" type="text"
+                                     class="form-control" placeholder="Security Risk" rows="5"
+                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls?.incomeRisk?.errors }"></textarea>
+                           <div *ngIf="(submitted) && basicInfoControls?.incomeRisk?.invalid"
+                                class="invalid-feedback">
+                               <div *ngIf="basicInfoControls?.incomeRisk?.errors?.required">
+                                   Income Risk is required
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="col-md-12">
+                       <div class="form-group">
+                           <label><strong>Security Risk</strong></label>
+                           <textarea id="securityRisk" formControlName="securityRisk" name="introduction" type="text"
+                                     class="form-control" placeholder="Security Risk" rows="5"
+                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls?.securityRisk?.errors }"></textarea>
+                           <div *ngIf="(submitted) && basicInfoControls?.securityRisk?.invalid"
+                                class="invalid-feedback">
+                               <div *ngIf="basicInfoControls?.securityRisk?.errors?.required">
+                                   Security Risk is required
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="col-md-12">
+                       <div class="form-group">
+                           <label><strong>Succession Risk</strong></label>
+                           <textarea id="successionRisk" formControlName="successionRisk" name="introduction" type="text"
+                                     class="form-control" placeholder="Succession Risk" rows="5"
+                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls?.successionRisk?.errors }"></textarea>
+                           <div *ngIf="(submitted) && basicInfoControls?.successionRisk?.invalid"
+                                class="invalid-feedback">
+                               <div *ngIf="basicInfoControls?.successionRisk?.errors?.required">
+                                   Succession Risk is required
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
                 <div>
                     <nb-card class="card-height">
                         <nb-card-header>

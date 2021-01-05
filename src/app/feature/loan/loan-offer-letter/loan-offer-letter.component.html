@@ -127,6 +127,7 @@
                class="table table-bordered table-hover table-sm sb-small text-center ">
             <thead>
             <tr class="text-white sb-bg-dark">
+                <th>S.No</th>
                 <th>Branch</th>
                 <th>Customer Name</th>
                 <th>Loan Facility</th>
@@ -136,6 +137,7 @@
                 <th>Possession</th>
                 <!--                <th>Action</th>-->
                 <th>Post Approval Doc No.</th>
+                <th *ngIf="srdbAffiliatedId">CBS Loan File Number</th>
                 <th>Action</th>
 
 
@@ -146,6 +148,7 @@
                 <tr
 
                         class="cursor">
+                    <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                     <td (click)="onClick(model?.loan?.id,model?.id)">{{model?.branch?.name}}</td>
                     <td (click)="onClick(model?.loan?.id,model?.id)">{{model?.loanHolder?.name}}</td>
                     <td (click)="onClick(model?.loan?.id,model?.id)">{{model?.loan?.name}}</td>
@@ -171,6 +174,7 @@
                     <td>
                         {{model.uploadedOfferLetterStat}} / {{model.offerLetterStat}}
                     </td>
+                    <td *ngIf="srdbAffiliatedId">{{model?.cbsLoanFileNumber || 'NA'}}</td>
                     <td>
                         <a (click)="openModel(assignCustomerLoan,model?.id,model?.branch?.id)"
                            nbTooltip="click to assign"><em
@@ -180,6 +184,7 @@
                            nbTooltip="click to view detail stage of Post Approval Document">
                             <em class="fa fa-eye"></em>
                         </a>
+                        <a *ngIf="srdbAffiliatedId && (model?.documentStatus.toString() == 'APPROVED')" (click)="openCadModel(cadTemplate,model?.id,model?.cbsLoanFileNumber)"><i class="fa fa-keyboard"></i></a>
                     </td>
                 </tr>
                 <ng-container *ngIf="toggleArray[i].toggled">
@@ -191,7 +196,7 @@
                         *ngIf="model?.customerOfferLetter?.previousList?.length < 1
                          && !model?.customerOfferLetter?.offerLetterStage">
                         <td colspan="9"><span class="text-danger">This File is not assigned Yet. Please click  <a
-                                (click)="openModel(assignCustomerLoan,model?.id)" nbTooltip="click to assign"><em
+                                (click)="openModel(assignCustomerLoan,model?.id,model?.branch?.id)" nbTooltip="click to assign"><em
                                 class="fa fa-user px-2"
                                 [ngStyle]="{'color':model?.customerOfferLetter?.offerLetterStage?.toUser === null ? 'red' : 'green' }">
 
@@ -306,5 +311,25 @@
         </div>
 
     </nb-card>
+</ng-template>
+
+<ng-template #cadTemplate>
+        <form #forms="ngForm" (ngSubmit)="forms.form.valid && saveCbsNumber()">
+            <div class="modal-content">
+                <div class="modal-header" style="display:block">
+                    <label>Enter CBS Loan File Number</label>
+                    <input  #cbsNumber="ngModel" id="cbsNumber" name="cbsNumber" class="form-control" [(ngModel)]="cbsLoanFileNumber" [pattern]="alphaNumericPattern">
+                    <div *ngIf="cbsNumber.invalid "
+                         class="small text-danger">
+                        <div *ngIf="cbsNumber.errors.pattern">
+                            Enter AlphaNumeric Value
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" nbButton>Save</button>
+                </div>
+            </div>
+        </form>
 </ng-template>
 <app-overlay-spinner></app-overlay-spinner>

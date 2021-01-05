@@ -14,9 +14,12 @@
                                 'is-valid': !rate.invalid && (rate.dirty || rate.touched)
                                 }"
                        id="rate" formControlName="rate" placeholder="Enter Base Interest Rate" nbInput fullWidth
-                       type="number"/>
-                <div *ngIf="rate.invalid && rate.errors.required" class="invalid-feedback">
+                       type="number" appDecimalNumber/>
+                <div *ngIf="rate.invalid && rate.errors.required" class="small text-danger">
                     Base Interest is required
+                </div>
+                <div *ngIf="rate.invalid && rate.errors.pattern" class="small text-danger">
+                    Float number should be upto Second position
                 </div>
             </div>
         </div>

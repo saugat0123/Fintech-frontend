@@ -18,7 +18,7 @@
       <tr>
         <td>{{individual?.customerName}}</td>
         <td>{{customerInfo?.customerCode}}</td>
-        <td>{{individual?.dob}}</td>
+        <td>{{individual?.dob | date}}</td>
         <td>{{individual?.citizenshipNumber}}</td>
         <td>{{individual?.citizenshipIssuedDate | date}}</td>
         <td>{{individual?.citizenshipIssuedPlace}}</td>
@@ -45,9 +45,11 @@
       </tr>
       <tr class="text-white sb-bg-dark">
         <th>Subsector</th>
+        <th>Address as per Legal Document</th>
       </tr>
       <tr>
         <td>{{customerInfo?.subsectorDetail}}</td>
+        <td>{{customerInfo?.customerLegalDocumentAddress}}</td>
       </tr>
       </tbody>
     </table>
@@ -135,12 +137,30 @@
         <td colspan="2">{{individual?.introduction}}</td>
       </tr>
       <tr class="text-white sb-bg-dark">
+        <th colspan="2">Income Risk</th>
+      </tr>
+      <tr>
+        <td colspan="2">{{individualJsonData?.incomeRisk}}</td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th colspan="2">Security Risk</th>
+      </tr>
+      <tr>
+        <td colspan="2">{{individualJsonData?.securityRisk}}</td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th colspan="2">Succession Risk</th>
+      </tr>
+      <tr>
+        <td colspan="2">{{individualJsonData?.successionRisk}}</td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
         <th>Banking Relationship</th>
         <th>Net Worth</th>
       </tr>
       <tr>
         <td>{{customerInfo?.bankingRelationship | jsonParse}}</td>
-        <td>Rs. {{individual?.netWorth |currencyFormatter}}</td>
+        <td class="text-right">Rs. {{individual?.netWorth |currencyFormatter}}</td>
       </tr>
     </table>
   </div>

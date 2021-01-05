@@ -76,6 +76,8 @@ import {AngularDraggableModule} from 'angular2-draggable';
 import {LoanInformationDetailViewModule} from '../loan-information-detail-view/loan-information-detail-view.module';
 import {AssignedOfferLetterComponent} from './loan-offer-letter/assigned-offer-letter/assigned-offer-letter.component';
 import { PostApprovalFormComponent } from './loan-offer-letter/post-approval-form/post-approval-form.component';
+import {CatalogueComponent} from "../admin/component/catalogue/catalogue.component";
+import {TransferDocComponent} from "./transfer-doc/transfer-doc.component";
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -167,7 +169,7 @@ const modules = {
 };
 
 @NgModule({
-    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent, PostApprovalFormComponent],
+    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent, PostApprovalFormComponent, TransferDocComponent],
     imports: [
         ThemeModule,
         CommonModule,
@@ -201,7 +203,9 @@ const modules = {
     ],
 
     entryComponents: [...ENTRY_COMPONENTS],
-    exports: []
+    exports: [
+        KycInfoComponent
+    ]
 })
 export class LoanModule {
 }

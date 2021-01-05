@@ -29,7 +29,7 @@ export class GroupConfigComponent implements OnInit {
   }
 
   static loadData(other: GroupConfigComponent) {
-    other.customerGroupService.getPaginationWithSearchObject({}, 1 , 10).subscribe(response => {
+    other.customerGroupService.getPaginationWithSearchObject({}, other.page , 10).subscribe(response => {
       other.customerGroups = response.detail.content;
       other.pageable = PaginationUtils.getPageable(response.detail);
       other.spinner = false;

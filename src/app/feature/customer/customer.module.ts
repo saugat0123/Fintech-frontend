@@ -39,6 +39,8 @@ import { CompanyOtherDetailComponent } from './component/customer-form/company-f
 import { MarketScenarioComponent } from './component/customer-form/company-form/market-scenario/market-scenario.component';
 import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
 import {TranslateModule} from '@ngx-translate/core';
+import {FeatureModule} from '../feature.module';
+import {CbsGroupModule} from '../cbs-group/cbs-group.module';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -90,7 +92,9 @@ const COMPONENTS = [
         CoreModule,
         CustomerActivityModule,
         LoanSummaryModule,
-        TranslateModule
+        TranslateModule,
+        FeatureModule,
+        CbsGroupModule
 
 
     ],
