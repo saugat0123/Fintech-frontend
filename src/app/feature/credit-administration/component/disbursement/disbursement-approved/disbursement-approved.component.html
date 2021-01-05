@@ -10,17 +10,19 @@
                 <th>Customer Name</th>
                 <th>Type</th>
                 <th>Document Status</th>
+                <th>Add Exposure</th>
 
 
             </tr>
             </thead>
             <tbody>
             <ng-container *ngFor="let model of loanList;let i=index">
-                <tr class="cursor" (click)="loadProfile(model?.id)">
+                <tr class="cursor">
                     <td >{{model?.loanHolder?.branch?.name}}</td>
                     <td >{{model?.loanHolder?.name}}</td>
                     <td >{{model?.loanHolder?.customerType}}</td>
                     <td >{{model?.docStatus}}</td>
+                    <td ><em class="fas fa-plus-circle" (click)="addExposure(model)"></em></td>
 
                 </tr>
             </ng-container>
