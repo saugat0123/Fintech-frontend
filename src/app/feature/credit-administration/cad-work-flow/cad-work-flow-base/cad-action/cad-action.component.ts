@@ -27,6 +27,7 @@ export class CadActionComponent implements OnInit {
 
     @Input()
     selectedBranchId;
+
     @Input()
     cadId: number;
 
@@ -167,7 +168,7 @@ export class CadActionComponent implements OnInit {
                     cadId: [this.cadId],
                     docAction: [val],
                     comment: [undefined, Validators.required],
-                    documentStatus: [this.currentStatus]
+                    documentStatus: [this.forwardBackwardDocStatusChange()]
                 }
             );
             const approvalType = 'CAD';
@@ -202,7 +203,7 @@ export class CadActionComponent implements OnInit {
                     cadId: [this.cadId],
                     docAction: [val],
                     comment: [undefined, Validators.required],
-                    documentStatus: [this.currentStatus]
+                    documentStatus: [this.forwardBackwardDocStatusChange()]
                 }
             );
 
@@ -228,5 +229,16 @@ export class CadActionComponent implements OnInit {
         }
     }
 
+
+    public forwardBackwardDocStatusChange() {
+        if (this.currentStatus === 'OFFER_APPROVED') {
+            return 'LEGAL_PENDING';
+        } else if (this.currentStatus === 'LEGAL_APPROVED') {
+            return 'DISBURSEMENT_PENDING';
+        } else {
+            return this.currentStatus;
+        }
+
+    }
 
 }
