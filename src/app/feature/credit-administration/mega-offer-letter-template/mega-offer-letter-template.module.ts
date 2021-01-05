@@ -5,6 +5,7 @@ import {RetailEducationalLoanComponent} from './mega-offer-letter/retail-educati
 import {RetailEducationalLoanPrintComponent} from './mega-offer-letter/retail-educational-loan/retail-educational-loan-print/retail-educational-loan-print.component';
 import {RetailEducationalLoanEnglishComponent} from './mega-offer-letter/retail-educational-loan-english/retail-educational-loan-english.component';
 import {HayerPurchasePrintComponent} from './mega-offer-letter/hayer-purchase/hayer-purchase-print/hayer-purchase-print.component';
+import {RetailEducationalLoanEnglishPrintComponent} from './mega-offer-letter/retail-educational-loan-english/retail-educational-loan-english-print/retail-educational-loan-english-print.component';
 import {RetailHousingLoanComponent} from './mega-offer-letter/retail-housing-loan/retail-housing-loan.component';
 import {RetailHousingLoanPrintComponent} from './mega-offer-letter/retail-housing-loan/retail-housing-loan-print/retail-housing-loan-print.component';
 import {RetailMortgageComponent} from './mega-offer-letter/retail-mortgage/retail-mortgage.component';
@@ -20,7 +21,6 @@ import {ThemeModule} from '../../../@theme/theme.module';
 import {NgxPrintModule} from 'ngx-print';
 import {CoreModule} from '../../../@core/core.module';
 import {NbAccordionModule} from '@nebular/theme';
-import { RetailEducationalLoanEnglishPrintComponent } from './mega-offer-letter/retail-educational-loan-english/retail-educational-loan-english-print/retail-educational-loan-english-print.component';
 
 const COMPONENTS = [
     MegaOfferLetterComponent,
@@ -45,7 +45,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, RetailEducationalLoanEnglishPrintComponent],
+    declarations: [...COMPONENTS],
     imports: [
         ThemeModule,
         CommonModule,
