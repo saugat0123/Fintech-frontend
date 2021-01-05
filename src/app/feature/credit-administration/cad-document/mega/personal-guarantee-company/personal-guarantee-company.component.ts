@@ -7,7 +7,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
   styleUrls: ['./personal-guarantee-company.component.scss']
 })
 export class PersonalGuaranteeCompanyComponent implements OnInit {
-  personalGuaranteePerson: FormGroup;
+  personalGuaranteeCompany: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
   }
@@ -18,7 +18,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
 
 
   buildForm(){
-    this.personalGuaranteePerson = this.formBuilder.group({
+    this.personalGuaranteeCompany = this.formBuilder.group({
       districtName: [undefined],
       municipalityName: [undefined],
       wardNo: [undefined],
@@ -54,7 +54,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
   }
 
   submit(){
-    console.log(this.personalGuaranteePerson.value);
+    console.log(this.personalGuaranteeCompany.value);
   }
 
 }
