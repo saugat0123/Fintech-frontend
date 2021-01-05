@@ -8,6 +8,7 @@ import {LegalReviewApprovedComponent} from './component/legal/legal-review-appro
 import {DisbursementPendingComponent} from './component/disbursement/disbursement-pending/disbursement-pending.component';
 import {DisbursementApprovedComponent} from './component/disbursement/disbursement-approved/disbursement-approved.component';
 
+/** Always add new route to RouteConst.ts file as a static route Variable **/
 export const routes: Routes = [
     {path: 'offer-pending', component: OfferLetterListComponent},
     {path: 'offer-approved', component: OfferLetterApprovedComponent},
