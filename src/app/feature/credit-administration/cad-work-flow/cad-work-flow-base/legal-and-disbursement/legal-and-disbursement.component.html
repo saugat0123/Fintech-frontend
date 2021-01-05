@@ -4,6 +4,7 @@
          nbSpinnerSize="giant"
          nbSpinnerStatus="primary">
     <nb-card-header>
+        <strong>{{cadOfferLetterApprovedDoc?.docStatus | replace:'_':' '}}</strong>
         <app-cad-action [cadId]="cadOfferLetterApprovedDoc?.id"
                         [selectedBranchId]="cadOfferLetterApprovedDoc?.loanHolder?.branch?.id"
                         [currentStatus]="cadOfferLetterApprovedDoc?.docStatus"
