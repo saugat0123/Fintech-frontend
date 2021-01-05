@@ -7,7 +7,6 @@ import {MegaOfferLetterConst} from '../../mega-offer-letter-const';
   styleUrls: ['./retail-educational-loan-english-print.component.scss']
 })
 export class RetailEducationalLoanEnglishPrintComponent implements OnInit {
-
   @Input() letter: any;
   offerLetterConst = MegaOfferLetterConst;
   constructor() { }
