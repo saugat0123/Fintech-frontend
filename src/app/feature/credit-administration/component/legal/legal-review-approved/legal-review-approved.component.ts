@@ -57,4 +57,8 @@ export class LegalReviewApprovedComponent implements OnInit {
           }
         });
   }
+  setSearchValue(value) {
+    this.searchObj = Object.assign(value, {docStatus: 'LEGAL_APPROVED'});
+    LegalReviewApprovedComponent.loadData(this);
+  }
 }

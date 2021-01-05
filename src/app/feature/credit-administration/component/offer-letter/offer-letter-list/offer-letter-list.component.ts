@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
@@ -55,4 +55,11 @@ export class OfferLetterListComponent implements OnInit {
               }
         });
   }
+
+
+  setSearchValue(value) {
+    this.searchObj = Object.assign(value, {docStatus: 'OFFER_PENDING'});
+    OfferLetterListComponent.loadData(this);
+  }
+
 }

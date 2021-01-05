@@ -57,4 +57,9 @@ export class LegalReviewPendingComponent implements OnInit {
           }
         });
   }
+
+  setSearchValue(value) {
+    this.searchObj = Object.assign(value, {docStatus: 'LEGAL_PENDING'});
+    LegalReviewPendingComponent.loadData(this);
+  }
 }

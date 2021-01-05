@@ -29,6 +29,7 @@ import { LegalReviewPendingComponent } from './component/legal/legal-review-pend
 import { LegalReviewApprovedComponent } from './component/legal/legal-review-approved/legal-review-approved.component';
 import { DisbursementApprovedComponent } from './component/disbursement/disbursement-approved/disbursement-approved.component';
 import { DisbursementPendingComponent } from './component/disbursement/disbursement-pending/disbursement-pending.component';
+import { FilterComponent } from './component/filter/filter.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { DisbursementPendingComponent } from './component/disbursement/disbursem
         LegalReviewPendingComponent,
         LegalReviewApprovedComponent,
         DisbursementApprovedComponent,
-        DisbursementPendingComponent],
+        DisbursementPendingComponent,
+        FilterComponent],
     imports: [
         ThemeModule,
         CommonModule,
