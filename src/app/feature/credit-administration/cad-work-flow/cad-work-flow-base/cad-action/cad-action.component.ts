@@ -27,6 +27,7 @@ export class CadActionComponent implements OnInit {
 
     @Input()
     selectedBranchId;
+
     @Input()
     cadId: number;
 
@@ -46,7 +47,7 @@ export class CadActionComponent implements OnInit {
     isBackwardDisabled = false;
     isForwardDisabled = false;
     isApprovedDisabled = false;
-    approvedType;
+    approvedLabel = 'APPROVED';
 
     private securityUrl = ApiConfig.TOKEN;
     private headers = new HttpHeaders({
@@ -167,7 +168,7 @@ export class CadActionComponent implements OnInit {
                     cadId: [this.cadId],
                     docAction: [val],
                     comment: [undefined, Validators.required],
-                    documentStatus: [this.currentStatus]
+                    documentStatus: [this.forwardBackwardDocStatusChange()]
                 }
             );
             const approvalType = 'CAD';
@@ -184,6 +185,7 @@ export class CadActionComponent implements OnInit {
 
         } else if (this.popUpTitle === 'APPROVED') {
             const newDocStatus = this.getNewDocStatusOnApprove();
+            this.popUpTitle = this.approvedLabel;
             if (newDocStatus === '0') {
                 this.toastService.show(new Alert(AlertType.ERROR, 'This Document is Already Approved'));
                 return;
@@ -202,7 +204,7 @@ export class CadActionComponent implements OnInit {
                     cadId: [this.cadId],
                     docAction: [val],
                     comment: [undefined, Validators.required],
-                    documentStatus: [this.currentStatus]
+                    documentStatus: [this.forwardBackwardDocStatusChange()]
                 }
             );
 
@@ -214,8 +216,10 @@ export class CadActionComponent implements OnInit {
 
     public getNewDocStatusOnApprove() {
         if (this.currentStatus === 'OFFER_PENDING') {
+            this.approvedLabel = 'APPROVE OFFER LETTER AND FROWARD';
             return 'OFFER_APPROVED';
         } else if (this.currentStatus === 'LEGAL_PENDING') {
+            this.approvedLabel = 'APPROVE LEGAL AND FROWARD';
             return 'LEGAL_APPROVED';
         } else if (this.currentStatus === 'OFFER_APPROVED') {
             return '0';
@@ -228,5 +232,16 @@ export class CadActionComponent implements OnInit {
         }
     }
 
+
+    public forwardBackwardDocStatusChange() {
+        if (this.currentStatus === 'OFFER_APPROVED') {
+            return 'LEGAL_PENDING';
+        } else if (this.currentStatus === 'LEGAL_APPROVED') {
+            return 'DISBURSEMENT_PENDING';
+        } else {
+            return this.currentStatus;
+        }
+
+    }
 
 }

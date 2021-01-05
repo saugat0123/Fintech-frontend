@@ -8,4 +8,5 @@ export class RouteConst {
     static ROUTE_LEGAL_APPROVED = '/home/credit/legal-approved';
     static ROUTE_DISBURSEMENT_PENDING = '/home/credit/disbursement-pending';
     static ROUTE_DISBURSEMENT_APPROVED = '/home/credit/disbursement-approved';
+    static ROUTE_CAD_LIST_BY_PERMISSIONS = '/home/credit/cad-documents';
 }

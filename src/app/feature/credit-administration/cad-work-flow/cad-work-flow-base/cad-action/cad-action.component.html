@@ -19,7 +19,7 @@
                 <a (click)="onClose()" aria-label="Close" class="close cursor"
                    data-dismiss="modal">
                     <span aria-hidden="true">×</span></a>
-                <h4 class="nav  navbar-right pull-left">{{popUpTitle}}</h4>
+                <h5 class="nav  navbar-right pull-left">{{popUpTitle}}</h5>
             </div>
 
             <form (ngSubmit)="onSubmit(verify)" [formGroup]="formAction" role="form">
@@ -48,7 +48,7 @@
                         <select (change)="errorMsgStatus=false" class="form-control" formControlName="toUser"
                                 placeholder="select  User">
                             <option [value]="null" hidden>Select To</option>
-                            <option *ngFor="let user of userList" [ngValue]="user">{{user.username}}</option>
+                            <option *ngFor="let user of userList" [ngValue]="user">{{user.name}}</option>
                         </select>
 
                     </div>

@@ -29,6 +29,7 @@ import { LegalReviewPendingComponent } from './component/legal/legal-review-pend
 import { LegalReviewApprovedComponent } from './component/legal/legal-review-approved/legal-review-approved.component';
 import { DisbursementApprovedComponent } from './component/disbursement/disbursement-approved/disbursement-approved.component';
 import { DisbursementPendingComponent } from './component/disbursement/disbursement-pending/disbursement-pending.component';
+import { CadDocumentListComponent } from './component/cad-document-list/cad-document-list.component';
 import { FilterComponent } from './component/filter/filter.component';
 
 
@@ -54,6 +55,7 @@ import { FilterComponent } from './component/filter/filter.component';
         LegalReviewApprovedComponent,
         DisbursementApprovedComponent,
         DisbursementPendingComponent,
+        CadDocumentListComponent,
         FilterComponent],
     imports: [
         ThemeModule,
@@ -65,7 +67,7 @@ import { FilterComponent } from './component/filter/filter.component';
         NgSelectModule,
         CoreModule
     ],
-    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent , CadOfferLetterModalComponent]
+    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent , CadOfferLetterModalComponent,ExposureComponent]
 })
 export class CreditAdministrationModule {
 }
