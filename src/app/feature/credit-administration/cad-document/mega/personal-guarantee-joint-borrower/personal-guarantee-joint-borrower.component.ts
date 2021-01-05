@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
-  selector: 'app-personal-guaranee-joint-borrower',
-  templateUrl: './personal-guaranee-joint-borrower.component.html',
-  styleUrls: ['./personal-guaranee-joint-borrower.component.scss']
+  selector: 'app-personal-guarantee-joint-borrower',
+  templateUrl: './personal-guarantee-joint-borrower.component.html',
+  styleUrls: ['./personal-guarantee-joint-borrower.component.scss']
 })
-export class PersonalGuaraneeJointBorrowerComponent implements OnInit {
+export class PersonalGuaranteeJointBorrowerComponent implements OnInit {
 
   personalGuaranteeJoint: FormGroup;
 
