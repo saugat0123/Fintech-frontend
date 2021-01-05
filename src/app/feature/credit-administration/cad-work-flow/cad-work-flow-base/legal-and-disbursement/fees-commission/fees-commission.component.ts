@@ -34,16 +34,7 @@ export class FeesCommissionComponent implements OnInit {
     let data;
     if (!ObjectUtil.isEmpty(this.cadData.feesAndCommission)) {
        data = JSON.parse(this.cadData.feesAndCommission);
-      console.log(data);
       this.feeAmountDetails.patchValue(data.feeAmountDetails);
-     /* data.feeAmountDetails.forEach(v => {
-        this.feeAmountDetails.push(this.formBuilder.group({
-          loanName: [v.loanName],
-          feeType: [v.feeType , Validators.required],
-          feePercent: [v.feePercent , Validators.required],
-          feeAmount: [v.feeAmount , Validators.required],
-        }));
-      });*/
     }
     }
 
@@ -57,27 +48,15 @@ export class FeesCommissionComponent implements OnInit {
       }));
     });
   }
-  get feeCommissionForm() {
-    return this.feeCommissionFormGroup.controls;
-  }
 
   get feeAmountDetails() {
     return this.feeCommissionFormGroup.get('feeAmountDetails') as FormArray;
-  }
-
-  c(v){
-    console.log(this.feeAmountDetails.value);
-    console.log(v);
   }
 
   get totalFeeAmount() {
     let t = 0;
     this.feeAmountDetails.controls.forEach(value => t += Number(value.get('feeAmount').value));
     return t;
-  }
-
-  removeFeeAmountDetail(i) {
-    this.feeAmountDetails.removeAt(i);
   }
 
   submitFeeForm() {
