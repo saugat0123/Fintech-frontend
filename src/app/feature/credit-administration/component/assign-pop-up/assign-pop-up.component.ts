@@ -2,8 +2,12 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../admin/component/user/user.service';
 import {CreditAdministrationService} from '../../service/credit-administration.service';
-import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {RouterUtilsService} from '../../utils/router-utils.service';
+import {RouteConst} from '../../model/RouteConst';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-assign-pop-up',
@@ -19,9 +23,13 @@ export class AssignPopUpComponent implements OnInit {
     selectedBranchId;
     submitted = false;
     roleListInCAD = [];
+    spinner = false;
 
     constructor(private userService: UserService,
                 private formBuilder: FormBuilder,
+                private toastService: ToastService,
+                private routerUtilsService: RouterUtilsService,
+                private modalRef: NgbActiveModal,
                 private cadService: CreditAdministrationService) {
     }
 
@@ -38,19 +46,33 @@ export class AssignPopUpComponent implements OnInit {
     }
 
     assignOfferLetter() {
+        this.spinner = true;
         console.log(this.offerLetterAssignForm.value);
         this.cadService.assignLoanToUser(this.offerLetterAssignForm.value).subscribe((res: any) => {
-
+            console.log(res);
+            this.spinner = false;
+            this.toastService.show(new Alert(AlertType.SUCCESS  , 'SuccessFully Assigned Cad Document'));
+            this.onClose();
+            this.routerUtilsService.reloadRoute(RouteConst.ROUTE_DASHBOARD , RouteConst.ROUTE_OFFER_ALL);
+        } , error => {
+            this.spinner = false;
+            console.log(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error While Assigning Cad Document'));
         });
     }
 
     public getRoleListPresentInCad() {
+        this.spinner = true;
         this.cadService.getRoleInCad().subscribe((res: any) => {
             this.roleListInCAD = res.detail;
             if (this.roleListInCAD.length > 1) {
                 this.getUserList(this.roleListInCAD[0].role);
             }
 
+        } , error => {
+            this.spinner = false;
+            console.log(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error While Loading Role List'));
         });
     }
 
@@ -76,6 +98,11 @@ export class AssignPopUpComponent implements OnInit {
             } else {
                 this.errorMessage = 'NO User Present in this Role';
             }
+            this.spinner = false;
+        }, error => {
+            this.spinner = false;
+            console.log(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error While Loading Users'));
         });
     }
 
@@ -93,6 +120,7 @@ export class AssignPopUpComponent implements OnInit {
     }
 
     onClose() {
+        this.modalRef.close();
     }
 
 }
