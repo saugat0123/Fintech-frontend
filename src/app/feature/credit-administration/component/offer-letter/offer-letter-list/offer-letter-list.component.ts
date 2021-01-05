@@ -14,7 +14,7 @@ import {Router} from '@angular/router';
 export class OfferLetterListComponent implements OnInit {
 
   // todo dynamic search obj for approve , pending
-  searchObj = {};
+  searchObj = {docStatus: 'OFFER_PENDING'};
   page = 1;
   spinner = false;
   pageable: Pageable = new Pageable();

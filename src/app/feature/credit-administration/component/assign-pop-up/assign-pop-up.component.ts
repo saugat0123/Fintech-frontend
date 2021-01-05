@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../admin/component/user/user.service';
 import {CreditAdministrationService} from '../../service/credit-administration.service';
+import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -115,7 +116,7 @@ export class AssignPopUpComponent implements OnInit {
                 toRole: [undefined, Validators.required],
                 docAction: ['ASSIGNED'],
                 comment: ['assigned'],
-                loanHolderId:[this.cadData.id]
+                loanHolderId: [this.cadData.id]
             });
     }
 
