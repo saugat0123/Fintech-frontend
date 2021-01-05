@@ -48,7 +48,7 @@
                         <select (change)="errorMsgStatus=false" class="form-control" formControlName="toUser"
                                 placeholder="select  User">
                             <option [value]="null" hidden>Select To</option>
-                            <option *ngFor="let user of userList" [ngValue]="user">{{user.username}}</option>
+                            <option *ngFor="let user of userList" [ngValue]="user">{{user.name}}</option>
                         </select>
 
                     </div>
