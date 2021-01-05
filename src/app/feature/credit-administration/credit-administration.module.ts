@@ -63,7 +63,7 @@ import { DisbursementPendingComponent } from './component/disbursement/disbursem
         NgSelectModule,
         CoreModule
     ],
-    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent , CadOfferLetterModalComponent]
+    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent , CadOfferLetterModalComponent,ExposureComponent]
 })
 export class CreditAdministrationModule {
 }

@@ -48,7 +48,7 @@
                 </div>
             </td>
 
-            <td>{{previousList?.docAction}}</td>
+            <td>{{previousList?.docAction | replace:'_':' '}}</td>
             <td class="text-left">
                 {{ previousList?.comment}}
             </td>
@@ -82,7 +82,7 @@
                 </div>
             </td>
 
-            <td>{{cadData?.cadCurrentStage?.docAction}}</td>
+            <td>{{cadData?.cadCurrentStage?.docAction | replace:'_':' '}}</td>
             <td class="text-left">
 
                 {{cadData?.cadCurrentStage?.comment}}
