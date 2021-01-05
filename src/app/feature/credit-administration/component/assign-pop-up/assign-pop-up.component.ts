@@ -48,7 +48,6 @@ export class AssignPopUpComponent implements OnInit {
 
     assignOfferLetter() {
         this.spinner = true;
-        console.log(this.offerLetterAssignForm.value);
         this.cadService.assignLoanToUser(this.offerLetterAssignForm.value).subscribe((res: any) => {
             console.log(res);
             this.spinner = false;
