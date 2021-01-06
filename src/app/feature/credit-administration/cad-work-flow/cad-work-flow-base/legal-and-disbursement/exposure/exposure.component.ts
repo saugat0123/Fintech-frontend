@@ -7,6 +7,7 @@ import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {Exposure} from '../../../../model/Exposure';
 
 @Component({
     selector: 'app-exposure',
@@ -91,7 +92,13 @@ export class ExposureComponent implements OnInit {
 
     submit() {
         this.spinner = true;
-        this.cadData.exposure.data = JSON.stringify(this.exposureForm.value);
+        const exposure = new Exposure();
+        exposure.data = JSON.stringify(this.exposureForm.value);
+        if (!ObjectUtil.isEmpty(this.cadData.exposure)) {
+            exposure.id = this.cadData.exposure.id;
+            exposure.version = this.cadData.exposure.version;
+        }
+        this.cadData.exposure = exposure;
         this.service.saveCadDocumentBulk(this.cadData).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Exposure data!!!'));
             this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
@@ -99,7 +106,7 @@ export class ExposureComponent implements OnInit {
         }, error => {
             console.log(error);
             this.spinner = false;
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to save Exposure data!!!'));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Exposure data!!!'));
         });
     }
 }

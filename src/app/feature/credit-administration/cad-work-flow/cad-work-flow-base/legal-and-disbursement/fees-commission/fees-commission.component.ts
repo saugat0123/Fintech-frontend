@@ -74,7 +74,7 @@ export class FeesCommissionComponent implements OnInit {
     }, error => {
       console.log(error);
       this.spinner = false;
-      this.toastService.show(new Alert(AlertType.SUCCESS , 'Unable to save Fee/Commission data!!!'));
+      this.toastService.show(new Alert(AlertType.ERROR , 'Unable to save Fee/Commission data!!!'));
     });
   }
 
