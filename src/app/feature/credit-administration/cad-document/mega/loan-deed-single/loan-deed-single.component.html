@@ -1,5 +1,5 @@
 <div class="container nep text-justify">
-<div [nbSpinner]="spinner" class="row" id="{{offerLetterConst.LOANDEEDSINGLE}}">
+<div class="row">
     <div class="col-md-12 viewFull" style="overflow-y: auto;height:500px;">
         <form (ngSubmit)="submit()" [formGroup]="loandeedsingle" class="nepali">
             <div class="nep">
@@ -20,75 +20,75 @@
                                type="text"/>
                         को नाति/ नातिनी/ बुहारी
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName="child"
+                               formControlName="parents"
                                placeholder=""
                                type="text"/>
                         छोरा/छोरी र श्रीमति
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName="district"
+                               formControlName="permanentDistrict"
                                placeholder=""
                                type="text"/>
                         जिल्ला
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName="municipalityVdc"
+                               formControlName="permanentMunicipalityVDC"
                                placeholder=""
                                type="text"/>
                         गाउँपालिका/ नगरपालिका वडा नं.
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName="wardno"
+                               formControlName="permanentWardNo"
                                placeholder=""
-                               type="text"/>
+                               type="text" size="1" />
                         घर भई हाल प्रदेश नं.
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName="province"
+                               formControlName="temporaryProvince"
                                placeholder=""
-                               type="text"/>
+                               type="text" size="1" />
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName="district2"
+                               formControlName="temporaryDistrict"
                                placeholder=""
                                type="text"/>
                         जिल्ला
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName="municipalityVdc2"
+                               formControlName="temporaryMunicipalityVDC"
                                placeholder=""
                                type="text"/>
                         गाउँपालिका/ नगरपालिका वडा नं.
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName="wardno2"
+                               formControlName="temporaryWardNo"
                                placeholder=""
-                               type="text"/>
+                               type="text" size="1" />
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName=""
+                               formControlName="temporaryAddress"
                                placeholder=""
                                type="text"/>
                         बस्ने वर्ष
                         <input class="form-field form-control-sm nepaliFont"
                                formControlName="age"
                                placeholder=""
-                               type="text"/>
+                               type="text" size="1" />
                         को
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName=""
+                               formControlName="relation"
                                placeholder=""
                                type="text"/>
                         (ना. प्र. प. नं.
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName="citizenshipno"
+                               formControlName="citizenshipNo"
                                placeholder=""
                                type="text"/>
                         मिति
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName="citizenshipno"
+                               formControlName="issueDate"
                                placeholder=""
                                type="text"/>
                         जिल्ला
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName="citizenshipno"
+                               formControlName="issueDistrict"
                                placeholder=""
                                type="text"/>
                         ) ( १ समेत जना
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName=""
+                               formControlName="onePerson"
                                placeholder=""
                                type="text"/>
                         (यस पछि ऋणी भनिएको) आगे, मलाई कर्जा आवश्यक भई तपाई धनी बैंकलाई कर्जा दिलाई दिनु अनुरोध गर्दा तपाईं धनी बैंकको मिति
@@ -98,12 +98,12 @@
                                type="text"/>
                         को कर्जा स्वीकृति पत्र (Credit Facility Letter) मा उल्लेखित शर्तहरु बमोजिम
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName="karja"
+                               formControlName="loan"
                                placeholder=""
                                type="text"/>
                         कर्जा अन्तर्गत
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName=""
+                               formControlName="purpose"
                                placeholder=""
                                type="text"/>
                         उद्धेश्यका लागि यस बैंकबाट एकै पटकमा वा पटक–पटक गरी कुल कर्जा रु
@@ -113,18 +113,18 @@
                                type="text"/>
                         /– (अक्षरेपी
                         <input class="form-field form-control-sm nepaliFont col-3"
-                               formControlName="amountinwords"
+                               formControlName="amountInWords"
                                placeholder=""
                                type="text"/>
 
                         मात्र) सम्म ऋण लिएको ठिक साँचो हो ।  सो कर्जाको साँवा व्याज रकम तथा अन्य दस्तुर समेत आजका मितिले
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName="date4"
+                               formControlName="timeDuration"
                                placeholder=""
                                type="text"/>
                         भित्रमा चुक्ता भुक्तान गर्ने छु । उक्त कर्जामा र्बािर्षक
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName="rate"
+                               formControlName="annualRate"
                                placeholder=""
                                type="text" size="1"/>
 
@@ -147,48 +147,48 @@
                         <tbody>
                         <tr>
                             <td><input class="form-field form-control-sm nepaliFont col-9"
-                                       formControlName=""
+                                       formControlName="sNo"
                                        placeholder=""
-                                       type="text"/></td>
+                                       type="text" size="1" /></td>
                             <td>
                                 <input class="form-field form-control-sm nepaliFont col-9"
-                                       formControlName=""
-                                       placeholder=""
-                                       type="text"/>
-                            </td>
-                            <td>
-                                <input class="form-field form-control-sm nepaliFont col-9"
-                                       formControlName=""
+                                       formControlName="landOwnerName"
                                        placeholder=""
                                        type="text"/>
                             </td>
                             <td>
                                 <input class="form-field form-control-sm nepaliFont col-9"
-                                       formControlName=""
+                                       formControlName="landOwnerMunicipalityVDC"
                                        placeholder=""
                                        type="text"/>
                             </td>
                             <td>
                                 <input class="form-field form-control-sm nepaliFont col-9"
-                                       formControlName=""
+                                       formControlName="landOwnerWardNo"
+                                       placeholder=""
+                                       type="text" size="1" />
+                            </td>
+                            <td>
+                                <input class="form-field form-control-sm nepaliFont col-9"
+                                       formControlName="seatNo"
                                        placeholder=""
                                        type="text"/>
                             </td>
                             <td>
                                 <input class="form-field form-control-sm nepaliFont col-9"
-                                       formControlName=""
+                                       formControlName="kNo"
                                        placeholder=""
                                        type="text"/>
                             </td>
                             <td>
                                 <input class="form-field form-control-sm nepaliFont col-9"
-                                       formControlName=""
+                                       formControlName="area"
                                        placeholder=""
                                        type="text"/>
                             </td>
                             <td>
                                 <input class="form-field form-control-sm nepaliFont col-9"
-                                       formControlName=""
+                                       formControlName="rNoDate"
                                        placeholder=""
                                        type="text"/>
                             </td>
@@ -205,45 +205,33 @@
                         <div class="col">
                             <p class="text-left"><b>रोहबर धनी बैंकको कर्मचारी ः</b></p>
                             नामः		 <input class="form-field form-control-sm nepaliFont"
-                                                formControlName=""
+                                                formControlName="rohbarBankEmployeeName"
                                                 placeholder=""
                                                 type="text"/>
                             <br />
 
-                            दस्तखत		 <input class="form-field form-control-sm nepaliFont"
-                                                  formControlName=""
-                                                  placeholder=""
-                                                  type="text"/>
+                            दस्तखत
                             <br />
                         </div>
                         <div class="col">
-                            <p class="text-center"><b>ऋणीको  सहिछाप :</b><input class="form-field form-control-sm nepaliFont"
-                                                                                formControlName=""
-                                                                                placeholder=""
-                                                                                type="text"/></p>
+                            <p class="text-center"><b>ऋणीको  सहिछाप ः</b></p>
                         </div>
                     </div>
                     <br />
                     <div>
                         <p class="text-left"><b><u>रोहबर</u></b></p>
-                        जमानीकर्ताको सहिछाप : <input class="form-field form-control-sm nepaliFont"
-                                                     formControlName=""
-                                                     placeholder=""
-                                                     type="text"/>
+                        जमानीकर्ताको सहिछाप :
                         <br />
                         नाम : <input class="form-field form-control-sm nepaliFont"
-                                     formControlName=""
+                                     formControlName="guarantorName"
                                      placeholder=""
                                      type="text"/>
                         <br />
                         <br />
-                        जमानीकर्ताको सहिछाप : <input class="form-field form-control-sm nepaliFont"
-                                                     formControlName=""
-                                                     placeholder=""
-                                                     type="text"/>
+                        जमानीकर्ताको सहिछाप :
                         <br />
                         नाम : <input class="form-field form-control-sm nepaliFont"
-                                     formControlName=""
+                                     formControlName="guarantorName2"
                                      placeholder=""
                                      type="text"/>
                         <br />
@@ -257,20 +245,20 @@
                             <input class="form-field form-control-sm nepaliFont"
                                    formControlName="year"
                                    placeholder=""
-                                   type="text"/>
+                                   type="text" size="1" />
                             साल
                             <input class="form-field form-control-sm nepaliFont"
                                    formControlName="month"
                                    placeholder=""
-                                   type="text"/>महिना
+                                   type="text" size="1" />महिना
                             <input class="form-field form-control-sm nepaliFont"
                                    formControlName="day"
                                    placeholder=""
-                                   type="text"/>गते रोज
+                                   type="text" size="1" />गते रोज
                             <input class="form-field form-control-sm nepaliFont"
                                    formControlName="time"
                                    placeholder=""
-                                   type="text"/>शुभम् ।
+                                   type="text" size="1" />शुभम् ।
                         </p>
                     </div>
                     <br />
@@ -278,56 +266,54 @@
                         <p class="text-left"><b>साक्षीः</b></p>
                         <p>
                             १.  <input class="form-field form-control-sm nepaliFont"
-                                       formControlName="district4"
+                                       formControlName="districtOfWitness"
                                        placeholder=""
                                        type="text"/>जिल्ला
                             <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="municipalityVdc4"
+                                   formControlName="municipalityVDCOfWitness"
                                    placeholder=""
                                    type="text"/>
                             नगरपालिका/गाउँपालिका वडा नं
                             <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="wardno4"
+                                   formControlName="wardNoOfWitness"
                                    placeholder=""
-                                   type="text"/>
+                                   type="text" size="1" />
                             बस्ने बर्ष
                             <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="year"
+                                   formControlName="ageOfWitness"
                                    placeholder=""
-                                   type="text"/>
+                                   type="text" size="1" />
                             को/की <input class="form-field form-control-sm nepaliFont"
-                                         formControlName="name"
+                                         formControlName="relationOfWitness"
                                          placeholder=""
                                          type="text"/>
                         </p><p>
                         २. <input class="form-field form-control-sm nepaliFont"
-                                  formControlName="district5"
+                                  formControlName="districtOfWitness2"
                                   placeholder=""
                                   type="text"/>
                         जिल्ला
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName="municipalityVdc"
+                               formControlName="municipalityVDCOfWitness2"
                                placeholder=""
                                type="text"/>
                         नगरपालिका/गाउँपालिका वडा नं
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName="wardno3"
+                               formControlName="wardNoOfWitness2"
                                placeholder=""
-                               type="text"/>
+                               type="text" size="1" />
                         बस्ने बर्ष
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName="year2"
+                               formControlName="ageOfWitness2"
                                placeholder=""
-                               type="text"/>
+                               type="text" size="1" />
                         को/की
                         <input class="form-field form-control-sm nepaliFont"
-                               formControlName="name"
+                               formControlName="relationOfWitness2"
                                placeholder=""
                                type="text"/>
                     </p>
                     </div>
-
-
                 </div>
                 <div class="col-md-12">
                     <button nbButton status="success" type="submit">Save</button>
