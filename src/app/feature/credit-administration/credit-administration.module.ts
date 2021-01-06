@@ -30,6 +30,8 @@ import { LegalReviewApprovedComponent } from './component/legal/legal-review-app
 import { DisbursementApprovedComponent } from './component/disbursement/disbursement-approved/disbursement-approved.component';
 import { DisbursementPendingComponent } from './component/disbursement/disbursement-pending/disbursement-pending.component';
 import { CadDocumentListComponent } from './component/cad-document-list/cad-document-list.component';
+import { GeneralDocumentComponent } from './cad-offerletter-profile/customer-document/cad-general-document/general-document.component';
+import { CadLoanDocumentComponent } from './cad-offerletter-profile/customer-document/cad-loan-document/cad-loan-document.component';
 import { FilterComponent } from './component/filter/filter.component';
 
 
@@ -56,7 +58,10 @@ import { FilterComponent } from './component/filter/filter.component';
         DisbursementApprovedComponent,
         DisbursementPendingComponent,
         CadDocumentListComponent,
-        FilterComponent],
+        FilterComponent,
+        CadDocumentListComponent,
+        GeneralDocumentComponent,
+        CadLoanDocumentComponent],
     imports: [
         ThemeModule,
         CommonModule,
