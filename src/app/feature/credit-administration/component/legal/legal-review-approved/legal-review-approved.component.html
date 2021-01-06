@@ -1,8 +1,7 @@
-<app-filter (eventEmitter)="setSearchValue($event)"></app-filter>
-
 <nb-card [nbSpinner]="spinner">
     <nb-card-header>
         LEGAL APPROVED
+        <app-filter (eventEmitter)="setSearchValue($event)"></app-filter>
     </nb-card-header>
     <nb-card-body>
         <table class="table table-bordered table-hover table-sm sb-small text-center ">

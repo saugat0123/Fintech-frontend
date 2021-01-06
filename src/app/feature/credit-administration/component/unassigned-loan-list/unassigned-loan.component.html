@@ -1,7 +1,9 @@
-<app-filter (eventEmitter)="setSearchValue($event)"></app-filter>
 <nb-card [nbSpinner]="spinner">
     <nb-card-header>
+
         UNASSIGNED APPROVED LOAN
+        <app-filter (eventEmitter)="setSearchValue($event)"></app-filter>
+
     </nb-card-header>
     <nb-card-body>
         <table id="unassign-loan"
