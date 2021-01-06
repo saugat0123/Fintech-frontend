@@ -17,6 +17,7 @@ import {DocStatus} from '../../model/docStatus';
 import {ApprovalRoleHierarchyService} from '../../approval/approval-role-hierarchy.service';
 import {Role} from '../../../admin/modal/role';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {RoleType} from '../../../admin/modal/roleType';
 
 @Component({
     selector: 'app-loan-action-modal',
@@ -48,6 +49,7 @@ export class LoanActionModalComponent implements OnInit {
     isNoUserSol = false;
     isNoUserSelectedSol = false;
     isEmptyUser = false;
+    showUserList = true;
 
     // selectedRoleForSol:Role = undefined;
 
@@ -75,17 +77,23 @@ export class LoanActionModalComponent implements OnInit {
 
     public getUserList(role) {
         this.isEmptyUser = false;
+        this.showUserList = true;
         this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
             this.userList = response.detail;
             if (this.userList.length === 1) {
                 this.formAction.patchValue({
                     toUser: this.userList[0]
                 });
+            } else if (this.userList.length === 0) {
+                this.isEmptyUser = true;
+            } else if ((role.roleType === RoleType.COMMITTEE) && this.userList.length > 0) {
+                this.showUserList = false;
+                this.formAction.patchValue({
+                    toUser: this.userList[0]
+                });
             } else if (this.userList.length > 1) {
                 this.formAction.get('toUser').setValidators(Validators.required);
                 this.formAction.updateValueAndValidity();
-            } else if (this.userList.length === 0) {
-                this.isEmptyUser = true;
             }
         });
     }
