@@ -1,0 +1,558 @@
+<div class="container nep text-justify">
+    <form (ngSubmit)="onSubmit()" [formGroup]="personalGuaranteeJoint" class="nep">
+        <h4 class="text-center">व्यक्तिगत जमानत</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    लिखितम् लिखत गराई लिनेका नाम् प्रचलित नेपाल कानुन बमोजिम संस्थापित तथा संचालित भई काठमाण्डौं जिल्ला काठमाण्डौं महानगरपालिका वडा नं. ३१ कमलादी
+                    स्थित मेगा बैंक नेपाल लिमिटेडको
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="bankBranchName"
+                           formControlName="bankBranchName"
+                           placeholder=""
+                           type="text"/>
+                    शाखा कार्यालय (यसपछि धनी बैंक भनिएको ) जमानीको लिखत गरी दिनेका नाम
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarantorGrandFatherName"
+                           formControlName="guarantorGrandFatherName"
+                           placeholder=""
+                           type="text"/>
+                    को नाति/नातिनी/बुहारी
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarrantorFatherName"
+                           formControlName="guarrantorFatherName"
+                           placeholder=""
+                           type="text"/>
+                    छोरा/छोरी/श्रीमति
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarantorDistrict"
+                           formControlName="guarantorDistrict"
+                           placeholder=""
+                           type="text"/>
+                    जिल्ला
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarantorMunicipalityOrVdc"
+                           formControlName="guarantorMunicipalityOrVdc"
+                           placeholder=""
+                           type="text"/>
+                    गाउँपालिका/नगरपालिका वडा नं.
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarantorWardNo"
+                           formControlName="guarantorWardNo"
+                           placeholder=""
+                           type="text"/>
+                    घर भई हाल प्रदेश नं.
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="tempAddProvinceNo"
+                           formControlName="tempProvinceNo"
+                           placeholder=""
+                           type="text"
+                           size="2"/>
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="tempAddDistrict"
+                           formControlName="tempAddDistrict"
+                           placeholder=""
+                           type="text"/>
+                    जिल्ला
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="tempAddMunicipality"
+                           formControlName="tempAddMunicipality"
+                           placeholder=""
+                           type="text"/>
+                    गाउँपालिकार नगरपालिका वडा नं.
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="tempAddWardNo"
+                           formControlName="tempAddWardNo"
+                           placeholder=""
+                           type="text"
+                           size="2"/>
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="tempAddress"
+                           formControlName="tempAddress"
+                           placeholder=""
+                           type="text"/>
+
+                    बस्ने वर्ष
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarantorAge"
+                           formControlName="guarantorAge"
+                           placeholder=""
+                           type="text"
+                           size="3"/>
+                    को <input class="form-field form-control-sm nepaliFont"
+                              name="guarantorName"
+                              formControlName="guarantorName"
+                              placeholder=""
+                              type="text"/>
+                    (ना.प्र.प नं. <input class="form-field form-control-sm nepaliFont"
+                                         name="guarantorCitizenshipNo"
+                                         formControlName="guarantorCitizenshipNo"
+                                         placeholder=""
+                                         type="text"/>
+                    मिति <input class="form-field form-control-sm nepaliFont"
+                                name="guarantorCitizenshipIssuedDate"
+                                formControlName="guarantorCitizenshipIssuedDate"
+                                placeholder=""
+                                type="text"/>
+                    जिल्ला <input class="form-field form-control-sm nepaliFont"
+                                  name="citizenshipIssuedDistrict"
+                                  formControlName="citizenshipIssuedDistrict"
+                                  placeholder=""
+                                  type="text"/>
+                    )
+                    (यस पछि जमानीकर्ता भनिएको) आगे <input class="form-field form-control-sm nepaliFont"
+                                                          name="guarantorGrandfather1"
+                                                          formControlName="guarantorGrandfather1"
+                                                          placeholder=""
+                                                          type="text"/>
+                    को नाति/नातिनी/बुहारी
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarrantorFatherName1"
+                           formControlName="guarrantorFatherName1"
+                           placeholder=""
+                           type="text"/>
+                    छोरा/छोरी/श्रीमति
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarantorDistrict1"
+                           formControlName="guarantorDistrict1"
+                           placeholder=""
+                           type="text"/>
+                    जिल्ला
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarantorMunicipalityOrVdc1"
+                           formControlName="guarantorMunicipalityOrVdc1"
+                           placeholder=""
+                           type="text"/>
+                    गाउँपालिका/नगरपालिका वडा नं.
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarantorWardNo1"
+                           formControlName="guarantorWardNo1"
+                           placeholder=""
+                           type="text"
+                           size="2"/>
+                    घर भई हाल प्रदेश नं.
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarantorProvinceNo"
+                           formControlName="guarantorProvinceNo"
+                           placeholder=""
+                           type="text"
+                           size="3"/>
+
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="tempAddDistrict1"
+                           formControlName="tempAddDistrict1"
+                           placeholder=""
+                           type="text"/>
+                    जिल्ला
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="tempAddMunicipality1"
+                           formControlName="TempAddMunicipality1"
+                           placeholder=""
+                           type="text"/>
+                    गाउँपालिकार नगरपालिका वडा नं.
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="tempAddWardNo1"
+                           formControlName="tempAddWardNo1"
+                           placeholder=""
+                           type="text"
+                           size="3"/>
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="tempAddress1"
+                           formControlName="tempAddress1"
+                           placeholder=""
+                           type="text"/>
+                    बस्ने वर्ष
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarantorAge1"
+                           formControlName="guarantorAge1"
+                           placeholder=""
+                           type="text"
+                           size="3"/>
+                    को <input class="form-field form-control-sm nepaliFont"
+                              name="guarantorName1"
+                              formControlName="guarantorName1"
+                              placeholder=""
+                              type="text"/>
+                    (ना.प्र.प नं. <input class="form-field form-control-sm nepaliFont"
+                                         name="guarantorCitizenshipNo1"
+                                         formControlName="guarantorCitizenshipNo1"
+                                         placeholder=""
+                                         type="text"/>
+                    मिति <input class="form-field form-control-sm nepaliFont"
+                                name="CitizenshipIssuedDate1"
+                                formControlName="CitizenshipIssuedDate1"
+                                placeholder=""
+                                type="text"/>
+                    जिल्ला
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="CitizenshipIssuedDistrict1"
+                           formControlName="CitizenshipIssuedDistrict1"
+                           placeholder=""
+                           type="text"/>
+                    ),—१
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="borrowerGrandFather"
+                           formControlName="guarantorGrandFather2"
+                           placeholder=""
+                           type="text"/>
+                    को नाति/नातिनी/बुहारी
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarrantorFatherName2"
+                           formControlName="guarrantorFatherName2"
+                           placeholder=""
+                           type="text"/>
+                    छोरा/छोरी/श्रीमति
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="borrowerDistrict"
+                           formControlName="borrowerDistrict"
+                           placeholder=""
+                           type="text"/>
+                    जिल्ला
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="borrowerMunicipalityOrVdc"
+                           formControlName="borrowerMunicipalityOrVdc"
+                           placeholder=""
+                           type="text"/>
+                    गाउँपालिकार नगरपालिका वडा नं.
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="borrowerWardNo"
+                           formControlName="borrowerWardNo"
+                           placeholder=""
+                           type="text"
+                           size="3"/>
+                    घर भई हाल प्रदेश नं.
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="borrowerProvinceNo"
+                           formControlName="borrowerProvinceNo"
+                           placeholder=""
+                           type="text"
+                           size="2"/>
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="borrowerTempDistrict"
+                           formControlName="borrowerTempDistrict"
+                           placeholder=""
+                           type="text"/>
+                    जिल्ला
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="tempMunicipalityOrVdc2"
+                           formControlName="tempMunicipalityOrVdc2"
+                           placeholder=""
+                           type="text"/>
+                    गाउँपालिका/नगरपालिका वडा नं.
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="tempWardNo2"
+                           formControlName="tempWardNo2"
+                           placeholder=""
+                           type="text"
+                           size="3"/>
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="tempAddress2"
+                           formControlName="tempAddress2"
+                           placeholder=""
+                           type="text"/>
+                    बस्ने वर्ष
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="borrowerAge"
+                           formControlName="borrowerAge"
+                           placeholder=""
+                           type="text"
+                           size="3"/>
+                    को
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="borrowerName"
+                           formControlName="borrowerName"
+                           placeholder=""
+                           type="text"/>
+                    (ना.प्र.प नं.
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="borrowerCitizenshipNo"
+                           formControlName="borrowerCitizenshipNo"
+                           placeholder=""
+                           type="text"/>
+                    मिति
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="borrowerCitizenshipIssuedDate"
+                           formControlName="borrowerCitizenshipIssuedDate"
+                           placeholder=""
+                           type="text"/>
+                    जिल्ला
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="borrowerCitizenshipIssuedDistrict"
+                           formControlName="borrowerCitizenshipIssuedDistrict"
+                           placeholder=""
+                           type="text"/>
+                    ) , —१ समेत जना
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="numberOfGuarantor"
+                           formControlName="numberOfGuarantor"
+                           placeholder=""
+                           type="text"/>
+                    (यस पछि ऋणी भनिएको) को नाममा धनी बैंकको मिति
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="loanApprovalDate"
+                           formControlName="loanApprovalDate"
+                           placeholder=""
+                           type="text"/>
+                    को कर्जा स्वीकृतिपत्र बमोजिम तपसिल बमोजिमको कूल कर्जा तथा बैंकिङ्ग सुविधा रु.
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="loanAmount"
+                           formControlName="loanAmount"
+                           placeholder=""
+                           type="text"/>
+                    (अक्षेरुपी
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="loanAmtInWord"
+                           formControlName="loanAmtInWord"
+                           placeholder=""
+                           type="text"/>
+                    )  र सोमा तोकिएको वार्षिक व्याज, पछि व्याज दरमा परिवर्तन  भएमा परिवर्तित
+                    व्याज दर अनुसार वार्षिक व्याज र साँवा ब्याज समयमा नै भुक्तानी नगरेको कारणबाट बैंकको नियमानुसार लाग्ने कर्जा स्वीकृती पत्रमा उल्लेखित हर्जाना ब्याज, कर्जा लगानी तथा कर्जा असुलीको क्रममा धनी बैंकले गर्ने खर्च,
+                    अन्य फि, कमिशन तथा दैदस्तुर समेतका रकम ऋणीले तोकिएको समयावधिमा भुक्तान नगरेमा वा कर्जाको दुरुपयोग गरेमा वा कर्जाको शर्त उल्लंघन गरी धनी बैंकको कर्जाको साँवा ब्याज, हर्जाना लगायतका फि, कमिशन दैदस्तुर
+                    तोकिएको समयमा चुक्ता भुक्तान नगरेमा म जमानीकर्ताले ऋणीको तर्फबाट ऋणीको यस लिखित बमोजिमको सम्पूर्ण दायित्व भुक्तानी गर्ने गरी व्यक्तिगत जमानी दिनु प¥यो भनी ऋणीले म जमानीकर्तालाई अनुरोध गर्नु भएको र तपाई
+                    धनी बैंकले पनि ऋणी तथा म जमानीकर्तासँग सोही व्यहोराको व्यक्तिगत जमानी माग गर्नु भएको हुँदा ऋणीको नाममा धनी बैंकबाट स्वीकृत भएको कुल कर्जा तथा बैंकिङ्ग सुविधा  र सोमा तोकिएको ब्याज र हर्जाना ब्याज, कर्जा लगानी
+                    तथा कर्जा असुलीको क्रममा धनी बैंकले गर्ने खर्च, अन्य फि, कमिशन तथा दैदस्तुर समेतका रकम र ऋणीलाई भविष्यमा कर्जा नविकरण हुने वा थप हुने कर्जा तथा बैंकिङ्ग  सुविधा र सोबाट उत्पन्न हुने सम्पूर्ण दायित्वहरु ऋणीले तोकिएको
+                    समयावधिमा भुक्तान नगरेमा वा कर्जाको दुरुपयोग गरेमा वा कर्जाको शर्त उल्लंघन गरी धनी बैंकको कर्जाको साँवा ब्याज, हर्जाना लगायतका फि, कमिशन दैदस्तुर तोकिएको समयमा चुक्ता भुक्तान नगरेमा म जमानीकर्ताले ऋणीको तर्फबाट ऋणीको
+                    सम्पूर्ण दायित्व भुक्तानी गर्न मञ्जुुर भई तपाई धनी बैंकका पक्षमा यो व्यक्तिगत जमानीको कागज लेखी दिएको छु । ऋणीले तिर्नु पर्ने यस लिखत बमोजिमको साँवा  ब्याज रकम नतिरे नबुझाएमा वा कर्जा दुरुपयोग गरेमा वा हिनामिना गरेमा वा पारित
+                    दृष्टिबन्धक लिखत, कर्जा लिखत, धनी बैंकबाट ऋणीका नाममा जारी भएको कर्जा सुविधा पत्र, समय समयमा बैंकबाट जारी हुने सूचना समेतको उल्लघंन गरी तपाई धनी बैंकले ऋणीलाई कर्जा चुक्ता गर्न लिखित मौखिक रुपमा सूचना
+                    जारी गर्दा समेत तोकिएको समयमा कर्जाको साँवा, ब्याज, हर्जाना तथा अन्य फि, कमिशन, दैदस्तुर चुक्ता भुक्तान नगरेमा म जमानीकर्तालाई धनी बैंकले जमानीकर्ताको दायित्व भुक्तान गर्न दिएको सूचनाको अवधि भित्रै ऋणीको यस लिखत
+                    बमोजिमको सम्पूर्ण दायित्व धनी बैंकलाई तिर्न बुझाउन मेरो मञ्जुरी छ । यसरी ऋणीको तर्फबाट तिर्न बुझाउन कबूल गरेको जमानी रकम धनी बैंकले माग गरेको समयावधि भित्र तिर्न बुझाउन सकिन भने वा ऋणीको यस ऋणले यस ऋण
+                    दायित्वको लागि सुरक्षण स्वरुप राखेको धितो कानून बमोजिम लिलाम विक्री, सकार आदिबाट बैंकको लेना रकम असुल उपर हुन नसेकमा मलाई प्रचलित कानून बमोजिम कर्जा सूचना केन्द्रको कालो सूचिमा समावेश गरी मेरो तथा मेरो हकलाग्ने
+                    घर घराना चल अचल श्रीसम्पत्ति गैह्र जायजेथा समेतबाट असुल उपर  गरिलिएमा मेरो पूर्ण मञ्जूरी छ । पछि एकाको कारोवारमा जमानीदिनेको सम्पत्तिबाट असूल उपर गर्न  पाइने होइन भनी कुनै प्रकारको उजुर वाजूर, दावी गर्ने गराउने छैन,
+                    गरे गराए यसै लिखतबाट बदर होस् भनी मेरो/हाम्रो स्वतन्त्र मनोमान खुशीराजीले धनी बैंकको कार्यालयमा बसी उपरोक्त बमोजिमको सम्पूर्ण व्यहोरा पढी बाँची लिखतको  मतलब र परिणाम समेत  बुझी यो जमानीको लिखत लेखी सहीछाप समेत
+                    गरी तपाई धनी बैंकलाई दिएँ/दियौँ । साक्षी किनाराको सदर ।
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="text-center">तपसील</h5>
+                <p>
+                    <strong>क. 	कर्जा सुविधाको विवरण</strong>
+                </p>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th> कर्जा सुविधा </th>
+                            <th>उद्देश्य/प्रयोजन</th>
+                            <th>कर्जा सुविधा रकम</th>
+                            <th>*व्याज दर/ कमिसन</th>
+                            <th>समयावधि</th>
+                            <th>कैफियत</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--row1-->
+                        <tr>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="loanFacility1" formControlName="loanFacility1" placeholder="" type="text"/></td>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="purpose1" formControlName="purpose1" placeholder="" type="text"/></td>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="loanFacilityAmount1" formControlName="loanFacilityAmount1" placeholder="" type="text"/></td>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="interestRate1" formControlName="interestRate1" placeholder="" type="text" size="3"/></td>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="timePeriod1" formControlName="timePeriod1" placeholder="" type="text" size="15"/></td>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="apology1" formControlName="apology1" placeholder="" type="text"/></td>
+                        </tr>
+
+                        <!--row2-->
+                        <tr>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="loanFacility2" formControlName="loanFacility2" placeholder="" type="text"/></td>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="purpose2" formControlName="purpose2" placeholder="" type="text"/></td>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="loanFacilityAmount2" formControlName="loanFacilityAmount2" placeholder="" type="text"/></td>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="interestRate2" formControlName="interestRate2" placeholder="" type="text" size="3"/></td>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="timePeriod2" formControlName="timePeriod2" placeholder="" type="text" size="15"/></td>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="apology2" formControlName="apology2" placeholder="" type="text"/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="note">
+                    <strong>* बैकले समय समयमा व्याजदर परिवर्तन गरेमा परिवर्तित ब्याजदर अनुसार ।</strong>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    <strong>ख. 	शर्तहरुर ।</strong>
+                </p>
+                <p>
+                    १.	ऋणीले कर्जा तथा बैंकिङ्ग सुविधाहरु उपभोग गरे वापत धनी बैंकलाई तिर्न बुझाउन पर्ने रकम, कलम तिर्ने,
+                    बुझाउने सम्बन्धमा जमानीकर्ताको दायित्व जमानी दिएको रकम, सोको ब्याज, हर्जाना ब्याज, फि, कमिशन, खर्च र
+                    दैदस्तुर रकमको हदसम्म सिमित हुनेछ । ऋणीले तोकिएको तोकिएको अवधिभित्र कर्जा रकम चुक्ता भुक्तान नगरेमा सो
+                    मिति देखि धनी बैंकलाई तिर्न बुझाउन पर्ने रकम, कलम तिर्ने, बुझाउने सम्बन्धमा जमानीकर्ताको दायित्व, मुल ऋणी
+                    सरह नै हुनेछ । ऋणीले कर्जाको शर्त उल्लंघन गरेको वा समयमा कर्जा चुक्ता भुक्तान नगरेको कारण कर्जा चुक्ता भुक्तानी
+                    गर्न ऋणीलाई तोकिएको समय भित्र पनि ऋणीले कर्जा चुक्ता भुक्तान गर्न नसकेमा वा ऋणीले कर्जाको सुरक्षण वापत राखेको
+                    धितो लिलाम विक्री वा सकारबाट समेत बैंकको लेना रकम असुल उपर हुन नसकेमा धनी बैंकले ऋणीबाट तिर्न बुझाउन वाँकी
+                    रकम कलम सोझै जमानीकर्तासंग माग गरी मुख्य ऋणी   (Principal debtor)  सरह प्राथमिक दायित्व (Primary liability)
+                    बहन गराउन सक्नेछ ।
+                </p>
+                <p>
+                    २. 	ऋणीले धनी बैंकबाट लिएको, सोको नविकरण तथा भविष्यमा थप गरी लिने सम्पूर्ण कर्जा तथा बैंकिङ्ग सुविधा वापत बैंकलाई तिर्नु
+                    बुझाउनु पर्ने साँवा, व्याज, हर्जाना, फि, कमिसन लगायतका रकम कलम चुक्ता भुक्तान नभएसम्म जमानी कर्ताको दायित्व निरन्तर
+                    (Continuing Liability रही रहने छ । म जमानीकर्तालाई जमानतबाट फुर्सद दिएको कुराको धनी बैंकले लिखित सूचना नदिएसम्म
+                    यो जमानत बहाल रही रहनेछ । यस जमानत अन्तर्गतको दायित्व पुरा गर्ने सम्बन्धमा धनी बैंकले कुनै प्रकारको सहुलियत वा थप सयम प्रदान
+                    गरेको खण्डमा समेत मेरो जमानतको निरन्तरतामा कुनै प्रतिकुल असर पर्ने छैन । कथंकदाचित धनी बैंकले मलाई जमानतबाट फुर्सद दिएको सूचना
+                    प्रदान गरे पश्चात पनि ऋणीका नाममा कुनै प्रकारको वाँकी बक्यौता वा दायित्व देखिन गएको अवस्थामा समेत मेरो जमानत बहाल रहेको अवधि भरको
+                    ऋणीका नामको सम्पूर्ण बाँकी बक्यौता वा दायित्व म जमानीकर्ताले चुक्ता भुक्तान गर्नु पर्ने कुरामा मेरो पूर्ण मञ्जुरी छ ।
+                </p>
+                <p>
+                    ३.	ऋणीले धनी बैंकबाट प्राप्त गरेको  कर्जा तथा बैंकिङ्ग सुबिधा वापत तिर्न, बुझाउन पर्ने  सावाँ,  ब्याज,  मार्जिन आदि रकम कलमको समय
+                    समयमा किस्ता भुक्तान गरेको वा आंशिक चुक्ता गरेको वा सो मध्ये केही चुक्ता गरेको आधारमा मात्र बाँकी रकम चुक्ता भुक्तान गर्ने सम्बन्धमा यस
+                    जमानतको लिखत बमोजिम बहन गर्न स्वीकार तथा  मञ्जूर गरेको  दायित्वमा कुनै  प्रतिकूल प्रभाव परेको मानिने छैन  ।
+                </p>
+                <p>
+                    ४.	तपाई धनी बैंकले ऋणीसंग उल्लेखित ऋण कर्जा तथा बैंकिङ्ग सुविधाको सन्दर्भमा अन्य चल, अचल जायजेथा सुरक्षणको रुपमा ग्रहण गरेको वा धितो
+                    बन्धकी लेखाई लिएको वा अन्य तेश्रो व्यक्ति समेतसंग जमानत लिएको वा त्यसरी लिएको सुरक्षण फुकुवा गरी दिएको वा जमानतबाट छुटकारा दिएको वा ऋणी
+                    वा तेश्रो व्यक्तिसंग ऋण कर्जा चुक्ता भुक्तान गर्ने सम्बन्धमा सम्झौता मिलापत्र गरी म्याद थप गरी दिएको वा छुट मिन्हा दिएको वा अन्य शर्त कबुलियत गरेको,
+                    शर्त कबुलियतमा परिवर्तन वा संशोधन गरेको वा ऋण कर्जा नविकरण गरेको वा थप ऋण कर्जा दिएको भन्ने आदि कुनै पनि आधारमा मैले यस लिखत बमोजिम
+                    व्यहोर्न मंजूर गरेको दायित्वमा कुनै प्रतिकुल वा विपरित प्रभाव परेको मानिने छैन ।
+                </p>
+                <p>
+                    ५.	धनी बैंकले जमानीको लिखतमा उल्लेखित रकम म जमानीकर्ताबाट असुल उपर गर्ने सिलसिलामा म जमानीकर्ताबाट जमानत वापत तिर्न कबूल गरेको रकम
+                    धनी बैंकद्वारा तोकिएको समयभित्र दाखिला गर्न नसकेमा म जमानीकर्तालाई नेपाल राष्ट्र बैंकबाट जारी भएको वा पछि जारी हुने निर्देशनको अधीनमा रही कर्जा
+                    सूचना केन्द्रको कालोसूचीमा सूचीकृत गरी जमानीकर्ताको नाममा अन्य बैंक तथा वित्तीय संस्थामा रहेको बैंक खाताको जानकारी माग गर्न, उक्त खाता रोक्का गरी
+                    कर्जा असुली गर्न वा नेपाल धितोपत्र बोर्डमा सूचीकृत तथा सूचीकृत नभएका अन्य संगठित संस्थाहरुको धितोपत्रर शेयरको जानकारी माग गर्न र उक्त धितोपत्र र
+                    शेयरहरु  तथा अन्य मेरो हक स्वामित्वको चल अचल सम्पत्तिहरु रोक्का गरी कर्जा असुली गर्न बैंकलाई यसै लिखत बमोजिम पूर्ण अख्तियारी प्रदान गरेको छु ।
+                </p>
+                <p>
+                    ६.	यस जमानतमा अंकित रकमकै सम्बन्धमा धनी बैंकले म बाहेक अन्य कसैसँग समेत जमानत लिएको अवस्थामा ऋणीको नामको बक्यौताको सम्बन्धमा आफ्नो
+                    लेना रकम असुल उपर गर्ने प्रयोजनको लागि तपाई धनी बैंकले आफ्नो तजविज वा स्वेच्छामा मलाई एक्लै (Severally) वा अन्य जमानीकर्ता समेतसँग  सामुहिक
+                    रुपमा (Jointly) जमानत दिन कबुल गरेको रकमको हदसम्म दायित्व बहन गराउन सक्ने कुरामा मेरो मञ्जुरी छ । पछि एकै ऋण कर्जाको सम्बन्धमा अन्य जमानतकर्ता
+                    समेतसंग जमानत लिएकोमा बराबरीको हिसावले दायित्व विभाजन हुनु पर्छ भनी कुनै व्यहोराले उजुर दावी गर्ने छैन ।
+                </p>
+                <p>
+                    ७.   यस जमानीमा अंकित कर्जा तथा बैंकिङ्ग सुविधाको सम्बन्धमा तपाई धनी बैंकले आवश्यक र उचित ठहराए बमोजिम मलाई कुनै पूर्व सूचना नदिई ऋणीलाई वा मलाई
+                    कुनै प्रकारको सहुलियत वा थप समयावधि प्रदान गरेमा वा ऋणी र तपाई धनी बैंक बिच कर्जा तथा बक्यौताको सम्बन्धमा कुनै किसिमको सहमति वा समझदारी कायम भएमा
+                    वा कर्जाको सुरक्षणको रुपमा तपाई धनी बैंकले म जमानीकर्तासंग वा ऋणीसंग वा अन्य कसैसंग लिएको कुनै धितो सुरक्षण फुकुवा गरिदिएमा, अदलबदल गरेमा, नविकरण गरेमा
+                    वा धितो सुरक्षणबाट रकम असुल उपर गरेमा वा कर्जाको सुरक्षणको रुपमा रहेको धितो सुरक्षणलाई कुनै किसिमले व्यवस्था गरेमा समेत मेरो यस जमानत बमोजिमको दायित्वमा
+                    कुनै प्रतिकुल असर पर्ने छैन ।
+                </p>
+                <p>
+                    ८.  	कथंकदाचित् ऋणीले तपाई धनी बैंकलाई तिर्न बुझाउन पर्ने सम्पूर्ण रकम कलम चुक्ता भुक्तान हुनु अघिनै  म जमानीकर्ताको मृत्यु भएमा मेरोे  शेषपछि  मेरो सम्पत्तिबाट
+                    अंश अपुताली प्राप्त गर्ने अंशियार वा उत्तराधिकारीहरु (Heirs or Successors) ले यस लिखत बमोजिमको दायित्व वहन गर्नु पर्ने र तपाई धनीले ऋणीबाट प्राप्त गर्नु पर्ने
+                    सम्पूर्ण रकम कलम चुक्ता भुक्तान नभएसम्म निज अंशियार वा उत्तराधिकारी उल्लेखित दायित्व बमोजिमको रकम, कलम तपाई धनी बैंकलाई चुक्ता भुक्तान गर्न जवाफदेही र जिम्मेवार
+                    रहने कुरामा मेरो मञ्जूरी छ ।
+                </p>
+                <p>
+                    ९. 	कथंकदाचित ऋणी टाट पल्टे वा दामासाहीमा (Bankrupt or Insolvent) परेमा समेत मैले तपाई धनी बैंकलाई यस जमानीको लिखत बमोजिम तिर्न बुझाउन मञ्जुर गरेको
+                    दायित्वमा कुनै प्रतिकुल प्रभाव परेको मानिने छैन र मेरो तपाई धनी बैंक प्रति यस लिखत बमोजिमको तिर्न बुझाउन पर्ने दायित्वको स्थितिमा कुनै परिवर्तन भएको मानिने छैन र यस्तो
+                    दायित्व चुतmा भुतmान नभए सम्म यथावत कायम रहिरहनेछ ।
+                </p>
+                <p>
+                    १०.  ऋणीले तपाई धनी बैंकलाई यो यति तिर्न पर्ने भनी अदालतको फैसलाद्वारा ठहर गरिदिएको रकम कलम वा तपाई धनी बैंकले ऋणीलाई लिखित सूचना दिई माग गरेको तिर्न बुझाउन
+                    बाँकी रकम कलम वा तपाई धनी बैंकको खाता बही स्टेटमेन्ट इत्यादिबाट ऋणीले तपाई धनी बैंकलाई तिर्न बुझाउन देखिएको रकम कलम नै ऋणीले तपाई धनी बैंकलाई तिर्न बुझाउन पर्ने
+                    वास्तविक दायित्वको रुपमा मानिने र सोही आधारमा तपाई धनी बैंकले लिखित  सूचना दिई  म जमानीकर्तासँग तिर्न कबूल/मञ्जूर गरेको रकम कलम तिर्न बुझाउन माग  गरेमा सोही सूचनालाई
+                    अन्तिम तथा अकाट्य प्रमाण (Final and conclusive evidence) को रुपमा  स्वीकार गरी सो उल्लेखित रकम कलम तिर्न बुझाउन मेरो मञ्जूरी छ ।
+                </p>
+                <p>
+                    ११.	यस लिखत बमोजिम तपाइ धनी बैंकले रकम कलम माग गरी मलाई लिखित सूचना दिनु पर्ने भएमा तपाई धनी बैंकलाई मैले त्यस्तो सूचना दिनु अघि अन्तिम पटक उपलव्ध गराएको घर ठेगानामा,
+                    ईमेल, फ्याक्स, व्यतिm वा हुलाक मार्पmत सूचना दिन सकिने छ । यसरी पठाएको सूचना रितपूर्वक प्राप्त गरेको मानिने छ । साथै, तपाई धनी बैंकले  हुलाक मार्पmत रजिष्ट्री गरी यो मितिमा
+                    सूचना पठाएको भनी लिखित रुपमा प्रमाणित गरी दिएमा सो कुरा अन्यथा प्रमाणित नभएसम्म त्यस्तो सूचना पठाएको कुराको अकाट्य तथा अन्तिम प्रमाण हुने कुरामा समेत मेरो मञ्जूरी छ ।
+                </p>
+                <p>
+                    १२.	यस जमानीको लिखतमा लेखिएका कुराहरुमा यसै बमोजिम र यसमा उल्लेख नभएका कुराहरुमा प्रचलित कानुन बमोजिम हुनेछन् ।
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <td width="50">
+                                <p>
+                                    <strong>कारोहबर धनी बैंकको कर्मचारी</strong>
+                                </p>
+                                <p>
+                                    नाम, थर ः
+                                    <input class="form-field form-control-sm tableInput nepaliFont" name="staffName" formControlName="staffName" placeholder="" type="text"/>
+                                </p>
+                                <p>
+                                    हस्ताक्षरः
+                                </p>
+                            </td>
+                            <td width="50">
+                                <p>
+                                    <strong>जमानीकर्ताको</strong>
+                                </p>
+                                <p>
+                                    नाम, थरः
+                                    <input class="form-field form-control-sm nepaliFont" name="guarantorName2" formControlName="guarantorName2" placeholder="" type="text"/>
+                                </p>
+                                <p>
+                                    हस्ताक्षरः
+                                </p>
+                                <p>
+                                    औठा छाप ः    दाँया                 वाँया
+                                </p>
+                                <p>
+                                    ठेगाना ः <input class="form-field form-control-sm nepaliFont"
+                                                    name="guarantorAddress"
+                                                    formControlName="guarantorAddress"
+                                                    placeholder=""
+                                                    type="text"/>
+                                </p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                ईति
+                <input class="form-field form-control-sm nepaliFont" name="docWrittenYear" formControlName="docWrittenYear" placeholder="२०७......" type="text"/>
+                साल
+                <input class="form-field form-control-sm nepaliFont" name="docWrittenMonth" formControlName="docWrittenMonth" placeholder="" type="text"/>
+                महिना
+                <input class="form-field form-control-sm nepaliFont" name="docWrittenDay" formControlName="docWrittenDay" placeholder="" type="text"/>
+                गते रोज
+                <input class="form-field form-control-sm nepaliFont" name="docWrittenWeek" formControlName="docWrittenWeek" placeholder="" type="text"/>
+                शुभम् ।
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="text-center"> साक्षीहरुः</h5>
+                <p>
+                    १.
+                    <input class="form-field form-control-sm nepaliFont" name="witnessDistrict1" formControlName="witnessDistrict1" placeholder="" type="text">
+                    जिल्ला
+                    <input class="form-field form-control-sm nepaliFont" name="witnessMunicipalityOrVdc1" formControlName="witnessMunicipalityOrVdc1" placeholder="" type="text">
+                    न.पा./गाउपालिका वडा नं.
+                    <input class="form-field form-control-sm nepaliFont" name="witnessWardNo1" formControlName="witnessWardNo1" placeholder="" type="text" size="5">
+                    बस्ने वर्ष
+                    <input class="form-field form-control-sm nepaliFont" name="witnessAge1" formControlName="witnessAge1" placeholder="" type="text" size="5">
+                    को
+                    <input class="form-field form-control-sm nepaliFont" name="witnessName1" formControlName="witnessName1" placeholder="" type="text">
+                    १
+                </p>
+                <p>
+                    २.
+                    <input class="form-field form-control-sm nepaliFont" name="witnessDistrict2" formControlName="witnessDistrict2" placeholder="" type="text">
+                    जिल्ला
+                    <input class="form-field form-control-sm nepaliFont" name="witnessMunicipalityOrVdc2" formControlName="witnessMunicipalityOrVdc2" placeholder="" type="text">
+                    न.पा./गाउपालिका वडा नं.
+                    <input class="form-field form-control-sm nepaliFont" name="witnessWardNo2" formControlName="witnessWardNo2" placeholder="" type="text" size="5">
+                    बस्ने वर्ष
+                    <input class="form-field form-control-sm nepaliFont" name="witnessAge2" formControlName="witnessAge2" placeholder="" type="text" size="5">
+                    को
+                    <input class="form-field form-control-sm nepaliFont" name="witnessName2" formControlName="witnessName2" placeholder="" type="text">
+                    १
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button nbButton status="success" type="submit">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
