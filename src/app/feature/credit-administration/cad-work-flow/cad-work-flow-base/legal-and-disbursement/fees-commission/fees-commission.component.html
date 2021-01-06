@@ -24,12 +24,8 @@
                              <div class="form-group">
                                  <label for="feeType"><strong>Fees/Commission</strong></label>
                                  <select class="form-control" id="feeType" formControlName="feeType">
-                                 <option [value]="null">Select Fee Type</option>
-                                     <option [ngValue]="'STRF'">STRF</option>
-                                     <option [ngValue]="'LRF'">LRF</option>
-                                     <option [ngValue]="'LMF'">LMF</option>
-                                     <option [ngValue]="'CIC'">CIC</option>
-                                     <option [ngValue]="'CIC'">LOAN COMMITMENT FEE</option>
+                                 <option [value]="null" disabled hidden>Select Fee Type</option>
+                                     <option *ngFor="let f of feeTypeList" [value]="f">{{f}}</option>
                                  </select>
                              </div>
                          </div>
@@ -81,6 +77,6 @@
         </div>
     </nb-card-body>
     <nb-card-footer>
-        <button [disabled]="feeCommissionFormGroup.invalid" nbButton status="success" class="float-right" (click)="submitFeeForm()">Save</button>
+        <button [disabled]="feeCommissionFormGroup.invalid" nbButton class="float-right" (click)="submitFeeForm()">Save</button>
     </nb-card-footer>
 </nb-card>
