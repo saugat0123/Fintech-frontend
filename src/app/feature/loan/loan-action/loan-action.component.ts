@@ -89,6 +89,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     isForward: false,
                     loanConfigId: this.loanConfigId,
                     customerLoanId: this.id,
+                    branchId: this.branchId,
                     docAction: DocAction.value(DocAction.BACKWARD),
                     documentStatus: DocStatus.PENDING
                 };
