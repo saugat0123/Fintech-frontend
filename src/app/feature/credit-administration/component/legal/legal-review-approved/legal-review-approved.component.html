@@ -1,7 +1,11 @@
-<nb-card [nbSpinner]="spinner">
+<nb-card [nbSpinner]="spinner" accent="primary">
     <nb-card-header>
-        LEGAL APPROVED
-        <app-filter (eventEmitter)="setSearchValue($event)"></app-filter>
+        <div class="row">
+            <div class="col-md-12">
+                <app-filter (eventEmitter)="setSearchValue($event)"></app-filter>
+            </div>
+        </div>
+        <h6 class="text-center">Legal Approved</h6>
     </nb-card-header>
     <nb-card-body>
         <table class="table table-bordered table-hover table-sm sb-small text-center ">
