@@ -6,6 +6,7 @@ import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {Exposure} from '../../../../model/Exposure';
 
 @Component({
   selector: 'app-fees-commission',
@@ -15,6 +16,10 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 export class FeesCommissionComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   spinner = false;
+
+  // todo replace with api from backend predefined data
+  feeTypeList = ['STRF' , 'LRF' , 'LMF' , 'CIC' , 'LOAN_COMMITMENT_FEE'];
+
 
   feeCommissionFormGroup: FormGroup;
   constructor(private formBuilder: FormBuilder,
