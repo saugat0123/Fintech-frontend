@@ -1,20 +1,16 @@
-<nb-card-header>
-  <div class="col-md-12">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="btn-group">
-          <button
-              (click)="isFilterCollapsed = !isFilterCollapsed"
-              [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
-              nbButton
-              shape="rectangle"
-              status="primary"
-              size="small">
-            <em class="fa fa-filter"> Filter</em>
-          </button>
+<div class="row pt-2">
+  <div class="col-md-6">
+    <div class="btn-group">
+      <button
+          (click)="isFilterCollapsed = !isFilterCollapsed"
+          [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+          nbButton
+          shape="rectangle"
+          size="small"
+          status="primary">
+        <em class="fa fa-filter"> Filter</em>
+      </button>
 
-        </div>
-      </div>
     </div>
   </div>
 
@@ -23,7 +19,7 @@
       <div class="row py-3">
         <div class="col-md-3 mb-3">
           <label class="form-group">Branch</label>
-          <ng-select placeholder="branches" formControlName="branchIds">
+          <ng-select formControlName="branchIds" placeholder="branches">
             <ng-option *ngFor="let branch of branchList"
                        [value]="branch.id">{{branch.name}}</ng-option>
           </ng-select>
@@ -45,12 +41,14 @@
       <div class="col-md-12 p-0">
         <button (click)="onSearch()" class="mr-2" nbButton
                 shape="rectangle"
-                status="info"
-                size="small">Search
+                size="small"
+                status="info">Search
         </button>
-        <button nbButton shape="rectangle" (click)=" clear()" status="danger" type="button" size="small">Clear
+        <button (click)=" clear()" nbButton shape="rectangle" size="small" status="danger"
+                type="button">Clear
         </button>
       </div>
     </form>
   </div>
-</nb-card-header>
+</div>
+
