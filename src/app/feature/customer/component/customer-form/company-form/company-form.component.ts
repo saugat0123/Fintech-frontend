@@ -52,7 +52,6 @@ import {FormUtils} from '../../../../../@core/utils/form.utils';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
 import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
-import {RelationshipList} from '../../../../loan/model/relationshipList';
 
 @Component({
     selector: 'app-company-form',
@@ -196,8 +195,8 @@ export class CompanyFormComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.companyInfo)) {
             if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
-            this.companyAddress = JSON.parse(this.companyInfo.companyLocations.address);
-            console.log(this.companyInfo.companyLocations.address);
+                this.companyAddress = JSON.parse(this.companyInfo.companyLocations.address);
+                console.log(this.companyInfo.companyLocations.address);
             }
         }
         this.buildForm();
@@ -205,6 +204,11 @@ export class CompanyFormComponent implements OnInit {
         this.getCompanyStructure();
         this.getClientType();
         this.getSubSector();
+        if (!ObjectUtil.isEmpty(this.companyInfo)) {
+            this.setManagementTeams(this.companyJsonData.managementTeamList);
+        } else {
+            this.addManagementTeam();
+        }
         this.designation = this.designationList.designation;
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
@@ -252,7 +256,6 @@ export class CompanyFormComponent implements OnInit {
             this.companyInfo = this.formValue;
             this.setCompanyInfo(this.companyInfo);
         }
-
         this.companyFormField = {
             showFormField: (!ObjectUtil.isEmpty(this.formValue)),
             isOldCustomer: (ObjectUtil.isEmpty(this.formValue))
@@ -385,11 +388,8 @@ export class CompanyFormComponent implements OnInit {
             numberOfShareholder: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
                 this.companyInfo.capital.numberOfShareholder],
-
             // managementTeams
-            managementTeams: this.formBuilder.array([
-                this.managementTeamFormGroup()
-            ]),
+            managementTeams: this.formBuilder.array([]),
             // managementTeamNote
             managementTeamNote: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyJsonData.managementTeamNote)) ? undefined :
@@ -550,7 +550,7 @@ export class CompanyFormComponent implements OnInit {
 
     setCompanyInfo(info: CompanyInfo) {
         // set managementTeams data
-        this.companyInfoFormGroup.setControl('managementTeams', this.setManagementTeams(info.managementTeamList));
+        // this.companyInfoFormGroup.setControl('managementTeams', this.setManagementTeams(info.managementTeamList));
         // proprietors data
         this.companyInfoFormGroup.setControl('proprietors', this.setProprietors(info.proprietorsList));
         // set contact persons data
@@ -565,17 +565,32 @@ export class CompanyFormComponent implements OnInit {
         });
     }
 
+    // todo remove in future in not require
+    // setManagementTeams(managementTeamList: ManagementTeam[]): FormArray {
+    //     const managementTeamFormArray = new FormArray([]);
+    //     managementTeamList.forEach(managementTeam => {
+    //         managementTeamFormArray.push(this.formBuilder.group({
+    //             name: [managementTeam.name === undefined ? '' : managementTeam.name],
+    //             designation: [managementTeam.designation === undefined ? '' : managementTeam.designation],
+    //             companyLegalDocumentAddress: [managementTeam.companyLegalDocumentAddress === undefined ? '' : managementTeam.companyLegalDocumentAddress],
+    //         }));
+    //     });
+    //     return managementTeamFormArray;
+    // }
     // set managementTeams data
-    setManagementTeams(managementTeamList: ManagementTeam[]): FormArray {
-        const managementTeamFormArray = new FormArray([]);
-        managementTeamList.forEach(managementTeam => {
-            managementTeamFormArray.push(this.formBuilder.group({
-                name: [managementTeam.name === undefined ? '' : managementTeam.name],
-                designation: [managementTeam.designation === undefined ? '' : managementTeam.designation],
-                companyLegalDocumentAddress: [managementTeam.companyLegalDocumentAddress === undefined ? '' : managementTeam.companyLegalDocumentAddress],
-            }));
-        });
-        return managementTeamFormArray;
+    setManagementTeams(data) {
+        const control = this.companyInfoFormGroup.get('managementTeams') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(singleData => {
+                control.push(
+                    this.formBuilder.group({
+                        name: [singleData.name],
+                        designation: [singleData.designation],
+                        companyLegalDocumentAddress: [singleData.companyLegalDocumentAddress]
+                    })
+                );
+            });
+        }
     }
 
     removeManagementTeam(index: number) {
@@ -851,7 +866,7 @@ export class CompanyFormComponent implements OnInit {
         this.swot.threats = this.companyInfoFormGroup.get('threats').value;
         this.companyInfo.swot = this.swot;
         // management team list
-        this.companyInfo.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
+        // this.companyInfo.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
         // management Team Note
         this.companyJsonData.managementTeamNote = this.companyInfoFormGroup.get('managementTeamNote').value;
 
@@ -939,6 +954,7 @@ export class CompanyFormComponent implements OnInit {
         submitData.rawMaterialSourcing = this.companyInfoFormGroup.get('rawMaterialSourcing').value;
         /** Market Scenario detail */
         submitData.marketScenario = this.marketScenarioComponent.submitData;
+        submitData.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
