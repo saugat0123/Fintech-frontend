@@ -1,14 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {LoanDataHolder} from '../../../../loan/model/loanData';
-import {CustomerOfferLetter} from '../../../../loan/model/customer-offer-letter';
-import {CustomerOfferLetterService} from '../../../../loan/service/customer-offer-letter.service';
-import {ToastService} from '../../../../../@core/utils';
-import {Router} from '@angular/router';
-import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {DocStatus} from '../../../../loan/model/docStatus';
-import {OfferLetter} from '../../../../admin/modal/offerLetter';
-import {CustomerOfferLetterPath} from '../../../../loan/model/customer-offer-letter-path';
 
 @Component({
   selector: 'app-loan-deed-company',
@@ -31,11 +22,16 @@ export class LoanDeedCompanyComponent implements OnInit {
 
   buildForm() {
     this.loandeedcompany = this.formBuilder.group({
+      branch: [undefined],
       temporaryProvince: [undefined],
       permanentDistrict: [undefined],
-      permanentMunicipalityVdc: [undefined],
+      permanentMunicipalityVDC: [undefined],
       permanentWardNo: [undefined],
       registrarRegistrationOffice: [undefined],
+      registrarRegistrationOfficeProvince: [undefined],
+      registrarRegistrationOfficeDistrict: [undefined],
+      registrarRegistrationOfficeMunicipalityVDC: [undefined],
+      registrarRegistrationOfficeWardNo: [undefined],
       registrationNo: [undefined],
       registrationDate: [undefined],
       grandParents: [undefined],
@@ -53,18 +49,12 @@ export class LoanDeedCompanyComponent implements OnInit {
       date3: [undefined],
       loan: [undefined],
       purpose: [undefined],
-      annualRate: [undefined],
-      onePerson: [undefined],
-      relation2: [undefined],
-      rate: [undefined],
       sNo: [undefined],
       landOwnerName: [undefined],
       amount: [undefined],
       amountInWords: [undefined],
-      district4: [undefined],
-      timeDuration: [undefined],
-      municipalityVdc5: [undefined],
-      wardNo5: [undefined],
+      municipalityVDC: [undefined],
+      wardNo: [undefined],
       seatNo: [undefined],
       kNo: [undefined],
       area: [undefined],
@@ -78,12 +68,12 @@ export class LoanDeedCompanyComponent implements OnInit {
       day: [undefined],
       time: [undefined],
       districtOfWitness: [undefined],
-      municipalityVdcOfWitness: [undefined],
+      municipalityVDCOfWitness: [undefined],
       wardNoOfWitness: [undefined],
       ageOfWitness: [undefined],
       relationOfWitness: [undefined],
       districtOfWitness2: [undefined],
-      municipalityVdcOfWitness2: [undefined],
+      municipalityVDCOfWitness2: [undefined],
       wardNoOfWitness2: [undefined],
       ageOfWitness2: [undefined],
       relationOfWitness2: [undefined]
