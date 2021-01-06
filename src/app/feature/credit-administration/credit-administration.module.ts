@@ -32,6 +32,7 @@ import { DisbursementPendingComponent } from './component/disbursement/disbursem
 import { CadDocumentListComponent } from './component/cad-document-list/cad-document-list.component';
 import { GeneralDocumentComponent } from './cad-offerletter-profile/customer-document/cad-general-document/general-document.component';
 import { CadLoanDocumentComponent } from './cad-offerletter-profile/customer-document/cad-loan-document/cad-loan-document.component';
+import { FilterComponent } from './component/filter/filter.component';
 
 
 @NgModule({
@@ -56,6 +57,8 @@ import { CadLoanDocumentComponent } from './cad-offerletter-profile/customer-doc
         LegalReviewApprovedComponent,
         DisbursementApprovedComponent,
         DisbursementPendingComponent,
+        CadDocumentListComponent,
+        FilterComponent,
         CadDocumentListComponent,
         GeneralDocumentComponent,
         CadLoanDocumentComponent],
