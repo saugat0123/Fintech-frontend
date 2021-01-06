@@ -25,6 +25,8 @@ import {NepsePriceInfoService} from '../../../admin/component/nepse/nepse-price-
 import {NepsePriceInfo} from '../../../admin/modal/NepsePriceInfo';
 import {DatePipe} from '@angular/common';
 import {NumberUtils} from '../../../../@core/utils/number-utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {RoleService} from '../../../admin/component/role-permission/role.service';
 
 
 @Component({
@@ -81,6 +83,7 @@ export class SecurityInitialFormComponent implements OnInit {
     corporate = false;
     ckeConfig;
     personal = false;
+    spinner = false;
     securityTypes = [
         {key: 'LandSecurity', value: 'Land Security'},
         {key: 'VehicleSecurity', value: 'Vehicle Security'},
@@ -109,7 +112,7 @@ export class SecurityInitialFormComponent implements OnInit {
     shareSecurityForm: FormGroup;
     shareSecurityData: ShareSecurity = new ShareSecurity();
     typeOfProperty = ['Rajkar', 'Guthi', 'Others'];
-    designationList: DesignationList = new DesignationList();
+    designationList = [];
     ownershipTransferEnumPair = OwnershipTransfer.enumObject();
     ownershipTransfers = OwnershipTransfer;
     collateralOwnerRelationshipList: RelationshipList = new RelationshipList();
@@ -125,10 +128,15 @@ export class SecurityInitialFormComponent implements OnInit {
                 private branchService: BranchService,
                 private shareService: NepseService,
                 private nepsePriceInfoService: NepsePriceInfoService,
-                private datePipe: DatePipe) {
+                private datePipe: DatePipe,
+                private toastService: ToastService,
+                private roleService: RoleService) {
     }
 
+
+
     ngOnInit() {
+        this.getRoleList();
         this.configEditor();
         this.shareService.findAllNepseCompanyData(this.search).subscribe((list) => {
             this.nepseList = list.detail;
@@ -139,8 +147,10 @@ export class SecurityInitialFormComponent implements OnInit {
         this.checkLoanTags();
          this.nepsePriceInfoService.getActiveNepsePriceInfoData().subscribe((response) => {
              this.nepsePriceInfo = response.detail;
-             this.shareSecurityForm.get('sharePriceDate').patchValue(this.datePipe.transform(this.nepsePriceInfo.sharePriceDate, 'yyyy-MM-dd'));
-             this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo.avgDaysForPrice);
+             this.shareSecurityForm.get('sharePriceDate').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.sharePriceDate ?
+                 this.datePipe.transform(this.nepsePriceInfo.sharePriceDate, 'yyyy-MM-dd') : undefined);
+             this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.avgDaysForPrice
+                 ? this.nepsePriceInfo.avgDaysForPrice : undefined);
          }, error => {
              console.log(error);
          });
@@ -1521,5 +1531,16 @@ export class SecurityInitialFormComponent implements OnInit {
         exposures = NumberUtils.isNumber((totalRemaining / totalValuation) * 100);
         this.securityForm.get('vehicleLoanExposure').setValue(exposures);
         return exposures;
+    }
+    getRoleList() {
+        this.spinner = true;
+        this.roleService.getAll().subscribe(res => {
+            this.designationList = res.detail;
+            this.spinner = false;
+        }, error => {
+            console.log('error', error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error While Fetching List'));
+            this.spinner = false;
+        });
     }
 }
