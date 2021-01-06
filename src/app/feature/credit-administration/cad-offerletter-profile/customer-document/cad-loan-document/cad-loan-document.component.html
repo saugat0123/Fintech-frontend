@@ -5,7 +5,7 @@
 </div>
 
 <div class="col-md-12">
-    <table class="table table-bordered table-hover text-center sb-small table-sm">
+    <table class="table table-bordered  text-center sb-small table-sm">
 
         <tbody>
         <ng-container *ngFor="let customerLoan of customerLoanList">
@@ -17,11 +17,15 @@
             <ng-container>
                 <tr>
                     <td class="text-left">
-                        <div class="col-md-12">
-                        <div class="img-lbl col-md-3"  *ngFor="let data of customerLoan?.customerDocument">
-                            <label><em [className]="setClassName"></em></label>
-                             {{data?.document?.name}}
-                        </div></div>
+
+                        <div class="col-md-12 ">
+                            <div class="row">
+                                <div class="col-md-3 py-2 img-hover" *ngFor="let data of customerLoan?.customerDocument" >
+                                    <a (click)="openDocument(data?.documentPath)" class="cursor row d-flex text-danger justify-content-center"><em [className]="setClassName"></em></a>
+                                    <a (click)="openDocument(data?.documentPath)" class="cursor row d-flex justify-content-center flex-nowrap  text-dark"> {{data?.document?.name}}</a>
+                                </div>
+                            </div>
+                        </div>
 
                     </td>
                 </tr>
