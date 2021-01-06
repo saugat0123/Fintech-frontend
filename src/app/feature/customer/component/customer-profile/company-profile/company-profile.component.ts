@@ -329,7 +329,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         customerInfo.obligor = event;
         this.customerInfoService.updateCbsGroup(customerInfo).subscribe((res: any) => {
             this.refreshCustomerInfo();
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY Added Group'));
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Group Successfully Updated for Customer'));
             this.spinner = false;
         }, error => {
             console.error(error);

@@ -53,6 +53,19 @@
                   </div>
                 </div>
               </div>
+
+              <div class="col-md-3">
+                <label><strong>Cicl Relation</strong></label>
+                <select
+                    class="form-control form-control-sm-error rounded"
+                    formControlName="ciclRelation"
+                    id="ciclRelation"
+                    name="ciclRelation"
+                    [ngClass]="{'is-invalid': submitted && cicl.get('ciclRelation').invalid}">
+                  <option [ngValue]="null" hidden>--Select Cicl relation--</option>
+                  <option *ngFor="let relationship of ciclRelation" [ngValue]="relationship.key">{{relationship.value}}</option>
+                </select>
+              </div>
             </div>
 
           <div class="row">

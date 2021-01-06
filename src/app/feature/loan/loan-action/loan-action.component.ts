@@ -89,6 +89,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     isForward: false,
                     loanConfigId: this.loanConfigId,
                     customerLoanId: this.id,
+                    branchId: this.branchId,
                     docAction: DocAction.value(DocAction.BACKWARD),
                     documentStatus: DocStatus.PENDING
                 };
@@ -101,6 +102,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     customerLoanId: this.id,
                     docAction: DocAction[DocAction.BACKWARD_TO_COMMITTEE],
                     documentStatus: DocStatus.PENDING,
+                    branchId: this.branchId,
                     toRole: {id: Number(LocalStorageUtil.getStorage().roleId)}
                 };
                 break;
