@@ -8,6 +8,7 @@ import {ToastService} from '../../../@core/utils';
 import {Editor} from '../../../@core/utils/constants/editor';
 import {RepaymentTrack} from '../../admin/modal/crg/RepaymentTrack';
 import {RelationshipList} from '../../loan/model/relationshipList';
+import {CiclRelationListEnum} from '../../loan/model/ciclRelationListEnum';
 
 @Component({
   selector: 'app-cicl',
@@ -30,6 +31,7 @@ export class CiclComponent implements OnInit {
   repaymentTrack = RepaymentTrack.enumObject();
   relationshipList: RelationshipList = new RelationshipList();
   relationlist;
+  ciclRelation = CiclRelationListEnum.pair();
 
   constructor(
       private formBuilder: FormBuilder,
@@ -97,7 +99,8 @@ export class CiclComponent implements OnInit {
           ciclStatus: [undefined, Validators.required],
           obtaineddate: [undefined, Validators.required],
           loanamount: [undefined, Validators.required],
-          overdue: [undefined]
+          overdue: [undefined],
+          ciclRelation: [undefined]
         }));
   }
 
@@ -118,7 +121,9 @@ export class CiclComponent implements OnInit {
           ciclStatus: [undefined, Validators.required],
           obtaineddate: [undefined, Validators.required],
           loanamount: [undefined, Validators.required],
-          overdue: [undefined]
+          overdue: [undefined],
+          ciclRelation: [undefined]
+
         }));
 
   }
@@ -142,6 +147,8 @@ export class CiclComponent implements OnInit {
             obtaineddate: [cicl.obtaineddate, Validators.required],
             loanamount: [cicl.loanamount, Validators.required],
             overdue: [cicl.overdue],
+            ciclRelation: [cicl.ciclRelation]
+
           }));
     });
   }
@@ -187,6 +194,8 @@ export class CiclComponent implements OnInit {
       cicl.obtaineddate = controls.obtaineddate.value;
       cicl.loanamount = controls.loanamount.value;
       cicl.overdue = controls.overdue.value;
+      cicl.ciclRelation = controls.ciclRelation.value;
+
       this.ciclList.push(cicl);
 
     }
