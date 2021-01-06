@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, QueryList} from '@angular/core';
 import {Financial} from '../../loan/model/financial';
 import {CustomerType} from '../../customer/model/customerType';
+import {environment} from "../../../../environments/environment.srdb";
 
 @Component({
   selector: 'app-financial-view',
@@ -16,6 +17,7 @@ export class FinancialViewComponent implements OnInit {
 
   isBusinessLoan = false;
   activeTab: string;
+  disableCrgAlphaParams = environment.disableCrgAlpha;
 
   constructor() {
   }
