@@ -57,4 +57,10 @@ export class OfferLetterApprovedComponent implements OnInit {
                 }
             });
     }
+
+
+    setSearchValue(value) {
+        this.searchObj = Object.assign(value, {docStatus: 'OFFER_APPROVED'});
+        OfferLetterApprovedComponent.loadData(this);
+    }
 }

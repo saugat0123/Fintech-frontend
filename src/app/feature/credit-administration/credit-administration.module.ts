@@ -30,6 +30,7 @@ import { LegalReviewApprovedComponent } from './component/legal/legal-review-app
 import { DisbursementApprovedComponent } from './component/disbursement/disbursement-approved/disbursement-approved.component';
 import { DisbursementPendingComponent } from './component/disbursement/disbursement-pending/disbursement-pending.component';
 import { CadDocumentListComponent } from './component/cad-document-list/cad-document-list.component';
+import { FilterComponent } from './component/filter/filter.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { CadDocumentListComponent } from './component/cad-document-list/cad-docu
         LegalReviewApprovedComponent,
         DisbursementApprovedComponent,
         DisbursementPendingComponent,
-        CadDocumentListComponent],
+        CadDocumentListComponent,
+        FilterComponent],
     imports: [
         ThemeModule,
         CommonModule,

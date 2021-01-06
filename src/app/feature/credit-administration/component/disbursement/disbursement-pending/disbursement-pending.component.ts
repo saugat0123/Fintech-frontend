@@ -57,4 +57,9 @@ export class DisbursementPendingComponent implements OnInit {
           }
         });
   }
+
+  setSearchValue(value) {
+    this.searchObj = Object.assign(value, {docStatus: 'DISBURSEMENT_PENDING'});
+    DisbursementPendingComponent.loadData(this);
+  }
 }

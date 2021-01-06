@@ -55,4 +55,9 @@ export class UnassignedLoanComponent implements OnInit {
        const comp = this.modalService.open(AssignPopUpComponent);
        comp.componentInstance.cadData = data;
     }
+
+    setSearchValue(value){
+        this.searchObj = value;
+        UnassignedLoanComponent.loadData(this);
+    }
 }
