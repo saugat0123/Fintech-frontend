@@ -8,6 +8,8 @@ import {CreditAdministrationService} from '../../../../service/credit-administra
 import {ToastService} from '../../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {Exposure} from '../../../../model/Exposure';
+import {CadDocStatus} from '../../../../model/CadDocStatus';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-exposure',
@@ -16,6 +18,7 @@ import {Exposure} from '../../../../model/Exposure';
 })
 export class ExposureComponent implements OnInit {
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
+    @Input() isHistory: boolean;
     customerLoanList: Array<LoanDataHolder>;
 
     // todo replace with api from backend predefined data
@@ -27,7 +30,8 @@ export class ExposureComponent implements OnInit {
     constructor(private formBuilder: FormBuilder,
                 private routerUtilsService: RouterUtilsService,
                 private service: CreditAdministrationService,
-                private toastService: ToastService) {
+                private toastService: ToastService,
+                private modalService: NgbModal) {
     }
 
     get disbursementDetails() {
@@ -45,7 +49,7 @@ export class ExposureComponent implements OnInit {
             this.customerLoanList = this.cadData.assignedLoan;
         }
         this.buildForm();
-        if (!ObjectUtil.isEmpty(this.cadData.exposure && !ObjectUtil.isEmpty(this.cadData.exposure.data))) {
+        if (!ObjectUtil.isEmpty(this.cadData.exposure) && !ObjectUtil.isEmpty(this.cadData.exposure.data) && !this.isHistory) {
             this.setDisbursementDetails();
         } else {
             this.addDisbursementDetail();
@@ -63,10 +67,10 @@ export class ExposureComponent implements OnInit {
             this.disbursementDetails.push(this.formBuilder.group({
                 loanName: [value.loan.name],
                 loanLimit: [value.proposal.proposedLimit, Validators.required],
-                feePercent: [0, Validators.required],
-                disbursement: [0, Validators.required],
-                initialRate: [0, Validators.required],
-                maturity: [0, Validators.required],
+                feePercent: [undefined, Validators.required],
+                disbursement: [undefined, Validators.required],
+                initialRate: [undefined, Validators.required],
+                maturity: [undefined, Validators.required],
                 frequency: [undefined, Validators.required],
             }));
         });
@@ -97,16 +101,31 @@ export class ExposureComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData.exposure)) {
             exposure.id = this.cadData.exposure.id;
             exposure.version = this.cadData.exposure.version;
+            if (this.isHistory) {
+                let historyData = [];
+                if (!ObjectUtil.isEmpty(this.cadData.exposure.historyData)) {
+                    historyData = JSON.parse(this.cadData.exposure.historyData);
+                }
+                historyData.push(this.exposureForm.get('disbursementDetails').value);
+                exposure.historyData = JSON.stringify(historyData);
+                this.cadData.docStatus = CadDocStatus.DISBURSEMENT_PENDING;
+            }
         }
         this.cadData.exposure = exposure;
         this.service.saveCadDocumentBulk(this.cadData).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Exposure data!!!'));
             this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
             this.spinner = false;
+            this.close();
         }, error => {
             console.log(error);
             this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Exposure data!!!'));
+            this.close();
         });
+    }
+
+    close() {
+        this.modalService.dismissAll();
     }
 }
