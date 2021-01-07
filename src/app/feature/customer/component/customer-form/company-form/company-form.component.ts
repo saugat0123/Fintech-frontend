@@ -549,8 +549,6 @@ export class CompanyFormComponent implements OnInit {
     }
 
     setCompanyInfo(info: CompanyInfo) {
-        // set managementTeams data
-        // this.companyInfoFormGroup.setControl('managementTeams', this.setManagementTeams(info.managementTeamList));
         // proprietors data
         this.companyInfoFormGroup.setControl('proprietors', this.setProprietors(info.proprietorsList));
         // set contact persons data
@@ -565,18 +563,6 @@ export class CompanyFormComponent implements OnInit {
         });
     }
 
-    // todo remove in future in not require
-    // setManagementTeams(managementTeamList: ManagementTeam[]): FormArray {
-    //     const managementTeamFormArray = new FormArray([]);
-    //     managementTeamList.forEach(managementTeam => {
-    //         managementTeamFormArray.push(this.formBuilder.group({
-    //             name: [managementTeam.name === undefined ? '' : managementTeam.name],
-    //             designation: [managementTeam.designation === undefined ? '' : managementTeam.designation],
-    //             companyLegalDocumentAddress: [managementTeam.companyLegalDocumentAddress === undefined ? '' : managementTeam.companyLegalDocumentAddress],
-    //         }));
-    //     });
-    //     return managementTeamFormArray;
-    // }
     // set managementTeams data
     setManagementTeams(data) {
         const control = this.companyInfoFormGroup.get('managementTeams') as FormArray;
@@ -865,8 +851,7 @@ export class CompanyFormComponent implements OnInit {
         this.swot.opportunity = this.companyInfoFormGroup.get('opportunity').value;
         this.swot.threats = this.companyInfoFormGroup.get('threats').value;
         this.companyInfo.swot = this.swot;
-        // management team list
-        // this.companyInfo.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
+
         // management Team Note
         this.companyJsonData.managementTeamNote = this.companyInfoFormGroup.get('managementTeamNote').value;
 
@@ -1053,10 +1038,4 @@ export class CompanyFormComponent implements OnInit {
             this.companyInfoFormGroup.get('lockerDuringReview').value;
         this.companyInfoFormGroup.get('total').patchValue(total);
     }
-
-
-
-
-
-
 }
