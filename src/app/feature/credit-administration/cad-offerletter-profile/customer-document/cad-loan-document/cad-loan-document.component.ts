@@ -12,7 +12,7 @@ import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 export class CadLoanDocumentComponent implements OnInit {
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
     customerLoanList: Array<LoanDataHolder>;
-    setClassName = 'far fa-file-pdf fa-3x';
+    setClassName = 'far fa-file-pdf fa-1x text-danger';
 
     constructor() {
     }
