@@ -82,7 +82,10 @@ export class CadActionComponent implements OnInit {
         this.roleId = LocalStorageUtil.getStorage().roleId;
         if (LocalStorageUtil.getStorage().roleType === 'MAKER') {
             this.isMaker = true;
+        } else {
+            this.getNewDocStatusOnApprove();
         }
+
     }
 
     onSubmit(templateLogin) {
@@ -221,10 +224,10 @@ export class CadActionComponent implements OnInit {
 
     public getNewDocStatusOnApprove() {
         if (this.currentStatus === 'OFFER_PENDING') {
-            this.approvedLabel = 'APPROVE OFFER LETTER AND FROWARD';
+            this.approvedLabel = 'APPROVE OFFER LETTER AND FORWARD';
             return 'OFFER_APPROVED';
         } else if (this.currentStatus === 'LEGAL_PENDING') {
-            this.approvedLabel = 'APPROVE LEGAL AND FROWARD';
+            this.approvedLabel = 'APPROVE LEGAL AND FORWARD';
             return 'LEGAL_APPROVED';
         } else if (this.currentStatus === 'OFFER_APPROVED') {
             return '0';
