@@ -6,6 +6,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {RoleService} from '../role.service';
 import {RoleType} from '../../../modal/roleType';
 import {RoleAccess} from '../../../modal/role-access';
+import {AppConfigService} from '../../../../../@core/service/appConfig/app-config.service';
 
 
 @Component({
@@ -21,17 +22,21 @@ export class RoleFormComponent implements OnInit {
     hideBranchAccess = false;
     authorityRequired = true;
     showAuthority = true;
+    appConfigRoleType = [];
 
     constructor(
         private service: RoleService,
         private activeModal: NgbActiveModal,
         private modalService: NgbModal,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private appConfigService: AppConfigService
     ) {
     }
 
     ngOnInit() {
-
+        this.appConfigService.getRoleType().subscribe((res: any) => {
+            this.appConfigRoleType = res.detail;
+        });
 
         // this.service.checkRoleContainMaker().subscribe((res: any) => {
         //     this.hideRoleType = res.detail;
@@ -60,7 +65,7 @@ export class RoleFormComponent implements OnInit {
 
     checkRole() {
         if (this.role.roleType === RoleType.MAKER || this.role.roleType === RoleType.COMMITTEE || this.role.roleType === RoleType.ADMIN
-            || this.role.roleType === RoleType.CAD_LEGAL  || this.role.roleType === RoleType.CAD_SUPERVISOR) {
+            || this.role.roleType === RoleType.CAD_LEGAL || this.role.roleType === RoleType.CAD_SUPERVISOR) {
             this.hideBranchAccess = true;
             this.authorityRequired = true;
             this.showAuthority = true;
