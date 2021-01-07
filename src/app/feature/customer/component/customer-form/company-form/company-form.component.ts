@@ -862,7 +862,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.additionalCompanyInfo = JSON.stringify(this.companyInfoFormGroup.get('additionalCompanyInfo').value);
 
         // succession planning
-        this.companyInfo.successionPlanning = JSON.stringify(this.companyInfoFormGroup.get('successionPlanning').value);
+        this.companyInfo.successionPlanning = this.companyInfoFormGroup.get('successionPlanning').value;
 
         // location
         this.locations.id = this.companyInfoFormGroup.get('locationId').value;
