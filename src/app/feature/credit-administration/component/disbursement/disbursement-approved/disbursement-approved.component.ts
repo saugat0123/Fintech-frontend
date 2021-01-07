@@ -62,8 +62,9 @@ export class DisbursementApprovedComponent implements OnInit {
     }
 
     addExposure(data) {
-        const modelRef = this.nbModel.open(ExposureComponent);
+        const modelRef = this.nbModel.open(ExposureComponent , {size : 'xl'});
         modelRef.componentInstance.cadData = data;
+        modelRef.componentInstance.isHistory = true;
     }
   setSearchValue(value) {
     this.searchObj = Object.assign(value, {docStatus: 'DISBURSEMENT_APPROVED'});
