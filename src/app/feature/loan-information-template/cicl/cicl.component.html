@@ -36,25 +36,6 @@
               </div>
 
               <div class="col-md-3">
-                <label><strong>Relation</strong></label>
-                <select
-                        class="form-control form-control-sm-error rounded"
-                        formControlName="relation"
-                        id="relation"
-                        name="relation"
-                        [ngClass]="{'is-invalid': submitted && cicl.get('relation').invalid}">
-                  <option [ngValue]="null" hidden>--Select relation--</option>
-                  <option *ngFor="let relationship of relationlist" [ngValue]="relationship.id">{{relationship.name}}</option>
-                </select>
-                <div
-                        *ngIf="(submitted) && cicl.get('relation').invalid" class="invalid-feedback">
-                  <div>
-                    Relation is required.
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-3">
                 <label><strong>Cicl Relation</strong></label>
                 <select
                     class="form-control form-control-sm-error rounded"
