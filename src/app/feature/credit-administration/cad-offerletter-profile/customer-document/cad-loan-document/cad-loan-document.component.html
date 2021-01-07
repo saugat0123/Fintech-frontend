@@ -15,6 +15,9 @@
                 </td>
             </tr>
             <ng-container>
+                <tr *ngIf="customerLoan?.customerDocument.length < 1">
+                    NO DOCUMENT available in this loan
+                </tr>
                 <tr>
                     <td class="text-left">
 
