@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {LoanDataHolder} from '../../../../loan/model/loanData';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 
 @Component({
     selector: 'app-cad-loan-document',
@@ -11,7 +12,8 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 export class CadLoanDocumentComponent implements OnInit {
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
     customerLoanList: Array<LoanDataHolder>;
-    setClassName = 'far fa-file-pdf';
+    setClassName = 'far fa-file-pdf fa-1x text-danger';
+
     constructor() {
     }
 
@@ -21,8 +23,20 @@ export class CadLoanDocumentComponent implements OnInit {
         }
     }
 
-    public classByExtension(fileName){
+    public classByExtension(fileName) {
 
     }
 
+
+    openDocument(file) {
+        let fileName = file;
+        if (file !== null) {
+            fileName = ApiConfig.URL + '/' + file;
+
+            const link = document.createElement('a');
+            link.href = fileName;
+            link.target = '_blank';
+            link.click();
+        }
+    }
 }

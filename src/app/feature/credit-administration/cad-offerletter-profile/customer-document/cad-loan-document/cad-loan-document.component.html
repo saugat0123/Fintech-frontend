@@ -1,11 +1,11 @@
 <div class="col-md-12">
-    <div class="  w-100">
+    <div class="w-100">
         <strong>Loan Documents</strong>
     </div>
 </div>
 
 <div class="col-md-12">
-    <table class="table table-bordered table-hover text-center sb-small table-sm">
+    <table class="table table-bordered  text-center sb-small table-sm">
 
         <tbody>
         <ng-container *ngFor="let customerLoan of customerLoanList">
@@ -15,13 +15,25 @@
                 </td>
             </tr>
             <ng-container>
+                <tr *ngIf="customerLoan?.customerDocument.length < 1">
+                    NO DOCUMENT available in this loan
+                </tr>
                 <tr>
                     <td class="text-left">
-                        <div class="col-md-12">
-                        <div class="img-lbl col-md-3"  *ngFor="let data of customerLoan?.customerDocument">
-                            <label><em [className]="setClassName"></em></label>
-                             {{data?.document?.name}}
-                        </div></div>
+
+                        <div class="col-md-12 ">
+                            <div class="row">
+                                <div class="col-md-3 img-hover flex-wrap"
+                                     *ngFor="let data of customerLoan?.customerDocument;let i =index"
+                                     [nbTooltip]="data?.document?.displayName">
+                                    <a (click)="openDocument(data?.documentPath)" class="cursor"><em
+                                            [className]="setClassName"></em>
+                                        <span class="mx-1"> {{data?.document?.displayName.length > 15 ?
+                                            data?.document?.displayName?.substring(0, 12) + '..' :
+                                            data?.document?.displayName}}</span></a>
+                                </div>
+                            </div>
+                        </div>
 
                     </td>
                 </tr>
