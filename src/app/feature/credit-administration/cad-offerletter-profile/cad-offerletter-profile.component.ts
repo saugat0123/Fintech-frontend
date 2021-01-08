@@ -51,6 +51,7 @@ export class CadOfferLetterProfileComponent implements OnInit {
 
     ngOnInit() {
         this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
+        console.log(this.cadOfferLetterApprovedDoc.assignedLoan,'sd');
         this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
     }
 
