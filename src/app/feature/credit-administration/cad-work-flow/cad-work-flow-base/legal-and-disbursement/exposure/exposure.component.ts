@@ -67,7 +67,6 @@ export class ExposureComponent implements OnInit {
             this.disbursementDetails.push(this.formBuilder.group({
                 loanName: [value.loan.name],
                 loanLimit: [value.proposal.proposedLimit, Validators.required],
-                feePercent: [undefined, Validators.required],
                 disbursement: [undefined, Validators.required],
                 initialRate: [undefined, Validators.required],
                 maturity: [undefined, Validators.required],
@@ -84,7 +83,6 @@ export class ExposureComponent implements OnInit {
                 this.disbursementDetails.push(this.formBuilder.group({
                     loanName: [value.loanName],
                     loanLimit: [value.loanLimit, Validators.required],
-                    feePercent: [value.feePercent, Validators.required],
                     disbursement: [value.disbursement, Validators.required],
                     initialRate: [value.initialRate, Validators.required],
                     maturity: [value.maturity, Validators.required],

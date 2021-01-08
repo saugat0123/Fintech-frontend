@@ -12,6 +12,7 @@ export class Cicl {
   createdAt: Date;
   lastModifiedAt: Date;
   version: number;
+  ciclRelation: string;
 }
 
 export class CiclArray {

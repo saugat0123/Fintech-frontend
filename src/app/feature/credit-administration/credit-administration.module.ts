@@ -76,7 +76,7 @@ import {MegaModule} from './cad-document-template/mega/mega.module';
         CoreModule,
         MegaModule,
     ],
-    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent , CadOfferLetterModalComponent,ExposureComponent]
+    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent , CadOfferLetterModalComponent , ExposureComponent, CadChecklistDocTemplateModalComponent]
 })
 export class CreditAdministrationModule {
 }
