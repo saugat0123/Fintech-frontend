@@ -254,7 +254,7 @@
                 <th>Address as per Legal Document</th>
             </tr>
             </thead>
-            <tbody *ngFor="let management of formValue.managementTeamList; let i=index;">
+            <tbody *ngFor="let management of companyJsonData.managementTeamList; let i=index">
             <tr>
                 <td>{{i + 1}}</td>
                 <td>{{management?.name}}</td>
