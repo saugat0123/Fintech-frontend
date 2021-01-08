@@ -28,7 +28,7 @@
             <tbody>
             <ng-container *ngFor="let model of loanList;let i=index">
                 <tr class="cursor">
-                    <td>{{i+1}}</td>
+                    <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                     <td>{{model?.branch?.name}}</td>
                     <td>{{model?.name}}</td>
                     <td>{{model?.customerType}}</td>

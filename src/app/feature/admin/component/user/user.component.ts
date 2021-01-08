@@ -19,6 +19,7 @@ import {Role} from '../../modal/role';
 import {Status} from '../../../../@core/Status';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {UserHistoryComponent} from './user-history/user-history.component';
+import {RoleType} from '../../modal/roleType';
 
 @Component({
     selector: 'app-user',
@@ -56,6 +57,7 @@ export class UserComponent implements OnInit {
     active = Status.ACTIVE;
     inactive = Status.INACTIVE;
     allBranches = RoleAccess.ALL;
+    roleType = RoleType;
 
     constructor(
         private service: UserService,
