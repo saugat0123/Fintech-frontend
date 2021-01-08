@@ -14,9 +14,9 @@ import {LoanConfigService} from '../../../../admin/component/loan-config/loan-co
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SocketService} from '../../../../../@core/service/socket.service';
 import {CustomerOfferLetter} from '../../../../loan/model/customer-offer-letter';
-import {DocStatus} from '../../../../loan/model/docStatus';
 import {ApprovalRoleHierarchyService} from '../../../../loan/approval/approval-role-hierarchy.service';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
+import {RouterUtilsService} from '../../../utils/router-utils.service';
 
 @Component({
     selector: 'app-cad-action',
@@ -73,7 +73,8 @@ export class CadActionComponent implements OnInit {
                 private http: HttpClient,
                 private approvalRoleHierarchyService: ApprovalRoleHierarchyService,
                 private cadService: CreditAdministrationService,
-                private socketService: SocketService,) {
+                private socketService: SocketService,
+                private routerUtilsService: RouterUtilsService,) {
     }
 
     ngOnInit() {
@@ -81,7 +82,10 @@ export class CadActionComponent implements OnInit {
         this.roleId = LocalStorageUtil.getStorage().roleId;
         if (LocalStorageUtil.getStorage().roleType === 'MAKER') {
             this.isMaker = true;
+        } else {
+            this.getNewDocStatusOnApprove();
         }
+
     }
 
     onSubmit(templateLogin) {
@@ -129,6 +133,7 @@ export class CadActionComponent implements OnInit {
             this.onClose();
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
+            this.routerUtilsService.reloadCadProfileRoute(this.cadId);
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
 
@@ -157,7 +162,7 @@ export class CadActionComponent implements OnInit {
         });
     }
 
-    approvedForwardBackward(template, val) {
+    approvedForwardBackward(template, val, returnToMaker) {
         this.popUpTitle = val;
         this.userList = [];
         if (this.popUpTitle === 'FORWARD') {
@@ -168,7 +173,8 @@ export class CadActionComponent implements OnInit {
                     cadId: [this.cadId],
                     docAction: [val],
                     comment: [undefined, Validators.required],
-                    documentStatus: [this.forwardBackwardDocStatusChange()]
+                    documentStatus: [this.forwardBackwardDocStatusChange()],
+                    isBackwardForMaker: returnToMaker
                 }
             );
             const approvalType = 'CAD';
@@ -195,7 +201,8 @@ export class CadActionComponent implements OnInit {
                     cadId: [this.cadId],
                     docAction: [newDocStatus],
                     comment: [undefined, Validators.required],
-                    documentStatus: [newDocStatus]
+                    documentStatus: [newDocStatus],
+                    isBackwardForMaker: returnToMaker
                 }
             );
         } else {
@@ -204,7 +211,8 @@ export class CadActionComponent implements OnInit {
                     cadId: [this.cadId],
                     docAction: [val],
                     comment: [undefined, Validators.required],
-                    documentStatus: [this.forwardBackwardDocStatusChange()]
+                    documentStatus: [this.forwardBackwardDocStatusChange()],
+                    isBackwardForMaker: returnToMaker
                 }
             );
 
@@ -216,10 +224,10 @@ export class CadActionComponent implements OnInit {
 
     public getNewDocStatusOnApprove() {
         if (this.currentStatus === 'OFFER_PENDING') {
-            this.approvedLabel = 'APPROVE OFFER LETTER AND FROWARD';
+            this.approvedLabel = 'APPROVE OFFER LETTER AND FORWARD';
             return 'OFFER_APPROVED';
         } else if (this.currentStatus === 'LEGAL_PENDING') {
-            this.approvedLabel = 'APPROVE LEGAL AND FROWARD';
+            this.approvedLabel = 'APPROVE LEGAL AND FORWARD';
             return 'LEGAL_APPROVED';
         } else if (this.currentStatus === 'OFFER_APPROVED') {
             return '0';

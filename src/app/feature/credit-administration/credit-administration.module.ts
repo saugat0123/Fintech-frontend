@@ -30,6 +30,8 @@ import { LegalReviewApprovedComponent } from './component/legal/legal-review-app
 import { DisbursementApprovedComponent } from './component/disbursement/disbursement-approved/disbursement-approved.component';
 import { DisbursementPendingComponent } from './component/disbursement/disbursement-pending/disbursement-pending.component';
 import { CadDocumentListComponent } from './component/cad-document-list/cad-document-list.component';
+import { GeneralDocumentComponent } from './cad-offerletter-profile/customer-document/cad-general-document/general-document.component';
+import { CadLoanDocumentComponent } from './cad-offerletter-profile/customer-document/cad-loan-document/cad-loan-document.component';
 import { FilterComponent } from './component/filter/filter.component';
 import { CadChecklistDocTemplateModalComponent } from './cad-offerletter-profile/cad-checklist-doc-template-modal/cad-checklist-doc-template-modal.component';
 import {MegaModule} from './cad-document-template/mega/mega.module';
@@ -59,19 +61,22 @@ import {MegaModule} from './cad-document-template/mega/mega.module';
         DisbursementPendingComponent,
         CadDocumentListComponent,
         FilterComponent,
+        CadDocumentListComponent,
+        GeneralDocumentComponent,
+        CadLoanDocumentComponent,
         CadChecklistDocTemplateModalComponent],
-  imports: [
-    ThemeModule,
-    CommonModule,
-    NbDialogModule.forRoot(),
-    MegaOfferLetterTemplateModule,
-    CadDocumentTemplateModule,
-    RouterModule.forChild(routes),
-    NgSelectModule,
-    CoreModule,
-    MegaModule,
-  ],
-    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent , CadOfferLetterModalComponent, ExposureComponent, CadChecklistDocTemplateModalComponent]
+    imports: [
+        ThemeModule,
+        CommonModule,
+        NbDialogModule.forRoot(),
+        MegaOfferLetterTemplateModule,
+        CadDocumentTemplateModule,
+        RouterModule.forChild(routes),
+        NgSelectModule,
+        CoreModule,
+        MegaModule,
+    ],
+    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent , CadOfferLetterModalComponent,ExposureComponent]
 })
 export class CreditAdministrationModule {
 }

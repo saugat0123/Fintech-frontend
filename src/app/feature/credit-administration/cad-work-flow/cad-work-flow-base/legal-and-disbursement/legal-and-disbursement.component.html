@@ -17,7 +17,7 @@
                                              [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-cad-offerletter-profile>
             </nb-tab>
             <nb-tab tabTitle="Exposure Detail">
-                <app-exposure *ngIf="cadOfferLetterApprovedDoc" [cadData]="cadOfferLetterApprovedDoc"></app-exposure>
+                <app-exposure *ngIf="cadOfferLetterApprovedDoc" [cadData]="cadOfferLetterApprovedDoc" [isHistory]="false"></app-exposure>
             </nb-tab>
             <nb-tab tabTitle="Fees And Commission">
                 <app-fees-commission  *ngIf="cadOfferLetterApprovedDoc" [cadData]="cadOfferLetterApprovedDoc"></app-fees-commission>
