@@ -414,16 +414,16 @@ export class CompanyFormComponent implements OnInit {
             address: [undefined],
             // swot
             strength: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.strength, Validators.required],
+                || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.strength, Validators.required],
 
             weakness: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.weakness, Validators.required],
+                || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.weakness, Validators.required],
 
             opportunity: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.opportunity, Validators.required],
+                || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.opportunity, Validators.required],
 
             threats: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.threats, Validators.required],
+                || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.threats, Validators.required],
 
             // Success Planning
             successionPlanning: [ObjectUtil.isEmpty(this.companyInfo) ? undefined :
@@ -850,7 +850,6 @@ export class CompanyFormComponent implements OnInit {
         this.swot.weakness = this.companyInfoFormGroup.get('weakness').value;
         this.swot.opportunity = this.companyInfoFormGroup.get('opportunity').value;
         this.swot.threats = this.companyInfoFormGroup.get('threats').value;
-        this.companyInfo.swot = this.swot;
 
         // management Team Note
         this.companyJsonData.managementTeamNote = this.companyInfoFormGroup.get('managementTeamNote').value;
@@ -940,6 +939,10 @@ export class CompanyFormComponent implements OnInit {
         /** Market Scenario detail */
         submitData.marketScenario = this.marketScenarioComponent.submitData;
         submitData.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
+
+        // swot
+        submitData.swot = this.swot;
+
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
