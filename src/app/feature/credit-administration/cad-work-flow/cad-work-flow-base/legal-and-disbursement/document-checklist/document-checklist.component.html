@@ -9,6 +9,7 @@
             Documents
         </th>
         <th>Preview</th>
+        <th>Generate</th>
 
         </thead>
         <tbody>
@@ -26,10 +27,12 @@
                             type="file" (change)="uploadOfferLetter($event)">
                         <button nbButton [disabled]="!file.value" status="primary" size="tiny"
                         class="float-right" (click)="save(customerLoan.loanHolder.id,customerLoan.id,data.id,data.name)">save</button>
+
                     </td>
-                    <td><i *ngIf="data.checked" class="fas fa-eye" (click)="previewGeneralDoc(data.url,data.name)"></i>
-                        <i *ngIf="!data.checked" class="fas fa-times-circle" (click)="previewGeneralDoc(data.url,data.name)"></i>
+                    <td><i *ngIf="data.url" class="fas fa-eye" (click)="previewDoc(data.url,data.name)"></i>
+                        <i *ngIf="!data.url" class="fas fa-times-circle" (click)="previewDoc(data.url,data.name)"></i>
                     </td>
+                    <td><button nbButton class="align-items-center"  status="primary" size="tiny" *ngIf="data.containsTemplate" (click)="populateCadTemplate(data.id,customerLoan.id)">Generate</button></td>
                 </tr>
             </ng-container>
         </ng-container>

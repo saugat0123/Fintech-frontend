@@ -7,6 +7,8 @@ import {ApiConfig} from '../../../../../../@core/utils/api/ApiConfig';
 import {ToastService} from '../../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
+import {NbDialogService} from '@nebular/theme';
+import {CadChecklistDocTemplateModalComponent} from '../../../../cad-offerletter-profile/cad-checklist-doc-template-modal/cad-checklist-doc-template-modal.component';
 
 @Component({
     selector: 'app-document-checklist',
@@ -22,6 +24,7 @@ export class DocumentChecklistComponent implements OnInit {
 
     constructor(private creditAdministrationService: CreditAdministrationService,
                 private toastService: ToastService,
+                private nbDialogService: NbDialogService ,
                 private routerUtilsService: RouterUtilsService) {
     }
 
@@ -69,13 +72,20 @@ export class DocumentChecklistComponent implements OnInit {
 
     }
 
-    previewGeneralDoc(url: string, name: string) {
+    previewDoc(url: string, name: string) {
         const link = document.createElement('a');
         link.target = '_blank';
         link.href = `${ApiConfig.URL}/${url}`;
-        // link.download = name;
         link.setAttribute('visibility', 'hidden');
         link.click();
     }
 
+    populateCadTemplate(documentId, loanId) {
+        this.nbDialogService.open(CadChecklistDocTemplateModalComponent, { context: {
+                documentId: documentId,
+                cadData: this.cadData,
+                customerLoanId: loanId
+            }
+        });
+    }
 }

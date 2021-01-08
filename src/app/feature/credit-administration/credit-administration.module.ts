@@ -31,6 +31,8 @@ import { DisbursementApprovedComponent } from './component/disbursement/disburse
 import { DisbursementPendingComponent } from './component/disbursement/disbursement-pending/disbursement-pending.component';
 import { CadDocumentListComponent } from './component/cad-document-list/cad-document-list.component';
 import { FilterComponent } from './component/filter/filter.component';
+import { CadChecklistDocTemplateModalComponent } from './cad-offerletter-profile/cad-checklist-doc-template-modal/cad-checklist-doc-template-modal.component';
+import {MegaModule} from './cad-document-template/mega/mega.module';
 
 
 @NgModule({
@@ -56,18 +58,20 @@ import { FilterComponent } from './component/filter/filter.component';
         DisbursementApprovedComponent,
         DisbursementPendingComponent,
         CadDocumentListComponent,
-        FilterComponent],
-    imports: [
-        ThemeModule,
-        CommonModule,
-        NbDialogModule.forRoot(),
-        MegaOfferLetterTemplateModule,
-        CadDocumentTemplateModule,
-        RouterModule.forChild(routes),
-        NgSelectModule,
-        CoreModule
-    ],
-    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent , CadOfferLetterModalComponent,ExposureComponent]
+        FilterComponent,
+        CadChecklistDocTemplateModalComponent],
+  imports: [
+    ThemeModule,
+    CommonModule,
+    NbDialogModule.forRoot(),
+    MegaOfferLetterTemplateModule,
+    CadDocumentTemplateModule,
+    RouterModule.forChild(routes),
+    NgSelectModule,
+    CoreModule,
+    MegaModule,
+  ],
+    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent , CadOfferLetterModalComponent, ExposureComponent, CadChecklistDocTemplateModalComponent]
 })
 export class CreditAdministrationModule {
 }
