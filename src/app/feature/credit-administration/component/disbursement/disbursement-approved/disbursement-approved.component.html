@@ -11,6 +11,7 @@
         <table class="table table-bordered table-hover table-sm sb-small text-center ">
             <thead>
             <tr class="text-white sb-bg-dark">
+                <td>S.N</td>
                 <th>Branch</th>
                 <th>Customer Name</th>
                 <th>Type</th>
@@ -23,11 +24,12 @@
             <tbody>
             <ng-container *ngFor="let model of loanList;let i=index">
                 <tr class="cursor">
-                    <td >{{model?.loanHolder?.branch?.name}}</td>
-                    <td >{{model?.loanHolder?.name}}</td>
-                    <td >{{model?.loanHolder?.customerType}}</td>
-                    <td >{{model?.docStatus}}</td>
-                    <td ><em class="fas fa-plus-circle" (click)="addExposure(model)"></em></td>
+                    <td>{{i + 1}}</td>
+                    <td>{{model?.loanHolder?.branch?.name}}</td>
+                    <td>{{model?.loanHolder?.name}}</td>
+                    <td>{{model?.loanHolder?.customerType}}</td>
+                    <td>{{model?.docStatus}}</td>
+                    <td><em class="fas fa-plus-circle" (click)="addExposure(model)"></em></td>
 
                 </tr>
             </ng-container>
