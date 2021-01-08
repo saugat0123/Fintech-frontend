@@ -122,7 +122,12 @@
                             </td>
                             <ng-template #branchList>
                                 <td>
-                                    <div *ngIf="!allList.branch?.length > 0">
+                                    <div *ngIf=" allList.role?.roleType === roleType.CAD_SUPERVISOR">
+                                        <div class="col-md-12 justify-content-center" *ngFor="let p of allList.provinces;">
+                                            {{p?.name}}
+                                        </div>
+                                    </div>
+                                    <div *ngIf="!allList.branch?.length > 0 && allList.role?.roleType !== roleType.CAD_SUPERVISOR">
                                         <em class="alert-danger">BRANCH IS DISABLED</em>
                                     </div>
                                     <div class="col-md-12 justify-content-center" *ngFor="let branch of allList.branch;">
