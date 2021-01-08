@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit} from '@angular/core';
+import {Component, DoCheck, ElementRef, Input, OnInit} from '@angular/core';
 import {Valuator} from '../../../modal/valuator';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
@@ -20,13 +20,13 @@ import {ValuatingField} from '../../../modal/valuatingField';
     selector: 'app-valuator-form',
     templateUrl: './add-valuator.component.html'
 })
-export class ValuatorFormComponent implements OnInit {
+export class ValuatorFormComponent implements OnInit, DoCheck {
 
     @Input()
     model: Valuator = new Valuator();
     placeHolderValuatingType = 'Select Valuating Type';
     placeHolderBranchSelect = 'Select Branches';
-    task: string;
+    formLabel: string;
     submitted = false;
     spinner = false;
     globalMsg: string;
@@ -156,6 +156,13 @@ export class ValuatorFormComponent implements OnInit {
     formatDate(date: Date) {
         return date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
             ('0' + date.getDate()).slice(-2);
+    }
+    ngDoCheck(): void {
+        if (this.model.id == null) {
+            this.formLabel = 'Add';
+        } else {
+            this.formLabel = 'Edit';
+        }
     }
 
     compareFn(c1: any, c2: any): boolean {
