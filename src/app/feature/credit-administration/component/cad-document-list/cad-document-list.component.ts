@@ -5,7 +5,7 @@ import {CreditAdministrationService} from '../../service/credit-administration.s
 import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
-
+import * as CryptoJS from 'crypto-js';
 @Component({
     selector: 'app-cad-document-list',
     templateUrl: './cad-document-list.component.html',
@@ -21,7 +21,9 @@ export class CadDocumentListComponent implements OnInit {
     loanList = [];
     loanType = LoanType;
     toggleArray: { toggled: boolean }[] = [];
+    encryptUrlArray: { url: string }[] = [];
     currentIndexArray: { currentIndex: number }[] = [];
+
 
     constructor(private service: CreditAdministrationService,
                 private router: Router,
@@ -31,10 +33,12 @@ export class CadDocumentListComponent implements OnInit {
     static loadData(other: CadDocumentListComponent) {
         other.currentIndexArray = [];
         other.toggleArray = [];
+        other.encryptUrlArray = [];
         other.spinner = true;
         other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, 10).subscribe((res: any) => {
             other.loanList = res.detail.content;
             other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
+            other.loanList.forEach((l) => other.encryptUrlArray.push({url: other.encryptUrl(l.id)}));
             other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: l.previousList.length}));
             other.pageable = PaginationUtils.getPageable(res.detail);
             other.spinner = false;
@@ -66,6 +70,12 @@ export class CadDocumentListComponent implements OnInit {
     setSearchValue(value) {
         this.searchObj = Object.assign(value, {isCadFile: 'true'});
         CadDocumentListComponent.loadData(this);
+    }
+
+    encryptUrl(id) {
+        const i =  CryptoJS.AES.encrypt(id.toString(), 'id').toString();
+        console.log(i);
+        return i;
     }
 }
 

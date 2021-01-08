@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GeneralDocumentComponent } from './general-document.component';
+import { CadSummaryComponent } from './cad-summary.component';
 
-describe('GeneralDocumentComponent', () => {
-  let component: GeneralDocumentComponent;
-  let fixture: ComponentFixture<GeneralDocumentComponent>;
+describe('CadSummaryComponent', () => {
+  let component: CadSummaryComponent;
+  let fixture: ComponentFixture<CadSummaryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GeneralDocumentComponent ]
+      declarations: [ CadSummaryComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GeneralDocumentComponent);
+    fixture = TestBed.createComponent(CadSummaryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
