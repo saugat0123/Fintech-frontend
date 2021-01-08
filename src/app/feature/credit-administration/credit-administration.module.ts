@@ -33,6 +33,8 @@ import { CadDocumentListComponent } from './component/cad-document-list/cad-docu
 import { GeneralDocumentComponent } from './cad-offerletter-profile/customer-document/cad-general-document/general-document.component';
 import { CadLoanDocumentComponent } from './cad-offerletter-profile/customer-document/cad-loan-document/cad-loan-document.component';
 import { FilterComponent } from './component/filter/filter.component';
+import { CustomerInsuranceComponent } from './cad-offerletter-profile/customer-document/cad-general-document/customer-insurance/customer-insurance.component';
+import { CadSummaryComponent } from './cad-work-flow/cad-summary/cad-summary.component';
 import { CadChecklistDocTemplateModalComponent } from './cad-offerletter-profile/cad-checklist-doc-template-modal/cad-checklist-doc-template-modal.component';
 import {MegaModule} from './cad-document-template/mega/mega.module';
 
@@ -64,7 +66,10 @@ import {MegaModule} from './cad-document-template/mega/mega.module';
         CadDocumentListComponent,
         GeneralDocumentComponent,
         CadLoanDocumentComponent,
+        CustomerInsuranceComponent,
+        CadSummaryComponent,
         CadChecklistDocTemplateModalComponent],
+
     imports: [
         ThemeModule,
         CommonModule,

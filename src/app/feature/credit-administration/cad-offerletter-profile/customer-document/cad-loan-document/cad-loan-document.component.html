@@ -26,8 +26,8 @@
                                 <div class="col-md-3 img-hover flex-wrap"
                                      *ngFor="let data of customerLoan?.customerDocument;let i =index"
                                      [nbTooltip]="data?.document?.displayName">
-                                    <a (click)="openDocument(data?.documentPath)" class="cursor"><em
-                                            [className]="setClassName"></em>
+                                    <a (click)="service.openDocument(data?.documentPath)" class="cursor"><em
+                                            [className]="service.SET_CLASS_NAME"></em>
                                         <span class="mx-1"> {{data?.document?.displayName.length > 15 ?
                                             data?.document?.displayName?.substring(0, 12) + '..' :
                                             data?.document?.displayName}}</span></a>

@@ -26,13 +26,13 @@
             <tbody>
             <ng-container *ngFor="let model of loanList;let i=index">
                 <tr class="cursor">
-                    <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-                    <td>{{model?.loanHolder?.branch?.name}}</td>
-                    <td>{{model?.loanHolder?.name}}</td>
-                    <td>{{model?.loanHolder?.customerType}}</td>
-                    <td>{{model?.docStatus | replace:'_':' '}}</td>
-                    <td>{{model?.cadCurrentStage?.toUser?.name}}</td>
-                    <td>{{model?.assignedLoan?.length}}</td>
+                    <td  [routerLink]="['/home/credit/cad-summary/',encryptUrlArray[i].url]">{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                    <td [routerLink]="['/home/credit/cad-summary/',encryptUrlArray[i].url]">{{model?.loanHolder?.branch?.name}}</td>
+                    <td [routerLink]="['/home/credit/cad-summary/',encryptUrlArray[i].url]">{{model?.loanHolder?.name}}</td>
+                    <td [routerLink]="['/home/credit/cad-summary/',encryptUrlArray[i].url]">{{model?.loanHolder?.customerType}}</td>
+                    <td [routerLink]="['/home/credit/cad-summary/',encryptUrlArray[i].url]">{{model?.docStatus | replace:'_':' '}}</td>
+                    <td [routerLink]="['/home/credit/cad-summary/',encryptUrlArray[i].url]">{{model?.cadCurrentStage?.toUser?.name}}</td>
+                    <td [routerLink]="['/home/credit/cad-summary/',encryptUrlArray[i].url]">{{model?.assignedLoan?.length}}</td>
                     <td>
                         <a class="px-2 cursor"
                            (click)="model?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
