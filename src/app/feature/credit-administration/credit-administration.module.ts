@@ -35,6 +35,8 @@ import { CadLoanDocumentComponent } from './cad-offerletter-profile/customer-doc
 import { FilterComponent } from './component/filter/filter.component';
 import { CustomerInsuranceComponent } from './cad-offerletter-profile/customer-document/cad-general-document/customer-insurance/customer-insurance.component';
 import { CadSummaryComponent } from './cad-work-flow/cad-summary/cad-summary.component';
+import { CadChecklistDocTemplateModalComponent } from './cad-offerletter-profile/cad-checklist-doc-template-modal/cad-checklist-doc-template-modal.component';
+import {MegaModule} from './cad-document-template/mega/mega.module';
 
 
 @NgModule({
@@ -65,7 +67,9 @@ import { CadSummaryComponent } from './cad-work-flow/cad-summary/cad-summary.com
         GeneralDocumentComponent,
         CadLoanDocumentComponent,
         CustomerInsuranceComponent,
-        CadSummaryComponent],
+        CadSummaryComponent,
+        CadChecklistDocTemplateModalComponent],
+
     imports: [
         ThemeModule,
         CommonModule,
@@ -74,9 +78,10 @@ import { CadSummaryComponent } from './cad-work-flow/cad-summary/cad-summary.com
         CadDocumentTemplateModule,
         RouterModule.forChild(routes),
         NgSelectModule,
-        CoreModule
+        CoreModule,
+        MegaModule,
     ],
-    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent , CadOfferLetterModalComponent, ExposureComponent]
+    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent , CadOfferLetterModalComponent , ExposureComponent, CadChecklistDocTemplateModalComponent]
 })
 export class CreditAdministrationModule {
 }

@@ -1,8 +1,9 @@
 import {BaseEntity} from '../../../@core/model/base-entity';
+import {Document} from '../../admin/modal/document';
 
 export class CadFile extends BaseEntity {
     customerLoanId: number;
-    document: Document;
+    cadDocument: Document;
     path: string;
     initialInformation: string;
     supportedInformation: string;
