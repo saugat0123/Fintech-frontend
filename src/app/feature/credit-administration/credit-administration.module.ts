@@ -19,20 +19,21 @@ import {OfferLetterListComponent} from './component/offer-letter/offer-letter-li
 import {CadOfferLetterProfileComponent} from './cad-offerletter-profile/cad-offerletter-profile.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {DocumentChecklistComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/document-checklist/document-checklist.component';
-import { FeesCommissionComponent } from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/fees-commission/fees-commission.component';
+import {FeesCommissionComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/fees-commission/fees-commission.component';
 import {CoreModule} from '../../@core/core.module';
-import { CadOfferLetterModalComponent } from './cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
-import { CommentComponent } from './comment/comment.component';
-import { OfferLetterDocumentUploadComponent } from './cad-offerletter-profile/offer-letter-document-upload/offer-letter-document-upload.component';
-import { OfferLetterApprovedComponent } from './component/offer-letter/offer-letter-approved/offer-letter-approved.component';
-import { LegalReviewPendingComponent } from './component/legal/legal-review-pending/legal-review-pending.component';
-import { LegalReviewApprovedComponent } from './component/legal/legal-review-approved/legal-review-approved.component';
-import { DisbursementApprovedComponent } from './component/disbursement/disbursement-approved/disbursement-approved.component';
-import { DisbursementPendingComponent } from './component/disbursement/disbursement-pending/disbursement-pending.component';
-import { CadDocumentListComponent } from './component/cad-document-list/cad-document-list.component';
-import { GeneralDocumentComponent } from './cad-offerletter-profile/customer-document/cad-general-document/general-document.component';
-import { CadLoanDocumentComponent } from './cad-offerletter-profile/customer-document/cad-loan-document/cad-loan-document.component';
-import { FilterComponent } from './component/filter/filter.component';
+import {CadOfferLetterModalComponent} from './cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
+import {CommentComponent} from './comment/comment.component';
+import {OfferLetterDocumentUploadComponent} from './cad-offerletter-profile/offer-letter-document-upload/offer-letter-document-upload.component';
+import {OfferLetterApprovedComponent} from './component/offer-letter/offer-letter-approved/offer-letter-approved.component';
+import {LegalReviewPendingComponent} from './component/legal/legal-review-pending/legal-review-pending.component';
+import {LegalReviewApprovedComponent} from './component/legal/legal-review-approved/legal-review-approved.component';
+import {DisbursementApprovedComponent} from './component/disbursement/disbursement-approved/disbursement-approved.component';
+import {DisbursementPendingComponent} from './component/disbursement/disbursement-pending/disbursement-pending.component';
+import {CadDocumentListComponent} from './component/cad-document-list/cad-document-list.component';
+import {GeneralDocumentComponent} from './cad-offerletter-profile/customer-document/cad-general-document/general-document.component';
+import {CadLoanDocumentComponent} from './cad-offerletter-profile/customer-document/cad-loan-document/cad-loan-document.component';
+import {FilterComponent} from './component/filter/filter.component';
+import {CustomOfferLetterDocumentComponent} from './cad-offerletter-profile/cad-offer-letter-modal/custom-offer-letter-document/custom-offer-letter-document.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { FilterComponent } from './component/filter/filter.component';
         FilterComponent,
         CadDocumentListComponent,
         GeneralDocumentComponent,
-        CadLoanDocumentComponent],
+        CadLoanDocumentComponent,
+        CustomOfferLetterDocumentComponent],
     imports: [
         ThemeModule,
         CommonModule,
@@ -72,7 +74,12 @@ import { FilterComponent } from './component/filter/filter.component';
         NgSelectModule,
         CoreModule
     ],
-    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent , CadOfferLetterModalComponent,ExposureComponent]
+    entryComponents: [AssignPopUpComponent,
+        VerifyPopUpComponent,
+        CadOfferLetterModalComponent,
+        ExposureComponent,
+        CustomOfferLetterDocumentComponent
+    ]
 })
 export class CreditAdministrationModule {
 }
