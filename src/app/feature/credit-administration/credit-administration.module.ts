@@ -40,6 +40,7 @@ import {MegaModule} from './cad-document-template/mega/mega.module';
 import {ProfileViewComponent} from './cad-view/profile-view/profile-view.component';
 import {ExposureViewComponent} from './cad-view/exposure-view/exposure-view.component';
 import { FeesCommissionsViewComponent } from './cad-view/fees-commissions-view/fees-commissions-view.component';
+import { DocumentChecklistViewComponent } from './cad-view/document-checklist-view/document-checklist-view.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { FeesCommissionsViewComponent } from './cad-view/fees-commissions-view/f
         CadChecklistDocTemplateModalComponent,
         ProfileViewComponent,
         ExposureViewComponent,
-        FeesCommissionsViewComponent],
+        FeesCommissionsViewComponent,
+        DocumentChecklistViewComponent],
 
     imports: [
         ThemeModule,

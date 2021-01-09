@@ -5,6 +5,8 @@ import {Pageable} from '../../../../../@core/service/baseservice/common-pageable
 import {LoanType} from '../../../../loan/model/loanType';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Router} from '@angular/router';
+import {RouterUtilsService} from '../../../utils/router-utils.service';
+import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-offer-letter-list',
@@ -20,9 +22,11 @@ export class OfferLetterListComponent implements OnInit {
     pageable: Pageable = new Pageable();
     loanList = [];
     loanType = LoanType;
+    currentUserLocalStorage = LocalStorageUtil.getStorage().userId;
 
     constructor(private service: CreditAdministrationService,
                 private router: Router,
+                private routeService: RouterUtilsService,
                 private spinnerService: NgxSpinnerService) {
     }
 
@@ -49,14 +53,7 @@ export class OfferLetterListComponent implements OnInit {
     }
 
     loadProfile(cadDocumentId, model) {
-        this.router.navigate(['/home/credit/offer-letter-profile'],
-            {
-                state: {data: model},
-                queryParams: {
-                    cadDocumentId: cadDocumentId,
-                },
-
-            });
+        this.routeService.routeOnConditionProfileOrSummary(cadDocumentId, model);
     }
 
 

@@ -1,5 +1,12 @@
-<nb-card accent="primary" [nbSpinner]="spinner">
+<nb-card accent="primary"
+         class="m-0"
+         nbSpinnerMessage="Loading data please wait....."
+         nbSpinnerSize="giant"
+         nbSpinnerStatus="primary"
+         [nbSpinner]="spinner">
     <nb-card-header>
+        <strong>{{cadOfferLetterApprovedDoc?.docStatus | replace:'_':' '}}</strong>
+
     </nb-card-header>
     <nb-card-body>
         <nb-tabset>
@@ -17,6 +24,10 @@
                 <app-fees-commissions-view [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                                    *ngIf="cadOfferLetterApprovedDoc"></app-fees-commissions-view>
             </nb-tab>
+            <nb-tab tabTitle="Document Checklist">
+         <app-document-checklist-view [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                      *ngIf="cadOfferLetterApprovedDoc"></app-document-checklist-view>
+           </nb-tab>
         </nb-tabset>
     </nb-card-body>
 
