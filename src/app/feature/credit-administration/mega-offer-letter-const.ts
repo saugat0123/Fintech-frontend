@@ -7,7 +7,8 @@ export enum MegaOfferLetterConst {
     HAYER_PURCHASE,
     SME,
     RETAIL_MORTGAGE_LOAN,
-    RETAIL_EDUCATIONAL_ENGLISH
+    RETAIL_EDUCATIONAL_ENGLISH,
+    CUSTOM
 }
 
 export namespace MegaOfferLetterConst {

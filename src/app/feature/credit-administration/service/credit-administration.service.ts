@@ -64,4 +64,11 @@ export class CreditAdministrationService extends BaseService<any> {
         const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/cadCheckListDocUpload`);
         return this.http.post(req.url, formData, {headers: req.header});
     }
+    public getOfferDocumentByDocName(docName: string): Observable<any> {
+        const api = `${this.getApi()}/offer-doc-name?docName=${docName}`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.get(req.url, {headers: req.header});
+    }
+
 }
