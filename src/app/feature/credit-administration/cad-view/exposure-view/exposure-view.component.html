@@ -1,0 +1,69 @@
+<div class="col-md-12">
+    <strong> Current Disbursement</strong>
+</div>
+<table class="table table-bordered table-hover table-sm sb-small text-center ">
+    <thead>
+    <tr class="text-white sb-bg-dark">
+        <th>S.N</th>
+        <th>Facility</th>
+        <th>Limit</th>
+        <th>Disbursement</th>
+        <th>Init Rate</th>
+        <th>Maturity</th>
+        <th>Frequency</th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let ex of disbursementDetails;let i=index">
+        <td>{{i + 1}}</td>
+        <td>{{ex?.loanName}}</td>
+        <td>{{ex?.loanLimit}}</td>
+        <td>{{ex?.disbursement}}</td>
+        <td>{{ex?.initialRate}}</td>
+        <td>{{ex?.maturity}}</td>
+        <td>{{ex?.frequency}}</td>
+
+    </tr>
+    </tbody>
+</table>
+<div class="col-md-12" *ngIf="disbursementDetailsHistory.length > 0">
+    <strong> Disbursement History</strong>
+    <table class="table table-bordered table-hover table-sm sb-small text-center ">
+        <thead>
+        <tr class="text-white sb-bg-dark">
+            <th>S.N</th>
+            <th>Facility</th>
+            <th>Limit</th>
+            <th>Disbursement</th>
+            <th>Init Rate</th>
+            <th>Maturity</th>
+            <th>Frequency</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let history of disbursementDetailsHistory;let j=index">
+
+            <tr class="sb-bg-dark text-white">
+                <td colspan="7">{{j + 1}}. Disbursement</td>
+            </tr>
+            <ng-container>
+
+                <tr *ngFor="let inn of history;let k =index">
+                    <td>{{k + 1}}</td>
+                    <td>{{inn?.loanName}}</td>
+                    <td>{{inn?.loanLimit}}</td>
+                    <td>{{inn?.disbursement}}</td>
+                    <td>{{inn?.initialRate}}</td>
+                    <td>{{inn?.maturity}}</td>
+                    <td>{{inn?.frequency}}</td>
+                </tr>
+            </ng-container>
+        </ng-container>
+        </tbody>
+    </table>
+</div>
+
