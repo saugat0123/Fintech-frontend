@@ -5,7 +5,6 @@ import {LoanType} from '../../../../loan/model/loanType';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {RouterUtilsService} from '../../../utils/router-utils.service';
 
 @Component({
     selector: 'app-offer-letter-approved',
@@ -25,7 +24,6 @@ export class OfferLetterApprovedComponent implements OnInit {
 
     constructor(private service: CreditAdministrationService,
                 private router: Router,
-                private routeService: RouterUtilsService,
                 private spinnerService: NgxSpinnerService) {
     }
 
@@ -51,8 +49,13 @@ export class OfferLetterApprovedComponent implements OnInit {
         OfferLetterApprovedComponent.loadData(this);
     }
 
-    loadProfile(cadDocumentId, model) {
-        this.routeService.routeOnConditionProfileOrSummary(cadDocumentId, model);
+    loadProfile(cadDocumentId) {
+        this.router.navigate(['/home/credit/offer-letter-profile'],
+            {
+                queryParams: {
+                    cadDocumentId: cadDocumentId,
+                }
+            });
     }
 
 

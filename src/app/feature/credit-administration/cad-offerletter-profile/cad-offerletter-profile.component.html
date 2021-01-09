@@ -55,7 +55,12 @@
                         </nb-card-body>
                     </nb-card>
                     <nb-card>
-                        <nb-card-header>Offer Letter Documents</nb-card-header>
+                        <nb-card-header>
+                            <span class="float-right"><button (click)="openCustomOfferLetterDocumentModal(null)" nbButton outline
+                                                              size="tiny"><a
+                                    class="fa fa-plus"></a></button></span>
+                            Offer Letter Documents
+                        </nb-card-header>
                         <nb-card-body>
                             <table class="table table-bordered table-hover table-sm sb-small text-center">
                                 <thead>
@@ -104,6 +109,8 @@
                                            title="upload {{cusOfferLetter.docName}}">
                                             <i class="fa fa-upload cursor"></i>
                                         </a>
+                                        <a *ngIf="cusOfferLetter?.offerDocType?.toString() === 'CUSTOM'"
+                                           class="fa fa-edit cursor ml-1" (click)="openCustomOfferLetterDocumentModal(cusOfferLetter.id)"></a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -183,7 +190,7 @@
                                         <tbody>
                                         <ng-container
                                                 *ngFor="let model of cadOfferLetterApprovedDoc?.assignedLoan;let i=index">
-                                            <tr>
+                                            <tr >
                                                 <td><a target="_blank" [routerLink]="['/home/loan/summary']"
                                                        [queryParams]="{loanConfigId: model?.loan?.id,
                                                                                      customerId: model?.id,
@@ -194,8 +201,7 @@
                                                     <a target="_blank" [routerLink]="['/home/loan/summary']"
                                                        [queryParams]="{loanConfigId: model?.loan?.id,
                                                                                      customerId: model?.id,
-                                                                                     catalogue: true}"
-                                                       nbTooltip="click to view Loan Summary ">
+                                                                                     catalogue: true}" nbTooltip="click to view Loan Summary " >
 
                                                         {{model?.loan?.name}}</a>
                                                 </td>
@@ -310,8 +316,6 @@
                                     </table>
                                     <app-cad-loan-document [cadData]="cadOfferLetterApprovedDoc"
                                                            *ngIf="cadOfferLetterApprovedDoc"></app-cad-loan-document>
-                                    <app-general-document [cadData]="cadOfferLetterApprovedDoc"
-                                                          *ngIf="cadOfferLetterApprovedDoc"></app-general-document>
                                 </div>
                             </div>
                         </div>

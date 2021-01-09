@@ -65,7 +65,6 @@ export class ExposureComponent implements OnInit {
     addDisbursementDetail() {
         this.cadData.assignedLoan.forEach(value => {
             this.disbursementDetails.push(this.formBuilder.group({
-                customerLoanId: [value.id],
                 loanName: [value.loan.name],
                 loanLimit: [value.proposal.proposedLimit, Validators.required],
                 disbursement: [undefined, Validators.required],
@@ -82,7 +81,6 @@ export class ExposureComponent implements OnInit {
             data = JSON.parse(this.cadData.exposure.data).disbursementDetails;
             data.forEach(value => {
                 this.disbursementDetails.push(this.formBuilder.group({
-                    customerLoanId: [ObjectUtil.isEmpty(value.id) ? null : value.id],
                     loanName: [value.loanName],
                     loanLimit: [value.loanLimit, Validators.required],
                     disbursement: [value.disbursement, Validators.required],

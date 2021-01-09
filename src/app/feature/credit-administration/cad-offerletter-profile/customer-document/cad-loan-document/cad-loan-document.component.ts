@@ -3,7 +3,6 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerAppro
 import {LoanDataHolder} from '../../../../loan/model/loanData';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
-import {CommonService} from '../../../../../@core/service/common.service';
 
 @Component({
     selector: 'app-cad-loan-document',
@@ -15,7 +14,7 @@ export class CadLoanDocumentComponent implements OnInit {
     customerLoanList: Array<LoanDataHolder>;
     setClassName = 'far fa-file-pdf fa-1x text-danger';
 
-    constructor(public service: CommonService) {
+    constructor() {
     }
 
     ngOnInit() {

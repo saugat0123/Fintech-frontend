@@ -33,14 +33,7 @@ import {CadDocumentListComponent} from './component/cad-document-list/cad-docume
 import {GeneralDocumentComponent} from './cad-offerletter-profile/customer-document/cad-general-document/general-document.component';
 import {CadLoanDocumentComponent} from './cad-offerletter-profile/customer-document/cad-loan-document/cad-loan-document.component';
 import {FilterComponent} from './component/filter/filter.component';
-import {CustomerInsuranceComponent} from './cad-offerletter-profile/customer-document/cad-general-document/customer-insurance/customer-insurance.component';
-import {CadSummaryComponent} from './cad-work-flow/cad-summary/cad-summary.component';
-import {CadChecklistDocTemplateModalComponent} from './cad-offerletter-profile/cad-checklist-doc-template-modal/cad-checklist-doc-template-modal.component';
-import {MegaModule} from './cad-document-template/mega/mega.module';
-import {ProfileViewComponent} from './cad-view/profile-view/profile-view.component';
-import {ExposureViewComponent} from './cad-view/exposure-view/exposure-view.component';
-import { FeesCommissionsViewComponent } from './cad-view/fees-commissions-view/fees-commissions-view.component';
-import { DocumentChecklistViewComponent } from './cad-view/document-checklist-view/document-checklist-view.component';
+import {CustomOfferLetterDocumentComponent} from './cad-offerletter-profile/cad-offer-letter-modal/custom-offer-letter-document/custom-offer-letter-document.component';
 
 
 @NgModule({
@@ -70,14 +63,7 @@ import { DocumentChecklistViewComponent } from './cad-view/document-checklist-vi
         CadDocumentListComponent,
         GeneralDocumentComponent,
         CadLoanDocumentComponent,
-        CustomerInsuranceComponent,
-        CadSummaryComponent,
-        CadChecklistDocTemplateModalComponent,
-        ProfileViewComponent,
-        ExposureViewComponent,
-        FeesCommissionsViewComponent,
-        DocumentChecklistViewComponent],
-
+        CustomOfferLetterDocumentComponent],
     imports: [
         ThemeModule,
         CommonModule,
@@ -86,10 +72,14 @@ import { DocumentChecklistViewComponent } from './cad-view/document-checklist-vi
         CadDocumentTemplateModule,
         RouterModule.forChild(routes),
         NgSelectModule,
-        CoreModule,
-        MegaModule,
+        CoreModule
     ],
-    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent, CadOfferLetterModalComponent, ExposureComponent, CadChecklistDocTemplateModalComponent]
+    entryComponents: [AssignPopUpComponent,
+        VerifyPopUpComponent,
+        CadOfferLetterModalComponent,
+        ExposureComponent,
+        CustomOfferLetterDocumentComponent
+    ]
 })
 export class CreditAdministrationModule {
 }

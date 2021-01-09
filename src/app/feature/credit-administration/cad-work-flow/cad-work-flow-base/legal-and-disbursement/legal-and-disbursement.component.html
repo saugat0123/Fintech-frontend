@@ -8,7 +8,6 @@
         <app-cad-action [cadId]="cadOfferLetterApprovedDoc?.id"
                         [selectedBranchId]="cadOfferLetterApprovedDoc?.loanHolder?.branch?.id"
                         [currentStatus]="cadOfferLetterApprovedDoc?.docStatus"
-                        [currentCADStage]="cadOfferLetterApprovedDoc?.cadCurrentStage"
                         *ngIf="showHideAction && cadOfferLetterApprovedDoc"></app-cad-action>
     </nb-card-header>
     <nb-card-body>

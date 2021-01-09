@@ -5,7 +5,6 @@ import {Router} from '@angular/router';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {LoanType} from '../../../../loan/model/loanType';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
-import {RouterUtilsService} from '../../../utils/router-utils.service';
 
 @Component({
   selector: 'app-disbursement-pending',
@@ -25,7 +24,6 @@ export class DisbursementPendingComponent implements OnInit {
 
   constructor(private service: CreditAdministrationService,
               private router: Router,
-              private routeService: RouterUtilsService,
               private spinnerService: NgxSpinnerService) {
   }
 
@@ -51,8 +49,13 @@ export class DisbursementPendingComponent implements OnInit {
     DisbursementPendingComponent.loadData(this);
   }
 
-  loadProfile(cadDocumentId, model) {
-    this.routeService.routeOnConditionProfileOrSummary(cadDocumentId, model);
+  loadProfile(cadDocumentId) {
+    this.router.navigate(['/home/credit/offer-letter-profile'],
+        {
+          queryParams: {
+            cadDocumentId: cadDocumentId,
+          }
+        });
   }
 
   setSearchValue(value) {

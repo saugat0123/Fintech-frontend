@@ -1,5 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-loan-deed-company',
@@ -9,9 +8,7 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerAppro
 export class LoanDeedCompanyComponent implements OnInit {
 
   constructor() { }
-  @Input() cadData: CustomerApprovedLoanCadDocumentation;
-  @Input() documentId: number;
-  @Input() customerLoanId: number;
+
   ngOnInit() {
   }
 

@@ -17,8 +17,6 @@ import {CustomerOfferLetter} from '../../../../loan/model/customer-offer-letter'
 import {ApprovalRoleHierarchyService} from '../../../../loan/approval/approval-role-hierarchy.service';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
-import {CadStage} from '../../../model/cadStage';
-import {RoleType} from '../../../../admin/modal/roleType';
 
 @Component({
     selector: 'app-cad-action',
@@ -36,9 +34,6 @@ export class CadActionComponent implements OnInit {
     @Input()
     currentStatus: any;
 
-    @Input()
-    currentCADStage: CadStage;
-
     popUpTitle: string;
     currentUserRoleType = false;
 
@@ -53,8 +48,6 @@ export class CadActionComponent implements OnInit {
     isForwardDisabled = false;
     isApprovedDisabled = false;
     approvedLabel = 'APPROVED';
-    backwardToolTip = 'return to previous user';
-    roleType = RoleType;
 
     private securityUrl = ApiConfig.TOKEN;
     private headers = new HttpHeaders({
@@ -67,7 +60,6 @@ export class CadActionComponent implements OnInit {
     sendForwardBackwardList = [];
     roleId;
     isMaker = false;
-    showHideReturnToRm = true;
 
     constructor(private router: ActivatedRoute,
                 private route: Router,
@@ -93,7 +85,6 @@ export class CadActionComponent implements OnInit {
         } else {
             this.getNewDocStatusOnApprove();
         }
-        this.backwardTooltipMessageAndShowHideBackward();
 
     }
 
@@ -259,21 +250,6 @@ export class CadActionComponent implements OnInit {
             return this.currentStatus;
         }
 
-    }
-
-
-    public backwardTooltipMessageAndShowHideBackward() {
-        const user = this.currentCADStage.fromUser.name + ' (' + this.currentCADStage.fromRole.roleName + ')';
-        // tslint:disable-next-line:max-line-length
-        if ((this.currentCADStage.fromRole.roleType === this.roleType.CAD_ADMIN) || (this.currentCADStage.fromRole.roleType === this.roleType.CAD_SUPERVISOR)) {
-            this.isBackwardDisabled = true;
-
-        } else {
-            this.backwardToolTip = 'return file to ' + user;
-        }
-        if (this.currentCADStage.fromRole.roleType === this.roleType.MAKER) {
-            this.showHideReturnToRm = false;
-        }
     }
 
 }

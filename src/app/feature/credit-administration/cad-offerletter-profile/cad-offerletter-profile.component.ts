@@ -12,6 +12,7 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {RouterUtilsService} from '../utils/router-utils.service';
+import {CustomOfferLetterDocumentComponent} from './cad-offer-letter-modal/custom-offer-letter-document/custom-offer-letter-document.component';
 
 @Component({
     selector: 'app-cad-offerletter-profile',
@@ -51,7 +52,6 @@ export class CadOfferLetterProfileComponent implements OnInit {
 
     ngOnInit() {
         this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
-        console.log(this.cadOfferLetterApprovedDoc.assignedLoan,'sd');
         this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
     }
 
@@ -63,6 +63,13 @@ export class CadOfferLetterProfileComponent implements OnInit {
         const cadOfferLetterApprovedDoc = this.cadOfferLetterApprovedDoc;
         this.nbDialogService.open(CadOfferLetterModalComponent, {
             context: {offerLetterType, cadOfferLetterApprovedDoc}
+        });
+    }
+
+    openCustomOfferLetterDocumentModal(editId) {
+        const cadOfferLetterApprovedDoc = this.cadOfferLetterApprovedDoc;
+        this.nbDialogService.open(CustomOfferLetterDocumentComponent, {
+            context: {editId, cadOfferLetterApprovedDoc}
         });
     }
 

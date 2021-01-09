@@ -2,11 +2,11 @@
     <nb-card-header>
         <div class="clearfix">
             <div class="float-left">
-                <button nbButton size="small" status="primary" [nbTooltip]="backwardToolTip"
-                      [disabled]="isBackwardDisabled"  (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD',false)">RETURN
+                <button nbButton size="small" status="primary" nbTooltip="return to previous user"
+                        (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD',false)">RETURN
                 </button>
                 <button nbButton size="small" outline status="success" shape="rectangle"
-                        *ngIf="!isMaker && showHideReturnToRm" (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD',true)">RETURN TO
+                        *ngIf="!isMaker" (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD',true)">RETURN TO
                     RM
                 </button>
             </div>
