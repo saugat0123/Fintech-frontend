@@ -45,7 +45,6 @@ export class CustomOfferLetterDocumentComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.editId);
     if (!ObjectUtil.isEmpty(this.editId)) {
       this.isEdit = true;
       this.currentDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.id === Number(this.editId))[0];
@@ -54,9 +53,7 @@ export class CustomOfferLetterDocumentComponent implements OnInit {
   }
 
   save() {
-    console.log(this.docName, this.editId);
     const d = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString() === this.docName)[0];
-    console.log(d);
     if (!ObjectUtil.isEmpty(this.offerLetterConst.keysEnum(this.docName.toUpperCase()))) {
       this.toastService.show(new Alert(AlertType.DANGER, 'Provided Name is not available !!'));
       return;
