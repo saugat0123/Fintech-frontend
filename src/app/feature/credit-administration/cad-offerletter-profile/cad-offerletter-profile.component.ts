@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CreditAdministrationService} from '../service/credit-administration.service';
 import {MegaOfferLetterConst} from '../mega-offer-letter-const';
@@ -20,7 +20,7 @@ import {UpdateCustomerCadInfoComponent} from './update-customer-cad-info/update-
     templateUrl: './cad-offerletter-profile.component.html',
     styleUrls: ['./cad-offerletter-profile.component.scss']
 })
-export class CadOfferLetterProfileComponent implements OnInit {
+export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     /*todo get data from input and remove fetch here*/
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
@@ -54,6 +54,10 @@ export class CadOfferLetterProfileComponent implements OnInit {
     toggleArray: { toggled: boolean }[] = [];
 
     ngOnInit() {
+        this.initial();
+    }
+
+    initial() {
         this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
         console.log(this.cadOfferLetterApprovedDoc.assignedLoan, 'sd');
         this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
@@ -145,8 +149,15 @@ export class CadOfferLetterProfileComponent implements OnInit {
             closeOnBackdropClick: false
         }).onClose.subscribe((res: any) => {
             console.log('update', res);
-            this.responseCadData.emit(res);
+            if (!ObjectUtil.isEmpty(res)) {
+                this.responseCadData.emit(res);
+            }
+
         });
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.initial();
     }
 
 }

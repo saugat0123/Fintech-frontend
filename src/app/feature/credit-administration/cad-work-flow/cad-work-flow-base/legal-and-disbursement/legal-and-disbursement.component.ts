@@ -69,9 +69,13 @@ export class LegalAndDisbursementComponent implements OnInit {
 
     newCadData(event: CustomerApprovedLoanCadDocumentation) {
         this.cadOfferLetterApprovedDoc = event;
-        this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
-        if (this.currentUserLocalStorage.toString() === this.cadOfferLetterApprovedDoc.cadCurrentStage.toUser.id.toString()) {
-            this.showHideAction = true;
+        if (ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+            LegalAndDisbursementComponent.loadData(this);
+        } else {
+            this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
+            if (this.currentUserLocalStorage.toString() === this.cadOfferLetterApprovedDoc.cadCurrentStage.toUser.id.toString()) {
+                this.showHideAction = true;
+            }
         }
     }
 
