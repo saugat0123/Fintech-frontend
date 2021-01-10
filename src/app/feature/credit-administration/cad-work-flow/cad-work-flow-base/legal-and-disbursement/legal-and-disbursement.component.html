@@ -13,18 +13,23 @@
     </nb-card-header>
     <nb-card-body>
         <nb-tabset fullWidth>
-            <nb-tab tabTitle="Basic Info">
+            <nb-tab tabTitle="Basic Info" [active]="activeTab === 0">
                 <app-cad-offerletter-profile *ngIf="cadOfferLetterApprovedDoc"
-                                             [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-cad-offerletter-profile>
+                                             [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                             (responseCadData)="newCadData($event)"></app-cad-offerletter-profile>
             </nb-tab>
-            <nb-tab tabTitle="Exposure Detail">
-                <app-exposure *ngIf="cadOfferLetterApprovedDoc" [cadData]="cadOfferLetterApprovedDoc" [isHistory]="false"></app-exposure>
+            <nb-tab tabTitle="Exposure Detail" [active]="activeTab === 1">
+                <app-exposure *ngIf="cadOfferLetterApprovedDoc"
+                              [cadData]="cadOfferLetterApprovedDoc"
+                              [isHistory]="false"
+                (responseCadData)="newCadData($event)"></app-exposure>
             </nb-tab>
-            <nb-tab tabTitle="Fees And Commission">
+            <nb-tab tabTitle="Fees And Commission" [active]="activeTab === 2">
                 <app-fees-commission  *ngIf="cadOfferLetterApprovedDoc" [cadData]="cadOfferLetterApprovedDoc"></app-fees-commission>
             </nb-tab>
-            <nb-tab tabTitle="Document CheckList">
+            <nb-tab tabTitle="Document CheckList" [active]="activeTab === 3">
                 <app-document-checklist [cadData]="cadOfferLetterApprovedDoc"
+                                        (responseCadData)="newCadData($event)"
                                         *ngIf="cadOfferLetterApprovedDoc"></app-document-checklist>
             </nb-tab>
         </nb-tabset>
