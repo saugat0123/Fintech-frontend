@@ -196,6 +196,9 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
             }
         );
     }
+    public validateMinMax(): boolean {
+        return this.valuatorForm.value.maxAmount > this.valuatorForm.value.minAmount;
+    }
 
     addCustomValuatingField(tag: string) {
         return tag;
@@ -224,6 +227,12 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
         if (this.valuatorForm.invalid) {
             this.scrollToFirstInvalidControl();
             return;
+        }
+        if (!this.validateMinMax()) {
+            this.valuatorForm.get('maxAmount').setErrors({'invalid': true});
+            return;
+        } else {
+            this.valuatorForm.get('maxAmount').setErrors(null);
         }
         this.spinner = true;
         this.model = this.valuatorForm.value;
