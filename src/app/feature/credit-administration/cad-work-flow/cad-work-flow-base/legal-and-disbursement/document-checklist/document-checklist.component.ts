@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {LoanDataHolder} from '../../../../../loan/model/loanData';
@@ -15,7 +15,7 @@ import {CadChecklistDocTemplateModalComponent} from '../../../../cad-offerletter
     templateUrl: './document-checklist.component.html',
     styleUrls: ['./document-checklist.component.scss']
 })
-export class DocumentChecklistComponent implements OnInit {
+export class DocumentChecklistComponent implements OnInit, OnChanges {
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
     customerLoanList: Array<LoanDataHolder>;
     customerCadFile = [];
@@ -32,6 +32,10 @@ export class DocumentChecklistComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.initial();
+    }
+
+    initial() {
         if (!ObjectUtil.isEmpty(this.cadData)) {
             this.customerLoanList = this.cadData.assignedLoan;
 
@@ -93,5 +97,9 @@ export class DocumentChecklistComponent implements OnInit {
                 customerLoanId: loanId
             }
         });
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.initial();
     }
 }
