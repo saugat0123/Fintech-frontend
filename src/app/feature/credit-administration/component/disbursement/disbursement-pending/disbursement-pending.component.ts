@@ -21,7 +21,9 @@ export class DisbursementPendingComponent implements OnInit {
   pageable: Pageable = new Pageable();
   loanList = [];
   loanType = LoanType;
-
+  toggleArray: { toggled: boolean }[] = [];
+  encryptUrlArray: { url: string }[] = [];
+  currentIndexArray: { currentIndex: number }[] = [];
 
   constructor(private service: CreditAdministrationService,
               private router: Router,
@@ -31,8 +33,13 @@ export class DisbursementPendingComponent implements OnInit {
 
   static loadData(other: DisbursementPendingComponent) {
     other.spinner = true;
+    other.currentIndexArray = [];
+    other.toggleArray = [];
     other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, 10).subscribe((res: any) => {
       other.loanList = res.detail.content;
+      other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
+      other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: l.previousList.length}));
+
       console.log(other.loanList);
       other.pageable = PaginationUtils.getPageable(res.detail);
       other.spinner = false;
