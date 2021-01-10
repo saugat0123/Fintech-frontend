@@ -142,7 +142,7 @@ export class CadActionComponent implements OnInit {
             this.onClose();
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
-            this.routerUtilsService.reloadCadProfileRoute(this.cadId);
+            this.routerUtilsService.routeSummaryAndEncryptPathID(this.cadId);
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
 
