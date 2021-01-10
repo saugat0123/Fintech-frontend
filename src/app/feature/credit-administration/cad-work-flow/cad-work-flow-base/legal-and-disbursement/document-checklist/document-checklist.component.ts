@@ -25,7 +25,7 @@ export class DocumentChecklistComponent implements OnInit {
 
     constructor(private creditAdministrationService: CreditAdministrationService,
                 private toastService: ToastService,
-                private nbDialogService: NbDialogService ,
+                private nbDialogService: NbDialogService,
                 private routerUtilsService: RouterUtilsService) {
     }
 
@@ -65,13 +65,12 @@ export class DocumentChecklistComponent implements OnInit {
 
         this.creditAdministrationService.uploadCreditCheckList(formData).subscribe((res: any) => {
                 this.spinner = false;
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved ' + documentName));
-                this.routerUtilsService.reloadCadProfileRouteWithActiveTab(this.cadData.id,3);
-        }, error => {
-            this.spinner = false;
-            this.toastService.show(new Alert(AlertType.ERROR, error));
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved ' + documentName));
+                this.routerUtilsService.reloadCadProfileRouteWithActiveTab(this.cadData.id, 3);
+            }, error => {
+                this.spinner = false;
+                this.toastService.show(new Alert(AlertType.ERROR, error));
             }
-
         );
 
     }
@@ -85,7 +84,8 @@ export class DocumentChecklistComponent implements OnInit {
     }
 
     populateCadTemplate(documentId, loanId) {
-        this.nbDialogService.open(CadChecklistDocTemplateModalComponent, { context: {
+        this.nbDialogService.open(CadChecklistDocTemplateModalComponent, {
+            context: {
                 documentId: documentId,
                 cadData: this.cadData,
                 customerLoanId: loanId
