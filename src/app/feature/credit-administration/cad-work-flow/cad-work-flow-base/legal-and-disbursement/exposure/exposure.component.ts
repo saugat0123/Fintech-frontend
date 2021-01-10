@@ -10,6 +10,7 @@ import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {Exposure} from '../../../../model/Exposure';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-exposure',
@@ -106,7 +107,15 @@ export class ExposureComponent implements OnInit {
                 if (!ObjectUtil.isEmpty(this.cadData.exposure.historyData)) {
                     historyData = JSON.parse(this.cadData.exposure.historyData);
                 }
-                historyData.push(this.exposureForm.get('disbursementDetails').value);
+                const tempDisbursementArray = [];
+                const storage = LocalStorageUtil.getStorage();
+                JSON.parse(this.cadData.exposure.data).disbursementDetails.forEach(d => {
+                    d.approveBy = storage.username;
+                    d.approveByrole  = storage.roleName;
+                    d.approvedOn  = new Date();
+                    tempDisbursementArray.push(d);
+                });
+                historyData.push(tempDisbursementArray);
                 exposure.historyData = JSON.stringify(historyData);
                 this.cadData.docStatus = CadDocStatus.DISBURSEMENT_PENDING;
             }
