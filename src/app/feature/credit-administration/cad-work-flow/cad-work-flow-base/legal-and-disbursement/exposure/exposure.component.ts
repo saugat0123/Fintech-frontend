@@ -123,7 +123,7 @@ export class ExposureComponent implements OnInit {
         this.cadData.exposure = exposure;
         this.service.saveCadDocumentBulk(this.cadData).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Exposure data!!!'));
-            this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
+            this.routerUtilsService.reloadCadProfileRouteWithActiveTab(this.cadData.id,1);
             this.spinner = false;
             this.close();
         }, error => {

@@ -21,6 +21,7 @@ export class DocumentChecklistComponent implements OnInit {
     customerCadFile = [];
 
     uploadFile;
+    spinner = false;
 
     constructor(private creditAdministrationService: CreditAdministrationService,
                 private toastService: ToastService,
@@ -52,6 +53,7 @@ export class DocumentChecklistComponent implements OnInit {
     }
 
     save(loanHolderId, customerLoanId, documentId, documentName) {
+        this.spinner = true;
         const formData: FormData = new FormData();
         formData.append('file', this.uploadFile);
         formData.append('customerInfoId', loanHolderId);
@@ -62,9 +64,11 @@ export class DocumentChecklistComponent implements OnInit {
         formData.append('documentName', documentName);
 
         this.creditAdministrationService.uploadCreditCheckList(formData).subscribe((res: any) => {
+                this.spinner = false;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved ' + documentName));
-                this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
+                this.routerUtilsService.reloadCadProfileRouteWithActiveTab(this.cadData.id,3);
         }, error => {
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, error));
             }
 

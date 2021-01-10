@@ -22,6 +22,7 @@ export class LegalAndDisbursementComponent implements OnInit {
     spinner = false;
     currentUserLocalStorage = LocalStorageUtil.getStorage().userId;
     showHideAction = false;
+    activeTab = 0;
 
     constructor(private activatedRoute: ActivatedRoute,
                 private service: CreditAdministrationService,
@@ -59,6 +60,9 @@ export class LegalAndDisbursementComponent implements OnInit {
             }
         } else {
             LegalAndDisbursementComponent.loadData(this);
+        }
+        if (!ObjectUtil.isEmpty(history.state.tabId)) {
+            this.activeTab = history.state.tabId;
         }
 
     }
