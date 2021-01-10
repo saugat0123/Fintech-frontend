@@ -97,7 +97,7 @@ export class EditSwotComponent implements OnInit {
     this.companyInfoFormGroup = this.formBuilder.group({
 
       // swot
-      id: [ObjectUtil.setUndefinedIfNull(this.companyInfo.swot.id)],
+
       strength: [(ObjectUtil.isEmpty(this.companyInfo)
           || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.strength, Validators.required],
 
@@ -109,7 +109,7 @@ export class EditSwotComponent implements OnInit {
 
       threats: [(ObjectUtil.isEmpty(this.companyInfo)
           || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.threats, Validators.required],
-      version: [ObjectUtil.setUndefinedIfNull(this.companyInfo.swot.version)]
+
     });
   }
   getCompanyInfo(companyInfoId) {
@@ -191,12 +191,11 @@ export class EditSwotComponent implements OnInit {
     this.spinner = true;
 
     // swot
-    this.swot.id = this.companyInfoFormGroup.get('id').value;
+
     this.swot.strength = this.companyInfoFormGroup.get('strength').value;
     this.swot.weakness = this.companyInfoFormGroup.get('weakness').value;
     this.swot.opportunity = this.companyInfoFormGroup.get('opportunity').value;
     this.swot.threats = this.companyInfoFormGroup.get('threats').value;
-    this.swot.version = this.companyInfoFormGroup.get('version').value;
     this.companyInfo.swot = this.swot;
 
     this.companyInfoService.save(this.companyInfo).subscribe((response: any) => {
