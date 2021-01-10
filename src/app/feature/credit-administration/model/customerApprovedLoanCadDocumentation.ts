@@ -19,6 +19,7 @@ export class CustomerApprovedLoanCadDocumentation extends BaseEntity {
     docStatus: CadDocStatus;
     feesAndCommission: string;
     exposure: Exposure;
+    data: any;
 
 
 }
