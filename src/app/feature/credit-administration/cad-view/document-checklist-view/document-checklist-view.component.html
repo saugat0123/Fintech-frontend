@@ -29,8 +29,8 @@
                     <td class="text-left px-2">{{data?.name}}</td>
 
                     <td>{{data.containsTemplate | booleanConvert}}</td>
-                    <td><i *ngIf="data.url" class="fas fa-eye" (click)="previewDoc(data.url,data.name)"></i>
-                        <i *ngIf="!data.url" class="fas fa-times-circle" (click)="previewDoc(data.url,data.name)"></i>
+                    <td><i *ngIf="data.url" class="fas fa-eye" (click)="commonService.openDocument(data?.url)"></i>
+                        <i *ngIf="!data.url" class="fas fa-times-circle" (click)="commonService.openDocument(data?.url)"></i>
                     </td>
                 </tr>
             </ng-container>
