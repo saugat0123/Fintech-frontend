@@ -41,6 +41,7 @@ import {ProfileViewComponent} from './cad-view/profile-view/profile-view.compone
 import {ExposureViewComponent} from './cad-view/exposure-view/exposure-view.component';
 import { FeesCommissionsViewComponent } from './cad-view/fees-commissions-view/fees-commissions-view.component';
 import { DocumentChecklistViewComponent } from './cad-view/document-checklist-view/document-checklist-view.component';
+import {CustomOfferLetterDocumentComponent} from './cad-offerletter-profile/cad-offer-letter-modal/custom-offer-letter-document/custom-offer-letter-document.component';
 
 
 @NgModule({
@@ -76,8 +77,8 @@ import { DocumentChecklistViewComponent } from './cad-view/document-checklist-vi
         ProfileViewComponent,
         ExposureViewComponent,
         FeesCommissionsViewComponent,
-        DocumentChecklistViewComponent],
-
+        DocumentChecklistViewComponent,
+        CustomOfferLetterDocumentComponent],
     imports: [
         ThemeModule,
         CommonModule,
@@ -89,7 +90,7 @@ import { DocumentChecklistViewComponent } from './cad-view/document-checklist-vi
         CoreModule,
         MegaModule,
     ],
-    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent, CadOfferLetterModalComponent, ExposureComponent, CadChecklistDocTemplateModalComponent]
+    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent, CadOfferLetterModalComponent, ExposureComponent, CadChecklistDocTemplateModalComponent , CustomOfferLetterDocumentComponent]
 })
 export class CreditAdministrationModule {
 }

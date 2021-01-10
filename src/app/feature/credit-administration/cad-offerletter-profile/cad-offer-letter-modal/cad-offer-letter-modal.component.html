@@ -23,7 +23,8 @@
                                           [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-retail-professional-loan>
             <app-sme *ngSwitchCase="offerLetterTypeConst.SME"
                      [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-sme>
-
+            <app-custom-offer-letter-document *ngSwitchCase="offerLetterTypeConst.CUSTOM"
+                                              [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-custom-offer-letter-document>
         </div>
         <nb-card-footer>
             <div>
