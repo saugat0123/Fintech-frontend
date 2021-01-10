@@ -8,6 +8,7 @@ export class Applicant {
     id: number;
     branch = new Branch();
     age: number;
+    dob: Date;
     answers: Array<Answer>;
     documents: Array<SubmissionDocument>;
     eligibilityStatus: string;
