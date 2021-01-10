@@ -110,9 +110,9 @@ export class ExposureComponent implements OnInit {
                 const tempDisbursementArray = [];
                 const storage = LocalStorageUtil.getStorage();
                 JSON.parse(this.cadData.exposure.data).disbursementDetails.forEach(d => {
-                    d.approveBy = storage.username;
-                    d.approveByrole  = storage.roleName;
-                    d.approvedOn  = new Date();
+                    d.approveBy = this.cadData.cadCurrentStage.fromUser.name;
+                    d.approveByrole  = this.cadData.cadCurrentStage.fromRole.roleName;
+                    d.approvedOn  = this.cadData.cadCurrentStage.lastModifiedAt;
                     tempDisbursementArray.push(d);
                 });
                 historyData.push(tempDisbursementArray);

@@ -47,13 +47,13 @@
         <tbody>
         <ng-container *ngFor="let history of disbursementDetailsHistory;let j=index">
 
-            <tr class="sb-bg-dark text-white">
-                <td colspan="7">{{j + 1}}. Disbursement</td>
+            <tr class="bg-light text-left">
+                <td colspan="7" class="px-2 font-weight-bold">{{j + 1}}. Disbursement</td>
             </tr>
             <ng-container>
 
                 <tr *ngFor="let inn of history;let k =index">
-                    <td>{{k + 1}}</td>
+                    <td>{{'abcdefghijklmnopqrstuvwxyz'.charAt(k)}}</td>
                     <td>{{inn?.loanName}}</td>
                     <td>{{inn?.loanLimit}}</td>
                     <td>{{inn?.disbursement}}</td>
