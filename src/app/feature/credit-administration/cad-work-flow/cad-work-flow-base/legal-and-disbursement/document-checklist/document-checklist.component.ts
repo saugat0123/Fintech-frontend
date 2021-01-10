@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {LoanDataHolder} from '../../../../../loan/model/loanData';
@@ -19,6 +19,8 @@ export class DocumentChecklistComponent implements OnInit {
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
     customerLoanList: Array<LoanDataHolder>;
     customerCadFile = [];
+    @Output()
+    responseCadData: EventEmitter<CustomerApprovedLoanCadDocumentation> = new EventEmitter<CustomerApprovedLoanCadDocumentation>();
 
     uploadFile;
     spinner = false;
@@ -66,7 +68,7 @@ export class DocumentChecklistComponent implements OnInit {
         this.creditAdministrationService.uploadCreditCheckList(formData).subscribe((res: any) => {
                 this.spinner = false;
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved ' + documentName));
-                this.routerUtilsService.reloadCadProfileRouteWithActiveTab(this.cadData.id, 3);
+                this.responseCadData.emit(res.detail);
             }, error => {
                 this.spinner = false;
                 this.toastService.show(new Alert(AlertType.ERROR, error));

@@ -57,11 +57,10 @@ export class UpdateCustomerCadInfoComponent implements OnInit {
             acInfo: this.updateForm.value
         };
         this.cadData.data = JSON.stringify(basicInfo);
-        this.service.saveCadDocumentBulk(this.cadData).subscribe(() => {
+        this.service.saveCadDocumentBulk(this.cadData).subscribe((res:any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved  data!!!'));
-            this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
             this.spinner = false;
-            this.onClose();
+            this.dialogRef.close(res.detail);
 
         }, error => {
             console.log(error);

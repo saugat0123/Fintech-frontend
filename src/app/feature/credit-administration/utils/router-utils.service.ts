@@ -57,6 +57,11 @@ export class RouterUtilsService {
 
     }
 
+    routeSummaryAndEncryptPathID(id) {
+        this.router.navigate([RouteConst.ROUTE_CAD_SUMMARY, this.encryptUrl(id)]);
+
+    }
+
     loadProfileWithState(cadDocumentId, model) {
         this.router.navigate([RouteConst.ROUTE_OFFER_PROFILE],
             {

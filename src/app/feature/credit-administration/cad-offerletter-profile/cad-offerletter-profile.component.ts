@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CreditAdministrationService} from '../service/credit-administration.service';
 import {MegaOfferLetterConst} from '../mega-offer-letter-const';
@@ -24,6 +24,8 @@ export class CadOfferLetterProfileComponent implements OnInit {
 
     /*todo get data from input and remove fetch here*/
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+    @Output()
+    responseCadData: EventEmitter<CustomerApprovedLoanCadDocumentation> = new EventEmitter<CustomerApprovedLoanCadDocumentation>();
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -97,7 +99,9 @@ export class CadOfferLetterProfileComponent implements OnInit {
             this.toastrService.show(new Alert(AlertType.SUCCESS, 'OFFER LETTER HAS BEEN UPLOADED'));
             this.modelService.dismissAll();
             this.spinner = false;
-            this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
+            this.service.detail(this.cadOfferLetterApprovedDoc.id).subscribe((res: any) => {
+                this.responseCadData.emit(res.detail);
+            });
         }, error => {
             this.modelService.dismissAll();
             this.spinner = false;
@@ -139,6 +143,9 @@ export class CadOfferLetterProfileComponent implements OnInit {
 
             },
             closeOnBackdropClick: false
+        }).onClose.subscribe((res: any) => {
+            console.log('update', res);
+            this.responseCadData.emit(res);
         });
     }
 
