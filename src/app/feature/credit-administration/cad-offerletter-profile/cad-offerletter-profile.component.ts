@@ -13,6 +13,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {RouterUtilsService} from '../utils/router-utils.service';
 import {CustomOfferLetterDocumentComponent} from './cad-offer-letter-modal/custom-offer-letter-document/custom-offer-letter-document.component';
+import {UpdateCustomerCadInfoComponent} from './update-customer-cad-info/update-customer-cad-info.component';
 
 @Component({
     selector: 'app-cad-offerletter-profile',
@@ -52,7 +53,7 @@ export class CadOfferLetterProfileComponent implements OnInit {
 
     ngOnInit() {
         this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
-        console.log(this.cadOfferLetterApprovedDoc.assignedLoan,'sd');
+        console.log(this.cadOfferLetterApprovedDoc.assignedLoan, 'sd');
         this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
     }
 
@@ -129,6 +130,16 @@ export class CadOfferLetterProfileComponent implements OnInit {
         }
     }
 
+    updateBasicInfo() {
+        // const modalRef = this.modelService.open(UpdateCustomerCadInfoComponent);
+        // modalRef.componentInstance.cadData = this.cadOfferLetterApprovedDoc;
+        this.nbDialogService.open(UpdateCustomerCadInfoComponent, {
+            context: {
+                cadData: this.cadOfferLetterApprovedDoc,
 
+            },
+            closeOnBackdropClick: false
+        });
+    }
 
 }
