@@ -131,8 +131,15 @@ export class CadOfferLetterProfileComponent implements OnInit {
     }
 
     updateBasicInfo() {
-       const modalRef = this.modelService.open(UpdateCustomerCadInfoComponent);
-       modalRef.componentInstance.cadData = this.cadOfferLetterApprovedDoc;
+        // const modalRef = this.modelService.open(UpdateCustomerCadInfoComponent);
+        // modalRef.componentInstance.cadData = this.cadOfferLetterApprovedDoc;
+        this.nbDialogService.open(UpdateCustomerCadInfoComponent, {
+            context: {
+                cadData: this.cadOfferLetterApprovedDoc,
+
+            },
+            closeOnBackdropClick: false
+        });
     }
 
 }

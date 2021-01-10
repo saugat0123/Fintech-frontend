@@ -7,6 +7,7 @@ import {CreditAdministrationService} from '../../service/credit-administration.s
 import {ToastService} from '../../../../@core/utils';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {NbDialogRef} from '@nebular/theme';
 
 @Component({
     selector: 'app-update-customer-cad-info',
@@ -24,14 +25,15 @@ export class UpdateCustomerCadInfoComponent implements OnInit {
                 private routerUtilsService: RouterUtilsService,
                 private service: CreditAdministrationService,
                 private toastService: ToastService,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                protected dialogRef: NbDialogRef<UpdateCustomerCadInfoComponent>) {
     }
 
     ngOnInit() {
         if (!ObjectUtil.isEmpty(this.cadData.data)) {
             const basicInfo = JSON.parse(this.cadData.data);
             this.data = basicInfo.acInfo;
-            console.log(this.data)
+            console.log(this.data);
         }
         this.buildForm();
     }
@@ -49,7 +51,7 @@ export class UpdateCustomerCadInfoComponent implements OnInit {
 
 
     submit() {
-        console.log(this.updateForm.value);
+
         this.spinner = true;
         const basicInfo = {
             acInfo: this.updateForm.value
@@ -60,6 +62,7 @@ export class UpdateCustomerCadInfoComponent implements OnInit {
             this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
             this.spinner = false;
             this.onClose();
+
         }, error => {
             console.log(error);
             this.spinner = false;
@@ -68,6 +71,6 @@ export class UpdateCustomerCadInfoComponent implements OnInit {
     }
 
     onClose() {
-        this.modalService.dismissAll();
+        this.dialogRef.close();
     }
 }
