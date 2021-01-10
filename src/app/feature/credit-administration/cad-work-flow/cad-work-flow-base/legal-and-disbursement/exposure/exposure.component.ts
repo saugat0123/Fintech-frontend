@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {LoanDataHolder} from '../../../../../loan/model/loanData';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
@@ -17,7 +17,7 @@ import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util
     templateUrl: './exposure.component.html',
     styleUrls: ['./exposure.component.scss']
 })
-export class ExposureComponent implements OnInit {
+export class ExposureComponent implements OnInit, OnChanges {
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
     @Input() isHistory: boolean;
     customerLoanList: Array<LoanDataHolder>;
@@ -49,6 +49,10 @@ export class ExposureComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.initial();
+    }
+
+    initial() {
         if (!ObjectUtil.isEmpty(this.cadData)) {
             this.customerLoanList = this.cadData.assignedLoan;
         }
@@ -124,10 +128,10 @@ export class ExposureComponent implements OnInit {
             }
         }
         this.cadData.exposure = exposure;
-        this.service.saveCadDocumentBulk(this.cadData).subscribe((res:any) => {
+        this.service.saveCadDocumentBulk(this.cadData).subscribe((res: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Exposure data!!!'));
-           // this.routerUtilsService.reloadCadProfileRouteWithActiveTab(this.cadData.id, 1);
-           this.responseCadData.emit(res.detail);
+            // this.routerUtilsService.reloadCadProfileRouteWithActiveTab(this.cadData.id, 1);
+            this.responseCadData.emit(res.detail);
             this.spinner = false;
             this.close();
         }, error => {
@@ -140,5 +144,9 @@ export class ExposureComponent implements OnInit {
 
     close() {
         this.modalService.dismissAll();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.initial();
     }
 }
