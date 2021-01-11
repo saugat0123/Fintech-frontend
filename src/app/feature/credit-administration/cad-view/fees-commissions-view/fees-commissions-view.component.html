@@ -1,1 +1,29 @@
-<p>fees-commissions-view works!</p>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th>Fees/Commission</th>
+                <th>Fees Percent</th>
+                <th>Fees Amount</th>
+            </tr>
+            </thead>
+            <tbody >
+            <ng-container *ngFor="let feeAmount of feeCommission?.feeAmountDetails;  let i = index">
+                <tr>
+                    <td colspan="3" class="sb-bg-secondary text-white"><strong>{{feeAmount?.loanName}}</strong></td>
+                </tr>
+                <tr *ngFor="let loanFee of feeAmount?.loanFeeDetails">
+                    <td>{{loanFee?.feeType}}</td>
+                    <td>{{loanFee?.feePercent}}%</td>
+                    <td>{{loanFee?.feeAmount}}</td>
+                </tr>
+            </ng-container>
+            </tbody>
+            <tr>
+                <td colspan="2" class="text-center"><strong>Total Amount</strong></td>
+                <td>Rs. {{totalFeeAmount |currencyFormatter}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

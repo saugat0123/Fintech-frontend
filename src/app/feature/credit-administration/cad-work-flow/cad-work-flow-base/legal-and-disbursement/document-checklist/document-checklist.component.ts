@@ -29,10 +29,10 @@ export class DocumentChecklistComponent implements OnInit, OnChanges {
     uploadFile;
     spinner = false;
     saveEditParam = {
-        loanId: null,
-        documentId: null,
-        amount: null,
-        remarks: null};
+        loanId: undefined,
+        documentId: undefined,
+        amount: undefined,
+        remarks: undefined};
     remarkOption = RemarksEnum.enumObject();
 
     constructor(private creditAdministrationService: CreditAdministrationService,
@@ -118,7 +118,7 @@ export class DocumentChecklistComponent implements OnInit, OnChanges {
     }
 
     saveText(customerLoanId, documentId, amount, remarks) {
-        console.log(amount);
+        this.spinner = true;
         let flag = true;
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
             this.cadData.cadFileList.forEach(singleCadFile => {
@@ -151,9 +151,12 @@ export class DocumentChecklistComponent implements OnInit, OnChanges {
 
         this.creditAdministrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Data'));
+            this.spinner = false;
             this.close();
             this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
         }, error => {
+            this.spinner = false;
+            this.close();
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Data'));
         });
