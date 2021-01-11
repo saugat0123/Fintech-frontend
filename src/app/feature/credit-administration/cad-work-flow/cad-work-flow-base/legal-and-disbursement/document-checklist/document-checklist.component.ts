@@ -149,11 +149,13 @@ export class DocumentChecklistComponent implements OnInit, OnChanges {
             this.cadData.cadFileList.push(cadFile);
         }
 
-        this.creditAdministrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
+        this.creditAdministrationService.saveCadDocumentBulk(this.cadData).subscribe((res) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Data'));
             this.spinner = false;
             this.close();
-            this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
+            this.responseCadData.emit(res.detail);
+
+            // this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
         }, error => {
             this.spinner = false;
             this.close();
