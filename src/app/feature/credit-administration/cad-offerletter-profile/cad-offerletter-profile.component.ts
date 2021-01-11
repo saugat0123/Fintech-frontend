@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CreditAdministrationService} from '../service/credit-administration.service';
 import {MegaOfferLetterConst} from '../mega-offer-letter-const';
@@ -12,16 +12,20 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {RouterUtilsService} from '../utils/router-utils.service';
+import {CustomOfferLetterDocumentComponent} from './cad-offer-letter-modal/custom-offer-letter-document/custom-offer-letter-document.component';
+import {UpdateCustomerCadInfoComponent} from './update-customer-cad-info/update-customer-cad-info.component';
 
 @Component({
     selector: 'app-cad-offerletter-profile',
     templateUrl: './cad-offerletter-profile.component.html',
     styleUrls: ['./cad-offerletter-profile.component.scss']
 })
-export class CadOfferLetterProfileComponent implements OnInit {
+export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     /*todo get data from input and remove fetch here*/
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+    @Output()
+    responseCadData: EventEmitter<CustomerApprovedLoanCadDocumentation> = new EventEmitter<CustomerApprovedLoanCadDocumentation>();
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -50,8 +54,12 @@ export class CadOfferLetterProfileComponent implements OnInit {
     toggleArray: { toggled: boolean }[] = [];
 
     ngOnInit() {
+        this.initial();
+    }
+
+    initial() {
         this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
-        console.log(this.cadOfferLetterApprovedDoc.assignedLoan,'sd');
+        console.log(this.cadOfferLetterApprovedDoc.assignedLoan, 'sd');
         this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
     }
 
@@ -63,6 +71,13 @@ export class CadOfferLetterProfileComponent implements OnInit {
         const cadOfferLetterApprovedDoc = this.cadOfferLetterApprovedDoc;
         this.nbDialogService.open(CadOfferLetterModalComponent, {
             context: {offerLetterType, cadOfferLetterApprovedDoc}
+        });
+    }
+
+    openCustomOfferLetterDocumentModal(editId) {
+        const cadOfferLetterApprovedDoc = this.cadOfferLetterApprovedDoc;
+        this.nbDialogService.open(CustomOfferLetterDocumentComponent, {
+            context: {editId, cadOfferLetterApprovedDoc}
         });
     }
 
@@ -88,7 +103,9 @@ export class CadOfferLetterProfileComponent implements OnInit {
             this.toastrService.show(new Alert(AlertType.SUCCESS, 'OFFER LETTER HAS BEEN UPLOADED'));
             this.modelService.dismissAll();
             this.spinner = false;
-            this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
+            this.service.detail(this.cadOfferLetterApprovedDoc.id).subscribe((res: any) => {
+                this.responseCadData.emit(res.detail);
+            });
         }, error => {
             this.modelService.dismissAll();
             this.spinner = false;
@@ -121,6 +138,26 @@ export class CadOfferLetterProfileComponent implements OnInit {
         }
     }
 
+    updateBasicInfo() {
+        // const modalRef = this.modelService.open(UpdateCustomerCadInfoComponent);
+        // modalRef.componentInstance.cadData = this.cadOfferLetterApprovedDoc;
+        this.nbDialogService.open(UpdateCustomerCadInfoComponent, {
+            context: {
+                cadData: this.cadOfferLetterApprovedDoc,
 
+            },
+            closeOnBackdropClick: false
+        }).onClose.subscribe((res: any) => {
+            console.log('update', res);
+            if (!ObjectUtil.isEmpty(res)) {
+                this.responseCadData.emit(res);
+            }
+
+        });
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.initial();
+    }
 
 }

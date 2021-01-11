@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {LoanType} from '../../../../loan/model/loanType';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
+import {RouterUtilsService} from '../../../utils/router-utils.service';
 
 @Component({
   selector: 'app-disbursement-pending',
@@ -20,17 +21,26 @@ export class DisbursementPendingComponent implements OnInit {
   pageable: Pageable = new Pageable();
   loanList = [];
   loanType = LoanType;
-
+  toggleArray: { toggled: boolean }[] = [];
+  encryptUrlArray: { url: string }[] = [];
+  currentIndexArray: { currentIndex: number }[] = [];
 
   constructor(private service: CreditAdministrationService,
               private router: Router,
+              private routeService: RouterUtilsService,
               private spinnerService: NgxSpinnerService) {
   }
 
   static loadData(other: DisbursementPendingComponent) {
     other.spinner = true;
+    other.currentIndexArray = [];
+    other.toggleArray = [];
+    other.loanList = [];
     other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, 10).subscribe((res: any) => {
       other.loanList = res.detail.content;
+      other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
+      other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: l.previousList.length}));
+
       console.log(other.loanList);
       other.pageable = PaginationUtils.getPageable(res.detail);
       other.spinner = false;
@@ -49,13 +59,8 @@ export class DisbursementPendingComponent implements OnInit {
     DisbursementPendingComponent.loadData(this);
   }
 
-  loadProfile(cadDocumentId) {
-    this.router.navigate(['/home/credit/offer-letter-profile'],
-        {
-          queryParams: {
-            cadDocumentId: cadDocumentId,
-          }
-        });
+  loadProfile(cadDocumentId, model) {
+    this.routeService.routeOnConditionProfileOrSummary(cadDocumentId, model);
   }
 
   setSearchValue(value) {

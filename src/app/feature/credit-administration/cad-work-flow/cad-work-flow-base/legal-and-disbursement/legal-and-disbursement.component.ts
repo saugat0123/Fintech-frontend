@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {ActivatedRoute} from '@angular/router';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
@@ -7,6 +7,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastService} from '../../../../../@core/utils';
 import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-legal-and-disbursement',
@@ -21,6 +22,7 @@ export class LegalAndDisbursementComponent implements OnInit {
     spinner = false;
     currentUserLocalStorage = LocalStorageUtil.getStorage().userId;
     showHideAction = false;
+    activeTab = 0;
 
     constructor(private activatedRoute: ActivatedRoute,
                 private service: CreditAdministrationService,
@@ -50,9 +52,31 @@ export class LegalAndDisbursementComponent implements OnInit {
 
     ngOnInit() {
         this.cadDocumentId = Number(this.activatedRoute.snapshot.queryParamMap.get('cadDocumentId'));
-        LegalAndDisbursementComponent.loadData(this);
+        if (!ObjectUtil.isEmpty(history.state.data)) {
+            this.cadOfferLetterApprovedDoc = history.state.data;
+            this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
+            if (this.currentUserLocalStorage.toString() === this.cadOfferLetterApprovedDoc.cadCurrentStage.toUser.id.toString()) {
+                this.showHideAction = true;
+            }
+        } else {
+            LegalAndDisbursementComponent.loadData(this);
+        }
+        if (!ObjectUtil.isEmpty(history.state.tabId)) {
+            this.activeTab = history.state.tabId;
+        }
 
     }
 
+    newCadData(event: CustomerApprovedLoanCadDocumentation) {
+        this.cadOfferLetterApprovedDoc = event;
+        if (ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+            LegalAndDisbursementComponent.loadData(this);
+        } else {
+            this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
+            if (this.currentUserLocalStorage.toString() === this.cadOfferLetterApprovedDoc.cadCurrentStage.toUser.id.toString()) {
+                this.showHideAction = true;
+            }
+        }
+    }
 
 }

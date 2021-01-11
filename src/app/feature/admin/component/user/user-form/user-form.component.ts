@@ -238,7 +238,10 @@ export class UserFormComponent implements OnInit {
                 }
 
                 if (this.model.role.roleType === RoleType.CAD_SUPERVISOR) {
-                    this.tempProvince = this.model.provinces;
+                    this.isCadSuperVisor = true;
+                    for (let i = 0; i < this.model.provinces.length; i++) {
+                        this.tempProvince.push(this.model.provinces[i].id);
+                    }
                 }
                this.checkRoleData(this.model.role);
             }

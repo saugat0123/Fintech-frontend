@@ -19,24 +19,30 @@ import {OfferLetterListComponent} from './component/offer-letter/offer-letter-li
 import {CadOfferLetterProfileComponent} from './cad-offerletter-profile/cad-offerletter-profile.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {DocumentChecklistComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/document-checklist/document-checklist.component';
-import { FeesCommissionComponent } from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/fees-commission/fees-commission.component';
+import {FeesCommissionComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/fees-commission/fees-commission.component';
 import {CoreModule} from '../../@core/core.module';
-import { CadOfferLetterModalComponent } from './cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
-import { CommentComponent } from './comment/comment.component';
-import { OfferLetterDocumentUploadComponent } from './cad-offerletter-profile/offer-letter-document-upload/offer-letter-document-upload.component';
-import { OfferLetterApprovedComponent } from './component/offer-letter/offer-letter-approved/offer-letter-approved.component';
-import { LegalReviewPendingComponent } from './component/legal/legal-review-pending/legal-review-pending.component';
-import { LegalReviewApprovedComponent } from './component/legal/legal-review-approved/legal-review-approved.component';
-import { DisbursementApprovedComponent } from './component/disbursement/disbursement-approved/disbursement-approved.component';
-import { DisbursementPendingComponent } from './component/disbursement/disbursement-pending/disbursement-pending.component';
-import { CadDocumentListComponent } from './component/cad-document-list/cad-document-list.component';
-import { GeneralDocumentComponent } from './cad-offerletter-profile/customer-document/cad-general-document/general-document.component';
-import { CadLoanDocumentComponent } from './cad-offerletter-profile/customer-document/cad-loan-document/cad-loan-document.component';
-import { FilterComponent } from './component/filter/filter.component';
-import { CustomerInsuranceComponent } from './cad-offerletter-profile/customer-document/cad-general-document/customer-insurance/customer-insurance.component';
-import { CadSummaryComponent } from './cad-work-flow/cad-summary/cad-summary.component';
-import { CadChecklistDocTemplateModalComponent } from './cad-offerletter-profile/cad-checklist-doc-template-modal/cad-checklist-doc-template-modal.component';
+import {CadOfferLetterModalComponent} from './cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
+import {CommentComponent} from './comment/comment.component';
+import {OfferLetterDocumentUploadComponent} from './cad-offerletter-profile/offer-letter-document-upload/offer-letter-document-upload.component';
+import {OfferLetterApprovedComponent} from './component/offer-letter/offer-letter-approved/offer-letter-approved.component';
+import {LegalReviewPendingComponent} from './component/legal/legal-review-pending/legal-review-pending.component';
+import {LegalReviewApprovedComponent} from './component/legal/legal-review-approved/legal-review-approved.component';
+import {DisbursementApprovedComponent} from './component/disbursement/disbursement-approved/disbursement-approved.component';
+import {DisbursementPendingComponent} from './component/disbursement/disbursement-pending/disbursement-pending.component';
+import {CadDocumentListComponent} from './component/cad-document-list/cad-document-list.component';
+import {GeneralDocumentComponent} from './cad-offerletter-profile/customer-document/cad-general-document/general-document.component';
+import {CadLoanDocumentComponent} from './cad-offerletter-profile/customer-document/cad-loan-document/cad-loan-document.component';
+import {FilterComponent} from './component/filter/filter.component';
+import {CustomerInsuranceComponent} from './cad-offerletter-profile/customer-document/cad-general-document/customer-insurance/customer-insurance.component';
+import {CadSummaryComponent} from './cad-work-flow/cad-summary/cad-summary.component';
+import {CadChecklistDocTemplateModalComponent} from './cad-offerletter-profile/cad-checklist-doc-template-modal/cad-checklist-doc-template-modal.component';
 import {MegaModule} from './cad-document-template/mega/mega.module';
+import {ProfileViewComponent} from './cad-view/profile-view/profile-view.component';
+import {ExposureViewComponent} from './cad-view/exposure-view/exposure-view.component';
+import {FeesCommissionsViewComponent} from './cad-view/fees-commissions-view/fees-commissions-view.component';
+import {DocumentChecklistViewComponent} from './cad-view/document-checklist-view/document-checklist-view.component';
+import {CustomOfferLetterDocumentComponent} from './cad-offerletter-profile/cad-offer-letter-modal/custom-offer-letter-document/custom-offer-letter-document.component';
+import {UpdateCustomerCadInfoComponent} from './cad-offerletter-profile/update-customer-cad-info/update-customer-cad-info.component';
 
 
 @NgModule({
@@ -68,8 +74,13 @@ import {MegaModule} from './cad-document-template/mega/mega.module';
         CadLoanDocumentComponent,
         CustomerInsuranceComponent,
         CadSummaryComponent,
-        CadChecklistDocTemplateModalComponent],
-
+        CadChecklistDocTemplateModalComponent,
+        ProfileViewComponent,
+        ExposureViewComponent,
+        FeesCommissionsViewComponent,
+        DocumentChecklistViewComponent,
+        CustomOfferLetterDocumentComponent,
+        UpdateCustomerCadInfoComponent],
     imports: [
         ThemeModule,
         CommonModule,
@@ -81,7 +92,13 @@ import {MegaModule} from './cad-document-template/mega/mega.module';
         CoreModule,
         MegaModule,
     ],
-    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent , CadOfferLetterModalComponent , ExposureComponent, CadChecklistDocTemplateModalComponent]
+    entryComponents: [AssignPopUpComponent,
+        VerifyPopUpComponent,
+        CadOfferLetterModalComponent,
+        ExposureComponent,
+        CadChecklistDocTemplateModalComponent,
+        CustomOfferLetterDocumentComponent,
+        UpdateCustomerCadInfoComponent]
 })
 export class CreditAdministrationModule {
 }

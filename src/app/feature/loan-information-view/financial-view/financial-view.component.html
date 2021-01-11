@@ -108,7 +108,7 @@
         </table>
         <div *ngIf="isBusinessLoan">
             <p class="float-left"><strong>Financial Details</strong></p>
-            <table
+            <table *ngIf="!disableCrgAlphaParams"
                 class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                 <thead>
                 <tr class="text-white sb-bg-dark">

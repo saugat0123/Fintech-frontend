@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {LoanDataHolder} from '../../../../../loan/model/loanData';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
@@ -10,16 +10,20 @@ import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {Exposure} from '../../../../model/Exposure';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-exposure',
     templateUrl: './exposure.component.html',
     styleUrls: ['./exposure.component.scss']
 })
-export class ExposureComponent implements OnInit {
+export class ExposureComponent implements OnInit, OnChanges {
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
     @Input() isHistory: boolean;
     customerLoanList: Array<LoanDataHolder>;
+
+    @Output()
+    responseCadData: EventEmitter<CustomerApprovedLoanCadDocumentation> = new EventEmitter<CustomerApprovedLoanCadDocumentation>();
 
     // todo replace with api from backend predefined data
     frequencyList = ['Semi-Annually', 'Quarterly', 'Monthly', 'Bullet', 'Ballooning'];
@@ -45,6 +49,10 @@ export class ExposureComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.initial();
+    }
+
+    initial() {
         if (!ObjectUtil.isEmpty(this.cadData)) {
             this.customerLoanList = this.cadData.assignedLoan;
         }
@@ -65,6 +73,7 @@ export class ExposureComponent implements OnInit {
     addDisbursementDetail() {
         this.cadData.assignedLoan.forEach(value => {
             this.disbursementDetails.push(this.formBuilder.group({
+                customerLoanId: [value.id],
                 loanName: [value.loan.name],
                 loanLimit: [value.proposal.proposedLimit, Validators.required],
                 disbursement: [undefined, Validators.required],
@@ -81,6 +90,7 @@ export class ExposureComponent implements OnInit {
             data = JSON.parse(this.cadData.exposure.data).disbursementDetails;
             data.forEach(value => {
                 this.disbursementDetails.push(this.formBuilder.group({
+                    customerLoanId: [ObjectUtil.isEmpty(value.id) ? null : value.id],
                     loanName: [value.loanName],
                     loanLimit: [value.loanLimit, Validators.required],
                     disbursement: [value.disbursement, Validators.required],
@@ -104,15 +114,24 @@ export class ExposureComponent implements OnInit {
                 if (!ObjectUtil.isEmpty(this.cadData.exposure.historyData)) {
                     historyData = JSON.parse(this.cadData.exposure.historyData);
                 }
-                historyData.push(this.exposureForm.get('disbursementDetails').value);
+                const tempDisbursementArray = [];
+                const storage = LocalStorageUtil.getStorage();
+                JSON.parse(this.cadData.exposure.data).disbursementDetails.forEach(d => {
+                    d.approveBy = this.cadData.cadCurrentStage.fromUser.name;
+                    d.approveByrole = this.cadData.cadCurrentStage.fromRole.roleName;
+                    d.approvedOn = this.cadData.cadCurrentStage.lastModifiedAt;
+                    tempDisbursementArray.push(d);
+                });
+                historyData.push(tempDisbursementArray);
                 exposure.historyData = JSON.stringify(historyData);
                 this.cadData.docStatus = CadDocStatus.DISBURSEMENT_PENDING;
             }
         }
         this.cadData.exposure = exposure;
-        this.service.saveCadDocumentBulk(this.cadData).subscribe(() => {
+        this.service.saveCadDocumentBulk(this.cadData).subscribe((res: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Exposure data!!!'));
-            this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
+            // this.routerUtilsService.reloadCadProfileRouteWithActiveTab(this.cadData.id, 1);
+            this.responseCadData.emit(res.detail);
             this.spinner = false;
             this.close();
         }, error => {
@@ -125,5 +144,9 @@ export class ExposureComponent implements OnInit {
 
     close() {
         this.modalService.dismissAll();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.initial();
     }
 }

@@ -1,0 +1,23 @@
+<nb-card accent="primary"
+         class="m-0" [nbSpinner]="spinner"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="giant" nbSpinnerMessage="Saving your action please wait...">
+    <nb-card-header>
+        <a (click)="onClose()" aria-label="Close" class="close cursor"
+           data-dismiss="modal">
+            <span aria-hidden="true">×</span></a>
+        <h6>Custom Documents</h6>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="col">
+            <div class="form-group">
+                <label for="docName"><strong>Document Name</strong></label>
+                <input #doc required class="form-control" id="docName" name="docName"
+                       placeholder="Document Name" type="text" ngModel="docName" [(ngModel)]="docName">
+            </div>
+        </div>
+        <div>
+            <button [disabled]="!doc.value"  nbButton class="float-right" (click)="save()">Save</button>
+        </div>
+    </nb-card-body>
+</nb-card>

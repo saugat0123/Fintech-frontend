@@ -1,35 +1,47 @@
-<div class="col-md-12">
-    <table class="table table-bordered table-hover text-center sb-small table-sm">
-    <thead class="sb-bg-dark text-white">
-        <th>
-            Facility
-        </th>
-        <th>Contain Template</th>
-        <th rowspan="5">
-            Documents
-        </th>
-        <th>Preview</th>
-        <th>Generate</th>
+<script src="document-checklist.component.ts"></script>
+<nb-card
+        class="text-center m-0"
+        [nbSpinner]="spinner"
+        accent="primary"
+        nbSpinnerStatus="primary"
+        nbSpinnerMessage="Saving  data..."
+        nbSpinnerSize="large">
+    <nb-card-body>
+        <div class="col-md-12">
+            <table class="table table-bordered table-hover text-center sb-small table-sm">
+                <thead class="sb-bg-dark text-white">
+                <th>
+                    Facility
+                </th>
+                <th>Contain Template</th>
+                <th rowspan="5">
+                    Documents
+                </th>
+                <th>Preview</th>
+                <th>Generate</th>
         <th>Amount</th>
         <th>Remarks</th>
         <th>Action</th>
 
-        </thead>
-        <tbody>
-        <ng-container *ngFor="let customerLoan of customerLoanList">
-            <tr>
-                <td>
-                    <strong>{{customerLoan?.loan?.name}}</strong>
-                </td>
-            </tr>
-            <ng-container>
-                <tr *ngFor="let data of customerLoan?.loan?.approvedDocument">
-                    <td>{{data?.name}}</td>
-                    <td>{{data.containsTemplate | booleanConvert}}</td>
-                    <td><input #file
-                            type="file" (change)="uploadOfferLetter($event)">
-                        <button nbButton [disabled]="!file.value" status="primary" size="tiny"
-                        class="float-right" (click)="save(customerLoan.loanHolder.id,customerLoan.id,data.id,data.name)">save</button>
+                </thead>
+                <tbody>
+                <ng-container *ngFor="let customerLoan of customerLoanList">
+                    <tr>
+                        <td>
+                            <strong>{{customerLoan?.loan?.name}}</strong>
+                        </td>
+                    </tr>
+                    <ng-container>
+                        <tr *ngFor="let data of customerLoan?.loan?.approvedDocument">
+                            <td>{{data?.name}}</td>
+                            <td>{{data.containsTemplate | booleanConvert}}</td>
+                            <td><input #file
+                                       type="file" (change)="uploadOfferLetter($event)">
+                                <button nbButton [disabled]="!file.value" status="primary" size="tiny"
+                                        class="float-right"
+                                        (click)="save(customerLoan.loanHolder.id,customerLoan.id,data.id,data.name)">
+                                    save
+                                </button>
 
                     </td>
                     <td><i *ngIf="data.url" class="fas fa-eye" (click)="previewDoc(data.url,data.name)"></i>
@@ -41,12 +53,15 @@
                     <td><i class="fa fa-edit" (click)="openSaveEditForm(saveEditOtherDocInfo,customerLoan.id,data.id,data.amount,data.remarks)"></i></td>
 
                 </tr>
-            </ng-container>
-        </ng-container>
-        </tbody>
-    </table>
+                    </ng-container>
+                </ng-container>
+                </tbody>
+            </table>
 
-</div>
+        </div>
+    </nb-card-body>
+</nb-card>
+<!--</div>-->
 <ng-template #saveEditOtherDocInfo>
     <nb-card>
         <nb-card-body>

@@ -26,13 +26,14 @@
             <tbody>
             <ng-container *ngFor="let model of loanList;let i=index">
                 <tr class="cursor">
-                    <td  [routerLink]="['/home/credit/cad-summary/',encryptUrlArray[i].url]">{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-                    <td [routerLink]="['/home/credit/cad-summary/',encryptUrlArray[i].url]">{{model?.loanHolder?.branch?.name}}</td>
-                    <td [routerLink]="['/home/credit/cad-summary/',encryptUrlArray[i].url]">{{model?.loanHolder?.name}}</td>
-                    <td [routerLink]="['/home/credit/cad-summary/',encryptUrlArray[i].url]">{{model?.loanHolder?.customerType}}</td>
-                    <td [routerLink]="['/home/credit/cad-summary/',encryptUrlArray[i].url]">{{model?.docStatus | replace:'_':' '}}</td>
-                    <td [routerLink]="['/home/credit/cad-summary/',encryptUrlArray[i].url]">{{model?.cadCurrentStage?.toUser?.name}}</td>
-                    <td [routerLink]="['/home/credit/cad-summary/',encryptUrlArray[i].url]">{{model?.assignedLoan?.length}}</td>
+                    <td (click)="loadSummary(model)">{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                    <td (click)="loadSummary(model)">
+                            {{model?.loanHolder?.branch?.name}}</td>
+                    <td (click)="loadSummary(model)">{{model?.loanHolder?.name}}</td>
+                    <td (click)="loadSummary(model)">{{model?.loanHolder?.customerType}}</td>
+                    <td (click)="loadSummary(model)">{{model?.docStatus | replace:'_':' '}}</td>
+                    <td (click)="loadSummary(model)">{{model?.cadCurrentStage?.toUser?.name}}</td>
+                    <td (click)="loadSummary(model)">{{model?.assignedLoan?.length}}</td>
                     <td>
                         <a class="px-2 cursor"
                            (click)="model?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
@@ -88,7 +89,7 @@
                         </td>
 
                         <td>{{previousList?.docAction | replace:'_':' '}}</td>
-                        <td class="text-left" colspan="3">
+                        <td class="text-left px-2" colspan="3">
                             {{ previousList?.comment}}
                         </td>
                     </tr>
@@ -122,7 +123,7 @@
                         </td>
 
                         <td>{{model?.cadCurrentStage?.docAction | replace:'_':' '}}</td>
-                        <td class="text-left" colspan="3">
+                        <td class="text-left px-2" colspan="3">
 
                             {{model?.cadCurrentStage?.comment}}
 

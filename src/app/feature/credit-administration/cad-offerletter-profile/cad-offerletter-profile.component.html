@@ -3,6 +3,13 @@
          nbSpinnerMessage="Loading data please wait....."
          nbSpinnerSize="giant"
          nbSpinnerStatus="primary">
+    <nb-card-header>
+        <div class="clearfix">
+            <div class="float-right">
+                <button nbButton size="tiny" nbTooltip="update account info" (click)="updateBasicInfo()"><em class="fa fa-edit"></em></button>
+            </div>
+        </div>
+    </nb-card-header>
 
     <nb-card-body>
         <div class="main-body">
@@ -55,7 +62,12 @@
                         </nb-card-body>
                     </nb-card>
                     <nb-card>
-                        <nb-card-header>Offer Letter Documents</nb-card-header>
+                        <nb-card-header>
+                            <span class="float-right"><button (click)="openCustomOfferLetterDocumentModal(null)" nbButton outline
+                                                              size="tiny"><a
+                                    class="fa fa-plus"></a></button></span>
+                            Offer Letter Documents
+                        </nb-card-header>
                         <nb-card-body>
                             <table class="table table-bordered table-hover table-sm sb-small text-center">
                                 <thead>
@@ -104,6 +116,8 @@
                                            title="upload {{cusOfferLetter.docName}}">
                                             <i class="fa fa-upload cursor"></i>
                                         </a>
+                                        <a *ngIf="cusOfferLetter?.offerDocType?.toString() === 'CUSTOM'"
+                                           class="fa fa-edit cursor ml-1" (click)="openCustomOfferLetterDocumentModal(cusOfferLetter.id)"></a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -158,8 +172,16 @@
                                 <div class="col-sm-9 text-secondary">
                                     {{customerInfoData?.contactNo}}
                                 </div>
+                            </div> <hr>
+                            <div class="row mb-n3 mt-n2" *ngIf="cadOfferLetterApprovedDoc?.data">
+                                <div class="col-sm-3">
+                                    <strong class="mb-0">Account Number</strong>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{(cadOfferLetterApprovedDoc?.data | jsonParse)?.acInfo?.accountNo}}
+                                </div>
                             </div>
-                            <hr>
+
                         </div>
                     </div>
                     <div class="row">

@@ -52,7 +52,6 @@ import {FormUtils} from '../../../../../@core/utils/form.utils';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
 import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
-import {RelationshipList} from '../../../../loan/model/relationshipList';
 
 @Component({
     selector: 'app-company-form',
@@ -196,8 +195,8 @@ export class CompanyFormComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.companyInfo)) {
             if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
-            this.companyAddress = JSON.parse(this.companyInfo.companyLocations.address);
-            console.log(this.companyInfo.companyLocations.address);
+                this.companyAddress = JSON.parse(this.companyInfo.companyLocations.address);
+                console.log(this.companyInfo.companyLocations.address);
             }
         }
         this.buildForm();
@@ -205,6 +204,11 @@ export class CompanyFormComponent implements OnInit {
         this.getCompanyStructure();
         this.getClientType();
         this.getSubSector();
+        if (!ObjectUtil.isEmpty(this.companyInfo)) {
+            this.setManagementTeams(this.companyJsonData.managementTeamList);
+        } else {
+            this.addManagementTeam();
+        }
         this.designation = this.designationList.designation;
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
@@ -252,7 +256,6 @@ export class CompanyFormComponent implements OnInit {
             this.companyInfo = this.formValue;
             this.setCompanyInfo(this.companyInfo);
         }
-
         this.companyFormField = {
             showFormField: (!ObjectUtil.isEmpty(this.formValue)),
             isOldCustomer: (ObjectUtil.isEmpty(this.formValue))
@@ -385,11 +388,8 @@ export class CompanyFormComponent implements OnInit {
             numberOfShareholder: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
                 this.companyInfo.capital.numberOfShareholder],
-
             // managementTeams
-            managementTeams: this.formBuilder.array([
-                this.managementTeamFormGroup()
-            ]),
+            managementTeams: this.formBuilder.array([]),
             // managementTeamNote
             managementTeamNote: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyJsonData.managementTeamNote)) ? undefined :
@@ -414,16 +414,16 @@ export class CompanyFormComponent implements OnInit {
             address: [undefined],
             // swot
             strength: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.strength, Validators.required],
+                || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.strength, Validators.required],
 
             weakness: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.weakness, Validators.required],
+                || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.weakness, Validators.required],
 
             opportunity: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.opportunity, Validators.required],
+                || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.opportunity, Validators.required],
 
             threats: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.threats, Validators.required],
+                || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.threats, Validators.required],
 
             // Success Planning
             successionPlanning: [ObjectUtil.isEmpty(this.companyInfo) ? undefined :
@@ -549,8 +549,6 @@ export class CompanyFormComponent implements OnInit {
     }
 
     setCompanyInfo(info: CompanyInfo) {
-        // set managementTeams data
-        this.companyInfoFormGroup.setControl('managementTeams', this.setManagementTeams(info.managementTeamList));
         // proprietors data
         this.companyInfoFormGroup.setControl('proprietors', this.setProprietors(info.proprietorsList));
         // set contact persons data
@@ -566,16 +564,19 @@ export class CompanyFormComponent implements OnInit {
     }
 
     // set managementTeams data
-    setManagementTeams(managementTeamList: ManagementTeam[]): FormArray {
-        const managementTeamFormArray = new FormArray([]);
-        managementTeamList.forEach(managementTeam => {
-            managementTeamFormArray.push(this.formBuilder.group({
-                name: [managementTeam.name === undefined ? '' : managementTeam.name],
-                designation: [managementTeam.designation === undefined ? '' : managementTeam.designation],
-                companyLegalDocumentAddress: [managementTeam.companyLegalDocumentAddress === undefined ? '' : managementTeam.companyLegalDocumentAddress],
-            }));
-        });
-        return managementTeamFormArray;
+    setManagementTeams(data) {
+        const control = this.companyInfoFormGroup.get('managementTeams') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(singleData => {
+                control.push(
+                    this.formBuilder.group({
+                        name: [singleData.name],
+                        designation: [singleData.designation],
+                        companyLegalDocumentAddress: [singleData.companyLegalDocumentAddress]
+                    })
+                );
+            });
+        }
     }
 
     removeManagementTeam(index: number) {
@@ -849,9 +850,7 @@ export class CompanyFormComponent implements OnInit {
         this.swot.weakness = this.companyInfoFormGroup.get('weakness').value;
         this.swot.opportunity = this.companyInfoFormGroup.get('opportunity').value;
         this.swot.threats = this.companyInfoFormGroup.get('threats').value;
-        this.companyInfo.swot = this.swot;
-        // management team list
-        this.companyInfo.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
+
         // management Team Note
         this.companyJsonData.managementTeamNote = this.companyInfoFormGroup.get('managementTeamNote').value;
 
@@ -862,7 +861,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.additionalCompanyInfo = JSON.stringify(this.companyInfoFormGroup.get('additionalCompanyInfo').value);
 
         // succession planning
-        this.companyInfo.successionPlanning = JSON.stringify(this.companyInfoFormGroup.get('successionPlanning').value);
+        this.companyInfo.successionPlanning = this.companyInfoFormGroup.get('successionPlanning').value;
 
         // location
         this.locations.id = this.companyInfoFormGroup.get('locationId').value;
@@ -939,6 +938,11 @@ export class CompanyFormComponent implements OnInit {
         submitData.rawMaterialSourcing = this.companyInfoFormGroup.get('rawMaterialSourcing').value;
         /** Market Scenario detail */
         submitData.marketScenario = this.marketScenarioComponent.submitData;
+        submitData.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
+
+        // swot
+        submitData.swot = this.swot;
+
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
@@ -1037,10 +1041,4 @@ export class CompanyFormComponent implements OnInit {
             this.companyInfoFormGroup.get('lockerDuringReview').value;
         this.companyInfoFormGroup.get('total').patchValue(total);
     }
-
-
-
-
-
-
 }
