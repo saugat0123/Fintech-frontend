@@ -34,6 +34,7 @@ export class OfferLetterApprovedComponent implements OnInit {
         other.spinner = true;
         other.currentIndexArray = [];
         other.toggleArray = [];
+        other.loanList = [];
         other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, 10).subscribe((res: any) => {
             other.loanList = res.detail.content;
             other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
