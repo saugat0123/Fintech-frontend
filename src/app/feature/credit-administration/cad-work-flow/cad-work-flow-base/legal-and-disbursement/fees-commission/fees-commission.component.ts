@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
-import {Form, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {ToastService} from '../../../../../../@core/utils';
@@ -30,8 +30,7 @@ export class FeesCommissionComponent implements OnInit {
     return this.feeCommissionFormGroup.get('feeAmountDetails') as FormArray;
   }
 
-  // @ts-ignore
-   loanFeeDetail(i: number) {
+  loanFeeDetail(i: number) {
     return this.feeAmountDetails.at(i).get('loanFeeDetails') as FormArray;
   }
 
@@ -39,19 +38,44 @@ export class FeesCommissionComponent implements OnInit {
     this.feeCommissionFormGroup = this.formBuilder.group({
       feeAmountDetails: this.formBuilder.array([])
     });
-    this.addFeeAmountDetails();
-    /*  this.setFeeAmountDetails();*/
+    if (!ObjectUtil.isEmpty(this.cadData.feesAndCommission)) {
+      this.setFeeAmountDetails();
+    } else {
+      this.addFeeAmountDetails();
+    }
 
     console.log(this.feeCommissionFormGroup);
     console.log(this.feeCommissionFormGroup.value);
   }
 
   setFeeAmountDetails() {
-    let data;
+    let data = [];
     if (!ObjectUtil.isEmpty(this.cadData.feesAndCommission)) {
-       data = JSON.parse(this.cadData.feesAndCommission);
-      this.feeAmountDetails.patchValue(data.feeAmountDetails);
+      data = JSON.parse(this.cadData.feesAndCommission).feeAmountDetails;
+      data.forEach((value, index) => {
+        this.feeAmountDetails.push(this.formBuilder.group({
+          loanName: [value.loanName],
+          loanId: [value.loanId],
+          loanFeeDetails: this.formBuilder.array([])
+        }));
+        console.log(value);
+        value.loanFeeDetails.forEach(f => {
+          this.loanFeeDetail(index).push( this.formBuilder.group({
+            feeType: [f.feeType, Validators.required],
+            feePercent: [f.feePercent, Validators.required],
+            feeAmount: [f.feeAmount, Validators.required],
+          }));
+        });
+      });
     }
+  }
+
+  setLoanFeeDetails(loanFee, i: number) {
+    console.log(loanFee);
+    loanFee.forEach(f => {
+      console.log(this.feeCommissionFormGroup.get('feeAmountDetails'));
+      /*this.loanFeeDetail(i).push(f);*/
+    });
   }
 
   addFeeAmountDetails() {

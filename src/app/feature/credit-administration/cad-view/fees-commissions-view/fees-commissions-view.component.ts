@@ -9,9 +9,14 @@ import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApproved
 export class FeesCommissionsViewComponent implements OnInit {
   @Input()
   cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
-  constructor() { }
+
+  feeCommission = [];
+
+  constructor() {
+  }
 
   ngOnInit() {
+    this.feeCommission = JSON.parse(this.cadOfferLetterApprovedDoc.feesAndCommission);
   }
 
 }
