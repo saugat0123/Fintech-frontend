@@ -3,6 +3,8 @@ import {Router} from '@angular/router';
 import {RouteConst} from '../model/RouteConst';
 import * as CryptoJS from 'crypto-js';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {UserService} from '../../admin/component/user/user.service';
+import {User} from '../../admin/modal/user';
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +13,8 @@ export class RouterUtilsService {
     currentUserLocalStorage = LocalStorageUtil.getStorage().userId;
 
     constructor(
-        private router: Router
+        private router: Router,
+        private userService: UserService
     ) {
     }
 
@@ -74,13 +77,15 @@ export class RouterUtilsService {
     }
 
     routeOnConditionProfileOrSummary(cadDocumentId, model) {
-        console.log(this.currentUserLocalStorage.toString());
-        console.log(model.cadCurrentStage.toUser.id.toString());
-        if (this.currentUserLocalStorage.toString() === model.cadCurrentStage.toUser.id.toString()) {
-            this.loadProfileWithState(cadDocumentId, model);
-        } else {
-            this.routeSummaryWithStateAndEncryptPath(model);
-        }
+        this.userService.getLoggedInUser().subscribe((res: any) => {
+            const user: User = res.detail;
+            if (user.id.toString() === model.cadCurrentStage.toUser.id.toString()) {
+                this.loadProfileWithState(cadDocumentId, model);
+            } else {
+                this.routeSummaryWithStateAndEncryptPath(model);
+            }
+        });
+
     }
 
     encryptUrl(id) {
