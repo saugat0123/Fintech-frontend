@@ -7,7 +7,7 @@
            data-dismiss="modal">
             <span aria-hidden="true" class="text-white">×</span></a>
 
-        <h4 class="modal-title pull-left text-white">Add Customer</h4>
+        <h4 class="modal-title pull-left text-white">{{formLabel}} Customer</h4>
     </nb-card-header>
     <nb-card-body>
         <nb-radio-group [(ngModel)]="calendarType" class="close d-inline-flex"
@@ -227,12 +227,12 @@
                             <input
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipNumber.errors }"
                                     class="form-control" formControlName="citizenshipNumber" id="citizenshipNumber"
-                                    name="citizenshipNumber" placeholder="citizenship Number"
+                                    name="citizenshipNumber" placeholder="citizenship Number" pattern="[0-9/-]+"
                                     type="text">
                             <div *ngIf="(submitted) && basicInfoControls.citizenshipNumber.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.citizenshipNumber.errors.required">
-                                    citizenship Number is required
+                                    citizenship Number is required and Match the pattern (0-9) and (/ or -)
                                 </div>
                             </div>
                         </div>
