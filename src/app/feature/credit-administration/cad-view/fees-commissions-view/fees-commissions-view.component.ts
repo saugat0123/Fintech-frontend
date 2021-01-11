@@ -17,7 +17,7 @@ export class FeesCommissionsViewComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (!ObjectUtil.isEmpty(this.feeCommission)) {
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.feesAndCommission)) {
             console.log(this.cadOfferLetterApprovedDoc.feesAndCommission);
             this.feeCommission = JSON.parse(this.cadOfferLetterApprovedDoc.feesAndCommission);
             console.log(this.feeCommission);
