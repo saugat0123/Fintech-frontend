@@ -1049,7 +1049,8 @@
                                                    name="province">
                                                <option [ngValue]="null" hidden>Province</option>
                                                <option *ngFor="let provinceVal of provinceList"
-                                                       [ngValue]="provinceVal.id">
+                                                       [ngValue]="provinceVal"
+                                               [selected]="provinceVal.id">
                                                    {{provinceVal.name}}
                                                </option>
                                            </select>
@@ -1074,7 +1075,8 @@
                                                <option [ngValue]="null" hidden>District</option>
                                                <option
                                                    *ngFor="let districtVal of addressList[proprietorIndex].districtList"
-                                                   [ngValue]="districtVal.id">
+                                                   [ngValue]="districtVal"
+                                               [selected]="districtVal.id">
                                                    {{districtVal.name}}
                                                </option>
                                            </select>
@@ -1099,7 +1101,8 @@
                                                <option [ngValue]="null" hidden>Municipality</option>
                                                <option
                                                    *ngFor="let municipalityVal of addressList[proprietorIndex].municipalityVdcList"
-                                                   [ngValue]="municipalityVal.id">
+                                                   [ngValue]="municipalityVal"
+                                               [selected]="municipalityVal.id">
                                                    {{municipalityVal.name}}
                                                </option>
                                            </select>
