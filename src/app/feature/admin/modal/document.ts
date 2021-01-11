@@ -11,4 +11,7 @@ export class Document {
     checked: boolean;
     checkType: DocumentCheckType | string;
     containsTemplate: boolean;
+    amount: number;
+    remarks: string;
+    uploadedDate: Date;
 }
