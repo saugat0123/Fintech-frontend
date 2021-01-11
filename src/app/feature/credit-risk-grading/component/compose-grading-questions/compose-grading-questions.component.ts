@@ -180,7 +180,7 @@ export class ComposeGradingQuestionsComponent implements OnInit {
         this.qsnContent = qsnContent;
         this.buildForm();
 
-        this.modalRef = this.modalService.open(template, {size: 'lg'});
+        this.modalRef = this.modalService.open(template, {size: 'lg', backdrop: 'static'});
     }
 
     openAddQuestion(template: TemplateRef<any>) {
@@ -188,7 +188,7 @@ export class ComposeGradingQuestionsComponent implements OnInit {
         this.qsnContent = new CrgQuestion();
         this.buildForm();
 
-        this.modalRef = this.modalService.open(template, {size: 'lg'});
+        this.modalRef = this.modalService.open(template, {size: 'lg', backdrop: 'static'});
     }
 
     addAnswerFieldForEdit() {
