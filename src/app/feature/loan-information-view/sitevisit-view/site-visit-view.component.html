@@ -184,62 +184,31 @@
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr class="text-white sb-bg-dark">
         <th>Building</th>
-        <th *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            Building Area
-        </th>
-        <th *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            Construction Year</th>
-        <th *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            Building Type
-        </th>
-        <th *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            Built Up Area
-        </th>
-        <th *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            No. of Storey
-        </th>
-        <th *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            Load Bearing Wall
-        </th>
-        <th *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            Mortar Cement
-        </th>
-        <th *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            Other Roofing
-        </th>
-        <th *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            Furniture
-        </th>
+        <ng-container *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
+            <th>Building Area</th>
+            <th>Construction Year</th>
+            <th>Building Type</th>
+            <th>Built Up Area</th>
+            <th>No. of Storey</th>
+            <th>Load Bearing Wall</th>
+            <th>Mortar Cement</th>
+            <th>Other Roofing</th>
+            <th>Furniture</th>
+        </ng-container>
     </tr>
     <tr>
         <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'NO' ? 'No' : null}}</td>
-        <td *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            {{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingArea']}}
-        </td>
-        <td *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            {{formData['fixedAssetCollateralDetails']['otherFacilities']['constructionYear'] | date}}
-        </td>
-        <td *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            {{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingType']}}
-        </td>
-        <td *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            {{formData['fixedAssetCollateralDetails']['otherFacilities']['builtUpArea']}}
-        </td>
-        <td *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            {{formData['fixedAssetCollateralDetails']['otherFacilities']['noOfStorey']}}
-        </td>
-        <td *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            {{formData['fixedAssetCollateralDetails']['otherFacilities']['loadBearingWall'] | booleanConvert}}
-        </td>
-        <td *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            {{formData['fixedAssetCollateralDetails']['otherFacilities']['mortarCement'] | booleanConvert}}
-        </td>
-        <td *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            {{formData['fixedAssetCollateralDetails']['otherFacilities']['otherRoofing'] | booleanConvert}}
-        </td>
-        <td *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
-            {{formData['fixedAssetCollateralDetails']['otherFacilities']['insideFurniture'] | booleanConvert}}
-        </td>
+        <ng-container *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
+            <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingArea']}}</td>
+            <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['constructionYear'] | date}}</td>
+            <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingType']}}</td>
+            <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['builtUpArea']}}</td>
+            <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['noOfStorey']}}</td>
+            <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['loadBearingWall'] | booleanConvert}}</td>
+            <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['mortarCement'] | booleanConvert}}</td>
+            <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['otherRoofing'] | booleanConvert}}</td>
+            <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['insideFurniture'] | booleanConvert}}</td>
+        </ng-container>
     </tr>
     <tr class="text-white sb-bg-dark" *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
         <th>Frame Structure</th>
