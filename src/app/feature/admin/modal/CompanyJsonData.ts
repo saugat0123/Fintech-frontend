@@ -1,4 +1,6 @@
 import {OtherCompanyDetail} from './otherCompanyDetail';
+import {ManagementTeam} from './management-team';
+import {Swot} from './swot';
 
 export class CompanyJsonData {
 
@@ -15,4 +17,6 @@ export class CompanyJsonData {
   groupsBackGround: string = undefined;
   legalReviewRemark: string = undefined;
   businessGiven: string = undefined;
+  managementTeamList: Array<ManagementTeam> = new Array<ManagementTeam>();
+  swot: Swot;
 }

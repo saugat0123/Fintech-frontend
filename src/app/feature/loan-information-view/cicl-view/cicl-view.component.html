@@ -9,7 +9,6 @@
       <tr class="sb-bg-dark text-white">
         <th>S.N</th>
         <th>Name of Borrower</th>
-        <th>Relation</th>
         <th>Cicl Relation</th>
         <th>Name of FI</th>
         <th>Facility</th>
@@ -23,7 +22,6 @@
       <tr *ngFor="let data of ciclList; let i=index">
         <td>{{i + 1}}</td>
         <td>{{data?.nameOfBorrower}}</td>
-        <td>{{data?.borrowerRelation}}</td>
         <td>{{ciclRelationList[data.ciclRelation]}}</td>
         <td>{{data?.nameOfFI || 'NA'}}</td>
         <td>{{data?.facility || 'NA'}}</td>

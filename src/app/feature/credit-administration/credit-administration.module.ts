@@ -39,9 +39,10 @@ import {CadChecklistDocTemplateModalComponent} from './cad-offerletter-profile/c
 import {MegaModule} from './cad-document-template/mega/mega.module';
 import {ProfileViewComponent} from './cad-view/profile-view/profile-view.component';
 import {ExposureViewComponent} from './cad-view/exposure-view/exposure-view.component';
-import { FeesCommissionsViewComponent } from './cad-view/fees-commissions-view/fees-commissions-view.component';
-import { DocumentChecklistViewComponent } from './cad-view/document-checklist-view/document-checklist-view.component';
+import {FeesCommissionsViewComponent} from './cad-view/fees-commissions-view/fees-commissions-view.component';
+import {DocumentChecklistViewComponent} from './cad-view/document-checklist-view/document-checklist-view.component';
 import {CustomOfferLetterDocumentComponent} from './cad-offerletter-profile/cad-offer-letter-modal/custom-offer-letter-document/custom-offer-letter-document.component';
+import {UpdateCustomerCadInfoComponent} from './cad-offerletter-profile/update-customer-cad-info/update-customer-cad-info.component';
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import {CustomOfferLetterDocumentComponent} from './cad-offerletter-profile/cad-
         ExposureViewComponent,
         FeesCommissionsViewComponent,
         DocumentChecklistViewComponent,
-        CustomOfferLetterDocumentComponent],
+        CustomOfferLetterDocumentComponent,
+        UpdateCustomerCadInfoComponent],
     imports: [
         ThemeModule,
         CommonModule,
@@ -90,7 +92,13 @@ import {CustomOfferLetterDocumentComponent} from './cad-offerletter-profile/cad-
         CoreModule,
         MegaModule,
     ],
-    entryComponents: [AssignPopUpComponent, VerifyPopUpComponent, CadOfferLetterModalComponent, ExposureComponent, CadChecklistDocTemplateModalComponent , CustomOfferLetterDocumentComponent]
+    entryComponents: [AssignPopUpComponent,
+        VerifyPopUpComponent,
+        CadOfferLetterModalComponent,
+        ExposureComponent,
+        CadChecklistDocTemplateModalComponent,
+        CustomOfferLetterDocumentComponent,
+        UpdateCustomerCadInfoComponent]
 })
 export class CreditAdministrationModule {
 }

@@ -23,6 +23,8 @@ export class OfferLetterListComponent implements OnInit {
     loanList = [];
     loanType = LoanType;
     currentUserLocalStorage = LocalStorageUtil.getStorage().userId;
+    toggleArray: { toggled: boolean }[] = [];
+    currentIndexArray: { currentIndex: number }[] = [];
 
     constructor(private service: CreditAdministrationService,
                 private router: Router,
@@ -32,9 +34,12 @@ export class OfferLetterListComponent implements OnInit {
 
     static loadData(other: OfferLetterListComponent) {
         other.spinner = true;
+        other.currentIndexArray = [];
+        other.toggleArray = [];
         other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, 10).subscribe((res: any) => {
             other.loanList = res.detail.content;
-            console.log(other.loanList);
+            other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
+            other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: l.previousList.length}));
             other.pageable = PaginationUtils.getPageable(res.detail);
             other.spinner = false;
 

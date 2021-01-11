@@ -5,7 +5,7 @@
         <a (click)="onClose()" aria-label="Close" class="close cursor"
            data-dismiss="modal">
             <span aria-hidden="true" class="text-white">×</span></a>
-        <h4 class="modal-title pull-left text-white">{{task}} Valuator</h4>
+        <h4 class="modal-title pull-left text-white">{{formLabel}} Valuator</h4>
     </nb-card-header>
     <nb-card-body>
         <form [formGroup]="valuatorForm">
@@ -115,8 +115,8 @@
                 <div class="col-md-6 form-group">
                     <label for="contactNo">Contact Number</label>
                     <input [ngClass]="{'is-invalid': submitted && valuatorFormControl.contactNo.invalid}" class="form-control" formControlName="contactNo"
-                           id="contactNo" name="contactNo" placeholder="Phone Number"
-                           type="text"/>
+                           id="contactNo" name="contactNo" placeholder="Contact Number"
+                           type="number"/>
                     <div *ngIf="valuatorFormControl.contactNo.invalid && submitted" class="invalid-feedback">
                         Contact is required!
                     </div>
@@ -178,7 +178,7 @@
                            id="maxAmount" placeholder="Maximum Amount"
                            type="number"/>
                     <div *ngIf="submitted && valuatorFormControl.maxAmount.invalid" class="invalid-feedback">
-                        Maximum Amount is required!
+                        Maximum Amount is required and its value should be greater than Minimum Amount
                     </div>
                 </div>
 

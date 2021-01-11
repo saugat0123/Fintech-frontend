@@ -7,30 +7,37 @@
         <th>
             Facility
         </th>
-        <th>Contain Template</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Remark</th>
 
-        <th>status</th>
+        <th>Attachment</th>
 
 
         </thead>
         <tbody>
         <ng-container *ngFor="let customerLoan of customerLoanList;let i = index">
-            <tr>
+            <tr  class="bg-light">
                 <td>
                     <strong>{{i + 1}}</strong>
                 </td>
-                <td>
+                <td class="bg-light text-left px-2" colspan="5">
                     <strong>{{customerLoan?.loan?.name}}</strong>
                 </td>
             </tr>
             <ng-container>
-                <tr *ngFor="let data of customerLoan?.loan?.approvedDocument;let j = index">
+                <tr *ngFor="let data of customerLoan?.loan?.approvedDocument;let j = index"
+                    (click)="commonService.openDocument(data?.url)"
+                    class="cursor"
+                    [nbTooltipStatus]="data?.url === null? 'danger':''"
+                    [nbTooltip]="data?.url === null? data?.displayName + ' has not been uploaded':'click to view '+data?.displayName">
                     <td>{{'abcdefghijklmnopqrstuvwxyz'.charAt(j)}}</td>
                     <td class="text-left px-2">{{data?.name}}</td>
-
-                    <td>{{data.containsTemplate | booleanConvert}}</td>
-                    <td><i *ngIf="data.url" class="fas fa-eye" (click)="commonService.openDocument(data?.url)"></i>
-                        <i *ngIf="!data.url" class="fas fa-times-circle" (click)="commonService.openDocument(data?.url)"></i>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><i *ngIf="data?.url" class="fas fa-check-circle text-success"></i>
+                        <i *ngIf="!data?.url" class="fas fa-times-circle text-danger"></i>
                     </td>
                 </tr>
             </ng-container>

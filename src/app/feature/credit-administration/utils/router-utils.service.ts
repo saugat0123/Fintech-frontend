@@ -36,10 +36,29 @@ export class RouterUtilsService {
         });
     }
 
+    reloadCadProfileRouteWithActiveTab(cadDocumentId, tabId) {
+        this.router.navigateByUrl(RouteConst.ROUTE_DASHBOARD).then(value => {
+            if (value) {
+                this.router.navigate([RouteConst.ROUTE_OFFER_PROFILE],
+                    {
+                        state: {data: null, tabId: tabId},
+                        queryParams: {
+                            cadDocumentId: cadDocumentId,
+                        }
+                    });
+            }
+        });
+    }
+
 
     routeSummaryWithStateAndEncryptPath(model) {
         this.router.navigate([RouteConst.ROUTE_CAD_SUMMARY, this.encryptUrl(model.id)],
             {state: {data: model}});
+
+    }
+
+    routeSummaryAndEncryptPathID(id) {
+        this.router.navigate([RouteConst.ROUTE_CAD_SUMMARY, this.encryptUrl(id)]);
 
     }
 
@@ -55,8 +74,8 @@ export class RouterUtilsService {
     }
 
     routeOnConditionProfileOrSummary(cadDocumentId, model) {
-        console.log(this.currentUserLocalStorage.toString())
-        console.log(model.cadCurrentStage.toUser.id.toString())
+        console.log(this.currentUserLocalStorage.toString());
+        console.log(model.cadCurrentStage.toUser.id.toString());
         if (this.currentUserLocalStorage.toString() === model.cadCurrentStage.toUser.id.toString()) {
             this.loadProfileWithState(cadDocumentId, model);
         } else {

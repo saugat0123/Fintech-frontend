@@ -27,6 +27,7 @@ import {AddressService} from '../../../../../@core/service/baseservice/address.s
 import {FormUtils} from '../../../../../@core/utils/form.utils';
 import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {ProductUtilService} from '../../../../../@core/service/product-util.service';
+import {CompanyJsonData} from '../../../../admin/modal/CompanyJsonData';
 
 @Component({
     selector: 'app-company-profile',
@@ -64,6 +65,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     isRemarkEdited;
     companyLocationData;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+    companyJsonData: CompanyJsonData = new CompanyJsonData();
 
     constructor(private companyInfoService: CompanyInfoService,
                 private customerInfoService: CustomerInfoService,
@@ -118,6 +120,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
             this.companyInfo = res.detail;
             if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
                 this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
+                this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
             }
             this.spinner = false;
         }, error => {
@@ -194,36 +197,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         }
     }
 
-    openKycModal() {
-        const companyInfo = this.companyInfo;
 
-        this.dialogService.open(EditManagementTeamComponent, {context: {companyInfo}}).onClose.subscribe(res => {
-            if (!ObjectUtil.isEmpty(res)) {
-                this.ngOnInit();
-            }
-        });
-    }
-
-    openProprietorEdit() {
-        const companyInfo = this.companyInfo;
-
-        this.dialogService.open(EditPartnerInfoComponent, {context: {companyInfo}}).onClose.subscribe(res => {
-            if (!ObjectUtil.isEmpty(res)) {
-                this.ngOnInit();
-            }
-        });
-
-    }
-
-    openSwotEdit() {
-        const companyInfo = this.companyInfo;
-
-        this.dialogService.open(EditSwotComponent, {context: {companyInfo}}).onClose.subscribe(res => {
-            if (!ObjectUtil.isEmpty(res)) {
-                this.ngOnInit();
-            }
-        });
-    }
 
     openCompanyDetailEdit(companyInfo) {
         this.dialogService.open(CompanyDetailEditComponent, {context: {companyInfo}}).onClose.subscribe(res => this.ngOnInit());

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {LoanDataHolder} from '../../../../../loan/model/loanData';
@@ -15,20 +15,27 @@ import {CadChecklistDocTemplateModalComponent} from '../../../../cad-offerletter
     templateUrl: './document-checklist.component.html',
     styleUrls: ['./document-checklist.component.scss']
 })
-export class DocumentChecklistComponent implements OnInit {
+export class DocumentChecklistComponent implements OnInit, OnChanges {
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
     customerLoanList: Array<LoanDataHolder>;
     customerCadFile = [];
+    @Output()
+    responseCadData: EventEmitter<CustomerApprovedLoanCadDocumentation> = new EventEmitter<CustomerApprovedLoanCadDocumentation>();
 
     uploadFile;
+    spinner = false;
 
     constructor(private creditAdministrationService: CreditAdministrationService,
                 private toastService: ToastService,
-                private nbDialogService: NbDialogService ,
+                private nbDialogService: NbDialogService,
                 private routerUtilsService: RouterUtilsService) {
     }
 
     ngOnInit() {
+        this.initial();
+    }
+
+    initial() {
         if (!ObjectUtil.isEmpty(this.cadData)) {
             this.customerLoanList = this.cadData.assignedLoan;
 
@@ -52,6 +59,7 @@ export class DocumentChecklistComponent implements OnInit {
     }
 
     save(loanHolderId, customerLoanId, documentId, documentName) {
+        this.spinner = true;
         const formData: FormData = new FormData();
         formData.append('file', this.uploadFile);
         formData.append('customerInfoId', loanHolderId);
@@ -62,12 +70,13 @@ export class DocumentChecklistComponent implements OnInit {
         formData.append('documentName', documentName);
 
         this.creditAdministrationService.uploadCreditCheckList(formData).subscribe((res: any) => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved ' + documentName));
-                this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
-        }, error => {
-            this.toastService.show(new Alert(AlertType.ERROR, error));
+                this.spinner = false;
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved ' + documentName));
+                this.responseCadData.emit(res.detail);
+            }, error => {
+                this.spinner = false;
+                this.toastService.show(new Alert(AlertType.ERROR, error));
             }
-
         );
 
     }
@@ -81,11 +90,16 @@ export class DocumentChecklistComponent implements OnInit {
     }
 
     populateCadTemplate(documentId, loanId) {
-        this.nbDialogService.open(CadChecklistDocTemplateModalComponent, { context: {
+        this.nbDialogService.open(CadChecklistDocTemplateModalComponent, {
+            context: {
                 documentId: documentId,
                 cadData: this.cadData,
                 customerLoanId: loanId
             }
         });
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.initial();
     }
 }

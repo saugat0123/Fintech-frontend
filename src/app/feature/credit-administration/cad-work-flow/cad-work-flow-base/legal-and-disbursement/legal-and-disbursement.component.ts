@@ -22,6 +22,7 @@ export class LegalAndDisbursementComponent implements OnInit {
     spinner = false;
     currentUserLocalStorage = LocalStorageUtil.getStorage().userId;
     showHideAction = false;
+    activeTab = 0;
 
     constructor(private activatedRoute: ActivatedRoute,
                 private service: CreditAdministrationService,
@@ -60,8 +61,22 @@ export class LegalAndDisbursementComponent implements OnInit {
         } else {
             LegalAndDisbursementComponent.loadData(this);
         }
+        if (!ObjectUtil.isEmpty(history.state.tabId)) {
+            this.activeTab = history.state.tabId;
+        }
 
     }
 
+    newCadData(event: CustomerApprovedLoanCadDocumentation) {
+        this.cadOfferLetterApprovedDoc = event;
+        if (ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+            LegalAndDisbursementComponent.loadData(this);
+        } else {
+            this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
+            if (this.currentUserLocalStorage.toString() === this.cadOfferLetterApprovedDoc.cadCurrentStage.toUser.id.toString()) {
+                this.showHideAction = true;
+            }
+        }
+    }
 
 }
