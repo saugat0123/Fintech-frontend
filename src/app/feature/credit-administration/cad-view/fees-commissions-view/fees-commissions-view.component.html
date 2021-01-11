@@ -9,7 +9,7 @@
             </tr>
             </thead>
             <tbody >
-            <ng-container *ngFor="let feeAmount of cadOfferLetterApprovedDoc.feesAndCommission.value;  let i = index">
+            <ng-container *ngFor="let feeAmount of feeCommission?.feeAmountDetails;  let i = index">
                 <tr>
                     <td colspan="3" class="sb-bg-secondary text-white"><strong>{{feeAmount?.loanName}}</strong></td>
                 </tr>
@@ -19,11 +19,11 @@
                     <td>{{loanFee?.feeAmount}}</td>
                 </tr>
             </ng-container>
+            </tbody>
             <tr>
                 <td colspan="2" class="text-center"><strong>Total Amount</strong></td>
                 <td>Rs. {{totalFeeAmount |currencyFormatter}}</td>
             </tr>
-            </tbody>
         </table>
     </div>
 </div>
