@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {ProposalCalculationUtils} from '../../../loan/component/loan-summary/ProposalCalculationUtils';
 
 @Component({
     selector: 'app-exposure-view',
@@ -27,6 +28,16 @@ export class ExposureViewComponent implements OnInit {
             && (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.exposure.historyData))) {
             this.disbursementDetailsHistory = JSON.parse(this.cadOfferLetterApprovedDoc.exposure.historyData);
         }
+    }
+
+    totalSum(list, key) {
+        let total = 0;
+        list.forEach(value => {
+            if (value[key]) {
+                total += parseFloat(ProposalCalculationUtils.isNumber(value[key]));
+            }
+        });
+        return ProposalCalculationUtils.isNumber(total);
     }
 
 }
