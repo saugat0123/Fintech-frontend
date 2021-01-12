@@ -14,7 +14,7 @@
                     <th>
                         Facility
                     </th>
-                    <th>Contain Template</th>
+
                     <th rowspan="5">
                         Documents
                     </th>
@@ -35,12 +35,14 @@
                     <ng-container>
                         <tr *ngFor="let data of customerLoan?.loan?.approvedDocument">
                             <td>{{data?.name}}</td>
-                            <td>{{data.containsTemplate | booleanConvert}}</td>
-                            <td>
+
+                            <td >
                                 <button (click)="openDocUploadModal(uploadModal , customerLoan.loanHolder.id,customerLoan.id,data.id,data.name)"
                                         nbButton
+                                        [nbTooltip]="'upload '+ data?.displayName"
+                                        outline
                                         size="tiny">
-                                    Upload
+                                    <em [nbTooltip]="'upload '+ data?.displayName" class="fa fa-upload"></em>
                                 </button>
 
                     </td>
@@ -50,7 +52,7 @@
                     <td><button nbButton class="align-items-center"  status="primary" size="tiny" *ngIf="data.containsTemplate" (click)="populateCadTemplate(data.id,customerLoan.id)">Generate</button></td>
                     <td>{{data.amount}}</td>
                     <td>{{data.remarks}}</td>
-                    <td><i class="fa fa-edit" (click)="openSaveEditForm(saveEditOtherDocInfo,customerLoan.id,data.id,data.amount,data.remarks)"></i></td>
+                    <td class="cursor"><i class="fa fa-edit" (click)="openSaveEditForm(saveEditOtherDocInfo,customerLoan.id,data.id,data.amount,data.remarks)"></i></td>
 
                 </tr>
                     </ng-container>
