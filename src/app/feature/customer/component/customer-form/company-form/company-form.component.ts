@@ -878,17 +878,14 @@ export class CompanyFormComponent implements OnInit {
             proprietors.contactNo = this.getProprietor()[proprietorsIndex].contactNo;
             proprietors.share = this.getProprietor()[proprietorsIndex].share;
             proprietors.type = this.getProprietor()[proprietorsIndex].type;
-            const province = new Province();
-            province.id = this.getProprietor()[proprietorsIndex].province.id;
-            province.name = this.getProprietor()[proprietorsIndex].province.name;
+            let province = new Province();
+            province = this.getProprietor()[proprietorsIndex].province;
             proprietors.province = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].province)) ? province : undefined;
-            const district = new District();
-            district.id = this.getProprietor()[proprietorsIndex].district.id;
-            district.name = this.getProprietor()[proprietorsIndex].district.name;
+            let district = new District();
+            district = this.getProprietor()[proprietorsIndex].district;
             proprietors.district = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].district)) ? district : undefined;
-            const municipalityVdc = new MunicipalityVdc();
-            municipalityVdc.id = this.getProprietor()[proprietorsIndex].municipalityVdc.id;
-            municipalityVdc.name = this.getProprietor()[proprietorsIndex].municipalityVdc.name;
+            let municipalityVdc = new MunicipalityVdc();
+            municipalityVdc = this.getProprietor()[proprietorsIndex].municipalityVdc;
             proprietors.municipalityVdc = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].municipalityVdc))
                 ? municipalityVdc : undefined;
             proprietorsIndex++;
