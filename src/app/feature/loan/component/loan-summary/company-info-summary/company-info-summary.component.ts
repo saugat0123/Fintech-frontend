@@ -24,12 +24,10 @@ export class CompanyInfoSummaryComponent implements OnInit {
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.companyJsonData)) {
-      console.log(`Loand Holder Data : ${JSON.stringify(this.loanDataHolder)}`);
       this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
       this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
       this.contact = JSON.parse(this.companyInfo.contactPersons);
     }
-    console.log(`Loand Holder Data list : ${JSON.stringify(this.loanDataHolder)}`);
   }
 
 }
