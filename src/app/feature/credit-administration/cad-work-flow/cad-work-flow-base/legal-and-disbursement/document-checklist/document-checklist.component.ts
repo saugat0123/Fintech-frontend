@@ -9,6 +9,10 @@ import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {NbDialogService} from '@nebular/theme';
 import {CadChecklistDocTemplateModalComponent} from '../../../../cad-offerletter-profile/cad-checklist-doc-template-modal/cad-checklist-doc-template-modal.component';
+import {CadFile} from '../../../../model/CadFile';
+import {Document} from '../../../../../admin/modal/document';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {RemarksEnum} from '../../../../../admin/modal/remarksEnum';
 
 @Component({
     selector: 'app-document-checklist',
@@ -24,6 +28,12 @@ export class DocumentChecklistComponent implements OnInit, OnChanges {
 
     uploadFile;
     spinner = false;
+    saveEditParam = {
+        loanId: undefined,
+        documentId: undefined,
+        amount: undefined,
+        remarks: undefined};
+    remarkOption = RemarksEnum.enumObject();
 
     uploadModalDto = {
         loadDataHolderId: undefined,
@@ -35,7 +45,8 @@ export class DocumentChecklistComponent implements OnInit, OnChanges {
     constructor(private creditAdministrationService: CreditAdministrationService,
                 private toastService: ToastService,
                 private nbDialogService: NbDialogService,
-                private routerUtilsService: RouterUtilsService) {
+                private routerUtilsService: RouterUtilsService,
+                private modelService: NgbModal) {
     }
 
     ngOnInit() {
@@ -53,6 +64,9 @@ export class DocumentChecklistComponent implements OnInit, OnChanges {
                             if (doc.id === singleCadFile.cadDocument.id) {
                                 doc.checked = true;
                                 doc.url = singleCadFile.path;
+                                doc.amount = singleCadFile.amount;
+                                doc.remarks = singleCadFile.remarks;
+                                doc.uploadedDate =  singleCadFile.uploadedDate;
                             }
                         });
                     }
@@ -108,6 +122,65 @@ export class DocumentChecklistComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         this.initial();
+    }
+
+    saveText(customerLoanId, documentId, amount, remarks) {
+        this.spinner = true;
+        let flag = true;
+        if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+            this.cadData.cadFileList.forEach(singleCadFile => {
+                if (singleCadFile.customerLoanId === customerLoanId && singleCadFile.cadDocument.id === documentId) {
+                    flag = false;
+                    singleCadFile.amount = amount;
+                    singleCadFile.remarks = remarks;
+                }
+            });
+            if (flag) {
+                const cadFile = new CadFile();
+                const document = new Document();
+                cadFile.amount = amount;
+                cadFile.remarks = remarks;
+                document.id = documentId;
+                cadFile.cadDocument = document;
+                cadFile.customerLoanId = customerLoanId;
+                this.cadData.cadFileList.push(cadFile);
+            }
+        } else {
+            const cadFile = new CadFile();
+            const document = new Document();
+            cadFile.amount = amount;
+            cadFile.remarks = remarks;
+            document.id = documentId;
+            cadFile.cadDocument = document;
+            cadFile.customerLoanId = customerLoanId;
+            this.cadData.cadFileList.push(cadFile);
+        }
+
+        this.creditAdministrationService.saveCadDocumentBulk(this.cadData).subscribe((res) => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Data'));
+            this.spinner = false;
+            this.close();
+            this.responseCadData.emit(res.detail);
+
+            // this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
+        }, error => {
+            this.spinner = false;
+            this.close();
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Data'));
+        });
+    }
+
+    openSaveEditForm(template, loanId, docId, amount, remarks) {
+        this.saveEditParam.loanId = loanId;
+        this.saveEditParam.documentId = docId;
+        this.saveEditParam.amount = amount;
+        this.saveEditParam.remarks = remarks;
+
+        this.modelService.open(template);
+    }
+    close() {
+        this.modelService.dismissAll();
     }
 
     openDocUploadModal(modal , loadDataHolderId , customerLoanId , approvedDocId , documentName) {

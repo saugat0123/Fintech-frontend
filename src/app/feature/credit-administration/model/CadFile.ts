@@ -7,5 +7,9 @@ export class CadFile extends BaseEntity {
     path: string;
     initialInformation: string;
     supportedInformation: string;
+    uploadedDate: Date;
+    amount: number;
+    remarks: string;
+
 
 }
