@@ -636,7 +636,6 @@ export class CompanyFormComponent implements OnInit {
     }
 
     setProprietors(data): FormArray {
-       // console.log(`proprietor data: ${JSON.parse(data)}`);
         const controls = this.companyInfoFormGroup.get('proprietors') as FormArray;
         this.addressList = new Array<Address>(data.length);
         let proprietorIndex = 0;
@@ -653,10 +652,9 @@ export class CompanyFormComponent implements OnInit {
                 name: [proprietors.name === undefined ? '' : proprietors.name, Validators.required],
                 contactNo: [proprietors.contactNo === undefined ? '' : proprietors.contactNo],
                 share: [proprietors.share === undefined ? '' : proprietors.share, Validators.required],
-                province: [proprietors.province === null ? null : (proprietors.province.id === null ? null : proprietors.province.id)],
-                district: [proprietors.district === null ? null : (proprietors.district.id === null ? null : proprietors.district.id)],
-                municipalityVdc: [proprietors.municipalityVdc === null ? null :
-                    (proprietors.municipalityVdc.id === null ? null : proprietors.municipalityVdc.id)],
+                province: [proprietors.province === null ? null : proprietors.province],
+                district: [proprietors.district === null ? null : proprietors.district],
+                municipalityVdc: [proprietors.municipalityVdc === null ? null : proprietors.municipalityVdc],
                 type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]
             }));
         });

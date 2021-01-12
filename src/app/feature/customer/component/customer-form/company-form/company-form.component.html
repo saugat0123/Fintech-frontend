@@ -1041,19 +1041,10 @@
                                <div class="row">
                                    <div class="col-md-4">
                                        <div class="form-group">
-                                           <label for="province"><strong>Province</strong></label>
-                                           <select (change)="getDistricts(proprietor.get('province').value, proprietorIndex)" [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('province').errors }"
-                                                   class="custom-select"
-                                                   formControlName="province"
-                                                   id="province"
-                                                   name="province">
-                                               <option [ngValue]="null" hidden>Province</option>
-                                               <option *ngFor="let provinceVal of provinceList"
-                                                       [ngValue]="provinceVal"
-                                               [selected]="provinceVal.id">
-                                                   {{provinceVal.name}}
-                                               </option>
-                                           </select>
+                                           <label><strong>Province</strong></label>
+                                           <ng-select formControlName="province" (change)="getDistricts(proprietor.get('province').value.id, proprietorIndex)" bindLabel="name" placeholder="Select Province">
+                                               <ng-option *ngFor="let province of provinceList" [value]="province">{{province.name}}</ng-option>
+                                           </ng-select>
                                            <div
                                                *ngIf="(submitted) && proprietor.get('province').invalid"
                                                class="invalid-feedback">
@@ -1066,20 +1057,10 @@
                                    </div>
                                    <div class="col-md-4">
                                        <div class="form-group">
-                                           <label for="district"><strong>District</strong></label>
-                                           <select (change)="getMunicipalities(proprietor.get('district').value, proprietorIndex)" [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('district').errors }"
-                                                   class="custom-select"
-                                                   formControlName="district"
-                                                   id="district"
-                                                   name="district">
-                                               <option [ngValue]="null" hidden>District</option>
-                                               <option
-                                                   *ngFor="let districtVal of addressList[proprietorIndex].districtList"
-                                                   [ngValue]="districtVal"
-                                               [selected]="districtVal.id">
-                                                   {{districtVal.name}}
-                                               </option>
-                                           </select>
+                                           <label><strong>District</strong></label>
+                                           <ng-select formControlName="district" (change)="getMunicipalities(proprietor.get('district').value.id, proprietorIndex)" bindLabel="name" placeholder="Select District">
+                                               <ng-option *ngFor="let districtVal of addressList[proprietorIndex].districtList" [value]="districtVal">{{districtVal.name}}</ng-option>
+                                           </ng-select>
                                            <div
                                                *ngIf="(submitted) && proprietor.get('district').invalid"
                                                class="invalid-feedback">
@@ -1092,20 +1073,11 @@
                                    </div>
                                    <div class="col-md-4">
                                        <div class="form-group">
-                                           <label for="municipality"><strong>Municipalities or
+                                           <label><strong>Municipalities or
                                                VDC</strong></label>
-                                           <select [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('municipalityVdc').errors }" class="custom-select"
-                                                   formControlName="municipalityVdc"
-                                                   id="municipality"
-                                                   name="municipality">
-                                               <option [ngValue]="null" hidden>Municipality</option>
-                                               <option
-                                                   *ngFor="let municipalityVal of addressList[proprietorIndex].municipalityVdcList"
-                                                   [ngValue]="municipalityVal"
-                                               [selected]="municipalityVal.id">
-                                                   {{municipalityVal.name}}
-                                               </option>
-                                           </select>
+                                           <ng-select formControlName="municipalityVdc" bindLabel="name" placeholder=" Select Municipality Vdc">
+                                               <ng-option *ngFor="let municipalityVal of addressList[proprietorIndex].municipalityVdcList" [value]="municipalityVal">{{municipalityVal.name}}</ng-option>
+                                           </ng-select>
                                            <div
                                                *ngIf="(submitted) && proprietor.get('municipalityVdc').invalid"
                                                class="invalid-feedback">
