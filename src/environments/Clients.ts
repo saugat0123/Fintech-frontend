@@ -3,4 +3,5 @@ export class Clients {
   static TINAU_MISSION = 'Tinau Mission Development Bank Limited';
   static MEGA = 'Mega Bank Nepal';
   static SB = 'SB Solutions Nepal';
+  static EXCEL = 'Excel Development Bank Limited';
 }

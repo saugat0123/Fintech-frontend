@@ -47,7 +47,6 @@ export class CadDocumentCoreComponent implements OnInit {
     this.branchId = Number(this.activatedRoute.snapshot.queryParamMap.get('branchId'));
     this.loanFormService.detail(this.customerId).subscribe((response: any) => {
       this.loanDataHolder = response.detail;
-      console.log(this.loanDataHolder)
       this.offerLetterList = this.loanDataHolder.loan.offerLetters;
       if (this.loanDataHolder.customerOfferLetter != null) {
         this.customerOfferLetterPathList = this.loanDataHolder.customerOfferLetter.customerOfferLetterPath;
