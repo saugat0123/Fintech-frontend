@@ -175,4 +175,8 @@ export class DocumentChecklistComponent implements OnInit, OnChanges {
     close() {
         this.modelService.dismissAll();
     }
+
+    responseFromAdditionalDocument(event){
+        this.responseCadData.emit(event)
+    }
 }

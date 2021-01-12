@@ -17,16 +17,20 @@
                 <th>S.N</th>
                 <th>Document Name</th>
                 <th>Attachment</th>
+                <th>Remarks</th>
+                <th>Action</th>
 
 
             </tr>
             </thead>
             <tbody>
 
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr *ngFor="let data of cadData?.additionalDocumentList;let i = index">
+                <td>{{i+1}}</td>
+                <td>{{data?.docName}}</td>
+                <td class="cursor" (click)="commonService.openDocument(data?.docPath)"><em [class]="data?.docPath === null ? 'fas fa-times-circle text-danger':'fa fa-eye'"></em></td>
+                <td>{{data?.remarks}}</td>
+                <td (click)="editDoc(data)"><em class="fa fa-edit cursor"></em></td>
             </tr>
 
             </tbody>

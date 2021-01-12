@@ -136,3 +136,5 @@
 <!--       </nb-card-footer>-->
 <!--    </nb-card>-->
 </ng-template>
+
+<app-additional-document [cadData]="cadData" *ngIf="cadData" (responseCadData)="responseFromAdditionalDocument($event)"></app-additional-document>
