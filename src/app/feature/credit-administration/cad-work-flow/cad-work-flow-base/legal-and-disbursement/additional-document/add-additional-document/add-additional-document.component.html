@@ -1,0 +1,41 @@
+<nb-card accent="primary">
+    <nb-card-header>
+        Additional Document
+        <a (click)="onClose()" aria-label="Close" class="close cursor"
+           data-dismiss="modal">
+            <span aria-hidden="true">×</span></a>
+    </nb-card-header>
+    <nb-card-body>
+        <div [formGroup]="addDocForm">
+            <table class="table table-sm sb-small">
+                <tr>
+                    <td class="font-weight-bold"><sup class="text-danger">*</sup>Document Name
+                    </td>
+                    <td class="font-weight-bold">:</td>
+                    <td class="text-left"><input class="cellInput" formControlName="docName"></td>
+                </tr>
+
+                <tr>
+                    <td class="font-weight-bold"><sup class="text-danger">*</sup>upload</td>
+                    <td class="font-weight-bold">:</td>
+                    <td class="text-left"><input class="cellInput" type="file"></td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Remarks</td>
+                    <td class="font-weight-bold">:</td>
+                    <td class="text-left"><input class="cellInput" type="text"></td>
+                </tr>
+
+
+            </table>
+        </div>
+            <div class="clearfix">
+                <div class="float-right">
+                    <button nbButton size="small" shape="rectangle" (click)="submit()" [disabled]="addDocForm.invalid">
+                        save
+                    </button>
+                </div>
+            </div>
+
+    </nb-card-body>
+</nb-card>
