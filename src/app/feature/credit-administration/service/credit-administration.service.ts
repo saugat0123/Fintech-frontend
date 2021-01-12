@@ -65,4 +65,9 @@ export class CreditAdministrationService extends BaseService<any> {
         return this.http.post(req.url, formData, {headers: req.header});
     }
 
+    public uploadAdditionalDocument(formData: FormData): Observable<object> {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/upload-additional-file`);
+        return this.http.post(req.url, formData, {headers: req.header});
+    }
+
 }

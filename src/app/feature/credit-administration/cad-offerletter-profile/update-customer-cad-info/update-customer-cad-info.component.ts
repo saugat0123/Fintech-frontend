@@ -26,7 +26,7 @@ export class UpdateCustomerCadInfoComponent implements OnInit {
                 private service: CreditAdministrationService,
                 private toastService: ToastService,
                 private modalService: NgbModal,
-                protected dialogRef: NbDialogRef<UpdateCustomerCadInfoComponent>) {
+                private dialogRef: NbDialogRef<UpdateCustomerCadInfoComponent>) {
     }
 
     ngOnInit() {

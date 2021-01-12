@@ -35,6 +35,13 @@ export class DocumentChecklistComponent implements OnInit, OnChanges {
         remarks: undefined};
     remarkOption = RemarksEnum.enumObject();
 
+    uploadModalDto = {
+        loadDataHolderId: undefined,
+        customerLoanId: undefined,
+        approvedDocId: undefined,
+        documentName: undefined
+    };
+
     constructor(private creditAdministrationService: CreditAdministrationService,
                 private toastService: ToastService,
                 private nbDialogService: NbDialogService,
@@ -174,5 +181,17 @@ export class DocumentChecklistComponent implements OnInit, OnChanges {
     }
     close() {
         this.modelService.dismissAll();
+    }
+
+    openDocUploadModal(modal , loadDataHolderId , customerLoanId , approvedDocId , documentName) {
+        this.uploadModalDto.documentName = documentName;
+        this.uploadModalDto.approvedDocId = approvedDocId;
+        this.uploadModalDto.customerLoanId = customerLoanId;
+        this.uploadModalDto.loadDataHolderId = loadDataHolderId;
+        this.nbDialogService.open(modal);
+    }
+
+    responseFromAdditionalDocument(event){
+        this.responseCadData.emit(event)
     }
 }
