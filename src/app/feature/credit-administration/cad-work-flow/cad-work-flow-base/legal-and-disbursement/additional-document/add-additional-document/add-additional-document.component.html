@@ -1,0 +1,45 @@
+<nb-card accent="primary"  [nbSpinner]="spinner"
+         class="m-0"
+         nbSpinnerMessage="Saving....."
+         nbSpinnerSize="giant"
+         nbSpinnerStatus="primary">
+    <nb-card-header>
+        Additional Document
+        <a (click)="onClose()" aria-label="Close" class="close cursor"
+           data-dismiss="modal">
+            <span aria-hidden="true">×</span></a>
+    </nb-card-header>
+    <nb-card-body>
+        <div [formGroup]="addDocForm">
+            <table class="table table-sm sb-small">
+                <tr>
+                    <td class="font-weight-bold"><sup class="text-danger">*</sup>Document Name
+                    </td>
+                    <td class="font-weight-bold px-2">:</td>
+                    <td class="text-left"><input class="cellInput" formControlName="docName"></td>
+                </tr>
+
+                <tr>
+                    <td class="font-weight-bold"><sup class="text-danger">*</sup>upload</td>
+                    <td class="font-weight-bold px-2">:</td>
+                    <td class="text-left"><input class="cellInput" type="file" (change)="addDocInput($event)"></td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold px-1">Remarks</td>
+                    <td class="font-weight-bold px-2">:</td>
+                    <td class="text-left"><textarea class="cellInput" rows="3" formControlName="remarks"></textarea></td>
+                </tr>
+
+
+            </table>
+        </div>
+            <div class="clearfix">
+                <div class="float-right">
+                    <button nbButton size="tiny" shape="rectangle" (click)="submit()" [disabled]="addDocForm.invalid">
+                        save
+                    </button>
+                </div>
+            </div>
+
+    </nb-card-body>
+</nb-card>

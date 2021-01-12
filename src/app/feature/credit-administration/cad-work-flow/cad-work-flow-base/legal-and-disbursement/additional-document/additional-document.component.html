@@ -1,0 +1,39 @@
+<nb-card>
+    <nb-card-header>
+        <div class="col-md-12">
+            <div class="clearfix">
+                <div class="float-left"><strong>Additional Documents</strong></div>
+                <div class="float-right">
+                    <button nbButton size="small" (click)="openAdd()"><em class="fa fa-plus"></em></button>
+                </div>
+            </div>
+
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <table class="table table-bordered table-hover table-sm sb-small text-center ">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>S.N</th>
+                <th>Document Name</th>
+                <th>Attachment</th>
+                <th>Remarks</th>
+                <th>Action</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr *ngFor="let data of cadData?.additionalDocumentList;let i = index">
+                <td>{{i+1}}</td>
+                <td>{{data?.docName}}</td>
+                <td class="cursor" (click)="commonService.openDocument(data?.docPath)"><em [class]="data?.docPath === null ? 'fas fa-times-circle text-danger':'fa fa-eye'"></em></td>
+                <td>{{data?.remarks}}</td>
+                <td (click)="editDoc(data)"><em class="fa fa-edit cursor"></em></td>
+            </tr>
+
+            </tbody>
+        </table>
+    </nb-card-body>
+</nb-card>

@@ -12,7 +12,7 @@
                         *ngIf="showHideAction && cadOfferLetterApprovedDoc"></app-cad-action>
     </nb-card-header>
     <nb-card-body>
-        <nb-tabset fullWidth>
+        <nb-tabset fullWidth *ngIf="cadOfferLetterApprovedDoc?.docStatus !== 'OFFER_PENDING'">
             <nb-tab tabTitle="Basic Info" [active]="activeTab === 0">
                 <app-cad-offerletter-profile *ngIf="cadOfferLetterApprovedDoc"
                                              [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
@@ -33,5 +33,11 @@
                                         *ngIf="cadOfferLetterApprovedDoc"></app-document-checklist>
             </nb-tab>
         </nb-tabset>
+        <div *ngIf="cadOfferLetterApprovedDoc?.docStatus === 'OFFER_PENDING'">
+            <app-cad-offerletter-profile *ngIf="cadOfferLetterApprovedDoc"
+                                         [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                         (responseCadData)="newCadData($event)"></app-cad-offerletter-profile>
+
+        </div>
     </nb-card-body>
 </nb-card>

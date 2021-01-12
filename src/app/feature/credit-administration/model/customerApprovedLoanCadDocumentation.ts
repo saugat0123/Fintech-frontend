@@ -6,6 +6,7 @@ import {OfferDocument} from './OfferDocument';
 import {CadDocStatus} from './CadDocStatus';
 import {Exposure} from './Exposure';
 import {CadStage} from './cadStage';
+import {AdditionalDocument} from './AdditionalDocument';
 
 export class CustomerApprovedLoanCadDocumentation extends BaseEntity {
 
@@ -20,6 +21,7 @@ export class CustomerApprovedLoanCadDocumentation extends BaseEntity {
     feesAndCommission: string;
     exposure: Exposure;
     data: any;
+    additionalDocumentList: Array<AdditionalDocument>;
 
 
 }

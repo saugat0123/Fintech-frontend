@@ -190,4 +190,8 @@ export class DocumentChecklistComponent implements OnInit, OnChanges {
         this.uploadModalDto.loadDataHolderId = loadDataHolderId;
         this.nbDialogService.open(modal);
     }
+
+    responseFromAdditionalDocument(event){
+        this.responseCadData.emit(event)
+    }
 }
