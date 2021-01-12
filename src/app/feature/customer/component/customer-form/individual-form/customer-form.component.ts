@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Customer} from '../../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
@@ -28,7 +28,7 @@ import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
     templateUrl: './customer-form.component.html',
     styleUrls: ['./customer-form.component.scss']
 })
-export class CustomerFormComponent implements OnInit {
+export class CustomerFormComponent implements OnInit, DoCheck {
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
@@ -46,7 +46,7 @@ export class CustomerFormComponent implements OnInit {
         return this.basicInfo.controls;
     }
 
-    @Input() formValue: Customer;
+    @Input() formValue: Customer = new Customer();
     @Input() clientTypeInput: any;
     @Input() customerIdInput: any;
     @Input() bankingRelationshipInput: any;
@@ -61,6 +61,7 @@ export class CustomerFormComponent implements OnInit {
     submitted = false;
     spinner = false;
     displayEngDate = true;
+    formLabel: string;
 
     customerDetailField = {
         showFormField: false,
@@ -486,6 +487,13 @@ export class CustomerFormComponent implements OnInit {
         }
         this.basicInfo.get('incomeSource').updateValueAndValidity();
 
+    }
+    ngDoCheck(): void {
+        if (this.formValue.id == null) {
+            this.formLabel = 'Add';
+        } else {
+            this.formLabel = 'Edit';
+        }
     }
 
     onIncomeSourceChange() {
