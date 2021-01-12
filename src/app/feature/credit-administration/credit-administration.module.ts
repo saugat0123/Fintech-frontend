@@ -43,6 +43,8 @@ import {FeesCommissionsViewComponent} from './cad-view/fees-commissions-view/fee
 import {DocumentChecklistViewComponent} from './cad-view/document-checklist-view/document-checklist-view.component';
 import {CustomOfferLetterDocumentComponent} from './cad-offerletter-profile/cad-offer-letter-modal/custom-offer-letter-document/custom-offer-letter-document.component';
 import {UpdateCustomerCadInfoComponent} from './cad-offerletter-profile/update-customer-cad-info/update-customer-cad-info.component';
+import {AdditionalDocumentComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/additional-document/additional-document.component';
+import {AddAdditionalDocumentComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/additional-document/add-additional-document/add-additional-document.component';
 
 
 @NgModule({
@@ -80,7 +82,9 @@ import {UpdateCustomerCadInfoComponent} from './cad-offerletter-profile/update-c
         FeesCommissionsViewComponent,
         DocumentChecklistViewComponent,
         CustomOfferLetterDocumentComponent,
-        UpdateCustomerCadInfoComponent],
+        UpdateCustomerCadInfoComponent,
+        AdditionalDocumentComponent,
+        AddAdditionalDocumentComponent],
     imports: [
         ThemeModule,
         CommonModule,
@@ -98,7 +102,8 @@ import {UpdateCustomerCadInfoComponent} from './cad-offerletter-profile/update-c
         ExposureComponent,
         CadChecklistDocTemplateModalComponent,
         CustomOfferLetterDocumentComponent,
-        UpdateCustomerCadInfoComponent]
+        UpdateCustomerCadInfoComponent,
+        AddAdditionalDocumentComponent]
 })
 export class CreditAdministrationModule {
 }
