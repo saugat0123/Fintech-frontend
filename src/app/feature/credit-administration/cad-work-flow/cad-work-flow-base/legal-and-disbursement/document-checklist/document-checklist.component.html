@@ -36,12 +36,11 @@
                         <tr *ngFor="let data of customerLoan?.loan?.approvedDocument">
                             <td>{{data?.name}}</td>
                             <td>{{data.containsTemplate | booleanConvert}}</td>
-                            <td><input #file
-                                       type="file" (change)="uploadOfferLetter($event)">
-                                <button nbButton [disabled]="!file.value" status="primary" size="tiny"
-                                        class="float-right"
-                                        (click)="save(customerLoan.loanHolder.id,customerLoan.id,data.id,data.name)">
-                                    save
+                            <td>
+                                <button (click)="openDocUploadModal(uploadModal , customerLoan.loanHolder.id,customerLoan.id,data.id,data.name)"
+                                        nbButton
+                                        size="tiny">
+                                    Upload
                                 </button>
 
                     </td>
@@ -138,3 +137,39 @@
 </ng-template>
 
 <app-additional-document [cadData]="cadData" *ngIf="cadData" (responseCadData)="responseFromAdditionalDocument($event)"></app-additional-document>
+
+
+<ng-template #uploadModal let-ref="dialogRef">
+    <nb-card accent="primary" style="min-width: 35rem;">
+        <nb-card-header>
+            <a (click)="ref.close()" aria-label="Close" class="close cursor"
+               data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+            <div class="row">
+                <div class="col-md-12">
+                    Upload {{uploadModalDto.documentName |titlecase}}
+                </div>
+            </div>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input #file
+                               (change)="uploadOfferLetter($event)" type="file">
+                    </div>
+                </div>
+            </div>
+
+        </nb-card-body>
+        <nb-card-footer>
+            <button (click)="save(uploadModalDto.loadDataHolderId,uploadModalDto.customerLoanId,uploadModalDto.approvedDocId,uploadModalDto.documentName);
+                    ref.close()"
+                    [disabled]="!file.value" class="float-right" nbButton
+                    size="tiny"
+                    status="primary">
+                save
+            </button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>

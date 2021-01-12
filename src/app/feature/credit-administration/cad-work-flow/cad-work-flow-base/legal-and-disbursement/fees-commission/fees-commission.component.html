@@ -1,68 +1,14 @@
-<nb-card accent="primary">
-    <nb-card-header [nbSpinner]="spinner"
-                    nbSpinnerStatus="primary"
-                    nbSpinnerSize="large"
-                    nbSpinnerMessage="Saving Fees/Commission data..."
-                    >
+<nb-card accent="primary" [nbSpinner]="spinner"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="large"
+         nbSpinnerMessage="Saving Fees/Commission data..."
+>
+    <nb-card-header >
 
         <h6 class="text-center">Fee Details</h6>
     </nb-card-header>
     <nb-card-body>
-                <div class="form" [formGroup]="feeCommissionFormGroup">
-                    <div
-                            *ngFor="let feeCommissionForm of feeCommissionFormGroup.get('feeAmountDetails')['controls'];  let i = index"
-                             formArrayName="feeAmountDetails">
-                     <ng-container [formGroupName]="i">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="loanName"><strong>Loan Name</strong></label>
-                                    <input class="form-control" formControlName="loanName" name="loanName" id="loanName"
-                                           placeholder="Loan Name" type="text" [readOnly]="true">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" *ngFor="let loanFeeDetail of feeCommissionForm.get('loanFeeDetails')
-                        ['controls'];  let j = index" formArrayName="loanFeeDetails">
-                       <ng-container [formGroupName]="j">
-                           <div class="col-md-3">
-                       <div class="form-group">
-                           <label for="feeType"><strong>Fees/Commission</strong></label>
-                           <select class="form-control" id="feeType" formControlName="feeType">
-                           <option [value]="null" disabled hidden>Select Fee Type</option>
-                               <option *ngFor="let f of feeTypeList" [value]="f">{{f}}</option>
-                           </select>
-                       </div>
-                   </div>
-                   <div class="col-md-4">
-                   <div class="form-group">
-                       <label for="feePercent"><strong>Fees Percent</strong></label>
-                       <input class="form-control" formControlName="feePercent" name="feePercent" id="feePercent"
-                              placeholder=" Fee Percent" type="number">
-                   </div>
-                 </div>
-                   <div class="col-md-4">
-                   <div class="form-group">
-                       <label for="feeAmount"><strong>Fees Amount</strong></label>
-                       <input  class="form-control" formControlName="feeAmount" name="feeAmount" id="feeAmount"
-                               placeholder="Fees Amount" type="number">
-                   </div>
-               </div>
-                           <span>
-                               <button *ngIf="feeCommissionForm.get('loanFeeDetails').length > 1" (click)="removeLoanFeeDetails(i ,j)"
-                                       class="btn btn-sm btn-flat btn-danger" style="margin-top: 30px;">
-                                   <em class="fa fa-trash bg-transparent"></em>
-                               </button>
-                               <button  *ngIf="j === (feeCommissionForm.get('loanFeeDetails').length - 1)" (click)="addLoanFeeDetails(i)"
-                                        class="btn btn-sm btn-flat btn-primary float-right" style="margin-top: 30px"><i
-                                       class="fa fa-plus"></i></button>
-                           </span>
-                       </ng-container>
-                        </div>
-                     </ng-container>
-                    </div>
-                    <hr>
-                </div>
+        <form [formGroup]="feeCommissionFormGroup">
 
         <div class="row">
             <div class="col-md-12">
@@ -72,27 +18,56 @@
                         <th>Fees/Commission</th>
                         <th>Fees Percent</th>
                         <th>Fees Amount</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody >
-                    <ng-container *ngFor="let feeAmount of feeAmountDetails.value;  let i = index">
+                    <ng-container *ngFor="let feeCommissionForm of feeCommissionFormGroup.get('feeAmountDetails')['controls'];  let i = index"
+                                  formArrayName="feeAmountDetails">
+                        <ng-container [formGroupName]="i">
                         <tr>
-                            <td colspan="3" class="sb-bg-secondary text-white"><strong>{{feeAmount?.loanName}}</strong></td>
+                            <td colspan="3" class="pl-2">
+                                <input class="cellInput w-100 font-weight-bold" formControlName="loanName" name="loanName" id="loanName"
+                                       placeholder="Loan Name" type="text" [readOnly]="true">
+                            </td>
                         </tr>
-                        <tr *ngFor="let loanFee of feeAmount?.loanFeeDetails">
-                            <td>{{loanFee?.feeType}}</td>
-                            <td>{{loanFee?.feePercent}}%</td>
-                            <td>{{loanFee?.feeAmount}}</td>
+                            <ng-container *ngFor="let loanFeeDetail of feeCommissionForm.get('loanFeeDetails')
+                            ['controls'];  let j = index" formArrayName="loanFeeDetails">
+                            <ng-container [formGroupName]="j">
+                        <tr>
+                          <td> <select class="cellInput" id="feeType" formControlName="feeType">
+                              <option [value]="null" disabled hidden>Select Fee Type</option>
+                              <option *ngFor="let f of feeTypeList" [value]="f">{{f}}</option>
+                          </select></td>
+                          <td><input class="cellInput" formControlName="feePercent" name="feePercent" id="feePercent"
+                                     placeholder=" Fee Percent" type="number"></td>
+                          <td><input  class="cellInput" formControlName="feeAmount" name="feeAmount" id="feeAmount"
+                                      placeholder="Fees Amount" type="number"></td>
+                          <td>
+                              <span>
+                               <button *ngIf="feeCommissionForm.get('loanFeeDetails').length > 1" (click)="removeLoanFeeDetails(i ,j)"
+                                       class="btn btn-sm btn-flat btn-danger table-button">
+                                   <em class="fa fa-trash bg-transparent"></em>
+                               </button>
+                                   <button  *ngIf="j === (feeCommissionForm.get('loanFeeDetails').length - 1)" (click)="addLoanFeeDetails(i)"
+                                            class="btn btn-sm btn-flat btn-primary table-button ml-1" ><i
+                                           class="fa fa-plus"></i></button>
+                           </span>
+                          </td>
                         </tr>
+                            </ng-container>
+                            </ng-container>
+                    </ng-container>
                     </ng-container>
                     <tr>
                         <td colspan="2" class="text-center"><strong>Total Amount</strong></td>
-                        <td>Rs. {{totalFeeAmount |currencyFormatter}}</td>
+                        <td colspan="2" class="text-center">Rs. {{totalFeeAmount |currencyFormatter}}</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+        </form>
     </nb-card-body>
     <nb-card-footer>
         <button [disabled]="feeCommissionFormGroup.invalid" nbButton class="float-right" (click)="submitFeeForm()">Save</button>

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
@@ -14,6 +14,10 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 })
 export class FeesCommissionComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
+
+  @Output()
+  responseCadData: EventEmitter<CustomerApprovedLoanCadDocumentation> = new EventEmitter<CustomerApprovedLoanCadDocumentation>();
+
   spinner = false;
 
   // todo replace with api from backend predefined data
@@ -43,9 +47,6 @@ export class FeesCommissionComponent implements OnInit {
     } else {
       this.addFeeAmountDetails();
     }
-
-    console.log(this.feeCommissionFormGroup);
-    console.log(this.feeCommissionFormGroup.value);
   }
 
   setFeeAmountDetails() {
@@ -58,7 +59,6 @@ export class FeesCommissionComponent implements OnInit {
           loanId: [value.loanId],
           loanFeeDetails: this.formBuilder.array([])
         }));
-        console.log(value);
         value.loanFeeDetails.forEach(f => {
           this.loanFeeDetail(index).push( this.formBuilder.group({
             feeType: [f.feeType, Validators.required],
@@ -118,9 +118,9 @@ export class FeesCommissionComponent implements OnInit {
   submitFeeForm() {
     this.spinner = true;
     this.cadData.feesAndCommission = JSON.stringify(this.feeCommissionFormGroup.value);
-    this.service.saveCadDocumentBulk(this.cadData).subscribe(() => {
+    this.service.saveCadDocumentBulk(this.cadData).subscribe((res) => {
       this.toastService.show(new Alert(AlertType.SUCCESS , 'Successfully saved Fee/Commission data!!!'));
-      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
+      this.responseCadData.emit(res.detail);
       this.spinner = false;
     }, error => {
       console.log(error);
