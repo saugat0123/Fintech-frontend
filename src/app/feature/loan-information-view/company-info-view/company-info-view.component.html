@@ -288,7 +288,7 @@
                 <th>Municipalities or VDC</th>
             </tr>
             </thead>
-            <tbody *ngFor="let proprietors of formValue?.proprietorsList; let i=index;">
+            <tbody *ngFor="let proprietors of companyJsonData?.proprietorList; let i=index;">
             <tr>
                 <td>{{i + 1}}</td>
                 <td>{{proprietors?.type}}</td>
