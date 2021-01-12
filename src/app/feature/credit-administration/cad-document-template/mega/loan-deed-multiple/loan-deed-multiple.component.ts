@@ -12,16 +12,16 @@ import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-loan-deed-company',
-  templateUrl: './loan-deed-company.component.html',
-  styleUrls: ['./loan-deed-company.component.scss']
+  selector: 'app-loan-deed-multiple',
+  templateUrl: './loan-deed-multiple.component.html',
+  styleUrls: ['./loan-deed-multiple.component.scss']
 })
-export class LoanDeedCompanyComponent implements OnInit {
+export class LoanDeedMultipleComponent implements OnInit {
 
+  loanDeedMultiple: FormGroup;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
-  loanDeedCompany: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -34,28 +34,22 @@ export class LoanDeedCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.loanDeedCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.loanDeedMultiple.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
     }
   }
 
+
   buildForm() {
-    this.loanDeedCompany = this.formBuilder.group({
+    this.loanDeedMultiple = this.formBuilder.group({
       branch: [undefined],
-      temporaryProvince: [undefined],
       permanentDistrict: [undefined],
       permanentMunicipalityVDC: [undefined],
       permanentWardNo: [undefined],
-      registrarRegistrationOffice: [undefined],
-      registrarRegistrationOfficeProvince: [undefined],
-      registrarRegistrationOfficeDistrict: [undefined],
-      registrarRegistrationOfficeMunicipalityVDC: [undefined],
-      registrarRegistrationOfficeWardNo: [undefined],
-      registrationNo: [undefined],
-      registrationDate: [undefined],
       grandParents: [undefined],
       parents: [undefined],
+      temporaryProvince: [undefined],
       temporaryDistrict: [undefined],
       temporaryMunicipalityVDC: [undefined],
       temporaryWardNo: [undefined],
@@ -65,24 +59,24 @@ export class LoanDeedCompanyComponent implements OnInit {
       citizenshipNo: [undefined],
       issueDate: [undefined],
       issueDistrict: [undefined],
-      date2: [undefined],
-      date3: [undefined],
+      date: [undefined],
       loan: [undefined],
       purpose: [undefined],
-      sNo: [undefined],
+      onePerson: [undefined],
+      rate: [undefined],
       landOwnerName: [undefined],
+      landOwnerNameMunicipalityVDC: [undefined],
+      landOwnerNameWardNo: [undefined],
       amount: [undefined],
       amountInWords: [undefined],
-      municipalityVDC: [undefined],
-      wardNo: [undefined],
+      timeDuration: [undefined],
+      debtorName: [undefined],
+      debtorName2: [undefined],
       seatNo: [undefined],
       kNo: [undefined],
       area: [undefined],
       rNoDate: [undefined],
       rohbarBankEmployeeName: [undefined],
-      nameOfAuthorizedPerson: [undefined],
-      guarantorName: [undefined],
-      guarantorName2: [undefined],
       year: [undefined],
       month: [undefined],
       day: [undefined],
@@ -98,7 +92,6 @@ export class LoanDeedCompanyComponent implements OnInit {
       ageOfWitness2: [undefined],
       relationOfWitness2: [undefined]
     });
-
   }
 
 
@@ -108,13 +101,13 @@ export class LoanDeedCompanyComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.loanDeedCompany.value);
+          singleCadFile.initialInformation = JSON.stringify(this.loanDeedMultiple.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.loanDeedCompany.value);
+        cadFile.initialInformation = JSON.stringify(this.loanDeedMultiple.value);
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -123,7 +116,7 @@ export class LoanDeedCompanyComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.loanDeedCompany.value);
+      cadFile.initialInformation = JSON.stringify(this.loanDeedMultiple.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;

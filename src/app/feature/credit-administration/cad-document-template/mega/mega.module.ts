@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoanDeedCompanyComponent } from './loan-deed-company/loan-deed-company.component';
 import { PersonalGuaranteeJointBorrowerComponent } from './personal-guarantee-joint-borrower/personal-guarantee-joint-borrower.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {ReactiveFormsModule} from '@angular/forms';
 import { PersonalGuaranteeCompanyComponent } from './personal-guarantee-company/personal-guarantee-company.component';
 import { PersonalGuaranteePersonToPersonComponent } from './personal-guarantee-person-to-person/personal-guarantee-person-to-person.component';
 import { ManjurinamaForCompanyComponent } from './manjurinama-for-company/manjurinama-for-company.component';
@@ -11,16 +11,34 @@ import { PromissoryNoteSingleBorrowerComponent } from './promissory-note-single-
 import { AssignmentOfReceivableComponent } from './assignment-of-receivable/assignment-of-receivable.component';
 import { DeedHypoOfMachineryComponent } from './deed-hypo-of-machinery/deed-hypo-of-machinery.component';
 import { HypoOfStockComponent } from './hypo-of-stock/hypo-of-stock.component';
-import {NbCardModule} from '@nebular/theme';
+import {NbButtonModule, NbCardModule} from '@nebular/theme';
+import {LoanDeedMultipleComponent} from './loan-deed-multiple/loan-deed-multiple.component';
+import {LoanDeedSingleComponent} from './loan-deed-single/loan-deed-single.component';
+import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
+import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
 
 
 
 @NgModule({
-  declarations: [LoanDeedCompanyComponent, PersonalGuaranteeJointBorrowerComponent, PersonalGuaranteeCompanyComponent, PersonalGuaranteePersonToPersonComponent, ManjurinamaForCompanyComponent, TrustReceiptNepaliLimitComponent, PromissoryNoteSingleBorrowerComponent, AssignmentOfReceivableComponent, DeedHypoOfMachineryComponent, HypoOfStockComponent],
+  declarations: [LoanDeedCompanyComponent,
+    PersonalGuaranteeJointBorrowerComponent,
+    PersonalGuaranteeCompanyComponent,
+    PersonalGuaranteePersonToPersonComponent,
+    ManjurinamaForCompanyComponent,
+    TrustReceiptNepaliLimitComponent,
+    PromissoryNoteSingleBorrowerComponent,
+    AssignmentOfReceivableComponent,
+    DeedHypoOfMachineryComponent,
+    HypoOfStockComponent,
+    LoanDeedMultipleComponent,
+    LoanDeedSingleComponent,
+    PromissoryNoteCompanyComponent,
+    PromissoryNoteJointComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    NbCardModule
+    NbCardModule,
+    NbButtonModule
   ],
   exports: [
     AssignmentOfReceivableComponent,
@@ -32,7 +50,11 @@ import {NbCardModule} from '@nebular/theme';
     PersonalGuaranteeJointBorrowerComponent,
     PersonalGuaranteePersonToPersonComponent,
     PromissoryNoteSingleBorrowerComponent,
-    TrustReceiptNepaliLimitComponent
+    TrustReceiptNepaliLimitComponent,
+    LoanDeedMultipleComponent,
+    LoanDeedSingleComponent,
+    PromissoryNoteCompanyComponent,
+    PromissoryNoteJointComponent
   ],
   entryComponents: [DeedHypoOfMachineryComponent
   ]
