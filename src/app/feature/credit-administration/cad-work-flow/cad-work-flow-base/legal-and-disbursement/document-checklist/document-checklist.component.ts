@@ -25,6 +25,13 @@ export class DocumentChecklistComponent implements OnInit, OnChanges {
     uploadFile;
     spinner = false;
 
+    uploadModalDto = {
+        loadDataHolderId: undefined,
+        customerLoanId: undefined,
+        approvedDocId: undefined,
+        documentName: undefined
+    };
+
     constructor(private creditAdministrationService: CreditAdministrationService,
                 private toastService: ToastService,
                 private nbDialogService: NbDialogService,
@@ -101,5 +108,13 @@ export class DocumentChecklistComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         this.initial();
+    }
+
+    openDocUploadModal(modal , loadDataHolderId , customerLoanId , approvedDocId , documentName) {
+        this.uploadModalDto.documentName = documentName;
+        this.uploadModalDto.approvedDocId = approvedDocId;
+        this.uploadModalDto.customerLoanId = customerLoanId;
+        this.uploadModalDto.loadDataHolderId = loadDataHolderId;
+        this.nbDialogService.open(modal);
     }
 }
