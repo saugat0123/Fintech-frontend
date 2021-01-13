@@ -43,6 +43,7 @@ import {CustomOfferLetterDocumentComponent} from './cad-offerletter-profile/cad-
 import {UpdateCustomerCadInfoComponent} from './cad-offerletter-profile/update-customer-cad-info/update-customer-cad-info.component';
 import {AdditionalDocumentComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/additional-document/additional-document.component';
 import {AddAdditionalDocumentComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/additional-document/add-additional-document/add-additional-document.component';
+import { DocumentChecklistLiteComponent } from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/document-checklist-lite/document-checklist-lite.component';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import {AddAdditionalDocumentComponent} from './cad-work-flow/cad-work-flow-base
         CustomOfferLetterDocumentComponent,
         UpdateCustomerCadInfoComponent,
         AdditionalDocumentComponent,
-        AddAdditionalDocumentComponent],
+        AddAdditionalDocumentComponent,
+        DocumentChecklistLiteComponent],
     imports: [
         ThemeModule,
         CommonModule,

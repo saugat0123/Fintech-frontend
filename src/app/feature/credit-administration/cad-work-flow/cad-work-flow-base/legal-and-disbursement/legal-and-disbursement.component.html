@@ -30,7 +30,10 @@
             <nb-tab tabTitle="Document CheckList" [active]="activeTab === 3">
                 <app-document-checklist [cadData]="cadOfferLetterApprovedDoc"
                                         (responseCadData)="newCadData($event)"
-                                        *ngIf="cadOfferLetterApprovedDoc"></app-document-checklist>
+                                        *ngIf="cadOfferLetterApprovedDoc && checkListLiteVersion == false"></app-document-checklist>
+                <app-document-checklist-lite [cadData]="cadOfferLetterApprovedDoc"
+                                        (responseCadData)="newCadData($event)"
+                                        *ngIf="cadOfferLetterApprovedDoc && checkListLiteVersion == true"></app-document-checklist-lite>
             </nb-tab>
         </nb-tabset>
         <div *ngIf="cadOfferLetterApprovedDoc?.docStatus === 'OFFER_PENDING'">
