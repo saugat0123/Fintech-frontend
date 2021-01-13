@@ -31,4 +31,18 @@ export class CommonService {
         link.setAttribute('visibility', 'hidden');
         link.click();
     }
+
+   public getDifferenceInDays(createdDate: Date): number {
+        const createdAt = new Date(createdDate);
+        const current = new Date();
+        return Math.floor((Date.UTC(current.getFullYear(), current.getMonth(), current.getDate()) -
+            Date.UTC(createdAt.getFullYear(), createdAt.getMonth(), createdAt.getDate())) / (1000 * 60 * 60 * 24));
+    }
+
+    public getDaysDifference(lastModifiedDate: Date, createdDate: Date): number {
+        const createdAt = new Date(createdDate);
+        const lastModifiedAt = new Date(lastModifiedDate);
+        return Math.floor((Date.UTC(lastModifiedAt.getFullYear(), lastModifiedAt.getMonth(), lastModifiedAt.getDate()) -
+            Date.UTC(createdAt.getFullYear(), createdAt.getMonth(), createdAt.getDate())) / (1000 * 60 * 60 * 24));
+    }
 }
