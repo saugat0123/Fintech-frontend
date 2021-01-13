@@ -204,8 +204,6 @@ export class EditPartnerInfoComponent implements OnInit {
             proprietors.district.id === undefined ? '' : proprietors.district.id],
         municipalityVdc: [ObjectUtil.isEmpty(proprietors.municipalityVdc) ? undefined :
             proprietors.municipalityVdc.id === undefined ? '' : proprietors.municipalityVdc.id],
-        id: [ObjectUtil.setUndefinedIfNull(proprietors.id)],
-        version: [ObjectUtil.setUndefinedIfNull(proprietors.version)],
         type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]
       }));
     });

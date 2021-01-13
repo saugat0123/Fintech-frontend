@@ -1,5 +1,7 @@
 <nb-card>
-    <nb-card-header class="sb-bg-dark"><h2 class="text-white">Loan Configuration
+    <nb-card-header class="sb-bg-dark">
+        <h2 class="text-white">{{formLabel}} Loan Configuration
+        <button class="close cursor pull-right text-white" (click)="close()">×</button>
     </h2></nb-card-header>
     <nb-card-body>
         <form #loanConfigForm="ngForm" (ngSubmit)="onSubmit()" name="form">
