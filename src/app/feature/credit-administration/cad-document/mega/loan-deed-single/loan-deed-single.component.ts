@@ -28,7 +28,6 @@ export class LoanDeedSingleComponent implements OnInit {
       permanentDistrict: [undefined],
       permanentMunicipalityVDC: [undefined],
       permanentWardNo: [undefined],
-      grandParents: [undefined],
       parents: [undefined],
       temporaryDistrict: [undefined],
       temporaryMunicipalityVDC: [undefined],
@@ -39,12 +38,11 @@ export class LoanDeedSingleComponent implements OnInit {
       citizenshipNo: [undefined],
       issueDate: [undefined],
       issueDistrict: [undefined],
-      loanRequestdate: [undefined],
+      loanRequestDate: [undefined],
       loan: [undefined],
       purpose: [undefined],
       annualRate: [undefined],
       onePerson: [undefined],
-      relation2: [undefined],
       sNo: [undefined],
       landOwnerName: [undefined],
       amount: [undefined],
@@ -70,7 +68,9 @@ export class LoanDeedSingleComponent implements OnInit {
       municipalityVDCOfWitness2: [undefined],
       wardNoOfWitness2: [undefined],
       ageOfWitness2: [undefined],
-      relationOfWitness2: [undefined]
+      relationOfWitness2: [undefined],
+      landOwnerMunicipalityVDC: [undefined],
+      landOwnerWardNo: [undefined]
     });
   }
 

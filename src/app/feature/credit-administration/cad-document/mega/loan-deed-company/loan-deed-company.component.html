@@ -1,5 +1,5 @@
 <div class="container nep text-justify">
-    <div [nbSpinner]="spinner" class="row" id="{{offerLetterConst.LOANDEEDMCOMPANY}}">
+    <div [nbSpinner]="spinner" class="row" id="{{offerLetterConst.LOANDEEDCOMPANY}}">
         <div class="col-md-12 viewFull" style="overflow-y: auto;height:500px;">
             <form (ngSubmit)="onSubmit()" [formGroup]="loandeedcompany" class="nepali">
                 <div class="nep">
@@ -190,7 +190,7 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td><input class="form-field form-control-sm nepal..iFont col-9"
+                                <td><input class="form-field form-control-sm nepaliFont col-9"
                                            formControlName="sNo"
                                            placeholder=""
                                            type="text" size="1" /></td>
@@ -202,13 +202,13 @@
                                 </td>
                                 <td>
                                     <input class="form-field form-control-sm nepaliFont col-9"
-                                           formControlName="municipalityVDC"
+                                           formControlName="landOwnerMunicipalityVDC"
                                            placeholder=""
                                            type="text"/>
                                 </td>
                                 <td>
                                     <input class="form-field form-control-sm nepaliFont col-9"
-                                           formControlName="wardNo"
+                                           formControlName="landOwnerWardNo"
                                            placeholder=""
                                            type="text" size="1" />
                                 </td>
