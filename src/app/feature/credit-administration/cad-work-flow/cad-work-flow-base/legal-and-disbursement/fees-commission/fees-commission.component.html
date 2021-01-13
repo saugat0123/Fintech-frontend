@@ -43,15 +43,16 @@
                                      placeholder=" Fee Percent" type="number"></td>
                           <td><input  class="cellInput" formControlName="feeAmount" name="feeAmount" id="feeAmount"
                                       placeholder="Fees Amount" type="number"></td>
-                          <td>
+                          <td class="cursor">
                               <span>
-                               <button *ngIf="feeCommissionForm.get('loanFeeDetails').length > 1" (click)="removeLoanFeeDetails(i ,j)"
-                                       class="btn btn-sm btn-flat btn-danger table-button">
-                                   <em class="fa fa-trash bg-transparent"></em>
-                               </button>
-                                   <button  *ngIf="j === (feeCommissionForm.get('loanFeeDetails').length - 1)" (click)="addLoanFeeDetails(i)"
-                                            class="btn btn-sm btn-flat btn-primary table-button ml-1" ><i
-                                           class="fa fa-plus"></i></button>
+                               <em *ngIf="feeCommissionForm.get('loanFeeDetails').length > 1" (click)="removeLoanFeeDetails(i ,j)"
+                                    nbTooltip="remove"
+                                   nbTooltipStatus = "danger"
+                                   class="fa fa-trash bg-transparent text-danger">
+
+                               </em>
+                                   <em  *ngIf="(j === (feeCommissionForm.get('loanFeeDetails').length - 1)) && j < 4" (click)="addLoanFeeDetails(i)"
+                                        nbTooltip="add"  nbTooltipStatus = "success"  class="px-2 fa fa-plus-circle text-success" ></em>
                            </span>
                           </td>
                         </tr>
