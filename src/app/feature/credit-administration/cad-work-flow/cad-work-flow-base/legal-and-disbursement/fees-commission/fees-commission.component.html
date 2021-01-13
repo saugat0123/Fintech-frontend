@@ -37,7 +37,7 @@
                         <tr>
                           <td> <select class="cellInput" id="feeType" formControlName="feeType">
                               <option [value]="null" disabled hidden>Select Fee Type</option>
-                              <option *ngFor="let f of feeTypeList" [value]="f">{{f}}</option>
+                              <option *ngFor="let f of feeTypeList" [value]="f" [disabled]="disablePreviousSelected(feeCommissionForm.get('loanFeeDetails'),f)">{{f}}</option>
                           </select></td>
                           <td><input class="cellInput" formControlName="feePercent" name="feePercent" id="feePercent"
                                      placeholder=" Fee Percent" type="number"></td>
