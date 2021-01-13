@@ -209,6 +209,11 @@ export class CompanyFormComponent implements OnInit {
         } else {
             this.addManagementTeam();
         }
+        if (!ObjectUtil.isEmpty(this.companyInfo)) {
+            this.setProprietors(this.companyJsonData.proprietorList);
+        } else {
+            this.addProprietor();
+        }
         this.designation = this.designationList.designation;
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
@@ -260,7 +265,6 @@ export class CompanyFormComponent implements OnInit {
             showFormField: (!ObjectUtil.isEmpty(this.formValue)),
             isOldCustomer: (ObjectUtil.isEmpty(this.formValue))
         };
-
     }
 
     buildForm() {
@@ -395,9 +399,7 @@ export class CompanyFormComponent implements OnInit {
                 || ObjectUtil.isEmpty(this.companyJsonData.managementTeamNote)) ? undefined :
                 this.companyJsonData.managementTeamNote],
             // proprietors
-            proprietors: this.formBuilder.array([
-                this.proprietorsFormGroup()
-            ]),
+            proprietors: this.formBuilder.array([]),
             // contact person
             contactPersons: this.formBuilder.array([
                 this.contactPersonFormGroup()
@@ -549,8 +551,6 @@ export class CompanyFormComponent implements OnInit {
     }
 
     setCompanyInfo(info: CompanyInfo) {
-        // proprietors data
-        this.companyInfoFormGroup.setControl('proprietors', this.setProprietors(info.proprietorsList));
         // set contact persons data
         this.companyInfoFormGroup.setControl('contactPersons', this.setContactPersons(info.contactPersons));
     }
@@ -635,11 +635,11 @@ export class CompanyFormComponent implements OnInit {
         (<FormArray>this.companyInfoFormGroup.get('contactPersons')).removeAt(index);
     }
 
-    setProprietors(proprietorsList: Array<Proprietors>): FormArray {
-        const managementTeamFormArray = new FormArray([]);
-        this.addressList = new Array<Address>(proprietorsList.length);
+    setProprietors(data): FormArray {
+        const controls = this.companyInfoFormGroup.get('proprietors') as FormArray;
+        this.addressList = new Array<Address>(data.length);
         let proprietorIndex = 0;
-        proprietorsList.forEach(proprietors => {
+        data.forEach(proprietors => {
             this.addressList[proprietorIndex] = new Address();
             if (!ObjectUtil.isEmpty(proprietors.province) && proprietors.province.id !== null) {
                 this.getDistricts(proprietors.province.id, proprietorIndex);
@@ -648,18 +648,17 @@ export class CompanyFormComponent implements OnInit {
                 }
             }
             proprietorIndex++;
-            managementTeamFormArray.push(this.formBuilder.group({
+            controls.push(this.formBuilder.group({
                 name: [proprietors.name === undefined ? '' : proprietors.name, Validators.required],
                 contactNo: [proprietors.contactNo === undefined ? '' : proprietors.contactNo],
                 share: [proprietors.share === undefined ? '' : proprietors.share, Validators.required],
-                province: [proprietors.province === null ? null : (proprietors.province.id === null ? null : proprietors.province.id)],
-                district: [proprietors.district === null ? null : (proprietors.district.id === null ? null : proprietors.district.id)],
-                municipalityVdc: [proprietors.municipalityVdc === null ? null :
-                    (proprietors.municipalityVdc.id === null ? null : proprietors.municipalityVdc.id)],
+                province: [proprietors.province === null ? null : proprietors.province],
+                district: [proprietors.district === null ? null : proprietors.district],
+                municipalityVdc: [proprietors.municipalityVdc === null ? null : proprietors.municipalityVdc],
                 type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]
             }));
         });
-        return managementTeamFormArray;
+        return controls;
     }
 
     // return proprietors formArray
@@ -871,7 +870,7 @@ export class CompanyFormComponent implements OnInit {
         this.locations.streetName = this.companyInfoFormGroup.get('streetName').value;
         this.companyInfo.companyLocations = this.locations;
         // proprietorsList
-        this.companyInfo.proprietorsList = new Array<Proprietors>();
+        this.companyJsonData.proprietorList = new Array<Proprietors>();
         let proprietorsIndex = 0;
         while (proprietorsIndex < this.getProprietor().length) {
             const proprietors = new Proprietors();
@@ -879,18 +878,18 @@ export class CompanyFormComponent implements OnInit {
             proprietors.contactNo = this.getProprietor()[proprietorsIndex].contactNo;
             proprietors.share = this.getProprietor()[proprietorsIndex].share;
             proprietors.type = this.getProprietor()[proprietorsIndex].type;
-            const province = new Province();
-            province.id = this.getProprietor()[proprietorsIndex].province;
+            let province = new Province();
+            province = this.getProprietor()[proprietorsIndex].province;
             proprietors.province = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].province)) ? province : undefined;
-            const district = new District();
-            district.id = this.getProprietor()[proprietorsIndex].district;
+            let district = new District();
+            district = this.getProprietor()[proprietorsIndex].district;
             proprietors.district = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].district)) ? district : undefined;
-            const municipalityVdc = new MunicipalityVdc();
-            municipalityVdc.id = this.getProprietor()[proprietorsIndex].municipalityVdc;
+            let municipalityVdc = new MunicipalityVdc();
+            municipalityVdc = this.getProprietor()[proprietorsIndex].municipalityVdc;
             proprietors.municipalityVdc = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].municipalityVdc))
                 ? municipalityVdc : undefined;
             proprietorsIndex++;
-            this.companyInfo.proprietorsList.push(proprietors);
+            this.companyJsonData.proprietorList.push(proprietors);
         }
 
         if (!this.disableCrgAlpha) {
@@ -939,6 +938,7 @@ export class CompanyFormComponent implements OnInit {
         /** Market Scenario detail */
         submitData.marketScenario = this.marketScenarioComponent.submitData;
         submitData.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
+        submitData.proprietorList = this.companyJsonData.proprietorList;
 
         // swot
         submitData.swot = this.swot;
