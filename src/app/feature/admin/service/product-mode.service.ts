@@ -61,6 +61,7 @@ export class ProductUtils {
     CAD_LITE_VERSION: boolean;
     CBS_ENABLE: boolean;
     FULL_CAD: boolean;
+    CHECK_LIST_LITE_VERSION: boolean;
 
 }
 

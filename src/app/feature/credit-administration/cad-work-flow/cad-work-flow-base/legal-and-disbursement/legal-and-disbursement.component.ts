@@ -21,6 +21,7 @@ export class LegalAndDisbursementComponent implements OnInit {
     cadDocumentId;
     spinner = false;
     currentUserLocalStorage = LocalStorageUtil.getStorage().userId;
+    checkListLiteVersion = LocalStorageUtil.getStorage().productUtil.CHECK_LIST_LITE_VERSION;
     showHideAction = false;
     activeTab = 0;
 
