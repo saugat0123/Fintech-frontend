@@ -170,7 +170,6 @@ export class DocumentChecklistLiteComponent implements OnInit {
       this.close();
       this.responseCadData.emit(res.detail);
 
-      // this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
       this.spinner = false;
       this.close();
