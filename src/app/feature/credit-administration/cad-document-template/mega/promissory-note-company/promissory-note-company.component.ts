@@ -12,17 +12,16 @@ import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-loan-deed-company',
-  templateUrl: './loan-deed-company.component.html',
-  styleUrls: ['./loan-deed-company.component.scss']
+  selector: 'app-promissory-note-company',
+  templateUrl: './promissory-note-company.component.html',
+  styleUrls: ['./promissory-note-company.component.scss']
 })
-export class LoanDeedCompanyComponent implements OnInit {
+export class PromissoryNoteCompanyComponent implements OnInit {
 
+  promissoryNoteCompany: FormGroup;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
-  loanDeedCompany: FormGroup;
-
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -34,73 +33,58 @@ export class LoanDeedCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.loanDeedCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.promissoryNoteCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
     }
   }
 
   buildForm() {
-    this.loanDeedCompany = this.formBuilder.group({
+    this.promissoryNoteCompany = this.formBuilder.group({
       branch: [undefined],
       temporaryProvince: [undefined],
+      temporaryProvince2: [undefined],
       permanentDistrict: [undefined],
       permanentMunicipalityVDC: [undefined],
       permanentWardNo: [undefined],
-      registrarRegistrationOffice: [undefined],
-      registrarRegistrationOfficeProvince: [undefined],
-      registrarRegistrationOfficeDistrict: [undefined],
-      registrarRegistrationOfficeMunicipalityVDC: [undefined],
-      registrarRegistrationOfficeWardNo: [undefined],
-      registrationNo: [undefined],
-      registrationDate: [undefined],
+      permanentDistrict2: [undefined],
+      permanentMunicipalityVDC2: [undefined],
+      permanentWardNo2: [undefined],
       grandParents: [undefined],
       parents: [undefined],
+      grandParents2: [undefined],
+      parents2: [undefined],
       temporaryDistrict: [undefined],
       temporaryMunicipalityVDC: [undefined],
       temporaryWardNo: [undefined],
-      temporaryAddress: [undefined],
+      temporaryDistrict2: [undefined],
+      temporaryMunicipalityVDC2: [undefined],
+      temporaryWardNo2: [undefined],
       age: [undefined],
+      age2: [undefined],
       relation: [undefined],
       citizenshipNo: [undefined],
+      citizenshipNo2: [undefined],
       issueDate: [undefined],
       issueDistrict: [undefined],
-      date2: [undefined],
-      date3: [undefined],
-      loan: [undefined],
-      purpose: [undefined],
-      sNo: [undefined],
-      landOwnerName: [undefined],
+      issueDate2: [undefined],
+      issueDistrict2: [undefined],
+      annualRate: [undefined],
+      onePerson: [undefined],
+      relation2: [undefined],
       amount: [undefined],
       amountInWords: [undefined],
-      municipalityVDC: [undefined],
-      wardNo: [undefined],
-      seatNo: [undefined],
-      kNo: [undefined],
-      area: [undefined],
-      rNoDate: [undefined],
-      rohbarBankEmployeeName: [undefined],
-      nameOfAuthorizedPerson: [undefined],
-      guarantorName: [undefined],
-      guarantorName2: [undefined],
       year: [undefined],
       month: [undefined],
       day: [undefined],
-      time: [undefined],
-      districtOfWitness: [undefined],
-      municipalityVDCOfWitness: [undefined],
-      wardNoOfWitness: [undefined],
-      ageOfWitness: [undefined],
-      relationOfWitness: [undefined],
-      districtOfWitness2: [undefined],
-      municipalityVDCOfWitness2: [undefined],
-      wardNoOfWitness2: [undefined],
-      ageOfWitness2: [undefined],
-      relationOfWitness2: [undefined]
+      nameOfWitness: [undefined],
+      addressOfWitness: [undefined],
+      nameOfWitness2: [undefined],
+      addressOfWitness2: [undefined],
+      namesOfTheRightPeopleInTheAffidavit: [undefined],
+      namesOfTheRightPeopleInTheAffidavit2: [undefined]
     });
-
   }
-
 
   submit() {
     let flag = true;
@@ -108,13 +92,13 @@ export class LoanDeedCompanyComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.loanDeedCompany.value);
+          singleCadFile.initialInformation = JSON.stringify(this.promissoryNoteCompany.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.loanDeedCompany.value);
+        cadFile.initialInformation = JSON.stringify(this.promissoryNoteCompany.value);
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -123,7 +107,7 @@ export class LoanDeedCompanyComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.loanDeedCompany.value);
+      cadFile.initialInformation = JSON.stringify(this.promissoryNoteCompany.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
