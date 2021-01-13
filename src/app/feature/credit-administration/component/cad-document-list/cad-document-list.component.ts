@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import * as CryptoJS from 'crypto-js';
+import {CommonService} from '../../../../@core/service/common.service';
 
 @Component({
     selector: 'app-cad-document-list',
@@ -28,7 +29,8 @@ export class CadDocumentListComponent implements OnInit {
 
     constructor(private service: CreditAdministrationService,
                 private router: Router,
-                private spinnerService: NgxSpinnerService) {
+                private spinnerService: NgxSpinnerService,
+                public commonService: CommonService) {
     }
 
     static loadData(other: CadDocumentListComponent) {
