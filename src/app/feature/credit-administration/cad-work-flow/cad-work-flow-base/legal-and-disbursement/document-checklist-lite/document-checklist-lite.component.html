@@ -11,11 +11,15 @@
         <thead class="sb-bg-dark text-white">
         <tr>
           <th>
-            Facility
+            S.N
           </th>
 
-          <th rowspan="5">
-            Documents
+          <th>
+            Document Name
+          </th>
+
+          <th>
+            Upload
           </th>
           <th>Preview</th>
           <th>Generate</th>
@@ -26,8 +30,9 @@
         </thead>
         <tbody>
         <ng-container>
-          <tr *ngFor="let data of document">
-            <td>{{data?.name}}</td>
+          <tr *ngFor="let data of document;let i =index">
+            <td>{{i+1}}</td>
+            <td class="text-left px-2">{{data?.name}}</td>
             <td>
               <button
                   (click)="openDocUploadModal(uploadModal , cadData?.loanHolder?.id,0,data.id,data.name)"
@@ -39,9 +44,9 @@
               </button>
 
             </td>
-            <td><i (click)="previewDoc(data.url,data.name)" *ngIf="data.url" class="fas fa-eye"></i>
+            <td><i (click)="previewDoc(data.url,data.name)" *ngIf="data.url" class="fas fa-eye cursor"></i>
               <i (click)="previewDoc(data.url,data.name)" *ngIf="!data.url"
-                 class="fas fa-times-circle"></i>
+                 class="fas fa-times-circle text-danger"></i>
             </td>
             <td>
               <button (click)="populateCadTemplate(data.id,0)" *ngIf="data.containsTemplate" class="align-items-center" nbButton
