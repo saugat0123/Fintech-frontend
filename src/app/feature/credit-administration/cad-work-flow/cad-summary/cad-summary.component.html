@@ -22,12 +22,14 @@
             </nb-tab>
             <nb-tab tabTitle="Fees and Commissions">
                 <app-fees-commissions-view [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-                                   *ngIf="cadOfferLetterApprovedDoc"></app-fees-commissions-view>
+                                           *ngIf="cadOfferLetterApprovedDoc"></app-fees-commissions-view>
             </nb-tab>
             <nb-tab tabTitle="Document Checklist">
-         <app-document-checklist-view [cadData]="cadOfferLetterApprovedDoc"
-                                      *ngIf="cadOfferLetterApprovedDoc"></app-document-checklist-view>
-           </nb-tab>
+                <app-document-checklist-view [cadData]="cadOfferLetterApprovedDoc"
+                                             *ngIf="cadOfferLetterApprovedDoc && checkListLiteVersion == false"></app-document-checklist-view>
+                <app-document-checklist-view-lite [cadData]="cadOfferLetterApprovedDoc"
+                                                  *ngIf="cadOfferLetterApprovedDoc && checkListLiteVersion == true"></app-document-checklist-view-lite>
+            </nb-tab>
         </nb-tabset>
     </nb-card-body>
 
