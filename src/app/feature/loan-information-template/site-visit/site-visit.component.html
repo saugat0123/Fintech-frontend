@@ -307,6 +307,37 @@
                 <div class="col-md-12">
                     <app-common-address #fixedAssetsAddress [address]="formDataForEdit?.fixedAssetCollateralDetails?.address"></app-common-address>
                 </div>
+                <div class="col-md-4 form-group">
+                    <label class="title" for="typeOfProperty">Type of Property</label>
+                    <select class="custom-select" formControlName="typeOfProperty" id="typeOfProperty"
+                            name="typeOfProperty">
+                        <option [ngValue]="''" hidden>Type of Property</option>
+                        <option value="Agricultural">Agricultural</option>
+                        <option value="Industrial">Industrial</option>
+                        <option value="Commercial">Commercial</option>
+                        <option value="Residential">Residential</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label class="title" for="shapeOfLand">Shape of Land</label>
+                    <select class="custom-select" formControlName="shapeOfLand" id="shapeOfLand"
+                            name="shapeOfLand">
+                        <option [ngValue]="''" hidden>Select shape of land</option>
+                        <option value="Rectangular">Rectangular</option>
+                        <option value="Triangular">Triangular</option>
+                        <option value="Irregular">Irregular</option>
+                        <option value="Vertical Slope">Vertical Slope</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label class="title">Does the location & shape of land appear consistent with Blue Print?</label>
+                    <nb-radio-group formControlName="locationAndShapeOfLand" class="ml-1 d-inline-flex text-center">
+                        <nb-radio value="Yes">Yes</nb-radio>
+                        <nb-radio value="No">No</nb-radio>
+                    </nb-radio-group>
+                </div>
                 <h5 class="col-md-12 mt-3">Facilities</h5>
                 <div class="row col-md-12 pr-0" formGroupName="facilities">
                     <div class="col-md-3 form-group">
@@ -334,6 +365,16 @@
                         <label class="title" for="approachDistance">Approach Distance</label>
                         <input class="form-control" formControlName="approachDistance" id="approachDistance"
                                name="approachDistance" placeholder="approach distance" type="text">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label class="title" for="roadAccessFrom">Road Access From</label>
+                        <select class="custom-select" formControlName="roadAccessFrom" id="roadAccessFrom"
+                                name="roadAccessFrom">
+                            <option [ngValue]="''" hidden>Select Road Access From</option>
+                            <option value="One Side">One Side</option>
+                            <option value="Two Sides">Two Sides</option>
+                            <option value="Both Sides">Both Sides</option>
+                        </select>
                     </div>
                 </div>
                 <h5 class="col-md-12 mt-3">Other Facilities</h5>
@@ -412,6 +453,31 @@
                                    name="constructionYear" placeholder="construction year">
                             <nb-datepicker #datepicker5></nb-datepicker>
                         </div>
+                        <div *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('building')?.value == 'YES'"
+                             class="col-md-12 form-group">
+                            <label class="title" for="buildingType">Building Type</label>
+                            <select class="custom-select" formControlName="buildingType" id="buildingType"
+                                    name="buildingType">
+                                <option [ngValue]="''" hidden>Select Building type</option>
+                                <option value="Residential">Residential</option>
+                                <option value="Commercial Complex/Mall">Commercial Complex/Mall</option>
+                                <option value="Factory Shed">Factory Shed</option>
+                                <option value="Warehouse">Warehouse</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                        <div *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('building')?.value == 'YES'"
+                             class="col-md-12 form-group">
+                            <label class="title" for="builtUpArea">Built Up Area</label>
+                            <input class="form-control" formControlName="builtUpArea" id="builtUpArea"
+                                   name="builtUpArea" placeholder="Built Up Area">
+                        </div>
+                        <div *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('building')?.value == 'YES'"
+                             class="col-md-12 form-group">
+                            <label class="title" for="noOfStorey">Number of Storey</label>
+                            <input class="form-control" formControlName="noOfStorey" id="noOfStorey"
+                                   name="noOfStorey" placeholder="No. of Storey ">
+                        </div>
                     </div>
                     <table *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('building')?.value == 'YES'"
                            class="table col-md-4 table-sm sb-small text-center">
@@ -454,6 +520,36 @@
                             <td>7</td>
                             <td>Bathroom And Toilet</td>
                             <td><input formControlName="bathroomAndToilet" type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Naksa Pass Obtained</td>
+                            <td><input formControlName="naksaPassObtained" type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Building Completion Certificate Obtained</td>
+                            <td><input formControlName="buildingCompCertificate" type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Construction appears to be as per the Approved Naksa Pass</td>
+                            <td><input formControlName="constructionAsPerNaksa" type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>Any road setbacks?</td>
+                            <td><input formControlName="roadSetbacks" type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>Any river/canal setbacks? </td>
+                            <td><input formControlName="riverOrCanalSetbacks" type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td>Any High-tension setbacks?</td>
+                            <td><input formControlName="highTensionSetbacks" type="checkbox"></td>
                         </tr>
                     </table>
                 </div>

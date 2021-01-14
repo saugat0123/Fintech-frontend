@@ -317,16 +317,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let singleProprietorInfo of companyInfo?.proprietorsList;
+                    <tr *ngFor="let proprietorInfo of companyJsonData?.proprietorList;
                                         let i = index">
                       <td>{{i + 1}}</td>
-                      <td>{{singleProprietorInfo?.type}}</td>
-                      <td>{{singleProprietorInfo?.name}}</td>
-                      <td>{{singleProprietorInfo?.contactNo}}</td>
-                      <td>{{singleProprietorInfo?.share}}</td>
-                      <td>{{singleProprietorInfo?.province?.name}}</td>
-                      <td>{{singleProprietorInfo?.district?.name}}</td>
-                      <td>{{singleProprietorInfo?.municipalityVdc?.name}}</td>
+                      <td>{{proprietorInfo?.type}}</td>
+                      <td>{{proprietorInfo?.name}}</td>
+                      <td>{{proprietorInfo?.contactNo}}</td>
+                      <td>{{proprietorInfo?.share}}</td>
+                      <td>{{proprietorInfo?.province?.name}}</td>
+                      <td>{{proprietorInfo?.district?.name}}</td>
+                      <td>{{proprietorInfo?.municipalityVdc?.name}}</td>
                     </tr>
                     </tbody>
                   </table>

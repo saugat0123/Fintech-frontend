@@ -20,7 +20,7 @@ export class CadSummaryComponent implements OnInit {
     spinner = false;
     currentUserLocalStorage = LocalStorageUtil.getStorage().userId;
     toggleArray: { toggled: boolean }[] = [];
-
+    checkListLiteVersion = LocalStorageUtil.getStorage().productUtil.CHECK_LIST_LITE_VERSION;
     constructor(private activatedRoute: ActivatedRoute,
                 private service: CreditAdministrationService,
                 public commonService: CommonService,

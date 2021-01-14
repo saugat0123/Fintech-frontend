@@ -1,0 +1,96 @@
+<nb-card
+        [nbSpinner]="spinner"
+        accent="primary"
+        class="text-center m-0"
+        nbSpinnerMessage="Saving  data..."
+        nbSpinnerSize="large"
+        nbSpinnerStatus="primary">
+    <nb-card-body>
+        <div class="col-md-12">
+            <table class="table table-bordered table-hover text-center sb-small table-sm">
+                <thead class="sb-bg-dark text-white">
+                <tr>
+                    <th>
+                        S.N
+                    </th>
+
+                    <th>
+                        Document Name
+                    </th>
+
+
+                    <th>Amount</th>
+                    <th>
+                        Upload On
+                    </th>
+                    <th>Remarks</th>
+                    <th>Attachment</th>
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container>
+                    <tr *ngFor="let data of document;let i =index"
+                        (click)="previewDoc(data?.url,data?.displayName)"
+                        class="cursor"
+                        [nbTooltipStatus]="data?.url === null? 'danger':''"
+                        [nbTooltip]="data?.url === null? data?.displayName + ' has not been uploaded':'click to view '+data?.displayName">
+
+                        <td>{{i + 1}}</td>
+                        <td class="text-left px-2">{{data?.name}}</td>
+                        <td><span *ngIf="data?.amount">{{(data?.amount | currencyFormatter)}}</span>
+                            <span *ngIf="!data?.amount">-</span></td>
+                        <td><span *ngIf="data?.uploadedDate">{{(data?.uploadedDate | date)}}</span>
+                            <span *ngIf="!data?.uploadedDate">-</span></td>
+                        <td>{{data?.remarks || '-'}}</td>
+                        <td class="cursor">
+                            <em *ngIf="data?.url" class="fas fa-check-circle text-success"></em>
+                            <em *ngIf="!data?.url" class="fas fa-times-circle text-danger"></em>
+                        </td>
+
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+
+        </div>
+    </nb-card-body>
+</nb-card>
+
+<nb-card>
+    <nb-card-header>
+        <div class="col-md-12">
+            <div class="clearfix">
+                <div class="float-left"><strong>Additional Documents</strong></div>
+
+            </div>
+
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <table class="table table-bordered table-hover table-sm sb-small text-center ">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>S.N</th>
+                <th>Document Name</th>
+                <th>Remarks</th>
+                <th>Attachment</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr *ngFor="let data of cadData?.additionalDocumentList;let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{data?.docName}}</td>
+                <td>{{data?.remarks}}</td>
+                <td class="cursor" (click)="previewDoc(data?.docPath,data?.docName)"><em
+                        [class]="data?.docPath === null ? 'fas fa-times-circle text-danger':'fa fa-eye'"></em></td>
+
+
+            </tr>
+
+            </tbody>
+        </table>
+    </nb-card-body>
+</nb-card>
