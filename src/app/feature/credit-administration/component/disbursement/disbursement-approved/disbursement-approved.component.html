@@ -1,0 +1,43 @@
+<nb-card [nbSpinner]="spinner" accent="primary">
+    <nb-card-header>
+        <div class="row">
+            <div class="col-md-12">
+                <app-filter (eventEmitter)="setSearchValue($event)"></app-filter>
+            </div>
+        </div>
+        <h6 class="text-center">Disbursement Approved</h6>
+    </nb-card-header>
+    <nb-card-body>
+        <table class="table table-bordered table-hover table-sm sb-small text-center ">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <td>S.N</td>
+                <th>Branch</th>
+                <th>Customer Name</th>
+                <th>Type</th>
+                <th>Document Status</th>
+                <th>Add Exposure</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let model of loanList;let i=index">
+                <tr class="cursor">
+                    <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                    <td>{{model?.loanHolder?.branch?.name}}</td>
+                    <td>{{model?.loanHolder?.name}}</td>
+                    <td>{{model?.loanHolder?.customerType}}</td>
+                    <td>{{model?.docStatus}}</td>
+                    <td><em class="fas fa-plus-circle" (click)="addExposure(model)"></em></td>
+
+                </tr>
+            </ng-container>
+            </tbody>
+        </table>
+        <!-- ===================table-pagination==================== -->
+        <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+        <!-- ===================table-pagination==================== -->
+
+    </nb-card-body>
+</nb-card>

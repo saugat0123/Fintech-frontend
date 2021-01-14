@@ -1,3 +1,7 @@
+.box {
+  border-style: solid;
+
+}
 .nepali {
   font-size: 16px;
   line-height: 1.9;
@@ -16,8 +20,6 @@
     outline: none;
   }
 }
-
-.box {
-  border-style: solid;
-
+nb-card{
+  max-height: 900px;
 }

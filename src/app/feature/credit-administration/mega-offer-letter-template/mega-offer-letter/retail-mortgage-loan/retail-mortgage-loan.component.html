@@ -1,4 +1,9 @@
 <div class="text-justify nep" id="{{offerLetterConst.RETAIL_MORTGAGE_LOAN}}">
+  <nb-card      [nbSpinner]="spinner"
+                nbSpinnerStatus="primary"
+                nbSpinnerSize="large"
+                nbSpinnerMessage="Saving Mortgage Loan offer letter.....">
+    <nb-card-body>
   <form [formGroup]="form">
     <h6 class="text-center">व्यक्तिगत एवं गोप्य</h6>
     <p class="text-right"> मिति:
@@ -722,12 +727,16 @@
     </div>
     <div class="row">
       <div class="col-md-12 text-right">
-        <button nbButton status="success" (click)="onSubmit()">Save</button>
+        <button nbButton status="success" (click)="submit()">Save</button>
       </div>
     </div>
   </form>
+    </nb-card-body>
+    <nb-card-footer class="mb-3">
+      <button  nbButton status="info" class="mb-4 float-right" [disabled]="!initialInfoPrint" [useExistingCss]="true"
+               ngxPrint printSectionId="{{offerLetterConst.RETAIL_MORTGAGE_LOAN}}Print">Print
+      </button>
+    </nb-card-footer>
+  </nb-card>
   </div>
-<button *ngIf="initialInfoPrint" [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4"
-        ngxPrint printSectionId="{{offerLetterConst.RETAIL_MORTGAGE_LOAN}}Print">Print
-</button>
 <app-retail-mortgage-loan-print *ngIf="initialInfoPrint"  [letter]="form.value" hidden></app-retail-mortgage-loan-print>

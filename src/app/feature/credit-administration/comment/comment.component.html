@@ -1,0 +1,95 @@
+
+<div class="col-md-12">
+    <p><strong>Comments</strong></p>
+    <table
+            class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+        <thead>
+        <tr class="sb-bg-dark text-white">
+            <th>S.N</th>
+            <th>Date</th>
+            <th>From User</th>
+
+            <th>To User</th>
+
+            <th>Status</th>
+            <th class="cmt-width">Remarks</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let previousList of cadData?.previousList ; let i = index">
+            <td>{{i + 1}}</td>
+            <td>
+                {{previousList?.lastModifiedAt | date}}
+            </td>
+            <td>
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-center">
+                        {{previousList?.fromUser?.name}}</div>
+                </div>
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-center">
+                        <span>({{previousList?.fromRole?.roleName}})</span>
+                    </div>
+
+                </div>
+
+            </td>
+
+            <td>
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-center">
+                        {{previousList?.toUser?.name}}</div>
+                </div>
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-center">
+                        ({{previousList?.toRole?.roleName}})
+                    </div>
+
+                </div>
+            </td>
+
+            <td>{{previousList?.docAction | replace:'_':' '}}</td>
+            <td class="text-left px-2">
+                {{ previousList?.comment}}
+            </td>
+        </tr>
+        <tr>
+            <td>{{currentIndex + 1}}</td>
+            <td>{{cadData?.cadCurrentStage?.lastModifiedAt | date}}</td>
+            <td>
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-center">
+                        {{cadData?.cadCurrentStage?.fromUser?.name}}</div>
+                </div>
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-center">
+                        <span>({{cadData?.cadCurrentStage?.fromRole?.roleName}})</span>
+                    </div>
+
+                </div>
+            </td>
+
+            <td>
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-center">
+                        {{cadData?.cadCurrentStage?.toUser?.name}}</div>
+                </div>
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-center">
+                        <span>({{cadData?.cadCurrentStage?.toRole?.roleName}})</span>
+                    </div>
+
+                </div>
+            </td>
+
+            <td>{{cadData?.cadCurrentStage?.docAction | replace:'_':' '}}</td>
+            <td class="text-left  px-2">
+
+                {{cadData?.cadCurrentStage?.comment}}
+
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,190 @@
+<div class="container nep text-justify">
+    <form (ngSubmit)="submit()" [formGroup]="promissorySingleNote" class="nep">
+        <div>
+            <h1 style="text-align: center;">
+                प्रतिज्ञा पत्र
+                <br>
+            </h1>
+            <h3 style="text-align: center;">
+                (PROMISSORY NOTE)
+            </h3>
+            <p style="text-align: end;">
+                मिति: <input class="form-field form-control-sm nepaliFont" name="date" formControlName="date" placeholder=""type="text"/></p>
+        </div> <!-- Header -->
+        <div class="col-md-12">
+            <p>रु<input class="form-field form-control-sm nepaliFont" formControlName="amount" name="amount" placeholder="" type="text"/>
+                (अक्षरेपी <input class="form-field form-control-sm nepaliFont"name="amountInWord"  formControlName="amountInWord" placeholder=""  type="text"/> )<br>
+                <br>
+
+                लिखितम् श्री <input class="form-field form-control-sm nepaliFont" name="grandFatherName"  formControlName="grandFatherName" placeholder=""    type="text"/>
+                को/की नाति/नातिनी/बुहारी श्री<input class="form-field form-control-sm nepaliFont" name="fatherName" formControlName="fatherName" placeholder=""    type="text"/>
+
+                को छोरा/छोरी/श्रीमती
+                <input class="form-field form-control-sm nepaliFont"  name="perDistrictName"
+                       formControlName="perDistrict"
+                       placeholder=""
+                       type="text"/>
+                जिल्ला
+                <input class="form-field form-control-sm nepaliFont"
+                       formControlName="perMunicipalityOrVdc"
+                       name="perMunicipalityOrVdc"
+                       placeholder=""
+                       type="text"/>
+                न.पा/गा.वि.स. वडा नं
+                <input class="form-field form-control-sm nepaliFont"
+                       formControlName="perWardNo"
+                       name="perWardNo"
+                       placeholder=""
+                       type="text"/>
+                स्थायी ठेगाना भई हाल
+                <input class="form-field form-control-sm nepaliFont"
+                       name="currentDistrict"
+                       formControlName="currentDistrict"
+                       placeholder=""
+                       type="text"/>
+                जिल्ला
+                <input class="form-field form-control-sm nepaliFont"
+                       name="CurrentMunicipalityOrVdc"
+                       formControlName="CurrentMunicipalityOrVdc"
+                       placeholder=""
+                       type="text"/>
+                न.पा./गा.वि.स. वडा नं
+                <input class="form-field form-control-sm nepaliFont"
+                       formControlName="CurrentWardNo"
+                       name="CurrentWardNo"
+                       placeholder=""
+                       type="text"/>
+                बर्ष
+                <input class="form-field form-control-sm nepaliFont"
+                       formControlName="borrowerAge"
+                       name="borrowerAge"
+                       placeholder=""
+                       type="text"/>
+                को/की श्री/सुश्री/श्रीमती
+                <input class="form-field form-control-sm nepaliFont"
+                       name="borrowerName"
+                       formControlName="borrowerName"
+                       placeholder=""
+                       type="text"/>
+                (ना.प्र.नं
+                <input class="form-field form-control-sm nepaliFont"
+                       name="citizenshipNo"
+                       formControlName="citizenshipNo"
+                       placeholder=""
+                       type="text"/>
+                मिति
+                <input class="form-field form-control-sm nepaliFont"
+                       name="citizenshipIssuedDate"
+                       formControlName="citizenshipIssuedDate"
+                       placeholder=""
+                       type="text"/>
+                .जि.प्र.का
+                <input class="form-field form-control-sm nepaliFont"
+                       name="districtOffice"
+                       formControlName="districtOffice"
+                       placeholder=""
+                       type="text"/>)
+                आगे,तपाई मेगा बैंक नेपाल लिमिठे
+                <input class="form-field form-control-sm nepaliFont"
+                       name="bankBranch"
+                       formControlName="bankBranch"
+                       placeholder=""
+                       type="text"/>
+                कार्यालय ले भुक्तानी
+                माग गरेका वखत तपाईलाई वा तपाईले निर्देशन दिएको व्यक्ति/संस्थालाई रु.
+                <input class="form-field form-control-sm nepaliFont"
+                       name="loanAmount"
+                       formControlName="loanAmount"
+                       placeholder=""
+                       type="text"/>
+                (अक्षरेपी
+                <input class="form-field form-control-sm nepaliFont"
+                       name="loanAmountInWord"
+                       formControlName="loanAmountInWord"
+                       placeholder=""
+                       type="text"/>)
+                र भुक्तानी माग गरेको मिति सम्मको बार्षिक
+                <input class="form-field form-control-sm nepaliFont"
+                       name="loanInterest"
+                       formControlName="loanInterest"
+                       placeholder=""
+                       type="text"/>
+                प्रतिशतका दरले हुने ब्याज रकम समेत एकमुष्ठ तिर्न बुझाउन प्रतिज्ञा / कबुल गरी यो प्रतिज्ञापत्रको लिखत गरी दिएं ।
+
+            </p>
+        </div> <!-- Main with form -->
+
+        <div class="row">
+            <div class="column left" style="background-color:rgb(255, 255, 255);">
+
+            </div>
+            <div class="column middle" style="background-color:rgb(255, 255, 255);">
+                <p>
+                    प्रतिज्ञापत्रमा सही व्यक्तिको नामः
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="docWrittenName"
+                           formControlName="docWrittenName"
+                           placeholder=""
+                           type="text"/>
+                    <br><br>
+                    दस्तखतः<br><br>
+
+                    रेखात्मकः<span class="tab"></span><span class="tab"></span>     दाया <span class="tab"></span><span class="tab"></span>        बाया<br><br><br><br>
+
+                </p>
+            </div>
+            <div class="column right" style="background-color:rgb(255, 255, 255);">
+
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <h5>साक्षीः</h5>
+                <p>
+                    (१)	लेखात्मक सहीः
+                </p>
+                <p>
+                    (२)	नामः <input class="form-field form-control-sm nepaliFont"
+                                       name="witnessName"
+                                       formControlName="witnessName"
+                                       placeholder=""
+                                       type="text"/>
+                </p>
+                <p>
+                    (३)	ठेगानाः<input class="form-field form-control-sm nepaliFont"
+                                         name="witnessAddress"
+                                         formControlName="witnessAddress"
+                                         placeholder=""
+                                         type="text"/>
+                </p>
+                <br>
+                <p>
+                    (४)	लेखात्मक सहीः
+                </p>
+                <p>
+                    (५)	नामः<input class="form-field form-control-sm nepaliFont"
+                                      name="witnessName1"
+                                      formControlName="witnessName1"
+                                      placeholder=""
+                                      type="text"/>
+                </p>
+                <p>
+                    (६)	ठेगानाः<input class="form-field form-control-sm nepaliFont"
+                                         name="witnessAddress1"
+                                         formControlName="witnessAddress1"
+                                         placeholder=""
+                                         type="text"/>
+                </p>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button nbButton status="success" type="submit">Save</button>
+            </div>
+        </div>
+    </form>
+</div>

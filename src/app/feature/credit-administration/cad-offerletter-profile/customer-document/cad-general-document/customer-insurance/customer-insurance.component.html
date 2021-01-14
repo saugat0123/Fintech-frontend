@@ -1,0 +1,16 @@
+
+
+            <div class="row">
+                <div class="col-md-3 img-hover flex-wrap"
+                     *ngFor="let data of insuranceList;let i =index"
+                     [nbTooltip]="data?.company">
+                    <a (click)="service.openDocument(data?.policyDocumentPath)" class="cursor"><em
+                            [className]="service.SET_CLASS_NAME"></em>
+                        <span class="mx-1"> {{data?.company.length > 15 ?
+                            data?.company?.substring(0, 12) + '..' :
+                            data?.company}}</span></a>
+                </div>
+            </div>
+
+
+

@@ -110,7 +110,7 @@
                              class="col-md-6 mb-4">
                             <app-update-document [cycle]="loanCycle"></app-update-document>
                         </div>
-                        <div *ngIf="loanCycle?.cycle === 'Cad Document' && productUtils.CAD_LITE_VERSION"
+                        <div *ngIf="loanCycle?.cycle === 'Cad Document' && (productUtils.CAD_LITE_VERSION || productUtils.FULL_CAD)"
                              class="col-md-6 mb-4">
                             <app-update-document [cycle]="loanCycle"></app-update-document>
                         </div>

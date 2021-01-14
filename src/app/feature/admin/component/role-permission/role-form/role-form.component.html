@@ -23,7 +23,7 @@
                 <select (change)="checkRole()" [(ngModel)]="role.roleType" class="custom-select"
                         name="roleType">
                     <option [ngValue]="undefined" hidden>---select Role Type---</option>
-                    <option *ngFor="let roleType of roleTypeList.values()   "
+                    <option *ngFor="let roleType of appConfigRoleType   "
                             [ngValue]="roleType">{{roleType |  replace:'_':' '}}</option>
                 </select>
             </div>

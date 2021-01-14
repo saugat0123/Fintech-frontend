@@ -1,0 +1,145 @@
+<nb-card [nbSpinner]="spinner" accent="primary">
+    <nb-card-header>
+        <div class="row">
+            <div class="col-md-12">
+                <app-filter (eventEmitter)="setSearchValue($event)"></app-filter>
+            </div>
+        </div>
+        <h6 class="text-center">CAD Files</h6>
+    </nb-card-header>
+    <nb-card-body>
+        <table class="table table-bordered table-hover table-sm sb-small text-center ">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>S.N</th>
+                <th>Branch</th>
+                <th>Customer Name</th>
+                <th>Type</th>
+                <th>Document Status</th>
+                <th>Current Possession</th>
+                <th>Loan Document No</th>
+                <th>Comments</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let model of loanList;let i=index">
+                <tr class="cursor">
+                    <td (click)="loadSummary(model)">{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                    <td (click)="loadSummary(model)">
+                            {{model?.loanHolder?.branch?.name}}</td>
+                    <td (click)="loadSummary(model)">{{model?.loanHolder?.name}}</td>
+                    <td (click)="loadSummary(model)">{{model?.loanHolder?.customerType}}</td>
+                    <td (click)="loadSummary(model)">{{model?.docStatus | replace:'_':' '}}</td>
+                    <td (click)="loadSummary(model)">{{model?.cadCurrentStage?.toUser?.name}}</td>
+                    <td (click)="loadSummary(model)">{{model?.assignedLoan?.length}}</td>
+                    <td>
+                        <a class="px-2 cursor"
+                           (click)="model?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
+                           nbTooltip="click to view detail comments ">
+                            <em class="fa fa-eye"></em>
+                        </a></td>
+                </tr>
+                <ng-container *ngIf="toggleArray[i].toggled">
+                    <tr>
+                        <td colspan="10"><b>Post Approval Document Comments</b></td>
+                    </tr>
+                    <tr class="sb-bg-dark text-white">
+                        <th>S.N</th>
+                        <th>Date</th>
+                        <th>From User</th>
+
+                        <th>To User</th>
+
+                        <th>Status</th>
+                        <th class="cmt-width" colspan="3">Remarks</th>
+                    </tr>
+
+                    <tr *ngFor="let previousList of model?.previousList ; let j = index">
+                        <td>{{j + 1}}</td>
+                        <td>
+                            {{previousList?.lastModifiedAt | date}}
+                        </td>
+                        <td>
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-center">
+                                    {{previousList?.fromUser?.name}}</div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-center">
+                                    <span>({{previousList?.fromRole?.roleName}})</span>
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td>
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-center">
+                                    {{previousList?.toUser?.name}}</div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-center">
+                                    ({{previousList?.toRole?.roleName}})
+                                </div>
+
+                            </div>
+                        </td>
+
+                        <td>{{previousList?.docAction | replace:'_':' '}}</td>
+                        <td class="text-left px-2" colspan="3">
+                            {{ previousList?.comment}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{currentIndexArray[i].currentIndex + 1 }}</td>
+                        <td>{{model?.cadCurrentStage?.lastModifiedAt | date}}</td>
+                        <td>
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-center">
+                                    {{model?.cadCurrentStage?.fromUser?.name}}</div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-center">
+                                    <span>({{model?.cadCurrentStage?.fromRole?.roleName}})</span>
+                                </div>
+
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-center">
+                                    {{model?.cadCurrentStage?.toUser?.name}}</div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-center">
+                                    <span>({{model?.cadCurrentStage?.toRole?.roleName}})</span>
+                                </div>
+
+                            </div>
+                        </td>
+
+                        <td>{{model?.cadCurrentStage?.docAction | replace:'_':' '}}</td>
+                        <td class="text-left px-2" colspan="3">
+
+                            {{model?.cadCurrentStage?.comment}}
+
+
+                        </td>
+                    </tr>
+                    <tr class="sb-bg-dark text-white">
+                        <td colspan="8">.</td>
+                    </tr>
+                </ng-container>
+            </ng-container>
+            </tbody>
+        </table>
+        <!-- ===================table-pagination==================== -->
+        <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+        <!-- ===================table-pagination==================== -->
+
+    </nb-card-body>
+</nb-card>
