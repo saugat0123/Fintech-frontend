@@ -10,4 +10,8 @@ export class Document {
     status: string;
     checked: boolean;
     checkType: DocumentCheckType | string;
+    containsTemplate: boolean;
+    amount: number;
+    remarks: string;
+    uploadedDate: Date;
 }

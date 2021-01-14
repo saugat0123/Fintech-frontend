@@ -1,1 +1,124 @@
-<p>cad-action works!</p>
+<nb-card>
+    <nb-card-header>
+        <div class="clearfix">
+            <div class="float-left">
+                <button nbButton size="small" status="primary" [nbTooltip]="backwardToolTip"
+                      [disabled]="isBackwardDisabled"  (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD',false)">RETURN
+                </button>
+                <button nbButton size="small" outline status="success" shape="rectangle"
+                        *ngIf="!isMaker && showHideReturnToRm" (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD',true)">RETURN TO
+                    RM
+                </button>
+            </div>
+            <div class="float-right">
+                <button nbButton size="small" status="primary" nbTooltip="choose user to forward"
+                        (click)="approvedForwardBackward(sendForwardBackward,'FORWARD',false)" *ngIf="isMaker">FORWARD
+                </button>
+                <button nbButton size="small" status="primary" [nbTooltip]="approvedLabel"
+                        (click)="approvedForwardBackward(sendForwardBackward,'APPROVED',false)" *ngIf="!isMaker">
+                    APPROVED
+                </button>
+            </div>
+        </div>
+    </nb-card-header>
+</nb-card>
+
+<ng-template #sendForwardBackward>
+    <nb-card accent="primary">
+        <div class="modal-content">
+            <div class="modal-header" style="display:block">
+                <a (click)="onClose()" aria-label="Close" class="close cursor"
+                   data-dismiss="modal">
+                    <span aria-hidden="true">×</span></a>
+                <h5 class="nav  navbar-right pull-left">{{popUpTitle}}</h5>
+            </div>
+
+            <form (ngSubmit)="onSubmit(verify)" [formGroup]="formAction" role="form">
+                <div *ngIf="popUpTitle === 'FORWARD'" class="col-md-12 row">
+                    <div class="col-md-6 form-group">
+                        <label class="toRole" for="toRole">TO</label>
+                        <select (change)="getUserList(this.formAction.get('toRole').value)"
+                                class="form-control form-control-sm"
+                                formControlName="toRole"
+                                id="toRole"
+                                name="toRole"
+                                [ngClass]="{ 'is-invalid': submitted && formAction.controls['toRole'].errors }">
+                            <option [value]="null" hidden>Select To</option>
+                            <option *ngFor="let forwardBackward of sendForwardBackwardList"
+                                    [ngValue]="forwardBackward.role">
+                                {{forwardBackward.role?.roleName}}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted && formAction.controls['toRole'].hasError('required')"
+                             class="error-message"
+                             style="color: red;">Role is required
+                        </div>
+                    </div>
+
+                    <div *ngIf="popUpTitle === 'FORWARD' && userList?.length > 1" class="col-md-6 py-4 px-3">
+                        <select (change)="errorMsgStatus=false" class="form-control" formControlName="toUser"
+                                placeholder="select  User">
+                            <option [value]="null" hidden>Select To</option>
+                            <option *ngFor="let user of userList" [ngValue]="user">{{user.name}}</option>
+                        </select>
+
+                    </div>
+                    <p *ngIf="errorMsgStatus" class="text-danger"><sup>*</sup>{{errorMsg}}</p>
+                </div>
+                <div class="form-group col-md-12 py-3">
+                    <label for="comment">Comment:</label>
+                    <textarea [ngClass]="{ 'is-invalid': submitted && formAction.controls['comment'].errors }"
+                              class="form-control" formControlName="comment" id="comment"
+                              name="text"
+                    ></textarea>
+                    <div *ngIf="submitted && formAction.controls['comment'].hasError('required')"
+                         class="error-message"
+                         style="color: red;">comment is required
+                    </div>
+                </div>
+
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button nbButton (click)="onSubmit(verify)" size="small" status="primary"><i
+                            class="fa fa-save"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </nb-card>
+</ng-template>
+
+<ng-template #verify>
+    <div>
+        <div class="modal-content">
+            <div class="modal-header" style="display:block">
+                <div class="login-box-body">
+                    <p class="login-box-msg">Please Enter Your Credential for Confirmation</p>
+                    <p *ngIf="falseCredential" class="text-danger">Please enter
+                        again. {{falseCredentialMessage}}</p>
+
+                    <form #lform="ngForm" (ngSubmit)="lform.valid && onLogin(lform)" class="login-form"
+                          name="login-form">
+                        <div class="form-group has-feedback">
+                            <input #pass="ngModel" [ngClass]="{'is-invalid': lform.submitted && pass.invalid}"
+                                   class="form-control"
+                                   id="password"
+                                   name="password"
+                                   ngModel placeholder="Password" required
+                                   type="password">
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                            <div *ngIf="pass.invalid && lform.submitted" class="invalid-feedback">
+                                Password is required
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-primary  btn-flat" type="submit">verify</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -6,6 +6,8 @@ import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {LoanType} from '../../../loan/model/loanType';
 import {NbDialogService} from '@nebular/theme';
 import {AssignPopUpComponent} from '../assign-pop-up/assign-pop-up.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
     selector: 'app-unassigned-loan',
@@ -23,7 +25,8 @@ export class UnassignedLoanComponent implements OnInit {
 
     constructor(private service: CreditAdministrationService,
                 private spinnerService: NgxSpinnerService,
-                private nbModalService: NbDialogService) {
+                private nbModalService: NbDialogService,
+                private modalService:NgbModal) {
     }
 
     static loadData(other: UnassignedLoanComponent) {
@@ -48,7 +51,13 @@ export class UnassignedLoanComponent implements OnInit {
         UnassignedLoanComponent.loadData(this);
     }
 
-    openAssignPopUp() {
-        this.nbModalService.open(AssignPopUpComponent);
+    openAssignPopUp(data:CustomerApprovedLoanCadDocumentation) {
+       const comp = this.modalService.open(AssignPopUpComponent);
+       comp.componentInstance.cadData = data;
+    }
+
+    setSearchValue(value){
+        this.searchObj = value;
+        UnassignedLoanComponent.loadData(this);
     }
 }

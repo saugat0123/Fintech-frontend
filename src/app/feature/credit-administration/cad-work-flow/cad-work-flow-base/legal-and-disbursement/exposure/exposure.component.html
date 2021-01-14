@@ -1,0 +1,59 @@
+<nb-card
+         class="text-center m-0"
+         [nbSpinner]="spinner"
+         accent="primary"
+         nbSpinnerStatus="primary"
+         nbSpinnerMessage="Saving exposure data..."
+         nbSpinnerSize="large">
+    <nb-card-header>
+        <a  *ngIf="isHistory" (click)="close()" aria-label="Close" class="close cursor"
+            data-dismiss="modal">
+            <span aria-hidden="true">×</span></a>
+        <h6>  Exposure Detail </h6>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="form" [formGroup]="exposureForm">
+          <table class="table table-bordered table-hover table-sm sb-small text-center ">
+              <thead>
+              <tr class="text-white sb-bg-dark">
+                  <th>Facility</th>
+                  <th>Limit</th>
+                  <th>Disbursement</th>
+                  <th>Init Rate</th>
+                  <th>Maturity</th>
+                  <th>Frequency</th>
+
+
+              </tr>
+              </thead>
+              <tbody>
+              <ng-container   *ngFor="let d of exposureForm.get('disbursementDetails')['controls'];  let i = index" formArrayName="disbursementDetails">
+                  <ng-container [formGroupName]="i">
+              <tr>
+
+                          <td><input class="cellInput text-center" formControlName="loanName" [readOnly]="true"></td>
+                          <td><input class="cellInput text-center" formControlName="loanLimit" [readOnly]="true"></td>
+                          <td><input class="cellInput text-center" formControlName="disbursement"></td>
+                          <td><input class="cellInput text-center" formControlName="initialRate"></td>
+                          <td><input class="cellInput text-center" formControlName="maturity"></td>
+                          <td>
+                              <select class="cellInput" formControlName="frequency">
+                              <option [value]="null" disabled hidden>select frequency</option>
+                                  <option *ngFor="let f of frequencyList" [value]="f">{{f}}</option>
+                          </select></td>
+                             </tr>
+                  </ng-container>
+              </ng-container>
+              </tbody>
+          </table>
+          <div class="row">
+              <div class="col-md-12 text-left">
+                  <em class="sb-small">Total Limit:   <strong>{{totalLimit}}</strong></em>
+              </div>
+          </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton class="float-right" (click)="submit()" [disabled]="exposureForm.invalid">Save</button>
+    </nb-card-footer>
+</nb-card>

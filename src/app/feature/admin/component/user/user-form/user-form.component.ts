@@ -11,6 +11,10 @@ import {RoleAccess} from '../../../modal/role-access';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {LoanFormService} from '../../../../loan/component/loan-form/service/loan-form.service';
 import {Router} from '@angular/router';
+import {Province} from '../../../modal/province';
+import {AddressService} from '../../../../../@core/service/baseservice/address.service';
+import {RoleType} from '../../../modal/roleType';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-user-form',
@@ -24,6 +28,7 @@ export class UserFormComponent implements OnInit {
     submitted = false;
     spinner = false;
     branchList: Array<Branch>;
+    provinces: Array<Province>;
     branch = new Array<Branch>();
     roleList: Array<Role>;
     role = new Role();
@@ -31,6 +36,7 @@ export class UserFormComponent implements OnInit {
     isSpecific = false;
     isAll = false;
     tempBranch;
+    tempProvince = [];
     finalBranchList = [];
     branchIdList;
     disableRoleBranch = false;
@@ -42,6 +48,8 @@ export class UserFormComponent implements OnInit {
         validUserName: true,
         validUserEmail: true,
     };
+    roleType = RoleType;
+    isCadSuperVisor = false;
 
     constructor(
         private service: UserService,
@@ -50,7 +58,8 @@ export class UserFormComponent implements OnInit {
         private branchService: BranchService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService,
-        private loanService: LoanFormService
+        private loanService: LoanFormService,
+        private addressService: AddressService
     ) {
     }
 
@@ -64,6 +73,13 @@ export class UserFormComponent implements OnInit {
             this.roleList = response.detail;
         });
 
+        this.addressService.getProvince().subscribe((response: any) => {
+            this.provinces = response.detail;
+        }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR  , 'Error while loading province'));
+            console.log(error);
+        });
+
         this.getEdit();
 
     }
@@ -74,7 +90,7 @@ export class UserFormComponent implements OnInit {
         this.finalBranchList = [];
 
         if (this.selectedRole.roleAccess === RoleAccess.SPECIFIC) {
-            if (this.branchIdList.length > 0) {
+            if (!ObjectUtil.isEmpty(this.branchIdList) && this.branchIdList.length > 0) {
                 for (let i = 0; i < this.branchIdList.length; i++) {
                     this.tempBranch = new Branch();
                     this.tempBranch.id = this.branchIdList[i];
@@ -95,7 +111,13 @@ export class UserFormComponent implements OnInit {
         }
         this.model.branch = this.finalBranchList;
         this.model.role = this.role;
-        console.log(this.model);
+        const provinces: Array<Province> = [];
+        if (this.tempProvince.length > 0) {
+            for (let i = 0; i < this.tempProvince.length; i++) {
+               provinces.push(this.provinces.filter(value => value.id === this.tempProvince[i])[0]);
+            }
+        }
+        this.model.provinces = provinces;
         this.service.save(this.model).subscribe(() => {
                 this.model = new User();
 
@@ -164,8 +186,13 @@ export class UserFormComponent implements OnInit {
 
             }
             this.role = res.detail;
+            this.checkRoleData(this.role);
         });
     }
+
+    checkRoleData(role: Role) {
+        this.isCadSuperVisor = role.roleType === RoleType.CAD_SUPERVISOR;
+     }
 
 
     getEdit() {
@@ -209,6 +236,14 @@ export class UserFormComponent implements OnInit {
                 if (tempRoleAccess === RoleAccess.ALL) {
                     this.isAll = true;
                 }
+
+                if (this.model.role.roleType === RoleType.CAD_SUPERVISOR) {
+                    this.isCadSuperVisor = true;
+                    for (let i = 0; i < this.model.provinces.length; i++) {
+                        this.tempProvince.push(this.model.provinces[i].id);
+                    }
+                }
+               this.checkRoleData(this.model.role);
             }
 
         }

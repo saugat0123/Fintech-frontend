@@ -1,0 +1,68 @@
+<nb-card accent="primary"
+         [nbSpinner]="spinner"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="large"
+         nbSpinnerMessage="Loading Please Wait..."
+         status="primary">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="nav  navbar-right pull-left">Assign user</h4>
+            <a (click)="onClose()" aria-label="Close" class="close cursor"
+               data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+
+        </div>
+
+        <form [formGroup]="offerLetterAssignForm" role="form">
+
+            <div class="col-md-12 row">
+                <div class="col-md-6 form-group">
+                    <div class="col-md-12 row text-danger sb-small" *ngIf="errorMessage">
+                        <sup>*</sup><span>{{errorMessage}}</span>
+                    </div>
+                    <label class="role" for="role">TO</label>
+                    <select (change)="getUserList(this.offerLetterAssignForm.get('toRole').value)"
+                            class="form-control form-control-sm"
+                            formControlName="toRole"
+                            id="role"
+                            name="role"
+                            [ngClass]="{ 'is-invalid': submitted && offerLetterAssignForm.controls['toRole'].errors }">
+                        <option [value]="null" hidden>Select To</option>
+                        <option *ngFor="let data of roleListInCAD"
+                                [ngValue]="data?.role">
+                            {{data?.role?.roleName}}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted && offerLetterAssignForm.controls['toRole'].hasError('required')"
+                         class="error-message"
+                         style="color: red;">Role is required
+                    </div>
+
+                </div>
+
+                <div *ngIf="userList?.length > 1" class="col-md-6 py-4 px-3">
+                    <select class="form-control" formControlName="toUser"
+                            placeholder="select  User"
+                            [ngClass]="{ 'is-invalid': submitted && offerLetterAssignForm.controls['toUser'].errors }">
+                        <option [value]="null" hidden>Select To</option>
+                        <option *ngFor="let user of userList" [ngValue]="user">{{user.name}}</option>
+                    </select>
+                    <div *ngIf="submitted && offerLetterAssignForm.controls['toUser'].hasError('required')"
+                         class="error-message"
+                         style="color: red;">User is required
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button nbButton (click)="assignOfferLetter()" size="small" status="primary"><i
+                        class="fa fa-save"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+</nb-card>

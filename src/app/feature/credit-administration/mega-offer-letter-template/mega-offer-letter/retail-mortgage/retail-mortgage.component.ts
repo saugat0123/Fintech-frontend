@@ -3,14 +3,17 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 
 import {ToastService} from '../../../../../@core/utils';
 import {Router} from '@angular/router';
-import {LoanDataHolder} from '../../../../loan/model/loanData';
-import {CustomerOfferLetter} from '../../../../loan/model/customer-offer-letter';
 import {CustomerOfferLetterService} from '../../../../loan/service/customer-offer-letter.service';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {DocStatus} from '../../../../loan/model/docStatus';
-import {CustomerOfferLetterPath} from '../../../../loan/model/customer-offer-letter-path';
-import {OfferLetter} from '../../../../admin/modal/offerLetter';
-import {MegaOfferLetterConst} from '../mega-offer-letter-const';
+import {MegaOfferLetterConst} from '../../../mega-offer-letter-const';
+import {OfferDocument} from '../../../model/OfferDocument';
+import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {CreditAdministrationService} from '../../../service/credit-administration.service';
+import {NbDialogRef} from '@nebular/theme';
+import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {CadDocStatus} from '../../../model/CadDocStatus';
+import {RouterUtilsService} from '../../../utils/router-utils.service';
 
 
 @Component({
@@ -19,34 +22,34 @@ import {MegaOfferLetterConst} from '../mega-offer-letter-const';
     styleUrls: ['./retail-mortgage.component.scss']
 })
 export class RetailMortgageComponent implements OnInit {
-    @Input() loanDataHolder: LoanDataHolder;
-    @Input() customerId: number;
-    @Input() offerLetterTypeId: number;
-
-    retailForm: FormGroup;
-    offerLetterConst = MegaOfferLetterConst;
+    form: FormGroup;
+    // todo replace enum constant string compare
+    spinner = false;
+    existingOfferLetter = false;
     initialInfoPrint;
-    private existingOfferLetter = false;
-    private customerOfferLetter: CustomerOfferLetter;
-    private spinner = false;
-    private existingRetailForm: any;
-    private isSubmitted = false;
+    offerLetterConst = MegaOfferLetterConst;
+    offerLetterDocument: OfferDocument;
+
+    @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+
 
     constructor(
         private formBuilder: FormBuilder,
-        private customerOfferLetterService: CustomerOfferLetterService,
         private toastService: ToastService,
-        private router: Router
+        private router: Router,
+        private administrationService: CreditAdministrationService,
+        protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
+        private routerUtilsService: RouterUtilsService
     ) {
     }
 
     ngOnInit() {
         this.buildForm();
-        this.fillForm();
+        this.checkOfferLetterData();
     }
 
     buildForm() {
-        this.retailForm = this.formBuilder.group({
+        this.form = this.formBuilder.group({
             name: [undefined],
             date: [undefined],
             address: [undefined],
@@ -78,86 +81,56 @@ export class RetailMortgageComponent implements OnInit {
         });
     }
 
-    fillForm(): void {
-        if (this.loanDataHolder.customerOfferLetter) {
-            this.loanDataHolder.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
-                if (offerLetterPath.offerLetter.id === this.offerLetterTypeId) {
-                    this.existingOfferLetter = true;
-                }
-            });
-        }
-        if (!this.existingOfferLetter) {
-            if (this.loanDataHolder.customerOfferLetter) {
-                this.customerOfferLetterService.detail(this.loanDataHolder.customerOfferLetter.id).subscribe(response => {
-                    this.customerOfferLetter = response.detail;
-                }, error => {
-                    console.error(error);
-                    this.toastService.show(new Alert(AlertType.ERROR, 'Error loading Offer Letter'));
-                });
+    checkOfferLetterData() {
+        if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
+            this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
+                === this.offerLetterConst.value(this.offerLetterConst.RETAIL_MORTGAGE_OVERDRAFT).toString())[0];
+            if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
+                this.offerLetterDocument = new OfferDocument();
+                this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_MORTGAGE_OVERDRAFT);
             } else {
-                this.customerOfferLetter = new CustomerOfferLetter();
+                const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+                console.log(initialInfo);
+                this.initialInfoPrint = initialInfo;
+                console.log(this.offerLetterDocument);
+                this.existingOfferLetter = true;
+                this.form.patchValue(initialInfo, {emitEvent: false});
+                this.initialInfoPrint = initialInfo;
             }
-        } else {
-            this.customerOfferLetterService.detail(this.loanDataHolder.customerOfferLetter.id).subscribe(response => {
-                this.customerOfferLetter = response.detail;
-                let initialInfo = null;
-                this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
-                    if (offerLetterPath.offerLetter.id === this.offerLetterTypeId) {
-                        initialInfo = JSON.parse(offerLetterPath.initialInformation);
-                        this.initialInfoPrint = initialInfo;
-                    }
-                });
-                this.retailForm.patchValue(initialInfo, {emitEvent: false});
-
-            }, error => {
-                console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Error loading Offer Letter'));
-            });
         }
-        this.retailForm.valueChanges.subscribe((value) => {
-            this.retailForm.patchValue(value, {emitEvent: false});
-        });
     }
 
-    submit() {
-        this.isSubmitted = true;
+
+    submit(): void {
         this.spinner = true;
-        this.customerOfferLetter.docStatus = DocStatus.PENDING;
-        const customerLoan = new LoanDataHolder();
-        customerLoan.id = this.customerId;
-        this.customerOfferLetter.customerLoan = customerLoan;
-        if (this.existingRetailForm) {
-            this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
-                if (offerLetterPath.offerLetter.id === this.offerLetterTypeId) {
-                    offerLetterPath.initialInformation = JSON.stringify(this.retailForm.value);
+        this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
+
+        if (this.existingOfferLetter) {
+            this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
+                if (offerLetterPath.docName.toString() ===
+                    this.offerLetterConst.value(this.offerLetterConst.RETAIL_MORTGAGE_OVERDRAFT).toString()) {
+                    offerLetterPath.initialInformation = JSON.stringify(this.form.value);
                 }
             });
         } else {
-            const offerLetter = new OfferLetter();
-            offerLetter.id = this.offerLetterTypeId;
-            const customerOfferLetterPathArray = this.customerOfferLetter.customerOfferLetterPath ?
-                this.customerOfferLetter.customerOfferLetterPath : [];
-            const customerOfferLetterPath = new CustomerOfferLetterPath();
-            customerOfferLetterPath.offerLetter = offerLetter;
-            customerOfferLetterPath.initialInformation = JSON.stringify(this.retailForm.value);
-            customerOfferLetterPathArray.push(customerOfferLetterPath);
-            this.customerOfferLetter.customerOfferLetterPath = customerOfferLetterPathArray;
+            const offerDocument = new OfferDocument();
+            offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_MORTGAGE_OVERDRAFT);
+            offerDocument.initialInformation = JSON.stringify(this.form.value);
+            this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
         }
-        // TODO: Assign Supported Information in OfferLetter
-        this.customerOfferLetterService.save(this.customerOfferLetter).subscribe(() => {
+
+        this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
             this.spinner = false;
-            this.router.navigateByUrl('/home/dashboard').then(value => {
-                if (value) {
-                    this.router.navigate(['/home/cad-document'], {
-                        queryParams: {customerId: this.customerId, }
-                    });
-                }
-            });
+            this.dialogRef.close();
+            this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
         }, error => {
             console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Retail Mortgage Overdraft'));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
             this.spinner = false;
+            this.dialogRef.close();
+            this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
         });
+
     }
 }

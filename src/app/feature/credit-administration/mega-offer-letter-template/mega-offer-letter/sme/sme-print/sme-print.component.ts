@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MegaOfferLetterConst} from '../../mega-offer-letter-const';
+import {MegaOfferLetterConst} from '../../../../mega-offer-letter-const';
 
 @Component({
   selector: 'app-sme-print',

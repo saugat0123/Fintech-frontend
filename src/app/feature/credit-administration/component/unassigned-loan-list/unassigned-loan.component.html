@@ -1,17 +1,24 @@
-<nb-card [nbSpinner]="spinner">
+<nb-card [nbSpinner]="spinner" accent="primary">
     <nb-card-header>
-
+        <div class="row">
+            <div class="col-md-12">
+                <app-filter (eventEmitter)="setSearchValue($event)"></app-filter>
+            </div>
+        </div>
+        <h6 class="text-center">Approved Loan List</h6>
     </nb-card-header>
     <nb-card-body>
         <table id="unassign-loan"
                class="table table-bordered table-hover table-sm sb-small text-center ">
             <thead>
             <tr class="text-white sb-bg-dark">
+                <th>S.N</th>
                 <th>Branch</th>
                 <th>Customer Name</th>
                 <th>Type</th>
                 <th>ID Number</th>
                 <th>ID Reg Place</th>
+                <th>Approved Loan</th>
 
                 <th>Action</th>
 
@@ -20,21 +27,20 @@
             </thead>
             <tbody>
             <ng-container *ngFor="let model of loanList;let i=index">
-                <tr
-
-                        class="cursor">
-
-                    <td >{{model?.branch?.name}}</td>
-                    <td >{{model?.name}}</td>
-                    <td >{{model?.customerType}}</td>
-                    <td >{{model?.idNumber}}</td>
-                    <td >{{model?.idRegPlace}}</td>
+                <tr class="cursor">
+                    <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                    <td>{{model?.branch?.name}}</td>
+                    <td>{{model?.name}}</td>
+                    <td>{{model?.customerType}}</td>
+                    <td>{{model?.idNumber}}</td>
+                    <td>{{model?.idRegPlace}}</td>
+                    <td>{{model?.totalLoan}}</td>
                     <td>
                         <a class="px-2" (click)="model?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
                            nbTooltip="click to view detail Loan ">
                             <em class="fa fa-eye"></em>
                         </a>
-                        <a  (click)="openAssignPopUp()"
+                        <a (click)="openAssignPopUp(model)" *ngIf="model?.totalLoan > 0"
                            nbTooltip="click to assign"><em
                                 class="fa fa-user"></em></a>
                     </td>
@@ -52,7 +58,7 @@
                     </tr>
                     <tr class=" text-center"
                         *ngFor="let data of model?.customerLoanDtoList;let j=index">
-                        <td>{{j+1}}</td>
+                        <td>{{j + 1}}</td>
                         <td>{{data?.loan?.name}}</td>
                         <td>{{data?.proposal?.proposedLimit}}</td>
                     </tr>

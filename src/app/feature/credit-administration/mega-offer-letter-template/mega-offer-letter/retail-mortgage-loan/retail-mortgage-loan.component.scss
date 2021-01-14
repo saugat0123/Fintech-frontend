@@ -1,7 +1,8 @@
-.longInput{
-  width: 400px;
+.box {
+  border-style: solid;
+
 }
-.nep {
+.nepali {
   font-size: 16px;
   line-height: 1.9;
   text-align: justify;
@@ -9,7 +10,7 @@
   margin: 10px 50px;
 }
 
-.form-field {
+.form-fields {
   background: yellow;
   margin: 0px 5px;
   border: 0;
@@ -19,11 +20,6 @@
     outline: none;
   }
 }
-
-li {
-  list-style-type: none;
-}
-
-input::-webkit-input-placeholder {
-  font-size: 16px;
+nb-card{
+  max-height: 900px;
 }
