@@ -161,9 +161,7 @@ export class DocumentChecklistComponent implements OnInit, OnChanges {
             this.spinner = false;
             this.close();
             this.responseCadData.emit(res.detail);
-
-            // this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
-        }, error => {
+            }, error => {
             this.spinner = false;
             this.close();
             console.error(error);
