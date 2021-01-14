@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoanDeedCompanyComponent } from './loan-deed-company.component';
+import { LoanDeedJointComponent } from './loan-deed-multiple.component';
 
-describe('LoanDeedCompanyComponent', () => {
-  let component: LoanDeedCompanyComponent;
-  let fixture: ComponentFixture<LoanDeedCompanyComponent>;
+describe('LoanDeedJointComponent', () => {
+  let component: LoanDeedJointComponent;
+  let fixture: ComponentFixture<LoanDeedJointComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoanDeedCompanyComponent ]
+      declarations: [ LoanDeedJointComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoanDeedCompanyComponent);
+    fixture = TestBed.createComponent(LoanDeedJointComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

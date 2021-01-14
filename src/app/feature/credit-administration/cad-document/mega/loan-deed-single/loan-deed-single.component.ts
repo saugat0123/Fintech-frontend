@@ -2,13 +2,13 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
-  selector: 'app-loan-deed-company',
-  templateUrl: './loan-deed-company.component.html',
-  styleUrls: ['./loan-deed-company.component.scss']
+  selector: 'app-loan-deed-single',
+  templateUrl: './loan-deed-single.component.html',
+  styleUrls: ['./loan-deed-single.component.scss']
 })
-export class LoanDeedCompanyComponent implements OnInit {
+export class LoanDeedSingleComponent implements OnInit {
 
-  loandeedcompany: FormGroup;
+  loandeedsingle: FormGroup;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -16,25 +16,18 @@ export class LoanDeedCompanyComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.loandeedcompany);
+    console.log(this.loandeedsingle);
     this.buildForm();
   }
 
   buildForm() {
-    this.loandeedcompany = this.formBuilder.group({
+    this.loandeedsingle = this.formBuilder.group({
       branch: [undefined],
+      name: [undefined],
       temporaryProvince: [undefined],
       permanentDistrict: [undefined],
       permanentMunicipalityVDC: [undefined],
       permanentWardNo: [undefined],
-      registrarRegistrationOffice: [undefined],
-      registrarRegistrationOfficeProvince: [undefined],
-      registrarRegistrationOfficeDistrict: [undefined],
-      registrarRegistrationOfficeMunicipalityVDC: [undefined],
-      registrarRegistrationOfficeWardNo: [undefined],
-      registrationNo: [undefined],
-      registrationDate: [undefined],
-      grandParents: [undefined],
       parents: [undefined],
       temporaryDistrict: [undefined],
       temporaryMunicipalityVDC: [undefined],
@@ -45,22 +38,21 @@ export class LoanDeedCompanyComponent implements OnInit {
       citizenshipNo: [undefined],
       issueDate: [undefined],
       issueDistrict: [undefined],
-      date2: [undefined],
-      date3: [undefined],
+      loanRequestDate: [undefined],
       loan: [undefined],
       purpose: [undefined],
+      annualRate: [undefined],
+      onePerson: [undefined],
       sNo: [undefined],
       landOwnerName: [undefined],
       amount: [undefined],
       amountInWords: [undefined],
-      landOwnerMunicipalityVDC: [undefined],
-      landOwnerWardNo: [undefined],
+      timeDuration: [undefined],
       seatNo: [undefined],
       kNo: [undefined],
       area: [undefined],
       rNoDate: [undefined],
       rohbarBankEmployeeName: [undefined],
-      nameOfAuthorizedPerson: [undefined],
       guarantorName: [undefined],
       guarantorName2: [undefined],
       year: [undefined],
@@ -76,12 +68,14 @@ export class LoanDeedCompanyComponent implements OnInit {
       municipalityVDCOfWitness2: [undefined],
       wardNoOfWitness2: [undefined],
       ageOfWitness2: [undefined],
-      relationOfWitness2: [undefined]
+      relationOfWitness2: [undefined],
+      landOwnerMunicipalityVDC: [undefined],
+      landOwnerWardNo: [undefined]
     });
   }
 
 
   submit(): void {
-    console.log(this.loandeedcompany.value);
+    console.log(this.loandeedsingle.value);
   }
 }
