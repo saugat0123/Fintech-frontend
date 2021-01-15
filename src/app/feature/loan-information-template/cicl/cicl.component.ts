@@ -91,7 +91,6 @@ export class CiclComponent implements OnInit {
     controls.push(
         this.formBuilder.group({
           borrowerName: [undefined, Validators.required],
-          relation: [undefined, Validators.required],
           fiName: [undefined, Validators.required],
           facilityName: [undefined, Validators.required],
           overdueAmount: [undefined, Validators.required],
@@ -113,7 +112,6 @@ export class CiclComponent implements OnInit {
     controls.push(
         this.formBuilder.group({
           borrowerName: [undefined, Validators.required],
-          relation: [undefined, Validators.required],
           fiName: [undefined, Validators.required],
           facilityName: [undefined, Validators.required],
           overdueAmount: [undefined, Validators.required],
@@ -138,7 +136,6 @@ export class CiclComponent implements OnInit {
       controls.push(
           this.formBuilder.group({
             borrowerName: [cicl.nameOfBorrower, Validators.required],
-            relation: [cicl.borrowerRelation, Validators.required],
             fiName: [cicl.nameOfFI, Validators.required],
             facilityName: [cicl.facility, Validators.required],
             overdueAmount: [cicl.overdueAmount, Validators.required],
@@ -185,7 +182,6 @@ export class CiclComponent implements OnInit {
       const controls = (arrayControl as FormGroup).controls;
       const cicl: Cicl = new Cicl();
       cicl.nameOfBorrower = controls.borrowerName.value;
-      cicl.borrowerRelation = controls.relation.value;
       cicl.nameOfFI = controls.fiName.value;
       cicl.facility = controls.facilityName.value;
       cicl.overdueAmount = controls.overdueAmount.value;

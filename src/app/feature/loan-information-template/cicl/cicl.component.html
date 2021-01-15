@@ -103,7 +103,7 @@
                         <label for="obtaineddate"><b>Obtained Date</b></label>
                         <input class="form-control" formControlName="obtaineddate" id="obtaineddate"
                                type="date"
-                               [ngClass]="{ 'is-invalid': (submitted) && cicl.get('obtaineddate').errors.required }">
+                               [ngClass]="{ 'is-invalid': (submitted) && cicl.get('obtaineddate').invalid }">
                         <div *ngIf="(submitted) && cicl.get('obtaineddate').errors" class="invalid-feedback">
                           <span *ngIf="(cicl.get('obtaineddate').errors.required)">Obtained date is required</span>
                         </div>
