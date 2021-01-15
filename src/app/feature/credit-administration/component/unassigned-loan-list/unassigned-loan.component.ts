@@ -26,7 +26,7 @@ export class UnassignedLoanComponent implements OnInit {
     constructor(private service: CreditAdministrationService,
                 private spinnerService: NgxSpinnerService,
                 private nbModalService: NbDialogService,
-                private modalService:NgbModal) {
+                private modalService: NgbModal) {
     }
 
     static loadData(other: UnassignedLoanComponent) {
@@ -51,7 +51,7 @@ export class UnassignedLoanComponent implements OnInit {
         UnassignedLoanComponent.loadData(this);
     }
 
-    openAssignPopUp(data:CustomerApprovedLoanCadDocumentation) {
+    openAssignPopUp(data: CustomerApprovedLoanCadDocumentation) {
        const comp = this.modalService.open(AssignPopUpComponent);
        comp.componentInstance.cadData = data;
     }
