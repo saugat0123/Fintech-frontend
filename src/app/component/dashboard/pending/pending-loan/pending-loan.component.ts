@@ -6,6 +6,7 @@ import {DocStatus} from '../../../../feature/loan/model/docStatus';
 import {CustomerOfferLetterService} from '../../../../feature/loan/service/customer-offer-letter.service';
 import {ProductUtils} from '../../../../feature/admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {CreditAdministrationService} from '../../../../feature/credit-administration/service/credit-administration.service';
 
 
 @Component({
@@ -26,11 +27,13 @@ export class PendingLoanComponent implements OnInit {
         private router: Router,
         private loanFormService: LoanFormService,
         private catalogueService: CatalogueService,
-        private customerOfferLetterService: CustomerOfferLetterService
+        private customerOfferLetterService: CustomerOfferLetterService,
+        private creditAdminService: CreditAdministrationService
     ) {
     }
 
     ngOnInit() {
+        console.log('asd');
         this.getPostApprovalDocStat();
         this.loanFormService.getStatus().subscribe(
             (response: any) => {

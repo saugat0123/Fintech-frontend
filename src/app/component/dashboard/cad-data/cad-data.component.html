@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-md-3  col-xs-13 cursor">
+        <a [routerLink]="offerRouteConst.ROUTE_OFFER_ALL">
+        <app-icon-card [detail]="customerApproveCountDto?.allCount" title="Cad All" type="primary">
+            <i class="fas fa-list-alt"></i>
+        </app-icon-card>
+        </a>
+    </div>
+    <div class="col-md-3 col-xs-13 cursor">
+        <a [routerLink]="offerRouteConst.ROUTE_OFFER_PENDING">
+        <app-icon-card [detail]="customerApproveCountDto?.pendingCount" title="Cad Pending" type="info">
+            <i class="fas fa-address-card"></i>
+        </app-icon-card>
+        </a>
+    </div>
+    <div class="col-md-6 col-xs-13 cursor">
+        <a [routerLink]="offerRouteConst.ROUTE_OFFER_APPROVED">
+        <app-icon-card [detail]="customerApproveCountDto?.approvedCount" title="Cad Approved" type="success">
+            <i class="fas fa-address-book"></i>
+        </app-icon-card>
+        </a>
+    </div>
+</div>

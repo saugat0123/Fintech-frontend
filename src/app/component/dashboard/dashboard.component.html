@@ -62,6 +62,9 @@
     <div class="col-md-11">
         <app-pending-loan></app-pending-loan>
     </div>
+    <div class="col-md-11">
+        <app-cad-data *ngIf="customerApproveCountDto.showCustomerApprove" [customerApproveCountDto]="customerApproveCountDto"></app-cad-data>
+    </div>
 </div>
 <app-charts></app-charts>
 <app-overlay-spinner></app-overlay-spinner>
