@@ -45,6 +45,8 @@ import {AdditionalDocumentComponent} from './cad-work-flow/cad-work-flow-base/le
 import {AddAdditionalDocumentComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/additional-document/add-additional-document/add-additional-document.component';
 import { DocumentChecklistLiteComponent } from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/document-checklist-lite/document-checklist-lite.component';
 import { DocumentChecklistViewLiteComponent } from './cad-view/document-checklist-view-lite/document-checklist-view-lite.component';
+import { SecurityComplianceCertificateComponent } from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/security-compliance-certificate/security-compliance-certificate.component';
+import {NgxPrintModule} from 'ngx-print';
 
 
 @NgModule({
@@ -84,7 +86,8 @@ import { DocumentChecklistViewLiteComponent } from './cad-view/document-checklis
         AdditionalDocumentComponent,
         AddAdditionalDocumentComponent,
         DocumentChecklistLiteComponent,
-        DocumentChecklistViewLiteComponent],
+        DocumentChecklistViewLiteComponent,
+        SecurityComplianceCertificateComponent],
     imports: [
         ThemeModule,
         CommonModule,
@@ -95,6 +98,7 @@ import { DocumentChecklistViewLiteComponent } from './cad-view/document-checklis
         NgSelectModule,
         CoreModule,
         MegaModule,
+        NgxPrintModule,
     ],
     entryComponents: [AssignPopUpComponent,
         VerifyPopUpComponent,
@@ -103,7 +107,8 @@ import { DocumentChecklistViewLiteComponent } from './cad-view/document-checklis
         CadChecklistDocTemplateModalComponent,
         CustomOfferLetterDocumentComponent,
         UpdateCustomerCadInfoComponent,
-        AddAdditionalDocumentComponent]
+        AddAdditionalDocumentComponent,
+        SecurityComplianceCertificateComponent]
 })
 export class CreditAdministrationModule {
 }

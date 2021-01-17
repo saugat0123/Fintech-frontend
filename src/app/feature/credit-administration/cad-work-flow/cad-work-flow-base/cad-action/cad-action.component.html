@@ -11,6 +11,8 @@
                 </button>
             </div>
             <div class="float-right">
+                <button  nbButton size="small" status="primary" nbTooltip="Upload & Print SCC File"
+                         (click)="openModel()" class="m-2">Scc</button>
                 <button nbButton size="small" status="primary" nbTooltip="choose user to forward"
                         (click)="approvedForwardBackward(sendForwardBackward,'FORWARD',false)" *ngIf="isMaker">FORWARD
                 </button>

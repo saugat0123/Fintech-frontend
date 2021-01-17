@@ -1,0 +1,60 @@
+<nb-card accent="primary" class="p-3 shadow-lg custom" style="height:99%" id="print-block">
+  <nb-card-header>
+    <h3>Security Compliance Certificate</h3>
+    <i class="fa fa-upload disable-print" (click)="openDocUploadModal(uploadModal)">Upload</i>
+    <a (click)="onClose()" aria-label="Close" class="close cursor"
+       data-dismiss="modal">
+      <span aria-hidden="true">×</span></a>
+  </nb-card-header>
+  <nb-card-body>
+    <table class="table table-bordered table-hover table-sm sb-small text-center ">
+      <thead>
+      <tr></tr>
+      </thead>
+    </table>
+    <p><b>1.Exposure Details</b></p>
+    <app-exposure-view [cadOfferLetterApprovedDoc]="cadFile"></app-exposure-view>
+    <p><b>2.Fees And Commission</b></p>
+    <app-fees-commissions-view [cadOfferLetterApprovedDoc]="cadFile"></app-fees-commissions-view>
+    <p><b>3.Document CheckList</b></p>
+    <app-document-checklist-view [cadData]="cadFile"></app-document-checklist-view>
+  </nb-card-body>
+  <nb-card-footer>
+    <button  ngxPrint printSectionId="print-block" class="m-2 small" nbButton>Print</button>
+
+  </nb-card-footer>
+</nb-card>
+
+<ng-template #uploadModal style="min-width: 35rem;">
+  <nb-card accent="primary">
+    <nb-card-header>
+      <a (click)="modelClose()" aria-label="Close" class="close cursor"
+         data-dismiss="modal">
+        <span aria-hidden="true">×</span></a>
+      <div class="row">
+        <div class="col-md-12">
+          Upload Scc File
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <input #file
+                   (change)="uploadDoc($event)" type="file">
+          </div>
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer>
+      <button (click)="save()"
+              [disabled]="!file.value" class="float-right" nbButton
+              size="tiny"
+              status="primary">
+        save
+      </button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
