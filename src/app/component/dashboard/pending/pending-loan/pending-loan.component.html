@@ -32,7 +32,7 @@
             <i class="fa fa-times"></i>
         </app-icon-card>
     </div>
-    <div class="col-md-6 col-sm-6 col-xs-13 cursor" *ngIf="postApprovalDocStat && !productUtils.CAD_LITE_VERSION">
+    <div class="col-md-6 col-sm-6 col-xs-13 cursor" *ngIf="postApprovalDocStat && !productUtils.CAD_LITE_VERSION  && !productUtils.FULL_CAD">
         <app-icon-card detail="{{postApprovalDocStat?.docCount}}" title="Post Approval Document"
                        type="success" routerLink="/home/loan/loan-offer-letter">
             <i class="fa fa-file-pdf"></i>

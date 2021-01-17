@@ -81,4 +81,9 @@ export class CreditAdministrationService extends BaseService<any> {
         return this.http.post(req.url, obj, {headers: req.header});
     }
 
+    public getSccDocPath(formData: FormData): Observable<object> {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/upload-scc`);
+        return this.http.post(req.url, formData, {headers: req.header});
+    }
+
 }
