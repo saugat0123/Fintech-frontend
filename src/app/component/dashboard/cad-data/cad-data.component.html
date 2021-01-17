@@ -1,23 +1,102 @@
-<div class="row">
-    <div class="col-md-3  col-xs-13 cursor">
-        <a [routerLink]="offerRouteConst.ROUTE_OFFER_ALL">
-        <app-icon-card [detail]="customerApproveCountDto?.allCount" title="Cad All" type="primary">
-            <i class="fas fa-list-alt"></i>
-        </app-icon-card>
-        </a>
-    </div>
-    <div class="col-md-3 col-xs-13 cursor">
-        <a [routerLink]="offerRouteConst.ROUTE_OFFER_PENDING">
-        <app-icon-card [detail]="customerApproveCountDto?.pendingCount" title="Cad Pending" type="info">
-            <i class="fas fa-address-card"></i>
-        </app-icon-card>
-        </a>
-    </div>
-    <div class="col-md-6 col-xs-13 cursor">
-        <a [routerLink]="offerRouteConst.ROUTE_OFFER_APPROVED">
-        <app-icon-card [detail]="customerApproveCountDto?.approvedCount" title="Cad Approved" type="success">
-            <i class="fas fa-address-book"></i>
-        </app-icon-card>
-        </a>
-    </div>
-</div>
+<nb-card>
+    <nb-card-body class="row">
+        <div class="col-md-3 cursor">
+            <nb-card class="card bg-info" >
+                <div >
+                    <a [routerLink]="offerRouteConst.ROUTE_OFFER_ALL">
+                        <label class="card-header bg-dark text-white cursor">
+                            Offer Document All </label>
+                    </a>
+
+                    <div id="Discussion"  style="display: inline">
+                        <strong class="ml-2">&nbsp;{{ customerApproveCountDto?.allCount}}</strong>
+                    </div>
+                </div>
+            </nb-card>
+        </div>
+        <div class="col-md-3 cursor">
+            <nb-card class="card bg-primary" *ngIf="offer">
+                <div >
+                    <a [routerLink]="offerRouteConst.ROUTE_OFFER_PENDING">
+                        <label class="card-header bg-dark text-white cursor">
+                            Offer Pending </label>
+                    </a>
+
+                    <div  style="display: inline">
+                        <strong class="ml-2">&nbsp;{{customerApproveCountDto?.pendingCount}}</strong>
+                    </div>
+                </div>
+            </nb-card>
+        </div>
+        <div class="col-md-3 cursor">
+            <nb-card class="card bg-primary" *ngIf="legal">
+                <div >
+                    <a [routerLink]="offerRouteConst.ROUTER_LEGAL_PENDING">
+                        <label class="card-header bg-dark text-white cursor">
+                            Legal Pending </label>
+                    </a>
+
+                    <div  style="display: inline">
+                        <strong class="ml-2">&nbsp;{{customerApproveCountDto?.legalPending}}</strong>
+                    </div>
+                </div>
+            </nb-card>
+        </div>
+        <div class="col-md-3 cursor">
+            <nb-card class="card bg-primary" *ngIf="disbursement">
+                <div >
+                    <a [routerLink]="offerRouteConst.ROUTE_DISBURSEMENT_PENDING">
+                        <label class="card-header bg-dark text-white cursor">
+                            Disbursement Pending </label>
+                    </a>
+
+                    <div  style="display: inline">
+                        <strong class="ml-2">&nbsp;{{customerApproveCountDto?.disbursementPending}}</strong>
+                    </div>
+                </div>
+            </nb-card>
+        </div>
+        <div class="col-md-3 cursor">
+            <nb-card class="card bg-success" *ngIf="offer">
+                <div >
+                    <a [routerLink]="offerRouteConst.ROUTE_OFFER_APPROVED">
+                        <label class="card-header bg-dark text-white cursor">
+                            Offer Approved </label>
+                    </a>
+
+                    <div  style="display: inline">
+                        <strong class="ml-2">&nbsp;{{customerApproveCountDto?.approvedCount}}</strong>
+                    </div>
+                </div>
+            </nb-card>
+        </div>
+        <div class="col-md-3 cursor">
+            <nb-card class="card bg-success" *ngIf="legal">
+                <div >
+                    <a [routerLink]="offerRouteConst.ROUTE_LEGAL_APPROVED">
+                        <label class="card-header bg-dark text-white cursor">
+                            Legal Approved </label>
+                    </a>
+
+                    <div  style="display: inline">
+                        <strong class="ml-2">&nbsp;{{customerApproveCountDto?.legalApproved}}</strong>
+                    </div>
+                </div>
+            </nb-card>
+        </div>
+        <div class="col-md-3 cursor">
+            <nb-card class="card bg-success" *ngIf="disbursement">
+                <div >
+                    <a [routerLink]="offerRouteConst.ROUTE_DISBURSEMENT_APPROVED">
+                        <label class="card-header bg-dark text-white cursor">
+                            Disbursement Approved </label>
+                    </a>
+
+                    <div  style="display: inline">
+                        <strong class="ml-2">&nbsp;{{customerApproveCountDto?.disbursementApproved}}</strong>
+                    </div>
+                </div>
+            </nb-card>
+        </div>
+    </nb-card-body>
+</nb-card>
