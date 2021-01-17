@@ -189,9 +189,9 @@
                             </nb-radio-group>
                         </div>
                     </div>
-                    <div *ngIf="productUtils.OFFER_LETTER" class="col-md-6">
+                    <div *ngIf="productUtils.OFFER_LETTER && !(productUtils.CAD_LITE_VERSION) && !(productUtils.FULL_CAD)" class="col-md-6">
                         <div class="form-group">
-                            <label><strong>Offer Letter</strong></label>
+                            <label><strong>Post Approval Document</strong></label>
                             <ng-select [items]="offerLetterList"
                                        bindLabel="name"
                                        bindValue="id"
@@ -374,7 +374,7 @@
                             </nb-accordion-item>
                         </nb-accordion>
                     </div>
-                    <div class="box box-primary col-md-6 mb-2" *ngIf="productUtils.CAD_LITE_VERSION || productUtils.FULL_CAD">
+                    <div class="box box-primary col-md-6 mb-2" *ngIf="productUtils.CAD_LITE_VERSION || (productUtils.FULL_CAD && productUtils.CHECK_LIST_LITE_VERSION)">
                         <nb-accordion>
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Cad Documents</nb-accordion-item-header>
