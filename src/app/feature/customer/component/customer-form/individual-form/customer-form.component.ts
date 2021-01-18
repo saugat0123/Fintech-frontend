@@ -408,20 +408,25 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     setRelatives(currentData) {
         const relativesData = (this.basicInfo.get('customerRelatives') as FormArray);
-        currentData.forEach((singleRelatives, index) => {
-            const customerRelative = singleRelatives.customerRelation;
-            // Increase index number with increase in static relatives---
-            relativesData.push(this.formBuilder.group({
-                customerRelation: (index > 1) ? [(customerRelative)] :
-                    [({value: customerRelative, disabled: true}), Validators.required],
-                customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
-                version: [singleRelatives.version === undefined ? undefined : singleRelatives.version],
-                citizenshipNumber: [singleRelatives.citizenshipNumber],
-                citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
-                citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
-                    undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore]
-            }));
-        });
+        if (!ObjectUtil.isEmpty(currentData)){
+            currentData.forEach((singleRelatives, index) => {
+                const customerRelative = singleRelatives.customerRelation;
+                // Increase index number with increase in static relatives---
+                relativesData.push(this.formBuilder.group({
+                    customerRelation: (index > 1) ? [(customerRelative)] :
+                        [({value: customerRelative, disabled: true}), Validators.required],
+                    customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
+                    version: [singleRelatives.version === undefined ? undefined : singleRelatives.version],
+                    citizenshipNumber: [singleRelatives.citizenshipNumber],
+                    citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
+                    citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
+                        undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore]
+                }));
+            });
+
+        } else {
+            this.createRelativesArray();
+        }
     }
 
     checkCustomer() {
