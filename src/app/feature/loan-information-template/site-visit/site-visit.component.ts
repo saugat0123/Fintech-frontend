@@ -164,7 +164,11 @@ export class SiteVisitComponent implements OnInit {
         findingComment: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? undefined
             : this.formDataForEdit.currentResidentDetails.findingComment)],
         locationPreview: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.locationPreview)]
+            : this.formDataForEdit.currentResidentDetails.locationPreview)],
+        longitude: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
+            : this.formDataForEdit.currentResidentDetails.longitude)],
+        latitude: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
+            : this.formDataForEdit.currentResidentDetails.latitude)],
       }),
       businessSiteVisitDetails: this.formBuilder.group({
         officeAddress: [undefined],
@@ -194,7 +198,11 @@ export class SiteVisitComponent implements OnInit {
             : this.formDataForEdit.businessSiteVisitDetails.mapAddress],
         findingsAndComments: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-                : this.formDataForEdit.businessSiteVisitDetails.findingsAndComments, Validators.required]
+                : this.formDataForEdit.businessSiteVisitDetails.findingsAndComments, Validators.required],
+        longitude: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
+            : this.formDataForEdit.currentResidentDetails.longitude)],
+        latitude: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
+            : this.formDataForEdit.currentResidentDetails.latitude)],
       }),
       fixedAssetCollateralDetails: this.formBuilder.group({
         date: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
