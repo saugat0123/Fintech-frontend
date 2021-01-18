@@ -1559,6 +1559,11 @@
                                                     [value]="succession?.value">
                                                {{succession?.value}}
                                        </select>
+                                       <div *ngIf="(submitted) &&  form.succession.errors" class="small text-danger">
+                                           <div *ngIf="form.succession.errors.required">
+                                               Succession is required
+                                           </div>
+                                       </div>
                                    </div>
                        </div>
                    </nb-tab>
