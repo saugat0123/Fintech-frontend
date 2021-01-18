@@ -1,4 +1,6 @@
-<table
+<div *ngIf="list.length <=0"> <mark><strong>&#10539; No Group Record Found</strong></mark></div>
+
+<table *ngIf="list.length > 0"
         class="table table-bordered table-responsive-md table-sm sb-small text-center">
     <thead>
     <tr class="sb-bg-dark text-white">

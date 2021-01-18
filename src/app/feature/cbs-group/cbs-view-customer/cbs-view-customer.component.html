@@ -3,18 +3,7 @@
         Customer Groups
     </nb-card-header>
     <nb-card-body>
-        <nb-accordion>
-            <nb-accordion-item>
-                <nb-accordion-item-header>
-                    <span>Groups</span>
-                </nb-accordion-item-header>
-                <nb-accordion-item-body>
-              <app-cbs-table [customerInfo]="customerInfo" *ngIf="customerInfo"></app-cbs-table>
-                </nb-accordion-item-body>
-            </nb-accordion-item>
-        </nb-accordion>
-
-
+        <app-cbs-table [customerInfo]="customerInfo" *ngIf="customerInfo"></app-cbs-table>
     </nb-card-body>
 
 </nb-card>
