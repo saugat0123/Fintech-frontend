@@ -112,28 +112,28 @@
                 </div>
 
 
-                <div class=" input-group mb-3">
-                    <input class="form-control pr-0" formControlName="locationPreview" id="locationPreview1"
-                           name="locationPreview"
-                           type="text">
-                    <div class=" input-group-append">
-                        <button (click)="findLocation1()" class="btn btn-light">Find Location</button>
-                    </div>
-                </div>
-                <agm-map (mapClick)="placeMaker1($event.coords.lat,$event.coords.lng)"
-                         [clickableIcons]='false'
-                         [fullscreenControl]='true'
-                         [latitude]="latitude"
-                         [longitude]="longitude"
-                         [mapTypeControl]='true'
-                         [zoom]="zoom"
-                         style="height: 200px; width: 100%;">
-                    <agm-marker [latitude]="markerLatitude" [longitude]="markerLongitude">
-                        <agm-info-window [isOpen]="infoWindowOpen.value">
-                            {{addressLabel.value}}
-                        </agm-info-window>
-                    </agm-marker>
-                </agm-map>
+<!--                <div class=" input-group mb-3">-->
+<!--                    <input class="form-control pr-0" formControlName="locationPreview" id="locationPreview1"-->
+<!--                           name="locationPreview"-->
+<!--                           type="text">-->
+<!--                    <div class=" input-group-append">-->
+<!--                        <button (click)="findLocation1()" class="btn btn-light">Find Location</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <agm-map (mapClick)="placeMaker1($event.coords.lat,$event.coords.lng)"-->
+<!--                         [clickableIcons]='false'-->
+<!--                         [fullscreenControl]='true'-->
+<!--                         [latitude]="latitude"-->
+<!--                         [longitude]="longitude"-->
+<!--                         [mapTypeControl]='true'-->
+<!--                         [zoom]="zoom"-->
+<!--                         style="height: 200px; width: 100%;">-->
+<!--                    <agm-marker [latitude]="markerLatitude" [longitude]="markerLongitude">-->
+<!--                        <agm-info-window [isOpen]="infoWindowOpen.value">-->
+<!--                            {{addressLabel.value}}-->
+<!--                        </agm-info-window>-->
+<!--                    </agm-marker>-->
+<!--                </agm-map>-->
             </div>
             <div [hidden]="!businessSiteVisitForm" class="row mt-3"
                  formGroupName="businessSiteVisitDetails">
@@ -243,28 +243,28 @@
                         <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('findingsAndComments')?.errors.required">comments required</span>
                     </div>
                 </div>
-                <div class="input-group mb-3">
-                    <input class="form-control pr-0" formControlName="locationPreview" id="locationPreview"
-                           name="locationPreview"
-                           type="text">
-                    <div class="input-group-append">
-                        <button (click)="findLocation()" class="btn btn-light">Find Location</button>
-                    </div>
-                </div>
-                <agm-map (mapClick)="placeMaker($event.coords.lat,$event.coords.lng)"
-                         [clickableIcons]='false'
-                         [fullscreenControl]='true'
-                         [latitude]="latitude"
-                         [longitude]="longitude"
-                         [mapTypeControl]='true'
-                         [zoom]="zoom"
-                         style="height: 200px; width: 100%;">
-                    <agm-marker [latitude]="markerLatitude" [longitude]="markerLongitude">
-                        <agm-info-window [isOpen]="infoWindowOpen.value">
-                            {{addressLabel.value}}
-                        </agm-info-window>
-                    </agm-marker>
-                </agm-map>
+<!--                <div class="input-group mb-3">-->
+<!--                    <input class="form-control pr-0" formControlName="locationPreview" id="locationPreview"-->
+<!--                           name="locationPreview"-->
+<!--                           type="text">-->
+<!--                    <div class="input-group-append">-->
+<!--                        <button (click)="findLocation()" class="btn btn-light">Find Location</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <agm-map (mapClick)="placeMaker($event.coords.lat,$event.coords.lng)"-->
+<!--                         [clickableIcons]='false'-->
+<!--                         [fullscreenControl]='true'-->
+<!--                         [latitude]="latitude"-->
+<!--                         [longitude]="longitude"-->
+<!--                         [mapTypeControl]='true'-->
+<!--                         [zoom]="zoom"-->
+<!--                         style="height: 200px; width: 100%;">-->
+<!--                    <agm-marker [latitude]="markerLatitude" [longitude]="markerLongitude">-->
+<!--                        <agm-info-window [isOpen]="infoWindowOpen.value">-->
+<!--                            {{addressLabel.value}}-->
+<!--                        </agm-info-window>-->
+<!--                    </agm-marker>-->
+<!--                </agm-map>-->
             </div>
             <div [hidden]="!fixedAssetCollateralForm" class="row mt-3"
                  formGroupName="fixedAssetCollateralDetails">
