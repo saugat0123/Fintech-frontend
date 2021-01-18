@@ -18,7 +18,7 @@
             </nb-tab>
             <nb-tab tabTitle="Exposure Detail">
                 <app-exposure-view [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-                                   *ngIf="cadOfferLetterApprovedDoc"></app-exposure-view>
+                                   *ngIf="cadOfferLetterApprovedDoc" [displayHistory]="true" [fromScc]="false"></app-exposure-view>
             </nb-tab>
             <nb-tab tabTitle="Fees and Commissions">
                 <app-fees-commissions-view [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
