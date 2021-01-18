@@ -133,27 +133,27 @@
                     </div>
                 </div>
             </div>
-                <div class="input-group mb-3">
-                        <input class="form-control pr-0" formControlName="locationPreview" id="locationPreview"
-                               name="locationPreview" placeholder="Location Coordinates" type="text">
-                    <div class="input-group-append">
-                        <button (click)="findLocation(locationPreview.value)" class="btn btn-light">Find Location</button>
-                    </div>
-                </div>
-                <agm-map (mapClick)="placeMaker($event.coords.lat,$event.coords.lng)"
-                         [clickableIcons]='false'
-                         [fullscreenControl]='true'
-                         [latitude]="latitude"
-                         [longitude]="longitude"
-                         [mapTypeControl]='true'
-                         [zoom]="zoom"
-                         style="height: 200px; width: 100%;">
-                    <agm-marker [latitude]="markerLatitude" [longitude]="markerLongitude">
-                        <agm-info-window [isOpen]="infoWindowOpen.value">
-                            {{addressLabel.value}}
-                        </agm-info-window>
-                    </agm-marker>
-                </agm-map>
+<!--                <div class="input-group mb-3">-->
+<!--                        <input class="form-control pr-0" formControlName="locationPreview" id="locationPreview"-->
+<!--                               name="locationPreview" placeholder="Location Coordinates" type="text">-->
+<!--                    <div class="input-group-append">-->
+<!--                        <button (click)="findLocation(locationPreview.value)" class="btn btn-light">Find Location</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <agm-map (mapClick)="placeMaker($event.coords.lat,$event.coords.lng)"-->
+<!--                         [clickableIcons]='false'-->
+<!--                         [fullscreenControl]='true'-->
+<!--                         [latitude]="latitude"-->
+<!--                         [longitude]="longitude"-->
+<!--                         [mapTypeControl]='true'-->
+<!--                         [zoom]="zoom"-->
+<!--                         style="height: 200px; width: 100%;">-->
+<!--                    <agm-marker [latitude]="markerLatitude" [longitude]="markerLongitude">-->
+<!--                        <agm-info-window [isOpen]="infoWindowOpen.value">-->
+<!--                            {{addressLabel.value}}-->
+<!--                        </agm-info-window>-->
+<!--                    </agm-marker>-->
+<!--                </agm-map>-->
             <nb-card-footer class="float-right">
                 <button *ngIf="isBranchCodeValid" nbButton (click)="onSubmit()" [disabled]="spinner" status="primary">
                     <em class="fa fa-save"></em>
