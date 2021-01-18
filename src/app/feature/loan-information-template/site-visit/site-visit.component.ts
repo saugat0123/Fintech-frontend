@@ -434,6 +434,40 @@ export class SiteVisitComponent implements OnInit {
                       : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerificationPosition],
           inspectingStaffsDetails: this.formBuilder.array([])
         }),
+        majorInquiriesAndObservations: this.formBuilder.group({
+          businessNature: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.businessNature],
+          businessActivities: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.businessActivities],
+          businessProgress: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.businessProgress],
+          businessChallenges: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.businessChallenges],
+          normalElectricityLine: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.normalElectricityLine],
+          invertorOrGenerator: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.invertorOrGenerator],
+          ledgerBook: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.ledgerBook],
+          electronic: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.electronic],
+        }),
         stockCheckListQuestionaire: this.formBuilder.group({
           uptoDateWithCharges: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
@@ -499,6 +533,18 @@ export class SiteVisitComponent implements OnInit {
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
                       : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.certificate],
+          ncaReport: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.ncaReport],
+          stocksAreLarge: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.stocksAreLarge],
+          otherEntitiesInTheAssets: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.otherEntitiesInTheAssets],
           findingAndComments: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
