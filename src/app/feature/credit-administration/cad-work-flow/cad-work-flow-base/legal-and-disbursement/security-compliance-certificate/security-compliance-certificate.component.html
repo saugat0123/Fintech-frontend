@@ -1,27 +1,96 @@
-<nb-card accent="primary" class="p-3 shadow-lg custom" style="height:99%" id="print-block">
+<nb-card accent="primary" class="p-3 shadow-lg custom" style="height:100%" id="print-block">
   <nb-card-header>
-    <h3>Security Compliance Certificate</h3>
-    <i class="fa fa-upload disable-print" (click)="openDocUploadModal(uploadModal)">Upload</i>
-    <a (click)="onClose()" aria-label="Close" class="close cursor"
-       data-dismiss="modal">
-      <span aria-hidden="true">×</span></a>
+    <ng-container class="flex-row">
+      <h5 class="text-center print-only mb-3">Security Compliance Certificate </h5>
+      <h5 class="text-center disable-print">Security Compliance Certificate </h5>
+
+      <i class="fa fa-upload disable-print float-right m-3" (click)="openDocUploadModal(uploadModal)">Upload</i>
+    </ng-container>
+
   </nb-card-header>
   <nb-card-body>
     <table class="table table-bordered table-hover table-sm sb-small text-center ">
-      <thead>
-      <tr></tr>
-      </thead>
+      <tr>
+        <th>Date</th>
+        <td>{{date | date}}</td>
+        <th>Customer's Name</th>
+        <td>{{cadFile?.loanHolder?.name}}</td>
+        <th>PAN Number</th>
+        <td>{{panNumber}}</td>
+      </tr>
+      <tr>
+        <th>A/C NUmber</th>
+        <td>{{(cadFile?.data | jsonParse)?.acInfo?.accountNo}}
+        </td>
+        <th>Facility</th>
+        <td></td>
+        <th>Approved By</th>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Group</th>
+        <td></td>
+        <th>RM</th>
+        <td></td>
+        <th>Branch</th>
+        <td>{{cadFile?.loanHolder?.branch?.name}}</td>
+      </tr>
+      <tr>
+        <th>Sector Code</th>
+        <td>{{cadFile?.loanHolder?.subSectorDetailCode}}</td>
+        <th>Security Code</th>
+        <td></td>
+        <th>Customer Id</th>
+        <td>{{cadFile?.loanHolder?.customerCode}}</td>
+      </tr>
     </table>
     <p><b>1.Exposure Details</b></p>
-    <app-exposure-view [cadOfferLetterApprovedDoc]="cadFile"></app-exposure-view>
+    <app-exposure-view [cadOfferLetterApprovedDoc]="cadFile" [displayHistory]="false" [fromScc]="true"> </app-exposure-view>
     <p><b>2.Fees And Commission</b></p>
     <app-fees-commissions-view [cadOfferLetterApprovedDoc]="cadFile"></app-fees-commissions-view>
     <p><b>3.Document CheckList</b></p>
     <app-document-checklist-view [cadData]="cadFile"></app-document-checklist-view>
-  </nb-card-body>
-  <nb-card-footer>
-    <button  ngxPrint printSectionId="print-block" class="m-2 small" nbButton>Print</button>
+    <p><b>4.Mode Of Payment</b></p>
+    <ol>
+      <li>Issuance of MC Favoring Ms <b>{{(cadFile?.data | jsonParse)?.acInfo?.issuanceOfMc || '...........'}}</b></li>
+      <li>Credit to Ac No :<b>{{(cadFile?.data | jsonParse)?.acInfo?.accountNo || '...........'}}</b> AC Name: <b>{{(cadFile?.data | jsonParse)?.acInfo?.accountName || '...........'}}</b> against purchase of <b>{{(cadFile?.data | jsonParse)?.acInfo?.againstPurchaseOf || '...........'}}</b></li>
+    </ol>
 
+    <div class="row">
+      <div class="col-md-3">
+        <p><b><u>Prepared by</u></b></p>
+        <p>Signature</p>
+        <p class="pt-5">Name</p>
+        <p><b>RO/RM</b></p>
+
+      </div>
+      <div class="col-md-3">
+        <p><b><u>Recommended by</u></b></p>
+        <p>Signature</p>
+        <p class="pt-5">Name</p>
+        <p><b>OI/BM</b></p>
+      </div>
+      <div class="col-md-3">
+        <p><b><u>System Inputted by</u></b></p>
+        <p>Signature</p>
+        <p class="pt-5">Name</p>
+        <p><b>CAD</b></p>
+      </div>
+      <div class="col-md-3">
+        <p><b><u>Approved by</u></b></p>
+        <p>.</p>
+        <p class="pt-5">.</p>
+        <p><b>Head-CAD</b></p>
+      </div>
+    </div>
+    <hr>
+    <p><b>5.Declaration:</b></p><hr>
+    <i>This is to certify that the original copies of all the documents as listed in the point 3 (Documentation Check Lists) are executed properly and are found in order.</i>
+
+  </nb-card-body>
+  <nb-card-footer class="disable-print">
+    <button (click)="onClose()" nbButton  status="primary" size="small" class="float-right mr-2">Close</button>
+    <button [useExistingCss]="true"  ngxPrint printSectionId="print-block"  status="primary"  size="small" class="float-right mr-2" nbButton styleSheetFile="assets/css/printStyles.scss"><i class="fa fa-print"></i>-Print</button>
   </nb-card-footer>
 </nb-card>
 

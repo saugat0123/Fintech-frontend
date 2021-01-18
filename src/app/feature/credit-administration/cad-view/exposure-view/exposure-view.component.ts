@@ -11,8 +11,10 @@ import {ProposalCalculationUtils} from '../../../loan/component/loan-summary/Pro
 export class ExposureViewComponent implements OnInit {
     @Input()
     cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+    @Input() displayHistory: boolean;
     disbursementDetails = [];
     disbursementDetailsHistory = [];
+    @Input() fromScc: boolean;
 
     constructor() {
     }
@@ -40,4 +42,14 @@ export class ExposureViewComponent implements OnInit {
         return ProposalCalculationUtils.isNumber(total);
     }
 
+    totalFundedNonFunded(list, key, filterFundedNonFunded) {
+        let total = 0;
+        list.forEach(value => {
+            if (value[key] && value.isFunded === filterFundedNonFunded) {
+                total += parseFloat(ProposalCalculationUtils.isNumber(value[key]));
+            }
+        });
+        return ProposalCalculationUtils.isNumber(total);
+
+    }
 }

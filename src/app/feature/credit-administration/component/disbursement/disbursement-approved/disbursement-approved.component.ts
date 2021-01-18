@@ -7,6 +7,7 @@ import {LoanType} from '../../../../loan/model/loanType';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ExposureComponent} from '../../../cad-work-flow/cad-work-flow-base/legal-and-disbursement/exposure/exposure.component';
+import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-disbursement-approved',
@@ -22,6 +23,7 @@ export class DisbursementApprovedComponent implements OnInit {
     pageable: Pageable = new Pageable();
     loanList = [];
     loanType = LoanType;
+    isMaker: boolean = LocalStorageUtil.getStorage().roleType === 'MAKER';
 
 
     constructor(private service: CreditAdministrationService,

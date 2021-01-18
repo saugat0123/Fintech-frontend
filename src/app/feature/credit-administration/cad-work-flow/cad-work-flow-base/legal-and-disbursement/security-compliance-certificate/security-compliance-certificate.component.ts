@@ -6,6 +6,9 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastService} from '../../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
+import {CompanyInfoService} from '../../../../../admin/service/company-info.service';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {CustomerType} from '../../../../../customer/model/customerType';
 
 @Component({
   selector: 'app-security-compliance-certificate',
@@ -14,7 +17,10 @@ import {RouterUtilsService} from '../../../../utils/router-utils.service';
 })
 export class SecurityComplianceCertificateComponent implements OnInit {
   @Input() cadFile: CustomerApprovedLoanCadDocumentation;
+  panNumber;
   uploadFile;
+  date = new Date();
+  customerType = CustomerType;
 
 
   constructor(protected dialogRef: NbDialogRef<SecurityComplianceCertificateComponent>,
@@ -22,11 +28,22 @@ export class SecurityComplianceCertificateComponent implements OnInit {
               private ngbModal: NgbModal,
               private nbDialogService: NbDialogService,
               private toastService: ToastService,
-              private routerUtilsService: RouterUtilsService
+              private routerUtilsService: RouterUtilsService,
+              private companyInfoService: CompanyInfoService
   ) {
   }
 
   ngOnInit() {
+    if (!ObjectUtil.isEmpty(this.cadFile) && this.cadFile.loanHolder.customerType === this.customerType.INSTITUTION){
+      this.getCompanyPan();
+
+    }
+  }
+
+  getCompanyPan(){
+    this.companyInfoService.detail(this.cadFile.loanHolder.associateId).subscribe((res: any) =>{
+      this.panNumber = res.detail.panNumber;
+    });
   }
 
   onClose() {

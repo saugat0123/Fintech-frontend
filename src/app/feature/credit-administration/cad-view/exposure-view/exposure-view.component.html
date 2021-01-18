@@ -1,5 +1,5 @@
 <div class="col-md-12">
-    <strong>Current Disbursement</strong>
+    <strong *ngIf="displayHistory">Current Disbursement</strong>
 </div>
 <table class="table table-bordered table-hover table-sm sb-small text-center ">
     <thead>
@@ -29,15 +29,27 @@
         <td>{{ex?.frequency}}</td>
     </tr>
     <tr>
+        <td colspan="2" class="font-weight-bold" *ngIf="fromScc">Total Funded</td>
+        <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'loanLimit',true) |currencyFormatter}}</td>
+        <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'disbursement',true) |currencyFormatter}}</td>
+        <td colspan="3"></td>
+    </tr>
+    <tr>
+        <td colspan="2" class="font-weight-bold" *ngIf="fromScc">Total NonFunded</td>
+        <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'loanLimit',false) |currencyFormatter}}</td>
+        <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'disbursement',false) |currencyFormatter}}</td>
+        <td colspan="3"></td>
+    </tr>
+    <tr>
         <td colspan="2" class="font-weight-bold">Total</td>
         <td class="text-right px-2">Rs.{{totalSum(disbursementDetails, 'loanLimit') |currencyFormatter}}</td>
         <td class="text-right px-2">Rs.{{totalSum(disbursementDetails, 'disbursement') |currencyFormatter}}</td>
-
         <td colspan="3"></td>
     </tr>
+
     </tbody>
 </table>
-<div class="col-md-12" *ngIf="disbursementDetailsHistory?.length > 0">
+<div class="col-md-12" *ngIf="disbursementDetailsHistory?.length > 0 && displayHistory">
     <strong> Disbursement History</strong>
     <table class="table table-bordered table-hover table-sm sb-small text-center ">
         <thead>

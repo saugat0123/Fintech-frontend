@@ -16,7 +16,7 @@
                 <th>Customer Name</th>
                 <th>Type</th>
                 <th>Document Status</th>
-                <th>Add Exposure</th>
+                <th *ngIf="isMaker">Add Exposure</th>
 
 
             </tr>
@@ -29,7 +29,7 @@
                     <td>{{model?.loanHolder?.name}}</td>
                     <td>{{model?.loanHolder?.customerType}}</td>
                     <td>{{model?.docStatus}}</td>
-                    <td><em class="fas fa-plus-circle" (click)="addExposure(model)"></em></td>
+                    <td *ngIf="isMaker"><em class="fas fa-plus-circle" (click)="addExposure(model)"></em></td>
 
                 </tr>
             </ng-container>
