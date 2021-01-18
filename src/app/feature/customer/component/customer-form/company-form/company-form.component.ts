@@ -494,7 +494,7 @@ export class CompanyFormComponent implements OnInit {
             /** Succession*/
             succession: [ObjectUtil.isEmpty(this.companyInfo)
             || ObjectUtil.isEmpty(this.companyInfo.succession) ? undefined :
-                this.companyInfo.succession],
+                this.companyInfo.succession, this.disableCrgAlpha ? undefined: Validators.required],
 
             /** Groups BackGround*/
             groupsBackGround: [ObjectUtil.isEmpty(this.companyJsonData)
