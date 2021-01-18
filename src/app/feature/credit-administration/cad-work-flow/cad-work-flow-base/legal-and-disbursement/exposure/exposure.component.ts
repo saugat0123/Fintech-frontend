@@ -80,6 +80,8 @@ export class ExposureComponent implements OnInit, OnChanges {
                 initialRate: [undefined, Validators.required],
                 maturity: [undefined, Validators.required],
                 frequency: [undefined, Validators.required],
+                isFunded: [value.loan.isFundable],
+                approvedLoanBy: [value.currentStage.docAction.toString() === 'APPROVED' ? value.currentStage.toUser.name : undefined]
             }));
         });
     }
@@ -97,6 +99,8 @@ export class ExposureComponent implements OnInit, OnChanges {
                     initialRate: [value.initialRate, Validators.required],
                     maturity: [value.maturity, Validators.required],
                     frequency: [value.frequency, Validators.required],
+                    isFunded: [value.isFunded],
+                    approvedLoanBy: [value.approvedLoanBy]
                 }));
             });
         }
