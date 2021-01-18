@@ -108,7 +108,7 @@
                            placeholder="Branch Code"
                            [ngClass]="{ 'is-invalid': (submitted && branchFormControl.branchCode.errors) || !isBranchCodeValid}" (change)="getFromBranchCode(branchFormControl.branchCode.value)"/>
                     <div *ngIf="submitted && branchFormControl.branchCode.invalid" class="invalid-feedback">
-                        Invalid Ward number!
+                        Invalid Branch Code!
                     </div>
                     <div *ngIf="!isBranchCodeValid" class="invalid-feedback">
                         Unique Branch Code is required!

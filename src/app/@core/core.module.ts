@@ -12,6 +12,7 @@ import {ReplacePipe} from './utils/replace.pipe';
 import {RoundvaluePipe} from './pipe/roundvalue.pipe';
 import {BooleanConvertPipe} from './pipe/boolean-convert.pipe';
 import { DecimalNumberDirective } from './directive/decimal-number.directive';
+import { NumberOnlyDirective } from './directive/number-only.directive';
 // import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 // import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 
@@ -102,6 +103,7 @@ export const NB_CORE_PROVIDERS = [
         RoundvaluePipe,
         BooleanConvertPipe,
         DecimalNumberDirective,
+        NumberOnlyDirective,
     ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
@@ -112,6 +114,7 @@ export const NB_CORE_PROVIDERS = [
         RoundvaluePipe,
         BooleanConvertPipe,
         DecimalNumberDirective,
+        NumberOnlyDirective,
     ],
 })
 export class CoreModule {
