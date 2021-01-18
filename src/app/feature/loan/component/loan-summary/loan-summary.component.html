@@ -329,6 +329,45 @@
                 </div>
             </div>
 
+            <div class="print-only">
+                <p><strong>Credit Risk Grading</strong></p>
+                <table
+                        class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <thead>
+                    <tr class="text-white sb-bg-dark">
+                        <th>Credit Risk Grading (Flavour)</th>
+                        <th>Credit Risk Grade</th>
+                        <th>Credit Risk Rating</th>
+                        <th>Credit Risk Score</th>
+                        <th>Premium</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL' && creditRiskLambdaSummary">
+                        <td>Lambda</td>
+                        <td><span [class]="creditGradeLambdaStatusBadge"> {{creditRiskGradeLambda | titlecase}}</span></td>
+                        <td><span [class]="creditGradeLambdaStatusBadge"> {{ creditRiskRatingLambda | titlecase }}</span></td>
+                        <td><strong> {{ creditRiskLambdaScore }}</strong></td>
+                        <td><strong> {{ creditRiskLambdaPremium }}</strong></td>
+                    </tr>
+                    <tr *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION' && creditRiskAlphaSummary">
+                        <td>Alpha</td>
+                        <td><span [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha | titlecase}}</span></td>
+                        <td><span [class]="creditGradeAlphaStatusBadge"> {{ creditRiskRatingAlpha | titlecase }}</span></td>
+                        <td><strong> {{ creditRiskAlphaScore }}</strong></td>
+                        <td><strong> {{ creditRiskAlphaPremium }}</strong></td>
+                    </tr>
+                    <tr *ngIf="crgGammaSummary">
+                        <td>Gamma</td>
+                        <td><span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span></td>
+                        <td>N/A</td>
+                        <td><span><strong> {{ crgGammaScore }}</strong></span></td>
+                        <td>N/A</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <div *ngIf="loanCategory === 'INSTITUTION'" class="row">
                 <div class="col-md-12">
                     <app-company-info-summary
@@ -403,6 +442,7 @@
                         <!--                            </tbody>-->
                         <!--                        </table>-->
                     </div>
+
                     <div *ngIf="loanCategory === 'INDIVIDUAL'">
                         <p><strong>Family Details</strong></p>
                         <table
