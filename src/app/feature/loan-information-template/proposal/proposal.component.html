@@ -349,7 +349,7 @@
                                 installment amount div-->
 
                                     <div class="col-md-4"
-                                         *ngIf="this.proposalForm.get('repaymentMode').value != null && (!showInstallmentAmount || showRepaymentMode) &&
+                                         *ngIf="(this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
                                            ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
                                         <div class="form-group>">
                                             <label class="title"> <strong>Interest Amount</strong></label>
@@ -361,7 +361,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4"
-                                         *ngIf="this.proposalForm.get('repaymentMode').value != null && (!showInstallmentAmount || showRepaymentMode) &&
+                                         *ngIf="(this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
                                            ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
                                         <div class="form-group>">
                                             <label class="title"> <strong>Principal Amount</strong></label>
