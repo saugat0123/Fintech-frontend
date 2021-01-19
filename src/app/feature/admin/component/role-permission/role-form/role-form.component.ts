@@ -65,7 +65,7 @@ export class RoleFormComponent implements OnInit {
 
     checkRole() {
         if (this.role.roleType === RoleType.MAKER || this.role.roleType === RoleType.COMMITTEE || this.role.roleType === RoleType.ADMIN
-            || this.role.roleType === RoleType.CAD_LEGAL || this.role.roleType === RoleType.CAD_SUPERVISOR) {
+            || this.role.roleType === RoleType.CAD_SUPERVISOR) {
             this.hideBranchAccess = true;
             this.authorityRequired = true;
             this.showAuthority = true;
@@ -81,14 +81,16 @@ export class RoleFormComponent implements OnInit {
                 this.authorityRequired = false;
                 this.showAuthority = false;
             }
-            if (this.role.roleType === RoleType.CAD_LEGAL) {
-                this.role.roleAccess = RoleAccess.SPECIFIC;
-            }
+
         } else {
             this.hideBranchAccess = false;
             this.authorityRequired = true;
             this.showAuthority = true;
             this.role.roleAccess = RoleAccess.OWN;
+        }
+
+        if (this.role.roleType === RoleType.CAD_SUPERVISOR || this.role.roleType === RoleType.CAD_ADMIN || this.role.roleType === RoleType.CAD_LEGAL) {
+            this.showAuthority = false;
         }
     }
 
