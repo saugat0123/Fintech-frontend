@@ -373,8 +373,8 @@
                                 <td>{{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>
                             </tr>
                             <tr class="text-white sb-bg-dark">
-                                <td>Customer Client Type</td>
-                                <td>SubSector</td>
+                                <th>Customer Client Type</th>
+                                <th>SubSector</th>
                                 <!--<td>Address as per Legal Document</td>-->
                             </tr>
                             <tr>
@@ -842,7 +842,7 @@
                                                       [customerAllLoanList]="customerAllLoanList"
                                                       [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
 
-            <div class="row mt-3 disable-print">
+            <div class="row mt-3">
                 <div class="col-md-12">
                     <p><strong>Authority Section</strong></p>
                     <table
