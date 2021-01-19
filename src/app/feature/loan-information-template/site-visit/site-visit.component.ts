@@ -165,10 +165,10 @@ export class SiteVisitComponent implements OnInit {
             : this.formDataForEdit.currentResidentDetails.findingComment)],
         locationPreview: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
             : this.formDataForEdit.currentResidentDetails.locationPreview)],
-        longitude: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.longitude)],
-        latitude: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.latitude)],
+        currentSiteVisitLongitude: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
+            : this.formDataForEdit.currentResidentDetails.currentSiteVisitLongitude)],
+        currentSiteVisiLatitude: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
+            : this.formDataForEdit.currentResidentDetails.currentSiteVisiLatitude)],
       }),
       businessSiteVisitDetails: this.formBuilder.group({
         officeAddress: [undefined],
@@ -199,10 +199,10 @@ export class SiteVisitComponent implements OnInit {
         findingsAndComments: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
                 : this.formDataForEdit.businessSiteVisitDetails.findingsAndComments, Validators.required],
-        longitude: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.longitude)],
-        latitude: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.latitude)],
+        businessSiteVisitLongitude: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.businessSiteVisitLongitude],
+        businessSiteVisitLatitude: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.businessSiteVisitLatitude]
       }),
       fixedAssetCollateralDetails: this.formBuilder.group({
         date: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
