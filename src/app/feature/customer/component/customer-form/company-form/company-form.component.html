@@ -144,16 +144,16 @@
                                    <div class="form-group">
                                        <label for="email"><strong>Email</strong></label>
                                        <input
-                                           [ngClass]="{ 'is-invalid':submitted && form.email?.errors }"
+                                           [ngClass]="{ 'is-invalid':submitted && form.email.errors }"
                                            class="form-control rounded"
                                            formControlName="email"
                                            id="email"
-                                           placeholder="abc@gmail.com"
-                                           type="text"/>
-                                       <div *ngIf="submitted && form.email?.errors "
+                                           placeholder="Email address"
+                                           type="text" pattern="[a-z0-9]+(\.[_a-z0-9]+)*@[a-z]*(\.[a-z]{2,4})"/>
+                                       <div *ngIf="submitted && form.email.errors "
                                             class="invalid-feedback">
-                                           <div *ngIf="form.email?.errors.email">
-                                               invalid email!
+                                           <div *ngIf="form.email.errors.required">
+                                               Email address is required
                                            </div>
                                        </div>
                                    </div>
@@ -711,7 +711,7 @@
                                            class="form-control"
                                            formControlName="contactEmail"
                                            id="contactEmail" placeholder="Email"
-                                           type="email">
+                                           type="email" pattern="[a-z0-9]+(\.[_a-z0-9]+)*@[a-z]*(\.[a-z]{2,4})"/>
                                        <div
                                            *ngIf="(submitted) && contact.get('contactEmail').errors"
                                            class="invalid-feedback">
