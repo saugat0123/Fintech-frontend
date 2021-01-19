@@ -94,7 +94,7 @@
                                             class="small text-danger">
                                            <div *ngIf="form.companyEstablishmentDate.errors.required ||
                                     form.companyEstablishmentDate.errors.beforeToday">
-                                               Invalid Establishment date!
+                                               Establishment date is Required
                                            </div>
                                        </div>
                                    </div>
@@ -469,7 +469,7 @@
                                    <nb-datepicker #registrationDate></nb-datepicker>
                                    <div *ngIf="submitted && form.registrationDate.errors" class="small text-danger">
                                        <div *ngIf="form.registrationDate.errors.required || form.registrationDate.errors.beforeToday">
-                                           Invalid Registration Date
+                                           Registration Date is required
                                        </div>
                                    </div>
                                </div>
@@ -508,7 +508,7 @@
                                    <div *ngIf="submitted && form.panRegistrationDate.errors" class="small text-danger">
                                        <div *ngIf="form.panRegistrationDate.errors.required ||
                                 form.panRegistrationDate.errors.beforeToday">
-                                           Invalid PAN/VAT Registration Date
+                                           PAN/VAT Registration Date is required
                                        </div>
                                    </div>
                                </div>
@@ -1027,7 +1027,7 @@
                                            <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('share').errors }" class="form-control" formControlName="share"
                                                   id="share"
                                                   name="share" placeholder="Share"
-                                                  type="number">
+                                                  type="number" appDecimalNumber/>
                                            <div
                                                *ngIf="(submitted) && proprietor.get('share').invalid"
                                                class="invalid-feedback">
