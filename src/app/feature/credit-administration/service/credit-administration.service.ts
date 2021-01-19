@@ -64,6 +64,10 @@ export class CreditAdministrationService extends BaseService<any> {
         const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/cadCheckListDocUpload`);
         return this.http.post(req.url, formData, {headers: req.header});
     }
+    public getCreditOfferLetterCount(): Observable<object> {
+        const req = ApiUtils.getRequest(`${this.getApi()}/offer-letter-count`);
+        return this.http.get(req.url, {headers: req.header});
+    }
 
     public uploadAdditionalDocument(formData: FormData): Observable<object> {
         const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/upload-additional-file`);
@@ -75,6 +79,11 @@ export class CreditAdministrationService extends BaseService<any> {
         const req = ApiUtils.getRequest(api);
 
         return this.http.post(req.url, obj, {headers: req.header});
+    }
+
+    public getSccDocPath(formData: FormData): Observable<object> {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/upload-scc`);
+        return this.http.post(req.url, formData, {headers: req.header});
     }
 
 }

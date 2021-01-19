@@ -494,7 +494,7 @@ export class CompanyFormComponent implements OnInit {
             /** Succession*/
             succession: [ObjectUtil.isEmpty(this.companyInfo)
             || ObjectUtil.isEmpty(this.companyInfo.succession) ? undefined :
-                this.companyInfo.succession],
+                this.companyInfo.succession, this.disableCrgAlpha ? undefined: Validators.required],
 
             /** Groups BackGround*/
             groupsBackGround: [ObjectUtil.isEmpty(this.companyJsonData)
@@ -1039,6 +1039,8 @@ export class CompanyFormComponent implements OnInit {
             this.companyInfoFormGroup.get('creditCardsDuringReview').value +
             this.companyInfoFormGroup.get('mobileBankingDuringReview').value +
             this.companyInfoFormGroup.get('lockerDuringReview').value;
-        this.companyInfoFormGroup.get('total').patchValue(total);
+        this.companyInfoFormGroup.get('total').patchValue(total.toFixed(2));
+        // console.log(this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
+        //     this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value);
     }
 }

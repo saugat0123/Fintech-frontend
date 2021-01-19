@@ -1,0 +1,19 @@
+nb-card.custom{
+  height: 100vh;
+  overflow-y: scroll;
+  width: 100vw;
+}
+
+ol{
+  font-family: "Times New Roman", Times, serif;
+}
+
+@media screen {
+  .disable-print{
+    display: block;
+  }
+
+  .print-only{
+    display: none;
+  }
+}

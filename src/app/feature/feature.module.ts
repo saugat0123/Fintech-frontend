@@ -14,6 +14,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {NepaliCalendarModule} from './nepali-calendar/nepali-calendar.module';
 import {MouseScrollDisableDirective} from '../@core/directive/mouse-scroll-disable.directive';
 import {CommonAddressComponent} from './common-address/common-address.component';
+import {CadDataComponent} from '../component/dashboard/cad-data/cad-data.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import {CommonAddressComponent} from './common-address/common-address.component'
             DashboardComponent,
             PendingLoanComponent,
             PendingsLoanComponent,
+            CadDataComponent,
             DataVisualizationComponent,
             ApprovalRoleHierarchyComponent,
             MouseScrollDisableDirective,

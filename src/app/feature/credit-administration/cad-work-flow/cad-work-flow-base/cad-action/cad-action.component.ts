@@ -19,6 +19,9 @@ import {CreditAdministrationService} from '../../../service/credit-administratio
 import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {CadStage} from '../../../model/cadStage';
 import {RoleType} from '../../../../admin/modal/roleType';
+import {NbDialogService} from '@nebular/theme';
+import {SecurityComplianceCertificateComponent} from '../legal-and-disbursement/security-compliance-certificate/security-compliance-certificate.component';
+import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
     selector: 'app-cad-action',
@@ -38,6 +41,8 @@ export class CadActionComponent implements OnInit {
 
     @Input()
     currentCADStage: CadStage;
+
+    @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
 
     popUpTitle: string;
     currentUserRoleType = false;
@@ -82,7 +87,9 @@ export class CadActionComponent implements OnInit {
                 private approvalRoleHierarchyService: ApprovalRoleHierarchyService,
                 private cadService: CreditAdministrationService,
                 private socketService: SocketService,
-                private routerUtilsService: RouterUtilsService,) {
+                private routerUtilsService: RouterUtilsService,
+                private nbDialogService: NbDialogService,
+    ) {
     }
 
     ngOnInit() {
@@ -274,6 +281,10 @@ export class CadActionComponent implements OnInit {
         if (this.currentCADStage.fromRole.roleType === this.roleType.MAKER) {
             this.showHideReturnToRm = false;
         }
+    }
+
+    openModel(){
+        this.nbDialogService.open(SecurityComplianceCertificateComponent,{context:{cadFile: this.cadOfferLetterApprovedDoc}});
     }
 
 }

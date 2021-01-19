@@ -9,6 +9,7 @@
                         [selectedBranchId]="cadOfferLetterApprovedDoc?.loanHolder?.branch?.id"
                         [currentStatus]="cadOfferLetterApprovedDoc?.docStatus"
                         [currentCADStage]="cadOfferLetterApprovedDoc?.cadCurrentStage"
+                        [cadOfferLetterApprovedDoc] = "cadOfferLetterApprovedDoc"
                         *ngIf="showHideAction && cadOfferLetterApprovedDoc"></app-cad-action>
     </nb-card-header>
     <nb-card-body>

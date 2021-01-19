@@ -80,6 +80,8 @@ export class ExposureComponent implements OnInit, OnChanges {
                 initialRate: [undefined, Validators.required],
                 maturity: [undefined, Validators.required],
                 frequency: [undefined, Validators.required],
+                isFunded: [value.loan.isFundable],
+                approvedLoanBy: [value.currentStage.docAction.toString() === 'APPROVED' ? value.currentStage.toUser.name : undefined]
             }));
         });
     }
@@ -97,6 +99,8 @@ export class ExposureComponent implements OnInit, OnChanges {
                     initialRate: [value.initialRate, Validators.required],
                     maturity: [value.maturity, Validators.required],
                     frequency: [value.frequency, Validators.required],
+                    isFunded: [value.isFunded],
+                    approvedLoanBy: [value.approvedLoanBy]
                 }));
             });
         }
@@ -116,10 +120,12 @@ export class ExposureComponent implements OnInit, OnChanges {
                 }
                 const tempDisbursementArray = [];
                 const storage = LocalStorageUtil.getStorage();
+                const sccPath = JSON.parse(this.cadData.exposure.data).sccPath;
                 JSON.parse(this.cadData.exposure.data).disbursementDetails.forEach(d => {
                     d.approveBy = this.cadData.cadCurrentStage.fromUser.name;
                     d.approveByrole = this.cadData.cadCurrentStage.fromRole.roleName;
                     d.approvedOn = this.cadData.cadCurrentStage.lastModifiedAt;
+                    d.sccPath = sccPath;
                     tempDisbursementArray.push(d);
                 });
                 historyData.push(tempDisbursementArray);
