@@ -583,6 +583,7 @@
                 </div>
                 <hr>
                 <div>
+                    <h5>Relation</h5>
                     <div
                             *ngFor="let relatives of basicInfo.get('customerRelatives')['controls']; let i = index"
                             formArrayName="customerRelatives">
@@ -660,7 +661,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div *ngIf="i>2" class="ml-3">
+                                <div *ngIf="i>1" class="ml-3">
                                     <button (click)="removeRelatives(i)"
                                             class="float-right" nbButton
                                             size="small" status="danger">remove
