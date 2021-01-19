@@ -34,8 +34,8 @@
         <td>{{formData?.currentResidentDetails?.staffRepresentativeName}}</td>
         <td>{{formData?.currentResidentDetails?.alternativeStaffRepresentativeNameDesignation}}</td>
         <td>{{formData?.currentResidentDetails?.alternativeStaffRepresentativeName}}</td>
-        <td>{{formData['currentResidentDetails']['longitude']}}</td>
-        <td>{{formData['currentResidentDetails']['longitude']}}</td>
+        <td>{{formData['currentResidentDetails']['currentSiteVisitLongitude']}}</td>
+        <td>{{formData['currentResidentDetails']['currentSiteVisiLatitude']}}</td>
     </tr>
 
 </table>
@@ -95,8 +95,8 @@
         <td>{{formData?.businessSiteVisitDetails?.staffRepresentativeName}}</td>
         <td>{{formData?.businessSiteVisitDetails?.alternativeStaffRepresentativeNameDesignation}}</td>
         <td>{{formData?.businessSiteVisitDetails?.alternativeStaffRepresentativeName}}</td>
-        <td>{{formData['businessSiteVisitDetails']['longitude']}}</td>
-        <td>{{formData['businessSiteVisitDetails']['longitude']}}</td>
+        <td>{{formData['businessSiteVisitDetails']['businessSiteVisitLongitude']}}</td>
+        <td>{{formData['businessSiteVisitDetails']['businessSiteVisitLatitude']}}</td>
     </tr>
 </table>
 <table *ngIf="formData['businessSiteVisitFormChecked'] === true"
