@@ -1,5 +1,10 @@
 <nb-card accent="primary" class="p-3 shadow-lg custom" style="height:100%" id="print-block">
   <nb-card-header>
+    <div class="logo-container print-only">
+      <div>
+        <img height="60px" src="../../../../../assets/img/offer-letter-header-logo.png">
+      </div>
+    </div>
     <ng-container class="flex-row">
       <h5 class="text-center print-only mb-3">Security Compliance Certificate </h5>
       <h5 class="text-center disable-print">Security Compliance Certificate </h5>
@@ -49,7 +54,9 @@
     <p><b>2.Fees And Commission</b></p>
     <app-fees-commissions-view [cadOfferLetterApprovedDoc]="cadFile"></app-fees-commissions-view>
     <p><b>3.Document CheckList</b></p>
-    <app-document-checklist-view [cadData]="cadFile"></app-document-checklist-view>
+    <app-document-checklist-view [cadData]="cadFile" *ngIf="!cadCheckListListVersion"></app-document-checklist-view>
+    <app-document-checklist-view-lite [cadData]="cadFile" *ngIf="cadCheckListListVersion"></app-document-checklist-view-lite>
+
     <p><b>4.Mode Of Payment</b></p>
     <ol>
       <li>Issuance of MC Favoring Ms <b>{{(cadFile?.data | jsonParse)?.acInfo?.issuanceOfMc || '...........'}}</b></li>

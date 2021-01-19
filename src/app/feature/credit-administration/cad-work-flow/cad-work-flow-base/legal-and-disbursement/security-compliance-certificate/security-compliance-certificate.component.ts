@@ -9,6 +9,7 @@ import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CompanyInfoService} from '../../../../../admin/service/company-info.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CustomerType} from '../../../../../customer/model/customerType';
+import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util';
 
 @Component({
   selector: 'app-security-compliance-certificate',
@@ -21,6 +22,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   uploadFile;
   date = new Date();
   customerType = CustomerType;
+  cadCheckListListVersion = LocalStorageUtil.getStorage().productUtil.CHECK_LIST_LITE_VERSION;
 
 
   constructor(protected dialogRef: NbDialogRef<SecurityComplianceCertificateComponent>,
