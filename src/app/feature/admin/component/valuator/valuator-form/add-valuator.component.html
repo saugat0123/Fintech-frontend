@@ -106,7 +106,7 @@
                            placeholder="Ward Number"
                            type="number"/>
                     <div *ngIf="submitted && valuatorFormControl.wardNumber.invalid" class="invalid-feedback">
-                        Invalid Ward number!
+                        Ward number is required
                     </div>
                 </div>
             </div>
@@ -126,7 +126,7 @@
                     <label for="name">Email</label>
                     <input [ngClass]="{'is-invalid': submitted && valuatorFormControl.email.errors}" class="form-control" formControlName="email"
                            id="email" placeholder="Email"
-                           type="text" pattern="[a-z0-9]+(\.[_a-z0-9]+)*@[a-z]*(\.[a-z]{2,4})"/>
+                           type="text"/>
                     <div *ngIf="submitted && valuatorFormControl.email.invalid" class="invalid-feedback">
                         Email is required
                     </div>

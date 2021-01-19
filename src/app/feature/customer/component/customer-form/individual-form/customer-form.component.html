@@ -138,10 +138,11 @@
                             <label for="email"><strong>Email</strong></label>
                             <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.email.errors }"
                                    class="form-control" formControlName="email" id="email" name="email"
-                                   placeholder="Email Address"
-                                   type="text" pattern="[a-z0-9]+(\.[_a-z0-9]+)*@[a-z]*(\.[a-z]{2,4})"/>
+                                   placeholder="eg. xyz@abc.com"
+                                   type="email">
                             <div *ngIf="(submitted) && basicInfoControls.email.invalid" class="invalid-feedback">
-                                <div *ngIf="basicInfoControls.email.errors.required"> Email address is required
+                                <div *ngIf="basicInfoControls.email.errors.email">Valid email address has form
+                                    xyz@abc.com
                                 </div>
                             </div>
                         </div>

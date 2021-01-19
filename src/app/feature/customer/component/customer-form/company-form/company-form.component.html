@@ -113,7 +113,7 @@
                                            <div *ngIf="submitted && form.registrationNumber.errors "
                                                 class="invalid-feedback">
                                                <div *ngIf="form.registrationNumber.errors.required">
-                                                   registration number is required.
+                                                   Registration number is required.
                                                </div>
                                            </div>
                                        </div>
@@ -144,16 +144,16 @@
                                    <div class="form-group">
                                        <label for="email"><strong>Email</strong></label>
                                        <input
-                                           [ngClass]="{ 'is-invalid':submitted && form.email.errors }"
+                                           [ngClass]="{ 'is-invalid':submitted && form.email?.errors }"
                                            class="form-control rounded"
                                            formControlName="email"
                                            id="email"
-                                           placeholder="Email address"
-                                           type="text" pattern="[a-z0-9]+(\.[_a-z0-9]+)*@[a-z]*(\.[a-z]{2,4})"/>
-                                       <div *ngIf="submitted && form.email.errors "
+                                           placeholder="abc@gmail.com"
+                                           type="text"/>
+                                       <div *ngIf="submitted && form.email?.errors "
                                             class="invalid-feedback">
-                                           <div *ngIf="form.email.errors.required">
-                                               Email address is required
+                                           <div *ngIf="form.email?.errors.email">
+                                               Email Address is required
                                            </div>
                                        </div>
                                    </div>
@@ -711,7 +711,7 @@
                                            class="form-control"
                                            formControlName="contactEmail"
                                            id="contactEmail" placeholder="Email"
-                                           type="email" pattern="[a-z0-9]+(\.[_a-z0-9]+)*@[a-z]*(\.[a-z]{2,4})"/>
+                                           type="email">
                                        <div
                                            *ngIf="(submitted) && contact.get('contactEmail').errors"
                                            class="invalid-feedback">
