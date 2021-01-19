@@ -26,12 +26,16 @@
         <th>Staff Representative Name</th>
         <th>Alternative Staff Representative Designation</th>
         <th>Alternative Staff Representative Name</th>
+        <th>Longitude</th>
+        <th>Latitude</th>
     </tr>
     <tr>
         <td>{{formData?.currentResidentDetails?.staffRepresentativeNameDesignation}}</td>
         <td>{{formData?.currentResidentDetails?.staffRepresentativeName}}</td>
         <td>{{formData?.currentResidentDetails?.alternativeStaffRepresentativeNameDesignation}}</td>
         <td>{{formData?.currentResidentDetails?.alternativeStaffRepresentativeName}}</td>
+        <td>{{formData['currentResidentDetails']['longitude']}}</td>
+        <td>{{formData['currentResidentDetails']['longitude']}}</td>
     </tr>
 
 </table>
@@ -84,11 +88,15 @@
         <th>Staff Representative Name</th>
         <th>Alternative Staff Representative Designation</th>
         <th>Alternative Staff Representative Name</th>
+        <th>Longitude</th>
+        <th>Latitude</th>
     </tr>
     <tr>
         <td>{{formData?.businessSiteVisitDetails?.staffRepresentativeName}}</td>
         <td>{{formData?.businessSiteVisitDetails?.alternativeStaffRepresentativeNameDesignation}}</td>
         <td>{{formData?.businessSiteVisitDetails?.alternativeStaffRepresentativeName}}</td>
+        <td>{{formData['businessSiteVisitDetails']['longitude']}}</td>
+        <td>{{formData['businessSiteVisitDetails']['longitude']}}</td>
     </tr>
 </table>
 <table *ngIf="formData['businessSiteVisitFormChecked'] === true"
@@ -369,10 +377,57 @@
 
 <!-- ============================================================= Current Asset Inspection form End ==============================================================-->
 
+<!-- ============================================================= Major Inquiries and Observations ===============================================================-->
+<p *ngIf="formData['currentAssetsInspectionFormChecked'] === true" class="font-weight-bold"></p>
+<table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
+       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
+    <tr>
+        <th colspan="6"><b>Current Asset Inspection: Major Inquiries and Observations</b></th>
+    </tr>
+    <tr class="text-white sb-bg-dark">
+        <th colspan="6">Business Nature and Operating/Manufacturing</th>
+    </tr>
+    <tr>
+        <td colspan="6">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessNature']}}</td>
+    </tr>
+    <tr class="text-white sb-bg-dark">
+        <th colspan="6">Observation Of Business Operation/Activities</th>
+    </tr>
+    <tr>
+        <td colspan="6">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessActivities']}}</td>
+    </tr>
+    <tr class="text-white sb-bg-dark">
+        <th colspan="6">Questions For Accompanying Person Of Client</th>
+    </tr>
+    <tr class="text-white sb-bg-dark">
+        <th colspan="3">Business compared to last year</th>
+        <th colspan="3">Prospects and Challenges for the business</th>
+    </tr>
+    <tr>
+        <td colspan="3">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessProgress']}}</td>
+        <td colspan="3">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessChallenges']}}</td>
+    </tr>
+    <tr class="text-white sb-bg-dark">
+        <th>Normal Electricity Line</th>
+        <th>Invertor/Generator</th>
+        <th>Ledger Book</th>
+        <th>Electronic</th>
+    </tr>
+    <tr>
+        <td>{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['normalElectricityLine'] | booleanConvert}}
+        <td>{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['invertorOrGenerator'] | booleanConvert}}
+        <td>{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['ledgerBook'] | booleanConvert}}
+        <td>{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['electronic'] | booleanConvert}}
+    </tr>
+</table>
+
+
+<!-- ============================================================= End Major Inquiries and Observations =============================================================-->
+
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr class="text-white sb-bg-dark">
-        <th colspan="2">Current Assets Inpsection - Stock Checklist Questionaire
+        <th colspan="2">Current Assets Inspection  - Stock Checklist Questionnaire
         </th>
     </tr>
     <tr>
@@ -485,6 +540,27 @@
         <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.certificate"><i
                 class="fas fa-check"></i></td>
         <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.certificate"><i
+                class="fas fa-times"></i></td>
+    </tr>
+    <tr>
+        <td>Were we provided with a detailed NCA report at the time of inspection against which we could inspect the business?</td>
+        <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.ncaReport"><i
+                class="fas fa-check"></i></td>
+        <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.ncaReport"><i
+                class="fas fa-times"></i></td>
+    </tr>
+    <tr>
+        <td>Additional Impression: Do you feel the stocks are largely as per the stock report provided in terms of item/quantity?</td>
+        <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.stocksAreLarge"><i
+                class="fas fa-check"></i></td>
+        <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.stocksAreLarge"><i
+                class="fas fa-times"></i></td>
+    </tr>
+    <tr>
+        <td>Any evidence that there are charges of other entities/institutions in the assets?</td>
+        <td *ngIf="formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.otherEntitiesInTheAssets"><i
+                class="fas fa-check"></i></td>
+        <td *ngIf="!formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.otherEntitiesInTheAssets"><i
                 class="fas fa-times"></i></td>
     </tr>
     <tr>
