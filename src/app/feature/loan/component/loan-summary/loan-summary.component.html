@@ -840,6 +840,113 @@
                 </div>
             </div>
 
+            <div class="print-only">
+                <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row ">
+                    <div class="col-md-12">
+                        <p><strong>Loan Documents</strong></p>
+                    </div>
+                    <div class="col-md-12">
+                        <table class="table table-condensed table-bordered table-sm sb-small text-center">
+                            <thead>
+                            <tr class="text-white sb-bg-dark">
+                                <th>S.N</th>
+                                <th>Document</th>
+                                <th>Checked</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let singleDoc of loanDataHolder?.customerDocument; let i = index">
+                                <td>{{i + 1}}</td>
+                                <td>{{singleDoc?.document?.name}}</td>
+                                <td>
+                                    <i class="fas fa-check" *ngIf="singleDoc?.documentPath"></i>
+                                    <i class="fas fa-times" *ngIf="!singleDoc?.documentPath"></i></td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row ">
+                    <div class="col-md-12">
+                        <table class="table table-condensed table-bordered table-sm sb-small text-center">
+
+                            <tr class="text-white sb-bg-dark">
+                                <th colspan="4"> Customer General Document
+                                </th>
+                            </tr>
+                            <tr class="text-white sb-bg-dark">
+                                <th>SN</th>
+                                <th>Document</th>
+                                <th>Checked</th>
+                            </tr>
+                            <tr *ngFor="let generalDoc of loanDataHolder?.loanHolder?.customerGeneralDocuments; let i=index">
+                                <td>{{i + 1}}</td>
+                                <td>{{generalDoc?.document?.displayName}}</td>
+                                <td>
+                                    <i class="fas fa-check" *ngIf="generalDoc?.docPath"></i>
+                                    <i class="fas fa-times" *ngIf="!generalDoc?.docPath"></i>
+                                  </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div *ngIf="minOneGuarantorDoc" class="row">
+                    <div class="col-md-12">
+                        <p><strong>Guarantor Documents</strong></p>
+                        <table class="table table-condensed table-bordered table-sm sb-small text-center">
+                            <thead>
+                            <tr class="text-white sb-bg-dark">
+                                <th>S.N</th>
+                                <th>Guarantor</th>
+                                <th>Document</th>
+                                <th>Checked</th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
+                            <tr *ngIf="singleDoc?.docPath">
+                                <td>{{i + 1}}</td>
+                                <td>{{singleDoc?.name}}</td>
+                                <td>Net Worth Document</td>
+                                <td>
+                                    <i class="fa fa-check" *ngIf="singleDoc?.docPath"></i>
+                                    <i class="fa fa-times" *ngIf="!singleDoc?.docPath"></i>
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div *ngIf="minOneInsuranceDoc" class="row ">
+                    <div class="col-md-12">
+                        <p><strong>Insurance Documents</strong></p>
+                        <table class="table table-condensed table-bordered table-sm sb-small text-center">
+                            <thead>
+                            <tr class="text-white sb-bg-dark">
+                                <th>S.N</th>
+                                <th>Policy Number</th>
+                                <th>Company</th>
+                                <th>Document</th>
+                                <th>Checked</th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let singleDoc of insuranceWithDoc; let i = index">
+                            <tr *ngIf="singleDoc.policyDocumentPath">
+                                <td>{{i + 1}}</td>
+                                <td>{{singleDoc?.policyNumber}}</td>
+                                <td>{{singleDoc?.company}}</td>
+                                <td>Insurance Policy</td>
+                                <td>
+                                    <i class="fa fa-check" *ngIf="singleDoc?.policyDocumentPath"></i>
+                                    <i class="fa fa-times" *ngIf="!singleDoc?.policyDocumentPath"></i>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
             <div *ngIf="loanDataHolder?.cadDocument?.length > 0  && showCadDoc" class="row disable-print">
                 <div class="col-md-12">
                     <p><strong>Cad Documents</strong></p>
