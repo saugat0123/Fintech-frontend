@@ -23,6 +23,8 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   date = new Date();
   customerType = CustomerType;
   cadCheckListListVersion = LocalStorageUtil.getStorage().productUtil.CHECK_LIST_LITE_VERSION;
+  affiliatedId = LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID;
+  sccRefNumber;
 
 
   constructor(protected dialogRef: NbDialogRef<SecurityComplianceCertificateComponent>,
@@ -36,17 +38,25 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.cadFile) && this.cadFile.loanHolder.customerType === this.customerType.INSTITUTION){
-      this.getCompanyPan();
+    this.getCompanyPan();
+    this.setSccRefNumber();
 
+  }
+
+  getCompanyPan() {
+    if (!ObjectUtil.isEmpty(this.cadFile) && this.cadFile.loanHolder.customerType === this.customerType.INSTITUTION) {
+      this.companyInfoService.detail(this.cadFile.loanHolder.associateId).subscribe((res: any) => {
+        this.panNumber = res.detail.panNumber;
+      });
     }
   }
 
-  getCompanyPan(){
-    this.companyInfoService.detail(this.cadFile.loanHolder.associateId).subscribe((res: any) =>{
-      this.panNumber = res.detail.panNumber;
-    });
+  setSccRefNumber() {
+    const exposureHistoryData = JSON.parse(this.cadFile.exposure.historyData);
+    this.sccRefNumber = String().concat(this.affiliatedId.toString()).concat('-cad-').concat(this.cadFile.id.toString()).
+    concat('-dis-').concat( exposureHistoryData ? exposureHistoryData.length : 0);
   }
+
 
   onClose() {
     this.dialogRef.close();

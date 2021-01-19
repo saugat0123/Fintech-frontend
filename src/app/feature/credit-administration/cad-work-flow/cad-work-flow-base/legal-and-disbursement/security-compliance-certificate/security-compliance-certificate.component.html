@@ -16,6 +16,14 @@
   <nb-card-body>
     <table class="table table-bordered table-hover table-sm sb-small text-center ">
       <tr>
+        <th>Unit</th>
+        <td>{{cadFile?.loanHolder['clientType'] | titlecase}}</td>
+        <th>Customer Id</th>
+        <td>{{cadFile?.loanHolder?.customerCode}}</td>
+        <th>SCC REF No:</th>
+        <td>{{sccRefNumber}}</td>
+      </tr>
+      <tr>
         <th>Date</th>
         <td>{{date | date}}</td>
         <th>Customer's Name</th>
@@ -25,28 +33,17 @@
       </tr>
       <tr>
         <th>A/C NUmber</th>
-        <td>{{(cadFile?.data | jsonParse)?.acInfo?.accountNo}}
-        </td>
-        <th>Facility</th>
-        <td></td>
-        <th>Approved By</th>
-        <td></td>
-      </tr>
-      <tr>
-        <th>Group</th>
-        <td></td>
-        <th>RM</th>
-        <td></td>
+        <td>{{(cadFile?.data | jsonParse)?.acInfo?.accountNo}}</td>
         <th>Branch</th>
         <td>{{cadFile?.loanHolder?.branch?.name}}</td>
-      </tr>
-      <tr>
         <th>Sector Code</th>
         <td>{{cadFile?.loanHolder?.subSectorDetailCode}}</td>
+      </tr>
+      <tr>
         <th>Security Code</th>
         <td></td>
-        <th>Customer Id</th>
-        <td>{{cadFile?.loanHolder?.customerCode}}</td>
+        <th>Operative Account</th>
+        <td>{{(cadFile?.data | jsonParse)?.acInfo?.operativeAc}}</td>
       </tr>
     </table>
     <p><b>1.Exposure Details</b></p>
@@ -63,27 +60,27 @@
       <li>Credit to Ac No :<b>{{(cadFile?.data | jsonParse)?.acInfo?.accountNo || '...........'}}</b> AC Name: <b>{{(cadFile?.data | jsonParse)?.acInfo?.accountName || '...........'}}</b> against purchase of <b>{{(cadFile?.data | jsonParse)?.acInfo?.againstPurchaseOf || '...........'}}</b></li>
     </ol>
 
-    <div class="row">
-      <div class="col-md-3">
+    <div class="row border">
+      <div class="col-md-3 border">
         <p><b><u>Prepared by</u></b></p>
         <p>Signature</p>
         <p class="pt-5">Name</p>
         <p><b>RO/RM</b></p>
 
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 border">
         <p><b><u>Recommended by</u></b></p>
         <p>Signature</p>
         <p class="pt-5">Name</p>
         <p><b>OI/BM</b></p>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 border">
         <p><b><u>System Inputted by</u></b></p>
         <p>Signature</p>
         <p class="pt-5">Name</p>
         <p><b>CAD</b></p>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 border">
         <p><b><u>Approved by</u></b></p>
         <p>.</p>
         <p class="pt-5">.</p>
