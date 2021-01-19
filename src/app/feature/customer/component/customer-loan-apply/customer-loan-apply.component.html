@@ -43,10 +43,10 @@
           Total Combined Loans: {{combinedLoansIds?.length || 0}}
         </div>
         <div class="col-md-12">
-          <table class="table table-bordered table-hover table-responsive-md table-sm sb-small" *ngIf="!spinner">
+          <table class="table table-bordered table-hover table-responsive-md table-sm sb-small text-center" *ngIf="!spinner">
             <thead>
             <tr class="text-white sb-bg-dark">
-              <th scope="col">Pick</th>
+              <th scope="col">Select</th>
               <th scope="col">S.N</th>
               <th scope="col">Loan Facility</th>
               <th scope="col">Proposed Amount</th>
@@ -66,7 +66,7 @@
               <td>{{i + 1}}</td>
               <td>{{model?.loan?.name}}</td>
               <td>
-                <span class="d-flex justify-content-end">{{(model?.proposal?.proposedLimit | number)
+                <span class="d-flex justify-content-end">Rs. {{(model?.proposal?.proposedLimit | number)
                 || 0}}</span>
               </td>
               <td>{{loanType[model?.loanType]}}</td>
