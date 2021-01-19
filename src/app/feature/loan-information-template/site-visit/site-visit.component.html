@@ -875,7 +875,85 @@
                         </div>
                     </div>
                 </div>
-                <h4 class="col-md-12 mt-3">Current Assets Inpsection - Stock Checklist Questionaire</h4>
+                <!--                New section Added-->
+                <h4 class="col-md-12 mt-3">Major Inquiries and Observations</h4>
+                <div class="col-md-12 mt-3" formGroupName="majorInquiriesAndObservations">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>
+                                1. Explain the business nature, operating/manufacturing process in maximum 4
+                                lines as per observation/discussion with the customer during inspection.
+                            </label>
+                            <textarea id="businessNature" formControlName="businessNature" name="creditor" type="text"
+                                      class="form-control" placeholder="Business Nature" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>
+                                2. Observation of business operation/activities: No of staffs/workers,
+                                Machines/Plant in operation; Loading/unloading happening/brief of
+                                various sections of business (Manufacturing/ Packaging/ Storage/
+                                Dispatch/ Quality Control etc.), No of vehicles observed etc.
+                            </label>
+                            <textarea id="businessActivities" formControlName="businessActivities" name="businessActivities" type="text"
+                                      class="form-control" placeholder="Business Activities" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>
+                                3. Questions to be asked to the accompanying person of client:
+                            </label>
+                            <div class="col-md-12 mt-3">
+                                <label>
+                                    a. How is the business doing now compared to last year?
+                                </label>
+                                <textarea id="businessProgress" formControlName="businessProgress" name="businessProgress" type="text"
+                                          class="form-control" placeholder="Business Progress" rows="4"></textarea>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <label>
+                                    b. What are the prospects and challenges for the business?
+                                </label>
+                                <textarea id="businessChallenges" formControlName="businessChallenges" name="businessChallenges" type="text"
+                                          class="form-control" placeholder="Business Challenges" rows="4"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>
+                                4. Power Back-up Arrangement availability at site:
+                            </label>
+                            <div class="col-md-3">
+                                <nb-checkbox formControlName="normalElectricityLine">
+                                    Normal Electricity Line
+                                </nb-checkbox>
+                                <nb-checkbox formControlName="invertorOrGenerator">
+                                    Inverter/Generators
+                                </nb-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>
+                                5. The stock register system at the site is in the form of:
+                            </label>
+                            <div class="col-md-2">
+                                <nb-checkbox formControlName="ledgerBook">
+                                    Ledger Book
+                                </nb-checkbox>
+                                <nb-checkbox formControlName="electronic">
+                                    Electronic
+                                </nb-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Ended-->
+                <h4 class="col-md-12 mt-3">Current Assets Inspection - Stock Checklist Questionnaire</h4>
                 <div class="col-md-12 mt-3" formGroupName="stockCheckListQuestionaire">
                     <table class="table table-sm sb-small text-center table-bordered">
                         <tr class="text-white sb-bg-dark">
@@ -976,9 +1054,24 @@
                             <td><input formControlName="padlocksUse" type="checkbox"></td>
                         </tr>
                         <tr>
-                            <td>15</td>
+                            <td>16</td>
                             <td> Is the PAN/Registration Certificate of the business is displayed? </td>
                             <td><input formControlName="certificate" type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>17</td>
+                            <td> Were we provided with a detailed NCA report at the time of inspection against which we could inspect the business? </td>
+                            <td><input formControlName="ncaReport" type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>18</td>
+                            <td>Additional Impression: Do you feel the stocks are largely as per the stock report provided in terms of item/quantity?</td>
+                            <td><input formControlName="stocksAreLarge" type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>19</td>
+                            <td> Any evidence that there are charges of other entities/institutions in the assets? </td>
+                            <td><input formControlName="otherEntitiesInTheAssets" type="checkbox"></td>
                         </tr>
                     </table>
                     <div class="row">
@@ -996,7 +1089,7 @@
                                       row="3" type="text"></textarea>
                         </div>
                     </div>
-                    </div>
+                </div>
 
                 <h4 class="col-md-12 mt-3">Current Assets Inspection - Receivables</h4>
                 <div class="row col-md-12 mt-3" formGroupName="receivablesAndPayables">
