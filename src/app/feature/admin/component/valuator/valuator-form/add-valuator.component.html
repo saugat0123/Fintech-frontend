@@ -126,9 +126,9 @@
                     <label for="name">Email</label>
                     <input [ngClass]="{'is-invalid': submitted && valuatorFormControl.email.errors}" class="form-control" formControlName="email"
                            id="email" placeholder="Email"
-                           type="text"/>
+                           type="text" pattern="[a-z0-9]+(\.[_a-z0-9]+)*@[a-z]*(\.[a-z]{2,4})"/>
                     <div *ngIf="submitted && valuatorFormControl.email.invalid" class="invalid-feedback">
-                        Invalid Email!
+                        Email is required
                     </div>
                 </div>
             </div>

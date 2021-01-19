@@ -333,7 +333,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, [Validators.required,
                 Validators.max(9999999999), Validators.min(1000000000)]],
             landLineNumber: [this.customer.landLineNumber === undefined ? undefined : this.customer.landLineNumber],
-            email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.email],
+            email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.required],
             // initial Relation Date not used in ui
             initialRelationDate: [this.customer.initialRelationDate === undefined ? undefined :
                 new Date(this.customer.initialRelationDate)],

@@ -138,11 +138,10 @@
                             <label for="email"><strong>Email</strong></label>
                             <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.email.errors }"
                                    class="form-control" formControlName="email" id="email" name="email"
-                                   placeholder="eg. xyz@abc.com"
-                                   type="email">
+                                   placeholder="Email Address"
+                                   type="text" pattern="[a-z0-9]+(\.[_a-z0-9]+)*@[a-z]*(\.[a-z]{2,4})"/>
                             <div *ngIf="(submitted) && basicInfoControls.email.invalid" class="invalid-feedback">
-                                <div *ngIf="basicInfoControls.email.errors.email">Valid email address has form
-                                    xyz@abc.com
+                                <div *ngIf="basicInfoControls.email.errors.required"> Email address is required
                                 </div>
                             </div>
                         </div>
@@ -168,7 +167,7 @@
                                  class="small text-danger">
                                 <div
                                         *ngIf="basicInfoControls.dob.errors.required || basicInfoControls.dob.errors.beforeToday">
-                                    Invalid date of birth
+                                    Date of Birth is required
                                 </div>
                             </div>
                         </div>
@@ -278,7 +277,7 @@
                                  class="small text-danger">
                                 <div
                                         *ngIf="basicInfoControls.citizenshipIssuedDate.errors.required || basicInfoControls.citizenshipIssuedDate.errors.beforeToday">
-                                    Invalid Registration Date
+                                    Registration Date is required
                                 </div>
                             </div>
                         </div>
@@ -766,7 +765,7 @@
                     <label><strong>Net worth</strong></label>
                     <input id="netWorth" formControlName="netWorth" name="netWorth" type="text"
                            class="form-control" placeholder="Net Worth Amount"
-                           [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.netWorth.errors }"/>
+                           [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.netWorth.errors }" appDecimalNumber/>
                     <div *ngIf="(submitted) && basicInfoControls.netWorth.invalid"
                          class="invalid-feedback">
                         <div *ngIf="basicInfoControls.netWorth.errors">

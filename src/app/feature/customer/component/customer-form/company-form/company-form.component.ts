@@ -317,7 +317,7 @@ export class CompanyFormComponent implements OnInit {
             email:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.email)) ? undefined :
-                    this.companyInfo.email, [Validators.email]],
+                    this.companyInfo.email, [Validators.required]],
             contactNum:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.contactNum)) ? undefined :
