@@ -14,7 +14,7 @@
           [disabled]="!actionsList.approved"
           [ngStyle]="{ 'filter' : (actionsList.approved === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-success">
-    APPROVED<i class="col-md-1 fa fa-check"></i>
+    APPROVE<i class="col-md-1 fa fa-check"></i>
   </button>
 
   <button (click)="loanAction('forward')" *ngIf="!catalogueStatus"
@@ -59,7 +59,7 @@
           [ngStyle]="{ 'filter' : (!actionsList.rejected || actionsList.roleTypeMaker)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-danger"
           value="REJECTED">
-    REJECTED<i class="col-md-1 fa fa-ban"></i>
+    REJECT<i class="col-md-1 fa fa-ban"></i>
   </button>
 
   <button [useExistingCss]="true" class="btn-sm btn-warning d-flex justify-content-end"

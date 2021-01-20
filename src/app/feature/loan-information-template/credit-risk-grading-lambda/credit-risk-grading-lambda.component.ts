@@ -176,13 +176,13 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
     const conditionValue = Number(this.customer.netWorth) / Number(this.security.totalSecurityAmount);
     const automatedValue = conditionValue.toFixed(2);
     if (conditionValue > 2) {
-      this.setValueForCriteria('netWorth', 'Above 200%', 21, automatedValue);
+      this.setValueForCriteria('netWorth', 'Above 2 times of FAC', 3, automatedValue);
     } else if (conditionValue >= 1.5 && conditionValue <= 2) {
-      this.setValueForCriteria('netWorth', '151% to 200%', 16.80, automatedValue);
+      this.setValueForCriteria('netWorth', 'Between 1.5 to 2 times', 2.25, automatedValue);
     } else if (conditionValue >= 1 && conditionValue < 1.5) {
-      this.setValueForCriteria('netWorth', '125% to 150%', 15.75, automatedValue);
+      this.setValueForCriteria('netWorth', 'Equals to FAC', 1.50, automatedValue);
     } else if (conditionValue < 1) {
-      this.setValueForCriteria('netWorth', '100%', 13.65, automatedValue);
+      this.setValueForCriteria('netWorth', 'Lower than FAC', 0, automatedValue);
     }
   }
 

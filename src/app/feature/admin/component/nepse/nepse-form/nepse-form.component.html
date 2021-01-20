@@ -55,13 +55,13 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="amount">Average Price of days</label>
-                        <input type="number" class="form-control" placeholder="Average Price of days"
+                        <label for="amount">Average Day's for Share Price</label>
+                        <input type="number" class="form-control"
                                formControlName="avgDaysForPrice"
                                [ngClass]="{'is-invalid': nepsePriceForm.avgDaysForPrice.invalid}"
                                id="avgDaysForPrice" name="avgDaysForPrice"/>
                         <div class="invalid-feedback" *ngIf="nepsePriceForm.avgDaysForPrice.invalid">
-                           Invalid Average price of days
+                           Invalid Average Day's for Share Price
                         </div>
                     </div>
                 </div>
