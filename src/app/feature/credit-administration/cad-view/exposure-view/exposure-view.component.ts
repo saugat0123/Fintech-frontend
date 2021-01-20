@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {ProposalCalculationUtils} from '../../../loan/component/loan-summary/ProposalCalculationUtils';
+import {CommonService} from '../../../../@core/service/common.service';
 
 @Component({
     selector: 'app-exposure-view',
@@ -16,7 +17,7 @@ export class ExposureViewComponent implements OnInit {
     disbursementDetailsHistory = [];
     @Input() fromScc: boolean;
 
-    constructor() {
+    constructor(public service: CommonService) {
     }
 
     ngOnInit() {
