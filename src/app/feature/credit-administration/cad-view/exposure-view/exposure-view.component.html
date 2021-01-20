@@ -30,14 +30,18 @@
     </tr>
     <tr>
         <td colspan="2" class="font-weight-bold" *ngIf="fromScc">Total Funded</td>
-        <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'loanLimit',true) |currencyFormatter}}</td>
-        <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'disbursement',true) |currencyFormatter}}</td>
+        <td class="text-right px-2">
+            Rs.{{totalFundedNonFunded(disbursementDetails, 'loanLimit', true) |currencyFormatter}}</td>
+        <td class="text-right px-2">
+            Rs.{{totalFundedNonFunded(disbursementDetails, 'disbursement', true) |currencyFormatter}}</td>
         <td colspan="3"></td>
     </tr>
     <tr>
         <td colspan="2" class="font-weight-bold" *ngIf="fromScc">Total NonFunded</td>
-        <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'loanLimit',false) |currencyFormatter}}</td>
-        <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'disbursement',false) |currencyFormatter}}</td>
+        <td class="text-right px-2">
+            Rs.{{totalFundedNonFunded(disbursementDetails, 'loanLimit', false) |currencyFormatter}}</td>
+        <td class="text-right px-2">
+            Rs.{{totalFundedNonFunded(disbursementDetails, 'disbursement', false) |currencyFormatter}}</td>
         <td colspan="3"></td>
     </tr>
     <tr>
@@ -71,6 +75,7 @@
             <tr class="bg-light text-left">
                 <td colspan="7" class="px-2 font-weight-bold">{{j + 1}}. Disbursement</td>
             </tr>
+
             <ng-container>
 
                 <tr *ngFor="let inn of history;let k =index">
@@ -88,6 +93,19 @@
                     <td class="text-right px-2">Rs.{{totalSum(history, 'disbursement') |currencyFormatter}}</td>
 
                     <td colspan="3"></td>
+                </tr>
+
+                <tr class="bg-light text-center">
+                    <td colspan="1" class="px-2 font-weight-bold">Approved By</td>
+                    <td colspan="1" class="px-2">{{history[0]?.approveBy}}</td>
+                    <td colspan="1" class="px-2 font-weight-bold">Approved On</td>
+                    <td colspan="1" class="px-2">{{history[0]?.approvedOn | date}}</td>
+                    <td colspan="1" class="px-2 font-weight-bold" *ngIf="history[0]?.sccPath">Document</td>
+                    <td colspan="2" class="px-2" *ngIf="history[0]?.sccPath">
+                        <a (click)="service.openDocument(history[0]?.sccPath)" class="cursor" nbTooltip="click to open"><em
+                                [className]="service.SET_CLASS_NAME"></em>
+                        </a>
+                    </td>
                 </tr>
 
             </ng-container>
