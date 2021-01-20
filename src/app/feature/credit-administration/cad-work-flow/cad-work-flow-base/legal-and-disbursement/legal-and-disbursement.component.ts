@@ -22,7 +22,7 @@ export class LegalAndDisbursementComponent implements OnInit {
     spinner = false;
     currentUserLocalStorage = LocalStorageUtil.getStorage().userId;
     checkListLiteVersion = LocalStorageUtil.getStorage().productUtil.CHECK_LIST_LITE_VERSION;
-    showHideAction = false;
+    showHideAction = true;
     activeTab = 0;
 
     constructor(private activatedRoute: ActivatedRoute,
@@ -38,11 +38,6 @@ export class LegalAndDisbursementComponent implements OnInit {
         other.service.detail(other.cadDocumentId).subscribe((res: any) => {
             other.cadOfferLetterApprovedDoc = res.detail;
             other.customerInfoData = other.cadOfferLetterApprovedDoc.loanHolder;
-            console.log('from local storage', other.currentUserLocalStorage.toString());
-            console.log('from local storage', other.cadOfferLetterApprovedDoc);
-            if (other.currentUserLocalStorage.toString() === other.cadOfferLetterApprovedDoc.cadCurrentStage.toUser.id.toString()) {
-                other.showHideAction = true;
-            }
             console.log(res.detail);
             other.spinner = false;
         }, error => {
@@ -56,9 +51,6 @@ export class LegalAndDisbursementComponent implements OnInit {
         if (!ObjectUtil.isEmpty(history.state.data)) {
             this.cadOfferLetterApprovedDoc = history.state.data;
             this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
-            if (this.currentUserLocalStorage.toString() === this.cadOfferLetterApprovedDoc.cadCurrentStage.toUser.id.toString()) {
-                this.showHideAction = true;
-            }
         } else {
             LegalAndDisbursementComponent.loadData(this);
         }
