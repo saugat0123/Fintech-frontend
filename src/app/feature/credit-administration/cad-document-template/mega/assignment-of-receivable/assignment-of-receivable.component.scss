@@ -1,8 +1,8 @@
-.longInput{
+.longInput {
   width: 400px;
 }
 
-.shortInput{
+.shortInput {
   width: 50px;
 }
 
@@ -20,6 +20,7 @@
   border: 0;
   border-bottom: 1px solid black;
   border-radius: 0px;
+
   &:focus {
     outline: none;
   }
@@ -31,5 +32,30 @@ li {
 
 input::-webkit-input-placeholder {
   font-size: 16px;
+}
+
+@media screen {
+  .print-only {
+    display: none;
+  }
+
+  .disable-print {
+    display: inline;
+
+  }
+}
+
+@media print {
+  .print-only {
+    display: inline;
+  }
+  div.align {
+    font-size: 20px;
+    line-height: 1.9;
+    text-align: justify;
+    text-justify: inter-word;
+    margin: 10px 70px;
+  }
+
 }
 
