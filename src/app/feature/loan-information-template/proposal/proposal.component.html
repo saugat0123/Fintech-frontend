@@ -356,8 +356,8 @@
                                             <input
                                                     class="form-control" formControlName="interestAmount"
                                                     id="interestAmount"
-                                                    name="interestAmount" placeholder="Interest Amount"
-                                                    type="number">
+                                                    name="interestAmount" placeholder="Interest Amount" disabled
+                                                    type="number" value="{{calculateInterestAmountForRepaymentMode()}}">
                                         </div>
                                     </div>
                                     <div class="col-md-4"
@@ -368,7 +368,7 @@
                                             <input
                                                     class="form-control" formControlName="principalAmount"
                                                     id="principalAmount"
-                                                    name="principalAmount" placeholder="Principle Amount"
+                                                    name="principalAmount" placeholder="Principle Amount" disabled
                                                     type="number">
                                         </div>
                                     </div>
