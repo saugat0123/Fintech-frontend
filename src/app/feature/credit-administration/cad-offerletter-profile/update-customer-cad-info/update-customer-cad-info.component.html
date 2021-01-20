@@ -47,6 +47,16 @@
                  <td class="font-weight-bold">:</td>
                  <td class="text-left"><input class="cellInput" formControlName="againstPurchaseOf"></td>
              </tr>
+             <tr>
+                 <td class="font-weight-bold"><sup class="font-weight-bold">*</sup>Security Type</td>
+                 <td>:</td>
+                 <td>
+                     <select formControlName="securityType" class="cellInput">
+                         <option [ngValue]="undefined" hidden>Select Security Type</option>
+                         <option *ngFor="let type of securityType" [ngValue]="type.key.concat('-'+type.value)">{{type.value}}</option>
+                     </select>
+                 </td>
+             </tr>
 
          </table>
             <div class="clearfix">
