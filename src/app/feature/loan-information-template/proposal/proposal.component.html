@@ -347,28 +347,32 @@
                                 </div>
                                 <!--                end of ng s
                                 installment amount div-->
-                                <div class="col-md-4"
-                                     *ngIf="(!showInstallmentAmount || showRepaymentMode) &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
-                                    <div class="form-group>">
-                                        <label class="title"> <strong>Interest Amount</strong></label>
-                                        <input
-                                                class="form-control" formControlName="interestAmount"
-                                                id="interestAmount"
-                                                name="interestAmount" placeholder="Interest Amount"
-                                                type="number">
+
+                                    <div class="col-md-4"
+                                         *ngIf="(this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
+                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
+                                        <div class="form-group>">
+                                            <label class="title"> <strong>Interest Amount</strong></label>
+                                            <input
+                                                    class="form-control" formControlName="interestAmount"
+                                                    id="interestAmount"
+                                                    name="interestAmount" placeholder="Interest Amount"
+                                                    type="number">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4"
-                                     *ngIf="(!showInstallmentAmount || showRepaymentMode) &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
-                                    <div class="form-group>">
-                                        <label class="title"> <strong>Principal Amount</strong></label>
-                                        <input
-                                                class="form-control" formControlName="principalAmount"
-                                                id="principalAmount"
-                                                name="principalAmount" placeholder="Principle Amount"
-                                                type="number">
+                                    <div class="col-md-4"
+                                         *ngIf="(this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
+                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
+                                        <div class="form-group>">
+                                            <label class="title"> <strong>Principal Amount</strong></label>
+                                            <input
+                                                    class="form-control" formControlName="principalAmount"
+                                                    id="principalAmount"
+                                                    name="principalAmount" placeholder="Principle Amount"
+                                                    type="number">
+                                        </div>
                                     </div>
-                                </div>
+
 
                                 <!--                start of Moratorium period amount div-->
                                 <div class="col-md-4"
