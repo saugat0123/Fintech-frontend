@@ -32,6 +32,7 @@ export class CiclComponent implements OnInit {
   relationshipList: RelationshipList = new RelationshipList();
   relationlist;
   ciclRelation = CiclRelationListEnum.pair();
+  ciclHistoryFound = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -57,6 +58,7 @@ export class CiclComponent implements OnInit {
   ngOnInit() {
 
     if (!ObjectUtil.isEmpty(this.ciclValue)) {
+        this.ciclHistoryFound = true;
       this.ciclList = JSON.parse(this.ciclValue.data);
     } else {
       this.ciclValue = new CiclArray();
@@ -168,40 +170,50 @@ export class CiclComponent implements OnInit {
 
 
   onSubmit() {
-  this.submitted = true;
-    if (this.ciclForm.invalid) {
-      this.scrollToFirstInvalidControl();
-      return;
-    }
+      this.submitted = true;
+      if (this.ciclForm.invalid) {
+          this.scrollToFirstInvalidControl();
+          return;
+      }
 
-    // CICL
+      // CICL
 
-    this.ciclList = new Array<Cicl>();
-    const ciclControls = this.ciclArray as FormArray;
-    for (const arrayControl of ciclControls.controls) {
-      const controls = (arrayControl as FormGroup).controls;
-      const cicl: Cicl = new Cicl();
-      cicl.nameOfBorrower = controls.borrowerName.value;
-      cicl.nameOfFI = controls.fiName.value;
-      cicl.facility = controls.facilityName.value;
-      cicl.overdueAmount = controls.overdueAmount.value;
-      cicl.outstandingAmount = controls.outstandingAmount.value;
-      cicl.status = controls.ciclStatus.value;
-      cicl.obtaineddate = controls.obtaineddate.value;
-      cicl.loanamount = controls.loanamount.value;
-      cicl.overdue = controls.overdue.value;
-      cicl.ciclRelation = controls.ciclRelation.value;
+      this.ciclList = new Array<Cicl>();
+      if (this.ciclHistoryFound) {
+      const ciclControls = this.ciclArray as FormArray;
+      for (const arrayControl of ciclControls.controls) {
+          const controls = (arrayControl as FormGroup).controls;
+          const cicl: Cicl = new Cicl();
+          cicl.nameOfBorrower = controls.borrowerName.value;
+          cicl.nameOfFI = controls.fiName.value;
+          cicl.facility = controls.facilityName.value;
+          cicl.overdueAmount = controls.overdueAmount.value;
+          cicl.outstandingAmount = controls.outstandingAmount.value;
+          cicl.status = controls.ciclStatus.value;
+          cicl.obtaineddate = controls.obtaineddate.value;
+          cicl.loanamount = controls.loanamount.value;
+          cicl.overdue = controls.overdue.value;
+          cicl.ciclRelation = controls.ciclRelation.value;
 
-      this.ciclList.push(cicl);
+          this.ciclList.push(cicl);
 
-    }
-    // uncomment if value is need
-    this.ciclValue.remarks = this.ciclForm.get('ciclRemarks').value === undefined ? '' : this.ciclForm.get('ciclRemarks').value;
-    this.ciclValue.cibCharge = this.ciclForm.get('cibCharge').value === undefined ? '' : this.ciclForm.get('cibCharge').value;
-    this.ciclValue.repaymentTrack = this.ciclForm.get('repaymentTrack').value === undefined ? '' :
-        this.ciclForm.get('repaymentTrack').value;
-    this.ciclValue.data = JSON.stringify(this.ciclList);
-    this.ciclDataEmitter.emit(this.ciclValue);
+      }
+      // uncomment if value is need
+      this.ciclValue.remarks = this.ciclForm.get('ciclRemarks').value === undefined ? '' : this.ciclForm.get('ciclRemarks').value;
+      this.ciclValue.cibCharge = this.ciclForm.get('cibCharge').value === undefined ? '' : this.ciclForm.get('cibCharge').value;
+      this.ciclValue.repaymentTrack = this.ciclForm.get('repaymentTrack').value === undefined ? '' :
+          this.ciclForm.get('repaymentTrack').value;
+      this.ciclValue.data = JSON.stringify(this.ciclList);
+      this.ciclDataEmitter.emit(this.ciclValue);
+  }
+  }
+
+  showCiclHistoryFound(chkValue) {
+      if (!chkValue) {
+          this.ciclHistoryFound = false;
+      } else {
+          this.ciclHistoryFound = true;
+      }
   }
 
 }

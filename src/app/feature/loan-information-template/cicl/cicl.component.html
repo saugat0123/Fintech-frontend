@@ -19,10 +19,15 @@
         </div>
       </div>
       <hr>
+      <div>
+        <nb-checkbox #chkValue (checkedChange)="showCiclHistoryFound(chkValue.checked)"
+        [checked]="ciclHistoryFound">CICL History Found </nb-checkbox>
+      </div>
 
-      <div *ngFor="let cicl of ciclArray['controls']; let ciclIndex = index;"
-           formArrayName="ciclArray">
-        <div [formGroupName]="ciclIndex.toString()">
+      <div *ngIf="ciclHistoryFound">
+        <div *ngFor="let cicl of ciclArray['controls']; let ciclIndex = index;"
+             formArrayName="ciclArray">
+          <div [formGroupName]="ciclIndex.toString()">
 
             <div class="row">
               <div class="col-md-3 form-group">
@@ -38,141 +43,143 @@
               <div class="col-md-3">
                 <label><strong>Cicl Relation</strong></label>
                 <select
-                    class="form-control form-control-sm-error rounded"
-                    formControlName="ciclRelation"
-                    id="ciclRelation"
-                    name="ciclRelation"
-                    [ngClass]="{'is-invalid': submitted && cicl.get('ciclRelation').invalid}">
+                        class="form-control form-control-sm-error rounded"
+                        formControlName="ciclRelation"
+                        id="ciclRelation"
+                        name="ciclRelation"
+                        [ngClass]="{'is-invalid': submitted && cicl.get('ciclRelation').invalid}">
                   <option [ngValue]="null" hidden>--Select Cicl relation--</option>
                   <option *ngFor="let relationship of ciclRelation" [ngValue]="relationship.key">{{relationship.value}}</option>
                 </select>
               </div>
             </div>
 
-          <div class="row">
+            <div class="row">
 
-            <div class="col-md-3 form-group">
-              <label for="fiName"><b>Name of FI</b></label>
-              <input class="form-control" formControlName="fiName" id="fiName"
-                     placeholder="FI name"
-                     [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('fiName').invalid) }">
-              <div *ngIf="(submitted) && cicl.get('fiName').errors" class="invalid-feedback">
-                <span *ngIf="(cicl.get('fiName').errors.required)">FI Name is required</span>
+              <div class="col-md-3 form-group">
+                <label for="fiName"><b>Name of FI</b></label>
+                <input class="form-control" formControlName="fiName" id="fiName"
+                       placeholder="FI name"
+                       [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('fiName').invalid) }">
+                <div *ngIf="(submitted) && cicl.get('fiName').errors" class="invalid-feedback">
+                  <span *ngIf="(cicl.get('fiName').errors.required)">FI Name is required</span>
+                </div>
               </div>
-            </div>
-            <div class="col-md-3 form-group">
-              <label for="facilityName"><b>Facility</b></label>
-              <input class="form-control" formControlName="facilityName"
-                     id="facilityName"  placeholder="Facility Name"
-                     [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('facilityName').invalid) }">
-              <div *ngIf="(submitted) && cicl.get('facilityName').errors" class="invalid-feedback">
-                <span *ngIf="(cicl.get('facilityName').errors.required)">Facility Name is required</span>
+              <div class="col-md-3 form-group">
+                <label for="facilityName"><b>Facility</b></label>
+                <input class="form-control" formControlName="facilityName"
+                       id="facilityName"  placeholder="Facility Name"
+                       [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('facilityName').invalid) }">
+                <div *ngIf="(submitted) && cicl.get('facilityName').errors" class="invalid-feedback">
+                  <span *ngIf="(cicl.get('facilityName').errors.required)">Facility Name is required</span>
+                </div>
               </div>
-            </div>
 
-            <div class="col-md-3 form-group">
-              <label for="overdueAmount"><b>Overdue Amount</b></label>
-              <input class="form-control" formControlName="overdueAmount" id="overdueAmount"
-                      placeholder="Overdue Amount" type="number"
-                     [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('overdueAmount').invalid) }">
-              <div *ngIf="(submitted) && cicl.get('overdueAmount').errors" class="invalid-feedback">
-                <span *ngIf="(cicl.get('overdueAmount').errors.required)">Overdue Amount is required</span>
+              <div class="col-md-3 form-group">
+                <label for="overdueAmount"><b>Overdue Amount</b></label>
+                <input class="form-control" formControlName="overdueAmount" id="overdueAmount"
+                       placeholder="Overdue Amount" type="number"
+                       [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('overdueAmount').invalid) }">
+                <div *ngIf="(submitted) && cicl.get('overdueAmount').errors" class="invalid-feedback">
+                  <span *ngIf="(cicl.get('overdueAmount').errors.required)">Overdue Amount is required</span>
+                </div>
+              </div>
+              <div class="col-md-3 form-group">
+                <label for="outstandingAmount"><b>Outstanding Amount</b></label>
+                <input class="form-control" formControlName="outstandingAmount" id="outstandingAmount"
+                       placeholder="Outstanding Amount" type ="number"
+                       [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('outstandingAmount').invalid) }">
+                <div *ngIf="(submitted) && cicl.get('outstandingAmount').errors" class="invalid-feedback">
+                  <span *ngIf="(cicl.get('outstandingAmount').errors.required)">Outstanding Amount is required</span>
+                </div>
               </div>
             </div>
-            <div class="col-md-3 form-group">
-              <label for="outstandingAmount"><b>Outstanding Amount</b></label>
-              <input class="form-control" formControlName="outstandingAmount" id="outstandingAmount"
-                      placeholder="Outstanding Amount" type ="number"
-                     [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('outstandingAmount').invalid) }">
-              <div *ngIf="(submitted) && cicl.get('outstandingAmount').errors" class="invalid-feedback">
-                <span *ngIf="(cicl.get('outstandingAmount').errors.required)">Outstanding Amount is required</span>
+            <div class="row">
+              <div class="col-md-3 form-group">
+                <label for="ciclStatus"><b>Status</b></label>
+                <input class="form-control" formControlName="ciclStatus" id="ciclStatus"
+                       placeholder="Status"
+                       [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('ciclStatus').invalid) }">
+                <div *ngIf="(submitted) && cicl.get('ciclStatus').errors" class="invalid-feedback">
+                  <span *ngIf="(cicl.get('ciclStatus').errors.required)">Status is required</span>
+                </div>
+              </div>
+              <div class="col-md-3 form-group">
+                <label for="obtaineddate"><b>Obtained Date</b></label>
+                <input class="form-control" formControlName="obtaineddate" id="obtaineddate"
+                       type="date"
+                       [ngClass]="{ 'is-invalid': (submitted) && cicl.get('obtaineddate').invalid }">
+                <div *ngIf="(submitted) && cicl.get('obtaineddate').errors" class="invalid-feedback">
+                  <span *ngIf="(cicl.get('obtaineddate').errors.required)">Obtained date is required</span>
+                </div>
+              </div>
+              <div class="col-md-3 form-group">
+                <label for="loanamount"><b>Loan Amount</b></label>
+                <input class="form-control" formControlName="loanamount" id="loanamount"
+                       placeholder="loanamount"
+                       [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('loanamount').invalid) }">
+                <div *ngIf="(submitted) && cicl.get('loanamount').errors" class="invalid-feedback">
+                  <span *ngIf="(cicl.get('loanamount').errors.required)">Loan Amount is required</span>
+                </div>
+              </div>
+              <div class="col-md-3 form-group">
+                <label for="overdue"><b>Number of Overdue Installment(s)</b></label>
+                <input class="form-control" formControlName="overdue" id="overdue"
+                       placeholder="overdue">
               </div>
             </div>
+            <div class="row">
+              <div class="col-md-12">
+                <button (click)="removeCICL(ciclIndex)" *ngIf="ciclArray['controls'].length > 1"
+                        nbButton class="float-right"
+                        size="small" status="danger">Remove
+                </button>
+              </div>
+            </div>
+            <hr/>
           </div>
-          <div class="row">
-            <div class="col-md-3 form-group">
-              <label for="ciclStatus"><b>Status</b></label>
-              <input class="form-control" formControlName="ciclStatus" id="ciclStatus"
-                     placeholder="Status"
-                     [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('ciclStatus').invalid) }">
-              <div *ngIf="(submitted) && cicl.get('ciclStatus').errors" class="invalid-feedback">
-                <span *ngIf="(cicl.get('ciclStatus').errors.required)">Status is required</span>
+        </div>
+        <button (click)="addCicl()" class="float-right" nbButton status="primary">
+          Add More
+        </button>
+        <div class="clearfix"></div>
+        <br/>
+        <div class="row">
+          <div class="col-md-12 form-group">
+            <label for="ciclRemarks"><b>Remarks</b></label>
+            <!--          <textarea class="form-control" id="ciclRemarks" name="ciclRemarks"  formControlName="ciclRemarks"-->
+            <!--                    placeholder="remarks" rows="5" -->
+            <!--          ></textarea>-->
+            <ckeditor id="ciclRemarks" formControlName="ciclRemarks" [config]="ckeConfig"></ckeditor>
+          </div>
+        </div>
+        <nb-card>
+          <nb-card-body>
+            <div class="row">
+              <div class="col">
+                <label for="repaymentTrack">
+                  <strong>Repayment track in other BFIs</strong></label><strong
+                      class="text-danger">*</strong>
+                <select id="repaymentTrack" class="form-control"
+                        formControlName="repaymentTrack"
+                        [ngClass]="{'is-invalid': submitted && ciclForm.get('repaymentTrack').invalid}">
+                  <option [ngValue]="null" hidden selected>--Select Repayment Track--</option>
+                  <option *ngFor="let m of repaymentTrack"
+                          [value]="m?.value">{{m?.value}}</option>
+                </select>
+                <div *ngIf="(submitted) && ciclForm.get('repaymentTrack').invalid"
+                     class="invalid-feedback">
+                  Repayment Track is Required
+                </div>
               </div>
             </div>
-            <div class="col-md-3 form-group">
-                        <label for="obtaineddate"><b>Obtained Date</b></label>
-                        <input class="form-control" formControlName="obtaineddate" id="obtaineddate"
-                               type="date"
-                               [ngClass]="{ 'is-invalid': (submitted) && cicl.get('obtaineddate').invalid }">
-                        <div *ngIf="(submitted) && cicl.get('obtaineddate').errors" class="invalid-feedback">
-                          <span *ngIf="(cicl.get('obtaineddate').errors.required)">Obtained date is required</span>
-                        </div>
-                      </div>
-            <div class="col-md-3 form-group">
-              <label for="loanamount"><b>Loan Amount</b></label>
-              <input class="form-control" formControlName="loanamount" id="loanamount"
-                     placeholder="loanamount"
-                     [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('loanamount').invalid) }">
-              <div *ngIf="(submitted) && cicl.get('loanamount').errors" class="invalid-feedback">
-                <span *ngIf="(cicl.get('loanamount').errors.required)">Loan Amount is required</span>
-              </div>
-            </div>
-            <div class="col-md-3 form-group">
-              <label for="overdue"><b>Number of Overdue Installment(s)</b></label>
-              <input class="form-control" formControlName="overdue" id="overdue"
-                     placeholder="overdue">
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <button (click)="removeCICL(ciclIndex)" *ngIf="ciclArray['controls'].length > 1"
-                      nbButton class="float-right"
-                      size="small" status="danger">Remove
-              </button>
-            </div>
-          </div>
-          <hr/>
+          </nb-card-body>
+        </nb-card>
+        <div class="py-4 d-flex justify-content-end">
+          <button nbButton (click)="onSubmit()">save</button>
         </div>
       </div>
-      <button (click)="addCicl()" class="float-right" nbButton status="primary">
-        Add More
-      </button>
-      <div class="clearfix"></div>
-      <br/>
-      <div class="row">
-        <div class="col-md-12 form-group">
-          <label for="ciclRemarks"><b>Remarks</b></label>
-<!--          <textarea class="form-control" id="ciclRemarks" name="ciclRemarks"  formControlName="ciclRemarks"-->
-<!--                    placeholder="remarks" rows="5" -->
-<!--          ></textarea>-->
-          <ckeditor id="ciclRemarks" formControlName="ciclRemarks" [config]="ckeConfig"></ckeditor>
-        </div>
-      </div>
-      <nb-card>
-        <nb-card-body>
-          <div class="row">
-            <div class="col">
-              <label for="repaymentTrack">
-                <strong>Repayment track in other BFIs</strong></label><strong
-                    class="text-danger">*</strong>
-              <select id="repaymentTrack" class="form-control"
-                      formControlName="repaymentTrack"
-                      [ngClass]="{'is-invalid': submitted && ciclForm.get('repaymentTrack').invalid}">
-                <option [ngValue]="null" hidden selected>--Select Repayment Track--</option>
-                <option *ngFor="let m of repaymentTrack"
-                        [value]="m?.value">{{m?.value}}</option>
-              </select>
-              <div *ngIf="(submitted) && ciclForm.get('repaymentTrack').invalid"
-                   class="invalid-feedback">
-                Repayment Track is Required
-              </div>
-            </div>
-          </div>
-        </nb-card-body>
-      </nb-card>
-      <div class="py-4 d-flex justify-content-end">
-        <button nbButton (click)="onSubmit()">save</button>
-      </div>
+
     </form>
   </nb-card-body>
 </nb-card>
