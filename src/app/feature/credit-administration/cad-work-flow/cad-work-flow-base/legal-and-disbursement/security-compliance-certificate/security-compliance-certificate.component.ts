@@ -25,6 +25,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   cadCheckListListVersion = LocalStorageUtil.getStorage().productUtil.CHECK_LIST_LITE_VERSION;
   affiliatedId = LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID;
   sccRefNumber;
+  securityCode;
 
 
   constructor(protected dialogRef: NbDialogRef<SecurityComplianceCertificateComponent>,
@@ -40,6 +41,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   ngOnInit() {
     this.getCompanyPan();
     this.setSccRefNumber();
+    this.getSecurityCode();
 
   }
 
@@ -101,6 +103,15 @@ export class SecurityComplianceCertificateComponent implements OnInit {
 
   modelClose() {
     this.ngbModal.dismissAll();
+  }
+
+  getSecurityCode() {
+    if ( !ObjectUtil.isEmpty(this.cadFile) && !ObjectUtil.isEmpty(this.cadFile.data)) {
+     const accountData = JSON.parse(this.cadFile.data);
+     if (!ObjectUtil.isEmpty(accountData)) {
+       this.securityCode = ObjectUtil.separateFirstDash(accountData.acInfo.securityType);
+     }
+   }
   }
 
 
