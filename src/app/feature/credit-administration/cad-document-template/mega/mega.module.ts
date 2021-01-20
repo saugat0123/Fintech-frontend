@@ -16,6 +16,7 @@ import {LoanDeedMultipleComponent} from './loan-deed-multiple/loan-deed-multiple
 import {LoanDeedSingleComponent} from './loan-deed-single/loan-deed-single.component';
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
 import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
+import {NgxPrintModule} from 'ngx-print';
 
 
 
@@ -38,7 +39,8 @@ import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-n
     CommonModule,
     ReactiveFormsModule,
     NbCardModule,
-    NbButtonModule
+    NbButtonModule,
+    NgxPrintModule
   ],
   exports: [
     AssignmentOfReceivableComponent,

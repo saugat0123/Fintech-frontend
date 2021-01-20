@@ -11,7 +11,7 @@
         <th>Init Rate</th>
         <th>Maturity</th>
         <th>Frequency</th>
-
+        <th *ngIf="fromScc">Approved By</th>
 
     </tr>
     </thead>
@@ -27,24 +27,27 @@
         <td>{{ex?.initialRate}}</td>
         <td>{{ex?.maturity}}</td>
         <td>{{ex?.frequency}}</td>
+        <td *ngIf="fromScc">{{ex?.approvedLoanBy}}</td>
     </tr>
     <tr>
         <td colspan="2" class="font-weight-bold" *ngIf="fromScc">Total Funded</td>
         <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'loanLimit',true) |currencyFormatter}}</td>
         <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'disbursement',true) |currencyFormatter}}</td>
-        <td colspan="3"></td>
+        <td colspan="4"></td>
     </tr>
     <tr>
         <td colspan="2" class="font-weight-bold" *ngIf="fromScc">Total NonFunded</td>
         <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'loanLimit',false) |currencyFormatter}}</td>
         <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'disbursement',false) |currencyFormatter}}</td>
-        <td colspan="3"></td>
+        <td colspan="4"></td>
     </tr>
     <tr>
         <td colspan="2" class="font-weight-bold">Total</td>
         <td class="text-right px-2">Rs.{{totalSum(disbursementDetails, 'loanLimit') |currencyFormatter}}</td>
         <td class="text-right px-2">Rs.{{totalSum(disbursementDetails, 'disbursement') |currencyFormatter}}</td>
-        <td colspan="3"></td>
+        <td colspan="3" *ngIf="!fromScc"></td>
+        <td colspan="4" *ngIf="fromScc"></td>
+
     </tr>
 
     </tbody>
