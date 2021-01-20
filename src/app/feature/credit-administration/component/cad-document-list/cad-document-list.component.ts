@@ -7,6 +7,12 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import * as CryptoJS from 'crypto-js';
 import {CommonService} from '../../../../@core/service/common.service';
+import {User} from '../../../admin/modal/user';
+import {UserService} from '../../../../@core/service/user.service';
+import {RoleType} from '../../../admin/modal/roleType';
+import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
+import {AssignPopUpComponent} from '../assign-pop-up/assign-pop-up.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-cad-document-list',
@@ -25,11 +31,14 @@ export class CadDocumentListComponent implements OnInit {
     toggleArray: { toggled: boolean }[] = [];
     encryptUrlArray: { url: string }[] = [];
     currentIndexArray: { currentIndex: number }[] = [];
-
+    user: User = new User();
+    roleType = RoleType;
 
     constructor(private service: CreditAdministrationService,
                 private router: Router,
                 private spinnerService: NgxSpinnerService,
+                private userService: UserService,
+                private modalService: NgbModal,
                 public commonService: CommonService) {
     }
 
@@ -55,6 +64,7 @@ export class CadDocumentListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.userDetail();
         CadDocumentListComponent.loadData(this);
     }
 
@@ -87,5 +97,30 @@ export class CadDocumentListComponent implements OnInit {
             {state: {data: model}});
 
     }
+
+    userDetail() {
+        this.userService.getLoggedInUser().subscribe((res: any) => {
+            this.user = res.detail;
+        });
+    }
+
+    openAssignPopUp(data: CustomerApprovedLoanCadDocumentation) {
+        const comp = this.modalService.open(AssignPopUpComponent);
+        const dataCad = {
+            cadId: data.id,
+            branch: data.loanHolder.branch,
+            associateId: data.loanHolder.associateId,
+            id: data.loanHolder.id,
+            customerType: data.loanHolder.customerType,
+            idNumber: data.loanHolder.idNumber,
+            idRegDate: data.loanHolder.idRegDate,
+            idRegPlace: data.loanHolder.idRegPlace,
+            name: data.loanHolder.customerType,
+            customerLoanDtoList: data.assignedLoan
+        };
+        comp.componentInstance.cadData = dataCad;
+        comp.componentInstance.disbursementDataAssign = true;
+    }
+
 }
 

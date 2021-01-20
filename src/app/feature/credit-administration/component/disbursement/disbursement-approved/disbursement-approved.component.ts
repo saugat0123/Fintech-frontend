@@ -8,6 +8,7 @@ import {Pageable} from '../../../../../@core/service/baseservice/common-pageable
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ExposureComponent} from '../../../cad-work-flow/cad-work-flow-base/legal-and-disbursement/exposure/exposure.component';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
+import {NbDialogService} from '@nebular/theme';
 
 @Component({
     selector: 'app-disbursement-approved',
@@ -29,7 +30,8 @@ export class DisbursementApprovedComponent implements OnInit {
     constructor(private service: CreditAdministrationService,
                 private router: Router,
                 private spinnerService: NgxSpinnerService,
-                private nbModel: NgbModal) {
+                private nbModel: NgbModal,
+                private nbDialogService: NbDialogService) {
     }
 
     static loadData(other: DisbursementApprovedComponent) {
@@ -64,12 +66,18 @@ export class DisbursementApprovedComponent implements OnInit {
     }
 
     addExposure(data) {
-        const modelRef = this.nbModel.open(ExposureComponent , {size : 'xl'});
+        const modelRef = this.nbModel.open(ExposureComponent, {size: 'xl'});
         modelRef.componentInstance.cadData = data;
         modelRef.componentInstance.isHistory = true;
+        modelRef.result.then(() => {
+            console.log('When exposure closes');
+        }, () => {
+            DisbursementApprovedComponent.loadData(this);
+        });
     }
-  setSearchValue(value) {
-    this.searchObj = Object.assign(value, {docStatus: 'DISBURSEMENT_APPROVED'});
-    DisbursementApprovedComponent.loadData(this);
-  }
+
+    setSearchValue(value) {
+        this.searchObj = Object.assign(value, {docStatus: 'DISBURSEMENT_APPROVED'});
+        DisbursementApprovedComponent.loadData(this);
+    }
 }
