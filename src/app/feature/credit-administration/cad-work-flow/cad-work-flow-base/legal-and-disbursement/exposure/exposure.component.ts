@@ -11,6 +11,7 @@ import {Exposure} from '../../../../model/Exposure';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util';
+import {CommonService} from '../../../../../../@core/service/common.service';
 
 @Component({
     selector: 'app-exposure',
@@ -30,12 +31,15 @@ export class ExposureComponent implements OnInit, OnChanges {
 
     spinner = false;
     exposureForm: FormGroup;
+    details = [];
+    docScc;
 
     constructor(private formBuilder: FormBuilder,
                 private routerUtilsService: RouterUtilsService,
                 private service: CreditAdministrationService,
                 private toastService: ToastService,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                public commonService: CommonService) {
     }
 
     get disbursementDetails() {
@@ -59,6 +63,11 @@ export class ExposureComponent implements OnInit, OnChanges {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.cadData.exposure) && !ObjectUtil.isEmpty(this.cadData.exposure.data) && !this.isHistory) {
             this.setDisbursementDetails();
+            const d = JSON.parse(this.cadData.exposure.data);
+
+            if (!ObjectUtil.isEmpty(d.sccPath)) {
+                this.docScc = d.sccPath;
+            }
         } else {
             this.addDisbursementDetail();
         }

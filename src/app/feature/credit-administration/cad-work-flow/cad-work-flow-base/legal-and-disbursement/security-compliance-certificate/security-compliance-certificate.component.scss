@@ -16,4 +16,23 @@ ol{
   .print-only{
     display: none;
   }
+  .box{
+    border: 2px solid;
+    height: 20vh;
+    width: auto;
+  }
 }
+
+@media print {
+  .box{
+    border: 2px solid;
+    height: 7vh;
+    width: auto;
+  }
+}
+
+  .hide{
+    visibility: hidden;
+  }
+
+
