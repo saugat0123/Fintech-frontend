@@ -136,9 +136,9 @@ export class AssignPopUpComponent implements OnInit {
             this.spinner = false;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'SuccessFully Assigned Cad Document'));
             this.onClose();
-            this.routerUtilsService.reloadRoute(RouteConst.ROUTE_DASHBOARD, RouteConst.ROUTE_DISBURSEMENT_PENDING);
-        }, error => {
+       }, error => {
             this.spinner = false;
+            this.onClose();
             console.log(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Error While Assigning Cad Document'));
         });

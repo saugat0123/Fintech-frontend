@@ -97,7 +97,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     relationArray: RelationshipList = new RelationshipList();
     public genderPairs = EnumUtils.pairs(Gender);
     maritalStatusEnum = MaritalStatus;
-    placeHolderForMaritalStatus = 'Marital Status :';
+    placeHolderForMaritalStatus;
     individualJsonData: IndividualJsonData;
 
     ngOnInit() {

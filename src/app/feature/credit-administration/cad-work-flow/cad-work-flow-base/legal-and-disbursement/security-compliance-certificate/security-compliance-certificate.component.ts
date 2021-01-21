@@ -9,6 +9,7 @@ import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CompanyInfoService} from '../../../../../admin/service/company-info.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CustomerType} from '../../../../../customer/model/customerType';
+import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util';
 
 @Component({
   selector: 'app-security-compliance-certificate',
@@ -21,6 +22,10 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   uploadFile;
   date = new Date();
   customerType = CustomerType;
+  cadCheckListListVersion = LocalStorageUtil.getStorage().productUtil.CHECK_LIST_LITE_VERSION;
+  affiliatedId = LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID;
+  sccRefNumber;
+  securityCode;
 
 
   constructor(protected dialogRef: NbDialogRef<SecurityComplianceCertificateComponent>,
@@ -34,17 +39,26 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.cadFile) && this.cadFile.loanHolder.customerType === this.customerType.INSTITUTION){
-      this.getCompanyPan();
+    this.getCompanyPan();
+    this.setSccRefNumber();
+    this.getSecurityCode();
 
+  }
+
+  getCompanyPan() {
+    if (!ObjectUtil.isEmpty(this.cadFile) && this.cadFile.loanHolder.customerType === this.customerType.INSTITUTION) {
+      this.companyInfoService.detail(this.cadFile.loanHolder.associateId).subscribe((res: any) => {
+        this.panNumber = res.detail.panNumber;
+      });
     }
   }
 
-  getCompanyPan(){
-    this.companyInfoService.detail(this.cadFile.loanHolder.associateId).subscribe((res: any) =>{
-      this.panNumber = res.detail.panNumber;
-    });
+  setSccRefNumber() {
+    const exposureHistoryData = JSON.parse(this.cadFile.exposure.historyData);
+    this.sccRefNumber = String().concat(this.affiliatedId.toString()).concat('-cad-').concat(this.cadFile.id.toString()).
+    concat('-dis-').concat( exposureHistoryData ? exposureHistoryData.length : 0);
   }
+
 
   onClose() {
     this.dialogRef.close();
@@ -89,6 +103,15 @@ export class SecurityComplianceCertificateComponent implements OnInit {
 
   modelClose() {
     this.ngbModal.dismissAll();
+  }
+
+  getSecurityCode() {
+    if ( !ObjectUtil.isEmpty(this.cadFile) && !ObjectUtil.isEmpty(this.cadFile.data)) {
+     const accountData = JSON.parse(this.cadFile.data);
+     if (!ObjectUtil.isEmpty(accountData)) {
+       this.securityCode = ObjectUtil.separateFirstDash(accountData.acInfo.securityType);
+     }
+   }
   }
 
 

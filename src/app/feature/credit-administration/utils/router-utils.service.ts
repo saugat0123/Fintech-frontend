@@ -79,10 +79,18 @@ export class RouterUtilsService {
     routeOnConditionProfileOrSummary(cadDocumentId, model) {
         this.userService.getLoggedInUser().subscribe((res: any) => {
             const user: User = res.detail;
-            if (user.id.toString() === model.cadCurrentStage.toUser.id.toString()) {
-                this.loadProfileWithState(cadDocumentId, model);
+            if (user.role.roleType === 'CAD_LEGAL') {
+                if (user.role.id.toString() === model.cadCurrentStage.toRole.id.toString()) {
+                    this.loadProfileWithState(cadDocumentId, model);
+                } else {
+                    this.routeSummaryWithStateAndEncryptPath(model);
+                }
             } else {
-                this.routeSummaryWithStateAndEncryptPath(model);
+                if (user.id.toString() === model.cadCurrentStage.toUser.id.toString()) {
+                    this.loadProfileWithState(cadDocumentId, model);
+                } else {
+                    this.routeSummaryWithStateAndEncryptPath(model);
+                }
             }
         });
 

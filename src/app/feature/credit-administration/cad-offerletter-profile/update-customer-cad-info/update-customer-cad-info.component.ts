@@ -8,6 +8,7 @@ import {ToastService} from '../../../../@core/utils';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NbDialogRef} from '@nebular/theme';
+import {SecurityTypeEnum} from '../../model/SecurityTypeEnum';
 
 @Component({
     selector: 'app-update-customer-cad-info',
@@ -19,7 +20,8 @@ export class UpdateCustomerCadInfoComponent implements OnInit {
     cadData: CustomerApprovedLoanCadDocumentation;
     updateForm: FormGroup;
     spinner = false;
-    data = {accountNo: null, accountName: null, issuanceOfMc: null, operativeAc: null, againstPurchaseOf: null};
+    data = {accountNo: null, accountName: null, issuanceOfMc: null, operativeAc: null, againstPurchaseOf: null, securityType: undefined};
+    securityType =  SecurityTypeEnum.pair();
 
     constructor(private formBuilder: FormBuilder,
                 private routerUtilsService: RouterUtilsService,
@@ -46,6 +48,7 @@ export class UpdateCustomerCadInfoComponent implements OnInit {
             againstPurchaseOf: [ObjectUtil.isEmpty(this.data.againstPurchaseOf) ? undefined : this.data.againstPurchaseOf, [Validators.required]],
             issuanceOfMc: [ObjectUtil.isEmpty(this.data.issuanceOfMc) ? undefined : this.data.issuanceOfMc, [Validators.required]],
             operativeAc: [ObjectUtil.isEmpty(this.data.operativeAc) ? undefined : this.data.operativeAc, [Validators.required]],
+            securityType: [ObjectUtil.isEmpty(this.data.securityType) ? undefined : this.data.securityType,[Validators.required]]
         });
     }
 

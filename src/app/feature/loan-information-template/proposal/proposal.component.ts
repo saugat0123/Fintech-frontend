@@ -130,6 +130,8 @@ export class ProposalComponent implements OnInit {
     .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(2)));
     this.proposalForm.get('limitExpiryMethod').valueChanges.subscribe(value => this.checkLimitExpiryBuildValidation(value));
     this.checkInstallmentAmount();
+      this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
+          .patchValue(Number(value)));
   }
 
   buildForm() {
@@ -469,7 +471,7 @@ export class ProposalComponent implements OnInit {
                 const newLimit = this.formControls.existingLimit.value - this.formControls.outStandingLimit.value;
                 this.formControls.proposedLimit.setValue(NumberUtils.isNumber(newLimit));
                 return;
-                case  'ENHANCED_LOAN':
+            case  'ENHANCED_LOAN':
                 const enhanceLimit = this.formControls.existingLimit.value + this.formControls.outStandingLimit.value;
                 this.formControls.proposedLimit.setValue(NumberUtils.isNumber(enhanceLimit));
                 return;
@@ -477,5 +479,13 @@ export class ProposalComponent implements OnInit {
                 return;
         }
 
+    }
+
+    calculateInterestAmountForRepaymentMode() {
+        const proposeLimit = Number(this.proposalForm.get('proposedLimit').value);
+        const interestRate = Number(this.proposalForm.get('interestRate').value);
+        const tenureDurationInMonths = Number(this.proposalForm.get('tenureDurationInMonths').value);
+        const interestAmount = (proposeLimit * (interestRate / 100) * tenureDurationInMonths) / 12;
+        return this.proposalForm.get('interestAmount').setValue(Number(interestAmount).toFixed(2));
     }
 }

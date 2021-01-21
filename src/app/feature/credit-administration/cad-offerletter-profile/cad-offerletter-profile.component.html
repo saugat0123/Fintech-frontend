@@ -47,7 +47,7 @@
                                         placeholder="Select Offer Letter"
                                         status="info">
                                         <nb-option *ngFor="let i of offerLetterTypes" [value]="i.value">
-                                            {{i.key}}
+                                            {{i.key | replace:'_':' ' }}
                                         </nb-option>
                                     </nb-select>
                                 </div>
@@ -118,6 +118,8 @@
                                         </a>
                                         <a *ngIf="cusOfferLetter?.offerDocType?.toString() === 'CUSTOM'"
                                            class="fa fa-edit cursor ml-1" (click)="openCustomOfferLetterDocumentModal(cusOfferLetter.id)"></a>
+                                        <a *ngIf="cusOfferLetter?.offerDocType?.toString() !== 'CUSTOM'"
+                                           class="fa fa-edit cursor ml-1" (click)="openOfferLetterDocumentModal(cusOfferLetter?.docName)"></a>
                                     </td>
                                 </tr>
                                 </tbody>
