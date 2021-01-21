@@ -41,7 +41,7 @@
       </tr>
       <tr>
         <th>Security Code</th>
-        <td></td>
+        <td>{{securityCode}}</td>
         <th>Operative Account</th>
         <td>{{(cadFile?.data | jsonParse)?.acInfo?.operativeAc}}</td>
       </tr>
@@ -63,27 +63,26 @@
     <div class="row border">
       <div class="col-md-3 border">
         <p><b><u>Prepared by</u></b></p>
-        <p>Signature</p>
-        <p class="pt-5">Name</p>
+        <p>Name:.....................</p>
+        <div class="box"></div>
         <p><b>RO/RM</b></p>
-
       </div>
       <div class="col-md-3 border">
         <p><b><u>Recommended by</u></b></p>
-        <p>Signature</p>
-        <p class="pt-5">Name</p>
+        <p>Name:.....................</p>
+        <div class="box"></div>
         <p><b>OI/BM</b></p>
       </div>
       <div class="col-md-3 border">
         <p><b><u>System Inputted by</u></b></p>
-        <p>Signature</p>
-        <p class="pt-5">Name</p>
+        <p>Name:.....................</p>
+        <div class="box"></div>
         <p><b>CAD</b></p>
       </div>
       <div class="col-md-3 border">
         <p><b><u>Approved by</u></b></p>
-        <p>.</p>
-        <p class="pt-5">.</p>
+        <p class="hide">.</p>
+        <div class="box"></div>
         <p><b>Head-CAD</b></p>
       </div>
     </div>

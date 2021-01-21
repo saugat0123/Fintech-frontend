@@ -10,4 +10,13 @@ export class ObjectUtil {
   public static setInputOrElseNext(input: any, next: any): any {
     return this.isEmpty(input) ? next : input;
   }
+
+  public static separateFirstDash(input: any){
+    let value = [];
+    if (this.isEmpty(input)){
+      return undefined;
+    }
+    value = input.split('-');
+    return value[0] ? value[0] : undefined;
+  }
 }
