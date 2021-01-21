@@ -118,6 +118,8 @@
                                         </a>
                                         <a *ngIf="cusOfferLetter?.offerDocType?.toString() === 'CUSTOM'"
                                            class="fa fa-edit cursor ml-1" (click)="openCustomOfferLetterDocumentModal(cusOfferLetter.id)"></a>
+                                        <a *ngIf="cusOfferLetter?.offerDocType?.toString() !== 'CUSTOM'"
+                                           class="fa fa-edit cursor ml-1" (click)="openOfferLetterDocumentModal(cusOfferLetter?.docName)"></a>
                                     </td>
                                 </tr>
                                 </tbody>
