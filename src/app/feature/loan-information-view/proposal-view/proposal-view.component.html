@@ -83,8 +83,8 @@
         <th *ngIf="proposalData?.limitExpiryMethod === 'CUSTOM'">Duration</th>
       </tr>
       <tr>
-        <td *ngIf="loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving">{{proposalData?.tenorOfEachDeal}}</td>
-        <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral" class="text-right">Rs. {{proposalData?.prepaymentCharge  | currencyFormatter}}</td>
+        <td *ngIf="loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving">{{proposalData?.tenorOfEachDeal}}</td>currencyFormatter
+        <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">{{proposalData?.prepaymentCharge   | currencyFormatter}}</td>
         <td>{{proposalData?.collateralRequirement}}</td>
         <td>{{proposalData?.limitExpiryMethod}}</td>
         <td *ngIf="proposalData?.limitExpiryMethod === 'ABSOLUTE'">{{proposalData?.dateOfExpiry | date}}</td>
