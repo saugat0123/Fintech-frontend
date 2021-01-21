@@ -2,11 +2,11 @@
     <div class="col-md-12">
       <p><strong>Group Details</strong>(<em class="text-danger sb-small">Total Group
         Limit:</em><strong>
-        Rs. {{groupDto?.groupLimit |currencyFormatter}} &nbsp;|&nbsp; </strong>
+        {{groupDto?.groupLimit}} &nbsp;|&nbsp; </strong>
         <em class="ml-2 text-danger sb-small">Group Code:</em>
         <strong> {{groupDto?.groupCode}} }} |</strong>
         <em class="ml-2 text-danger sb-small">Total FMV/Considered Value:</em>
-        <strong>{{this.totalCollateral | currencyFormatter}}</strong>)</p>
+        <strong>Rs. {{this.totalCollateral | currencyFormatter}}</strong>)</p>
       <table
           class="table sb-small table-condensed table-bordered table-responsive-md table-sm table-hover text-center">
         <thead>
@@ -31,36 +31,36 @@
           <tr *ngFor="let data of group?.fundedData; let j = index;">
               <td class="sn">{{j+1}}</td>
               <td>{{data?.loanConfig?.name}}</td>
-              <td>Rs.{{data?.proposal?.proposedLimit |currencyFormatter}}</td>
+              <td class="text-right pr-1">Rs. {{data?.proposal?.proposedLimit |currencyFormatter}}</td>
             </tr>
           <tr class="cursor font-weight-bold sb-bg-secondary text-white ">
             <td class="text-center" colspan="2">Total Funded</td>
-            <td colspan="4">Rs.{{group?.totalFunded |currencyFormatter}}</td>
+            <td colspan="4" class="text-right pr-1">Rs.{{group?.totalFunded |currencyFormatter}}</td>
           </tr>
 
           <tr *ngFor="let data of group?.nonFundedData; let k = index;">
             <td>{{k+1}}</td>
             <td>{{data?.loanConfig?.name}}</td>
-            <td>Rs.{{data?.proposal?.proposedLimit |currencyFormatter}}</td>
+            <td class="text-right pr-1">Rs.{{data?.proposal?.proposedLimit |currencyFormatter}}</td>
           </tr>
           <tr class="cursor font-weight-bold sb-bg-secondary text-white ">
             <td class="text-center" colspan="2">Total Non Funded</td>
-            <td colspan="4">Rs.{{group?.totalNonFunded |currencyFormatter}}</td>
+            <td colspan="4" class="text-right pr-1">Rs.{{group?.totalNonFunded |currencyFormatter}}</td>
           </tr>
 
         </ng-container>
         <tr class="sb-bg-dark  text-white ">
           <td colspan="2">Grand Total Funded</td>
-          <td colspan="2">Rs.{{groupDto.grandTotalFundedAmount |currencyFormatter}}</td>
+          <td colspan="2" class="text-right pr-1">Rs.{{groupDto.grandTotalFundedAmount |currencyFormatter}}</td>
 
         </tr>
         <tr class="sb-bg-dark  text-white ">
           <td colspan="2">Grand Total Non Funded</td>
-          <td colspan="2">Rs.{{groupDto.grandTotalNotFundedAmount |currencyFormatter}}</td>
+          <td colspan="2" class="text-right pr-1">Rs.{{groupDto.grandTotalNotFundedAmount |currencyFormatter}}</td>
         </tr>
         <tr class="sb-bg-dark text-white ">
           <td  colspan="2">Grand Total </td>
-          <td colspan="2">Rs.{{groupDto.grandTotalFundedAmount + groupDto.grandTotalNotFundedAmount |currencyFormatter}}</td>
+          <td colspan="2" class="text-right pr-1">Rs.{{groupDto.grandTotalFundedAmount + groupDto.grandTotalNotFundedAmount |currencyFormatter}}</td>
         </tr>
         </tbody>
       </table>
