@@ -9,6 +9,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ExposureComponent} from '../../../cad-work-flow/cad-work-flow-base/legal-and-disbursement/exposure/exposure.component';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {NbDialogService} from '@nebular/theme';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
     selector: 'app-disbursement-approved',
@@ -25,7 +26,9 @@ export class DisbursementApprovedComponent implements OnInit {
     loanList = [];
     loanType = LoanType;
     isMaker: boolean = LocalStorageUtil.getStorage().roleType === 'MAKER';
-
+    toggleArray: { toggled: boolean }[] = [];
+    encryptUrlArray: { url: string }[] = [];
+    currentIndexArray: { currentIndex: number }[] = [];
 
     constructor(private service: CreditAdministrationService,
                 private router: Router,
@@ -38,6 +41,10 @@ export class DisbursementApprovedComponent implements OnInit {
         other.spinner = true;
         other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, 10).subscribe((res: any) => {
             other.loanList = res.detail.content;
+            other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
+            other.loanList.forEach((l) => other.encryptUrlArray.push({url: other.encryptUrl(l.id)}));
+            other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: l.previousList.length}));
+
             console.log(other.loanList);
             other.pageable = PaginationUtils.getPageable(res.detail);
             other.spinner = false;
@@ -79,5 +86,16 @@ export class DisbursementApprovedComponent implements OnInit {
     setSearchValue(value) {
         this.searchObj = Object.assign(value, {docStatus: 'DISBURSEMENT_APPROVED'});
         DisbursementApprovedComponent.loadData(this);
+    }
+
+    loadSummary(model) {
+        this.router.navigate(['/home/credit/cad-summary/', this.encryptUrl(model.id)],
+            {state: {data: model}});
+
+    }
+
+    encryptUrl(id) {
+        const i = CryptoJS.AES.encrypt(id.toString(), 'id').toString();
+        return i;
     }
 }
