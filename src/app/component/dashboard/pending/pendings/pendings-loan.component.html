@@ -115,7 +115,7 @@
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{user?.role?.roleName}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder.documentStatus}}</td>
                             <td>
-                                <button *ngIf="productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL === 'LOAN'"
+                                <button *ngIf="productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL === 'LOAN' && userRoleType != 'MAKER'"
                                         (click)="configureRole(loanDataHolder.id)" nbButton size="small"
                                         status="primary" nbTooltip="Configure Approval Role Hierarchy">
                                     <i class="fa fa-user-shield"></i>

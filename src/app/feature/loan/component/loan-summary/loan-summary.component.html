@@ -3,6 +3,15 @@
         <nb-card-body id="print-block">
             <div class="row disable-print">
                 <div class="col-md-12">
+                    <div *ngIf="(loanDataHolder?.documentStatus?.toString() === 'PENDING'
+                    || loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
+                    loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'||
+                    loanDataHolder?.documentStatus?.toString() === 'INITIAL') && roleType === 'MAKER'">
+                        <button class="btn btn-primary sb-medium text-uppercase" nbButton size="small"
+                                status="primary" nbTooltip="Configure Approval Role Hierarchy"
+                        (click)="SetRoleHierarchy(loanDataHolder?.id)">
+                            <i class="fa fa-user-shield"></i>Set Role Hierarchy</button>
+                    </div><br>
                     <button nbButton
                             shape="rectangle"
                             status="primary"

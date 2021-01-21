@@ -54,6 +54,7 @@ export class PendingsLoanComponent implements OnInit {
     showDocStatusList = false;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     nbTrigger = NbTrigger;
+    userRoleType;
 
     constructor(
         private service: DmsLoanService,
@@ -123,6 +124,7 @@ export class PendingsLoanComponent implements OnInit {
                 this.branchList = res.detail;
             });
         }
+        this.userRoleType = LocalStorageUtil.getStorage().roleType;
     }
 
     buildFilterForm() {
