@@ -26,6 +26,8 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
     @Output()
     responseCadData: EventEmitter<CustomerApprovedLoanCadDocumentation> = new EventEmitter<CustomerApprovedLoanCadDocumentation>();
+    // change this on basis of bank
+    offerLetterConst = MegaOfferLetterConst;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -69,9 +71,15 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
             return;
         }
         const cadOfferLetterApprovedDoc = this.cadOfferLetterApprovedDoc;
+        const a = isNaN(offerLetterType);
+        if (a) {
+            offerLetterType = this.offerLetterConst.keysEnum(offerLetterType);
+        }
         this.nbDialogService.open(CadOfferLetterModalComponent, {
             context: {offerLetterType, cadOfferLetterApprovedDoc}
         });
+
+
     }
 
     openCustomOfferLetterDocumentModal(editId) {
