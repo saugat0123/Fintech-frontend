@@ -11,9 +11,10 @@ import {UserService} from '../../feature/admin/component/user/user.service';
 import {BranchService} from '../../feature/admin/component/branch/branch.service';
 import {User} from '../../feature/admin/modal/user';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {NgxSpinnerService} from 'ngx-spinner';
 import {LocalStorageUtil} from '../../@core/utils/local-storage-util';
 import {LoanConfig} from '../../feature/admin/modal/loan-config';
+import {RolePermissionService} from '../../feature/admin/component/role-permission/role-permission.service';
+import {CreditAdministrationService} from '../../feature/credit-administration/service/credit-administration.service';
 
 
 @Component({
@@ -46,6 +47,13 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     roleName;
     adminRole = false;
 
+    customerApproveCountDto = {
+        allCount: undefined,
+        pendingCount: undefined,
+        approvedCount: undefined,
+        showCustomerApprove: false
+    };
+
     constructor(
         private loanConfigService: LoanConfigService,
         private loanService: LoanDataService,
@@ -57,7 +65,8 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         private branchService: BranchService,
         private modalService: NgbModal,
         private route: Router,
-        private spinner: NgxSpinnerService
+        private rolePermissionService: RolePermissionService,
+        private creditAdministrationService: CreditAdministrationService
     ) {
     }
 
@@ -66,6 +75,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         const roleType: string = LocalStorageUtil.getStorage().roleType;
         if (roleName !== 'admin') {
             this.roleType = roleType === RoleType.MAKER;
+            // todo verify this and remove as it seems not logical
             if (roleType === RoleType.ADMIN) {
                 this.adminRole = true;
             }
@@ -79,6 +89,8 @@ export class DashboardComponent implements OnInit, AfterContentInit {
                 this.loanService.setLoan(response.detail);
             });
         }
+
+        this.getCustomerOfferLetter();
     }
 
     ngOnInit() {
@@ -156,6 +168,12 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     proceed() {
         this.setLoanCategory();
         this.newLoan();
+    }
+
+    getCustomerOfferLetter() {
+        this.creditAdministrationService.getCreditOfferLetterCount().subscribe((res: any) => {
+            this.customerApproveCountDto = res.detail;
+        });
     }
 
     private setLoanCategory() {

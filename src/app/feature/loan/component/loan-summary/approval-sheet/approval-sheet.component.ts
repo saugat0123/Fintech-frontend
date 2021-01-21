@@ -28,6 +28,7 @@ import {CommonRoutingUtilsService} from '../../../../../@core/utils/common-routi
 import {ToastService} from '../../../../../@core/utils';
 import {FiscalYearService} from '../../../../admin/service/fiscal-year.service';
 import {environment} from '../../../../../../environments/environment';
+import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CombinedLoan} from '../../../model/combined-loan';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
@@ -134,6 +135,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     fiscalYearArray = [];
 
+    riskOfficerLevel = false;
 
     constructor(
         private userService: UserService,
@@ -296,6 +298,23 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         this.signatureList = this.getSignatureList(new Array<LoanStage>
         (...this.loanDataHolder.previousList, this.loanDataHolder.currentStage));
 
+        let lastIndex;
+        let riskOfficerIndex;
+
+        if (this.signatureList.length > 0) {
+            lastIndex = this.signatureList.length;
+            this.signatureList.forEach((v, i) => {
+                if (v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE) {
+                    riskOfficerIndex = i;
+                }
+            });
+
+            if (riskOfficerIndex) {
+                this.riskOfficerLevel = true;
+                this.signatureList = this.signatureList.slice(riskOfficerIndex, lastIndex);
+            }
+        }
+
         this.previousList = this.loanDataHolder.previousList;
         this.currentDocAction = this.loanDataHolder.currentStage.docAction.toString();
         this.id = this.loanDataHolder.id;
@@ -398,31 +417,6 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         );
     }
 
-    downloadCustomerDocument(documentPath, documentName) {
-        this.dmsLoanService.downloadDocument(documentPath).subscribe(
-            (response: any) => {
-                const downloadUrl = window.URL.createObjectURL(response);
-                const link = document.createElement('a');
-                link.href = downloadUrl;
-                const toArray = documentPath.split('.');
-                const extension = toArray[toArray.length - 1];
-                link.download = documentName + '.' + extension;
-                link.click();
-            },
-            error => {
-                console.log(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'File not Found'));
-            }
-        );
-    }
-
-    downloadAllDocument(path: string) {
-        path = '/doc';
-        this.documentService.downloadAllDoc(path, this.loanDataHolder.id).subscribe((res: any) => {
-            this.previewOfferLetterDocument(res.detail, res.detail);
-        }, error => this.toastService.show(new Alert(AlertType.ERROR, error.error.message)));
-    }
-
     loanHandler(index: number, length: number, label: string) {
         if (index === length - 1 && index !== 0) {
             if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
@@ -460,15 +454,6 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         this.customerId = id;
         this.getLoanDataHolder();
 
-    }
-
-    previewOfferLetterDocument(url: string, name: string): void {
-        const link = document.createElement('a');
-        link.target = '_blank';
-        link.href = `${ApiConfig.URL}/${url}`;
-        link.download = name;
-        link.setAttribute('visibility', 'hidden');
-        link.click();
     }
 
     goToCustomer() {

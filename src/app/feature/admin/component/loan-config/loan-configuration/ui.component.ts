@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, DoCheck, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 import {LoanConfig} from '../../../modal/loan-config';
 import {Document} from '../../../modal/document';
@@ -28,7 +28,7 @@ import { financedAssets } from 'src/app/feature/admin/modal/financedAssets';
   templateUrl: './ui.component.html',
   styleUrls: ['./ui.component.css']
 })
-export class UIComponent implements OnInit {
+export class UIComponent implements OnInit, DoCheck {
   title: string;
   pageable: Pageable = new Pageable();
   search: string;
@@ -65,6 +65,7 @@ export class UIComponent implements OnInit {
   selectedLoanTag = LoanTag.getKeyByValue(LoanTag.GENERAL);
   cadDocumentUploadList = [];
   finalCadDocumentUploadList = Array<Document>();
+  formLabel: string;
 
   @ViewChild('loanConfigForm', {static: true}) loanConfigForm: NgForm;
 
@@ -247,8 +248,8 @@ export class UIComponent implements OnInit {
       }
     });
 
-    if (other.productUtils.CAD_LITE_VERSION) {
-      // Id of Full Settlement Loan cycle is set 12 in patch backend
+    if (other.productUtils.CAD_LITE_VERSION || other.productUtils.FULL_CAD) {
+      // Id of cad Loan cycle is set 12 in patch backend
       other.documentService.getByLoanCycleAndStatus(12, Status.ACTIVE).subscribe((response: any) => {
         other.cadDocumentUploadList = response.detail;
 
@@ -329,6 +330,16 @@ export class UIComponent implements OnInit {
   private getTopOffset(controlEl: HTMLElement): number {
     const labelOffset = 50;
     return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+  }
+  close() {
+    this.router.navigate(['home/admin/config']);
+  }
+  ngDoCheck(): void {
+    if (this.loanConfig.id == null) {
+      this.formLabel = 'Add';
+    } else {
+      this.formLabel = 'Edit';
+    }
   }
 
   onSubmit() {

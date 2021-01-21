@@ -60,6 +60,8 @@ export class ProductUtils {
     LOAN_APPROVAL_HIERARCHY_LEVEL: string;
     CAD_LITE_VERSION: boolean;
     CBS_ENABLE: boolean;
+    FULL_CAD: boolean;
+    CHECK_LIST_LITE_VERSION: boolean;
 
 }
 

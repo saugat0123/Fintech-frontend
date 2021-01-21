@@ -82,6 +82,8 @@ export class NetTradingAssetsComponent implements OnInit {
                         netTradingAssetsBefore: this.formBuilder.group(this.quarterCalculationObject),
                         otherBanksFinancing: this.formBuilder.group(this.quarterCalculationObject),
                         netTradingAssetsAfter: this.formBuilder.group(this.quarterCalculationObject),
+                        drawingPower: this.formBuilder.group(this.quarterCalculationObject),
+                        drawingPowerAmount: this.formBuilder.group(this.quarterCalculationObject),
                         asOnDate: this.formBuilder.group(this.quarterCalculationObject)
                     });
                 });
@@ -127,7 +129,9 @@ export class NetTradingAssetsComponent implements OnInit {
                     netTradingAssetsBefore: this.formBuilder.group(this.setNestedFormValues(v.netTradingAssetsBefore)),
                     otherBanksFinancing: this.formBuilder.group(this.setNestedFormValues(v.otherBanksFinancing)),
                     asOnDate: this.formBuilder.group(this.setNestedDateValues(v.asOnDate)),
-                    netTradingAssetsAfter: this.formBuilder.group(this.setNestedFormValues(v.netTradingAssetsAfter))
+                    netTradingAssetsAfter: this.formBuilder.group(this.setNestedFormValues(v.netTradingAssetsAfter)),
+                    drawingPower: this.formBuilder.group(this.setNestedFormValues(v.drawingPower)),
+                    drawingPowerAmount: this.formBuilder.group(this.setNestedFormValues(v.drawingPowerAmount))
                 };
                 this.netTradingAssetsFormArray.push(
                     this.formBuilder.group(formObjectData)
@@ -150,7 +154,9 @@ export class NetTradingAssetsComponent implements OnInit {
                     netTradingAssetsBefore: this.formBuilder.group(this.quarterCalculationObject),
                     otherBanksFinancing: this.formBuilder.group(this.quarterCalculationObject),
                     asOnDate: this.formBuilder.group(this.quarterCalculationObject),
-                    netTradingAssetsAfter: this.formBuilder.group(this.quarterCalculationObject)
+                    netTradingAssetsAfter: this.formBuilder.group(this.quarterCalculationObject),
+                    drawingPower: this.formBuilder.group(this.quarterCalculationObject),
+                    drawingPowerAmount: this.formBuilder.group(this.quarterCalculationObject)
                 };
                 this.netTradingAssetsFormArray.push(this.formBuilder.group(formObjectData));
                 if (fiscalYearObj.isCurrentYear) {
@@ -175,13 +181,17 @@ export class NetTradingAssetsComponent implements OnInit {
     }
 
     setNestedFormValues(param) {
-        return {
-            q1: param.q1,
-            q2: param.q2,
-            q3: param.q3,
-            q4: param.q4,
-            average: param.average
-        };
+        if (param) {
+            return {
+                q1: param.q1,
+                q2: param.q2,
+                q3: param.q3,
+                q4: param.q4,
+                average: param.average
+            };
+        } else {
+            return this.quarterCalculationObject;
+        }
     }
 
     setNestedDateValues(param) {
@@ -206,6 +216,7 @@ export class NetTradingAssetsComponent implements OnInit {
         this.calculateAverage(ntaFormGroup, header);
         this.calculateAverage(ntaFormGroup, 'netTradingAssetsBefore');
         this.calculateAverage(ntaFormGroup, 'netTradingAssetsAfter');
+        this.calculateAverage(ntaFormGroup, 'drawingPowerAmount');
     }
 
     calculateAverage(ntaFormGroup, header) {
@@ -240,6 +251,9 @@ export class NetTradingAssetsComponent implements OnInit {
             Number(ntaFormGroup.get(['valueOfCreditors', quarter]).value) -
             Number(ntaFormGroup.get(['otherBanksFinancing', quarter]).value)
         );
+        ntaFormGroup.get(['drawingPowerAmount', quarter]).patchValue(
+            Number(ntaFormGroup.get(['netTradingAssetsAfter', quarter]).value) *
+            Number(ntaFormGroup.get(['drawingPower', quarter]).value));
     }
 
     onChangeFiscalYear(selectedFiscalYearObj) {

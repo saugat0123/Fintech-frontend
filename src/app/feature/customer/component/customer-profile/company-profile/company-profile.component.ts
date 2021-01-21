@@ -10,11 +10,7 @@ import {CustomerType} from '../../../model/customerType';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NbDialogService} from '@nebular/theme';
-import {EditManagementTeamComponent} from './edit-management-team/edit-management-team.component';
-import {EditPartnerInfoComponent} from './edit-partner-info/edit-partner-info.component';
-import {EditSwotComponent} from './edit-swot/edit-swot.component';
 import {CompanyDetailEditComponent} from './company-profile-detail-edit/company-detail-edit.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BusinessType} from '../../../../admin/modal/businessType';
@@ -27,6 +23,7 @@ import {AddressService} from '../../../../../@core/service/baseservice/address.s
 import {FormUtils} from '../../../../../@core/utils/form.utils';
 import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {ProductUtilService} from '../../../../../@core/service/product-util.service';
+import {CompanyJsonData} from '../../../../admin/modal/CompanyJsonData';
 
 @Component({
     selector: 'app-company-profile',
@@ -64,6 +61,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     isRemarkEdited;
     companyLocationData;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+    companyJsonData: CompanyJsonData = new CompanyJsonData();
 
     constructor(private companyInfoService: CompanyInfoService,
                 private customerInfoService: CustomerInfoService,
@@ -118,6 +116,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
             this.companyInfo = res.detail;
             if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
                 this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
+                this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
             }
             this.spinner = false;
         }, error => {
@@ -194,36 +193,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         }
     }
 
-    openKycModal() {
-        const companyInfo = this.companyInfo;
 
-        this.dialogService.open(EditManagementTeamComponent, {context: {companyInfo}}).onClose.subscribe(res => {
-            if (!ObjectUtil.isEmpty(res)) {
-                this.ngOnInit();
-            }
-        });
-    }
-
-    openProprietorEdit() {
-        const companyInfo = this.companyInfo;
-
-        this.dialogService.open(EditPartnerInfoComponent, {context: {companyInfo}}).onClose.subscribe(res => {
-            if (!ObjectUtil.isEmpty(res)) {
-                this.ngOnInit();
-            }
-        });
-
-    }
-
-    openSwotEdit() {
-        const companyInfo = this.companyInfo;
-
-        this.dialogService.open(EditSwotComponent, {context: {companyInfo}}).onClose.subscribe(res => {
-            if (!ObjectUtil.isEmpty(res)) {
-                this.ngOnInit();
-            }
-        });
-    }
 
     openCompanyDetailEdit(companyInfo) {
         this.dialogService.open(CompanyDetailEditComponent, {context: {companyInfo}}).onClose.subscribe(res => this.ngOnInit());
@@ -329,7 +299,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         customerInfo.obligor = event;
         this.customerInfoService.updateCbsGroup(customerInfo).subscribe((res: any) => {
             this.refreshCustomerInfo();
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY Added Group'));
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Group Successfully Updated for Customer'));
             this.spinner = false;
         }, error => {
             console.error(error);

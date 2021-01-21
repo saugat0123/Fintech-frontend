@@ -1,0 +1,33 @@
+<nb-card accent="primary" class="p-3 shadow-lg" style="height:99%">
+  <nb-card-header>
+    <a (click)="onClose()" aria-label="Close" class="close cursor"
+       data-dismiss="modal">
+      <span aria-hidden="true">×</span></a>
+  </nb-card-header>
+  <nb-card-body>
+    <div [ngSwitch]="documentId">
+      <app-assignment-of-receivable *ngSwitchCase="cadTemplate.ASSIGNMENT_OF_RECEIVABLE" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-assignment-of-receivable>
+      <app-deed-hypo-of-machinery *ngSwitchCase="cadTemplate.DEED_HYPO_OF_MACHINERY_COMPONENT" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-deed-hypo-of-machinery>
+      <app-hypo-of-stock *ngSwitchCase="cadTemplate.HYPO_OF_STOCK" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-hypo-of-stock>
+      <app-loan-deed-company *ngSwitchCase="cadTemplate.LOAN_DEED_COMPANY"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-loan-deed-company>
+      <app-manjurinama-for-company *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_COMPANY"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-manjurinama-for-company>
+      <app-personal-guarantee-company *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_COMPANY"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-personal-guarantee-company>
+      <app-personal-guarantee-joint-borrower *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_JOINT_BORROWER"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-personal-guarantee-joint-borrower>
+      <app-personal-guarantee-person-to-person *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_PERSON_TO_PERSON"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-personal-guarantee-person-to-person>
+      <app-promissory-note-single-borrower *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_SINGLE_BORROWER"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-promissory-note-single-borrower>
+      <app-trust-receipt-nepali-limit *ngSwitchCase="cadTemplate.TRUST_RECEIPT_NEPALI_LIMIT"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-trust-receipt-nepali-limit>
+      <app-loan-deed-single *ngSwitchCase="cadTemplate.LOAN_DEED_SINGLE"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-loan-deed-single>
+      <app-loan-deed-multiple *ngSwitchCase="cadTemplate.LOAN_DEED_MULTIPLE"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-loan-deed-multiple>
+      <app-promissory-note-company *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_COMPANY"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-promissory-note-company>
+      <app-promissory-note-joint *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_JOINT"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-promissory-note-joint>
+
+      <p *ngSwitchDefault>No Template is available for this Document!!! </p>
+
+    </div>
+    <nb-card-footer>
+      <div>
+
+      </div>
+    </nb-card-footer>
+  </nb-card-body>
+</nb-card>

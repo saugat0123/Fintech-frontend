@@ -206,7 +206,8 @@
                                        id="landStaffRepresentativeDesignation"
                                         name="landStaffRepresentativeDesignation">
                                     <option [ngValue]="null" hidden>Staff Representative Designation</option>
-                                    <option *ngFor="let designation of designationList.designation" [ngValue]="designation.id">{{designation.name}}</option>
+                                    <option *ngFor="let designation of designationList"
+                                            [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                 </select>
                             </div>
                         </div>
@@ -226,7 +227,8 @@
                                         id="landAlternateStaffRepresentativeDesignation"
                                         name="landAlternateStaffRepresentativeDesignation">
                                     <option [ngValue]="null" hidden>Alternate Staff Representative Designation</option>
-                                    <option *ngFor="let designation of designationList.designation" [ngValue]="designation.id">{{designation.name}}</option>
+                                    <option *ngFor="let designation of designationList"
+                                            [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                 </select>
                             </div>
                         </div>
@@ -622,7 +624,8 @@
                                                 id="apartmentStaffRepresentativeDesignation"
                                                 name="apartmentStaffRepresentativeDesignation">
                                             <option [ngValue]="null" hidden>Staff Representative Designation</option>
-                                            <option *ngFor="let designation of designationList.designation" [ngValue]="designation.id">{{designation.name}}</option>
+                                            <option *ngFor="let designation of designationList"
+                                                    [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -642,8 +645,8 @@
                                         <select class="form-control rounded" formControlName="apartmentAlternateStaffRepresentativeDesignation"
                                                 id="apartmentAlternateStaffRepresentativeDesignation"
                                                 name="apartmentAlternateStaffRepresentativeDesignation">
-                                            <option [value]="null" hidden>Alternate Staff Representative Designation</option>
-                                            <option *ngFor="let designation of designationList.designation" [ngValue]="designation.id">{{designation.name}}</option>
+                                            <option *ngFor="let designation of designationList"
+                                                    [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -1357,7 +1360,8 @@
                                             id="landBuildingStaffRepresentativeDesignation"
                                             name="landBuildingStaffRepresentativeDesignation">
                                         <option [ngValue]="null" hidden>Staff Representative Designation</option>
-                                        <option *ngFor="let designation of designationList.designation" [ngValue]="designation.id">{{designation.name}}</option>
+                                        <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -1380,7 +1384,8 @@
                                             id="landBuildingAlternateStaffRepresentativeDesignation"
                                             name="landBuildingAlternateStaffRepresentativeDesignation">
                                         <option [ngValue]="null" hidden>Alternate Staff Representative Designation</option>
-                                        <option *ngFor="let designation of designationList.designation" [ngValue]="designation.id">{{designation.name}}</option>
+                                        <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -1799,7 +1804,8 @@
                                         id="plantMachineryStaffRepresentativeDesignation"
                                         name="plantMachineryStaffRepresentativeDesignation">
                                     <option [ngValue]="null" hidden>Staff Representative Designation</option>
-                                    <option *ngFor="let designation of designationList.designation" [ngValue]="designation.id">{{designation.name}}</option>
+                                    <option *ngFor="let designation of designationList"
+                                            [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                 </select>
                             </div>
                         </div>
@@ -1819,7 +1825,8 @@
                                         id="plantMachineryAlternateStaffRepresentativeDesignation"
                                         name="plantMachineryAlternateStaffRepresentativeDesignation">
                                     <option [ngValue]="null" hidden>Alternate Staff Representative Designation</option>
-                                    <option *ngFor="let designation of designationList.designation" [ngValue]="designation.id">{{designation.name}}</option>
+                                    <option *ngFor="let designation of designationList"
+                                            [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                 </select>
                             </div>
                         </div>
@@ -2038,7 +2045,8 @@
                                         id="vehicalStaffRepresentativeDesignation"
                                         name="vehicalStaffRepresentativeDesignation">
                                     <option [ngValue]="null" hidden>Staff Representative Designation</option>
-                                    <option *ngFor="let designation of designationList.designation" [ngValue]="designation.id">{{designation.name}}</option>
+                                    <option *ngFor="let designation of designationList"
+                                            [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                 </select>
                             </div>
                         </div>
@@ -2058,7 +2066,8 @@
                                         id="vehicalAlternateStaffRepresentativeDesignation"
                                         name="vehicalAlternateStaffRepresentativeDesignation">
                                     <option [ngValue]="null" hidden>Alternate Staff Representative Designation</option>
-                                    <option *ngFor="let designation of designationList.designation" [ngValue]="designation.id">{{designation.name}}</option>
+                                    <option *ngFor="let designation of designationList"
+                                            [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                 </select>
                             </div>
                         </div>
@@ -2235,7 +2244,7 @@
                                id="sharePriceDate">
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label for="avgDaysForPrice"><b>Average Price of days</b></label>
+                        <label for="avgDaysForPrice"><b>Average Day's for Share Price</b></label>
                         <input formControlName="avgDaysForPrice"
                                class="form-control"
                                [readOnly]="true"

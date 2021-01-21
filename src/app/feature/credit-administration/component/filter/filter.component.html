@@ -1,0 +1,54 @@
+<div class="row pt-2">
+  <div class="col-md-6">
+    <div class="btn-group">
+      <button
+          (click)="isFilterCollapsed = !isFilterCollapsed"
+          [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+          nbButton
+          shape="rectangle"
+          size="small"
+          status="primary">
+        <em class="fa fa-filter"> Filter</em>
+      </button>
+
+    </div>
+  </div>
+
+  <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">
+    <form [formGroup]="filterForm">
+      <div class="row py-3">
+        <div class="col-md-3 mb-3">
+          <label class="form-group">Branch</label>
+          <ng-select formControlName="branchIds" placeholder="branches">
+            <ng-option *ngFor="let branch of branchList"
+                       [value]="branch.id">{{branch.name}}</ng-option>
+          </ng-select>
+        </div>
+        <div class="col-md-3 mb-3">
+          <label class="form-group">Customer Name</label>
+
+          <input class="form-control rounded" formControlName="name" id="customerName"
+                 placeholder="Enter customer name">
+        </div>
+        <div class="col-md-3 mb-3">
+          <label class="form-group">Loan Type</label>
+          <ng-select formControlName="customerType" placeholder="Loan Type">
+            <ng-option value="INSTITUTION">INSTITUTION</ng-option>
+            <ng-option value="INDIVIDUAL">INDIVIDUAL</ng-option>
+          </ng-select>
+        </div>
+      </div>
+      <div class="col-md-12 p-0">
+        <button (click)="onSearch()" class="mr-2" nbButton
+                shape="rectangle"
+                size="small"
+                status="info">Search
+        </button>
+        <button (click)=" clear()" nbButton shape="rectangle" size="small" status="danger"
+                type="button">Clear
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+

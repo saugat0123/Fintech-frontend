@@ -1,0 +1,382 @@
+<nb-card [nbSpinner]="spinner" accent="primary"
+         class="m-0"
+         nbSpinnerMessage="Loading data please wait....."
+         nbSpinnerSize="giant"
+         nbSpinnerStatus="primary">
+    <nb-card-header>
+        <div class="clearfix">
+            <div class="float-right">
+                <button nbButton size="tiny" nbTooltip="update account info" (click)="updateBasicInfo()"><em class="fa fa-edit"></em></button>
+            </div>
+        </div>
+    </nb-card-header>
+
+    <nb-card-body>
+        <div class="main-body">
+
+            <div class="row gutters-sm">
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                <img alt="Admin" class="rounded-circle"
+                                     src="https://bootdey.com/img/Content/avatar/avatar7.png" width="150">
+                                <div class="mt-3">
+                                    <h4>{{customerInfoData?.name}}</h4>
+                                    <p class="text-secondary mb-1">{{customerInfoData?.customerType |titlecase}}
+                                        Customer</p>
+                                    <!--todo change to address -->
+                                    <p class="text-muted font-size-sm">
+                                        {{customerInfoData?.branch?.province?.name}} ,
+                                        {{customerInfoData?.branch?.district?.name}} ,
+                                        {{customerInfoData?.branch?.municipalityVdc?.name}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <nb-card class="mt-3">
+                        <nb-card-header>
+                            <strong>Generate Offer Letter</strong>
+                        </nb-card-header>
+                        <nb-card-body>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <nb-select
+                                        #offerLetterType
+                                        fullWidth
+                                        placeholder="Select Offer Letter"
+                                        status="info">
+                                        <nb-option *ngFor="let i of offerLetterTypes" [value]="i.value">
+                                            {{i.key | replace:'_':' ' }}
+                                        </nb-option>
+                                    </nb-select>
+                                </div>
+                                <div class="col-md-12 mt-3">
+                                    <button (click)="openOfferLetterDocumentModal(offerLetterType?.selected)"
+                                            class="float-right" nbButton
+                                            size="small">Generate
+                                    </button>
+                                </div>
+                            </div>
+
+                        </nb-card-body>
+                    </nb-card>
+                    <nb-card>
+                        <nb-card-header>
+                            <span class="float-right"><button (click)="openCustomOfferLetterDocumentModal(null)" nbButton outline
+                                                              size="tiny"><a
+                                    class="fa fa-plus"></a></button></span>
+                            Offer Letter Documents
+                        </nb-card-header>
+                        <nb-card-body>
+                            <table class="table table-bordered table-hover table-sm sb-small text-center">
+                                <thead>
+                                <tr class="text-white sb-bg-dark">
+                                    <th>#</th>
+                                    <th>Offer Letter</th>
+                                    <th colspan="2">Upload Status</th>
+                                    <th colspan="2">Action</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td>Draft Doc</td>
+                                    <td>Signed Doc</td>
+                                    <td></td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let cusOfferLetter of cadOfferLetterApprovedDoc?.offerDocumentList; let i=index">
+                                    <td>
+                                        {{i + 1}}
+                                    </td>
+                                    <td>{{cusOfferLetter?.docName}}</td>
+                                    <td>
+                                                <span [ngStyle]="{'color': (cusOfferLetter?.draftPath == null) ? 'red': 'limegreen'}">
+                                                    <i [ngClass]="cusOfferLetter?.draftPath == null ?  'fas fa-times-circle' : 'fas fa-check-circle'"></i></span>
+                                        <span class="ml-1">
+                                                    <a (click)="previewClick(cusOfferLetter.draftPath)"
+                                                       *ngIf="cusOfferLetter?.draftPath !== null"><i
+                                                            class="fas fa-eye cursor" style="color:cornflowerblue"></i>
+                                                   </a>
+                                                </span>
+                                    </td>
+                                    <td>
+                                                <span [ngStyle]="{'color': (cusOfferLetter?.pathSigned == null) ? 'red': 'limegreen'}">
+                                                    <i [ngClass]="cusOfferLetter?.pathSigned == null ?  'fas fa-times-circle' : 'fas fa-check-circle'"></i>
+                                                </span>
+                                        <span class="ml-1">
+                                                    <a (click)="previewClick(cusOfferLetter.pathSigned)"
+                                                       *ngIf="cusOfferLetter?.pathSigned !== null"><i
+                                                            class="fas fa-eye cursor" style="color:cornflowerblue"></i>
+                                                   </a>
+                                                </span>
+                                    </td>
+                                    <td>
+                                        <a (click)="openModel(uploadModel,cusOfferLetter.docName,cusOfferLetter.id,i)"
+                                           title="upload {{cusOfferLetter.docName}}">
+                                            <i class="fa fa-upload cursor"></i>
+                                        </a>
+                                        <a *ngIf="cusOfferLetter?.offerDocType?.toString() === 'CUSTOM'"
+                                           class="fa fa-edit cursor ml-1" (click)="openCustomOfferLetterDocumentModal(cusOfferLetter.id)"></a>
+                                        <a *ngIf="cusOfferLetter?.offerDocType?.toString() !== 'CUSTOM'"
+                                           class="fa fa-edit cursor ml-1" (click)="openOfferLetterDocumentModal(cusOfferLetter?.docName)"></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </nb-card-body>
+                    </nb-card>
+                </div>
+                <div class="col-md-8">
+                    <div class="card mb-3">
+                        <div class="card-body sb-small">
+                            <div class="row mb-n3">
+                                <div class="col-sm-3">
+                                    <strong class="mb-0">Branch</strong>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{customerInfoData?.branch?.name}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row mb-n3 mt-n2">
+                                <div class="col-sm-3">
+                                    <strong class="mb-0"> Customer ID</strong>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{customerInfoData?.customerCode}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row mb-n3 mt-n2">
+                                <div class="col-sm-3">
+                                    <strong class="mb-0"> Subsector Code</strong>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{customerInfoData?.subSectorDetailCode}}
+                                </div>
+                            </div>
+
+                            <hr>
+                            <div class="row mb-n3 mt-n2">
+                                <div class="col-sm-3">
+                                    <strong class="mb-0">Email</strong>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{customerInfoData?.email}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row mb-n3 mt-n2">
+                                <div class="col-sm-3">
+                                    <strong class="mb-0">Phone</strong>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{customerInfoData?.contactNo}}
+                                </div>
+                            </div> <hr>
+                            <div class="row mb-n3 mt-n2" *ngIf="cadOfferLetterApprovedDoc?.data">
+                                <div class="col-sm-3">
+                                    <strong class="mb-0">Account Number</strong>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{(cadOfferLetterApprovedDoc?.data | jsonParse)?.acInfo?.accountNo}}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="card h-100" style="min-height: 500px">
+                                <div class="card-header">
+                                    <strong>Loan Information</strong>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered table-hover text-center sb-small table-sm">
+                                        <thead>
+                                        <tr class="sb-bg-dark text-white">
+                                            <th>S.No.</th>
+                                            <th>Loan Facility</th>
+                                            <th>Proposed Amount</th>
+                                            <th>Status</th>
+                                            <th>Created On</th>
+                                            <th>Comments</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <ng-container
+                                                *ngFor="let model of cadOfferLetterApprovedDoc?.assignedLoan;let i=index">
+                                            <tr>
+                                                <td><a target="_blank" [routerLink]="['/home/loan/summary']"
+                                                       [queryParams]="{loanConfigId: model?.loan?.id,
+                                                                                     customerId: model?.id,
+                                                                                     catalogue: true}"
+                                                >{{i + 1}}</a>
+                                                </td>
+                                                <td>
+                                                    <a target="_blank" [routerLink]="['/home/loan/summary']"
+                                                       [queryParams]="{loanConfigId: model?.loan?.id,
+                                                                                     customerId: model?.id,
+                                                                                     catalogue: true}"
+                                                       nbTooltip="click to view Loan Summary ">
+
+                                                        {{model?.loan?.name}}</a>
+                                                </td>
+                                                <td class="text-right"><a target="_blank"
+                                                                          [routerLink]="['/home/loan/summary']"
+                                                                          [queryParams]="{loanConfigId: model?.loan?.id,
+                                                                                     customerId: model?.id,
+                                                                                     catalogue: true}">
+
+                                                    Rs. {{model?.proposal?.proposedLimit | number}}</a>
+                                                <td><a target="_blank" [routerLink]="['/home/loan/summary']"
+                                                       [queryParams]="{loanConfigId: model?.loan?.id,
+                                                                                     customerId: model?.id,
+                                                                                     catalogue: true}">
+                                                    {{model?.documentStatus}}</a></td>
+                                                <td>
+                                                    <a target="_blank" [routerLink]="['/home/loan/summary']"
+                                                       [queryParams]="{loanConfigId: model?.loan?.id,
+                                                                                     customerId: model?.id,
+                                                                                     catalogue: true}">
+                                                        {{model?.createdAt | date}}</a>
+                                                </td>
+                                                <td>
+                                                    <a class="px-2 cursor"
+                                                       (click)="model?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
+                                                       nbTooltip="click to view detail comments ">
+                                                        <em class="fa fa-eye"></em>
+                                                    </a></td>
+                                            </tr>
+                                            <ng-container *ngIf="toggleArray[i].toggled">
+                                                <tr>
+                                                    <td colspan="10"><b>Loan History</b></td>
+                                                </tr>
+                                                <tr class="text-white sb-bg-dark">
+                                                    <td>Date</td>
+                                                    <td>From User</td>
+
+                                                    <td>To User</td>
+
+                                                    <td>Action</td>
+                                                    <td colspan="4">Comment</td>
+                                                </tr>
+                                                <tr *ngFor="let previous of model?.previousList">
+                                                    <td>{{previous?.lastModifiedAt | date}}</td>
+                                                    <td>
+                                                        <div class="col-md-12">
+                                                            <div class="d-flex justify-content-center">
+                                                                {{previous?.fromUser?.name}}</div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="d-flex justify-content-center">
+                                                                <span>({{previous?.fromRole?.roleName}})</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+
+                                                    <td>
+                                                        <div class="col-md-12">
+                                                            <div class="d-flex justify-content-center">
+                                                                {{previous?.toUser?.name}}</div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="d-flex justify-content-center">
+                                                                ({{previous?.toRole?.roleName}})
+                                                            </div>
+
+                                                        </div>
+                                                    </td>
+
+
+                                                    <td>{{previous?.docAction}}</td>
+                                                    <td colspan="6">{{previous.comment}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{model?.currentStage?.lastModifiedAt | date}}</td>
+                                                    <td>
+                                                        <div class="col-md-12">
+                                                            <div class="d-flex justify-content-center">
+                                                                {{model?.currentStage?.fromUser?.name}}</div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="d-flex justify-content-center">
+                                                                <span>({{model?.currentStage?.fromRole?.roleName}}
+                                                                    )</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                    <td>
+                                                        <div class="col-md-12">
+                                                            <div class="d-flex justify-content-center">
+                                                                {{model?.currentStage?.toUser?.name}}</div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="d-flex justify-content-center">
+                                                                <span>({{model?.currentStage?.toRole?.roleName}})</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                    <td>{{model?.currentStage?.docAction}}</td>
+                                                    <td colspan="6">{{model?.currentStage?.comment}}</td>
+
+                                                </tr>
+                                                <tr class="sb-bg-dark">
+                                                    <td colspan="12">.</td>
+                                                </tr>
+                                            </ng-container>
+                                        </ng-container>
+                                        </tbody>
+                                    </table>
+                                    <app-cad-loan-document [cadData]="cadOfferLetterApprovedDoc"
+                                                           *ngIf="cadOfferLetterApprovedDoc"></app-cad-loan-document>
+                                    <app-general-document [cadData]="cadOfferLetterApprovedDoc"
+                                                          *ngIf="cadOfferLetterApprovedDoc"></app-general-document>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-comment [cadData]="cadOfferLetterApprovedDoc" *ngIf="cadOfferLetterApprovedDoc"></app-comment>
+    </nb-card-body>
+</nb-card>
+
+<!-- todo migrate this to separate component-->
+<ng-template #uploadModel>
+    <nb-card accent="primary">
+        <nb-card-header>
+            <strong>Upload {{documentName}} Document</strong>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label for="type">Select Offer Type</label>
+                    <select [(ngModel)]="docType" class="form-control" id="type">
+                        <option hidden selected value="null">--Select Type--</option>
+                        <option value="DRAFT">Draft Document</option>
+                        <option value="SIGNED">Signed Document</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Upload Your File </label>
+                    <input class="form-control"
+                           type="file" (change)="uploadOfferLetter($event)">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button nbButton status="success" class="float-right" (click)="submitOfferLetter()">Upload</button>
+                </div>
+            </div>
+        </nb-card-body>
+    </nb-card>
+</ng-template>

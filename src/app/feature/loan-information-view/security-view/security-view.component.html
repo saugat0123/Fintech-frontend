@@ -1204,7 +1204,7 @@
           <th></th>
           <th class="sb-bg-secondary text-white">Price As per Date</th>
           <td colspan="2">{{shareSecurity?.sharePriceDate |date}}</td>
-          <th class="sb-bg-secondary text-white">Average Price of days</th>
+          <th class="sb-bg-secondary text-white">Average Day's for Share Price</th>
           <td colspan="2">{{shareSecurity?.avgDaysForPrice}} days</td>
         </tr>
         <tr>
@@ -1223,11 +1223,11 @@
         </th>
       </tr>
       <tr class="text-white sb-bg-dark">
-        <th>FAC (land & building) Location</th>
+        <th *ngIf="!disableCrgAlphaParams">FAC (land & building) Location</th>
     <th>  Road access of primary property</th>
-    <th> Primary FAC categorization<</th>
+    <th> Primary FAC categorization</th>
       </tr>
-      <td>{{securityData['buildingLocation']}}</td>
+      <td *ngIf="!disableCrgAlphaParams">{{securityData['buildingLocation']}}</td>
       <td>{{securityData['roadAccessOfPrimaryProperty']}}</td>
       <td>{{securityData['facCategory']}}</td>
       </thead>

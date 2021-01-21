@@ -153,16 +153,23 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let team of companyInfo.managementTeamList; let i=index">
+    <tr *ngFor="let team of companyJsonData.managementTeamList; let i=index">
       <td>{{i+1}}</td>
       <td>{{team?.name}}</td>
       <td>{{team?.designation}}</td>
       <td>{{team?.companyLegalDocumentAddress}}</td>
     </tr>
-    <tr>
-      <td class="sb-bg-secondary text-white">Note</td>
-      <td colspan="2">{{companyJsonData?.managementTeamNote}}</td>
+    </tbody>
+  </table>
+  <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small
+   text-center mt-2">
+    <thead>
+    <tr class="text-white sb-bg-dark">
+      <th>Note</th>
     </tr>
+    </thead>
+    <tbody>
+    <td colspan="2">{{companyJsonData?.managementTeamNote}}</td>
     </tbody>
   </table>
 </div>
@@ -182,7 +189,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let holder of companyInfo.proprietorsList;let i =index">
+      <tr *ngFor="let holder of companyJsonData.proprietorList;let i =index">
         <td>{{i+1}}</td>
         <td>{{holder?.name}}</td>
         <td>{{holder?.type}}</td>

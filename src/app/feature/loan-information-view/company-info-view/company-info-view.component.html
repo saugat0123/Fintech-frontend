@@ -202,7 +202,7 @@
             </thead>
         </table>
 
-        <table
+        <table *ngIf="!disableCrgAlpha"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
@@ -254,7 +254,7 @@
                 <th>Address as per Legal Document</th>
             </tr>
             </thead>
-            <tbody *ngFor="let management of formValue.managementTeamList; let i=index;">
+            <tbody *ngFor="let management of companyJsonData.managementTeamList; let i=index">
             <tr>
                 <td>{{i + 1}}</td>
                 <td>{{management?.name}}</td>
@@ -288,7 +288,7 @@
                 <th>Municipalities or VDC</th>
             </tr>
             </thead>
-            <tbody *ngFor="let proprietors of formValue?.proprietorsList; let i=index;">
+            <tbody *ngFor="let proprietors of companyJsonData?.proprietorList; let i=index;">
             <tr>
                 <td>{{i + 1}}</td>
                 <td>{{proprietors?.type}}</td>
@@ -298,6 +298,36 @@
                 <td>{{proprietors?.province?.name}}</td>
                 <td>{{proprietors?.district?.name}}</td>
                 <td>{{proprietors?.municipalityVdc?.name}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th colspan="8">Shareholder KYC Details</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>S.N</th>
+                <th>Relation</th>
+                <th>Name</th>
+                <th>Citizenship No</th>
+                <th>Issued District</th>
+                <th>Issued Date</th>
+                <th>Contact No</th>
+                <th>Address</th>
+            </tr>
+            </thead>
+            <tbody *ngFor="let shareholderKyc of formValue?.shareholderKycList; let i=index;">
+            <tr>
+                <td>{{i + 1}}</td>
+                <td>{{shareholderKyc?.shareholderRelationship}}</td>
+                <td>{{shareholderKyc?.relationName}}</td>
+                <td>{{shareholderKyc?.citizenshipNumber}}</td>
+                <td>{{shareholderKyc?.district?.name}}</td>
+                <td>{{shareholderKyc?.citizenshipIssuedDate | date}}</td>
+                <td>{{shareholderKyc?.mobileNumber}}</td>
+                <td>{{shareholderKyc?.shareholderKycAddress}}</td>
             </tr>
             </tbody>
         </table>
@@ -316,17 +346,17 @@
             </thead>
             <tbody>
             <tr>
-                <td>{{formValue?.swot?.strength}}</td>
-                <td>{{formValue?.swot?.weakness}}</td>
-                <td>{{formValue?.swot?.opportunity}}</td>
-                <td>{{formValue?.swot?.threats}}</td>
+                <td>{{companyJsonData?.swot?.strength}}</td>
+                <td>{{companyJsonData?.swot?.weakness}}</td>
+                <td>{{companyJsonData?.swot?.opportunity}}</td>
+                <td>{{companyJsonData?.swot?.threats}}</td>
             </tr>
             </tbody>
         </table>
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
-                <th>Succession Planning</th>
+                <th>Succession Risk</th>
             </tr>
             <tr>
                 <th>{{formValue?.successionPlanning}}</th>
@@ -492,7 +522,7 @@
             </tr>
 
         </table>
-        <table
+        <table *ngIf="!disableCrgAlpha"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
                 <th colspan="2">Company Relationship with Bank</th>
@@ -512,7 +542,7 @@
             </tr>
         </table>
 
-        <table
+        <table *ngIf="!disableCrgAlpha"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
                 <th colspan="5">Business & Industry</th>

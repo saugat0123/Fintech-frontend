@@ -1,6 +1,5 @@
 export class Cicl {
   nameOfBorrower: string;
-  borrowerRelation: string;
   nameOfFI: string;
   facility: string;
   outstandingAmount: number;
@@ -12,6 +11,7 @@ export class Cicl {
   createdAt: Date;
   lastModifiedAt: Date;
   version: number;
+  ciclRelation: string;
 }
 
 export class CiclArray {

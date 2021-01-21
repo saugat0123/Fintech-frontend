@@ -65,7 +65,7 @@
             </tr>
             </thead>
         </table>
-        <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small">
+        <table *ngIf="!isBusinessLoan" class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small">
             <thead>
             <tr>
                 <th colspan="7">Other Detail Of Borrower</th>
@@ -108,7 +108,7 @@
         </table>
         <div *ngIf="isBusinessLoan">
             <p class="float-left"><strong>Financial Details</strong></p>
-            <table
+            <table *ngIf="!disableCrgAlphaParams"
                 class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                 <thead>
                 <tr class="text-white sb-bg-dark">
@@ -315,7 +315,15 @@
                         </tr>
                         </tbody>
                     </table>
-
+            <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
+                <tr class="text-white sb-bg-dark">
+                    <td><b>Justification</b></td>
+                </tr>
+                <tr class="text-center">
+                    <td><span [innerHTML]="financialData['incomeStatementData']['justificationIncomeStatement'] | safeHtml"></span>
+                    </td>
+                </tr>
+            </table>
             <p class="float-left"><strong>Balance Sheet</strong></p>
                     <table
                            class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
@@ -502,6 +510,15 @@
                         </tbody>
 
                     </table>
+            <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
+                <tr class="text-white sb-bg-dark">
+                    <td><b>Justification</b></td>
+                </tr>
+                <tr class="text-center">
+                    <td><span [innerHTML]="financialData['balanceSheetData']['justificationBalanceSheet'] | safeHtml"></span>
+                    </td>
+                </tr>
+            </table>
             <p class="float-left"><strong>Cashflow Statement</strong></p>
                     <table
                            class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
@@ -746,6 +763,15 @@
                         </tr>
                         </tbody>
                     </table>
+            <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
+                <tr class="text-white sb-bg-dark">
+                    <td><b>Justification</b></td>
+                </tr>
+                <tr class="text-center">
+                    <td><span [innerHTML]="financialData['cashFlowStatementData']['justificationCashFlowStatement'] | safeHtml"></span>
+                    </td>
+                </tr>
+            </table>
             <p class="float-left"><strong>key Indicators</strong></p>
                     <table
                            class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
@@ -910,7 +936,7 @@
                     <td><b>Justification</b></td>
                 </tr>
                 <tr class="text-center">
-                    <td><span [innerHTML]="financialData['incomeStatementData']['justificationIncomeStatement'] | safeHtml"></span>
+                    <td><span [innerHTML]="financialData['keyIndicatorsData']['justificationKeyIndicators'] | safeHtml"></span>
                     </td>
                 </tr>
             </table>

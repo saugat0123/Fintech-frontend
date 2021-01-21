@@ -164,7 +164,11 @@ export class SiteVisitComponent implements OnInit {
         findingComment: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? undefined
             : this.formDataForEdit.currentResidentDetails.findingComment)],
         locationPreview: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.locationPreview)]
+            : this.formDataForEdit.currentResidentDetails.locationPreview)],
+        currentSiteVisitLongitude: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
+            : this.formDataForEdit.currentResidentDetails.currentSiteVisitLongitude)],
+        currentSiteVisiLatitude: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
+            : this.formDataForEdit.currentResidentDetails.currentSiteVisiLatitude)],
       }),
       businessSiteVisitDetails: this.formBuilder.group({
         officeAddress: [undefined],
@@ -194,7 +198,11 @@ export class SiteVisitComponent implements OnInit {
             : this.formDataForEdit.businessSiteVisitDetails.mapAddress],
         findingsAndComments: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-                : this.formDataForEdit.businessSiteVisitDetails.findingsAndComments, Validators.required]
+                : this.formDataForEdit.businessSiteVisitDetails.findingsAndComments, Validators.required],
+        businessSiteVisitLongitude: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.businessSiteVisitLongitude],
+        businessSiteVisitLatitude: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.businessSiteVisitLatitude]
       }),
       fixedAssetCollateralDetails: this.formBuilder.group({
         date: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
@@ -205,9 +213,18 @@ export class SiteVisitComponent implements OnInit {
         phoneNoOfContact: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                 : this.formDataForEdit.fixedAssetCollateralDetails.phoneNoOfContact , Validators.pattern(Pattern.NUMBER_MOBILE)],
+        typeOfProperty: [this.formDataForEdit === undefined ? ''
+            : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
+                : this.formDataForEdit.fixedAssetCollateralDetails.typeOfProperty],
+        shapeOfLand: [this.formDataForEdit === undefined ? ''
+            : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
+                : this.formDataForEdit.fixedAssetCollateralDetails.shapeOfLand],
+        locationAndShapeOfLand: [this.formDataForEdit === undefined ? ''
+            : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
+                : this.formDataForEdit.fixedAssetCollateralDetails.locationAndShapeOfLand],
         facilities: this.formBuilder.group({
-          roadApproach: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
-              : this.formDataForEdit.fixedAssetCollateralDetails.facilities === undefined ? ''
+          roadApproach: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.facilities === undefined ? ''
                       : this.formDataForEdit.fixedAssetCollateralDetails.facilities.roadApproach],
           roadWidth: [this.formDataForEdit === undefined ? ''
@@ -221,7 +238,11 @@ export class SiteVisitComponent implements OnInit {
           approachDistance: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.facilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.facilities.approachDistance]
+                      : this.formDataForEdit.fixedAssetCollateralDetails.facilities.approachDistance],
+          roadAccessFrom: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.fixedAssetCollateralDetails.facilities === undefined ? ''
+                      : this.formDataForEdit.fixedAssetCollateralDetails.facilities.roadAccessFrom],
         }),
         otherFacilities: this.formBuilder.group({
           waterSupply: [this.formDataForEdit === undefined ? ''
@@ -300,6 +321,42 @@ export class SiteVisitComponent implements OnInit {
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
                       : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.bathroomAndToilet],
+          buildingType: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.buildingType],
+          builtUpArea: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.builtUpArea],
+          noOfStorey: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.noOfStorey],
+          naksaPassObtained: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.naksaPassObtained],
+          buildingCompCertificate: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.buildingCompCertificate],
+          constructionAsPerNaksa: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.constructionAsPerNaksa],
+          roadSetbacks: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.roadSetbacks],
+          riverOrCanalSetbacks: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.riverOrCanalSetbacks],
+          highTensionSetbacks: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.highTensionSetbacks]
         }),
         vicinityToTheBasicAmenities: this.formBuilder.group({
           majorMarketPlaces: [this.formDataForEdit === undefined ? undefined
@@ -377,6 +434,40 @@ export class SiteVisitComponent implements OnInit {
                       : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerificationPosition],
           inspectingStaffsDetails: this.formBuilder.array([])
         }),
+        majorInquiriesAndObservations: this.formBuilder.group({
+          businessNature: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.businessNature],
+          businessActivities: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.businessActivities],
+          businessProgress: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.businessProgress],
+          businessChallenges: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.businessChallenges],
+          normalElectricityLine: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.normalElectricityLine],
+          invertorOrGenerator: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.invertorOrGenerator],
+          ledgerBook: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.ledgerBook],
+          electronic: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.majorInquiriesAndObservations.electronic],
+        }),
         stockCheckListQuestionaire: this.formBuilder.group({
           uptoDateWithCharges: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
@@ -442,6 +533,18 @@ export class SiteVisitComponent implements OnInit {
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
                       : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.certificate],
+          ncaReport: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.ncaReport],
+          stocksAreLarge: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.stocksAreLarge],
+          otherEntitiesInTheAssets: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire.otherEntitiesInTheAssets],
           findingAndComments: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
@@ -869,7 +972,6 @@ export class SiteVisitComponent implements OnInit {
 
 
   onSubmit() {
-    console.log(this.siteVisitFormGroup);
     if (!this.currentResidentForm && !this.businessSiteVisitForm && !this.fixedAssetCollateralForm && !this.currentAssetsInspectionForm) {
       this.toastService.show(new Alert(AlertType.INFO, 'Please Select Atleast One SiteVisit!'));
       return;

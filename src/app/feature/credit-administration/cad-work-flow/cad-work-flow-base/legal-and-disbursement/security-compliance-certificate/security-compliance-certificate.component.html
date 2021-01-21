@@ -1,0 +1,132 @@
+<nb-card accent="primary" class="p-3 shadow-lg custom" style="height:100%" id="print-block">
+  <nb-card-header>
+    <div class="logo-container print-only">
+      <div>
+        <img height="60px" src="../../../../../assets/img/offer-letter-header-logo.png">
+      </div>
+    </div>
+    <ng-container class="flex-row">
+      <h5 class="text-center print-only mb-3">Security Compliance Certificate </h5>
+      <h5 class="text-center disable-print">Security Compliance Certificate </h5>
+
+      <i class="fa fa-upload disable-print float-right m-3" (click)="openDocUploadModal(uploadModal)">Upload</i>
+    </ng-container>
+
+  </nb-card-header>
+  <nb-card-body>
+    <table class="table table-bordered table-hover table-sm sb-small text-center ">
+      <tr>
+        <th>Unit</th>
+        <td>{{cadFile?.loanHolder['clientType'] | titlecase}}</td>
+        <th>Customer Id</th>
+        <td>{{cadFile?.loanHolder?.customerCode}}</td>
+        <th>SCC REF No:</th>
+        <td>{{sccRefNumber}}</td>
+      </tr>
+      <tr>
+        <th>Date</th>
+        <td>{{date | date}}</td>
+        <th>Customer's Name</th>
+        <td>{{cadFile?.loanHolder?.name}}</td>
+        <th>PAN Number</th>
+        <td>{{panNumber}}</td>
+      </tr>
+      <tr>
+        <th>A/C NUmber</th>
+        <td>{{(cadFile?.data | jsonParse)?.acInfo?.accountNo}}</td>
+        <th>Branch</th>
+        <td>{{cadFile?.loanHolder?.branch?.name}}</td>
+        <th>Sector Code</th>
+        <td>{{cadFile?.loanHolder?.subSectorDetailCode}}</td>
+      </tr>
+      <tr>
+        <th>Security Code</th>
+        <td>{{securityCode}}</td>
+        <th>Operative Account</th>
+        <td>{{(cadFile?.data | jsonParse)?.acInfo?.operativeAc}}</td>
+      </tr>
+    </table>
+    <p><b>1.Exposure Details</b></p>
+    <app-exposure-view [cadOfferLetterApprovedDoc]="cadFile" [displayHistory]="false" [fromScc]="true"> </app-exposure-view>
+    <p><b>2.Fees And Commission</b></p>
+    <app-fees-commissions-view [cadOfferLetterApprovedDoc]="cadFile"></app-fees-commissions-view>
+    <p><b>3.Document CheckList</b></p>
+    <app-document-checklist-view [cadData]="cadFile" *ngIf="!cadCheckListListVersion"></app-document-checklist-view>
+    <app-document-checklist-view-lite [cadData]="cadFile" *ngIf="cadCheckListListVersion"></app-document-checklist-view-lite>
+
+    <p><b>4.Mode Of Payment</b></p>
+    <ol>
+      <li>Issuance of MC Favoring Ms <b>{{(cadFile?.data | jsonParse)?.acInfo?.issuanceOfMc || '...........'}}</b></li>
+      <li>Credit to Ac No :<b>{{(cadFile?.data | jsonParse)?.acInfo?.accountNo || '...........'}}</b> AC Name: <b>{{(cadFile?.data | jsonParse)?.acInfo?.accountName || '...........'}}</b> against purchase of <b>{{(cadFile?.data | jsonParse)?.acInfo?.againstPurchaseOf || '...........'}}</b></li>
+    </ol>
+
+    <div class="row border">
+      <div class="col-md-3 border">
+        <p><b><u>Prepared by</u></b></p>
+        <p>Name:.....................</p>
+        <div class="box"></div>
+        <p><b>RO/RM</b></p>
+      </div>
+      <div class="col-md-3 border">
+        <p><b><u>Recommended by</u></b></p>
+        <p>Name:.....................</p>
+        <div class="box"></div>
+        <p><b>OI/BM</b></p>
+      </div>
+      <div class="col-md-3 border">
+        <p><b><u>System Inputted by</u></b></p>
+        <p>Name:.....................</p>
+        <div class="box"></div>
+        <p><b>CAD</b></p>
+      </div>
+      <div class="col-md-3 border">
+        <p><b><u>Approved by</u></b></p>
+        <p class="hide">.</p>
+        <div class="box"></div>
+        <p><b>Head-CAD</b></p>
+      </div>
+    </div>
+    <hr>
+    <p><b>5.Declaration:</b></p><hr>
+    <i>This is to certify that the original copies of all the documents as listed in the point 3 (Documentation Check Lists) are executed properly and are found in order.</i>
+
+  </nb-card-body>
+  <nb-card-footer class="disable-print">
+    <button (click)="onClose()" nbButton  status="primary" size="small" class="float-right mr-2">Close</button>
+    <button [useExistingCss]="true"  ngxPrint printSectionId="print-block"  status="primary"  size="small" class="float-right mr-2" nbButton styleSheetFile="assets/css/printStyles.scss"><i class="fa fa-print"></i>-Print</button>
+  </nb-card-footer>
+</nb-card>
+
+<ng-template #uploadModal style="min-width: 35rem;">
+  <nb-card accent="primary">
+    <nb-card-header>
+      <a (click)="modelClose()" aria-label="Close" class="close cursor"
+         data-dismiss="modal">
+        <span aria-hidden="true">×</span></a>
+      <div class="row">
+        <div class="col-md-12">
+          Upload Scc File
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <input #file
+                   (change)="uploadDoc($event)" type="file">
+          </div>
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer>
+      <button (click)="save()"
+              [disabled]="!file.value" class="float-right" nbButton
+              size="tiny"
+              status="primary">
+        save
+      </button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>

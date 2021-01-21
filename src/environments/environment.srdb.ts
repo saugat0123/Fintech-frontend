@@ -8,5 +8,7 @@ export const environment = {
     LOCAL_STORAGE_NAME: 'SBSolutionsSRDBLAS',
     enablePreAddingAccountNumber: true,
     disableCrgAlpha: true,
+    disableCrgLambda: true,
     disableApprovalSheet: false,
+    RISK_INITIAL_ROLE: 'RISK OFFICER'
 };

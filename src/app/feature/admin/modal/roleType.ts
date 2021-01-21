@@ -3,7 +3,9 @@ export enum RoleType {
     APPROVAL = 'APPROVAL',
     COMMITTEE = 'COMMITTEE',
     CAD_ADMIN = 'CAD_ADMIN',
-    ADMIN = 'ADMIN'
+    ADMIN = 'ADMIN',
+    CAD_SUPERVISOR = 'CAD_SUPERVISOR',
+    CAD_LEGAL = 'CAD_LEGAL',
 
 }
 

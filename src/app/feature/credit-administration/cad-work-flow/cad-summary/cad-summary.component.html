@@ -1,0 +1,37 @@
+<nb-card accent="primary"
+         class="m-0"
+         nbSpinnerMessage="Loading data please wait....."
+         nbSpinnerSize="giant"
+         nbSpinnerStatus="primary"
+         [nbSpinner]="spinner">
+    <nb-card-header>
+        <strong>{{cadOfferLetterApprovedDoc?.docStatus | replace:'_':' '}}</strong>
+
+    </nb-card-header>
+    <nb-card-body>
+        <nb-tabset>
+            <nb-tab tabTitle="Basic Info">
+                <app-profile-view *ngIf="cadOfferLetterApprovedDoc"
+                                  [toggleArray]="toggleArray"
+                                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                  [customerInfoData]="customerInfoData"></app-profile-view>
+            </nb-tab>
+            <nb-tab tabTitle="Exposure Detail">
+                <app-exposure-view [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                   *ngIf="cadOfferLetterApprovedDoc" [displayHistory]="true" [fromScc]="false"></app-exposure-view>
+            </nb-tab>
+            <nb-tab tabTitle="Fees and Commissions">
+                <app-fees-commissions-view [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                           *ngIf="cadOfferLetterApprovedDoc"></app-fees-commissions-view>
+            </nb-tab>
+            <nb-tab tabTitle="Document Checklist">
+                <app-document-checklist-view [cadData]="cadOfferLetterApprovedDoc"
+                                             *ngIf="cadOfferLetterApprovedDoc && checkListLiteVersion == false"></app-document-checklist-view>
+                <app-document-checklist-view-lite [cadData]="cadOfferLetterApprovedDoc"
+                                                  *ngIf="cadOfferLetterApprovedDoc && checkListLiteVersion == true"></app-document-checklist-view-lite>
+            </nb-tab>
+        </nb-tabset>
+    </nb-card-body>
+
+</nb-card>
+

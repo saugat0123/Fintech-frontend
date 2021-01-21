@@ -1,85 +1,88 @@
-<div class="row" [formGroup]="addressForm">
-    <div class="col-md-4 form-group">
-        <label for="province">Province</label>
-        <select (change)="getDistrictsById(form.province.value?.id , $event)"
-                class="custom-select"
-                [ngClass]="{'is-invalid': submitted && form.province.errors}"
-                formControlName="province"
-                [compareWith]="compareFn"
-                id="province">
-            <option [ngValue]="null" hidden>Province</option>
-            <option *ngFor="let provinceVal of provinceList"
-                    [ngValue]="provinceVal">
-                {{provinceVal.name}}
-            </option>
-        </select>
-         <div *ngIf="(submitted) && form.province.invalid"
-              class="invalid-feedback">
-             <div *ngIf="form.province.errors.required">
-                 Province is required
-             </div>
-         </div>
+<div [formGroup]="addressForm" class="row">
+  <div class="col-md-4 form-group">
+    <label class="title" for="address1">Address Line 1</label>
+    <input class="form-control" formControlName="address1" id="address1" name="address1"
+           placeholder="Address Line 1" type="text">
+  </div>
+  <div class="col-md-4 form-group">
+    <label class="title" for="address2">Address Line 2</label>
+    <input class="form-control" formControlName="address2" id="address2" name="address2"
+           placeholder="Address Line 2" type="text">
+  </div>
+  <div class="col-md-4 form-group"></div>
+  <div class="col-md-4 form-group">
+    <label for="province">Province</label>
+    <select (change)="getDistrictsById(form.province.value?.id , $event)"
+            [compareWith]="compareFn"
+            [ngClass]="{'is-invalid': submitted && form.province.errors}"
+            class="custom-select"
+            formControlName="province"
+            id="province">
+      <option [ngValue]="null" hidden>Province</option>
+      <option *ngFor="let provinceVal of provinceList"
+              [ngValue]="provinceVal">
+        {{provinceVal.name}}
+      </option>
+    </select>
+    <div *ngIf="(submitted) && form.province.invalid"
+         class="invalid-feedback">
+      <div *ngIf="form.province.errors.required">
+        Province is required
+      </div>
     </div>
-    <div class="col-md-4 form-group">
-        <label for="district">District</label>
-        <select (change)="getMunicipalitiesById(form?.district.value?.id, $event)"
-                [compareWith]="compareFn"
-                [ngClass]="{'is-invalid': submitted && form.district.errors}"
-                class="custom-select"
-                formControlName="district"
-                id="district">
-            <option [ngValue]="null" hidden>District</option>
-            <option *ngFor="let districtVal of districts"
-                    [ngValue]="districtVal">
-                {{districtVal.name}}
-            </option>
-        </select>
-        <div *ngIf="(submitted) && form.district.invalid"
-             class="invalid-feedback">
-            <div *ngIf="form.district.errors.required">
-                District is required
-            </div>
-        </div>
+  </div>
+  <div class="col-md-4 form-group">
+    <label for="district">District</label>
+    <select (change)="getMunicipalitiesById(form?.district.value?.id, $event)"
+            [compareWith]="compareFn"
+            [ngClass]="{'is-invalid': submitted && form.district.errors}"
+            class="custom-select"
+            formControlName="district"
+            id="district">
+      <option [ngValue]="null" hidden>District</option>
+      <option *ngFor="let districtVal of districts"
+              [ngValue]="districtVal">
+        {{districtVal.name}}
+      </option>
+    </select>
+    <div *ngIf="(submitted) && form.district.invalid"
+         class="invalid-feedback">
+      <div *ngIf="form.district.errors.required">
+        District is required
+      </div>
     </div>
-    <div class="col-md-4 form-group">
-        <label for="municipality">Municipalities or VDC</label>
-        <select name="municipality" id="municipality"
-                [compareWith]="compareFn"
-                [ngClass]="{'is-invalid': submitted && form.municipalityVdc.errors}"
-                formControlName="municipalityVdc"
-                class="custom-select">
-            <option [ngValue]="null" hidden>Municipality</option>
-            <option *ngFor="let municipalityVal of municipalities"
-                    [ngValue]="municipalityVal">
-                {{municipalityVal.name}}
-            </option>
-        </select>
-        <div *ngIf="(submitted) && form.municipalityVdc.invalid"
-             class="invalid-feedback">
-                Municipality is required
-        </div>
+  </div>
+  <div class="col-md-4 form-group">
+    <label for="municipality">Municipalities or VDC</label>
+    <select [compareWith]="compareFn"
+            [ngClass]="{'is-invalid': submitted && form.municipalityVdc.errors}"
+            class="custom-select"
+            formControlName="municipalityVdc"
+            id="municipality"
+            name="municipality">
+      <option [ngValue]="null" hidden>Municipality</option>
+      <option *ngFor="let municipalityVal of municipalities"
+              [ngValue]="municipalityVal">
+        {{municipalityVal.name}}
+      </option>
+    </select>
+    <div *ngIf="(submitted) && form.municipalityVdc.invalid"
+         class="invalid-feedback">
+      Municipality is required
     </div>
-    <div class="col-md-4 form-group">
-        <label class="title" for="ward">Ward Number</label>
-        <input class="form-control" formControlName="ward"
-               [ngClass]="{'is-invalid': submitted && form.ward.errors}"
-               id="ward" name="ward"
-               placeholder="ward" type="text">
-        <div *ngIf="(submitted) && form.ward.invalid"
-             class="invalid-feedback">
-            <div *ngIf="form.ward.errors.required">
-                Ward is required
-            </div>
-        </div>
+  </div>
+  <div class="col-md-4 form-group">
+    <label class="title" for="ward">Ward Number</label>
+    <input [ngClass]="{'is-invalid': submitted && form.ward.errors}" class="form-control"
+           formControlName="ward"
+           id="ward" name="ward"
+           placeholder="ward" type="text">
+    <div *ngIf="(submitted) && form.ward.invalid"
+         class="invalid-feedback">
+      <div *ngIf="form.ward.errors.required">
+        Ward is required
+      </div>
     </div>
-    <div class="col-md-4 form-group">
-        <label class="title" for="address1">Address Line 1</label>
-        <input class="form-control" formControlName="address1" id="address1" name="address1"
-               placeholder="Address Line 1" type="text">
-    </div>
-    <div class="col-md-4 form-group">
-        <label class="title" for="address2">Address Line 2</label>
-        <input class="form-control" formControlName="address2" id="address2" name="address2"
-               placeholder="Address Line 2" type="text">
-    </div>
+  </div>
+
 </div>

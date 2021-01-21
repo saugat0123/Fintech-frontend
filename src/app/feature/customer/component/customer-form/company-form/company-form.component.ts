@@ -51,6 +51,7 @@ import {CommonAddressComponent} from '../../../../common-address/common-address.
 import {FormUtils} from '../../../../../@core/utils/form.utils';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
+import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
 
 @Component({
     selector: 'app-company-form',
@@ -133,8 +134,7 @@ export class CompanyFormComponent implements OnInit {
     businessGiven: BusinessGiven = new BusinessGiven();
     companyAddress;
     srdbAffiliatedId = false;
-
-
+    disableCrgAlpha = envSrdb.disableCrgAlpha;
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
@@ -173,6 +173,9 @@ export class CompanyFormComponent implements OnInit {
     // todo replace all objectutil checking with patch value method
 
     ngOnInit() {
+        if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
+            this.srdbAffiliatedId = true;
+        }
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
             this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
@@ -192,8 +195,8 @@ export class CompanyFormComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.companyInfo)) {
             if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
-            this.companyAddress = JSON.parse(this.companyInfo.companyLocations.address);
-            console.log(this.companyInfo.companyLocations.address);
+                this.companyAddress = JSON.parse(this.companyInfo.companyLocations.address);
+                console.log(this.companyInfo.companyLocations.address);
             }
         }
         this.buildForm();
@@ -201,6 +204,16 @@ export class CompanyFormComponent implements OnInit {
         this.getCompanyStructure();
         this.getClientType();
         this.getSubSector();
+        if (!ObjectUtil.isEmpty(this.companyInfo)) {
+            this.setManagementTeams(this.companyJsonData.managementTeamList);
+        } else {
+            this.addManagementTeam();
+        }
+        if (!ObjectUtil.isEmpty(this.companyInfo)) {
+            this.setProprietors(this.companyJsonData.proprietorList);
+        } else {
+            this.addProprietor();
+        }
         this.designation = this.designationList.designation;
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
@@ -248,14 +261,10 @@ export class CompanyFormComponent implements OnInit {
             this.companyInfo = this.formValue;
             this.setCompanyInfo(this.companyInfo);
         }
-
         this.companyFormField = {
             showFormField: (!ObjectUtil.isEmpty(this.formValue)),
             isOldCustomer: (ObjectUtil.isEmpty(this.formValue))
         };
-        if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
-            this.srdbAffiliatedId = true;
-        }
     }
 
     buildForm() {
@@ -383,24 +392,18 @@ export class CompanyFormComponent implements OnInit {
             numberOfShareholder: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
                 this.companyInfo.capital.numberOfShareholder],
-
             // managementTeams
-            managementTeams: this.formBuilder.array([
-                this.managementTeamFormGroup()
-            ]),
+            managementTeams: this.formBuilder.array([]),
             // managementTeamNote
             managementTeamNote: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyJsonData.managementTeamNote)) ? undefined :
                 this.companyJsonData.managementTeamNote],
             // proprietors
-            proprietors: this.formBuilder.array([
-                this.proprietorsFormGroup()
-            ]),
+            proprietors: this.formBuilder.array([]),
             // contact person
             contactPersons: this.formBuilder.array([
                 this.contactPersonFormGroup()
             ]),
-
             // Location
             locationVersion: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.version],
@@ -413,16 +416,16 @@ export class CompanyFormComponent implements OnInit {
             address: [undefined],
             // swot
             strength: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.strength, Validators.required],
+                || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.strength, Validators.required],
 
             weakness: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.weakness, Validators.required],
+                || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.weakness, Validators.required],
 
             opportunity: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.opportunity, Validators.required],
+                || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.opportunity, Validators.required],
 
             threats: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.threats, Validators.required],
+                || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.threats, Validators.required],
 
             // Success Planning
             successionPlanning: [ObjectUtil.isEmpty(this.companyInfo) ? undefined :
@@ -461,36 +464,37 @@ export class CompanyFormComponent implements OnInit {
                 additionalInfoRemark: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
                     this.additionalFieldData.additionalInfoRemark],
             }),
+
             /** 8.business and industry */
             regulatoryConcern: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
-                this.businessAndIndustry.regulatoryConcern, Validators.required],
+                this.businessAndIndustry.regulatoryConcern, this.disableCrgAlpha ? undefined : Validators.required],
             buyer: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
-                this.businessAndIndustry.buyer, Validators.required],
+                this.businessAndIndustry.buyer, this.disableCrgAlpha ? undefined : Validators.required],
             supplier: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
-                this.businessAndIndustry.supplier, Validators.required],
+                this.businessAndIndustry.supplier, this.disableCrgAlpha ? undefined : Validators.required],
 
             /** 9. Industry Growth*/
             industryGrowth: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.industryGrowth)) ? undefined :
-                this.companyInfo.industryGrowth, Validators.required],
+                this.companyInfo.industryGrowth, this.disableCrgAlpha ? undefined : Validators.required],
 
             /** 10. Market competition*/
             marketCompetition: [ObjectUtil.isEmpty(this.companyInfo)
             || ObjectUtil.isEmpty(this.companyInfo.marketCompetition) ? undefined :
-                this.companyInfo.marketCompetition, Validators.required],
+                this.companyInfo.marketCompetition, this.disableCrgAlpha ? undefined : Validators.required],
 
             /** 11. Experience*/
             experience: [ObjectUtil.isEmpty(this.companyInfo)
             || ObjectUtil.isEmpty(this.companyInfo.experience) ? undefined :
-                this.companyInfo.experience, Validators.required],
+                this.companyInfo.experience, this.disableCrgAlpha ? undefined : Validators.required],
 
             /** Succession*/
             succession: [ObjectUtil.isEmpty(this.companyInfo)
             || ObjectUtil.isEmpty(this.companyInfo.succession) ? undefined :
-                this.companyInfo.succession],
+                this.companyInfo.succession, this.disableCrgAlpha ? undefined: Validators.required],
 
             /** Groups BackGround*/
             groupsBackGround: [ObjectUtil.isEmpty(this.companyJsonData)
@@ -547,10 +551,6 @@ export class CompanyFormComponent implements OnInit {
     }
 
     setCompanyInfo(info: CompanyInfo) {
-        // set managementTeams data
-        this.companyInfoFormGroup.setControl('managementTeams', this.setManagementTeams(info.managementTeamList));
-        // proprietors data
-        this.companyInfoFormGroup.setControl('proprietors', this.setProprietors(info.proprietorsList));
         // set contact persons data
         this.companyInfoFormGroup.setControl('contactPersons', this.setContactPersons(info.contactPersons));
     }
@@ -564,16 +564,19 @@ export class CompanyFormComponent implements OnInit {
     }
 
     // set managementTeams data
-    setManagementTeams(managementTeamList: ManagementTeam[]): FormArray {
-        const managementTeamFormArray = new FormArray([]);
-        managementTeamList.forEach(managementTeam => {
-            managementTeamFormArray.push(this.formBuilder.group({
-                name: [managementTeam.name === undefined ? '' : managementTeam.name],
-                designation: [managementTeam.designation === undefined ? '' : managementTeam.designation],
-                companyLegalDocumentAddress: [managementTeam.companyLegalDocumentAddress === undefined ? '' : managementTeam.companyLegalDocumentAddress],
-            }));
-        });
-        return managementTeamFormArray;
+    setManagementTeams(data) {
+        const control = this.companyInfoFormGroup.get('managementTeams') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(singleData => {
+                control.push(
+                    this.formBuilder.group({
+                        name: [singleData.name],
+                        designation: [singleData.designation],
+                        companyLegalDocumentAddress: [singleData.companyLegalDocumentAddress]
+                    })
+                );
+            });
+        }
     }
 
     removeManagementTeam(index: number) {
@@ -609,15 +612,19 @@ export class CompanyFormComponent implements OnInit {
     setContactPersons(contactPerson) {
         const contactPersons = JSON.parse(contactPerson);
         const contactPersonFormArray = new FormArray([]);
-        contactPersons.forEach(data => {
-            contactPersonFormArray.push(this.formBuilder.group({
-                contactName: [data.contactName, Validators.required],
-                contactEmail: [data.contactEmail],
-                contactNumber: [data.contactNumber, Validators.required],
-                functionalPosition: [data.functionalPosition, Validators.required],
-            }));
-        });
-        return contactPersonFormArray;
+        if (!ObjectUtil.isEmpty(contactPersons)) {
+            contactPersons.forEach(data => {
+                contactPersonFormArray.push(this.formBuilder.group({
+                    contactName: [data.contactName, Validators.required],
+                    contactEmail: [data.contactEmail],
+                    contactNumber: [data.contactNumber, Validators.required],
+                    functionalPosition: [data.functionalPosition, Validators.required],
+                }));
+            });
+        } else {
+            contactPersonFormArray.push(this.contactPersonFormGroup());
+        }
+            return contactPersonFormArray;
     }
 
     addContactPersons() {
@@ -628,11 +635,11 @@ export class CompanyFormComponent implements OnInit {
         (<FormArray>this.companyInfoFormGroup.get('contactPersons')).removeAt(index);
     }
 
-    setProprietors(proprietorsList: Array<Proprietors>): FormArray {
-        const managementTeamFormArray = new FormArray([]);
-        this.addressList = new Array<Address>(proprietorsList.length);
+    setProprietors(data): FormArray {
+        const controls = this.companyInfoFormGroup.get('proprietors') as FormArray;
+        this.addressList = new Array<Address>(data.length);
         let proprietorIndex = 0;
-        proprietorsList.forEach(proprietors => {
+        data.forEach(proprietors => {
             this.addressList[proprietorIndex] = new Address();
             if (!ObjectUtil.isEmpty(proprietors.province) && proprietors.province.id !== null) {
                 this.getDistricts(proprietors.province.id, proprietorIndex);
@@ -641,18 +648,17 @@ export class CompanyFormComponent implements OnInit {
                 }
             }
             proprietorIndex++;
-            managementTeamFormArray.push(this.formBuilder.group({
+            controls.push(this.formBuilder.group({
                 name: [proprietors.name === undefined ? '' : proprietors.name, Validators.required],
                 contactNo: [proprietors.contactNo === undefined ? '' : proprietors.contactNo],
                 share: [proprietors.share === undefined ? '' : proprietors.share, Validators.required],
-                province: [proprietors.province === null ? null : (proprietors.province.id === null ? null : proprietors.province.id)],
-                district: [proprietors.district === null ? null : (proprietors.district.id === null ? null : proprietors.district.id)],
-                municipalityVdc: [proprietors.municipalityVdc === null ? null :
-                    (proprietors.municipalityVdc.id === null ? null : proprietors.municipalityVdc.id)],
+                province: [proprietors.province === null ? null : proprietors.province],
+                district: [proprietors.district === null ? null : proprietors.district],
+                municipalityVdc: [proprietors.municipalityVdc === null ? null : proprietors.municipalityVdc],
                 type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]
             }));
         });
-        return managementTeamFormArray;
+        return controls;
     }
 
     // return proprietors formArray
@@ -783,10 +789,13 @@ export class CompanyFormComponent implements OnInit {
         this.submitted = true;
         this.marketScenarioComponent.onSubmit();
         this.companyOtherDetailComponent.onSubmit();
-        this.bankingRelationComponent.onSubmit();
+        if (!this.disableCrgAlpha) {
+            this.bankingRelationComponent.onSubmit();
+        }
         this.companyLocation.onSubmit();
         if (this.companyInfoFormGroup.invalid || this.companyOtherDetailComponent.companyOtherDetailGroupForm.invalid
-            || this.marketScenarioComponent.marketScenarioForm.invalid || this.bankingRelationComponent.bankingRelationForm.invalid
+            || this.marketScenarioComponent.marketScenarioForm.invalid ||
+            (this.disableCrgAlpha ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
             || this.companyLocation.addressForm.invalid) {
             this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
             this.scrollToFirstInvalidControl();
@@ -840,9 +849,7 @@ export class CompanyFormComponent implements OnInit {
         this.swot.weakness = this.companyInfoFormGroup.get('weakness').value;
         this.swot.opportunity = this.companyInfoFormGroup.get('opportunity').value;
         this.swot.threats = this.companyInfoFormGroup.get('threats').value;
-        this.companyInfo.swot = this.swot;
-        // management team list
-        this.companyInfo.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
+
         // management Team Note
         this.companyJsonData.managementTeamNote = this.companyInfoFormGroup.get('managementTeamNote').value;
 
@@ -853,7 +860,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.additionalCompanyInfo = JSON.stringify(this.companyInfoFormGroup.get('additionalCompanyInfo').value);
 
         // succession planning
-        this.companyInfo.successionPlanning = JSON.stringify(this.companyInfoFormGroup.get('successionPlanning').value);
+        this.companyInfo.successionPlanning = this.companyInfoFormGroup.get('successionPlanning').value;
 
         // location
         this.locations.id = this.companyInfoFormGroup.get('locationId').value;
@@ -863,7 +870,7 @@ export class CompanyFormComponent implements OnInit {
         this.locations.streetName = this.companyInfoFormGroup.get('streetName').value;
         this.companyInfo.companyLocations = this.locations;
         // proprietorsList
-        this.companyInfo.proprietorsList = new Array<Proprietors>();
+        this.companyJsonData.proprietorList = new Array<Proprietors>();
         let proprietorsIndex = 0;
         while (proprietorsIndex < this.getProprietor().length) {
             const proprietors = new Proprietors();
@@ -871,32 +878,38 @@ export class CompanyFormComponent implements OnInit {
             proprietors.contactNo = this.getProprietor()[proprietorsIndex].contactNo;
             proprietors.share = this.getProprietor()[proprietorsIndex].share;
             proprietors.type = this.getProprietor()[proprietorsIndex].type;
-            const province = new Province();
-            province.id = this.getProprietor()[proprietorsIndex].province;
+            let province = new Province();
+            province = this.getProprietor()[proprietorsIndex].province;
             proprietors.province = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].province)) ? province : undefined;
-            const district = new District();
-            district.id = this.getProprietor()[proprietorsIndex].district;
+            let district = new District();
+            district = this.getProprietor()[proprietorsIndex].district;
             proprietors.district = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].district)) ? district : undefined;
-            const municipalityVdc = new MunicipalityVdc();
-            municipalityVdc.id = this.getProprietor()[proprietorsIndex].municipalityVdc;
+            let municipalityVdc = new MunicipalityVdc();
+            municipalityVdc = this.getProprietor()[proprietorsIndex].municipalityVdc;
             proprietors.municipalityVdc = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].municipalityVdc))
                 ? municipalityVdc : undefined;
             proprietorsIndex++;
-            this.companyInfo.proprietorsList.push(proprietors);
+            this.companyJsonData.proprietorList.push(proprietors);
         }
 
-        /** banking relation setting data from child **/
-        this.companyInfo.bankingRelationship = JSON.stringify(this.bankingRelationComponent.bankingRelation);
+        if (!this.disableCrgAlpha) {
+            /** banking relation setting data from child **/
+            this.companyInfo.bankingRelationship = JSON.stringify(this.bankingRelationComponent.bankingRelation);
 
-        /** business and industry */
-        this.businessAndIndustry.regulatoryConcern = this.companyInfoFormGroup.get('regulatoryConcern').value;
-        this.businessAndIndustry.supplier = this.companyInfoFormGroup.get('supplier').value;
-        this.businessAndIndustry.buyer = this.companyInfoFormGroup.get('buyer').value;
-        this.companyInfo.businessAndIndustry = JSON.stringify(this.businessAndIndustry);
+            /** business and industry */
+            this.businessAndIndustry.regulatoryConcern = this.companyInfoFormGroup.get('regulatoryConcern').value;
+            this.businessAndIndustry.supplier = this.companyInfoFormGroup.get('supplier').value;
+            this.businessAndIndustry.buyer = this.companyInfoFormGroup.get('buyer').value;
+            this.companyInfo.businessAndIndustry = JSON.stringify(this.businessAndIndustry);
 
-        /** industry growth and market competition */
-        this.companyInfo.marketCompetition = this.companyInfoFormGroup.get('marketCompetition').value;
-        this.companyInfo.industryGrowth = this.companyInfoFormGroup.get('industryGrowth').value;
+            /** industry growth and market competition */
+            this.companyInfo.marketCompetition = this.companyInfoFormGroup.get('marketCompetition').value;
+            this.companyInfo.industryGrowth = this.companyInfoFormGroup.get('industryGrowth').value;
+
+            /** experience & succession */
+            this.companyInfo.experience = this.companyInfoFormGroup.get('experience').value;
+            this.companyInfo.succession = this.companyInfoFormGroup.get('succession').value;
+        }
 
         /**Business Given**/
         this.businessGiven.interestIncomeDuringReview = this.companyInfoFormGroup.get('interestIncomeDuringReview').value;
@@ -914,9 +927,6 @@ export class CompanyFormComponent implements OnInit {
 
         this.companyInfo.businessGiven = JSON.stringify(this.businessGiven);
 
-        /** experience & succession */
-        this.companyInfo.experience = this.companyInfoFormGroup.get('experience').value;
-        this.companyInfo.succession = this.companyInfoFormGroup.get('succession').value;
         // todo change this to common function
         const submitData = new CompanyJsonData();
         Object.keys(submitData).forEach((k) => {
@@ -927,6 +937,12 @@ export class CompanyFormComponent implements OnInit {
         submitData.rawMaterialSourcing = this.companyInfoFormGroup.get('rawMaterialSourcing').value;
         /** Market Scenario detail */
         submitData.marketScenario = this.marketScenarioComponent.submitData;
+        submitData.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
+        submitData.proprietorList = this.companyJsonData.proprietorList;
+
+        // swot
+        submitData.swot = this.swot;
+
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
@@ -1023,6 +1039,8 @@ export class CompanyFormComponent implements OnInit {
             this.companyInfoFormGroup.get('creditCardsDuringReview').value +
             this.companyInfoFormGroup.get('mobileBankingDuringReview').value +
             this.companyInfoFormGroup.get('lockerDuringReview').value;
-        this.companyInfoFormGroup.get('total').patchValue(total);
+        this.companyInfoFormGroup.get('total').patchValue(total.toFixed(2));
+        // console.log(this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
+        //     this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value);
     }
 }

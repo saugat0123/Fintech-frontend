@@ -36,22 +36,16 @@
               </div>
 
               <div class="col-md-3">
-                <label><strong>Relation</strong></label>
+                <label><strong>Cicl Relation</strong></label>
                 <select
-                        class="form-control form-control-sm-error rounded"
-                        formControlName="relation"
-                        id="relation"
-                        name="relation"
-                        [ngClass]="{'is-invalid': submitted && cicl.get('relation').invalid}">
-                  <option [ngValue]="null" hidden>--Select relation--</option>
-                  <option *ngFor="let relationship of relationlist" [ngValue]="relationship.id">{{relationship.name}}</option>
+                    class="form-control form-control-sm-error rounded"
+                    formControlName="ciclRelation"
+                    id="ciclRelation"
+                    name="ciclRelation"
+                    [ngClass]="{'is-invalid': submitted && cicl.get('ciclRelation').invalid}">
+                  <option [ngValue]="null" hidden>--Select Cicl relation--</option>
+                  <option *ngFor="let relationship of ciclRelation" [ngValue]="relationship.key">{{relationship.value}}</option>
                 </select>
-                <div
-                        *ngIf="(submitted) && cicl.get('relation').invalid" class="invalid-feedback">
-                  <div>
-                    Relation is required.
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -109,7 +103,7 @@
                         <label for="obtaineddate"><b>Obtained Date</b></label>
                         <input class="form-control" formControlName="obtaineddate" id="obtaineddate"
                                type="date"
-                               [ngClass]="{ 'is-invalid': (submitted) && cicl.get('obtaineddate').errors.required }">
+                               [ngClass]="{ 'is-invalid': (submitted) && cicl.get('obtaineddate').invalid }">
                         <div *ngIf="(submitted) && cicl.get('obtaineddate').errors" class="invalid-feedback">
                           <span *ngIf="(cicl.get('obtaineddate').errors.required)">Obtained date is required</span>
                         </div>

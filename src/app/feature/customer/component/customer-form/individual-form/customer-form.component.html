@@ -7,7 +7,7 @@
            data-dismiss="modal">
             <span aria-hidden="true" class="text-white">×</span></a>
 
-        <h4 class="modal-title pull-left text-white">Add Customer</h4>
+        <h4 class="modal-title pull-left text-white">{{formLabel}} Customer</h4>
     </nb-card-header>
     <nb-card-body>
         <nb-radio-group [(ngModel)]="calendarType" class="close d-inline-flex"
@@ -227,12 +227,12 @@
                             <input
                                     [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipNumber.errors }"
                                     class="form-control" formControlName="citizenshipNumber" id="citizenshipNumber"
-                                    name="citizenshipNumber" placeholder="citizenship Number"
+                                    name="citizenshipNumber" placeholder="citizenship Number" pattern="[0-9/-]+"
                                     type="text">
                             <div *ngIf="(submitted) && basicInfoControls.citizenshipNumber.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.citizenshipNumber.errors.required">
-                                    citizenship Number is required
+                                    citizenship Number is required and Match the pattern (0-9) and (/ or -)
                                 </div>
                             </div>
                         </div>
@@ -360,21 +360,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 form-group">
-                        <label class="title ml-3" for="customerLegalDocumentAddress"><strong>Address as per Legal Document</strong></label>
-                            <textarea class="form-control ml-3" cols="6"
-                                      [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerLegalDocumentAddress.errors }"
-                                      formControlName="customerLegalDocumentAddress"
-                                      id="customerLegalDocumentAddress"
-                                      placeholder="Address as per Legal Document"
-                                      rows="2" maxlength="256"></textarea>
-                            <div *ngIf="submitted && basicInfoControls.customerLegalDocumentAddress.errors"
-                                 class="invalid-feedback small">
-                                <div *ngIf="basicInfoControls.customerLegalDocumentAddress.errors.required">
-                                    Address as per legal document is required
-                                </div>
-                            </div>
-                    </div>
+
                 </div>
                 <div class="row ml-1">
                     <div class="col-md-12">
@@ -470,6 +456,23 @@
                                  class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.wardNumber.errors.required">
                                     Ward Number is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title ml-3" for="customerLegalDocumentAddress"><strong>Address as per Legal Document</strong></label>
+                            <textarea class="form-control" cols="6"
+                                      [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerLegalDocumentAddress.errors }"
+                                      formControlName="customerLegalDocumentAddress"
+                                      id="customerLegalDocumentAddress"
+                                      placeholder="Address as per Legal Document"
+                                      rows="2" maxlength="256"></textarea>
+                            <div *ngIf="submitted && basicInfoControls.customerLegalDocumentAddress.errors"
+                                 class="invalid-feedback small">
+                                <div *ngIf="basicInfoControls.customerLegalDocumentAddress.errors.required">
+                                    Address as per legal document is required
                                 </div>
                             </div>
                         </div>
@@ -581,6 +584,7 @@
                 </div>
                 <hr>
                 <div>
+                    <h5>Relation</h5>
                     <div
                             *ngFor="let relatives of basicInfo.get('customerRelatives')['controls']; let i = index"
                             formArrayName="customerRelatives">
@@ -658,7 +662,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div *ngIf="i>2" class="ml-3">
+                                <div *ngIf="i>1" class="ml-3">
                                     <button (click)="removeRelatives(i)"
                                             class="float-right" nbButton
                                             size="small" status="danger">remove

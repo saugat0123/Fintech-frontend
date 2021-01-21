@@ -1,0 +1,274 @@
+<div class="container nep text-justify">
+    <form (ngSubmit)="submit()" [formGroup]="personalGuaranteeCompany"  class="nep">
+        <h4 class="text-center">जमानीपत्र</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    लिखितम् ब्यक्तिगत जमानीको लिखत गराइ लिनेका नाम प्रचलित नेपाल कानून बमोजिम संस्थापित   तथा संचालित मेगा बैंक नेपाल लिमिटेडको
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="districtName"
+                           formControlName="districtName"
+                           placeholder=""
+                           type="text"/>
+                    जिल्ला <input class="form-field form-control-sm nepaliFont"
+                                  name="municipalityName"
+                                  formControlName="municipalityName"
+                                  placeholder=""
+                                  type="text"/>
+                    महानगरपालिका/नगरपालिका वडा नं <input class="form-field form-control-sm nepaliFont"
+                                                         name="wardNo"
+                                                         formControlName="wardNo"
+                                                         placeholder=""
+                                                         type="text"
+                                                         size="2"/>
+                    स्थित <input class="form-field form-control-sm nepaliFont"
+                                 name="branchName"
+                                 placeholder=""
+                                 formControlName="branchName"
+                                 type="text"/>
+                    कार्यालय (जसलाई यस उप्रान्त यस लिखतमा धनी बैंक भनिएको छ) जमानीको लिखत गरि दिनेका नाम श्री
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="GrandFatherName"
+                           placeholder=""
+                           formControlName="GrandFatherName"
+                           type="text"/>
+                    को नाति/नातिनी/बुहारी, श्री <input class="form-field form-control-sm nepaliFont"
+                                                       name="grandChildrenName"
+                                                       placeholder=""
+                                                       formControlName="grandChildrenName"
+                                                       type="text"/>
+                    को छोरा/छोरी/पत्नी,
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="districtName2"
+                           placeholder=""
+                           formControlName="districtName2"
+                           type="text"/>
+                    जिल्ला
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="municipalityName2"
+                           placeholder=""
+                           formControlName="municipalityName2"
+                           type="text"/>
+                    महानगरपालिका/ नगरपालिका/उपनगरपालिका/गा.वि.स.
+                    वडा नं <input class="form-field form-control-sm nepaliFont"
+                                  name="wardNo2"
+                                  placeholder=""
+                                  formControlName="wardNo2"
+                                  type="text"
+                                  size="2"/>
+                    बस्ने बर्ष <input class="form-field form-control-sm nepaliFont"
+                                      name="age"
+                                      placeholder=""
+                                      formControlName="age"
+                                      type="text"/>
+                    को/की श्री/श्रीमती/सुश्री <input class="form-field form-control-sm nepaliFont"
+                                                     name="guarantorName"
+                                                     placeholder=""
+                                                     formControlName="guarantorName"
+                                                     type="text"/>
+                    ( ना.प्र.प नं.<input class="form-field form-control-sm nepaliFont"
+                                         name="citizenshipNo"
+                                         placeholder=""
+                                         formControlName="citizenshipNo"
+                                         type="text"/>
+                    , मिति <input class="form-field form-control-sm nepaliFont"
+                                  name="date"
+                                  formControlName="date"
+                                  placeholder=""
+                                  type="text"/>
+                    मा जिल्ला प्रशासन कार्यालय <input class="form-field form-control-sm nepaliFont"
+                                                      name="districtAdministrationOfficeName"
+                                                      placeholder=""
+                                                      formControlName="districtAdministrationOfficeName"
+                                                      type="text"/>
+                    बाट जारी भएको) आगे तपाई धनी बैंकले  मेरो जमानी बसिदिने शर्तमा प्रचलित नेपाल कानून बमोजिम संस्थापित, संचालित तथा
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="registeredOffice"
+                           formControlName="registeredOffice"
+                           placeholder=""
+                           type="text"/>
+                    मा रजिष्टर्ड कार्यालय भएको श्री <input class="form-field form-control-sm nepaliFont"
+                                                           name="companyName"
+                                                           placeholder=""
+                                                           formControlName="companyName"
+                                                           type="text"/>
+                    फर्म/प्रा.ली./कम्पनीरलिमिटेड (दर्ता नं. <input class="form-field form-control-sm nepaliFont"
+                                                                   name="companyRegistrationNumber"
+                                                                   placeholder=""
+                                                                   formControlName="companyRegistrationNumber"
+                                                                   type="text"/>
+                    दर्ता मिति <input class="form-field form-control-sm nepaliFont"
+                                      name="registeredDate"
+                                      placeholder=""
+                                      formControlName="registeredDate"
+                                      type="text"/>
+                    ,जसलाई यस उप्रान्त यस लिखतमा ऋणी भनिएको छ )
+                    लाई यस अघि समय समयमा प्रदान गरेको, गर्दै आएको, हाल प्रदान गरिएको र साथै भविष्यमा प्रदान गर्ने जम्मा रु
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="loanAmount"
+                           formControlName="loanAmount"
+                           placeholder=""
+                           type="text"/>
+                    <strong>(अक्षरेपी</strong> <input class="form-field form-control-sm nepaliFont col-4"
+                                                      name="loanAmountInWord"
+                                                      placeholder=""
+                                                      formControlName="loanAmountInWord"
+                                                      type="text"/>
+                    <strong>रुपैंया मात्र ।)</strong>
+                    सम्मको बिभिन्न कर्जा सुबिधा तथा बैंक जमानत आदि लगायत अन्य बैंकिङ्ग कारोवार सुबिधाको लागि तपाई धनी बैंक र ऋणीका बिच मिति
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="loanApprovalDate"
+                           placeholder=""
+                           formControlName="loanApprovalDate"
+                           type="text"/>
+                    मा सम्पन्न कर्जा स्विकृतीपत्र <strong>(Offer Letter)</strong> सम्झौता तथा अन्य लिखत कागजात तथा सो नविकरण भएमा सो समेत बमोजिम ऋणीले तपाई धनी बैंकलाई तिर्न
+                    बुझाउन पर्ने साँवा, व्याज, कमिशन फी, मार्जिन आदि अन्य रकम कलम वापत जमानत बसी दिन मेरो मन्जुरी भएकोले तपाई धनी बैंकलाई ऋणीले तिर्न बुझाउन पर्ने
+                    उल्लेखित कर्जा तथा बैंकिङ्ग  कारोवार रकम कलम तपाई धनी बैंकले माग गरेमा तपसिलको शर्तबन्देजको अधिनमा रही जमानीकर्ताले तिर्न बुझाउन मन्जुर गरी यो जमानीको
+                    लिखत गरिदिएको छु । तपाई धनी बैंकले माग गरेका वखत उल्लेखित रकम कलम नतिरे, नबुझाएमा वा बुझाउन आलटाल गरेमा तपाई धनी बैंकले मेरोे घर घरानाको अन्य
+                    चल, अचल जायजेथा समेतबाट  असुल उपर गरी लिएमा मेरो मन्जुरी छ, पछि ऋणीले लिएको ऋण मैले तिर्न बुझाउनु पर्ने होइन भनी वा अन्य कुनै व्यहोराले उजुर बाजुर
+                    गर्ने छैन, गरे यसै लिखतले बदर गराई लिनु भनी मेरोे मनोमान राजिखुशीले यो जमानीको लिखत गरी तपाई धनी बैंकलाई दिएँ र यसको एक प्रति दोहरी बुझिलिए । साक्षी
+                    किनाराका सदर ।
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="text-center">तपसील</h5>
+                <p>
+                    १.	माथि उल्लेखित रकम, कलम ऋणी सरह भएकोले प्राथमिक दायित्व <strong>(Primary Liability)</strong> का रुपमा तिर्न बुझाउन पर्ने र
+                    उपरोक्त बमोजिमको ऋण कर्जाको सम्पूर्ण रकम कलम चुक्ता भुक्तान नभए सम्म सो प्रति मेरो दायित्व निरन्तर रही रहने कुरामा मेरो मन्जुरी छ ।
+                </p>
+                <p>
+                    २.	यसमा उल्लेखित ऋण कर्जा तथा बैंकिङ्ग कारोवार सुबिधाको तिर्न बुझाउन बाँकी साँवा, ब्याज तथा अन्य रकम कलम तपाई धनी बैंकले माग गरेको ७ दिन भित्र तिर्न बुझाउन मेरो मन्जुरी छ ।
+                </p>
+                <p>
+                    ३.	ऋणीले तपाई धनी बैंकबाट प्राप्त बिभिन्न ऋण कर्जा तथा बैंकिङ्ग कारोवार सुबिधाको तिर्न, बुझाउन पर्ने साँवा, ब्याज, कमिशन, फि, मार्जिन आदि रकम कलमको समय समयमा किस्ता भुक्तान
+                    गरेको वा आंशिक चुक्ता गरेको वा सो मध्ये केही चुक्ता गरेको आधारमा मैले माथि प्रकरण १ र २ बमोजिम वहन गर्न स्वीकार तथा मन्जुर गरेको प्राथमिक दायित्वको कुरामा कुनै प्रतिकुल प्रभाव परेको
+                    मानिने छैन र प्रकरण १ र २ मा उल्लेखित प्रावधानको सर्वमान्यतामा कुनै प्रतिकुल वा विपरित प्रभाव नपर्ने गरी बाँकी रकम, कलम तिर्न बुझाउन मेरो मन्जुरी छ ।
+                </p>
+                <p>
+                    ४.	तपाई धनी बैंकले ऋणीसँग उल्लेखित ऋण कर्जा तथा बैंकिङ्ग कारोवार सुबिधाको सन्दर्भमा अन्य चल, अचल जायजेथा सुरक्षणको रुपमा ग्रहण गरेको वा धितो बन्धकी लेखाई लिएको वा अन्य तेश्रो
+                    व्यक्ति समेत सँग जमानत लिएको वा त्यसरी लिएको सुरक्षण फुकुवा गरी दिएको वा जमानतबाट छुटकारा दिएको वा ऋणी वा तेश्रो व्यक्तिसँग ऋण कर्जा चुक्ता भुक्तान गर्ने सम्बन्धमा सम्झौता मिलापत्र गरी
+                    म्याद थप गरी दिएको वा छुट मिन्हा दिएको वा अन्य शर्त कबुलियत गरेको, शर्त कबुलियतमा परिवर्तन वा संशोधन गरेको वा ऋण कर्जा नविकरण गरेको वा थप ऋण कर्जा दिएको भन्ने आदि कुनै पनि
+                    आधारमा मैले यस लिखत बमोजिम प्राथमिक रुपमा व्यहोर्न मन्जुर गरेको दायित्वमा कुनै प्रतिकुल वा विपरित प्रभाव परेको मानिने छैन र मैले स्वीकार तथा मन्जुर गरेको दायित्व प्राथमिक दायित्वको रुपमा
+                    मैले निर्वाह तथा वहन गर्नु पर्ने मेरो कर्तव्य यथावत रही रहनेछ । मैले तपाई धनी बैंक प्रतिको मेरो दायित्व व्यक्तिगत र साथै सामुहिक <strong>(Joint and Several)</strong> हुने भन्ने कुरामा मेरो मन्जुरी छ ।
+                    जस अनुसार तपाई धनी बैंकले आप्mनो तजविजमा ऋण कर्जाको सुरक्षण बापत अन्य चल अचल सम्पत्ति रहेको र/वा अन्यले जमानत गरि दिएको अवस्थामा समेत यस लिखत बमोजिम जमानी गरी दिएको
+                    हद सम्मको रकम कलम सोझै मसँग व्यक्तिगत रुपमा असुल उपर गरि लिन सक्ने कुरामा मेरो मन्जुरी छ ।
+                </p>
+                <p>
+                    ५.	कथम कदाचित ऋणीले तपाई धनी बैंकलाई तिर्न बुझाउन पर्ने सम्पूर्ण रकम कलम चुक्ता भुक्तान हुनु अघिनै मेरो मृत्यु भएमा मेरो शेषपछि मबाट अंश अपुताली प्राप्त गर्न अंशियार वा उत्तराधिकारीहरु
+                    (Heir and Successors) ले यस लिखत बमोजिमको दायित्व बहन गर्नु पर्ने र तपाई धनीले ऋणीबाट प्राप्त गर्नु पर्ने सम्पूर्ण रकम कलम चुक्ता भुक्तान नभए सम्म निज अंशियार वा उत्तराधिकारी
+                    उल्लेखित दायित्व बमोजिमको रकम कलम तपाई धनी बैंकलाई चुक्ता भुक्तान जवाफदेही र जिम्मेवार रहने कुरामा मेरो मन्जुरी छ ।
+                </p>
+                <p>
+                    ६.	ऋणीले तपाई धनी बैंकलाई यो यति तिर्न पर्ने भनी अदालतको फैसलाद्वारा ठहर गरिदिएको रकम कलम वा तपाई धनी बैंकले ऋणीलाई लिखित सूचना दिई माग गरेको तिर्न बुझाउन बाँकी रकम
+                    कलम वा तपाई धनी बैंकको खाता बही स्टेटमेन्ट इत्यादिबाट ऋणीले तपाई धनी बैंकलाई तिर्न बुझाउन बाँकी देखिएको रकम कलम नै ऋणीले तपाई धनी बैंकलाई तिर्न बुझाउन पर्ने वास्तविक दायित्वको
+                    रुपमा मानिने र सोही आधारमा तपाई धनी बैंकले लिखित सूचना दिई मसँग रकम कलम तिर्न बुझाउन माग गरेमा सोही सूचनालाई अन्तिम तथा अकाट्य प्रमाण <strong>(Final and Conclusive Evidence)</strong>
+                    को रुपमा स्वीकार गरी सो उल्लेखित रकम कलम तिर्न बुझाउन मेरो मन्जुरी छ । सो सम्बन्धमा कुनै उजुर बाजुर गर्ने छैन ।
+                </p>
+                <p>
+                    ७.	माथि प्रकरणमा जे जस्तो उल्लेख भएतापनि यस लिखत बमोजिम मेरो दायित्व तपाई धनी बैंकले ऋणीलाई प्रदान गर्ने ऋण कर्जा तथा बैंकिङ्ग  कारोवार सुविधा र सोमा बैंक नियमानुसार हुने ब्याज,
+                    पेनाल ब्याज, मार्जिन, फि, कमिशन तथा अन्य रकम कलमको हदसम्म सिमित रहने  छ ।
+                </p>
+                <p>
+                    ८.	तपाई धनी बैंक प्रति मेरो यस लिखत बमोजिमको दायित्व यथावत कायम रही रहने  छ । तपाई धनी बैंकले माग गरेको अवस्थामा उपरोक्त दायित्व अन्तर्गत तिर्न बुझाउन पर्ने रकम कलम तिर्न बुझाउन
+                    मेरो मन्जुरी छ । तोकिएको म्याद भित्र ऋणीले बैंकलाई बुझाउन पर्ने साँवा ब्याज एवं किस्ता नबुझाई बसेमा वा धितो दिएको सम्पत्ति कुनै प्रकारले कच्चा ठहरिन गई बैंकको कर्जा असुल उपर हुने स्थिति नरही
+                    शर्त उल्लंघन गरेको पाइएमा वा गरेमा बैंकले मलाई नेपाल राष्ट्र बैंकले जारी गरेको कालो सूचि सम्बन्धि व्यवस्था अन्तर्गत रही कर्जा सूचना केन्द्र लिमिटेडमा कालो सूचिमा दर्तागरी गराई कारवाही गरेमा मेरो पूर्ण
+                    मन्जुरी छ ।
+                </p>
+                <p>
+                    ९.	यस लिखत बमोजिम तपाई धनी बैंकले रकम कलम माग गरी मलाई लिखित सूचना दिनु पर्ने भएमा तपाई धनी बैंकलाई मैले त्यस्तो सूचना दिनु अघि अन्तिम पटक उपलब्ध गराएको घर ठेगानामा व्यतिm वा
+                    हुलाक मार्पmत सूचना दिन सकिने छ । त्यसरी व्यक्ति मार्पmत दिएको सूचनाको हकमा बुझाएको मिति र हुलाक मार्पmत पठाएकोमा सूचना रजिष्टर्ड गरेको मितिले १५ दिन भित्र मैले प्राप्त गरेको मानिने छ । साथै,
+                    तपाई धनी बैंकको कुनै पनि अधिकृत कर्मचारीले हुलाक मार्पmत रजिष्टर्ड गरी यो मितिमा सूचना पठाएको भनी लिखित रुपमा प्रमाणित गरी दिएमा सो कुरा अन्यथा प्रमाणित नभए सम्म त्यस्तो सूचना पठाएको कुराको
+                    अकाट्य तथा अन्तिम प्रमाणको रुपमा हुने कुरामा समेत मेरो मन्जुरी छ ।
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <p>इति सम्बत
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="documentWrittenYear"
+                           placeholder=""
+                           formControlName="documentWrittenYear"
+                           type="text"/>
+                    साल
+                    <input class="form-field form-control-sm shortInput nepaliFont"
+                           name="documentWrittenMonth"
+                           placeholder=""
+                           formControlName="documentWrittenMonth"
+                           type="text"/>
+                    महिना
+                    <input class="form-field form-control-sm shortInput nepaliFont"
+                           name="documentWrittenDay"
+                           placeholder=""
+                           formControlName="documentWrittenDay"
+                           type="text"/>
+                    गते रोज
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="docWrittenWeek"
+                           placeholder=""
+                           formControlName="docWrittenWeek"
+                           type="text"/>
+                    शुभम् ।
+                </p>
+            </div>
+        </div>
+
+        <div class="witness">
+            <div class="row">
+                <div class="col-md-12">
+                    <h5 class="text-center">साक्षीः</h5>
+                    <p>
+                        १.कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनि सनाखत गर्ने धनी बैंकका कर्मचारी
+                        <input class="form-field form-control-sm nepaliFont"
+                               name="bankStaffName"
+                               formControlName="bankStaffName"
+                               placeholder=""
+                               type="text"/>
+                    </p>
+                    <p>
+                        २.<input class="form-field form-control-sm nepaliFont"
+                                 name="witnessDistrict"
+                                 formControlName="witnessDistrict"
+                                 placeholder=""
+                                 type="text"/>
+                        जिल्ला
+                        <input class="form-field form-control-sm nepaliFont"
+                               name="witnessMunicipalityOrVdc"
+                               formControlName="witnessMunicipalityOrVdc"
+                               placeholder=""
+                               type="text"/>
+                        नगरपालिका/गा.बि.स वडा नं
+                        <input class="form-field form-control-sm nepaliFont"
+                               name="witnessWardNo"
+                               formControlName="witnessWardNo"
+                               placeholder=""
+                               type="text"
+                               size="2"/>
+                        बस्ने बर्ष
+                        <input class="form-field form-control-sm nepaliFont"
+                               name="witnessAge"
+                               formControlName="witnessAge"
+                               placeholder=""
+                               type="text"
+                               size="2"/>
+                        को/की
+                        <input class="form-field form-control-sm nepaliFont"
+                               name="witnessName"
+                               formControlName="witnessName"
+                               placeholder=""
+                               type="text"/>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button nbButton status="success" type="submit">Save</button>
+            </div>
+        </div>
+    </form>
+</div>

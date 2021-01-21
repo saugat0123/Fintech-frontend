@@ -920,6 +920,11 @@
                                </div>
                            </div>
                        </div>
+                       <div class="text-right">
+                           <input (click)="addManagementTeam()" class="btn btn-sm btn-flat btn-primary"
+                                  type="button"
+                                  value="Add More"/>
+                       </div>
                        <div class="col-md-12">
                            <div class="form-group">
                                <label for="managementTeamNote"><strong>Note</strong></label>
@@ -936,11 +941,6 @@
                                    </div>
                                </div>
                            </div>
-                       </div>
-                       <div class="text-right">
-                           <input (click)="addManagementTeam()" class="btn btn-sm btn-flat btn-primary"
-                                  type="button"
-                                  value="Add More"/>
                        </div>
 
                        <!--Information of Proprietor/Shareholder/Partner-->
@@ -1041,18 +1041,10 @@
                                <div class="row">
                                    <div class="col-md-4">
                                        <div class="form-group">
-                                           <label for="province"><strong>Province</strong></label>
-                                           <select (change)="getDistricts(proprietor.get('province').value, proprietorIndex)" [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('province').errors }"
-                                                   class="custom-select"
-                                                   formControlName="province"
-                                                   id="province"
-                                                   name="province">
-                                               <option [ngValue]="null" hidden>Province</option>
-                                               <option *ngFor="let provinceVal of provinceList"
-                                                       [ngValue]="provinceVal.id">
-                                                   {{provinceVal.name}}
-                                               </option>
-                                           </select>
+                                           <label><strong>Province</strong></label>
+                                           <ng-select formControlName="province" (change)="getDistricts(proprietor.get('province').value.id, proprietorIndex)" bindLabel="name" placeholder="Select Province">
+                                               <ng-option *ngFor="let province of provinceList" [value]="province">{{province.name}}</ng-option>
+                                           </ng-select>
                                            <div
                                                *ngIf="(submitted) && proprietor.get('province').invalid"
                                                class="invalid-feedback">
@@ -1065,19 +1057,10 @@
                                    </div>
                                    <div class="col-md-4">
                                        <div class="form-group">
-                                           <label for="district"><strong>District</strong></label>
-                                           <select (change)="getMunicipalities(proprietor.get('district').value, proprietorIndex)" [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('district').errors }"
-                                                   class="custom-select"
-                                                   formControlName="district"
-                                                   id="district"
-                                                   name="district">
-                                               <option [ngValue]="null" hidden>District</option>
-                                               <option
-                                                   *ngFor="let districtVal of addressList[proprietorIndex].districtList"
-                                                   [ngValue]="districtVal.id">
-                                                   {{districtVal.name}}
-                                               </option>
-                                           </select>
+                                           <label><strong>District</strong></label>
+                                           <ng-select formControlName="district" (change)="getMunicipalities(proprietor.get('district').value.id, proprietorIndex)" bindLabel="name" placeholder="Select District">
+                                               <ng-option *ngFor="let districtVal of addressList[proprietorIndex].districtList" [value]="districtVal">{{districtVal.name}}</ng-option>
+                                           </ng-select>
                                            <div
                                                *ngIf="(submitted) && proprietor.get('district').invalid"
                                                class="invalid-feedback">
@@ -1090,19 +1073,11 @@
                                    </div>
                                    <div class="col-md-4">
                                        <div class="form-group">
-                                           <label for="municipality"><strong>Municipalities or
+                                           <label><strong>Municipalities or
                                                VDC</strong></label>
-                                           <select [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('municipalityVdc').errors }" class="custom-select"
-                                                   formControlName="municipalityVdc"
-                                                   id="municipality"
-                                                   name="municipality">
-                                               <option [ngValue]="null" hidden>Municipality</option>
-                                               <option
-                                                   *ngFor="let municipalityVal of addressList[proprietorIndex].municipalityVdcList"
-                                                   [ngValue]="municipalityVal.id">
-                                                   {{municipalityVal.name}}
-                                               </option>
-                                           </select>
+                                           <ng-select formControlName="municipalityVdc" bindLabel="name" placeholder=" Select Municipality Vdc">
+                                               <ng-option *ngFor="let municipalityVal of addressList[proprietorIndex].municipalityVdcList" [value]="municipalityVal">{{municipalityVal.name}}</ng-option>
+                                           </ng-select>
                                            <div
                                                *ngIf="(submitted) && proprietor.get('municipalityVdc').invalid"
                                                class="invalid-feedback">
@@ -1345,7 +1320,7 @@
                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
                                               class="form-control text-center"
                                               formControlName="interestIncomeDuringReview"
-                                              type="number">
+                                              type="number" appDecimalNumber>
 
                                    </td>
 
@@ -1355,7 +1330,7 @@
                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
                                               class="form-control text-center"
                                               formControlName="loanProcessingFeeDuringReview"
-                                              type="number">
+                                              type="number" appDecimalNumber>
                                    </td>
 
                                </tr>
@@ -1364,7 +1339,7 @@
                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
                                               class="form-control text-center"
                                               formControlName="lcCommissionDuringReview"
-                                              type="number">
+                                              type="number" appDecimalNumber>
 
                                    </td>
 
@@ -1374,7 +1349,7 @@
                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
                                               class="form-control text-center"
                                               formControlName="guaranteeCommissionDuringReview"
-                                              type="number">
+                                              type="number" appDecimalNumber>
                                    </td>
 
                                </tr>
@@ -1383,7 +1358,7 @@
                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
                                               class="form-control text-center"
                                               formControlName="otherCommissionDuringReview"
-                                              type="number">
+                                              type="number" appDecimalNumber>
                                    </td>
                                </tr>
                                <tr>
@@ -1391,7 +1366,7 @@
                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
                                               class="form-control text-center"
                                               formControlName="savingAccountDuringReview"
-                                              type="number">
+                                              type="number" appDecimalNumber>
 
                                    </td>
 
@@ -1401,7 +1376,7 @@
                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
                                               class="form-control text-center"
                                               formControlName="payrollAccountDuringReview"
-                                              type="number">
+                                              type="number" appDecimalNumber>
 
                                    </td>
 
@@ -1411,7 +1386,7 @@
                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
                                               class="form-control text-center"
                                               formControlName="debitCardsDuringReview"
-                                              type="number">
+                                              type="number" appDecimalNumber>
 
                                    </td>
 
@@ -1421,7 +1396,7 @@
                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
                                               class="form-control text-center"
                                               formControlName="creditCardsDuringReview"
-                                              type="number">
+                                              type="number" appDecimalNumber>
 
                                    </td>
 
@@ -1431,7 +1406,7 @@
                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
                                               class="form-control text-center"
                                               formControlName="mobileBankingDuringReview"
-                                              type="number">
+                                              type="number" appDecimalNumber>
 
                                    </td>
 
@@ -1441,7 +1416,7 @@
                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
                                               class="form-control text-center"
                                               formControlName="lockerDuringReview"
-                                              type="number">
+                                              type="number" appDecimalNumber>
 
                                    </td>
 
@@ -1455,9 +1430,8 @@
                        </ng-container>
                    </nb-tab>
                  <!--  new tab detail start from here-->
-                   <nb-tab tabTitle="Other Detail">
-                       <em class="fa fa-info-circle"><em class="ml-2">Note : These are mandatory fields for generating CRG (Alpha). In case
-                       of absence of CRG (Alpha), please select random answers to be able to submit the form.</em></em>
+                   <nb-tab *ngIf="!disableCrgAlpha" tabTitle="Other Detail">
+                       <em class="fa fa-info-circle"><em class="ml-2">Note : These are mandatory fields for generating CRG (Alpha)</em></em>
                        <hr>
                        <app-banking-relation #bankingRelationComponent
                                              [formValue]="bankingRelationshipInput">
@@ -1585,6 +1559,11 @@
                                                     [value]="succession?.value">
                                                {{succession?.value}}
                                        </select>
+                                       <div *ngIf="(submitted) &&  form.succession.errors" class="small text-danger">
+                                           <div *ngIf="form.succession.errors.required">
+                                               Succession is required
+                                           </div>
+                                       </div>
                                    </div>
                        </div>
                    </nb-tab>

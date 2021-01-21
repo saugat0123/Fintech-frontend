@@ -36,7 +36,7 @@
                     </div>
                 </div>
 
-                <div *ngIf="userList?.length > 1" class="row">
+                <div *ngIf="userList?.length > 1 && showUserList" class="row">
                     <div class="col-md-12 form-group">
                         <label class="toUser" for="toUser">To User</label>
                         <select class="form-control form-control-sm" formControlName="toUser" id="toUser"

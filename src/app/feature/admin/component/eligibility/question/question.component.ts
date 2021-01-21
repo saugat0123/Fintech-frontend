@@ -8,6 +8,7 @@ import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {LoanConfigService} from '../../loan-config/loan-config.service';
 import {QuestionService} from '../../../../service/question.service';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-question',
@@ -17,6 +18,7 @@ import {QuestionService} from '../../../../service/question.service';
 export class QuestionComponent implements OnInit {
     loanConfigId: number;
     totalObtainablePoints: number;
+    collapsedIndex = null;
     existingQuestionList: boolean;
     newQuestionList: boolean;
     task: string;
@@ -155,7 +157,7 @@ export class QuestionComponent implements OnInit {
         this.qsnContent = qsnContent;
         this.buildForm();
 
-        this.modalRef = this.modalService.open(template, {size: 'lg'});
+        this.modalRef = this.modalService.open(template, {size: 'lg', backdrop: 'static'});
     }
 
     openAddQuestion(template: TemplateRef<any>) {
@@ -163,7 +165,7 @@ export class QuestionComponent implements OnInit {
         this.qsnContent = new Questions();
         this.buildForm();
 
-        this.modalRef = this.modalService.open(template, {size: 'lg'});
+        this.modalRef = this.modalService.open(template, {size: 'lg', backdrop: 'static'});
     }
 
     addAnswerFieldForEdit() {
@@ -221,6 +223,18 @@ export class QuestionComponent implements OnInit {
         );
     }
 
+    openCollapsible(index) {
+        if (ObjectUtil.isEmpty(this.collapsedIndex)) {
+            this.collapsedIndex = index;
+        } else {
+            if (this.collapsedIndex !== index) {
+                this.collapsedIndex = index;
+            } else {
+                this.collapsedIndex = null;
+            }
+        }
+    }
+
     onDelete(qsnContent) {
         if (confirm('Are you sure to delete this question?')) {
             this.questionService.deleteQuestion(this.loanConfigId, qsnContent.id).subscribe(() => {
@@ -238,5 +252,4 @@ export class QuestionComponent implements OnInit {
             );
         }
     }
-
 }

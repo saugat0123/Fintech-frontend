@@ -302,16 +302,11 @@
 
                 </nb-accordion-item-header>
                 <nb-accordion-item-body>
-                  <div class="py-4" *ngIf="maker">
-                    <button (click)="openProprietorEdit()" size="tiny" nbButton
-                            class="float-right"><a class="cursor"><em class="fa fa-edit"></em></a>
-                    </button>
-                  </div>
                   <br>
                   <table aria-describedby="proprietor info table" class="table  table-bordered table-hover sb-small text-center">
                     <thead>
                     <tr class="text-white sb-bg-dark">
-                      <th scope="col">#</th>
+                      <th scope="col"> S.N </th>
                       <th scope="col">Type</th>
                       <th scope="col">Name</th>
                       <th scope="col">Contact No.</th>
@@ -322,16 +317,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let singleProprietorInfo of companyInfo?.proprietorsList;
+                    <tr *ngFor="let proprietorInfo of companyJsonData?.proprietorList;
                                         let i = index">
                       <td>{{i + 1}}</td>
-                      <td>{{singleProprietorInfo?.type}}</td>
-                      <td>{{singleProprietorInfo?.name}}</td>
-                      <td>{{singleProprietorInfo?.contactNo}}</td>
-                      <td>{{singleProprietorInfo?.share}}</td>
-                      <td>{{singleProprietorInfo?.province?.name}}</td>
-                      <td>{{singleProprietorInfo?.district?.name}}</td>
-                      <td>{{singleProprietorInfo?.municipalityVdc?.name}}</td>
+                      <td>{{proprietorInfo?.type}}</td>
+                      <td>{{proprietorInfo?.name}}</td>
+                      <td>{{proprietorInfo?.contactNo}}</td>
+                      <td>{{proprietorInfo?.share}}</td>
+                      <td>{{proprietorInfo?.province?.name}}</td>
+                      <td>{{proprietorInfo?.district?.name}}</td>
+                      <td>{{proprietorInfo?.municipalityVdc?.name}}</td>
                     </tr>
                     </tbody>
                   </table>
@@ -346,22 +341,17 @@
                   </div>
                 </nb-accordion-item-header>
                 <nb-accordion-item-body>
-                  <div class="py-4" *ngIf="maker">
-                    <button (click)="openKycModal()" size="tiny" nbButton
-                            class="float-right"><a class="cursor"><em class="fa fa-edit"></em></a>
-                    </button>
-                  </div>
                   <br>
                   <table aria-describedby="management team table" class="table  table-bordered table-hover sb-small text-center">
                     <thead>
                     <tr class="sb-bg-dark text-white">
-                      <th scope="col">#</th>
+                      <th scope="col"> S.N</th>
                       <th scope="col">Name</th>
                       <th scope="col">Designation</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let singleManagementTeam of companyInfo?.managementTeamList;
+                    <tr *ngFor="let singleManagementTeam of companyJsonData?.managementTeamList;
                                         let i = index">
                       <td>{{i + 1}}</td>
                       <td>{{singleManagementTeam?.name}}</td>
@@ -380,28 +370,23 @@
                   </div>
                 </nb-accordion-item-header>
                 <nb-accordion-item-body>
-                  <div class="py-4" *ngIf="maker">
-                    <button (click)="openSwotEdit()" size="tiny" nbButton
-                            class="float-right"><a class="cursor"><em class="fa fa-edit"></em></a>
-                    </button>
-                  </div>
                   <br>
                   <table aria-describedby="swot table" class="table  table-bordered table-hover sb-small text-center">
                     <tr>
                       <td class="sb-bg-dark text-white"> Strengths</td>
-                      <td>{{companyInfo?.swot?.strength}} </td>
+                      <td>{{companyJsonData?.swot?.strength}} </td>
                     </tr>
                     <tr>
                       <td class="sb-bg-dark text-white"> Weaknesses</td>
-                      <td> {{companyInfo?.swot?.weakness}}</td>
+                      <td> {{companyJsonData?.swot?.weakness}}</td>
                     </tr>
                     <tr>
                       <td class="sb-bg-dark text-white"> Opportunities</td>
-                      <td> {{companyInfo?.swot?.opportunity}}</td>
+                      <td> {{companyJsonData?.swot?.opportunity}}</td>
                     </tr>
                     <tr>
                       <td class="sb-bg-dark text-white"> Threats</td>
-                      <td> {{companyInfo?.swot?.threats}}</td>
+                      <td> {{companyJsonData?.swot?.threats}}</td>
                     </tr>
                   </table>
                 </nb-accordion-item-body>

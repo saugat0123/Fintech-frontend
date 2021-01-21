@@ -89,7 +89,7 @@
                     <div class="clearfix">
                         <div class="float-left"><span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span></div>
                         <div class="float-right" *ngIf="loanDataHolder?.isSol">
-                            <span><strong>Approval User: </strong>{{loanDataHolder?.solUser?.name}}</span></div>
+                            <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span></div>
 
                     </div>
 
@@ -307,13 +307,7 @@
                 </div>-->
             </div>
 
-            <!--Applicant detail-->
-            <div class="row">
-                <div class="col-md-12">
-                    <strong>The Applicant</strong>
-                    <hr>
-                </div>
-            </div>
+
             <div class="row sb-small">
                 <div class="col-md-12">
                     <b>Purpose: {{loanDataHolder.loan.name}}</b>
@@ -333,6 +327,45 @@
                     </span>
 
                 </div>
+            </div>
+
+            <div class="print-only">
+                <p><strong>Credit Risk Grading</strong></p>
+                <table
+                        class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <thead>
+                    <tr class="text-white sb-bg-dark">
+                        <th>Credit Risk Grading (Flavour)</th>
+                        <th>Credit Risk Grade</th>
+                        <th>Credit Risk Rating</th>
+                        <th>Credit Risk Score</th>
+                        <th>Premium</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL' && creditRiskLambdaSummary">
+                        <td>Lambda</td>
+                        <td><span [class]="creditGradeLambdaStatusBadge"> {{creditRiskGradeLambda | titlecase}}</span></td>
+                        <td><span [class]="creditGradeLambdaStatusBadge"> {{ creditRiskRatingLambda | titlecase }}</span></td>
+                        <td><strong> {{ creditRiskLambdaScore }}</strong></td>
+                        <td><strong> {{ creditRiskLambdaPremium }}</strong></td>
+                    </tr>
+                    <tr *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION' && creditRiskAlphaSummary">
+                        <td>Alpha</td>
+                        <td><span [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha | titlecase}}</span></td>
+                        <td><span [class]="creditGradeAlphaStatusBadge"> {{ creditRiskRatingAlpha | titlecase }}</span></td>
+                        <td><strong> {{ creditRiskAlphaScore }}</strong></td>
+                        <td><strong> {{ creditRiskAlphaPremium }}</strong></td>
+                    </tr>
+                    <tr *ngIf="crgGammaSummary">
+                        <td>Gamma</td>
+                        <td><span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span></td>
+                        <td>N/A</td>
+                        <td><span><strong> {{ crgGammaScore }}</strong></span></td>
+                        <td>N/A</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
 
             <div *ngIf="loanCategory === 'INSTITUTION'" class="row">
@@ -373,8 +406,8 @@
                                 <td>{{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>
                             </tr>
                             <tr class="text-white sb-bg-dark">
-                                <td>Customer Client Type</td>
-                                <td>SubSector</td>
+                                <th>Customer Client Type</th>
+                                <th>SubSector</th>
                                 <!--<td>Address as per Legal Document</td>-->
                             </tr>
                             <tr>
@@ -409,6 +442,7 @@
                         <!--                            </tbody>-->
                         <!--                        </table>-->
                     </div>
+
                     <div *ngIf="loanCategory === 'INDIVIDUAL'">
                         <p><strong>Family Details</strong></p>
                         <table
@@ -806,6 +840,113 @@
                 </div>
             </div>
 
+            <div class="print-only">
+                <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row ">
+                    <div class="col-md-12">
+                        <p><strong>Loan Documents</strong></p>
+                    </div>
+                    <div class="col-md-12">
+                        <table class="table table-condensed table-bordered table-sm sb-small text-center">
+                            <thead>
+                            <tr class="text-white sb-bg-dark">
+                                <th>S.N</th>
+                                <th>Document</th>
+                                <th>Checked</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let singleDoc of loanDataHolder?.customerDocument; let i = index">
+                                <td>{{i + 1}}</td>
+                                <td>{{singleDoc?.document?.name}}</td>
+                                <td>
+                                    <i class="fas fa-check" *ngIf="singleDoc?.documentPath"></i>
+                                    <i class="fas fa-times" *ngIf="!singleDoc?.documentPath"></i></td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row ">
+                    <div class="col-md-12">
+                        <table class="table table-condensed table-bordered table-sm sb-small text-center">
+
+                            <tr class="text-white sb-bg-dark">
+                                <th colspan="4"> Customer General Document
+                                </th>
+                            </tr>
+                            <tr class="text-white sb-bg-dark">
+                                <th>SN</th>
+                                <th>Document</th>
+                                <th>Checked</th>
+                            </tr>
+                            <tr *ngFor="let generalDoc of loanDataHolder?.loanHolder?.customerGeneralDocuments; let i=index">
+                                <td>{{i + 1}}</td>
+                                <td>{{generalDoc?.document?.displayName}}</td>
+                                <td>
+                                    <i class="fas fa-check" *ngIf="generalDoc?.docPath"></i>
+                                    <i class="fas fa-times" *ngIf="!generalDoc?.docPath"></i>
+                                  </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div *ngIf="minOneGuarantorDoc" class="row">
+                    <div class="col-md-12">
+                        <p><strong>Guarantor Documents</strong></p>
+                        <table class="table table-condensed table-bordered table-sm sb-small text-center">
+                            <thead>
+                            <tr class="text-white sb-bg-dark">
+                                <th>S.N</th>
+                                <th>Guarantor</th>
+                                <th>Document</th>
+                                <th>Checked</th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
+                            <tr *ngIf="singleDoc?.docPath">
+                                <td>{{i + 1}}</td>
+                                <td>{{singleDoc?.name}}</td>
+                                <td>Net Worth Document</td>
+                                <td>
+                                    <i class="fa fa-check" *ngIf="singleDoc?.docPath"></i>
+                                    <i class="fa fa-times" *ngIf="!singleDoc?.docPath"></i>
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div *ngIf="minOneInsuranceDoc" class="row ">
+                    <div class="col-md-12">
+                        <p><strong>Insurance Documents</strong></p>
+                        <table class="table table-condensed table-bordered table-sm sb-small text-center">
+                            <thead>
+                            <tr class="text-white sb-bg-dark">
+                                <th>S.N</th>
+                                <th>Policy Number</th>
+                                <th>Company</th>
+                                <th>Document</th>
+                                <th>Checked</th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let singleDoc of insuranceWithDoc; let i = index">
+                            <tr *ngIf="singleDoc.policyDocumentPath">
+                                <td>{{i + 1}}</td>
+                                <td>{{singleDoc?.policyNumber}}</td>
+                                <td>{{singleDoc?.company}}</td>
+                                <td>Insurance Policy</td>
+                                <td>
+                                    <i class="fa fa-check" *ngIf="singleDoc?.policyDocumentPath"></i>
+                                    <i class="fa fa-times" *ngIf="!singleDoc?.policyDocumentPath"></i>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
             <div *ngIf="loanDataHolder?.cadDocument?.length > 0  && showCadDoc" class="row disable-print">
                 <div class="col-md-12">
                     <p><strong>Cad Documents</strong></p>
@@ -842,7 +983,7 @@
                                                       [customerAllLoanList]="customerAllLoanList"
                                                       [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
 
-            <div class="row mt-3 disable-print">
+            <div class="row mt-3">
                 <div class="col-md-12">
                     <p><strong>Authority Section</strong></p>
                     <table

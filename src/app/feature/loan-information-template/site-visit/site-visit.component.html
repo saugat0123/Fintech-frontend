@@ -110,30 +110,46 @@
                                   type="text"></textarea>
                     </div>
                 </div>
-
-
-                <div class=" input-group mb-3">
-                    <input class="form-control pr-0" formControlName="locationPreview" id="locationPreview1"
-                           name="locationPreview"
-                           type="text">
-                    <div class=" input-group-append">
-                        <button (click)="findLocation1()" class="btn btn-light">Find Location</button>
-                    </div>
+                <div>
+                    <label class="ml-2"><strong>Location Detail</strong></label>
                 </div>
-                <agm-map (mapClick)="placeMaker1($event.coords.lat,$event.coords.lng)"
-                         [clickableIcons]='false'
-                         [fullscreenControl]='true'
-                         [latitude]="latitude"
-                         [longitude]="longitude"
-                         [mapTypeControl]='true'
-                         [zoom]="zoom"
-                         style="height: 200px; width: 100%;">
-                    <agm-marker [latitude]="markerLatitude" [longitude]="markerLongitude">
-                        <agm-info-window [isOpen]="infoWindowOpen.value">
-                            {{addressLabel.value}}
-                        </agm-info-window>
-                    </agm-marker>
-                </agm-map>
+                <div class="row col-md-12">
+                        <div class="col-md-4">
+                            <label for="currentSiteVisitLongitude">Longitude</label>
+                            <input type="number" class="form-control" id="currentSiteVisitLongitude"
+                                   formControlName="currentSiteVisitLongitude" name="currentSiteVisitLongitude"
+                                   placeholder="Longitude">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="currentSiteVisitLatitude">Latitude</label>
+                            <input type="number" class="form-control" id="currentSiteVisitLatitude"
+                                   formControlName="currentSiteVisiLatitude" name="currentSiteVisiLatitude"
+                                   placeholder="Latitude">
+                        </div>
+                </div>
+
+<!--                <div class=" input-group mb-3">-->
+<!--                    <input class="form-control pr-0" formControlName="locationPreview" id="locationPreview1"-->
+<!--                           name="locationPreview"-->
+<!--                           type="text">-->
+<!--                    <div class=" input-group-append">-->
+<!--                        <button (click)="findLocation1()" class="btn btn-light">Find Location</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <agm-map (mapClick)="placeMaker1($event.coords.lat,$event.coords.lng)"-->
+<!--                         [clickableIcons]='false'-->
+<!--                         [fullscreenControl]='true'-->
+<!--                         [latitude]="latitude"-->
+<!--                         [longitude]="longitude"-->
+<!--                         [mapTypeControl]='true'-->
+<!--                         [zoom]="zoom"-->
+<!--                         style="height: 200px; width: 100%;">-->
+<!--                    <agm-marker [latitude]="markerLatitude" [longitude]="markerLongitude">-->
+<!--                        <agm-info-window [isOpen]="infoWindowOpen.value">-->
+<!--                            {{addressLabel.value}}-->
+<!--                        </agm-info-window>-->
+<!--                    </agm-marker>-->
+<!--                </agm-map>-->
             </div>
             <div [hidden]="!businessSiteVisitForm" class="row mt-3"
                  formGroupName="businessSiteVisitDetails">
@@ -243,28 +259,48 @@
                         <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('findingsAndComments')?.errors.required">comments required</span>
                     </div>
                 </div>
-                <div class="input-group mb-3">
-                    <input class="form-control pr-0" formControlName="locationPreview" id="locationPreview"
-                           name="locationPreview"
-                           type="text">
-                    <div class="input-group-append">
-                        <button (click)="findLocation()" class="btn btn-light">Find Location</button>
+                    <div>
+                        <label class="ml-2"><strong>Location Detail</strong></label>
                     </div>
-                </div>
-                <agm-map (mapClick)="placeMaker($event.coords.lat,$event.coords.lng)"
-                         [clickableIcons]='false'
-                         [fullscreenControl]='true'
-                         [latitude]="latitude"
-                         [longitude]="longitude"
-                         [mapTypeControl]='true'
-                         [zoom]="zoom"
-                         style="height: 200px; width: 100%;">
-                    <agm-marker [latitude]="markerLatitude" [longitude]="markerLongitude">
-                        <agm-info-window [isOpen]="infoWindowOpen.value">
-                            {{addressLabel.value}}
-                        </agm-info-window>
-                    </agm-marker>
-                </agm-map>
+                    <div class="row col-md-12">
+                        <div class="col-md-4">
+                                <label class="title" for="businessSiteVisitLongitude">Longitude</label>
+                            <input class="form-control" formControlName="businessSiteVisitLongitude"
+                                   id="businessSiteVisitLongitude"
+                                   name="businessSiteVisitLongitude" placeholder="Longitude"
+                                   type="number">
+                        </div>
+                        <div class="col-md-4">
+                                <label class="title" for="businessSiteVisitLatitude">Latitude</label>
+                            <input class="form-control" formControlName="businessSiteVisitLatitude"
+                                   id="businessSiteVisitLatitude"
+                                   name="businessSiteVisitLatitude" placeholder="Latitude"
+                                   type="number">
+                        </div>
+                    </div>
+
+<!--                <div class="input-group mb-3">-->
+<!--                    <input class="form-control pr-0" formControlName="locationPreview" id="locationPreview"-->
+<!--                           name="locationPreview"-->
+<!--                           type="text">-->
+<!--                    <div class="input-group-append">-->
+<!--                        <button (click)="findLocation()" class="btn btn-light">Find Location</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <agm-map (mapClick)="placeMaker($event.coords.lat,$event.coords.lng)"-->
+<!--                         [clickableIcons]='false'-->
+<!--                         [fullscreenControl]='true'-->
+<!--                         [latitude]="latitude"-->
+<!--                         [longitude]="longitude"-->
+<!--                         [mapTypeControl]='true'-->
+<!--                         [zoom]="zoom"-->
+<!--                         style="height: 200px; width: 100%;">-->
+<!--                    <agm-marker [latitude]="markerLatitude" [longitude]="markerLongitude">-->
+<!--                        <agm-info-window [isOpen]="infoWindowOpen.value">-->
+<!--                            {{addressLabel.value}}-->
+<!--                        </agm-info-window>-->
+<!--                    </agm-marker>-->
+<!--                </agm-map>-->
             </div>
             <div [hidden]="!fixedAssetCollateralForm" class="row mt-3"
                  formGroupName="fixedAssetCollateralDetails">
@@ -307,6 +343,37 @@
                 <div class="col-md-12">
                     <app-common-address #fixedAssetsAddress [address]="formDataForEdit?.fixedAssetCollateralDetails?.address"></app-common-address>
                 </div>
+                <div class="col-md-4 form-group">
+                    <label class="title" for="typeOfProperty">Type of Property</label>
+                    <select class="custom-select" formControlName="typeOfProperty" id="typeOfProperty"
+                            name="typeOfProperty">
+                        <option [ngValue]="''" hidden>Type of Property</option>
+                        <option value="Agricultural">Agricultural</option>
+                        <option value="Industrial">Industrial</option>
+                        <option value="Commercial">Commercial</option>
+                        <option value="Residential">Residential</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label class="title" for="shapeOfLand">Shape of Land</label>
+                    <select class="custom-select" formControlName="shapeOfLand" id="shapeOfLand"
+                            name="shapeOfLand">
+                        <option [ngValue]="''" hidden>Select shape of land</option>
+                        <option value="Rectangular">Rectangular</option>
+                        <option value="Triangular">Triangular</option>
+                        <option value="Irregular">Irregular</option>
+                        <option value="Vertical Slope">Vertical Slope</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label class="title">Does the location & shape of land appear consistent with Blue Print?</label>
+                    <nb-radio-group formControlName="locationAndShapeOfLand" class="ml-1 d-inline-flex text-center">
+                        <nb-radio value="Yes">Yes</nb-radio>
+                        <nb-radio value="No">No</nb-radio>
+                    </nb-radio-group>
+                </div>
                 <h5 class="col-md-12 mt-3">Facilities</h5>
                 <div class="row col-md-12 pr-0" formGroupName="facilities">
                     <div class="col-md-3 form-group">
@@ -334,6 +401,16 @@
                         <label class="title" for="approachDistance">Approach Distance</label>
                         <input class="form-control" formControlName="approachDistance" id="approachDistance"
                                name="approachDistance" placeholder="approach distance" type="text">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label class="title" for="roadAccessFrom">Road Access From</label>
+                        <select class="custom-select" formControlName="roadAccessFrom" id="roadAccessFrom"
+                                name="roadAccessFrom">
+                            <option [ngValue]="''" hidden>Select Road Access From</option>
+                            <option value="One Side">One Side</option>
+                            <option value="Two Sides">Two Sides</option>
+                            <option value="Both Sides">Both Sides</option>
+                        </select>
                     </div>
                 </div>
                 <h5 class="col-md-12 mt-3">Other Facilities</h5>
@@ -412,6 +489,31 @@
                                    name="constructionYear" placeholder="construction year">
                             <nb-datepicker #datepicker5></nb-datepicker>
                         </div>
+                        <div *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('building')?.value == 'YES'"
+                             class="col-md-12 form-group">
+                            <label class="title" for="buildingType">Building Type</label>
+                            <select class="custom-select" formControlName="buildingType" id="buildingType"
+                                    name="buildingType">
+                                <option [ngValue]="''" hidden>Select Building type</option>
+                                <option value="Residential">Residential</option>
+                                <option value="Commercial Complex/Mall">Commercial Complex/Mall</option>
+                                <option value="Factory Shed">Factory Shed</option>
+                                <option value="Warehouse">Warehouse</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                        <div *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('building')?.value == 'YES'"
+                             class="col-md-12 form-group">
+                            <label class="title" for="builtUpArea">Built Up Area</label>
+                            <input class="form-control" formControlName="builtUpArea" id="builtUpArea"
+                                   name="builtUpArea" placeholder="Built Up Area">
+                        </div>
+                        <div *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('building')?.value == 'YES'"
+                             class="col-md-12 form-group">
+                            <label class="title" for="noOfStorey">Number of Storey</label>
+                            <input class="form-control" formControlName="noOfStorey" id="noOfStorey"
+                                   name="noOfStorey" placeholder="No. of Storey ">
+                        </div>
                     </div>
                     <table *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('building')?.value == 'YES'"
                            class="table col-md-4 table-sm sb-small text-center">
@@ -454,6 +556,36 @@
                             <td>7</td>
                             <td>Bathroom And Toilet</td>
                             <td><input formControlName="bathroomAndToilet" type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Naksa Pass Obtained</td>
+                            <td><input formControlName="naksaPassObtained" type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Building Completion Certificate Obtained</td>
+                            <td><input formControlName="buildingCompCertificate" type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Construction appears to be as per the Approved Naksa Pass</td>
+                            <td><input formControlName="constructionAsPerNaksa" type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>Any road setbacks?</td>
+                            <td><input formControlName="roadSetbacks" type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>Any river/canal setbacks? </td>
+                            <td><input formControlName="riverOrCanalSetbacks" type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td>Any High-tension setbacks?</td>
+                            <td><input formControlName="highTensionSetbacks" type="checkbox"></td>
                         </tr>
                     </table>
                 </div>
@@ -743,7 +875,85 @@
                         </div>
                     </div>
                 </div>
-                <h4 class="col-md-12 mt-3">Current Assets Inpsection - Stock Checklist Questionaire</h4>
+                <!--                New section Added-->
+                <h4 class="col-md-12 mt-3">Major Inquiries and Observations</h4>
+                <div class="col-md-12 mt-3" formGroupName="majorInquiriesAndObservations">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>
+                                1. Explain the business nature, operating/manufacturing process in maximum 4
+                                lines as per observation/discussion with the customer during inspection.
+                            </label>
+                            <textarea id="businessNature" formControlName="businessNature" name="creditor" type="text"
+                                      class="form-control" placeholder="Business Nature" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>
+                                2. Observation of business operation/activities: No of staffs/workers,
+                                Machines/Plant in operation; Loading/unloading happening/brief of
+                                various sections of business (Manufacturing/ Packaging/ Storage/
+                                Dispatch/ Quality Control etc.), No of vehicles observed etc.
+                            </label>
+                            <textarea id="businessActivities" formControlName="businessActivities" name="businessActivities" type="text"
+                                      class="form-control" placeholder="Business Activities" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>
+                                3. Questions to be asked to the accompanying person of client:
+                            </label>
+                            <div class="col-md-12 mt-3">
+                                <label>
+                                    a. How is the business doing now compared to last year?
+                                </label>
+                                <textarea id="businessProgress" formControlName="businessProgress" name="businessProgress" type="text"
+                                          class="form-control" placeholder="Business Progress" rows="4"></textarea>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <label>
+                                    b. What are the prospects and challenges for the business?
+                                </label>
+                                <textarea id="businessChallenges" formControlName="businessChallenges" name="businessChallenges" type="text"
+                                          class="form-control" placeholder="Business Challenges" rows="4"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>
+                                4. Power Back-up Arrangement availability at site:
+                            </label>
+                            <div class="col-md-3">
+                                <nb-checkbox formControlName="normalElectricityLine">
+                                    Normal Electricity Line
+                                </nb-checkbox>
+                                <nb-checkbox formControlName="invertorOrGenerator">
+                                    Inverter/Generators
+                                </nb-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>
+                                5. The stock register system at the site is in the form of:
+                            </label>
+                            <div class="col-md-2">
+                                <nb-checkbox formControlName="ledgerBook">
+                                    Ledger Book
+                                </nb-checkbox>
+                                <nb-checkbox formControlName="electronic">
+                                    Electronic
+                                </nb-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Ended-->
+                <h4 class="col-md-12 mt-3">Current Assets Inspection - Stock Checklist Questionnaire</h4>
                 <div class="col-md-12 mt-3" formGroupName="stockCheckListQuestionaire">
                     <table class="table table-sm sb-small text-center table-bordered">
                         <tr class="text-white sb-bg-dark">
@@ -844,9 +1054,24 @@
                             <td><input formControlName="padlocksUse" type="checkbox"></td>
                         </tr>
                         <tr>
-                            <td>15</td>
+                            <td>16</td>
                             <td> Is the PAN/Registration Certificate of the business is displayed? </td>
                             <td><input formControlName="certificate" type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>17</td>
+                            <td> Were we provided with a detailed NCA report at the time of inspection against which we could inspect the business? </td>
+                            <td><input formControlName="ncaReport" type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>18</td>
+                            <td>Additional Impression: Do you feel the stocks are largely as per the stock report provided in terms of item/quantity?</td>
+                            <td><input formControlName="stocksAreLarge" type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>19</td>
+                            <td> Any evidence that there are charges of other entities/institutions in the assets? </td>
+                            <td><input formControlName="otherEntitiesInTheAssets" type="checkbox"></td>
                         </tr>
                     </table>
                     <div class="row">
@@ -864,7 +1089,7 @@
                                       row="3" type="text"></textarea>
                         </div>
                     </div>
-                    </div>
+                </div>
 
                 <h4 class="col-md-12 mt-3">Current Assets Inspection - Receivables</h4>
                 <div class="row col-md-12 mt-3" formGroupName="receivablesAndPayables">

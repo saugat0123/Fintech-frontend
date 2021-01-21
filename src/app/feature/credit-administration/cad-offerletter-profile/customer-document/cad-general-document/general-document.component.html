@@ -1,0 +1,51 @@
+<div class="col-md-12">
+    <div class="w-100">
+        <strong>Customer Documents</strong>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <table class="table table-bordered  text-center sb-small table-sm">
+
+        <tbody>
+        <tr class="sb-bg-dark text-white" *ngIf="customerGeneralDocument?.length > 0">
+            <td>
+                <strong>General Documents</strong>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-left">
+
+                <div class="col-md-12 ">
+                    <div class="row">
+                        <div class="col-md-3 img-hover flex-wrap"
+                             *ngFor="let data of customerGeneralDocument;let i =index"
+                             [nbTooltip]="data?.document?.displayName">
+                            <a (click)="service.openDocument(data?.docPath)" class="cursor"><em
+                                    [className]="service.SET_CLASS_NAME"></em>
+                                <span class="mx-1"> {{data?.document?.displayName.length > 15 ?
+                                    data?.document?.displayName?.substring(0, 12) + '..' :
+                                    data?.document?.displayName}}</span></a>
+                        </div>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+        <tr class="sb-bg-dark text-white" *ngIf="loanHolder?.insurance?.length > 0">
+            <td>
+                <strong>Insurance</strong>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <app-customer-insurance [insuranceList]="loanHolder?.insurance"
+                                        *ngIf="loanHolder"></app-customer-insurance>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+</div>
+
