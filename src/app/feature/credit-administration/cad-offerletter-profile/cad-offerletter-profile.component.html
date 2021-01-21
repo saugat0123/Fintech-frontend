@@ -47,7 +47,7 @@
                                         placeholder="Select Offer Letter"
                                         status="info">
                                         <nb-option *ngFor="let i of offerLetterTypes" [value]="i.value">
-                                            {{i.key}}
+                                            {{i.key | replace:'_':' ' }}
                                         </nb-option>
                                     </nb-select>
                                 </div>
