@@ -127,9 +127,9 @@
             </thead>
             <tbody>
             <tr>
-                <td class="text-right">Rs. {{formValue?.capital?.authorizedCapital | currencyFormatter}}</td>
-                <td class="text-right">Rs. {{formValue?.capital?.issuedCapital | currencyFormatter}}</td>
-                <td class="text-right">Rs. {{formValue?.capital?.paidUpCapital | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{formValue?.capital?.authorizedCapital | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{formValue?.capital?.issuedCapital | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{formValue?.capital?.paidUpCapital | currencyFormatter}}</td>
                 <!--        <td>{{formValue?.capital?.totalCapital}}</td>-->
                 <!--        <td>{{formValue?.capital?.fixedCapital}}</td>-->
                 <!--        <td>{{formValue?.capital?.workingCapital}}</td>-->
@@ -294,7 +294,7 @@
                 <td>{{proprietors?.type}}</td>
                 <td>{{proprietors?.name}}</td>
                 <td>{{proprietors?.contactNo}}</td>
-                <td>{{proprietors?.share | currencyFormatter}}</td>
+                <td>{{proprietors?.share}}</td>
                 <td>{{proprietors?.province?.name}}</td>
                 <td>{{proprietors?.district?.name}}</td>
                 <td>{{proprietors?.municipalityVdc?.name}}</td>
@@ -474,51 +474,51 @@
             </tr>
             <tr>
                 <td>Interest Income</td>
-                <th class="text-right">Rs. {{businessGiven?.interestIncomeDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.interestIncomeDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Loan Processing Fee</td>
-                <th class="text-right">Rs. {{businessGiven?.loanProcessingFeeDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.loanProcessingFeeDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>LC Commission</td>
-                <th class="text-right">Rs. {{businessGiven?.lcCommissionDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.lcCommissionDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Guarantee Commission</td>
-                <th class="text-right">Rs. {{businessGiven?.guaranteeCommissionDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.guaranteeCommissionDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Other Commission</td>
-                <th class="text-right">Rs. {{businessGiven?.otherCommissionDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.otherCommissionDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Saving Account</td>
-                <th class="text-right">Rs. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Payroll Account</td>
-                <th class="text-right">Rs. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Debit Cards</td>
-                <th class="text-right">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Credit Cards</td>
-                <th class="text-right">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Mobile Bank / Internet Banking</td>
-                <th class="text-right">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Locker</td>
-                <th class="text-right">{{businessGiven?.lockerDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.lockerDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <th>Total</th>
-                <th class="text-right">Rs. {{businessGiven?.total | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.total | currencyFormatter}}</th>
             </tr>
 
         </table>
