@@ -35,7 +35,7 @@
                     <td>{{loanType[model?.loanType] || model?.loanType}}</td>
                     <td>{{model?.createdAt | date}}</td>
                     <td>{{model?.proposal?.collateralRequirement}}</td>
-                    <td class="text-right">Rs. {{(model?.loan?.collateralRequirement * model?.proposal?.proposedLimit) / 100 |currencyFormatter}}
+                    <td class="text-right">Rs. {{(model?.proposal?.collateralRequirement * model?.proposal?.proposedLimit) / 100 |currencyFormatter}}
                     </td>
                 </tr>
             </ng-container>
@@ -54,9 +54,9 @@
                     || 0}}</td>
                     <td>{{loanType[model?.loanType] || model?.loanType}}</td>
                     <td>{{model?.createdAt | date}}</td>
-                    <td>{{model?.loan?.collateralRequirement}}</td>
+                    <td>{{model?.proposal?.collateralRequirement}}</td>
                     <td class="text-right">Rs.
-                        {{(model?.loan?.collateralRequirement * model?.proposal?.proposedLimit) / 100 |currencyFormatter}}
+                        {{(model?.proposal?.collateralRequirement * model?.proposal?.proposedLimit) / 100 |currencyFormatter}}
                     </td>
                 </tr>
             </ng-container>
