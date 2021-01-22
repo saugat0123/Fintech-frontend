@@ -98,18 +98,18 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
                     if (l.proposal) {
                         this.totalLoanProposedAmount = this.totalLoanProposedAmount + l.proposal.proposedLimit;
                         this.collateralDtoData.totalRequiredCollateral = this.collateralDtoData.totalRequiredCollateral +
-                            ((l.loan.collateralRequirement * l.proposal.proposedLimit) / 100);
+                            ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
                         if (l.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
                             this.collateralDtoData.totalApprovedLimit = this.collateralDtoData.totalApprovedLimit +
                                 l.proposal.proposedLimit;
                             this.collateralDtoData.totalApprovedRequiredCollateral =
                                 this.collateralDtoData.totalApprovedRequiredCollateral +
-                                ((l.loan.collateralRequirement * l.proposal.proposedLimit) / 100);
+                                ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
                         } else {
                             this.collateralDtoData.totalPendingLimit = this.collateralDtoData.totalPendingLimit +
                                 l.proposal.proposedLimit;
                             this.collateralDtoData.totalPendingRequiredCollateral = this.collateralDtoData.totalPendingRequiredCollateral
-                                + ((l.loan.collateralRequirement * l.proposal.proposedLimit) / 100);
+                                + ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
                         }
                     }
                 }
@@ -147,7 +147,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
                     loanType: loan.loanType,
                     documentStatus: loan.documentStatus,
                     createdAt: loan.createdAt,
-                    collateralRequirement: loan.loan.collateralRequirement,
+                    collateralRequirement: loan.proposal.collateralRequirement,
                     requiredCollateral: loan.proposal.collateralRequirement,
                     currentStage: loan.currentStage
                 });
@@ -184,7 +184,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
                             loanType: l.loanType,
                             documentStatus: l.documentStatus,
                             createdAt: l.createdAt,
-                            collateralRequirement: l.loan.collateralRequirement,
+                            collateralRequirement: l.proposal.collateralRequirement,
                             requiredCollateral: l.proposal.collateralRequirement,
                             currentStage: l.currentStage
                         };
