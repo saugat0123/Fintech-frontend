@@ -26,13 +26,13 @@
                             class="cursor">
                             <td>{{i + 1}}</td>
                             <td>{{model?.loanName}}</td>
-                            <td class="text-right">Rs. {{(model?.proposalProposedLimit | currencyFormatter)
+                            <td class="text-right pr-1">Rs. {{(model?.proposalProposedLimit | currencyFormatter)
                             || 0}}</td>
                             <td>{{loanType[model?.loanType] || model?.loanType}}</td>
                             <td>{{model?.documentStatus}}</td>
                             <td>{{model?.createdAt | date}}</td>
                             <td>{{model?.collateralRequirement}}</td>
-                            <td class="text-right">Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
+                            <td class="text-right pr-1">Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                         </tr>
                         <ng-container *ngIf="toggleArray[i].toggled">
                             <tr (click)="onClick(single?.loanId, single.id)"
@@ -40,22 +40,22 @@
                                 class="cursor" style="background-color: #cccccc;">
                                 <td>{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                                 <td>{{single?.loanName}}</td>
-                                <td class="text-right">{{(single?.proposalProposedLimit | number)
+                                <td class="text-right pr-1">Rs. {{(single?.proposalProposedLimit | currencyFormatter)
                                 || 0}}</td>
                                 <td>{{loanType[single?.loanType]}}</td>
                                 <td>{{single?.documentStatus}}</td>
                                 <td>{{single?.createdAt | date}}</td>
                                 <td>{{single?.collateralRequirement}}</td>
-                                <td class="text-right">Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
+                                <td class="text-right pr-1">Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                             </tr>
                         </ng-container>
                     </ng-container>
                     <tr class="sb-bg-secondary text-white">
                         <td></td>
                         <td>Total</td>
-                        <td class="text-right">Rs. {{collateralDtoData?.totalPendingLimit |currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{collateralDtoData?.totalPendingLimit |currencyFormatter}}</td>
                         <td colspan="4"></td>
-                        <td class="text-right">Rs. {{collateralDtoData?.totalPendingRequiredCollateral |currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{collateralDtoData?.totalPendingRequiredCollateral |currencyFormatter}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -88,12 +88,12 @@
                             class="cursor">
                             <td>{{i + 1}}</td>
                             <td>{{model?.loanName}}</td>
-                            <td class="text-right">Rs. {{(model?.proposalProposedLimit | currencyFormatter)
+                            <td class="text-right pr-1">Rs. {{(model?.proposalProposedLimit | currencyFormatter)
                             || 0}}</td>
                             <td>{{loanType[model?.loanType] || model?.loanType}}</td>
                             <td>{{model?.createdAt | date}}</td>
                             <td>{{model?.collateralRequirement}}</td>
-                            <td class="text-right">Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
+                            <td class="text-right pr-1">Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                         </tr>
                         <ng-container>
                             <tr (click)="onClick(single?.loanId, single.id,single?.currentStage)"
@@ -101,13 +101,13 @@
                                 class="cursor" style="background-color: #cccccc;">
                                 <td>{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                                 <td>{{single?.loanName}}</td>
-                                <td class="text-right">Rs. {{(single?.proposalProposedLimit | currencyFormatter)
+                                <td class="text-right pr-1">Rs. {{(single?.proposalProposedLimit | currencyFormatter)
                                 || 0}}</td>
                                 <td>{{loanType[single?.loanType]}}</td>
                                 <td>{{single?.documentStatus}}</td>
                                 <td>{{single?.createdAt | date}}</td>
                                 <td>{{single?.collateralRequirement}}</td>
-                                <td class="text-right">Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
+                                <td class="text-right pr-1">Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                             </tr>
                         </ng-container>
                     </ng-container>
@@ -120,12 +120,12 @@
                             class="cursor">
                             <td>{{i + 1}}</td>
                             <td>{{model?.loanName}}</td>
-                            <td class="text-right">Rs. {{(model?.proposalProposedLimit | currencyFormatter)
+                            <td class="text-right pr-1">Rs. {{(model?.proposalProposedLimit | currencyFormatter)
                             || 0}}</td>
                             <td>{{loanType[model?.loanType] || model?.loanType}}</td>
                             <td>{{model?.createdAt | date}}</td>
                             <td>{{model?.collateralRequirement}}</td>
-                            <td class="text-right">Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
+                            <td class="text-right pr-1">Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                         </tr>
                         <ng-container>
                             <tr (click)="onClick(single?.loanId, single.id,single?.currentStage)"
@@ -133,22 +133,22 @@
                                 class="cursor" style="background-color: #cccccc;">
                                 <td>{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                                 <td>{{single?.loanName}}</td>
-                                <td class="text-right">Rs. {{(single?.proposalProposedLimit | currencyFormatter)
+                                <td class="text-right pr-1">Rs. {{(single?.proposalProposedLimit | currencyFormatter)
                                 || 0}}</td>
                                 <td>{{loanType[single?.loanType]}}</td>
                                 <td>{{single?.documentStatus}}</td>
                                 <td>{{single?.createdAt | date}}</td>
                                 <td>{{single?.collateralRequirement}}</td>
-                                <td>Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
+                                <td class="text-right pr-1">Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                             </tr>
                         </ng-container>
                     </ng-container>
                     <tr class="sb-bg-secondary text-white">
                         <td></td>
                         <td>Total</td>
-                        <td class="text-right">Rs. {{collateralDtoData?.totalApprovedLimit |currencyFormatter}}</td>
+                        <td class="text-right pr-2">Rs. {{collateralDtoData?.totalApprovedLimit |currencyFormatter}}</td>
                         <td colspan="3"></td>
-                        <td class="text-right">Rs. {{collateralDtoData?.totalApprovedRequiredCollateral |currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{collateralDtoData?.totalApprovedRequiredCollateral |currencyFormatter}}</td>
                     </tr>
                     </tbody>
                 </table>
