@@ -34,7 +34,6 @@ export class CollateralSummaryComponent implements OnInit {
   filterLoan() {
     this.fundedList = this.customerAllLoanList.filter((l) => l.loan.isFundable);
     this.nonFundedList = this.customerAllLoanList.filter((l) => !l.loan.isFundable);
-    console.log(this.fundedList);
   }
 
   calculateRequiredCollateral(list: LoanDataHolder[]) {
