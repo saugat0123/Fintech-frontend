@@ -92,9 +92,9 @@
                    </div>
                    <br>
                    <strong>१. सुविधाको किसिम, प्रयोजन तथा संचालन</strong><br>
-                   <label>लोनटाइप छनौट गर्नुहोस् (Choose Loan Type)</label>
+                   <label>सुविधाको किसिम गर्नुहोस् (Choose Service Type)</label>
                    <nb-select #multiLoanSelection (selectedChange)="chooseLoanType(multiLoanSelection.selected)"
-                   [selected]="selectedLoanArray" multiple placeholder="लोनटाइप छनौट गर्नुहोस्">
+                   [selected]="selectedLoanArray" multiple placeholder="सुविधाको किसिम छनौट गर्नुहोस्">
                        <nb-option *ngFor="let loanType of loanTypes" [value]="loanType?.key">
                            {{loanType?.value}}
                        </nb-option>
@@ -134,15 +134,15 @@
                                        <input class="form-fields form-control-sm nepaliFont col-3"
                                               formControlName="overdrafLoanCurrentTermRate"
                                               placeholder="९.७६%"
-                                              type="number"/> + प्रिमियम दर
+                                              type="text"/> + प्रिमियम दर
                                        <input class="form-fields form-control-sm nepaliFont col-3"
                                               formControlName="overdrafLoanPremiumRate"
                                               placeholder="प्रिमियम दर"
-                                              type="number"/>% का
+                                              type="text"/>% का
                                        दरले हाललाई बार्षिक <input class="form-fields form-control-sm nepaliFont col-3"
                                                                   formControlName="overdrafLoanCurrentAnnualRate"
                                                                   placeholder="दरले हाललाई बार्षिक %"
-                                                                  type="number"/> % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ
+                                                                  type="text"/> % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ
                                        मसान्त) वा समय समयमा
                                        बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि। बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर
                                        परिवर्तन
@@ -161,7 +161,7 @@
                                    <td>यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको आधारमा रही
                                        डेब्ट इक्वीटी अनुपात <input class="form-fields form-control-sm nepaliFont col-3"
                                                                    formControlName="overdrafLoanPayment"
-                                                                   type="number"/> कायम गरि भुक्तानी गरिनेछ ।
+                                                                   type="text"/> कायम गरि भुक्तानी गरिनेछ ।
                                    </td>
                                </tr>
                                <tr>
@@ -185,10 +185,10 @@
                                    <td>भुक्तानी दिईने ऋण सुविधा रकमको <input class="form-fields form-control-sm nepaliFont col-3"
                                                                              formControlName="overdrafLoanServiceRate"
                                                                              placeholder="०.२५ %"
-                                                                             type="number"/>%
+                                                                             type="text"/>%
                                        (<input class="form-fields form-control-sm nepaliFont col-3"
                                                formControlName="overdrafLoanServiceCharge"
-                                               placeholder=" रु. २,५०,००" type="number"/> प्रतिशत) मात्र।
+                                               placeholder=" रु. २,५०,००" type="text"/> प्रतिशत) मात्र।
                                    </td>
                                </tr>
                                <tr>
@@ -260,17 +260,17 @@
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="demandLoanCurrentBaseRate"
                                                   placeholder="९.७६ %"
-                                                  type="number"/>% + प्रिमियम दर
+                                                  type="text"/>% + प्रिमियम दर
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="demandLoanPremiumRate"
                                                   placeholder="०.५० %"
-                                                  type="number"/> %) का
+                                                  type="text"/> %) का
                                            दरले
                                            हाललाई बार्षिक
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="demandLoanAnnualRate"
                                                   placeholder="१०.२६० %"
-                                                  type="number"/> % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा
+                                                  type="text"/> % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा
                                            समय समयमा
                                            बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि। बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर
                                            परिवर्तन
@@ -283,12 +283,12 @@
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="demandLoanNetTradingAsset"
                                                   placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="number"/> को
+                                                  type="text"/> को
                                            आधारमा रही डेब्ट इक्वीटी अनुपात
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="demandLoanDurationRatio"
                                                   placeholder="८०ः२०"
-                                                  type="number"/> कायम गरि भुक्तानी गरिने छ ।
+                                                  type="text"/> कायम गरि भुक्तानी गरिने छ ।
                                        </td>
                                    </tr>
                                    <tr>
@@ -310,14 +310,14 @@
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="demandLoanLimitDurationAmount"
                                                   placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="number"/> दिन सम्म मात्र ।</td>
+                                                  type="text"/> दिन सम्म मात्र ।</td>
                                    </tr>
                                    <tr>
                                        <td> क.सु.के दस्तुर</td>
                                        <td>रु<input class="form-fields form-control-sm nepaliFont"
                                                     formControlName="demandLoanDasturAmount"
                                                     placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                    type="number"/>/- मात्र । </td>
+                                                    type="text"/>/- मात्र । </td>
                                    </tr>
                                    </tbody>
                                </table>
@@ -329,7 +329,7 @@
                    </div>
                    <br>
                    <div *ngIf="fixedTermLoan">
-                       <div *ngFor="let fixTermLoanType of loanForm.get('fixTermLoan')['controls']; let fixTermLoanIndex = index"
+                       <div *ngFor="let ftl of loanForm.get('fixTermLoan')['controls']; let fixTermLoanIndex = index"
                             formArrayName="fixTermLoan">
                            <div [formGroupName]="fixTermLoanIndex">
                                <div *ngIf="loanForm.get('fixTermLoan')['length'] > 1">
@@ -462,7 +462,6 @@
                                                                        placeholder="शुन्य दशमलव दुई पाँच"
                                                                        type="text"/> प्रतिशत) मात्र ।</td>
                                    </tr>
-                                   <br><br>
                                    <tr>
                                        <th scope="col" style="width: 15%;">प्रस्तावित सुविधा</th>
                                        <th>आवधिक कर्जा (Fixed Term Loan-II)</th>
@@ -582,7 +581,6 @@
                                    </tr>
                                    </tbody>
                                </table>
-                               <br>
                            </div>
                        </div>
                        <div>
@@ -811,7 +809,7 @@
                                <table class="table table-bordered table-responsive-md table-hover">
                                    <tbody>
                                    <tr>
-                                       <th scope="col" style="width: 15%;"> ङ) प्रस्तावित सुविधा</th>
+                                       <th scope="col" style="width: 15%;"> च) प्रस्तावित सुविधा</th>
                                        <th> ट्रष्ट रिसिप्ट (Trust Receipt)</th>
                                    </tr>
                                    <tr>
@@ -908,7 +906,7 @@
                                </div>
                                <table class="table table-bordered table-responsive-md table-hover">
                                    <tr>
-                                       <th scope="col" style="width: 15%;"> च)</th>
+                                       <th scope="col" style="width: 15%;"> छ)</th>
                                        <th>नगद क्रेडिट (Cash Credit)</th>
                                    </tr>
                                    <tbody>
@@ -1002,7 +1000,7 @@
                                </div>
                                <table class="table table-hover table-responsive-md table-bordered">
                                    <tr>
-                                       <th> छ)</th>
+                                       <th> ज)</th>
                                        <th> अल्पकालिन कर्जा (Short Term Loan)</th>
                                    </tr>
                                    <tbody>
@@ -1092,7 +1090,7 @@
                                </div>
                                <table class="table table-hover table-responsive-md table-bordered">
                                    <tr>
-                                       <th> ज.)</th>
+                                       <th> झ.)</th>
                                        <th>बैंक जमानत (Bank Guarantee)</th>
                                    </tr>
                                    <tbody>
@@ -1101,7 +1099,7 @@
                                        <td><input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="bankGuaranteeAmountInNumber"
                                                   placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/>(
+                                                  type="text"/>(अक्षरेपी
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="bankGuaranteeAmountInWord"
                                                   placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"

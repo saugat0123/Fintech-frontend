@@ -32,7 +32,6 @@ export class SmeComponent implements OnInit {
   overdraft = false;
   demandLoan = false;
   fixedTermLoan = false;
-  fixedTermLoanII = false;
   hirePurchase = false;
   letterOfCredit = false;
   trustReceipt = false;
