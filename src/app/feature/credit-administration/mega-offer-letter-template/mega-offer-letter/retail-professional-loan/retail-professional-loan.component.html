@@ -36,7 +36,8 @@
                        <input class="form-field form-control-sm nepaliFont"
                               formControlName="contactNumber"
                               placeholder="९८४५०४४७३०"
-                              type="text"/></p>
+                              type="text"/>
+                   </p>
                </div>
                <br>
                <div class="text-center">
@@ -66,7 +67,7 @@
                </div>
                <div style="font-weight: bold">१. कर्जा सुविधाको प्रयोजन तथा संचालनः</div>
 
-               <label>Choose Loan Types</label>
+               <label class="mr-4">Choose Loan Types</label>
                <nb-select #loanType (selectedChange)="changeLoanType($event)"
                           [selected]="selectedArray"
                           multiple placeholder="Select Loan Types">
@@ -182,15 +183,15 @@
                                <td> सेवा शुल्क</td>
                                <td> स्वीकृत ऋण सुविधा रकमको <input class="form-field form-control-sm nepaliFont col-3"
                                                                    formControlName="sewaSulka"
-                                                                   placeholder=" १% मात्र ।"
+                                                                   placeholder=" १%"
                                                                    type="text"/> मात्र ।</td>
                            </tr>
                            <tr *ngIf="professionalTermLoan.get('chargeAmountFlag').value">
                                <td>क.सु.के दस्तुर</td>
                                <td>रु.<input class="form-field form-control-sm nepaliFont col-3"
                                              formControlName="chargeAmount"
-                                             placeholder=" १,१०० मात्र ।"
-                                             type="text"/>
+                                             placeholder=" १,१००"
+                                             type="text"/> मात्र ।
                                    <a (click)="removeOptionalField(professionalTermLoan, 'chargeAmountFlag')"
                                       data-placement="top" class="text-danger cursor">
                                        <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
@@ -313,8 +314,8 @@
                                <td>क.सु.के दस्तुर</td>
                                <td>रु.<input class="form-field form-control-sm nepaliFont col-3"
                                              formControlName="chargeAmount"
-                                             placeholder=" १,१०० मात्र ।"
-                                             type="text"/>
+                                             placeholder=" १,१००"
+                                             type="text"/> मात्र ।
                                    <a (click)="removeOptionalField(professionalOverDraftLoan, 'chargeAmountFlag')"
                                       data-placement="top" class="text-danger cursor">
                                        <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
@@ -726,14 +727,14 @@
                        <div>ऋणी</div>
                        <div>
                            <strong class="nepaliFont">
-                               {{this.retailProfessionalLoan.get('borrowerName').value}}
+                               {{retailProfessionalLoan.get('borrowerName').value}}
                            </strong>
                        </div>
                        <p>ठेगाना:
-                           <strong class="nepaliFont">{{this.retailProfessionalLoan.get('borrowerAddress').value}}</strong>
+                           <strong class="nepaliFont">{{retailProfessionalLoan.get('borrowerAddress').value}}</strong>
                        </p>
                        <p>सम्पर्क टेलिफोन नंः
-                           <strong class="nepaliFont">{{this.retailProfessionalLoan.get('contactNumber').value}}</strong>
+                           <strong class="nepaliFont">{{retailProfessionalLoan.get('contactNumber').value}}</strong>
                        </p>
                    </div>
                </div>

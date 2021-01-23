@@ -152,9 +152,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
                 this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_PROFESSIONAL_LOAN);
             } else {
                 const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-                console.log(initialInfo);
                 this.initialInfoPrint = initialInfo;
-                console.log(this.offerLetterDocument);
                 this.existingOfferLetter = true;
                 this.retailProfessionalLoan.patchValue(initialInfo, {emitEvent: false});
 
