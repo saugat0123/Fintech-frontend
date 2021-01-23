@@ -12,50 +12,50 @@
       </thead>
       <tr>
         <td class="sb-bg-secondary text-white">Gross Interest</td>
-        <td class="text-right">Rs. {{this.incomeFromAccount?.interestDuringReview |currencyFormatter}}</td>
-        <td class="text-right">Rs. {{this.incomeFromAccount?.interestAfterNextReview |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{this.incomeFromAccount?.interestDuringReview |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{this.incomeFromAccount?.interestAfterNextReview |currencyFormatter}}</td>
       </tr>
       <tr>
         <td class="sb-bg-secondary text-white">Free and Commission</td>
-        <td class="text-right">Rs. {{this.incomeFromAccount?.commissionDuringReview |currencyFormatter}}</td>
-        <td class="text-right">Rs. {{this.incomeFromAccount?.commissionAfterNextReview |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{this.incomeFromAccount?.commissionDuringReview |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{this.incomeFromAccount?.commissionAfterNextReview |currencyFormatter}}</td>
       </tr>
       <tr>
         <td class="sb-bg-secondary text-white">Loan Processing Charge</td>
-        <td class="text-right">Rs. {{this.incomeFromAccount?.loanProcessingDuringReview |currencyFormatter}}</td>
-        <td class="text-right">Rs. {{this.incomeFromAccount?.loanProcessingAfterNextReview |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{this.incomeFromAccount?.loanProcessingDuringReview |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{this.incomeFromAccount?.loanProcessingAfterNextReview |currencyFormatter}}</td>
       </tr>
       <ng-container *ngIf="srdbAffiliatedId">
         <tr>
           <td class="sb-bg-secondary text-white">LC Commission</td>
-          <td class="text-right">Rs. {{this.incomeFromAccount?.lcCommissionDuringReview |currencyFormatter}}</td>
-          <td class="text-right">
+          <td class="text-right pr-1">Rs. {{this.incomeFromAccount?.lcCommissionDuringReview |currencyFormatter}}</td>
+          <td class="text-right pr-1">
             Rs. {{this.incomeFromAccount?.lcCommissionAfterNextReview |currencyFormatter}}
           </td>
         </tr>
         <tr>
           <td class="sb-bg-secondary text-white">Guarantee Commission</td>
-          <td class="text-right">Rs. {{this.incomeFromAccount?.guaranteeCommissionDuringReview |currencyFormatter}}</td>
-          <td class="text-right">
+          <td class="text-right pr-1">Rs. {{this.incomeFromAccount?.guaranteeCommissionDuringReview |currencyFormatter}}</td>
+          <td class="text-right pr-1">
             Rs. {{this.incomeFromAccount?.guaranteeCommissionAfterNextReview |currencyFormatter}}
           </td>
         </tr>
       </ng-container>
       <tr>
         <td class="sb-bg-secondary text-white">Other Charges</td>
-        <td class="text-right">
+        <td class="text-right pr-1">
           Rs. {{this.incomeFromAccount?.otherChargesDuringReview |currencyFormatter}}
         </td>
-        <td class="text-right">
+        <td class="text-right pr-1">
           Rs. {{this.incomeFromAccount?.otherChargesAfterNextReview |currencyFormatter}}
         </td>
       </tr>
       <tr  class="font-weight-bold">
         <td class="sb-bg-secondary text-white">Total</td>
-        <td class="text-right">
+        <td class="text-right pr-1">
           Rs. {{this.incomeFromAccount?.totalIncomeDuringReview |currencyFormatter}}
         </td>
-        <td class="text-right">
+        <td class="text-right pr-1">
           Rs. {{this.incomeFromAccount?.totalIncomeAfterNextReview |currencyFormatter}}</td>
       </tr>
     </table>
