@@ -86,6 +86,7 @@ export class SmeComponent implements OnInit {
       currentNonMovableAsset: [undefined],
       equalLoanAsset: [undefined],
       loanAsset: [undefined],
+      loanTypeSelectedArray: [undefined],
       overdraftLoan: this.formBuilder.array([this.overdraftFormGroup()]),
       demandLoanType: this.formBuilder.array([this.demandLoanFormGroup()]),
       fixTermLoan: this.formBuilder.array([this.fixTermLoanFormGroup()]),
@@ -116,6 +117,53 @@ export class SmeComponent implements OnInit {
         console.log(this.offerLetterDocument);
         this.existingOfferLetter = true;
         this.loanForm.patchValue(initialInfo, {emitEvent: false});
+
+        this.selectedLoanArray = initialInfo.loanTypeSelectedArray;
+        this.chooseLoanType(this.selectedLoanArray);
+        (this.loanForm.get('overdraftLoan') as FormArray).clear();
+        initialInfo.overdraftLoan.forEach(value => {
+          (this.loanForm.get('overdraftLoan') as FormArray).push(this.formBuilder.group(value));
+        });
+        (this.loanForm.get('demandLoanType') as FormArray).clear();
+        initialInfo.demandLoanType.forEach(value => {
+          (this.loanForm.get('demandLoanType') as FormArray).push(this.formBuilder.group(value));
+        });
+        (this.loanForm.get('fixTermLoan') as FormArray).clear();
+        initialInfo.fixTermLoan.forEach(value => {
+          (this.loanForm.get('fixTermLoan') as FormArray).push(this.formBuilder.group(value));
+        });
+        (this.loanForm.get('hirePurchaseLoan') as FormArray).clear();
+        initialInfo.hirePurchaseLoan.forEach(value => {
+          (this.loanForm.get('hirePurchaseLoan') as FormArray).push(this.formBuilder.group(value));
+        });
+        (this.loanForm.get('letterOfCredit') as FormArray).clear();
+        initialInfo.letterOfCredit.forEach(value => {
+          (this.loanForm.get('letterOfCredit') as FormArray).push(this.formBuilder.group(value));
+        });
+        (this.loanForm.get('trustReceipt') as FormArray).clear();
+        initialInfo.trustReceipt.forEach(value => {
+          (this.loanForm.get('trustReceipt') as FormArray).push(this.formBuilder.group(value));
+        });
+        (this.loanForm.get('cashCredit') as FormArray).clear();
+        initialInfo.cashCredit.forEach(value => {
+          (this.loanForm.get('cashCredit') as FormArray).push(this.formBuilder.group(value));
+        });
+        (this.loanForm.get('shortTermLoan') as FormArray).clear();
+        initialInfo.shortTermLoan.forEach(value => {
+          (this.loanForm.get('shortTermLoan') as FormArray).push(this.formBuilder.group(value));
+        });
+        (this.loanForm.get('bankGuarantee') as FormArray).clear();
+        initialInfo.bankGuarantee.forEach(value => {
+          (this.loanForm.get('bankGuarantee') as FormArray).push(this.formBuilder.group(value));
+        });
+        (this.loanForm.get('multiCollateral') as FormArray).clear();
+        initialInfo.multiCollateral.forEach(value => {
+          (this.loanForm.get('multiCollateral') as FormArray).push(this.formBuilder.group(value));
+        });
+        (this.loanForm.get('tableData') as FormArray).clear();
+        initialInfo.tableData.forEach(value => {
+          (this.loanForm.get('tableData') as FormArray).push(this.formBuilder.group(value));
+        });
         this.initialInfoPrint = initialInfo;
       }
     }
@@ -396,12 +444,14 @@ export class SmeComponent implements OnInit {
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.SME).toString()) {
+          this.loanForm.get('loanTypeSelectedArray').patchValue(this.selectedLoanArray);
           offerLetterPath.initialInformation = JSON.stringify(this.loanForm.value);
         }
       });
     } else {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.SME);
+      this.loanForm.get('loanTypeSelectedArray').patchValue(this.selectedLoanArray);
       offerDocument.initialInformation = JSON.stringify(this.loanForm.value);
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
