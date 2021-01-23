@@ -40,7 +40,7 @@ export class CollateralSummaryComponent implements OnInit {
     let total = 0;
     list.forEach(value => {
       if (value.proposal) {
-        total += value.proposal.proposedLimit * (value.loan.collateralRequirement / 100);
+        total += value.proposal.proposedLimit * (value.proposal.collateralRequirement / 100);
       }
     });
     return ProposalCalculationUtils.isNumber(total);
