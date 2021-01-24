@@ -87,7 +87,7 @@ export class SmeComponent implements OnInit {
       equalLoanAsset: [undefined],
       loanAsset: [undefined],
       loanTypeSelectedArray: [undefined],
-      overdraftLoan: this.formBuilder.array([this.overdraftFormGroup()]),
+      overdraftLoan: this.formBuilder.array([]),
       demandLoanType: this.formBuilder.array([this.demandLoanFormGroup()]),
       fixTermLoan: this.formBuilder.array([this.fixTermLoanFormGroup()]),
       hirePurchaseLoan: this.formBuilder.array([this.hirePurchaseLoan()]),
@@ -101,72 +101,6 @@ export class SmeComponent implements OnInit {
       securityNotes: [undefined]
     });
 
-  }
-
-  checkOfferLetterData() {
-    if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
-      this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-          === this.offerLetterConst.value(this.offerLetterConst.SME).toString())[0];
-      if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-        this.offerLetterDocument = new OfferDocument();
-        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.SME);
-      } else  {
-        const  initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-        console.log(initialInfo);
-        this.initialInfoPrint = initialInfo;
-        console.log(this.offerLetterDocument);
-        this.existingOfferLetter = true;
-        this.loanForm.patchValue(initialInfo, {emitEvent: false});
-
-        this.selectedLoanArray = initialInfo.loanTypeSelectedArray;
-        this.chooseLoanType(this.selectedLoanArray);
-        (this.loanForm.get('overdraftLoan') as FormArray).clear();
-        initialInfo.overdraftLoan.forEach(value => {
-          (this.loanForm.get('overdraftLoan') as FormArray).push(this.formBuilder.group(value));
-        });
-        (this.loanForm.get('demandLoanType') as FormArray).clear();
-        initialInfo.demandLoanType.forEach(value => {
-          (this.loanForm.get('demandLoanType') as FormArray).push(this.formBuilder.group(value));
-        });
-        (this.loanForm.get('fixTermLoan') as FormArray).clear();
-        initialInfo.fixTermLoan.forEach(value => {
-          (this.loanForm.get('fixTermLoan') as FormArray).push(this.formBuilder.group(value));
-        });
-        (this.loanForm.get('hirePurchaseLoan') as FormArray).clear();
-        initialInfo.hirePurchaseLoan.forEach(value => {
-          (this.loanForm.get('hirePurchaseLoan') as FormArray).push(this.formBuilder.group(value));
-        });
-        (this.loanForm.get('letterOfCredit') as FormArray).clear();
-        initialInfo.letterOfCredit.forEach(value => {
-          (this.loanForm.get('letterOfCredit') as FormArray).push(this.formBuilder.group(value));
-        });
-        (this.loanForm.get('trustReceipt') as FormArray).clear();
-        initialInfo.trustReceipt.forEach(value => {
-          (this.loanForm.get('trustReceipt') as FormArray).push(this.formBuilder.group(value));
-        });
-        (this.loanForm.get('cashCredit') as FormArray).clear();
-        initialInfo.cashCredit.forEach(value => {
-          (this.loanForm.get('cashCredit') as FormArray).push(this.formBuilder.group(value));
-        });
-        (this.loanForm.get('shortTermLoan') as FormArray).clear();
-        initialInfo.shortTermLoan.forEach(value => {
-          (this.loanForm.get('shortTermLoan') as FormArray).push(this.formBuilder.group(value));
-        });
-        (this.loanForm.get('bankGuarantee') as FormArray).clear();
-        initialInfo.bankGuarantee.forEach(value => {
-          (this.loanForm.get('bankGuarantee') as FormArray).push(this.formBuilder.group(value));
-        });
-        (this.loanForm.get('multiCollateral') as FormArray).clear();
-        initialInfo.multiCollateral.forEach(value => {
-          (this.loanForm.get('multiCollateral') as FormArray).push(this.formBuilder.group(value));
-        });
-        (this.loanForm.get('tableData') as FormArray).clear();
-        initialInfo.tableData.forEach(value => {
-          (this.loanForm.get('tableData') as FormArray).push(this.formBuilder.group(value));
-        });
-        this.initialInfoPrint = initialInfo;
-      }
-    }
   }
 
   overdraftFormGroup(): FormGroup {
@@ -183,6 +117,7 @@ export class SmeComponent implements OnInit {
       overdrafLoanPrices: [undefined],
       overdrafLoanYear: [undefined],
       overdrafLoanReturned: [undefined],
+      dasturFlag: [true],
     });
   }
 
@@ -435,6 +370,105 @@ export class SmeComponent implements OnInit {
         riskCoverage: [undefined],
   })
     );
+  }
+
+  removeOptionalField(formArray, index, fieldControlName) {
+    this.loanForm.get([formArray, index, fieldControlName]).patchValue(false);
+  }
+
+  undoRemovalOfOptionalField(formArray, index, fieldControlName) {
+    this.loanForm.get([formArray, index, fieldControlName]).patchValue(true);
+  }
+
+  setOverDrafLoanData(details) {
+    const overDraftDetails = this.loanForm.get('overdraftLoan') as FormArray;
+    details.forEach(data => {
+      overDraftDetails.push(
+          this.formBuilder.group({
+            overdrafLoanCurrentTermRate: [data.overdrafLoanCurrentTermRate],
+            overdrafLoanAmountInWord: [data.overdrafLoanAmountInWord],
+            overdrafLoanAmount: [data.overdrafLoanAmount],
+            overdrafLoanPremiumRate: [data.overdrafLoanPremiumRate],
+            overdrafLoanCurrentAnnualRate: [data.overdrafLoanCurrentAnnualRate],
+            overdrafLoanEndOfFiscalYear: [data.overdrafLoanEndOfFiscalYear],
+            overdrafLoanPayment: [data.overdrafLoanPayment],
+            overdrafLoanServiceRate: [data.overdrafLoanServiceRate],
+            overdrafLoanServiceCharge: [data.overdrafLoanServiceCharge],
+            overdrafLoanPrices: [data.overdrafLoanPrices],
+            overdrafLoanYear: [data.overdrafLoanYear],
+            overdrafLoanReturned: [data.overdrafLoanReturned],
+            dasturFlag: [data.dasturFlag],
+          })
+      );
+    });
+  }
+
+  checkOfferLetterData() {
+    if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
+      this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
+          === this.offerLetterConst.value(this.offerLetterConst.SME).toString())[0];
+      if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        this.offerLetterDocument = new OfferDocument();
+        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.SME);
+        this.addMoreOverdraftLoan();
+      } else  {
+        const  initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+        console.log(initialInfo);
+        this.initialInfoPrint = initialInfo;
+        console.log(this.offerLetterDocument);
+        this.existingOfferLetter = true;
+        this.loanForm.patchValue(initialInfo, {emitEvent: false});
+
+        this.selectedLoanArray = initialInfo.loanTypeSelectedArray;
+        this.chooseLoanType(this.selectedLoanArray);
+        this.setOverDrafLoanData(initialInfo.overdraftLoan);
+        // (this.loanForm.get('overdraftLoan') as FormArray).clear();
+        // initialInfo.overdraftLoan.forEach(value => {
+        //   (this.loanForm.get('overdraftLoan') as FormArray).push(this.formBuilder.group(value));
+        // });
+        (this.loanForm.get('demandLoanType') as FormArray).clear();
+        initialInfo.demandLoanType.forEach(value => {
+          (this.loanForm.get('demandLoanType') as FormArray).push(this.formBuilder.group(value));
+        });
+        (this.loanForm.get('fixTermLoan') as FormArray).clear();
+        initialInfo.fixTermLoan.forEach(value => {
+          (this.loanForm.get('fixTermLoan') as FormArray).push(this.formBuilder.group(value));
+        });
+        (this.loanForm.get('hirePurchaseLoan') as FormArray).clear();
+        initialInfo.hirePurchaseLoan.forEach(value => {
+          (this.loanForm.get('hirePurchaseLoan') as FormArray).push(this.formBuilder.group(value));
+        });
+        (this.loanForm.get('letterOfCredit') as FormArray).clear();
+        initialInfo.letterOfCredit.forEach(value => {
+          (this.loanForm.get('letterOfCredit') as FormArray).push(this.formBuilder.group(value));
+        });
+        (this.loanForm.get('trustReceipt') as FormArray).clear();
+        initialInfo.trustReceipt.forEach(value => {
+          (this.loanForm.get('trustReceipt') as FormArray).push(this.formBuilder.group(value));
+        });
+        (this.loanForm.get('cashCredit') as FormArray).clear();
+        initialInfo.cashCredit.forEach(value => {
+          (this.loanForm.get('cashCredit') as FormArray).push(this.formBuilder.group(value));
+        });
+        (this.loanForm.get('shortTermLoan') as FormArray).clear();
+        initialInfo.shortTermLoan.forEach(value => {
+          (this.loanForm.get('shortTermLoan') as FormArray).push(this.formBuilder.group(value));
+        });
+        (this.loanForm.get('bankGuarantee') as FormArray).clear();
+        initialInfo.bankGuarantee.forEach(value => {
+          (this.loanForm.get('bankGuarantee') as FormArray).push(this.formBuilder.group(value));
+        });
+        (this.loanForm.get('multiCollateral') as FormArray).clear();
+        initialInfo.multiCollateral.forEach(value => {
+          (this.loanForm.get('multiCollateral') as FormArray).push(this.formBuilder.group(value));
+        });
+        (this.loanForm.get('tableData') as FormArray).clear();
+        initialInfo.tableData.forEach(value => {
+          (this.loanForm.get('tableData') as FormArray).push(this.formBuilder.group(value));
+        });
+        this.initialInfoPrint = initialInfo;
+      }
+    }
   }
 
   submit(): void {

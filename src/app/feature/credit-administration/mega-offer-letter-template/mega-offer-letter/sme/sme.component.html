@@ -205,15 +205,27 @@
                                                type="text"/>अनुसार ।
                                    </td>
                                </tr>
-                               <tr>
+                               <tr *ngIf="overdraft.get('dasturFlag').value">
                                    <td> क.सु.के. दस्तुर</td>
                                    <td><input class="form-fields form-control-sm nepaliFont"
                                               formControlName="overdrafLoanReturned"
                                               placeholder="रु. ३,२५०/–"
                                               type="text"/> मात्र ।
+                                       <a (click)="removeOptionalField('overdraftLoan', overdraftIndex, 'dasturFlag')"
+                                          data-placement="top" class="text-danger cursor">
+                                           हटाउनुहोस्
+                                       </a>
                                    </td>
                                </tr>
-
+                               <tr *ngIf="!overdraft.get('dasturFlag').value">
+                                   <td></td>
+                                   <td>
+                                       <a (click)="undoRemovalOfOptionalField('overdraftLoan', overdraftIndex, 'dasturFlag')"
+                                          data-placement="top" class="text-warning cursor">
+                                           फेरी फिर्ता लेराउनुहोस्
+                                       </a>
+                                   </td>
+                               </tr>
                                </tbody>
                            </table>
                        </div>
