@@ -180,7 +180,9 @@ export class ProposalComponent implements OnInit {
       // for moratoriumPeriod Amount--
       moratoriumPeriod: [undefined],
       // for prepaymentCharge Amount--
-      prepaymentCharge: [''],
+      prepaymentCharge: [(ObjectUtil.isEmpty(this.proposalData)
+          || ObjectUtil.isEmpty(this.proposalData.prepaymentCharge)) ? undefined :
+          this.proposalData.prepaymentCharge, [Validators.required, Validators.max(100), Validators.min(0)]],
       // for prepaymentCharge Amount--
       // for commitmentFee Amount--
       commitmentFee: [undefined],
