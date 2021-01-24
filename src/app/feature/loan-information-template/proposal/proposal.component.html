@@ -428,9 +428,19 @@
                                     <div class="form-group>">
                                         <label class="title"> <strong>Prepayment Charge (in%) </strong></label>
                                         <input
+                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.prepaymentCharge.errors }"
                                                 class="form-control" formControlName="prepaymentCharge"
-                                                id="prepaymentCharge"
-                                                name="prepaymentCharge" placeholder="Prepayment Amount" appDecimalNumber>
+                                                id="prepaymentCharge" name="prepaymentCharge"
+                                                placeholder="Prepayment Charge" appDecimalNumber>
+                                        <div *ngIf="(submitted) && formControls.prepaymentCharge.errors"
+                                             class="invalid-feedback">
+                                            <div *ngIf="formControls.prepaymentCharge.errors.required">
+                                                Prepayment Charge is required
+                                            </div>
+                                            <div *ngIf="formControls.prepaymentCharge.errors.min || formControls.prepaymentCharge.errors.max">
+                                                Enter 0 - 100 number only
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
