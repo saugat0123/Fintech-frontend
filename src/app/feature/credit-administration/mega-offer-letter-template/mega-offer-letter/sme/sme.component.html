@@ -324,12 +324,26 @@
                                                   placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
                                                   type="text"/> दिन सम्म मात्र ।</td>
                                    </tr>
-                                   <tr>
+                                   <tr *ngIf="demandLoan.get('dasturFlag').value">
                                        <td> क.सु.के दस्तुर</td>
                                        <td>रु<input class="form-fields form-control-sm nepaliFont"
                                                     formControlName="demandLoanDasturAmount"
                                                     placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                    type="text"/>/- मात्र । </td>
+                                                    type="text"/>/- मात्र ।
+                                           <a (click)="removeOptionalField('demandLoanType', demandLoanIndex, 'dasturFlag')"
+                                              data-placement="top" class="text-danger cursor">
+                                               हटाउनुहोस्
+                                           </a>
+                                       </td>
+                                   </tr>
+                                   <tr *ngIf="!demandLoan.get('dasturFlag').value">
+                                       <td></td>
+                                       <td>
+                                           <a (click)="undoRemovalOfOptionalField('demandLoanType', demandLoanIndex, 'dasturFlag')"
+                                              data-placement="top" class="text-warning cursor">
+                                               फेरी फिर्ता लेराउनुहोस्
+                                           </a>
+                                       </td>
                                    </tr>
                                    </tbody>
                                </table>
@@ -795,13 +809,27 @@
                                                   placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
                                                   type="text"/> प्रतिशत प्रति महिना वा न्यूनतम रु. १,००० लाग्नेछ । </td>
                                    </tr>
-                                   <tr>
+                                   <tr *ngIf="lc.get('dasturFlag').value">
                                        <td>क.सु.के दस्तुर </td>
                                        <td>
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="letterOfCreditDastur"
                                                   placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/>/– मात्र । </td>
+                                                  type="text"/>/– मात्र ।
+                                           <a (click)="removeOptionalField('letterOfCredit', lcIndex, 'dasturFlag')"
+                                              data-placement="top" class="text-danger cursor">
+                                               हटाउनुहोस्
+                                           </a>
+                                       </td>
+                                   </tr>
+                                   <tr *ngIf="!lc.get('dasturFlag').value">
+                                       <td></td>
+                                       <td>
+                                           <a (click)="undoRemovalOfOptionalField('letterOfCredit', lcIndex, 'dasturFlag')"
+                                              data-placement="top" class="text-warning cursor">
+                                               फेरी फिर्ता लेराउनुहोस्
+                                           </a>
+                                       </td>
                                    </tr>
                                    </tbody>
                                </table>
@@ -894,12 +922,25 @@
                                        <td> सुरक्षण</td>
                                        <td>उल्लेखित प्रतितपत्रबाट आएको सामानको धितो सुरक्षणमा ।</td>
                                    </tr>
-                                   <tr>
+                                   <tr *ngIf="tr.get('dasturFlag').value">
                                        <td>क.सु.के दस्तुर</td>
                                        <td><input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="trustReceiptDastur"
                                                   placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/>/– मात्र ।</td>
+                                                  type="text"/>/– मात्र ।
+                                       <a (click)="removeOptionalField('trustReceipt',trIndex, 'dasturFlag')"
+                                          data-placement="top" class="text-danger cursor">
+                                           हटाउनुहोस्</a>
+                                       </td>
+                                   </tr>
+                                   <tr *ngIf="!tr.get('dasturFlag').value">
+                                       <td></td>
+                                       <td>
+                                           <a (click)="undoRemovalOfOptionalField('trustReceipt', trIndex, 'dasturFlag')"
+                                              data-placement="top" class="text-warning cursor">
+                                               फेरी फिर्ता लेराउनुहोस्
+                                           </a>
+                                       </td>
                                    </tr>
                                    </tbody>
                                </table>
@@ -988,12 +1029,26 @@
                                                   type="text"/> दिन सम्म मात्र ।
                                        </td>
                                    </tr>
-                                   <tr>
+                                   <tr *ngIf="ch.get('dasturFlag').value">
                                        <td>क.सु.के दस्तुर</td>
                                        <td><input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="cashCreditDastur"
                                                   placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/>/– मात्र ।</td>
+                                                  type="text"/>/– मात्र ।
+                                           <a (click)="removeOptionalField('cashCredit', chIndex, 'dasturFlag')"
+                                              data-placement="top" class="text-danger cursor">
+                                               हटाउनुहोस्
+                                           </a>
+                                       </td>
+                                   </tr>
+                                   <tr *ngIf="!ch.get('dasturFlag').value">
+                                       <td></td>
+                                       <td>
+                                           <a (click)="undoRemovalOfOptionalField('cashCredit', chIndex, 'dasturFlag')"
+                                              data-placement="top" class="text-warning cursor">
+                                               फेरी फिर्ता लेराउनुहोस्
+                                           </a>
+                                       </td>
                                    </tr>
                                    </tbody>
                                </table>
@@ -1078,12 +1133,26 @@
                                                   placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
                                                   type="text"/>दिन सम्म मात्र ।</td>
                                    </tr>
-                                   <tr>
+                                   <tr *ngIf="stl.get('dasturFlag').value">
                                        <td>क.सु.के दस्तुर </td>
                                        <td><input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="shortTermLoanDastur"
                                                   placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/>/– मात्र ।</td>
+                                                  type="text"/>/– मात्र ।
+                                           <a (click)="removeOptionalField('shortTermLoan', stlIndex, 'dasturFlag')"
+                                              data-placement="top" class="text-danger cursor">
+                                               हटाउनुहोस्
+                                           </a>
+                                       </td>
+                                   </tr>
+                                   <tr *ngIf="!stl.get('dasturFlag').value">
+                                       <td></td>
+                                       <td>
+                                           <a (click)="undoRemovalOfOptionalField('shortTermLoan', stlIndex, 'dasturFlag')"
+                                              data-placement="top" class="text-warning cursor">
+                                               फेरी फिर्ता लेराउनुहोस्
+                                           </a>
+                                       </td>
                                    </tr>
                                    </tbody>
                                </table>
@@ -1151,12 +1220,25 @@
                                                   placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
                                                   type="text"/> प्रतिशत नगद ।</td>
                                    </tr>
-                                   <tr>
+                                   <tr *ngIf="bng.get('dasturFlag').value">
                                        <td>क.सु.के दस्तुर </td>
                                        <td><input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="bankGuaranteeDastur"
                                                   placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
                                                   type="text"/>/– मात्र ।
+                                           <a (click)="removeOptionalField('bankGuarantee', bngIndex, 'dasturFlag')"
+                                              data-placement="top" class="text-danger cursor">
+                                               हटाउनुहोस्
+                                           </a>
+                                       </td>
+                                   </tr>
+                                   <tr *ngIf="!bng.get('dasturFlag').value">
+                                       <td></td>
+                                       <td>
+                                           <a (click)="undoRemovalOfOptionalField('bankGuarantee', bngIndex, 'dasturFlag')"
+                                              data-placement="top" class="text-warning cursor">
+                                               फेरी फिर्ता लेराउनुहोस्
+                                           </a>
                                        </td>
                                    </tr>
                                    </tbody>
@@ -1276,7 +1358,7 @@
                    <div class="font-weight-bold ml-4">
                        नोटः माथि उल्लेखित सुरक्षणहरुका साथ निम्न शर्तहरु अनिवार्य रुपमा पालना गर्नुपर्नेछ ।
                        <div class="ml-4">
-                           <ckeditor id="securityNotes" class="nepaliFont" formControlName="securityNotes" [config]="ckeConfig"></ckeditor>
+                           <ckeditor formControlName="securityNotes" [config]="ckeConfig"></ckeditor>
                        </div>
                    </div>
                    <br>

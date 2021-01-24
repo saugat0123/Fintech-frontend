@@ -14,6 +14,7 @@ import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {Editor} from '../../../../../@core/utils/constants/editor';
+import {NepaliEditor} from '../../../../../@core/utils/constants/nepaliEditor';
 
 @Component({
   selector: 'app-sme',
@@ -49,7 +50,7 @@ export class SmeComponent implements OnInit {
     {key: 'ShortTermLoan', value: 'अल्पकालीन कर्जा (Short Term Loan)'},
     {key: 'BankGuarantee', value: 'बैंक जमानत (Bank Guarantee)'},
   ];
-  ckeConfig = Editor.CK_CONFIG;
+  ckeConfig = NepaliEditor.CK_CONFIG;
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
 
 
@@ -88,15 +89,15 @@ export class SmeComponent implements OnInit {
       loanAsset: [undefined],
       loanTypeSelectedArray: [undefined],
       overdraftLoan: this.formBuilder.array([]),
-      demandLoanType: this.formBuilder.array([this.demandLoanFormGroup()]),
-      fixTermLoan: this.formBuilder.array([this.fixTermLoanFormGroup()]),
-      hirePurchaseLoan: this.formBuilder.array([this.hirePurchaseLoan()]),
-      letterOfCredit: this.formBuilder.array([this.letterOfCreditFormGroup()]),
-      trustReceipt: this.formBuilder.array([this.trustReceiptFormGroup()]),
-      cashCredit: this.formBuilder.array([this.cashCreditFormGroup()]),
-      shortTermLoan: this.formBuilder.array([this.shortTermLoanFormGroup()]),
-      bankGuarantee: this.formBuilder.array([this.bankGuaranteeFormGroup()]),
-      multiCollateral: this.formBuilder.array([this.collateralFormGroup()]),
+      demandLoanType: this.formBuilder.array([]),
+      fixTermLoan: this.formBuilder.array([]),
+      hirePurchaseLoan: this.formBuilder.array([]),
+      letterOfCredit: this.formBuilder.array([]),
+      trustReceipt: this.formBuilder.array([]),
+      cashCredit: this.formBuilder.array([]),
+      shortTermLoan: this.formBuilder.array([]),
+      bankGuarantee: this.formBuilder.array([]),
+      multiCollateral: this.formBuilder.array([]),
       tableData: this.formBuilder.array([]),
       securityNotes: [undefined]
     });
@@ -142,6 +143,7 @@ export class SmeComponent implements OnInit {
       demandLoanDasturAmount: [undefined],
       demandLoanAnnualRate: [undefined],
       demandLoanDurationRatio: [undefined],
+      dasturFlag: [true],
     });
   }
 
@@ -187,6 +189,7 @@ export class SmeComponent implements OnInit {
       fixedTermLoanTwoBorrowPercent: [undefined],
       fixedTermLoanTwoPaymentAmount: [undefined],
       fixedTermLoanPaymentTwoAmountDescription: [undefined],
+        dasturFlag: [true],
     });
   }
 
@@ -216,6 +219,7 @@ export class SmeComponent implements OnInit {
         hirePurchaseLoanPaymentMonth: [undefined],
         hirePurchaseLoanServiceCharge: [undefined],
         hirePurchaseLoanServicePercent: [undefined],
+        dasturFlag: [true],
       });
   }
 
@@ -237,6 +241,7 @@ export class SmeComponent implements OnInit {
       letterOfCreditCommission: [undefined],
       letterOfCreditCommissionPercent: [undefined],
       letterOfCreditDastur: [undefined],
+      dasturFlag: [true],
     });
   }
 
@@ -259,6 +264,7 @@ export class SmeComponent implements OnInit {
       trustReceiptTerm: [undefined],
       trustReceiptFixTerm: [undefined],
       trustReceiptDastur: [undefined],
+        dasturFlag: [true],
     });
   }
 
@@ -283,6 +289,7 @@ export class SmeComponent implements OnInit {
       cashCreditTerm: [undefined],
       cashCreditFixTerm: [undefined],
       cashCreditDastur: [undefined],
+      dasturFlag: [undefined],
     });
   }
 
@@ -307,6 +314,7 @@ export class SmeComponent implements OnInit {
       shortTermLoanTimePlan: [undefined],
       shortTermLoanTimePlanTill: [undefined],
       shortTermLoanDastur: [undefined],
+      dasturFlag: [undefined],
     });
   }
 
@@ -327,6 +335,7 @@ export class SmeComponent implements OnInit {
       bankGuaranteeTimePlan: [undefined],
       bankGuaranteeMargin: [undefined],
       bankGuaranteeDastur: [undefined],
+      dasturFlag: [undefined],
     });
   }
   addMoreBankGuaranteeForm() {
@@ -380,28 +389,252 @@ export class SmeComponent implements OnInit {
     this.loanForm.get([formArray, index, fieldControlName]).patchValue(true);
   }
 
-  setOverDrafLoanData(details) {
-    const overDraftDetails = this.loanForm.get('overdraftLoan') as FormArray;
+    setOverDrafLoanData(details) {
+        const overDraftDetails = this.loanForm.get('overdraftLoan') as FormArray;
+        details.forEach(data => {
+            overDraftDetails.push(
+                this.formBuilder.group({
+                    overdrafLoanCurrentTermRate: [data.overdrafLoanCurrentTermRate],
+                    overdrafLoanAmountInWord: [data.overdrafLoanAmountInWord],
+                    overdrafLoanAmount: [data.overdrafLoanAmount],
+                    overdrafLoanPremiumRate: [data.overdrafLoanPremiumRate],
+                    overdrafLoanCurrentAnnualRate: [data.overdrafLoanCurrentAnnualRate],
+                    overdrafLoanEndOfFiscalYear: [data.overdrafLoanEndOfFiscalYear],
+                    overdrafLoanPayment: [data.overdrafLoanPayment],
+                    overdrafLoanServiceRate: [data.overdrafLoanServiceRate],
+                    overdrafLoanServiceCharge: [data.overdrafLoanServiceCharge],
+                    overdrafLoanPrices: [data.overdrafLoanPrices],
+                    overdrafLoanYear: [data.overdrafLoanYear],
+                    overdrafLoanReturned: [data.overdrafLoanReturned],
+                    dasturFlag: [data.dasturFlag],
+                })
+            );
+        });
+    }
+
+  setdemandLoanData(details) {
+    const demandLoanDetails = this.loanForm.get('demandLoanType') as FormArray;
     details.forEach(data => {
-      overDraftDetails.push(
+        demandLoanDetails.push(
           this.formBuilder.group({
-            overdrafLoanCurrentTermRate: [data.overdrafLoanCurrentTermRate],
-            overdrafLoanAmountInWord: [data.overdrafLoanAmountInWord],
-            overdrafLoanAmount: [data.overdrafLoanAmount],
-            overdrafLoanPremiumRate: [data.overdrafLoanPremiumRate],
-            overdrafLoanCurrentAnnualRate: [data.overdrafLoanCurrentAnnualRate],
-            overdrafLoanEndOfFiscalYear: [data.overdrafLoanEndOfFiscalYear],
-            overdrafLoanPayment: [data.overdrafLoanPayment],
-            overdrafLoanServiceRate: [data.overdrafLoanServiceRate],
-            overdrafLoanServiceCharge: [data.overdrafLoanServiceCharge],
-            overdrafLoanPrices: [data.overdrafLoanPrices],
-            overdrafLoanYear: [data.overdrafLoanYear],
-            overdrafLoanReturned: [data.overdrafLoanReturned],
-            dasturFlag: [data.dasturFlag],
+              demandLoanLimit: [data.demandLoanLimit],
+              demandLoanLimitInWord: [data.demandLoanLimitInWord],
+              demandLoanPurpose: [data.demandLoanPurpose],
+              demandLoanCurrentBaseRate: [data.demandLoanCurrentBaseRate],
+              demandLoanPremiumRate: [data.demandLoanPremiumRate],
+              demandLoanNetTradingAsset: [data.demandLoanNetTradingAsset],
+              demandLoanLimitDuration: [data.demandLoanLimitDuration],
+              demandLoanLimitDurationAmount: [data.demandLoanLimitDurationAmount],
+              demandLoanDasturAmount: [data.demandLoanDasturAmount],
+              demandLoanAnnualRate: [data.demandLoanAnnualRate],
+              demandLoanDurationRatio: [data.demandLoanDurationRatio],
+              dasturFlag: [data.dasturFlag],
           })
       );
     });
   }
+
+    setFixTermLoanData(details) {
+    const fixTermLoanDetails = this.loanForm.get('fixTermLoan') as FormArray;
+    details.forEach(data => {
+        fixTermLoanDetails.push(
+          this.formBuilder.group({
+              fixedTermLoanBoundaryAmountInNumber: [data.fixedTermLoanBoundaryAmountInNumber],
+              fixedTermLoanBoundaryAmountInWord: [data.fixedTermLoanBoundaryAmountInWord],
+              fixedTermLoanPlanBankName: [data.fixedTermLoanPlanBankName],
+              fixedTermLoanTime: [data.fixedTermLoanTime],
+              fixedTermLoanMonthlyTerm: [data.fixedTermLoanMonthlyTerm],
+              fixedTermLoanAmountInNumber: [data.fixedTermLoanAmountInNumber],
+              fixedTermLoanAmountInWord: [data.fixedTermLoanAmountInWord],
+              fixedTermLoanMonth: [data.fixedTermLoanMonth],
+              fixedTermLoanBaseRate: [data.fixedTermLoanBaseRate],
+              fixedTermLoanPremiumRate: [data.fixedTermLoanPremiumRate],
+              fixedTermLoanCurrentYearPercent: [data.fixedTermLoanCurrentYearPercent],
+              fixedTermLoanBankName: [data.fixedTermLoanBankName],
+              fixedTermLoanPaymentFee: [data.fixedTermLoanPaymentFee],
+              fixedTermLoanBorrowPercent: [data.fixedTermLoanBorrowPercent],
+              fixedTermLoanPaymentAmount: [data.fixedTermLoanPaymentAmount],
+              fixedTermLoanPaymentAmountDescription: [data.fixedTermLoanPaymentAmountDescription],
+              fixedTermLoanTwoBoundaryAmountInNumber: [data.fixedTermLoanTwoBoundaryAmountInNumber],
+              fixedTermLoanTwoBoundaryAmountInWord: [data.fixedTermLoanTwoBoundaryAmountInWord],
+              fixedTermLoanTwoBankName: [data.fixedTermLoanTwoBankName],
+              fixedTermLoanTwoTime: [data.fixedTermLoanTwoTime],
+              fixedTermLoanTwoMonthlyTerm: [data.fixedTermLoanTwoMonthlyTerm],
+              fixedTermLoanTwoAmountInNumber: [data.fixedTermLoanTwoAmountInNumber],
+              fixedTermLoanTwoAmountInWord: [data.fixedTermLoanTwoAmountInWord],
+              fixedTermTwoLoanMonth: [data.fixedTermTwoLoanMonth],
+              fixedTermLoanTwoBaseRate: [data.fixedTermLoanTwoBaseRate],
+              fixedTermLoanTwoPremiumRate: [data.fixedTermLoanTwoPremiumRate],
+              fixedTermLoanTwoCurrentYearPercent: [data.fixedTermLoanTwoCurrentYearPercent],
+              fixedTermLoanTwoPaymentBankName: [data.fixedTermLoanTwoPaymentBankName],
+              fixedTermLoanTwoPaymentFee: [data.fixedTermLoanTwoPaymentFee],
+              fixedTermLoanTwoBorrowPercent: [data.fixedTermLoanTwoBorrowPercent],
+              fixedTermLoanTwoPaymentAmount: [data.fixedTermLoanTwoPaymentAmount],
+              fixedTermLoanPaymentTwoAmountDescription: [data.fixedTermLoanPaymentTwoAmountDescription],
+              dasturFlag: [data.dasturFlag],
+          })
+      );
+    });
+  }
+
+    setHirePurchaseLoanData(details) {
+    const hirePurchaseDetails = this.loanForm.get('hirePurchaseLoan') as FormArray;
+    details.forEach(data => {
+        hirePurchaseDetails.push(
+          this.formBuilder.group({
+              hirePurchasePaymentAmountInNumber: [data.hirePurchasePaymentAmountInNumber],
+              hirePurchaseLoanPaymentAmountInWord: [data.hirePurchaseLoanPaymentAmountInWord],
+              hirePurchaseLoanPlanBankName: [data.hirePurchaseLoanPlanBankName],
+              hirePurchaseLoanTime: [data.hirePurchaseLoanTime],
+              hirePurchaseLoanBaseRate: [data.hirePurchaseLoanBaseRate],
+              hirePurchaseLoanPremiumRate: [data.hirePurchaseLoanPremiumRate],
+              hirePurchaseLoanCurrentYear: [data.hirePurchaseLoanCurrentYear],
+              hirePurchaseLoanTerm: [data.hirePurchaseLoanTerm],
+              hirePurchaseLoanAmountInNumber: [data.hirePurchaseLoanAmountInNumber],
+              hirePurchaseLoanInWord: [data.hirePurchaseLoanInWord],
+              hirePurchaseLoanMonth: [data.hirePurchaseLoanMonth],
+              hirPurchaseLoanPaymentBankName: [data.hirPurchaseLoanPaymentBankName],
+              hirPurchaseLoanPaymentPercent: [data.hirPurchaseLoanPaymentPercent],
+              hirePurchaseLoanPaymentMonth: [data.hirePurchaseLoanPaymentMonth],
+              hirePurchaseLoanServiceCharge: [data.hirePurchaseLoanServiceCharge],
+              hirePurchaseLoanServicePercent: [data.hirePurchaseLoanServicePercent],
+              dasturFlag: [data.dasturFlag],
+          })
+      );
+    });
+  }
+
+    setLetterOfCreditData(details) {
+    const letterOfCreditDetails = this.loanForm.get('letterOfCredit') as FormArray;
+    details.forEach(data => {
+        letterOfCreditDetails.push(
+          this.formBuilder.group({
+              letterOfCreditAmountInNumber: [data.letterOfCreditAmountInNumber],
+              latterOfCreditAmountInWord: [data.latterOfCreditAmountInWord],
+              letterOfCreditMargin: [data.letterOfCreditMargin],
+              letterOfCreditMarginPercent: [data.letterOfCreditMarginPercent],
+              letterOfCreditCurrentFiscalYear: [data.letterOfCreditCurrentFiscalYear],
+              letterOfCreditCommission: [data.letterOfCreditCommission],
+              letterOfCreditCommissionPercent: [data.letterOfCreditCommissionPercent],
+              letterOfCreditDastur: [data.letterOfCreditDastur],
+              dasturFlag: [data.dasturFlag],
+          })
+      );
+    });
+  }
+
+    setTrustReceiptData(details) {
+    const trustReceiptDetails = this.loanForm.get('trustReceipt') as FormArray;
+    details.forEach(data => {
+        trustReceiptDetails.push(
+          this.formBuilder.group({
+              trustReceiptAmountInNumber: [data.trustReceiptAmountInNumber],
+              trustReceiptAmountInWord: [data.trustReceiptAmountInWord],
+              trustReceiptBaseRate: [data.trustReceiptBaseRate],
+              trustReceiptPremiumRate: [data.trustReceiptPremiumRate],
+              trustReceiptYearlyRate: [data.trustReceiptYearlyRate],
+              trustReceiptPayment: [data.trustReceiptPayment],
+              trustReceiptTerm: [data.trustReceiptTerm],
+              trustReceiptFixTerm: [data.trustReceiptFixTerm],
+              trustReceiptDastur: [data.trustReceiptDastur],
+              dasturFlag: [data.dasturFlag],
+          })
+      );
+    });
+  }
+
+    setCashCreditData(details) {
+    const cashCreditDetails = this.loanForm.get('cashCredit') as FormArray;
+    details.forEach(data => {
+        cashCreditDetails.push(
+          this.formBuilder.group({
+              cashCreditAmountInNumber: [data.cashCreditAmountInNumber],
+              cashCreditAmountInWord: [data.cashCreditAmountInWord],
+              casCreditAim: [data.casCreditAim],
+              cashCreditBaseRate: [data.cashCreditBaseRate],
+              cashCreditPremiumRate: [data.cashCreditPremiumRate],
+              cashCreditCurrentYear: [data.cashCreditCurrentYear],
+              cashCreditPay: [data.cashCreditPay],
+              cashCreditPayTill: [data.cashCreditPayTill],
+              cashCreditTerm: [data.cashCreditTerm],
+              cashCreditFixTerm: [data.cashCreditFixTerm],
+              cashCreditDastur: [data.cashCreditDastur],
+              dasturFlag: [data.dasturFlag],
+          })
+      );
+    });
+  }
+
+    setShortTermLoanData(details) {
+    const shortTermLoanDetails = this.loanForm.get('shortTermLoan') as FormArray;
+    details.forEach(data => {
+        shortTermLoanDetails.push(
+          this.formBuilder.group({
+              shortTermLoanAmountInNumber: [data.shortTermLoanAmountInNumber],
+              shortTermLoanAmountInWord: [data.shortTermLoanAmountInWord],
+              shortTermLoanAim: [data.shortTermLoanAim],
+              shortTermLoanBaseRate: [data.shortTermLoanBaseRate],
+              shortTermLoanPremiumRate: [data.shortTermLoanPremiumRate],
+              shortTermLoanCurrentYear: [data.shortTermLoanCurrentYear],
+              shortTermLoanPay: [data.shortTermLoanPay],
+              shortTermLoanPayTill: [data.shortTermLoanPayTill],
+              shortTermLoanTimePlan: [data.shortTermLoanTimePlan],
+              shortTermLoanTimePlanTill: [data.shortTermLoanTimePlanTill],
+              shortTermLoanDastur: [data.shortTermLoanDastur],
+              dasturFlag: [data.dasturFlag],
+          })
+      );
+    });
+  }
+
+    setBankGuaranteeData(details) {
+    const bankGuaranteeDetails = this.loanForm.get('bankGuarantee') as FormArray;
+    details.forEach(data => {
+        bankGuaranteeDetails.push(
+          this.formBuilder.group({
+              bankGuaranteeAmountInNumber: [data.bankGuaranteeAmountInNumber],
+              bankGuaranteeAmountInWord: [data.bankGuaranteeAmountInWord],
+              bankGuaranteeAmountAim: [data.bankGuaranteeAmountAim],
+              bankGuaranteeCommission: [data.bankGuaranteeCommission],
+              bankGuaranteeTimePlan: [data.bankGuaranteeTimePlan],
+              bankGuaranteeMargin: [data.bankGuaranteeMargin],
+              bankGuaranteeDastur: [data.bankGuaranteeDastur],
+              dasturFlag: [data.dasturFlag],
+          })
+      );
+    });
+  }
+
+    setMultiCollateralLoanData(details) {
+    const multiCollateralDetails = this.loanForm.get('multiCollateral') as FormArray;
+    details.forEach(data => {
+        multiCollateralDetails.push(
+          this.formBuilder.group({
+              onlySelf: [data.onlySelf],
+              district: [data.district],
+              wardNo: [data.wardNo],
+              placeName: [data.placeName],
+              kittanNo: [data.kittanNo],
+              squareMeter: [data.squareMeter],
+              landAndHouse: [data.landAndHouse],
+              doDoesAsset: [data.doDoesAsset],
+          })
+      );
+    });
+  }
+
+    setTableData(details) {
+        const multiCollateralDetails = this.loanForm.get('tableData') as FormArray;
+        details.forEach(data => {
+            multiCollateralDetails.push(
+                this.formBuilder.group({
+                    insuranceDetails: [data.insuranceDetails],
+                    insuranceAmount: [data.insuranceAmount],
+                    riskCoverage: [data.riskCoverage],
+                })
+            );
+        });
+    }
 
   checkOfferLetterData() {
     if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
@@ -411,6 +644,16 @@ export class SmeComponent implements OnInit {
         this.offerLetterDocument = new OfferDocument();
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.SME);
         this.addMoreOverdraftLoan();
+        this.addMoreDemandLoan();
+        this.addMoreFixTermLoan();
+        this.addMoreHirePurchaseLoan();
+        this.addMoreLetterOfCreditForm();
+        this.addMoreTrustReceiptForm();
+        this.addMoreCashCreditForm();
+        this.addMoreShortTermLoanForm();
+        this.addMoreBankGuaranteeForm();
+        this.addMoreCollateral();
+        this.addTableData();
       } else  {
         const  initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
         console.log(initialInfo);
@@ -422,50 +665,16 @@ export class SmeComponent implements OnInit {
         this.selectedLoanArray = initialInfo.loanTypeSelectedArray;
         this.chooseLoanType(this.selectedLoanArray);
         this.setOverDrafLoanData(initialInfo.overdraftLoan);
-        // (this.loanForm.get('overdraftLoan') as FormArray).clear();
-        // initialInfo.overdraftLoan.forEach(value => {
-        //   (this.loanForm.get('overdraftLoan') as FormArray).push(this.formBuilder.group(value));
-        // });
-        (this.loanForm.get('demandLoanType') as FormArray).clear();
-        initialInfo.demandLoanType.forEach(value => {
-          (this.loanForm.get('demandLoanType') as FormArray).push(this.formBuilder.group(value));
-        });
-        (this.loanForm.get('fixTermLoan') as FormArray).clear();
-        initialInfo.fixTermLoan.forEach(value => {
-          (this.loanForm.get('fixTermLoan') as FormArray).push(this.formBuilder.group(value));
-        });
-        (this.loanForm.get('hirePurchaseLoan') as FormArray).clear();
-        initialInfo.hirePurchaseLoan.forEach(value => {
-          (this.loanForm.get('hirePurchaseLoan') as FormArray).push(this.formBuilder.group(value));
-        });
-        (this.loanForm.get('letterOfCredit') as FormArray).clear();
-        initialInfo.letterOfCredit.forEach(value => {
-          (this.loanForm.get('letterOfCredit') as FormArray).push(this.formBuilder.group(value));
-        });
-        (this.loanForm.get('trustReceipt') as FormArray).clear();
-        initialInfo.trustReceipt.forEach(value => {
-          (this.loanForm.get('trustReceipt') as FormArray).push(this.formBuilder.group(value));
-        });
-        (this.loanForm.get('cashCredit') as FormArray).clear();
-        initialInfo.cashCredit.forEach(value => {
-          (this.loanForm.get('cashCredit') as FormArray).push(this.formBuilder.group(value));
-        });
-        (this.loanForm.get('shortTermLoan') as FormArray).clear();
-        initialInfo.shortTermLoan.forEach(value => {
-          (this.loanForm.get('shortTermLoan') as FormArray).push(this.formBuilder.group(value));
-        });
-        (this.loanForm.get('bankGuarantee') as FormArray).clear();
-        initialInfo.bankGuarantee.forEach(value => {
-          (this.loanForm.get('bankGuarantee') as FormArray).push(this.formBuilder.group(value));
-        });
-        (this.loanForm.get('multiCollateral') as FormArray).clear();
-        initialInfo.multiCollateral.forEach(value => {
-          (this.loanForm.get('multiCollateral') as FormArray).push(this.formBuilder.group(value));
-        });
-        (this.loanForm.get('tableData') as FormArray).clear();
-        initialInfo.tableData.forEach(value => {
-          (this.loanForm.get('tableData') as FormArray).push(this.formBuilder.group(value));
-        });
+        this.setdemandLoanData(initialInfo.demandLoanType);
+        this.setFixTermLoanData(initialInfo.fixTermLoan);
+        this.setHirePurchaseLoanData(initialInfo.hirePurchaseLoan);
+        this.setLetterOfCreditData(initialInfo.letterOfCredit);
+        this.setTrustReceiptData(initialInfo.trustReceipt);
+        this.setCashCreditData(initialInfo.cashCredit);
+        this.setShortTermLoanData(initialInfo.shortTermLoan);
+        this.setBankGuaranteeData(initialInfo.bankGuarantee);
+        this.setMultiCollateralLoanData(initialInfo.multiCollateral);
+        this.setTableData(initialInfo.tableData);
         this.initialInfoPrint = initialInfo;
       }
     }
