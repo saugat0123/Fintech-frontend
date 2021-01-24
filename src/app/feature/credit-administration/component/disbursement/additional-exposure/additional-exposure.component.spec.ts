@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HayerPurchasePrintComponent } from './hayer-purchase-print.component';
+import { AdditionalExposureComponent } from './additional-exposure.component';
 
-describe('HayerPurchasePrintComponent', () => {
-  let component: HayerPurchasePrintComponent;
-  let fixture: ComponentFixture<HayerPurchasePrintComponent>;
+describe('AdditionalExposureComponent', () => {
+  let component: AdditionalExposureComponent;
+  let fixture: ComponentFixture<AdditionalExposureComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HayerPurchasePrintComponent ]
+      declarations: [ AdditionalExposureComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HayerPurchasePrintComponent);
+    fixture = TestBed.createComponent(AdditionalExposureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

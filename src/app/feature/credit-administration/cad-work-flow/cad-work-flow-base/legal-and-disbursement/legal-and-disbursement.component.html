@@ -13,7 +13,7 @@
                         *ngIf="showHideAction && cadOfferLetterApprovedDoc"></app-cad-action>
     </nb-card-header>
     <nb-card-body>
-        <nb-tabset fullWidth *ngIf="cadOfferLetterApprovedDoc?.docStatus !== 'OFFER_PENDING'">
+        <nb-tabset fullWidth *ngIf="cadOfferLetterApprovedDoc?.docStatus !== 'OFFER_PENDING' && !isRoleLegal">
             <nb-tab tabTitle="Basic Info" [active]="activeTab === 0">
                 <app-cad-offerletter-profile *ngIf="cadOfferLetterApprovedDoc"
                                              [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
@@ -37,11 +37,33 @@
                                         *ngIf="cadOfferLetterApprovedDoc && checkListLiteVersion == true"></app-document-checklist-lite>
             </nb-tab>
         </nb-tabset>
-        <div *ngIf="cadOfferLetterApprovedDoc?.docStatus === 'OFFER_PENDING'">
+        <div *ngIf="cadOfferLetterApprovedDoc?.docStatus === 'OFFER_PENDING' && !isRoleLegal">
             <app-cad-offerletter-profile *ngIf="cadOfferLetterApprovedDoc"
                                          [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                                          (responseCadData)="newCadData($event)"></app-cad-offerletter-profile>
 
         </div>
+        <nb-tabset *ngIf="isRoleLegal">
+            <nb-tab tabTitle="Basic Info">
+                <app-profile-view *ngIf="cadOfferLetterApprovedDoc && toggleArray"
+                                  [toggleArray]="toggleArray"
+                                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                  [customerInfoData]="customerInfoData"></app-profile-view>
+            </nb-tab>
+            <nb-tab tabTitle="Exposure Detail">
+                <app-exposure-view [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                   *ngIf="cadOfferLetterApprovedDoc" [displayHistory]="true" [fromScc]="false"></app-exposure-view>
+            </nb-tab>
+            <nb-tab tabTitle="Fees and Commissions">
+                <app-fees-commissions-view [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                           *ngIf="cadOfferLetterApprovedDoc"></app-fees-commissions-view>
+            </nb-tab>
+            <nb-tab tabTitle="Document Checklist">
+                <app-document-checklist-view [cadData]="cadOfferLetterApprovedDoc"
+                                             *ngIf="cadOfferLetterApprovedDoc && checkListLiteVersion == false"></app-document-checklist-view>
+                <app-document-checklist-view-lite [cadData]="cadOfferLetterApprovedDoc"
+                                                  *ngIf="cadOfferLetterApprovedDoc && checkListLiteVersion == true"></app-document-checklist-view-lite>
+            </nb-tab>
+        </nb-tabset>
     </nb-card-body>
 </nb-card>
