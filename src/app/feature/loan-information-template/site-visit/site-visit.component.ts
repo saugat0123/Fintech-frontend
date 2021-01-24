@@ -1292,7 +1292,7 @@ export class SiteVisitComponent implements OnInit {
           formControl, 'oneYearTotal']).value + this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
           formControl, 'moreThanOneYearTotal']).value;
     this.siteVisitFormGroup.get(['currentAssetsInspectionDetails',
-      formControl, 'grandTotal']).patchValue(grandTotal);
+      formControl, 'grandTotal']).patchValue(grandTotal.toFixed(2));
 
   }
 

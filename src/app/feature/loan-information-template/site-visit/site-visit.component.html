@@ -390,7 +390,7 @@
                     <div class="col-md-3 form-group">
                         <label class="title" for="roadWidth">Road Width</label>
                         <input class="form-control" formControlName="roadWidth" id="roadWidth" name="roadWidth"
-                              placeholder="road width" type="text">
+                              placeholder="road width" type="number" appDecimalNumber/>
                     </div>
                     <div class="col-md-3 form-group">
                         <label class="title" for="prominentPlace">Prominent Place</label>
@@ -400,7 +400,7 @@
                     <div class="col-md-3 form-group">
                         <label class="title" for="approachDistance">Approach Distance</label>
                         <input class="form-control" formControlName="approachDistance" id="approachDistance"
-                               name="approachDistance" placeholder="approach distance" type="text">
+                               name="approachDistance" placeholder="approach distance" type="number" appDecimalNumber/>
                     </div>
                     <div class="col-md-3 form-group">
                         <label class="title" for="roadAccessFrom">Road Access From</label>
@@ -416,7 +416,7 @@
                 <h5 class="col-md-12 mt-3">Other Facilities</h5>
                 <div class="row col-md-12" formGroupName="otherFacilities">
                     <div class="col-md-4 form-group">
-                        <table class="table table-sm sb-small text-center">
+                        <table class="table table-bordered table-sm sb-small text-center">
                             <tr class="text-white sb-bg-dark">
                                 <th>SN</th>
                                 <th>Particulars</th>
@@ -516,7 +516,7 @@
                         </div>
                     </div>
                     <table *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('building')?.value == 'YES'"
-                           class="table col-md-4 table-sm sb-small text-center">
+                           class="table table-bordered col-md-4 table-sm sb-small text-center">
                         <tr class="text-white sb-bg-dark">
                             <th>SN</th>
                             <th>Particulars</th>
@@ -592,7 +592,7 @@
                 <h5 class="col-md-12 mt-3">Vicinity to the Basic Amenities</h5>
                 <div class="row col-md-12 mt-3" formGroupName="vicinityToTheBasicAmenities">
                     <div class="col-md-6">
-                        <table class="table table-sm sb-small text-center">
+                        <table class="table table-bordered table-sm sb-small text-center">
                             <tr class="text-white sb-bg-dark">
                                 <th>SN</th>
                                 <th>Particulars</th>
@@ -725,7 +725,7 @@
                     <label class="title" for="stockValueReported">Stock Value Reported</label>
                     <input class="form-control" formControlName="stockValueReported"
                            id="stockValueReported" name="stockValueReported"
-                           placeholder="0.0" type="number">
+                           placeholder="0.0" type="number" appDecimalNumber>
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="title" for="rents">Is the Premise self owned or rented?</label>
@@ -771,7 +771,7 @@
                         <div class="col-md-4 form-group">
                             <label class="title" for="insuredAmount">Insured Amount</label>
                             <input class="form-control" formControlName="insuredAmount" id="insuredAmount"
-                                   name="insuredAmount" placeholder="insured amount" type="number">
+                                   name="insuredAmount" placeholder="insured amount" type="number" appDecimalNumber>
                         </div>
                         <div class="col-md-4 form-group">
                             <label class="title" for="insuranceCompany">Insurance Company</label>
@@ -809,7 +809,7 @@
                             <label class="title" for="stockValueConfirmed">Stock Value Confirmed</label>
                             <input class="form-control" formControlName="stockValueConfirmed"
                                    id="stockValueConfirmed" name="stockValueConfirmed"
-                                   placeholder="0.0" type="number">
+                                   placeholder="0.0" type="number" appDecimalNumber>
                         </div>
                     <div class="col-md-12">
                         <div *ngFor="let inspectingStaff of inspectingStaffsDetailsForm; let i = index;"
@@ -1107,28 +1107,28 @@
                                        class="form-control"
                                        formControlName="withinThreeMonths" id="withinThreeMonths"
                                        name="party"
-                                       placeholder="0.0" type="number">
+                                       placeholder="0.0" type="number" appDecimalNumber>
                             </div>
                             <div class="col-md-2 form-group">
                                 <label class="title" for="sixMonth">6 Month</label>
                                 <input (keyup)="onChangeValue('sixMonth', 'sixMonthTotal')" class="form-control"
                                        formControlName="sixMonth"
                                        id="sixMonth" name="sixMonth"
-                                       placeholder="0.0" type="number">
+                                       placeholder="0.0" type="number" appDecimalNumber>
                             </div>
                             <div class="col-md-2 form-group">
                                 <label class="title" for="oneYear">One year</label>
                                 <input (keyup)="onChangeValue('oneYear', 'oneYearTotal')" class="form-control"
                                        formControlName="oneYear"
                                        id="oneYear" name="oneYear"
-                                       placeholder="0.0" type="number">
+                                       placeholder="0.0" type="number" appDecimalNumber>
                             </div>
                             <div class="col-md-2 form-group">
                                 <label class="title" for="oneYearPlus">1+ year</label>
                                 <input (keyup)="onChangeValue('oneYearPlus', 'moreThanOneYearTotal')"
                                        class="form-control" formControlName="oneYearPlus"
                                        id="oneYearPlus" name="oneYeaPlus"
-                                       placeholder="0.0" type="number">
+                                       placeholder="0.0" type="number" appDecimalNumber>
                             </div>
                             <div *ngIf="partyLength()>1" class="col-md-1 pt-4">
                                 <input (click)="deletePartyForm(i)"
@@ -1202,28 +1202,28 @@
                                        class="form-control"
                                        formControlName="withinThreeMonths"
                                        name="party"
-                                       placeholder="0.0" type="number">
+                                       placeholder="0.0" type="number" appDecimalNumber>
                             </div>
                             <div class="col-md-2 form-group">
                                 <label class="title" for="sixMonth">6 Month</label>
                                 <input (keyup)="onChangePayableValue('sixMonth', 'sixMonthTotal')" class="form-control"
                                        formControlName="sixMonth"
                                        id="sixMonth" name="sixMonth"
-                                       placeholder="0.0" type="number">
+                                       placeholder="0.0" type="number" appDecimalNumber>
                             </div>
                             <div class="col-md-2 form-group">
                                 <label class="title" for="oneYear">One year</label>
                                 <input (keyup)="onChangePayableValue('oneYear', 'oneYearTotal')" class="form-control"
                                        formControlName="oneYear"
                                         name="oneYear"
-                                       placeholder="0.0" type="number">
+                                       placeholder="0.0" type="number" appDecimalNumber>
                             </div>
                             <div class="col-md-2 form-group">
                                 <label class="title" for="oneYearPlus">1+ year</label>
                                 <input (keyup)="onChangePayableValue('oneYearPlus', 'moreThanOneYearTotal')"
                                        class="form-control" formControlName="oneYearPlus"
                                         name="oneYeaPlus"
-                                       placeholder="0.0" type="number">
+                                       placeholder="0.0" type="number" appDecimalNumber>
                             </div>
                             <div *ngIf="payablePartyLength()>1" class="col-md-1 pt-4">
                                 <input (click)="deletePayablePartyForm(i)"
@@ -1297,7 +1297,7 @@
                                     <input (keyup)="onReceivableAssetValueChange('amount', 'receivableCurrentAssetsTotal')"
                                            class="form-control" formControlName="amount"
                                            id="amount" name="amount"
-                                           placeholder="0.0" type="number">
+                                           placeholder="0.0" type="number" appDecimalNumber>
                                 </div>
                                 <div *ngIf="receivableAssetsLength()>1" class="col-md-2 form-group pt-4">
                                     <input (click)="deleteReceivableAssets(i)"
@@ -1367,7 +1367,7 @@
                                     <input (keyup)="onPayableAssetsValueChange('amount', 'payableCurrentAssetsTotal')"
                                            class="form-control" formControlName="amount"
                                            id="amount" name="amount"
-                                           placeholder="0.0" type="number">
+                                           placeholder="0.0" type="number" appDecimalNumber>
                                 </div>
                                 <div *ngIf="payableAssetsLength()>1" class="col-md-2 form-group pt-4">
                                     <input (click)="deletePayableAssets(i)" class="btn btn-sm btn-danger btn-primary"
@@ -1398,7 +1398,7 @@
                                 <div class="col-md-4 form-group">
                                     <label class="title" for="amount">Amount</label>
                                     <input class="form-control" formControlName="amount" id="amount"
-                                           name="amount" placeholder="0.0" type="number">
+                                           name="amount" placeholder="0.0" type="number" appDecimalNumber>
                                 </div>
                                 <div *ngIf="bankExposureLength()>1" class="col-md-2 form-group pt-4">
                                     <input (click)="deleteBankExposure(i)" class="btn btn-sm btn-danger btn-primary"
