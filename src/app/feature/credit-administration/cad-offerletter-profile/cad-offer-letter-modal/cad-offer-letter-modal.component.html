@@ -25,6 +25,8 @@
                      [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-sme>
             <app-custom-offer-letter-document *ngSwitchCase="offerLetterTypeConst.CUSTOM"
                                               [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-custom-offer-letter-document>
+            <app-retail-loan-against-insurance *ngSwitchCase="offerLetterTypeConst.RETAIL_LOAN_AGAINST_INSURANCE"
+                                               [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-retail-loan-against-insurance>
         </div>
         <nb-card-footer>
             <div>
