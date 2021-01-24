@@ -45,7 +45,7 @@
 
         <ng-container *ngIf="proTermLoanSelected">
             <div *ngFor="let proTerm of letter['professionalTermLoanArray']; let i = index">
-                <table [formGroupName]="i" class="table-responsive-md table-bordered">
+                <table class="table-responsive-md table-bordered">
                     <tr>
                         <th scope="col" style="width: 20%">क. प्रस्तावित सुविधा</th>
                         <th scope="col"> पेशागत कर्जा (Professional Term Loan)
@@ -117,12 +117,15 @@
                     </tr>
                     </tbody>
                 </table>
+
+                <div style="page-break-after: always"></div>
+
             </div>
         </ng-container>
 
         <ng-container *ngIf="proOverdraftLoanSelected">
             <div *ngFor="let proOverdraft of letter['professionalOverDraftLoanArray']; let i = index">
-                <table [formGroupName]="i" class="table-responsive-md table-bordered">
+                <table class="table-responsive-md table-bordered">
                     <tr>
                         <th scope="col" style="width: 20%">ख. प्रस्तावित सुविधा</th>
                         <th scope="col"> पेशागत अधिविकर्ष कर्जा (Professional Overdraft Loan)
@@ -199,6 +202,9 @@
                     </tr>
                     </tbody>
                 </table>
+
+                <div style="page-break-after: always"></div>
+
             </div>
         </ng-container>
 
@@ -235,7 +241,7 @@
             </div>
         </div>
 
-        {{}}
+        <!--{{}}-->
 
         <div style="font-weight: bold"><u>३. व्याज</u></div>
         <div class="col-md-12">
