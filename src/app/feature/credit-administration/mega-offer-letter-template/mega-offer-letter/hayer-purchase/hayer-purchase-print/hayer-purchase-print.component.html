@@ -204,7 +204,7 @@
     </table>
     <p><b>नोटः माथि उल्लेखित सुरक्षणहरुका साथ निम्न शर्तहरु अनिवार्य रुपमा पालना गर्नुपर्नेछ ।</b></p>
     <div>
-      {{loan['clausesTextEditor']}} <!--todo-->
+      <p [innerHTML]="loan['clausesTextEditor'] | safeHtml" class="nepaliFont my-4"></p>
     </div>
     <div class="row">
       <div class="col-md-1"><b>३.</b></div>

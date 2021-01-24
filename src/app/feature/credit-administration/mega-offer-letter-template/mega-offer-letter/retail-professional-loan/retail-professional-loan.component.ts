@@ -13,7 +13,7 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerAppro
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../model/CadDocStatus';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
-import {Editor} from '../../../../../@core/utils/constants/editor';
+import {NepaliEditor} from '../../../../../@core/utils/constants/nepaliEditor';
 
 @Component({
     selector: 'app-retail-professional-loan',
@@ -35,7 +35,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
     proOverdraftLoanSelected = false;
 
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
-    ckeConfig = Editor.CK_CONFIG;
+    ckeConfig = NepaliEditor.CK_CONFIG;
 
     constructor(private formBuilder: FormBuilder,
                 private customerOfferLetterService: CustomerOfferLetterService,

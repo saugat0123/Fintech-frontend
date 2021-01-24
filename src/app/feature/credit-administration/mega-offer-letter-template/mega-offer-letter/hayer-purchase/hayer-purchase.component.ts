@@ -12,7 +12,7 @@ import {CreditAdministrationService} from '../../../service/credit-administratio
 import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
-import {Editor} from '../../../../../@core/utils/constants/editor';
+import {NepaliEditor} from '../../../../../@core/utils/constants/nepaliEditor';
 
 @Component({
     selector: 'app-hayer-purchase',
@@ -28,7 +28,7 @@ export class HayerPurchaseComponent implements OnInit {
     offerLetterConst = MegaOfferLetterConst;
     hayerPurchaseLetter: OfferDocument;
     isPresentPrevious = false;
-    ckeConfig = Editor.CK_CONFIG;
+    ckeConfig = NepaliEditor.CK_CONFIG;
 
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
 
