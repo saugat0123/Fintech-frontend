@@ -180,7 +180,9 @@ export class ProposalComponent implements OnInit {
       // for moratoriumPeriod Amount--
       moratoriumPeriod: [undefined],
       // for prepaymentCharge Amount--
-      prepaymentCharge: [''],
+      prepaymentCharge: [(ObjectUtil.isEmpty(this.proposalData)
+          || ObjectUtil.isEmpty(this.proposalData.prepaymentCharge)) ? undefined :
+          this.proposalData.prepaymentCharge, [Validators.required, Validators.max(100), Validators.min(0)]],
       // for prepaymentCharge Amount--
       // for commitmentFee Amount--
       commitmentFee: [undefined],
@@ -224,6 +226,10 @@ export class ProposalComponent implements OnInit {
     return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
   }
 
+  // public validateNum(): boolean {
+  //   return this.proposalForm.value.prepaymentCharge > 0 || this.proposalForm.value.prepaymentCharge < 100;
+  // }
+
   onSubmit() {
     // Proposal Form Data--
     if (!ObjectUtil.isEmpty(this.formValue)) {
@@ -236,6 +242,13 @@ export class ProposalComponent implements OnInit {
       waiverChecked: this.waiverChecked,
       riskChecked: this.riskChecked
     };
+    //
+    // if (!this.validateNum()) {
+    //   this.proposalForm.get('prepaymentCharge').setErrors({'invalid': true});
+    //   return;
+    // } else {
+    //   this.proposalForm.get('prepaymentCharge').setErrors(null);
+    // }
     this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
     // Proposed Limit value--
