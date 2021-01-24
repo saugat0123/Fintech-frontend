@@ -25,3 +25,17 @@
   border-style: solid;
 
 }
+
+@media print{
+  .divFooter{
+    //position: fixed;
+    //bottom: 0;
+    //width: 100%;
+    //page-break-before: auto;
+    //page-break-inside: avoid;
+    //color: black !important;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  //footer {page-break-after: always;
+}

@@ -370,26 +370,28 @@
                            <input class="form-fields form-control-sm nepaliFont"
                                   formControlName="district"
                                   placeholder="स्याङजा " type="text"/> जिल्ला,
-                           वडा नं. <input class="form-fields form-control-sm nepaliFont"
+                           <input class="form-fields form-control-sm nepaliFont"
                                           formControlName="wardNo"
                                           placeholder="बराह कालिका वडा नं. १"
-                                          type="text"/>
-                           स्थित कि.नं
+                                          type="text"/> वडा नं.
+                           <input class="form-fields form-control-sm nepaliFont"
+                                  formControlName="address"
+                                  type="text"/>
+                           मा रहेका कि.नं
                            <input class="form-fields form-control-sm nepaliFont"
                                   formControlName="statekeyNo"
                                   type="text"/> (
                             <input class="form-fields form-control-sm nepaliFont"
                                         formControlName="keyNo"
                                         type="text"/> व.मी)
-                           <br>
                            को <input class="form-fields form-control-sm nepaliFont"
                                      formControlName="link" placeholder=" जग्गाहरु तथा सोमा निर्माणधीन घर"
-                                     type="text"/> को जग्गा तथा सोमा निर्माणाधीन घर सम्बन्धित निकायबाट बैंकको नाममा धितोको प्रथम र पूर्ण हक कायम हुने गरि धितो बन्धकीको तमसुक रजिष्ट्रेशन गरिदिनुपर्ने÷गरिदिएको सम्पत्ति ।<br>
+                                     type="text"/> को जग्गा तथा सोमा निर्माणाधीन घर सम्बन्धित निकायबाट बैंकको नाममा धितोको प्रथम र पूर्ण हक कायम हुने गरि धितो बन्धकीको तमसुक रजिष्ट्रेशन गरिदिनुपर्ने/गरिदिएको सम्पत्ति ।<br>
                            २.४ - <input [readOnly]="true"
                                         class="form-fields form-control-sm nepaliFont"
                                         formControlName="applicantName"
                                         placeholder="श्रीमती उषा गुरुङक"
-                                        type="text"/>को हकवालाले माथि उल्लेखित अचल धितो सम्पत्ति धितो सुरक्षण कायम राख्न दिएको मञ्जुरीनामा (नाता प्रमाणित सहित) ।
+                                        type="text"/>को हकवालाले माथि उल्लेखित अचल धितो सम्पत्ति धितो सुरक्षण कायम राख्न दिएको मञ्जुरीनामा (नाता प्रमाणित सहित) । <br>
                            २.५ -  <input class="form-fields form-control-sm nepaliFont"
                                              formControlName="applicantRelativeOne"
                                              placeholder="सुन बहादुर गुरुङ"
@@ -487,6 +489,9 @@
                        </div>
                    </div>
                    <strong> नोटः	माथि उल्लेखित सुरक्षणहरुका साथ निम्न शर्तहरु अनिवार्य रुपमा पालना गर्नुपर्नेछ ।</strong>
+                   <p>
+                       <em class="fa fa-info-circle"><em class="ml-2">Note : Please select Nepali font for nepali typing privileges in the editor below.</em></em>
+                   </p>
                    <div><ckeditor formControlName="noteOfCollateral" [config]="ckeConfig" ></ckeditor>
                    </div>
 

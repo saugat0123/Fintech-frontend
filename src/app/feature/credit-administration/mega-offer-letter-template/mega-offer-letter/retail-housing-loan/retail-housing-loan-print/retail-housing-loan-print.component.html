@@ -2,6 +2,7 @@
     <div class="logo-container">
         <img alt="logo" height="60px" src="../../../../../assets/img/offer-letter-header-logo.png">
     </div>
+
     <div class="col-md-12">
         <div class="text-center">
             <h2 class="font-weight-bold" style="align-content: center;">व्यक्तिगत एवं गोप्य</h2>
@@ -182,29 +183,18 @@
                     <br>
                     २.१ - सम्पूर्ण कर्जा सिमा रकम बराबरको ऋणीद्वारा हस्ताक्षर गरिएका प्रतिज्ञा पत्र (<strong> Promissory Note </strong>) ।<br>
                     २.२ - सम्पूर्ण कर्जा सिमा रकम बराबरको कर्जा लिखत (<strong> Loan Deed </strong>) ।<br>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-3 " style="margin-top: 20px">
-                            <div class="col-md-12">
-                                <p class="text-center">-----------------------------</p>
-                            </div>
-                            <div class="col-md-12">
-                                <p class="text-center">ऋणीको आधिकारिक दस्तखत</p>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
                     २.३ - <strong class="nepaliFont">{{letter['applicantName']}}</strong>को आफ्नो एकल स्वामित्व र एकलौटी हकभोगको
-                    <strong class="nepaliFont">{{letter['district']}}</strong> जिल्ला,वडा नं.
-                    <strong class="nepaliFont">{{letter['wardNo']}}</strong> स्थित कि.नं
+                    <strong class="nepaliFont">{{letter['district']}}</strong> जिल्ला,
+                    <strong class="nepaliFont">{{letter['wardNo']}}</strong>वडा नं.
+                    <strong class="nepaliFont">{{letter['address']}}</strong>  मा रहेका कि.नं
                     <strong class="nepaliFont">{{letter['statekeyNo']}}</strong> (
                      <strong class="nepaliFont">{{letter['keyNo']}}</strong> व.मी)
                     <br>
                     को जग्गा तथा सोमा निर्माणाधीन घर सम्बन्धित निकायबाट बैंकको नाममा धितोको प्रथम र पूर्ण हक कायम हुने गरि धितो बन्धकीको तमसुक रजिष्ट्रेशन गरिदिनुपर्ने÷गरिदिएको सम्पत्ति ।<br>
                     २.४ - <strong class="nepaliFont">{{letter['applicantName']}}</strong>को हकवालाले माथि उल्लेखित अचल धितो सम्पत्ति धितो सुरक्षण कायम राख्न दिएको मञ्जुरीनामा (नाता प्रमाणित सहित) ।<br>
                     २.५ - {{letter.applicantRelativeOne}} र {{letter.applicantRelativeTwo}} को सम्पूर्ण कर्जा सिमा रकम बराबरको छुट्टाछुट्टै व्यक्तिगत जमानी ।
-                     <p *ngIf="letter?.landNumberPreviousOwnerShow">२.६ - कि.न. {{letter.landNumber}}  पुर्व जग्गाधनी {{letter.previousOwner}} को हकवालाले माथि उल्लेखित अचल धितो सम्पत्ति धितो सुरक्षण कायम राख्न दिएको मञ्जुरीनामा (स्वःघोषित नाता प्रमाणित सहित) ।</p>
-                    <br>
+                     <p *ngIf="letter?.landNumberPreviousOwnerShow">
+                         २.६ - कि.न. {{letter.landNumber}}  पुर्व जग्गाधनी {{letter.previousOwner}} को हकवालाले माथि उल्लेखित अचल धितो सम्पत्ति धितो सुरक्षण कायम राख्न दिएको मञ्जुरीनामा (स्वःघोषित नाता प्रमाणित सहित) ।</p>
                     <ng-container *ngIf="letter?.landNumberPreviousOwnerShow">
                         <div class="table-responsive">
                             <p>२.७ - निम्न विवरण एवं जोखिम वहन हुने गरि बैंकको पक्षमा गरिदिएको विमालेख पेश गर्नुपर्नेछ ।</p>
@@ -259,16 +249,6 @@
                 </div>
             </div>
             <br>
-            <div class="row">
-                <div class="col-md-3 " style="margin-top: 20px">
-                    <div class="col-md-12">
-                        <p class="text-center">-----------------------------</p>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="text-center">ऋणीको आधिकारिक दस्तखत</p>
-                    </div>
-                </div>
-            </div>
             <strong>५) <u>निरीक्षण:</u></strong>
             <div class="row form-group">
                 <div class="col-md-12" style="left: 32px;">
@@ -304,18 +284,7 @@
                     तर, बैंकले उल्लेखित कार्य सम्पन्न गरिसकेको अवस्थामा ऋणीले विमा पोलिसिको नविकरण गराएको कारणबाट पर्न
                     जाने दोहोरो खर्च प्रति बैंक जवाफदेही हुनै छैन । <br>
                     ङ) यस अन्तर्गत उपलब्ध हुने बैकिङ ऋण सुविधा प्राप्त गर्दा लाग्ने सम्पूर्ण खर्चहरु ऋणी स्वयंले नै
-                    व्यहोर्नेछ ।<br>
-                    <br><br>
-                    <div class="row">
-                        <div class="col-md-3 " style="margin-top: 20px">
-                            <div class="col-md-12">
-                                <p class="text-center">-----------------------------</p>
-                            </div>
-                            <div class="col-md-12">
-                                <p class="text-center">ऋणीको आधिकारिक दस्तखत</p>
-                            </div>
-                        </div>
-                    </div>
+                    व्यहोर्नेछ ।
                     <br>
                     च) बैंकबाट पूर्व लिखित स्वीकृति प्राप्त नगरेसम्म ऋणीले आफ्नो सम्पत्ति अन्य कुनै बैंक वा वित्तीय
                     संस्थामा वा अन्य कुनै साहू कहां धितो बन्धक राख्ने छैन ।<br>
@@ -346,16 +315,6 @@
                     बैंकलाई यसै मार्फत ऋणीको पूर्ण अख्तियार प्रदान गर्दछ छ र छुट्टै अख्तियारनामाको आवश्यकता पर्ने छैन
                     भनि ऋणी स्वीकार गर्दछ ।<br>
                     <br>
-                    <div class="row">
-                        <div class="col-md-3 " style="margin-top: 20px">
-                            <div class="col-md-12">
-                                <p class="text-center">-----------------------------</p>
-                            </div>
-                            <div class="col-md-12">
-                                <p class="text-center">ऋणीको आधिकारिक दस्तखत</p>
-                            </div>
-                        </div>
-                    </div>
                     त) ऋणीले बैंकलाई सुरक्षण वापत उपलब्ध गराएको सम्पत्तिको प्रचलित कानून बमोजिम आफूले तिर्नु बुझाउनु
                     पर्ने कर, दस्तुर, शुल्क, एवम सम्पत्ति भाडामा लगाए वापत तिर्नु बुझाउनु पर्ने कर आदी समयमा नै तिर्ने
                     बुझाउने दायित्व ऋणी स्वयंको हुनेछ । कथंमकदाचित ऋणीले उल्लेखित दायित्व वहन नगरि सम्पत्तिमा कुनै
@@ -391,17 +350,6 @@
                     कुनै पत्राचार वा निवेदन वा ऋणको लागि ऋणिले निवेदनसंग पेश गरेको कुनै आर्थिक विवरण,
                     योजना वा तथ्यांक कुनै पनि किसिमले गलत, झुटो वा धोकापूर्ण भएको सावित भएमा,<br>
                     <br>
-                    <div class="row">
-                        <div class="col-md-3 " style="margin-top: 20px">
-                            <div class="col-md-12">
-                                <p class="text-center">-----------------------------</p>
-                            </div>
-                            <div class="col-md-12">
-                                <p class="text-center">ऋणीको आधिकारिक दस्तखत</p>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
                     ख) बैंकलाई स्पष्ट जानकारी नभएको तर ऋणीकोे वित्तीय अवस्था, प्रतिवद्धता वा दायित्व वा ऋणीको पूंजीगत
                     खर्च आदी संग सम्बन्धित कुनै पनि तथ्य वा जानकारीहरु बंैकलाई उपलब्ध नगराएमा,<br>
                     ग) ऋणिले पालना गर्नु पर्ने वा पूरा गर्नु पर्ने कुनै पनि सहमति वा शर्तहरु पालना गर्नमा वा पूरा गर्नमा
@@ -431,17 +379,6 @@
                         व्याज असुल उपर हुन
                         नसकेमा ऋणीको पुर्ण हक लाग्ने तथा ऋणी संग सम्बन्धित अन्य सम्पत्ति जायदात रोक्का गरी ऋण असुलिको
                         प्रकया अघि बढाउने,<br>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-3 " style="margin-top: 20px">
-                                <div class="col-md-12">
-                                    <p class="text-center">-----------------------------</p>
-                                </div>
-                                <div class="col-md-12">
-                                    <p class="text-center">ऋणीको आधिकारिक दस्तखत</p>
-                                </div>
-                            </div>
-                        </div>
                         <br>
                         घ) यस ऋण स्विकृतीपत्र अन्तर्गतका केही वा सवै दायित्वहरुको समाप्ती गर्ने ,<br>
                         ङ) ऋणीलाई उपलब्ध गराइएको एक वा एक भन्दा बढी ऋण सुबिधा संग सम्बन्धित शर्तहरुमा परिवर्तन
@@ -478,16 +415,6 @@
                     जसलाई बैकले यस प्रस्तावमा उल्लेख गरिएको शर्तहरुमाथि ऋणीले दिएको स्विकृतीको प्रमाण मानिनेछ र दोस्रो
                     प्रति ऋणीको अभिलेखको लागि मानिनेछ ।
                     <br><br>
-                    <div class="row">
-                        <div class="col-md-3 " style="margin-top: 20px">
-                            <div class="col-md-12">
-                                <p class="text-center">-----------------------------</p>
-                            </div>
-                            <div class="col-md-12">
-                                <p class="text-center">ऋणीको आधिकारिक दस्तखत</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <strong>९) <u>घोषणा (Representation):</u></strong><br>
@@ -525,18 +452,7 @@
                     सुविधा समेत उल्लेखित कानूनको अधिनमा रहने कुरामा ऋणी मन्जूर गर्दछ ।
                     यो स्वीकृतीपत्रको अधिनमा रही ऋणीले कर्जा सुविधाहरु उपभोग तथा सावाँ ब्याज भुक्तानी गर्दा वा कर्जाको
                     शर्तहरु उल्लंघन भई कर्जा असुलीको प्रक्रियामा बैंकसंग कुनै गुनासो/असमझदारी/विवाद
-                    भएमा त्यस्तो विवाद समाधानको लागि अड्डा अदालत, नियमनकारी निकाय आदि मार्फत विवाद <br><br>
-                    <div class="row">
-                        <div class="col-md-3 " style="margin-top: 20px">
-                            <div class="col-md-12">
-                                <p class="text-center">-----------------------------</p>
-                            </div>
-                            <div class="col-md-12">
-                                <p class="text-center">ऋणीको आधिकारिक दस्तखत</p>
-                            </div>
-                        </div>
-                    </div>
-                    <br><br>
+                    भएमा त्यस्तो विवाद समाधानको लागि अड्डा अदालत, नियमनकारी निकाय आदि मार्फत विवाद
                     समाधानको लागि अड्डा अदालत, नियमनकारी निकाय आदि मार्फत विवाद समाधान गर्नु गराउनु पूर्व धनी बैंकले
                     स्थापना गरेको मेलमिलाप केन्द्र (Mega Mediation Center) मार्फत आफ्ना विवाद तथा गुनासोको समाधान गर्न
                     निवेदन दिनु पर्नेछ ।
@@ -633,8 +549,6 @@
                 <div class="col-md-3 " style="margin-top: 20px">
                     <div class="col-md-12">
                         <p class="text-center">-----------------------------</p>
-                    </div>
-                    <div class="col-md-12">
                         <p class="text-center">ऋणीको आधिकारिक दस्तखत</p>
                     </div>
                 </div>
