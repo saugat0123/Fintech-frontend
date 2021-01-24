@@ -22,50 +22,50 @@
             <tr class="sb-bg-secondary text-white">
                 <td></td>
                 <td>Funded</td>
-                <td class="text-right">Rs. {{proposalUtil.calculateTotalFromProposalList(loanDataKey.PROPOSE_LIMIT, fundedList) | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{proposalUtil.calculateTotalFromProposalList(loanDataKey.PROPOSE_LIMIT, fundedList) | currencyFormatter}}</td>
                 <td colspan="3">
-                <td class="text-right">Rs. {{calculateRequiredCollateral(fundedList) | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{calculateRequiredCollateral(fundedList) | currencyFormatter}}</td>
             </tr>
             <ng-container *ngFor="let model of fundedList; let i=index">
                 <tr class="cursor">
                     <td>{{i + 1}}</td>
                     <td>{{model?.loan?.name}}</td>
-                    <td class="text-right">Rs. {{(model?.proposal?.proposedLimit | currencyFormatter)
+                    <td class="text-right pr-1">Rs. {{(model?.proposal?.proposedLimit | currencyFormatter)
                     || 0}}</td>
                     <td>{{loanType[model?.loanType] || model?.loanType}}</td>
                     <td>{{model?.createdAt | date}}</td>
                     <td>{{model?.proposal?.collateralRequirement}}</td>
-                    <td class="text-right">Rs. {{(model?.loan?.collateralRequirement * model?.proposal?.proposedLimit) / 100 |currencyFormatter}}
+                    <td class="text-right pr-1">Rs. {{(model?.proposal?.collateralRequirement * model?.proposal?.proposedLimit) / 100 |currencyFormatter}}
                     </td>
                 </tr>
             </ng-container>
             <tr class="sb-bg-secondary text-white">
                 <td></td>
                 <td>Non Funded</td>
-                <td class="text-right">Rs. {{proposalUtil.calculateTotalFromProposalList(loanDataKey.PROPOSE_LIMIT, nonFundedList) | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{proposalUtil.calculateTotalFromProposalList(loanDataKey.PROPOSE_LIMIT, nonFundedList) | currencyFormatter}}</td>
                 <td colspan="3"></td>
-                <td class="text-right">Rs. {{calculateRequiredCollateral(nonFundedList) | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{calculateRequiredCollateral(nonFundedList) | currencyFormatter}}</td>
             </tr>
             <ng-container *ngFor="let model of nonFundedList; let i=index">
                 <tr class="cursor">
                     <td>{{i + 1}}</td>
                     <td>{{model?.loan?.name}}</td>
-                    <td class="text-right">Rs. {{(model?.proposal?.proposedLimit | currencyFormatter)
+                    <td class="text-right pr-1">Rs. {{(model?.proposal?.proposedLimit | currencyFormatter)
                     || 0}}</td>
                     <td>{{loanType[model?.loanType] || model?.loanType}}</td>
                     <td>{{model?.createdAt | date}}</td>
-                    <td>{{model?.loan?.collateralRequirement}}</td>
-                    <td class="text-right">Rs.
-                        {{(model?.loan?.collateralRequirement * model?.proposal?.proposedLimit) / 100 |currencyFormatter}}
+                    <td>{{model?.proposal?.collateralRequirement}}</td>
+                    <td class="text-right pr-1">Rs.
+                        {{(model?.proposal?.collateralRequirement * model?.proposal?.proposedLimit) / 100 |currencyFormatter}}
                     </td>
                 </tr>
             </ng-container>
             <tr class="sb-bg-secondary text-white">
                 <td></td>
                 <td>Total</td>
-                <td class="text-right">Rs. {{setField('totalProposedAmount' , proposalUtil.calculateTotalFromProposalList(loanDataKey.PROPOSE_LIMIT, customerAllLoanList)) | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{setField('totalProposedAmount' , proposalUtil.calculateTotalFromProposalList(loanDataKey.PROPOSE_LIMIT, customerAllLoanList)) | currencyFormatter}}</td>
                 <td colspan="3"></td>
-                <td class="text-right">Rs. {{setField('totalRequiredCollateral' , calculateRequiredCollateral(customerAllLoanList)) | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{setField('totalRequiredCollateral' , calculateRequiredCollateral(customerAllLoanList)) | currencyFormatter}}</td>
             </tr>
             </tbody>
         </table>

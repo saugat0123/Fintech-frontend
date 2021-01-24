@@ -160,8 +160,8 @@
                         </td>
                         <td>{{valuator?.valuatingField |  replace:'_':' & '}}</td>
                         <td>{{valuator?.bankAssociateDate | date}}</td>
-                        <td>Rs.{{valuator?.minAmount | currencyFormatter}}</td>
-                        <td>Rs.{{valuator?.maxAmount | currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs.{{valuator?.minAmount | currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs.{{valuator?.maxAmount | currencyFormatter}}</td>
                         <td>
                             <select (change)="onChange(valuator, $event)"
                                     [(ngModel)]="valuator.status" [nbPopover]="valuator?.status === 'INACTIVE' ?

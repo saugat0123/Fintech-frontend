@@ -100,7 +100,7 @@
                                        placeholder="Select category">
                             </ng-select>
                             <div *ngIf="loanConfigForm.submitted && !selectedLoanCategory">
-                                <small class="text-danger">Invalid loan category</small>
+                                <small class="text-danger">Loan categoy is required</small>
                             </div>
                         </div>
                     </div>
@@ -115,7 +115,7 @@
                                    required
                                    type="number"/>
                             <div *ngIf="loanConfigForm.submitted && interestRate.invalid" class="invalid-feedback">
-                                Invalid input
+                                Interest rate is required
                             </div>
                         </div>
                     </div>

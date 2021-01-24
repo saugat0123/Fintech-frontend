@@ -25,11 +25,11 @@
         <td>{{ciclRelationList[data.ciclRelation]}}</td>
         <td>{{data?.nameOfFI || 'NA'}}</td>
         <td>{{data?.facility || 'NA'}}</td>
-        <td class="text-right">Rs. {{data?.overdueAmount | currencyFormatter}}</td>
-        <td class="text-right">Rs. {{data?.outstandingAmount | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{data?.overdueAmount | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{data?.outstandingAmount | currencyFormatter}}</td>
         <td>{{data?.status || 'NA'}}</td>
         <td>{{data?.obtaineddate | date}}</td>
-        <td class="text-right">Rs. {{data?.loanamount | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{data?.loanamount | currencyFormatter}}</td>
         <td>{{data?.overdue}}</td>
       </tr>
       </thead>
