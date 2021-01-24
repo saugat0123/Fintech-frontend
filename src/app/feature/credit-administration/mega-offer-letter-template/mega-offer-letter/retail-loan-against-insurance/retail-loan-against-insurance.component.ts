@@ -91,7 +91,7 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_LOAN_AGAINST_INSURANCE);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-        console.log('This is intial logsss retail',initialInfo);
+        console.log(initialInfo);
         this.initialInfoPrint = initialInfo;
         console.log(this.offerLetterDocument);
         this.existingOfferLetter = true;
