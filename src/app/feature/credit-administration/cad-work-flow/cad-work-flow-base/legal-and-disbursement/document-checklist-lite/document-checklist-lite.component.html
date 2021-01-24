@@ -1,120 +1,122 @@
 <nb-card
-    [nbSpinner]="spinner"
-    accent="primary"
-    class="text-center m-0"
-    nbSpinnerMessage="Saving  data..."
-    nbSpinnerSize="large"
-    nbSpinnerStatus="primary">
-  <nb-card-body>
-    <div class="col-md-12">
-      <table class="table table-bordered table-hover text-center sb-small table-sm">
-        <thead class="sb-bg-dark text-white">
-        <tr>
-          <th>
-            S.N
-          </th>
+        [nbSpinner]="spinner"
+        accent="primary"
+        class="text-center m-0"
+        nbSpinnerMessage="Saving  data..."
+        nbSpinnerSize="large"
+        nbSpinnerStatus="primary">
+    <nb-card-body>
+        <div class="col-md-12">
+            <table class="table table-bordered table-hover text-center sb-small table-sm">
+                <thead class="sb-bg-dark text-white">
+                <tr>
+                    <th>
+                        S.N
+                    </th>
 
-          <th>
-            Document Name
-          </th>
+                    <th>
+                        Document Name
+                    </th>
 
-          <th>
-            Upload
-          </th>
-          <th>Preview</th>
-          <th>Generate</th>
-          <th>Amount</th>
-          <th>Remarks</th>
-          <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <ng-container>
-          <tr *ngFor="let data of document;let i =index">
-            <td>{{i+1}}</td>
-            <td class="text-left px-2">{{data?.name}}</td>
-            <td>
-              <button
-                  (click)="openDocUploadModal(uploadModal , cadData?.loanHolder?.id,0,data.id,data.name)"
-                  [nbTooltip]="'upload '+ data?.displayName"
-                  nbButton
-                  outline
-                  size="tiny">
-                <em [nbTooltip]="'upload '+ data?.displayName" class="fa fa-upload"></em>
-              </button>
+                    <th>
+                        Upload
+                    </th>
+                    <th>Preview</th>
+                    <th *ngIf="client === clientList.MEGA">Generate</th>
+                    <th>Amount</th>
+                    <th>Remarks</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container>
+                    <tr *ngFor="let data of document;let i =index">
+                        <td>{{i + 1}}</td>
+                        <td class="text-left px-2">{{data?.name}}</td>
+                        <td>
+                            <button
+                                    (click)="openDocUploadModal(uploadModal , cadData?.loanHolder?.id,0,data.id,data.name)"
+                                    [nbTooltip]="'upload '+ data?.displayName"
+                                    nbButton
+                                    outline
+                                    size="tiny">
+                                <em [nbTooltip]="'upload '+ data?.displayName" class="fa fa-upload"></em>
+                            </button>
 
-            </td>
-            <td><i (click)="previewDoc(data.url,data.name)" *ngIf="data.url" class="fas fa-eye cursor"></i>
-              <i (click)="previewDoc(data.url,data.name)" *ngIf="!data.url"
-                 class="fas fa-times-circle text-danger"></i>
-            </td>
-            <td>
-              <button (click)="populateCadTemplate(data.id,0)" *ngIf="data.containsTemplate" class="align-items-center" nbButton
-                      size="tiny" status="primary">
-                Generate
-              </button>
-            </td>
-            <td>{{data.amount}}</td>
-            <td>{{data.remarks}}</td>
-            <td class="cursor"><i (click)="openSaveEditForm(saveEditOtherDocInfo,0,data.id,data.amount,data.remarks)"
-                                  class="fa fa-edit"></i>
-            </td>
+                        </td>
+                        <td><i (click)="previewDoc(data.url,data.name)" *ngIf="data.url" class="fas fa-eye cursor"></i>
+                            <i (click)="previewDoc(data.url,data.name)" *ngIf="!data.url"
+                               class="fas fa-times-circle text-danger"></i>
+                        </td>
+                        <td *ngIf="client === clientList.MEGA">
+                            <button (click)="populateCadTemplate(data.id,0)" *ngIf="data.containsTemplate"
+                                    class="align-items-center" nbButton
+                                    size="tiny" status="primary">
+                                Generate
+                            </button>
+                        </td>
+                        <td>{{data.amount}}</td>
+                        <td>{{data.remarks}}</td>
+                        <td class="cursor"><i
+                                (click)="openSaveEditForm(saveEditOtherDocInfo,0,data.id,data.amount,data.remarks)"
+                                class="fa fa-edit"></i>
+                        </td>
 
-          </tr>
-        </ng-container>
-        </tbody>
-      </table>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
 
-    </div>
-  </nb-card-body>
+        </div>
+    </nb-card-body>
 </nb-card>
 
 <ng-template #saveEditOtherDocInfo>
-  <nb-card [nbSpinner]="spinner"
-           accent="primary"
-           class="m-0"
-           nbSpinnerMessage="UPDATING....."
-           nbSpinnerSize="giant"
-           nbSpinnerStatus="primary">
-    <nb-card-header>
-      Info
-      <a (click)="close()" aria-label="Close" class="close cursor"
-         data-dismiss="modal">
-        <span aria-hidden="true">×</span></a>
-    </nb-card-header>
-    <nb-card-body>
-      <table class="table table-sm sb-small">
-        <tr>
-          <td class="font-weight-bold">Amount
-          </td>
-          <td class="font-weight-bold">:</td>
-          <td class="text-left">
-            <input [(ngModel)]="saveEditParam.amount" class="cellInput" type="number">
-          </td>
+    <nb-card [nbSpinner]="spinner"
+             accent="primary"
+             class="m-0"
+             nbSpinnerMessage="UPDATING....."
+             nbSpinnerSize="giant"
+             nbSpinnerStatus="primary">
+        <nb-card-header>
+            Info
+            <a (click)="close()" aria-label="Close" class="close cursor"
+               data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+        </nb-card-header>
+        <nb-card-body>
+            <table class="table table-sm sb-small">
+                <tr>
+                    <td class="font-weight-bold">Amount
+                    </td>
+                    <td class="font-weight-bold">:</td>
+                    <td class="text-left">
+                        <input [(ngModel)]="saveEditParam.amount" class="cellInput" type="number">
+                    </td>
 
-        </tr>
+                </tr>
 
-        <tr>
-          <td class="font-weight-bold">Remarks
-          <td class="font-weight-bold">:</td>
-          <td class="text-left"><select [(ngModel)]="saveEditParam.remarks" class="cellInput">
-            <option [value]="null" hidden>Select Remarks</option>
-            <option *ngFor="let option of remarkOption"
-                    [value]="option.key">{{option.value}}</option>
-          </select></td>
-        </tr>
-      </table>
+                <tr>
+                    <td class="font-weight-bold">Remarks
+                    <td class="font-weight-bold">:</td>
+                    <td class="text-left"><select [(ngModel)]="saveEditParam.remarks" class="cellInput">
+                        <option [value]="null" hidden>Select Remarks</option>
+                        <option *ngFor="let option of remarkOption"
+                                [value]="option.key">{{option.value}}</option>
+                    </select></td>
+                </tr>
+            </table>
 
-      <div class="clearfix">
-        <div class="float-right">
-          <button
-              (click)="saveText(saveEditParam.loanId,saveEditParam.documentId,saveEditParam.amount,saveEditParam.remarks)"
-              class="m-2" nbButton size="tiny">Save
-          </button>
-        </div>
-      </div>
-    </nb-card-body>
-  </nb-card>
+            <div class="clearfix">
+                <div class="float-right">
+                    <button
+                            (click)="saveText(saveEditParam.loanId,saveEditParam.documentId,saveEditParam.amount,saveEditParam.remarks)"
+                            class="m-2" nbButton size="tiny">Save
+                    </button>
+                </div>
+            </div>
+        </nb-card-body>
+    </nb-card>
 </ng-template>
 
 <app-additional-document (responseCadData)="responseFromAdditionalDocument($event)" *ngIf="cadData"
@@ -122,36 +124,36 @@
 
 
 <ng-template #uploadModal let-ref="dialogRef">
-  <nb-card accent="primary" style="min-width: 35rem;">
-    <nb-card-header>
-      <a (click)="ref.close()" aria-label="Close" class="close cursor"
-         data-dismiss="modal">
-        <span aria-hidden="true">×</span></a>
-      <div class="row">
-        <div class="col-md-12">
-          Upload {{uploadModalDto.documentName |titlecase}}
-        </div>
-      </div>
-    </nb-card-header>
-    <nb-card-body>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <input #file
-                   (change)="uploadOfferLetter($event)" type="file">
-          </div>
-        </div>
-      </div>
+    <nb-card accent="primary" style="min-width: 35rem;">
+        <nb-card-header>
+            <a (click)="ref.close()" aria-label="Close" class="close cursor"
+               data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+            <div class="row">
+                <div class="col-md-12">
+                    Upload {{uploadModalDto.documentName |titlecase}}
+                </div>
+            </div>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input #file
+                               (change)="uploadOfferLetter($event)" type="file">
+                    </div>
+                </div>
+            </div>
 
-    </nb-card-body>
-    <nb-card-footer>
-      <button (click)="save(uploadModalDto.loadDataHolderId,uploadModalDto.customerLoanId,uploadModalDto.approvedDocId,uploadModalDto.documentName);
+        </nb-card-body>
+        <nb-card-footer>
+            <button (click)="save(uploadModalDto.loadDataHolderId,uploadModalDto.customerLoanId,uploadModalDto.approvedDocId,uploadModalDto.documentName);
                     ref.close()"
-              [disabled]="!file.value" class="float-right" nbButton
-              size="tiny"
-              status="primary">
-        save
-      </button>
-    </nb-card-footer>
-  </nb-card>
+                    [disabled]="!file.value" class="float-right" nbButton
+                    size="tiny"
+                    status="primary">
+                save
+            </button>
+        </nb-card-footer>
+    </nb-card>
 </ng-template>

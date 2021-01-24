@@ -38,7 +38,7 @@
                         <nb-card-header>
                             <strong>Generate Offer Letter</strong>
                         </nb-card-header>
-                        <nb-card-body>
+                        <nb-card-body *ngIf="client === clientList.MEGA">
                             <div class="row">
                                 <div class="col-md-12">
                                     <nb-select

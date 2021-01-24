@@ -5,6 +5,7 @@
       <span aria-hidden="true">×</span></a>
   </nb-card-header>
   <nb-card-body>
+    <div *ngIf="client === clientList.MEGA">
     <div [ngSwitch]="documentId">
       <app-assignment-of-receivable *ngSwitchCase="cadTemplate.ASSIGNMENT_OF_RECEIVABLE" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-assignment-of-receivable>
       <app-deed-hypo-of-machinery *ngSwitchCase="cadTemplate.DEED_HYPO_OF_MACHINERY_COMPONENT" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-deed-hypo-of-machinery>
@@ -23,6 +24,7 @@
 
       <p *ngSwitchDefault>No Template is available for this Document!!! </p>
 
+    </div>
     </div>
     <nb-card-footer>
       <div>
