@@ -21,5 +21,6 @@ export class Proposal {
     premiumOnCouponRate: number;
     tenorOfEachDeal: string;
     cashMarginMethod: string;
+    prepaymentCharge: number;
 
 }
