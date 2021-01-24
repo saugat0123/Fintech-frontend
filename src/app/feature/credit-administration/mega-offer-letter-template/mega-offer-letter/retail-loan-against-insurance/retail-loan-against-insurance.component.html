@@ -77,298 +77,410 @@
                                 <u>१. कर्जा सुविधाको प्रयोजन तथा संचालनः</u>
                             </strong>
                         </p>
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th style="width: 20%">क. प्रस्तावित सुविधा</th>
-                                    <th>आवधिक कर्जा (Term Loan)</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>कर्जा सीमा रकम</td>
-                                    <td><strong>रु</strong>
-                                        <input class="form-field form-control-sm nepaliFont"
-                                               name="termLoanDebitLimitAmount"
-                                               formControlName="termLoanDebitLimitAmount"
-                                               placeholder="" type="text"/>
-                                        /–
-                                        (अक्षरेपी <input class="form-field form-control-sm longInput nepaliFont"
-                                                         name="termLoanDebitLimitAmountWord"
-                                                         formControlName="termLoanDebitLimitAmountWord"
-                                                         placeholder="" type="text"/>
-                                        रुपैयाँ मात्र ।)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>प्रयोजन</td>
-                                    <td>:<input class="form-field form-control-sm nepaliFont"
-                                                name="termLoanPurpose"
-                                                formControlName="termLoanPurpose"
-                                                placeholder="" type="text"/>
-                                        प्रयोजनार्थ ।
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>समयावधी</td>
-                                    <td>बैंकबाट कर्जा भुक्तानी भएको मितिले १० वर्ष ।</td>
-                                </tr>
-                                <tr>
-                                    <td>व्याज</td>
-                                    <td> : <strong>आधार दर (Base Rate)</strong> + <strong>प्रिमियम दर (Premium Rate)</strong>
-                                        (हालको आधार दर ८.१४% + प्रिमियम दर
-                                        <input class="form-field form-control-sm shortInput nepaliFont"
-                                               name="termLoanPremiumRate"
-                                               formControlName="termLoanPremiumRate"
-                                               placeholder="" type="text"/>
-                                        %)
-                                        का दरले हाललाई बार्षिक <input class="form-field form-control-sm shortInput nepaliFont"
-                                                                      name="termLoanYearlyInterest"
-                                                                      formControlName="termLoanYearlyInterest"
-                                                                      placeholder="" type="text"/>
-                                        <strong>%</strong> वा समय समयमा बैंकले तोके बमोजिम चुक्ता/भुक्तान गर्नु पर्ने गरि । बैंकले त्रैमाशिक
-                                        रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर संसोधन (घट्न/बढ्न) सक्नेछ  ।
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>ऋण चुक्ता	</td>
-                                    <td>बैंकबाट कर्जा भुक्तानी भएको मितिको एक महिना बाट प्रथम किस्ता प्रारंभ हुने गरी
-                                        <input class="form-field form-control-sm nepaliFont"
-                                               name="termLoanFirstInstallment"
-                                               formControlName="termLoanFirstInstallment"
-                                               placeholder="" type="text"/>
-                                        समान मासिक किस्ता बन्दीमा रु.
-                                        <input class="form-field form-control-sm nepaliFont"
-                                               name="termLoanInstallmentRate"
-                                               formControlName="termLoanInstallmentRate"
-                                               placeholder="" type="text"/>
-                                        /–(अक्षरेपी
-                                        <input class="form-field form-control-sm longInput nepaliFont"
-                                               name="termLoanInstallmentRateWords"
-                                               formControlName="termLoanInstallmentRateWords"
-                                               placeholder="" type="text"/>
-                                        रुपैयाँ मात्र)
-                                        का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ ।
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>भुक्तानी</td>
-                                    <td>
-                                        यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको आधारमा रही सम्बन्धित जीवन बीमा कम्पनीबाट प्रमाणित
-                                        गरिएको ऋणीको वीमा रकमको समर्पण मुल्य (Surrender Value) को अधिकत्म ९० प्रतिशत सम्म कर्जा सीमा ननाघ्ने गरी प्रवाह गरिने छ ।
-                                        जीवन बीमा कम्पनी वाट समर्पण मुल्य (Surrender Value) निर्धारण हुन नसकेका जीवन बीमालेखको हकमा बैंक, विमा कम्पनी तथा ऋणी
-                                        विच सम्पन्न हुने त्रिपक्षीय सम्झौताको आधारमा कर्जा प्रवाह गरिनेछ ।
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>सेवा शुल्क</td>
-                                    <td>
-                                        सेवा शुल्क	भुक्तानी गरिने कर्जा रकमको
-                                        <input class="form-field form-control-sm shortInput nepaliFont"
-                                               name="termLoanServiceChargeRate"
-                                               formControlName="termLoanServiceChargeRate"
-                                               placeholder="" type="text"/>
-                                        % (
-                                        <input class="form-field form-control-sm nepaliFont"
-                                               name="termLoanServiceChargeRateWords"
-                                               formControlName="termLoanServiceChargeRateWords"
-                                               placeholder="" type="text"/>
-                                        प्रतिशत)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>क.सु.के.दस्तुर</td>
-                                    <td>
-                                        रु. <input class="form-field form-control-sm nepaliFont"
-                                                   name="termLoanCustomAmount"
-                                                   formControlName="termLoanCustomAmount"
-                                                   placeholder="" type="text" size="10"/>
-                                        /– मात्र ।
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+
+                        <label class="mr-4">Choose Loan Types</label>
+                        <nb-select #loanType (selectedChange)="changeLoanType($event)"
+                                   [selected]="selectedArray"
+                                   multiple placeholder="Select Loan Types">
+                            <nb-option *ngFor="let type of loanTypeArray" [value]="type">
+                                {{type}}
+                            </nb-option>
+                        </nb-select>
+
+                        <ng-container *ngIf="laiTermLoanSelected">
+                            <div *ngFor="let laiTermLoan of retailLoanAgainstInsurance.get('laiTermLoanArray')['controls']; let i = index"
+                                 formArrayName="laiTermLoanArray"
+                                 class="table-responsive">
+                                <table [formGroupName]="i" class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 20%">क. प्रस्तावित सुविधा</th>
+                                        <th>आवधिक कर्जा (Term Loan)
+                                            <input *ngIf="retailLoanAgainstInsurance.get('laiTermLoanArray')['length'] > 1"
+                                                   (click)="removeLaiTermLoan(i)"
+                                                   class="btn btn-sm btn-danger btn-primary float-right"
+                                                   type="button" value="Remove section"/>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>कर्जा सीमा रकम</td>
+                                        <td><strong>रु</strong>
+                                            <input class="form-field form-control-sm nepaliFont"
+                                                   name="termLoanDebitLimitAmount"
+                                                   formControlName="termLoanDebitLimitAmount"
+                                                   placeholder="" type="text"/>
+                                            /–
+                                            (अक्षरेपी <input class="form-field form-control-sm longInput nepaliFont"
+                                                             name="termLoanDebitLimitAmountWord"
+                                                             formControlName="termLoanDebitLimitAmountWord"
+                                                             placeholder="" type="text"/>
+                                            रुपैयाँ मात्र ।)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>प्रयोजन</td>
+                                        <td>:<input class="form-field form-control-sm nepaliFont"
+                                                    name="termLoanPurpose"
+                                                    formControlName="termLoanPurpose"
+                                                    placeholder="" type="text"/>
+                                            प्रयोजनार्थ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>समयावधी</td>
+                                        <td>बैंकबाट कर्जा भुक्तानी भएको मितिले <input class="form-field form-control-sm shortInput nepaliFont"
+                                                                                      name="tenure"
+                                                                                      formControlName="tenure"
+                                                                                      placeholder="" type="text"/> वर्ष ।</td>
+                                    </tr>
+                                    <tr>
+                                        <td>व्याज</td>
+                                        <td> : <strong>आधार दर (Base Rate)</strong> + <strong>प्रिमियम दर (Premium Rate)</strong>
+                                            (हालको आधार दर ८.१४% + प्रिमियम दर
+                                            <input class="form-field form-control-sm shortInput nepaliFont"
+                                                   name="termLoanPremiumRate"
+                                                   formControlName="termLoanPremiumRate"
+                                                   placeholder="" type="text"/>
+                                            %)
+                                            का दरले हाललाई बार्षिक <input class="form-field form-control-sm shortInput nepaliFont"
+                                                                          name="termLoanYearlyInterest"
+                                                                          formControlName="termLoanYearlyInterest"
+                                                                          placeholder="" type="text"/>
+                                            <strong>%</strong> वा समय समयमा बैंकले तोके बमोजिम चुक्ता/भुक्तान गर्नु पर्ने गरि । बैंकले त्रैमाशिक
+                                            रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर संसोधन (घट्न/बढ्न) सक्नेछ  ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ऋण चुक्ता	</td>
+                                        <td>बैंकबाट कर्जा भुक्तानी भएको मितिको एक महिना बाट प्रथम किस्ता प्रारंभ हुने गरी
+                                            <input class="form-field form-control-sm nepaliFont"
+                                                   name="termLoanFirstInstallment"
+                                                   formControlName="termLoanFirstInstallment"
+                                                   placeholder="" type="text"/>
+                                            समान मासिक किस्ता बन्दीमा रु.
+                                            <input class="form-field form-control-sm nepaliFont"
+                                                   name="termLoanInstallmentRate"
+                                                   formControlName="termLoanInstallmentRate"
+                                                   placeholder="" type="text"/>
+                                            /–(अक्षरेपी
+                                            <input class="form-field form-control-sm longInput nepaliFont"
+                                                   name="termLoanInstallmentRateWords"
+                                                   formControlName="termLoanInstallmentRateWords"
+                                                   placeholder="" type="text"/>
+                                            रुपैयाँ मात्र)
+                                            का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>भुक्तानी</td>
+                                        <td>
+                                            यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको आधारमा रही सम्बन्धित जीवन बीमा कम्पनीबाट प्रमाणित
+                                            गरिएको ऋणीको वीमा रकमको समर्पण मुल्य (Surrender Value) को अधिकत्म ९० प्रतिशत सम्म कर्जा सीमा ननाघ्ने गरी प्रवाह गरिने छ ।
+                                            जीवन बीमा कम्पनी वाट समर्पण मुल्य (Surrender Value) निर्धारण हुन नसकेका जीवन बीमालेखको हकमा बैंक, विमा कम्पनी तथा ऋणी
+                                            विच सम्पन्न हुने त्रिपक्षीय सम्झौताको आधारमा कर्जा प्रवाह गरिनेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>सेवा शुल्क</td>
+                                        <td>
+                                            सेवा शुल्क	भुक्तानी गरिने कर्जा रकमको
+                                            <input class="form-field form-control-sm shortInput nepaliFont"
+                                                   name="termLoanServiceChargeRate"
+                                                   formControlName="termLoanServiceChargeRate"
+                                                   placeholder="" type="text"/>
+                                            % (
+                                            <input class="form-field form-control-sm nepaliFont"
+                                                   name="termLoanServiceChargeRateWords"
+                                                   formControlName="termLoanServiceChargeRateWords"
+                                                   placeholder="" type="text"/>
+                                            प्रतिशत)
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="laiTermLoan.get('chargeAmountFlag').value">
+                                        <td>क.सु.के.दस्तुर</td>
+                                        <td>
+                                            रु. <input class="form-field form-control-sm nepaliFont"
+                                                       name="termLoanCustomAmount"
+                                                       formControlName="termLoanCustomAmount"
+                                                       placeholder="" type="text" size="10"/>
+                                            /– मात्र ।
+                                            <a (click)="removeOptionalField(laiTermLoan, 'chargeAmountFlag')"
+                                               data-placement="top" class="text-danger cursor">
+                                                <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                                remove
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!laiTermLoan.get('chargeAmountFlag').value">
+                                        <td></td>
+                                        <td>
+                                            <a (click)="undoRemovalOfOptionalField(laiTermLoan, 'chargeAmountFlag')"
+                                               data-placement="top" class="text-warning cursor">
+                                                <i class="fa fa-undo" style="color:darkred;padding-left: 5px"></i>
+                                                Undo field removal
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-right mt-2">
+                                <input (click)="addMoreLaiTermLoan()" class="btn btn-sm btn-flat btn-primary" type="button"
+                                       value="Add More Field"/>
+                            </div>
+                        </ng-container>
+
                         <br>
 
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th style="width: 20%">क. प्रस्तावित सुविधा</th>
-                                    <th>आवधिक कर्जा (Overdraft)</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>कर्जा सीमा रकम</td>
-                                    <td><strong>रु</strong>
-                                        <input class="form-field form-control-sm nepaliFont"
-                                               name="overdraftDebitLimitAmount"
-                                               formControlName="overdraftDebitLimitAmount"
-                                               placeholder="" type="text"/>
-                                        /– (अक्षरेपी
-                                        <input class="form-field form-control-sm longInput nepaliFont"
-                                               name="overdraftDebitLimitAmountWords"
-                                               formControlName="overdraftDebitLimitAmountWords"
-                                               placeholder="" type="text"/>
-                                        रुपैयाँ मात्र ।)</td>
-                                </tr>
-                                <tr>
-                                    <td>प्रयोजन</td>
-                                    <td>:<input class="form-field form-control-sm nepaliFont"
-                                                name="overdraftPurpose"
-                                                formControlName="overdraftPurpose"
-                                                placeholder="" type="text"/>
-                                        प्रयोजनार्थ ।
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>समयावधी</td>
-                                    <td>रिभल्भिङ्गः
-                                        <input class="form-field form-control-sm nepaliFont"
-                                               name="overdraftTimePeriod"
-                                               formControlName="overdraftTimePeriod"
-                                               placeholder="" type="text"/>
-                                        मा पुनरावलोकन हुने गरि ।</td>
-                                </tr>
-                                <tr>
-                                    <td>व्याज</td>
-                                    <td> : <strong>आधार दर (Base Rate)</strong> + <strong>प्रिमियम दर (Premium Rate)</strong>
-                                        (हालको आधार दर ८.१४% + प्रिमियम दर
-                                        <input class="form-field form-control-sm shortInput nepaliFont"
-                                               name="overdraftPremiumRate"
-                                               formControlName="overdraftPremiumRate"
-                                               placeholder="" type="text"/>
-                                        %) का दरले हाललाई बार्षिक
-                                        <input class="form-field form-control-sm shortInput nepaliFont"
-                                               name="overdraftYearlyInterest"
-                                               formControlName="overdraftYearlyInterest"
-                                               placeholder="" type="text"/>
-                                        % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त)
-                                        वा समय समयमा बैंकले तोके बमोजिम चुक्ता/भुक्तान गर्नु पर्ने गरि । बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही
-                                        बमोजिम  बार्षिक ब्याजदर संसोधन (घट्न/बढ्न) सक्नेछ ।
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>भुक्तानी</td>
-                                    <td>
-                                        यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको आधारमा रही सम्बन्धित जीवन बीमा कम्पनीबाट प्रमाणित
-                                        गरिएको ऋणीको वीमा रकमको समर्पण मुल्य (Surrender Value) को अधिकत्म ९० प्रतिशत सम्म कर्जा सीमा ननाघ्ने गरी प्रवाह गरिने छ ।
-                                        जीवन बीमा कम्पनी वाट समर्पण मुल्य (Surrender Value) निर्धारण हुन नसकेका जीवन बीमालेखको हकमा बैंक, विमा कम्पनी तथा ऋणी
-                                        विच सम्पन्न हुने त्रिपक्षीय सम्झौताको आधारमा कर्जा प्रवाह गरिनेछ ।
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>सेवा शुल्क</td>
-                                    <td>
-                                        सेवा शुल्क	भुक्तानी गरिने कर्जा रकमको
-                                        <input class="form-field form-control-sm shortInput nepaliFont"
-                                               name="overdraftServiceChargeRate"
-                                               formControlName="overdraftServiceChargeRate"
-                                               placeholder="" type="text"/>
-                                        % (<input class="form-field form-control-sm nepaliFont"
-                                                  name="overdraftServiceChargeRateWords"
-                                                  formControlName="overdraftServiceChargeRateWords"
-                                                  placeholder="" type="text"/>
-                                        प्रतिशत)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>क.सु.के.दस्तुर</td>
-                                    <td>
-                                        रु.
-                                        <input class="form-field form-control-sm nepaliFont"
-                                               name="overdraftCustomAmount"
-                                               formControlName="overdraftCustomAmount"
-                                               placeholder="" type="text" size="10"/>
-                                        /– मात्र ।
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <ng-container *ngIf="laiOverdraftLoanSelected">
+                            <div *ngFor="let laiOverDraftLoan of retailLoanAgainstInsurance.get('laiOverDraftLoanArray')['controls']; let i = index"
+                                 formArrayName="laiOverDraftLoanArray"
+                                 class="table-responsive">
+                                <table [formGroupName]="i" class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 20%">क. प्रस्तावित सुविधा</th>
+                                        <th>आवधिक कर्जा (Overdraft)
+                                            <input *ngIf="retailLoanAgainstInsurance.get('laiOverDraftLoanArray')['length'] > 1"
+                                                   (click)="removeLaiOverDraftLoan(i)"
+                                                   class="btn btn-sm btn-danger btn-primary float-right"
+                                                   type="button" value="Remove section"/>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>कर्जा सीमा रकम</td>
+                                        <td><strong>रु</strong>
+                                            <input class="form-field form-control-sm nepaliFont"
+                                                   name="overdraftDebitLimitAmount"
+                                                   formControlName="overdraftDebitLimitAmount"
+                                                   placeholder="" type="text"/>
+                                            /– (अक्षरेपी
+                                            <input class="form-field form-control-sm longInput nepaliFont"
+                                                   name="overdraftDebitLimitAmountWords"
+                                                   formControlName="overdraftDebitLimitAmountWords"
+                                                   placeholder="" type="text"/>
+                                            रुपैयाँ मात्र ।)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>प्रयोजन</td>
+                                        <td>:<input class="form-field form-control-sm nepaliFont"
+                                                    name="overdraftPurpose"
+                                                    formControlName="overdraftPurpose"
+                                                    placeholder="" type="text"/>
+                                            प्रयोजनार्थ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>समयावधी</td>
+                                        <td>रिभल्भिङ्गः
+                                            <input class="form-field form-control-sm nepaliFont"
+                                                   name="overdraftTimePeriod"
+                                                   formControlName="overdraftTimePeriod"
+                                                   placeholder="" type="text"/>
+                                            मा पुनरावलोकन हुने गरि ।</td>
+                                    </tr>
+                                    <tr>
+                                        <td>व्याज</td>
+                                        <td> : <strong>आधार दर (Base Rate)</strong> + <strong>प्रिमियम दर (Premium Rate)</strong>
+                                            (हालको आधार दर ८.१४% + प्रिमियम दर
+                                            <input class="form-field form-control-sm shortInput nepaliFont"
+                                                   name="overdraftPremiumRate"
+                                                   formControlName="overdraftPremiumRate"
+                                                   placeholder="" type="text"/>
+                                            %) का दरले हाललाई बार्षिक
+                                            <input class="form-field form-control-sm shortInput nepaliFont"
+                                                   name="overdraftYearlyInterest"
+                                                   formControlName="overdraftYearlyInterest"
+                                                   placeholder="" type="text"/>
+                                            % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त)
+                                            वा समय समयमा बैंकले तोके बमोजिम चुक्ता/भुक्तान गर्नु पर्ने गरि । बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही
+                                            बमोजिम  बार्षिक ब्याजदर संसोधन (घट्न/बढ्न) सक्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>भुक्तानी</td>
+                                        <td>
+                                            यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको आधारमा रही सम्बन्धित जीवन बीमा कम्पनीबाट प्रमाणित
+                                            गरिएको ऋणीको वीमा रकमको समर्पण मुल्य (Surrender Value) को अधिकत्म ९० प्रतिशत सम्म कर्जा सीमा ननाघ्ने गरी प्रवाह गरिने छ ।
+                                            जीवन बीमा कम्पनी वाट समर्पण मुल्य (Surrender Value) निर्धारण हुन नसकेका जीवन बीमालेखको हकमा बैंक, विमा कम्पनी तथा ऋणी
+                                            विच सम्पन्न हुने त्रिपक्षीय सम्झौताको आधारमा कर्जा प्रवाह गरिनेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>सेवा शुल्क</td>
+                                        <td>
+                                            सेवा शुल्क	भुक्तानी गरिने कर्जा रकमको
+                                            <input class="form-field form-control-sm shortInput nepaliFont"
+                                                   name="overdraftServiceChargeRate"
+                                                   formControlName="overdraftServiceChargeRate"
+                                                   placeholder="" type="text"/>
+                                            % (<input class="form-field form-control-sm nepaliFont"
+                                                      name="overdraftServiceChargeRateWords"
+                                                      formControlName="overdraftServiceChargeRateWords"
+                                                      placeholder="" type="text"/>
+                                            प्रतिशत)
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="laiOverDraftLoan.get('chargeAmountFlag').value">
+                                        <td>क.सु.के.दस्तुर</td>
+                                        <td>
+                                            रु.
+                                            <input class="form-field form-control-sm nepaliFont"
+                                                   name="overdraftCustomAmount"
+                                                   formControlName="overdraftCustomAmount"
+                                                   placeholder="" type="text" size="10"/>
+                                            /– मात्र ।
+                                            <a (click)="removeOptionalField(laiOverDraftLoan, 'chargeAmountFlag')"
+                                               data-placement="top" class="text-danger cursor">
+                                                <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                                remove
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!laiOverDraftLoan.get('chargeAmountFlag').value">
+                                        <td></td>
+                                        <td>
+                                            <a (click)="undoRemovalOfOptionalField(laiOverDraftLoan, 'chargeAmountFlag')"
+                                               data-placement="top" class="text-warning cursor">
+                                                <i class="fa fa-undo" style="color:darkred;padding-left: 5px"></i>
+                                                Undo field removal
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-right mt-2">
+                                <input (click)="addMoreLaiOverdraftLoan()" class="btn btn-sm btn-flat btn-primary" type="button"
+                                       value="Add More Field"/>
+                            </div>
+                        </ng-container>
+
                         <br>
 
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th style="width: 20%">क. प्रस्तावित सुविधा</th>
-                                    <th>डिमाण्ड कर्जा (Demand Loan)  </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>कर्जा सीमा रकम</td>
-                                    <td><strong>रु. ५,१७,०००</strong>/– (अक्षेरुपी पाँच लाख सत्र हजार रुपैयाँ मात्र)</td>
-                                </tr>
-                                <tr>
-                                    <td>प्रयोजन</td>
-                                    <td>व्यक्तिगत वित्तीय आवश्यकता परिपूर्ति प्रयोजनार्थ ।</td>
-                                </tr>
-                                <tr>
-                                    <td>समयावधी</td>
-                                    <td>:रिभल्भिङ्गः नोभेम्बर मसान्त, २०२१ मा पुनरावलोकन हुने गरि ।</td>
-                                </tr>
-                                <tr>
-                                    <td>व्याज</td>
-                                    <td> : <strong>आधार दर (Base Rate)</strong> + <strong>प्रिमियम दर (Premium Rate)</strong>
-                                        (हालको आधार दर ८.१४% + प्रिमियम दर
-                                        <input class="form-field form-control-sm shortInput nepaliFont"
-                                               name="demandLoanPremiumRate"
-                                               formControlName="demandLoanPremiumRate"
-                                               placeholder="" type="text"/>
-                                        %) का दरले हाललाई बार्षिक
-                                        <input class="form-field form-control-sm shortInput nepaliFont"
-                                               name="demandLoanPremiumRateWords"
-                                               formControlName="demandLoanPremiumRateWords"
-                                               placeholder="" type="text"/>
-                                        % त्रैमासिक रुपमा
-                                        (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा समय समयमा बैंकले तोके बमोजिम चुक्ता/भुक्तान
-                                        गर्नु पर्ने गरि । बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम  बार्षिक ब्याजदर
-                                        संसोधन (घट्न/बढ्न) सक्नेछ ।
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>भुक्तानी</td>
-                                    <td>
-                                        यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको आधारमा रही सम्बन्धित जीवन बीमा
-                                        कम्पनीबाट प्रमाणित गरिएको ऋणीको वीमा रकमको समर्पण मुल्य (Surrender Value) को अधिकत्म ९० प्रतिशत सम्म
-                                        कर्जा सीमा ननाघ्ने गरी प्रवाह गरिने छ । जीवन बीमा कम्पनी वाट समर्पण मुल्य (Surrender Value) निर्धारण हुन नसकेका
-                                        जीवन बीमालेखको हकमा बैंक, विमा कम्पनी तथा ऋणी विच सम्पन्न हुने त्रिपक्षीय सम्झौताको आधारमा कर्जा प्रवाह गरिनेछ ।
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>सेवा शुल्क</td>
-                                    <td>
-                                        सेवा शुल्क	भुक्तानी गरिने कर्जा रकमको
-                                        <input class="form-field form-control-sm shortInput nepaliFont"
-                                               name="demandLoanServiceChargeRate"
-                                               formControlName="demandLoanServiceChargeRate"
-                                               placeholder="" type="text"/>
-                                        % (
-                                        <input class="form-field form-control-sm nepaliFont"
-                                               name="demandLoanServiceChargeRateWords"
-                                               formControlName="demandLoanServiceChargeRateWords"
-                                               placeholder="" type="text"/>
-                                        प्रतिशत)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>क.सु.के.दस्तुर</td>
-                                    <td>
-                                        रु. <input class="form-field form-control-sm nepaliFont"
-                                                   name="demandLoanCustomAmount"
-                                                   formControlName="demandLoanCustomAmount"
-                                                   placeholder="" type="text" size="10"/>
-                                        /– मात्र ।
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <ng-container *ngIf="laiDemandLoanSelected">
+                            <div *ngFor="let laiDemandLoan of retailLoanAgainstInsurance.get('laiDemandLoanArray')['controls']; let i = index"
+                                 formArrayName="laiDemandLoanArray"
+                                 class="table-responsive">
+                                <table [formGroupName]="i" class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 20%">क. प्रस्तावित सुविधा</th>
+                                        <th>डिमाण्ड कर्जा (Demand Loan)
+                                            <input *ngIf="retailLoanAgainstInsurance.get('laiDemandLoanArray')['length'] > 1"
+                                                   (click)="removeLaiDemandLoan(i)"
+                                                   class="btn btn-sm btn-danger btn-primary float-right"
+                                                   type="button" value="Remove section"/>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>कर्जा सीमा रकम</td>
+                                        <td>रु. <input class="form-field form-control-sm nepaliFont"
+                                                       name="demandLimitAmount"
+                                                       formControlName="demandLimitAmount"
+                                                       placeholder="" type="text"/>/– (अक्षेरुपी <input class="form-field form-control-sm nepaliFont"
+                                                                                                        name="demandLimitAmountWord"
+                                                                                                        formControlName="demandLimitAmountWord"
+                                                                                                        placeholder="" type="text"/> रुपैयाँ मात्र)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>प्रयोजन</td>
+                                        <td>व्यक्तिगत वित्तीय आवश्यकता परिपूर्ति प्रयोजनार्थ ।</td>
+                                    </tr>
+                                    <tr>
+                                        <td>समयावधी</td>
+                                        <td>रिभल्भिङ्गः नोभेम्बर मसान्त, २०२१ मा पुनरावलोकन हुने गरि ।</td>
+                                    </tr>
+                                    <tr>
+                                        <td>व्याज</td>
+                                        <td> : <strong>आधार दर (Base Rate)</strong> + <strong>प्रिमियम दर (Premium Rate)</strong>
+                                            (हालको आधार दर <input class="form-field form-control-sm shortInput nepaliFont"
+                                                                  name="premiumAadharRate"
+                                                                  formControlName="premiumAadharRate"
+                                                                  placeholder="" type="text"/>% + प्रिमियम दर
+                                            <input class="form-field form-control-sm shortInput nepaliFont"
+                                                   name="demandLoanPremiumRate"
+                                                   formControlName="demandLoanPremiumRate"
+                                                   placeholder="" type="text"/>
+                                            %) का दरले हाललाई बार्षिक
+                                            <input class="form-field form-control-sm shortInput nepaliFont"
+                                                   name="demandLoanPremiumRateWords"
+                                                   formControlName="demandLoanPremiumRateWords"
+                                                   placeholder="" type="text"/>
+                                            % त्रैमासिक रुपमा
+                                            (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा समय समयमा बैंकले तोके बमोजिम चुक्ता/भुक्तान
+                                            गर्नु पर्ने गरि । बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम  बार्षिक ब्याजदर
+                                            संसोधन (घट्न/बढ्न) सक्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>भुक्तानी</td>
+                                        <td>
+                                            यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको आधारमा रही सम्बन्धित जीवन बीमा
+                                            कम्पनीबाट प्रमाणित गरिएको ऋणीको वीमा रकमको समर्पण मुल्य (Surrender Value) को अधिकत्म ९० प्रतिशत सम्म
+                                            कर्जा सीमा ननाघ्ने गरी प्रवाह गरिने छ । जीवन बीमा कम्पनी वाट समर्पण मुल्य (Surrender Value) निर्धारण हुन नसकेका
+                                            जीवन बीमालेखको हकमा बैंक, विमा कम्पनी तथा ऋणी विच सम्पन्न हुने त्रिपक्षीय सम्झौताको आधारमा कर्जा प्रवाह गरिनेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>सेवा शुल्क</td>
+                                        <td>
+                                            सेवा शुल्क	भुक्तानी गरिने कर्जा रकमको
+                                            <input class="form-field form-control-sm shortInput nepaliFont"
+                                                   name="demandLoanServiceChargeRate"
+                                                   formControlName="demandLoanServiceChargeRate"
+                                                   placeholder="" type="text"/>
+                                            % (
+                                            <input class="form-field form-control-sm nepaliFont"
+                                                   name="demandLoanServiceChargeRateWords"
+                                                   formControlName="demandLoanServiceChargeRateWords"
+                                                   placeholder="" type="text"/>
+                                            प्रतिशत)
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="laiDemandLoan.get('chargeAmountFlag').value">
+                                        <td>क.सु.के.दस्तुर</td>
+                                        <td>
+                                            रु. <input class="form-field form-control-sm nepaliFont"
+                                                       name="demandLoanCustomAmount"
+                                                       formControlName="demandLoanCustomAmount"
+                                                       placeholder="" type="text" size="10"/>
+                                            /– मात्र ।
+                                            <a (click)="removeOptionalField(laiDemandLoan, 'chargeAmountFlag')"
+                                               data-placement="top" class="text-danger cursor">
+                                                <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                                remove
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!laiDemandLoan.get('chargeAmountFlag').value">
+                                        <td></td>
+                                        <td>
+                                            <a (click)="undoRemovalOfOptionalField(laiDemandLoan, 'chargeAmountFlag')"
+                                               data-placement="top" class="text-warning cursor">
+                                                <i class="fa fa-undo" style="color:darkred;padding-left: 5px"></i>
+                                                Undo field removal
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-right mt-2">
+                                <input (click)="addMoreLaiDemandLoan()" class="btn btn-sm btn-flat btn-primary" type="button"
+                                       value="Add More Field"/>
+                            </div>
+                        </ng-container>
+
                     </div>
                 </div>
                 <br>
