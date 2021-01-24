@@ -14,49 +14,30 @@
                                                              type="text"/></div>
                </div>
                <div>
-                   Ref No: 2075/76-MBNL-CAD-RET-2736
+                   Ref No: 2075/76-MBNL-CAD-RET-<input class="form-field form-control-sm "
+                                                       formControlName="refNo"
+                                                       placeholder="Eg.0244"
+                                                       type="text"/>
                </div>
                <div>
-                   <p>श्री
+                   <p>
                        <input class="form-field form-control-sm nepaliFont col-3"
                               formControlName="borrowerName"
-                              placeholder=" यज्ञ बहादुर कटवाल"
+                              placeholder=" श्री यज्ञ बहादुर कटवाल"
                               type="text"/>
                    </p>
-                   <input class="form-field form-control-sm nepaliFont col-2"
-                          formControlName="vdc"
-                          placeholder="बारपाक"
-                          type="text"/>
-                   वडा नं
-                   <input class="form-field form-control-sm nepaliFont col-1"
-                          formControlName="ward"
-                          placeholder=" ५"
-                          type="text"/>
-                   ,
-                   <input class="form-field form-control-sm nepaliFont col-1"
-                          formControlName="district"
-                          placeholder=" गोरखा"
-                          type="text"/>
-                   <p>हाल:
+                   <p>ठेगाना:
                        <input class="form-field form-control-sm nepaliFont col-2"
-                              formControlName="currentVdc"
+                              formControlName="borrowerAddress"
                               placeholder=" भरतपुर"
                               type="text"/>
-                       वडा नं
-                       <input class="form-field form-control-sm nepaliFont col-1"
-                              formControlName="currentWard"
-                              placeholder=" १०"
-                              type="text"/>
-                       <input class="form-field form-control-sm nepaliFont col-1"
-                              formControlName="currentDistrict"
-                              placeholder="चितवन "
+                   </p>
+                   <p>सम्पर्क टेलिफोन नंः
+                       <input class="form-field form-control-sm nepaliFont"
+                              formControlName="contactNumber"
+                              placeholder="९८४५०४४७३०"
                               type="text"/>
                    </p>
-                   <p>मोवाइल नंः
-                       <input class="form-field form-control-sm nepaliFont"
-                              formControlName="mobileNo"
-                              placeholder="९८४५०४४७३०"
-                              type="text"/></p>
                </div>
                <br>
                <div class="text-center">
@@ -68,12 +49,15 @@
                </div>
                <div>
 
-                   पेशागत कर्जा सुविधा उपलब्ध गराइपाऊँ भनी तपाँईले दिनु भएको निवेदन र त्यसमा भएका छलफलबाट, हामी, मेगा बैंक
+                   <input class="form-field form-control-sm nepaliFont"
+                          formControlName="karjaFirstLine"
+                          placeholder="पेशागत कर्जा तथा पेशागत आधिविकष"
+                          type="text"/> कर्जा सुविधा उपलब्ध गराइपाऊँ भनी तपाँईले दिनु भएको निवेदन र त्यसमा भएका छलफलबाट, हामी, मेगा बैंक
                    नेपाल लिमिटेड, निम्न बमोजिमको कर्जा सुविधा देहाय बमोजिमका शर्तहरुमा प्रदान गर्न सहर्ष प्रस्ताव गर्दछौं ।
                </div>
                <div class="col-md-8"> पक्षहरु :
                    <div class="col-md-12">
-                       १. श्री <strong
+                       १. <strong
                            class="nepaliFont ml-2">{{this.retailProfessionalLoan.get('borrowerName').value}}</strong>(यस पछि
                        “ऋणी” भनिएको)
                    </div>
@@ -82,93 +66,282 @@
                    </div>
                </div>
                <div style="font-weight: bold">१. कर्जा सुविधाको प्रयोजन तथा संचालनः</div>
-               <table class="table-responsive-md table-bordered ">
-                   <tr>
-                       <th scope="col" style="width: 20%">क. प्रस्तावित सुविधा</th>
-                       <th scope="col"> पेशागत कर्जा (Professional Loan)</th>
-                   </tr>
-                   <tbody>
-                   <tr>
-                       <td>कर्जा सीमा रकम</td>
-                       <td>रु. १०,००,०००/(अक्षेरुपी दश लाख रुपैयाँ मात्र)</td>
-                   </tr>
-                   <tr>
-                       <td>प्रयोजन</td>
-                       <td>व्यक्तिगत वित्तीय आवश्यकता परिपूर्ति प्रयोजनार्थ ।</td>
-                   </tr>
-                   <tr>
-                       <td>समयावधी</td>
-                       <td>बैंकबाट कर्जा भुक्तानी भएको मितिले ५ वर्ष ।</td>
-                   </tr>
-                   <tr>
-                       <td>व्याज</td>
-                       <td> बार्षिक <input class="form-field form-control-sm nepaliFont col-2"
-                                           formControlName="rate"
-                                           placeholder=" १३%"
-                                           type="text"/> (आधार दर <input
-                               class="form-field form-control-sm nepaliFont col-2"
-                               formControlName="aadharRate"
-                               placeholder=" १०.६५%"
-                               type="text"/> ंप्रियिमय दर <input class="form-field form-control-sm nepaliFont col-2"
-                                                                 formControlName="premiumRate"
-                                                                 placeholder=" २.३५%"
-                                                                 type="text"/>) का दरले वा बैंकले समय समयमा तोके बमोजिम ।
-                           आधार दर
-                           बैंकले समय समयमा प्रकाशित सूचना बमोजिम हुनेछ ।
-                       </td>
-                   </tr>
-                   <tr>
-                       <td> ऋण चुक्ता</td>
-                       <td> बैंकबाट कर्जाको प्रथम किस्ता भुक्तानी भएको मितिको एक महिना पछि प्रथम किस्ता प्रारम्भ हुने गरी
-                           <input class="form-field form-control-sm nepaliFont "
-                                  formControlName="noOfInstallments"
-                                  placeholder=""
-                                  type="text"/>
-                           समान मासिक किस्ताबन्दीमा रु <input class="form-field form-control-sm nepaliFont "
-                                                              formControlName="emiAmount"
-                                                              placeholder=" २२,७५३.०७ "
-                                                              type="text"/> (अक्षेरुपी <input
-                                   class="form-field form-control-sm nepaliFont"
-                                   formControlName="amountInWords"
-                                   placeholder=" बाईस हजार सात सय त्रिपन्न रुपैयाँ सात पैसा मात्र"
-                                   type="text"/>) का
-                           दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको २० तारिखमा चुक्ता भुक्तान गर्नु पर्नेछ ।
-                       </td>
-                   </tr>
-                   <tr>
-                       <td> भुक्तानी</td>
-                       <td> यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको आधारमा
-                           रही
-                           कर्जा सीमा ननाघ्ने गरी प्रवाह गरिने छ ।
-                       </td>
-                   </tr>
-                   <tr>
-                       <td> पूर्व भुक्तानी शुल्क</td>
-                       <td> कर्जाको शर्त तथा ब्याजदर परिवर्तन भएको कारणले ऋणीले आफ्नो आम्दानीको श्रोतबाट कर्जा
-                           अग्रिम भुक्तानी गर्न चाहेको अवस्थामा वाहेक तोकिएको समयावधि अघिनै भुक्तानी गर्न चाहेमा भुक्तानी
-                           हुन बाँकी
-                           साँवा रकमको १ प्रतिशत तथा सापटी वा कुनै बैंक वा वित्तीय संस्थामा सार्न वा कर्जा खरिद गर्ने भए ३
-                           प्रतिशत
-                           पूर्व भुक्तानी शुल्क लाग्नेछ ।
-                       </td>
-                   </tr>
-                   <tr>
-                       <td>प्रतिवद्धता शुल्क</td>
-                       <td> स्वीकृत कर्जा सिमा रकम उपभोग नभएको खण्डमा उपभोग हुन बाँकी कर्जा रकमको १ प्रतिशत मात्र ।</td>
-                   </tr>
-                   <tr>
-                       <td> सेवा शुल्क</td>
-                       <td> स्वीकृत ऋण सुविधा रकमको १% (एक प्रतिशत) ।</td>
-                   </tr>
-                   <tr>
-                       <td>क.सु.के दस्तुर</td>
-                       <td>रु.<input class="form-field form-control-sm nepaliFont col-3"
-                                     formControlName="chargeAmount"
-                                     placeholder=" १,१०० मात्र ।"
-                                     type="text"/></td>
-                   </tr>
-                   </tbody>
-               </table>
+
+               <label class="mr-4">Choose Loan Types</label>
+               <nb-select #loanType (selectedChange)="changeLoanType($event)"
+                          [selected]="selectedArray"
+                          multiple placeholder="Select Loan Types">
+                   <nb-option *ngFor="let type of loanTypeArray" [value]="type">
+                       {{type}}
+                   </nb-option>
+               </nb-select>
+
+               <ng-container *ngIf="proTermLoanSelected">
+                   <div *ngFor="let professionalTermLoan of retailProfessionalLoan.get('professionalTermLoanArray')['controls']; let i = index"
+                        formArrayName="professionalTermLoanArray"
+                        class="mt-4">
+                       <table [formGroupName]="i" class="table-responsive-md table-bordered">
+                           <tr>
+                               <th scope="col" style="width: 20%">क. प्रस्तावित सुविधा</th>
+                               <th scope="col"> पेशागत कर्जा (Professional Term Loan)
+                                   <input *ngIf="retailProfessionalLoan.get('professionalTermLoanArray')['length'] > 1"
+                                          (click)="removeProfessionalTermLoan(i)"
+                                          class="btn btn-sm btn-danger btn-primary float-right"
+                                          type="button" value="Remove section"/>
+                               </th>
+                           </tr>
+                           <tbody>
+                           <tr>
+                               <td>कर्जा सीमा रकम</td>
+                               <td>रु. <input class="form-field form-control-sm nepaliFont"
+                                              formControlName="karjaSeemaRakam"
+                                              placeholder="१०,००,०००"
+                                              type="text"/>/(अक्षेरुपी <input class="form-field form-control-sm nepaliFont"
+                                                                              formControlName="karjaSeemaRakamWord"
+                                                                              placeholder="दश लाख"
+                                                                              type="text"/> रुपैयाँ मात्र)</td>
+                           </tr>
+                           <tr>
+                               <td>प्रयोजन</td>
+                               <td><input class="form-field form-control-sm nepaliFont"
+                                          formControlName="prayojan"
+                                          placeholder="व्यक्तिगत वित्तीय आवश्यकता परिपूर्ति"
+                                          type="text"/> प्रयोजनार्थ ।</td>
+                           </tr>
+                           <tr>
+                               <td>समयावधी</td>
+                               <td>बैंकबाट कर्जा भुक्तानी भएको मितिले <input class="form-field form-control-sm nepaliFont"
+                                                                             formControlName="tenure"
+                                                                             placeholder="५ वर्ष"
+                                                                             type="text"/> ।</td>
+                           </tr>
+                           <tr>
+                               <td>व्याज</td>
+                               <td> आधार दर (Base Rate) +  प्रिमियम दर (Premium Rate) (हालको आधार दर
+                                   <input class="form-field form-control-sm nepaliFont col-2"
+                                          formControlName="aadharRate"
+                                          placeholder=" २.३५%"
+                                          type="text"/>% +
+                                   प्रिमियम दर <input class="form-field form-control-sm nepaliFont col-2"
+                                                      formControlName="premiumRate"
+                                                      placeholder=" २.३५%"
+                                                      type="text"/>%) का दरले हाललाइ बार्षिक
+                                   <input class="form-field form-control-sm nepaliFont col-2"
+                                          formControlName="rate"
+                                          placeholder=" १३%"
+                                          type="text"/>%
+                                   वा समय समयमा बैंकले तोके बमोजिम चुक्ता÷भुक्तान गक्र्नु पर्ने गरि । बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन
+                                   हुन गएमा सोही बमोजिम बार्षिक ब्याजदर संसोधन (घट्न/बढ्न) सक्नेछ ।
+                               </td>
+                           </tr>
+                           <tr>
+                               <td> ऋण चुक्ता</td>
+                               <td> बैंकबाट कर्जाको प्रथम किस्ता भुक्तानी भएको मितिको <input class="form-field form-control-sm nepaliFont col-2"
+                                                                                             formControlName="reenChuktaDate"
+                                                                                             placeholder=" एक"
+                                                                                             type="text"/> महिना पछि प्रथम किस्ता प्रारम्भ हुने गरी
+                                   <input class="form-field form-control-sm nepaliFont "
+                                          formControlName="noOfInstallments"
+                                          placeholder=""
+                                          type="text"/>
+                                   समान <input class="form-field form-control-sm nepaliFont "
+                                               formControlName="reenChuktaMaasik"
+                                               placeholder="मासिक"
+                                               type="text"/> किस्ताबन्दीमा रु <input class="form-field form-control-sm nepaliFont "
+                                                                                     formControlName="emiAmount"
+                                                                                     placeholder=" २२,७५३.०७ "
+                                                                                     type="text"/> (अक्षेरुपी <input
+                                           class="form-field form-control-sm nepaliFont"
+                                           formControlName="amountInWords"
+                                           placeholder=" बाईस हजार सात सय त्रिपन्न रुपैयाँ सात पैसा मात्र"
+                                           type="text"/>) का
+                                   दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको २० तारिखमा चुक्ता भुक्तान गर्नु पर्नेछ ।
+                               </td>
+                           </tr>
+                           <tr>
+                               <td> भुक्तानी</td>
+                               <td> यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको आधारमा
+                                   रही
+                                   कर्जा सीमा ननाघ्ने गरी प्रवाह गरिने छ ।
+                               </td>
+                           </tr>
+                           <tr>
+                               <td> पूर्व भुक्तानी शुल्क</td>
+                               <td> कर्जाको शर्त तथा ब्याजदर परिवर्तन भएको कारणले ऋणीले आफ्नो आम्दानीको श्रोतबाट कर्जा
+                                   अग्रिम भुक्तानी गर्न चाहेको अवस्थामा वाहेक तोकिएको समयावधि अघिनै भुक्तानी गर्न चाहेमा भुक्तानी
+                                   हुन बाँकी
+                                   साँवा रकमको १ प्रतिशत तथा सापटी वा कुनै बैंक वा वित्तीय संस्थामा सार्न वा कर्जा खरिद गर्ने भए ३
+                                   प्रतिशत
+                                   पूर्व भुक्तानी शुल्क लाग्नेछ ।
+                               </td>
+                           </tr>
+                           <tr>
+                               <td>प्रतिवद्धता शुल्क</td>
+                               <td> स्वीकृत कर्जा सिमा रकम उपभोग नभएको खण्डमा उपभोग हुन बाँकी कर्जा रकमको १ प्रतिशत मात्र ।</td>
+                           </tr>
+                           <tr>
+                               <td> सेवा शुल्क</td>
+                               <td> स्वीकृत ऋण सुविधा रकमको <input class="form-field form-control-sm nepaliFont col-3"
+                                                                   formControlName="sewaSulka"
+                                                                   placeholder=" १%"
+                                                                   type="text"/> मात्र ।</td>
+                           </tr>
+                           <tr *ngIf="professionalTermLoan.get('chargeAmountFlag').value">
+                               <td>क.सु.के दस्तुर</td>
+                               <td>रु.<input class="form-field form-control-sm nepaliFont col-3"
+                                             formControlName="chargeAmount"
+                                             placeholder=" १,१००"
+                                             type="text"/> मात्र ।
+                                   <a (click)="removeOptionalField(professionalTermLoan, 'chargeAmountFlag')"
+                                      data-placement="top" class="text-danger cursor">
+                                       <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                       remove
+                                   </a>
+                               </td>
+                           </tr>
+                           <tr *ngIf="!professionalTermLoan.get('chargeAmountFlag').value">
+                               <td></td>
+                               <td>
+                                   <a (click)="undoRemovalOfOptionalField(professionalTermLoan, 'chargeAmountFlag')"
+                                      data-placement="top" class="text-warning cursor">
+                                       <i class="fa fa-undo" style="color:darkred;padding-left: 5px"></i>
+                                       Undo field removal
+                                   </a>
+                               </td>
+                           </tr>
+                           </tbody>
+                       </table>
+                   </div>
+                   <div class="text-right mt-2">
+                       <input (click)="addMoreProfessionalTermLoan()" class="btn btn-sm btn-flat btn-primary" type="button"
+                              value="Add More Field"/>
+                   </div>
+               </ng-container>
+
+               <br>
+
+               <ng-container *ngIf="proOverdraftLoanSelected">
+                   <div *ngFor="let professionalOverDraftLoan of retailProfessionalLoan.get('professionalOverDraftLoanArray')['controls']; let i = index"
+                        formArrayName="professionalOverDraftLoanArray"
+                        class="mt-4">
+                       <table [formGroupName]="i" class="table-responsive-md table-bordered">
+                           <tr>
+                               <th scope="col" style="width: 20%">ख. प्रस्तावित सुविधा</th>
+                               <th scope="col"> पेशागत अधिविकर्ष कर्जा (Professional Overdraft Loan)
+                                   <input *ngIf="retailProfessionalLoan.get('professionalOverDraftLoanArray')['length'] > 1"
+                                          (click)="removeProfessionalOverDraftLoan(i)"
+                                          class="btn btn-sm btn-danger btn-primary float-right"
+                                          type="button" value="Remove section"/>
+                               </th>
+                           </tr>
+                           <tbody>
+                           <tr>
+                               <td>कर्जा सीमा रकम</td>
+                               <td>रु. <input class="form-field form-control-sm nepaliFont"
+                                              formControlName="karjaSeemaRakam"
+                                              placeholder="१०,००,०००"
+                                              type="text"/>/(अक्षेरुपी <input class="form-field form-control-sm nepaliFont"
+                                                                              formControlName="karjaSeemaRakamWord"
+                                                                              placeholder="दश लाख"
+                                                                              type="text"/> रुपैयाँ मात्र)</td>
+                           </tr>
+                           <tr>
+                               <td>प्रयोजन</td>
+                               <td><input class="form-field form-control-sm nepaliFont"
+                                          formControlName="prayojan"
+                                          placeholder="व्यक्तिगत वित्तीय आवश्यकता परिपूर्ति"
+                                          type="text"/> प्रयोजनार्थ ।</td>
+                           </tr>
+                           <tr>
+                               <td>समयावधी</td>
+                               <td>
+                                   :रिभल्भिङ्गः <input class="form-field form-control-sm nepaliFont"
+                                                       formControlName="tenure"
+                                                       placeholder="५ वर्ष"
+                                                       type="text"/> मा पुनरावलोकन हुने गरि ।
+                               </td>
+                           </tr>
+                           <tr>
+                               <td>व्याज</td>
+                               <td> आधार दर (Base Rate) +  प्रिमियम दर (Premium Rate) (हालको आधार दर
+                                   <input class="form-field form-control-sm nepaliFont col-2"
+                                          formControlName="aadharRate"
+                                          placeholder=" २.३५%"
+                                          type="text"/>% +
+                                   प्रिमियम दर <input class="form-field form-control-sm nepaliFont col-2"
+                                                      formControlName="premiumRate"
+                                                      placeholder=" २.३५%"
+                                                      type="text"/>%) का दरले हाललाइ बार्षिक
+                                   <input class="form-field form-control-sm nepaliFont col-2"
+                                          formControlName="rate"
+                                          placeholder=" १३%"
+                                          type="text"/>%
+                                   वा समय समयमा बैंकले तोके बमोजिम चुक्ता÷भुक्तान गक्र्नु पर्ने गरि । बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन
+                                   हुन गएमा सोही बमोजिम बार्षिक ब्याजदर संसोधन (घट्न/बढ्न) सक्नेछ ।
+                               </td>
+                           </tr>
+
+                           <tr>
+                               <td> भुक्तानी</td>
+                               <td> यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको आधारमा
+                                   रही
+                                   कर्जा सीमा ननाघ्ने गरी प्रवाह गरिने छ ।
+                               </td>
+                           </tr>
+                           <tr>
+                               <td> पूर्व भुक्तानी शुल्क</td>
+                               <td> कर्जाको शर्त तथा ब्याजदर परिवर्तन भएको कारणले ऋणीले आफ्नो आम्दानीको श्रोतबाट कर्जा
+                                   अग्रिम भुक्तानी गर्न चाहेको अवस्थामा वाहेक तोकिएको समयावधि अघिनै भुक्तानी गर्न चाहेमा भुक्तानी
+                                   हुन बाँकी
+                                   साँवा रकमको १ प्रतिशत तथा सापटी वा कुनै बैंक वा वित्तीय संस्थामा सार्न वा कर्जा खरिद गर्ने भए ३
+                                   प्रतिशत
+                                   पूर्व भुक्तानी शुल्क लाग्नेछ ।
+                               </td>
+                           </tr>
+                           <tr>
+                               <td>प्रतिवद्धता शुल्क</td>
+                               <td> स्वीकृत कर्जा सिमा रकम उपभोग नभएको खण्डमा उपभोग हुन बाँकी कर्जा रकमको १ प्रतिशत मात्र ।</td>
+                           </tr>
+                           <tr>
+                               <td> सेवा शुल्क</td>
+                               <td>भुक्तानी गरिने ऋण सुविधा रकमको <input class="form-field form-control-sm nepaliFont col-3"
+                                                                         formControlName="sewaSulka"
+                                                                         placeholder=" १%"
+                                                                         type="text"/> मात्र) ।
+                               </td>
+                           </tr>
+                           <tr *ngIf="professionalOverDraftLoan.get('chargeAmountFlag').value">
+                               <td>क.सु.के दस्तुर</td>
+                               <td>रु.<input class="form-field form-control-sm nepaliFont col-3"
+                                             formControlName="chargeAmount"
+                                             placeholder=" १,१००"
+                                             type="text"/> मात्र ।
+                                   <a (click)="removeOptionalField(professionalOverDraftLoan, 'chargeAmountFlag')"
+                                      data-placement="top" class="text-danger cursor">
+                                       <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                       remove
+                                   </a>
+                               </td>
+                           </tr>
+                           <tr *ngIf="!professionalOverDraftLoan.get('chargeAmountFlag').value">
+                               <td></td>
+                               <td>
+                                   <a (click)="undoRemovalOfOptionalField(professionalOverDraftLoan, 'chargeAmountFlag')"
+                                      data-placement="top" class="text-warning cursor">
+                                       <i class="fa fa-undo" style="color:darkred;padding-left: 5px"></i>
+                                       Undo field removal
+                                   </a>
+                               </td>
+                           </tr>
+                           </tbody>
+                       </table>
+                   </div>
+                   <div class="text-right mt-2">
+                       <input (click)="addMoreProfessionalOverDraftLoan()" class="btn btn-sm btn-flat btn-primary" type="button"
+                              value="Add More Field"/>
+                   </div>
+               </ng-container>
+
                <div style="font-weight: bold">२. सुरक्षण (धितो)</div>
                <div>
                    उल्लेखित कर्जा सुविधा प्रदान गर्दा सो कर्जा रकमलाई खाम्ने देहाय बमोजिमका सुरक्षणहरु बैंकको पक्षमा प्रदान
@@ -190,12 +363,27 @@
                                बराबरको आवधिक जिवन बीमालेख पेश गर्नु पर्नेछ ।
                            </td>
                        </tr>
-                       <tr>
+                       <tr *ngIf="retailProfessionalLoan.get('gurantorNameFlag').value">
                            <td>२.४</td>
                            <td class="pl-3"><input class="form-field form-control-sm nepaliFont col-3"
                                                    formControlName="gurantorName"
                                                    placeholder=" "
                                                    type="text"/> को तर्फबाट कर्जा सिमा रकम बराबरको व्यक्तिगत जमानी ।
+                               <a (click)="removeOptionalField(retailProfessionalLoan, 'gurantorNameFlag')"
+                                  data-placement="top" class="text-danger cursor">
+                                   <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                   remove
+                               </a>
+                           </td>
+                       </tr>
+                       <tr *ngIf="!retailProfessionalLoan.get('gurantorNameFlag').value">
+                           <td></td>
+                           <td>
+                               <a (click)="undoRemovalOfOptionalField(retailProfessionalLoan, 'gurantorNameFlag')"
+                                  data-placement="top" class="text-warning cursor">
+                                   <i class="fa fa-undo" style="color:darkred;padding-left: 5px"></i>
+                                   Undo field removal
+                               </a>
                            </td>
                        </tr>
                        </tbody>
@@ -203,49 +391,13 @@
                    <div class="nep" style="font-weight: bold">नोटःमाथि उल्लेखित सुरक्षणहरुका साथ निम्न शर्तहरु अनिवार्य
                        रुपमा पालना गर्नुपर्नेछ ।
                    </div>
-                   <div class="row">
-                       <div class="col-md-1">क.</div>
-                       <div class="col-md-10"> ऋणीको सम्पत्ति खुलाउने लिखत () फोटो तथा सम्पर्क ठेगाना
-                           सहित पेश गनुपर्नेछ ।
-                       </div>
-                   </div>
-                   <div class="row">
-                       <div class="col-md-1">ख.</div>
-                       <div class="col-md-10"> अन्य बैंकहरुसंग गरेको कारोवार बारे लिखित रुपमा खुलाउनुपर्ने (
-                           ) पेश
-                           गर्नुपर्नेछ ।
-                       </div>
-                   </div>
-                   <div class="row">
-                       <div class="col-md-1">ग.</div>
-                       <div class="col-md-10">सम्पूर्ण कर्जा सम्बन्धी कागजातहरु सक्कल कागजातहरुसँग भिडाइ प्रमाणित
-                           गर्नुपर्नेछ ।
-                       </div>
-                   </div>
-                   <div class="row">
-                       <div class="col-md-1">घ.</div>
-                       <div class="col-md-10">ऋणीको व्यक्तिगत स्थायी लेखा दर्ता प्रमाणपत्रको (
-                           ) प्रतिलिपी पेश गर्नु पर्नेछ ।
-                       </div>
-                   </div>
-                   <div class="row">
-                       <div class="col-md-1">ङ.</div>
-                       <div class="col-md-10">जिवन विमा बापत लाग्ने सम्पूर्ण खर्च ऋणीले नै बहन गर्नु पर्नेछ ।</div>
-                   </div>
-                   <div class="row">
-                       <div class="col-md-1">च.</div>
-                       <div class="col-md-10"> कर्जा प्रवाहको ५ दिन भित्र कर्जाको उपभोग सम्बन्धि प्रतिवेदन
-                           पेश गर्नुपर्नेछ ।
-                       </div>
-                   </div>
-                   <div class="row">
-                       <div class="col-md-1">छ.</div>
-                       <div class="col-md-10"> कर्जा प्रवाह पूर्व श्री <strong
-                               class="nepaliFont">{{this.retailProfessionalLoan.get('borrowerName').value}}</strong> र  <strong
-                               class="nepaliFont">{{this.retailProfessionalLoan.get('gurantorName').value}}</strong> नाता
-                           प्रमाणित गर्ने कागजात पेश गनुपर्नेछ
-                       </div>
-                   </div>
+
+                   <p>
+                       <em class="fa fa-info-circle"><em class="ml-2">Note : Please select Nepali font for nepali typing privileges in the editor below.</em></em>
+                   </p>
+
+                   <ckeditor formControlName="clausesTextEditor" [config]="ckeConfig"></ckeditor>
+
                </div>
                <div style="font-weight: bold"><u>३. व्याज</u></div>
                <div class="col-md-12">
@@ -577,22 +729,16 @@
                    </div>
                    <div class=" col-md-10 " >
                        <div>ऋणी</div>
-                       <div>श्री <strong
-                               class="nepaliFont">{{this.retailProfessionalLoan.get('borrowerName').value}}</strong></div>
-                       <strong class="nepaliFont">{{this.retailProfessionalLoan.get('vdc').value}}</strong>
-                       <p>
-                           वडा नं
-                           <strong class="nepaliFont">{{this.retailProfessionalLoan.get('ward').value}}</strong>
-                           ,
-                           <strong class="nepaliFont">{{this.retailProfessionalLoan.get('district').value}}</strong></p>
-                       <p>हाल:
-                           <strong class="nepaliFont">{{this.retailProfessionalLoan.get('currentVdc').value}}</strong>
-                           वडा नं
-                           <strong class="nepaliFont">{{this.retailProfessionalLoan.get('currentWard').value}}</strong>,
-                           <strong class="nepaliFont">{{this.retailProfessionalLoan.get('currentDistrict').value}}</strong>
+                       <div>
+                           <strong class="nepaliFont">
+                               {{retailProfessionalLoan.get('borrowerName').value}}
+                           </strong>
+                       </div>
+                       <p>ठेगाना:
+                           <strong class="nepaliFont">{{retailProfessionalLoan.get('borrowerAddress').value}}</strong>
                        </p>
-                       <p>मोवाइल नंः
-                           <strong class="nepaliFont">{{this.retailProfessionalLoan.get('mobileNo').value}}</strong>
+                       <p>सम्पर्क टेलिफोन नंः
+                           <strong class="nepaliFont">{{retailProfessionalLoan.get('contactNumber').value}}</strong>
                        </p>
                    </div>
                </div>
@@ -633,7 +779,10 @@
                </div>
                <br>
                <div class="pt-2">
-                   म/हामीले ८ पृष्ठको यस बैकिङ ऋण स्वीकृतिपत्रमा उल्लेखित शर्तहरु राम्ररी पढेंरपढ्यौं र बुझेंरबुझ्यौं ।
+                   म/हामीले <input class="form-field form-control-sm nepaliFont "
+                                   formControlName="pageCount"
+                                   placeholder="८"
+                                   type="text"/> पृष्ठको यस बैकिङ ऋण स्वीकृतिपत्रमा उल्लेखित शर्तहरु राम्ररी पढेंरपढ्यौं र बुझेंरबुझ्यौं ।
                    यसमा
                    उल्लेख गरिएको सम्पूर्ण शर्तहरु पालना गर्न म/हामी मन्जुर गर्दछु । गर्दछौं र बैंकसंग यस अन्तर्गत लिएको ऋण
                    पूर्ण रुपमा चुक्ता भुक्तान नगरे सम्म यसमा उल्ल्खित शर्तहरुको पूर्ण रुपले पालना गर्ने प्रतिज्ञा गर्दछु

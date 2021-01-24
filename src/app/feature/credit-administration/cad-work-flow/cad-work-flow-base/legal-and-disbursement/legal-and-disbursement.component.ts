@@ -2,12 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {ActivatedRoute} from '@angular/router';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
-import {NbDialogService} from '@nebular/theme';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {ToastService} from '../../../../../@core/utils';
 import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {UserService} from '../../../../../@core/service/user.service';
+import {User} from '../../../../admin/modal/user';
+import {RoleType} from '../../../../admin/modal/roleType';
 
 @Component({
     selector: 'app-legal-and-disbursement',
@@ -24,12 +24,14 @@ export class LegalAndDisbursementComponent implements OnInit {
     checkListLiteVersion = LocalStorageUtil.getStorage().productUtil.CHECK_LIST_LITE_VERSION;
     showHideAction = true;
     activeTab = 0;
+    toggleArray: { toggled: boolean }[] = [];
+    user = new User();
+    isRoleLegal = false;
 
     constructor(private activatedRoute: ActivatedRoute,
                 private service: CreditAdministrationService,
-                private nbDialogService: NbDialogService,
-                private modelService: NgbModal,
-                private toastrService: ToastService) {
+                private userService: UserService,
+    ) {
     }
 
 
@@ -38,6 +40,7 @@ export class LegalAndDisbursementComponent implements OnInit {
         other.service.detail(other.cadDocumentId).subscribe((res: any) => {
             other.cadOfferLetterApprovedDoc = res.detail;
             other.customerInfoData = other.cadOfferLetterApprovedDoc.loanHolder;
+            other.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => other.toggleArray.push({toggled: false}));
             console.log(res.detail);
             other.spinner = false;
         }, error => {
@@ -47,10 +50,12 @@ export class LegalAndDisbursementComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.getUserDetail();
         this.cadDocumentId = Number(this.activatedRoute.snapshot.queryParamMap.get('cadDocumentId'));
         if (!ObjectUtil.isEmpty(history.state.data)) {
             this.cadOfferLetterApprovedDoc = history.state.data;
             this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
+            this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
         } else {
             LegalAndDisbursementComponent.loadData(this);
         }
@@ -60,15 +65,24 @@ export class LegalAndDisbursementComponent implements OnInit {
 
     }
 
+    getUserDetail() {
+        this.userService.getLoggedInUser().subscribe((res: any) => {
+            this.user = res.detail;
+            if (this.user.role.roleType === RoleType.CAD_LEGAL) {
+                this.isRoleLegal = true;
+            } else {
+                this.isRoleLegal = false;
+            }
+        });
+    }
+
     newCadData(event: CustomerApprovedLoanCadDocumentation) {
         this.cadOfferLetterApprovedDoc = event;
         if (ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
             LegalAndDisbursementComponent.loadData(this);
         } else {
             this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
-            if (this.currentUserLocalStorage.toString() === this.cadOfferLetterApprovedDoc.cadCurrentStage.toUser.id.toString()) {
-                this.showHideAction = true;
-            }
+            this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
         }
     }
 
