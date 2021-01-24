@@ -226,10 +226,6 @@ export class ProposalComponent implements OnInit {
     return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
   }
 
-  // public validateNum(): boolean {
-  //   return this.proposalForm.value.prepaymentCharge > 0 || this.proposalForm.value.prepaymentCharge < 100;
-  // }
-
   onSubmit() {
     // Proposal Form Data--
     if (!ObjectUtil.isEmpty(this.formValue)) {
@@ -242,13 +238,6 @@ export class ProposalComponent implements OnInit {
       waiverChecked: this.waiverChecked,
       riskChecked: this.riskChecked
     };
-    //
-    // if (!this.validateNum()) {
-    //   this.proposalForm.get('prepaymentCharge').setErrors({'invalid': true});
-    //   return;
-    // } else {
-    //   this.proposalForm.get('prepaymentCharge').setErrors(null);
-    // }
     this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
     // Proposed Limit value--
