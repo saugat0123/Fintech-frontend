@@ -15,6 +15,8 @@ import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {DocumentService} from '../../../../../admin/component/document/document.service';
 import {Status} from '../../../../../../@core/Status';
+import {environment} from '../../../../../../../environments/environment';
+import {Clients} from '../../../../../../../environments/Clients';
 
 @Component({
   selector: 'app-document-checklist-lite',
@@ -45,6 +47,8 @@ export class DocumentChecklistLiteComponent implements OnInit {
     documentName: undefined
   };
   document: Array<Document> = [];
+  client = environment.client;
+  clientList = Clients;
 
   constructor(private creditAdministrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -128,6 +132,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
     });
   }
 
+  // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges(changes: SimpleChanges): void {
     this.initial();
   }
