@@ -1,10 +1,10 @@
-<div class="container nep text-justify" id="{{offerLetterConst.RETAIL_LOAN_AGAINST_INSURANCE}}">
+<div class="container nep text-justify">
     <nb-card
             [nbSpinner]="spinner"
             nbSpinnerStatus="primary"
             nbSpinnerSize="large"
             nbSpinnerMessage="Saving Retail Housing offer letter....."
-            id="{{offerLetterConst.RETAIL_HOUSING}}">
+            id="{{offerLetterConst.RETAIL_LOAN_AGAINST_INSURANCE}}">
         <nb-card-body>
             <div class="row">
                 <div class="col-md-12">
@@ -16,6 +16,7 @@
                     <div class="col-md-12">
                         <p>
                             <strong>Ref No: 2077/78-MBNL-CAD-RET-<input class="form-field form-control-sm "
+                                                                        name="refNo"
                                                                         formControlName="refNo"
                                                                         placeholder=""
                                                                         type="text"/>
@@ -948,4 +949,4 @@
         </nb-card-footer>
     </nb-card>
 </div>
-<app-retail-loan-against-insurance-print  *ngIf="initialInfoPrint" [letter]="initialInfoPrint.value" hidden></app-retail-loan-against-insurance-print>
+<app-retail-against-ins-print  *ngIf="initialInfoPrint" [letter]="retailLoanAgainstInsurance.value" hidden></app-retail-against-ins-print>

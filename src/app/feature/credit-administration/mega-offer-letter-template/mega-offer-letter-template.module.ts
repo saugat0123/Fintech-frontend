@@ -22,7 +22,7 @@ import {NgxPrintModule} from 'ngx-print';
 import {CoreModule} from '../../../@core/core.module';
 import {NbAccordionModule} from '@nebular/theme';
 import {RetailLoanAgainstInsuranceComponent} from "./mega-offer-letter/retail-loan-against-insurance/retail-loan-against-insurance.component";
-import { RetailLoanAgainstInsurancePrintComponent } from './mega-offer-letter/retail-loan-against-insurance/retail-loan-against-insurance-print/retail-loan-against-insurance-print/retail-loan-against-insurance-print.component';
+import { RetailAgainstInsPrintComponent } from './mega-offer-letter/retail-loan-against-insurance/retail-against-ins-print/retail-against-ins-print.component';
 
 const COMPONENTS = [
     MegaOfferLetterComponent,
@@ -48,7 +48,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, RetailLoanAgainstInsurancePrintComponent],
+    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent],
     exports: [
         HayerPurchaseComponent,
         RetailEducationalLoanComponent,
