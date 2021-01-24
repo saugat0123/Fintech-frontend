@@ -15,7 +15,11 @@
                 <div class="row">
                     <div class="col-md-12">
                         <p>
-                            <strong>Ref No: 2077/78-MBNL-CAD-RET-BUSINESS-1625</strong>
+                            <strong>Ref No: 2077/78-MBNL-CAD-RET-<input class="form-field form-control-sm "
+                                                                        formControlName="refNo"
+                                                                        placeholder=""
+                                                                        type="text"/>
+                            </strong>
                             <span style="float: right">
                     मितिः <input class="form-field form-control-sm nepaliFont" name="offerLetterDate" formControlName="offerLetterDate" placeholder="" type="text"/>
                   </span>
@@ -944,4 +948,4 @@
         </nb-card-footer>
     </nb-card>
 </div>
-<app-retail-loan-against-insurance-print  *ngIf="initialInfoPrint" [letter]="retailLoanAgainstInsurance.value" hidden></app-retail-loan-against-insurance-print>
+<app-retail-loan-against-insurance-print  *ngIf="initialInfoPrint" [letter]="initialInfoPrint.value" hidden></app-retail-loan-against-insurance-print>

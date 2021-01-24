@@ -40,6 +40,7 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
   }
   buildForm(){
     this.retailLoanAgainstInsurance = this.formBuilder.group({
+      refNo: [undefined],
       offerLetterDate: [undefined],
       borrowerName: [undefined],
       borrowerAddress: [undefined],
