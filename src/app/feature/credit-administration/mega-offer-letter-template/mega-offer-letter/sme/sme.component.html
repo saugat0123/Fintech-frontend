@@ -1676,15 +1676,15 @@
                                    <strong>नाम : </strong><input class="form-fields form-control-sm nepaliFont"
                                                                  formControlName="loanBorrowerOneName"
                                                                  placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                                 type="text"/> <br>
+                                                                 type="text" [value]="loanForm.get('to').value" disabled/> <br>
                                    <strong>ठेगाना : </strong><input class="form-fields form-control-sm nepaliFont"
                                                                     formControlName="loanBorrowerAddress"
                                                                     placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                                    type="text"/><br>
+                                                                    type="text" [value]="loanForm.get('address').value" disabled/><br>
                                    <strong>संपर्क नम्बर : </strong><input class="form-fields form-control-sm nepaliFont"
                                                                     formControlName="loanBorrowerContactNo"
                                                                     placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                                    type="text"/>
+                                                                    type="text" [value]="loanForm.get('mobileNo')" disabled/>
                                </div>
                            </div>
                        </div>
@@ -1732,12 +1732,11 @@
                        पूर्ण
                        रुपमा चुक्ता भुक्तान नगरे सम्म यसमा उल्ल्ेखित शर्तहरुको पूर्ण रुपले पालना गर्ने प्रतिज्ञा गर्दछु/गर्दछौं
                        ।<br>
-                       ऋणीको नाम : <b>श्री फुडकेम नेपाल प्रा.लि. ।</b>
                        <br>
                        ऋणीको नाम :<input class="form-fields form-control-sm nepaliFont"
                                          formControlName="loanBorrowerName"
                                          placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                         type="text"/>
+                                         type="text" [value]="loanForm.get('to').value" disabled/>
                        <br>
 
                        <div class="row mt-5">
@@ -1752,7 +1751,7 @@
                                        मितिः <input class="form-fields form-control-sm nepaliFont"
                                                     formControlName="signatureDate"
                                                     placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                    type="text"/>
+                                                    type="text" [value]="loanForm.get('date').value" disabled/>
                                    </div>
                                </div>
                            </div>
