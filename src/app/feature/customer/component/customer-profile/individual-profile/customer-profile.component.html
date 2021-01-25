@@ -204,14 +204,14 @@
             <div class="col-md-8">
                 <div class="d-block mb-3">
           <span class="d-flex justify-content-end text-success text-uppercase">
-            <strong>Aggregated Amount : {{totalProposalAmount |number}}</strong>
+            <strong>Aggregated Amount : Rs. {{totalProposalAmount |number}}</strong>
           </span>
                 </div>
                 <nb-card accent="primary">
                     <nb-card-header>
                         Loan History
                         <div class="float-right" nbTooltip="">Total Loan Amount
-                            : {{totalLoanProposedAmount | number}}
+                            : Rs. {{totalLoanProposedAmount | currencyFormatter}}
                         </div>
                     </nb-card-header>
                     <nb-card-body>
@@ -244,8 +244,8 @@
                 <nb-card accent="primary" *ngIf="!productUtils.CBS_ENABLE">
                     <nb-card-header>
                         Customer Groups
-                        <div class="float-right" nbTooltip="{{totalGroupAmount | number}}">Total Group Limit
-                            : Rs. {{customerInfo?.customerGroup?.groupLimit | currencyFormatter}}
+                        <div class="float-right" nbTooltip="{{totalGroupAmount | currencyFormatter}}">Total Group Limit
+                            : {{customerInfo?.customerGroup?.groupLimit}}
                         </div>
                     </nb-card-header>
                     <nb-card-body>
@@ -339,7 +339,7 @@
                                 <span> <strong>Net Worth</strong></span></div>
                             <div class="col-md-1">
                                 <span> <strong>:</strong></span></div>
-                            <div class="col-md-5">{{customer?.netWorth |currencyFormatter}}</div>
+                            <div class="col-md-5"> Rs. {{customer?.netWorth |currencyFormatter}}</div>
                         </div>
                         <div class="row">
                             <div class="col-md-5">

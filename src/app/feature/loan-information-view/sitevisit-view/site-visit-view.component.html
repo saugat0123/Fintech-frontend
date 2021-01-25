@@ -311,7 +311,7 @@
     <tr>
         <td>{{formData['currentAssetsInspectionDetails']['dateOfInspection'] | date}}</td>
         <td>{{formData['currentAssetsInspectionDetails']['particularsOfGoodInspected']}}</td>
-        <td class="text-right">Rs. {{formData['currentAssetsInspectionDetails']['stockValueReported'] | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['stockValueReported'] | currencyFormatter}}</td>
         <td>{{formData['currentAssetsInspectionDetails']['rents']}}</td>
         <td *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">{{formData['currentAssetsInspectionDetails']['rentLeased']}}</td>
         <td *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">{{formData['currentAssetsInspectionDetails']['isRentPmtUpToDate']}}</td>
@@ -342,12 +342,12 @@
 
     <tr>
 
-        <td class="text-right">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['assetsMortgaged'] | currencyFormatter}}</td>
-        <td class="text-right">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['insuredAmount'] | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['assetsMortgaged'] | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['insuredAmount'] | currencyFormatter}}</td>
         <td>{{formData['currentAssetsInspectionDetails']['insuranceVerification']['insuranceCompany']}}</td>
         <td>{{formData['currentAssetsInspectionDetails']['insuranceVerification']['expiryDate'] | date}}</td>
         <td>{{formData['currentAssetsInspectionDetails']['insuranceVerification']['clientsOverallRating']}}</td>
-        <td class="text-right">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['stockValueConfirmed'] | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['stockValueConfirmed'] | currencyFormatter}}</td>
     </tr>
 
     <tr class="text-white sb-bg-dark">
@@ -596,32 +596,32 @@
     <tr *ngFor="let parties of formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.parties; let i=index">
         <td>{{i + 1}}</td>
         <td>{{parties?.party}}</td>
-        <td class="text-right">Rs. {{parties?.withinThreeMonths | currencyFormatter}}</td>
-        <td class="text-right">Rs. {{parties?.sixMonth | currencyFormatter}}</td>
-        <td class="text-right">Rs. {{parties?.oneYear | currencyFormatter}}</td>
-        <td class="text-right">Rs. {{parties?.oneYearPlus | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{parties?.withinThreeMonths | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{parties?.sixMonth | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{parties?.oneYear | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{parties?.oneYearPlus | currencyFormatter}}</td>
 
     </tr>
     <tr class="text-right">
         <td></td>
         <td class="text-center">Total</td>
-        <td>
+        <td class="pr-1">
             <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.threeMonthTotal | currencyFormatter}}</b>
         </td>
-        <td>
+        <td class="pr-1">
             <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.sixMonthTotal | currencyFormatter}}</b>
         </td>
-        <td>
+        <td class="pr-1">
             <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.oneYearTotal | currencyFormatter}}</b>
         </td>
-        <td>
+        <td class="pr-1">
             <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.moreThanOneYearTotal | currencyFormatter}}</b>
         </td>
     </tr>
     <tr>
         <td></td>
         <td>Grand Total</td>
-        <td colspan="4" class="text-right">
+        <td colspan="4" class="text-right pr-1">
             <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.grandTotal | currencyFormatter}}</b>
         </td>
     </tr>
@@ -650,24 +650,24 @@
     <tr *ngFor="let parties of formData?.currentAssetsInspectionDetails?.payable?.parties; let i=index">
         <td>{{i + 1}}</td>
         <td>{{parties?.party}}</td>
-        <td class="text-right">Rs. {{parties?.withinThreeMonths | currencyFormatter}}</td>
-        <td class="text-right">Rs. {{parties?.sixMonth | currencyFormatter}}</td>
-        <td class="text-right">Rs. {{parties?.oneYear | currencyFormatter}}</td>
-        <td class="text-right">Rs. {{parties?.oneYearPlus | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{parties?.withinThreeMonths | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{parties?.sixMonth | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{parties?.oneYear | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{parties?.oneYearPlus | currencyFormatter}}</td>
 
     </tr>
     <tr class="text-right">
         <td></td>
         <td class="text-center">Total</td>
-        <td><b>Rs. {{formData?.currentAssetsInspectionDetails?.payable?.threeMonthTotal | currencyFormatter}}</b></td>
-        <td><b>Rs. {{formData?.currentAssetsInspectionDetails?.payable?.sixMonthTotal | currencyFormatter}}</b></td>
-        <td><b>Rs. {{formData?.currentAssetsInspectionDetails?.payable?.oneYearTotal | currencyFormatter}}</b></td>
-        <td><b>Rs. {{formData?.currentAssetsInspectionDetails?.payable?.moreThanOneYearTotal | currencyFormatter}}</b></td>
+        <td class="pr-1"><b>Rs. {{formData?.currentAssetsInspectionDetails?.payable?.threeMonthTotal | currencyFormatter}}</b></td>
+        <td class="pr-1"><b>Rs. {{formData?.currentAssetsInspectionDetails?.payable?.sixMonthTotal | currencyFormatter}}</b></td>
+        <td class="pr-1"><b>Rs. {{formData?.currentAssetsInspectionDetails?.payable?.oneYearTotal | currencyFormatter}}</b></td>
+        <td class="pr-1"><b>Rs. {{formData?.currentAssetsInspectionDetails?.payable?.moreThanOneYearTotal | currencyFormatter}}</b></td>
     </tr>
     <tr>
         <td></td>
         <td>Grand Total</td>
-        <td colspan="4" class="text-right"><b>Rs. {{formData?.currentAssetsInspectionDetails?.payable?.grandTotal | currencyFormatter}}</b>
+        <td colspan="4" class="text-right pr-1"><b>Rs. {{formData?.currentAssetsInspectionDetails?.payable?.grandTotal | currencyFormatter}}</b>
         </td>
     </tr>
 
@@ -698,12 +698,12 @@
     <tr *ngFor="let asset of formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.receivableAssets; let i = index;">
         <td>{{i + 1}}</td>
         <td>{{asset?.particulars}}</td>
-        <td class="text-right">Rs. {{asset?.amount | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{asset?.amount | currencyFormatter}}</td>
     </tr>
     <tr>
         <td></td>
         <td>Total</td>
-        <td class="text-right" colspan="2">
+        <td class="text-right pr-1" colspan="2">
             <b>Rs. {{formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.receivableCurrentAssetsTotal | currencyFormatter}}</b>
         </td>
     </tr>
@@ -736,12 +736,12 @@
     <tr *ngFor="let asset of formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.payableAssets; let i=index">
         <td>{{i + 1}}</td>
         <td>{{asset?.particulars}}</td>
-        <td class="text-right">Rs. {{asset?.amount | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{asset?.amount | currencyFormatter}}</td>
     </tr>
     <tr>
         <td></td>
         <td>Total</td>
-        <td class="text-right" colspan="2">
+        <td class="text-right pr-1" colspan="2">
             <b>Rs. {{formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.payableCurrentAssetsTotal  | currencyFormatter}}</b>
         </td>
     </tr>
@@ -759,7 +759,7 @@
     <tr *ngFor="let bank of formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.bankExposures; let i=index">
         <td>{{i + 1}}</td>
         <td>{{bank?.bankName}}</td>
-        <td class="text-right">Rs. {{bank?.amount | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{bank?.amount | currencyFormatter}}</td>
     </tr>
     <tr class="text-white sb-bg-dark">
         <td colspan="3">

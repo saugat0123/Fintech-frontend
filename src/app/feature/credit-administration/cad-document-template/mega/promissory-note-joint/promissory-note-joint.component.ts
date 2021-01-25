@@ -42,6 +42,7 @@ export class PromissoryNoteJointComponent implements OnInit {
 
   buildForm() {
     this.promissoryNoteJoint = this.formBuilder.group({
+      branch: [undefined],
       temporaryProvince: [undefined],
       temporaryProvince2: [undefined],
       permanentDistrict: [undefined],
@@ -59,12 +60,11 @@ export class PromissoryNoteJointComponent implements OnInit {
       temporaryDistrict: [undefined],
       temporaryMunicipalityVDC: [undefined],
       temporaryWardNo: [undefined],
-      temporaryAddress: [undefined],
       temporaryDistrict2: [undefined],
       temporaryMunicipalityVDC2: [undefined],
       temporaryWardNo2: [undefined],
-      temporaryAddress2: [undefined],
       age: [undefined],
+      age2: [undefined],
       relation: [undefined],
       citizenshipNo: [undefined],
       issueDate: [undefined],
