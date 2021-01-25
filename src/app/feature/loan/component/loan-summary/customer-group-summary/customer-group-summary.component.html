@@ -4,7 +4,7 @@
         Limit:</em><strong>
         {{groupDto?.groupLimit}} &nbsp;|&nbsp; </strong>
         <em class="ml-2 text-danger sb-small">Group Code:</em>
-        <strong> {{groupDto?.groupCode}} }} |</strong>
+        <strong> {{groupDto?.groupCode}} |</strong>
         <em class="ml-2 text-danger sb-small">Total FMV/Considered Value:</em>
         <strong>Rs. {{this.totalCollateral | currencyFormatter}}</strong>)</p>
       <table
@@ -18,36 +18,38 @@
         </thead>
         <tbody>
         <ng-container *ngFor="let group of groupDto?.groupDtoList;let i = index;">
-          <tr class="font-weight-bold sb-bg-dark text-white text-left">
-            <td colspan="2" class="pl">
-              <b>{{group?.fundedData?.length > 0 ? group?.fundedData[0]?.customerName : group?.nonFundedData[0]?.customerName}}</b>
-            </td>
-      <!--      <td>Pending Limit: <b>{{group?.totalPendingLimit}}</b></td>-->
-            <td colspan="1" class="pl">
-              <b>Total FMV/Considered Value: {{(group?.fundedData?.length > 0 ? group?.fundedData[0]?.security?.totalSecurityAmount:
-                      group?.nonFundedData?.length > 0 ? group?.nonFundedData[0]?.security?.totalSecurityAmount: 0) | currencyFormatter}}</b>
-            </td>
-          </tr>
-          <tr *ngFor="let data of group?.fundedData; let j = index;">
-              <td class="sn">{{j+1}}</td>
-              <td>{{data?.loanConfig?.name}}</td>
-              <td class="text-right pr-1">Rs. {{data?.proposal?.proposedLimit |currencyFormatter}}</td>
-            </tr>
-          <tr class="cursor font-weight-bold sb-bg-secondary text-white ">
-            <td class="text-center" colspan="2">Total Funded</td>
-            <td colspan="4" class="text-right pr-1">Rs.{{group?.totalFunded |currencyFormatter}}</td>
-          </tr>
+     <ng-container *ngIf="group?.fundedData?.length > 0 || group?.nonFundedData?.length > 0">
+       <tr class="font-weight-bold sb-bg-dark text-white text-left">
+         <td colspan="2" class="pl">
+           <b>{{group?.fundedData?.length > 0 ? group?.fundedData[0]?.customerName : group?.nonFundedData[0]?.customerName}}</b>
+         </td>
+         <!--      <td>Pending Limit: <b>{{group?.totalPendingLimit}}</b></td>-->
+         <td colspan="1" class="pl">
+           <b>Total FMV/Considered Value: {{(group?.fundedData?.length > 0 ? group?.fundedData[0]?.security?.totalSecurityAmount:
+                   group?.nonFundedData?.length > 0 ? group?.nonFundedData[0]?.security?.totalSecurityAmount: 0) | currencyFormatter}}</b>
+         </td>
+       </tr>
+       <tr *ngFor="let data of group?.fundedData; let j = index;">
+         <td class="sn">{{j+1}}</td>
+         <td>{{data?.loanConfig?.name}}</td>
+         <td class="text-right pr-1">Rs. {{data?.proposal?.proposedLimit |currencyFormatter}}</td>
+       </tr>
+       <tr class="cursor font-weight-bold sb-bg-secondary text-white ">
+         <td class="text-center" colspan="2">Total Funded</td>
+         <td colspan="4" class="text-right pr-1">Rs.{{group?.totalFunded |currencyFormatter}}</td>
+       </tr>
 
-          <tr *ngFor="let data of group?.nonFundedData; let k = index;">
-            <td>{{k+1}}</td>
-            <td>{{data?.loanConfig?.name}}</td>
-            <td class="text-right pr-1">Rs.{{data?.proposal?.proposedLimit |currencyFormatter}}</td>
-          </tr>
-          <tr class="cursor font-weight-bold sb-bg-secondary text-white ">
-            <td class="text-center" colspan="2">Total Non Funded</td>
-            <td colspan="4" class="text-right pr-1">Rs.{{group?.totalNonFunded |currencyFormatter}}</td>
-          </tr>
+       <tr *ngFor="let data of group?.nonFundedData; let k = index;">
+         <td>{{k+1}}</td>
+         <td>{{data?.loanConfig?.name}}</td>
+         <td class="text-right pr-1">Rs.{{data?.proposal?.proposedLimit |currencyFormatter}}</td>
+       </tr>
+       <tr class="cursor font-weight-bold sb-bg-secondary text-white ">
+         <td class="text-center" colspan="2">Total Non Funded</td>
+         <td colspan="4" class="text-right pr-1">Rs.{{group?.totalNonFunded |currencyFormatter}}</td>
+       </tr>
 
+     </ng-container>
         </ng-container>
         <tr class="sb-bg-dark  text-white ">
           <td colspan="2">Grand Total Funded</td>

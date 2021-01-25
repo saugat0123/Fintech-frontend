@@ -451,7 +451,7 @@
                                 [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.wardNumber.errors }"
                                 class="form-control" formControlName="wardNumber" id="wardNumber"
                                 name="wardNumber" placeholder="Ward Number"
-                                type="text">
+                                type="number">
                             <div *ngIf="(submitted) && basicInfoControls.wardNumber.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.wardNumber.errors.required">
@@ -572,7 +572,7 @@
                                 [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.temporaryWardNumber.errors }"
                                 class="form-control" formControlName="temporaryWardNumber" id="temporaryWardNumber"
                                 name="temporaryWardNumber" placeholder="Ward Number"
-                                type="text">
+                                type="number">
                             <div *ngIf="(submitted) && basicInfoControls.temporaryWardNumber.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.temporaryWardNumber.errors.required">
