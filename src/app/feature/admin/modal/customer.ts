@@ -14,7 +14,7 @@ export class Customer {
     district: District;
     municipalities: MunicipalityVdc;
     street: string;
-    wardNumber: string;
+    wardNumber: number;
     contactNumber: string;
     email: string;
     initialRelationDate: Date;
