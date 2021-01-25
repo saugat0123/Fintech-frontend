@@ -116,7 +116,6 @@ export class SmeComponent implements OnInit {
       overdrafLoanServiceRate: [undefined],
       overdrafLoanServiceCharge: [undefined],
       overdrafLoanPrices: [undefined],
-      overdrafLoanYear: [undefined],
       overdrafLoanReturned: [undefined],
       dasturFlag: [true],
     });
@@ -288,6 +287,7 @@ export class SmeComponent implements OnInit {
       cashCreditPayTill: [undefined],
       cashCreditTerm: [undefined],
       cashCreditFixTerm: [undefined],
+      cashCreditSecurity: [undefined],
       cashCreditDastur: [undefined],
       dasturFlag: [undefined],
     });
@@ -404,7 +404,6 @@ export class SmeComponent implements OnInit {
                     overdrafLoanServiceRate: [data.overdrafLoanServiceRate],
                     overdrafLoanServiceCharge: [data.overdrafLoanServiceCharge],
                     overdrafLoanPrices: [data.overdrafLoanPrices],
-                    overdrafLoanYear: [data.overdrafLoanYear],
                     overdrafLoanReturned: [data.overdrafLoanReturned],
                     dasturFlag: [data.dasturFlag],
                 })
@@ -557,6 +556,7 @@ export class SmeComponent implements OnInit {
               cashCreditPay: [data.cashCreditPay],
               cashCreditPayTill: [data.cashCreditPayTill],
               cashCreditTerm: [data.cashCreditTerm],
+              cashCreditSecurity: [data.cashCreditSecurity],
               cashCreditFixTerm: [data.cashCreditFixTerm],
               cashCreditDastur: [data.cashCreditDastur],
               dasturFlag: [data.dasturFlag],

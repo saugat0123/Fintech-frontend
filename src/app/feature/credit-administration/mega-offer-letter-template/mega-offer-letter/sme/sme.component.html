@@ -24,7 +24,7 @@
                        </div>
                    </div>
                    <div class="mb-2">
-                        <input
+                        <b>श्री</b><input
                            class="form-fields form-control-sm nepaliFont"
                            formControlName="to"
                            placeholder="श्री÷सुश्री÷श्रीमान÷श्रीमती÷"
@@ -138,7 +138,7 @@
                                        <input class="form-fields form-control-sm nepaliFont col-3"
                                               formControlName="overdrafLoanPremiumRate"
                                               placeholder="प्रिमियम दर"
-                                              type="text"/>% का
+                                              type="text"/>%) का
                                        दरले हाललाई बार्षिक <input class="form-fields form-control-sm nepaliFont col-3"
                                                                   formControlName="overdrafLoanCurrentAnnualRate"
                                                                   placeholder="दरले हाललाई बार्षिक %"
@@ -151,10 +151,11 @@
                                </tr>
                                <tr>
                                    <td>समयावधि</td>
-                                   <td><input class="form-fields form-control-sm nepaliFont col-3"
+                                   <td> रिभल्भिङ्ग <input class="form-fields form-control-sm nepaliFont col-3"
                                               formControlName="overdrafLoanEndOfFiscalYear"
-                                              placeholder="जनवरी मसान्त को अन्त्य"
-                                              type="text"/></td>
+                                              placeholder="अप्रिल मसान्त, २०२१"
+                                              type="text"/>
+                                       मा पुनरावलोकन हुने गरि ।</td>
                                </tr>
                                <tr>
                                    <td>भुक्तानी</td>
@@ -167,17 +168,17 @@
                                <tr>
                                    <td>प्रतिबद्धता शुल्क</td>
                                    <td>स्वीकृत अधिविकर्ष सुविधाको सीमा औसतमा ६० प्रतिशत भन्दा कम उपभोग भएको खण्डमा उपभोग नभएको
-                                       अधिविकर्ष कर्जा सुविधाको सीमाको ०.५०% (शुन्य दशमलव पाँच शुन्य प्रतिशत) मात्र ।
+                                       अधिविकर्ष कर्जा सुविधाको सीमाको ०.१५% (शुन्य दशमलव एक पाँच प्रतिशत) वा कर्जा प्रवाहको बखत
+                                       ऋणीबाट असुल गरिएको सेवा शुल्कको २० प्रतिशतले हुन आउने प्रतिशतका दरले मात्र ।
                                    </td>
                                </tr>
                                <tr>
                                    <td> पूर्व भुक्तानी शुल्क</td>
-                                   <td>कर्जाको शर्त तथा ब्याजदर परिवर्तन भएको कारणले ऋणीले आफ्नो आम्दानीको श्रोतबाट कर्जा
-                                       अग्रिम भुक्तानी गर्न चाहेको अवस्थामा वाहेक तोकिएको समयावधि अघिनै भुक्तानी गर्न चाहेमा ऋणीको
-                                       नाममा स्वीकृत भई उपभोग
-                                       भईरहेको कर्जा सीमा रकमको ०.२५ प्रतिशत तथा सापटी वा कुनै बैंक वा वित्तीय संस्थामा सार्न वा कर्जा
-                                       खरिद गर्ने
-                                       भए ३ प्रतिशत पूर्व भुक्तानी शुल्क लाग्नेछ ।
+                                   <td>कर्जाको शर्त तथा ब्याजदर परिवर्तन भएको कारणले ऋणीले आफ्नो आम्दानीको श्रोतबाट कर्जा अग्रिम भुक्तानी
+                                       गर्न चाहेको अवस्थामा वाहेक तोकिएको समयावधि अघिनै भुक्तानी गर्न चाहेमा वा सापटी वा कुनै बैंक वा
+                                       वित्तीय संस्थामा सार्न वा कर्जा खरिद गर्ने भएमा ऋणीको नाममा स्वीकृत भई उपभोग भईरहेको कर्जा सीमा
+                                       रकमको ०.०५ वा कर्जा प्रवाहको बखत ऋणीबाट असुल गरिएको सेवा शुल्कको २० प्रतिशतले हुन आउने
+                                       रकम मध्ये कम हुने रकम पूर्व भुक्तानी शुल्क लाग्नेछ ।
                                    </td>
                                </tr>
                                <tr>
@@ -193,24 +194,19 @@
                                </tr>
                                <tr>
                                    <td> सुरक्षित कारोबार शुल्क</td>
-                                   <td><input class="form-fields form-control-sm nepaliFont"
+                                   <td><b>रु</b><input class="form-fields form-control-sm nepaliFont"
                                               formControlName="overdrafLoanPrices"
                                               placeholder="रु ५००/–"
-                                              type="text"/> प्रति कारोबार (दर्ता, संसोधन तथा फुकुवा) गर्दा सुरक्षित कारोबार
-                                       ऐन
-                                       <input
-                                               class="form-fields form-control-sm nepaliFont"
-                                               formControlName="overdrafLoanYear"
-                                               placeholder="२०६३"
-                                               type="text"/>अनुसार ।
+                                              type="text"/> /– प्रति कारोबार (दर्ता, संसोधन तथा फुकुवा) गर्दा सुरक्षित कारोबार
+                                       ऐन २०६३ अनुसार ।
                                    </td>
                                </tr>
                                <tr *ngIf="overdraft.get('dasturFlag').value">
                                    <td> क.सु.के. दस्तुर</td>
-                                   <td><input class="form-fields form-control-sm nepaliFont"
+                                   <td><b>रु</b><input class="form-fields form-control-sm nepaliFont"
                                               formControlName="overdrafLoanReturned"
                                               placeholder="रु. ३,२५०/–"
-                                              type="text"/> मात्र ।
+                                              type="text"/>/- मात्र ।
                                        <a (click)="removeOptionalField('overdraftLoan', overdraftIndex, 'dasturFlag')"
                                           data-placement="top" class="text-danger cursor">
                                            हटाउनुहोस्
@@ -250,13 +246,13 @@
                                    <tbody>
                                    <tr>
                                        <td> कर्जा सीमा रकम</td>
-                                       <td><input
+                                       <td><b>रु</b><input
                                                class="form-fields form-control-sm nepaliFont"
                                                formControlName="demandLoanLimit"
-                                               placeholder="रु. २,००,००,०००/–"/> (अक्षरुपी<input
+                                               placeholder="रु. २,००,००,०००/–"/>/- (अक्षरुपी<input
                                                class="form-fields form-control-sm nepaliFont"
                                                formControlName="demandLoanLimitInWord"
-                                               placeholder=" दुई करोड रुपैयाँ"/>मात्र ।)
+                                               placeholder=" दुई करोड"/> रुपैयाँ मात्र ।)
                                        </td>
                                    </tr>
                                    <tr>
@@ -264,7 +260,7 @@
                                        <td><input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="demandLoanPurpose"
                                                   placeholder="चालुपूँजी प्रयोजनार्थ ।"
-                                                  type="text"/></td>
+                                                  type="text"/> प्रयोजनार्थ ।</td>
                                    </tr>
                                    <tr>
                                        <td> व्याज</td>
@@ -301,16 +297,6 @@
                                                   formControlName="demandLoanDurationRatio"
                                                   placeholder="८०ः२०"
                                                   type="text"/> कायम गरि भुक्तानी गरिने छ ।
-                                       </td>
-                                   </tr>
-                                   <tr>
-                                       <td>पूर्व भुक्तानी शुल्क</td>
-                                       <td>कर्जाको शर्त तथा ब्याजदर परिवर्तन भएको कारणले ऋणीले आफ्नो आम्दानीको श्रोतबाट कर्जा
-                                           अग्रिम भुक्तानी गर्न चाहेको अवस्थामा वाहेक तोकिएको समयावधि अघिनै भुक्तानी गर्न चाहेमा ऋणीको
-                                           नाममा स्वीकृत भई उपभोग
-                                           भईरहेको कर्जा सीमा रकमको ०.२५ प्रतिशत तथा सापटी वा कुनै बैंक वा वित्तीय संस्थामा सार्न वा कर्जा
-                                           खरिद गर्ने
-                                           भए ३ प्रतिशत पूर्व भुक्तानी शुल्क लाग्नेछ ।
                                        </td>
                                    </tr>
                                    <tr>
@@ -764,11 +750,11 @@
                                    <tbody>
                                    <tr>
                                        <td> कर्जा सीमा रकम</td>
-                                       <td>
+                                       <td><b>रु</b>
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="letterOfCreditAmountInNumber"
                                                   placeholder="रु. १६,००,००,०००र–"
-                                                  type="text"/> (
+                                                  type="text"/>/- रुपैयाँ  (
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="latterOfCreditAmountInWord"
                                                   placeholder="अक्षेरुपी सोह्र करोड रुपैयाँ"
@@ -783,11 +769,12 @@
                                        <td><input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="letterOfCreditMargin"
                                                   placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/>प्रतिशत नगद प्रतितपत्र जारी गर्दा र
+                                                  type="text"/>प्रतिशत नगद प्रतितपत्र जारी एवं
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="letterOfCreditMarginPercent"
                                                   placeholder="५"
-                                                  type="text"/> प्रतिशत नगद प्रतितपत्र भुक्तानी गर्दा ।
+                                                  type="text"/>
+                                           प्रतिशत नगद प्रतितपत्र भुक्तानी गर्दा ।
                                        </td>
                                    </tr>
                                    <tr>
@@ -796,7 +783,7 @@
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="letterOfCreditCurrentFiscalYear"
                                                   placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/>जनवरी मसान्त २०२१ मा पुनरावलोकन हुने गरि ।</td>
+                                                  type="text"/>मा पुनरावलोकन हुने गरि ।</td>
                                    </tr>
                                    <tr>
                                        <td> कमिशन</td>
@@ -865,13 +852,7 @@
                                    </tr>
                                    <tr>
                                        <td> उद्देश्य</td>
-                                       <td>प्रतितपत्र सुविधा अन्तर्गत आयातीत सामानमा लगानी ।</td>
-                                   </tr>
-                                   <tr>
-                                       <td> भुक्तानी</td>
-                                       <td>यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको आधारमा रहि
-                                           प्रतितपत्र सुविधा अन्तर्गत आयातित सामानको कागजात मूल्यको अधिकतम् ९० प्रतिशत सम्म भुक्तानी गरिनेछ ।
-                                       </td>
+                                       <td>प्रतितपत्र मार्फत आयतित समानको भुक्तानी प्रयोजनार्थ ।</td>
                                    </tr>
                                    <tr>
                                        <td> व्याज</td>
@@ -879,16 +860,16 @@
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="trustReceiptBaseRate"
                                                   placeholder="९.७६%"
-                                                  type="text"/> + प्रिमियम दर
+                                                  type="text"/>% + प्रिमियम दर
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="trustReceiptPremiumRate"
                                                   placeholder="०.५०%"
-                                                  type="text"/>) का
+                                                  type="text"/>)% का
                                            दरले हाललाई बार्षिक
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="trustReceiptYearlyRate"
                                                   placeholder="१०.२६%"
-                                                  type="text"/> त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ
+                                                  type="text"/>% त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ
                                            मसान्त) वा समय समयमा
                                            बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि। बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर
                                            परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर संसोधन (घट्न∕बढ्न) सक्नेछ ।
@@ -924,7 +905,7 @@
                                    </tr>
                                    <tr *ngIf="tr.get('dasturFlag').value">
                                        <td>क.सु.के दस्तुर</td>
-                                       <td><input class="form-fields form-control-sm nepaliFont"
+                                       <td><b>रु</b><input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="trustReceiptDastur"
                                                   placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
                                                   type="text"/>/– मात्र ।
@@ -965,7 +946,7 @@
                                    <tbody>
                                    <tr>
                                        <td>कर्जा सीमा रकम</td>
-                                       <td><input class="form-fields form-control-sm nepaliFont"
+                                       <td><b>रु</b><input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="cashCreditAmountInNumber"
                                                   placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
                                                   type="text"/>/– (अक्षरेपी
@@ -979,7 +960,7 @@
                                        <td><input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="casCreditAim"
                                                   placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/>मार्फत आयत÷खरिद गरिएको समानको भुक्तानी प्रयोजनार्थ ।</td>
+                                                  type="text"/>मार्फत आयत / खरिद गरिएको समानको भुक्तानी प्रयोजनार्थ ।</td>
                                    </tr>
                                    <tr>
                                        <td> व्याज</td>
@@ -987,16 +968,16 @@
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="cashCreditBaseRate"
                                                   placeholder="९.७६%"
-                                                  type="text"/> + प्रिमियम दर
+                                                  type="text"/> % + प्रिमियम दर
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="cashCreditPremiumRate"
                                                   placeholder="०.५०%"
-                                                  type="text"/>) का
+                                                  type="text"/>%) का
                                            दरले हाललाई बार्षिक
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="cashCreditCurrentYear"
                                                   placeholder="१०.२६%"
-                                                  type="text"/> त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ
+                                                  type="text"/>% त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ
                                            मसान्त) वा समय समयमा
                                            बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि। बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर
                                            परिवर्तन
@@ -1029,9 +1010,17 @@
                                                   type="text"/> दिन सम्म मात्र ।
                                        </td>
                                    </tr>
+                                   <tr>
+                                       <td>सुरक्षण</td>
+                                   <td>उल्लेखित <input class="form-fields form-control-sm nepaliFont"
+                                                       formControlName="cashCreditSecurity"
+                                                       placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
+                                                       type="text"/>
+                                       खरिद मार्फत अयातित सामान ।</td>
+                                   </tr>
                                    <tr *ngIf="ch.get('dasturFlag').value">
                                        <td>क.सु.के दस्तुर</td>
-                                       <td><input class="form-fields form-control-sm nepaliFont"
+                                       <td><b>रु</b><input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="cashCreditDastur"
                                                   placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
                                                   type="text"/>/– मात्र ।
@@ -1180,11 +1169,11 @@
                                        <td><input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="bankGuaranteeAmountInNumber"
                                                   placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/>(अक्षरेपी
+                                                  type="text"/> /- (अक्षरेपी
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="bankGuaranteeAmountInWord"
                                                   placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/>मात्र ।)</td>
+                                                  type="text"/> रुपैयाँ मात्र ।)</td>
                                    </tr>
                                    <tr>
                                        <td> उद्देश्य</td>
@@ -1202,7 +1191,7 @@
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="bankGuaranteeCommission"
                                                   placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/>प्रतिशत प्रति त्रयमास ९एभच त्तगबचतभच० वा न्युनतम्
+                                                  type="text"/>प्रतिशत प्रति त्रयमास (Per Quarter) वा न्युनतम्
                                            रु. १,००० र सोही दस्तुर जमानीको समयावधि बढाउन गरिने संशोधन वा जमानीको मूल्य बढाउंदा पनि लाग्ने छ ।
                                        </td>
                                    </tr>
@@ -1252,8 +1241,8 @@
                    <b>२) सुरक्षण (धितो) :</b><br>
                    <b>उल्लेखित कर्जा सुविधाहरु प्रदान गर्दा सो कर्जा रकमलाई पर्याप्त रुपमा खाम्ने गरि देहाय बमोजिमका सुरक्षणहरु ऋणीले उपलब्ध गराउनु पर्नेछ :–</b>
                    <br>
-                       २.१	ऋणीद्वारा हस्ताक्षर गरिएका प्रतिज्ञा पत्र ( एचयmष्ककयचथ ल्यतभ) । <br>
-                       २.२	सम्पूर्ण कर्जा सिमा रकम बराबरको कर्जा लिखत(ीयबल म्भभम) । <br>
+                       २.१	ऋणीद्वारा हस्ताक्षर गरिएका प्रतिज्ञा पत्र ( Promissory Note) । <br>
+                       २.२	सम्पूर्ण कर्जा सिमा रकम बराबरको कर्जा लिखत(Loan Deed) । <br>
                        २.३	<input class="form-fields form-control-sm nepaliFont"
                                      formControlName="totalLoanAmount"
                                      placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
@@ -1307,11 +1296,11 @@
                                      formControlName="currentNonMovableAsset"
                                      placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
                                      type="text"/>को हकवालाले अचल धितो सुरक्षण कायम गर्न दिएको मञ्जुरीनामा (नाता प्रमाणित सहित) । <br>
-                       २.६	<input class="form-fields form-control-sm nepaliFont"
+                       २.६	<b>रु</b><input class="form-fields form-control-sm nepaliFont"
                                      formControlName="equalLoanAsset"
                                      placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
                                      type="text"/>/– बराबर ऋणीहरुको मालसामान, स्टक मौज्दातको सूरक्षण आदीको हाइपोथिकेशन सम्बन्धी लिखत (तमसुक) बैंकको पक्षमा धितोको प्रथमाधिकार रहनेगरी दर्ता गरिदिनु पर्ने । <br>
-                       २.७	<input class="form-fields form-control-sm nepaliFont"
+                       २.७	<b>रु</b><input class="form-fields form-control-sm nepaliFont"
                                      formControlName="loanAsset"
                                      placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
                                      type="text"/>/– बराबर ऋणीहरुको चल सम्पत्ती तथा वही खाता एवम लिन वांकी रकमको तालिका बमोजिम (ब्ककष्नलmभलत या अगचचभलत बककभत  बलम चभअभष्खबदभिक धष्तज बनष्लन मभतबष्कि)
