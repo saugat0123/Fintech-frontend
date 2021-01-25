@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { MegaOfferLetterConst } from 'src/app/feature/credit-administration/mega-offer-letter-const';
+import {MegaOfferLetterConst} from 'src/app/feature/credit-administration/mega-offer-letter-const';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 
 @Component({
@@ -13,27 +13,26 @@ export class RetailAgainstInsPrintComponent implements OnInit {
   termLoanSelected = false;
   overdraftLoanSelected = false;
   demandLoanSelected = false;
+  loanTypeArray = ['LAI Term Loan', 'LAI Overdraft Loan', 'LAI Demand Loan'];
 
-  constructor() { }
-  loanTypeArray = ['LAI Term Loan', 'LAI Overdraft Loan', 'LAI Demand Loan' ];
+  constructor() {
+  }
 
   ngOnInit() {
-   if(!ObjectUtil.isEmpty(this.letter)) {
-     this.letter.loanTypeSelectedArray.forEach(value =>
-     {
-      switch (value) {
-        case 'LAI Term Loan':
-          this.termLoanSelected = true;
-          break;
-        case 'LAI Overdraft Loan':
-          this.overdraftLoanSelected = true;
-          break;
-        case 'LAI Demand Loan':
-          this.demandLoanSelected = true;
-      }
-     });
-   }
-    console.log(this.letter);
+    if (!ObjectUtil.isEmpty(this.letter)) {
+      this.letter.loanTypeSelectedArray.forEach(value => {
+        switch (value) {
+          case 'LAI Term Loan':
+            this.termLoanSelected = true;
+            break;
+          case 'LAI Overdraft Loan':
+            this.overdraftLoanSelected = true;
+            break;
+          case 'LAI Demand Loan':
+            this.demandLoanSelected = true;
+        }
+      });
+    }
   }
 
 }
