@@ -21,7 +21,7 @@
         </app-security-initial-form>
         <div class="form-group">
             <form [formGroup]="securityForm">
-                <ng-container *ngIf="!disableCrgAlphaParams">
+                <ng-container *ngIf="!disableCrgAlphaParams && isBusinessLoan">
                     <div>
                         <h4>Guarantee</h4>
                     </div>
@@ -58,7 +58,7 @@
                                 </nb-select>
                             </div>
                         </div>
-                        <div class="col" *ngIf="isBusinessLoan">
+                        <div class="col">
                             <div>
                                 <h5>Vehicle Security Coverage</h5>
                             </div>
@@ -81,7 +81,7 @@
                     </div>
                 </ng-container>
 
-                <div class="row">
+                <div class="row" *ngIf="!crgLambdaDisabled && !isBusinessLoan">
                     <div class="col">
                         <div>
                             <h5>Road access of primary property</h5>

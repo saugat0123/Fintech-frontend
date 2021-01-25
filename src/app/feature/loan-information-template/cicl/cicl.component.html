@@ -148,7 +148,7 @@
           <ckeditor id="ciclRemarks" formControlName="ciclRemarks" [config]="ckeConfig"></ckeditor>
         </div>
       </div>
-      <nb-card>
+      <nb-card *ngIf="!crgLambdaDisabled">
         <nb-card-body>
           <div class="row">
             <div class="col">
