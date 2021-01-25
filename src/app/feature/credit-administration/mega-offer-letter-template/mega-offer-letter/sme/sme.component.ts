@@ -637,12 +637,9 @@ export class SmeComponent implements OnInit {
     }
 
   checkOfferLetterData() {
-    if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
       this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
           === this.offerLetterConst.value(this.offerLetterConst.SME).toString())[0];
       if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-        this.offerLetterDocument = new OfferDocument();
-        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.SME);
         this.addMoreOverdraftLoan();
         this.addMoreDemandLoan();
         this.addMoreFixTermLoan();
@@ -654,6 +651,8 @@ export class SmeComponent implements OnInit {
         this.addMoreBankGuaranteeForm();
         this.addMoreCollateral();
         this.addTableData();
+        this.offerLetterDocument = new OfferDocument();
+        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.SME);
       } else  {
         const  initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
         console.log(initialInfo);
@@ -677,7 +676,6 @@ export class SmeComponent implements OnInit {
         this.setTableData(initialInfo.tableData);
         this.initialInfoPrint = initialInfo;
       }
-    }
   }
 
   submit(): void {
