@@ -113,10 +113,8 @@ export class RetailProfessionalLoanComponent implements OnInit {
 
     changeLoanType($event) {
         this.selectedArray = $event;
-        this.loanTypeArray.forEach( () => {
-            $event.includes('Professional Term Loan') ? this.proTermLoanSelected = true : this.proTermLoanSelected = false;
-            $event.includes('Professional Overdraft Loan') ? this.proOverdraftLoanSelected = true : this.proOverdraftLoanSelected = false;
-        });
+        $event.includes('Professional Term Loan') ? this.proTermLoanSelected = true : this.proTermLoanSelected = false;
+        $event.includes('Professional Overdraft Loan') ? this.proOverdraftLoanSelected = true : this.proOverdraftLoanSelected = false;
     }
 
     addMoreProfessionalOverDraftLoan() {
