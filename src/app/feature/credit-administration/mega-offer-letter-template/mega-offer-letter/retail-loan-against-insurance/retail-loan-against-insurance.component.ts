@@ -12,6 +12,7 @@ import {RouterUtilsService} from "../../../utils/router-utils.service";
 import {CreditAdministrationService} from "../../../service/credit-administration.service";
 import {NbDialogRef} from "@nebular/theme";
 import {CadOfferLetterModalComponent} from "../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component";
+import {NepaliEditor} from '../../../../../@core/utils/constants/nepaliEditor';
 
 @Component({
   selector: 'app-retail-loan-against-insurance',
@@ -32,6 +33,7 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
   laiTermLoanSelected = false;
   laiOverdraftLoanSelected = false;
   laiDemandLoanSelected = false;
+  editor = NepaliEditor.CK_CONFIG;
 
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   constructor(private formBuilder: FormBuilder,
@@ -70,6 +72,7 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
       laiTermLoanArray: this.formBuilder.array([this.buildTermLoan()]),
       laiOverDraftLoanArray: this.formBuilder.array([this.buildOverDraftLoanGroup()]),
       laiDemandLoanArray: this.formBuilder.array([this.buildDemandLoanGroup()]),
+      note: undefined
     });
   }
 

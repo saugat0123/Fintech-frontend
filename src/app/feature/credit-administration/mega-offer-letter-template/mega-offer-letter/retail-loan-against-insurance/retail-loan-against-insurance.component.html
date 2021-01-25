@@ -94,7 +94,7 @@
                                 <table [formGroupName]="i" class="table table-bordered">
                                     <thead>
                                     <tr>
-                                        <th style="width: 20%">क. प्रस्तावित सुविधा</th>
+                                        <th style="width: 20%">{{i+1 | nepaliWord:'unicode'}}. प्रस्तावित सुविधा</th>
                                         <th>आवधिक कर्जा (Term Loan)
                                             <input *ngIf="retailLoanAgainstInsurance.get('laiTermLoanArray')['length'] > 1"
                                                    (click)="removeLaiTermLoan(i)"
@@ -242,7 +242,7 @@
                                 <table [formGroupName]="i" class="table table-bordered">
                                     <thead>
                                     <tr>
-                                        <th style="width: 20%">क. प्रस्तावित सुविधा</th>
+                                        <th style="width: 20%">{{i+1 | nepaliWord:'unicode'}}. प्रस्तावित सुविधा</th>
                                         <th>आवधिक कर्जा (Overdraft)
                                             <input *ngIf="retailLoanAgainstInsurance.get('laiOverDraftLoanArray')['length'] > 1"
                                                    (click)="removeLaiOverDraftLoan(i)"
@@ -371,7 +371,7 @@
                                 <table [formGroupName]="i" class="table table-bordered">
                                     <thead>
                                     <tr>
-                                        <th style="width: 20%">क. प्रस्तावित सुविधा</th>
+                                        <th style="width: 20%">{{i+1 | nepaliWord:'unicode'}}. प्रस्तावित सुविधा</th>
                                         <th>डिमाण्ड कर्जा (Demand Loan)
                                             <input *ngIf="retailLoanAgainstInsurance.get('laiDemandLoanArray')['length'] > 1"
                                                    (click)="removeLaiDemandLoan(i)"
@@ -524,14 +524,11 @@
                             <strong>नोटः	माथि उल्लेखित सुरक्षणहरुका साथ निम्न शर्तहरु अनिवार्य रुपमा पालना गर्नुपर्नेछ ।</strong>
                         </p>
                     </div>
-                    <div class="row border m-auto p-3">
-                        <div class="col-md-12">
-                            <ul type="circle">
-                                <li>ऋणी तथा व्यक्तिगतको सम्पत्ति खुलाउने लिखत (Net Worth Statement) फोटो तथा सम्पर्क ठेगाना सहित पेश गनुपर्नेछ ।</li>
-                                <li>अन्य बैंकहरुसंग गरेको कारोवार बारे लिखित रुपमा खुलाउनुपर्ने (Multiple Banking Declaration) पेश गर्नुपर्नेछ ।</li>
-                                <li>उल्लेखित प्रस्तावित अचल सम्पत्तिको पूर्ण मुल्याङकन प्रतिवेदन (Complete Valuation Report) पेश भएपश्चात मात्र कर्जा भुक्तान गरिनेछ ।</li>
-                            </ul>
-                        </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <ckeditor [config]="editor" formControlName="note" ></ckeditor>
                     </div>
                 </div>
                 <br>
@@ -1061,4 +1058,4 @@
         </nb-card-footer>
     </nb-card>
 </div>
-<app-retail-against-ins-print  *ngIf="initialInfoPrint" [letter]="retailLoanAgainstInsurance.value" hidden></app-retail-against-ins-print>
+<app-retail-against-ins-print  *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-retail-against-ins-print>

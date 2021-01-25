@@ -9,6 +9,7 @@ import {MegaOfferLetterConst} from '../../../../mega-offer-letter-const';
 export class RetailHousingLoanPrintComponent implements OnInit {
   @Input() letter: any;
   offerLetterConst = MegaOfferLetterConst;
+
   constructor() { }
 
   ngOnInit() {

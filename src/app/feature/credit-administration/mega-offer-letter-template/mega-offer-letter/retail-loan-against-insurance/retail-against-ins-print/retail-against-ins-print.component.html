@@ -1,4 +1,4 @@
-<div class="container nep text-justify" id="{{offerLetterConst.RETAIL_LOAN_AGAINST_INSURANCE}}">
+<div class="container nep text-justify" id="{{offerLetterConst.RETAIL_LOAN_AGAINST_INSURANCE}}Print">
     <div class="logo-container">
         <img height="60px" src="../../../../../assets/img/offer-letter-header-logo.png">
     </div><br>
@@ -12,11 +12,11 @@
             <div class="col-md-12">
                 <p>
                     <strong>
-                        Ref No: 2077/78-MBNL-CAD-RET-</strong><span class="font-weight-bold">{{letter['refNo']}}</span>
+                        Ref No: 2077/78-MBNL-CAD-RET-</strong><strong class="font-weight-bold">{{letter['refNo']}}</strong>
 
-                    <span style="float: right">
-            मितिः <span class="font-weight-bold">{{letter['offerLetterDate']}}</span>
-          </span>
+                    <strong style="float: right">
+            मितिः <strong class="font-weight-bold nepaliFont">{{letter['offerLetterDate']}}</strong>
+          </strong>
                 </p>
             </div>
         </div>
@@ -24,15 +24,15 @@
             <div class="col-md-12">
                 <p>
                     <strong>श्री/श्रीमती </strong>
-                    <span class="font-weight-bold">{{letter['borrowerName']}}</span>
+                    <strong class="font-weight-bold nepaliFont">{{letter['borrowerName']}}</strong>
                 </p>
                 <p>
                     <strong>ठेगानाः </strong>
-                    <span class="font-weight-bold">{{letter['borrowerAddress']}}</span>
+                    <strong class="font-weight-bold nepaliFont">{{letter['borrowerAddress']}}</strong>
                 </p>
                 <p>
                     <strong>सम्पर्क टेलिफोन नंः</strong>
-                    <span class="font-weight-bold">{{letter['borrowerContactNo']}}</span>
+                    <strong class="font-weight-bold nepaliFont">{{letter['borrowerContactNo']}}</strong>
                 </p>
             </div>
         </div>
@@ -55,7 +55,7 @@
                 </p>
                 <p>
                     <strong>१. श्री/श्रीमती</strong>
-                    <span class="font-weight-bold">{{letter['termLoanDebitLimitAmount']}}</span>
+                    <strong class="font-weight-bold nepaliFont">{{letter['borrowerName1']}}</strong>
                     (यस पछि “ऋणी” भनिएको)
                 </p>
                 <p>
@@ -70,11 +70,11 @@
                         <u>१. कर्जा सुविधाको प्रयोजन तथा संचालनः</u>
                     </strong>
                 </p>
-                <div class="table-responsive">
-                    <table class="table table-bordered">
+                <div class="table-responsive" *ngIf="termLoanSelected">
+                    <table class="table table-bordered" *ngFor="let termLoan of letter.laiTermLoanArray; let i=index">
                         <thead>
                         <tr>
-                            <th style="width: 20%">क. प्रस्तावित सुविधा</th>
+                            <th style="width: 20%">{{i+1 | nepaliWord:'unicode'}}. प्रस्तावित सुविधा</th>
                             <th>आवधिक कर्जा (Term Loan)</th>
                         </tr>
                         </thead>
@@ -82,31 +82,31 @@
                         <tr>
                             <td>कर्जा सीमा रकम</td>
                             <td><strong>रु</strong>
-                                <span class="font-weight-bold">{{letter['termLoanDebitLimitAmountWord']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{termLoan['termLoanDebitLimitAmount']}}</strong>
                                 /–
                                 (अक्षरेपी
-                                <span class="font-weight-bold">{{letter['termLoanPurpose']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{termLoan['termLoanDebitLimitAmountWord']}}</strong>
                                 रुपैयाँ मात्र ।)
                             </td>
                         </tr>
                         <tr>
                             <td>प्रयोजन</td>
                             <td>:
-                                <span class="font-weight-bold">{{letter['termLoanPremiumRate']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{termLoan['termLoanPurpose']}}</strong>
                                 प्रयोजनार्थ ।
                             </td>
                         </tr>
                         <tr>
                             <td>समयावधी</td>
-                            <td>बैंकबाट कर्जा भुक्तानी भएको मितिले १० वर्ष ।</td>
+                            <td>बैंकबाट कर्जा भुक्तानी भएको मितिले <strong class="nepaliFont">{{termLoan?.tenure}}</strong>  वर्ष ।</td>
                         </tr>
                         <tr>
                             <td>व्याज</td>
                             <td> : <strong>आधार दर (Base Rate)</strong> + <strong>प्रिमियम दर (Premium Rate)</strong>
                                 (हालको आधार दर ८.१४% + प्रिमियम दर
-                                <span class="font-weight-bold">{{letter['termLoanYearlyInterest']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{termLoan['termLoanPremiumRate']}}</strong>
                                 %)
-                                का दरले हाललाई बार्षिक <span class="font-weight-bold">{{letter['termLoanFirstInstallment']}}</span>
+                                का दरले हाललाई बार्षिक <strong class="font-weight-bold nepaliFont">{{termLoan['termLoanYearlyInterest']}}</strong>
                                 <strong>%</strong> वा समय समयमा बैंकले तोके बमोजिम चुक्ता/भुक्तान गर्नु पर्ने गरि । बैंकले त्रैमाशिक
                                 रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर संसोधन (घट्न/बढ्न) सक्नेछ  ।
                             </td>
@@ -114,11 +114,11 @@
                         <tr>
                             <td>ऋण चुक्ता	</td>
                             <td>बैंकबाट कर्जा भुक्तानी भएको मितिको एक महिना बाट प्रथम किस्ता प्रारंभ हुने गरी
-                                <span class="font-weight-bold">{{letter['termLoanInstallmentRate']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{termLoan['termLoanFirstInstallment']}}</strong>
                                 समान मासिक किस्ता बन्दीमा रु.
-                                <span class="font-weight-bold">{{letter['termLoanInstallmentRateWords']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{termLoan['termLoanInstallmentRate']}}</strong>
                                 /–(अक्षरेपी
-                                <span class="font-weight-bold">{{letter['termLoanServiceChargeRate']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{termLoan['termLoanInstallmentRateWords']}}</strong>
                                 रुपैयाँ मात्र)
                                 का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ ।
                             </td>
@@ -136,16 +136,16 @@
                             <td>सेवा शुल्क</td>
                             <td>
                                 सेवा शुल्क	भुक्तानी गरिने कर्जा रकमको
-                                <span class="font-weight-bold">{{letter['termLoanServiceChargeRateWords']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{termLoan['termLoanServiceChargeRate']}}</strong>
                                 % (
-                                <span class="font-weight-bold">{{letter['termLoanCustomAmount']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{termLoan['termLoanServiceChargeRateWords']}}</strong>
                                 प्रतिशत)
                             </td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="termLoan?.chargeAmountFlag">
                             <td>क.सु.के.दस्तुर</td>
                             <td>
-                                रु. <span class="font-weight-bold">{{letter['overdraftDebitLimitAmount']}}</span>
+                                रु. <strong class="font-weight-bold nepaliFont">{{termLoan['termLoanCustomAmount']}}</strong>
                                 /– मात्र ।
                             </td>
                         </tr>
@@ -154,11 +154,11 @@
                 </div>
                 <br>
 
-                <div class="table-responsive">
-                    <table class="table table-bordered">
+                <div class="table-responsive" *ngIf="overdraftLoanSelected">
+                    <table class="table table-bordered" *ngFor="let overdraft of letter.laiOverDraftLoanArray; let i=index">
                         <thead>
                         <tr>
-                            <th style="width: 20%">क. प्रस्तावित सुविधा</th>
+                            <th style="width: 20%">{{i+1 | nepaliWord:'unicode'}}. प्रस्तावित सुविधा</th>
                             <th>आवधिक कर्जा (Overdraft)</th>
                         </tr>
                         </thead>
@@ -166,31 +166,31 @@
                         <tr>
                             <td>कर्जा सीमा रकम</td>
                             <td><strong>रु</strong>
-                                <span class="font-weight-bold">{{letter['overdraftDebitLimitAmountWords']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{overdraft['overdraftDebitLimitAmount']}}</strong>
                                 /– (अक्षरेपी
-                                <span class="font-weight-bold">{{letter['overdraftPurpose']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{overdraft['overdraftDebitLimitAmountWords']}}</strong>
                                 रुपैयाँ मात्र ।)</td>
                         </tr>
                         <tr>
                             <td>प्रयोजन</td>
                             <td>:
-                                <span class="font-weight-bold">{{letter['overdraftDebitLimitAmountWords']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{overdraft['overdraftPurpose']}}</strong>
                                 प्रयोजनार्थ ।
                             </td>
                         </tr>
                         <tr>
                             <td>समयावधी</td>
                             <td>रिभल्भिङ्गः
-                                <span class="font-weight-bold">{{letter['overdraftTimePeriod']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{overdraft['overdraftTimePeriod']}}</strong>
                                 मा पुनरावलोकन हुने गरि ।</td>
                         </tr>
                         <tr>
                             <td>व्याज</td>
                             <td> : <strong>आधार दर (Base Rate)</strong> + <strong>प्रिमियम दर (Premium Rate)</strong>
                                 (हालको आधार दर ८.१४% + प्रिमियम दर
-                                <span class="font-weight-bold">{{letter['overdraftPremiumRate']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{overdraft['overdraftPremiumRate']}}</strong>
                                 %) का दरले हाललाई बार्षिक
-                                <span class="font-weight-bold">{{letter['overdraftYearlyInterest']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{overdraft['overdraftYearlyInterest']}}</strong>
                                 % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त)
                                 वा समय समयमा बैंकले तोके बमोजिम चुक्ता/भुक्तान गर्नु पर्ने गरि । बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही
                                 बमोजिम  बार्षिक ब्याजदर संसोधन (घट्न/बढ्न) सक्नेछ ।
@@ -209,16 +209,16 @@
                             <td>सेवा शुल्क</td>
                             <td>
                                 सेवा शुल्क	भुक्तानी गरिने कर्जा रकमको
-                                <span class="font-weight-bold">{{letter['overdraftServiceChargeRate']}}</span>
-                                % (<span class="font-weight-bold">{{letter['overdraftServiceChargeRateWords']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{overdraft['overdraftServiceChargeRate']}}</strong>
+                                % (<strong class="font-weight-bold nepaliFont">{{overdraft['overdraftServiceChargeRateWords']}}</strong>
                                 प्रतिशत)
                             </td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="overdraft?.chargeAmountFlag">
                             <td>क.सु.के.दस्तुर</td>
                             <td>
                                 रु.
-                                <span class="font-weight-bold">{{letter['overdraftCustomAmount']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{overdraft['overdraftCustomAmount']}}</strong>
                                 /– मात्र ।
                             </td>
                         </tr>
@@ -227,18 +227,18 @@
                 </div>
                 <br>
 
-                <div class="table-responsive">
-                    <table class="table table-bordered">
+                <div class="table-responsive" *ngIf="demandLoanSelected">
+                    <table class="table table-bordered" *ngFor="let demandLoan of letter.laiDemandLoanArray; let i=index">
                         <thead>
                         <tr>
-                            <th style="width: 20%">क. प्रस्तावित सुविधा</th>
+                            <th style="width: 20%">{{i+1 | nepaliWord:'unicode'}}. प्रस्तावित सुविधा</th>
                             <th>डिमाण्ड कर्जा (Demand Loan)  </th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td>कर्जा सीमा रकम</td>
-                            <td><strong>रु. ५,१७,०००</strong>/– (अक्षेरुपी पाँच लाख सत्र हजार रुपैयाँ मात्र)</td>
+                            <td>रु.<strong class="font-weight-bold nepaliFont">{{demandLoan.demandLimitAmount}}</strong>/– (अक्षेरुपी <strong class="font-weight-bold nepaliFont">{{demandLoan.demandLimitAmountWord}}</strong> रुपैयाँ मात्र)</td>
                         </tr>
                         <tr>
                             <td>प्रयोजन</td>
@@ -251,10 +251,12 @@
                         <tr>
                             <td>व्याज</td>
                             <td> : <strong>आधार दर (Base Rate)</strong> + <strong>प्रिमियम दर (Premium Rate)</strong>
-                                (हालको आधार दर ८.१४% + प्रिमियम दर
-                                <span class="font-weight-bold">{{letter['demandLoanPremiumRate']}}</span>
+                                (हालको आधार दर
+                                <strong class="font-weight-bold nepaliFont">{{demandLoan['premiumAadharRate']}}</strong>
+                                + प्रिमियम दर
+                                <strong class="font-weight-bold nepaliFont">{{demandLoan['demandLoanPremiumRate']}}</strong>
                                 %) का दरले हाललाई बार्षिक
-                                <span class="font-weight-bold">{{letter['demandLoanPremiumRateWords']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{demandLoan['demandLoanPremiumRateWords']}}</strong>
                                 % त्रैमासिक रुपमा
                                 (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा समय समयमा बैंकले तोके बमोजिम चुक्ता/भुक्तान
                                 गर्नु पर्ने गरि । बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम  बार्षिक ब्याजदर
@@ -274,16 +276,16 @@
                             <td>सेवा शुल्क</td>
                             <td>
                                 सेवा शुल्क	भुक्तानी गरिने कर्जा रकमको
-                                <span class="font-weight-bold">{{letter['demandLoanServiceChargeRate']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{demandLoan['demandLoanServiceChargeRate']}}</strong>
                                 % (
-                                <span class="font-weight-bold">{{letter['demandLoanServiceChargeRateWords']}}</span>
+                                <strong class="font-weight-bold nepaliFont">{{demandLoan['demandLoanServiceChargeRateWords']}}</strong>
                                 प्रतिशत)
                             </td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="demandLoan?.chargeAmountFlag">
                             <td>क.सु.के.दस्तुर</td>
                             <td>
-                                रु. <span class="font-weight-bold">{{letter['demandLoanCustomAmount']}}</span>
+                                रु. <strong class="font-weight-bold nepaliFont">{{demandLoan['demandLoanCustomAmount']}}</strong>
                                 /– मात्र ।
                             </td>
                         </tr>
@@ -309,9 +311,9 @@
                         २.२	सम्पूर्ण कर्जा सीमा बराबरको कर्जा लिखत (Loan Deed) ।
                     </p>
                     <p>
-                        २.३	<span class="font-weight-bold">{{letter['insuranceCompanyName']}}</span>
+                        २.३	<strong class="font-weight-bold nepaliFont">{{letter['insuranceCompanyName']}}</strong>
                         वाट ऋणीको नाममा जारी भएको
-                        <span class="font-weight-bold">{{letter['borrowerInsuranceNo']}}</span>
+                        <strong class="font-weight-bold nepaliFont">{{letter['borrowerInsuranceNo']}}</strong>
                         नम्बरको सक्कल जीवन बीमालेख (Life Insurance Policy)  पेश गर्नु पर्नेछ।
                     </p>
                     <p>
@@ -326,13 +328,8 @@
                 <p>
                     <strong>नोटः	माथि उल्लेखित सुरक्षणहरुका साथ निम्न शर्तहरु अनिवार्य रुपमा पालना गर्नुपर्नेछ ।</strong>
                 </p>
-            </div>
-            <div class="border m-auto">
-                <ul type="circle">
-                    <li>ऋणी तथा व्यक्तिगतको सम्पत्ति खुलाउने लिखत (Net Worth Statement) फोटो तथा सम्पर्क ठेगाना सहित पेश गनुपर्नेछ ।</li>
-                    <li>अन्य बैंकहरुसंग गरेको कारोवार बारे लिखित रुपमा खुलाउनुपर्ने (Multiple Banking Declaration) पेश गर्नुपर्नेछ ।</li>
-                    <li>उल्लेखित प्रस्तावित अचल सम्पत्तिको पूर्ण मुल्याङकन प्रतिवेदन (Complete Valuation Report) पेश भएपश्चात मात्र कर्जा भुक्तान गरिनेछ ।</li>
-                </ul>
+                <span [innerHTML]="letter?.note | safeHtml"></span>
+
             </div>
         </div>
         <br>
@@ -751,13 +748,13 @@
                             </p>
                             <div class="col-md-12">
                                 <p>
-                                    <span class="font-weight-bold">{{letter['borrowerName2']}}</span>
+                                    <strong class="font-weight-bold nepaliFont">{{letter['borrowerName2']}}</strong>
                                 </p>
                                 <p>
-                                    <span class="font-weight-bold">{{letter['borrowerAddress']}}</span>
+                                    <strong class="font-weight-bold nepaliFont">{{letter['borrowerAddress2']}}</strong>
                                 </p>
                                 <p>
-                                    <span class="font-weight-bold">{{letter['borrowerContactNo']}}</span>
+                                    <strong class="font-weight-bold nepaliFont">{{letter['borrowerContactNo']}}</strong>
                                 </p>
                             </div>
                         </div>
@@ -789,7 +786,7 @@
                     </p>
                     <p>
                         परिचय पत्र नंः
-                        <span class="font-weight-bold">{{letter['identityCardNo']}}</span>
+                        <strong class="font-weight-bold nepaliFont">{{letter['identityCardNo']}}</strong>
                     </p>
                 </div>
                 <div class="left-content">
@@ -799,7 +796,7 @@
                     </p>
                     <p>
                         परिचय पत्र नंः
-                        <span class="font-weight-bold">{{letter['identityCardNo1']}}</span>
+                        <strong class="font-weight-bold nepaliFont">{{letter['identityCardNo1']}}</strong>
                     </p>
                 </div>
             </div>
@@ -808,21 +805,21 @@
             <div class="col-md-12">
                 <p>
                     म/हामीले
-                    <span class="font-weight-bold">{{letter['pageCount']}}</span>
+                    <strong class="font-weight-bold nepaliFont">{{letter['pageCount']}}</strong>
                     ऋयगलत पृष्ठको यस बैकिङ ऋण स्वीकृतिपत्रमा उल्लेखित शर्तहरु राम्ररी पढेंरपढ्यौं र बुझेंरबुझ्यौं ।
                     यसमा उल्लेख गरिएको सम्पूर्ण शर्तहरु पालना गर्न म/हामी मन्जुर गर्दछु । गर्दछौं र बैंकसंग यस अन्तर्गत लिएको ऋण
                     पूर्ण रुपमा चुक्ता भुक्तान नगरे सम्म यसमा उल्ल्ेखित शर्तहरुको पूर्ण रुपले पालना गर्ने प्रतिज्ञा गर्दछु /गर्दछौं ।
                 </p>
                 <p>
                     ऋणीको नाम:
-                    <span class="font-weight-bold">{{letter['borrowerName3']}}</span>
+                    <strong class="font-weight-bold nepaliFont">{{letter['borrowerName3']}}</strong>
                 </p>
                 <br>
                 <p class="mt-lg-5">
                     आधिकारीक दस्तखत .................................
-                    <span style="float: right">
-            मितिः <span class="font-weight-bold">{{letter['offerLetterDate2']}}</span>
-          </span>
+                    <strong style="float: right">
+            मितिः <strong class="font-weight-bold nepaliFont">{{letter['offerLetterDate2']}}</strong>
+          </strong>
                 </p>
             </div>
         </div>
