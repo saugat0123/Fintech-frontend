@@ -88,6 +88,7 @@ export class SmeComponent implements OnInit {
       equalLoanAsset: [undefined],
       loanAsset: [undefined],
       loanTypeSelectedArray: [undefined],
+      printPageCount: [undefined],
       overdraftLoan: this.formBuilder.array([]),
       demandLoanType: this.formBuilder.array([]),
       fixTermLoan: this.formBuilder.array([]),
