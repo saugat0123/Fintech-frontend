@@ -193,7 +193,7 @@ export class SmeComponent implements OnInit {
   }
 
   addMoreFixTermLoan() {
-    (this.loanForm.get('fixTermLoan') as FormArray).push(this.demandLoanFormGroup());
+    (this.loanForm.get('fixTermLoan') as FormArray).push(this.fixTermLoanFormGroup());
   }
 
   removeFixTermLoan(index: number) {

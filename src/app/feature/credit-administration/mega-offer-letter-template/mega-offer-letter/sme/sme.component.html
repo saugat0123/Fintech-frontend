@@ -92,7 +92,7 @@
                    </div>
                    <br>
                    <strong>१. सुविधाको किसिम, प्रयोजन तथा संचालन</strong><br>
-                   <label>सुविधाको किसिम गर्नुहोस् (Choose Service Type)</label>
+                   <label>सुविधाको किसिम छनौट  गर्नुहोस् (Choose Service Type)</label>
                    <nb-select #multiLoanSelection (selectedChange)="chooseLoanType(multiLoanSelection.selected)"
                    [selected]="selectedLoanArray" multiple placeholder="सुविधाको किसिम छनौट गर्नुहोस्">
                        <nb-option *ngFor="let loanType of loanTypes" [value]="loanType?.key">
