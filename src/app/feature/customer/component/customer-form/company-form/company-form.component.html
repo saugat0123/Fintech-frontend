@@ -1089,6 +1089,13 @@
                                        </div>
                                    </div>
                                </div>
+                               <div class="row">
+                                   <div class="col-md-12">
+                                       <strong>Kyc Detail</strong>
+                                       <app-owner-kyc-applicable #shareholderKyc
+                                               [data]="companyJsonData?.proprietorList[proprietorIndex]?.kycInfo" [kycId]="proprietorIndex"></app-owner-kyc-applicable>
+                                   </div>
+                               </div>
                            </div>
                        </div>
                        <div class="text-right">
