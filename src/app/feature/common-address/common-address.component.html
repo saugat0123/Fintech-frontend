@@ -76,7 +76,7 @@
     <input [ngClass]="{'is-invalid': submitted && form.ward.errors}" class="form-control"
            formControlName="ward"
            id="ward" name="ward"
-           placeholder="ward" type="text">
+           placeholder="ward" type="number">
     <div *ngIf="(submitted) && form.ward.invalid"
          class="invalid-feedback">
       <div *ngIf="form.ward.errors.required">
