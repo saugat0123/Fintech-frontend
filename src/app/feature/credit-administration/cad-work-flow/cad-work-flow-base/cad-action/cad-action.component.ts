@@ -162,24 +162,32 @@ export class CadActionComponent implements OnInit {
     }
 
     public getUserList(role) {
-        this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.selectedBranchId).subscribe((response: any) => {
-            this.userList = response.detail;
-            if (this.userList.length === 1) {
-                this.formAction.patchValue({
-                    toUser: this.userList[0],
-                    toRole: role
-                });
-            } else if (this.userList.length > 1) {
-                this.formAction.patchValue({
-                    toUser: this.userList[0],
-                    toRole: role
-                });
-                this.formAction.get('toUser').setValidators(Validators.required);
-                this.formAction.updateValueAndValidity();
-            } else {
-                this.toastService.show(new Alert(AlertType.ERROR, 'NO User Present in this Role'));
-            }
-        });
+        this.userList = [];
+        if (role.roleType === RoleType.CAD_LEGAL) {
+            this.formAction.patchValue({
+                toRole: role
+            });
+        } else {
+            this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.selectedBranchId).subscribe((response: any) => {
+                this.userList = response.detail;
+                console.log('user list', this.userList);
+                if (this.userList.length === 1) {
+                    this.formAction.patchValue({
+                        toUser: this.userList[0],
+                        toRole: role
+                    });
+                } else if (this.userList.length > 1) {
+                    this.formAction.patchValue({
+                        toUser: this.userList[0],
+                        toRole: role
+                    });
+                    this.formAction.get('toUser').setValidators(Validators.required);
+                    this.formAction.updateValueAndValidity();
+                } else {
+                    this.toastService.show(new Alert(AlertType.ERROR, 'NO User Present in this Role'));
+                }
+            });
+        }
     }
 
     approvedForwardBackward(template, val, returnToMaker) {
@@ -287,8 +295,8 @@ export class CadActionComponent implements OnInit {
         }
     }
 
-    openModel(){
-        this.nbDialogService.open(SecurityComplianceCertificateComponent,{context:{cadFile: this.cadOfferLetterApprovedDoc}});
+    openModel() {
+        this.nbDialogService.open(SecurityComplianceCertificateComponent, {context: {cadFile: this.cadOfferLetterApprovedDoc}});
     }
 
 }
