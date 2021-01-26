@@ -6,7 +6,8 @@
     <nb-card-header>
         <div class="clearfix">
             <div class="float-right">
-                <button nbButton size="tiny" nbTooltip="update account info" (click)="updateBasicInfo()"><em class="fa fa-edit"></em></button>
+                <button nbButton size="tiny" nbTooltip="update account info" (click)="updateBasicInfo()"><em
+                        class="fa fa-edit"></em></button>
             </div>
         </div>
     </nb-card-header>
@@ -17,7 +18,8 @@
             <div class="row gutters-sm">
                 <div class="col-md-4 mb-3">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body cursor" nbTooltip="click to view Customer Detail"
+                             (click)="routerUtilsService.routeToCustomer(customerInfoData?.id,customerInfoData?.customerType,customerInfoData?.associateId)">
                             <div class="d-flex flex-column align-items-center text-center">
                                 <img alt="Admin" class="rounded-circle"
                                      src="https://bootdey.com/img/Content/avatar/avatar7.png" width="150">
@@ -63,7 +65,8 @@
                     </nb-card>
                     <nb-card>
                         <nb-card-header>
-                            <span class="float-right"><button (click)="openCustomOfferLetterDocumentModal(null)" nbButton outline
+                            <span class="float-right"><button (click)="openCustomOfferLetterDocumentModal(null)"
+                                                              nbButton outline
                                                               size="tiny"><a
                                     class="fa fa-plus"></a></button></span>
                             Offer Letter Documents
@@ -117,9 +120,11 @@
                                             <i class="fa fa-upload cursor"></i>
                                         </a>
                                         <a *ngIf="cusOfferLetter?.offerDocType?.toString() === 'CUSTOM'"
-                                           class="fa fa-edit cursor ml-1" (click)="openCustomOfferLetterDocumentModal(cusOfferLetter.id)"></a>
+                                           class="fa fa-edit cursor ml-1"
+                                           (click)="openCustomOfferLetterDocumentModal(cusOfferLetter.id)"></a>
                                         <a *ngIf="cusOfferLetter?.offerDocType?.toString() !== 'CUSTOM'"
-                                           class="fa fa-edit cursor ml-1" (click)="openOfferLetterDocumentModal(cusOfferLetter?.docName)"></a>
+                                           class="fa fa-edit cursor ml-1"
+                                           (click)="openOfferLetterDocumentModal(cusOfferLetter?.docName)"></a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -174,7 +179,8 @@
                                 <div class="col-sm-9 text-secondary">
                                     {{customerInfoData?.contactNo}}
                                 </div>
-                            </div> <hr>
+                            </div>
+                            <hr>
                             <div class="row mb-n3 mt-n2" *ngIf="cadOfferLetterApprovedDoc?.data">
                                 <div class="col-sm-3">
                                     <strong class="mb-0">Account Number</strong>

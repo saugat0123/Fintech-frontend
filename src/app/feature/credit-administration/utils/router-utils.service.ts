@@ -5,6 +5,7 @@ import * as CryptoJS from 'crypto-js';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {UserService} from '../../admin/component/user/user.service';
 import {User} from '../../admin/modal/user';
+import {CustomerType} from '../../customer/model/customerType';
 
 @Injectable({
     providedIn: 'root'
@@ -62,6 +63,21 @@ export class RouterUtilsService {
 
     routeSummaryAndEncryptPathID(id) {
         this.router.navigate([RouteConst.ROUTE_CAD_SUMMARY, this.encryptUrl(id)]);
+
+    }
+
+    routeToCustomer(id, customerType, associateId) {
+        if (CustomerType[customerType] === CustomerType.INDIVIDUAL) {
+            this.router.navigate(['/home/customer/profile/' + associateId], {
+                queryParams: {
+                    customerType: customerType,
+                    customerInfoId: id
+                }
+            });
+        } else if (CustomerType[customerType] === CustomerType.INSTITUTION) {
+            this.router.navigate(['/home/customer/company-profile/' + associateId],
+                {queryParams: {id: id, customerType: customerType, companyInfoId: associateId, customerInfoId: id}});
+        }
 
     }
 
