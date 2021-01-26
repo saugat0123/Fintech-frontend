@@ -15,7 +15,7 @@ export class Valuator {
   district: District;
   municipalityVdc: MunicipalityVdc;
   streetName: string;
-  wardNumber: string;
+  wardNumber: number;
   email: string;
   valuatingField: string;
   branch: Array<Branch>;
