@@ -30,6 +30,7 @@ export class SecurityViewComponent implements OnInit {
   ownerShipTransfer = OwnershipTransfer;
   disableCrgAlphaParams = environment.disableCrgAlpha;
   crgLambdaDisabled = environment.disableCrgLambda;
+
   constructor() {
   }
 
