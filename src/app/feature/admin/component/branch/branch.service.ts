@@ -27,6 +27,11 @@ export class BranchService extends BaseService<Branch> {
 
         return this.http.get(req.url, {headers: req.header});
     }
+    public getBranchByProvinceList(id: any) {
+        const req = ApiUtils.getRequest(`${BranchService.API}/provinceList`);
+
+        return this.http.post(req.url, id, {headers: req.header});
+    }
 
     protected getApi(): string {
         return BranchService.API;
