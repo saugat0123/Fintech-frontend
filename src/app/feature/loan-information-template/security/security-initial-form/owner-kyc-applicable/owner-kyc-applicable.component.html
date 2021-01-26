@@ -2,9 +2,10 @@
         <div *ngFor="let kyc of ownerKycForm.get('ownerKycDetails')['controls']; let i = index"
              class="font-weight-bold"
              formArrayName="ownerKycDetails">
-            <div *ngIf="ownerKycForm.get('ownerKycDetails') ['length'] > 1" class="col-md-1">
-                <input (click)="removeOwnerKycDetail(i)" nbButton size="tiny"
-                       class="align-self-end btn btn-danger" type="button" value="Delete"/>
+            <div *ngIf="ownerKycForm.get('ownerKycDetails') ['length'] > 1" class="float-right">
+                <button (click)="removeOwnerKycDetail(i)" class="ml-2 mt-1 btn-danger btn-sm btn-flat"><em
+                    class="fa fa-trash bg-transparent"></em>
+                </button>
             </div>
             <div [formGroupName]="i" class="mt-2">
                 <div class="row">
