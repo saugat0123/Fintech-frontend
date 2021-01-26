@@ -1224,12 +1224,12 @@
       </tr>
       <tr class="text-white sb-bg-dark">
         <th *ngIf="!disableCrgAlphaParams">FAC (land & building) Location</th>
-    <th>  Road access of primary property</th>
-    <th> Primary FAC categorization</th>
+    <th *ngIf="!crgLambdaDisabled">  Road access of primary property</th>
+    <th *ngIf="!crgLambdaDisabled"> Primary FAC categorization</th>
       </tr>
       <td *ngIf="!disableCrgAlphaParams">{{securityData['buildingLocation']}}</td>
-      <td>{{securityData['roadAccessOfPrimaryProperty']}}</td>
-      <td>{{securityData['facCategory']}}</td>
+      <td *ngIf="!crgLambdaDisabled">{{securityData['roadAccessOfPrimaryProperty']}}</td>
+      <td *ngIf="!crgLambdaDisabled">{{securityData['facCategory']}}</td>
       </thead>
       <tbody>
       </tbody>

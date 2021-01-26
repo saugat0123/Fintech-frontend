@@ -336,9 +336,7 @@ export class LoanFormComponent implements OnInit {
                 this.templateList.forEach((value, index) => {
                     if (environment.disableCrgLambda && value.name === 'Credit Risk Grading - Lambda') {
                         this.templateList.splice(index, 1);
-                    } /*else if (!environment.disableCrgLambda && value.name === 'Credit Risk Grading - Gamma') {
-                        this.templateList.splice(index, 1);
-                    }*/
+                    }
                 });
             } else {
                 this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
@@ -392,6 +390,15 @@ export class LoanFormComponent implements OnInit {
                 const crgQuestionsList = riskQsnRes.detail as Array<any>;
                 if (!(crgQuestionsList.length > 0)) {
                     this.removeCrgGammaFromTemplateList();
+                } else {
+                    this.templateList.forEach((value, index) => {
+                        if (value.name === 'Credit Risk Grading - Lambda') {
+                            this.templateList.splice(index, 1);
+                        }
+                        if (value.name === 'Credit Risk Grading - Alpha') {
+                            this.templateList.splice(index, 1);
+                        }
+                    });
                 }
                 this.pushProposalTemplateToLast();
             }, error => {
