@@ -3,7 +3,7 @@ import {Security} from '../../loan/model/security';
 import {NepseMaster} from '../../admin/modal/NepseMaster';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {OwnershipTransfer} from '../../loan/model/ownershipTransfer';
-import {environment} from "../../../../environments/environment.srdb";
+import {environment} from '../../../../environments/environment.srdb';
 
 @Component({
   selector: 'app-security-view',
@@ -29,6 +29,7 @@ export class SecurityViewComponent implements OnInit {
   landBuilding = false;
   ownerShipTransfer = OwnershipTransfer;
   disableCrgAlphaParams = environment.disableCrgAlpha;
+  crgLambdaDisabled = environment.disableCrgLambda;
   constructor() {
   }
 

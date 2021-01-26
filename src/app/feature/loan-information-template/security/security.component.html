@@ -104,7 +104,7 @@
                         <div class="form-group">
                             <nb-select formControlName="facCategory"
                                        fullWidth
-                                       placeholder="Select Road access of primary property">
+                                       placeholder="Select Primary FAC categorization">
                                 <nb-option *ngFor="let val of facCategory" [value]="val.value">{{val.value}}</nb-option>
                             </nb-select>
                             <div *ngIf="submitted && securityForm.get('facCategory').invalid" class="neb-error-feedback">
