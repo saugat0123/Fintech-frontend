@@ -3,6 +3,7 @@ import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApproved
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {CommonService} from '../../../../@core/service/common.service';
+import {RouterUtilsService} from '../../utils/router-utils.service';
 
 @Component({
     selector: 'app-profile-view',
@@ -20,7 +21,7 @@ export class ProfileViewComponent implements OnInit {
     @Input()
     toggleArray: { toggled: boolean }[];
 
-    constructor(public commonService: CommonService) {
+    constructor(public commonService: CommonService, public routerUtilsService: RouterUtilsService) {
     }
 
     ngOnInit() {
