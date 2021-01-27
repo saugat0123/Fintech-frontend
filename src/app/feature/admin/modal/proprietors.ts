@@ -10,4 +10,5 @@ export class Proprietors {
     municipalityVdc: MunicipalityVdc;
     share: number;
     type: string;
+    kycInfo: any;
 }
