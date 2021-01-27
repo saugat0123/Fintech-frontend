@@ -48,6 +48,13 @@ export class CreditAdministrationService extends BaseService<any> {
         return this.http.patch(req.url, obj, {headers: req.header});
     }
 
+    public saveDisbursementHistory(obj: CustomerApprovedLoanCadDocumentation , roleId): Observable<any> {
+        const api = `${this.getApi()}/additional-disbursement/${roleId}`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.patch(req.url, obj, {headers: req.header});
+    }
+
     public saveAction(obj: any): Observable<any> {
         const api = `${this.getApi()}/action`;
         const req = ApiUtils.getRequest(api);

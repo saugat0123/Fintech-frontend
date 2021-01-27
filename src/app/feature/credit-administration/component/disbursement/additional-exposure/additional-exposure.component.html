@@ -1,1 +1,115 @@
-<p>additional-exposure works!</p>
+<nb-card
+        class="text-center m-0"
+        [nbSpinner]="spinner"
+        accent="primary"
+        nbSpinnerStatus="primary"
+        nbSpinnerMessage="Saving exposure data..."
+        nbSpinnerSize="large">
+    <nb-card-header>
+        <a *ngIf="isHistory" (click)="close()" aria-label="Close" class="close cursor"
+           data-dismiss="modal">
+            <span aria-hidden="true">×</span></a>
+        <h6> Exposure Detail</h6>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="form" [formGroup]="exposureForm">
+            <table class="table table-bordered table-hover table-sm sb-small text-center ">
+                <thead>
+                <tr class="text-white sb-bg-dark">
+                    <th>Facility</th>
+                    <th>Limit</th>
+                    <th>Disbursement</th>
+                    <th>Int Rate</th>
+                    <th>Maturity</th>
+                    <th>Frequency</th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngFor="let d of exposureForm.get('disbursementDetails')['controls'];  let i = index"
+                              formArrayName="disbursementDetails">
+                    <ng-container [formGroupName]="i">
+                        <tr>
+
+                            <td><input class="cellInput text-center" formControlName="loanName" [readOnly]="true"></td>
+                            <td><input class="cellInput text-center" formControlName="loanLimit" [readOnly]="true"></td>
+                            <td><input class="cellInput text-center" formControlName="disbursement"></td>
+                            <td><input class="cellInput text-center" formControlName="initialRate"></td>
+                            <td><input class="cellInput text-center" formControlName="maturity"></td>
+                            <td>
+                                <select class="cellInput" formControlName="frequency">
+                                    <option [value]="null" disabled hidden>select frequency</option>
+                                    <option *ngFor="let f of frequencyList" [value]="f">{{f}}</option>
+                                </select></td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+                </tbody>
+            </table>
+            <div class="clearfix">
+
+                <div class="float-left">
+                    <em class="sb-small">Total Limit: <strong>{{totalLimit}}</strong></em></div>
+                <div class="float-right">
+                    <span *ngIf="docScc" class="sb-small px-2">SCC Document : <span><a
+                            (click)="commonService.openDocument(docScc)" class="cursor"
+                            nbTooltip="click to open"><em
+                            [className]="commonService.SET_CLASS_NAME"></em>
+                    </a></span></span></div>
+
+            </div>
+        </div>
+    </nb-card-body>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-md-12">
+            <button [disabled]="disableAdd" nbButton outline status="success" size="tiny" class="float-right"
+            (click)="addDoc()"> <i class="fa fa-plus"></i></button>
+        </div>
+
+            <div class="col-md-12">
+                <table class="table table-bordered table-hover table-sm sb-small text-center ">
+                    <thead>
+                    <tr class="text-white sb-bg-dark">
+                        <th>Document Name</th>
+                        <th>Upload</th>
+                        <th>Remark</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <ng-container [formGroup]="addDocForm">
+                        <ng-container *ngFor="let d of addDocForm.get('additionalDoc')['controls'];  let i = index"
+                                      formArrayName="additionalDoc">
+                            <ng-container [formGroupName]="i">
+
+                                <tr>
+                                    <td><input #documentName class="cellInput text-center" formControlName="docName"></td>
+                                    <td class="text-left"><input [disabled]="!documentName.value"  class="ml-2" type="file" (change)="uploadFile($event , i)"></td>
+                                    <td><input class="cellInput text-center" formControlName="remarks"></td>
+                                    <td>
+                                        <button (click)="removeDoc(i)" nbButton status="primary" size="tiny" *ngIf="addDocForm.get('additionalDoc')['controls'].length > 1">
+                                             <span >
+                               <em
+                                   nbTooltip="remove"
+                                   nbTooltipStatus = "danger"
+                                   class="fa fa-trash bg-transparent text-danger">
+
+                               </em>
+                                             </span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton class="float-right" (click)="submit()" [disabled]="exposureForm.invalid">Save</button>
+    </nb-card-footer>
+</nb-card>

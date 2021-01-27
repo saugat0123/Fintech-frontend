@@ -110,7 +110,8 @@ import { AdditionalExposureComponent } from './component/disbursement/additional
         CustomOfferLetterDocumentComponent,
         UpdateCustomerCadInfoComponent,
         AddAdditionalDocumentComponent,
-        SecurityComplianceCertificateComponent]
+        SecurityComplianceCertificateComponent,
+        AdditionalExposureComponent]
 })
 export class CreditAdministrationModule {
 }
