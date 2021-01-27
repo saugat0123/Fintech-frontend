@@ -653,7 +653,6 @@ export class SmeComponent implements OnInit {
         this.addMoreShortTermLoanForm();
         this.addMoreBankGuaranteeForm();
         this.addMoreCollateral();
-        this.addTableData();
         this.offerLetterDocument = new OfferDocument();
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.SME);
       } else  {
