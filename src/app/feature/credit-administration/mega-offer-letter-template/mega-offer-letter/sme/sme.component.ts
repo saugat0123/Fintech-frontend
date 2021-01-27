@@ -100,7 +100,9 @@ export class SmeComponent implements OnInit {
       bankGuarantee: this.formBuilder.array([]),
       multiCollateral: this.formBuilder.array([]),
       tableData: this.formBuilder.array([]),
-      securityNotes: [undefined]
+      securityNotes: [undefined],
+      citizenShipNo1: [undefined],
+      citizenShipNo2: [undefined],
     });
 
   }

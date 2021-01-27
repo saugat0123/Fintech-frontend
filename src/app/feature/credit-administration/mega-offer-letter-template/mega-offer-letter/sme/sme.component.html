@@ -86,8 +86,7 @@
                            class="form-fields form-control-sm nepaliFont"
                            formControlName="borrowerName"
                            placeholder="उधारकर्ताको नाम"
-                           type="text"/><strong
-                           class="nepaliFont ml-2">{{this.loanForm.get('to').value}}</strong> (यस पछि “ऋणी” भनिएको)<br>
+                           type="text"/> (यस पछि “ऋणी” भनिएको)<br>
                        २. श्री मेगा बैंक नेपाल लिमिटेड (यसपछि “बैंक” भनिएको)
                    </div>
                    <br>
@@ -99,6 +98,7 @@
                            {{loanType?.value}}
                        </nb-option>
                    </nb-select>
+                   <br>
                    <div *ngIf="overdraft">
                    <div *ngFor="let overdraft of loanForm.get('overdraftLoan')['controls']; let overdraftIndex = index" class="font-weight-bold" formArrayName="overdraftLoan">
                        <div [formGroupName]="overdraftIndex">
@@ -230,7 +230,7 @@
                            <button (click)="addMoreOverdraftLoan()" type="button" class="btn btn-primary btn-sm float-right " size="tiny">अझै थप्नुहोस्</button>
                        </div>
                    </div>
-                   <br>
+
                    <div *ngIf="demandLoan">
                        <div *ngFor="let demandLoan of loanForm.get('demandLoanType')['controls']; let demandLoanIndex = index"
                             formArrayName="demandLoanType">
@@ -339,7 +339,7 @@
                            <button class="btn btn-primary btn-sm float-right" type="button" (click)="addMoreDemandLoan()">अझै थप्नुहोस्</button>
                        </div>
                    </div>
-                   <br>
+
                    <div *ngIf="fixedTermLoan">
                        <div *ngFor="let ftl of loanForm.get('fixTermLoan')['controls']; let fixTermLoanIndex = index"
                             formArrayName="fixTermLoan">
@@ -599,7 +599,7 @@
                            <button class="btn btn-primary btn-sm float-right" type="button" (click)="addMoreFixTermLoan()">अझै थप्नुहोस्</button>
                        </div>
                    </div>
-                   <br>
+
                    <div *ngIf="hirePurchase">
                        <div *ngFor="let hirePurchase of loanForm.get('hirePurchaseLoan')['controls']; let hirePurchaseIndex = index"
                             formArrayName="hirePurchaseLoan">
@@ -735,7 +735,7 @@
                            <button class="btn btn-primary btn-sm float-right" type="button" (click)="addMoreHirePurchaseLoan()">अझै थप्नुहोस्</button>
                        </div>
                    </div>
-                   <br>
+
                    <div *ngIf="letterOfCredit">
                        <div *ngFor="let lc of loanForm.get('letterOfCredit')['controls']; let lcIndex = index;" formArrayName="letterOfCredit">
                            <div [formGroupName]="lcIndex">
@@ -826,7 +826,7 @@
                            <button class="btn btn-primary float-right" type="button" (click)="addMoreLetterOfCreditForm()">अझै थप्नुहोस्</button>
                        </div>
                    </div>
-                   <br>
+
                    <div *ngIf="trustReceipt">
                        <div *ngFor="let tr of loanForm.get('trustReceipt')['controls']; let trIndex = index" formArrayName="trustReceipt">
                            <div [formGroupName]="trIndex">
@@ -931,7 +931,7 @@
                            <button class="btn btn-primary float-right" type="button" (click)="addMoreTrustReceiptForm()">अझै थप्नुहोस्</button>
                        </div>
                    </div>
-                   <br>
+
                    <div *ngIf="cashCredit">
                        <div *ngFor="let ch of loanForm.get('cashCredit')['controls']; let chIndex = index" formArrayName="cashCredit">
                            <div [formGroupName]="chIndex">
@@ -1047,7 +1047,7 @@
                            <button class="btn btn-primary float-right" type="button" (click)="addMoreCashCreditForm()">अझै थप्नुहोस्</button>
                        </div>
                    </div>
-                   <br>
+
                    <div *ngIf="shortTermLoan">
                        <div *ngFor="let stl of loanForm.get('shortTermLoan')['controls']; let stlIndex = index" formArrayName="shortTermLoan">
                            <div [formGroupName]="stlIndex">
@@ -1151,7 +1151,7 @@
                            <button class="btn btn-primary float-right" type="button" (click)="addMoreShortTermLoanForm()">अझै थप्नुहोस्</button>
                        </div>
                    </div>
-                   <br>
+
                    <div *ngIf="bankGuarantee">
                        <div *ngFor="let bng of loanForm.get('bankGuarantee')['controls']; let bngIndex = index" formArrayName="bankGuarantee">
                            <div [formGroupName]="bngIndex">
@@ -1303,7 +1303,8 @@
                        २.७	<b>रु</b><input class="form-fields form-control-sm nepaliFont"
                                      formControlName="loanAsset"
                                      placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                     type="text"/>/– बराबर ऋणीहरुको चल सम्पत्ती तथा वही खाता एवम लिन वांकी रकमको तालिका बमोजिम (ब्ककष्नलmभलत या अगचचभलत बककभत  बलम चभअभष्खबदभिक धष्तज बनष्लन मभतबष्कि)
+                                     type="text"/>/– बराबर ऋणीहरुको चल सम्पत्ती तथा वही खाता एवम लिन वांकी रकमको तालिका बमोजिम
+                                    (Assignment of current asset  and receivables with aging details)
                                     समेतको धितोको लिखत (आसामीको विस्तृत विवरण सहित) । <br>
                        २.८	 निम्न विवरण एवं जोखिम वहन हुने गरि बैंकको पक्षमा गरिदिएको <b>विमालेख</b> पेश गर्नुपर्नेछ । <br>
                        <br>
@@ -1352,26 +1353,12 @@
                    </div>
                    <br>
                    <strong> ३) व्याज</strong><br>
-
-                   ऋण सुविधाको व्याज निर्धारण गरिए बमोजिमको दरमा तथा चुक्ता हुन बाँकी रकममा निरन्तर लगाइनेछ (दैनिक डेविट बाँकी
-                   मा
-                   हिसाव गरिने)। बैंकले समय समयमा निर्णय गरी ऋणीलाई सूचना दिए बमोजिम अन्य व्याजदर लगाउने कुराको अधिकार बैंकलाई
-                   रहनेछ । तर, सुविधा प्रदान गरिएको समयमा राखिएका अवस्था र शर्तहरु पालना नगरिएको अवस्थामा वा उक्त सुविधा
-                   अन्तर्गतको
-                   भुक्तानी सोही सुविधा अन्तर्गतको सीमा भन्दा बढी भएको अवस्थामा तथा कर्जा सीमा समयमै नविकरण हुन नसकेको अवस्थामा
-                   पनि
-                   कर्जा नविकरण नभएसम्म वा चुक्ता भुक्तान नभएसम्म ऋणीको खातामा विना सूचना कम्तिमा पनि उल्लेखित ब्याजदरमा थप २
-                   प्रतिशत भन्दा कम नहुने गरी हर्जाना व्याज लगाइनेछ । यस्तै तिर्न बांकि रकम (Overdue Interest and Principle)
-                   मा पनि उल्ल्ेखित दरमा थप व्याज लगाइनेछ ।
-                   साथै आवधिक तथा सवारी साधन कर्जा सुविधाको हकमा ऋण सुविधाको व्याज निर्धारण गरिए बमोजिमको दरमा तथा चुक्ता हुन
-                   बाँकी
-                   रकममा निरन्तर लगाइनेछ (दैनिक डेविट बाँकी मा हिसाव गरिने) । बैंकले समय समयमा निर्णय गरी ऋणीलाई सूचना दिए
-                   बमोजिम
-                   अन्य व्याजदर लगाउने कुराको अधिकार बैंकलाई रहनेछ । तर, ऋण सुविधा प्रदान गरिएको समयमा राखिएका अवस्था र शर्तहरु
-                   पालना नगरिएको अवस्थामा कर्जा चुक्ता भुक्तान नभएसम्म भाखा नाघेको सावाँ तथा ब्याज रकम (Overdue Interest and
-                   Principle)
-                   मा विना सूचना कम्तिमा पनि उल्लेखित ब्याजदरमा थप २ प्रतिशत भन्दा कम नहुने गरी हर्जना ब्याज
-                   लगाइनेछ ।<br>
+                   ऋण सुविधाको व्याज निर्धारण गरिए बमोजिमको दरमा तथा चुक्ता हुन बाँकी रकममा निरन्तर लगाइनेछ (दैनिक डेविट बाँकी मा हिसाव गरिने)।
+                   बैंकले समय समयमा निर्णय गरी ऋणीलाई सूचना दिए बमोजिम <b>अन्य व्याजदर</b> लगाउने कुराको अधिकार बैंकलाई रहनेछ ।
+                   तर, सुविधा प्रदान गरिएको समयमा राखिएका अवस्था र शर्तहरु पालना नगरिएको अवस्थामा वा उक्त सुविधा अन्तर्गतको भुक्तानी सोही सुविधा अन्तर्गतको
+                   सीमा भन्दा बढी भएको अवस्थामा तथा कर्जा सीमा समयमै नविकरण हुन नसकेको अवस्थामा पनि कर्जा नविकरण नभएसम्म वा चुक्ता भुक्तान  नभएसम्म ऋणीको
+                   खातामा विना सूचना कम्तिमा पनि उल्लेखित ब्याजदरमा थप <b>२ प्रतिशत</b> भन्दा कम नहुने गरी हर्जाना व्याज लगाइनेछ । यस्तै तिर्न बांकि रकम
+                   (overdue interest and principle) मा पनि उल्ल्ेखित दरमा थप व्याज लगाइनेछ  ।<br>
                    <br>
                    <strong>४) ऋण चुक्ता</strong><br>
                    यस ऋण स्विकृतीपत्रमा अन्यथा उल्लेख गरिएकोमा यस स्विकृतीपत्र अन्तर्गत ऋणीलाई उपलब्ध गराइएका सम्पूर्ण कर्जा
@@ -1720,6 +1707,22 @@
                            <div class="col-md-12">
                                <p class="text-center">अधिकृत–कर्जा ब्यबस्थापन</p>
                                <p class="text-center">(नगेन्द्र प्रसाद पन्त )</p>
+                           </div>
+                       </div>
+                       <div class="col-md-6">
+                           <div class="col-md-12" style="margin-left: 50px;">
+                           परिचय पत्र न. <input class="form-fields form-control-sm nepaliFont"
+                                                formControlName="citizenShipNo1"
+                                                placeholder="परिचय पत्र न"
+                                                type="text"/>
+                           </div>
+                       </div>
+                       <div class="col-md-6">
+                           <div class="col-md-12" style="margin-left: 50px">
+                               परिचय पत्र न. <input class="form-fields form-control-sm nepaliFont"
+                                                    formControlName="citizenShipNo2"
+                                                    placeholder="परिचय पत्र न"
+                                                    type="text"/>
                            </div>
                        </div>
                    </div>
