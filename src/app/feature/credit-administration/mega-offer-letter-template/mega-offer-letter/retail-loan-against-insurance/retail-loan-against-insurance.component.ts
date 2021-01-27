@@ -54,13 +54,8 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
       borrowerName: [undefined],
       borrowerAddress: [undefined],
       borrowerContactNo: [undefined],
-      borrowerName1: [undefined],
-
       insuranceCompanyName: [undefined],
       borrowerInsuranceNo: [undefined],
-      borrowerName2: [undefined],
-      borrowerAddress2: [undefined],
-      borrowerContactNo2: [undefined],
       pageCount: [undefined],
       identityCardNo: [undefined],
       identityCardNo1: [undefined],
@@ -82,6 +77,8 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
       tenure: [undefined],
       termLoanDebitLimitAmountWord: [undefined],
       termLoanPurpose: [undefined],
+      termBaseRate: [undefined],
+      termLoanPaymentDate: [undefined],
       termLoanPremiumRate: [undefined],
       termLoanYearlyInterest: [undefined],
       termLoanFirstInstallment: [undefined],
@@ -100,6 +97,7 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
       overdraftDebitLimitAmountWords: [undefined],
       overdraftPurpose: [undefined],
       overdraftTimePeriod: [undefined],
+      overdraftBaseRate: [undefined],
       overdraftPremiumRate: [undefined],
       overdraftYearlyInterest: [undefined],
       overdraftServiceChargeRate: [undefined],
@@ -119,6 +117,8 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
       demandLoanServiceChargeRate: [undefined],
       demandLoanServiceChargeRateWords: [undefined],
       demandLoanCustomAmount: [undefined],
+      demandLoanPurpose: [undefined],
+      demandTimePeriod: [undefined],
       chargeAmountFlag: [true],
     });
   }
@@ -198,6 +198,7 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
 
 
   submit(): void {
+    console.log(this.retailLoanAgainstInsurance.value);
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
 

@@ -12,7 +12,7 @@
             <div class="col-md-12">
                 <p>
                     <strong>
-                        Ref No: 2077/78-MBNL-CAD-RET-</strong><strong class="font-weight-bold">{{letter['refNo']}}</strong>
+                        Ref No: </strong><strong class="font-weight-bold">{{letter['refNo']}}</strong>
 
                     <strong style="float: right">
             मितिः <strong class="font-weight-bold nepaliFont">{{letter['offerLetterDate']}}</strong>
@@ -23,7 +23,6 @@
         <div class="row mt-4">
             <div class="col-md-12">
                 <p>
-                    <strong>श्री/श्रीमती </strong>
                     <strong class="font-weight-bold nepaliFont">{{letter['borrowerName']}}</strong>
                 </p>
                 <p>
@@ -54,8 +53,7 @@
                     पक्षहरुः–
                 </p>
                 <p>
-                    <strong>१. श्री/श्रीमती</strong>
-                    <strong class="font-weight-bold nepaliFont">{{letter['borrowerName1']}}</strong>
+                    १. <strong class="font-weight-bold nepaliFont">{{letter['borrowerName']}}</strong>
                     (यस पछि “ऋणी” भनिएको)
                 </p>
                 <p>
@@ -103,7 +101,8 @@
                         <tr>
                             <td>व्याज</td>
                             <td> : <strong>आधार दर (Base Rate)</strong> + <strong>प्रिमियम दर (Premium Rate)</strong>
-                                (हालको आधार दर ८.१४% + प्रिमियम दर
+                                (हालको आधार दर
+                                <strong class="font-weight-bold nepaliFont">{{termLoan['termBaseRate']}}</strong>% + प्रिमियम दर
                                 <strong class="font-weight-bold nepaliFont">{{termLoan['termLoanPremiumRate']}}</strong>
                                 %)
                                 का दरले हाललाई बार्षिक <strong class="font-weight-bold nepaliFont">{{termLoan['termLoanYearlyInterest']}}</strong>
@@ -113,7 +112,9 @@
                         </tr>
                         <tr>
                             <td>ऋण चुक्ता	</td>
-                            <td>बैंकबाट कर्जा भुक्तानी भएको मितिको एक महिना बाट प्रथम किस्ता प्रारंभ हुने गरी
+                            <td>बैंकबाट कर्जा भुक्तानी भएको मितिको
+                                <strong class="font-weight-bold nepaliFont">{{termLoan['termLoanPaymentDate']}}</strong>
+                                महिना बाट प्रथम किस्ता प्रारंभ हुने गरी
                                 <strong class="font-weight-bold nepaliFont">{{termLoan['termLoanFirstInstallment']}}</strong>
                                 समान मासिक किस्ता बन्दीमा रु.
                                 <strong class="font-weight-bold nepaliFont">{{termLoan['termLoanInstallmentRate']}}</strong>
@@ -187,7 +188,9 @@
                         <tr>
                             <td>व्याज</td>
                             <td> : <strong>आधार दर (Base Rate)</strong> + <strong>प्रिमियम दर (Premium Rate)</strong>
-                                (हालको आधार दर ८.१४% + प्रिमियम दर
+                                (हालको आधार दर
+                                <strong class="font-weight-bold nepaliFont">{{overdraft['overdraftBaseRate']}}</strong>
+                                % + प्रिमियम दर
                                 <strong class="font-weight-bold nepaliFont">{{overdraft['overdraftPremiumRate']}}</strong>
                                 %) का दरले हाललाई बार्षिक
                                 <strong class="font-weight-bold nepaliFont">{{overdraft['overdraftYearlyInterest']}}</strong>
@@ -242,11 +245,11 @@
                         </tr>
                         <tr>
                             <td>प्रयोजन</td>
-                            <td>व्यक्तिगत वित्तीय आवश्यकता परिपूर्ति प्रयोजनार्थ ।</td>
+                            <td><strong class="font-weight-bold nepaliFont">{{demandLoan['demandLoanPurpose']}}</strong> प्रयोजनार्थ ।</td>
                         </tr>
                         <tr>
                             <td>समयावधी</td>
-                            <td>:रिभल्भिङ्गः नोभेम्बर मसान्त, २०२१ मा पुनरावलोकन हुने गरि ।</td>
+                            <td>:<strong class="font-weight-bold nepaliFont">{{demandLoan['demandTimePeriod']}}</strong> मा पुनरावलोकन हुने गरि ।</td>
                         </tr>
                         <tr>
                             <td>व्याज</td>
@@ -748,10 +751,10 @@
                             </p>
                             <div class="col-md-12">
                                 <p>
-                                    <strong class="font-weight-bold nepaliFont">{{letter['borrowerName2']}}</strong>
+                                    <strong class="font-weight-bold nepaliFont">{{letter['borrowerName']}}</strong>
                                 </p>
                                 <p>
-                                    <strong class="font-weight-bold nepaliFont">{{letter['borrowerAddress2']}}</strong>
+                                    <strong class="font-weight-bold nepaliFont">{{letter['borrowerAddress']}}</strong>
                                 </p>
                                 <p>
                                     <strong class="font-weight-bold nepaliFont">{{letter['borrowerContactNo']}}</strong>
@@ -812,13 +815,13 @@
                 </p>
                 <p>
                     ऋणीको नाम:
-                    <strong class="font-weight-bold nepaliFont">{{letter['borrowerName3']}}</strong>
+                    <strong class="font-weight-bold nepaliFont">{{letter['borrowerName']}}</strong>
                 </p>
                 <br>
                 <p class="mt-lg-5">
                     आधिकारीक दस्तखत .................................
                     <strong style="float: right">
-            मितिः <strong class="font-weight-bold nepaliFont">{{letter['offerLetterDate2']}}</strong>
+            मितिः <strong class="font-weight-bold nepaliFont">{{letter['offerLetterDate']}}</strong>
           </strong>
                 </p>
             </div>
