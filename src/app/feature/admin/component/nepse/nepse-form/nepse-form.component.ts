@@ -34,7 +34,7 @@ export class NepseFormComponent implements OnInit, DoCheck {
     ngOnInit() {
         this.nepsePriceInfoForm = this.fb.group({
             sharePriceDate: [undefined, Validators.required],
-            avgDaysForPrice: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_POSITIVE)]]
+            avgDaysForPrice: [undefined, [Validators.required]]
         });
     }
 
