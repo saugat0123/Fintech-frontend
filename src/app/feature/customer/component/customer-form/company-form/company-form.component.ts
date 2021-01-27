@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {CompanyInfo} from '../../../../admin/modal/company-info';
 import {Customer} from '../../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -52,6 +52,7 @@ import {FormUtils} from '../../../../../@core/utils/form.utils';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
 import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
+import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 
 @Component({
     selector: 'app-company-form',
@@ -66,7 +67,7 @@ export class CompanyFormComponent implements OnInit {
     @Input() clientTypeInput: any;
 
     @ViewChild('companyLocation', {static: true}) companyLocation: CommonAddressComponent;
-
+    @ViewChildren('shareholderKyc') shareholderKyc: QueryList<OwnerKycApplicableComponent>;
     calendarType = 'AD';
     companyInfoFormGroup: FormGroup;
     englishDateSelected = true;
@@ -888,6 +889,9 @@ export class CompanyFormComponent implements OnInit {
             municipalityVdc = this.getProprietor()[proprietorsIndex].municipalityVdc;
             proprietors.municipalityVdc = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].municipalityVdc))
                 ? municipalityVdc : undefined;
+            proprietors.kycInfo = this.shareholderKyc.filter(item => item.kycId.toString() ===
+                proprietorsIndex.toString())[0].ownerKycForm.value;
+
             proprietorsIndex++;
             this.companyJsonData.proprietorList.push(proprietors);
         }
