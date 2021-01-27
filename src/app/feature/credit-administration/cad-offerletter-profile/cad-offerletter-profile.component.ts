@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {CreditAdministrationService} from '../service/credit-administration.service';
 import {MegaOfferLetterConst} from '../mega-offer-letter-const';
 import {CustomerApprovedLoanCadDocumentation} from '../model/customerApprovedLoanCadDocumentation';
@@ -37,8 +37,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         private nbDialogService: NbDialogService,
         private modelService: NgbModal,
         private toastrService: ToastService,
-        private router: Router,
-        private routerUtilsService: RouterUtilsService
+        public routerUtilsService: RouterUtilsService
     ) {
     }
 

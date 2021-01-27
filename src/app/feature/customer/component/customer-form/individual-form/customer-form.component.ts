@@ -22,6 +22,7 @@ import {EnumUtils} from '../../../../../@core/utils/enums.utils';
 import {Gender} from '../../../../../@core/model/enum/gender';
 import {MaritalStatus} from '../../../../../@core/model/enum/marital-status';
 import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
+import {environment} from '../../../../../../environments/environment.srdb';
 
 @Component({
     selector: 'app-customer-form',
@@ -99,6 +100,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     maritalStatusEnum = MaritalStatus;
     placeHolderForMaritalStatus;
     individualJsonData: IndividualJsonData;
+
+    crgLambdaDisabled = environment.disableCrgLambda;
 
     ngOnInit() {
         this.getProvince();
@@ -359,9 +362,10 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             successionRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.successionRisk],
             bankingRelationship: [this.customer.bankingRelationship === undefined ?
-                undefined : JSON.parse(this.customer.bankingRelationship), [Validators.required]],
+                undefined : JSON.parse(this.customer.bankingRelationship), this.crgLambdaDisabled ? undefined : [Validators.required]],
             netWorth: [this.customer.netWorth === undefined ?
-                undefined : this.customer.netWorth, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+                undefined : this.customer.netWorth,
+                this.crgLambdaDisabled ? undefined : [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
             subsectorDetail: [this.customer.subsectorDetail === undefined ? undefined : this.customer.subsectorDetail],
             clientType: [this.customer.clientType === undefined ? undefined : this.customer.clientType],
             temporaryProvince: [this.customer.temporaryProvince === null ? undefined :
@@ -408,7 +412,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     setRelatives(currentData) {
         const relativesData = (this.basicInfo.get('customerRelatives') as FormArray);
-        if (!ObjectUtil.isEmpty(currentData)){
+        if (!ObjectUtil.isEmpty(currentData)) {
             currentData.forEach((singleRelatives, index) => {
                 const customerRelative = singleRelatives.customerRelation;
                 // Increase index number with increase in static relatives---
