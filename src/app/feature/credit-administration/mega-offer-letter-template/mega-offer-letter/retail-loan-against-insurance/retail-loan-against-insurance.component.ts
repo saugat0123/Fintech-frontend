@@ -198,7 +198,6 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
 
 
   submit(): void {
-    console.log(this.retailLoanAgainstInsurance.value);
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
 
