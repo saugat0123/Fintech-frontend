@@ -56,13 +56,13 @@ export class HayerPurchaseComponent implements OnInit {
             guarantor: [undefined],
             guarantorFlag: [true],
             addedPercentage: [undefined],
-            post1: [undefined],
-            post1Name: [undefined],
-            post2: [undefined],
-            post2Name: [undefined],
+            identityCardNo1: [undefined],
+            identityCardNo2: [undefined],
             date: [undefined],
             pageCount: [undefined],
             clausesTextEditor: [undefined],
+            expiryDateTimeDuration: [undefined],
+            timeDuration: [undefined],
 
             hayarPurchaseLoanArray: this.formBuilder.array([this.buildHayarPurchaseArrayForm()]),
             riskCoverageArray: this.formBuilder.array([this.buildRiskCoverageArrayForm()]),
@@ -88,7 +88,10 @@ export class HayerPurchaseComponent implements OnInit {
             servicePercentage: [undefined],
             servicePercentageWords: [undefined],
             charge: [undefined],
-            chargeFlag: [true]
+            chargeFlag: [true],
+            loanClearanceMonthlyDate: [undefined],
+            PurwaBhuktaniSulka: [undefined],
+            PurwaBhuktaniSewaSulkaRate: [undefined]
         });
     }
 

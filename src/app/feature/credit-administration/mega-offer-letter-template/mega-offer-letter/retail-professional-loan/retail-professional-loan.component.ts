@@ -56,14 +56,13 @@ export class RetailProfessionalLoanComponent implements OnInit {
         this.retailProfessionalLoan = this.formBuilder.group({
             refNo: [undefined],
             borrowerName: [undefined],
-            loanAmount: [undefined],
             borrowerAddress: [undefined],
             contactNumber: [undefined],
             timePeriod: [undefined],
             gurantorName: [undefined],
             gurantorNameFlag: [true],
-            loanOfficer1: [undefined],
-            loanOfficer2: [undefined],
+            citizenshipNo1: [undefined],
+            citizenshipNo2: [undefined],
             date: [undefined],
 
             loanTypeSelectedArray: [undefined],
@@ -171,6 +170,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
 
 
     submit(): void {
+        console.log('Check Value',this.retailProfessionalLoan.value);
         this.spinner = true;
         this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
 

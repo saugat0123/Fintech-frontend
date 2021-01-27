@@ -125,7 +125,7 @@
 
             </div>
         </ng-container>
-
+        <br>
         <ng-container *ngIf="proOverdraftLoanSelected">
             <div *ngFor="let proOverdraft of letter['professionalOverDraftLoanArray']; let i = index">
                 <table class="table-responsive-md table-bordered">
@@ -607,19 +607,17 @@
             <div class="col-md-12 pt-2">
                 <div class="col-md-6 float-left">
                     ...................................<br>
-                    ...................................
                     <div>
-                        <div>अधिकृत–कर्जा ब्यबस्थापन</div>
-                        <strong class="nepaliFont"> {{letter['loanOfficer1']}}</strong>
+                        <div>आधिकारीक दस्तखत</div>
+                        परिचय पत्र नंं.<strong class="nepaliFont"> {{letter['citizenshipNo1']}}</strong>
 
                     </div>
                 </div>
                 <div class="col-md-6 float-right">
                     ...................................<br>
-                    ...................................
                     <div>
-                        <div>अधिकृत–कर्जा ब्यबस्थापन</div>
-                        <strong class="nepaliFont"> {{letter['loanOfficer2']}}</strong>
+                        <div>आधिकारीक दस्तखत</div>
+                        परिचय पत्र नंं.<strong class="nepaliFont"> {{letter['citizenshipNo2']}}</strong>
                     </div>
                 </div>
                 <br>

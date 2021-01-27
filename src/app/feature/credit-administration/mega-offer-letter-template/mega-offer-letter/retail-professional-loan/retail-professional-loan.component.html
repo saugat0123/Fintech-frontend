@@ -23,13 +23,13 @@
                    <p>
                        <input class="form-field form-control-sm nepaliFont col-3"
                               formControlName="borrowerName"
-                              placeholder=" श्री यज्ञ बहादुर कटवाल"
+                              placeholder="श्री/श्रीमती यज्ञ बहादुर कटवाल"
                               type="text"/>
                    </p>
                    <p>ठेगाना:
                        <input class="form-field form-control-sm nepaliFont col-2"
                               formControlName="borrowerAddress"
-                              placeholder=" भरतपुर"
+                              placeholder="भरतपुर"
                               type="text"/>
                    </p>
                    <p>सम्पर्क टेलिफोन नंः
@@ -57,7 +57,7 @@
                </div>
                <div class="col-md-8"> पक्षहरु :
                    <div class="col-md-12">
-                       १. <strong
+                       १.<strong
                            class="nepaliFont ml-2">{{this.retailProfessionalLoan.get('borrowerName').value}}</strong>(यस पछि
                        “ऋणी” भनिएको)
                    </div>
@@ -96,7 +96,7 @@
                                <td>रु. <input class="form-field form-control-sm nepaliFont"
                                               formControlName="karjaSeemaRakam"
                                               placeholder="१०,००,०००"
-                                              type="text"/>/(अक्षेरुपी <input class="form-field form-control-sm nepaliFont"
+                                              type="text"/>/-(अक्षेरुपी <input class="form-field form-control-sm nepaliFont"
                                                                               formControlName="karjaSeemaRakamWord"
                                                                               placeholder="दश लाख"
                                                                               type="text"/> रुपैयाँ मात्र)</td>
@@ -188,11 +188,11 @@
                                <td> सेवा शुल्क</td>
                                <td> भुक्तानी गरिने ऋण सुविधा रकमका <input class="form-field form-control-sm nepaliFont col-3"
                                                                    formControlName="sewaSulka"
-                                                                   placeholder=" १%"
+                                                                   placeholder="१%"
                                                                    type="text"/> मात्र ।</td>
                            </tr>
                            <tr *ngIf="professionalTermLoan.get('chargeAmountFlag').value">
-                               <td>क.सु.के दस्तुर</td>
+                               <td>कर्जा सूचना दस्तुर</td>
                                <td>रु.<input class="form-field form-control-sm nepaliFont col-3"
                                              formControlName="chargeAmount"
                                              placeholder=" १,१००"
@@ -669,6 +669,8 @@
                        माथि जुनसुकै कुरा उल्लेख गरिएको भएतापनि बैंकले ऋण सुविधाको प्रस्ताव गर्दा मानेका आधारहरुमा प्रतिकूल
                        असर पर्न
                        जान सक्ने कुनै अवस्था आइपरेमा बैंकले प्रस्तावलाई स्वीकृति पूर्व पनि फिर्ता लिन सक्नेछ ।
+                   </div>
+                   <div>
                        यस ऋण स्वीकृतिपत्रको दुई प्रतिहरु बनाइएका छन् । दुवै प्रतिको हरेक पृष्ठमा ऋणीले दस्तखत गरि एउटा
                        सक्कल प्रति
                        बैंकमा फिर्ता बुझाउनु पर्नेछ , जसलाई बैकले यस प्रस्तावमा उल्लेख गरिएको शर्तहरुमाथि ऋणीले दिएको
@@ -713,13 +715,13 @@
                    साथै प्रचलित नेपाल कानून, नेपाल राष्ट्र बैंकको निर्देशन तथा बैंकको नीति, नियम तथा  सोमा समय समयमा हुने संशोधन सहितको पालना
                    गर्न मञ्जूर गर्नुका साथै माथि उल्लेखित सम्पूर्ण ऋण/कर्जा र/वा बैंकिङ्ग सुविधा समेत उल्लेखित कानूनको अधिनमा रहने कुरामा ऋणी मन्जूर
                    गर्दछ ।
-                   <p>
+                   <div>
                        यो स्वीकृतीपत्रको अधिनमा रही ऋणीले कर्जा सुविधाहरु उपभोग तथा सावाँ ब्याज भुक्तानी गर्दा वा कर्जाको शर्तहरु उल्लंघन भई कर्जा
                        असुलीको प्रक्रियामा बैंकसंग कुनै गुनासो/असमझदारी/विवाद   भएमा त्यस्तो विवाद समाधानको लागि अड्डा अदालत, नियमनकारी निकाय
                        आदि मार्फत विवाद समाधान गर्नु गराउनु पूर्व धनी बैंकले स्थापना गरेको मेलमिलाप केन्द्र (Mega Mediation Center) मार्फत आफ्ना
                        विवाद तथा गुनासोको समाधान गर्न निवेदन दिनु पर्नेछ । उक्त केन्द्रबाट  आफ्नो गुनासो वा विवाद समाधान नभएमा मात्र प्रचलित कानून
                        बमोजिमको अधिकार प्रयोग गरी कानूनीबाटो खोज्नु पर्नेछ ।
-                   </p>
+                   </div>
                </div>
                <div style="font-weight: bold">११. सूचना दिन सहमतीः</div>
                <div class="col-md-12">
@@ -748,6 +750,7 @@
                    <div class=" col-md-10 " >
                        <div>ऋणी</div>
                        <div>
+                           नाम:
                            <strong class="nepaliFont">
                                {{retailProfessionalLoan.get('borrowerName').value}}
                            </strong>
@@ -771,25 +774,26 @@
                    <div class="col-md-12 pt-2">
                        <div class="col-md-6 float-left">
                            ...................................<br>
-                           ...................................
                            <div>
-                               <div>अधिकृत–कर्जा ब्यबस्थापन</div>
-                               <input class="form-field form-control-sm nepaliFont "
-                                      formControlName="loanOfficer1"
-                                      placeholder="कुमार न्यौपाने"
-                                      type="text"/>
-
+                               <div>आधिकारीक दस्तखत</div>
+                               <div>
+                                   परिचय पत्र नंं.<input class="form-field form-control-sm nepaliFont "
+                                                         formControlName="citizenshipNo1"
+                                                         placeholder="४५१२३"
+                                                         type="text"/>
+                               </div>
                            </div>
                        </div>
                        <div class="col-md-6 float-right">
                            ...................................<br>
-                           ...................................
                            <div>
-                               <div>अधिकृत–कर्जा ब्यबस्थापन</div>
-                               <input class="form-field form-control-sm nepaliFont "
-                                      formControlName="loanOfficer2"
-                                      placeholder="कुमार न्यौपाने"
-                                      type="text"/>
+                               <div>आधिकारीक दस्तखत</div>
+                               <div>
+                                   परिचय पत्र नंं. <input class="form-field form-control-sm nepaliFont "
+                                                          formControlName="citizenshipNo2"
+                                                          placeholder="४५१२३"
+                                                          type="text"/>
+                               </div>
                            </div>
                        </div>
                        <br>
