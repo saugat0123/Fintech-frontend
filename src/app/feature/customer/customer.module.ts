@@ -70,10 +70,11 @@ const COMPONENTS = [
 
 @NgModule({
   declarations: [...COMPONENTS, ActivityListComponent, CompanyOtherDetailComponent, MarketScenarioComponent],
-  exports: [
-    CustomerGroupLoanComponent,
-    CompanyFormComponent
-  ],
+    exports: [
+        CustomerGroupLoanComponent,
+        CompanyFormComponent,
+        KycFormComponent
+    ],
     imports: [
         CommonModule,
         CustomerRoutingModule,
