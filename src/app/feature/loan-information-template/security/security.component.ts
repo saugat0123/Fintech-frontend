@@ -65,6 +65,7 @@ export class SecurityComponent implements OnInit {
     facCategory = FacCategory.enumObject();
 
     disableCrgAlphaParams = environment.disableCrgAlpha;
+    crgLambdaDisabled = environment.disableCrgLambda;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -101,11 +102,11 @@ export class SecurityComponent implements OnInit {
 
     buildCrgSecurityForm() {
         this.securityForm = this.formBuilder.group({
-            securityGuarantee: undefined,
-            buildingLocation: undefined,
-            vehicleSecurityCoverage: undefined,
-            roadAccessOfPrimaryProperty: [undefined, Validators.required],
-            facCategory: [undefined, Validators.required],
+            securityGuarantee: [undefined, this.disableCrgAlphaParams ? undefined : Validators.required],
+            buildingLocation: [undefined, this.disableCrgAlphaParams ? undefined : Validators.required],
+            vehicleSecurityCoverage: [undefined, this.disableCrgAlphaParams ? undefined : Validators.required],
+            roadAccessOfPrimaryProperty: [undefined, this.crgLambdaDisabled ? undefined : Validators.required],
+            facCategory: [undefined, this.crgLambdaDisabled ? undefined : Validators.required],
         });
     }
 

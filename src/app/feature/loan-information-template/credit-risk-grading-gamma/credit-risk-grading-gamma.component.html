@@ -86,7 +86,7 @@
             <tbody>
 
             <ng-container *ngFor="let crgQuestion of crgQuestionsList; let i = index">
-                <tr>
+                <tr *ngIf="crgQuestion?.status == 'ACTIVE'">
                     <td>{{i+1}}</td>
 
                     <td class="desc-td-width">
@@ -105,28 +105,34 @@
                     <ng-container *ngIf="fromProfile">
                         <td>
                             <ul>
-                                <li *ngFor="let answer of crgQuestion?.answers">
-                                    {{ answer?.description }}
-                                </li>
+                                <ng-container *ngFor="let answer of crgQuestion?.answers">
+                                    <li *ngIf="answer?.status == 'ACTIVE'">
+                                        {{ answer?.description }}
+                                    </li>
+                                </ng-container>
                             </ul>
                         </td>
                         <td>
                             <ul class="list-unstyled">
-                                <li *ngFor="let answer of crgQuestion?.answers">
-                                    {{ answer?.points }}
-                                </li>
+                                <ng-container *ngFor="let answer of crgQuestion?.answers">
+                                    <li *ngIf="answer?.status == 'ACTIVE'">
+                                        {{ answer?.points }}
+                                    </li>
+                                </ng-container>
                             </ul>
                         </td>
                         <td>
-                            <div *ngFor="let answer of crgQuestion?.answers; let i = index">
-                                <input (change)="onChangeOption(crgQuestion?.description, answer?.points, answer?.description)"
-                                       [checked]="totalPointMapper.get(crgQuestion?.description) === answer?.points"
-                                       [value]="answer?.points"
-                                       class="form-control-input"
-                                       [formControlName]="crgQuestion?.description"
-                                       [id]="crgQuestion?.description+i"
-                                       type="radio"><br>
-                            </div>
+                            <ng-container *ngFor="let answer of crgQuestion?.answers; let i = index">
+                                <div *ngIf="answer?.status == 'ACTIVE'">
+                                    <input (change)="onChangeOption(crgQuestion?.description, answer?.points, answer?.description)"
+                                           [checked]="totalPointMapper.get(crgQuestion?.description) === answer?.points"
+                                           [value]="answer?.points"
+                                           class="form-control-input"
+                                           [formControlName]="crgQuestion?.description"
+                                           [id]="crgQuestion?.description+i"
+                                           type="radio"><br>
+                                </div>
+                            </ng-container>
                         </td>
                     </ng-container>
                     <td>{{creditRiskGrading.get(crgQuestion?.description).value === null ? '' : creditRiskGrading.get(crgQuestion?.description).value}}</td>
