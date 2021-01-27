@@ -24,7 +24,7 @@
                        </div>
                    </div>
                    <div class="mb-2">
-                        <b>श्री</b><input
+                        <input
                            class="form-fields form-control-sm nepaliFont"
                            formControlName="to"
                            placeholder="श्री÷सुश्री÷श्रीमान÷श्रीमती÷"
@@ -82,11 +82,7 @@
                    देहाय बमोजिमको कर्जा सुविधा देहाय बमोजिमका शर्तहरुमा प्रदान गर्न सहर्ष प्रस्ताव गर्दछौं ।<br>
                    पक्षहरु :–<br>
                    <div class="ml-4">
-                       १. <input
-                           class="form-fields form-control-sm nepaliFont"
-                           formControlName="borrowerName"
-                           placeholder="उधारकर्ताको नाम"
-                           type="text"/> (यस पछि “ऋणी” भनिएको)<br>
+                       १. <span class="nepaliFont form-field"><b>{{this.loanForm.get('to').value}}</b></span> (यस पछि “ऋणी” भनिएको)<br>
                        २. श्री मेगा बैंक नेपाल लिमिटेड (यसपछि “बैंक” भनिएको)
                    </div>
                    <br>
@@ -1655,23 +1651,14 @@
                                    कर्जा ब्यवस्थापन विभाग<br>
                                    मेगा बैंक नेपाल लिमिटेड, केन्द्रीय कार्यालय, कमलादी, काठमाण्डौ<br>
                                    पोष्ट बक्स नं.२६५५९<br>
-                                   फोन –९७७–१–४१६९२५० प्mयाक्स –९७७–१–४१६९२६०<br>
+                                   फोन –९७७–१–४१६९२५० फ्याक्स –९७७–१–४१६९२६०<br>
                                    काठमाडौं, नेपाल ।<br>
                                </div>
                                ऋणी <br>
                                <div class="ml-4">
-                                   <strong>नाम : </strong><input class="form-fields form-control-sm nepaliFont"
-                                                                 formControlName="loanBorrowerOneName"
-                                                                 placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                                 type="text" [value]="loanForm.get('to').value" disabled/> <br>
-                                   <strong>ठेगाना : </strong><input class="form-fields form-control-sm nepaliFont"
-                                                                    formControlName="loanBorrowerAddress"
-                                                                    placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                                    type="text" [value]="loanForm.get('address').value" disabled/><br>
-                                   <strong>संपर्क नम्बर : </strong><input class="form-fields form-control-sm nepaliFont"
-                                                                    formControlName="loanBorrowerContactNo"
-                                                                    placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                                    type="text" [value]="loanForm.get('mobileNo')" disabled/>
+                                   <strong>नाम : </strong><span class="nepaliFont form-field">{{this.loanForm.get('to').value}}</span> <br>
+                                   <strong>ठेगाना : </strong><span class="nepaliFont form-field">{{this.loanForm.get('address').value}}</span><br>
+                                   <strong>संपर्क नम्बर : </strong><span class="nepaliFont form-field">{{this.loanForm.get('mobileNo').value}}</span>
                                </div>
                            </div>
                        </div>
@@ -1740,10 +1727,7 @@
                        रुपमा चुक्ता भुक्तान नगरे सम्म यसमा उल्ल्ेखित शर्तहरुको पूर्ण रुपले पालना गर्ने प्रतिज्ञा गर्दछु/गर्दछौं
                        ।<br>
                        <br>
-                       ऋणीको नाम :<input class="form-fields form-control-sm nepaliFont"
-                                         formControlName="loanBorrowerName"
-                                         placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                         type="text" [value]="loanForm.get('to').value" disabled/>
+                       ऋणीको नाम : <span class="nepaliFont form-field">{{this.loanForm.get('to').value}}</span>
                        <br>
 
                        <div class="row mt-5">
@@ -1755,10 +1739,7 @@
                            <div class="col-md-6">
                                <div class="col-md-12">
                                    <div class="text-center">
-                                       मितिः <input class="form-fields form-control-sm nepaliFont"
-                                                    formControlName="signatureDate"
-                                                    placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                    type="text" [value]="loanForm.get('date').value" disabled/>
+                                       मितिः <span class="nepaliFont form-field">{{this.loanForm.get('date').value}}</span>
                                    </div>
                                </div>
                            </div>
