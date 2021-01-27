@@ -154,11 +154,11 @@
       <tr>
         <td colspan="2">{{individualJsonData?.successionRisk}}</td>
       </tr>
-      <tr class="text-white sb-bg-dark">
+      <tr *ngIf="!crgLambdaDisabled" class="text-white sb-bg-dark">
         <th>Banking Relationship</th>
         <th>Net Worth</th>
       </tr>
-      <tr>
+      <tr *ngIf="!crgLambdaDisabled">
         <td>{{customerInfo?.bankingRelationship | jsonParse}}</td>
         <td class="text-right pr-1">Rs. {{individual?.netWorth |currencyFormatter}}</td>
       </tr>

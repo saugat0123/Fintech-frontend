@@ -6,3 +6,12 @@ export enum CadDocStatus {
     LEGAL_APPROVED= 'LEGAL_APPROVED',
     DISBURSEMENT_APPROVED= 'DISBURSEMENT_APPROVED'
 }
+
+export namespace CadDocStatus {
+
+    export function key() {
+        return Object.keys(CadDocStatus).filter(
+            (type) => isNaN(<any>type) && type !== 'key' && type !== 'pair'
+        );
+    }
+}

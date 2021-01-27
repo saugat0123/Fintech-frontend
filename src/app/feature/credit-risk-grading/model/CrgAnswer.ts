@@ -6,6 +6,6 @@ export class CrgAnswer {
     description: string;
     version: number;
     points: number;
-    status: Status;
+    status;
     crgQuestion: CrgQuestion;
 }
