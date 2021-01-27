@@ -40,7 +40,7 @@
         <div class="row form-group">
             <ng-container [formGroup]="nepsePriceInfoForm">
 
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="form-group">
                         <label for="amount">Share Price Date</label>
                         <input type="date" class="form-control form-control-error rounded"
@@ -53,10 +53,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <div class="form-group">
                         <label for="amount">Average Day's for Share Price</label>
-                        <input type="number" class="form-control"
+                        <input class="form-control"
                                formControlName="avgDaysForPrice"
                                [ngClass]="{'is-invalid': nepsePriceForm.avgDaysForPrice.invalid}"
                                id="avgDaysForPrice" name="avgDaysForPrice"/>
