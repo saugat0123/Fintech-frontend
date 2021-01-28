@@ -68,6 +68,7 @@ export class RetailHousingLoanComponent implements OnInit {
             housingFinance: this.formBuilder.array([]),
             mortgageFinance: this.formBuilder.array([]),
             mortgageOverdraft: this.formBuilder.array([]),
+            tableData: this.formBuilder.array([]),
             clearanceDate: [undefined],
             district: [undefined],
             wardNo: [undefined],
@@ -87,7 +88,9 @@ export class RetailHousingLoanComponent implements OnInit {
             tableShow: true,
             address: undefined,
             regAmount: undefined,
-            pageNo: undefined
+            pageNo: undefined,
+            idCardNo: undefined,
+            idCardNo2: undefined
         });
     }
 
