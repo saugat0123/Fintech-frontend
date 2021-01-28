@@ -27,9 +27,9 @@
                        </div>
                    </div>
                    <div class="mb-2">
-                       <b>श्री / सुश्री / श्रीमती :</b> <input class="form-fields form-control-sm nepaliFont"
+                       <input class="form-fields form-control-sm nepaliFont"
                                                                formControlName="applicantName"
-                                                               placeholder="श्रीमती उषा गुरुङ"
+                                                               placeholder="श्री / सुश्री / श्रीमती :"
                                                                type="text"/>
                    </div>
                    <div class="mb-2">
@@ -80,7 +80,7 @@
                            <br>
                            पक्षहरु :– <br>
                            <div class="ml-4">
-                               १. श्री / सुश्री / श्रीमती <span class="nepaliFont form-field nep">{{form.get('applicantName').value}} </span> (यस पछि “ऋणी” भनिएको)<br>
+                               १. श्री / सुश्री / श्रीमती<span class="nepaliFont form-field nep">{{form.get('applicantName').value}} </span> (यस पछि “ऋणी” भनिएको)<br>
                                २. श्री मेगा बैंक नेपाल लिमिटेड (यस पछि “बैंक” भनिएको)
                            </div>
                        </div>
@@ -106,13 +106,13 @@
                        <p><u><b>घर कर्जा (Housing Finance)</b></u></p>
                        <div class="row form-group" *ngFor="let housingForm of form.get('housingFinance')['controls']; let i=index" formArrayName="housingFinance">
                            <div class="col-md-12 " style="left: 30px;" [formGroupName]="i">
-                               <strong style="left: 32px">{{i+1 | nepaliWord:'unicode'}}) क. प्रस्तावित सुविधा : घर कर्जा (Housing Finance)</strong>
+                               <strong style="left: 32px">{{i+1 | nepaliWord:'unicode'}}. प्रस्तावित सुविधा : घर कर्जा (Housing Finance)</strong>
                                <i (click)="removeHousing(i)"  size="small" class="float-right fa fa-trash" *ngIf="form.get('housingFinance')['length']>1"></i>
-
-                               रकम : <input class="form-fields form-control-sm nepaliFont"
+                               <br><br>
+                               रकम :रु.<input class="form-fields form-control-sm nepaliFont"
                                             formControlName="loanAmount"
-                                            placeholder="रु ३०,००,००० "
-                                            type="text"/>/- (अक्षेरुपी <input class="form-fields form-control-sm nepaliFont"
+                                            placeholder="रु ३०,००,०००∕– "
+                                            type="text"/>∕– (अक्षेरुपी <input class="form-fields form-control-sm nepaliFont"
                                                                             formControlName="loanAmountInWord"
                                                                             placeholder="रीस लाख रुपैयाँ"
                                                                             type="text"/> रुपैयाँ मात्र ।)<br><br>
@@ -137,15 +137,15 @@
                                                                                              placeholder="६"/> महिना पछि बाट प्रथम किस्ता </strong>
                                प्रारंभ हुने गरी <input class="form-fields form-control-sm nepaliFont"
                                                        formControlName="prices"
-                                                       placeholder="१७४"/> समान मासिक किस्ता बन्दीमा
+                                                       placeholder="१७४"/> समान मासिक किस्ता बन्दीमा <strong>रु.
                                <input class="form-fields form-control-sm nepaliFont"
                                       formControlName="loanAmountReturn"
-                                      placeholder="रु ३७,९१९.७१"/>(अक्षेरुपी <input
+                                      placeholder="रु ३७,९१९.७१∕–"/>∕– (अक्षेरुपी <input
                                class="form-fields form-control-sm nepaliFont"
                                formControlName="loanAmountReturnInWord"
                                placeholder="सैंतीस हजार नौ सय उन्नाईस रुपैयाँ एकहत्तर पैसा"
                                type="text"/> रुपैयाँ
-                               मात्र) का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको <strong><input class="form-fields form-control-sm nepaliFont"
+                               मात्र)</strong> का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको <strong><input class="form-fields form-control-sm nepaliFont"
                                                                                                   formControlName="clearanceDate"
                                                                                                   placeholder="१३"
                                                                                                   type="text"/> तारिखमा</strong> चुक्ता भुक्तान
@@ -161,11 +161,11 @@
                                                                                                          type="text"/> प्रतिशत) ।
                                <br><br>
                                <p *ngIf="form.get(['housingFinance',i,'loanRateShow']).value">
-                                   क.सु.के. दस्तुर : <input
+                                   क.सु.के. दस्तुर :रु.<input
                                    class="form-fields form-control-sm nepaliFont"
                                    formControlName="loanRate"
-                                   placeholder="रु ५००/–"
-                                   type="text"/> मात्र ।
+                                   placeholder="रु ५००∕–"
+                                   type="text"/>∕– मात्र ।
                                     <a
                                    (click)="removeOptionalField('housingFinance',i ,'loanRateShow')"
                                    class="text-danger cursor" data-placement="top">
@@ -194,12 +194,12 @@
                        <p><u><b>धितो कर्जा (Mortgage Finance)</b></u></p>
                        <div class="row form-group" *ngFor="let mortgageFinance of form.get('mortgageFinance')['controls']; let i=index" formArrayName="mortgageFinance">
                            <div class="col-md-12 " style="left: 30px;" [formGroupName]="i">
-                               <strong style="left: 32px">{{i+1 | nepaliWord: 'unicode'}}) ख. प्रस्तावित सुविधा : धितो कर्जा (Mortgage Finance)</strong>
+                               <strong style="left: 32px">{{i+1 | nepaliWord: 'unicode'}}. प्रस्तावित सुविधा : धितो कर्जा (Mortgage Finance)</strong>
                                <i (click)="removeMortgageFinance(i)"  size="small" class="float-right fa fa-trash" *ngIf="form.get('mortgageFinance')['length']>1"></i>
-                               कर्जा सिमा रकम : <input class="form-fields form-control-sm nepaliFont"
+                               कर्जा सिमा रकम :रु. <input class="form-fields form-control-sm nepaliFont"
                                             formControlName="loanAmount"
-                                            placeholder="रु ३०,००,००० "
-                                            type="text"/> (अक्षेरुपी <input class="form-fields form-control-sm nepaliFont"
+                                            placeholder="रु ३०,००,०००∕– "
+                                            type="text"/>∕– (अक्षेरुपी <input class="form-fields form-control-sm nepaliFont"
                                                                             formControlName="loanAmountInWord"
                                                                             placeholder="रीस लाख रुपैयाँ"
                                                                             type="text"/> रुपैयाँ मात्र ।)<br><br>
@@ -223,7 +223,7 @@
                                                        placeholder="१७४"/> समान मासिक किस्ता बन्दीमा <strong>रु.
                                <input class="form-fields form-control-sm nepaliFont"
                                       formControlName="loanAmountReturn"
-                                      placeholder="रु ३७,९१९.७१"/>(अक्षेरुपी <input
+                                      placeholder="रु ३७,९१९.७१∕–"/>∕– (अक्षेरुपी <input
                                class="form-fields form-control-sm nepaliFont"
                                formControlName="loanAmountReturnInWord"
                                placeholder="सैंतीस हजार नौ सय उन्नाईस रुपैयाँ एकहत्तर पैसा"
@@ -251,11 +251,11 @@
                                                                                                          type="text"/> प्रतिशत मात्र) ।
                                <br><br>
                                <p *ngIf="form.get(['mortgageFinance',i,'loanRateShow']).value">
-                                   क.सु.के. दस्तुर : <input
+                                   क.सु.के. दस्तुर :रु. <input
                                    class="form-fields form-control-sm nepaliFont"
                                    formControlName="loanRate"
-                                   placeholder="रु ५००/–"
-                                   type="text"/> मात्र ।
+                                   placeholder="रु ५००∕–"
+                                   type="text"/>∕– मात्र ।
                                     <a
                                    (click)="removeOptionalField('mortgageFinance',i ,'loanRateShow')"
                                    class="text-danger cursor" data-placement="top">
@@ -283,16 +283,16 @@
                        <p><u><b>धितो अधिविकष (Mortgage Overdraft)</b></u></p>
                        <div class="row form-group" *ngFor="let mortgageOverdraft of form.get('mortgageOverdraft')['controls']; let i=index" formArrayName="mortgageOverdraft">
                            <div class="col-md-12 " style="left: 30px;" [formGroupName]="i">
-                               <strong style="left: 32px">{{i+1 | nepaliWord:'unicode'}}) ग. प्रस्तावित सुविधा : धितो अधिविकष (Mortgage Overdraft)</strong>
+                               <strong style="left: 32px">{{i+1 | nepaliWord:'unicode'}}. प्रस्तावित सुविधा : धितो अधिविकष (Mortgage Overdraft)</strong>
                                <i (click)="removeMortgageOverdraft(i)"  size="small" class="float-right fa fa-trash" *ngIf="form.get('mortgageOverdraft')['length']>1"></i>
 
-                               कर्जा सिमा रकम : <input class="form-fields form-control-sm nepaliFont"
+                               कर्जा सिमा रकम :रु. <input class="form-fields form-control-sm nepaliFont"
                                             formControlName="loanAmount"
-                                            placeholder="रु ३०,००,००० "
-                                            type="text"/> (अक्षेरुपी <input class="form-fields form-control-sm nepaliFont"
+                                            placeholder="रु ३०,००,०००∕– "
+                                            type="text"/>∕– (अक्षेरुपी <input class="form-fields form-control-sm nepaliFont"
                                                                             formControlName="loanAmountInWord"
                                                                             placeholder="रीस लाख रुपैयाँ"
-                                                                            type="text"/> मात्र ।)<br><br>
+                                                                            type="text"/> रुपैयाँ मात्र ।)<br><br>
                                उद्देश्य			: <input class="form-fields form-control-sm nepaliFont"
                                                             formControlName="purpose"
                                                             placeholder=""
@@ -331,10 +331,10 @@
                                                                                                          type="text"/> प्रतिशत मात्र) ।
                                <br><br>
                                <p *ngIf="form.get(['mortgageOverdraft',i,'loanRateShow']).value">
-                                   क.सु.के. दस्तुर : <input
+                                   क.सु.के. दस्तुर :रु. <input
                                    class="form-fields form-control-sm nepaliFont"
                                    formControlName="loanRate"
-                                   placeholder="रु ५००/–"
+                                   placeholder="रु ५००∕–"
                                    type="text"/> मात्र ।
                                    <a
                                    (click)="removeOptionalField('mortgageOverdraft',i ,'loanRateShow')"
@@ -441,7 +441,7 @@
                                </thead>
                                <tbody *ngFor="let data of form.get('loanData')['controls']; let index = index" formArrayName="loanData" >
                                <tr [formGroupName]="index">
-                                   <td class="nepaliFont">{{index+1| nepaliWord: 'preeti' }}</td>
+                                   <td class="nepaliFont">{{index+1| nepaliWord: 'pretti' }}</td>
                                    <td>
                                        <div>
                                            <input class="form-fields  nepaliFont"
@@ -450,9 +450,9 @@
                                                   type="text"/>
                                        </div>
                                    </td>
-                                   <td><input class="form-fields  nepaliFont"
+                                   <td>रु.<input class="form-fields  nepaliFont"
                                               formControlName="sumInsured"
-                                              placeholder="रु ३०,००,०००"
+                                              placeholder="रु ३०,००,०००∕–"
                                               type="text"/>
                                    </td>
                                    <td><input class="form-fields  nepaliFont"
