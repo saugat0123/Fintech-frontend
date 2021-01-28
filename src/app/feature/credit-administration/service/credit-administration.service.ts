@@ -52,7 +52,7 @@ export class CreditAdministrationService extends BaseService<any> {
         const api = `${this.getApi()}/additional-disbursement/${roleId}`;
         const req = ApiUtils.getRequest(api);
 
-        return this.http.patch(req.url, obj, {headers: req.header});
+        return this.http.post(req.url, obj, {headers: req.header});
     }
 
     public saveAction(obj: any): Observable<any> {

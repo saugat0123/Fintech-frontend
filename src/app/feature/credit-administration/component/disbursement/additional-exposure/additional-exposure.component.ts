@@ -82,12 +82,12 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
 
     docArray() {
         return this.formBuilder.group({
-            id: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.id],
-            docName: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.docName, [Validators.required]],
-            docPath: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.docPath , Validators.required],
-            uploadOn: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.uploadOn],
-            remarks: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.remarks],
-            version: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.version]
+            id: [undefined],
+            docName: [undefined, [Validators.required]],
+            docPath: [ undefined , Validators.required],
+            uploadOn: [ undefined ],
+            remarks: [undefined ],
+            version: [undefined]
         });
     }
 
@@ -151,6 +151,9 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
     }
 
     submit() {
+        this.addDoc();
+        let data  = [] ;
+        data = this.addDocForm.get('additionalDoc').value;
         this.spinner = true;
         const storage = LocalStorageUtil.getStorage();
         const exposure = new Exposure();
@@ -176,7 +179,10 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
             this.cadData.docStatus = CadDocStatus.DISBURSEMENT_PENDING;
         }
         this.cadData.exposure = exposure;
+        console.log(this.cadData.additionalDocumentList);
+        console.log(data);
         this.cadData.additionalDocumentList.push(this.addDocForm.get('additionalDoc').value);
+        console.log(this.cadData.additionalDocumentList);
         this.service.saveDisbursementHistory(this.cadData, storage.roleId).subscribe((res: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Exposure data!!!'));
             // this.routerUtilsService.reloadCadProfileRouteWithActiveTab(this.cadData.id, 1);
@@ -200,7 +206,8 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
     }
 
       uploadFile(file , index) {
-        this.spinner = true;
+          console.log(index);
+          this.spinner = true;
         const form = (this.addDocForm.get('additionalDoc') as FormArray).at(index).value;
 
           if (!ObjectUtil.isEmpty(file.target.files[0])) {
@@ -224,7 +231,8 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
               docPath: res.detail,
               uploadOn: new Date()
             });
-             this.disableAdd = false;
+              console.log(this.addDocForm);
+              this.disableAdd = false;
           });
 
         }

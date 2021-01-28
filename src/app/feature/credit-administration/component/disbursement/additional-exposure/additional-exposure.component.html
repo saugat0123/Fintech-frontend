@@ -3,7 +3,7 @@
         [nbSpinner]="spinner"
         accent="primary"
         nbSpinnerStatus="primary"
-        nbSpinnerMessage="Saving exposure data..."
+        nbSpinnerMessage="Performing action..."
         nbSpinnerSize="large">
     <nb-card-header>
         <a *ngIf="isHistory" (click)="close()" aria-label="Close" class="close cursor"
@@ -89,7 +89,7 @@
                                     <td class="text-left"><input [disabled]="!documentName.value"  class="ml-2" type="file" (change)="uploadFile($event , i)"></td>
                                     <td><input class="cellInput text-center" formControlName="remarks"></td>
                                     <td>
-                                        <button (click)="removeDoc(i)" nbButton status="primary" size="tiny" *ngIf="addDocForm.get('additionalDoc')['controls'].length > 1">
+                                        <button (click)="removeDoc(i)" nbButton status="primary" size="tiny">
                                              <span >
                                <em
                                    nbTooltip="remove"
@@ -109,7 +109,21 @@
             </div>
         </div>
     </nb-card-body>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-md-12">
+                <label for="disbursementComment"><strong>Comments</strong></label>
+                <textarea
+                        class="form-control"
+                         id="disbursementComment"
+                        name="disbursementComment"
+                        placeholder="Disbursement Comment"
+                        rows="3"></textarea>
+            </div>
+        </div>
+    </nb-card-body>
     <nb-card-footer>
-        <button nbButton class="float-right" (click)="submit()" [disabled]="exposureForm.invalid">Save</button>
+        {{addDocForm.value |json}}
+        <button nbButton class="float-right" (click)="submit()" [disabled]="exposureForm.invalid || disableAdd">Save</button>
     </nb-card-footer>
 </nb-card>
