@@ -1,4 +1,4 @@
-<div class=" nep row "  id="{{offerLetterConst.RETAIL_PROFESSIONAL_LOAN}}Print">
+<div class=" row "  id="{{offerLetterConst.RETAIL_PROFESSIONAL_LOAN}}Print">
     <div class="logo-container">
         <img  height="60px" src="../../../../../assets/img/logo.png">
     </div>
@@ -55,7 +55,7 @@
                     <tr>
                         <td>कर्जा सीमा रकम</td>
                         <td>रु. <strong class="nepaliFont"> {{proTerm['karjaSeemaRakam']}}</strong> /(अक्षेरुपी
-                            <strong class="nepaliFont"> {{proTerm['karjaSeemaRakamWord']}}</strong> रुपैयाँ मात्र)</td>
+                            <strong class="nepaliFont"> {{proTerm['karjaSeemaRakamWord']}}</strong> रुपैयाँ मात्र।)</td>
                     </tr>
                     <tr>
                         <td>प्रयोजन</td>
@@ -111,11 +111,11 @@
                     </tr>
                     <tr>
                         <td> सेवा शुल्क</td>
-                        <td>भुक्तानी गरिने ऋण सुविधा रकमका <strong class="nepaliFont"> {{proTerm['sewaSulka']}}</strong> मात्र ।</td>
+                        <td>भुक्तानी गरिने ऋण सुविधा रकमको<strong class="nepaliFont"> {{proTerm['sewaSulka']}}</strong> मात्र) ।</td>
                     </tr>
                     <tr *ngIf="proTerm['chargeAmountFlag']">
-                        <td>क.सु.के दस्तुर</td>
-                        <td>रु. <strong class="nepaliFont"> {{proTerm['chargeAmount']}}</strong> मात्र ।
+                        <td>कर्जा सूचना दस्तुर</td>
+                        <td>रु. <strong class="nepaliFont"> {{proTerm['chargeAmount']}}</strong> /–
                         </td>
                     </tr>
                     </tbody>
@@ -138,7 +138,7 @@
                     <tr>
                         <td>कर्जा सीमा रकम</td>
                         <td>रु. <strong class="nepaliFont"> {{proOverdraft['karjaSeemaRakam']}}</strong>/-(अक्षेरुपी
-                            <strong class="nepaliFont"> {{proOverdraft['karjaSeemaRakamWord']}}</strong> रुपैयाँ मात्र)</td>
+                            <strong class="nepaliFont"> {{proOverdraft['karjaSeemaRakamWord']}}</strong> रुपैयाँ मात्र) ।</td>
                     </tr>
                     <tr>
                         <td>प्रयोजन</td>
@@ -200,10 +200,10 @@
                         </td>
                     </tr>
                     <tr *ngIf="proOverdraft['chargeAmountFlag']">
-                        <td>क.सु.के दस्तुर</td>
+                        <td>कर्जा सूचना दस्तुर</td>
                         <td>रु.
                             <strong class="nepaliFont"> {{proOverdraft['chargeAmount']}}</strong>
-                             मात्र ।
+                            /–
                         </td>
                     </tr>
                     </tbody>
@@ -248,8 +248,8 @@
 
         <p [innerHTML]="letter['clausesTextEditor'] | safeHtml" class="nepaliFont my-4"></p>
 
-        <div style="font-weight: bold"><u>३. व्याज</u></div>
         <div class="col-md-12">
+            <div style="font-weight: bold"><u>३. व्याज</u></div>
             ऋण सुविधाको व्याज निर्धारण गरिए बमोजिमको दरमा तथा चुक्ता हुन बाँकी रकममा निरन्तर लगाइनेछ (दैनिक डेविट
             बाँकी
             मा हिसाव गरिने)। बैंकले समय समयमा निर्णय गरी ऋणीलाई सूचना दिए बमोजिम अन्य व्याजदर लगाउने कुराको अधिकार
@@ -587,7 +587,9 @@
             </div>
             <div class=" col-md-10 " >
                 <div>ऋणी</div>
-                <div><strong class="nepaliFont"> {{letter['borrowerName']}}</strong></div>
+                <p>
+                    नाम: <strong class="nepaliFont"> {{letter['borrowerName']}}</strong>
+                </p>
                 <p>ठेगाना:
                     <strong class="nepaliFont"> {{letter['borrowerAddress']}}</strong>
                 </p>
@@ -625,7 +627,9 @@
         </div>
         <br>
         <div class="nep pt-2">
-            म/हामीले ८ पृष्ठको यस बैकिङ ऋण स्वीकृतिपत्रमा उल्लेखित शर्तहरु राम्ररी पढेंरपढ्यौं र बुझेंरबुझ्यौं ।
+            म/हामीले
+            <strong class="nepaliFont"> {{letter['pageCount']}}</strong>
+            पृष्ठको यस बैकिङ ऋण स्वीकृतिपत्रमा उल्लेखित शर्तहरु राम्ररी पढेंरपढ्यौं र बुझेंरबुझ्यौं ।
             यसमा
             उल्लेख गरिएको सम्पूर्ण शर्तहरु पालना गर्न म/हामी मन्जुर गर्दछु । गर्दछौं र बैंकसंग यस अन्तर्गत लिएको ऋण
             पूर्ण रुपमा चुक्ता भुक्तान नगरे सम्म यसमा उल्ल्खित शर्तहरुको पूर्ण रुपले पालना गर्ने प्रतिज्ञा गर्दछु

@@ -34,7 +34,7 @@
     <p class="pl-3 print-space"> पक्षहरु :–</p>
     <div class="col-md-12">
       <div>
-        १. श्री/श्रीमती <strong class="nepaliFont">{{loan['name']}}</strong>
+        १. <strong class="nepaliFont">{{loan['name']}}</strong>
         “ऋणी” भनिएको)
       </div>
       <div>
@@ -99,7 +99,7 @@
             <strong class="nepaliFont">{{hayarPurchaseLoan['vatPercent']}}</strong> प्रतिशत सम्म वा प्रस्तावित कर्जा सुविधा
             <strong class="nepaliFont">{{hayarPurchaseLoan['serviceAmount']}}</strong> मध्ये कम हुने रकमको भुक्तानी M.s
             <strong class="nepaliFont">{{hayarPurchaseLoan['company']}}</strong>
-            लाई खाता÷चेकका माध्यमद्वारा रकमान्तर गरिनेछ ।
+            लाई खाता/चेकका माध्यमद्वारा रकमान्तर गरिनेछ ।
           </td>
         </tr>
         <tr>
@@ -118,7 +118,7 @@
 
         <tr>
           <td>सुरक्षित कारोबार शुल्क</td>
-          <td>रु. ५००÷– प्रति कारोबार (दर्ता, संसोधन तथा फुकुवा) गर्दा सुरक्षित कारोबार ऐन २०६३ अनुसार ।</td>
+          <td>रु. <strong class="nepaliFont">{{hayarPurchaseLoan['secureTransactionFees']}}</strong>/– प्रति कारोबार (दर्ता, संसोधन तथा फुकुवा) गर्दा सुरक्षित कारोबार ऐन २०६३ अनुसार ।</td>
         </tr>
 
         <tr>
@@ -175,17 +175,17 @@
         <td>२.५</td>
         <td class="pl-3">सम्पूर्ण कर्जा सिमा रकम बराबरको कर्जा लिखत (Loan Deed) ।</td>
       </tr>
-      <tr *ngIf="loan['guarantorFlag']">
+      <tr>
         <td>२.६</td>
+        <td class="pl-3">निम्न विवरण एवं जोखिम वहन हुने गरि बैंकको पक्षमा गरिदिएको विमालेख कर्जा प्रवाह पूर्व पेश
+          गर्नुपर्नेछ ।
+        </td>
+      </tr>
+      <tr *ngIf="loan['guarantorFlag']">
+        <td>२.७</td>
         <td class="pl-3">
           <strong class="nepaliFont">{{loan['guarantor']}}</strong>
           तर्फबाट कर्जा सीमा रकम बराबरको छुटाछुटै व्यक्तिगत जमानी पेश गर्नुपर्नेछ ।
-        </td>
-      </tr>
-      <tr>
-        <td>२.७</td>
-        <td class="pl-3">निम्न विवरण एवं जोखिम वहन हुने गरि बैंकको पक्षमा गरिदिएको विमालेख कर्जा प्रवाह पूर्व पेश
-          गर्नुपर्नेछ ।
         </td>
       </tr>
     </table>
@@ -538,9 +538,9 @@
         <b>नाम-</b>
         <strong class="nepaliFont">{{loan['name']}}</strong><br>
         <b>ठेगाना-</b>
-        <strong class="nepaliFont">{{loan['permanentWard']}}</strong><br>
+        <strong class="nepaliFont">{{loan['borrowerAddress']}}</strong><br>
         <b>सम्पर्क टेलिफोन नं-</b>
-        <strong class="nepaliFont">{{loan['temporaryWard']}}</strong><br>
+        <strong class="nepaliFont">{{loan['contactNumber']}}</strong><br>
       </div>
       <br>
       यो सुविधाको प्रस्ताव उपर स्वीकृति दिन को लागि माथि उल्लिखित मिति देखि
@@ -569,7 +569,7 @@
         </div>
         <div class="row">
           <div class="col-md-12 pt-2">
-            म/हामीले {{loan['pageCount']}} पृष्ठको यस बैकिङ ऋण स्विकृतीपत्रमा उल्लेखित शर्तहरु राम्ररी पढें/पढ्यौं
+            म/हामीले <strong class="nepaliFont">{{loan['pageCount']}}</strong> पृष्ठको यस बैकिङ ऋण स्विकृतीपत्रमा उल्लेखित शर्तहरु राम्ररी पढें/पढ्यौं
             र बुझें/बुझ्यौं । यसमा उल्लेखित गरिएको सम्पूर्ण शर्तहरु पालना गर्न म/हामी मन्जुर
             गर्दछु/गर्दछौं र बैंकसंग यस अन्तर्गत लिएको ऋण पूर्ण रुपमा चुक्ता भुक्तान नगरे सम्म
             यसमा उल्खित शर्तहरुको पूर्ण रुपले पालना गर्ने प्रतिज्ञा गर्दछु/गर्दछौं ।

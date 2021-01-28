@@ -194,7 +194,13 @@
 
                   <tr>
                     <td>सुरक्षित कारोबार शुल्क</td>
-                    <td>रु. ५००/– प्रति कारोबार (दर्ता, संसोधन तथा फुकुवा) गर्दा सुरक्षित कारोबार ऐन २०६३ अनुसार ।</td>
+                    <td>रु.
+                      <input class="form-field form-control-sm nepaliFont"
+                             formControlName="secureTransactionFees"
+                             placeholder="५००"
+                             type="text"
+                             size="10"/> /–
+                      प्रति कारोबार (दर्ता, संसोधन तथा फुकुवा) गर्दा सुरक्षित कारोबार ऐन २०६३ अनुसार ।</td>
                   </tr>
 
                   <tr>
@@ -274,9 +280,14 @@
                   <td>२.५</td>
                   <td class="pl-3">सम्पूर्ण कर्जा सिमा रकम बराबरको कर्जा लिखत (Loan Deed) ।</td>
                 </tr>
-
-                <tr *ngIf="hayarPurchase.get('guarantorFlag').value">
+                <tr>
                   <td>२.६</td>
+                  <td class="pl-3">निम्न विवरण एवं जोखिम वहन हुने गरि बैंकको पक्षमा गरिदिएको विमालेख कर्जा प्रवाह पूर्व पेश
+                    गर्नुपर्नेछ ।
+                  </td>
+                </tr>
+                <tr *ngIf="hayarPurchase.get('guarantorFlag').value">
+                  <td>२.७</td>
                   <td class="pl-3">
                     <input class="form-field form-control-sm nepaliFont"
                            formControlName="guarantor"
@@ -298,13 +309,6 @@
                       <i class="fa fa-undo" style="color:darkred;padding-left: 5px"></i>
                       Undo field removal
                     </a>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>२.७</td>
-                  <td class="pl-3">निम्न विवरण एवं जोखिम वहन हुने गरि बैंकको पक्षमा गरिदिएको विमालेख कर्जा प्रवाह पूर्व पेश
-                    गर्नुपर्नेछ ।
                   </td>
                 </tr>
               </table>
@@ -354,7 +358,6 @@
                 <input (click)="addMoreRiskCoverageArray()" class="btn btn-sm btn-flat btn-primary" type="button"
                        value="Add More Field"/>
               </div>
-
               <p><b>नोटः माथि उल्लेखित सुरक्षणहरुका साथ निम्न शर्तहरु अनिवार्य रुपमा पालना गर्नुपर्नेछ ।</b></p>
 
               <p>
