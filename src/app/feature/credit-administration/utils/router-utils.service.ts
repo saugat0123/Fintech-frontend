@@ -6,6 +6,7 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {UserService} from '../../admin/component/user/user.service';
 import {User} from '../../admin/modal/user';
 import {CustomerType} from '../../customer/model/customerType';
+import {RoleType} from '../../admin/modal/roleType';
 
 @Injectable({
     providedIn: 'root'
@@ -101,6 +102,8 @@ export class RouterUtilsService {
                 } else {
                     this.routeSummaryWithStateAndEncryptPath(model);
                 }
+            } else if (user.role.roleType === RoleType.CAD_ADMIN || user.role.roleType === RoleType.CAD_SUPERVISOR) {
+                this.routeSummaryWithStateAndEncryptPath(model);
             } else {
                 if (user.id.toString() === model.cadCurrentStage.toUser.id.toString()) {
                     this.loadProfileWithState(cadDocumentId, model);
@@ -108,6 +111,7 @@ export class RouterUtilsService {
                     this.routeSummaryWithStateAndEncryptPath(model);
                 }
             }
+
         });
 
     }

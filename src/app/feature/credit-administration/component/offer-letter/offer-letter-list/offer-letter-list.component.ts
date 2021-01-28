@@ -7,6 +7,9 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {Router} from '@angular/router';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
+import {User} from '../../../../admin/modal/user';
+import {RoleType} from '../../../../admin/modal/roleType';
+import {UserService} from '../../../../../@core/service/user.service';
 
 @Component({
     selector: 'app-offer-letter-list',
@@ -25,9 +28,12 @@ export class OfferLetterListComponent implements OnInit {
     currentUserLocalStorage = LocalStorageUtil.getStorage().userId;
     toggleArray: { toggled: boolean }[] = [];
     currentIndexArray: { currentIndex: number }[] = [];
+    user: User = new User();
+    roleType = RoleType;
 
     constructor(private service: CreditAdministrationService,
                 private router: Router,
+                private userService: UserService,
                 private routeService: RouterUtilsService,
                 private spinnerService: NgxSpinnerService) {
     }
@@ -50,6 +56,7 @@ export class OfferLetterListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.userDetail();
         OfferLetterListComponent.loadData(this);
     }
 
@@ -66,6 +73,12 @@ export class OfferLetterListComponent implements OnInit {
     setSearchValue(value) {
         this.searchObj = Object.assign(value, {docStatus: 'OFFER_PENDING'});
         OfferLetterListComponent.loadData(this);
+    }
+
+    userDetail() {
+        this.userService.getLoggedInUser().subscribe((res: any) => {
+            this.user = res.detail;
+        });
     }
 
 }
