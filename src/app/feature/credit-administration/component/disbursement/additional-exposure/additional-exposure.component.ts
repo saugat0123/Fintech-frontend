@@ -38,6 +38,8 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
     addDocForm: FormGroup;
 
     disableAdd = false;
+    cadRoleList = [];
+    disbursementComment;
 
     constructor(private formBuilder: FormBuilder,
                 private routerUtilsService: RouterUtilsService,
@@ -59,6 +61,9 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
+        this.creditAdministrationService.getRoleInCad().subscribe(value => {
+            this.cadRoleList = value.detail;
+        });
         this.initial();
         this.buildDocForm();
     }
@@ -71,24 +76,20 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
 
     addDoc() {
         this.disableAdd = true;
-       (this.addDocForm.get('additionalDoc') as FormArray).controls.push(
-            this.docArray()
+        (this.addDocForm.get('additionalDoc') as FormArray).push(
+            this.formBuilder.group({
+                id: [undefined],
+                docName: [undefined, [Validators.required]],
+                docPath: [undefined, Validators.required],
+                uploadOn: [undefined],
+                remarks: [undefined],
+                version: [undefined]
+            })
         );
     }
 
     removeDoc(index: number) {
         (this.addDocForm.get('additionalDoc') as FormArray).removeAt(index);
-    }
-
-    docArray() {
-        return this.formBuilder.group({
-            id: [undefined],
-            docName: [undefined, [Validators.required]],
-            docPath: [ undefined , Validators.required],
-            uploadOn: [ undefined ],
-            remarks: [undefined ],
-            version: [undefined]
-        });
     }
 
     initial() {
@@ -151,7 +152,6 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
     }
 
     submit() {
-        this.addDoc();
         let data  = [] ;
         data = this.addDocForm.get('additionalDoc').value;
         this.spinner = true;
@@ -180,9 +180,10 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
         }
         this.cadData.exposure = exposure;
         console.log(this.cadData.additionalDocumentList);
-        console.log(data);
-        this.cadData.additionalDocumentList.push(this.addDocForm.get('additionalDoc').value);
-        console.log(this.cadData.additionalDocumentList);
+        data.forEach(value => {
+            this.cadData.additionalDocumentList.push(value);
+        });
+        this.cadData.disbursementComment = this.disbursementComment;
         this.service.saveDisbursementHistory(this.cadData, storage.roleId).subscribe((res: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Exposure data!!!'));
             // this.routerUtilsService.reloadCadProfileRouteWithActiveTab(this.cadData.id, 1);
@@ -227,11 +228,10 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
           this.service.uploadAdditionalDocument(formData).subscribe((res: any) => {
               this.spinner = false;
               console.log(res);
-           ( this.addDocForm.get('additionalDoc') as FormArray).at(index).patchValue({
-              docPath: res.detail,
-              uploadOn: new Date()
-            });
-              console.log(this.addDocForm);
+              (this.addDocForm.get('additionalDoc') as FormArray).at(index).patchValue({
+                  docPath: res.detail,
+                  uploadOn: new Date()
+              });
               this.disableAdd = false;
           });
 

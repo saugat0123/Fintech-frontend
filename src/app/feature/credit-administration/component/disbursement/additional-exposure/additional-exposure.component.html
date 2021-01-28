@@ -112,18 +112,26 @@
     <nb-card-body>
         <div class="row">
             <div class="col-md-12">
-                <label for="disbursementComment"><strong>Comments</strong></label>
+                <label for="disbursementComment" class="float-left"><strong>Comments</strong></label>
                 <textarea
                         class="form-control"
                          id="disbursementComment"
                         name="disbursementComment"
+                        [(ngModel)]="disbursementComment"
                         placeholder="Disbursement Comment"
                         rows="3"></textarea>
             </div>
         </div>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <label for="disburseRole" class="float-left"><strong>Select Role</strong></label>
+               <select id="disburseRole"  class="form-control">
+                   <option *ngFor="let r of cadRoleList" [value]="r.role">{{r?.role?.roleName}}</option>
+               </select>
+            </div>
+        </div>
     </nb-card-body>
     <nb-card-footer>
-        {{addDocForm.value |json}}
         <button nbButton class="float-right" (click)="submit()" [disabled]="exposureForm.invalid || disableAdd">Save</button>
     </nb-card-footer>
 </nb-card>
