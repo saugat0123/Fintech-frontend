@@ -114,6 +114,7 @@
             <div class="col-md-12">
                 <label for="disbursementComment" class="float-left"><strong>Comments</strong></label>
                 <textarea
+                        #comment
                         class="form-control"
                          id="disbursementComment"
                         name="disbursementComment"
@@ -132,6 +133,6 @@
         </div>
     </nb-card-body>
     <nb-card-footer>
-        <button nbButton class="float-right" (click)="submit()" [disabled]="exposureForm.invalid || disableAdd">Save</button>
+        <button nbButton class="float-right" (click)="submit()" [disabled]="exposureForm.invalid || disableAdd || (comment.value == '')">Save</button>
     </nb-card-footer>
 </nb-card>
