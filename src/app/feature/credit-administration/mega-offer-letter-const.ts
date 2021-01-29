@@ -8,7 +8,6 @@ export enum MegaOfferLetterConst {
     SME,
     RETAIL_MORTGAGE_LOAN,
     RETAIL_EDUCATIONAL_ENGLISH,
-    CUSTOM,
     RETAIL_LOAN_AGAINST_INSURANCE,
 }
 
