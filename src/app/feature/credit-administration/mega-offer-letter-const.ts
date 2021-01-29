@@ -4,7 +4,7 @@ export enum MegaOfferLetterConst {
     RETAIL_EDUCATIONAL,
     RETAIL_MORTGAGE_OVERDRAFT,
     RETAIL_PROFESSIONAL_LOAN,
-    HAYER_PURCHASE,
+    HIRE_PURCHASE,
     SME,
     RETAIL_MORTGAGE_LOAN,
     RETAIL_EDUCATIONAL_ENGLISH,
@@ -22,8 +22,8 @@ export namespace MegaOfferLetterConst {
           return 'Retail Mortgage Overdraft';
         case MegaOfferLetterConst.RETAIL_PROFESSIONAL_LOAN:
           return 'Retail Professional Loan';
-        case MegaOfferLetterConst.HAYER_PURCHASE:
-          return 'Hayer Purchase';
+        case MegaOfferLetterConst.HIRE_PURCHASE:
+          return 'Hire Purchase';
         case MegaOfferLetterConst.SME:
           return 'SME';
         case MegaOfferLetterConst.RETAIL_EDUCATIONAL_ENGLISH:
