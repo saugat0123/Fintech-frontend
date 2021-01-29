@@ -135,7 +135,7 @@ export class HayerPurchaseComponent implements OnInit {
     checkOfferLetterData() {
         if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
             this.hayerPurchaseLetter = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value =>
-                value.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.HAYER_PURCHASE).toString())[0];
+                value.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.HIRE_PURCHASE).toString())[0];
             if (!ObjectUtil.isEmpty(this.hayerPurchaseLetter) && !ObjectUtil.isEmpty(this.hayerPurchaseLetter.id)) {
                 const initialInfo = JSON.parse(this.hayerPurchaseLetter.initialInformation);
                 this.initialInfoPrint = initialInfo;
@@ -153,7 +153,7 @@ export class HayerPurchaseComponent implements OnInit {
                 this.initialInfoPrint = initialInfo;
             } else {
                 this.hayerPurchaseLetter = new OfferDocument();
-                this.hayerPurchaseLetter.docName = this.offerLetterConst.value(this.offerLetterConst.HAYER_PURCHASE);
+                this.hayerPurchaseLetter.docName = this.offerLetterConst.value(this.offerLetterConst.HIRE_PURCHASE);
             }
         }
     }
@@ -165,25 +165,25 @@ export class HayerPurchaseComponent implements OnInit {
 
         if (this.existingOfferLetter) {
             this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-                if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.HAYER_PURCHASE).toString()) {
+                if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.HIRE_PURCHASE).toString()) {
                     offerLetterPath.initialInformation = JSON.stringify(this.hayarPurchase.value);
                 }
             });
         } else {
             const offerDocument = new OfferDocument();
-            offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.HAYER_PURCHASE);
+            offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.HIRE_PURCHASE);
             offerDocument.initialInformation = JSON.stringify(this.hayarPurchase.value);
             this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
         }
 
         this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Hayer Purchase Offer Letter'));
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Hire Purchase Offer Letter'));
             this.spinner = false;
             this.dialogRef.close();
             this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
         }, error => {
             console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save  Hayer Purchase Offer Letter'));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save  Hire Purchase Offer Letter'));
             this.spinner = false;
             this.dialogRef.close();
             this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
