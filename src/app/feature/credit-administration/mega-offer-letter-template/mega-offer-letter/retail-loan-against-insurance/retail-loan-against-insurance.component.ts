@@ -34,6 +34,9 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
   laiOverdraftLoanSelected = false;
   laiDemandLoanSelected = false;
   editor = NepaliEditor.CK_CONFIG;
+  note = '<ul><li><span style="font-family:Preeti">C0fL tyf JolQmutsf] ;DklQ v\'nfpg] lnvt -</span><span>Net Worth Statement<span style="font-family:Preeti">_ kmf]6f] tyf ;Dks{ 7]ufgf ;lxt k]z ug\'kg]{5 .</span></li>' +
+      '<li><span style="font-family:Preeti">tcGo a}+sx?;+u u/]sf] sf/f]jf/ af/] lnlvt ?kdf v\'nfpg\'kg]{ -</span><span>Multiple Banking Declaration<span style="font-family:Preeti">_ k]z ug\'{kg]{5 .</span></li> ' +
+      '<li><span style="font-family:Preeti">tpNn]lvt k|:tfljt crn ;DklQsf] k"0f{ d\'Nofªsg k|ltj]bg -</span><span>Complete Valuation Report<span style="font-family:Preeti">_ k]z ePkZrft dfq shf{ e\'Qmfg ul/g]5 .</span></li> </ul>';
 
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   constructor(private formBuilder: FormBuilder,
@@ -54,13 +57,8 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
       borrowerName: [undefined],
       borrowerAddress: [undefined],
       borrowerContactNo: [undefined],
-      borrowerName1: [undefined],
-
       insuranceCompanyName: [undefined],
       borrowerInsuranceNo: [undefined],
-      borrowerName2: [undefined],
-      borrowerAddress2: [undefined],
-      borrowerContactNo2: [undefined],
       pageCount: [undefined],
       identityCardNo: [undefined],
       identityCardNo1: [undefined],
@@ -72,7 +70,7 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
       laiTermLoanArray: this.formBuilder.array([this.buildTermLoan()]),
       laiOverDraftLoanArray: this.formBuilder.array([this.buildOverDraftLoanGroup()]),
       laiDemandLoanArray: this.formBuilder.array([this.buildDemandLoanGroup()]),
-      note: undefined
+      note: this.note,
     });
   }
 
@@ -82,6 +80,8 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
       tenure: [undefined],
       termLoanDebitLimitAmountWord: [undefined],
       termLoanPurpose: [undefined],
+      termBaseRate: [undefined],
+      termLoanPaymentDate: [undefined],
       termLoanPremiumRate: [undefined],
       termLoanYearlyInterest: [undefined],
       termLoanFirstInstallment: [undefined],
@@ -100,6 +100,7 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
       overdraftDebitLimitAmountWords: [undefined],
       overdraftPurpose: [undefined],
       overdraftTimePeriod: [undefined],
+      overdraftBaseRate: [undefined],
       overdraftPremiumRate: [undefined],
       overdraftYearlyInterest: [undefined],
       overdraftServiceChargeRate: [undefined],
@@ -119,6 +120,8 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
       demandLoanServiceChargeRate: [undefined],
       demandLoanServiceChargeRateWords: [undefined],
       demandLoanCustomAmount: [undefined],
+      demandLoanPurpose: [undefined],
+      demandTimePeriod: [undefined],
       chargeAmountFlag: [true],
     });
   }

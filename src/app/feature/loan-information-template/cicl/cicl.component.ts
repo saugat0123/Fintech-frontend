@@ -20,6 +20,7 @@ export class CiclComponent implements OnInit {
   @Input() ciclValue: CiclArray;
 
   @Input() fromProfile: boolean;
+  calendarType = 'AD';
 
   ciclForm: FormGroup;
 
