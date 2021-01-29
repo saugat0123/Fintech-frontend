@@ -186,9 +186,6 @@ export class UIComponent implements OnInit, DoCheck {
           });
         }
       });
-      other.documentService.getAll().subscribe((response: any) => {
-        other.eligibilityDocumentList = response.detail;
-      });
     }
 
     // Id of Enhance Loan cycle is set 5 in patch backend
