@@ -6,7 +6,7 @@
     </nb-card-header>
     <nb-card-body>
         <div [ngSwitch]="offerLetterType" *ngIf="cadOfferLetterApprovedDoc">
-            <app-hayer-purchase  *ngSwitchCase="offerLetterTypeConst.HAYER_PURCHASE"
+            <app-hayer-purchase  *ngSwitchCase="offerLetterTypeConst.HIRE_PURCHASE"
                                 [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-hayer-purchase>
 
             <app-retail-educational-loan *ngSwitchCase="offerLetterTypeConst.RETAIL_EDUCATIONAL"
