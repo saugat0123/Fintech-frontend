@@ -114,6 +114,7 @@
             <div class="col-md-12">
                 <label for="disbursementComment" class="float-left"><strong>Comments</strong></label>
                 <textarea
+                        #comment
                         class="form-control"
                          id="disbursementComment"
                         name="disbursementComment"
@@ -125,13 +126,13 @@
         <div class="row mt-4">
             <div class="col-md-12">
                 <label for="disburseRole" class="float-left"><strong>Select Role</strong></label>
-               <select id="disburseRole"  class="form-control">
-                   <option *ngFor="let r of cadRoleList" [value]="r.role">{{r?.role?.roleName}}</option>
+               <select id="disburseRole"  class="form-control" name="toRole"  [(ngModel)]="toRole">
+                   <option *ngFor="let r of cadRoleList" [value]="r.role.id">{{r?.role?.roleName}}{{r?.role?.id}}</option>
                </select>
             </div>
         </div>
     </nb-card-body>
     <nb-card-footer>
-        <button nbButton class="float-right" (click)="submit()" [disabled]="exposureForm.invalid || disableAdd">Save</button>
+        <button nbButton class="float-right" (click)="submit()" [disabled]="exposureForm.invalid || disableAdd || (comment.value == '')">Save</button>
     </nb-card-footer>
 </nb-card>
