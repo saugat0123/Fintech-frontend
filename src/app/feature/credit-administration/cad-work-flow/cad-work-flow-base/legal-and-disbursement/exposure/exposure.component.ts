@@ -39,7 +39,8 @@ export class ExposureComponent implements OnInit, OnChanges {
                 private service: CreditAdministrationService,
                 private toastService: ToastService,
                 private modalService: NgbModal,
-                public commonService: CommonService) {
+                public commonService: CommonService,
+                private creditAdministrationService: CreditAdministrationService,) {
     }
 
     get disbursementDetails() {
