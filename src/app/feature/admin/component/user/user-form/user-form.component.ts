@@ -125,7 +125,7 @@ export class UserFormComponent implements OnInit {
                 this.activeModal.close(ModalResponse.SUCCESS);
             } else {
                 this.model = new User();
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Edited User'));
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated User'));
                 this.activeModal.close(ModalResponse.SUCCESS);
             }
             }, error => {

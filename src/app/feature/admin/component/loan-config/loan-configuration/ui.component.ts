@@ -384,7 +384,7 @@ export class UIComponent implements OnInit, DoCheck {
           this.spinner.hide();
         });
       } else {
-        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Edited Loan Configuration'));
+        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Loan Configuration'));
         this.loanConfig = new LoanConfig();
         this.router.navigate(['home/admin/config']).then(() => {
           this.spinner.hide();

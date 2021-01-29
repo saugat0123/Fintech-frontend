@@ -41,7 +41,7 @@ export class ReportInfoLevelFormComponent implements OnInit {
         this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved reporting info'));
         this.updateReport.emit(true);
       } else {
-        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Edited reporting info'));
+        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated reporting info'));
         this.updateReport.emit(true);
       }
     }, error => {

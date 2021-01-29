@@ -64,7 +64,7 @@ export class AccountDocumentFormComponent implements OnInit {
         this.toastService.show(alert);
       } else {
         this.activeModal.close(ModalResponse.SUCCESS);
-        const alert = new Alert(AlertType.SUCCESS, 'Successfully Edited documents');
+        const alert = new Alert(AlertType.SUCCESS, 'Successfully Updated documents');
         this.toastService.show(alert);
       }
         }, (err) => {

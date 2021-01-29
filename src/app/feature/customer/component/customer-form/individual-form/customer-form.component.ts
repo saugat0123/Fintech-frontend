@@ -293,7 +293,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                         if (this.formValue.id == null) {
                             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Customer Info'));
                         } else {
-                            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Edited Customer Info'));
+                            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Customer Info'));
                         }
                     }, res => {
                         this.spinner = false;

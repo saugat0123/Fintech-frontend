@@ -242,7 +242,7 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
                 this.model = new Valuator();
                 this.activeModal.close(ModalResponse.SUCCESS);
             } else {
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Edited Valuator'));
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Valuator'));
                 this.model = new Valuator();
                 this.activeModal.close(ModalResponse.SUCCESS);
             }

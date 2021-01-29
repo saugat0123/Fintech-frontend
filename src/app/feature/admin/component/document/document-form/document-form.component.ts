@@ -61,7 +61,7 @@ export class DocumentFormComponent implements OnInit {
             this.model = new Document();
             this.activeModal.close(ModalResponse.SUCCESS);
         } else {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Edited Document!'));
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Document!'));
             this.model = new Document();
             this.activeModal.close(ModalResponse.SUCCESS);
         }

@@ -8,8 +8,6 @@ import {ModalResponse, ToastService} from '../../../../../../../@core/utils';
 import {CustomValidator} from '../../../../../../../@core/validator/custom-validator';
 import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
 import {AccountTypeService} from '../../../service/account-type.service';
-import {Document} from '../../../../../modal/document';
-import {contact} from 'ionicons/icons';
 
 @Component({
   selector: 'app-account-type-form',

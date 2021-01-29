@@ -46,7 +46,7 @@ export class CompanyFormComponent implements OnInit, DoCheck {
                 this.company = new Company();
                 this.activeModal.close(ModalResponse.SUCCESS);
             } else {
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Edited Company Information'));
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Company Information'));
                 this.company = new Company();
                 this.activeModal.close(ModalResponse.SUCCESS);
             }

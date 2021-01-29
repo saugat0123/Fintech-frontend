@@ -200,7 +200,7 @@ export class BranchFormComponent implements OnInit {
         this.model = new Branch();
         this.activeModal.close(ModalResponse.SUCCESS);
       } else {
-        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Edited Branch'));
+        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Branch'));
         this.model = new Branch();
         this.activeModal.close(ModalResponse.SUCCESS);
       }
