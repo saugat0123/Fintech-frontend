@@ -39,6 +39,7 @@ export class SmeComponent implements OnInit {
   cashCredit = false;
   shortTermLoan = false;
   bankGuarantee = false;
+  listOfLoan = [];
   loanTypes = [
     {key: 'Overdraft', value: 'अधिबिकर्ष(Overdraft)'},
     {key: 'DemandLoan', value: 'डिमाण्ड कर्जा(Demand Loan)'},
@@ -65,6 +66,7 @@ export class SmeComponent implements OnInit {
     this.buildForm();
     this.checkOfferLetterData();
     this.chooseLoanType(this.selectedLoanArray);
+    this.listOfLoan.push(this.loanForm.get('loanTypeSelectedArray').value);
   }
 
   buildForm() {
@@ -292,7 +294,7 @@ export class SmeComponent implements OnInit {
       cashCreditFixTerm: [undefined],
       cashCreditSecurity: [undefined],
       cashCreditDastur: [undefined],
-      dasturFlag: [undefined],
+      dasturFlag: [true],
     });
   }
 
@@ -317,7 +319,7 @@ export class SmeComponent implements OnInit {
       shortTermLoanTimePlan: [undefined],
       shortTermLoanTimePlanTill: [undefined],
       shortTermLoanDastur: [undefined],
-      dasturFlag: [undefined],
+      dasturFlag: [true],
     });
   }
 
@@ -338,7 +340,7 @@ export class SmeComponent implements OnInit {
       bankGuaranteeTimePlan: [undefined],
       bankGuaranteeMargin: [undefined],
       bankGuaranteeDastur: [undefined],
-      dasturFlag: [undefined],
+      dasturFlag: [true],
     });
   }
   addMoreBankGuaranteeForm() {
@@ -653,7 +655,6 @@ export class SmeComponent implements OnInit {
         this.addMoreShortTermLoanForm();
         this.addMoreBankGuaranteeForm();
         this.addMoreCollateral();
-        this.addTableData();
         this.offerLetterDocument = new OfferDocument();
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.SME);
       } else  {
