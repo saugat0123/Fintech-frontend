@@ -15,14 +15,18 @@
                         Facility
                     </th>
 
-                    <th rowspan="5">
+                    <th rowspan="5" *ngIf="cadData?.docStatus !== 'LEGAL_APPROVED' &&
+                              cadData?.docStatus !== 'DISBURSEMENT_PENDING' &&
+                              cadData?.docStatus !== 'DISBURSEMENT_APPROVED'">
                         Documents
                     </th>
                     <th>Preview</th>
-                    <th>Generate</th>
+                    <th *ngIf="cadData?.docStatus !== 'LEGAL_APPROVED' &&
+                              cadData?.docStatus !== 'DISBURSEMENT_PENDING' &&
+                              cadData?.docStatus !== 'DISBURSEMENT_APPROVED'">Generate</th>
                     <th>Amount</th>
                     <th>Remarks</th>
-                    <th>Action</th>
+                    <th >Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -36,7 +40,9 @@
                         <tr *ngFor="let data of customerLoan?.loan?.approvedDocument">
                             <td>{{data?.name}}</td>
 
-                            <td >
+                            <td *ngIf="cadData?.docStatus !== 'LEGAL_APPROVED' &&
+                              cadData?.docStatus !== 'DISBURSEMENT_PENDING' &&
+                              cadData?.docStatus !== 'DISBURSEMENT_APPROVED'">
                                 <button (click)="openDocUploadModal(uploadModal , customerLoan.loanHolder.id,customerLoan.id,data.id,data.name)"
                                         nbButton
                                         [nbTooltip]="'upload '+ data?.displayName"
@@ -49,10 +55,13 @@
                     <td><i *ngIf="data.url" class="fas fa-eye" (click)="previewDoc(data.url,data.name)"></i>
                         <i *ngIf="!data.url" class="fas fa-times-circle" (click)="previewDoc(data.url,data.name)"></i>
                     </td>
-                    <td><button nbButton class="align-items-center"  status="primary" size="tiny" *ngIf="data.containsTemplate" (click)="populateCadTemplate(data.id,customerLoan.id)">Generate</button></td>
+                    <td *ngIf="cadData?.docStatus !== 'LEGAL_APPROVED' &&
+                            cadData?.docStatus !== 'DISBURSEMENT_PENDING' &&
+                            cadData?.docStatus !== 'DISBURSEMENT_APPROVED'"><button nbButton class="align-items-center"  status="primary" size="tiny" *ngIf="data.containsTemplate" (click)="populateCadTemplate(data.id,customerLoan.id)">Generate</button></td>
                     <td>{{data.amount}}</td>
                     <td>{{data.remarks}}</td>
-                    <td class="cursor"><i class="fa fa-edit" (click)="openSaveEditForm(saveEditOtherDocInfo,customerLoan.id,data.id,data.amount,data.remarks)"></i></td>
+                    <td
+                            class="cursor"><i class="fa fa-edit" (click)="openSaveEditForm(saveEditOtherDocInfo,customerLoan.id,data.id,data.amount,data.remarks)"></i></td>
 
                 </tr>
                     </ng-container>
