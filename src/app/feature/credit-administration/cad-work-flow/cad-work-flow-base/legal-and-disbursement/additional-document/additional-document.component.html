@@ -4,7 +4,11 @@
             <div class="clearfix">
                 <div class="float-left"><strong>Additional Documents</strong></div>
                 <div class="float-right">
-                    <button nbButton size="small" (click)="openAdd()"><em class="fa fa-plus"></em></button>
+                    <button
+                            *ngIf="cadData?.docStatus !== 'LEGAL_APPROVED' &&
+                              cadData?.docStatus !== 'DISBURSEMENT_PENDING' &&
+                              cadData?.docStatus !== 'DISBURSEMENT_APPROVED'"
+                            nbButton size="small" (click)="openAdd()"><em class="fa fa-plus"></em></button>
                 </div>
             </div>
 
@@ -18,7 +22,10 @@
                 <th>Document Name</th>
                 <th>Attachment</th>
                 <th>Remarks</th>
-                <th>Action</th>
+                <th
+                        *ngIf="cadData?.docStatus !== 'LEGAL_APPROVED' &&
+                              cadData?.docStatus !== 'DISBURSEMENT_PENDING' &&
+                              cadData?.docStatus !== 'DISBURSEMENT_APPROVED'">Action</th>
 
 
             </tr>
@@ -30,7 +37,10 @@
                 <td>{{data?.docName}}</td>
                 <td class="cursor" (click)="commonService.openDocument(data?.docPath)"><em [class]="data?.docPath === null ? 'fas fa-times-circle text-danger':'fa fa-eye'"></em></td>
                 <td>{{data?.remarks}}</td>
-                <td (click)="editDoc(data)"><em class="fa fa-edit cursor"></em></td>
+                <td (click)="editDoc(data)"
+                    *ngIf="cadData?.docStatus !== 'LEGAL_APPROVED' &&
+                              cadData?.docStatus !== 'DISBURSEMENT_PENDING' &&
+                              cadData?.docStatus !== 'DISBURSEMENT_APPROVED'"><em class="fa fa-edit cursor"></em></td>
             </tr>
 
             </tbody>
