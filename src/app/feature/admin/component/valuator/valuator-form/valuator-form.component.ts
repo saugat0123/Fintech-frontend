@@ -237,11 +237,15 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
         this.spinner = true;
         this.model = this.valuatorForm.value;
         this.service.save(this.model).subscribe(() => {
-
+            if (this.model.id == null) {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Valuator!'));
                 this.model = new Valuator();
                 this.activeModal.close(ModalResponse.SUCCESS);
-
+            } else {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Edited Valuator'));
+                this.model = new Valuator();
+                this.activeModal.close(ModalResponse.SUCCESS);
+            }
             }, error => {
 
                 console.log(error);

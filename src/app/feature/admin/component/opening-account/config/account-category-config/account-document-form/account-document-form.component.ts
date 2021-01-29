@@ -58,11 +58,15 @@ export class AccountDocumentFormComponent implements OnInit {
   public save() {
     this.model.documents = this.finalDocumentList;
     this.accountCategoryService.save(this.model).subscribe(() => {
-
-          this.activeModal.close(ModalResponse.SUCCESS);
-          const alert = new Alert(AlertType.SUCCESS, 'Successfully saved documents');
-          this.toastService.show(alert);
-
+      if (this.model.id == null) {
+        this.activeModal.close(ModalResponse.SUCCESS);
+        const alert = new Alert(AlertType.SUCCESS, 'Successfully saved documents');
+        this.toastService.show(alert);
+      } else {
+        this.activeModal.close(ModalResponse.SUCCESS);
+        const alert = new Alert(AlertType.SUCCESS, 'Successfully Edited documents');
+        this.toastService.show(alert);
+      }
         }, (err) => {
           console.error(err);
           const alert = new Alert(AlertType.ERROR, 'Failed to save documents');

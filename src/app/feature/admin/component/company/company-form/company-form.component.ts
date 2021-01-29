@@ -41,12 +41,15 @@ export class CompanyFormComponent implements OnInit, DoCheck {
         this.submitted = true;
 
         this.service.save(this.company).subscribe(() => {
+            if (this.company.id == null){
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Company Information'));
-
                 this.company = new Company();
-
                 this.activeModal.close(ModalResponse.SUCCESS);
-
+            } else {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Edited Company Information'));
+                this.company = new Company();
+                this.activeModal.close(ModalResponse.SUCCESS);
+            }
             }, error => {
 
                 console.log(error);

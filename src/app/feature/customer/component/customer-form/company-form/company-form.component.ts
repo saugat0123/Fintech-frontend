@@ -951,7 +951,11 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
             this.close();
-            this.toastService.show(new Alert(AlertType.SUCCESS, `Company Saved Successfully`));
+            if (this.formValue.id == null) {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Company Info'));
+            } else {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Edited Company Info'));
+            }
         }, error => {
             console.error(error);
             this.spinner = false;

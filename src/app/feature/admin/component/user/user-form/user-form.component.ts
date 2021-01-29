@@ -119,13 +119,15 @@ export class UserFormComponent implements OnInit {
         }
         this.model.provinces = provinces;
         this.service.save(this.model).subscribe(() => {
+            if (this.model.id == null) {
                 this.model = new User();
-
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved User'));
-
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved User!'));
                 this.activeModal.close(ModalResponse.SUCCESS);
-
-
+            } else {
+                this.model = new User();
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Edited User'));
+                this.activeModal.close(ModalResponse.SUCCESS);
+            }
             }, error => {
 
                 console.log(error);
