@@ -197,7 +197,7 @@
                     <ng-container *ngIf="letter?.landNumberPreviousOwnerShow">
                         <div class="table-responsive">
                             <p>२.७ - निम्न विवरण एवं जोखिम वहन हुने गरि बैंकको पक्षमा गरिदिएको विमालेख पेश गर्नुपर्नेछ ।</p>
-                            <table class="table table-bordered" style="width:100%">
+                            <table class="table table-bordered col-md-12" style="width:100%">
                                 <thead class="font-weight-bold">
                                 <tr>
                                 <td>क्र.सं</td>
@@ -503,10 +503,8 @@
                             </div>
                             <div class="col-md-12">
                                 <p class="text-left">आधिकारीक दस्तखत</p>
-                                <p class="text-left">परिचय पत्र नंं<input class="form-fields  nepaliFont"
-                                                                          formControlName="idCardNo"
-                                                                          placeholder=""
-                                                                          type="text"/></p>
+                                <p class="text-left">परिचय पत्र नंं:
+                                <strong class="font-weight-bold nepaliFont">{{letter['idCardNo']}}</strong></p>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -515,10 +513,8 @@
                             </div>
                             <div class="col-md-12">
                                 <p class="text-left">आधिकारीक दस्तखत</p>
-                                <p class="text-left">परिचय पत्र नंं<input class="form-fields  nepaliFont"
-                                                                          formControlName="idCardNo2"
-                                                                          placeholder=""
-                                                                          type="text"/></p>
+                                <p class="text-left">परिचय पत्र नं:
+                                <strong class="font-weight-bold nepaliFont">{{letter['idCardNo2']}}</strong></p>
                             </div>
                         </div>
                     </div>
@@ -549,15 +545,6 @@
                 </div>
             </div>
             <p>नोट: कृपया हरेक पृष्ठमा आधिकारिक दस्तखत तथा निकायको छाप अनिवार्य रुपमा लगाउनु होला</p>
-            <br><br><br>
-            <div class="row">
-                <div class="col-md-3 " style="margin-top: 20px">
-                    <div class="col-md-12">
-                        <p class="text-center">-----------------------------</p>
-                        <p class="text-center">ऋणीको आधिकारिक दस्तखत</p>
-                    </div>
-                </div>
-            </div>
         </form>
     </div>
 </div>
