@@ -168,7 +168,7 @@
                                  class="small text-danger">
                                 <div
                                         *ngIf="basicInfoControls.dob.errors.required || basicInfoControls.dob.errors.beforeToday">
-                                    Invalid date of birth
+                                    Date of Birth is required
                                 </div>
                             </div>
                         </div>
@@ -278,7 +278,7 @@
                                  class="small text-danger">
                                 <div
                                         *ngIf="basicInfoControls.citizenshipIssuedDate.errors.required || basicInfoControls.citizenshipIssuedDate.errors.beforeToday">
-                                    Invalid Registration Date
+                                    Registration Date is required
                                 </div>
                             </div>
                         </div>
@@ -451,7 +451,7 @@
                                 [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.wardNumber.errors }"
                                 class="form-control" formControlName="wardNumber" id="wardNumber"
                                 name="wardNumber" placeholder="Ward Number"
-                                type="text">
+                                type="number">
                             <div *ngIf="(submitted) && basicInfoControls.wardNumber.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.wardNumber.errors.required">
@@ -572,7 +572,7 @@
                                 [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.temporaryWardNumber.errors }"
                                 class="form-control" formControlName="temporaryWardNumber" id="temporaryWardNumber"
                                 name="temporaryWardNumber" placeholder="Ward Number"
-                                type="text">
+                                type="number">
                             <div *ngIf="(submitted) && basicInfoControls.temporaryWardNumber.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.temporaryWardNumber.errors.required">
@@ -736,7 +736,7 @@
                        </div>
                    </div>
                </div>
-                <div>
+                <div *ngIf="!crgLambdaDisabled">
                     <nb-card class="card-height">
                         <nb-card-header>
                             <label for="bankingRelationship"><h6>Banking Relationship</h6></label>
@@ -762,11 +762,11 @@
                         </nb-card-body>
                     </nb-card>
                 </div>
-                <div class="col-4">
+                <div *ngIf="!crgLambdaDisabled" class="col-4">
                     <label><strong>Net worth</strong></label>
                     <input id="netWorth" formControlName="netWorth" name="netWorth" type="text"
                            class="form-control" placeholder="Net Worth Amount"
-                           [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.netWorth.errors }"/>
+                           [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.netWorth.errors }" appDecimalNumber/>
                     <div *ngIf="(submitted) && basicInfoControls.netWorth.invalid"
                          class="invalid-feedback">
                         <div *ngIf="basicInfoControls.netWorth.errors">

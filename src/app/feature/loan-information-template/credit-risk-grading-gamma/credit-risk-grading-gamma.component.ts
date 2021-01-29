@@ -9,6 +9,7 @@ import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
 import {ActivatedRoute} from '@angular/router';
+import {Status} from '../../../@core/Status';
 
 @Component({
     selector: 'app-credit-risk-grading-gamma',
@@ -58,7 +59,10 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         }*/
 
         this.questionService.getAllQuestions(this.loanConfigId).subscribe((res: any) => {
-            this.crgQuestionsList = res.detail;
+            const questionsList = res.detail;
+            this.crgQuestionsList = questionsList.filter(q => {
+                return q.status === Status.ACTIVE;
+            });
             this.buildFormAndCheckEdit();
         }, error => {
             console.log(error);
@@ -100,12 +104,17 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             this.totalPoints = this.formDataForEdit.totalPoint;
             this.grading = this.formDataForEdit.grade;
             this.creditRiskGrading.patchValue(this.formDataForEdit);
+            this.calculateTotalViaMap();
         }
     }
 
     onChangeOption(field, point, parameter) {
         this.totalPointMapper.set(field, point);
         this.creditRiskGrading.get(`${field}Parameter`).patchValue(parameter);
+        this.calculateTotalViaMap();
+    }
+
+    calculateTotalViaMap() {
         if (this.totalPointMapper.size === this.crgQuestionsList.length) {
             let total = 0;
             this.totalPointMapper.forEach(data => {

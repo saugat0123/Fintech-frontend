@@ -127,9 +127,9 @@
             </thead>
             <tbody>
             <tr>
-                <td class="text-right">Rs. {{formValue?.capital?.authorizedCapital | currencyFormatter}}</td>
-                <td class="text-right">Rs. {{formValue?.capital?.issuedCapital | currencyFormatter}}</td>
-                <td class="text-right">Rs. {{formValue?.capital?.paidUpCapital | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{formValue?.capital?.authorizedCapital | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{formValue?.capital?.issuedCapital | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{formValue?.capital?.paidUpCapital | currencyFormatter}}</td>
                 <!--        <td>{{formValue?.capital?.totalCapital}}</td>-->
                 <!--        <td>{{formValue?.capital?.fixedCapital}}</td>-->
                 <!--        <td>{{formValue?.capital?.workingCapital}}</td>-->
@@ -283,25 +283,54 @@
                 <th>Name</th>
                 <th>Contact No</th>
                 <th>Share %</th>
-                <th>Province</th>
-                <th>District</th>
-                <th>Municipalities or VDC</th>
+                <th>Address</th>
             </tr>
             </thead>
-            <tbody *ngFor="let proprietors of companyJsonData?.proprietorList; let i=index;">
-            <tr>
-                <td>{{i + 1}}</td>
-                <td>{{proprietors?.type}}</td>
-                <td>{{proprietors?.name}}</td>
-                <td>{{proprietors?.contactNo}}</td>
-                <td>{{proprietors?.share | currencyFormatter}}</td>
-                <td>{{proprietors?.province?.name}}</td>
-                <td>{{proprietors?.district?.name}}</td>
-                <td>{{proprietors?.municipalityVdc?.name}}</td>
-            </tr>
-            </tbody>
+            <ng-container *ngFor="let holder of companyJsonData.proprietorList;let i =index">
+                <tr>
+                    <td>{{i+1}}</td>
+                    <td><strong>{{holder?.name}}</strong></td>
+                    <td><strong>{{holder?.type}}</strong></td>
+                    <td><strong>{{holder?.share}}</strong></td>
+                    <td><strong>{{holder?.contactNo}}</strong></td>
+                    <td><strong>{{holder?.province?.name}}, {{holder?.district?.name}}, {{holder?.municipalityVdc?.name}}</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <table class="table border-dark">
+                            <thead class="sb-bg-dark text-white">
+                            <tr>
+                                <th>S.N</th>
+                                <th>Owner Relationship</th>
+                                <th>Relation Name</th>
+                                <th>Citizenship Number</th>
+                                <th>Issued Location</th>
+                                <th>Issued Date</th>
+                                <th>Mobile Number</th>
+                                <th>Address</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <ng-container *ngFor="let d of holder?.kycInfo?.ownerKycDetails; let j = index">
+                                <tr>
+                                    <td>{{j+1}}</td>
+                                    <td>{{d?.ownerRelationship ? d?.ownerRelationship : 'N/A' }}</td>
+                                    <td>{{d?.relationName ? d?.relationName : 'N/A' }}</td>
+                                    <td>{{d?.citizenshipNumber ? d?.citizenshipNumber : 'N/A' }}</td>
+                                    <td>{{d?.issuedLocation ? d?.issuedLocation : 'N/A' }}</td>
+                                    <td>{{d?.issuedDate ? (d?.issuedDate | date) : 'N/A'}}</td>
+                                    <td>{{d?.mobileNumber ? d?.mobileNumber : 'N/A' }}</td>
+                                    <td>{{d?.address ? d?.address : 'N/A'}}</td>
+                                </tr>
+                            </ng-container>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </ng-container>
         </table>
-        <table
+        <!-- todo uncomment it and verify-->
+       <!-- <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
@@ -330,7 +359,7 @@
                 <td>{{shareholderKyc?.shareholderKycAddress}}</td>
             </tr>
             </tbody>
-        </table>
+        </table>-->
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
@@ -474,51 +503,51 @@
             </tr>
             <tr>
                 <td>Interest Income</td>
-                <th class="text-right">Rs. {{businessGiven?.interestIncomeDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.interestIncomeDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Loan Processing Fee</td>
-                <th class="text-right">Rs. {{businessGiven?.loanProcessingFeeDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.loanProcessingFeeDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>LC Commission</td>
-                <th class="text-right">Rs. {{businessGiven?.lcCommissionDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.lcCommissionDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Guarantee Commission</td>
-                <th class="text-right">Rs. {{businessGiven?.guaranteeCommissionDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.guaranteeCommissionDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Other Commission</td>
-                <th class="text-right">Rs. {{businessGiven?.otherCommissionDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.otherCommissionDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Saving Account</td>
-                <th class="text-right">Rs. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Payroll Account</td>
-                <th class="text-right">Rs. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Debit Cards</td>
-                <th class="text-right">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Credit Cards</td>
-                <th class="text-right">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Mobile Bank / Internet Banking</td>
-                <th class="text-right">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td>Locker</td>
-                <th class="text-right">{{businessGiven?.lockerDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.lockerDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <th>Total</th>
-                <th class="text-right">Rs. {{businessGiven?.total | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.total | currencyFormatter}}</th>
             </tr>
 
         </table>

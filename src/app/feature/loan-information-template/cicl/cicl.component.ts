@@ -9,6 +9,7 @@ import {Editor} from '../../../@core/utils/constants/editor';
 import {RepaymentTrack} from '../../admin/modal/crg/RepaymentTrack';
 import {RelationshipList} from '../../loan/model/relationshipList';
 import {CiclRelationListEnum} from '../../loan/model/ciclRelationListEnum';
+import {environment} from '../../../../environments/environment.srdb';
 
 @Component({
   selector: 'app-cicl',
@@ -19,6 +20,7 @@ export class CiclComponent implements OnInit {
   @Input() ciclValue: CiclArray;
 
   @Input() fromProfile: boolean;
+  calendarType = 'AD';
 
   ciclForm: FormGroup;
 
@@ -32,6 +34,8 @@ export class CiclComponent implements OnInit {
   relationshipList: RelationshipList = new RelationshipList();
   relationlist;
   ciclRelation = CiclRelationListEnum.pair();
+
+  crgLambdaDisabled = environment.disableCrgLambda;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -71,7 +75,8 @@ export class CiclComponent implements OnInit {
     this.ciclForm = this.formBuilder.group({
       ciclArray: this.formBuilder.array([]),
       ciclRemarks: [ObjectUtil.isEmpty(this.ciclValue) ? '' : this.ciclValue.remarks],
-      repaymentTrack: [ObjectUtil.isEmpty(this.ciclValue) ? '' : this.ciclValue.repaymentTrack, Validators.required],
+      repaymentTrack: [ObjectUtil.isEmpty(this.ciclValue) ? '' : this.ciclValue.repaymentTrack,
+          this.crgLambdaDisabled ? undefined : Validators.required],
       cibCharge: [ObjectUtil.isEmpty(this.ciclValue) ? undefined : this.ciclValue.cibCharge, [Validators.required, Validators.min(0)]]
     });
     if (!ObjectUtil.isEmpty(this.ciclList)) {

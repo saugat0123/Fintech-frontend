@@ -6,7 +6,8 @@
     <nb-card-header>
         <div class="clearfix">
             <div class="float-right">
-                <button nbButton size="tiny" nbTooltip="update account info" (click)="updateBasicInfo()"><em class="fa fa-edit"></em></button>
+                <button nbButton size="tiny" nbTooltip="update account info" (click)="updateBasicInfo()"><em
+                        class="fa fa-edit"></em></button>
             </div>
         </div>
     </nb-card-header>
@@ -17,7 +18,8 @@
             <div class="row gutters-sm">
                 <div class="col-md-4 mb-3">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body cursor" nbTooltip="click to view Customer Detail"
+                             (click)="routerUtilsService.routeToCustomer(customerInfoData?.id,customerInfoData?.customerType,customerInfoData?.associateId)">
                             <div class="d-flex flex-column align-items-center text-center">
                                 <img alt="Admin" class="rounded-circle"
                                      src="https://bootdey.com/img/Content/avatar/avatar7.png" width="150">
@@ -34,11 +36,11 @@
                             </div>
                         </div>
                     </div>
-                    <nb-card class="mt-3">
+                    <nb-card class="mt-3" *ngIf="roleType !== 'MAKER'">
                         <nb-card-header>
                             <strong>Generate Offer Letter</strong>
                         </nb-card-header>
-                        <nb-card-body>
+                        <nb-card-body *ngIf="client === clientList.MEGA">
                             <div class="row">
                                 <div class="col-md-12">
                                     <nb-select
@@ -54,16 +56,19 @@
                                 <div class="col-md-12 mt-3">
                                     <button (click)="openOfferLetterDocumentModal(offerLetterType?.selected)"
                                             class="float-right" nbButton
-                                            size="small">Generate
+                                            size="small"
+                                            [disabled]="roleType === 'MAKER'">Generate
                                     </button>
                                 </div>
                             </div>
 
                         </nb-card-body>
                     </nb-card>
-                    <nb-card>
+
+                    <nb-card *ngIf="cadOfferLetterApprovedDoc?.docStatus !== 'LEGAL_APPROVED'">
                         <nb-card-header>
-                            <span class="float-right"><button (click)="openCustomOfferLetterDocumentModal(null)" nbButton outline
+                            <span class="float-right" *ngIf="roleType !== 'MAKER'"><button (click)="openCustomOfferLetterDocumentModal(null)"
+                                                              nbButton outline
                                                               size="tiny"><a
                                     class="fa fa-plus"></a></button></span>
                             Offer Letter Documents
@@ -116,10 +121,14 @@
                                            title="upload {{cusOfferLetter.docName}}">
                                             <i class="fa fa-upload cursor"></i>
                                         </a>
+                                        <span  *ngIf="roleType !== 'MAKER'">
                                         <a *ngIf="cusOfferLetter?.offerDocType?.toString() === 'CUSTOM'"
-                                           class="fa fa-edit cursor ml-1" (click)="openCustomOfferLetterDocumentModal(cusOfferLetter.id)"></a>
+                                           class="fa fa-edit cursor ml-1"
+                                           (click)="openCustomOfferLetterDocumentModal(cusOfferLetter.id)"></a>
                                         <a *ngIf="cusOfferLetter?.offerDocType?.toString() !== 'CUSTOM'"
-                                           class="fa fa-edit cursor ml-1" (click)="openOfferLetterDocumentModal(cusOfferLetter?.docName)"></a>
+                                           class="fa fa-edit cursor ml-1"
+                                           (click)="openOfferLetterDocumentModal(cusOfferLetter?.docName)"></a>
+                                            </span>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -174,7 +183,8 @@
                                 <div class="col-sm-9 text-secondary">
                                     {{customerInfoData?.contactNo}}
                                 </div>
-                            </div> <hr>
+                            </div>
+                            <hr>
                             <div class="row mb-n3 mt-n2" *ngIf="cadOfferLetterApprovedDoc?.data">
                                 <div class="col-sm-3">
                                     <strong class="mb-0">Account Number</strong>
@@ -360,7 +370,7 @@
                     <label for="type">Select Offer Type</label>
                     <select [(ngModel)]="docType" class="form-control" id="type">
                         <option hidden selected value="null">--Select Type--</option>
-                        <option value="DRAFT">Draft Document</option>
+                        <option *ngIf="roleType !== 'MAKER'" value="DRAFT">Draft Document</option>
                         <option value="SIGNED">Signed Document</option>
                     </select>
                 </div>

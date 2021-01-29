@@ -10,6 +10,7 @@ import {ExposureComponent} from '../../../cad-work-flow/cad-work-flow-base/legal
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {NbDialogService} from '@nebular/theme';
 import * as CryptoJS from 'crypto-js';
+import {AdditionalExposureComponent} from '../additional-exposure/additional-exposure.component';
 
 @Component({
     selector: 'app-disbursement-approved',
@@ -73,7 +74,7 @@ export class DisbursementApprovedComponent implements OnInit {
     }
 
     addExposure(data) {
-        const modelRef = this.nbModel.open(ExposureComponent, {size: 'xl'});
+        const modelRef = this.nbModel.open(AdditionalExposureComponent, {size: 'xl'});
         modelRef.componentInstance.cadData = data;
         modelRef.componentInstance.isHistory = true;
         modelRef.result.then(() => {

@@ -11,6 +11,7 @@
         <th>Date</th>
         <th>Remark</th>
 
+
         <th>Attachment</th>
 
 
@@ -66,24 +67,20 @@
                 <th>S.N</th>
                 <th>Document Name</th>
                 <th>Remarks</th>
+                <th>Upload On</th>
                 <th>Attachment</th>
-
-
-
-
             </tr>
             </thead>
             <tbody>
 
             <tr *ngFor="let data of cadData?.additionalDocumentList;let i = index">
-                <td>{{i+1}}</td>
+                <td>{{i + 1}}</td>
                 <td>{{data?.docName}}</td>
                 <td>{{data?.remarks}}</td>
-                <td class="cursor" (click)="commonService.openDocument(data?.docPath)"><em [class]="data?.docPath === null ? 'fas fa-times-circle text-danger':'fa fa-eye'"></em></td>
-
-
+                <td><span *ngIf="data?.docPath">{{data?.uploadOn | date}}</span></td>
+                <td class="cursor" (click)="commonService.openDocument(data?.docPath)"><em
+                        [class]="data?.docPath === null ? 'fas fa-times-circle text-danger':'fa fa-eye'"></em></td>
             </tr>
-
             </tbody>
         </table>
     </nb-card-body>

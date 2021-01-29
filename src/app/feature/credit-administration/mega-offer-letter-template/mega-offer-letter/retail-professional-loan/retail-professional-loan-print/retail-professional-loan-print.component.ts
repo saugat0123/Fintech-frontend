@@ -10,10 +10,21 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   @Input()
   letter: any;
   offerLetterConst = MegaOfferLetterConst;
+  loanTypeArray = ['Professional Term Loan', 'Professional Overdraft Loan' ];
+  proTermLoanSelected = false;
+  proOverdraftLoanSelected = false;
 
   constructor() { }
 
   ngOnInit() {
+    this.availableLoanType(this.letter['loanTypeSelectedArray']);
+  }
+
+  availableLoanType($event) {
+    this.loanTypeArray.forEach( () => {
+      $event.includes('Professional Term Loan') ? this.proTermLoanSelected = true : this.proTermLoanSelected = false;
+      $event.includes('Professional Overdraft Loan') ? this.proOverdraftLoanSelected = true : this.proOverdraftLoanSelected = false;
+    });
   }
 
 }

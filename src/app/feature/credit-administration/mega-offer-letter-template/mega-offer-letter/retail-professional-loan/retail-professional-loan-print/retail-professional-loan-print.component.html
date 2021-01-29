@@ -1,34 +1,23 @@
-<div class=" nep row "  id="{{offerLetterConst.RETAIL_PROFESSIONAL_LOAN}}Print">
+<div class=" row "  id="{{offerLetterConst.RETAIL_PROFESSIONAL_LOAN}}Print">
     <div class="logo-container">
-        <img  height="60px" src="../../../../../assets/img/offer-letter-header-logo.png">
+        <img  height="60px" src="../../../../../assets/img/logo.png">
     </div>
     <div class="row nep">
         <div class="col-md-12">
             <div class=" float-md-right">मितिः <strong class="nepaliFont"> {{letter['date']}}</strong></div>
         </div>
         <div class="col-md-12">
-            Ref No: 2075/76-MBNL-CAD-RET-2736
+            Ref No: 2075/76-MBNL-CAD-RET-<strong class="nepaliFont"> {{letter['refNo']}}</strong>
         </div>
-        <div class="col-md-12"><p>श्री
+        <div class="col-md-12"><p>
             <strong class="nepaliFont"> {{letter['borrowerName']}}</strong>
         </p>
-            <strong class="nepaliFont"> {{letter['vdc']}}</strong>
-            वडा नं
-            <strong class="nepaliFont"> {{letter['ward']}}</strong>
-            ,
-            <strong class="nepaliFont"> {{letter['district']}}</strong>
-        </div>
-        <div class="col-md-12">
-            <p>हाल:
-                <strong class="nepaliFont"> {{letter['currentVdc']}}</strong>
-                वडा नं
-                <strong class="nepaliFont"> {{letter['currentWard']}}</strong>
-                <strong class="nepaliFont"> {{letter['currentDistrict']}}</strong>
+            <p class="print-space">ठेगानाः
+                <strong class="nepaliFont">{{letter['borrowerAddress']}}</strong>
             </p>
-        </div>
-        <div class="col-md-12">
-            <p>मोवाइल नंः
-                <strong class="nepaliFont"> {{letter['mobileNo']}}</strong></p>
+            <p class="print-space">सम्पर्क टेलिफोन नंः
+                <strong class="nepaliFont">{{letter['contactNumber']}}</strong>
+            </p>
         </div>
         <br>
         <div class="text-center">
@@ -40,12 +29,12 @@
         </div>
         <div>
 
-            पेशागत कर्जा सुविधा उपलब्ध गराइपाऊँ भनी तपाँईले दिनु भएको निवेदन र त्यसमा भएका छलफलबाट, हामी, मेगा बैंक
+            <strong class="nepaliFont">{{letter['karjaFirstLine']}}</strong> कर्जा सुविधा उपलब्ध गराइपाऊँ भनी तपाँईले दिनु भएको निवेदन र त्यसमा भएका छलफलबाट, हामी, मेगा बैंक
             नेपाल लिमिटेड, निम्न बमोजिमको कर्जा सुविधा देहाय बमोजिमका शर्तहरुमा प्रदान गर्न सहर्ष प्रस्ताव गर्दछौं ।
         </div>
         <div class="col-md-8"> पक्षहरु :
             <div class="col-md-12">
-                १. श्री <strong class="nepaliFont"> {{letter['borrowerName']}}</strong>(यस पछि
+                १. <strong class="nepaliFont"> {{letter['borrowerName']}}</strong>(यस पछि
                 “ऋणी” भनिएको)
             </div>
             <div class="col-md-8">
@@ -53,70 +42,178 @@
             </div>
         </div>
         <div style="font-weight: bold">१. कर्जा सुविधाको प्रयोजन तथा संचालनः</div>
-        <table class="nep table-responsive table-bordered ">
-            <tr>
-                <th scope="col" style="width: 30%">क. प्रस्तावित सुविधा</th>
-                <th scope="col"> पेशागत कर्जा (Professional Loan)</th>
-            </tr>
-            <tbody>
-            <tr>
-                <td>कर्जा सीमा रकम</td>
-                <td>रु. १०,००,०००/(अक्षेरुपी दश लाख रुपैयाँ मात्र)</td>
-            </tr>
-            <tr>
-                <td>प्रयोजन</td>
-                <td>व्यक्तिगत वित्तीय आवश्यकता परिपूर्ति प्रयोजनार्थ ।</td>
-            </tr>
-            <tr>
-                <td>समयावधी</td>
-                <td>बैंकबाट कर्जा भुक्तानी भएको मितिले ५ वर्ष ।</td>
-            </tr>
-            <tr>
-                <td>व्याज</td>
-                <td> बार्षिक <strong class="nepaliFont"> {{letter['rate']}}</strong> (आधार दर <strong class="nepaliFont"> {{letter['aadharRate']}}</strong> ंप्रियिमय दर <strong class="nepaliFont"> {{letter['premiumRate']}}</strong> का दरले वा बैंकले समय समयमा तोके बमोजिम ।
-                    आधार दर
-                    बैंकले समय समयमा प्रकाशित सूचना बमोजिम हुनेछ ।
-                </td>
-            </tr>
-            <tr>
-                <td> ऋण चुक्ता</td>
-                <td>बैंकबाट कर्जाको प्रथम किस्ता भुक्तानी भएको मितिको एक महिना पछि प्रथम किस्ता प्रारम्भ हुने गरी
-                    <strong class="nepaliFont"> {{letter['noOfInstallments']}}</strong>
-                    समान मासिक किस्ताबन्दीमा रु <strong class="nepaliFont"> {{letter['emiAmount']}}</strong> (अक्षेरुपी <strong class="nepaliFont"> {{letter['amountInWords']}}</strong> का
-                    दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको २० तारिखमा चुक्ता भुक्तान गर्नु पर्नेछ ।
-                </td>
-            </tr>
-            <tr>
-                <td> भुक्तानी</td>
-                <td>यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको आधारमा
-                    रही
-                    कर्जा सीमा ननाघ्ने गरी प्रवाह गरिने छ ।
-                </td>
-            </tr>
-            <tr>
-                <td> पूर्व भुक्तानी शुल्क</td>
-                <td>कर्जाको शर्त तथा ब्याजदर परिवर्तन भएको कारणले ऋणीले आफ्नो आम्दानीको श्रोतबाट कर्जा
-                    अग्रिम भुक्तानी गर्न चाहेको अवस्थामा वाहेक तोकिएको समयावधि अघिनै भुक्तानी गर्न चाहेमा भुक्तानी
-                    हुन बाँकी
-                    साँवा रकमको १ प्रतिशत तथा सापटी वा कुनै बैंक वा वित्तीय संस्थामा सार्न वा कर्जा खरिद गर्ने भए ३
-                    प्रतिशत
-                    पूर्व भुक्तानी शुल्क लाग्नेछ ।
-                </td>
-            </tr>
-            <tr>
-                <td>प्रतिवद्धता शुल्क</td>
-                <td> स्वीकृत कर्जा सिमा रकम उपभोग नभएको खण्डमा उपभोग हुन बाँकी कर्जा रकमको १ प्रतिशत मात्र ।</td>
-            </tr>
-            <tr>
-                <td> सेवा शुल्क</td>
-                <td> स्वीकृत ऋण सुविधा रकमको १% (एक प्रतिशत) ।</td>
-            </tr>
-            <tr>
-                <td>क.सु.के दस्तुर</td>
-                <td>रु.<strong class="nepaliFont"> {{letter['chargeAmount']}}</strong></td>
-            </tr>
-            </tbody>
-        </table>
+
+        <ng-container *ngIf="proTermLoanSelected">
+            <div *ngFor="let proTerm of letter['professionalTermLoanArray']; let i = index">
+                <table class="table-responsive-md table-bordered">
+                    <tr>
+                        <th scope="col" style="width: 20%">क. प्रस्तावित सुविधा</th>
+                        <th scope="col"> पेशागत कर्जा (Professional Term Loan)
+                        </th>
+                    </tr>
+                    <tbody>
+                    <tr>
+                        <td>कर्जा सीमा रकम</td>
+                        <td>रु. <strong class="nepaliFont"> {{proTerm['karjaSeemaRakam']}}</strong> /(अक्षेरुपी
+                            <strong class="nepaliFont"> {{proTerm['karjaSeemaRakamWord']}}</strong> रुपैयाँ मात्र।)</td>
+                    </tr>
+                    <tr>
+                        <td>प्रयोजन</td>
+                        <td><strong class="nepaliFont"> {{proTerm['prayojan']}}</strong> प्रयोजनार्थ ।</td>
+                    </tr>
+                    <tr>
+                        <td>समयावधी</td>
+                        <td>बैंकबाट कर्जा भुक्तानी भएको मितिले <strong class="nepaliFont"> {{proTerm['tenure']}}</strong> ।</td>
+                    </tr>
+                    <tr>
+                        <td>व्याज</td>
+                        <td> आधार दर (Base Rate) +  प्रिमियम दर (Premium Rate) (हालको आधार दर
+                            <strong class="nepaliFont"> {{proTerm['aadharRate']}}</strong> % +
+                            प्रिमियम दर <strong class="nepaliFont"> {{proTerm['premiumRate']}}</strong> %) का दरले हाललाइ बार्षिक
+                            <strong class="nepaliFont"> {{proTerm['rate']}}</strong> %
+                            वा समय समयमा बैंकले तोके बमोजिम चुक्ता/भुक्तान गक्र्नु पर्ने गरि । बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन
+                            हुन गएमा सोही बमोजिम बार्षिक ब्याजदर संसोधन (घट्न/बढ्न) सक्नेछ ।
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> ऋण चुक्ता</td>
+                        <td> बैंकबाट कर्जाको प्रथम किस्ता भुक्तानी भएको मितिको <strong class="nepaliFont"> {{proTerm['reenChuktaDate']}}</strong> महिना पछि प्रथम किस्ता प्रारम्भ हुने गरी
+                            <strong class="nepaliFont"> {{proTerm['noOfInstallments']}}</strong>
+                            समान <strong class="nepaliFont"> {{proTerm['reenChuktaMaasik']}}</strong> किस्ताबन्दीमा रु
+                            <strong class="nepaliFont"> {{proTerm['emiAmount']}}</strong>/–
+                            (अक्षेरुपी <strong class="nepaliFont"> {{proTerm['amountInWords']}}</strong>) मात्र) का
+                            दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नु पर्नेछ ।
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> भुक्तानी</td>
+                        <td> यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको आधारमा
+                            रही
+                            कर्जा सीमा ननाघ्ने गरी प्रवाह गरिने छ ।
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> पूर्व भुक्तानी शुल्क</td>
+                        <td> कर्जाको शर्त तथा ब्याजदर परिवर्तन भएको कारणले ऋणीले आफ्नो आम्दानीको श्रोतबाट कर्जा
+                            अग्रिम भुक्तानी गर्न चाहेको अवस्थामा वाहेक तोकिएको समयावधि अघिनै भुक्तानी गर्न चाहेमा वा सापटी वा
+                            कुनै बैंक वा वित्तीय संस्थामा सार्न वा कर्जा खरिद गर्ने भएमा भुक्तानी हुन बाँकी साँवा रकमको ०.१५
+                            प्रतिशत वा कर्जा प्रवाहको बखत ऋणीबाट असुल गरिएको सेवा शुल्कको २० प्रतिशतले हुन आउने
+                            रकम मध्ये कम हुने रकम पूर्व भुक्तानी शुल्क लाग्नेछ ।
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>प्रतिवद्धता शुल्क</td>
+                        <td>
+                            स्वीकृत पेशागत कर्जा सुविधाको सीमा औसतमा ६० प्रतिशत भन्दा कम उपभोग भएको खण्डमा उपभोग
+                            नभएको पेशागत कर्जा सुविधाको सीमाको ०.१५% (शुन्य दशमलव एक पाँच प्रतिशत) वा कर्जा प्रवाहको
+                            बखत ऋणीबाट असुल गरिएको सेवा शुल्कको २० प्रतिशतले हुन आउने प्रतिशतका दरले मात्र ।
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> सेवा शुल्क</td>
+                        <td>भुक्तानी गरिने ऋण सुविधा रकमको<strong class="nepaliFont"> {{proTerm['sewaSulka']}}</strong> मात्र) ।</td>
+                    </tr>
+                    <tr *ngIf="proTerm['chargeAmountFlag']">
+                        <td>कर्जा सूचना दस्तुर</td>
+                        <td>रु. <strong class="nepaliFont"> {{proTerm['chargeAmount']}}</strong> /–
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div style="page-break-after: always"></div>
+
+            </div>
+        </ng-container>
+        <br>
+        <ng-container *ngIf="proOverdraftLoanSelected">
+            <div *ngFor="let proOverdraft of letter['professionalOverDraftLoanArray']; let i = index">
+                <table class="table-responsive-md table-bordered">
+                    <tr>
+                        <th scope="col" style="width: 20%">ख. प्रस्तावित सुविधा</th>
+                        <th scope="col"> पेशागत अधिविकर्ष कर्जा (Professional Overdraft Loan)
+                        </th>
+                    </tr>
+                    <tbody>
+                    <tr>
+                        <td>कर्जा सीमा रकम</td>
+                        <td>रु. <strong class="nepaliFont"> {{proOverdraft['karjaSeemaRakam']}}</strong>/-(अक्षेरुपी
+                            <strong class="nepaliFont"> {{proOverdraft['karjaSeemaRakamWord']}}</strong> रुपैयाँ मात्र) ।</td>
+                    </tr>
+                    <tr>
+                        <td>प्रयोजन</td>
+                        <td>
+                            <strong class="nepaliFont"> {{proOverdraft['prayojan']}}</strong>
+                             प्रयोजनार्थ ।</td>
+                    </tr>
+                    <tr>
+                        <td>समयावधी</td>
+                        <td>
+                            रिभल्भिङ्गः
+                            <strong class="nepaliFont"> {{proOverdraft['tenure']}}</strong>
+                             मा पुनरावलोकन हुने गरि ।
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>व्याज</td>
+                        <td> आधार दर (Base Rate) +  प्रिमियम दर (Premium Rate) (हालको आधार दर
+
+                            <strong class="nepaliFont"> {{proOverdraft['aadharRate']}}</strong>% +
+                            प्रिमियम दर
+                            <strong class="nepaliFont"> {{proOverdraft['premiumRate']}}</strong>%) का दरले हाललाइ बार्षिक
+
+                            <strong class="nepaliFont"> {{proOverdraft['rate']}}</strong>%
+                            त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा समय समयमा बैंकले तोके
+                            बमोजिम चुक्ताभुक्तान गर्नु पर्ने गरि । बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही
+                            बमोजिम बार्षिक ब्याजदर संसोधन (घट्न/बढ्न) सक्नेछ ।
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td> भुक्तानी</td>
+                        <td> यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको आधारमा
+                            रही
+                            कर्जा सीमा ननाघ्ने गरी प्रवाह गरिने छ ।
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> पूर्व भुक्तानी शुल्क</td>
+                        <td>
+                            कर्जाको शर्त तथा ब्याजदर परिवर्तन भएको कारणले ऋणीले आफ्नो आम्दानीको श्रोतबाट कर्जा अग्रिम भुक्तानी
+                            गर्न चाहेको अवस्थामा वाहेक तोकिएको समयावधि अघिनै भुक्तानी गर्न चाहेमा वा सापटी वा कुनै बैंक वा वित्तीय
+                            संस्थामा सार्न वा कर्जा खरिद गर्ने भएमा ऋणीको नाममा स्वीकृत भई उपभोग भईरहेको कर्जा सीमा रकमको
+                            ०.१५ प्रतिशत वा कर्जा प्रवाहको बखत ऋणीबाट असुल गरिएको सेवा शुल्कको २० प्रतिशतले हुन आउने रकम
+                            मध्ये कम हुने रकम पूर्व भुक्तानी शुल्क लाग्नेछ ।
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>प्रतिवद्धता शुल्क</td>
+                        <td> स्वीकृत पेशागत अधिविकर्ष कर्जा सुविधाको सीमा औसतमा ६० प्रतिशत भन्दा कम उपभोग भएको खण्डमा उपभोग
+                            नभएको पेशागत अधिविकर्ष कर्जा सुविधाको सीमाको ०.१५% (शुन्य दशमलव एक पाँच प्रतिशत) वा कर्जा प्रवाहको
+                            बखत ऋणीबाट असुल गरिएको सेवा शुल्कको २० प्रतिशतले हुन आउने प्रतिशतका दरले मात्र ।</td>
+                    </tr>
+                    <tr>
+                        <td> सेवा शुल्क</td>
+                        <td>भुक्तानी गरिने ऋण सुविधा रकमको
+                            <strong class="nepaliFont"> {{proOverdraft['sewaSulka']}}</strong>
+                             मात्र) ।
+                        </td>
+                    </tr>
+                    <tr *ngIf="proOverdraft['chargeAmountFlag']">
+                        <td>कर्जा सूचना दस्तुर</td>
+                        <td>रु.
+                            <strong class="nepaliFont"> {{proOverdraft['chargeAmount']}}</strong>
+                            /–
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div style="page-break-after: always"></div>
+
+            </div>
+        </ng-container>
+
         <div style="font-weight: bold">२. सुरक्षण (धितो)</div>
         <div >
             उल्लेखित कर्जा सुविधा प्रदान गर्दा सो कर्जा रकमलाई खाम्ने देहाय बमोजिमका सुरक्षणहरु बैंकको पक्षमा प्रदान
@@ -125,22 +222,21 @@
                 <tbody>
                 <tr>
                     <td>२.१</td>
-                    <td class="pl-3"> ऋणीद्वारा हस्ताक्षर गरिएका प्रतिज्ञा पत्र ।</td>
+                    <td class="pl-3"> सम्पूर्ण कर्जा सीमा बराबरकोऋणीद्वारा हस्ताक्षर गरिएका प्रतिज्ञा पत्र (Promissory Note)</td>
                 </tr>
                 <tr>
                     <td>२.२</td>
-                    <td class="pl-3"> सम्पूर्ण कर्जा सीमा बराबरको कर्जा लिखत ।</td>
+                    <td class="pl-3"> सम्पूर्ण कर्जा सीमा बराबरको कर्जा लिखत (Loan Deed) ।</td>
                 </tr>
                 <tr>
                     <td>२.३</td>
-                    <td class="pl-3"> बैंकलाई मान्य हुने बीमा कम्पनीबाट बैंकलाई प्रथम हिताधिकारी
-                        बनाइ ऋणीको कर्जा सीमा रकम
-                        बराबरको आवधिक जिवन बीमालेख पेश गर्नु पर्नेछ ।
+                    <td class="pl-3"> बैंकलाई मान्यहुने बीमा कम्पनीबाट बैंकलाई प्रथमहिताधिकारी (Beneficiary)बनाइ ऋणीको कर्जा सीमा रकम बराबरको
+                        आवधिक जिवन बीमालेख (Term Life Insurance Policy) पेश गर्नु पर्नेछ ।
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="letter['gurantorNameFlag']">
                     <td>२.४</td>
-                    <td class="pl-3"><strong class="nepaliFont"> {{letter['gurantorName']}}</strong> को तर्फबाट कर्जा सिमा रकम बराबरको व्यक्तिगत जमानी ।
+                    <td class="pl-3"><strong class="nepaliFont"> {{letter['gurantorName']}}</strong> को तर्फबाट कर्जा सिमा रकम बराबरको व्यक्तिगत जमानी पेश गर्नुपर्नेछ ।
                     </td>
                 </tr>
                 </tbody>
@@ -148,63 +244,25 @@
             <div class="nep" style="font-weight: bold">नोटःमाथि उल्लेखित सुरक्षणहरुका साथ निम्न शर्तहरु अनिवार्य
                 रुपमा पालना गर्नुपर्नेछ ।
             </div>
-            <div class="row">
-                <div class="col-md-1">क.</div>
-                <div class="col-md-10"> ऋणीको सम्पत्ति खुलाउने लिखत () फोटो तथा सम्पर्क ठेगाना
-                    सहित पेश गनुपर्नेछ ।
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1">ख.</div>
-                <div class="col-md-10"> अन्य बैंकहरुसंग गरेको कारोवार बारे लिखित रुपमा खुलाउनुपर्ने (
-                    ) पेश
-                    गर्नुपर्नेछ ।
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1">ग.</div>
-                <div class="col-md-10">सम्पूर्ण कर्जा सम्बन्धी कागजातहरु सक्कल कागजातहरुसँग भिडाइ प्रमाणित
-                    गर्नुपर्नेछ ।
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1">घ.</div>
-                <div class="col-md-10">ऋणीको व्यक्तिगत स्थायी लेखा दर्ता प्रमाणपत्रको (
-                    ) प्रतिलिपी पेश गर्नु पर्नेछ ।
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1">ङ.</div>
-                <div class="col-md-10">जिवन विमा बापत लाग्ने सम्पूर्ण खर्च ऋणीले नै बहन गर्नु पर्नेछ ।</div>
-            </div>
-            <div class="row">
-                <div class="col-md-1">च.</div>
-                <div class="col-md-10"> कर्जा प्रवाहको ५ दिन भित्र कर्जाको उपभोग सम्बन्धि प्रतिवेदन
-                    पेश गर्नुपर्नेछ ।
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1">छ.</div>
-                <div class="col-md-10"> कर्जा प्रवाह पूर्व श्री  <strong class="nepaliFont"> {{letter['borrowerName']}}</strong> र  <strong class="nepaliFont"> {{letter['gurantorName']}}</strong> नाता
-                    प्रमाणित गर्ने कागजात पेश गनुपर्नेछ
-                </div>
-            </div>
         </div>
-        <div style="font-weight: bold"><u>३. व्याज</u></div>
+
+        <p [innerHTML]="letter['clausesTextEditor'] | safeHtml" class="nepaliFont my-4"></p>
+
         <div class="col-md-12">
+            <div style="font-weight: bold"><u>३. व्याज</u></div>
             ऋण सुविधाको व्याज निर्धारण गरिए बमोजिमको दरमा तथा चुक्ता हुन बाँकी रकममा निरन्तर लगाइनेछ (दैनिक डेविट
             बाँकी
             मा हिसाव गरिने)। बैंकले समय समयमा निर्णय गरी ऋणीलाई सूचना दिए बमोजिम अन्य व्याजदर लगाउने कुराको अधिकार
             बैंकलाई रहनेछ । तर, ऋण सुविधा प्रदान गरिएको समयमा राखिएका अवस्था र शर्तहरु पालना नगरिएको अवस्थामा कर्जा
-            चुक्ता भुक्तान नभएसम्म भाखा नाघेको सावाँ तथा ब्याज रकम मा विना
+            चुक्ता भुक्तान नभएसम्म भाखा नाघेको सावाँ तथा ब्याज रकम (Overdue Interest and Principle) मा विना
             सूचना
             कम्तिमा पनि उल्लेखित ब्याजदरमा थप २ प्रतिशत भन्दा कम नहुने गरी हर्जना ब्याज लगाइनेछ ।
         </div>
         <div style="font-weight: bold"><u>४. ऋण चुक्ता –</u></div>
         <div class="col-md-12">
             यस ऋण स्विकृतीपत्रमा अन्यथा उल्लेख गरिएकोमा यस स्विकृतीपत्र अन्तर्गत ऋणीलाई उपलब्ध गराइएका सम्पूर्ण
-            कर्जा
-            सुविधा हरु बैंकले माग गरेका बखत ऋणीले बैंकलाई तत्कालै चुक्ता भुक्तान गर्नु पर्नेछ ।
+            कर्जा सुविधा (loan/advances)
+            हरु बैंकले माग गरेका बखत ऋणीले बैंकलाई तत्कालै चुक्ता भुक्तान गर्नु पर्नेछ ।
         </div>
         <div style="font-weight: bold"><u> ५. निरीक्षण </u></div>
         <div class="col-md-12">
@@ -289,14 +347,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-1">ञ.</div>
+                <div class="col-md-1">ण.</div>
                 <div class="col-md-10"> यो ऋण स्वीकृतिपत्र ऋणीले पढी वाची यसको मतलब तथा परिणाम समेत बुझी आफ्नो मनोनमान राजी खुसीले
                     हस्ताक्षर
                     गरेको हो ।
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-1">ट.</div>
+                <div class="col-md-1">त.</div>
                 <div class="col-md-10"> बैंकले यस ऋण स्वीकृतिपत्रमा आवश्यकतानुसार  संशोधन गर्न सक्नेछ र सो को जानकारी लिखित रुपमा ऋणीलाई
                     गराइनेछ
                     । ऋणीले यो ऋण स्वीकृतिपत्र तथा यसका संशोधनमा उल्लेख गरिएका ब्यवस्थाहरुको पूर्णरुपमा पालना गर्नु
@@ -304,7 +362,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-1">ठ .</div>
+                <div class="col-md-1">थ.</div>
                 <div class="col-md-10">यस स्वीकृतिपत्रमा जुनसुकै कुरा उल्लेख गरिएको भए तापनि जस्तो उल्लेख भएतापनि बैंकले आवश्यक ठानेमा
                     कुनै पनि
                     समय ऋणीलाई सुचना दिई उपभोग गरिरहेको कर्जा सीमा (पूर्ण वा आशिंक रुपमा) भुक्तानीका लागि माग गरी
@@ -320,7 +378,7 @@
             देहायमा उल्लेखित अवस्थामा भाखा नाघेको (यस पछि भाखा नाघ्ने अवस्था भनिएको) प्रमाणित भएको मानिनेछ :–
             <div class="nep row">
                 <div class="col-md-1">क.</div>
-                <div class="col-md-11"> यो ऋण स्वीकृतिपत्रमा उल्लेखित कुनै बयान वा प्रत्याभूत प्रतिज्ञा वा ऋणको लागि गरिएको
+                <div class="col-md-11"> यो ऋण स्वीकृतिपत्रमा उल्लेखित कुनै बयान वा प्रत्याभूत प्रतिज्ञा (warranty) वा ऋणको लागि गरिएको
                     कुनै
                     पत्राचार वा निवेदन वा ऋणको लागि ऋणिले निवेदनसंग पेश गरेको कुनै आर्थिक विवरण, योजना वा तथ्यांक
                     कुनै पनि
@@ -370,9 +428,9 @@
                     भन्ने
                     बैंकलाई लागेको अवस्थामा बैंकले लिने वा लिएको कुनै पनि निर्णय ऋणीको लागि अन्तिम तथा बाध्यकारी
                     हुनेछ । साथै
-                    त्यसपछिका कुनै पनि त्यस्ता अवस्थाहरु उत्पन्न भएको खण्डमा बैंकलाई देहायबमोजिमका अधिकारहरु हुनेछन्
+                    त्यसपछिका कुनै पनि त्यस्ता अवस्थाहरु उत्पन्न भएको खण्डमा बैंकलाई देहायबमोजिमका अधिकारहरु हुनेछन्:
                     <div class="nep row">
-                        <div class="col-md-1">क.</div>
+                        <div class="col-md-1">अ.</div>
                         <div class="col-md-11">यस ऋण स्विकृतीपत्र अन्तर्गत ऋणीले बैंकलाई तिर्नु बुझाउनु पर्ने सम्पूर्ण ऋण बक्यौता आदीको
                             व्याज समेत
                             सम्पूर्ण रकम तत्काल बैंकलाई तिर्नु पर्ने गरी बाँकी रहने छन् र बैंकले सम्पूर्ण लेना रकम
@@ -381,12 +439,12 @@
                         </div>
                     </div>
                     <div class="nep row">
-                        <div class="col-md-1">ख.</div>
+                        <div class="col-md-1">आ.</div>
                         <div class="col-md-11">यसको शर्त नं. ३ मा उल्लेख गरिएको व्याजदर लागु गर्ने,
                         </div>
                     </div>
                     <div class="nep row">
-                        <div class="col-md-1"> ग.</div>
+                        <div class="col-md-1">इ.</div>
                         <div class="col-md-11">ऋणीले उपलब्ध गराएको धितो सुरक्षण आफ्नो कब्जामा लिने तथा सो को विक्रीबाट प्राप्त लाभबाट
                             आफ्नो लेना असुल
                             उपर गर्ने, र यसो गर्दा पनि ऋणीले बैंकलाई तिर्नु बुझाउनु पर्ने सांवा व्याज असुल उपर हुन
@@ -396,18 +454,18 @@
                         </div>
                     </div>
                     <div class="nep row">
-                        <div class="col-md-1">घ.</div>
+                        <div class="col-md-1">ई.</div>
                         <div class="col-md-11">यस ऋण स्विकृतीपत्र अन्तर्गतका केही वा सवै दायित्वहरुको समाप्ती गर्ने ,
                         </div>
                     </div>
                     <div class="nep row">
-                        <div class="col-md-1">ङ.</div>
+                        <div class="col-md-1">उ.</div>
                         <div class="col-md-11">ऋणीलाई उपलब्ध गराइएको एक वा एक भन्दा बढी ऋण कर्जा संग सम्बन्धित शर्तहरुमा परिवर्तन
                             गर्ने,
                         </div>
                     </div>
                     <div class="nep row">
-                        <div class="col-md-1">च.</div>
+                        <div class="col-md-1">ऊ.</div>
                         <div class="col-md-11">यो ऋण स्विकृती पत्रमा उल्लेख गरिएको भन्दा बाहेक ऋणीलाई यस बैंकबाट अन्य कुनै ऋण सुविधा
                             उपलब्ध गराइएको
                             अवस्थामा त्यस्तो अन्य ऋण सुविधाका सम्बन्धमा ऋणीले कुनै म्भाबगति गरेमा त्यस्तो म्भाबगति
@@ -419,7 +477,7 @@
                         </div>
                     </div>
                     <div class="nep row">
-                        <div class="col-md-1">छ.</div>
+                        <div class="col-md-1">ए.</div>
                         <div class="col-md-11"> बैंकको कर्जा समयमा चुक्ता भुक्तान नगरी कर्जा असुलीको कारवाही चलाउँदा कर्जा सूचना
                             केन्द्रको कालो सूचिमा
                             समावेश गरी म ऋणीको नाममा अन्य बैंक तथा वित्तीय संस्थामा रहेको बैंक खाताको जानकारी माग
@@ -491,8 +549,17 @@
         </div>
         <div style="font-weight: bold">१०. कानून र क्षेत्राधिकार :</div>
         <div class="nep col-md-12">
-            प्रस्तुत बैंकिङ ऋण स्वीकृतिपत्र नेपालको बैंक तथा वित्तीय संस्था सम्बन्धी कानून तथा अन्य प्रचलित कानून र
-            क्षेत्राधिकारको अधिनमा रहनेछ ।
+            प्रस्तुत बैंकिङ ऋण स्विकृतीपत्र नेपालको बैंक तथा वित्तीय संस्था सम्बन्धि कानून तथा अन्य प्रचलित कानून र क्षेत्राधिकारको अधिनमा रहनेछ ।
+            साथै प्रचलित नेपाल कानून, नेपाल राष्ट्र बैंकको निर्देशन तथा बैंकको नीति, नियम तथा  सोमा समय समयमा हुने संशोधन सहितको पालना
+            गर्न मञ्जूर गर्नुका साथै माथि उल्लेखित सम्पूर्ण ऋण/कर्जा र/वा बैंकिङ्ग सुविधा समेत उल्लेखित कानूनको अधिनमा रहने कुरामा ऋणी मन्जूर
+            गर्दछ ।
+            <p>
+                यो स्वीकृतीपत्रको अधिनमा रही ऋणीले कर्जा सुविधाहरु उपभोग तथा सावाँ ब्याज भुक्तानी गर्दा वा कर्जाको शर्तहरु उल्लंघन भई कर्जा
+                असुलीको प्रक्रियामा बैंकसंग कुनै गुनासो/असमझदारी/विवाद   भएमा त्यस्तो विवाद समाधानको लागि अड्डा अदालत, नियमनकारी निकाय
+                आदि मार्फत विवाद समाधान गर्नु गराउनु पूर्व धनी बैंकले स्थापना गरेको मेलमिलाप केन्द्र (Mega Mediation Center) मार्फत आफ्ना
+                विवाद तथा गुनासोको समाधान गर्न निवेदन दिनु पर्नेछ । उक्त केन्द्रबाट  आफ्नो गुनासो वा विवाद समाधान नभएमा मात्र प्रचलित कानून
+                बमोजिमको अधिकार प्रयोग गरी कानूनीबाटो खोज्नु पर्नेछ ।
+            </p>
         </div>
         <div style="font-weight: bold">११. सूचना दिन सहमतीः</div>
         <div class="nep col-md-12">
@@ -506,7 +573,7 @@
             ऋणीले उपभोग गरिरहेको कर्जा सम्बन्धी बिभिन्न सुचनाहरु जस्तै ब्याजदरमा परिवर्तन, भाखा नाघेको कर्जा रकम,
             कर्जा
             सुविधाको किस्ता रकम, भुक्तानी मिति तथा कारोबार सम्बन्धी अन्य जानकारीहरु ऋणीलाई आधिकारीक पत्र, बिद्युतीय
-            माध्यम अथवा एस.एम.एस मार्फत गराइनेछ जसलाई बैंकको आधिकारीक सुचना मानिनेछ । साथै अन्य सूचनाहरु
+            माध्यम अथवा एस.एम.एस (SMS) मार्फत गराइनेछ जसलाई बैंकको आधिकारीक सुचना मानिनेछ । साथै अन्य सूचनाहरु
             देहाय
             बमोजिमको ठेगानामा हुलाक वा प्mयाक्सको माध्यमद्वारा दिइनेछ ।
         </div>
@@ -520,21 +587,14 @@
             </div>
             <div class=" col-md-10 " >
                 <div>ऋणी</div>
-                <div>श्री <strong class="nepaliFont"> {{letter['borrowerName']}}</strong></div>
-                <strong class="nepaliFont"> {{letter['vdc']}}</strong>
                 <p>
-                    वडा नं
-                    <strong class="nepaliFont"> {{letter['ward']}}</strong>
-                    ,
-                    <strong class="nepaliFont"> {{letter['district']}}</strong></p>
-                <p>हाल:
-                    <strong class="nepaliFont"> {{letter['currentVdc']}}</strong>
-                    वडा नं
-                    <strong class="nepaliFont"> {{letter['currentWard']}}</strong>,
-                    <strong class="nepaliFont"> {{letter['currentDistrict']}}</strong>
+                    नाम: <strong class="nepaliFont"> {{letter['borrowerName']}}</strong>
                 </p>
-                <p>मोवाइल नंः
-                    <strong class="nepaliFont"> {{letter['mobileNo']}}</strong>
+                <p>ठेगाना:
+                    <strong class="nepaliFont"> {{letter['borrowerAddress']}}</strong>
+                </p>
+                <p>सम्पर्क टेलिफोन नंः
+                    <strong class="nepaliFont"> {{letter['contactNumber']}}</strong>
                 </p>
             </div>
         </div>
@@ -549,19 +609,17 @@
             <div class="col-md-12 pt-2">
                 <div class="col-md-6 float-left">
                     ...................................<br>
-                    ...................................
                     <div>
-                        <div>अधिकृत–कर्जा ब्यबस्थापन</div>
-                        <strong class="nepaliFont"> {{letter['loanOfficer1']}}</strong>
+                        <div>आधिकारीक दस्तखत</div>
+                        परिचय पत्र नंं.<strong class="nepaliFont"> {{letter['citizenshipNo1']}}</strong>
 
                     </div>
                 </div>
                 <div class="col-md-6 float-right">
                     ...................................<br>
-                    ...................................
                     <div>
-                        <div>अधिकृत–कर्जा ब्यबस्थापन</div>
-                        <strong class="nepaliFont"> {{letter['loanOfficer2']}}</strong>
+                        <div>आधिकारीक दस्तखत</div>
+                        परिचय पत्र नंं.<strong class="nepaliFont"> {{letter['citizenshipNo2']}}</strong>
                     </div>
                 </div>
                 <br>
@@ -569,7 +627,9 @@
         </div>
         <br>
         <div class="nep pt-2">
-            म/हामीले ८ पृष्ठको यस बैकिङ ऋण स्वीकृतिपत्रमा उल्लेखित शर्तहरु राम्ररी पढेंरपढ्यौं र बुझेंरबुझ्यौं ।
+            म/हामीले
+            <strong class="nepaliFont"> {{letter['pageCount']}}</strong>
+            पृष्ठको यस बैकिङ ऋण स्वीकृतिपत्रमा उल्लेखित शर्तहरु राम्ररी पढेंरपढ्यौं र बुझेंरबुझ्यौं ।
             यसमा
             उल्लेख गरिएको सम्पूर्ण शर्तहरु पालना गर्न म/हामी मन्जुर गर्दछु । गर्दछौं र बैंकसंग यस अन्तर्गत लिएको ऋण
             पूर्ण रुपमा चुक्ता भुक्तान नगरे सम्म यसमा उल्ल्खित शर्तहरुको पूर्ण रुपले पालना गर्ने प्रतिज्ञा गर्दछु

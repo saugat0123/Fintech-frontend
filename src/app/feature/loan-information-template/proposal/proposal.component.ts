@@ -119,6 +119,7 @@ export class ProposalComponent implements OnInit {
             this.interestLimit = response.detail.interestRate;
             this.setCollateralRequirement(this.collateralRequirement);
             // this.checkLoanConfig();
+            this.setValidatorForPrepaymentField();
           }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
@@ -132,6 +133,7 @@ export class ProposalComponent implements OnInit {
     this.checkInstallmentAmount();
       this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
           .patchValue(Number(value)));
+
   }
 
   buildForm() {
@@ -180,7 +182,9 @@ export class ProposalComponent implements OnInit {
       // for moratoriumPeriod Amount--
       moratoriumPeriod: [undefined],
       // for prepaymentCharge Amount--
-      prepaymentCharge: [''],
+      prepaymentCharge: [(ObjectUtil.isEmpty(this.proposalData)
+          || ObjectUtil.isEmpty(this.proposalData.prepaymentCharge)) ? undefined :
+          this.proposalData.prepaymentCharge],
       // for prepaymentCharge Amount--
       // for commitmentFee Amount--
       commitmentFee: [undefined],
@@ -193,6 +197,15 @@ export class ProposalComponent implements OnInit {
 
 
     });
+  }
+
+  setValidatorForPrepaymentField () {
+    if ((this.loanNatureSelected && this.fundableNonFundableSelcted && this.isFundable && this.isTerminating) || this.isVehicle || this.isShare || this.isGeneral) {
+      this.proposalForm.get('prepaymentCharge').setValidators([ Validators.required, Validators.max(100), Validators.min(0)]);
+    } else {
+      this.proposalForm.get('prepaymentCharge').clearValidators();
+    }
+    this.proposalForm.get('prepaymentCharge').updateValueAndValidity();
   }
 
   checkLoanTypeAndBuildForm() {

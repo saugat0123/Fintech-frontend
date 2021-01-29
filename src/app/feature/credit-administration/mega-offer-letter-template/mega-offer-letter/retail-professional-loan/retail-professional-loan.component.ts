@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {Router} from '@angular/router';
@@ -13,6 +13,7 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerAppro
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../model/CadDocStatus';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
+import {NepaliEditor} from '../../../../../@core/utils/constants/nepaliEditor';
 
 @Component({
     selector: 'app-retail-professional-loan',
@@ -28,6 +29,14 @@ export class RetailProfessionalLoanComponent implements OnInit {
     offerLetterConst = MegaOfferLetterConst;
     offerLetterDocument: OfferDocument;
 
+    selectedArray = [];
+    loanTypeArray = ['Professional Term Loan', 'Professional Overdraft Loan' ];
+    proTermLoanSelected = false;
+    proOverdraftLoanSelected = false;
+    ckeConfig = NepaliEditor.CK_CONFIG;
+    note = '<ul><li><span style="font-family:Preeti">C0fL tyf JolQmutsf] ;DklQ v\'nfpg] lnvt -</span><span>Net Worth Statement<span style="font-family:Preeti">_ kmf]6f] tyf ;Dks{ 7]ufgf ;lxt k]z ug\'kg]{5 .</span></li>' +
+        '<li><span style="font-family:Preeti">tcGo a}+sx?;+u u/]sf] sf/f]jf/ af/] lnlvt ?kdf v\'nfpg\'kg]{ -</span><span>Multiple Banking Declaration<span style="font-family:Preeti">_ k]z ug\'{kg]{5 .</span></li> ' +
+        '<li><span style="font-family:Preeti">tpNn]lvt k|:tfljt crn ;DklQsf] k"0f{ d\'Nofªsg k|ltj]bg -</span><span>Complete Valuation Report<span style="font-family:Preeti">_ k]z ePkZrft dfq shf{ e\'Qmfg ul/g]5 .</span></li> </ul>';
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
 
     constructor(private formBuilder: FormBuilder,
@@ -47,28 +56,90 @@ export class RetailProfessionalLoanComponent implements OnInit {
 
     buildForm() {
         this.retailProfessionalLoan = this.formBuilder.group({
+            refNo: [undefined],
             borrowerName: [undefined],
-            loanAmount: [undefined],
-            vdc: [undefined],
-            ward: [undefined],
-            district: [undefined],
-            currentVdc: [undefined],
-            currentWard: [undefined],
-            currentDistrict: [undefined],
+            borrowerAddress: [undefined],
+            contactNumber: [undefined],
+            timePeriod: [undefined],
+            gurantorName: [undefined],
+            gurantorNameFlag: [true],
+            citizenshipNo1: [undefined],
+            citizenshipNo2: [undefined],
+            date: [undefined],
+
+            loanTypeSelectedArray: [undefined],
+
+            karjaFirstLine: [undefined],
+            clausesTextEditor: this.note,
+            pageCount: [undefined],
+            professionalTermLoanArray: this.formBuilder.array([this.buildProfessionalTermLoanGroup()]),
+            professionalOverDraftLoanArray: this.formBuilder.array([this.buildProfessionalOverDraftLoanGroup()]),
+        });
+    }
+
+    buildProfessionalTermLoanGroup() {
+        return this.formBuilder.group({
+            karjaSeemaRakam: [undefined],
+            karjaSeemaRakamWord: [undefined],
+            prayojan: [undefined],
+            tenure: [undefined],
             rate: [undefined],
             aadharRate: [undefined],
             premiumRate: [undefined],
-            timePeriod: [undefined],
+            reenChuktaDate: [undefined],
+            reenChuktaMaasik: [undefined],
             noOfInstallments: [undefined],
             emiAmount: [undefined],
-            mobileNo: [undefined],
-            chargeAmount: [undefined],
-            gurantorName: [undefined],
-            loanOfficer1: [undefined],
-            loanOfficer2: [undefined],
             amountInWords: [undefined],
-            date: [undefined]
+            sewaSulka: [undefined],
+            chargeAmount: [undefined],
+            chargeAmountFlag: [true],
         });
+    }
+
+    buildProfessionalOverDraftLoanGroup() {
+        return this.formBuilder.group({
+            karjaSeemaRakam: [undefined],
+            karjaSeemaRakamWord: [undefined],
+            prayojan: [undefined],
+            tenure: [undefined],
+            rate: [undefined],
+            aadharRate: [undefined],
+            premiumRate: [undefined],
+            sewaSulka: [undefined],
+            chargeAmount: [undefined],
+            chargeAmountFlag: [true],
+        });
+    }
+
+    changeLoanType($event) {
+        this.selectedArray = $event;
+        $event.includes('Professional Term Loan') ? this.proTermLoanSelected = true : this.proTermLoanSelected = false;
+        $event.includes('Professional Overdraft Loan') ? this.proOverdraftLoanSelected = true : this.proOverdraftLoanSelected = false;
+    }
+
+    addMoreProfessionalOverDraftLoan() {
+        (this.retailProfessionalLoan.get('professionalOverDraftLoanArray') as FormArray).push(this.buildProfessionalOverDraftLoanGroup());
+    }
+
+    addMoreProfessionalTermLoan() {
+        (this.retailProfessionalLoan.get('professionalTermLoanArray') as FormArray).push(this.buildProfessionalTermLoanGroup());
+    }
+
+    removeProfessionalOverDraftLoan(i) {
+        (this.retailProfessionalLoan.get('professionalOverDraftLoanArray') as FormArray).removeAt(i);
+    }
+
+    removeProfessionalTermLoan(i) {
+        (this.retailProfessionalLoan.get('professionalTermLoanArray') as FormArray).removeAt(i);
+    }
+
+    removeOptionalField(formGroup, fieldControlName) {
+        formGroup.get(fieldControlName).patchValue(false);
+    }
+
+    undoRemovalOfOptionalField(formGroup, fieldControlName) {
+        formGroup.get(fieldControlName).patchValue(true);
     }
 
     checkOfferLetterData() {
@@ -80,11 +151,20 @@ export class RetailProfessionalLoanComponent implements OnInit {
                 this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_PROFESSIONAL_LOAN);
             } else {
                 const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-                console.log(initialInfo);
                 this.initialInfoPrint = initialInfo;
-                console.log(this.offerLetterDocument);
                 this.existingOfferLetter = true;
                 this.retailProfessionalLoan.patchValue(initialInfo, {emitEvent: false});
+
+                this.selectedArray = initialInfo.loanTypeSelectedArray;
+                this.changeLoanType(this.selectedArray);
+                (this.retailProfessionalLoan.get('professionalTermLoanArray') as FormArray).clear();
+                initialInfo.professionalTermLoanArray.forEach( value => {
+                    (this.retailProfessionalLoan.get('professionalTermLoanArray') as FormArray).push(this.formBuilder.group(value));
+                });
+                (this.retailProfessionalLoan.get('professionalOverDraftLoanArray') as FormArray).clear();
+                initialInfo.professionalOverDraftLoanArray.forEach( value => {
+                    (this.retailProfessionalLoan.get('professionalOverDraftLoanArray') as FormArray).push(this.formBuilder.group(value));
+                });
                 this.initialInfoPrint = initialInfo;
             }
         }
@@ -92,6 +172,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
 
 
     submit(): void {
+        console.log('Check Value',this.retailProfessionalLoan.value);
         this.spinner = true;
         this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
 
@@ -99,12 +180,14 @@ export class RetailProfessionalLoanComponent implements OnInit {
             this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
                 if (offerLetterPath.docName.toString() ===
                     this.offerLetterConst.value(this.offerLetterConst.RETAIL_PROFESSIONAL_LOAN).toString()) {
+                    this.retailProfessionalLoan.get('loanTypeSelectedArray').patchValue(this.selectedArray);
                     offerLetterPath.initialInformation = JSON.stringify(this.retailProfessionalLoan.value);
                 }
             });
         } else {
             const offerDocument = new OfferDocument();
             offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_PROFESSIONAL_LOAN);
+            this.retailProfessionalLoan.get('loanTypeSelectedArray').patchValue(this.selectedArray);
             offerDocument.initialInformation = JSON.stringify(this.retailProfessionalLoan.value);
             this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
         }
@@ -123,5 +206,4 @@ export class RetailProfessionalLoanComponent implements OnInit {
         });
 
     }
-
 }

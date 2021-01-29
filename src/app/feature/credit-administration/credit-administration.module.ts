@@ -47,6 +47,7 @@ import { DocumentChecklistLiteComponent } from './cad-work-flow/cad-work-flow-ba
 import { DocumentChecklistViewLiteComponent } from './cad-view/document-checklist-view-lite/document-checklist-view-lite.component';
 import { SecurityComplianceCertificateComponent } from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/security-compliance-certificate/security-compliance-certificate.component';
 import {NgxPrintModule} from 'ngx-print';
+import { AdditionalExposureComponent } from './component/disbursement/additional-exposure/additional-exposure.component';
 
 
 @NgModule({
@@ -87,7 +88,8 @@ import {NgxPrintModule} from 'ngx-print';
         AddAdditionalDocumentComponent,
         DocumentChecklistLiteComponent,
         DocumentChecklistViewLiteComponent,
-        SecurityComplianceCertificateComponent],
+        SecurityComplianceCertificateComponent,
+        AdditionalExposureComponent],
     imports: [
         ThemeModule,
         CommonModule,
@@ -108,7 +110,8 @@ import {NgxPrintModule} from 'ngx-print';
         CustomOfferLetterDocumentComponent,
         UpdateCustomerCadInfoComponent,
         AddAdditionalDocumentComponent,
-        SecurityComplianceCertificateComponent]
+        SecurityComplianceCertificateComponent,
+        AdditionalExposureComponent]
 })
 export class CreditAdministrationModule {
 }

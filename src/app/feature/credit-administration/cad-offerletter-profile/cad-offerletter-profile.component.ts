@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {CreditAdministrationService} from '../service/credit-administration.service';
 import {MegaOfferLetterConst} from '../mega-offer-letter-const';
 import {CustomerApprovedLoanCadDocumentation} from '../model/customerApprovedLoanCadDocumentation';
@@ -14,6 +14,9 @@ import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {RouterUtilsService} from '../utils/router-utils.service';
 import {CustomOfferLetterDocumentComponent} from './cad-offer-letter-modal/custom-offer-letter-document/custom-offer-letter-document.component';
 import {UpdateCustomerCadInfoComponent} from './update-customer-cad-info/update-customer-cad-info.component';
+import {environment} from '../../../../environments/environment';
+import {Clients} from '../../../../environments/Clients';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-cad-offerletter-profile',
@@ -35,8 +38,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         private nbDialogService: NbDialogService,
         private modelService: NgbModal,
         private toastrService: ToastService,
-        private router: Router,
-        private routerUtilsService: RouterUtilsService
+        public routerUtilsService: RouterUtilsService
     ) {
     }
 
@@ -44,8 +46,9 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     offerLetterId;
     loanHolderId;
     customerInfoData: CustomerInfoData;
-    offerLetterTypes = MegaOfferLetterConst.enumObject();
-
+    offerLetterTypes = [];
+    client = environment.client;
+    clientList = Clients;
     // todo move document upload to different to component
     documentName;
     documentId;
@@ -55,8 +58,13 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     toggleArray: { toggled: boolean }[] = [];
 
+    roleType = LocalStorageUtil.getStorage().roleType;
+
     ngOnInit() {
         this.initial();
+        if (this.client === this.clientList.MEGA) {
+            this.offerLetterTypes = MegaOfferLetterConst.enumObject();
+        }
     }
 
     initial() {

@@ -58,15 +58,15 @@
                     &nbsp;|&nbsp;
                     {{ loan?.loan?.name }} ({{ loan?.createdAt | date }})
                 </td>
-                <td class="text-right"><span
+                <td class="text-right pr-1"><span
                         *ngIf="(loan?.proposal?.data | jsonParse)?.existingLimit">Rs. {{(loan?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}</span>
                     <span *ngIf="!(loan?.proposal?.data | jsonParse)?.existingLimit">-</span></td>
-                <td class="text-right"><span *ngIf="(loan?.proposal?.data | jsonParse)?.outStandingLimit">
+                <td class="text-right pr-1"><span *ngIf="(loan?.proposal?.data | jsonParse)?.outStandingLimit">
                     Rs. {{(loan?.proposal?.data | jsonParse)?.outStandingLimit | currencyFormatter}}
                 </span>
                     <span *ngIf="!(loan?.proposal?.data | jsonParse)?.outStandingLimit">-</span></td>
 
-                <td class="text-right">Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
                 <!--                Existing INT/COM/CM-->
                 <td>-</td>
                 <td>
@@ -89,7 +89,7 @@
 <!--                === 'PERCENT' ? ' %' : ''}}</td>-->
 
                 <td>
-                    <div *ngIf="(loan?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage" class="text-right">Rs. {{(loan?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}</div>
+                    <div *ngIf="(loan?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage" class="text-right pr-1">Rs. {{(loan?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}</div>
                     <ng-template #percentage>{{(loan?.proposal?.data | jsonParse)?.serviceCharge}} %</ng-template>
                 </td>
 
@@ -109,9 +109,9 @@
             </tr>
             <tr class="sb-bg-secondary text-white">
                 <td><strong>Funded</strong></td>
-                <td class="text-right">Rs. {{ (getTotalFundable('existingLimit', true, customerAllLoanList)) | currencyFormatter }}</td>
-                <td class="text-right">Rs. {{ getTotalFundable('outStandingLimit', true, customerAllLoanList) | currencyFormatter }}</td>
-                <td class="text-right">Rs. {{ getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter }}</td>
+                <td class="text-right pr-1">Rs. {{ (getTotalFundable('existingLimit', true, customerAllLoanList)) | currencyFormatter }}</td>
+                <td class="text-right pr-1">Rs. {{ getTotalFundable('outStandingLimit', true, customerAllLoanList) | currencyFormatter }}</td>
+                <td class="text-right pr-1">Rs. {{ getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter }}</td>
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
@@ -123,9 +123,9 @@
             </tr>
             <tr class="sb-bg-secondary text-white">
                 <td><strong>Non-Funded</strong></td>
-                <td class="text-right">Rs. {{ (getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter)}}</td>
-                <td class="text-right">Rs. {{ getTotalFundable('outStandingLimit', false, customerAllLoanList) | currencyFormatter }}</td>
-                <td class="text-right">Rs. {{ getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter }}</td>
+                <td class="text-right pr-1">Rs. {{ (getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter)}}</td>
+                <td class="text-right pr-1">Rs. {{ getTotalFundable('outStandingLimit', false, customerAllLoanList) | currencyFormatter }}</td>
+                <td class="text-right pr-1">Rs. {{ getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter }}</td>
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
@@ -138,9 +138,9 @@
             <tr class="sb-bg-secondary text-white">
                 <td><strong>Total</strong></td>
 
-                <td class="text-right">Rs. {{ getTotal('existingLimit') | currencyFormatter }}</td>
-                <td class="text-right">Rs. {{ getTotal('outStandingLimit') | currencyFormatter }}</td>
-                <td class="text-right">Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
+                <td class="text-right pr-1">Rs. {{ getTotal('existingLimit') | currencyFormatter }}</td>
+                <td class="text-right pr-1">Rs. {{ getTotal('outStandingLimit') | currencyFormatter }}</td>
+                <td class="text-right pr-1">Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>

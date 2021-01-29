@@ -22,6 +22,8 @@ import {RoleType} from '../../../../admin/modal/roleType';
 import {NbDialogService} from '@nebular/theme';
 import {SecurityComplianceCertificateComponent} from '../legal-and-disbursement/security-compliance-certificate/security-compliance-certificate.component';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {environment} from '../../../../../../environments/environment';
+import {Clients} from '../../../../../../environments/Clients';
 
 @Component({
     selector: 'app-cad-action',
@@ -60,6 +62,8 @@ export class CadActionComponent implements OnInit {
     approvedLabel = 'APPROVED';
     backwardToolTip = 'return to previous user';
     roleType = RoleType;
+    client = environment.client;
+    clientList = Clients;
 
     private securityUrl = ApiConfig.TOKEN;
     private headers = new HttpHeaders({
@@ -158,24 +162,32 @@ export class CadActionComponent implements OnInit {
     }
 
     public getUserList(role) {
-        this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.selectedBranchId).subscribe((response: any) => {
-            this.userList = response.detail;
-            if (this.userList.length === 1) {
-                this.formAction.patchValue({
-                    toUser: this.userList[0],
-                    toRole: role
-                });
-            } else if (this.userList.length > 1) {
-                this.formAction.patchValue({
-                    toUser: this.userList[0],
-                    toRole: role
-                });
-                this.formAction.get('toUser').setValidators(Validators.required);
-                this.formAction.updateValueAndValidity();
-            } else {
-                this.toastService.show(new Alert(AlertType.ERROR, 'NO User Present in this Role'));
-            }
-        });
+        this.userList = [];
+        if (role.roleType === RoleType.CAD_LEGAL) {
+            this.formAction.patchValue({
+                toRole: role
+            });
+        } else {
+            this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.selectedBranchId).subscribe((response: any) => {
+                this.userList = response.detail;
+                console.log('user list', this.userList);
+                if (this.userList.length === 1) {
+                    this.formAction.patchValue({
+                        toUser: this.userList[0],
+                        toRole: role
+                    });
+                } else if (this.userList.length > 1) {
+                    this.formAction.patchValue({
+                        toUser: this.userList[0],
+                        toRole: role
+                    });
+                    this.formAction.get('toUser').setValidators(Validators.required);
+                    this.formAction.updateValueAndValidity();
+                } else {
+                    this.toastService.show(new Alert(AlertType.ERROR, 'NO User Present in this Role'));
+                }
+            });
+        }
     }
 
     approvedForwardBackward(template, val, returnToMaker) {
@@ -283,8 +295,8 @@ export class CadActionComponent implements OnInit {
         }
     }
 
-    openModel(){
-        this.nbDialogService.open(SecurityComplianceCertificateComponent,{context:{cadFile: this.cadOfferLetterApprovedDoc}});
+    openModel() {
+        this.nbDialogService.open(SecurityComplianceCertificateComponent, {context: {cadFile: this.cadOfferLetterApprovedDoc}});
     }
 
 }

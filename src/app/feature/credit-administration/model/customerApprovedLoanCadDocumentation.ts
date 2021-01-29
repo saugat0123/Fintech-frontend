@@ -21,6 +21,7 @@ export class CustomerApprovedLoanCadDocumentation extends BaseEntity {
     feesAndCommission: string;
     exposure: Exposure;
     data: any;
+    disbursementComment: string;
     additionalDocumentList: Array<AdditionalDocument>;
 
 
