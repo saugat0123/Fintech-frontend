@@ -16,6 +16,7 @@ import {CustomOfferLetterDocumentComponent} from './cad-offer-letter-modal/custo
 import {UpdateCustomerCadInfoComponent} from './update-customer-cad-info/update-customer-cad-info.component';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-cad-offerletter-profile',
@@ -56,6 +57,8 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     index;
 
     toggleArray: { toggled: boolean }[] = [];
+
+    roleType = LocalStorageUtil.getStorage().roleType;
 
     ngOnInit() {
         this.initial();

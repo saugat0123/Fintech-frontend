@@ -13,6 +13,7 @@ import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {CadDocStatus} from '../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {AdditionalDocument} from '../../../model/AdditionalDocument';
+import {RoleType} from '../../../../admin/modal/roleType';
 
 @Component({
     selector: 'app-additional-exposure',
@@ -40,6 +41,7 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
     disableAdd = false;
     cadRoleList = [];
     disbursementComment;
+    toRole;
 
     constructor(private formBuilder: FormBuilder,
                 private routerUtilsService: RouterUtilsService,
@@ -63,6 +65,8 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.creditAdministrationService.getRoleInCad().subscribe(value => {
             this.cadRoleList = value.detail;
+            this.cadRoleList = this.cadRoleList.filter(value1 => value1.role.roleType !== RoleType.MAKER);
+            this.toRole = this.cadRoleList.filter(value1 => value1.role.roleName === 'CAD')[0].role.id;
         });
         this.initial();
         this.buildDocForm();
@@ -89,6 +93,7 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
     }
 
     removeDoc(index: number) {
+        this.disableAdd = false;
         (this.addDocForm.get('additionalDoc') as FormArray).removeAt(index);
     }
 
@@ -155,7 +160,6 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
         let data  = [] ;
         data = this.addDocForm.get('additionalDoc').value;
         this.spinner = true;
-        const storage = LocalStorageUtil.getStorage();
         const exposure = new Exposure();
         exposure.data = JSON.stringify(this.exposureForm.value);
         if (!ObjectUtil.isEmpty(this.cadData.exposure)) {
@@ -179,12 +183,11 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
             this.cadData.docStatus = CadDocStatus.DISBURSEMENT_PENDING;
         }
         this.cadData.exposure = exposure;
-        console.log(this.cadData.additionalDocumentList);
         data.forEach(value => {
             this.cadData.additionalDocumentList.push(value);
         });
         this.cadData.disbursementComment = this.disbursementComment;
-        this.service.saveDisbursementHistory(this.cadData, storage.roleId).subscribe((res: any) => {
+        this.service.saveDisbursementHistory(this.cadData, this.toRole).subscribe((res: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Exposure data!!!'));
             // this.routerUtilsService.reloadCadProfileRouteWithActiveTab(this.cadData.id, 1);
             this.responseCadData.emit(res.detail);
@@ -207,7 +210,6 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
     }
 
       uploadFile(file , index) {
-          console.log(index);
           this.spinner = true;
         const form = (this.addDocForm.get('additionalDoc') as FormArray).at(index).value;
 
@@ -227,7 +229,6 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
           formData.append('branchId', this.cadData.loanHolder.branch.id.toString());
           this.service.uploadAdditionalDocument(formData).subscribe((res: any) => {
               this.spinner = false;
-              console.log(res);
               (this.addDocForm.get('additionalDoc') as FormArray).at(index).patchValue({
                   docPath: res.detail,
                   uploadOn: new Date()
