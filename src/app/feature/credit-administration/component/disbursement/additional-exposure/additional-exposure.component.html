@@ -127,7 +127,7 @@
             <div class="col-md-12">
                 <label for="disburseRole" class="float-left"><strong>Select Role</strong></label>
                <select id="disburseRole"  class="form-control" name="toRole"  [(ngModel)]="toRole">
-                   <option *ngFor="let r of cadRoleList" [value]="r.role.id">{{r?.role?.roleName}}{{r?.role?.id}}</option>
+                   <option *ngFor="let r of cadRoleList" [value]="r.role.id">{{r?.role?.roleName}}</option>
                </select>
             </div>
         </div>
