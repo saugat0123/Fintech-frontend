@@ -29,6 +29,9 @@ export class HayerPurchaseComponent implements OnInit {
     hayerPurchaseLetter: OfferDocument;
     isPresentPrevious = false;
     ckeConfig = NepaliEditor.CK_CONFIG;
+    note = '<ul><li><span style="font-family:Preeti">C0fL tyf JolQmutsf] ;DklQ v\'nfpg] lnvt -</span><span>Net Worth Statement<span style="font-family:Preeti">_ kmf]6f] tyf ;Dks{ 7]ufgf ;lxt k]z ug\'kg]{5 .</span></li>' +
+        '<li><span style="font-family:Preeti">tcGo a}+sx?;+u u/]sf] sf/f]jf/ af/] lnlvt ?kdf v\'nfpg\'kg]{ -</span><span>Multiple Banking Declaration<span style="font-family:Preeti">_ k]z ug\'{kg]{5 .</span></li> ' +
+        '<li><span style="font-family:Preeti">tpNn]lvt k|:tfljt crn ;DklQsf] k"0f{ d\'Nofªsg k|ltj]bg -</span><span>Complete Valuation Report<span style="font-family:Preeti">_ k]z ePkZrft dfq shf{ e\'Qmfg ul/g]5 .</span></li> </ul>';
 
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
 
@@ -56,13 +59,13 @@ export class HayerPurchaseComponent implements OnInit {
             guarantor: [undefined],
             guarantorFlag: [true],
             addedPercentage: [undefined],
-            post1: [undefined],
-            post1Name: [undefined],
-            post2: [undefined],
-            post2Name: [undefined],
+            identityCardNo1: [undefined],
+            identityCardNo2: [undefined],
             date: [undefined],
             pageCount: [undefined],
-            clausesTextEditor: [undefined],
+            clausesTextEditor: this.note,
+            expiryDateTimeDuration: [undefined],
+            timeDuration: [undefined],
 
             hayarPurchaseLoanArray: this.formBuilder.array([this.buildHayarPurchaseArrayForm()]),
             riskCoverageArray: this.formBuilder.array([this.buildRiskCoverageArrayForm()]),
@@ -88,7 +91,11 @@ export class HayerPurchaseComponent implements OnInit {
             servicePercentage: [undefined],
             servicePercentageWords: [undefined],
             charge: [undefined],
-            chargeFlag: [true]
+            chargeFlag: [true],
+            loanClearanceMonthlyDate: [undefined],
+            PurwaBhuktaniSulka: [undefined],
+            PurwaBhuktaniSewaSulkaRate: [undefined],
+            secureTransactionFees:[undefined]
         });
     }
 
@@ -128,7 +135,7 @@ export class HayerPurchaseComponent implements OnInit {
     checkOfferLetterData() {
         if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
             this.hayerPurchaseLetter = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value =>
-                value.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.HAYER_PURCHASE).toString())[0];
+                value.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.HIRE_PURCHASE).toString())[0];
             if (!ObjectUtil.isEmpty(this.hayerPurchaseLetter) && !ObjectUtil.isEmpty(this.hayerPurchaseLetter.id)) {
                 const initialInfo = JSON.parse(this.hayerPurchaseLetter.initialInformation);
                 this.initialInfoPrint = initialInfo;
@@ -146,7 +153,7 @@ export class HayerPurchaseComponent implements OnInit {
                 this.initialInfoPrint = initialInfo;
             } else {
                 this.hayerPurchaseLetter = new OfferDocument();
-                this.hayerPurchaseLetter.docName = this.offerLetterConst.value(this.offerLetterConst.HAYER_PURCHASE);
+                this.hayerPurchaseLetter.docName = this.offerLetterConst.value(this.offerLetterConst.HIRE_PURCHASE);
             }
         }
     }
@@ -158,25 +165,25 @@ export class HayerPurchaseComponent implements OnInit {
 
         if (this.existingOfferLetter) {
             this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-                if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.HAYER_PURCHASE).toString()) {
+                if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.HIRE_PURCHASE).toString()) {
                     offerLetterPath.initialInformation = JSON.stringify(this.hayarPurchase.value);
                 }
             });
         } else {
             const offerDocument = new OfferDocument();
-            offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.HAYER_PURCHASE);
+            offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.HIRE_PURCHASE);
             offerDocument.initialInformation = JSON.stringify(this.hayarPurchase.value);
             this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
         }
 
         this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Hayer Purchase Offer Letter'));
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Hire Purchase Offer Letter'));
             this.spinner = false;
             this.dialogRef.close();
             this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
         }, error => {
             console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save  Hayer Purchase Offer Letter'));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save  Hire Purchase Offer Letter'));
             this.spinner = false;
             this.dialogRef.close();
             this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);

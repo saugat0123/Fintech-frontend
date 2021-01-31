@@ -6,6 +6,9 @@ import {Pageable} from '../../../../../@core/service/baseservice/common-pageable
 import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
+import {UserService} from '../../../../../@core/service/user.service';
+import {User} from '../../../../admin/modal/user';
+import {RoleType} from '../../../../admin/modal/roleType';
 
 @Component({
     selector: 'app-offer-letter-approved',
@@ -23,9 +26,12 @@ export class OfferLetterApprovedComponent implements OnInit {
     loanType = LoanType;
     toggleArray: { toggled: boolean }[] = [];
     currentIndexArray: { currentIndex: number }[] = [];
+    user: User = new User();
+    roleType = RoleType;
 
     constructor(private service: CreditAdministrationService,
                 private router: Router,
+                private userService: UserService,
                 private routeService: RouterUtilsService,
                 private spinnerService: NgxSpinnerService) {
     }
@@ -50,6 +56,7 @@ export class OfferLetterApprovedComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.userDetail();
         OfferLetterApprovedComponent.loadData(this);
     }
 
@@ -66,5 +73,11 @@ export class OfferLetterApprovedComponent implements OnInit {
     setSearchValue(value) {
         this.searchObj = Object.assign(value, {docStatus: 'OFFER_APPROVED'});
         OfferLetterApprovedComponent.loadData(this);
+    }
+
+    userDetail() {
+        this.userService.getLoggedInUser().subscribe((res: any) => {
+            this.user = res.detail;
+        });
     }
 }

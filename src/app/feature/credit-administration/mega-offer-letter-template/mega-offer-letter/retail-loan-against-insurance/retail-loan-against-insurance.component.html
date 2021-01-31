@@ -15,14 +15,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <p>
-                            <strong>Ref No: 2077/78-MBNL-CAD-RET-<input class="form-field form-control-sm "
-                                                                        name="refNo"
-                                                                        formControlName="refNo"
-                                                                        placeholder=""
-                                                                        type="text"/>
+                            <strong>Ref No: <input class="form-field form-control-sm "
+                                                   name="refNo"
+                                                   formControlName="refNo"
+                                                   placeholder="Ref No."
+                                                   type="text"/>
                             </strong>
                             <span style="float: right">
-                    मितिः <input class="form-field form-control-sm nepaliFont" name="offerLetterDate" formControlName="offerLetterDate" placeholder="" type="text"/>
+                    मितिः <input class="form-field form-control-sm nepaliFont" name="offerLetterDate" formControlName="offerLetterDate" placeholder="मिति" type="text"/>
                   </span>
                         </p>
                     </div>
@@ -30,16 +30,18 @@
                 <div class="row mt-4">
                     <div class="col-md-12">
                         <p>
-                            <strong>श्री/श्रीमती </strong>
-                            <input class="form-field form-control-sm nepaliFont" name="borrowerName" formControlName="borrowerName" placeholder="" type="text"/>
+                            <strong>
+                                <strong>नाम: </strong>
+                                <input class="form-field form-control-sm nepaliFont" name="borrowerName" formControlName="borrowerName" placeholder="श्री/श्रीमती" type="text"/>
+                            </strong>
                         </p>
                         <p>
                             <strong>ठेगानाः </strong>
-                            <input class="form-field form-control-sm nepaliFont" name="borrowerAddress" formControlName="borrowerAddress" placeholder="" type="text"/>
+                            <input class="form-field form-control-sm nepaliFont" name="borrowerAddress" formControlName="borrowerAddress" placeholder="ठेगाना" type="text"/>
                         </p>
                         <p>
-                            <strong>सम्पर्क टेलिफोन नंः</strong>
-                            <input class="form-field form-control-sm nepaliFont" name="borrowerContactNo" formControlName="borrowerContactNo" placeholder="" type="text"/>
+                            <strong>सम्पर्क टेलिफोन नंः </strong>
+                            <input class="form-field form-control-sm nepaliFont" name="borrowerContactNo" formControlName="borrowerContactNo" placeholder="सम्पर्क टेलिफोन नं" type="text"/>
                         </p>
                     </div>
                 </div>
@@ -61,8 +63,8 @@
                             पक्षहरुः–
                         </p>
                         <p>
-                            <strong>१. श्री/श्रीमती</strong>
-                            <input class="form-field form-control-sm nepaliFont" name="borrowerName1" formControlName="borrowerName1" placeholder="" type="text"/>
+                            <strong>१.</strong>
+                            <span class="nepaliFont form-field">{{retailLoanAgainstInsurance.get('borrowerName').value}}</span>
                             (यस पछि “ऋणी” भनिएको)
                         </p>
                         <p>
@@ -133,12 +135,16 @@
                                         <td>बैंकबाट कर्जा भुक्तानी भएको मितिले <input class="form-field form-control-sm shortInput nepaliFont"
                                                                                       name="tenure"
                                                                                       formControlName="tenure"
-                                                                                      placeholder="" type="text"/> वर्ष ।</td>
+                                                                                      placeholder="१०" type="text"/> वर्ष ।</td>
                                     </tr>
                                     <tr>
                                         <td>व्याज</td>
                                         <td> : <strong>आधार दर (Base Rate)</strong> + <strong>प्रिमियम दर (Premium Rate)</strong>
-                                            (हालको आधार दर ८.१४% + प्रिमियम दर
+                                            (हालको आधार दर
+                                            <input class="form-field form-control-sm shortInput nepaliFont"
+                                                   name="termBaseRate"
+                                                   formControlName="termBaseRate"
+                                                   placeholder="८।१४" type="text" size="2"/> % + प्रिमियम दर
                                             <input class="form-field form-control-sm shortInput nepaliFont"
                                                    name="termLoanPremiumRate"
                                                    formControlName="termLoanPremiumRate"
@@ -154,7 +160,11 @@
                                     </tr>
                                     <tr>
                                         <td>ऋण चुक्ता	</td>
-                                        <td>बैंकबाट कर्जा भुक्तानी भएको मितिको एक महिना बाट प्रथम किस्ता प्रारंभ हुने गरी
+                                        <td>बैंकबाट कर्जा भुक्तानी भएको मितिको
+                                            <input class="form-field form-control-sm nepaliFont"
+                                                   name="termLoanPaymentDate"
+                                                   formControlName="termLoanPaymentDate"
+                                                   placeholder="एक" type="text"/> महिना बाट प्रथम किस्ता प्रारंभ हुने गरी
                                             <input class="form-field form-control-sm nepaliFont"
                                                    name="termLoanFirstInstallment"
                                                    formControlName="termLoanFirstInstallment"
@@ -287,7 +297,12 @@
                                     <tr>
                                         <td>व्याज</td>
                                         <td> : <strong>आधार दर (Base Rate)</strong> + <strong>प्रिमियम दर (Premium Rate)</strong>
-                                            (हालको आधार दर ८.१४% + प्रिमियम दर
+                                            (हालको आधार दर
+                                            <input class="form-field form-control-sm shortInput nepaliFont"
+                                                   name="overdraftBaseRate"
+                                                   formControlName="overdraftBaseRate"
+                                                   placeholder="८।१४"
+                                                   type="text" size="2"/>% + प्रिमियम दर
                                             <input class="form-field form-control-sm shortInput nepaliFont"
                                                    name="overdraftPremiumRate"
                                                    formControlName="overdraftPremiumRate"
@@ -393,11 +408,17 @@
                                     </tr>
                                     <tr>
                                         <td>प्रयोजन</td>
-                                        <td>व्यक्तिगत वित्तीय आवश्यकता परिपूर्ति प्रयोजनार्थ ।</td>
+                                        <td><input class="form-field form-control-sm nepaliFont"
+                                                   name="demandLoanPurpose"
+                                                   formControlName="demandLoanPurpose"
+                                                   placeholder="व्यक्तिगत वित्तीय आवश्यकता परिपूर्ति" type="text"/> प्रयोजनार्थ ।</td>
                                     </tr>
                                     <tr>
                                         <td>समयावधी</td>
-                                        <td>रिभल्भिङ्गः नोभेम्बर मसान्त, २०२१ मा पुनरावलोकन हुने गरि ।</td>
+                                        <td> :<input class="form-field form-control-sm nepaliFont"
+                                                   name="demandTimePeriod"
+                                                   formControlName="demandTimePeriod"
+                                                   placeholder="रभल्भिङ्गः नोभेम्बर मसान्त, २०२१" type="text"/> मा पुनरावलोकन हुने गरि ।</td>
                                     </tr>
                                     <tr>
                                         <td>व्याज</td>
@@ -405,7 +426,7 @@
                                             (हालको आधार दर <input class="form-field form-control-sm shortInput nepaliFont"
                                                                   name="premiumAadharRate"
                                                                   formControlName="premiumAadharRate"
-                                                                  placeholder="" type="text"/>% + प्रिमियम दर
+                                                                  placeholder="८।१४" type="text"/>% + प्रिमियम दर
                                             <input class="form-field form-control-sm shortInput nepaliFont"
                                                    name="demandLoanPremiumRate"
                                                    formControlName="demandLoanPremiumRate"
@@ -947,16 +968,16 @@
                                     </p>
                                     <div class="col-md-12">
                                         <p>
-                                            <input class="form-field form-control-sm nepaliFont"
-                                                   name="borrowerName2"
-                                                   formControlName="borrowerName2"
-                                                   placeholder="नाम" type="text"/>
+                                            <strong>नाम: </strong>
+                                            <span class="nepaliFont form-field">{{retailLoanAgainstInsurance.get('borrowerName').value}}</span>
                                         </p>
                                         <p>
-                                            <input class="form-field form-control-sm nepaliFont" name="borrowerAddress2" formControlName="borrowerAddress2" placeholder="ठेगाना" type="text"/>
+                                            <strong>ठेगानाः </strong>
+                                            <span class="nepaliFont form-field">{{retailLoanAgainstInsurance.get('borrowerAddress').value}}</span>
                                         </p>
                                         <p>
-                                            <input class="form-field form-control-sm nepaliFont" name="borrowerContactNo2" formControlName="borrowerContactNo2" placeholder="फोन नम्बर" type="text"/>
+                                            <strong>सम्पर्क टेलिफोन नंः </strong>
+                                            <span class="nepaliFont form-field">{{retailLoanAgainstInsurance.get('borrowerContactNo').value}}</span>
                                         </p>
                                     </div>
                                 </div>
@@ -1017,22 +1038,19 @@
                                    name="pageCount"
                                    formControlName="pageCount"
                                    placeholder="" type="text" size="2"/>
-                            ऋयगलत पृष्ठको यस बैकिङ ऋण स्वीकृतिपत्रमा उल्लेखित शर्तहरु राम्ररी पढेंरपढ्यौं र बुझेंरबुझ्यौं ।
+                            पृष्ठको यस बैकिङ ऋण स्वीकृतिपत्रमा उल्लेखित शर्तहरु राम्ररी पढेंरपढ्यौं र बुझेंरबुझ्यौं ।
                             यसमा उल्लेख गरिएको सम्पूर्ण शर्तहरु पालना गर्न म/हामी मन्जुर गर्दछु । गर्दछौं र बैंकसंग यस अन्तर्गत लिएको ऋण
                             पूर्ण रुपमा चुक्ता भुक्तान नगरे सम्म यसमा उल्ल्ेखित शर्तहरुको पूर्ण रुपले पालना गर्ने प्रतिज्ञा गर्दछु /गर्दछौं ।
                         </p>
                         <p>
                             ऋणीको नाम:
-                            <input class="form-field form-control-sm nepaliFont"
-                                   name="borrowerName3"
-                                   formControlName="borrowerName3"
-                                   placeholder="" type="text"/>
+                            <span class="nepaliFont form-field">{{retailLoanAgainstInsurance.get('borrowerName').value}}</span>
                         </p>
                         <br>
                         <p class="mt-lg-5">
                             आधिकारीक दस्तखत .................................
                             <span style="float: right">
-                    मितिः <input class="form-field form-control-sm nepaliFont" name="offerLetterDate2" formControlName="offerLetterDate2" placeholder="" type="text"/>
+                    मितिः <span class="nepaliFont form-field">{{retailLoanAgainstInsurance.get('offerLetterDate').value}}</span>
                   </span>
                         </p>
                     </div>

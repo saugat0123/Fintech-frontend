@@ -89,36 +89,6 @@ export class CustomOfferLetterDocumentComponent implements OnInit {
     }
   }
 
-  submit(): void {
-    this.spinner = true;
-    if (this.existingOfferLetter) {
-      this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-        if (offerLetterPath.docName.toString() ===
-            this.offerLetterConst.value(this.offerLetterConst.RETAIL_MORTGAGE_LOAN).toString()) {
-          offerLetterPath.initialInformation = JSON.stringify(this.form.value);
-        }
-      });
-    } else {
-      const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_MORTGAGE_LOAN);
-      this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
-    }
-
-    this.service.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
-      this.spinner = false;
-      this.onClose();
-      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
-    }, error => {
-      console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
-      this.spinner = false;
-      this.onClose();
-      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
-    });
-
-  }
-
   onClose() {
     this.dialogRef.close();
   }
