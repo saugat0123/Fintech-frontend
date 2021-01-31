@@ -131,31 +131,14 @@
                               </div>
                               <div class="row mt-3">
                                   <div class="col-md-8" nbTooltip="Type NA in case there is no alternative source" nbTooltipStatus="primary" >
-                                      <label for="alternateIncomeSource"><strong>Alternate/Secondary source of income></strong></label><strong
-                                          class="text-danger">*</strong>
+                                      <label for="alternateIncomeSource"><strong>Alternate/Secondary source of income</strong></label>
                                       <input class="form-control" formControlName="alternateIncomeSource" id="alternateIncomeSource"
-                                             [ngClass]="{'is-invalid': submitted && financialForm.get('alternateIncomeSource').invalid}"
                                              placeholder="Alternate/Secondary source of income">
-
-                                      <div *ngIf="(submitted) && form.alternateIncomeSource.invalid"
-                                           class="invalid-feedback">
-                                          <div *ngIf="form.alternateIncomeSource.errors">Alternate/Secondary source of income is
-                                              required
-                                          </div>
-                                      </div>
                                   </div>
                                   <div class="col-md-4" nbTooltip="Type 0 if there is no alternate source" nbTooltipStatus="primary" >
-                                      <label for="alternateIncomeSourceAmount"><strong>Source Amount</strong></label><strong
-                                          class="text-danger">*</strong>
+                                      <label for="alternateIncomeSourceAmount"><strong>Source Amount</strong></label>
                                       <input class="form-control" formControlName="alternateIncomeSourceAmount" id="alternateIncomeSourceAmount"
-                                             [ngClass]="{'is-invalid': submitted && financialForm.get('alternateIncomeSourceAmount').invalid}"
                                              placeholder="Amount">
-
-                                      <div *ngIf="(submitted) && form.alternateIncomeSourceAmount.invalid"
-                                           class="invalid-feedback">
-                                          <div>Invalid Source Amount
-                                          </div>
-                                      </div>
                                   </div>
                               </div>
                           </nb-card-body>

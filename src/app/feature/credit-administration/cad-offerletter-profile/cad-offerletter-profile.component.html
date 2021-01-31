@@ -53,11 +53,14 @@
                                         </nb-option>
                                     </nb-select>
                                 </div>
-                                <div class="col-md-12 mt-3">
+                                <div  class="col-md-12 mt-3">
                                     <button (click)="openOfferLetterDocumentModal(offerLetterType?.selected)"
                                             class="float-right" nbButton
                                             size="small"
-                                            [disabled]="roleType === 'MAKER'">Generate
+                                            [disabled]="roleType === 'MAKER' ||
+                              (cadOfferLetterApprovedDoc?.docStatus === 'LEGAL_APPROVED' ||
+                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||
+                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')">Generate
                                     </button>
                                 </div>
                             </div>
@@ -67,7 +70,10 @@
 
                     <nb-card>
                         <nb-card-header>
-                            <span *ngIf="roleType !== 'MAKER'" class="float-right"><button
+                            <span *ngIf="roleType !== 'MAKER' &&
+                              !(cadOfferLetterApprovedDoc?.docStatus === 'LEGAL_APPROVED' ||
+                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||
+                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')" class="float-right"><button
                                     (click)="openCustomOfferLetterDocumentModal(null)"
                                     nbButton outline
                                     size="tiny"><a
@@ -81,10 +87,7 @@
                                     <th>#</th>
                                     <th>Offer Letter</th>
                                     <th colspan="2">Upload Status</th>
-                                    <th *ngIf="cadOfferLetterApprovedDoc?.docStatus !== 'LEGAL_APPROVED' &&
-                              cadOfferLetterApprovedDoc?.docStatus !== 'DISBURSEMENT_PENDING' &&
-                              cadOfferLetterApprovedDoc?.docStatus !== 'DISBURSEMENT_APPROVED'" colspan="2">Action
-                                    </th>
+                                    <th colspan="2">Action</th>
                                 </tr>
                                 <tr>
                                     <td colspan="2"></td>
@@ -120,10 +123,11 @@
                                                    </a>
                                                 </span>
                                     </td>
-                                    <td *ngIf="cadOfferLetterApprovedDoc?.docStatus !== 'LEGAL_APPROVED' &&
-                              cadOfferLetterApprovedDoc?.docStatus !== 'DISBURSEMENT_PENDING' &&
-                              cadOfferLetterApprovedDoc?.docStatus !== 'DISBURSEMENT_APPROVED'">
+                                    <td>
                                         <a (click)="openModel(uploadModel,cusOfferLetter.docName,cusOfferLetter.id,i)"
+                                           *ngIf="!(cadOfferLetterApprovedDoc?.docStatus === 'LEGAL_APPROVED' ||
+                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||
+                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')"
                                            title="upload {{cusOfferLetter.docName}}">
                                             <i class="fa fa-upload cursor"></i>
                                         </a>
