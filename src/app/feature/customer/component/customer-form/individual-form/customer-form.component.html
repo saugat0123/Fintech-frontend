@@ -430,20 +430,27 @@
                             </div>
                         </div>
                     </div>
-                    <!-- END ROW -->
-                    <!-- START ROW -->
+
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="street"><strong>Street</strong></label>
-                            <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.street.errors }"
-                                   class="form-control" formControlName="street" id="street"
-                                   name="street" placeholder="Street Name"
+                            <label><strong>Address Line 1</strong></label>
+                            <input class="form-control"
+                                   formControlName="permanentAddressLine1"
+                                   placeholder="Address Line 1 (optional)"
                                    type="text">
-                            <div *ngIf="(submitted) && basicInfoControls.street.invalid" class="invalid-feedback">
-                                <div *ngIf="basicInfoControls.street.errors.required">Street is required</div>
-                            </div>
                         </div>
                     </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><strong>Address Line 2</strong></label>
+                            <input class="form-control"
+                                   formControlName="permanentAddressLine2"
+                                   placeholder="Address Line 2 (optional)"
+                                   type="text">
+                        </div>
+                    </div>
+
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="wardNumber"><strong>Ward Number</strong></label>
@@ -553,18 +560,27 @@
                     </div>
                     <!-- END ROW -->
                     <!-- START ROW -->
+
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="temporaryStreet"><strong>Street</strong></label>
-                            <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.temporaryStreet.errors }"
-                                   class="form-control" formControlName="temporaryStreet" id="temporaryStreet"
-                                   name="temporaryStreet" placeholder="Street Name"
+                            <label><strong>Address Line 1</strong></label>
+                            <input class="form-control"
+                                   formControlName="temporaryAddressLine1"
+                                   placeholder="Address Line 1 (optional)"
                                    type="text">
-                            <div *ngIf="(submitted) && basicInfoControls.temporaryStreet.invalid" class="invalid-feedback">
-                                <div *ngIf="basicInfoControls.temporaryStreet.errors.required">Street is required</div>
-                            </div>
                         </div>
                     </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><strong>Address Line 2</strong></label>
+                            <input class="form-control"
+                                   formControlName="temporaryAddressLine2"
+                                   placeholder="Address Line 2 (optional)"
+                                   type="text">
+                        </div>
+                    </div>
+
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="temporaryWardNumber"><strong>Ward Number</strong></label>

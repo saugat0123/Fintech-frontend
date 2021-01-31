@@ -13,7 +13,10 @@ export class Customer {
     province: Province;
     district: District;
     municipalities: MunicipalityVdc;
-    street: string;
+    permanentAddressLine1: string;
+    permanentAddressLine2: string;
+    temporaryAddressLine1: string;
+    temporaryAddressLine2: string;
     wardNumber: number;
     contactNumber: string;
     email: string;
@@ -40,7 +43,6 @@ export class Customer {
     temporaryProvince: Province;
     temporaryDistrict: District;
     temporaryMunicipalities: MunicipalityVdc;
-    temporaryStreet: string;
     temporaryWardNumber: string;
     gender: Gender;
     maritalStatus: MaritalStatus;
