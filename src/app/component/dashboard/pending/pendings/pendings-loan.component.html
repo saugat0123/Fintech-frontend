@@ -91,7 +91,7 @@
                             <th>Priority</th>
                             <th>File Possession</th>
                             <th>Stage</th>
-                            <th>Action</th>
+                            <th *ngIf="userRoleType != 'MAKER' && userRoleType != 'APPROVAL'">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -114,8 +114,8 @@
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.priority}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{user?.role?.roleName}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder.documentStatus}}</td>
-                            <td>
-                                <button *ngIf="productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL === 'LOAN' && userRoleType != 'MAKER'"
+                            <td *ngIf="userRoleType != 'MAKER' && userRoleType != 'APPROVAL'">
+                                <button *ngIf="productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL === 'LOAN'"
                                         (click)="configureRole(loanDataHolder.id)" nbButton size="small"
                                         status="primary" nbTooltip="Configure Approval Role Hierarchy">
                                     <i class="fa fa-user-shield"></i>
