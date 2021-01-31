@@ -1088,12 +1088,55 @@
                                            </div>
                                        </div>
                                    </div>
+
+                                   <div class="col-md-4 form-group">
+                                       <strong class="title">
+                                           Ward Number
+                                       </strong>
+                                       <input [ngClass]="{'is-invalid': submitted && proprietor.get('holderPercentWardNumber').errors}"
+                                              class="form-control"
+                                              formControlName="holderPercentWardNumber"
+                                              placeholder="ward" type="number">
+                                       <div *ngIf="(submitted) && proprietor.get('holderPercentWardNumber').invalid"
+                                            class="invalid-feedback">
+                                           <div *ngIf="proprietor.get('holderPercentWardNumber').errors.required">
+                                               Ward is required!
+                                           </div>
+                                       </div>
+                                   </div>
+
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                           <label><strong>Address Line 1</strong></label>
+                                           <input class="form-control"
+                                                  formControlName="addressLine1"
+                                                  placeholder="Address Line 1 (optional)"
+                                                  type="text">
+                                       </div>
+                                   </div>
+
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                           <label><strong>Address Line 2</strong></label>
+                                           <input class="form-control"
+                                                  formControlName="addressLine2"
+                                                  placeholder="Address Line 2 (optional)"
+                                                  type="text">
+                                       </div>
+                                   </div>
+
                                </div>
+                               <hr>
                                <div class="row">
                                    <div class="col-md-12">
-                                       <strong>Kyc Detail</strong>
-                                       <app-owner-kyc-applicable #shareholderKyc
-                                               [data]="companyJsonData?.proprietorList[proprietorIndex]?.kycInfo" [kycId]="proprietorIndex"></app-owner-kyc-applicable>
+                                       <h5 class="my-2">Kyc Detail</h5>
+                                       <app-owner-kyc-applicable
+                                           #shareholderKyc
+                                           [data]="companyJsonData?.proprietorList ?
+                                           companyJsonData?.proprietorList[proprietorIndex]?.kycInfo :
+                                           undefined"
+                                           [kycId]="proprietorIndex">
+                                       </app-owner-kyc-applicable>
                                    </div>
                                </div>
                            </div>

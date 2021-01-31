@@ -20,7 +20,7 @@ export class OwnerKycApplicableComponent implements OnInit {
     allDistrict: Array<District> = Array<District>();
     shareSecurityData: ShareSecurity = new ShareSecurity();
     submitValue: any;
-    @Input() kycId: string;
+    @Input() kycId;
     constructor(private formBuilder: FormBuilder,
                 private districtService: AddressService) {
     }
