@@ -120,7 +120,6 @@ export class CadActionComponent implements OnInit, OnChanges {
 
         // CAD is fixed patched role
         if (storage.roleName === 'CAD') {
-            console.log(storage.roleName);
             this.missingDraftDoc = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value =>
                 value.draftPath === undefined || value.draftPath === null).length > 0;
         }
