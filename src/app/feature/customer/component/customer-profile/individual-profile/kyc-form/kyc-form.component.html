@@ -10,6 +10,7 @@
 
   <nb-card-body>
     <div [formGroup]="kycInfo">
+      <label><mark><strong>Note</strong>: <em>Please write <strong>Late</strong> in front of the name if relation person is deceased</em></mark></label>
       <div *ngFor="let relatives of kycInfo.get('customerRelatives')['controls']; let i = index"
            formArrayName="customerRelatives">
         <div [formGroupName]="i">
