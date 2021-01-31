@@ -46,19 +46,11 @@
                          class="form-control text-center"
                          formControlName="commissionDuringReview"
                          type="number">
-                <div *ngIf="(submitted) && formControls.commissionDuringReview.invalid"
-                     class="invalid-feedback">
-                  <span *ngIf="formControls.commissionDuringReview.errors.required">Commission During Review is required.</span>
-                </div>
               </td>
               <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionAfterNextReview.errors }"
                          class="form-control text-center"
                          formControlName="commissionAfterNextReview"
                          type="number">
-                <div *ngIf="(submitted) && formControls.commissionAfterNextReview.invalid"
-                     class="invalid-feedback">
-                  <span *ngIf="formControls.commissionAfterNextReview.errors.required">Commission After Next Review is required.</span>
-                </div>
               </td>
             </tr>
             <tr>
@@ -108,19 +100,11 @@
                          class="form-control text-center"
                          formControlName="otherChargesDuringReview"
                          type="number">
-                <div *ngIf="(submitted) && formControls.otherChargesDuringReview.invalid"
-                     class="invalid-feedback">
-                  <span *ngIf="formControls.otherChargesDuringReview.errors.required">Other Charges During Review is required.</span>
-                </div>
               </td>
               <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesAfterNextReview.errors }"
                          class="form-control text-center"
                          formControlName="otherChargesAfterNextReview"
                          type="number">
-                <div *ngIf="(submitted) && formControls.otherChargesAfterNextReview.invalid"
-                     class="invalid-feedback">
-                  <span *ngIf="formControls.otherChargesAfterNextReview.errors.required">Other Charges After Next Review is required.</span>
-                </div>
               </td>
             </tr>
             <tr class="font-weight-bold">
