@@ -17,6 +17,7 @@ export class Customer {
     permanentAddressLine2: string;
     temporaryAddressLine1: string;
     temporaryAddressLine2: string;
+    street: string;
     wardNumber: number;
     contactNumber: string;
     email: string;
