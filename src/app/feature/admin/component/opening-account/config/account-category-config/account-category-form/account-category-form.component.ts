@@ -81,7 +81,7 @@ export class AccountCategoryFormComponent implements OnInit {
         this.service.update(this.model.id, this.model)
         .subscribe(
             () => {
-              this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Account Purpose'));
+              this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Account Purpose'));
 
               this.modalRef.close(ModalResponse.SUCCESS);
 

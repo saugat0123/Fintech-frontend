@@ -160,7 +160,9 @@
                         </div>
                     </div>
                     <div class="form-group" *ngIf="ownerKycRelationInfoCheckedForLand">
-                            <app-owner-kyc-applicable #ownerKycApplicable [data]="formDataForEdit?.landDetails[i]?.ownerKycApplicableData"
+                        <label><mark><strong>Note</strong>: <em>Please write <strong>Late</strong> in front of the name if relation person is deceased</em></mark></label>
+
+                        <app-owner-kyc-applicable #ownerKycApplicable [data]="formDataForEdit?.landDetails[i]?.ownerKycApplicableData"
                                                       [kycId]="securityId.landId + i"></app-owner-kyc-applicable>
                     </div>
                     <div class="row">
