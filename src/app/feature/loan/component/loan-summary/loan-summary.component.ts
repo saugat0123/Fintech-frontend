@@ -36,6 +36,8 @@ import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 import {Customer} from '../../../admin/modal/customer';
+import {RoleType} from '../../../admin/modal/roleType';
+import {EnumUtils} from '../../../../@core/utils/enums.utils';
 
 @Component({
     selector: 'app-loan-summary',
@@ -150,6 +152,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     fiscalYearArray = [];
 
     disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
+    roleType;
 
 
     constructor(
@@ -182,6 +185,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.loanDataHolder = this.loanData;
         this.loadSummary();
+        this.roleType = LocalStorageUtil.getStorage().roleType;
     }
 
     ngOnDestroy(): void {
@@ -575,6 +579,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     goToApprovalSheet() {
         this.changeToApprovalSheetActive.next();
+    }
+
+    SetRoleHierarchy(loanId: number) {
+        this.router.navigate(['home/approval-role-hierarchy', 'LOAN', loanId]);
     }
 }
 
