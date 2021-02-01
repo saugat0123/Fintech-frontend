@@ -3,8 +3,7 @@
         <nb-card-body id="print-block">
             <div class="row disable-print">
                 <div class="col-md-12">
-                    <div *ngIf="(loanDataHolder?.documentStatus?.toString() === 'PENDING'
-                    || loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
+                    <div *ngIf="(loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
                     loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'||
                     loanDataHolder?.documentStatus?.toString() === 'INITIAL') && roleType === 'MAKER'">
                         <button class="btn btn-primary sb-medium text-uppercase" nbButton size="small"
