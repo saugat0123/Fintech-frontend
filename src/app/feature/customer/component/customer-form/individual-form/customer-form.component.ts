@@ -244,12 +244,14 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.customer.province = this.basicInfo.get('province').value;
                     this.customer.district = this.basicInfo.get('district').value;
                     this.customer.municipalities = this.basicInfo.get('municipalities').value;
-                    this.customer.street = this.basicInfo.get('street').value;
+                    this.customer.permanentAddressLine1 = this.basicInfo.get('permanentAddressLine1').value;
+                    this.customer.permanentAddressLine2 = this.basicInfo.get('permanentAddressLine2').value;
+                    this.customer.temporaryAddressLine1 = this.basicInfo.get('temporaryAddressLine1').value;
+                    this.customer.temporaryAddressLine2 = this.basicInfo.get('temporaryAddressLine2').value;
                     this.customer.wardNumber = this.basicInfo.get('wardNumber').value;
                     this.customer.temporaryProvince = this.basicInfo.get('temporaryProvince').value;
                     this.customer.temporaryDistrict = this.basicInfo.get('temporaryDistrict').value;
                     this.customer.temporaryMunicipalities = this.basicInfo.get('temporaryMunicipalities').value;
-                    this.customer.temporaryStreet = this.basicInfo.get('temporaryStreet').value;
                     this.customer.temporaryWardNumber = this.basicInfo.get('temporaryWardNumber').value;
                     this.customer.contactNumber = this.basicInfo.get('contactNumber').value;
                     this.customer.landLineNumber = this.basicInfo.get('landLineNumber').value;
@@ -335,7 +337,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             province: [this.customer.province === null ? undefined : this.customer.province, Validators.required],
             district: [this.customer.district === null ? undefined : this.customer.district, Validators.required],
             municipalities: [this.customer.municipalities === null ? undefined : this.customer.municipalities, Validators.required],
-            street: [this.customer.street === null ? undefined : this.customer.street, Validators.required],
+            permanentAddressLine1: [this.customer.permanentAddressLine1 === null ? undefined : this.customer.permanentAddressLine1],
+            permanentAddressLine2: [this.customer.permanentAddressLine2 === null ? undefined : this.customer.permanentAddressLine2],
             wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber, Validators.required],
             contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, [Validators.required,
                 Validators.max(9999999999), Validators.min(1000000000)]],
@@ -378,8 +381,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.customer.temporaryDistrict, Validators.required],
             temporaryMunicipalities: [this.customer.temporaryMunicipalities === null ? undefined :
                 this.customer.temporaryMunicipalities, Validators.required],
-            temporaryStreet: [this.customer.temporaryStreet === null ? undefined :
-                this.customer.temporaryStreet, Validators.required],
+            temporaryAddressLine1: [this.customer.temporaryAddressLine1 === null ? undefined : this.customer.temporaryAddressLine1],
+            temporaryAddressLine2: [this.customer.temporaryAddressLine2 === null ? undefined : this.customer.temporaryAddressLine2],
             temporaryWardNumber: [this.customer.temporaryWardNumber === null ? undefined :
                 this.customer.temporaryWardNumber, Validators.required],
             gender: [this.gender === null ? undefined :
@@ -582,7 +585,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.getTemporaryDistricts(this.basicInfo.get('temporaryProvince').value);
         this.customer.temporaryMunicipalities = this.basicInfo.get('municipalities').value;
         this.getTemporaryMunicipalities(this.basicInfo.get('municipalities').value);
-        this.basicInfo.controls.temporaryStreet.setValue(this.basicInfo.get('street').value);
+        this.basicInfo.controls. temporaryAddressLine1.patchValue(this.basicInfo.get('permanentAddressLine1').value);
+        this.basicInfo.controls. temporaryAddressLine2.patchValue(this.basicInfo.get('permanentAddressLine2').value);
         this.basicInfo.controls.temporaryWardNumber.setValue(this.basicInfo.get('wardNumber').value);
 
     }

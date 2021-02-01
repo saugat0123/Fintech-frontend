@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
@@ -30,7 +30,7 @@ import {Clients} from '../../../../../../environments/Clients';
     templateUrl: './cad-action.component.html',
     styleUrls: ['./cad-action.component.scss']
 })
-export class CadActionComponent implements OnInit {
+export class CadActionComponent implements OnInit, OnChanges {
 
     @Input()
     selectedBranchId;
@@ -77,6 +77,8 @@ export class CadActionComponent implements OnInit {
     roleId;
     isMaker = false;
     showHideReturnToRm = true;
+    missingSignDoc = false;
+    missingDraftDoc = false;
 
     constructor(private router: ActivatedRoute,
                 private route: Router,
@@ -106,6 +108,21 @@ export class CadActionComponent implements OnInit {
         }
         this.backwardTooltipMessageAndShowHideBackward();
 
+        this.checkForwardValidMessage();
+    }
+
+    checkForwardValidMessage() {
+        const storage = LocalStorageUtil.getStorage();
+        if (storage.roleType === 'MAKER') {
+            this.missingSignDoc = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value =>
+                value.draftPath === undefined || value.pathSigned === null).length > 0;
+        }
+
+        // CAD is fixed patched role
+        if (storage.roleName === 'CAD') {
+            this.missingDraftDoc = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value =>
+                value.draftPath === undefined || value.draftPath === null).length > 0;
+        }
     }
 
     onSubmit(templateLogin) {
@@ -297,6 +314,10 @@ export class CadActionComponent implements OnInit {
 
     openModel() {
         this.nbDialogService.open(SecurityComplianceCertificateComponent, {context: {cadFile: this.cadOfferLetterApprovedDoc}});
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.checkForwardValidMessage();
     }
 
 }

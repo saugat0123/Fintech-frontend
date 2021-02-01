@@ -211,7 +211,8 @@ export class CompanyFormComponent implements OnInit {
             this.addManagementTeam();
         }
         if (!ObjectUtil.isEmpty(this.companyInfo)) {
-            this.setProprietors(this.companyJsonData.proprietorList);
+            !ObjectUtil.isEmpty(this.companyJsonData.proprietorList) ?
+                this.setProprietors(this.companyJsonData.proprietorList) : this.addProprietor();
         } else {
             this.addProprietor();
         }
@@ -495,7 +496,7 @@ export class CompanyFormComponent implements OnInit {
             /** Succession*/
             succession: [ObjectUtil.isEmpty(this.companyInfo)
             || ObjectUtil.isEmpty(this.companyInfo.succession) ? undefined :
-                this.companyInfo.succession, this.disableCrgAlpha ? undefined: Validators.required],
+                this.companyInfo.succession, this.disableCrgAlpha ? undefined : Validators.required],
 
             /** Groups BackGround*/
             groupsBackGround: [ObjectUtil.isEmpty(this.companyJsonData)
@@ -597,6 +598,9 @@ export class CompanyFormComponent implements OnInit {
             province: [null],
             district: [null],
             municipalityVdc: [null],
+            holderPercentWardNumber: [undefined, Validators.required],
+            addressLine1: [undefined],
+            addressLine2: [undefined],
             type: [null, Validators.required]
         });
     }
@@ -656,6 +660,9 @@ export class CompanyFormComponent implements OnInit {
                 province: [proprietors.province === null ? null : proprietors.province],
                 district: [proprietors.district === null ? null : proprietors.district],
                 municipalityVdc: [proprietors.municipalityVdc === null ? null : proprietors.municipalityVdc],
+                holderPercentWardNumber: [proprietors.holderPercentWardNumber === null ? null : proprietors.holderPercentWardNumber],
+                addressLine1: [proprietors.addressLine1 === null ? null : proprietors.addressLine1],
+                addressLine2: [proprietors.addressLine2 === null ? null : proprietors.addressLine2],
                 type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]
             }));
         });
@@ -878,6 +885,9 @@ export class CompanyFormComponent implements OnInit {
             proprietors.name = this.getProprietor()[proprietorsIndex].name;
             proprietors.contactNo = this.getProprietor()[proprietorsIndex].contactNo;
             proprietors.share = this.getProprietor()[proprietorsIndex].share;
+            proprietors.holderPercentWardNumber = this.getProprietor()[proprietorsIndex].holderPercentWardNumber;
+            proprietors.addressLine1 = this.getProprietor()[proprietorsIndex].addressLine1;
+            proprietors.addressLine2 = this.getProprietor()[proprietorsIndex].addressLine2;
             proprietors.type = this.getProprietor()[proprietorsIndex].type;
             let province = new Province();
             province = this.getProprietor()[proprietorsIndex].province;
