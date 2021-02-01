@@ -1,13 +1,14 @@
 <nb-card>
-<div class="container nep text-justify" id="">
+<div class="container nep text-justify " id="">
     <form (ngSubmit)="submit()" [formGroup]="deepHypoMachinery" class="nep" id="deepHypoMachineryPrint">
+        <div class="align">
         <h6 class="text-center">
             <strong>
                 हाइपोथिकेशन अन्तर्गत मेशिनरीको धितो सुरक्षण सम्बन्धी लिखत <br>
                 (Deed for Security of Machinery under Hypothecation)
             </strong>
         </h6>
-        <div class="row text-center">
+        <div class="row text-center ">
             <p>
                 <strong>संकेत नम्बर <input class="form-field form-control-sm nepaliFont disable-print" formControlName="hintNumber" type="text"/>
                     <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('hintNumber').value ? deepHypoMachinery.get('hintNumber').value  : '========='}}</b></span>
@@ -400,7 +401,7 @@
 
 
             </div>
-
+        </div>
         </div>
     </form>
 </div>
