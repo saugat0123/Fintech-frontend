@@ -76,7 +76,7 @@ export class UserFormComponent implements OnInit {
         this.addressService.getProvince().subscribe((response: any) => {
             this.provinces = response.detail;
         }, error => {
-            this.toastService.show(new Alert(AlertType.ERROR  , 'Error while loading province'));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error while loading province'));
             console.log(error);
         });
 
@@ -114,7 +114,7 @@ export class UserFormComponent implements OnInit {
         const provinces: Array<Province> = [];
         if (this.tempProvince.length > 0) {
             for (let i = 0; i < this.tempProvince.length; i++) {
-               provinces.push(this.provinces.filter(value => value.id === this.tempProvince[i])[0]);
+                provinces.push(this.provinces.filter(value => value.id === this.tempProvince[i])[0]);
             }
         }
         this.model.provinces = provinces;
@@ -173,14 +173,14 @@ export class UserFormComponent implements OnInit {
 
             if (this.selectedRole.roleAccess === RoleAccess.OWN) {
                 this.isSpecific = false;
-                this.branchService.getBranchNoTAssignUser(id).subscribe((r: any) => {
+                this.branchService.getAll().subscribe((r: any) => {
                     this.branchList = r.detail;
                 });
             }
 
             if (this.selectedRole.roleAccess === RoleAccess.SPECIFIC) {
                 this.isSpecific = true;
-                this.branchService.getBranchNoTAssignUser(id).subscribe((re: any) => {
+                this.branchService.getAll().subscribe((re: any) => {
                     this.branchList = re.detail;
                 });
 
@@ -192,7 +192,7 @@ export class UserFormComponent implements OnInit {
 
     checkRoleData(role: Role) {
         this.isCadSuperVisor = role.roleType === RoleType.CAD_SUPERVISOR;
-     }
+    }
 
 
     getEdit() {
@@ -243,7 +243,7 @@ export class UserFormComponent implements OnInit {
                         this.tempProvince.push(this.model.provinces[i].id);
                     }
                 }
-               this.checkRoleData(this.model.role);
+                this.checkRoleData(this.model.role);
             }
 
         }
@@ -255,6 +255,20 @@ export class UserFormComponent implements OnInit {
         if (role === undefined || role === null) {
             this.disableRoleBranch = false;
         } else if (chkStatus) {
+            if (role.roleAccess === RoleAccess.OWN) {
+                this.isSpecific = false;
+                this.branchService.getAll().subscribe((r: any) => {
+                    this.branchList = r.detail;
+                });
+            }
+
+            if (role.roleAccess === RoleAccess.SPECIFIC) {
+                this.isSpecific = true;
+                this.branchService.getAll().subscribe((re: any) => {
+                    this.branchList = re.detail;
+                });
+
+            }
             this.loanService.getLoanStatusApi(id).subscribe((response: any) => {
                 if (response.detail.status === 'false') {
                     this.disableRoleBranch = false;
@@ -289,6 +303,7 @@ export class UserFormComponent implements OnInit {
             this.spinner = false;
         });
     }
+
     checkValidUserEmail(email) {
         this.spinner = true;
         const searchObject = {
