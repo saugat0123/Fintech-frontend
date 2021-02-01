@@ -366,6 +366,27 @@
                     <div class="col-md-12">
                         <h5>Permanent Address</h5>
                     </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><strong>Address Line 1</strong></label>
+                            <input class="form-control"
+                                   formControlName="permanentAddressLine1"
+                                   placeholder="Address Line 1 (optional)"
+                                   type="text">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><strong>Address Line 2</strong></label>
+                            <input class="form-control"
+                                   formControlName="permanentAddressLine2"
+                                   placeholder="Address Line 2 (optional)"
+                                   type="text">
+                        </div>
+                    </div>
+
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="province"><strong>Province</strong></label>
@@ -433,26 +454,6 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label><strong>Address Line 1</strong></label>
-                            <input class="form-control"
-                                   formControlName="permanentAddressLine1"
-                                   placeholder="Address Line 1 (optional)"
-                                   type="text">
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>Address Line 2</strong></label>
-                            <input class="form-control"
-                                   formControlName="permanentAddressLine2"
-                                   placeholder="Address Line 2 (optional)"
-                                   type="text">
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
                             <label for="wardNumber"><strong>Ward Number</strong></label>
                             <input
                                 [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.wardNumber.errors }"
@@ -494,6 +495,27 @@
                     <div class="col-md-12">
                         <h5>Temporary Address</h5>
                     </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><strong>Address Line 1</strong></label>
+                            <input class="form-control"
+                                   formControlName="temporaryAddressLine1"
+                                   placeholder="Address Line 1 (optional)"
+                                   type="text">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><strong>Address Line 2</strong></label>
+                            <input class="form-control"
+                                   formControlName="temporaryAddressLine2"
+                                   placeholder="Address Line 2 (optional)"
+                                   type="text">
+                        </div>
+                    </div>
+
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="temporaryProvince"><strong>Province</strong></label>
@@ -556,26 +578,6 @@
                 <span
                     *ngIf="basicInfoControls.temporaryMunicipalities.errors.required"> Municipalities/VDCs required</span>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>Address Line 1</strong></label>
-                            <input class="form-control"
-                                   formControlName="temporaryAddressLine1"
-                                   placeholder="Address Line 1 (optional)"
-                                   type="text">
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>Address Line 2</strong></label>
-                            <input class="form-control"
-                                   formControlName="temporaryAddressLine2"
-                                   placeholder="Address Line 2 (optional)"
-                                   type="text">
                         </div>
                     </div>
 
