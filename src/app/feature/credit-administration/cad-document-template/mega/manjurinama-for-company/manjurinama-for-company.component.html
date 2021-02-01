@@ -1,5 +1,5 @@
 <div class="container nep text-justify">
-    <form (ngSubmit)="submit()" [formGroup]="manjurimaCompany"  class="nep">
+    <form (ngSubmit)="submit()" [formGroup]="manjurimaCompany"  class="nep" id="manjurimaCompanyPrint">
         <h4 class="text-center">मन्जुरीनामा</h4>
 
         <div class="row">
@@ -7,143 +7,143 @@
                 <p>
                     लिखितम्  लिखितम लिखित गराइ लिनेका नाम प्रचलित बैंक तथा वित्तिय संस्था सम्बन्धी ऐन बमोजिम संस्थापित तथा संचालित काठमाण्डौं जिल्ला काठमाण्डौ महानगरपालिका वडा नं. २८
                     स्थित केन्द्रीय कार्यलय रहेको मेगा बैंक नेपाल लिमिटेडको <strong>प्रधान</strong> कार्यालय (जसलाई यस पछि धनी बैंक भनिएको), लिखत गरी दिने हामी तपसिलमा बमोजिमका मानिसहरु आगे
-                    श्री <input class="form-field form-control-sm nepaliFont"
+                    श्री <input class="form-field form-control-sm nepaliFont disable-print"
                                 name="grandFatherName"
                                 formControlName="grandFatherName"
                                 placeholder=""
-                                type="text"/>
+                                type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('grandFatherName').value ? manjurimaCompany.get('grandFatherName').value  : '========='}}</b></span>
                     को/की नाति/नातिनी/बुहारी, श्री
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="fatherName"
                            formControlName="fatherName"
                            placeholder=""
-                           type="text"/>
+                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('fatherName').value ? manjurimaCompany.get('fatherName').value  : '========='}}</b></span>
                     को/की ५ोरा/५ोरी,
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="husbandName"
                            formControlName="husbandName"
                            placeholder=""
-                           type="text"/>
+                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('husbandName').value ? manjurimaCompany.get('husbandName').value  : '========='}}</b></span>
                     को/की  पत्नी,
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="perDistrictName"
                            formControlName="perDistrictName"
                            placeholder=""
-                           type="text"/>
+                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('perDistrictName').value ? manjurimaCompany.get('perDistrictName').value  : '========='}}</b></span>
                     जिल्ला
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="perMunicipality"
                            formControlName="perMunicipality"
                            placeholder=""
-                           type="text"/>
+                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('perMunicipality').value ? manjurimaCompany.get('perMunicipality').value  : '========='}}</b></span>
                     न.पा./गा.वि.स. वडा नं.
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="perWardNo"
                            formControlName="perWardNo"
                            placeholder=""
                            type="text"
-                           size="3"/>
+                           size="3"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('perWardNo').value ? manjurimaCompany.get('perWardNo').value  : '========='}}</b></span>
                     हाल
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="tempAddProvinceName"
                            formControlName="tempAddProvinceName"
                            placeholder=""
-                           type="text"/>
+                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('tempAddProvinceName').value ? manjurimaCompany.get('tempAddProvinceName').value  : '========='}}</b></span>
                     प्रदेश
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="tempAddDistrictName"
                            formControlName="tempAddDistrictName"
                            placeholder=""
-                           type="text"/>
+                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('tempAddDistrictName').value ? manjurimaCompany.get('tempAddDistrictName').value  : '========='}}</b></span>
                     जिल्ला
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="tempAddMunicipalityOrVdc"
                            formControlName="tempAddMunicipalityOrVdc"
                            placeholder=""
-                           type="text"/>
+                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('tempAddMunicipalityOrVdc').value ? manjurimaCompany.get('tempAddMunicipalityOrVdc').value  : '========='}}</b></span>
                     गाउपालिका/महा/उपमहा/नगरपालिका वडा नं.
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="tempAddWardNo"
                            formControlName="tempAddWardNo"
                            placeholder=""
                            type="text"
-                           size="2"/>
+                           size="2"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('tempAddWardNo').value ? manjurimaCompany.get('tempAddWardNo').value  : '========='}}</b></span>
                     बस्ने वर्ष
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="borrowerAge"
                            formControlName="borrowerAge"
                            placeholder=""
                            type="text"
-                           size="3"/>
+                           size="3"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('borrowerAge').value ? manjurimaCompany.get('borrowerAge').value  : '========='}}</b></span>
                     की श्री
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="borrowerName"
                            formControlName="borrowerName"
                            placeholder=""
-                           type="text"/>
+                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('borrowerName').value ? manjurimaCompany.get('borrowerName').value  : '========='}}</b></span>
                     को नाममा मालपोत कार्यालय
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="landRevenueOfficeBranch"
                            formControlName="landRevenueOfficeBranch"
                            placeholder=""
-                           type="text"/>
+                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('landRevenueOfficeBranch').value ? manjurimaCompany.get('landRevenueOfficeBranch').value  : '========='}}</b></span>
                     दर्ता श्रेस्ता रही हाम्रो/मेरो समेत हक लाग्ने तपसिलमा उल्लेखित जग्गा/ तथा
                     सो मा बनेको घर समेत धितो राखी नेपाल सरकार,
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="governmentMinistryName"
                            formControlName="governmentMinistryName"
                            placeholder=""
-                           type="text"/>
+                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('governmentMinistryName').value ? manjurimaCompany.get('governmentMinistryName').value  : '========='}}</b></span>
                     मन्त्रालय
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="govOfficeDepName"
                            formControlName="govOfficeDepName"
                            placeholder=""
-                           type="text"/>
+                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('govOfficeDepName').value ? manjurimaCompany.get('govOfficeDepName').value  : '========='}}</b></span>
                     बिभाग
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="govOfficeName"
                            formControlName="govOfficeName"
                            placeholder=""
-                           type="text"/>
+                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('govOfficeName').value ? manjurimaCompany.get('govOfficeName').value  : '========='}}</b></span>
                     कार्यालय दर्ता नं.
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="officeRegNo"
                            formControlName="officeRegNo"
                            placeholder=""
-                           type="text"/>
+                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('officeRegNo').value ? manjurimaCompany.get('officeRegNo').value  : '========='}}</b></span>
                     दर्ता मिति
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="registeredDate"
                            formControlName="registeredDate"
                            placeholder=""
-                           type="text"/>
+                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('registeredDate').value ? manjurimaCompany.get('registeredDate').value  : '========='}}</b></span>
                     मा दर्ता भई
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="officeDistrict"
                            formControlName="officeDistrict"
                            placeholder=""
-                           type="text"/>
+                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('officeDistrict').value ? manjurimaCompany.get('officeDistrict').value  : '========='}}</b></span>
                     जिल्ला
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="officeMunicipalityOrVdc"
                            formControlName="officeMunicipalityOrVdc"
                            placeholder=""
-                           type="text"/>
+                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('officeMunicipalityOrVdc').value ? manjurimaCompany.get('officeMunicipalityOrVdc').value  : '========='}}</b></span>
                     गाउपालिका/महा/उपमहा/नगरपालिका
                     वडा नं.
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="officeWardNo"
                            formControlName="officeWardNo"
                            placeholder=""
                            type="text"
-                           size="3"/>
+                           size="3"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('officeWardNo').value ? manjurimaCompany.get('officeWardNo').value  : '========='}}</b></span>
                     मा रजिष्टर्ड कार्यालय रहेको श्री
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont disable-print"
                            name="businessName"
                            formControlName="businessName"
                            placeholder=""
-                           type="text"/>
+                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('businessName').value ? manjurimaCompany.get('businessName').value  : '========='}}</b></span>
                     प्राईभेट फर्म /साझेदारी फर्म/ <strong>प्रा.लि.</strong> /लि. ले तपाई मेगा बैंक नेपाल लिमिटेडबाट विभिन्न मितिमा स्वीकृत ऋण पत्र बमोजिम प्राप्त गरेको ऋण/बैंकिङ्ग/सुविधाहरु प्राप्त गरेमा
                     हाम्रो/मेरो पूर्ण मञ्जुरी छ । मुलुकी देवानी संहिता, २०७४ बमोजिम उल्लेखित हाम्रो/मेरो समेत हकलाग्ने चल अचल श्रीसम्पत्ति धितो बन्धकरदृष्टिबन्धक राखी कर्जा कारोबार
                     गर्न र कर्जाको शर्त बन्देश बमोजिम ऋणीले कर्जा चुक्ता नगरेमा वा कर्जाको शर्त उल्लंघन गरेमा धनी बैंकले उल्लेखित मेरो/हाम्रो समेत हक लाग्ने श्रीसम्पत्तिबाट असुल उपर
@@ -175,25 +175,25 @@
                         <tbody>
                         <tr style="height: 150px">
                             <td>
-                                <input class="form-field form-control-sm nepaliFont" name="snNo" formControlName="snNo" placeholder="" type="text" size="2"/>
+                                <input class="form-field form-control-sm nepaliFont disable-print" name="snNo" formControlName="snNo" placeholder="" type="text" size="2"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('snNo').value ? manjurimaCompany.get('snNo').value  : '========='}}</b></span>
                             </td>
                             <td>
-                                <input class="form-field form-control-sm tableInput nepaliFont" name="landOwnerName" formControlName="landOwnerName" placeholder="" type="text"/>
+                                <input class="form-field form-control-sm tableInput nepaliFont disable-print disable-print" name="landOwnerName" formControlName="landOwnerName" placeholder="" type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('landOwnerName').value ? manjurimaCompany.get('landOwnerName').value  : '========='}}</b></span>
                             </td>
                             <td>
-                                <input class="form-field form-control-sm tableInput nepaliFont" name="propertyDistrict" formControlName="propertyDistrict" placeholder="" type="text"/>
+                                <input class="form-field form-control-sm tableInput nepaliFont disable-print disable-print" name="propertyDistrict" formControlName="propertyDistrict" placeholder="" type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('propertyDistrict').value ? manjurimaCompany.get('propertyDistrict').value  : '========='}}</b></span>
                             </td>
                             <td>
-                                <input class="form-field form-control-sm tableInput nepaliFont" name="propertyMunicipalityOrVdc" formControlName="propertyMunicipalityOrVdc" placeholder="" type="text"/>
+                                <input class="form-field form-control-sm tableInput nepaliFont disable-print disable-print" name="propertyMunicipalityOrVdc" formControlName="propertyMunicipalityOrVdc" placeholder="" type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('propertyMunicipalityOrVdc').value ? manjurimaCompany.get('propertyMunicipalityOrVdc').value  : '========='}}</b></span>
                             </td>
                             <td>
-                                <input class="form-field form-control-sm tableInput nepaliFont" name="propertyWardNo" formControlName="propertyWardNo" placeholder="" type="text" size="3"/>
+                                <input class="form-field form-control-sm tableInput nepaliFont disable-print disable-print" name="propertyWardNo" formControlName="propertyWardNo" placeholder="" type="text" size="3"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('propertyWardNo').value ? manjurimaCompany.get('propertyWardNo').value  : '========='}}</b></span>
                             </td>
                             <td>
-                                <input class="form-field form-control-sm tableInput nepaliFont" name="propertyKeyNo" formControlName="propertyKeyNo" placeholder="" type="text" size="5"/>
+                                <input class="form-field form-control-sm tableInput nepaliFont disable-print disable-print" name="propertyKeyNo" formControlName="propertyKeyNo" placeholder="" type="text" size="5"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('propertyKeyNo').value ? manjurimaCompany.get('propertyKeyNo').value  : '========='}}</b></span>
                             </td>
                             <td>
-                                <input class="form-field form-control-sm tableInput nepaliFont" name="propertyArea" formControlName="propertyArea" placeholder="" type="text" size="5"/>
+                                <input class="form-field form-control-sm tableInput nepaliFont disable-print disable-print" name="propertyArea" formControlName="propertyArea" placeholder="" type="text" size="5"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('propertyArea').value ? manjurimaCompany.get('propertyArea').value  : '========='}}</b></span>
                             </td>
                         </tr>
                         </tbody>
@@ -219,18 +219,18 @@
                             <td>१.</td>
                             <td width="340">
                                 <p>
-                                    <input class="form-field form-control-sm nepaliFont" name="nameOfTheHeir" formControlName="nameOfTheHeir" placeholder="" type="text">
+                                    <input class="form-field form-control-sm nepaliFont disable-print" name="nameOfTheHeir" formControlName="nameOfTheHeir" placeholder="" type="text"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('nameOfTheHeir').value ? manjurimaCompany.get('nameOfTheHeir').value  : '========='}}</b></span>
                                 </p>
                                 <p>ना.प्र.प.नं
-                                    <input class="form-field form-control-sm nepaliFont" name="heirCitizenshipNo" formControlName="heirCitizenshipNo" placeholder="" type="text"/></p>
+                                    <input class="form-field form-control-sm nepaliFont disable-print" name="heirCitizenshipNo" formControlName="heirCitizenshipNo" placeholder="" type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('heirCitizenshipNo').value ? manjurimaCompany.get('heirCitizenshipNo').value  : '========='}}</b></span></p>
                                 <p>(मिति
-                                    <input class="form-field form-control-sm nepaliFont" name="date" formControlName="date" placeholder="" type="text" size="10"/>
+                                    <input class="form-field form-control-sm nepaliFont disable-print" name="date" formControlName="date" placeholder="" type="text" size="10"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('date').value ? manjurimaCompany.get('date').value  : '========='}}</b></span>
                                     जिल्ला
-                                    <input class="form-field form-control-sm nepaliFont" name="heirDistrictName" formControlName="heirDistrictName" placeholder="" type="text" size="10"/>
+                                    <input class="form-field form-control-sm nepaliFont disable-print" name="heirDistrictName" formControlName="heirDistrictName" placeholder="" type="text" size="10"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('heirDistrictName').value ? manjurimaCompany.get('heirDistrictName').value  : '========='}}</b></span>
 
                                     )</p>
                             </td>
-                            <td><input class="form-field form-control-sm nepaliFont" name="heirAddress" formControlName="heirAddress" placeholder="" type="text"></td>
+                            <td><input class="form-field form-control-sm nepaliFont disable-print" name="heirAddress" formControlName="heirAddress" placeholder="" type="text"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('heirAddress').value ? manjurimaCompany.get('heirAddress').value  : '========='}}</b></span></td>
                             <td>
                                 <div class="container">
                                     <div class="row">
@@ -240,25 +240,25 @@
                                 </div>
                             </td>
                             <td>
-                                <input class="form-field form-control-sm nepaliFont" name="relationship" formControlName="relationship" placeholder="" type="text" size="15">
+                                <input class="form-field form-control-sm nepaliFont disable-print" name="relationship" formControlName="relationship" placeholder="" type="text" size="15"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('relationship').value ? manjurimaCompany.get('relationship').value  : '========='}}</b></span>
                             </td>
                         </tr>
                         <tr style="height: 150px">
                             <td>२.</td>
                             <td width="330">
                                 <p>
-                                    <input class="form-field form-control-sm nepaliFont" name="nameOfTheHeir1" formControlName="nameOfTheHeir1" placeholder="" type="text">
+                                    <input class="form-field form-control-sm nepaliFont disable-print" name="nameOfTheHeir1" formControlName="nameOfTheHeir1" placeholder="" type="text"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('nameOfTheHeir1').value ? manjurimaCompany.get('nameOfTheHeir1').value  : '========='}}</b></span>
                                 </p>
                                 <p>ना.प्र.प.नं
-                                    <input class="form-field form-control-sm nepaliFont" name="heirCitizenshipNo1" formControlName="heirCitizenshipNo1" placeholder="" type="text"/></p>
+                                    <input class="form-field form-control-sm nepaliFont disable-print" name="heirCitizenshipNo1" formControlName="heirCitizenshipNo1" placeholder="" type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('heirCitizenshipNo1').value ? manjurimaCompany.get('heirCitizenshipNo1').value  : '========='}}</b></span></p>
                                 <p>(मिति
-                                    <input class="form-field form-control-sm nepaliFont" name="date1" formControlName="date1" placeholder="" type="text" size="10"/>
+                                    <input class="form-field form-control-sm nepaliFont disable-print" name="date1" formControlName="date1" placeholder="" type="text" size="10"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('date1').value ? manjurimaCompany.get('date1').value  : '========='}}</b></span>
                                     जिल्ला
-                                    <input class="form-field form-control-sm nepaliFont" name="heirDistrictName1" formControlName="heirDistrictName1" placeholder="" type="text" size="10"/>
+                                    <input class="form-field form-control-sm nepaliFont disable-print" name="heirDistrictName1" formControlName="heirDistrictName1" placeholder="" type="text" size="10"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('heirDistrictName1').value ? manjurimaCompany.get('heirDistrictName1').value  : '========='}}</b></span>
 
                                     )</p>
                             </td>
-                            <td><input class="form-field form-control-sm nepaliFont" name="heirAddress1" formControlName="heirAddress1" placeholder="" type="text"></td>
+                            <td><input class="form-field form-control-sm nepaliFont disable-print" name="heirAddress1" formControlName="heirAddress1" placeholder="" type="text"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('heirAddress1').value ? manjurimaCompany.get('heirAddress1').value  : '========='}}</b></span></td>
                             <td>
                                 <div class="container">
                                     <div class="row">
@@ -268,7 +268,7 @@
                                 </div>
                             </td>
                             <td>
-                                <input class="form-field form-control-sm nepaliFont" name="relationship1" formControlName="relationship1" placeholder="" type="text" size="15">
+                                <input class="form-field form-control-sm nepaliFont disable-print" name="relationship1" formControlName="relationship1" placeholder="" type="text" size="15"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('relationship1').value ? manjurimaCompany.get('relationship1').value  : '========='}}</b></span>
                             </td>
                         </tr>
                         </tbody>
@@ -281,13 +281,13 @@
             <div class="col-md-12">
                 <p>
                     ईति सम्वत
-                    <input class="form-field form-control-sm nepaliFont" name="docWrittenYear" formControlName="docWrittenYear" placeholder="" type="text">
+                    <input class="form-field form-control-sm nepaliFont disable-print" name="docWrittenYear" formControlName="docWrittenYear" placeholder="" type="text"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('docWrittenYear').value ? manjurimaCompany.get('docWrittenYear').value  : '========='}}</b></span>
                     साल
-                    <input class="form-field form-control-sm nepaliFont" name="docWrittenMonth" formControlName="docWrittenMonth" placeholder="" type="text" size="10">
+                    <input class="form-field form-control-sm nepaliFont disable-print" name="docWrittenMonth" formControlName="docWrittenMonth" placeholder="" type="text" size="10"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('docWrittenMonth').value ? manjurimaCompany.get('docWrittenMonth').value  : '========='}}</b></span>
                     महिना
-                    <input class="form-field form-control-sm nepaliFont" name="docWrittenDay" formControlName="docWrittenDay" placeholder="" type="text" size="10">
+                    <input class="form-field form-control-sm nepaliFont disable-print" name="docWrittenDay" formControlName="docWrittenDay" placeholder="" type="text" size="10"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('docWrittenDay').value ? manjurimaCompany.get('docWrittenDay').value  : '========='}}</b></span>
                     गते रोज
-                    <input class="form-field form-control-sm nepaliFont" name="docWrittenWeek" formControlName="docWrittenWeek" placeholder="" type="text" size="10">
+                    <input class="form-field form-control-sm nepaliFont disable-print" name="docWrittenWeek" formControlName="docWrittenWeek" placeholder="" type="text" size="10"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('docWrittenWeek').value ? manjurimaCompany.get('docWrittenWeek').value  : '========='}}</b></span>
                     शुभम् ।
                 </p>
             </div>
@@ -299,37 +299,42 @@
                 <h5 class="text-center"> साक्षीहरुः</h5>
                 <p>
                     १.
-                    <input class="form-field form-control-sm nepaliFont" name="witnessDistrict1" formControlName="witnessDistrict1" placeholder="" type="text">
+                    <input class="form-field form-control-sm nepaliFont disable-print" name="witnessDistrict1" formControlName="witnessDistrict1" placeholder="" type="text"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('witnessDistrict1').value ? manjurimaCompany.get('witnessDistrict1').value  : '========='}}</b></span>
                     जिल्ला
-                    <input class="form-field form-control-sm nepaliFont" name="witnessMunicipalityOrVdc1" formControlName="witnessMunicipalityOrVdc1" placeholder="" type="text">
+                    <input class="form-field form-control-sm nepaliFont disable-print" name="witnessMunicipalityOrVdc1" formControlName="witnessMunicipalityOrVdc1" placeholder="" type="text"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('witnessMunicipalityOrVdc1').value ? manjurimaCompany.get('witnessMunicipalityOrVdc1').value  : '========='}}</b></span>
                     न.पा./गाउपालिका वडा नं.
-                    <input class="form-field form-control-sm nepaliFont" name="witnessWardNo1" formControlName="witnessWardNo1" placeholder="" type="text" size="5">
+                    <input class="form-field form-control-sm nepaliFont disable-print" name="witnessWardNo1" formControlName="witnessWardNo1" placeholder="" type="text" size="5"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('witnessWardNo1').value ? manjurimaCompany.get('witnessWardNo1').value  : '========='}}</b></span>
                     बस्ने वर्ष
-                    <input class="form-field form-control-sm nepaliFont" name="witnessAge1" formControlName="witnessAge1" placeholder="" type="text" size="5">
+                    <input class="form-field form-control-sm nepaliFont disable-print" name="witnessAge1" formControlName="witnessAge1" placeholder="" type="text" size="5"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('witnessAge1').value ? manjurimaCompany.get('witnessAge1').value  : '========='}}</b></span>
                     को
-                    <input class="form-field form-control-sm nepaliFont" name="witnessName1" formControlName="witnessName1" placeholder="" type="text">
+                    <input class="form-field form-control-sm nepaliFont disable-print" name="witnessName1" formControlName="witnessName1" placeholder="" type="text"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('witnessName1').value ? manjurimaCompany.get('witnessName1').value  : '========='}}</b></span>
                     १
                 </p>
                 <p>
                     २.
-                    <input class="form-field form-control-sm nepaliFont" name="witnessDistrict2" formControlName="witnessDistrict2" placeholder="" type="text">
+                    <input class="form-field form-control-sm nepaliFont disable-print" name="witnessDistrict2" formControlName="witnessDistrict2" placeholder="" type="text"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('witnessDistrict2').value ? manjurimaCompany.get('witnessDistrict2').value  : '========='}}</b></span>
                     जिल्ला
-                    <input class="form-field form-control-sm nepaliFont" name="witnessMunicipalityOrVdc2" formControlName="witnessMunicipalityOrVdc2" placeholder="" type="text">
+                    <input class="form-field form-control-sm nepaliFont disable-print" name="witnessMunicipalityOrVdc2" formControlName="witnessMunicipalityOrVdc2" placeholder="" type="text"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('witnessMunicipalityOrVdc2').value ? manjurimaCompany.get('witnessMunicipalityOrVdc2').value  : '========='}}</b></span>
                     न.पा./गाउपालिका वडा नं.
-                    <input class="form-field form-control-sm nepaliFont" name="witnessWardNo2" formControlName="witnessWardNo2" placeholder="" type="text" size="5">
+                    <input class="form-field form-control-sm nepaliFont disable-print" name="witnessWardNo2" formControlName="witnessWardNo2" placeholder="" type="text" size="5"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('witnessWardNo2').value ? manjurimaCompany.get('witnessWardNo2').value  : '========='}}</b></span>
                     बस्ने वर्ष
-                    <input class="form-field form-control-sm nepaliFont" name="witnessAge2" formControlName="witnessAge2" placeholder="" type="text" size="5">
+                    <input class="form-field form-control-sm nepaliFont disable-print" name="witnessAge2" formControlName="witnessAge2" placeholder="" type="text" size="5"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('witnessAge2').value ? manjurimaCompany.get('witnessAge2').value  : '========='}}</b></span>
                     को
-                    <input class="form-field form-control-sm nepaliFont" name="witnessName2" formControlName="witnessName2" placeholder="" type="text">
+                    <input class="form-field form-control-sm nepaliFont disable-print" name="witnessName2" formControlName="witnessName2" placeholder="" type="text"><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('witnessName2').value ? manjurimaCompany.get('witnessName2').value  : '========='}}</b></span>
                     १
                 </p>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row disable-print">
             <div class="col-md-12 text-right">
-                <button nbButton status="success" type="submit">Save</button>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="manjurimaCompanyPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="manjurimaCompanyPrint" class="mr-2 custom-color" >Print</button>
+                <button nbButton status="success" (click)="submit()">Save</button>
+
+
             </div>
+
         </div>
     </form>
 </div>
