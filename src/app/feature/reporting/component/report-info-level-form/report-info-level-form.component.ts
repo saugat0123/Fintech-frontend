@@ -37,8 +37,13 @@ export class ReportInfoLevelFormComponent implements OnInit {
   public onSubmit(): void {
     const reportingInfo = this.reportForm.value as ReportingInfo;
     this.reportingInfoService.save(reportingInfo).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved reporting info'));
-      this.updateReport.emit(true);
+      if (this.reportingInfo.id == null) {
+        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved reporting info'));
+        this.updateReport.emit(true);
+      } else {
+        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated reporting info'));
+        this.updateReport.emit(true);
+      }
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save reporting info'));
