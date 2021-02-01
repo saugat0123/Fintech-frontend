@@ -63,7 +63,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
     this.spinner = true;
     const data = JSON.stringify(this.userConfigForm.value);
-    console.log(this.userConfigForm.value);
     this.customerInfoService.updateNepaliConfigData(data, this.customerInfo.id).subscribe(res => {
       this.customerInfoData = res.detail;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated!!!'));
