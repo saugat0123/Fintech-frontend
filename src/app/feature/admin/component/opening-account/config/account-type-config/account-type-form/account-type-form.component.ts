@@ -98,7 +98,7 @@ export class AccountTypeFormComponent implements OnInit {
         this.service.update(this.model.id, this.modelForm.value)
         .subscribe(
             () => {
-              this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Account Type'));
+              this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Account Type'));
 
               this.modalRef.close(ModalResponse.SUCCESS);
 
