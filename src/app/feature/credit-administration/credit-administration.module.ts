@@ -48,6 +48,7 @@ import { DocumentChecklistViewLiteComponent } from './cad-view/document-checklis
 import { SecurityComplianceCertificateComponent } from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/security-compliance-certificate/security-compliance-certificate.component';
 import {NgxPrintModule} from 'ngx-print';
 import { AdditionalExposureComponent } from './component/disbursement/additional-exposure/additional-exposure.component';
+import { CadOfferLetterConfigurationComponent } from './cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
 
 
 @NgModule({
@@ -89,7 +90,8 @@ import { AdditionalExposureComponent } from './component/disbursement/additional
         DocumentChecklistLiteComponent,
         DocumentChecklistViewLiteComponent,
         SecurityComplianceCertificateComponent,
-        AdditionalExposureComponent],
+        AdditionalExposureComponent,
+        CadOfferLetterConfigurationComponent],
     imports: [
         ThemeModule,
         CommonModule,
@@ -102,7 +104,8 @@ import { AdditionalExposureComponent } from './component/disbursement/additional
         MegaModule,
         NgxPrintModule,
     ],
-    entryComponents: [AssignPopUpComponent,
+    entryComponents: [
+        AssignPopUpComponent,
         VerifyPopUpComponent,
         CadOfferLetterModalComponent,
         ExposureComponent,
@@ -110,7 +113,8 @@ import { AdditionalExposureComponent } from './component/disbursement/additional
         CustomOfferLetterDocumentComponent,
         UpdateCustomerCadInfoComponent,
         AddAdditionalDocumentComponent,
-        SecurityComplianceCertificateComponent]
+        SecurityComplianceCertificateComponent,
+        CadOfferLetterConfigurationComponent]
 })
 export class CreditAdministrationModule {
 }
