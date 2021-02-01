@@ -23,6 +23,10 @@ export class Guarantor {
     netWorth: number;
     consentOfLegalHeirs: boolean;
     streetName: string;
+    permanentAddressLine1: string;
+    permanentAddressLine2: string;
+    temporaryAddressLine1: string;
+    temporaryAddressLine2: string;
     wardNumber: number;
     streetNameTemporary: string;
     wardNumberTemporary: number;
