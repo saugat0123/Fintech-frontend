@@ -292,7 +292,11 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.customerService.save(this.customer).subscribe(res => {
                         this.spinner = false;
                         this.close();
-                        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Customer Info'));
+                        if (this.formValue.id == null) {
+                            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Customer Info'));
+                        } else {
+                            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Customer Info'));
+                        }
                     }, res => {
                         this.spinner = false;
                         this.toastService.show(new Alert(AlertType.ERROR, res.error.message));

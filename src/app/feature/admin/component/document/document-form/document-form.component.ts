@@ -56,9 +56,15 @@ export class DocumentFormComponent implements OnInit {
     this.model.checkType = this.modelForm.get('checkType').value;
     this.model.containsTemplate = this.modelForm.get('containsTemplate').value;
     this.service.save(this.model).subscribe((response) => {
-          this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Document!'));
-          this.model = new Document();
-          this.activeModal.close(ModalResponse.SUCCESS);
+        if (this.model.id == null) {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Document!'));
+            this.model = new Document();
+            this.activeModal.close(ModalResponse.SUCCESS);
+        } else {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Document!'));
+            this.model = new Document();
+            this.activeModal.close(ModalResponse.SUCCESS);
+        }
         }, error => {
           console.log(error);
           this.activeModal.dismiss(error);

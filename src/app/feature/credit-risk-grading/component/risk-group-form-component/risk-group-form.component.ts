@@ -126,7 +126,7 @@ export class RiskGroupFormComponent implements OnInit {
                 this.service.update(this.model.id, this.modelForm.value)
                     .subscribe(
                         () => {
-                            this.toast.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Risk Group Type'));
+                            this.toast.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Risk Group Type'));
 
                             this.modalRef.close(ModalResponse.SUCCESS);
 

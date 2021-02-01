@@ -586,7 +586,12 @@ export class CompanyFormComponent implements OnInit {
     }
 
     addManagementTeam() {
-        (<FormArray>this.companyInfoFormGroup.get('managementTeams')).push(this.managementTeamFormGroup());
+        const controls = this.companyInfoFormGroup.controls.managementTeams as FormArray;
+        if (FormUtils.checkEmptyProperties(controls)) {
+            this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All Management Detail To Add More'));
+            return;
+        }
+        controls.push(this.managementTeamFormGroup());
     }
 
     proprietorsFormGroup(): FormGroup {
@@ -681,7 +686,12 @@ export class CompanyFormComponent implements OnInit {
 
     addProprietor() {
         this.addressList.push(new Address());
-        (<FormArray>this.companyInfoFormGroup.get('proprietors')).push(this.proprietorsFormGroup());
+        const controls = this.companyInfoFormGroup.controls.proprietors as FormArray;
+        if (FormUtils.checkEmptyProperties(controls)) {
+            this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All MProprietor/Shareholder/Partner Detail To Add More'));
+            return;
+        }
+        controls.push(this.proprietorsFormGroup());
     }
 
     // get district list based on province
@@ -961,7 +971,11 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
             this.close();
-            this.toastService.show(new Alert(AlertType.SUCCESS, `Company Saved Successfully`));
+            if (this.formValue.id == null) {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Company Info'));
+            } else {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Company Info'));
+            }
         }, error => {
             console.error(error);
             this.spinner = false;
