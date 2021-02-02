@@ -244,10 +244,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.customer.province = this.basicInfo.get('province').value;
                     this.customer.district = this.basicInfo.get('district').value;
                     this.customer.municipalities = this.basicInfo.get('municipalities').value;
-                    // this.individualJsonData.permanentAddressLine1 = this.basicInfo.get('permanentAddressLine1').value;
-                    // this.individualJsonData.permanentAddressLine2 = this.basicInfo.get('permanentAddressLine2').value;
-                    // this.individualJsonData.temporaryAddressLine1 = this.basicInfo.get('temporaryAddressLine1').value;
-                    // this.individualJsonData.temporaryAddressLine2 = this.basicInfo.get('temporaryAddressLine2').value;
                     this.customer.wardNumber = this.basicInfo.get('wardNumber').value;
                     this.customer.temporaryProvince = this.basicInfo.get('temporaryProvince').value;
                     this.customer.temporaryDistrict = this.basicInfo.get('temporaryDistrict').value;
@@ -341,8 +337,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.individualJsonData.permanentAddressLine1],
             permanentAddressLine2: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.permanentAddressLine2],
-            // permanentAddressLine1: [this.customer.permanentAddressLine1 === null ? undefined : this.customer.permanentAddressLine1],
-            // permanentAddressLine2: [this.customer.permanentAddressLine2 === null ? undefined : this.customer.permanentAddressLine2],
             wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber, Validators.required],
             contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, [Validators.required,
                 Validators.max(9999999999), Validators.min(1000000000)]],
