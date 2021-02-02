@@ -165,11 +165,10 @@
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
-                <th colspan="6">Company Location Detail</th>
+                <th colspan="5">Company Location Detail</th>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>House Number</th>
-                <th>Street Name</th>
                 <th>Address</th>
                 <th>Ward</th>
                 <th>Address Line 1</th>
@@ -179,7 +178,6 @@
             <tbody>
             <tr>
                 <td>{{formValue?.companyLocations?.houseNumber}}</td>
-                <td>{{formValue?.companyLocations?.streetName}}</td>
                 <td>
                     ({{companyLocationData?.province?.name}},{{companyLocationData?.district?.name}}
                     , {{companyLocationData?.municipalityVdc?.name}})
