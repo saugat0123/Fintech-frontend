@@ -1,15 +1,15 @@
 <div [formGroup]="addressForm" class="row">
-  <div class="col-md-4 form-group">
+  <div class="col-md-6 form-group">
     <label class="title" for="address1">Address Line 1</label>
     <input class="form-control" formControlName="address1" id="address1" name="address1"
-           placeholder="Address Line 1" type="text">
+           placeholder="Address Line 1 (optional)" type="text">
   </div>
-  <div class="col-md-4 form-group">
+  <div class="col-md-6 form-group">
     <label class="title" for="address2">Address Line 2</label>
     <input class="form-control" formControlName="address2" id="address2" name="address2"
-           placeholder="Address Line 2" type="text">
+           placeholder="Address Line 2 (optional)" type="text">
   </div>
-  <div class="col-md-4 form-group"></div>
+
   <div class="col-md-4 form-group">
     <label for="province">Province</label>
     <select (change)="getDistrictsById(form.province.value?.id , $event)"
