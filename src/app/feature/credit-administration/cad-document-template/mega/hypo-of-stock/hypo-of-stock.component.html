@@ -23,7 +23,8 @@
 
         <div class="row text-center">
             <p>
-                <strong>व्याज दर <b>बार्षिक</b><input class="form-field form-control-sm nepaliFont disable-print" formControlName="interestRateAnnually" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('interestRateAnnually').value ? hypoOfStock.get('interestRateAnnually').value  : '========='}}</b></span><b>प्रतिशत</b><input class="form-field form-control-sm nepaliFont" formControlName="percentage" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('sambatYear').value ? hypoOfStock.get('sambatYear').value  : '========='}}</b></span></strong>
+                <strong>व्याज दर <b>बार्षिक</b><input class="form-field form-control-sm nepaliFont disable-print" formControlName="interestRateAnnually" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('interestRateAnnually').value ? hypoOfStock.get('interestRateAnnually').value  : '========='}}</b></span><b>प्रतिशत</b>
+                    <input class="form-field form-control-sm nepaliFont" formControlName="percentage" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('percentage').value ? hypoOfStock.get('percentage').value  : '========='}}</b></span></strong>
             </p>
         </div>
 
@@ -35,13 +36,15 @@
 
         <div class="row text-center">
             <p>
-                <strong>ऋणीको नाम	<input class="form-field form-control-sm nepaliFont disable-print" formControlName="debtorName" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('debtorName').value ? hypoOfStock.get('debtorName').value  : '========='}}</b></span> ठेगाना <input class="form-field form-control-sm nepaliFont" formControlName="address" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('sambatYear').value ? hypoOfStock.get('sambatYear').value  : '========='}}</b></span></strong>
+                <strong>ऋणीको नाम	<input class="form-field form-control-sm nepaliFont disable-print" formControlName="debtorName" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('debtorName').value ? hypoOfStock.get('debtorName').value  : '========='}}</b></span> ठेगाना
+                    <input class="form-field form-control-sm nepaliFont" formControlName="address" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('address').value ? hypoOfStock.get('address').value  : '========='}}</b></span></strong>
             </p>
         </div>
 
         <div class="row text-center">
             <p>
-                <strong>हाइपोथिकेशन मुल्यःरु	<input class="form-field form-control-sm nepaliFont disable-print" formControlName="hypothesisAmountInRupees" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('hypothesisAmountInRupees').value ? hypoOfStock.get('hypothesisAmountInRupees').value  : '========='}}</b></span> (अक्षेरुपी <input class="form-field form-control-sm nepaliFont" formControlName="loanAmountInWord" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('sambatYear').value ? hypoOfStock.get('sambatYear').value  : '========='}}</b></span> )</strong>
+                <strong>हाइपोथिकेशन मुल्यःरु	<input class="form-field form-control-sm nepaliFont disable-print" formControlName="hypothesisAmountInRupees" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('hypothesisAmountInRupees').value ? hypoOfStock.get('hypothesisAmountInRupees').value  : '========='}}</b></span> (अक्षेरुपी
+                    <input class="form-field form-control-sm nepaliFont" formControlName="loanAmountInWord" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('loanAmountInWord').value ? hypoOfStock.get('loanAmountInWord').value  : '========='}}</b></span> )</strong>
             </p>
         </div>
 
