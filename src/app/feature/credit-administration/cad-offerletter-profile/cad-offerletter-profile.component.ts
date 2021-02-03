@@ -17,6 +17,7 @@ import {UpdateCustomerCadInfoComponent} from './update-customer-cad-info/update-
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {CadOfferLetterConfigurationComponent} from './cad-offer-letter-configuration/cad-offer-letter-configuration.component';
 
 @Component({
     selector: 'app-cad-offerletter-profile',
@@ -170,6 +171,16 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
             }
 
         });
+    }
+
+    openOfferLetterConfigModal() {
+        this.nbDialogService.open(CadOfferLetterConfigurationComponent, {context: {customerInfo: this.customerInfoData}}).onClose
+            .subscribe(value => {
+                if (!ObjectUtil.isEmpty(value)) {
+                    this.customerInfoData = value;
+                    console.log(value);
+                }
+            });
     }
 
     ngOnChanges(changes: SimpleChanges): void {
