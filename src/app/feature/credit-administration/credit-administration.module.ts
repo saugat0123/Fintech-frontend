@@ -114,6 +114,7 @@ import { CadOfferLetterConfigurationComponent } from './cad-offerletter-profile/
         UpdateCustomerCadInfoComponent,
         AddAdditionalDocumentComponent,
         SecurityComplianceCertificateComponent,
+        AdditionalExposureComponent,
         CadOfferLetterConfigurationComponent]
 })
 export class CreditAdministrationModule {

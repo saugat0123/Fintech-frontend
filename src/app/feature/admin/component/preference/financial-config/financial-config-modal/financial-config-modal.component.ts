@@ -57,9 +57,15 @@ export class FinancialConfigModalComponent implements OnInit {
     this.fiscalYear = this.quarterForm.value;
     this.spinner = true;
     this.fiscalYearService.save(this.fiscalYear).subscribe(() => {
-      this.onClose();
-      this.spinner = false;
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated Fiscal year'));
+      if (this.fiscalYear.id == null) {
+        this.onClose();
+        this.spinner = false;
+        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Fiscal year'));
+      } else {
+        this.onClose();
+        this.spinner = false;
+        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Fiscal year'));
+      }
     }, res => {
       this.toastService.show(new Alert(AlertType.SUCCESS, res.error.message));
       this.onClose();

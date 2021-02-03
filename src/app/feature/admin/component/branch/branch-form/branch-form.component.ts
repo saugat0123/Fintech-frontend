@@ -195,11 +195,15 @@ export class BranchFormComponent implements OnInit {
     this.spinner = true;
     this.model = this.branchForm.value;
     this.service.save(this.model).subscribe(() => {
-
-          this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Branch!'));
-          this.model = new Branch();
-          this.activeModal.close(ModalResponse.SUCCESS);
-
+      if (this.model.id == null) {
+        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Branch!'));
+        this.model = new Branch();
+        this.activeModal.close(ModalResponse.SUCCESS);
+      } else {
+        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Branch'));
+        this.model = new Branch();
+        this.activeModal.close(ModalResponse.SUCCESS);
+      }
         }, error => {
           console.error(error);
           this.toastService.show(new Alert(AlertType.ERROR, error.error.message));

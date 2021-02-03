@@ -9,6 +9,9 @@ export class Proprietors {
     district: District;
     municipalityVdc: MunicipalityVdc;
     share: number;
+    holderPercentWardNumber: string;
+    addressLine1: string;
+    addressLine2: string;
     type: string;
     kycInfo: any;
 }

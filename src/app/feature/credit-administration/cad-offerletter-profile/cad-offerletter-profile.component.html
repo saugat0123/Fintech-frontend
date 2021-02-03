@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    <nb-card class="mt-3">
+                    <nb-card class="mt-3" *ngIf="roleType !== 'MAKER'">
                         <nb-card-header>
                             <strong>Generate Offer Letter</strong>
                         </nb-card-header>
@@ -57,21 +57,30 @@
                                         </nb-option>
                                     </nb-select>
                                 </div>
-                                <div class="col-md-12 mt-3">
+                                <div  class="col-md-12 mt-3">
                                     <button (click)="openOfferLetterDocumentModal(offerLetterType?.selected)"
                                             class="float-right" nbButton
-                                            size="small">Generate
+                                            size="small"
+                                            [disabled]="roleType === 'MAKER' ||
+                              (cadOfferLetterApprovedDoc?.docStatus === 'LEGAL_APPROVED' ||
+                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||
+                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')">Generate
                                     </button>
                                 </div>
                             </div>
 
                         </nb-card-body>
                     </nb-card>
+
                     <nb-card>
                         <nb-card-header>
-                            <span class="float-right"><button (click)="openCustomOfferLetterDocumentModal(null)"
-                                                              nbButton outline
-                                                              size="tiny"><a
+                            <span *ngIf="roleType !== 'MAKER' &&
+                              !(cadOfferLetterApprovedDoc?.docStatus === 'LEGAL_APPROVED' ||
+                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||
+                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')" class="float-right"><button
+                                    (click)="openCustomOfferLetterDocumentModal(null)"
+                                    nbButton outline
+                                    size="tiny"><a
                                     class="fa fa-plus"></a></button></span>
                             Offer Letter Documents
                         </nb-card-header>
@@ -120,15 +129,20 @@
                                     </td>
                                     <td>
                                         <a (click)="openModel(uploadModel,cusOfferLetter.docName,cusOfferLetter.id,i)"
+                                           *ngIf="!(cadOfferLetterApprovedDoc?.docStatus === 'LEGAL_APPROVED' ||
+                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||
+                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')"
                                            title="upload {{cusOfferLetter.docName}}">
                                             <i class="fa fa-upload cursor"></i>
                                         </a>
+                                        <span *ngIf="roleType !== 'MAKER'">
                                         <a *ngIf="cusOfferLetter?.offerDocType?.toString() === 'CUSTOM'"
                                            class="fa fa-edit cursor ml-1"
                                            (click)="openCustomOfferLetterDocumentModal(cusOfferLetter.id)"></a>
                                         <a *ngIf="cusOfferLetter?.offerDocType?.toString() !== 'CUSTOM'"
                                            class="fa fa-edit cursor ml-1"
                                            (click)="openOfferLetterDocumentModal(cusOfferLetter?.docName)"></a>
+                                            </span>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -370,7 +384,7 @@
                     <label for="type">Select Offer Type</label>
                     <select [(ngModel)]="docType" class="form-control" id="type">
                         <option hidden selected value="null">--Select Type--</option>
-                        <option value="DRAFT">Draft Document</option>
+                        <option *ngIf="roleType !== 'MAKER'" value="DRAFT">Draft Document</option>
                         <option value="SIGNED">Signed Document</option>
                     </select>
                 </div>

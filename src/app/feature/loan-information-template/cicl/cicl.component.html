@@ -26,7 +26,7 @@
 
             <div class="row">
               <div class="col-md-3 form-group">
-                <label for="borrowerName"><b>Name of Borrower</b></label>
+                <label for="borrowerName"><b>Name</b></label>
                 <input class="form-control" formControlName="borrowerName" id="borrowerName"
                        placeholder="Borrower Name"
                        [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('borrowerName').invalid) }">
@@ -100,14 +100,22 @@
               </div>
             </div>
             <div class="col-md-3 form-group">
-                        <label for="obtaineddate"><b>Obtained Date</b></label>
-                        <input class="form-control" formControlName="obtaineddate" id="obtaineddate"
-                               type="date"
-                               [ngClass]="{ 'is-invalid': (submitted) && cicl.get('obtaineddate').invalid }">
-                        <div *ngIf="(submitted) && cicl.get('obtaineddate').errors" class="invalid-feedback">
-                          <span *ngIf="(cicl.get('obtaineddate').errors.required)">Obtained date is required</span>
-                        </div>
-                      </div>
+              <label for="obtaineddate"><b>Obtained Date</b></label>
+                 <input *ngIf="calendarType === 'AD'" [nbDatepicker]="obtainedDatePicker"
+                        [ngClass]="{ 'is-invalid': (submitted) && cicl.get('obtaineddate').invalid }"
+                        class="form-control rounded"
+                        formControlName="obtaineddate" placeholder="Obtained Date"
+                        id="obtaineddate"
+                        type="text"/>
+                <input formControlName="obtaineddate" *ngIf="calendarType === 'BS'" hidden>
+                <app-calendar [ePreDate]="ciclForm.get('obtaineddate').value" *ngIf="calendarType === 'BS'"
+                            (messageToEmit)="ciclForm.get('obtaineddate').patchValue($event?.eDate)"></app-calendar>
+                <nb-datepicker #obtainedDatePicker></nb-datepicker>
+                <div *ngIf="(submitted) && cicl.get('obtaineddate').errors" class="invalid-feedback">
+                  <span *ngIf="(cicl.get('obtaineddate').errors.required)">Obtained date is required</span>
+                </div>
+            </div>
+            
             <div class="col-md-3 form-group">
               <label for="loanamount"><b>Loan Amount</b></label>
               <input class="form-control" formControlName="loanamount" id="loanamount"

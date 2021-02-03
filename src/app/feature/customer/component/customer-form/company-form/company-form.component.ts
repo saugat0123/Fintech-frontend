@@ -211,7 +211,8 @@ export class CompanyFormComponent implements OnInit {
             this.addManagementTeam();
         }
         if (!ObjectUtil.isEmpty(this.companyInfo)) {
-            this.setProprietors(this.companyJsonData.proprietorList);
+            !ObjectUtil.isEmpty(this.companyJsonData.proprietorList) ?
+                this.setProprietors(this.companyJsonData.proprietorList) : this.addProprietor();
         } else {
             this.addProprietor();
         }
@@ -495,7 +496,7 @@ export class CompanyFormComponent implements OnInit {
             /** Succession*/
             succession: [ObjectUtil.isEmpty(this.companyInfo)
             || ObjectUtil.isEmpty(this.companyInfo.succession) ? undefined :
-                this.companyInfo.succession, this.disableCrgAlpha ? undefined: Validators.required],
+                this.companyInfo.succession, this.disableCrgAlpha ? undefined : Validators.required],
 
             /** Groups BackGround*/
             groupsBackGround: [ObjectUtil.isEmpty(this.companyJsonData)
@@ -585,7 +586,12 @@ export class CompanyFormComponent implements OnInit {
     }
 
     addManagementTeam() {
-        (<FormArray>this.companyInfoFormGroup.get('managementTeams')).push(this.managementTeamFormGroup());
+        const controls = this.companyInfoFormGroup.controls.managementTeams as FormArray;
+        if (FormUtils.checkEmptyProperties(controls)) {
+            this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All Management Detail To Add More'));
+            return;
+        }
+        controls.push(this.managementTeamFormGroup());
     }
 
     proprietorsFormGroup(): FormGroup {
@@ -597,6 +603,9 @@ export class CompanyFormComponent implements OnInit {
             province: [null],
             district: [null],
             municipalityVdc: [null],
+            holderPercentWardNumber: [undefined, Validators.required],
+            addressLine1: [undefined],
+            addressLine2: [undefined],
             type: [null, Validators.required]
         });
     }
@@ -656,6 +665,9 @@ export class CompanyFormComponent implements OnInit {
                 province: [proprietors.province === null ? null : proprietors.province],
                 district: [proprietors.district === null ? null : proprietors.district],
                 municipalityVdc: [proprietors.municipalityVdc === null ? null : proprietors.municipalityVdc],
+                holderPercentWardNumber: [proprietors.holderPercentWardNumber === null ? null : proprietors.holderPercentWardNumber],
+                addressLine1: [proprietors.addressLine1 === null ? null : proprietors.addressLine1],
+                addressLine2: [proprietors.addressLine2 === null ? null : proprietors.addressLine2],
                 type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]
             }));
         });
@@ -674,7 +686,12 @@ export class CompanyFormComponent implements OnInit {
 
     addProprietor() {
         this.addressList.push(new Address());
-        (<FormArray>this.companyInfoFormGroup.get('proprietors')).push(this.proprietorsFormGroup());
+        const controls = this.companyInfoFormGroup.controls.proprietors as FormArray;
+        if (FormUtils.checkEmptyProperties(controls)) {
+            this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All MProprietor/Shareholder/Partner Detail To Add More'));
+            return;
+        }
+        controls.push(this.proprietorsFormGroup());
     }
 
     // get district list based on province
@@ -878,6 +895,9 @@ export class CompanyFormComponent implements OnInit {
             proprietors.name = this.getProprietor()[proprietorsIndex].name;
             proprietors.contactNo = this.getProprietor()[proprietorsIndex].contactNo;
             proprietors.share = this.getProprietor()[proprietorsIndex].share;
+            proprietors.holderPercentWardNumber = this.getProprietor()[proprietorsIndex].holderPercentWardNumber;
+            proprietors.addressLine1 = this.getProprietor()[proprietorsIndex].addressLine1;
+            proprietors.addressLine2 = this.getProprietor()[proprietorsIndex].addressLine2;
             proprietors.type = this.getProprietor()[proprietorsIndex].type;
             let province = new Province();
             province = this.getProprietor()[proprietorsIndex].province;
@@ -951,7 +971,11 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
             this.close();
-            this.toastService.show(new Alert(AlertType.SUCCESS, `Company Saved Successfully`));
+            if (this.formValue.id == null) {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Company Info'));
+            } else {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Company Info'));
+            }
         }, error => {
             console.error(error);
             this.spinner = false;

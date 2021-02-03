@@ -33,9 +33,11 @@ export class RetailProfessionalLoanComponent implements OnInit {
     loanTypeArray = ['Professional Term Loan', 'Professional Overdraft Loan' ];
     proTermLoanSelected = false;
     proOverdraftLoanSelected = false;
-
-    @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
     ckeConfig = NepaliEditor.CK_CONFIG;
+    note = '<ul><li><span style="font-family:Preeti">C0fL tyf JolQmutsf] ;DklQ v\'nfpg] lnvt -</span><span>Net Worth Statement<span style="font-family:Preeti">_ kmf]6f] tyf ;Dks{ 7]ufgf ;lxt k]z ug\'kg]{5 .</span></li>' +
+        '<li><span style="font-family:Preeti">tcGo a}+sx?;+u u/]sf] sf/f]jf/ af/] lnlvt ?kdf v\'nfpg\'kg]{ -</span><span>Multiple Banking Declaration<span style="font-family:Preeti">_ k]z ug\'{kg]{5 .</span></li> ' +
+        '<li><span style="font-family:Preeti">tpNn]lvt k|:tfljt crn ;DklQsf] k"0f{ d\'Nofªsg k|ltj]bg -</span><span>Complete Valuation Report<span style="font-family:Preeti">_ k]z ePkZrft dfq shf{ e\'Qmfg ul/g]5 .</span></li> </ul>';
+    @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
 
     constructor(private formBuilder: FormBuilder,
                 private customerOfferLetterService: CustomerOfferLetterService,
@@ -56,20 +58,19 @@ export class RetailProfessionalLoanComponent implements OnInit {
         this.retailProfessionalLoan = this.formBuilder.group({
             refNo: [undefined],
             borrowerName: [undefined],
-            loanAmount: [undefined],
             borrowerAddress: [undefined],
             contactNumber: [undefined],
             timePeriod: [undefined],
             gurantorName: [undefined],
             gurantorNameFlag: [true],
-            loanOfficer1: [undefined],
-            loanOfficer2: [undefined],
+            citizenshipNo1: [undefined],
+            citizenshipNo2: [undefined],
             date: [undefined],
 
             loanTypeSelectedArray: [undefined],
 
             karjaFirstLine: [undefined],
-            clausesTextEditor: [undefined],
+            clausesTextEditor: this.note,
             pageCount: [undefined],
             professionalTermLoanArray: this.formBuilder.array([this.buildProfessionalTermLoanGroup()]),
             professionalOverDraftLoanArray: this.formBuilder.array([this.buildProfessionalOverDraftLoanGroup()]),
@@ -171,6 +172,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
 
 
     submit(): void {
+        console.log('Check Value',this.retailProfessionalLoan.value);
         this.spinner = true;
         this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
 

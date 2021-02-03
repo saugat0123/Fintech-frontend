@@ -61,9 +61,7 @@
         <div class="col-md-12">
             <div class="clearfix">
                 <div class="float-left"><strong>Additional Documents</strong></div>
-
             </div>
-
         </div>
     </nb-card-header>
     <nb-card-body>
@@ -73,9 +71,8 @@
                 <th>S.N</th>
                 <th>Document Name</th>
                 <th>Remarks</th>
+                <th>Upload On</th>
                 <th>Attachment</th>
-
-
             </tr>
             </thead>
             <tbody>
@@ -84,12 +81,10 @@
                 <td>{{i + 1}}</td>
                 <td>{{data?.docName}}</td>
                 <td>{{data?.remarks}}</td>
+                <td><span *ngIf="data?.docPath">{{data?.uploadOn | date}}</span></td>
                 <td class="cursor" (click)="previewDoc(data?.docPath,data?.docName)"><em
                         [class]="data?.docPath === null ? 'fas fa-times-circle text-danger':'fa fa-eye'"></em></td>
-
-
             </tr>
-
             </tbody>
         </table>
     </nb-card-body>
