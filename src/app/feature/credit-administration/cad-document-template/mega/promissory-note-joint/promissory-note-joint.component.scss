@@ -29,3 +29,29 @@ p.box-border{
   border: 1px solid;
   padding:20px;
 }
+
+@media screen {
+  .print-only {
+    display: none;
+  }
+
+  .disable-print {
+    display: inline;
+
+  }
+}
+
+@media print {
+  .print-only {
+    display: inline;
+  }
+  div.align {
+    font-size: 20px;
+    line-height: 1.9;
+    text-align: justify;
+    text-justify: inter-word;
+    margin: 10px 70px;
+  }
+
+}
+
