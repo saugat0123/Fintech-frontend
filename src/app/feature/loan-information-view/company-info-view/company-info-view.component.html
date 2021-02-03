@@ -165,11 +165,9 @@
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
-                <th colspan="6">Company Location Detail</th>
+                <th colspan="5">Company Location Detail</th>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>House Number</th>
-                <th>Street Name</th>
                 <th>Address</th>
                 <th>Ward</th>
                 <th>Address Line 1</th>
@@ -178,8 +176,6 @@
             </thead>
             <tbody>
             <tr>
-                <td>{{formValue?.companyLocations?.houseNumber}}</td>
-                <td>{{formValue?.companyLocations?.streetName}}</td>
                 <td>
                     ({{companyLocationData?.province?.name}},{{companyLocationData?.district?.name}}
                     , {{companyLocationData?.municipalityVdc?.name}})
@@ -275,7 +271,7 @@
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
-                <th colspan="8">Information of Proprietor/Shareholder/Partner with holder %</th>
+                <th colspan="9">Information of Proprietor/Shareholder/Partner with holder %</th>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>S.N</th>
@@ -284,6 +280,9 @@
                 <th>Contact No</th>
                 <th>Share %</th>
                 <th>Address</th>
+                <th>Ward No.</th>
+                <th>Address Line 1</th>
+                <th>Address Line 2</th>
             </tr>
             </thead>
             <ng-container *ngFor="let holder of companyJsonData.proprietorList;let i =index">
@@ -294,9 +293,12 @@
                     <td><strong>{{holder?.share}}</strong></td>
                     <td><strong>{{holder?.contactNo}}</strong></td>
                     <td><strong>{{holder?.province?.name}}, {{holder?.district?.name}}, {{holder?.municipalityVdc?.name}}</strong></td>
+                    <td><strong>{{holder?.holderPercentWardNumber}}</strong></td>
+                    <td><strong>{{holder?.addressLine1}}</strong></td>
+                    <td><strong>{{holder?.addressLine2}}</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="6">
+                    <td colspan="9">
                         <table class="table border-dark">
                             <thead class="sb-bg-dark text-white">
                             <tr>
