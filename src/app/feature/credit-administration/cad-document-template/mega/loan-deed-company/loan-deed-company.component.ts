@@ -22,6 +22,7 @@ export class LoanDeedCompanyComponent implements OnInit {
   @Input() documentId: number;
   @Input() customerLoanId: number;
   loanDeedCompany: FormGroup;
+  nepData;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -38,6 +39,10 @@ export class LoanDeedCompanyComponent implements OnInit {
         }
       });
     }
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+    }
+    console.log(this.nepData);
   }
 
   buildForm() {

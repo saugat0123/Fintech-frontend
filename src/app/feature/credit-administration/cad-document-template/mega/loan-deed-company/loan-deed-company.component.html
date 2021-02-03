@@ -46,57 +46,28 @@
                                              formControlName="registrationDate"
                                              placeholder=""
                                              type="text"/>,) (यस पछि ऋणी भनिएको) को अख्तियारप्राप्त
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="grandParents"
-                                   placeholder=""
-                                   type="text"/>
+                            <strong class="nepaliFont"> {{nepData?.grandFatherName}}</strong>
                             को नाति/ नातिनी/
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="parents"
-                                   placeholder=""
-                                   type="text"/>
+                            <strong class="nepaliFont"> {{nepData?.fatherName}}</strong>
                             छोरा/छोरी
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="permanentDistrict"
-                                   placeholder=""
-                                   type="text"/>
+                            <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong>
                             जिल्ला
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="permanentMunicipalityVDC"
-                                   placeholder=""
-                                   type="text"/>
-                            गाउँपालिका/ नगरपालिका वडा नं.
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="permanentWardNo"
-                                   placeholder=""
-                                   type="text" size="2" />
+                            <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
+                            {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}} वडा नं.
+                                    <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
                             घर भई हाल प्रदेश नं.
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="temporaryProvince"
-                                   placeholder=""
-                                   type="text" size="1"/>
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="temporaryDistrict"
-                                   placeholder=""
-                                   type="text"/>
+                                    <strong class="nepaliFont">{{nepData?.temporaryProvince}}</strong>
+
+                                    <strong class="nepaliFont">{{nepData?.temporaryDistrict}}</strong>
                             जिल्ला
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="temporaryMunicipalityVDC"
-                                   placeholder=""
-                                   type="text"/>
-                            गाउँपालिका/ नगरपालिका वडा नं.
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="temporaryWardNo"
-                                   placeholder=""
-                                   type="text" size="2" />
+                                    <strong class="nepaliFont">{{nepData?.temporaryMunicipality}}</strong>
+                                                            {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}} वडा नं.
+                                    <strong class="nepaliFont">{{nepData?.temporaryWard}}</strong>
                             <input class="form-field form-control-sm nepaliFont"
                                    formControlName="temporaryAddress"
                                    placeholder=""
                                    type="text"/> बस्ने वर्ष
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="age"
-                                   placeholder=""
-                                   type="text" size="3" />
+                                    <strong class="nepaliFont">{{nepData?.age}}</strong>
                             को
                             <input class="form-field form-control-sm nepaliFont"
                                    formControlName="relation"
