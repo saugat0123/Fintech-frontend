@@ -109,9 +109,9 @@
                                <strong style="left: 32px">{{i+1 | nepaliWord:'unicode'}}) प्रस्तावित सुविधा : घर कर्जा (Housing Finance)</strong>
                                <i (click)="removeHousing(i)"  size="small" class="float-right fa fa-trash" *ngIf="form.get('housingFinance')['length']>1"></i>
 
-                               रकम : <input class="form-fields form-control-sm nepaliFont"
+                               रकम : रु<input class="form-fields form-control-sm nepaliFont"
                                             formControlName="loanAmount"
-                                            placeholder="रु ३०,००,००० "
+                                            placeholder=" ३०,००,००० "
                                             type="text"/>/- (अक्षेरुपी <input class="form-fields form-control-sm nepaliFont"
                                                                             formControlName="loanAmountInWord"
                                                                             placeholder="रीस लाख रुपैयाँ"
@@ -124,7 +124,8 @@
                                                                                                                                  formControlName="baseRate">%
                                + प्रिमियम दर  <input class="form-fields form-control-sm nepaliFont"
                                                      formControlName="premiumRate">%) का दरले हाललाई बार्षिक
-                               १२.७६% वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
+                               <input class="form-fields form-control-sm nepaliFont"
+                                      formControlName="premiumRate">%)  वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
                                बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर
                                संसोधन (घट्न∕बढ्न) सक्नेछ । <br><br>
                                भुक्तानी : यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको
@@ -136,22 +137,26 @@
                                                                                              placeholder="६"/> महिना पछि बाट प्रथम किस्ता </strong>
                                प्रारंभ हुने गरी <input class="form-fields form-control-sm nepaliFont"
                                                        formControlName="prices"
-                                                       placeholder="१७४"/> समान मासिक किस्ता बन्दीमा
+                                                       placeholder="१७४"/> समान मासिक किस्ता बन्दीमा रु
                                <input class="form-fields form-control-sm nepaliFont"
                                       formControlName="loanAmountReturn"
-                                      placeholder="रु ३७,९१९.७१"/>(अक्षेरुपी <input
+                                      placeholder="३७,९१९.७१"/>/- (अक्षेरुपी <input
                                class="form-fields form-control-sm nepaliFont"
                                formControlName="loanAmountReturnInWord"
                                placeholder="सैंतीस हजार नौ सय उन्नाईस रुपैयाँ एकहत्तर पैसा"
                                type="text"/>
-                               मात्र) का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको <strong><input class="form-fields form-control-sm nepaliFont"
+                               रुपैयाँ मात्र) का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको <strong><input class="form-fields form-control-sm nepaliFont"
                                                                                                   formControlName="clearanceDate"
                                                                                                   placeholder="१३"
                                                                                                   type="text"/> तारिखमा</strong> चुक्ता भुक्तान
                                गर्नु पर्नेछ ।
 
                                <br><br>
-                               पूर्व भुक्तानी शुल्क : कर्जाको शर्त तथा ब्याजदर परिवर्तन भएको कारणले ऋणीले आफ्नो आम्दानीको श्रोतबाट कर्जा अग्रिम भुक्तानी गर्न चाहेको अवस्थामा वाहेक तोकिएको समयावधि अघिनै भुक्तानी गर्न चाहेमा वा सापटी वा कुनै बैंक वा वित्तीय संस्थामा सार्न वा कर्जा खरिद गर्ने भएमा भुक्तानी हुन बाँकी साँवा रकमको ०.१५ प्रतिशत वा कर्जा प्रवाहको बखत ऋणीबाट असुल गरिएको सेवा शुल्कको २० प्रतिशतले हुन आउने रकम मध्ये कम हुने रकम पूर्व भुक्तानी शुल्क लाग्नेछ ।
+                               पूर्व भुक्तानी शुल्क : कर्जाको शर्त तथा ब्याजदर परिवर्तन भएको कारणले ऋणीले आफ्नो आम्दानीको श्रोतबाट कर्जा अग्रिम भुक्तानी गर्न चाहेको अवस्थामा वाहेक तोकिएको समयावधि अघिनै
+                               भुक्तानी गर्न चाहेमा वा सापटी वा कुनै बैंक वा वित्तीय संस्थामा सार्न वा कर्जा खरिद गर्ने भएमा भुक्तानी हुन बाँकी साँवा रकमको <input class="form-fields form-control-sm nepaliFont" placeholder="१०" type="text"/>
+                               प्रतिशत वा कर्जा प्रवाहको बखत ऋणीबाट असुल गरिएको सेवा शुल्कको
+                               <input class="form-fields form-control-sm nepaliFont" placeholder="१३" type="text"/>
+                               प्रतिशतले हुन आउने रकम मध्ये कम हुने रकम पूर्व भुक्तानी शुल्क लाग्नेछ ।
                                <br><br>
                                सेवा शुल्क : भुक्तानी दिने ऋण सुविधा रकमको <input class="form-fields form-control-sm nepaliFont"
                                                                                  formControlName="serviceChargePercent"
@@ -160,11 +165,11 @@
                                                                                                          type="text"/> प्रतिशत) ।
                                <br><br>
                                <p *ngIf="form.get(['housingFinance',i,'loanRateShow']).value">
-                                   क.सु.के. दस्तुर : <input
+                                   क.सु.के. दस्तुर : रु<input
                                    class="form-fields form-control-sm nepaliFont"
                                    formControlName="loanRate"
-                                   placeholder="रु ५००/–"
-                                   type="text"/> मात्र ।
+                                   placeholder="५००"
+                                   type="text"/>/- मात्र ।
                                     <a
                                    (click)="removeOptionalField('housingFinance',i ,'loanRateShow')"
                                    class="text-danger cursor" data-placement="top">
@@ -195,20 +200,22 @@
                            <div class="col-md-12 " style="left: 30px;" [formGroupName]="i">
                                <strong style="left: 32px">{{i+1 | nepaliWord: 'unicode'}}) प्रस्तावित सुविधा : धितो कर्जा (Mortgage Finance)</strong>
                                <i (click)="removeMortgageFinance(i)"  size="small" class="float-right fa fa-trash" *ngIf="form.get('mortgageFinance')['length']>1"></i>
-                               कर्जा सिमा रकम : <input class="form-fields form-control-sm nepaliFont"
+                               कर्जा सिमा रकम : रु <input class="form-fields form-control-sm nepaliFont"
                                             formControlName="loanAmount"
-                                            placeholder="रु ३०,००,००० "
-                                            type="text"/> (अक्षेरुपी <input class="form-fields form-control-sm nepaliFont"
+                                            placeholder="३०,००,००० "
+                                            type="text"/>/- (अक्षेरुपी <input class="form-fields form-control-sm nepaliFont"
                                                                             formControlName="loanAmountInWord"
-                                                                            placeholder="रीस लाख रुपैयाँ"
-                                                                            type="text"/> मात्र ।)<br><br>
+                                                                            placeholder="रीस लाख"
+                                                                            type="text"/>रुपैयाँ मात्र ।)<br><br>
                                उद्देश्य :  <input class="form-fields form-control-sm nepaliFont"
                                                  formControlName="use" प्रयोजनार्थ> ।<br><br>
                                व्याज : <strong>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) </strong> (हालको आधार दर  <input class="form-fields form-control-sm nepaliFont"
                                                                                                                                  formControlName="baseRate">%
                                + प्रिमियम दर  <input class="form-fields form-control-sm nepaliFont"
                                                      formControlName="premiumRate">%) का दरले हाललाई बार्षिक
-                               १२.७६% वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
+                               <input class="form-fields form-control-sm nepaliFont"
+                                      formControlName="yearlyRate">%)
+                               वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
                                बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर
                                संसोधन (घट्न∕बढ्न) सक्नेछ ।                               <br><br>
                                समय : बैंकबाट कर्जा भुक्तानी भएको मितिले  <input class="form-fields form-control-sm nepaliFont"
@@ -218,15 +225,14 @@
                                                                                              placeholder="६"/> महिना पछि बाट प्रथम किस्ता </strong>
                                प्रारंभ हुने गरी <input class="form-fields form-control-sm nepaliFont"
                                                        formControlName="prices"
-                                                       placeholder="१७४"/> समान मासिक किस्ता बन्दीमा
+                                                       placeholder="१७४"/> समान मासिक किस्ता बन्दीमा रु
                                <input class="form-fields form-control-sm nepaliFont"
                                       formControlName="loanAmountReturn"
-                                      placeholder="रु ३७,९१९.७१"/>(अक्षेरुपी <input
+                                      placeholder=" ३७,९१९.७१"/>/- (अक्षेरुपी <input
                                class="form-fields form-control-sm nepaliFont"
                                formControlName="loanAmountReturnInWord"
                                placeholder="सैंतीस हजार नौ सय उन्नाईस रुपैयाँ एकहत्तर पैसा"
-                               type="text"/>
-                               मात्र) का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको <strong><input class="form-fields form-control-sm nepaliFont"
+                               type="text"/>रुपैयाँ मात्र) का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको <strong><input class="form-fields form-control-sm nepaliFont"
                                                                                                   formControlName="clearanceDate"
                                                                                                   placeholder="१३"
                                                                                                   type="text"/> तारिखमा</strong> चुक्ता भुक्तान
@@ -238,7 +244,14 @@
                                                                                                                       formControlName="maxAmount"> प्रतिशत
                                सम्म रकम निम्नानुसार भुक्तानी गरिनेछ ।<br><br>
 
-                               पूर्व भुक्तानी शुल्क : कर्जाको शर्त तथा ब्याजदर परिवर्तन भएको कारणले ऋणीले आफ्नो आम्दानीको श्रोतबाट कर्जा अग्रिम भुक्तानी गर्न चाहेको अवस्थामा वाहेक तोकिएको समयावधि अघिनै भुक्तानी गर्न चाहेमा वा सापटी वा कुनै बैंक वा वित्तीय संस्थामा सार्न वा कर्जा खरिद गर्ने भएमा भुक्तानी हुन बाँकी साँवा रकमको ०.१५ प्रतिशत वा कर्जा प्रवाहको बखत ऋणीबाट असुल गरिएको सेवा शुल्कको २० प्रतिशतले हुन आउने रकम मध्ये कम हुने रकम पूर्व भुक्तानी शुल्क लाग्नेछ ।
+                               पूर्व भुक्तानी शुल्क : कर्जाको शर्त तथा ब्याजदर परिवर्तन भएको कारणले ऋणीले आफ्नो आम्दानीको श्रोतबाट कर्जा अग्रिम भुक्तानी गर्न चाहेको अवस्थामा वाहेक तोकिएको समयावधि अघिनै
+                               भुक्तानी गर्न चाहेमा वा सापटी वा कुनै बैंक वा वित्तीय संस्थामा सार्न वा कर्जा खरिद गर्ने भएमा भुक्तानी हुन बाँकी साँवा रकमको
+                               <input class="form-fields form-control-sm nepaliFont"
+                                      formControlName="PurbaBhuktaniSulka"
+                                      type="text"/> % प्रतिशत वा कर्जा प्रवाहको बखत ऋणीबाट असुल गरिएको सेवा शुल्कको
+                               <input class="form-fields form-control-sm nepaliFont"
+                                      formControlName="PurbaBhuktaniSulka2"
+                                      type="text"/> प्रतिशतले हुन आउने रकम मध्ये कम हुने रकम पूर्व भुक्तानी शुल्क लाग्नेछ ।
                                <br><br>
                                सेवा शुल्क : भुक्तानी दिने ऋण सुविधा रकमको <input class="form-fields form-control-sm nepaliFont"
                                                                                  formControlName="serviceChargePercent"
@@ -247,10 +260,10 @@
                                                                                                          type="text"/> प्रतिशत) ।
                                <br><br>
                                <p *ngIf="form.get(['mortgageFinance',i,'loanRateShow']).value">
-                                   क.सु.के. दस्तुर : <input
+                                   क.सु.के. दस्तुर : रु<input
                                    class="form-fields form-control-sm nepaliFont"
                                    formControlName="loanRate"
-                                   placeholder="रु ५००/–"
+                                   placeholder="५००/–"
                                    type="text"/> मात्र ।
                                     <a
                                    (click)="removeOptionalField('mortgageFinance',i ,'loanRateShow')"
@@ -282,9 +295,9 @@
                                <strong style="left: 32px">{{i+1 | nepaliWord:'unicode'}}) प्रस्तावित सुविधा : धितो अधिविकष (Mortgage Overdraft)</strong>
                                <i (click)="removeMortgageOverdraft(i)"  size="small" class="float-right fa fa-trash" *ngIf="form.get('mortgageOverdraft')['length']>1"></i>
 
-                               रकम : <input class="form-fields form-control-sm nepaliFont"
+                               रकम : रु<input class="form-fields form-control-sm nepaliFont"
                                             formControlName="loanAmount"
-                                            placeholder="रु ३०,००,००० "
+                                            placeholder="३०,००,००० "
                                             type="text"/> (अक्षेरुपी <input class="form-fields form-control-sm nepaliFont"
                                                                             formControlName="loanAmountInWord"
                                                                             placeholder="रीस लाख रुपैयाँ"
@@ -297,7 +310,9 @@
                                                                                                                                  formControlName="baseRate">%
                                + प्रिमियम दर  <input class="form-fields form-control-sm nepaliFont"
                                                      formControlName="premiumRate">%) का दरले हाललाई बार्षिक
-                               १२.७६% वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
+                               <input class="form-fields form-control-sm nepaliFont"
+                                      formControlName="baseRate">%
+                                वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
                                बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर
                                संसोधन (घट्न∕बढ्न) सक्नेछ । <br><br>
                                समयावधि :	रिभल्भिङ्ग  <input class="form-fields form-control-sm nepaliFont"
@@ -309,13 +324,26 @@
                                पूर्व भुक्तानी शुल्क : कर्जाको शर्त तथा ब्याजदर परिवर्तन भएको कारणले ऋणीले आफ्नो
                                आम्दानीको श्रोतबाट कर्जा अग्रिम भुक्तानी गर्न चाहेको अवस्थामा वाहेक
                                तोकिएको समयावधि अघिनै भुक्तानी गर्न चाहेमा वा सापटी वा कुनै बैंक वा वित्तीय संस्थामा सार्न वा कर्जा खरिद
-                               गर्ने भएमा ऋणीको नाममा स्वीकृत भई उपभोग भईरहेको कर्जा सीमा रकमको ०.१५ प्रतिशत वा कर्जा प्रवाहको बखत ऋणीबाट
-                               असुल गरिएको सेवा शुल्कको २० प्रतिशतले हुन आउने रकम मध्ये कम हुने रकम पूर्व भुक्तानी शुल्क लाग्नेछ ।
+                               गर्ने भएमा ऋणीको नाममा स्वीकृत भई उपभोग भईरहेको कर्जा सीमा रकमको <input class="form-fields form-control-sm nepaliFont"
+                                                                                                       formControlName="baseRate">%
+                               प्रतिशत वा कर्जा प्रवाहको बखत ऋणीबाट
+                               असुल गरिएको सेवा शुल्कको <input class="form-fields form-control-sm nepaliFont"
+                                                               formControlName="PurbaBhuktaniSulka3"
+                                                               placeholder="२०"
+                                                               type="text"/> प्रतिशतले हुन आउने रकम मध्ये कम हुने रकम पूर्व भुक्तानी शुल्क लाग्नेछ ।
                                <br><br>
-                               प्रतिबद्वता शुल्क : स्वीकृत अधिविकर्ष सुविधाको सीमा औसतमा ६० प्रतिशत भन्दा कम उपभोग भएको खण्डमा उपभोग नभएको
-                               अधिविकर्ष कर्जा सुविधाको सीमाको ०.१५% (शुन्य दशमलव एक पाँच प्रतिशत) वा कर्जा प्रवाहको बखत ऋणीबाट असुल गरिएको सेवा शुल्कको
-                               २० प्रतिशतले हुन आउने प्रतिशतका दरले मात्र । <br>
-                               भुक्तानी शुल्क  : भुक्तानी हुने ऋण सुविधा रकमको ०.७५५ (शुन्य दशमलव सात पाँच प्रतिशत) मात्र ।<br>
+                               प्रतिबद्वता शुल्क : स्वीकृत अधिविकर्ष सुविधाको सीमा औसतमा <input class="form-fields form-control-sm nepaliFont"
+                                                                                                formControlName="baseRate">
+                               प्रतिशत भन्दा कम उपभोग भएको खण्डमा उपभोग नभएको
+                               अधिविकर्ष कर्जा सुविधाको सीमाको <input class="form-fields form-control-sm nepaliFont"
+                                                                      formControlName="baseRate">%
+                               (शुन्य दशमलव एक पाँच प्रतिशत) वा कर्जा प्रवाहको बखत ऋणीबाट असुल गरिएको सेवा शुल्कको
+                               <input class="form-fields form-control-sm nepaliFont"
+                                      formControlName="Pratibadhata"
+                                      placeholder="२०"
+                                      type="text"/> प्रतिशतले हुन आउने प्रतिशतका दरले मात्र । <br>
+                               भुक्तानी शुल्क  : भुक्तानी हुने ऋण सुविधा रकमको <input class="form-fields form-control-sm nepaliFont"
+                                                                                      formControlName="baseRate"> (शुन्य दशमलव सात पाँच प्रतिशत) मात्र ।<br>
                                <br>
 
                                सेवा शुल्क : भुक्तानी दिने ऋण सुविधा रकमको <input class="form-fields form-control-sm nepaliFont"
@@ -325,10 +353,10 @@
                                                                                                          type="text"/> प्रतिशत) ।
                                <br><br>
                                <p *ngIf="form.get(['mortgageOverdraft',i,'loanRateShow']).value">
-                                   क.सु.के. दस्तुर : <input
+                                   क.सु.के. दस्तुर : रु<input
                                    class="form-fields form-control-sm nepaliFont"
                                    formControlName="loanRate"
-                                   placeholder="रु ५००/–"
+                                   placeholder="५००/–"
                                    type="text"/> मात्र ।
                                    <a
                                    (click)="removeOptionalField('mortgageOverdraft',i ,'loanRateShow')"
@@ -504,7 +532,10 @@
                            अधिकार बैंकलाई रहनेछ । तर, ऋण सुविधा प्रदान गरिएको समयमा राखिएका अवस्था र शर्तहरु पालना नगरिएको
                            अवस्थामा कर्जा चुक्ता
                            भुक्तान नभएसम्म भाखा नाघेको सावाँ तथा ब्याज रकम (Overdue Interest and Principle) मा विना सूचना
-                           कम्तिमा पनि उल्लेखित ब्याजदरमा थप २ <strong>प्रतिशत</strong> भन्दा कम नहुने गरी हर्जना ब्याज लगाइनेछ
+                           कम्तिमा पनि उल्लेखित ब्याजदरमा थप <input class="form-fields form-control-sm nepaliFont"
+                                                                    formControlName="Byaj"
+                                                                    placeholder="२"
+                                                                    type="text"/> <strong>प्रतिशत</strong> भन्दा कम नहुने गरी हर्जना ब्याज लगाइनेछ
                            ।
                        </div>
                    </div>
@@ -542,7 +573,10 @@
                            बैंकको हितमा विमा गराई विमा पोलिसिको सक्कल प्रति बैंकमा बुझाउनु पर्नेछ ।
                            साथै प्रत्येक वर्ष सम्बन्धित विमा कम्पनीमा सो विमा वापतको प्रिमियम तिरी पोलिसि समयमै नविकरण गराई
                            नविकरण गरिएको सक्कल प्रति बैंकलाई विमालेख समयावधि समाप्ति अवधि
-                           ( <strong>Insurance Expiry Date</strong> ) को १५ दिन अगावै बुझाउनुु पर्नेछ ।
+                           ( <strong>Insurance Expiry Date</strong> ) को <input class="form-fields form-control-sm nepaliFont"
+                                                                                formControlName="InsuranceExpDate"
+                                                                                placeholder="१५"
+                                                                                type="text"/> दिन अगावै बुझाउनुु पर्नेछ ।
                            कथंकदाचित उल्ल्ेखित शर्तको पालना गर्न ऋणी चुकेमा वा नविकरण गरिएको सक्कल प्रति विमालेख समयावधि
                            समाप्ति अवधिसम्म पनि बैंकमा नबुझाएको खण्डमा बैंकले सो को नविकरण गराई सम्बन्धित खर्चहरु ऋणीको खाताबाट
                            कट्टा गरि लिनेछ । बिमालेख समयावधि समाप्त भई ऋणीको खातामा पैसा नभएको अवस्थामा समेत बैंकले ऋणीको खाता
@@ -750,7 +784,9 @@
                                    class="nepaliFont"> {{this.form.get('currentAddress').value}}</strong> <br>
                            </div>
                            <br>
-                           यो सुविधाको प्रस्ताव उपर स्वीकृति दिन को लागि माथि उल्लेखित मिति देखि ३० दिनसम्म को समय दिईएको छ र
+                           यो सुविधाको प्रस्ताव उपर स्वीकृति दिन को लागि माथि उल्लेखित मिति देखि
+                           <input class="form-fields form-control-sm nepaliFont" formControlName="IntervalTime" placeholder="३०" type="text"/>
+                           दिनसम्म को समय दिईएको छ र
                            उल्लेखित समय भित्र ऋणिले आफ्नो सहमति लिखित रुपमा दिईसक्नु पर्ने छ ।
                            बैंकले ऋण सुविधाको प्रस्ताव गर्दा मानेका आधारहरुमा प्रतिकूल असर पर्न जान सक्ने कुनै पनि अवस्था
                            आइपरेमा ऋणीले उपलब्ध गराइ सकेका वा नसकेको जुनसुकै अवस्थामा भएपनि विना कुनै कारण
