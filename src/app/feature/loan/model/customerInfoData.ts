@@ -50,4 +50,5 @@ export class CustomerInfoData {
     obligor: string;
     customerCode: string;
     subSectorDetailCode: string;
+    nepData: string;
 }
