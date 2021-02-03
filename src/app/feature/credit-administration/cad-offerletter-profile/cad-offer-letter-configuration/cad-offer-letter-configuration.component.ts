@@ -6,7 +6,6 @@ import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NbDialogRef} from '@nebular/theme';
-import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
   selector: 'app-cad-offer-letter-configuration',
@@ -53,10 +52,23 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       relationMedium: [undefined],
       husbandName: [undefined],
       fatherInLawName: [undefined],
+      citizenshipNo: [undefined],
+      age: [undefined],
+      permanentProvince: [undefined],
+      permanentDistrict: [undefined],
+      permanentMunicipality: [undefined],
+      permanentMunType: ['नगरपालिका'],
+      temporaryProvince: [undefined],
+      temporaryDistrict: [undefined],
+      temporaryMunicipality: [undefined],
+      permanentWard: [undefined],
+      temporaryWard: [undefined],
+      temporaryMunType: ['नगरपालिका'],
     });
   }
 
   save() {
+    console.log(this.userConfigForm.value);
     this.submitted = true;
     if (this.userConfigForm.invalid) {
       return;
