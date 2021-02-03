@@ -1,5 +1,6 @@
 <div class="container nep text-justify" id="">
-    <form (ngSubmit)="submit()" [formGroup]="hypoOfStock" class="nep">
+    <form (ngSubmit)="submit()" [formGroup]="hypoOfStock" class="nep" id="hypoOfStockPrint">
+        <div class="align">
         <h6 class="text-center">
             <strong>
                 हाइपोथिकेशन अन्तर्गत मेशिनरीको धितो सुरक्षण सम्बन्धी लिखत <br>
@@ -8,78 +9,81 @@
         </h6>
         <div class="row text-center">
             <p>
-                <strong>संकेत नम्बर <input class="form-field form-control-sm nepaliFont" formControlName="hintNumber" type="text"></strong>
+                <strong>संकेत नम्बर <input class="form-field form-control-sm nepaliFont disable-print" formControlName="hintNumber" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('hintNumber').value ? hypoOfStock.get('hintNumber').value  : '========='}}</b></span></strong>
             </p>
         </div>
         <div class="row text-center">
             <p>
                 <strong>
-                    ऋण कर्जाको सीमा <b>रु</b><input class="form-field form-control-sm nepaliFont" formControlName="loanLimit" type="text">
-                    <b>(अक्षरुपी </b><input class="form-field form-control-sm nepaliFont" formControlName="loanLimitInAlphabetical" type="text"><b>)</b>
+                    ऋण कर्जाको सीमा <b>रु</b><input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanLimit" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('loanLimit').value ? hypoOfStock.get('loanLimit').value  : '========='}}</b></span>
+                    <b>(अक्षरुपी </b><input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanLimitInAlphabetical" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('loanLimitInAlphabetical').value ? hypoOfStock.get('loanLimitInAlphabetical').value  : '========='}}</b></span><b>)</b>
                 </strong>
             </p>
         </div>
 
         <div class="row text-center">
             <p>
-                <strong>व्याज दर <b>बार्षिक</b><input class="form-field form-control-sm nepaliFont" formControlName="interestRateAnnually" type="text"><b>प्रतिशत</b><input class="form-field form-control-sm nepaliFont" formControlName="percentage" type="text"></strong>
+                <strong>व्याज दर <b>बार्षिक</b><input class="form-field form-control-sm nepaliFont disable-print" formControlName="interestRateAnnually" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('interestRateAnnually').value ? hypoOfStock.get('interestRateAnnually').value  : '========='}}</b></span><b>प्रतिशत</b>
+                    <input class="form-field form-control-sm nepaliFont" formControlName="percentage" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('percentage').value ? hypoOfStock.get('percentage').value  : '========='}}</b></span></strong>
             </p>
         </div>
 
         <div class="row text-center">
             <p>
-                <strong>मार्जिन	<input class="form-field form-control-sm nepaliFont" formControlName="margin" type="text"></strong>
+                <strong>मार्जिन	<input class="form-field form-control-sm nepaliFont disable-print" formControlName="margin" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('margin').value ? hypoOfStock.get('margin').value  : '========='}}</b></span></strong>
             </p>
         </div>
 
         <div class="row text-center">
             <p>
-                <strong>ऋणीको नाम	<input class="form-field form-control-sm nepaliFont" formControlName="debtorName" type="text"> ठेगाना <input class="form-field form-control-sm nepaliFont" formControlName="address" type="text"></strong>
+                <strong>ऋणीको नाम	<input class="form-field form-control-sm nepaliFont disable-print" formControlName="debtorName" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('debtorName').value ? hypoOfStock.get('debtorName').value  : '========='}}</b></span> ठेगाना
+                    <input class="form-field form-control-sm nepaliFont" formControlName="address" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('address').value ? hypoOfStock.get('address').value  : '========='}}</b></span></strong>
             </p>
         </div>
 
         <div class="row text-center">
             <p>
-                <strong>हाइपोथिकेशन मुल्यःरु	<input class="form-field form-control-sm nepaliFont" formControlName="hypothesisAmountInRupees" type="text"> (अक्षेरुपी <input class="form-field form-control-sm nepaliFont" formControlName="loanAmountInWord" type="text"> )</strong>
+                <strong>हाइपोथिकेशन मुल्यःरु	<input class="form-field form-control-sm nepaliFont disable-print" formControlName="hypothesisAmountInRupees" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('hypothesisAmountInRupees').value ? hypoOfStock.get('hypothesisAmountInRupees').value  : '========='}}</b></span> (अक्षेरुपी
+                    <input class="form-field form-control-sm nepaliFont" formControlName="loanAmountInWord" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('loanAmountInWord').value ? hypoOfStock.get('loanAmountInWord').value  : '========='}}</b></span> )</strong>
             </p>
         </div>
 
         <div class="row">
             <p>
                 लिखितम् जमानीको लिखत गराइ दिनेका नाम प्रचलित नेपाल कानून बमोजिम संस्थापित तथा संचालित मेगा बैंक नेपाल लिमिटेडका
-                <input class="form-field form-control-sm nepaliFont" formControlName="branchOffice" type="text">
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="branchOffice" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('branchOffice').value ? hypoOfStock.get('branchOffice').value  : '========='}}</b></span>
                 शाखा कार्यालय (जसलाई यस उप्रान्त लिखतमा धनी बैंक भनिएको ५) लिखत गरि दिनेका नाम नेपाल सरकार
-                <input class="form-field form-control-sm nepaliFont" formControlName="ministry" type="text">
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="ministry" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('ministry').value ? hypoOfStock.get('ministry').value  : '========='}}</b></span>
                 मन्त्रालय
-                <input class="form-field form-control-sm nepaliFont" formControlName="department" type="text">
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="department" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('department').value ? hypoOfStock.get('department').value  : '========='}}</b></span>
                 विभाग
-                <input class="form-field form-control-sm nepaliFont" formControlName="office" type="text">
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="office" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('office').value ? hypoOfStock.get('office').value  : '========='}}</b></span>
                 कार्यालय
-                <input class="form-field form-control-sm nepaliFont" formControlName="registrationNo" type="text">
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registrationNo" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('registrationNo').value ? hypoOfStock.get('registrationNo').value  : '========='}}</b></span>
                 ऐन बमोजिम दर्ता नं
-                <input class="form-field form-control-sm nepaliFont" formControlName="date" type="text">
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="date" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('date').value ? hypoOfStock.get('date').value  : '========='}}</b></span>
                 मिति
-                <input class="form-field form-control-sm nepaliFont" formControlName="registeredDate" type="text">
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registeredDate" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('registeredDate').value ? hypoOfStock.get('registeredDate').value  : '========='}}</b></span>
                 मा दर्ता भएको
-                <input class="form-field form-control-sm nepaliFont" formControlName="proprietaryPartner" type="text">
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="proprietaryPartner" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('proprietaryPartner').value ? hypoOfStock.get('proprietaryPartner').value  : '========='}}</b></span>
                 फर्म/प्रा.लि./लि./कम्पनी (जसलाई यस उप्रान्त ऋ०ाी भनिएको ५) का हकमा एवं तर्फबा६ ऐ. का अख्तियार प्राप्त संचालकरप्रतिनिधि,श्री
-                <input class="form-field form-control-sm nepaliFont" formControlName="grandDaughter" type="text">
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="grandDaughter" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('grandDaughter').value ? hypoOfStock.get('grandDaughter').value  : '========='}}</b></span>
                 को नाति/नातिनी श्री
-                <input class="form-field form-control-sm nepaliFont" formControlName="sonOrDaughter" type="text">
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sonOrDaughter" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('sonOrDaughter').value ? hypoOfStock.get('sonOrDaughter').value  : '========='}}</b></span>
                 को ५ोरा/५ोरी/पत्नी
-                <input class="form-field form-control-sm nepaliFont" formControlName="district" type="text">
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="district" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('district').value ? hypoOfStock.get('district').value  : '========='}}</b></span>
                 जिल्ला
-                <input class="form-field form-control-sm nepaliFont" formControlName="metropolitan" type="text">
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="metropolitan" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('metropolitan').value ? hypoOfStock.get('metropolitan').value  : '========='}}</b></span>
                 महानगरपालिका/नगरपालिका/उपमहानगरपालिका/गा.बि.स. व८ा नं.
-                <input class="form-field form-control-sm nepaliFont" formControlName="vdcName" type="text">
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="vdcName" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('vdcName').value ? hypoOfStock.get('vdcName').value  : '========='}}</b></span>
                 बस्ने बर्ष
-                <input class="form-field form-control-sm nepaliFont" formControlName="age" type="text">
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="age" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('age').value ? hypoOfStock.get('age').value  : '========='}}</b></span>
                 कोरकि श्री/श्रीमती/सूश्री
-                <input class="form-field form-control-sm nepaliFont" formControlName="mrs" type="text">
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="mrs" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('mrs').value ? hypoOfStock.get('mrs').value  : '========='}}</b></span>
                 (ना.प्र.प. नं
-                <input class="form-field form-control-sm nepaliFont" formControlName="districtAdministrationOffice" type="text">
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="districtAdministrationOffice" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('districtAdministrationOffice').value ? hypoOfStock.get('districtAdministrationOffice').value  : '========='}}</b></span>
                 , जिल्ला प्रशासन कार्यालय
-                <input class="form-field form-control-sm nepaliFont" formControlName="officeName" type="text">
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="officeName" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('officeName').value ? hypoOfStock.get('officeName').value  : '========='}}</b></span>
                 बा६ जारी भएको) आगे, ऋ०ाीको अनुरोधमा बैंकले तपसीलमा उल्लेखित शर्त बन्देजहरुको अधिनमा रहने गरी हाइपोथिकेशन
                 अन्तर्गत ऋ०ाीको स्वामित्व तथा नाममा रहेको मालसामान, स्६क मौज्दातको स’रक्ष०ामा म/हामी ऋ०ाीलाई माथि उल्लेखित ऋ०ा
                 सीमा भित्र रही ऋ०ा कर्जा कारोबार गर्न दिन सहमत भएको र म/हामी ऋ०ाीले माथि उल्लेखित ऋ०ा सीमा भित्र रही यस अ३ि वा
@@ -106,10 +110,10 @@
             <div class="row form-group">
                 <div class="col-md-12" style="left: 32px;">
                     <p>
-                        (क) ऋणीको आप्mनै वा वहाल, भाडा लिएको  <input class="form-field form-control-sm nepaliFont" formControlName="indebtedDistrict" type="text"> जिल्ला
-                        <input class="form-field form-control-sm nepaliFont" formControlName="aIndebtedMetropolitan" type="text"> महानगरपालिका/उपमहानगरपालिका/नगरपालिका/गा.वि.स. वडा नं.
-                        <input class="form-field form-control-sm nepaliFont" formControlName="aIndebtedWardNo" type="text"> मा अवस्थित कारखाना, गोदाम घर, पसल कवल, टहरा भित्र वा सो को परिसर, हातामा हाल भण्डार गरिएको वा राखिएको
-                        यस लिखतको अन’स”ची <input class="form-field form-control-sm nepaliFont" formControlName="aIndebtedAttached" type="text">
+                        (क) ऋणीको आप्mनै वा वहाल, भाडा लिएको  <input class="form-field form-control-sm nepaliFont disable-print" formControlName="indebtedDistrict" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('indebtedDistrict').value ? hypoOfStock.get('indebtedDistrict').value  : '========='}}</b></span> जिल्ला
+                        <input class="form-field form-control-sm nepaliFont disable-print" formControlName="aIndebtedMetropolitan" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('aIndebtedMetropolitan').value ? hypoOfStock.get('aIndebtedMetropolitan').value  : '========='}}</b></span> महानगरपालिका/उपमहानगरपालिका/नगरपालिका/गा.वि.स. वडा नं.
+                        <input class="form-field form-control-sm nepaliFont disable-print" formControlName="aIndebtedWardNo" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('aIndebtedWardNo').value ? hypoOfStock.get('aIndebtedWardNo').value  : '========='}}</b></span> मा अवस्थित कारखाना, गोदाम घर, पसल कवल, टहरा भित्र वा सो को परिसर, हातामा हाल भण्डार गरिएको वा राखिएको
+                        यस लिखतको अन’स”ची <input class="form-field form-control-sm nepaliFont disable-print" formControlName="aIndebtedAttached" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('aIndebtedAttached').value ? hypoOfStock.get('aIndebtedAttached').value  : '========='}}</b></span>
                         तथा साथमा संलग्न अन’स”ची (यस प५ि अन’स”ची भनिएको ५) मा उल्लेखित विवर०ा एवम् सोहीमा उल्लेखित तौल, परिमा०ा (ध्भष्नजत बलम त्तगबलतष्तथ) र मुल्य बराबरको मालसामानहरु ।
                     </p>
                     <p>
@@ -325,16 +329,16 @@
         <p class="text-underline">मेशिनरी सामानको किसिम परिमाण तौल प्रचलित बजार मूल्य</p>
         <br>
         <div>
-            <p>ऋणीको नामः <input class="form-field form-control-sm nepaliFont" formControlName="indebtedName" type="text"></p>
-            <p>ठेगानाः <input class="form-field form-control-sm nepaliFont" formControlName="indebtedAddress" type="text"></p>
+            <p>ऋणीको नामः <input class="form-field form-control-sm nepaliFont disable-print" formControlName="indebtedName" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('indebtedName').value ? hypoOfStock.get('indebtedName').value  : '========='}}</b></span></p>
+            <p>ठेगानाः <input class="form-field form-control-sm nepaliFont disable-print" formControlName="indebtedAddress" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('indebtedAddress').value ? hypoOfStock.get('indebtedAddress').value  : '========='}}</b></span></p>
             <p>अख्तियार प्राप्त प्रतिनिधिको दस्तखतः </p>
             <br>
             <p>कम्पनी / फर्मको छापः</p>
             <p>
-                इति सम्बत् २० <input class="form-field form-control-sm nepaliFont" formControlName="companyYear" type="text">साल
-                <input class="form-field form-control-sm nepaliFont" formControlName="companyMonth" type="text"> महिना
-                <input class="form-field form-control-sm nepaliFont" formControlName="companyDay" type="text"> गते रोज
-                <input class="form-field form-control-sm nepaliFont" formControlName="company" type="text"> शुभम् ।
+                इति सम्बत् २० <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyYear" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('companyYear').value ? hypoOfStock.get('companyYear').value  : '========='}}</b></span>साल
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyMonth" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('companyMonth').value ? hypoOfStock.get('companyMonth').value  : '========='}}</b></span> महिना
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyDay" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('companyDay').value ? hypoOfStock.get('companyDay').value  : '========='}}</b></span> गते रोज
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="company" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('company').value ? hypoOfStock.get('company').value  : '========='}}</b></span> शुभम् ।
             </p>
         </div>
 
@@ -342,21 +346,26 @@
         <div>
             <strong>साक्षीहरुः</strong>
             <p class="ml-lg-5">
-                १.प्रस्तुत लिखत कारणीले मेरा सामन्ने सहिछाप गरेको हो भनी सनाखत गर्ने धनी बैंकका कर्मचारी<input class="form-field form-control-sm nepaliFont" formControlName="witnessYear" type="text">साल
-                <input class="form-field form-control-sm nepaliFont" formControlName="witnessSignature" type="text"> <br>
+                १.प्रस्तुत लिखत कारणीले मेरा सामन्ने सहिछाप गरेको हो भनी सनाखत गर्ने धनी बैंकका कर्मचारी<input class="form-field form-control-sm nepaliFont" formControlName="witnessYear" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('witnessYear').value ? hypoOfStock.get('witnessYear').value  : '========='}}</b></span>साल
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witnessSignature" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('witnessSignature').value ? hypoOfStock.get('witnessSignature').value  : '========='}}</b></span> <br>
 
-                २.<input class="form-field form-control-sm nepaliFont" formControlName="witnessDistrict" type="text">जिल्ला
-                <input class="form-field form-control-sm nepaliFont" formControlName="witnessMetropolitan" type="text">नगर/गा.वि.स. वडा नं
-                <input class="form-field form-control-sm nepaliFont" formControlName="witnessVdc" type="text"> बस्ने बर्ष
-                <input class="form-field form-control-sm nepaliFont" formControlName="witnessAge" type="text">को/की
-                <input class="form-field form-control-sm nepaliFont" formControlName="witnessEvidence" type="text">
+                २.<input class="form-field form-control-sm nepaliFont disable-print" formControlName="witnessDistrict" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('witnessDistrict').value ? hypoOfStock.get('witnessDistrict').value  : '========='}}</b></span>जिल्ला
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witnessMetropolitan" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('witnessMetropolitan').value ? hypoOfStock.get('witnessMetropolitan').value  : '========='}}</b></span>नगर/गा.वि.स. वडा नं
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witnessVdc" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('witnessVdc').value ? hypoOfStock.get('witnessVdc').value  : '========='}}</b></span> बस्ने बर्ष
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witnessAge" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('witnessAge').value ? hypoOfStock.get('witnessAge').value  : '========='}}</b></span>को/की
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witnessEvidence" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('witnessEvidence').value ? hypoOfStock.get('witnessEvidence').value  : '========='}}</b></span>
             </p>
         </div>
-        <div class="row">
+        <div class="row disable-print">
             <div class="col-md-12 text-right">
-                <button nbButton status="success" type="submit">Save</button>
-            </div>
-        </div>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="hypoOfStockPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="hypoOfStockPrint" class="mr-2 custom-color" >Print</button>
+                <button nbButton status="success" (click)="submit()">Save</button>
 
+
+            </div>
+
+        </div>
+        </div>
     </form>
 </div>
