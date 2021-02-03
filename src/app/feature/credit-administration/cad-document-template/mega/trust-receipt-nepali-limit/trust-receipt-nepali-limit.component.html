@@ -1,6 +1,6 @@
 <div class="container nep text-justify">
     <form (ngSubmit)="submit()" [formGroup]="trustReceiptNepali" class="nep" id="trustReceiptNepali">
-        <div class="heading">
+        <div class="heading align">
             <h4 class="text-center">
                 ट्रस्टी (Trustee)  को रुपमा धितो दिएको सामान बुझिलिएको भरपाई
             </h4>
@@ -9,7 +9,7 @@
             </h2>
         </div>
 
-        <div class="row">
+        <div class="row align">
             <div class="col-md-12">
                 <p>
                     श्री मेगा बैंक नेपाल लिमिटेड,
@@ -20,8 +20,8 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row align">
+            <div class="col-md-12 ">
                 <p>
                     १)	त्यस बैंक र हामी ऋणी वीच मिति
                     <input class="form-field form-control-sm nepaliFont disable-print" name="loanApprovalDate" formControlName="loanApprovalDate" placeholder="" type="text"/>
@@ -53,8 +53,8 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row align">
+            <div class="col-md-12 ">
                 <p>
                     २)	उपरोक्त सामानहरु सुरक्षित स्थानमा लगि भण्डारण गरी राख्ने  छौं । सो वापत लाग्ने सम्पुर्ण खर्चहरु हामी आफैले तिर्ने ब्यहोर्ने छौं ।
                     साथै उपरोक्त सामानहरुको भण्डारण तथा ढुवानीको अवधिको लागि गरिएको बीमा खर्च, तथा अन्य  अत्यावश्यक अग्नी, हुलदंगा, सामाजिक विद्रोह
@@ -97,7 +97,7 @@
                 </p>
             </div>
         </div>
-        <div class="row">
+        <div class="row align">
             <div class="col-md-12">
                 <h5 class="text-center">
                     <strong>यस लिखत अन्तर्गतका सामानहरुको विबरण</strong>
@@ -154,7 +154,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row align">
             <div class="col-md-12 footer">
                 <p>
                     ऋणीको नाम ः– <input class="form-field form-control-sm nepaliFont disable-print" name="debtorName" formControlName="debtorName" placeholder="" type="text"/>
@@ -178,7 +178,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row align">
             <div class="col-md-12">
                 <h5 class="text-center"><strong>साक्षीहरु</strong></h5>
                 <p>
@@ -235,13 +235,12 @@
                 </p>
             </div>
         </div>
-        <div class="row disable-printable">
+        <div class="row disable-print">
             <div class="col-md-12 text-right">
                 <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="trustReceiptNepali" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
                 <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="trustReceiptNepali" class="mr-2 custom-color" >Print</button>
                 <button nbButton status="success" type="submit">Save</button>
             </div>
-        </div>
         </div>
     </form>
 </div>
