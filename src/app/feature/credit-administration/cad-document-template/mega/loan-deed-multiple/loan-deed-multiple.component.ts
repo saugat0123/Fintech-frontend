@@ -64,6 +64,7 @@ export class LoanDeedMultipleComponent implements OnInit {
       purpose: [undefined],
       onePerson: [undefined],
       rate: [undefined],
+      landOwnerDesc:[undefined],
       landOwnerName: [undefined],
       landOwnerMunicipalityVDC: [undefined],
       landOwnerWardNo: [undefined],
