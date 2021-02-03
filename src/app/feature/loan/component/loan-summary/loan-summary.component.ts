@@ -35,9 +35,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
-import {Customer} from '../../../admin/modal/customer';
-import {RoleType} from '../../../admin/modal/roleType';
-import {EnumUtils} from '../../../../@core/utils/enums.utils';
+import {RouteConst} from '../../../credit-administration/model/RouteConst';
 
 @Component({
     selector: 'app-loan-summary',
@@ -462,7 +460,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }, error => this.toastService.show(new Alert(AlertType.ERROR, error.error.message)));
     }
 
-    loanHandler(index: number, length: number , label: string) {
+    loanHandler(index: number, length: number, label: string) {
         if (index === length - 1 && index !== 0) {
             if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
                 return 'APPROVED BY:';
@@ -472,15 +470,15 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 return 'CLOSED BY:';
             }
         }
-       if (!ObjectUtil.isEmpty(label)) {
-           return label;
-       } else {
-           if (index === 0) {
-               return 'INITIATED BY:';
-           } else {
-               return 'SUPPORTED BY:';
-           }
-       }
+        if (!ObjectUtil.isEmpty(label)) {
+            return label;
+        } else {
+            if (index === 0) {
+                return 'INITIATED BY:';
+            } else {
+                return 'SUPPORTED BY:';
+            }
+        }
     }
 
     open(comments) {
@@ -488,11 +486,16 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         modalRef.componentInstance.comments = comments;
     }
 
-    renewedOrCloseFrom(id) {
-        this.router.navigate(['/home/loan/summary'], {
-            queryParams: {
-                loanConfigId: this.loanConfigId,
-                customerId: id
+    renewedOrCloseFrom(id, loanId) {
+        this.router.navigateByUrl(RouteConst.ROUTE_DASHBOARD).then(value => {
+            if (value) {
+                this.router.navigate(['/home/loan/summary'],
+                    {
+                        queryParams: {
+                            loanConfigId: loanId,
+                            customerId: id
+                        }
+                    });
             }
         });
 
