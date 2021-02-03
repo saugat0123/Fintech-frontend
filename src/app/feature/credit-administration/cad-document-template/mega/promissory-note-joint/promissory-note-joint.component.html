@@ -1,168 +1,168 @@
 <div class="container nep text-justify">
 <div class="row">
     <div class="col-md-12 viewFull" style="overflow-y: auto;height:500px;">
-        <form (ngSubmit)="submit()" [formGroup]="promissoryNoteJoint" class="nepali">
+        <form (ngSubmit)="submit()" [formGroup]="promissoryNoteJoint" class="nepali" id="promissoryNoteJointPrint">
             <div class="nep">
                 <div>
 
                     <p class="text-center"style="font-size:24pt;"><b>प्रतिज्ञा पत्र</b></p>
                     <p class="text-center" style="font-size:24pt;"><b>(PROMISSORY NOTE)</b></p>
-                    <p class="text-right"> मितिः २०७<input class="form-field form-control-sm nepaliFont"
+                    <p class="text-right"> मितिः २०७<input class="form-field form-control-sm nepaliFont disable-print"
                                                            formControlName="year"
                                                            placeholder=""
-                                                           type="text" size="1"/>।<input class="form-field form-control-sm nepaliFont"
+                                                           type="text" size="1"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('year').value ? promissoryNoteJoint.get('year').value  : '========='}}</b></span>।<input class="form-field form-control-sm nepaliFont disable-print"
                                                                                          formControlName="month"
                                                                                          placeholder=""
-                                                                                         type="text" size="2"/>।<input class="form-field form-control-sm nepaliFont"
+                                                                                         type="text" size="2"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('month').value ? promissoryNoteJoint.get('month').value  : '========='}}</b></span>।<input class="form-field form-control-sm nepaliFont disable-print"
                                                                                                                        formControlName="day"
                                                                                                                        placeholder=""
-                                                                                                                       type="text" size="2"/></p>
-                    <p class="box-border">रु <input class="form-field form-control-sm nepaliFont"
+                                                                                                                       type="text" size="2"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('day').value ? promissoryNoteJoint.get('day').value  : '========='}}</b></span></p>
+                    <p class="box-border">रु <input class="form-field form-control-sm nepaliFont disable-print"
                                                     formControlName="amount"
                                                     placeholder=""
-                                                    type="text"/>/– (अक्षरेपी <input class="form-field form-control-sm nepaliFont col-3"
+                                                    type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('amount').value ? promissoryNoteJoint.get('amount').value  : '========='}}</b></span>/– (अक्षरेपी <input class="form-field form-control-sm nepaliFont disable-print col-3"
                                                                                      formControlName="amountInWords"
                                                                                      placeholder=""
-                                                                                     type="text"/> <b>मात्र ।)</b></p>
+                                                                                     type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('amountInWords').value ? promissoryNoteJoint.get('amountInWords').value  : '========='}}</b></span> <b>मात्र ।)</b></p>
                     <p>
-                        लिखितम् <input class="form-field form-control-sm nepaliFont"
+                        लिखितम् <input class="form-field form-control-sm nepaliFont disable-print"
                                        formControlName="grandParents"
                                        placeholder=""
-                                       type="text"/>
-                        को/की नाति/नातिनी <input class="form-field form-control-sm nepaliFont"
+                                       type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('grandParents').value ? promissoryNoteJoint.get('grandParents').value  : '========='}}</b></span>
+                        को/की नाति/नातिनी <input class="form-field form-control-sm nepaliFont disable-print"
                                                  formControlName="parents"
                                                  placeholder=""
-                                                 type="text"/>
-                        को/की छोरा/छोरी <input class="form-field form-control-sm nepaliFont"
+                                                 type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('parents').value ? promissoryNoteJoint.get('parents').value  : '========='}}</b></span>
+                        को/की छोरा/छोरी <input class="form-field form-control-sm nepaliFont disable-print"
                                                formControlName="permanentDistrict"
                                                placeholder=""
-                                               type="text"/>
-                        जिल्ला <input class="form-field form-control-sm nepaliFont"
+                                               type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('permanentDistrict').value ? promissoryNoteJoint.get('permanentDistrict').value  : '========='}}</b></span>
+                        जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
                                       formControlName="permanentMunicipalityVDC"
                                       placeholder=""
-                                      type="text"/>
-                        गाउँपालिका/ नगरपालिका वडा नं. <input class="form-field form-control-sm nepaliFont"
+                                      type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('permanentMunicipalityVDC').value ? promissoryNoteJoint.get('permanentMunicipalityVDC').value  : '========='}}</b></span>
+                        गाउँपालिका/ नगरपालिका वडा नं. <input class="form-field form-control-sm nepaliFont disable-print"
                                                              formControlName="permanentWardNo"
                                                              placeholder=""
-                                                             type="text" size="2" />
-                        घर भई हाल प्रदेश नं. <input class="form-field form-control-sm nepaliFont"
+                                                             type="text" size="2" /> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('permanentWardNo').value ? promissoryNoteJoint.get('permanentWardNo').value  : '========='}}</b></span>
+                        घर भई हाल प्रदेश नं. <input class="form-field form-control-sm nepaliFont disable-print"
                                                     formControlName="temporaryProvince"
                                                     placeholder=""
-                                                    type="text" size="1" />
-                        <input class="form-field form-control-sm nepaliFont"
+                                                    type="text" size="1" /><span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('temporaryProvince').value ? promissoryNoteJoint.get('temporaryProvince').value  : '========='}}</b></span>
+                        <input class="form-field form-control-sm nepaliFont disable-print"
                                formControlName="temporaryDistrict"
                                placeholder=""
-                               type="text"/>
-                        जिल्ला <input class="form-field form-control-sm nepaliFont"
+                               type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('temporaryDistrict').value ? promissoryNoteJoint.get('temporaryDistrict').value  : '========='}}</b></span>
+                        जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
                                       formControlName="temporaryMunicipalityVDC"
                                       placeholder=""
-                                      type="text"/>
-                        गाउँपालिका/ नगरपालिका वडा नं. <input class="form-field form-control-sm nepaliFont"
+                                      type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('temporaryMunicipalityVDC').value ? promissoryNoteJoint.get('temporaryMunicipalityVDC').value  : '========='}}</b></span>
+                        गाउँपालिका/ नगरपालिका वडा नं. <input class="form-field form-control-sm nepaliFont disable-print"
                                                              formControlName="temporaryWardNo"
                                                              placeholder=""
-                                                             type="text" size="2" />
-                        बस्ने वर्ष <input class="form-field form-control-sm nepaliFont"
+                                                             type="text" size="2" /> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('temporaryWardNo').value ? promissoryNoteJoint.get('temporaryWardNo').value  : '========='}}</b></span>
+                        बस्ने वर्ष <input class="form-field form-control-sm nepaliFont disable-print"
                                           formControlName="age"
                                           placeholder=""
-                                          type="text" size="3" />
-                        को/कीे <input class="form-field form-control-sm nepaliFont"
+                                          type="text" size="3" /> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('age').value ? promissoryNoteJoint.get('age').value  : '========='}}</b></span>
+                        को/कीे <input class="form-field form-control-sm nepaliFont disable-print"
                                       formControlName="relation"
                                       placeholder=""
-                                      type="text"/>
-                        (ना. प्र. प. नं. <input class="form-field form-control-sm nepaliFont"
+                                      type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('relation').value ? promissoryNoteJoint.get('relation').value  : '========='}}</b></span>
+                        (ना. प्र. प. नं. <input class="form-field form-control-sm nepaliFont disable-print"
                                                 formControlName="citizenshipNo"
                                                 placeholder=""
-                                                type="text"/>
-                        मिति <input class="form-field form-control-sm nepaliFont"
+                                                type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('citizenshipNo').value ? promissoryNoteJoint.get('citizenshipNo').value  : '========='}}</b></span>
+                        मिति <input class="form-field form-control-sm nepaliFont disable-print"
                                     formControlName="issueDate"
                                     placeholder=""
-                                    type="text"/>
-                        जिल्ला <input class="form-field form-control-sm nepaliFont"
+                                    type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('issueDate').value ? promissoryNoteJoint.get('issueDate').value  : '========='}}</b></span>
+                        जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
                                       formControlName="issueDistrict"
                                       placeholder=""
-                                      type="text"/>
-                        )—ज्ञ, <input class="form-field form-control-sm nepaliFont"
+                                      type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('issueDistrict').value ? promissoryNoteJoint.get('issueDistrict').value  : '========='}}</b></span>
+                        )—ज्ञ, <input class="form-field form-control-sm nepaliFont disable-print"
                                       formControlName="grandParents2"
                                       placeholder=""
-                                      type="text"/>
-                        को नाति/नातिनी <input class="form-field form-control-sm nepaliFont"
+                                      type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('grandParents2').value ? promissoryNoteJoint.get('grandParents2').value  : '========='}}</b></span>
+                        को नाति/नातिनी <input class="form-field form-control-sm nepaliFont disable-print"
                                               formControlName="parents2"
                                               placeholder=""
-                                              type="text"/>
-                        छोरा/छोरी <input class="form-field form-control-sm nepaliFont"
+                                              type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('parents2').value ? promissoryNoteJoint.get('parents2').value  : '========='}}</b></span>
+                        छोरा/छोरी <input class="form-field form-control-sm nepaliFont disable-print"
                                          formControlName="permanentDistrict2"
                                          placeholder=""
-                                         type="text"/>
-                        जिल्ला <input class="form-field form-control-sm nepaliFont"
+                                         type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('permanentDistrict2').value ? promissoryNoteJoint.get('permanentDistrict2').value  : '========='}}</b></span>
+                        जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
                                       formControlName="permanentMunicipalityVDC2"
                                       placeholder=""
-                                      type="text"/>
-                        गाउँपालिका/ नगरपालिका वडा नं. <input class="form-field form-control-sm nepaliFont"
+                                      type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('permanentMunicipalityVDC2').value ? promissoryNoteJoint.get('permanentMunicipalityVDC2').value  : '========='}}</b></span>
+                        गाउँपालिका/ नगरपालिका वडा नं. <input class="form-field form-control-sm nepaliFont disable-print"
                                                              formControlName="permanentWardNo2"
                                                              placeholder=""
-                                                             type="text" size="2" />
-                        घर भई हाल प्रदेश नं. <input class="form-field form-control-sm nepaliFont"
+                                                             type="text" size="2" /> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('permanentWardNo2').value ? promissoryNoteJoint.get('permanentWardNo2').value  : '========='}}</b></span>
+                        घर भई हाल प्रदेश नं. <input class="form-field form-control-sm nepaliFont disable-print"
                                                     formControlName="temporaryProvince2"
                                                     placeholder=""
-                                                    type="text" size="1" />
-                        <input class="form-field form-control-sm nepaliFont"
+                                                    type="text" size="1" /><span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('temporaryProvince2').value ? promissoryNoteJoint.get('temporaryProvince2').value  : '========='}}</b></span>
+                        <input class="form-field form-control-sm nepaliFont disable-print"
                                formControlName="temporaryDistrict2"
                                placeholder=""
-                               type="text"/>
-                        जिल्ला <input class="form-field form-control-sm nepaliFont"
+                               type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('temporaryDistrict2').value ? promissoryNoteJoint.get('temporaryDistrict2').value  : '========='}}</b></span>
+                        जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
                                       formControlName="temporaryMunicipalityVDC2"
                                       placeholder=""
-                                      type="text"/>
-                        गाउँपालिका/ नगरपालिका वडा नं. <input class="form-field form-control-sm nepaliFont"
+                                      type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('temporaryMunicipalityVDC2').value ? promissoryNoteJoint.get('temporaryMunicipalityVDC2').value  : '========='}}</b></span>
+                        गाउँपालिका/ नगरपालिका वडा नं. <input class="form-field form-control-sm nepaliFont disable-print"
                                                              formControlName="temporaryWardNo2"
                                                              placeholder=""
-                                                             type="text" size="2" />
-                        बस्ने वर्ष <input class="form-field form-control-sm nepaliFont"
+                                                             type="text" size="2" /> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('temporaryWardNo2').value ? promissoryNoteJoint.get('temporaryWardNo2').value  : '========='}}</b></span>
+                        बस्ने वर्ष <input class="form-field form-control-sm nepaliFont disable-print"
                                           formControlName="age2"
                                           placeholder=""
-                                          type="text" size="3" />
-                        को <input class="form-field form-control-sm nepaliFont"
+                                          type="text" size="3" /> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('age2').value ? promissoryNoteJoint.get('age2').value  : '========='}}</b></span>
+                        को <input class="form-field form-control-sm nepaliFont disable-print"
                                   formControlName="relation2"
                                   placeholder=""
-                                  type="text"/>
-                        ना. प्र. प. नं. <input class="form-field form-control-sm nepaliFont"
+                                  type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('relation2').value ? promissoryNoteJoint.get('relation2').value  : '========='}}</b></span>
+                        ना. प्र. प. नं. <input class="form-field form-control-sm nepaliFont disable-print"
                                                formControlName="citizenshipNo2"
                                                placeholder=""
-                                               type="text"/>
-                        मिति <input class="form-field form-control-sm nepaliFont"
+                                               type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('citizenshipNo2').value ? promissoryNoteJoint.get('citizenshipNo2').value  : '========='}}</b></span>
+                        मिति <input class="form-field form-control-sm nepaliFont disable-print"
                                     formControlName="issueDate2"
                                     placeholder=""
-                                    type="text"/>
-                        जिल्ला <input class="form-field form-control-sm nepaliFont"
+                                    type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('issueDate2').value ? promissoryNoteJoint.get('issueDate2').value  : '========='}}</b></span>
+                        जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
                                       formControlName="issueDistrict2"
                                       placeholder=""
-                                      type="text"/>
-                        )  —१ समेत जना <input class="form-field form-control-sm nepaliFont"
+                                      type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('issueDistrict2').value ? promissoryNoteJoint.get('issueDistrict2').value  : '========='}}</b></span>    
+                        )  —१ समेत जना <input class="form-field form-control-sm nepaliFont disable-print"
                                               formControlName="onePerson"
                                               placeholder=""
-                                              type="text"/>
-                        आगे,तपाई मेगा बैंक नेपाल लिमिटेड <input class="form-field form-control-sm nepaliFont"
+                                              type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('onePerson').value ? promissoryNoteJoint.get('onePerson').value  : '========='}}</b></span>    
+                        आगे,तपाई मेगा बैंक नेपाल लिमिटेड <input class="form-field form-control-sm nepaliFont disable-print"
                                                                 formControlName="branch"
                                                                 placeholder=""
-                                                                type="text"/>
+                                                                type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('branch').value ? promissoryNoteJoint.get('branch').value  : '========='}}</b></span>    
                         कार्यालयले भुक्तानी माग गरेका वखत तपाईलाई वा तपाईले निर्देशन दिएको व्यक्ति/संस्थालाई रु. <span class="nepaliFont form-field">{{promissoryNoteJoint.get('amount').value}}</span>/–
                         (अक्षरेपी <span class="nepaliFont form-field">{{promissoryNoteJoint.get('amountInWords').value}}</span>) र भुक्तानी माग गरेको मिति सम्मको बार्षिक
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field form-control-sm nepaliFont disable-print"
                                formControlName="annualRate"
                                placeholder=""
-                               type="text" size="5"/>
+                               type="text" size="5"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('annualRate').value ? promissoryNoteJoint.get('annualRate').value  : '========='}}</b></span>
                         प्रतिशतका दरले हुने ब्याज रकम समेत एकमुष्ट तिर्न बुझाउन प्रतिज्ञा /कबुल गरी यो प्रतिज्ञापत्रको लिखत गरी दियौं ।
                     </p>
                     <div class="text-right">
-                        प्रतिज्ञापत्रमा सही व्यक्तिहरुको नामः<input class="form-field form-control-sm nepaliFont"
+                        प्रतिज्ञापत्रमा सही व्यक्तिहरुको नामः<input class="form-field form-control-sm nepaliFont disable-print"
                                                                     formControlName="namesOfTheRightPeopleInTheAffidavit"
                                                                     placeholder=""
-                                                                    type="text"/>
+                                                                    type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('namesOfTheRightPeopleInTheAffidavit').value ? promissoryNoteJoint.get('namesOfTheRightPeopleInTheAffidavit').value  : '========='}}</b></span>    
                         <br />
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field form-control-sm nepaliFont disable-print"
                                formControlName="namesOfTheRightPeopleInTheAffidavit2"
                                placeholder=""
-                               type="text"/>
+                               type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('namesOfTheRightPeopleInTheAffidavit2').value ? promissoryNoteJoint.get('namesOfTheRightPeopleInTheAffidavit2').value  : '========='}}</b></span>    
                         <br/>
                         दस्तखतः<span style="padding-left: 337px"></span>
                         <br/>
@@ -182,28 +182,35 @@
                     <br/>
                     <br />
                     लेखात्मक सही :<br/>
-                    नाम :<input class="form-field form-control-sm nepaliFont"
+                    नाम :<input class="form-field form-control-sm nepaliFont disable-print"
                                 formControlName="nameOfWitness"
                                 placeholder=""
-                                type="text"/><br/>
-                    ठेगाना :<input class="form-field form-control-sm nepaliFont"
+                                type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('nameOfWitness').value ? promissoryNoteJoint.get('nameOfWitness').value  : '========='}}</b></span>    <br/>
+                    ठेगाना :<input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="addressOfWitness"
                                    placeholder=""
-                                   type="text"/><br/>
+                                   type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('addressOfWitness').value ? promissoryNoteJoint.get('addressOfWitness').value  : '========='}}</b></span>    <br/>
                     <br/>
                     लेखात्मक सही :<br/>
-                    नाम :<input class="form-field form-control-sm nepaliFont"
+                    नाम :<input class="form-field form-control-sm nepaliFont disable-print"
                                 formControlName="nameOfWitness2"
                                 placeholder=""
-                                type="text"/><br/>
-                    ठेगाना :<input class="form-field form-control-sm nepaliFont"
+                                type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('nameOfWitness2').value ? promissoryNoteJoint.get('nameOfWitness2').value  : '========='}}</b></span>    <br/>
+                    ठेगाना :<input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="addressOfWitness2"
                                    placeholder=""
-                                   type="text"/><br/>
+                                   type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('addressOfWitness2').value ? promissoryNoteJoint.get('addressOfWitness2').value  : '========='}}</b></span>    <br/>
 
                 </div>
-                <div class="col-md-12">
-                    <button nbButton status="success" type="submit">Save</button>
+                <div class="row disable-print">
+                    <div class="col-md-12 text-right">
+                        <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="promissoryNoteJointPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                        <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="promissoryNoteJointPrint" class="mr-2 custom-color" >Print</button>
+                        <button nbButton status="success" (click)="submit()">Save</button>
+
+
+                    </div>
+
                 </div>
             </div>
         </form>
