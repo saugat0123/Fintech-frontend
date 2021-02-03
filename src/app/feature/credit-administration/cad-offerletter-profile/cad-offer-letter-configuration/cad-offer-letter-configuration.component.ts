@@ -57,18 +57,17 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       permanentProvince: [undefined],
       permanentDistrict: [undefined],
       permanentMunicipality: [undefined],
-      permanentMunType: ['नगरपालिका'],
+      permanentMunType: [0],
       temporaryProvince: [undefined],
       temporaryDistrict: [undefined],
       temporaryMunicipality: [undefined],
       permanentWard: [undefined],
       temporaryWard: [undefined],
-      temporaryMunType: ['नगरपालिका'],
+      temporaryMunType: [1],
     });
   }
 
   save() {
-    console.log(this.userConfigForm.value);
     this.submitted = true;
     if (this.userConfigForm.invalid) {
       return;

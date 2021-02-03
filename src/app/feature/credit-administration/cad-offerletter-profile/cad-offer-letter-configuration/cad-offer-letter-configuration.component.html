@@ -126,8 +126,8 @@
                                <div class="form-group">
                                    <select class="form-control" formControlName="permanentMunType" id="permanentMunType"
                                            [ngClass]="{'is-invalid': submitted && configForm.permanentMunType.errors}">
-                                       <option value="नगरपालिका">नगरपालिका</option>
-                                       <option value="गा बि स">गा बि स</option>
+                                       <option value="0">नगरपालिका</option>
+                                       <option value="1">गा बि स</option>
                                    </select>
                                </div>
                            </div>
@@ -141,7 +141,7 @@
                                         formControlName="permanentProvince"
                                         [ngClass]="{'is-invalid': submitted && configForm.permanentProvince.errors}"
                                         id="permanentProvince"
-                                        name="permanentProvince" placeholder="सुविधा"
+                                        name="permanentProvince" placeholder="प्रदेश"
                                         type="text"/>
                             </div>
                         </div>
@@ -158,7 +158,8 @@
                         </div>
                         <div class="col">
                     <div class="form-group">
-                                <label class="title" for="permanentMunicipality">{{configForm.permanentMunType.value}}</label>
+                                <label class="title" for="permanentMunicipality">{{configForm.permanentMunType.value == 0
+                                    ? 'नगरपालिका' : 'गा बि स'}}</label>
                                 <input  class="form-control rounded nepaliFont"
                                         formControlName="permanentMunicipality"
                                         [ngClass]="{'is-invalid': submitted && configForm.permanentMunicipality.errors}"
@@ -187,8 +188,8 @@
                                <div class="form-group">
                                    <select class="form-control" formControlName="temporaryMunType" id="temporaryMunType"
                                            [ngClass]="{'is-invalid': submitted && configForm.temporaryMunType.errors}">
-                                       <option value="नगरपालिका">नगरपालिका</option>
-                                       <option value="गा बि स">गा बि स</option>
+                                       <option value="0">नगरपालिका</option>
+                                       <option value="1">गा बि स</option>
                                    </select>
                                </div>
                            </div>
@@ -201,7 +202,7 @@
                                         formControlName="temporaryProvince"
                                         [ngClass]="{'is-invalid': submitted && configForm.temporaryProvince.errors}"
                                         id="temporaryProvince"
-                                        name="temporaryProvince" placeholder="सुविधा"
+                                        name="temporaryProvince" placeholder="प्रदेश"
                                         type="text"/>
                             </div>
                         </div>
@@ -218,7 +219,9 @@
                         </div>
                         <div class="col">
                     <div class="form-group">
-                                <label class="title" for="temporaryMunicipality">{{configForm.temporaryMunType.value}}</label>
+                                <label class="title" for="temporaryMunicipality">
+                                    {{configForm.temporaryMunType.value == 0 ? 'नगरपालिका' : 'गा बि स'}}
+                                </label>
                                 <input  class="form-control rounded nepaliFont"
                                         formControlName="temporaryMunicipality"
                                         [ngClass]="{'is-invalid': submitted && configForm.temporaryMunicipality.errors}"
