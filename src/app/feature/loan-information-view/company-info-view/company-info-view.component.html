@@ -168,7 +168,6 @@
                 <th colspan="5">Company Location Detail</th>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>House Number</th>
                 <th>Address</th>
                 <th>Ward</th>
                 <th>Address Line 1</th>
@@ -177,7 +176,6 @@
             </thead>
             <tbody>
             <tr>
-                <td>{{formValue?.companyLocations?.houseNumber}}</td>
                 <td>
                     ({{companyLocationData?.province?.name}},{{companyLocationData?.district?.name}}
                     , {{companyLocationData?.municipalityVdc?.name}})
@@ -282,6 +280,8 @@
                 <th>Contact No</th>
                 <th>Share %</th>
                 <th>Address</th>
+                <th>Address Line 1</th>
+                <th>Address Line 2</th>
             </tr>
             </thead>
             <ng-container *ngFor="let holder of companyJsonData.proprietorList;let i =index">
@@ -292,9 +292,11 @@
                     <td><strong>{{holder?.share}}</strong></td>
                     <td><strong>{{holder?.contactNo}}</strong></td>
                     <td><strong>{{holder?.province?.name}}, {{holder?.district?.name}}, {{holder?.municipalityVdc?.name}}</strong></td>
+                    <td><strong>{{holder?.addressLine1}}</strong></td>
+                    <td><strong>{{holder?.addressLine2}}</strong></td>
                 </tr>
                 <tr>
-                    <td colspan="6">
+                    <td colspan="8">
                         <table class="table border-dark">
                             <thead class="sb-bg-dark text-white">
                             <tr>
