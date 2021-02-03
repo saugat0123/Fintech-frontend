@@ -55,38 +55,42 @@
     </table>
     <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
       <tr class="text-white sb-bg-dark">
-        <th colspan="5">Permanent Address</th>
+        <th colspan="6">Permanent Address</th>
       </tr>
       <tr>
         <th> Province</th>
         <th>District</th>
         <th> Municipalities</th>
-        <th>Street</th>
         <th>Ward no.</th>
+        <th>Address Line 1</th>
+        <th>Address Line 2</th>
       </tr>
       <tr>
         <td>{{individual?.province?.name}}</td>
         <td>{{individual?.district?.name}}</td>
         <td>{{individual?.municipalities?.name}}</td>
-        <td>{{individual?.street || 'NA'}}</td>
         <td>{{individual?.wardNumber || 'NA'}}</td>
+        <td>{{individualJsonData?.permanentAddressLine1 || 'NA'}}</td>
+        <td>{{individualJsonData?.permanentAddressLine2 || 'NA'}}</td>
       </tr>
       <tr class="text-white sb-bg-dark">
-        <th colspan="5">Temporary Address</th>
+        <th colspan="6">Temporary Address</th>
       </tr>
       <tr>
         <th>Province</th>
         <th>District</th>
         <th>Municipalities</th>
-        <th>Street</th>
         <th>Ward no.</th>
+        <th>Address Line 1</th>
+        <th>Address Line 2</th>
       </tr>
       <tr>
         <td>{{individual?.temporaryProvince?.name}}</td>
         <td>{{individual?.temporaryDistrict?.name}}</td>
         <td>{{individual?.temporaryMunicipalities?.name}}</td>
-        <td>{{individual?.temporaryStreet || 'NA'}}</td>
         <td>{{individual?.temporaryWardNumber || 'NA'}}</td>
+        <td>{{individualJsonData?.temporaryAddressLine1 || 'NA'}}</td>
+        <td>{{individualJsonData?.temporaryAddressLine2 || 'NA'}}</td>
       </tr>
     </table>
   </div>
