@@ -45,4 +45,9 @@ export class CustomerInfoService extends BaseService<Object> {
         const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/update-cbs`);
         return this.http.post(req.url, customerInfo, {headers: req.header});
     }
+
+    public updateNepaliConfigData(data: string , id): Observable<any> {
+        const req = ApiUtils.getRequest(`${this.getApi()}/update-nep-data/${id}`);
+        return this.http.patch(req.url, data , {headers: req.header});
+    }
 }
