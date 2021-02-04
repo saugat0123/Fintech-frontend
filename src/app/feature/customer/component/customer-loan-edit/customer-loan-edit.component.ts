@@ -9,6 +9,8 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DocStatus} from '../../../loan/model/docStatus';
 import {ScrollNavigationService} from '../../../../@core/service/baseservice/scroll-navigation.service';
+import {environment} from '../../../../../environments/environment';
+import {MicroProposalComponent} from '../../../loan-information-template/micro-proposal/micro-proposal.component';
 
 @Component({
   selector: 'app-customer-loan-edit',
@@ -33,6 +35,9 @@ export class CustomerLoanEditComponent implements OnInit {
   @ViewChild('proposal', {static: false})
   proposal: ProposalComponent;
 
+  @ViewChild('microProposal', {static: false})
+  microProposal: MicroProposalComponent;
+
   @ViewChild('customerLoanDoc', {static: false})
   customerLoanDoc: CustomerLoanDocumentComponent;
 
@@ -42,11 +47,10 @@ export class CustomerLoanEditComponent implements OnInit {
   @ViewChild('priorityFormNav', {static: false})
   priorityFormNav: ElementRef;
 
-  constructor(      private loanFormService: LoanFormService,
-                    private toastService: ToastService,
-                    private formBuilder: FormBuilder,
-                    private scrollNavService: ScrollNavigationService,
-
+  constructor(private loanFormService: LoanFormService,
+              private toastService: ToastService,
+              private formBuilder: FormBuilder,
+              private scrollNavService: ScrollNavigationService,
   ) {
   }
 

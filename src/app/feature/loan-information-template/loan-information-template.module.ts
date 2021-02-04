@@ -40,6 +40,7 @@ import {CadDocumentUploadComponent} from './cad-document-upload/cad-document-upl
 import {SecurityRevaluationComponent} from './security/security-initial-form/security-revaluation/security-revaluation.component';
 import {FeatureModule} from '../feature.module';
 import {OwnerKycApplicableComponent} from './security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
+import { MicroProposalComponent } from './micro-proposal/micro-proposal.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -73,8 +74,8 @@ const COMPONENTS = [
 
 
 @NgModule({
-  declarations: [...COMPONENTS, CadDocumentUploadComponent],
-  exports: [...COMPONENTS],
+  declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent],
+    exports: [...COMPONENTS, MicroProposalComponent],
   entryComponents: [...COMPONENTS],
     imports: [
         CommonModule,
