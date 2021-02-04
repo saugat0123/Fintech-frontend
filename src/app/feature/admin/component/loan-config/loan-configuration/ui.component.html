@@ -31,7 +31,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5 row">
+                    <div class="col-md-5 row" [hidden]="selectedLoanTag == 'MICRO_LOAN'">
                         <div class="col-md-9 form-group">
                             <label><h6>Nature of Loan</h6></label>
                             <div class="row ml-2">
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5 row">
+                    <div class="col-md-5 row" [hidden]="selectedLoanTag == 'MICRO_LOAN'">
                         <div class="col-md-9 form-group">
                             <label><h6>Nature of Assets financed</h6></label>
                             <div class="row ml-2">
@@ -127,6 +127,7 @@
                                        bindValue="key" name="loanTag"
                                        [required]="true"
                                        [(ngModel)]="selectedLoanTag"
+                                       (change)="onLoanTagChange()"
                                        placeholder="Select Loan tag">
                             </ng-select>
                             <div *ngIf="loanConfigForm.submitted && loanTag.invalid">
