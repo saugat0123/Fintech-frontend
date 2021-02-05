@@ -144,6 +144,7 @@ export class RetailHousingLoanComponent implements OnInit {
     addEmptyHousingFinancial() {
         const formArray = this.form.get('housingFinance') as FormArray;
         formArray.push(this.formBuilder.group({
+            Byaj: undefined,
             loanAmount: undefined,
             loanAmountInWord: undefined,
             month: undefined,
@@ -171,6 +172,7 @@ export class RetailHousingLoanComponent implements OnInit {
         }
       data.forEach(value => {
           formArray.push(this.formBuilder.group({
+              Byaj:[value.Byaj],
               loanAmount : [value.loanAmount],
               loanAmountInWord: [value.loanAmountInWord],
               month: [value.month],
@@ -252,6 +254,7 @@ export class RetailHousingLoanComponent implements OnInit {
     addEmptyMortgageOverdraft() {
         const formArray = this.form.get('mortgageOverdraft') as FormArray;
         formArray.push(this.formBuilder.group({
+            Byaj: undefined,
             loanAmount: undefined,
             loanAmountInWord: undefined,
             month: undefined,

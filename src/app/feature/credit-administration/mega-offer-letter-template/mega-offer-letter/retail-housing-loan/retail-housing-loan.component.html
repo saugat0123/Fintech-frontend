@@ -74,8 +74,7 @@
                                                                formControlName="action"
                                                                placeholder="उपलब्ध"
                                                                type="text"/>  गराइपाउं भनी तपाँईले दिनु भएको निवेदन र त्यसमा भएका
-                           छलफलबाट, हामी, मेगा बैंक नेपाल लिमिटेड, न
-                           िम्न बमोजिमको कर्जा सुविधा देहाय बमोजिमका शर्तहरुमा <strong>प्रदान </strong> गर्न सहर्ष प्रस्ताव
+                           छलफलबाट, हामी, मेगा बैंक नेपाल लिमिटेड, निम्न बमोजिमको कर्जा सुविधा देहाय बमोजिमका शर्तहरुमा <strong>प्रदान </strong> गर्न सहर्ष प्रस्ताव
                            गर्दछौं ।
                            <br>
                            पक्षहरु :– <br>
@@ -108,14 +107,15 @@
                            <div class="col-md-12 " style="left: 30px;" [formGroupName]="i">
                                <strong style="left: 32px">{{i+1 | nepaliWord:'unicode'}}) प्रस्तावित सुविधा : घर कर्जा (Housing Finance)</strong>
                                <i (click)="removeHousing(i)"  size="small" class="float-right fa fa-trash" *ngIf="form.get('housingFinance')['length']>1"></i>
-
+                                <br>
                                रकम : रु<input class="form-fields form-control-sm nepaliFont"
                                             formControlName="loanAmount"
                                             placeholder=" ३०,००,००० "
                                             type="text"/>/- (अक्षेरुपी <input class="form-fields form-control-sm nepaliFont"
                                                                             formControlName="loanAmountInWord"
                                                                             placeholder="रीस लाख रुपैयाँ"
-                                                                            type="text"/> मात्र ।)<br><br>
+                                                                            type="text"/>
+                               रुपैयाँ मात्र ।)<br><br>
                                प्रयोजन :  <input class="form-fields form-control-sm nepaliFont"
                                                  formControlName="use"> प्रयोजनार्थ ।<br><br>
                                समय : बैंकबाट कर्जा भुक्तानी भएको मितिले  <input class="form-fields form-control-sm nepaliFont"
@@ -132,7 +132,7 @@
                                आधारमा रही अचल धितो सुरक्षणको फेयर बजार मूल्यको अधिकतम् <input class="form-fields form-control-sm nepaliFont"
                                                                                                                       formControlName="maxAmount"> प्रतिशत
                                सम्म रकम निम्नानुसार भुक्तानी गरिनेछ ।<br><br>
-                               ऋण चुक्ता : बैंकबाट कर्जा भुक्तानी भएको मितिको <strong><input class="form-fields form-control-sm nepaliFont"
+                               ऋण चुक्ता : बैंकबाट कर्जाको प्रथम किस्ता भुक्तानी भएको मितिको <strong><input class="form-fields form-control-sm nepaliFont"
                                                                                              formControlName="month"
                                                                                              placeholder="६"/> महिना पछि बाट प्रथम किस्ता </strong>
                                प्रारंभ हुने गरी <input class="form-fields form-control-sm nepaliFont"
@@ -294,14 +294,19 @@
                            <div class="col-md-12 " style="left: 30px;" [formGroupName]="i">
                                <strong style="left: 32px">{{i+1 | nepaliWord:'unicode'}}) प्रस्तावित सुविधा : धितो अधिविकष (Mortgage Overdraft)</strong>
                                <i (click)="removeMortgageOverdraft(i)"  size="small" class="float-right fa fa-trash" *ngIf="form.get('mortgageOverdraft')['length']>1"></i>
+                               <br>
 
-                               रकम : रु<input class="form-fields form-control-sm nepaliFont"
+                               कर्ज सिमा रकम : रु<input class="form-fields form-control-sm nepaliFont"
                                             formControlName="loanAmount"
                                             placeholder="३०,००,००० "
-                                            type="text"/> (अक्षेरुपी <input class="form-fields form-control-sm nepaliFont"
+                                            type="text"/>/- (अक्षेरुपी <input class="form-fields form-control-sm nepaliFont"
                                                                             formControlName="loanAmountInWord"
                                                                             placeholder="रीस लाख रुपैयाँ"
-                                                                            type="text"/> मात्र ।)<br><br>
+                                                                            type="text"/>रुपैयाँ मात्र ।)<br>
+                               उद्देश्य :<input class="form-fields form-control-sm nepaliFont"
+                                      formControlName="loanAmountInWord"
+                                      placeholder="रीस लाख रुपैयाँ"
+                                      type="text"/>प्रायोजनार्थ। <br>
                                प्रयोजन :  <input class="form-fields form-control-sm nepaliFont"
                                                  formControlName="use" प्रयोजनार्थ> ।<br><br>
                                समय : बैंकबाट कर्जा भुक्तानी भएको मितिले  <input class="form-fields form-control-sm nepaliFont"
@@ -311,8 +316,8 @@
                                + प्रिमियम दर  <input class="form-fields form-control-sm nepaliFont"
                                                      formControlName="premiumRate">%) का दरले हाललाई बार्षिक
                                <input class="form-fields form-control-sm nepaliFont"
-                                      formControlName="baseRate">%
-                                वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
+                                      formControlName="baseRate">% त्रैमाशिक रुपमा (आस्विन मसान्त , पौष मसन्त, चैत्र मसान्त र असाध मसन्त)
+                               वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
                                बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर
                                संसोधन (घट्न∕बढ्न) सक्नेछ । <br><br>
                                समयावधि :	रिभल्भिङ्ग  <input class="form-fields form-control-sm nepaliFont"
@@ -335,29 +340,27 @@
                                प्रतिबद्वता शुल्क : स्वीकृत अधिविकर्ष सुविधाको सीमा औसतमा <input class="form-fields form-control-sm nepaliFont"
                                                                                                 formControlName="baseRate">
                                प्रतिशत भन्दा कम उपभोग भएको खण्डमा उपभोग नभएको
-                               अधिविकर्ष कर्जा सुविधाको सीमाको <input class="form-fields form-control-sm nepaliFont"
-                                                                      formControlName="baseRate">%
+                               अधिविकर्ष कर्जा सुविधाको सीमाको ०.१५ %
                                (शुन्य दशमलव एक पाँच प्रतिशत) वा कर्जा प्रवाहको बखत ऋणीबाट असुल गरिएको सेवा शुल्कको
                                <input class="form-fields form-control-sm nepaliFont"
                                       formControlName="Pratibadhata"
                                       placeholder="२०"
-                                      type="text"/> प्रतिशतले हुन आउने प्रतिशतका दरले मात्र । <br>
-                               भुक्तानी शुल्क  : भुक्तानी हुने ऋण सुविधा रकमको <input class="form-fields form-control-sm nepaliFont"
-                                                                                      formControlName="baseRate"> (शुन्य दशमलव सात पाँच प्रतिशत) मात्र ।<br>
+                                      type="text"/> प्रतिशतले हुन आउने प्रतिशतका दरले मात्र । <br><br>
+                               भुक्तानी शुल्क : भुक्तानी हुने ऋण सुविधा रकमको ०.७५% (शुन्य दशमलव सात पाँच प्रतिशत) मात्र ।<br>
                                <br>
 
                                सेवा शुल्क : भुक्तानी दिने ऋण सुविधा रकमको <input class="form-fields form-control-sm nepaliFont"
                                                                                  formControlName="serviceChargePercent"
                                                                                  type="text"/> % (<input class="form-fields form-control-sm nepaliFont"
                                                                                                          formControlName="serviceChargeAmount"
-                                                                                                         type="text"/> प्रतिशत) ।
+                                                                                                         type="text"/> प्रतिशत ।
                                <br><br>
                                <p *ngIf="form.get(['mortgageOverdraft',i,'loanRateShow']).value">
                                    क.सु.के. दस्तुर : रु<input
                                    class="form-fields form-control-sm nepaliFont"
                                    formControlName="loanRate"
                                    placeholder="५००/–"
-                                   type="text"/> मात्र ।
+                                   type="text"/> मात्र) ।
                                    <a
                                    (click)="removeOptionalField('mortgageOverdraft',i ,'loanRateShow')"
                                    class="text-danger cursor" data-placement="top">
@@ -414,7 +417,12 @@
                                         type="text"/> व.मी)
                            को <input class="form-fields form-control-sm nepaliFont"
                                      formControlName="link" placeholder=" जग्गाहरु तथा सोमा निर्माणधीन घर"
-                                     type="text"/> को जग्गा तथा सोमा निर्माणाधीन घर सम्बन्धित निकायबाट बैंकको नाममा धितोको प्रथम र पूर्ण हक कायम हुने गरि धितो बन्धकीको तमसुक रजिष्ट्रेशन गरिदिनुपर्ने/गरिदिएको सम्पत्ति ।<br>
+                                     type="text"/>
+                           सम्बन्धित निकायबाट बैंकको नाममा धितोको प्रथम र पूर्ण हक कायम हुने गरि धितो बन्धकीको तमसुक रजिष्ट्रेशन
+                           <input class="form-fields form-control-sm nepaliFont"
+                                  formControlName="Garidinuparni" placeholder=" गरिदिनुपर्ने/ गरिदिएको सम्पत्ति"
+                                  type="text"/>
+                            ।<br>
                            २.४ - <input [readOnly]="true"
                                         class="form-fields form-control-sm nepaliFont"
                                         formControlName="applicantName"
@@ -430,7 +438,7 @@
                            <p *ngIf="form.get('landNumberPreviousOwnerShow').value">
                                २.६ - कि.न. <input class="form-fields form-control-sm nepaliFont"
                                              formControlName="landNumber"
-                                             type="text"/>  पुर्व जग्गाधनी <input class="form-fields form-control-sm nepaliFont"
+                                             type="text"/>को पुर्व जग्गाधनी <input class="form-fields form-control-sm nepaliFont"
                                                                                   formControlName="previousOwner"
                                                                                   type="text"/> को हकवालाले माथि उल्लेखित अचल धितो सम्पत्ति धितो सुरक्षण कायम राख्न दिएको मञ्जुरीनामा (स्वःघोषित नाता प्रमाणित सहित) ।
                            <a
@@ -799,8 +807,8 @@
                                        <p class="text-center">-----------------------------</p>
                                    </div>
                                    <div class="col-md-12">
-                                       <p class="text-center">अधिकृत–कर्जा ब्यबस्थापन</p>
-                                       <p class="text-center">(कुमार न्यौपाने)</p>
+                                       <p class="text-center">आधिकारीक दस्तखत</p>
+                                       <p class="text-center">परिचय पत्र नं <input class="form-fields form-control-sm nepaliFont" formControlName="ParichayaPatraNum1" placeholder="३०" type="text"/></p>
                                    </div>
                                </div>
                                <div class="col-md-6">
@@ -808,8 +816,8 @@
                                        <p class="text-center">-----------------------------</p>
                                    </div>
                                    <div class="col-md-12">
-                                       <p class="text-center">अधिकृत–कर्जा ब्यबस्थापन</p>
-                                       <p class="text-center">(नगेन्द्र प्रसाद पन्त )</p>
+                                       <p class="text-center">आधिकारीक दस्तखत</p>
+                                       <p class="text-center">परिचय पत्र नं <input class="form-fields form-control-sm nepaliFont" formControlName="ParichayaPatraNum2" placeholder="३०" type="text"/></p>
                                    </div>
                                </div>
                            </div>
@@ -821,7 +829,7 @@
                        यसमा उल्लेख गरिएको सम्पूर्ण शर्तहरु पालना गर्न म/हामी मन्जुर गर्दछु ।
                        गर्दछौं र बैंकसंग यस अन्तर्गत लिएको ऋण पूर्ण रुपमा चुक्ता भुक्तान नगरे सम्म यसमा उल्ल्ेखित शर्तहरुको
                        पूर्ण रुपले पालना गर्ने प्रतिज्ञा गर्दछु/गर्दछौं ।<br>
-                       ऋणीको नाम :<strong class="nepaliFont"></strong> ।
+                       ऋणीको नाम :<strong class="nepaliFont"><input class="form-fields form-control-sm nepaliFont" formControlName="LoaneeName" placeholder="ऋणीको नाम" type="text"/></strong> ।
                        <br>
 
                        <div class="row mt-5">
