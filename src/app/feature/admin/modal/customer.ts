@@ -40,7 +40,6 @@ export class Customer {
     temporaryProvince: Province;
     temporaryDistrict: District;
     temporaryMunicipalities: MunicipalityVdc;
-    temporaryStreet: string;
     temporaryWardNumber: string;
     gender: Gender;
     maritalStatus: MaritalStatus;

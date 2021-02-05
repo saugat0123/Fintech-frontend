@@ -1,5 +1,6 @@
 
 export enum FacCategory {
+    NOT_APPLICABLE= 'Not applicable',
     METROPOLITAN= 'Metropolitan',
     SUB_METROPOLITAN= 'Sub-metropolitan',
     MUNICIPALITY= 'Municipality',
@@ -9,6 +10,7 @@ export enum FacCategory {
 
 export class FacCategoryMap {
     static facCategoryMap: Map<FacCategory, number> = new Map([
+        [FacCategory.NOT_APPLICABLE, 3.00],
         [FacCategory.METROPOLITAN, 3.00],
         [FacCategory.SUB_METROPOLITAN, 2.70],
         [FacCategory.MUNICIPALITY, 2.25],
