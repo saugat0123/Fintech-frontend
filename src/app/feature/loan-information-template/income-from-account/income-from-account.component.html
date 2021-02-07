@@ -7,10 +7,12 @@
             <input [ngClass]="{ 'is-invalid': (submitted) && formControls.accountNo.errors }"
                    type="text" formControlName="accountNo"
                    placeholder="Account Number" nbInput size="medium" name="accountNo"><br>
-            <div *ngIf="(submitted) && formControls.accountNo.invalid"
-                 class="invalid-feedback">
-              <span *ngIf="formControls.accountNo.errors.required">Account No is required.</span>
-            </div> <br>
+<!--          To do: need to remove if not require in future-->
+<!--            <div *ngIf="(submitted) && formControls.accountNo.invalid"-->
+<!--                 class="invalid-feedback">-->
+<!--              <span *ngIf="formControls.accountNo.errors.required">Account No is required.</span>-->
+<!--            </div> -->
+          <br>
           <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
             <thead>
             <tr class="sb-bg-secondary text-white">
