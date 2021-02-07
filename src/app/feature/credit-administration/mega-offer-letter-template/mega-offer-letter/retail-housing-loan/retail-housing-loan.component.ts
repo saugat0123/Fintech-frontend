@@ -222,6 +222,8 @@ export class RetailHousingLoanComponent implements OnInit {
             maxRate: undefined,
             serviceChargePercent: undefined,
             serviceChargeAmount: undefined,
+            purbaBhuktaniSulka1 : undefined,
+            purbaBhuktaniSukla2 : undefined,
         }));
     }
 
@@ -250,6 +252,8 @@ export class RetailHousingLoanComponent implements OnInit {
                 maxRate: [value.maxRate],
                 serviceChargePercent: [value.serviceChargePercent],
                 serviceChargeAmount: [value.serviceChargeAmount],
+                purbaBhuktaniSulka1 : [value.purbaBhuktaniSulka1],
+                purbaBhuktaniSukla2 : [value.purbaBhuktaniSukla2],
             }));
         });
     }

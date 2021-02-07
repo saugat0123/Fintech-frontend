@@ -13,10 +13,10 @@
         <th>Name of FI</th>
         <th>Facility</th>
         <th>OverDue Amount</th>
-        <th>Outstanding Amount</th>
         <th>status</th>
         <th>Obtained Date</th>
-        <th>Loan Amount</th>
+        <th>Loan Limit</th>
+        <th>Outstanding Amount</th>
         <th>Overdue Installment(s)</th>
       </tr>
       <tr *ngFor="let data of ciclList; let i=index">
@@ -26,10 +26,10 @@
         <td>{{data?.nameOfFI || 'NA'}}</td>
         <td>{{data?.facility || 'NA'}}</td>
         <td class="text-right pr-1">Rs. {{data?.overdueAmount | currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{data?.outstandingAmount | currencyFormatter}}</td>
         <td>{{data?.status || 'NA'}}</td>
         <td>{{data?.obtaineddate | date}}</td>
         <td class="text-right pr-1">Rs. {{data?.loanamount | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{data?.outstandingAmount | currencyFormatter}}</td>
         <td>{{data?.overdue}}</td>
       </tr>
       </thead>
