@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RelationshipList} from '../../../../loan/model/relationshipList';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
@@ -21,6 +21,7 @@ export class OwnerKycApplicableComponent implements OnInit {
     shareSecurityData: ShareSecurity = new ShareSecurity();
     submitValue: any;
     @Input() kycId;
+    @Input() calendarType = 'AD';
     constructor(private formBuilder: FormBuilder,
                 private districtService: AddressService) {
     }
