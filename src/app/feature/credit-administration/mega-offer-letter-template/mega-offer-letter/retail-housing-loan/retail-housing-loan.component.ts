@@ -61,23 +61,18 @@ export class RetailHousingLoanComponent implements OnInit {
             loanData: this.formBuilder.array([]),
             referenceNo: [undefined],
             applicantRelative: [undefined],
-            applicantName: [undefined],
             parmanentAddress: [undefined],
             currentAddress: [undefined],
             mobileNo: [undefined],
             housingFinance: this.formBuilder.array([]),
             mortgageFinance: this.formBuilder.array([]),
             mortgageOverdraft: this.formBuilder.array([]),
+            multiCollateral: this.formBuilder.array([]),
             clearanceDate: [undefined],
-            district: [undefined],
-            wardNo: [undefined],
-            statekeyNo: [undefined],
-            keyNo: [undefined],
             selectedArray: undefined,
             noteOfCollateral: this.note,
             facility: undefined,
             action: undefined,
-            link: undefined,
             registrationType: undefined,
             applicantRelativeOne: undefined,
             applicantRelativeTwo: undefined,
@@ -85,7 +80,6 @@ export class RetailHousingLoanComponent implements OnInit {
             previousOwner: undefined,
             landNumberPreviousOwnerShow: true,
             tableShow: true,
-            address: undefined,
         });
     }
 
@@ -113,6 +107,7 @@ export class RetailHousingLoanComponent implements OnInit {
                 this.addEmptyHousingFinancial();
                 this.addEmptyMortgageOverdraft();
                 this.addEmptyMortgageFinance();
+                this.addMoreCollateral();
                 this.offerLetterDocument = new OfferDocument();
                 this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_HOUSING);
             } else {
@@ -128,6 +123,7 @@ export class RetailHousingLoanComponent implements OnInit {
                     this.setHousingFinancial(initialInfo.housingFinance);
                     this.setMortgageFinance(initialInfo.mortgageFinance);
                     this.setMortgageOverdraft(initialInfo.mortgageOverdraft);
+                    this.setMultiCollateralLoanData(initialInfo.multiCollateral);
 
                 }
                 // else {
@@ -327,6 +323,41 @@ export class RetailHousingLoanComponent implements OnInit {
 
     }
 
+    collateralFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            applicantName: [undefined],
+            district: [undefined],
+            wardNo: [undefined],
+            address: [undefined],
+            statekeyNo: [undefined],
+            keyNo: [undefined],
+            link: [undefined],
+        });
+    }
+    addMoreCollateral() {
+        (this.form.get('multiCollateral') as FormArray).push(this.collateralFormGroup());
+    }
+
+    removeCollateral(index: number) {
+        (this.form.get('multiCollateral') as FormArray).removeAt(index);
+    }
+
+    setMultiCollateralLoanData(details) {
+        const multiCollateralDetails = this.form.get('multiCollateral') as FormArray;
+        details.forEach(data => {
+            multiCollateralDetails.push(
+                this.formBuilder.group({
+                    applicantName: [data.applicantName],
+                    district: [data.district],
+                    wardNo: [data.wardNo],
+                    address: [data.address],
+                    statekeyNo: [data.statekeyNo],
+                    keyNo: [data.keyNo],
+                    link: [data.link],
+                })
+            );
+        });
+    }
 
 
     submit(): void {
