@@ -28,14 +28,14 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.formGroup = this.formBuilder.group({
             isReValuated: [false],
-            reValuationDate: [undefined, Validators.required],
-            reValuatedFmv: [undefined, Validators.required],
-            reValuatedDv: [undefined, Validators.required],
-            reValuatedConsideredValue: [undefined, Validators.required],
-            newValuator: [undefined, Validators.required],
-            changeInFmv: [undefined, Validators.required],
-            changeInDv: [undefined, Validators.required],
-            changeInConsideredValue: [undefined, Validators.required],
+            reValuationDate: [undefined],
+            reValuatedFmv: [undefined],
+            reValuatedDv: [undefined],
+            reValuatedConsideredValue: [undefined],
+            newValuator: [undefined],
+            changeInFmv: [undefined],
+            changeInDv: [undefined],
+            changeInConsideredValue: [undefined],
         });
         if (!ObjectUtil.isEmpty(this.data)) {
             this.formGroup.patchValue(this.data);
