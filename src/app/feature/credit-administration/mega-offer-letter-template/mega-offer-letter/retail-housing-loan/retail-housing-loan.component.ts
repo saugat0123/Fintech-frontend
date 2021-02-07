@@ -86,13 +86,6 @@ export class RetailHousingLoanComponent implements OnInit {
             landNumberPreviousOwnerShow: true,
             tableShow: true,
             address: undefined,
-            garidinuparni: undefined,
-            insuranceExpDate: undefined,
-            byaj: undefined,
-            intervalTime: undefined,
-            parichayaPatraNum1: undefined,
-            parichayaPatraNum2: undefined,
-            pageCount: undefined,
         });
     }
 
@@ -105,26 +98,11 @@ export class RetailHousingLoanComponent implements OnInit {
     addTableData() {
         (this.form.get('loanData') as FormArray).push(
             this.formBuilder.group({
-                description: undefined,
-                sumInsured: undefined,
-                riskBearer: undefined,
+                description: [undefined],
+                sumInsured: [undefined],
+                riskBearer: [undefined]
             })
         );
-    }
-
-    setTableData(data) {
-        const formArray =  this.form.get('loanData') as FormArray;
-        if (ObjectUtil.isEmpty(data)) {
-            this.addTableData();
-            return;
-        }
-        data.forEach(value => {
-            formArray.push(this.formBuilder.group({
-                description: [value.description],
-                sumInsured : [value.sumInsured],
-                riskBearer: [value.riskBearer],
-            }));
-        });
     }
 
     checkOfferLetterData() {
@@ -135,7 +113,6 @@ export class RetailHousingLoanComponent implements OnInit {
                 this.addEmptyHousingFinancial();
                 this.addEmptyMortgageOverdraft();
                 this.addEmptyMortgageFinance();
-                this.addTableData();
                 this.offerLetterDocument = new OfferDocument();
                 this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_HOUSING);
             } else {
@@ -151,7 +128,6 @@ export class RetailHousingLoanComponent implements OnInit {
                     this.setHousingFinancial(initialInfo.housingFinance);
                     this.setMortgageFinance(initialInfo.mortgageFinance);
                     this.setMortgageOverdraft(initialInfo.mortgageOverdraft);
-                    this.setTableData(initialInfo.loanData);
 
                 }
                 // else {
@@ -168,7 +144,6 @@ export class RetailHousingLoanComponent implements OnInit {
     addEmptyHousingFinancial() {
         const formArray = this.form.get('housingFinance') as FormArray;
         formArray.push(this.formBuilder.group({
-            Byaj: undefined,
             loanAmount: undefined,
             loanAmountInWord: undefined,
             month: undefined,
@@ -185,8 +160,6 @@ export class RetailHousingLoanComponent implements OnInit {
             maxAmount: undefined,
             serviceChargePercent: undefined,
             serviceChargeAmount: undefined,
-            sauwaRakam: undefined,
-            asulRakam: undefined,
         }));
     }
 
@@ -198,7 +171,6 @@ export class RetailHousingLoanComponent implements OnInit {
         }
       data.forEach(value => {
           formArray.push(this.formBuilder.group({
-              Byaj:[value.Byaj],
               loanAmount : [value.loanAmount],
               loanAmountInWord: [value.loanAmountInWord],
               month: [value.month],
@@ -215,8 +187,6 @@ export class RetailHousingLoanComponent implements OnInit {
               maxAmount: [value.maxAmount],
               serviceChargePercent: [value.serviceChargePercent],
               serviceChargeAmount: [value.serviceChargeAmount],
-              sauwaRakam: [value.sauwaRakam],
-              asulRakam: [value.asulRakam],
           }));
       });
     }
@@ -244,7 +214,8 @@ export class RetailHousingLoanComponent implements OnInit {
             maxAmount: undefined,
             serviceChargePercent: undefined,
             serviceChargeAmount: undefined,
-            yearlyRate: undefined,
+            purbaBhuktaniSulka1 : undefined,
+            purbaBhuktaniSukla2 : undefined,
         }));
     }
 
@@ -272,7 +243,8 @@ export class RetailHousingLoanComponent implements OnInit {
                 maxAmount: [value.maxAmount],
                 serviceChargePercent: [value.serviceChargePercent],
                 serviceChargeAmount: [value.serviceChargeAmount],
-                yearlyRate: [value.yearlyRate],
+                purbaBhuktaniSulka1 : [value.purbaBhuktaniSulka1],
+                purbaBhuktaniSukla2 : [value.purbaBhuktaniSukla2],
             }));
         });
     }
@@ -284,7 +256,6 @@ export class RetailHousingLoanComponent implements OnInit {
     addEmptyMortgageOverdraft() {
         const formArray = this.form.get('mortgageOverdraft') as FormArray;
         formArray.push(this.formBuilder.group({
-            Byaj: undefined,
             loanAmount: undefined,
             loanAmountInWord: undefined,
             month: undefined,
@@ -302,8 +273,6 @@ export class RetailHousingLoanComponent implements OnInit {
             serviceChargePercent: undefined,
             serviceChargeAmount: undefined,
             timeInterval: undefined,
-            purbaBhuktaniSulka3: undefined,
-            pratibadhata: undefined,
         }));
     }
 
@@ -332,8 +301,6 @@ export class RetailHousingLoanComponent implements OnInit {
                 serviceChargePercent: [value.serviceChargePercent],
                 serviceChargeAmount: [value.serviceChargeAmount],
                 timeInterval: [value.timeInterval],
-                purbaBhuktaniSulka3: [value.purbaBhuktaniSulka3],
-                pratibadhata: [value.pratibadhata],
             }));
         });
     }
