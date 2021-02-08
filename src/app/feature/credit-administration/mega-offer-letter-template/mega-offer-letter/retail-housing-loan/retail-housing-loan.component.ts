@@ -271,11 +271,12 @@ export class RetailHousingLoanComponent implements OnInit {
                 years: [value.years],
                 baseRate: [value.baseRate],
                 premiumRate: [value.premiumRate],
+                yearlyRate:[value.yearlyRate],
                 maxAmount: [value.maxAmount],
                 serviceChargePercent: [value.serviceChargePercent],
                 serviceChargeAmount: [value.serviceChargeAmount],
                 purbaBhuktaniSulka1 : [value.purbaBhuktaniSulka1],
-                purbaBhuktaniSukla2 : [value.purbaBhuktaniSukla2],
+                purbaBhuktaniSulka2 : [value.purbaBhuktaniSulka2],
             }));
         });
     }
