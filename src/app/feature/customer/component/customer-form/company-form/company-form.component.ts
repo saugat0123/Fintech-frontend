@@ -69,6 +69,7 @@ export class CompanyFormComponent implements OnInit {
     @ViewChild('companyLocation', {static: true}) companyLocation: CommonAddressComponent;
     @ViewChildren('shareholderKyc') shareholderKyc: QueryList<OwnerKycApplicableComponent>;
     calendarType = 'AD';
+    microCustomer = false;
     companyInfoFormGroup: FormGroup;
     englishDateSelected = true;
     customerId;

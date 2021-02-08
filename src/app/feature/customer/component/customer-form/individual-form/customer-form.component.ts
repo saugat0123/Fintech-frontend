@@ -56,6 +56,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     @Input() maritalStatus;
     @Input() customerLegalDocumentAddress;
     calendarType = 'AD';
+    microCustomer = false;
     @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     basicInfo: FormGroup;
