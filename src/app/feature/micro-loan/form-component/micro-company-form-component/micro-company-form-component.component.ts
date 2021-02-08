@@ -10,6 +10,7 @@ export class MicroCompanyFormComponentComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }
