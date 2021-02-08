@@ -294,7 +294,7 @@
                         </div>
                         <ng-container>
                             <div class="col-md-12"  *ngIf="securityForm.get(['landDetails' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.SALE)">
-                                <strong>Has transfer date elapsed by 1 year plus 35 days? </strong>
+                                <strong>Has transfer date elapsed by 6 months plus 35 days? </strong>
                                 <input class="ml-md-3" type="radio" value="Yes" formControlName="saleOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
                                 <label>Yes</label>
                                 <input class="ml-md-3" type="radio" value="No" formControlName="saleOwnershipTransfer" (input)="resetOtherTransferParameter('landDetails', i,true)">
@@ -1451,7 +1451,7 @@
                             </div>
                             <ng-container>
                                 <div class="col-md-12"  *ngIf="securityForm.get(['landBuilding' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.SALE)">
-                                    <strong>Has transfer date elapsed by 1 year plus 35 days? </strong>
+                                    <strong>Has transfer date elapsed by 6 months plus 35 days? </strong>
                                     <input class="ml-md-3" type="radio" value="Yes" formControlName="saleOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
                                     <label>Yes</label>
                                     <input class="ml-md-3" type="radio" value="No" formControlName="saleOwnershipTransfer" (input)="resetOtherTransferParameter('landBuilding', i,true)">
@@ -1536,10 +1536,12 @@
                                     <div class="form-group">
                                         <label class="title" >Area
                                             Format</label>
-                                        <input class="form-control rounded"
-                                               formControlName="areaFormatConstruction"
-                                               name="areaFormat" placeholder="area format"
-                                               type="text"/>
+                                        <select class="form-control rounded"
+                                                formControlName="areaFormatConstruction"
+                                                name="areaFormat">
+                                            <option [value]="null" hidden>Select Area Format</option>
+                                            <option [value]="area" *ngFor="let area of areaFormat">{{area}}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -1558,17 +1560,18 @@
                                                id="landConsideredValueConstruction" name="total" placeholder="considered value" type="number">
                                     </div>
                                 </div>
+<!--                                To do: need to remove if not required in future-->
 
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="title" >House Number
-                                        </label>
-                                        <input class="form-control rounded"
-                                               formControlName="houseNumberConstruction"
-                                               name="houseNumber" placeholder="House Number"
-                                               type="text"/>
-                                    </div>
-                                </div>
+<!--                                <div class="col-md-3">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label class="title" >House Number-->
+<!--                                        </label>-->
+<!--                                        <input class="form-control rounded"-->
+<!--                                               formControlName="houseNumberConstruction"-->
+<!--                                               name="houseNumber" placeholder="House Number"-->
+<!--                                               type="text"/>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="title">Total building area
@@ -1631,24 +1634,25 @@
                                                type="text"/>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="title">Type of property</label>
-                                        <select class="form-control rounded" formControlName="typeOfPropertyConstruction"
-                                                name="typeOfProperty">
-                                            <option [value]="null" hidden>Select Type of property</option>
-                                            <option *ngFor="let property of typeOfProperty" [value]="property">{{property}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="title" for="landStaffRepresentativeName">Mode of transfer</label>
-                                        <input class="form-control rounded" formControlName="modeOfTransferConstruction"
-                                               name="modeOfTransfer" placeholder="Mode of transfer"
-                                               type="text"/>
-                                    </div>
-                                </div>
+<!--                                To do: need to remove if not required in future-->
+<!--                                <div class="col-md-3">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label class="title">Type of property</label>-->
+<!--                                        <select class="form-control rounded" formControlName="typeOfPropertyConstruction"-->
+<!--                                                name="typeOfProperty">-->
+<!--                                            <option [value]="null" hidden>Select Type of property</option>-->
+<!--                                            <option *ngFor="let property of typeOfProperty" [value]="property">{{property}}</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-3">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label class="title" for="landStaffRepresentativeName">Mode of transfer</label>-->
+<!--                                        <input class="form-control rounded" formControlName="modeOfTransferConstruction"-->
+<!--                                               name="modeOfTransfer" placeholder="Mode of transfer"-->
+<!--                                               type="text"/>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                             </div>
 
                         </div>
