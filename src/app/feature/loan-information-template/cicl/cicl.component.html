@@ -25,7 +25,7 @@
         <div [formGroupName]="ciclIndex.toString()">
 
             <div class="row">
-              <div class="col-md-3 form-group">
+              <div class="col-md-4 form-group">
                 <label for="borrowerName"><b>Name</b></label>
                 <input class="form-control" formControlName="borrowerName" id="borrowerName"
                        placeholder="Borrower Name"
@@ -35,7 +35,7 @@
                 </div>
               </div>
 
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <label><strong>Cicl Relation</strong></label>
                 <select
                     class="form-control form-control-sm-error rounded"
@@ -51,7 +51,7 @@
 
           <div class="row">
 
-            <div class="col-md-3 form-group">
+            <div class="col-md-4 form-group">
               <label for="fiName"><b>Name of FI</b></label>
               <input class="form-control" formControlName="fiName" id="fiName"
                      placeholder="FI name"
@@ -60,7 +60,7 @@
                 <span *ngIf="(cicl.get('fiName').errors.required)">FI Name is required</span>
               </div>
             </div>
-            <div class="col-md-3 form-group">
+            <div class="col-md-4 form-group">
               <label for="facilityName"><b>Facility</b></label>
               <input class="form-control" formControlName="facilityName"
                      id="facilityName"  placeholder="Facility Name"
@@ -70,7 +70,7 @@
               </div>
             </div>
 
-            <div class="col-md-3 form-group">
+            <div class="col-md-4 form-group">
               <label for="overdueAmount"><b>Overdue Amount</b></label>
               <input class="form-control" formControlName="overdueAmount" id="overdueAmount"
                       placeholder="Overdue Amount" type="number"
@@ -79,18 +79,9 @@
                 <span *ngIf="(cicl.get('overdueAmount').errors.required)">Overdue Amount is required</span>
               </div>
             </div>
-            <div class="col-md-3 form-group">
-              <label for="outstandingAmount"><b>Outstanding Amount</b></label>
-              <input class="form-control" formControlName="outstandingAmount" id="outstandingAmount"
-                      placeholder="Outstanding Amount" type ="number"
-                     [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('outstandingAmount').invalid) }">
-              <div *ngIf="(submitted) && cicl.get('outstandingAmount').errors" class="invalid-feedback">
-                <span *ngIf="(cicl.get('outstandingAmount').errors.required)">Outstanding Amount is required</span>
-              </div>
-            </div>
           </div>
           <div class="row">
-            <div class="col-md-3 form-group">
+            <div class="col-md-4 form-group">
               <label for="ciclStatus"><b>Status</b></label>
               <input class="form-control" formControlName="ciclStatus" id="ciclStatus"
                      placeholder="Status"
@@ -99,7 +90,7 @@
                 <span *ngIf="(cicl.get('ciclStatus').errors.required)">Status is required</span>
               </div>
             </div>
-            <div class="col-md-3 form-group">
+            <div class="col-md-4 form-group">
               <label for="obtaineddate"><b>Obtained Date</b></label>
                  <input *ngIf="calendarType === 'AD'" [nbDatepicker]="obtainedDatePicker"
                         [ngClass]="{ 'is-invalid': (submitted) && cicl.get('obtaineddate').invalid }"
@@ -116,16 +107,25 @@
                 </div>
             </div>
             
-            <div class="col-md-3 form-group">
-              <label for="loanamount"><b>Loan Amount</b></label>
+            <div class="col-md-4 form-group">
+              <label for="loanamount"><b>Loan Limit</b></label>
               <input class="form-control" formControlName="loanamount" id="loanamount"
-                     placeholder="loanamount"
+                     placeholder="Loan Limit"
                      [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('loanamount').invalid) }">
               <div *ngIf="(submitted) && cicl.get('loanamount').errors" class="invalid-feedback">
-                <span *ngIf="(cicl.get('loanamount').errors.required)">Loan Amount is required</span>
+                <span *ngIf="(cicl.get('loanamount').errors.required)">Loan Limit is required</span>
               </div>
             </div>
-            <div class="col-md-3 form-group">
+            <div class="col-md-4 form-group">
+              <label for="outstandingAmount"><b>Outstanding Amount</b></label>
+              <input class="form-control" formControlName="outstandingAmount" id="outstandingAmount"
+                     placeholder="Outstanding Amount" type ="number"
+                     [ngClass]="{ 'is-invalid': (submitted) && (cicl.get('outstandingAmount').invalid) }">
+              <div *ngIf="(submitted) && cicl.get('outstandingAmount').errors" class="invalid-feedback">
+                <span *ngIf="(cicl.get('outstandingAmount').errors.required)">Outstanding Amount is required</span>
+              </div>
+            </div>
+            <div class="col-md-4 form-group">
               <label for="overdue"><b>Number of Overdue Installment(s)</b></label>
               <input class="form-control" formControlName="overdue" id="overdue"
                      placeholder="overdue">
