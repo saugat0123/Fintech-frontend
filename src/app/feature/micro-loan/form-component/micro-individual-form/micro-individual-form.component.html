@@ -52,7 +52,7 @@
     <div class="row">
         <div class="col">
             <div class="form-group">
-                <label class="mr-1"><strong>Does the customer fall under Deprive as per definition mentioned in NRB directive no. 17?</strong></label>
+                <label class="mr-5"><strong>Does the customer fall under Deprive as per definition mentioned in NRB directive no. 17?</strong></label>
                 <nb-radio-group class="d-inline-flex" formControlName="isDeprive">
                     <nb-radio value="yes">Yes</nb-radio>
                     <nb-radio value="no">No</nb-radio>
@@ -74,10 +74,39 @@
         <div class="col" *ngIf="form.depriveSector.value == 'Others'">
             <div class="form-group">
                 <label for="riskClassificationPercent"><strong>Others</strong></label>
-               <nb-select placeholder="Select Deprive Sector" formControlName="depriveSectorOthers" fullWidth>
-                   <nb-option *ngFor="let v of deprivedList" [value]="v">{{v}}</nb-option>
-               </nb-select>
+               <input placeholder="Select Deprive Sector" formControlName="depriveSectorOthers" />
                 <div *ngIf="submitted && microCustomerForm.get('riskClassificationBase').errors"
+                     class="invalid-feedback">
+                    Value is required!
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label class="mr-5"><strong>Is the customer referred by BLB agent?</strong> </label>
+                    <nb-radio-group class="d-inline-flex" formControlName="isBlBAgent">
+                    <nb-radio value="yes">Yes</nb-radio>
+                    <nb-radio value="no">No</nb-radio>
+                </nb-radio-group>
+            </div>
+        </div>
+        <div class="col" *ngIf="form.isBlBAgent.value == 'yes'">
+            <div class="form-group">
+                <label for="blbAgentName"><strong>BLB Agent Name</strong></label>
+                <input placeholder="Enter BLB Agent Name" formControlName="blbAgentName" id="blbAgentName" />
+                <div *ngIf="submitted && microCustomerForm.get('blbAgentName').errors"
+                     class="invalid-feedback">
+                    Value is required!
+                </div>
+            </div>
+        </div>
+        <div class="col" *ngIf="form.isBlBAgent.value == 'yes'">
+            <div class="form-group">
+                <label for="blbAgentCode"><strong>BLB Agent Code</strong></label>
+                <input placeholder="BLB Agent Code" formControlName="blbAgentCode" id="blbAgentCode" />
+                <div *ngIf="submitted && microCustomerForm.get('blbAgentCode').errors"
                      class="invalid-feedback">
                     Value is required!
                 </div>
@@ -88,3 +117,9 @@
 
 {{microCustomerForm.value |json}}
 
+f.
+a.	Yes/No
+b.	Do nothing if No is selected
+c.	Show following when yes is selected
+S.N	Name of BLB agent	BC Code
+1

@@ -15,7 +15,7 @@
             <nb-radio value="AD">AD</nb-radio>
             <nb-radio value="BS">BS</nb-radio>
         </nb-radio-group>
-        <nb-checkbox [(ngModel)]="microCustomer" class="d-inline-flex">Micro Customer</nb-checkbox>
+        <nb-checkbox [(ngModel)]="microCustomer" class="d-inline-flex" (ngModelChange)="onCustomerTypeChange()">Micro Customer</nb-checkbox>
        <div class="form-group">
            <form [formGroup]="basicInfo" class="form-horizontal">
            <!--    <button (click)="showHideNep()">NepDate</button>-->

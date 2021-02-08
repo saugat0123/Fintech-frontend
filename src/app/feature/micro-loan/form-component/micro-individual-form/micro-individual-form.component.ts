@@ -33,6 +33,9 @@ export class MicroIndividualFormComponent implements OnInit {
       isDeprive: [undefined, Validators.required],
       depriveSector: [undefined, Validators.required],
       depriveSectorOthers: [undefined, Validators.required],
+      isBlBAgent: [undefined, Validators.required],
+      blbAgentName: [undefined, Validators.required],
+      blbAgentCode: [undefined, Validators.required],
     });
   }
 
