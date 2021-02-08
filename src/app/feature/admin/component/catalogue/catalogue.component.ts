@@ -43,6 +43,7 @@ export class CatalogueComponent implements OnInit {
     roleList: Array<Role> = new Array<Role>();
     page = 1;
     spinner = false;
+    onActionChangeSpinner = false;
     transferToggle = false;
     shareToggle = false;
     pageable: Pageable = new Pageable();
@@ -336,6 +337,7 @@ export class CatalogueComponent implements OnInit {
     }
 
     changeAction() {
+        this.onActionChangeSpinner = true;
         this.loanDataHolder.loanType = this.tempLoanType;
         this.loanFormService.renewLoan(this.loanDataHolder).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated loan type.'));
@@ -344,6 +346,7 @@ export class CatalogueComponent implements OnInit {
                 this.clearSearch();
                 this.catalogueService.search.documentStatus = DocStatus.value(DocStatus.APPROVED);
                 this.onSearch();
+                this.onActionChangeSpinner = false;
             }, error => {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to update loan type.'));
                 this.modalService.dismissAll('Close modal');
