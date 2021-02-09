@@ -334,15 +334,17 @@
 
     </ng-template>
 
-    <ng-template #onActionChange class="modal">
-        <div class="modal-header">
-            <h5>Do you want to change the loan type to {{loanType[tempLoanType]}}?</h5>
-        </div>
-        <div class="modal-body">
-            <div class="d-flex justify-content-end">
-                <button (click)="changeAction()" nbButton status="primary" type="submit">YES</button>
-                <button (click)="onClose()" nbButton status="warning" type="button">NO</button>
-            </div>
-        </div>
+    <ng-template #onActionChange class="p-0">
+        <nb-card class="m-0" [nbSpinner]="onActionChangeSpinner">
+            <nb-card-header>
+                <h5>Do you want to change the loan type to {{loanType[tempLoanType]}}?</h5>
+            </nb-card-header>
+            <nb-card-footer>
+                <div class="d-flex justify-content-end">
+                    <button (click)="changeAction()" nbButton status="primary" type="submit">YES</button>
+                    <button (click)="onClose()" nbButton status="warning" type="button">NO</button>
+                </div>
+            </nb-card-footer>
+        </nb-card>
     </ng-template>
 </nb-card>

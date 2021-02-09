@@ -604,7 +604,7 @@ export class CompanyFormComponent implements OnInit {
             district: [null],
             municipalityVdc: [null],
             holderPercentWardNumber: [undefined, Validators.required],
-            addressLine1: [undefined],
+            addressLine1: [undefined, Validators.required],
             addressLine2: [undefined],
             type: [null, Validators.required]
         });
@@ -687,10 +687,10 @@ export class CompanyFormComponent implements OnInit {
     addProprietor() {
         this.addressList.push(new Address());
         const controls = this.companyInfoFormGroup.controls.proprietors as FormArray;
-        if (FormUtils.checkEmptyProperties(controls)) {
-            this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All MProprietor/Shareholder/Partner Detail To Add More'));
-            return;
-        }
+        // if (FormUtils.checkEmptyProperties(controls)) {
+        //     this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All MProprietor/Shareholder/Partner Detail To Add More'));
+        //     return;
+        // }
         controls.push(this.proprietorsFormGroup());
     }
 
