@@ -188,6 +188,7 @@ export class RetailHousingLoanComponent implements OnInit {
             serviceChargeAmount: undefined,
             sauwaRakam: undefined,
             asulRakam: undefined,
+            pageCount: undefined
         }));
     }
 

@@ -153,7 +153,7 @@
 
                                <br><br>
                                पूर्व भुक्तानी शुल्क : कर्जाको शर्त तथा ब्याजदर परिवर्तन भएको कारणले ऋणीले आफ्नो आम्दानीको श्रोतबाट कर्जा अग्रिम भुक्तानी गर्न चाहेको अवस्थामा वाहेक तोकिएको समयावधि अघिनै
-                               भुक्तानी गर्न चाहेमा वा सापटी वा कुनै बैंक वा वित्तीय संस्थामा सार्न वा कर्जा खरिद गर्ने भएमा भुक्तानी हुन बाँकी साँवा रकमको <input class="form-fields form-control-sm nepaliFont" placeholder="१०" formControlName="sauwaRakam" type="text" size="2"/>>
+                               भुक्तानी गर्न चाहेमा वा सापटी वा कुनै बैंक वा वित्तीय संस्थामा सार्न वा कर्जा खरिद गर्ने भएमा भुक्तानी हुन बाँकी साँवा रकमको <input class="form-fields form-control-sm nepaliFont" placeholder="१०" formControlName="sauwaRakam" type="text" size="2"/>
                                प्रतिशत वा कर्जा प्रवाहको बखत ऋणीबाट असुल गरिएको सेवा शुल्कको
                                <input class="form-fields form-control-sm nepaliFont" placeholder="१३" type="text" formControlName="asulRakam" type="text" size="2"/>
                                प्रतिशतले हुन आउने रकम मध्ये कम हुने रकम पूर्व भुक्तानी शुल्क लाग्नेछ ।
@@ -296,7 +296,7 @@
                                <strong style="left: 32px">{{i+1 | nepaliWord:'unicode'}}) प्रस्तावित सुविधा : धितो अधिविकष (Mortgage Overdraft)</strong>
                                <i (click)="removeMortgageOverdraft(i)"  size="small" class="float-right fa fa-trash" *ngIf="form.get('mortgageOverdraft')['length']>1"></i>
 
-                               <br>
+                               <br><br>
 
                                कर्ज सिमा रकम : रु<input class="form-fields form-control-sm nepaliFont"
                                                         formControlName="loanAmount"
@@ -339,8 +339,7 @@
                                प्रतिबद्वता शुल्क : स्वीकृत अधिविकर्ष सुविधाको सीमा औसतमा <input class="form-fields form-control-sm nepaliFont"
                                                                                                 formControlName="baseRate">
                                प्रतिशत भन्दा कम उपभोग भएको खण्डमा उपभोग नभएको
-                               अधिविकर्ष कर्जा सुविधाको सीमाको <input class="form-fields form-control-sm nepaliFont"
-                                                                      formControlName="baseRate">%
+                               अधिविकर्ष कर्जा सुविधाको सीमाको ०.१५ %
                                (शुन्य दशमलव एक पाँच प्रतिशत) वा कर्जा प्रवाहको बखत ऋणीबाट असुल गरिएको सेवा शुल्कको
                                <input class="form-fields form-control-sm nepaliFont"
                                       formControlName="pratibadhata"
@@ -348,6 +347,11 @@
                                       type="text"/> प्रतिशतले हुन आउने प्रतिशतका दरले मात्र । <br>
                                भुक्तानी शुल्क : भुक्तानी हुने ऋण सुविधा रकमको ०.७५% (शुन्य दशमलव सात पाँच प्रतिशत) मात्र ।
                                <br><br>
+                               सेवा शुल्क : भुक्तानी दिने ऋण सुविधा रकमको <input class="form-fields form-control-sm nepaliFont"
+                                                                                 formControlName="serviceChargePercent"
+                                                                                 type="text" size="2"/> % (<input class="form-fields form-control-sm nepaliFont"
+                                                                                                                  formControlName="serviceChargeAmount"
+                                                                                                                  type="text"/> प्रतिशत मात्र) ।
                                <p *ngIf="form.get(['mortgageOverdraft',i,'loanRateShow']).value">
                                    क.सु.के. दस्तुर : रु<input
                                    class="form-fields form-control-sm nepaliFont"
@@ -385,7 +389,6 @@
                            <br>
                            २.१ - सम्पूर्ण कर्जा सिमा रकम बराबरको ऋणीद्वारा हस्ताक्षर गरिएका प्रतिज्ञा पत्र (<strong> Promissory Note </strong>) ।<br>
                            २.२ - सम्पूर्ण कर्जा सिमा रकम बराबरको कर्जा लिखत (<strong> Loan Deed </strong>) ।<br>
-                           <br>
                            २.३ - <input [readOnly]="true"
                                         class="form-fields form-control-sm nepaliFont"
                                         formControlName="applicantName"
@@ -448,7 +451,7 @@
                                     थपनुहोस
                                </a>
                            </p>
-                           <br><br>
+                           <br>
                            <ng-container *ngIf="form.get('tableShow').value"><p>२.७ - निम्न विवरण एवं जोखिम वहन हुने गरि बैंकको पक्षमा गरिदिएको विमालेख पेश गर्नुपर्नेछ ।</p>
                            <table class="table table-bordered table-responsive table-hover" style="overflow-x: hidden">
                                <thead class="font-weight-bold">
@@ -543,7 +546,6 @@
                            गरिएकोमा बाहेक, बैंकले माग गरेका बखत ऋणीले बैंकलाई तिर्नु पर्छ भन्ने बुझिनेछ ।
                        </div>
                    </div>
-                   <br>
                    <strong>५) <u>निरीक्षण:</u></strong>
                    <div class="row form-group">
                        <div class="col-md-12" style="left: 32px;">
@@ -819,7 +821,7 @@
                    </div>
                    <br>
                    <div class="box mb-2" style="justify-self: center">
-                       म/हामीले <input class="form-fields form-control-sm"
+                       म/हामीले <input class="form-fields nepaliFont form-control-sm"
                                        name="pageCount"
                                        formControlName="pageCount"
                                        placeholder="पेज नम्बर" type="number"/> पृष्ठको यस बैकिङ ऋण स्विकृतीपत्रमा उल्लेखित शर्तहरु राम्ररी पढेंरपढ्यौं र बुझेंरबुझ्यौं ।
