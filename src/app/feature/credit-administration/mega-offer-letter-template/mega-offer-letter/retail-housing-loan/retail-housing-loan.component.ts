@@ -124,7 +124,7 @@ export class RetailHousingLoanComponent implements OnInit {
 
     collateralFormGroup(): FormGroup {
         return this.formBuilder.group({
-            dhitoApplicantName: [undefined],
+            dhitoApplicantName: undefined,
             district: undefined,
             wardNo: undefined,
             address: undefined,
@@ -188,12 +188,6 @@ export class RetailHousingLoanComponent implements OnInit {
                     this.setMultiCollateralLoanData(initialInfo.multiCollateral);
 
                 }
-                // else {
-                //     this.addEmptyHousingFinancial('housingFinance');
-                //     this.addEmptyHousingFinancial('mortgageFinance');
-                //     this.addEmptyHousingFinancial('mortgageOverdraft');
-                //
-                // }
                 this.initialInfoPrint = initialInfo;
             }
     }
