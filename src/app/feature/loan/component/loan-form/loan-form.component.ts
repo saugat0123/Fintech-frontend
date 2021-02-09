@@ -56,7 +56,7 @@ import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-
 import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
 import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
 import {environment} from '../../../../../environments/environment.srdb';
-import {MicroProposalComponent} from '../../../loan-information-template/micro-proposal/micro-proposal.component';
+import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -545,9 +545,6 @@ export class LoanFormComponent implements OnInit {
         }
 
         if (name === 'Proposal' && action && loanTag === 'MICRO_LOAN') {
-            console.log('loanTag');
-            console.log(loanTag);
-            // debugger;
             if (this.microProposalInfo.microProposalForm.invalid && this.nextButtonAction) {
                 this.microProposalInfo.scrollToFirstInvalidControl();
                 this.microProposalInfo.submitted = true;
@@ -564,7 +561,6 @@ export class LoanFormComponent implements OnInit {
                 return true;
             }
             this.proposalDetail.onSubmit();
-            this.microProposalInfo.onSubmit();
             this.loanDocument.proposal = this.proposalDetail.proposalData;
         }
 

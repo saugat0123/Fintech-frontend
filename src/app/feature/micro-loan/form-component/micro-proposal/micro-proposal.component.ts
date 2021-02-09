@@ -1,16 +1,16 @@
 import {Component, ElementRef, Input, OnInit} from '@angular/core';
-import {Proposal} from '../../admin/modal/proposal';
+import {Proposal} from '../../../admin/modal/proposal';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Params} from '@angular/router';
-import {LoanType} from '../../loan/model/loanType';
-import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
-import {ToastService} from '../../../@core/utils';
-import {BaseInterestService} from '../../admin/service/base-interest.service';
-import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
-import {MinimumAmountValidator} from '../../../@core/validator/minimum-amount-validator';
-import {Alert, AlertType} from '../../../@theme/model/Alert';
-import {Editor} from '../../../@core/utils/constants/editor';
-import {NumberUtils} from '../../../@core/utils/number-utils';
+import {LoanType} from '../../../loan/model/loanType';
+import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
+import {ToastService} from '../../../../@core/utils';
+import {BaseInterestService} from '../../../admin/service/base-interest.service';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {MinimumAmountValidator} from '../../../../@core/validator/minimum-amount-validator';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {Editor} from '../../../../@core/utils/constants/editor';
+import {NumberUtils} from '../../../../@core/utils/number-utils';
 
 @Component({
   selector: 'app-micro-proposal',
