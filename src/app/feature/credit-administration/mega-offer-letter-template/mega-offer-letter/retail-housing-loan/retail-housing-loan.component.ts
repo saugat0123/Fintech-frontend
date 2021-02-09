@@ -14,6 +14,7 @@ import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad
 import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {Editor} from '../../../../../@core/utils/constants/editor';
 import {NepaliEditor} from '../../../../../@core/utils/constants/nepaliEditor';
+import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
     selector: 'app-retail-housing-loan',
@@ -37,7 +38,9 @@ export class RetailHousingLoanComponent implements OnInit {
     note = '<ul><li><span style="font-family:Preeti">C0fL tyf JolQmutsf] ;DklQ v\'nfpg] lnvt -</span><span>Net Worth Statement<span style="font-family:Preeti">_ kmf]6f] tyf ;Dks{ 7]ufgf ;lxt k]z ug\'kg]{5 .</span></li>' +
         '<li><span style="font-family:Preeti">tcGo a}+sx?;+u u/]sf] sf/f]jf/ af/] lnlvt ?kdf v\'nfpg\'kg]{ -</span><span>Multiple Banking Declaration<span style="font-family:Preeti">_ k]z ug\'{kg]{5 .</span></li> ' +
         '<li><span style="font-family:Preeti">tpNn]lvt k|:tfljt crn ;DklQsf] k"0f{ d\'Nofªsg k|ltj]bg -</span><span>Complete Valuation Report<span style="font-family:Preeti">_ k]z ePkZrft dfq shf{ e\'Qmfg ul/g]5 .</span></li> </ul>';
-    @Input() cadOfferLetterApprovedDoc;
+    @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+
+    nepData;
 
 
     constructor(private formBuilder: FormBuilder,
@@ -226,7 +229,7 @@ export class RetailHousingLoanComponent implements OnInit {
         }
         data.forEach(value => {
             formArray.push(this.formBuilder.group({
-                Byaj:[value.Byaj],
+                Byaj: [value.Byaj],
                 loanAmount : [value.loanAmount],
                 loanAmountInWord: [value.loanAmountInWord],
                 month: [value.month],
@@ -298,7 +301,7 @@ export class RetailHousingLoanComponent implements OnInit {
                 years: [value.years],
                 baseRate: [value.baseRate],
                 premiumRate: [value.premiumRate],
-                yearlyRate:[value.yearlyRate],
+                yearlyRate: [value.yearlyRate],
                 maxAmount: [value.maxAmount],
                 serviceChargePercent: [value.serviceChargePercent],
                 serviceChargeAmount: [value.serviceChargeAmount],
