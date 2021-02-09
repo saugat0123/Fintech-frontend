@@ -29,9 +29,9 @@ export class MicroIndividualFormComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    console.log(this.data);
     if (!ObjectUtil.isEmpty(this.data)) {
-      this.microCustomerParseData = JSON.parse(this.microCustomerParseData);
-      console.log(this.microCustomerParseData);
+      this.microCustomerForm.patchValue(this.data);
     }
   }
 
@@ -51,10 +51,11 @@ export class MicroIndividualFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
     if (this.microCustomerForm.invalid) {
       return;
     }
-    this.submitData = JSON.stringify(this.microCustomerForm.value);
+    this.submitData = this.microCustomerForm.value;
   }
 
 }

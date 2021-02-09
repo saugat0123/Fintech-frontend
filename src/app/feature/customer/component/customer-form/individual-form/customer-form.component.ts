@@ -119,6 +119,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     crgLambdaDisabled = environment.disableCrgLambda;
 
     ngOnInit() {
+        console.log(this.formValue);
         this.getProvince();
         this.getAllDistrict();
         this.getClientType();
@@ -128,6 +129,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             if (!ObjectUtil.isEmpty(this.formValue.individualJsonData)) {
                 this.individualJsonData = JSON.parse(this.formValue.individualJsonData);
             }
+            this.microCustomer = this.formValue.isMicroCustomer;
             this.customerDetailField.showFormField = true;
             this.customer = this.formValue;
             this.customer.clientType = this.clientTypeInput;
@@ -299,6 +301,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
                     /** Remaining static read-write only data*/
                     this.customer.individualJsonData = this.setIndividualJsonData();
+
+                    this.customer.isMicroCustomer = this.microCustomer;
 
                     this.customerService.save(this.customer).subscribe(res => {
                         this.spinner = false;
