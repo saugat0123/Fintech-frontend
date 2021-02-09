@@ -74,7 +74,7 @@
         <div class="col" *ngIf="form.depriveSector.value == 'Others'">
             <div class="form-group">
                 <label for="riskClassificationPercent"><strong>Others</strong></label>
-               <input placeholder="Select Deprive Sector" formControlName="depriveSectorOthers" />
+               <input placeholder="Custom Deprive" formControlName="depriveSectorOthers" class="form-control"/>
                 <div *ngIf="submitted && microCustomerForm.get('riskClassificationBase').errors"
                      class="invalid-feedback">
                     Value is required!
@@ -95,7 +95,7 @@
         <div class="col" *ngIf="form.isBlBAgent.value == 'yes'">
             <div class="form-group">
                 <label for="blbAgentName"><strong>BLB Agent Name</strong></label>
-                <input placeholder="Enter BLB Agent Name" formControlName="blbAgentName" id="blbAgentName" />
+                <input placeholder="Enter BLB Agent Name" formControlName="blbAgentName" id="blbAgentName" class="form-control"/>
                 <div *ngIf="submitted && microCustomerForm.get('blbAgentName').errors"
                      class="invalid-feedback">
                     Value is required!
@@ -105,7 +105,7 @@
         <div class="col" *ngIf="form.isBlBAgent.value == 'yes'">
             <div class="form-group">
                 <label for="blbAgentCode"><strong>BLB Agent Code</strong></label>
-                <input placeholder="BLB Agent Code" formControlName="blbAgentCode" id="blbAgentCode" />
+                <input placeholder="BLB Agent Code" formControlName="blbAgentCode" id="blbAgentCode" class="form-control"/>
                 <div *ngIf="submitted && microCustomerForm.get('blbAgentCode').errors"
                      class="invalid-feedback">
                     Value is required!
@@ -114,12 +114,3 @@
         </div>
     </div>
 </form>
-
-{{microCustomerForm.value |json}}
-
-f.
-a.	Yes/No
-b.	Do nothing if No is selected
-c.	Show following when yes is selected
-S.N	Name of BLB agent	BC Code
-1

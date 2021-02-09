@@ -712,7 +712,7 @@
                                </div>
                            </div>
                        </div>
-                       <div class="row">
+                       <div class="row" *ngIf="!microCustomer">
                            <div class="col-md-12">
                                <div class="form-group">
                                    <label><strong>Income Risk</strong></label>
@@ -727,7 +727,7 @@
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-12">
+                           <div class="col-md-12" *ngIf="!microCustomer">
                                <div class="form-group">
                                    <label><strong>Security Risk</strong></label>
                                    <textarea id="securityRisk" formControlName="securityRisk" name="introduction" type="text"
@@ -741,7 +741,7 @@
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-12">
+                           <div class="col-md-12" *ngIf="!microCustomer">
                                <div class="form-group">
                                    <label><strong>Succession Risk</strong></label>
                                    <textarea id="successionRisk" formControlName="successionRisk" name="introduction" type="text"
@@ -756,7 +756,7 @@
                                </div>
                            </div>
                        </div>
-                       <div *ngIf="!crgLambdaDisabled">
+                       <div *ngIf="!crgLambdaDisabled  && !microCustomer">
                            <nb-card class="card-height">
                                <nb-card-header>
                                    <label for="bankingRelationship"><h6>Banking Relationship</h6></label>
@@ -782,7 +782,7 @@
                                </nb-card-body>
                            </nb-card>
                        </div>
-                       <div *ngIf="!crgLambdaDisabled" class="col-4">
+                       <div *ngIf="!crgLambdaDisabled && !microCustomer" class="col-4">
                            <label><strong>Net worth</strong></label>
                            <input id="netWorth" formControlName="netWorth" name="netWorth" type="text"
                                   class="form-control" placeholder="Net Worth Amount"
@@ -798,7 +798,7 @@
 
                </nb-tab>
                <nb-tab *ngIf="microCustomer" tabTitle="Micro Customer">
-                   <app-micro-individual-form></app-micro-individual-form>
+                   <app-micro-individual-form #microIndividualFormComponent></app-micro-individual-form>
                </nb-tab>
            </nb-tabset>
            </form>
