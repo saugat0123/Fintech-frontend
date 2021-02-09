@@ -45,58 +45,29 @@
                             दर्ता मिति<input class="form-field form-control-sm nepaliFont disable-print"
                                              formControlName="registrationDate"
                                              placeholder=""
-                                             type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('registrationDate').value ? loanDeedCompany.get('registrationDate').value  : '========='}}</b></span>,) (यस पछि ऋणी भनिएको) को अख्तियारप्राप्त
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="grandParents"
-                                   placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('grandParents').value ? loanDeedCompany.get('grandParents').value  : '========='}}</b></span>
+                                             type="text"/>,) (यस पछि ऋणी भनिएको) को अख्तियारप्राप्त
+                            <strong class="nepaliFont"> {{nepData?.grandFatherName}}</strong>
                             को नाति/ नातिनी/
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="parents"
-                                   placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('parents').value ? loanDeedCompany.get('parents').value  : '========='}}</b></span>
+                            <strong class="nepaliFont"> {{nepData?.fatherName}}</strong>
                             छोरा/छोरी
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="permanentDistrict"
-                                   placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('permanentDistrict').value ? loanDeedCompany.get('permanentDistrict').value  : '========='}}</b></span>
+                            <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong>
                             जिल्ला
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="permanentMunicipalityVDC"
-                                   placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('permanentMunicipalityVDC').value ? loanDeedCompany.get('permanentMunicipalityVDC').value  : '========='}}</b></span>
-                            गाउँपालिका/ नगरपालिका वडा नं.
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="permanentWardNo"
-                                   placeholder=""
-                                   type="text" size="2" /> <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('permanentWardNo').value ? loanDeedCompany.get('permanentWardNo').value  : '========='}}</b></span>
+                            <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
+                            {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}} वडा नं.
+                                    <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
                             घर भई हाल प्रदेश नं.
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="temporaryProvince"
-                                   placeholder=""
-                                   type="text" size="1"/> <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('temporaryProvince').value ? loanDeedCompany.get('temporaryProvince').value  : '========='}}</b></span>
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="temporaryDistrict"
-                                   placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('temporaryDistrict').value ? loanDeedCompany.get('temporaryDistrict').value  : '========='}}</b></span>
+                                    <strong class="nepaliFont">{{nepData?.temporaryProvince}}</strong>
+
+                                    <strong class="nepaliFont">{{nepData?.temporaryDistrict}}</strong>
                             जिल्ला
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="temporaryMunicipalityVDC"
-                                   placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('temporaryMunicipalityVDC').value ? loanDeedCompany.get('temporaryMunicipalityVDC').value  : '========='}}</b></span>
-                            गाउँपालिका/ नगरपालिका वडा नं.
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="temporaryWardNo"
-                                   placeholder=""
-                                   type="text" size="2" /> <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('temporaryWardNo').value ? loanDeedCompany.get('temporaryWardNo').value  : '========='}}</b></span>
-                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                    <strong class="nepaliFont">{{nepData?.temporaryMunicipality}}</strong>
+                                                            {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}} वडा नं.
+                                    <strong class="nepaliFont">{{nepData?.temporaryWard}}</strong>
+                            <input class="form-field form-control-sm nepaliFont"
                                    formControlName="temporaryAddress"
                                    placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('temporaryAddress').value ? loanDeedCompany.get('temporaryAddress').value  : '========='}}</b></span> बस्ने वर्ष
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="age"
-                                   placeholder=""
-                                   type="text" size="3" /> <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('age').value ? loanDeedCompany.get('age').value  : '========='}}</b></span>
+                                   type="text"/> बस्ने वर्ष
+                                    <strong class="nepaliFont">{{nepData?.age}}</strong>
                             को
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="relation"
