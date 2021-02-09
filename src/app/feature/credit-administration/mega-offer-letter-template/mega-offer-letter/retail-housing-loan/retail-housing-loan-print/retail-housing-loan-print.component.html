@@ -5,7 +5,7 @@
 
     <div class="col-md-12">
         <div class="text-center">
-            <h2 class="font-weight-bold" style="align-content: center;">व्यक्तिगत एवं गोप्य</h2>
+            <h2 class="font-weight-bold" style="align-content: center; text-decoration:underline;">व्यक्तिगत एवं गोप्य</h2>
         </div>
         <form class="nepali">
             <div class="row mb-2">
@@ -18,7 +18,7 @@
             </div>
             <div class="row mt-0">
                 <div class="col-md-12">
-                    <b>श्री / सुश्री / श्रीमती :</b><b class="nepaliFont">{{letter['applicantName']}}</b>
+                    <b>नाम:</b><b class="nepaliFont">{{letter['applicantName']}}</b>
                 </div>
             </div>
             <div class="row">
@@ -39,7 +39,7 @@
             <br>
             <div class="row form-group">
                 <div class="col-md-12 text-center">
-                    <strong>बिषय : बैंकिङ्ग कर्जा सुविधा पत्र ।
+                    <strong>बिषय : <u>बैंकिङ्ग कर्जा सुविधा पत्र ।</u>
                     </strong>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                     <br>
                     पक्षहरु :– <br>
                     <div class="ml-4">
-                        १.  श्री / सुश्री / श्रीमती  <strong class="nepaliFont">{{letter['applicantName']}}</strong>(यस पछि “ऋणी” भनिएको)<br>
+                        १. <strong class="nepaliFont">{{letter['applicantName']}}</strong> (यस पछि “ऋणी” भनिएको)<br>
                         २. श्री मेगा बैंक नेपाल लिमिटेड (यस पछि “बैंक” भनिएको)
                     </div>
                 </div>
@@ -67,22 +67,22 @@
                 <div class="row form-group" *ngFor="let housing of letter.housingFinance; let i=index">
                     <div class="col-md-12 " style="left: 30px;">
 
-                    <strong style="left: 32px">{{i+1 | nepaliWord: 'unicode' }}) प्रस्तावित सुविधा : घर कर्जा (Housing Finance)</strong>
-                        रकम : <strong class="nepaliFont"> {{housing.loanAmount}}</strong> (अक्षेरुपी <strong class="nepaliFont">{{housing.loanAmountInWord}}</strong> मात्र ।)<br><br>
+                    <strong style="left: 32px">{{i+1 | nepaliWord: 'unicode' }}) प्रस्तावित सुविधा : घर कर्जा (Housing Finance)</strong><br><br>
+                        रकम : <strong>रु. </strong><strong class="nepaliFont"> {{housing.loanAmount}} ∕– </strong> (अक्षेरुपी <strong class="nepaliFont">{{housing.loanAmountInWord}}</strong> रुपैयाँ मात्र ।)<br><br>
                         प्रयोजन :  <strong class="nepaliFont">{{housing.use}}</strong> प्रयोजनार्थ ।<br><br>
                         समय : बैंकबाट कर्जा भुक्तानी भएको मितिले  {{housing.years}} वर्ष । <br><br>
                         व्याज : <strong>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) </strong> (हालको आधार दर  <strong class="nepaliFont">{{housing.baseRate}}</strong>%
                         + प्रिमियम दर  <strong class="nepaliFont">{{housing.premiumRate}}</strong>%) का दरले हाललाई बार्षिक
-                        १२.७६% वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
+                        <strong class="nepaliFont">{{housing.annualRate}}</strong>% वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
                         बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर
                         संसोधन (घट्न∕बढ्न) सक्नेछ । <br><br>
                         भुक्तानी : यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको
                         आधारमा रही अचल धितो सुरक्षणको फेयर बजार मूल्यको अधिकतम् <strong class="nepaliFont">{{housing.maxAmount}}</strong> प्रतिशत
                         सम्म रकम निम्नानुसार भुक्तानी गरिनेछ ।<br><br>
-                        ऋण चुक्ता : बैंकबाट कर्जा भुक्तानी भएको मितिको <strong class="nepaliFont">{{housing.month}} </strong>महिना पछि बाट प्रथम किस्ता
-                        प्रारंभ हुने गरी <strong class="nepaliFont">{{housing.prices}}</strong>समान मासिक किस्ता बन्दीमा
-                        <strong class="nepaliFont">{{housing.loanAmountReturn}}</strong>(अक्षेरुपी <strong class="nepaliFont">{{housing.loanAmountReturnInWord}}</strong>
-                        मात्र) का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको <strong class="nepaliFont">{{housing.clearanceDate}} </strong>तारिखमा चुक्ता भुक्तान
+                        ऋण चुक्ता : बैंकबाट कर्जाको प्रथम किस्ता भुक्तानी भएको मितिको <strong class="nepaliFont">{{housing.month}} </strong>महिना पछि बाट प्रथम किस्ता
+                        प्रारंभ हुने गरी <strong class="nepaliFont">{{housing.prices}}</strong>समान मासिक किस्ता बन्दीमा <strong>रु. </strong>
+                        <strong class="nepaliFont">{{housing.loanAmountReturn}}</strong> ∕– <strong> (अक्षेरुपी </strong><strong class="nepaliFont">{{housing.loanAmountReturnInWord}}</strong>
+                        <strong> रुपैयाँ मात्र)</strong> का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको <strong class="nepaliFont">{{housing.clearanceDate}} </strong>तारिखमा चुक्ता भुक्तान
                         गर्नु पर्नेछ ।
 
                         <br><br>
@@ -91,7 +91,7 @@
                         सेवा शुल्क : भुक्तानी दिने ऋण सुविधा रकमको <strong class="nepaliFont">{{housing.serviceChargePercent}}</strong> % (<strong class="nepaliFont">{{housing.serviceChargeAmount}}</strong> प्रतिशत) ।
                         <br><br>
                         <p *ngIf="housing.loanRateShow">
-                            क.सु.के. दस्तुर : <strong class="nepaliFont">{{housing.loanRate}}</strong> मात्र ।
+                            क.सु.के. दस्तुर : रु. <strong class="nepaliFont">{{housing.loanRate}}</strong> ∕– मात्र ।
                         </p>
 
                     </div>
@@ -103,19 +103,19 @@
                 <p><u><b>धितो कर्जा (Mortgage Finance)</b></u></p>
                 <div class="row form-group" *ngFor="let mortgageFinance of letter.mortgageFinance; let i=index">
                     <div class="col-md-12 " style="left: 30px;">
-                        <strong style="left: 32px">{{i+1 | nepaliWord: 'unicode'}}) प्रस्तावित सुविधा : धितो कर्जा (Mortgage Finance)</strong>
-                        कर्जा सिमा रकम :  <strong class="nepaliFont">{{mortgageFinance.loanAmount}}</strong> (अक्षेरुपी  <strong class="nepaliFont">{{mortgageFinance.loanAmountInWord}}</strong> मात्र ।)<br><br>
+                        <strong style="left: 32px">{{i+1 | nepaliWord: 'unicode'}}) प्रस्तावित सुविधा : धितो कर्जा (Mortgage Finance)</strong><br><br>
+                        कर्जा सिमा रकम : <strong>रु. </strong> <strong class="nepaliFont">{{mortgageFinance.loanAmount}} ∕– </strong> (अक्षेरुपी  <strong class="nepaliFont">{{mortgageFinance.loanAmountInWord}}</strong> रुपैयाँ मात्र ।)<br><br>
                         उद्देश्य :   <strong class="nepaliFont">{{mortgageFinance.use}}</strong> प्रयोजनार्थ ।<br><br>
                         व्याज : <strong>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) </strong> (हालको आधार दर  <strong class="nepaliFont">{{mortgageFinance.baseRate}}</strong>%
                         + प्रिमियम दर  <strong class="nepaliFont">{{mortgageFinance.premiumRate}}</strong>%) का दरले हाललाई बार्षिक
-                        १२.७६% वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
+                        <strong class="nepaliFont">{{mortgageFinance.annualRate}}</strong>% वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
                         बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर
                         संसोधन (घट्न∕बढ्न) सक्नेछ ।                               <br><br>
                         समय : बैंकबाट कर्जा भुक्तानी भएको मितिले  <strong class="nepaliFont">{{mortgageFinance.years}}</strong> वर्ष । <br><br>
                         ऋण चुक्ता : बैंकबाट कर्जा भुक्तानी भएको मितिको <strong class="nepaliFont">{{mortgageFinance.month}}</strong> महिना पछि बाट प्रथम किस्ता
-                        प्रारंभ हुने गरी <strong class="nepaliFont">{{mortgageFinance.prices}}</strong> समान मासिक किस्ता बन्दीमा
-                        <strong class="nepaliFont">{{mortgageFinance.loanAmountReturn}}</strong>(अक्षेरुपी <strong class="nepaliFont">{{mortgageFinance.loanAmountReturnInWord}}</strong>
-                        मात्र) का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको <strong class="nepaliFont">{{mortgageFinance.clearanceDate}} </strong> तारिखमा चुक्ता भुक्तान
+                        प्रारंभ हुने गरी <strong class="nepaliFont">{{mortgageFinance.prices}}</strong> समान मासिक किस्ता बन्दीमा <strong>रु. </strong>
+                        <strong class="nepaliFont">{{mortgageFinance.loanAmountReturn}}</strong> ∕– <strong> (अक्षेरुपी </strong><strong class="nepaliFont">{{mortgageFinance.loanAmountReturnInWord}}</strong>
+                        <strong> रुपैयाँ मात्र)</strong> का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको <strong class="nepaliFont">{{mortgageFinance.clearanceDate}} </strong> तारिखमा चुक्ता भुक्तान
                         गर्नु पर्नेछ ।
 
                         <br><br>
@@ -128,7 +128,7 @@
                         सेवा शुल्क : भुक्तानी दिने ऋण सुविधा रकमको <strong class="nepaliFont">{{mortgageFinance.serviceChargePercent}}</strong> % (<strong class="nepaliFont">{{mortgageFinance.serviceChargeAmount}}</strong> प्रतिशत) ।
                         <br><br>
                         <p *ngIf="mortgageFinance.loanRateShow">
-                            क.सु.के. दस्तुर : <strong class="nepaliFont">{{mortgageFinance.loanRate}}</strong> मात्र ।
+                            क.सु.के. दस्तुर : रु. <strong class="nepaliFont">{{mortgageFinance.loanRate}}</strong> ∕– मात्र ।
 
                         </p>
                     </div>
@@ -141,18 +141,18 @@
                 <div class="row form-group" *ngFor="let mortgageOverdrafts of letter.mortgageOverdraft; let i=index">
                     <div class="col-md-12 " style="left: 30px;">
                         <strong style="left: 32px">{{i+1 | nepaliWord:'unicode'}}) प्रस्तावित सुविधा : धितो अधिविकष (Mortgage Overdraft)</strong>
-
-                        रकम : <strong class="nepaliFont">{{mortgageOverdrafts.loanAmount}}</strong> (अक्षेरुपी <strong class="nepaliFont">{{mortgageOverdrafts.loanAmountInWord}}</strong> मात्र ।)<br><br>
+                        <br><br>
+                        कर्जा सिमा रकम : <strong>रु. </strong> <strong class="nepaliFont">{{mortgageOverdrafts.loanAmount}}</strong> ∕– (अक्षेरुपी <strong class="nepaliFont">{{mortgageOverdrafts.loanAmountInWord}}</strong> रुपैयाँ मात्र ।)<br><br>
                         प्रयोजन :   <strong class="nepaliFont">{{mortgageOverdrafts.use}}</strong> प्रयोजनार्थ ।<br><br>
                         समय : बैंकबाट कर्जा भुक्तानी भएको मितिले  <strong class="nepaliFont">{{mortgageOverdrafts.years}}</strong> वर्ष । <br><br>
                         व्याज : <strong>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) </strong> (हालको आधार दर  <strong class="nepaliFont">{{mortgageOverdrafts.baseRate}}</strong>%
                         + प्रिमियम दर   <strong class="nepaliFont">{{mortgageOverdrafts.premiumRate}}</strong>%) का दरले हाललाई बार्षिक
-                        १२.७६% वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
+                        <strong class="nepaliFont">{{mortgageOverdrafts.annualRate}}</strong>% त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
                         बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर
                         संसोधन (घट्न∕बढ्न) सक्नेछ । <br><br>
                         समयावधि :	रिभल्भिङ्ग   <strong class="nepaliFont">{{mortgageOverdrafts.timeInterval}}</strong> मा पुनरावलोकन हुने गरि ।<br>
                         भुक्तानी : यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको
-                        आधारमा रही अचल धितो सुरक्षणको फेयर बजार मूल्यको अधिकतम्  <strong class="nepaliFont">{{mortgageOverdrafts.maxAmount}}</strong> प्रतिशत
+                        आधारमा रही अचल धितो सुरक्षणको <strong>फेयर बजार मूल्यको अधिकतम् </strong> <strong class="nepaliFont">{{mortgageOverdrafts.maxAmount}}</strong> <strong>प्रतिशत</strong>
                         सम्म रकम भुक्तानी गरिनेछ ।<br><br>
                         पूर्व भुक्तानी शुल्क : कर्जाको शर्त तथा ब्याजदर परिवर्तन भएको कारणले ऋणीले आफ्नो
                         आम्दानीको श्रोतबाट कर्जा अग्रिम भुक्तानी गर्न चाहेको अवस्थामा वाहेक
@@ -169,7 +169,7 @@
                         सेवा शुल्क : भुक्तानी दिने ऋण सुविधा रकमको  <strong class="nepaliFont">{{mortgageOverdrafts.serviceChargePercent}}</strong> % ( <strong class="nepaliFont">{{mortgageOverdrafts.serviceChargeAmount}}</strong> प्रतिशत) ।
                         <br><br>
                         <p *ngIf="mortgageOverdrafts.loanRateShow">
-                            क.सु.के. दस्तुर :  <strong class="nepaliFont">{{mortgageOverdrafts.loanRate}}</strong> मात्र ।
+                            क.सु.के. दस्तुर : रु. <strong class="nepaliFont">{{mortgageOverdrafts.loanRate}}</strong> ∕– मात्र ।
                         </p>
                     </div>
                 </div>
@@ -182,28 +182,29 @@
                     <br>
                     २.१ - सम्पूर्ण कर्जा सिमा रकम बराबरको ऋणीद्वारा हस्ताक्षर गरिएका प्रतिज्ञा पत्र (<strong> Promissory Note </strong>) ।<br>
                     २.२ - सम्पूर्ण कर्जा सिमा रकम बराबरको कर्जा लिखत (<strong> Loan Deed </strong>) ।<br>
-                    २.३ - <strong class="nepaliFont">{{letter['applicantName']}}</strong>को आफ्नो एकल स्वामित्व र एकलौटी हकभोगको
+                    २.३ - <strong class="nepaliFont">{{letter['applicantName']}}</strong><strong>को</strong> आफ्नो एकल स्वामित्व र एकलौटी हकभोगको
                     <strong class="nepaliFont">{{letter['district']}}</strong> जिल्ला,
-                    <strong class="nepaliFont">{{letter['wardNo']}}</strong>वडा नं.
-                    <strong class="nepaliFont">{{letter['address']}}</strong>  मा रहेका कि.नं
-                    <strong class="nepaliFont">{{letter['statekeyNo']}}</strong> (
+                    <strong class="nepaliFont">{{letter['wardNo']}}</strong> वडा नं.
+                    <strong class="nepaliFont">{{letter['address']}}</strong> मा रहेका कि.नं
+                    <strong class="nepaliFont">{{letter['stateKeyNo']}}</strong> (
                      <strong class="nepaliFont">{{letter['keyNo']}}</strong> व.मी)
                     <br>
-                    को जग्गा तथा सोमा निर्माणाधीन घर सम्बन्धित निकायबाट बैंकको नाममा धितोको प्रथम र पूर्ण हक कायम हुने गरि धितो बन्धकीको तमसुक रजिष्ट्रेशन गरिदिनुपर्ने÷गरिदिएको सम्पत्ति ।<br>
-                    २.४ - <strong class="nepaliFont">{{letter['applicantName']}}</strong>को हकवालाले माथि उल्लेखित अचल धितो सम्पत्ति धितो सुरक्षण कायम राख्न दिएको मञ्जुरीनामा (नाता प्रमाणित सहित) ।<br>
-                    २.५ - {{letter.applicantRelativeOne}} र {{letter.applicantRelativeTwo}} को सम्पूर्ण कर्जा सिमा रकम बराबरको छुट्टाछुट्टै व्यक्तिगत जमानी ।
+                    को जग्गा तथा सोमा निर्माणाधीन घर सम्बन्धित निकायबाट बैंकको नाममा धितोको प्रथम र पूर्ण हक कायम हुने गरि धितो बन्धकीको तमसुक रजिष्ट्रेशन गरिदिनुपर्ने∕गरिदिएको सम्पत्ति ।<br>
+                    २.४ - <strong class="nepaliFont">{{letter['applicantName']}}</strong><strong>को</strong> हकवालाले माथि उल्लेखित अचल धितो सम्पत्ति धितो सुरक्षण कायम राख्न दिएको मञ्जुरीनामा (<strong>नाता प्रमाणित सहित</strong>) ।<br>
+                    २.५ - {{letter.applicantRelativeOne}} <strong>र</strong> {{letter.applicantRelativeTwo}} <strong>को</strong> सम्पूर्ण कर्जा सिमा रकम बराबरको छुट्टाछुट्टै व्यक्तिगत जमानी ।
                      <p *ngIf="letter?.landNumberPreviousOwnerShow">
-                         २.६ - कि.न. {{letter.landNumber}}  पुर्व जग्गाधनी {{letter.previousOwner}} को हकवालाले माथि उल्लेखित अचल धितो सम्पत्ति धितो सुरक्षण कायम राख्न दिएको मञ्जुरीनामा (स्वःघोषित नाता प्रमाणित सहित) ।</p>
+                         २.६ - कि.न. {{letter.landNumber}} <strong>को</strong> पुर्व जग्गाधनी {{letter.previousOwner}} को हकवालाले माथि उल्लेखित अचल धितो सम्पत्ति धितो सुरक्षण कायम राख्न दिएको मञ्जुरीनामा (<strong>स्वःघोषित नाता प्रमाणित सहित</strong>) ।</p>
                     <ng-container *ngIf="letter?.landNumberPreviousOwnerShow">
                         <div class="table-responsive">
                             <p>२.७ - निम्न विवरण एवं जोखिम वहन हुने गरि बैंकको पक्षमा गरिदिएको विमालेख पेश गर्नुपर्नेछ ।</p>
                             <table class="table table-bordered col-md-12" style="width:100%">
                                 <thead class="font-weight-bold">
                                 <tr>
-                                <td>क्र.सं</td>
-                                <td>विवरण (म्भतबष्कि)</td>
-                                <td>विमा रकम</td>
-                                <td>जोखिम वहन</td></tr>
+                                <th>क्र.सं</th>
+                                <th>विवरण (म्भतबष्कि)</th>
+                                <th>विमा रकम</th>
+                                <th>जोखिम वहन</th>
+                                </tr>
                                 </thead>
                                 <tbody *ngFor="let datas of letter['loanData']; let  index = index">
                                 <tr>
@@ -484,9 +485,10 @@
                     ऋणीः <br>
                     <div class="ml-4">
                         <strong>नाम : </strong><strong class="nepaliFont">{{letter['applicantName']}}</strong> <br>
-                        <strong>ठेगाना : </strong><strong class="nepaliFont">{{letter['parmanentAddress']}}</strong>
+                        <strong>ठेगाना : </strong><strong class="nepaliFont">{{letter['permanentAddress']}}</strong>
                         <br>
                         <strong>हाल :</strong><strong class="nepaliFont"> {{letter['currentAddress']}}</strong> <br>
+                        <strong>मोबाईल नं.:</strong><strong class="nepaliFont"> {{letter['contactNo']}}</strong> <br>
                     </div>
                     <br>
                     यो सुविधाको प्रस्ताव उपर स्वीकृति दिन को लागि माथि उल्लेखित मिति देखि ३० दिनसम्म को समय दिईएको छ र
@@ -522,7 +524,7 @@
             </div>
             <br>
             <div class="box" style="justify-self: center">
-                म/हामीले १० पृष्ठको यस बैकिङ ऋण स्विकृतीपत्रमा उल्लेखित शर्तहरु राम्ररी पढेंरपढ्यौं र बुझेंरबुझ्यौं ।
+                म/हामीले <strong class="nepaliFont">{{letter['pageNo']}}</strong> पृष्ठको यस बैकिङ ऋण स्विकृतीपत्रमा उल्लेखित शर्तहरु राम्ररी पढेंरपढ्यौं र बुझेंरबुझ्यौं ।
                 यसमा उल्लेख गरिएको सम्पूर्ण शर्तहरु पालना गर्न म/हामी मन्जुर गर्दछु ।
                 गर्दछौं र बैंकसंग यस अन्तर्गत लिएको ऋण पूर्ण रुपमा चुक्ता भुक्तान नगरे सम्म यसमा उल्ल्ेखित शर्तहरुको
                 पूर्ण रुपले पालना गर्ने प्रतिज्ञा गर्दछु/गर्दछौं ।<br>
