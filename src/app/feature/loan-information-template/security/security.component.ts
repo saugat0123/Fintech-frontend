@@ -105,8 +105,8 @@ export class SecurityComponent implements OnInit {
             securityGuarantee: [undefined],
             buildingLocation: [undefined],
             vehicleSecurityCoverage: [undefined],
-            roadAccessOfPrimaryProperty: [undefined, this.crgLambdaDisabled ? undefined : Validators.required],
-            facCategory: [undefined, this.crgLambdaDisabled ? undefined : Validators.required],
+            roadAccessOfPrimaryProperty: [undefined, !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
+            facCategory: [undefined, !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
         });
     }
 
@@ -115,8 +115,9 @@ export class SecurityComponent implements OnInit {
             securityGuarantee: formData.securityGuarantee,
             buildingLocation: formData.buildingLocation,
             vehicleSecurityCoverage: formData.vehicleSecurityCoverage,
-            roadAccessOfPrimaryProperty: [formData.roadAccessOfPrimaryProperty , this.crgLambdaDisabled ? undefined : Validators.required],
-            facCategory: [formData.facCategory , this.crgLambdaDisabled ? undefined : Validators.required],
+            roadAccessOfPrimaryProperty: [formData.roadAccessOfPrimaryProperty ,
+                !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
+            facCategory: [formData.facCategory , !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
         });
     }
 

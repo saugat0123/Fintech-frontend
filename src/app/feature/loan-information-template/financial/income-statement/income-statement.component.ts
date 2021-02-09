@@ -279,7 +279,10 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
 
             cashFlowStatement.changeInOtherAssets[index].value = (Number(balanceSheet.otherAssets[index].value)
                 - Number(this.financialService.fetchValuesForSubCategories(this.incomeStatementForm
-                    .get('operatingExpensesCategory'), 'Amortization/Other Non-Cash Expenses', index))).toFixed(2);
+                    .get('operatingExpensesCategory'), 'Amortization/Other Non-Cash Expenses', index)))
+                .toFixed(2);
+
+            cashFlowStatement.addOpeningBalance[index].value = Number(operatingProfit.controls['value'].value);
         }
 
         cashFlowStatement.nonOperatingIncomeExpenses[index].value = nonOperatingIncomeOrExpenses.controls['value'].value;
