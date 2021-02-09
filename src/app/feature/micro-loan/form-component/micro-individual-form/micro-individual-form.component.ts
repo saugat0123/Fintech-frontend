@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-micro-individual-form',
@@ -7,6 +8,12 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./micro-individual-form.component.scss']
 })
 export class MicroIndividualFormComponent implements OnInit {
+
+  @Input() data;
+
+  microCustomerParseData;
+
+  submitData;
 
   microCustomerForm: FormGroup;
   submitted = false;
@@ -22,6 +29,10 @@ export class MicroIndividualFormComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    console.log(this.data);
+    if (!ObjectUtil.isEmpty(this.data)) {
+      this.microCustomerForm.patchValue(this.data);
+    }
   }
 
   buildForm() {
@@ -37,6 +48,14 @@ export class MicroIndividualFormComponent implements OnInit {
       blbAgentName: [undefined, Validators.required],
       blbAgentCode: [undefined, Validators.required],
     });
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    if (this.microCustomerForm.invalid) {
+      return;
+    }
+    this.submitData = this.microCustomerForm.value;
   }
 
 }

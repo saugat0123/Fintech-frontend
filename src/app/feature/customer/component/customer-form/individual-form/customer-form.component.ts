@@ -1,4 +1,14 @@
-import {Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {
+    Component,
+    DoCheck,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    QueryList, ViewChild,
+    ViewChildren
+} from '@angular/core';
 import {Customer} from '../../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
@@ -23,6 +33,8 @@ import {Gender} from '../../../../../@core/model/enum/gender';
 import {MaritalStatus} from '../../../../../@core/model/enum/marital-status';
 import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
 import {environment} from '../../../../../../environments/environment.srdb';
+import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
+import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
 
 @Component({
     selector: 'app-customer-form',
@@ -46,6 +58,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     get basicInfoControls() {
         return this.basicInfo.controls;
     }
+
+    @ViewChild('microIndividualFormComponent' , {static: false}) microIndividualFormComponent: MicroIndividualFormComponent;
 
     @Input() formValue: Customer = new Customer();
     @Input() clientTypeInput: any;
@@ -105,6 +119,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     crgLambdaDisabled = environment.disableCrgLambda;
 
     ngOnInit() {
+        console.log(this.formValue);
         this.getProvince();
         this.getAllDistrict();
         this.getClientType();
@@ -114,6 +129,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             if (!ObjectUtil.isEmpty(this.formValue.individualJsonData)) {
                 this.individualJsonData = JSON.parse(this.formValue.individualJsonData);
             }
+            this.microCustomer = this.formValue.isMicroCustomer;
             this.customerDetailField.showFormField = true;
             this.customer = this.formValue;
             this.customer.clientType = this.clientTypeInput;
@@ -286,6 +302,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     /** Remaining static read-write only data*/
                     this.customer.individualJsonData = this.setIndividualJsonData();
 
+                    this.customer.isMicroCustomer = this.microCustomer;
+
                     this.customerService.save(this.customer).subscribe(res => {
                         this.spinner = false;
                         this.close();
@@ -405,6 +423,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         individualJsonData.permanentAddressLine2 = this.basicInfoControls.permanentAddressLine2.value;
         individualJsonData.temporaryAddressLine1 = this.basicInfoControls.temporaryAddressLine1.value;
         individualJsonData.temporaryAddressLine2 = this.basicInfoControls.temporaryAddressLine2.value;
+        individualJsonData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
         return  JSON.stringify(individualJsonData);
     }
 
@@ -609,16 +628,14 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         });
     }
 
-    /*
-    todo remove these
-      a.	Income risk
-      b.	Security risk
-      c.	Succession risk
-      d.	Banking relationship
-      e.	Net worth
-     */
     onCustomerTypeChange() {
-        this.controlValidation([], false);
+        if (this.microCustomer) {
+            this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk', 'bankingRelationship',
+                'netWorth'], false);
+        } else {
+            this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk', 'bankingRelationship',
+                'netWorth'], true);
+        }
     }
 
 }
