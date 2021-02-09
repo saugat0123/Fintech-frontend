@@ -181,13 +181,7 @@
           गर्नुपर्नेछ ।
         </td>
       </tr>
-      <tr *ngIf="loan['guarantorFlag']">
-        <td>२.७</td>
-        <td class="pl-3">
-          <strong class="nepaliFont">{{loan['guarantor']}}</strong>
-          तर्फबाट कर्जा सीमा रकम बराबरको छुटाछुटै व्यक्तिगत जमानी पेश गर्नुपर्नेछ ।
-        </td>
-      </tr>
+
     </table>
     <table class="table table-bordered">
       <tr>
@@ -201,6 +195,15 @@
         <td class="nepaliFont">{{riskCoverage['details']}}</td>
         <td class="nepaliFont">{{riskCoverage['amount']}}</td>
         <td class="nepaliFont">{{riskCoverage['riskCoverage']}}</td>
+      </tr>
+    </table>
+    <table class="table-responsive">
+      <tr *ngIf="loan['guarantorFlag']">
+        <td>२.७</td>
+        <td class="pl-3">
+          <strong class="nepaliFont">{{loan['guarantor']}}</strong>
+          तर्फबाट कर्जा सीमा रकम बराबरको छुटाछुटै व्यक्तिगत जमानी पेश गर्नुपर्नेछ ।
+        </td>
       </tr>
     </table>
     <p><b>नोटः माथि उल्लेखित सुरक्षणहरुका साथ निम्न शर्तहरु अनिवार्य रुपमा पालना गर्नुपर्नेछ ।</b></p>
