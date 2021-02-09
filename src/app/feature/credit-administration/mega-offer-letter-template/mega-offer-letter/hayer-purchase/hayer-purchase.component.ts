@@ -66,6 +66,7 @@ export class HayerPurchaseComponent implements OnInit {
             clausesTextEditor: this.note,
             expiryDateTimeDuration: [undefined],
             timeDuration: [undefined],
+            sadhanDhani: [undefined],
 
             hayarPurchaseLoanArray: this.formBuilder.array([this.buildHayarPurchaseArrayForm()]),
             riskCoverageArray: this.formBuilder.array([this.buildRiskCoverageArrayForm()]),
