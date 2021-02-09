@@ -7,6 +7,7 @@
                 <nb-radio value="AD">AD</nb-radio>
                 <nb-radio value="BS">BS</nb-radio>
             </nb-radio-group>
+            <nb-checkbox [(ngModel)]="microCustomer" class="d-inline-flex">Micro Customer</nb-checkbox>
         </div>
         <h5>Company Information
             <small
@@ -1625,6 +1626,10 @@
                                        </div>
                                    </div>
                        </div>
+                   </nb-tab>
+                   <!--micro customer detail-->
+                   <nb-tab *ngIf="microCustomer" tabTitle="Micro Customer">
+                       <app-micro-company-form-component></app-micro-company-form-component>
                    </nb-tab>
                </nb-tabset>
             </form>

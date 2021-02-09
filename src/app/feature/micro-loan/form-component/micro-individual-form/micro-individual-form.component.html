@@ -1,0 +1,125 @@
+<form [formGroup]="microCustomerForm">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="bankDistance"><strong>Distance From Branch</strong></label>
+                <input [ngClass]="{ 'is-invalid': (submitted) && microCustomerForm.get('bankDistance').errors }" class="form-control"
+                       formControlName="bankDistance"
+                       id="bankDistance" placeholder="Distance From Branch" type="text">
+                <div *ngIf="submitted && microCustomerForm.get('bankDistance').errors"
+                     class="invalid-feedback">
+                    Value is required!
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="bankDistance"><strong>Customer’s category</strong></label>
+                <input [ngClass]="{ 'is-invalid': (submitted) && microCustomerForm.get('customerCategory').errors }" class="form-control"
+                       formControlName="customerCategory"
+                       id="customerCategory" placeholder="Customer’s category" type="text">
+                <div *ngIf="submitted && microCustomerForm.get('customerCategory').errors"
+                     class="invalid-feedback">
+                    Customer’s category is required!
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="riskClassificationPercent"><strong>Basel -2 Risk Classification (in %)</strong></label>
+                <input [ngClass]="{ 'is-invalid': (submitted) && microCustomerForm.get('riskClassificationPercent').errors }" class="form-control"
+                       formControlName="riskClassificationPercent"
+                       id="riskClassificationPercent" placeholder="Basel -2 Risk Classification (in %)" type="number">
+                <div *ngIf="submitted && microCustomerForm.get('riskClassificationPercent').errors"
+                     class="invalid-feedback">
+                    Value is required!
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="riskClassificationPercent"><strong>Base of Risk Classification</strong></label>
+                <input [ngClass]="{ 'is-invalid': (submitted) && microCustomerForm.get('riskClassificationBase').errors }" class="form-control"
+                       formControlName="riskClassificationBase"
+                       id="riskClassificationBase" placeholder="Base of Risk Classification" type="text">
+                <div *ngIf="submitted && microCustomerForm.get('riskClassificationBase').errors"
+                     class="invalid-feedback">
+                    Value is required!
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label class="mr-5"><strong>Does the customer fall under Deprive as per definition mentioned in NRB directive no. 17?</strong></label>
+                <nb-radio-group class="d-inline-flex" formControlName="isDeprive">
+                    <nb-radio value="yes">Yes</nb-radio>
+                    <nb-radio value="no">No</nb-radio>
+                </nb-radio-group>
+            </div>
+        </div>
+        <div class="col" *ngIf="form.isDeprive.value == 'yes'">
+            <div class="form-group">
+                <label for="riskClassificationPercent"><strong>Deprived section loan classification</strong></label>
+               <nb-select placeholder="Select Deprive Sector" formControlName="depriveSector" fullWidth>
+                   <nb-option *ngFor="let v of deprivedList" [value]="v">{{v}}</nb-option>
+               </nb-select>
+                <div *ngIf="submitted && microCustomerForm.get('depriveSector').errors"
+                     class="invalid-feedback">
+                    Value is required!
+                </div>
+            </div>
+        </div>
+        <div class="col" *ngIf="form.depriveSector.value == 'Others'">
+            <div class="form-group">
+                <label for="riskClassificationPercent"><strong>Others</strong></label>
+               <input placeholder="Select Deprive Sector" formControlName="depriveSectorOthers" />
+                <div *ngIf="submitted && microCustomerForm.get('riskClassificationBase').errors"
+                     class="invalid-feedback">
+                    Value is required!
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label class="mr-5"><strong>Is the customer referred by BLB agent?</strong> </label>
+                    <nb-radio-group class="d-inline-flex" formControlName="isBlBAgent">
+                    <nb-radio value="yes">Yes</nb-radio>
+                    <nb-radio value="no">No</nb-radio>
+                </nb-radio-group>
+            </div>
+        </div>
+        <div class="col" *ngIf="form.isBlBAgent.value == 'yes'">
+            <div class="form-group">
+                <label for="blbAgentName"><strong>BLB Agent Name</strong></label>
+                <input placeholder="Enter BLB Agent Name" formControlName="blbAgentName" id="blbAgentName" />
+                <div *ngIf="submitted && microCustomerForm.get('blbAgentName').errors"
+                     class="invalid-feedback">
+                    Value is required!
+                </div>
+            </div>
+        </div>
+        <div class="col" *ngIf="form.isBlBAgent.value == 'yes'">
+            <div class="form-group">
+                <label for="blbAgentCode"><strong>BLB Agent Code</strong></label>
+                <input placeholder="BLB Agent Code" formControlName="blbAgentCode" id="blbAgentCode" />
+                <div *ngIf="submitted && microCustomerForm.get('blbAgentCode').errors"
+                     class="invalid-feedback">
+                    Value is required!
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{{microCustomerForm.value |json}}
+
+f.
+a.	Yes/No
+b.	Do nothing if No is selected
+c.	Show following when yes is selected
+S.N	Name of BLB agent	BC Code
+1

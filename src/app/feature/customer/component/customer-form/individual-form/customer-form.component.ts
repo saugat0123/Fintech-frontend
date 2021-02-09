@@ -56,6 +56,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     @Input() maritalStatus;
     @Input() customerLegalDocumentAddress;
     calendarType = 'AD';
+    microCustomer = false;
     @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     basicInfo: FormGroup;
@@ -589,10 +590,35 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.getTemporaryDistricts(this.basicInfo.get('temporaryProvince').value);
         this.customer.temporaryMunicipalities = this.basicInfo.get('municipalities').value;
         this.getTemporaryMunicipalities(this.basicInfo.get('municipalities').value);
-        this.basicInfo.controls. temporaryAddressLine1.patchValue(this.basicInfo.get('permanentAddressLine1').value);
-        this.basicInfo.controls. temporaryAddressLine2.patchValue(this.basicInfo.get('permanentAddressLine2').value);
+        this.basicInfo.controls.temporaryAddressLine1.patchValue(this.basicInfo.get('permanentAddressLine1').value);
+        this.basicInfo.controls.temporaryAddressLine2.patchValue(this.basicInfo.get('permanentAddressLine2').value);
         this.basicInfo.controls.temporaryWardNumber.setValue(this.basicInfo.get('wardNumber').value);
 
+    }
+
+    /** @Param validate --- true for add validation and false for remove validation
+     * @Param controlNames --- list of formControlName**/
+    controlValidation(controlNames: string[], validate) {
+        controlNames.forEach(s => {
+            if (validate) {
+                this.basicInfo.get(s).setValidators(Validators.required);
+            } else {
+                this.basicInfo.get(s).clearValidators();
+            }
+            this.basicInfo.get(s).updateValueAndValidity();
+        });
+    }
+
+    /*
+    todo remove these
+      a.	Income risk
+      b.	Security risk
+      c.	Succession risk
+      d.	Banking relationship
+      e.	Net worth
+     */
+    onCustomerTypeChange() {
+        this.controlValidation([], false);
     }
 
 }
