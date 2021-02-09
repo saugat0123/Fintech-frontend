@@ -23,13 +23,7 @@
                                            type="text"></p>
                        </div>
                    </div>
-                   <div class="mb-2">
-                        <input
-                           class="form-fields form-control-sm nepaliFont"
-                           formControlName="to"
-                           placeholder="श्री÷सुश्री÷श्रीमान÷श्रीमती÷"
-                           type="text"/>
-                   </div>
+
                    <div class="mb-2">
                        <b>ठेगाना: <input class="form-fields form-control-sm nepaliFont"
                                          formControlName="address"
@@ -113,11 +107,11 @@
                                            class="form-fields form-control-sm nepaliFont"
                                            formControlName="overdrafLoanAmount"
                                            placeholder=" २,५०,००,०००c"
-                                           type="text"/> (अक्षरुपी <input
+                                           type="text"/>/- (अक्षरुपी <input
                                            class="form-fields form-control-sm nepaliFont col-3"
                                            formControlName="overdrafLoanAmountInWord"
                                            placeholder="दुई करोड पचाँस लाख रुपैयाँ"
-                                           type="text"/>/- मात्र ।)
+                                           type="text"/> रुपैयाँ मात्र ।)
                                    </td>
                                </tr>
                                <tr>
@@ -245,7 +239,7 @@
                                        <td><b>रु</b><input
                                                class="form-fields form-control-sm nepaliFont"
                                                formControlName="demandLoanLimit"
-                                               placeholder="रु. २,००,००,०००/–"/>/- (अक्षरुपी<input
+                                               placeholder="रु. २,००,००,०००/–"/> /- (अक्षरुपी<input
                                                class="form-fields form-control-sm nepaliFont"
                                                formControlName="demandLoanLimitInWord"
                                                placeholder=" दुई करोड"/> रुपैयाँ मात्र ।)
@@ -479,10 +473,10 @@
                                        <td><b>रु</b><input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="fixedTermLoanTwoBoundaryAmountInNumber"
                                                   placeholder="रु. ९,५९,२५६.५३र–"
-                                                  type="text"/> (अक्षरेपी <input class="form-fields form-control-sm nepaliFont"
+                                                  type="text"/>/- (अक्षरुपी <input class="form-fields form-control-sm nepaliFont"
                                                                                  formControlName="fixedTermLoanTwoBoundaryAmountInWord"
                                                                                  placeholder="नौ लाख उनान्साठी हजार दुई सय छपन्न रुपैयाँ त्रीपन्न पैसा"
-                                                                                 type="text"/> मात्र ।)
+                                                                                 type="text"/> रुपैयाँ मात्र ।)
                                        </td>
                                    </tr>
                                    <tr>
@@ -618,11 +612,11 @@
                                        <td><b>रु</b><input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="hirePurchasePaymentAmountInNumber"
                                                   placeholder="रु. ४७,८१,६५०.३०/-"
-                                                  type="text"/>
-                                           (<input class="form-fields form-control-sm nepaliFont"
+                                                  type="text"/>/-
+                                           (अक्षरुपी <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="hirePurchaseLoanPaymentAmountInWord"
                                                   placeholder="अक्षेरुपी सत्तचालीस लाख एकासी हजार छ सय पचास रुपैयाँ तीस पैसा"
-                                                  type="text"/> मात्र ।)</td>
+                                                  type="text"/> रुपैयाँ मात्र ।)</td>
                                    </tr>
                                    <tr>
                                        <td> प्रयोजन</td>
@@ -750,11 +744,11 @@
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="letterOfCreditAmountInNumber"
                                                   placeholder="रु. १६,००,००,०००र–"
-                                                  type="text"/>/- रुपैयाँ  (
+                                                  type="text"/>/-( अक्षेरुपी
                                            <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="latterOfCreditAmountInWord"
                                                   placeholder="अक्षेरुपी सोह्र करोड रुपैयाँ"
-                                                  type="text"/>) मात्र ।</td>
+                                                  type="text"/> रुपैयाँ मात्र ।)</td>
                                    </tr>
                                    <tr>
                                        <td> उद्देश्य</td>
@@ -795,7 +789,7 @@
                                    <tr *ngIf="lc.get('dasturFlag').value">
                                        <td>क.सु.के दस्तुर </td>
                                        <td>
-                                           <input class="form-fields form-control-sm nepaliFont"
+                                          <b>रु</b> <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="letterOfCreditDastur"
                                                   placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
                                                   type="text"/>/– मात्र ।
