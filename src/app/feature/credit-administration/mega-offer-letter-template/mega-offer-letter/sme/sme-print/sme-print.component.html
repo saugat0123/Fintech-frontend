@@ -16,14 +16,11 @@
             </div>
         </div>
         <div class="mb-2">
-            <b> श्री </b> <b class="nepaliFont">{{letter['to']}}</b>
-        </div>
-        <div class="mb-2">
             <b>ठेगाना:</b> <b class="nepaliFont">{{letter['address']}}</b>
         </div>
 
         <div class="mb-2">
-            <b>Sector: </b><b class="nepaliFont">{{letter['sector']}}</b>
+            <b>Sector: </b> {{letter['sector']}}
         </div>
         <div class="mb-2">
             <b>मोबाईल नं.: </b><b class="nepaliFont">{{letter['mobileNo']}}</b>
@@ -68,7 +65,7 @@
                         <tbody>
                         <tr>
                             <td> कर्जा सीमा रकम</td>
-                            <td><b> रु.</b><strong class="nepaliFont">{{odl.overdrafLoanAmount}}</strong>/- मात्र ।)
+                            <td><b> रु.</b> <strong class="nepaliFont">{{odl.overdrafLoanAmount}}</strong> /- (अक्षरुपी <strong class="nepaliFont">{{odl.overdrafLoanAmount}}</strong> रुपैयाँ मात्र ।)
                             </td>
                         </tr>
                         <tr>
@@ -146,7 +143,7 @@
                         <tbody>
                         <tr>
                             <td> कर्जा सीमा रकम</td>
-                            <td><b>रु</b><strong class="nepaliFont">{{dmLoan.demandLoanLimit}}</strong> रुपैयाँ मात्र ।)
+                            <td><b>रु </b> <strong class="nepaliFont">{{dmLoan.demandLoanLimit}}</strong>/- (अक्षरुपी <strong class="nepaliFont">{{dmLoan.demandLoanLimit}}</strong> रुपैयाँ मात्र ।)
                             </td>
                         </tr>
                         <tr>
@@ -209,7 +206,7 @@
                         </tr>
                         <tr>
                             <td> कर्जा सीमा रकम</td>
-                            <td><b>रु</b><strong class="nepaliFont">{{ftl.fixedTermLoanBoundaryAmountInNumber}}</strong> (अक्षरेपी
+                            <td><b>रु</b> <strong class="nepaliFont">{{ftl.fixedTermLoanBoundaryAmountInNumber}}</strong> /- (अक्षरेपी
                                 <strong class="nepaliFont">{{ftl.fixedTermLoanBoundaryAmountInWord}}</strong>
                                 मात्र ।)
                             </td>
@@ -284,8 +281,8 @@
                         </tr>
                         <tr>
                             <td> कर्जा सीमा रकम</td>
-                            <td><strong class="nepaliFont">{{ftl.fixedTermLoanTwoBoundaryAmountInNumber}}</strong>
-                                (अक्षरेपी <strong class="nepaliFont">{{ftl.fixedTermLoanTwoBoundaryAmountInWord}}</strong> मात्र ।)
+                            <td><b>रु</b> <strong class="nepaliFont">{{ftl.fixedTermLoanTwoBoundaryAmountInNumber}}</strong> /-
+                                (अक्षरुपी <strong class="nepaliFont">{{ftl.fixedTermLoanTwoBoundaryAmountInWord}}</strong> मात्र ।)
                             </td>
                         </tr>
                         <tr>
@@ -369,8 +366,8 @@
                         </tr>
                         <tr>
                             <td> रकम</td>
-                            <td><strong class="nepaliFont">{{hploan.hirePurchasePaymentAmountInNumber}}</strong>
-                                (<strong class="nepaliFont">{{hploan.hirePurchaseLoanPaymentAmountInWord}}</strong> मात्र ।)</td>
+                            <td><b>रु</b><strong class="nepaliFont">{{hploan.hirePurchasePaymentAmountInNumber}}</strong> /-
+                                (अक्षरुपी <strong class="nepaliFont">{{hploan.hirePurchaseLoanPaymentAmountInWord}}</strong> मात्र ।)</td>
                         </tr>
                         <tr>
                             <td> प्रयोजन</td>
@@ -448,8 +445,8 @@
                         <tr>
                             <td> कर्जा सीमा रकम</td>
                             <td><b>रु</b>
-                               <strong class="nepaliFont">{{lc.letterOfCreditAmountInNumber}}</strong> /- रुपैयाँ  (
-                                <strong class="nepaliFont">{{lc.latterOfCreditAmountInWord}}</strong>) मात्र ।</td>
+                               <strong class="nepaliFont">{{lc.letterOfCreditAmountInNumber}}</strong> /- (अक्षरुपी
+                                <strong class="nepaliFont">{{lc.latterOfCreditAmountInWord}}</strong>  मात्र ।)</td>
                         </tr>
                         <tr>
                             <td> उद्देश्य</td>
@@ -479,7 +476,7 @@
                         <tr *ngIf="lc.dasturFlag">
                             <td>क.सु.के दस्तुर </td>
                             <td>
-                                <strong class="nepaliFont">{{lc.letterOfCreditDastur}}</strong> /– मात्र ।
+                               <b>रु</b> <strong class="nepaliFont">{{lc.letterOfCreditDastur}}</strong> /– मात्र ।
                             </td>
                         </tr>
                         </tbody>
