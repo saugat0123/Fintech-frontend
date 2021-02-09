@@ -229,7 +229,7 @@ export class RetailHousingLoanComponent implements OnInit {
         }
         data.forEach(value => {
             formArray.push(this.formBuilder.group({
-                Byaj:[value.Byaj],
+                Byaj: [value.Byaj],
                 loanAmount : [value.loanAmount],
                 loanAmountInWord: [value.loanAmountInWord],
                 month: [value.month],
@@ -301,7 +301,7 @@ export class RetailHousingLoanComponent implements OnInit {
                 years: [value.years],
                 baseRate: [value.baseRate],
                 premiumRate: [value.premiumRate],
-                yearlyRate:[value.yearlyRate],
+                yearlyRate: [value.yearlyRate],
                 maxAmount: [value.maxAmount],
                 serviceChargePercent: [value.serviceChargePercent],
                 serviceChargeAmount: [value.serviceChargeAmount],
