@@ -26,7 +26,7 @@
 
                     </tr>
                     <tr>
-                        <td rowspan="3" class="align-middle">{{i + 1}}</td>
+                        <td rowspan="" class="align-middle">{{i + 1}}</td>
                         <td>{{vehicleDetails?.model}}</td>
                         <td class="text-right pr-1">Rs. {{vehicleDetails?.valuationAmount | currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{vehicleDetails?.downPayment | currencyFormatter}}</td>
@@ -79,7 +79,7 @@
                         <th>Address as per Legal Document</th>
                     </tr>
                     <tr>
-                        <td rowspan="3" class="align-middle">{{i + 1}}</td>
+                        <td rowspan="5" class="align-middle">{{i + 1}}</td>
                         <td>{{landDetails?.owner}}</td>
                         <td>{{landDetails?.location}}</td>
                         <td>{{landDetails?.plotNumber}}</td>
@@ -109,6 +109,27 @@
                         <td>{{landDetails?.landStaffRepresentativeName}}</td>
                         <td colspan="2">{{landDetails?.landAlternateStaffRepresentativeName}}</td>
                     </tr>
+
+                    <tr class="sb-bg-secondary text-white">
+                        <th>Relation</th>
+                        <th>Name</th>
+                        <th>Citizenship Number</th>
+                        <th colspan="2">Issued District</th>
+                        <th>Issued Date</th>
+                        <th>Mobile Number</th>
+                        <th colspan="2">Address</th>
+                    </tr>
+                    <ng-container *ngFor="let kyc of landDetails?.ownerKycApplicableData?.ownerKycDetails; let j = index">
+                        <tr>
+                            <td>{{kyc?.ownerRelationship}}</td>
+                            <td>{{kyc?.relationName}}</td>
+                            <td>{{kyc?.citizenshipNumber}}</td>
+                            <td colspan="2">{{kyc?.issuedLocation}}</td>
+                            <td>{{kyc?.issuedDate | date}}</td>
+                            <td>{{kyc?.mobileNumber}}</td>
+                            <td colspan="2">{{kyc?.address}}</td>
+                        </tr>
+                    </ng-container>
 
                   <ng-container *ngIf="landDetails?.revaluationData != null && landDetails?.revaluationData?.isReValuated">
                       <tr>
