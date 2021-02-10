@@ -99,20 +99,20 @@
             </tr>
             <tr>
               <td>1</td>
-              <td><strong>Current Ratio (in times)</strong></td>
-              <td *ngFor="let currentRatio of financialData['keyIndicatorsData']?.currentRatio">
+              <td class="text-left pl-1"><strong>Current Ratio (in times)</strong></td>
+              <td *ngFor="let currentRatio of financialData['keyIndicatorsData']?.currentRatio" class="text-left pl-1">
                 {{currentRatio.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>2</td>
               <td><strong>Operating Profit Margin (%)</strong></td>
-              <td *ngFor="let operatingProfitKI of financialData['keyIndicatorsData']?.operatingProfitKI">
+              <td *ngFor="let operatingProfitKI of financialData['keyIndicatorsData']?.operatingProfitKI" class="text-left pl-1">
                 {{operatingProfitKI.value | currencyFormatter}}</td>
             </tr>
             <tr>
               <td>3</td>
               <td><strong>Inventory Turnover Ratio (in times)</strong></td>
-              <td *ngFor="let inventoryTurnoverRatio of financialData['keyIndicatorsData']?.inventoryTurnoverRatio">
+              <td *ngFor="let inventoryTurnoverRatio of financialData['keyIndicatorsData']?.inventoryTurnoverRatio" class="text-left pl-1">
                 {{inventoryTurnoverRatio.value | currencyFormatter}}</td>
             </tr>
             <tr>
