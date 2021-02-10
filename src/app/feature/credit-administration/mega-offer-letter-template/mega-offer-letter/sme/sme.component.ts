@@ -73,7 +73,6 @@ export class SmeComponent implements OnInit {
     this.loanForm = this.formBuilder.group({
       referenceNo: [undefined],
       date: [undefined],
-      applicantName: [undefined],
       address: [undefined],
       to: [undefined],
       sector: [undefined],
