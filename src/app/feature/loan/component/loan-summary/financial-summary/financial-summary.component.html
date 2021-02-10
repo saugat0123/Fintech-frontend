@@ -20,13 +20,13 @@
             <tbody>
             <tr *ngFor="let incomeOfBorrower of financialData?.initialForm?.incomeOfBorrower; let i = index;">
               <td>{{i + 1}}</td>
-              <td>{{incomeOfBorrower.incomeSource}}</td>
-              <td>{{incomeOfBorrower.organization}}</td>
+              <td class="text-left pl-1">{{incomeOfBorrower.incomeSource}}</td>
+              <td class="text-left pl-1">{{incomeOfBorrower.organization}}</td>
               <td class="text-right pr-1">Rs. {{incomeOfBorrower.amount | currencyFormatter}}</td>
-              <td>{{incomeOfBorrower.remarks}}</td>
+              <td class="text-left pl-1">{{incomeOfBorrower.remarks}}</td>
             </tr>
             <tr>
-              <td class="text-center" colspan="3"><strong>Total Income</strong></td>
+              <td class="text-left pl-1" colspan="3"><strong>Total Income</strong></td>
               <td colspan="2" class="text-right pr-1">
                 <strong>Rs. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</strong>
               </td>
@@ -52,18 +52,18 @@
             <tbody>
             <tr *ngFor="let expensesOfBorrower of financialData?.initialForm?.expensesOfBorrower; let i = index;">
               <td>{{i + 1}}</td>
-              <td>{{expensesOfBorrower.particulars}}</td>
+              <td class="text-left pl-1">{{expensesOfBorrower.particulars}}</td>
               <td class="text-right pr-1">Rs. {{expensesOfBorrower.amount | currencyFormatter}}</td>
-              <td>{{expensesOfBorrower.remarks}}</td>
+              <td class="text-left pl-1">{{expensesOfBorrower.remarks}}</td>
             </tr>
             <tr>
-              <td class="text-center" colspan="3"><strong>Total Expense</strong></td>
+              <td class="text-left pl-1" colspan="3"><strong>Total Expense</strong></td>
               <td colspan="2" class="text-right pr-1">
                 <strong>Rs. {{financialData?.initialForm?.totalExpense | currencyFormatter}}</strong>
               </td>
             </tr>
             <tr>
-              <td class="text-center" colspan="3"><strong>Net Saving</strong></td>
+              <td class="text-left pl-1" colspan="3"><strong>Net Saving</strong></td>
               <td colspan="2" class="text-right pr-1">
                 <strong>Rs. {{financialData?.initialForm?.netSaving | currencyFormatter}}</strong>
               </td>

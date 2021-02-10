@@ -30,8 +30,8 @@
          </td>
        </tr>
        <tr *ngFor="let data of group?.fundedData; let j = index;">
-         <td class="sn">{{j+1}}</td>
-         <td>{{data?.loanConfig?.name}}</td>
+         <td>{{j+1}}</td>
+         <td class="text-left pl-1">{{data?.loanConfig?.name}}</td>
          <td class="text-right pr-1">Rs. {{data?.proposal?.proposedLimit |currencyFormatter}}</td>
        </tr>
        <tr class="cursor font-weight-bold sb-bg-secondary text-white ">
@@ -40,8 +40,8 @@
        </tr>
 
        <tr *ngFor="let data of group?.nonFundedData; let k = index;">
-         <td>{{k+1}}</td>
-         <td>{{data?.loanConfig?.name}}</td>
+         <td class="text-right pr-1">{{k+1}}</td>
+         <td class="text-left pl-1">{{data?.loanConfig?.name}}</td>
          <td class="text-right pr-1">Rs.{{data?.proposal?.proposedLimit |currencyFormatter}}</td>
        </tr>
        <tr class="cursor font-weight-bold sb-bg-secondary text-white ">

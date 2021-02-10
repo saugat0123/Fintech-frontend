@@ -411,14 +411,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
-                                <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
-                                <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
-                                <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
-                                <td>{{loanDataHolder?.customerInfo?.landLineNumber}}</td>
-                                <td>{{(loanDataHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
-                                <td>{{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>
+                            <tr class="text-left">
+                                <td class="pl-1">{{loanDataHolder?.customerInfo?.customerName}}</td>
+                                <td class="pl-1">{{loanDataHolder?.customerInfo?.dob | date}}</td>
+                                <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
+                                <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.contactNumber}}</td>
+                                <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.landLineNumber}}</td>
+                                <td class="pl-1">{{(loanDataHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
+                                <td class="pl-1">{{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>
                             </tr>
                             <tr class="text-white sb-bg-dark">
                                 <th>Customer Client Type</th>
@@ -473,17 +473,17 @@
                             </thead>
                             <tbody>
                             <tr *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
-                                <td>
+                                <td class="text-left pl-1">
                                     {{relative.customerRelativeName}}
                                 </td>
 
-                                <td>
+                                <td class="text-left pl-1">
                                     {{relative.customerRelation}}
                                 </td>
-                                <td>
+                                <td class="text-right pr-1">
                                     {{relative.citizenshipNumber}}
                                 </td>
-                                <td>
+                                <td class="text-left pl-1">
                                     {{relative.citizenshipIssuedDate | date}}
                                 </td>
 
@@ -633,7 +633,7 @@
                         <th>Within Limit Remarks (if any)</th>
                     </tr>
                     <tr>
-                        <td> {{loanDataHolder?.customerInfo?.withinLimitRemarks}}</td>
+                        <td class="text-left pl-1"> {{loanDataHolder?.customerInfo?.withinLimitRemarks}}</td>
                     </tr>
                 </table>
             </div>
@@ -644,7 +644,7 @@
                         <th>Within Limit Remarks (if any)</th>
                     </tr>
                     <tr>
-                        <td> {{loanDataHolder?.companyInfo?.withinLimitRemarks}}</td>
+                        <td class="text-left pl-1"> {{loanDataHolder?.companyInfo?.withinLimitRemarks}}</td>
                     </tr>
                 </table>
             </div>
@@ -748,7 +748,7 @@
                         <tbody>
                         <tr *ngFor="let singleDoc of loanDataHolder?.customerDocument; let i = index">
                             <td>{{i + 1}}</td>
-                            <td>{{singleDoc?.document?.name}}</td>
+                            <td class="text-left pl-1">{{singleDoc?.document?.name}}</td>
                             <td>
                                 <i (click)="previewOfferLetterDocument(singleDoc?.documentPath,singleDoc?.document?.displayName)"
                                    class="fas fa-eye"></i></td>
@@ -778,7 +778,7 @@
                         </tr>
                         <tr *ngFor="let generalDoc of loanDataHolder?.loanHolder?.customerGeneralDocuments; let i=index">
                             <td>{{i + 1}}</td>
-                            <td>{{generalDoc?.document?.displayName}}</td>
+                            <td class="text-left pl-1">{{generalDoc?.document?.displayName}}</td>
                             <td>
                                 <i (click)="previewOfferLetterDocument(generalDoc?.docPath,generalDoc?.document?.displayName)"
                                    class="fas fa-eye"></i></td>
@@ -806,7 +806,7 @@
                         <tbody *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
                         <tr *ngIf="singleDoc?.docPath">
                             <td>{{i + 1}}</td>
-                            <td>{{singleDoc?.name}}</td>
+                            <td class="text-left pl-1">{{singleDoc?.name}}</td>
                             <td>Net Worth Document</td>
                             <td>
                                 <i (click)="previewOfferLetterDocument(singleDoc?.docPath,singleDoc?.name + 'Net Worth Doc')"
@@ -839,9 +839,9 @@
                         <tbody *ngFor="let singleDoc of insuranceWithDoc; let i = index">
                         <tr *ngIf="singleDoc.policyDocumentPath">
                             <td>{{i + 1}}</td>
-                            <td>{{singleDoc?.policyNumber}}</td>
-                            <td>{{singleDoc?.company}}</td>
-                            <td>Insurance Policy</td>
+                            <td class="text-right pr-1">{{singleDoc?.policyNumber}}</td>
+                            <td class="text-left pl-1">{{singleDoc?.company}}</td>
+                            <td class="text-left pl-1">Insurance Policy</td>
                             <td>
                                 <i (click)="previewOfferLetterDocument(singleDoc?.policyDocumentPath,singleDoc.policyNumber+' Insurance Policy Document')"
                                    class="fas fa-eye"></i></td>
@@ -874,7 +874,7 @@
                             <tbody>
                             <tr *ngFor="let singleDoc of loanDataHolder?.customerDocument; let i = index">
                                 <td>{{i + 1}}</td>
-                                <td>{{singleDoc?.document?.name}}</td>
+                                <td class="text-left pl-1">{{singleDoc?.document?.name}}</td>
                                 <td>
                                     <i class="fas fa-check" *ngIf="singleDoc?.documentPath"></i>
                                     <i class="fas fa-times" *ngIf="!singleDoc?.documentPath"></i></td>
@@ -899,7 +899,7 @@
                             </tr>
                             <tr *ngFor="let generalDoc of loanDataHolder?.loanHolder?.customerGeneralDocuments; let i=index">
                                 <td>{{i + 1}}</td>
-                                <td>{{generalDoc?.document?.displayName}}</td>
+                                <td class="text-left pl-1">{{generalDoc?.document?.displayName}}</td>
                                 <td>
                                     <i class="fas fa-check" *ngIf="generalDoc?.docPath"></i>
                                     <i class="fas fa-times" *ngIf="!generalDoc?.docPath"></i>
@@ -923,8 +923,8 @@
                             <tbody *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
                             <tr *ngIf="singleDoc?.docPath">
                                 <td>{{i + 1}}</td>
-                                <td>{{singleDoc?.name}}</td>
-                                <td>Net Worth Document</td>
+                                <td class="text-left pl-1">{{singleDoc?.name}}</td>
+                                <td class="text-left pl-1">Net Worth Document</td>
                                 <td>
                                     <i class="fa fa-check" *ngIf="singleDoc?.docPath"></i>
                                     <i class="fa fa-times" *ngIf="!singleDoc?.docPath"></i>
@@ -951,9 +951,9 @@
                             <tbody *ngFor="let singleDoc of insuranceWithDoc; let i = index">
                             <tr *ngIf="singleDoc.policyDocumentPath">
                                 <td>{{i + 1}}</td>
-                                <td>{{singleDoc?.policyNumber}}</td>
-                                <td>{{singleDoc?.company}}</td>
-                                <td>Insurance Policy</td>
+                                <td class="text-right pr-1">{{singleDoc?.policyNumber}}</td>
+                                <td class="text-left pl-1">{{singleDoc?.company}}</td>
+                                <td class="text-left pl-1">Insurance Policy</td>
                                 <td>
                                     <i class="fa fa-check" *ngIf="singleDoc?.policyDocumentPath"></i>
                                     <i class="fa fa-times" *ngIf="!singleDoc?.policyDocumentPath"></i>
@@ -979,7 +979,7 @@
                         <tbody>
                         <tr *ngFor="let singleDoc of loanDataHolder?.cadDocument; let i = index">
                             <td>{{i + 1}}</td>
-                            <td>{{singleDoc?.document?.name}}</td>
+                            <td class="text-left pl-1">{{singleDoc?.document?.name}}</td>
                             <td>
                                 <i (click)="previewOfferLetterDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
                                    class="fas fa-eye"></i></td>
