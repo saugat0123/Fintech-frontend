@@ -19,15 +19,15 @@
       <tbody  *ngFor="let insurance of insurance; let i= index">
       <tr>
         <td>{{i+1}}.</td>
-        <td>{{insurance?.policyNumber}}</td>
-        <td>{{insurance?.assetInsured}}</td>
+        <td class="text-right pr-1">{{insurance?.policyNumber}}</td>
+        <td class="text-left pl-1">{{insurance?.assetInsured}}</td>
         <td class="text-right pr-1">Rs. {{insurance?.insuredAmount | currencyFormatter}}</td>
         <td class="text-right pr-1">Rs. {{insurance?.premiumAmount | currencyFormatter}}</td>
-        <td>{{insurance?.company}}</td>
-        <td>{{insurance?.policyType}}</td>
-        <td>{{insurance?.issuedDate | date}}</td>
-        <td>{{insurance?.expiryDate | date}}</td>
-        <td>{{insurance?.remark}}</td>
+        <td class="text-left pl-1">{{insurance?.company}}</td>
+        <td class="text-left pl-1">{{insurance?.policyType}}</td>
+        <td class="text-left pl-1">{{insurance?.issuedDate | date}}</td>
+        <td class="text-left pl-1">{{insurance?.expiryDate | date}}</td>
+        <td class="text-left pl-1">{{insurance?.remark}}</td>
       </tr>
       <ng-container *ngIf="insurance?.remarks?.length > 0">
         <tr>
@@ -36,7 +36,7 @@
         </tr>
         <tr>
           <th></th>
-          <td colspan="5">{{insurance?.remarks}}</td>
+          <td colspan="5" class="text-left pl-1">{{insurance?.remarks}}</td>
         </tr>
       </ng-container>
       </tbody>

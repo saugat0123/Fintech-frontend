@@ -155,9 +155,9 @@
     <tbody>
     <tr *ngFor="let team of companyJsonData.managementTeamList; let i=index">
       <td>{{i+1}}</td>
-      <td>{{team?.name}}</td>
-      <td>{{team?.designation}}</td>
-      <td>{{team?.companyLegalDocumentAddress}}</td>
+      <td class="text-left pl-1">{{team?.name}}</td>
+      <td class="text-left pl-1">{{team?.designation}}</td>
+      <td class="text-left pl-1">{{team?.companyLegalDocumentAddress}}</td>
     </tr>
     </tbody>
   </table>
@@ -169,7 +169,7 @@
     </tr>
     </thead>
     <tbody>
-    <td colspan="2">{{companyJsonData?.managementTeamNote}}</td>
+    <td colspan="2" class="text-left pl-1">{{companyJsonData?.managementTeamNote}}</td>
     </tbody>
   </table>
 </div>
@@ -192,11 +192,11 @@
       <ng-container *ngFor="let holder of companyJsonData.proprietorList;let i =index">
         <tr>
           <td>{{i+1}}</td>
-          <td><strong>{{holder?.name}}</strong></td>
-          <td><strong>{{holder?.type}}</strong></td>
-          <td><strong>{{holder?.share}}</strong></td>
-          <td><strong>{{holder?.contactNo}}</strong></td>
-          <td><strong>{{holder?.province?.name}}, {{holder?.district?.name}}, {{holder?.municipalityVdc?.name}}</strong></td>
+          <td class="text-left pl-1"><strong>{{holder?.name}}</strong></td>
+          <td class="text-left pl-1"><strong>{{holder?.type}}</strong></td>
+          <td class="text-right pr-1"><strong>{{holder?.share}}</strong></td>
+          <td class="text-right pr-1"><strong>{{holder?.contactNo}}</strong></td>
+          <td class="text-left pl-1"><strong>{{holder?.province?.name}}, {{holder?.district?.name}}, {{holder?.municipalityVdc?.name}}</strong></td>
         </tr>
        <tr>
          <td colspan="6">
@@ -217,13 +217,13 @@
             <ng-container *ngFor="let d of holder?.kycInfo?.ownerKycDetails; let j = index">
               <tr>
                 <td>{{j+1}}</td>
-                <td>{{d?.ownerRelationship ? d?.ownerRelationship : 'N/A' }}</td>
-                <td>{{d?.relationName ? d?.relationName : 'N/A' }}</td>
-                <td>{{d?.citizenshipNumber ? d?.citizenshipNumber : 'N/A' }}</td>
-                <td>{{d?.issuedLocation ? d?.issuedLocation : 'N/A' }}</td>
-                <td>{{d?.issuedDate ? (d?.issuedDate | date) : 'N/A'}}</td>
-                <td>{{d?.mobileNumber ? d?.mobileNumber : 'N/A' }}</td>
-                <td>{{d?.address ? d?.address : 'N/A'}}</td>
+                <td class="text-left pl-1">{{d?.ownerRelationship ? d?.ownerRelationship : 'N/A' }}</td>
+                <td class="text-left pl-1">{{d?.relationName ? d?.relationName : 'N/A' }}</td>
+                <td class="text-right pr-1">{{d?.citizenshipNumber ? d?.citizenshipNumber : 'N/A' }}</td>
+                <td class="text-left pl-1">{{d?.issuedLocation ? d?.issuedLocation : 'N/A' }}</td>
+                <td class="text-left pl-1">{{d?.issuedDate ? (d?.issuedDate | date) : 'N/A'}}</td>
+                <td class="text-right pr-1">{{d?.mobileNumber ? d?.mobileNumber : 'N/A' }}</td>
+                <td class="text-left pl-1">{{d?.address ? d?.address : 'N/A'}}</td>
               </tr>
             </ng-container>
              </tbody>
