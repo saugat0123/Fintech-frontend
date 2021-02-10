@@ -9,8 +9,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DocStatus} from '../../../loan/model/docStatus';
 import {ScrollNavigationService} from '../../../../@core/service/baseservice/scroll-navigation.service';
-import {environment} from '../../../../../environments/environment';
-import {MicroProposalComponent} from '../../../loan-information-template/micro-proposal/micro-proposal.component';
+import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
 
 @Component({
   selector: 'app-customer-loan-edit',
