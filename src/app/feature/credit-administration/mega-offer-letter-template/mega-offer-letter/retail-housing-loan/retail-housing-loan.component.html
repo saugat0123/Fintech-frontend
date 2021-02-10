@@ -29,7 +29,7 @@
                    <div class="mb-2">
                        <b>नाम :</b> <input class="form-fields form-control-sm nepaliFont"
                                               formControlName="applicantName"
-                                              placeholder="श्री / सुश्री / श्रीमती"
+                                              placeholder="श्री ∕ सुश्री ∕ श्रीमती"
                                               type="text"/>
                    </div>
                    <div class="mb-2">
@@ -108,7 +108,7 @@
                                <strong style="left: 32px">{{i+1 | nepaliWord:'unicode'}}) प्रस्तावित सुविधा : घर कर्जा (Housing Finance)</strong>
                                <i (click)="removeHousing(i)"  size="small" class="float-right fa fa-trash" *ngIf="form.get('housingFinance')['length']>1"></i>
                                 <br>
-                               रकम : रु<input class="form-fields form-control-sm nepaliFont"
+                               रकम : रु.<input class="form-fields form-control-sm nepaliFont"
                                               formControlName="loanAmount"
                                               placeholder=" ३०,००,००० "
                                               type="text"/>/- (अक्षेरुपी <input class="form-fields form-control-sm nepaliFont"
@@ -125,7 +125,7 @@
                                + प्रिमियम दर  <input class="form-fields form-control-sm nepaliFont"
                                                      formControlName="premiumRate" size="2"/>%) का दरले हाललाई बार्षिक
                                <input class="form-fields form-control-sm nepaliFont"
-                                      formControlName="premiumRate" size="2"/>%)  वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
+                                      formControlName="yearlyRate" size="2"/>%)  वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
                                बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर
                                संसोधन (घट्न∕बढ्न) सक्नेछ । <br><br>
                                भुक्तानी : यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको
@@ -201,7 +201,7 @@
                                <strong style="left: 32px">{{i+1 | nepaliWord: 'unicode'}}) प्रस्तावित सुविधा : धितो कर्जा (Mortgage Finance)</strong>
                                <i (click)="removeMortgageFinance(i)"  size="small" class="float-right fa fa-trash" *ngIf="form.get('mortgageFinance')['length']>1"></i>
                                <br>
-                               कर्जा सिमा रकम : रु <input class="form-fields form-control-sm nepaliFont"
+                               कर्जा सिमा रकम : रु. <input class="form-fields form-control-sm nepaliFont"
                                                           formControlName="loanAmount"
                                                           placeholder="३०,००,००० "
                                                           type="text"/>/- (अक्षेरुपी <input class="form-fields form-control-sm nepaliFont"
@@ -298,7 +298,7 @@
 
                                <br><br>
 
-                               कर्ज सिमा रकम : रु<input class="form-fields form-control-sm nepaliFont"
+                               कर्ज सिमा रकम : रु. <input class="form-fields form-control-sm nepaliFont"
                                                         formControlName="loanAmount"
                                                         placeholder="३०,००,००० "
                                                         type="text"/>/- (अक्षेरुपी <input class="form-fields form-control-sm nepaliFont"
@@ -318,7 +318,7 @@
                                + प्रिमियम दर  <input class="form-fields form-control-sm nepaliFont"
                                                      formControlName="premiumRate" size="2"/>%) का दरले हाललाई बार्षिक
                                <input class="form-fields form-control-sm nepaliFont"
-                                      formControlName="baseRate" size="2"/>% त्रैमाशिक रुपमा (आस्विन मसान्त , पौष मसन्त, चैत्र मसान्त र असाध मसन्त)
+                                      formControlName="yearlyRate" size="2"/>% त्रैमाशिक रुपमा (आस्विन मसान्त , पौष मसन्त, चैत्र मसान्त र असाध मसन्त)
 
                                वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
                                बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर
@@ -802,8 +802,8 @@
                                        <p class="text-center">(आधिकारीक दस्तखत)</p>
                                        <p class="text-center"> परिचय पत्र नंः
                                            <input class="form-fields form-control-sm nepaliFont"
-                                                  name="parichayaPatraNum1"
-                                                  formControlName="parichayaPatraNum1"
+                                                  name=""
+                                                  formControlName="idCardNo1"
                                                   placeholder="" type="text"/>
                                            </p>
                                        </div>
@@ -816,8 +816,8 @@
                                            <p class="text-center">(आधिकारीक दस्तखत)</p>
                                            <p class="text-center"> परिचय पत्र नंः
                                                <input class="form-fields form-control-sm nepaliFont"
-                                                      name="parichayaPatraNum1"
-                                                      formControlName="parichayaPatraNum1"
+                                                      name=""
+                                                      formControlName="idCardNo2"
                                                       placeholder="" type="text"/>
                                            </p>
                                        </div>
