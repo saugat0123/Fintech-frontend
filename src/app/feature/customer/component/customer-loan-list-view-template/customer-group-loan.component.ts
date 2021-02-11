@@ -83,7 +83,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
     getCustomerLoans() {
         this.spinner = true;
-        this.customerLoanService.getLoansByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
+        this.customerLoanService.getFinalLoanListByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
             this.customerGroupLoanList = res.detail;
             this.loanHistories = this.groupCombinedLoan(this.customerGroupLoanList);
             this.loanHistories.forEach(() => this.toggleArray.push({toggled: false}));
