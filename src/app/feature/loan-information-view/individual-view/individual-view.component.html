@@ -16,12 +16,12 @@
       </thead>
       <tbody>
       <tr>
-        <td>{{individual?.customerName}}</td>
-        <td>{{customerInfo?.customerCode}}</td>
-        <td>{{individual?.dob | date}}</td>
-        <td>{{individual?.citizenshipNumber}}</td>
-        <td>{{individual?.citizenshipIssuedDate | date}}</td>
-        <td>{{individual?.citizenshipIssuedPlace}}</td>
+        <td class="text-left pl-1">{{individual?.customerName}}</td>
+        <td class="text-right pr-1">{{customerInfo?.customerCode}}</td>
+        <td class="text-left pl-1">{{individual?.dob | date}}</td>
+        <td class="text-right pr-1">{{individual?.citizenshipNumber}}</td>
+        <td class="text-left pl-1">{{individual?.citizenshipIssuedDate | date}}</td>
+        <td class="text-left pl-1">{{individual?.citizenshipIssuedPlace}}</td>
       </tr>
       </tbody>
       <thead>
@@ -36,20 +36,20 @@
       </thead>
       <tbody>
       <tr>
-        <td>{{individual?.contactNumber || 'NA'}}</td>
-        <td>{{individual?.landLineNumber || 'NA'}}</td>
-        <td>{{individual?.email || 'NA'}}</td>
-        <td>{{(individual?.occupation| jsonParse)?.multipleOccupation || 'NA'}}</td>
-        <td>{{(individual?.incomeSource| jsonParse)?.multipleIncome || 'NA'}}</td>
-        <td>{{customerInfo?.clientType}}</td>
+        <td class="text-right pr-1">{{individual?.contactNumber || 'NA'}}</td>
+        <td class="text-right pr1">{{individual?.landLineNumber || 'NA'}}</td>
+        <td class="text-left pl-1">{{individual?.email || 'NA'}}</td>
+        <td class="text-left pl-1">{{(individual?.occupation| jsonParse)?.multipleOccupation || 'NA'}}</td>
+        <td class="text-left pl-1">{{(individual?.incomeSource| jsonParse)?.multipleIncome || 'NA'}}</td>
+        <td class="text-left pl-1">{{customerInfo?.clientType}}</td>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th>Subsector</th>
         <th>Address as per Legal Document</th>
       </tr>
       <tr>
-        <td>{{customerInfo?.subsectorDetail}}</td>
-        <td>{{customerInfo?.customerLegalDocumentAddress}}</td>
+        <td class="text-left pl-1">{{customerInfo?.subsectorDetail}}</td>
+        <td class="text-left pl-1">{{customerInfo?.customerLegalDocumentAddress}}</td>
       </tr>
       </tbody>
     </table>
@@ -66,12 +66,12 @@
         <th>Address Line 2</th>
       </tr>
       <tr>
-        <td>{{individual?.province?.name}}</td>
-        <td>{{individual?.district?.name}}</td>
-        <td>{{individual?.municipalities?.name}}</td>
-        <td>{{individual?.wardNumber || 'NA'}}</td>
-        <td>{{individualJsonData?.permanentAddressLine1 || 'NA'}}</td>
-        <td>{{individualJsonData?.permanentAddressLine2 || 'NA'}}</td>
+        <td class="text-left pl-1">{{individual?.province?.name}}</td>
+        <td class="text-left pl-1">{{individual?.district?.name}}</td>
+        <td class="text-left pl-1">{{individual?.municipalities?.name}}</td>
+        <td class="text-right pr-1">{{individual?.wardNumber || 'NA'}}</td>
+        <td class="text-left pl-1">{{individualJsonData?.permanentAddressLine1 || 'NA'}}</td>
+        <td class="text-left pl-1">{{individualJsonData?.permanentAddressLine2 || 'NA'}}</td>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th colspan="6">Temporary Address</th>
@@ -85,12 +85,12 @@
         <th>Address Line 2</th>
       </tr>
       <tr>
-        <td>{{individual?.temporaryProvince?.name}}</td>
-        <td>{{individual?.temporaryDistrict?.name}}</td>
-        <td>{{individual?.temporaryMunicipalities?.name}}</td>
-        <td>{{individual?.temporaryWardNumber || 'NA'}}</td>
-        <td>{{individualJsonData?.temporaryAddressLine1 || 'NA'}}</td>
-        <td>{{individualJsonData?.temporaryAddressLine2 || 'NA'}}</td>
+        <td class="text-left pl-1">{{individual?.temporaryProvince?.name}}</td>
+        <td class="text-left pl-1">{{individual?.temporaryDistrict?.name}}</td>
+        <td class="text-left pl-1">{{individual?.temporaryMunicipalities?.name}}</td>
+        <td class="text-right pr-1">{{individual?.temporaryWardNumber || 'NA'}}</td>
+        <td class="text-left pl-1">{{individualJsonData?.temporaryAddressLine1 || 'NA'}}</td>
+        <td class="text-left pl-1">{{individualJsonData?.temporaryAddressLine2 || 'NA'}}</td>
       </tr>
     </table>
   </div>
@@ -112,20 +112,20 @@
       </thead>
       <tbody>
       <tr *ngFor="let relative of individual?.customerRelatives">
-        <td>
+        <td class="text-left pl-1">
           {{relative.customerRelativeName}}
         </td>
 
-        <td>
+        <td class="text-left pl-1">
           {{relative.customerRelation}}
         </td>
-        <td>
+        <td class="text-right pr-1">
           {{relative.citizenshipNumber}}
         </td>
-        <td>
+        <td class="text-left pl-1">
           {{relative.citizenshipIssuedDate | date}}
         </td>
-        <td>{{relative.citizenshipIssuedPlace}}</td>
+        <td class="text-left pl-1">{{relative.citizenshipIssuedPlace}}</td>
 
       </tr>
       </tbody>
@@ -138,32 +138,32 @@
         <th colspan="2">Introduction</th>
       </tr>
       <tr>
-        <td colspan="2">{{individual?.introduction}}</td>
+        <td colspan="2" class="text-left pl-1">{{individual?.introduction}}</td>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th colspan="2">Income Risk</th>
       </tr>
       <tr>
-        <td colspan="2">{{individualJsonData?.incomeRisk}}</td>
+        <td colspan="2" class="text-left pl-1">{{individualJsonData?.incomeRisk}}</td>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th colspan="2">Security Risk</th>
       </tr>
       <tr>
-        <td colspan="2">{{individualJsonData?.securityRisk}}</td>
+        <td colspan="2" class="text-left pl-1">{{individualJsonData?.securityRisk}}</td>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th colspan="2">Succession Risk</th>
       </tr>
       <tr>
-        <td colspan="2">{{individualJsonData?.successionRisk}}</td>
+        <td colspan="2" class="text-left pl-1">{{individualJsonData?.successionRisk}}</td>
       </tr>
       <tr *ngIf="!crgLambdaDisabled" class="text-white sb-bg-dark">
         <th>Banking Relationship</th>
         <th>Net Worth</th>
       </tr>
       <tr *ngIf="!crgLambdaDisabled">
-        <td>{{customerInfo?.bankingRelationship | jsonParse}}</td>
+        <td class="text-left pl-1">{{customerInfo?.bankingRelationship | jsonParse}}</td>
         <td class="text-right pr-1">Rs. {{individual?.netWorth |currencyFormatter}}</td>
       </tr>
     </table>

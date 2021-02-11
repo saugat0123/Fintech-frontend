@@ -108,9 +108,9 @@
     <tbody>
     <tr *ngFor="let selectedParticular of summaryCheckedList; let i = index">
         <th>{{i+1}}</th>
-        <td><strong>{{keyIndicatorsHeaderParticularsMap.get(selectedParticular)}}</strong></td>
-        <td *ngFor="let amount of financialData['keyIndicatorsData'][selectedParticular]">
-            {{amount.value}}
+        <td class="text-left pl-2"><strong>{{keyIndicatorsHeaderParticularsMap.get(selectedParticular)}}</strong></td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData'][selectedParticular]" class="text-right pr-1">
+            Rs. {{amount.value}}
         </td>
     </tr>
     </tbody>
