@@ -193,38 +193,28 @@
                         <tbody>
                         <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
                             <td>{{i + 1}}</td>
-                            <td>
+                            <td class="text-left pl-1">
                                 {{previousList?.lastModifiedAt | date}}
                             </td>
-                            <td>
-                                <div class="col-md-12">
-                                    <div class="d-flex justify-content-center">
-                                        {{previousList?.fromUser?.name}}</div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="d-flex justify-content-center">
-                                        <span>({{previousList?.fromRole?.roleName}})</span>
-                                    </div>
-
+                            <td class="text-left">
+                                <div class="pl-1">
+                                    {{previousList?.fromUser?.name}}</div>
+                                <div class="pl-1">
+                                    <span>({{previousList?.fromRole?.roleName}})</span>
                                 </div>
 
                             </td>
 
-                            <td>
-                                <div class="col-md-12">
-                                    <div class="d-flex justify-content-center">
-                                        {{previousList?.toUser?.name}}</div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="d-flex justify-content-center">
-                                        ({{previousList?.toRole?.roleName}})
-                                    </div>
-
+                            <td class="text-left">
+                                <div class="pl-1">
+                                    {{previousList?.toUser?.name}}</div>
+                                <div class="pl-1">
+                                    ({{previousList?.toRole?.roleName}})
                                 </div>
                             </td>
 
-                            <td>{{previousList?.docAction}}</td>
-                            <td class="text-center">
+                            <td class="text-left pl-1">{{previousList?.docAction}}</td>
+                            <td class="text-left pl-1">
                                 <div class="cmt-height">
                                     {{previousList?.comment?.length > 50 ?
                                     previousList?.comment?.substring(0, 49) :
@@ -237,35 +227,25 @@
                         </tr>
                         <tr>
                             <td>{{currentIndex + 1}}</td>
-                            <td>{{loanDataHolder?.currentStage?.lastModifiedAt | date}}</td>
-                            <td>
-                                <div class="col-md-12">
-                                    <div class="d-flex justify-content-center">
-                                        {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="d-flex justify-content-center">
-                                        <span>({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                                    </div>
-
+                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}</td>
+                            <td class="text-left">
+                                <div class="pl-1">
+                                    {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
+                                <div class="pl-1">
+                                    <span>({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
                                 </div>
                             </td>
 
-                            <td>
-                                <div class="col-md-12">
-                                    <div class="d-flex justify-content-center">
+                            <td class="text-left">
+                                    <div class="pl-1">
                                         {{loanDataHolder?.currentStage?.toUser?.name}}</div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="d-flex justify-content-center">
+                                    <div class="pl-1">
                                         <span>({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
                                     </div>
-
-                                </div>
                             </td>
 
-                            <td>{{loanDataHolder?.currentStage?.docAction}}</td>
-                            <td class="text-center">
+                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction}}</td>
+                            <td class="text-left pl-1">
                                 <div class="cmt-height">
                                     {{loanDataHolder?.currentStage?.comment?.length > 50 ?
                                     loanDataHolder?.currentStage?.comment?.substring(0, 49) :

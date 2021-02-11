@@ -25,7 +25,7 @@
       <tbody>
       <tr *ngFor="let singleDoc of loanDataHolder?.customerDocument; let i = index">
         <td>{{i + 1}}</td>
-        <td>{{singleDoc?.document?.name}}</td>
+        <td class="text-left pl-1">{{singleDoc?.document?.name}}</td>
         <td><i (click)="previewOfferLetterDocument(singleDoc?.documentPath,singleDoc?.document?.displayName)" class="fas fa-eye"></i> </td>
         <td>
           <i (click)="downloadCustomerDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
@@ -53,7 +53,7 @@
       </tr>
       <tr *ngFor="let generalDoc of loanDataHolder?.loanHolder?.customerGeneralDocuments; let i=index">
         <td>{{i+1}}</td>
-        <td>{{generalDoc?.document?.displayName}}</td>
+        <td class="text-left pl-1">{{generalDoc?.document?.displayName}}</td>
         <td><i (click)="previewOfferLetterDocument(generalDoc?.docPath,generalDoc?.document?.displayName)" class="fas fa-eye"></i></td>
         <td><i (click)="downloadCustomerDocument(generalDoc?.docPath,generalDoc?.document?.displayName)" class="fas fa-download"></i></td>
       </tr>
@@ -78,7 +78,7 @@
       <tbody  *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
       <tr *ngIf="singleDoc?.docPath">
         <td>{{i + 1}}</td>
-        <td>{{singleDoc?.name}}</td>
+        <td class="text-left pl-1">{{singleDoc?.name}}</td>
         <td>Net Worth Document</td>
         <td><i (click)="previewOfferLetterDocument(singleDoc?.docPath,singleDoc?.name + 'Net Worth Doc')" class="fas fa-eye"></i> </td>
         <td>
@@ -108,9 +108,9 @@
       <tbody *ngFor="let singleDoc of insuranceWithDoc; let i = index">
       <tr *ngIf="singleDoc.policyDocumentPath">
         <td>{{i + 1}}</td>
-        <td>{{singleDoc?.policyNumber}}</td>
-        <td>{{singleDoc?.company}}</td>
-        <td>Insurance Policy</td>
+        <td class="text-right pr-1">{{singleDoc?.policyNumber}}</td>
+        <td class="text-left pl-1">{{singleDoc?.company}}</td>
+        <td class="text-left pl-1">Insurance Policy</td>
         <td><i (click)="previewOfferLetterDocument(singleDoc?.policyDocumentPath,singleDoc.policyNumber+' Insurance Policy Document')" class="fas fa-eye"></i> </td>
         <td>
           <i  (click)="downloadCustomerDocument(singleDoc?.policyDocumentPath, singleDoc?.policyNumber+' Insurance Policy Document')"
@@ -139,7 +139,7 @@
       <tbody>
       <tr *ngFor="let singleDoc of loanDataHolder?.cadDocument; let i = index">
         <td>{{i + 1}}</td>
-        <td>{{singleDoc?.document?.name}}</td>
+        <td class="text-left pl-1">{{singleDoc?.document?.name}}</td>
         <td>
           <i (click)="previewOfferLetterDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
              class="fas fa-eye"></i></td>
