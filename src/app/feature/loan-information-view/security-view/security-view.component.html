@@ -117,6 +117,29 @@
           <td colspan="1" class="pr-1">Rs. {{landDetails?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
         </tr>
       </ng-container>
+
+      <ng-container>
+        <tr class="sb-bg-dark text-white">
+          <th>Relation</th>
+          <th>Name</th>
+          <th>Citizenship Number</th>
+          <th colspan="2">Issued District</th>
+          <th>Issued Date</th>
+          <th>Mobile Number</th>
+          <th colspan="2">Address</th>
+        </tr>
+        <ng-container *ngFor="let kyc of landDetails?.ownerKycApplicableData?.ownerKycDetails; let j = index">
+          <tr>
+            <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
+            <td class="text-left pl-1">{{kyc?.relationName}}</td>
+            <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
+            <td colspan="2" class="text-left pl-1">{{kyc?.issuedLocation}}</td>
+            <td class="text-left pl-1">{{kyc?.issuedDate | date}}</td>
+            <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
+            <td colspan="2" class="text-left pl-1">{{kyc?.address}}</td>
+          </tr>
+        </ng-container>
+      </ng-container>
       </tbody>
     </table>
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
@@ -300,6 +323,26 @@
             <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.changeInFmv | currencyFormatter}}</td>
             <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.changeInDv | currencyFormatter}}</td>
             <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+          </tr>
+        </ng-container>
+        <tr class="sb-bg-dark text-white">
+          <th>Relation</th>
+          <th>Name</th>
+          <th>Citizenship Number</th>
+          <th colspan="2">Issued District</th>
+          <th>Issued Date</th>
+          <th>Mobile Number</th>
+          <th colspan="2">Address</th>
+        </tr>
+        <ng-container *ngFor="let kyc of landBuilding?.ownerKycApplicableData?.ownerKycDetails; let j = index">
+          <tr>
+            <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
+            <td class="text-left pl-1">{{kyc?.relationName}}</td>
+            <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
+            <td colspan="2" class="text-left pl-1">{{kyc?.issuedLocation}}</td>
+            <td class="text-left pl-1">{{kyc?.issuedDate | date}}</td>
+            <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
+            <td colspan="2" class="text-left pl-1">{{kyc?.address}}</td>
           </tr>
         </ng-container>
         </tbody>
