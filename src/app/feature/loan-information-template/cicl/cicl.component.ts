@@ -66,8 +66,6 @@ export class CiclComponent implements OnInit {
       this.ciclValue = new CiclArray();
     }
     const ciclList = this.ciclList[0];
-    console.log('cicl list: ');
-    console.log(ciclList);
     if (ciclList === undefined) {
         this.ciclHistory = false;
     } else if (ciclList.nameOfBorrower !== null) {
