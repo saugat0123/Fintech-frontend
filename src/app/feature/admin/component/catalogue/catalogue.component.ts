@@ -190,6 +190,7 @@ export class CatalogueComponent implements OnInit {
             customerName: [undefined],
             companyName: [undefined],
             showShareLoanExcessingLimit: [undefined],
+            users: [undefined],
             showExpriringInsurance: [undefined]
         });
     }
@@ -275,6 +276,8 @@ export class CatalogueComponent implements OnInit {
             this.filterForm.get('customerName').value;
         this.catalogueService.search.companyName = ObjectUtil.isEmpty(this.filterForm.get('companyName').value) ? undefined :
             this.filterForm.get('companyName').value;
+        this.catalogueService.search.users = ObjectUtil.isEmpty(this.filterForm.get('users').value) ? undefined :
+            this.filterForm.get('users').value;
         CatalogueComponent.loadData(this);
     }
 
