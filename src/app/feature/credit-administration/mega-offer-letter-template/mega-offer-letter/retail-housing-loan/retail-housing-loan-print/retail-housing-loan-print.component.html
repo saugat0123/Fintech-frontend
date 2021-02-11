@@ -73,6 +73,8 @@
                                 <th><p>: घर कर्जा (Housing Finance)</p></th>
                             </tr>
                             </thead>
+                        </table>
+                        <table style="text-align: justify">
                             <tbody>
                             <tr>
                                 <td width="20%" style="vertical-align: top;">रकम :</td>
@@ -142,6 +144,8 @@
                                 <p>: धितो कर्जा (Mortgage Finance)</p>
                             </th>
                             </thead>
+                        </table>
+                        <table style="text-align: justify;">
                        <tbody>
                        <tr>
                            <td width="20%" style="vertical-align: top;">कर्जा सिमा रकम :</td>
@@ -209,6 +213,8 @@
                                 <th><p>: धितो अधिविकष (Mortgage Overdraft)</p></th>
                             </tr>
                             </thead>
+                        </table>
+                        <table style="text-align: justify;">
                             <tbody>
                             <tr>
                                 <td width="20%" style="vertical-align: top;">कर्जा सिमा रकम :</td>
@@ -217,10 +223,6 @@
                             <tr>
                                 <td width="20%" style="vertical-align: top;">प्रयोजन :</td>
                                 <td><p><strong class="nepaliFont">{{mortgageOverdrafts.use}}</strong> प्रयोजनार्थ ।</p></td>
-                            </tr>
-                            <tr>
-                                <td width="20%" style="vertical-align: top;">समय :</td>
-                                <td><p>बैंकबाट कर्जा भुक्तानी भएको मितिले  <strong class="nepaliFont">{{mortgageOverdrafts.years}}</strong> वर्ष ।</p></td>
                             </tr>
                             <tr>
                                 <td width="20%" style="vertical-align: top;">व्याज :</td>
@@ -281,18 +283,19 @@
                     <br>
                     २.१ - सम्पूर्ण कर्जा सिमा रकम बराबरको ऋणीद्वारा हस्ताक्षर गरिएका प्रतिज्ञा पत्र (<strong> Promissory Note </strong>) ।<br>
                     २.२ - सम्पूर्ण कर्जा सिमा रकम बराबरको कर्जा लिखत (<strong> Loan Deed </strong>) ।<br>
-                    २.३ - <strong class="nepaliFont">{{letter['applicantName']}}</strong><strong>को</strong> आफ्नो एकल स्वामित्व र एकलौटी हकभोगको
-                    <strong class="nepaliFont">{{letter['district']}}</strong> जिल्ला,
-                    <strong class="nepaliFont">{{letter['wardNo']}}</strong> वडा नं.
-                    <strong class="nepaliFont">{{letter['address']}}</strong> मा रहेका कि.नं
-                    <strong class="nepaliFont">{{letter['stateKeyNo']}}</strong> (
-                     <strong class="nepaliFont">{{letter['keyNo']}}</strong> व.मी)
+                    २.३ - <p *ngFor="let datas of letter['multiCollateral']; let  index = index">
+                    <strong class="nepaliFont">{{datas['dhitoApplicantName']}}</strong><strong>को</strong> आफ्नो एकल स्वामित्व र एकलौटी हकभोगको
+                    <strong class="nepaliFont">{{datas['district']}}</strong> जिल्ला,
+                    <strong class="nepaliFont">{{datas['wardNo']}}</strong> वडा नं.
+                    <strong class="nepaliFont">{{datas['address']}}</strong> मा रहेका कि.नं
+                    <strong class="nepaliFont">{{datas['stateKeyNo']}}</strong> (
+                     <strong class="nepaliFont">{{datas['keyNo']}}</strong> व.मी)
                     <br>
-                    को <strong class="nepaliFont">{{letter['link']}}</strong> सम्बन्धित निकायबाट बैंकको नाममा धितोको प्रथम र पूर्ण हक कायम हुने गरि धितो बन्धकीको तमसुक रजिष्ट्रेशन <strong class="nepaliFont">{{letter['garidinuparni']}}</strong> ।<br>
+                    को <strong class="nepaliFont">{{datas['link']}}</strong> सम्बन्धित निकायबाट बैंकको नाममा धितोको प्रथम र पूर्ण हक कायम हुने गरि धितो बन्धकीको तमसुक रजिष्ट्रेशन <strong class="nepaliFont">{{datas['garidinuparni']}}</strong> ।</p>
                     २.४ - <strong class="nepaliFont">{{letter['applicantName']}}</strong><strong>को</strong> हकवालाले माथि उल्लेखित अचल धितो सम्पत्ति धितो सुरक्षण कायम राख्न दिएको मञ्जुरीनामा (<strong>नाता प्रमाणित सहित</strong>) ।<br>
-                    २.५ - <strong class="nepaliFont">{{letter.applicantRelativeOne}}</strong> <strong>र</strong> <strong class="nepaliFont">{{letter.applicantRelativeTwo}}</strong> <strong>को</strong> सम्पूर्ण कर्जा सिमा रकम बराबरको छुट्टाछुट्टै व्यक्तिगत जमानी ।
+                    २.५ - <strong class="nepaliFont">{{letter.applicantRelativeOne}}</strong> <strong> र </strong> <strong class="nepaliFont">{{letter.applicantRelativeTwo}}</strong> <strong>को</strong> सम्पूर्ण कर्जा सिमा रकम बराबरको छुट्टाछुट्टै व्यक्तिगत जमानी ।
                      <p *ngIf="letter?.landNumberPreviousOwnerShow">
-                         २.६ - कि.न. <strong class="nepaliFont">{{letter.landNumber}}</strong> <strong>को</strong> पुर्व जग्गाधनी {{letter.previousOwner}} को हकवालाले माथि उल्लेखित अचल धितो सम्पत्ति धितो सुरक्षण कायम राख्न दिएको मञ्जुरीनामा (<strong>स्वःघोषित नाता प्रमाणित सहित</strong>) ।</p>
+                         २.६ - कि.न. <strong class="nepaliFont">{{letter.landNumber}}</strong> <strong>को</strong> पुर्व जग्गाधनी <strong class="nepaliFont">{{letter.previousOwner}}</strong> को हकवालाले माथि उल्लेखित अचल धितो सम्पत्ति धितो सुरक्षण कायम राख्न दिएको मञ्जुरीनामा (<strong>स्वःघोषित नाता प्रमाणित सहित</strong>) ।</p>
                     <ng-container *ngIf="letter?.landNumberPreviousOwnerShow">
                         <div class="table-responsive">
                             <p>२.७ - निम्न विवरण एवं जोखिम वहन हुने गरि बैंकको पक्षमा गरिदिएको विमालेख पेश गर्नुपर्नेछ ।</p>
