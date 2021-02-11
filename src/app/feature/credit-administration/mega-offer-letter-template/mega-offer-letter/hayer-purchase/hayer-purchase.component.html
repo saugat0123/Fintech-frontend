@@ -258,9 +258,11 @@
                   <td class="pl-3"> नेपाल सरकार, भौतिक पूर्वाधार तथा यातायात मन्त्रालय, यातायात ब्यबस्था
                     बिभागमा सवारी
                     साधनको धनी मेगा बैंक नेपाल लिमिटेड ऋणी
-                    <span class="nepaliFont form-field">{{hayarPurchase.get('name').value}}</span> भनीे
-                    दर्ता गरिएको सवारी साधन
-                    ।
+                    <input class="form-field form-control-sm nepaliFont"
+                           formControlName="sadhanDhani"
+                           placeholder="साधन धनी"
+                           type="text"/>
+                    भनीे दर्ता गरिएको सवारी साधन ।
                   </td>
                 </tr>
                 <tr>
@@ -284,21 +286,6 @@
                   <td>२.६</td>
                   <td class="pl-3">निम्न विवरण एवं जोखिम वहन हुने गरि बैंकको पक्षमा गरिदिएको विमालेख कर्जा प्रवाह पूर्व पेश
                     गर्नुपर्नेछ ।
-                  </td>
-                </tr>
-                <tr *ngIf="hayarPurchase.get('guarantorFlag').value">
-                  <td>२.७</td>
-                  <td class="pl-3">
-                    <input class="form-field form-control-sm nepaliFont"
-                           formControlName="guarantor"
-                           placeholder="श्री मन बहादुर घले "
-                           type="text"/>को
-                    तर्फबाट कर्जा सीमा रकम बराबरको छुटाछुटै व्यक्तिगत जमानी पेश गर्नुपर्नेछ ।
-                    <a (click)="removeOptionalField(hayarPurchase, 'guarantorFlag')"
-                       data-placement="top" class="text-danger cursor">
-                      <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
-                      remove
-                    </a>
                   </td>
                 </tr>
                 <tr *ngIf="!hayarPurchase.get('guarantorFlag').value">
@@ -358,6 +345,24 @@
                 <input (click)="addMoreRiskCoverageArray()" class="btn btn-sm btn-flat btn-primary" type="button"
                        value="Add More Field"/>
               </div>
+              <table class="table-responsive">
+                <tr *ngIf="hayarPurchase.get('guarantorFlag').value">
+                  <td>२.७</td>
+                  <td class="pl-3">
+                    <input class="form-field form-control-sm nepaliFont"
+                           formControlName="guarantor"
+                           placeholder="श्री मन बहादुर घले "
+                           type="text"/>को
+                    तर्फबाट कर्जा सीमा रकम बराबरको छुटाछुटै व्यक्तिगत जमानी पेश गर्नुपर्नेछ ।
+                    <a (click)="removeOptionalField(hayarPurchase, 'guarantorFlag')"
+                       data-placement="top" class="text-danger cursor">
+                      <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                      remove
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
               <p><b>नोटः माथि उल्लेखित सुरक्षणहरुका साथ निम्न शर्तहरु अनिवार्य रुपमा पालना गर्नुपर्नेछ ।</b></p>
 
               <p>

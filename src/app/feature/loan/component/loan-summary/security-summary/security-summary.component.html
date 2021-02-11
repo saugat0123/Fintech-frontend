@@ -26,15 +26,15 @@
 
                     </tr>
                     <tr>
-                        <td rowspan="3" class="align-middle">{{i + 1}}</td>
-                        <td>{{vehicleDetails?.model}}</td>
+                        <td>{{i + 1}}</td>
+                        <td class="text-right pr-1">{{vehicleDetails?.model}}</td>
                         <td class="text-right pr-1">Rs. {{vehicleDetails?.valuationAmount | currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{vehicleDetails?.downPayment | currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{vehicleDetails?.remainingAmount | currencyFormatter}}</td>
-                        <td>{{vehicleDetails?.loanExposure}}</td>
-                        <td>{{vehicleDetails?.registrationNumber}}</td>
-                        <td>{{vehicleDetails?.registrationDate | date}}</td>
-                        <td>{{vehicleDetails?.engineNumber}}</td>
+                        <td class="text-right pr-1">{{vehicleDetails?.loanExposure}}</td>
+                        <td class="text-right pr-1">{{vehicleDetails?.registrationNumber}}</td>
+                        <td class="text-left pl-1">{{vehicleDetails?.registrationDate | date}}</td>
+                        <td class="text-right pr-1">{{vehicleDetails?.engineNumber}}</td>
                     </tr>
                     <tr class="sb-bg-secondary text-white">
                         <th>Chassis Number</th>
@@ -47,14 +47,14 @@
                         <th colspan="2">Alternative Staff Representative Name</th>
                     </tr>
                     <tr>
-                        <td>{{vehicleDetails?.chassisNumber}}</td>
+                        <td class="text-right pr-1">{{vehicleDetails?.chassisNumber}}</td>
                         <td class="text-right pr-1">Rs. {{vehicleDetails?.showroomCommission | currencyFormatter}}</td>
-                        <td>{{vehicleDetails?.vehicalValuatorDate |date}}</td>
-                        <td *ngIf="formData['otherBranchcheck']">{{vehicleDetails?.vehicalBranch?.name}}</td>
-                        <td >{{vehicleDetails?.vehicalValuator?.name}}</td>
-                        <td>{{vehicleDetails?.vehicalValuatorRepresentative}}</td>
-                        <td>{{vehicleDetails?.vehicalStaffRepresentativeName}}</td>
-                        <td colspan="2">{{vehicleDetails?.vehicalAlternateStaffRepresentativeName}}</td>
+                        <td class="text-left pl-1">{{vehicleDetails?.vehicalValuatorDate |date}}</td>
+                        <td *ngIf="formData['otherBranchcheck']" class="text-left pl-1">{{vehicleDetails?.vehicalBranch?.name}}</td>
+                        <td class="text-left pl-1">{{vehicleDetails?.vehicalValuator?.name}}</td>
+                        <td class="text-left pl-1">{{vehicleDetails?.vehicalValuatorRepresentative}}</td>
+                        <td class="text-left pl-1">{{vehicleDetails?.vehicalStaffRepresentativeName}}</td>
+                        <td colspan="2" class="text-left pl-1">{{vehicleDetails?.vehicalAlternateStaffRepresentativeName}}</td>
                     </tr>
                 </table>
             </div>
@@ -79,15 +79,15 @@
                         <th>Address as per Legal Document</th>
                     </tr>
                     <tr>
-                        <td rowspan="3" class="align-middle">{{i + 1}}</td>
-                        <td>{{landDetails?.owner}}</td>
-                        <td>{{landDetails?.location}}</td>
-                        <td>{{landDetails?.plotNumber}}</td>
-                        <td>{{landDetails?.areaFormat}}</td>
-                        <td>{{landDetails?.area}}</td>
+                        <td rowspan="5" class="align-middle">{{i + 1}}</td>
+                        <td class="text-left pl-1">{{landDetails?.owner}}</td>
+                        <td class="text-left pl-1">{{landDetails?.location}}</td>
+                        <td class="text-right pr-1">{{landDetails?.plotNumber}}</td>
+                        <td class="text-left pl-1">{{landDetails?.areaFormat}}</td>
+                        <td class="text-right pr-1">{{landDetails?.area}}</td>
                         <td class="text-right pr-1">Rs. {{landDetails?.marketValue |currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{landDetails?.distressValue |currencyFormatter}}</td>
-                        <td>{{landDetails?.landSecurityLegalDocumentAddress}}</td>
+                        <td class="text-left pl-1">{{landDetails?.landSecurityLegalDocumentAddress}}</td>
                     </tr>
 
                     <tr class="sb-bg-secondary text-white">
@@ -102,13 +102,34 @@
 
                     <tr>
                         <td class="text-right pr-1">Rs. {{landDetails?.landConsideredValue | currencyFormatter}}</td>
-                        <td>{{landDetails?.landValuatorDate |date}}</td>
-                        <td *ngIf="formData['otherBranchcheck']">{{landDetails?.landBranch?.name}}</td>
-                        <td colspan="2">{{landDetails?.landValuator?.name}}</td>
-                        <td>{{landDetails?.landValuatorRepresentative}}</td>
-                        <td>{{landDetails?.landStaffRepresentativeName}}</td>
-                        <td colspan="2">{{landDetails?.landAlternateStaffRepresentativeName}}</td>
+                        <td class="text-left pl-1">{{landDetails?.landValuatorDate |date}}</td>
+                        <td *ngIf="formData['otherBranchcheck']" class="text-left pl-1">{{landDetails?.landBranch?.name}}</td>
+                        <td colspan="2" class="text-left pl-1">{{landDetails?.landValuator?.name}}</td>
+                        <td class="text-left pl-1">{{landDetails?.landValuatorRepresentative}}</td>
+                        <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeName}}</td>
+                        <td colspan="2" class="text-left pl-1">{{landDetails?.landAlternateStaffRepresentativeName}}</td>
                     </tr>
+
+                    <tr class="sb-bg-secondary text-white">
+                        <th>Relation</th>
+                        <th>Name</th>
+                        <th>Citizenship Number</th>
+                        <th colspan="2">Issued District</th>
+                        <th>Issued Date</th>
+                        <th>Mobile Number</th>
+                        <th colspan="2">Address</th>
+                    </tr>
+                    <ng-container *ngFor="let kyc of landDetails?.ownerKycApplicableData?.ownerKycDetails; let j = index">
+                        <tr>
+                            <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
+                            <td class="text-left pl-1">{{kyc?.relationName}}</td>
+                            <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
+                            <td colspan="2" class="text-left pl-1">{{kyc?.issuedLocation}}</td>
+                            <td class="text-left pl-1">{{kyc?.issuedDate | date}}</td>
+                            <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
+                            <td colspan="2" class="text-left pl-1">{{kyc?.address}}</td>
+                        </tr>
+                    </ng-container>
 
                   <ng-container *ngIf="landDetails?.revaluationData != null && landDetails?.revaluationData?.isReValuated">
                       <tr>
@@ -125,8 +146,8 @@
                           <th colspan="1">Change in Considered Value</th>
                       </tr>
                       <tr>
-                          <td>{{landDetails?.revaluationData?.reValuationDate |date}}</td>
-                          <td colspan="1">{{landDetails?.revaluationData?.newValuator?.name}}</td>
+                          <td class="text-left pl-1">{{landDetails?.revaluationData?.reValuationDate |date}}</td>
+                          <td colspan="1" class="text-left pl-1">{{landDetails?.revaluationData?.newValuator?.name}}</td>
                           <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
                           <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
                           <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
@@ -164,11 +185,11 @@
                     <tbody>
                     <tr>
                         <td>{{i + 1}}</td>
-                        <td>{{landBuilding?.owner}}</td>
-                        <td>{{landBuilding?.location}}</td>
-                        <td>{{landBuilding?.plotNumber}}</td>
-                        <td>{{landBuilding?.areaFormat}}</td>
-                        <td>{{landBuilding?.area}}</td>
+                        <td class="text-left pl-1">{{landBuilding?.owner}}</td>
+                        <td class="text-left pl-1">{{landBuilding?.location}}</td>
+                        <td class="text-right pr-1">{{landBuilding?.plotNumber}}</td>
+                        <td class="text-left pl-1">{{landBuilding?.areaFormat}}</td>
+                        <td class="text-right pr-1">{{landBuilding?.area}}</td>
                         <td class="text-right pr-1">Rs. {{landBuilding?.marketValue | currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{landBuilding?.distressValue | currencyFormatter}}</td>
 
@@ -183,19 +204,19 @@
                         <th colspan="2">Alternative Staff Representative Name</th>
                     </tr>
                     <tr>
-                        <td>{{landBuilding?.buildingValuatorDate |date}}</td>
-                        <td *ngIf="formData['otherBranchcheck']">{{landBuilding?.buildingBranch?.name}}</td>
-                        <td colspan="2">{{landBuilding?.buildingValuator?.name}}</td>
+                        <td class="text-left pl-1">{{landBuilding?.buildingValuatorDate |date}}</td>
+                        <td *ngIf="formData['otherBranchcheck']" class="text-left pl-1">{{landBuilding?.buildingBranch?.name}}</td>
+                        <td colspan="2" class="text-left pl-1">{{landBuilding?.buildingValuator?.name}}</td>
                         <td class="text-right pr-1">Rs. {{landBuilding?.landConsideredValue | currencyFormatter}}</td>
-                        <td>{{landBuilding?.buildingValuatorRepresentative}}</td>
-                        <td>{{landBuilding?.buildingStaffRepresentativeName}}</td>
-                        <td colspan="2">{{landBuilding?.landBuildingAlternateStaffRepresentativeName}}</td>
+                        <td class="text-left pl-1">{{landBuilding?.buildingValuatorRepresentative}}</td>
+                        <td class="text-left pl-1">{{landBuilding?.buildingStaffRepresentativeName}}</td>
+                        <td colspan="2" class="text-left pl-1">{{landBuilding?.landBuildingAlternateStaffRepresentativeName}}</td>
                     </tr>
                     <tr>
                         <th class="text-center sb-bg-dark text-white">Address as per Legal Document</th>
                     </tr>
                     <tr>
-                        <td>{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
+                        <td class="text-left pl-1">{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
                     </tr>
                     <tr *ngIf="landBuilding.underConstructionChecked === true">
                         <th colspan="8">Under Construction</th>
@@ -212,10 +233,10 @@
                         <th>Considered Value</th>
                     </tr>
                     <tr *ngIf="landBuilding.underConstructionChecked === true">
-                        <td>{{landBuilding?.ownerConstruction}}</td>
-                        <td>{{landBuilding?.locationConstruction}}</td>
-                        <td>{{landBuilding?.houseNumberConstruction}}</td>
-                        <td>{{landBuilding?.totalBuildingAreaConstruction}}</td>
+                        <td class="text-left pl-1">{{landBuilding?.ownerConstruction}}</td>
+                        <td class="text-left pl-1">{{landBuilding?.locationConstruction}}</td>
+                        <td class="text-right pr-1">{{landBuilding?.houseNumberConstruction}}</td>
+                        <td class="text-right pr-1">{{landBuilding?.totalBuildingAreaConstruction}}</td>
                         <td class="text-right pr-1">Rs.{{landBuilding?.totalCostConstruction | currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{landBuilding?.marketValueConstruction | currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs.{{landBuilding?.landConsideredValueConstruction | currencyFormatter}}</td>
@@ -236,8 +257,8 @@
                             <th colspan="1">Change in Considered Value</th>
                         </tr>
                         <tr>
-                            <td>{{landBuilding?.revaluationData?.reValuationDate |date}}</td>
-                            <td colspan="1">{{landBuilding?.revaluationData?.newValuator?.name}}</td>
+                            <td class="text-left pl-1">{{landBuilding?.revaluationData?.reValuationDate |date}}</td>
+                            <td colspan="1" class="text-left pl-1">{{landBuilding?.revaluationData?.newValuator?.name}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
@@ -273,10 +294,10 @@
                     </tr>
                     <tr>
                         <td rowspan="3" class="align-middle">{{i + 1}}</td>
-                        <td>{{buildingDetails?.buildingName}}</td>
-                        <td>{{buildingDetails?.buildingDescription}}</td>
-                        <td>{{buildingDetails?.buildArea}}</td>
-                        <td>{{buildingDetails?.buildRate | currencyFormatter}}</td>
+                        <td class="text-left pl-1">{{buildingDetails?.buildingName}}</td>
+                        <td class="text-left pl-1">{{buildingDetails?.buildingDescription}}</td>
+                        <td class="text-right pr-1">{{buildingDetails?.buildArea}}</td>
+                        <td class="text-right pr-1">{{buildingDetails?.buildRate | currencyFormatter}}</td>
                         <td class="text-right pr-1"><strong>Rs. {{buildingDetails?.totalCost | currencyFormatter}}</strong></td>
                         <td class="text-right pr-1"><strong>Rs. {{buildingDetails?.buildingFairMarketValue | currencyFormatter}}</strong></td>
                         <td class="text-right pr-1"><strong>Rs. {{buildingDetails?.buildingDistressValue | currencyFormatter}}</strong></td>
@@ -290,12 +311,12 @@
                         <th colspan="2">Alternative Staff Representative Name</th>
                     </tr>
                     <tr>
-                        <td>{{buildingDetails?.ApartmentValuatorDate |date}}</td>
-                        <td *ngIf="formData['otherBranchcheck']">{{buildingDetails?.apartmentBranch?.name}}</td>
-                        <td colspan="2">{{buildingDetails?.ApartmentValuator?.name}}</td>
-                        <td>{{buildingDetails?.ApartmentValuatorRepresentative}}</td>
-                        <td>{{buildingDetails?.ApartmentStaffRepresentativeName}}</td>
-                        <td colspan="2">{{buildingDetails?.apartmentAlternateStaffRepresentativeName}}</td>
+                        <td class="text-left pl-1">{{buildingDetails?.ApartmentValuatorDate |date}}</td>
+                        <td *ngIf="formData['otherBranchcheck']" class="text-left pl-1">{{buildingDetails?.apartmentBranch?.name}}</td>
+                        <td colspan="2" class="text-left pl-1">{{buildingDetails?.ApartmentValuator?.name}}</td>
+                        <td class="text-left pl-1">{{buildingDetails?.ApartmentValuatorRepresentative}}</td>
+                        <td class="text-left pl-1">{{buildingDetails?.ApartmentStaffRepresentativeName}}</td>
+                        <td colspan="2" class="text-left pl-1">{{buildingDetails?.apartmentAlternateStaffRepresentativeName}}</td>
                     </tr>
                     <ng-container *ngIf="buildingDetails?.revaluationData != null && buildingDetails?.revaluationData?.isReValuated">
                         <tr>
@@ -312,8 +333,8 @@
                             <th colspan="1">Change in Considered Value</th>
                         </tr>
                         <tr>
-                            <td>{{buildingDetails?.revaluationData?.reValuationDate |date}}</td>
-                            <td colspan="1">Rs. {{buildingDetails?.revaluationData?.newValuator?.name?.name}}</td>
+                            <td class="text-left pl-1">{{buildingDetails?.revaluationData?.reValuationDate |date}}</td>
+                            <td colspan="1" class="text-left pl-1">Rs. {{buildingDetails?.revaluationData?.newValuator?.name?.name}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
@@ -345,9 +366,9 @@
                     </tr>
                     <tr *ngFor="let beforeCompletion of formData['initialForm']['buildingUnderConstructions']; let i= index">
                         <td>{{i + 1}}</td>
-                        <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingName}}</td>
-                        <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildingDescription}}</td>
-                        <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildArea}}</td>
+                        <td class="text-left pl-1">{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingName}}</td>
+                        <td class="text-left pl-1">{{beforeCompletion?.buildingDetailsBeforeCompletion.buildingDescription}}</td>
+                        <td class="text-right pr-1">{{beforeCompletion?.buildingDetailsBeforeCompletion.buildArea}}</td>
                         <td class="text-right pr-1">Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion.buildRate | currencyFormatter}}</td>
                         <td class="text-right pr-1">
                             <strong>Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion.totalCost | currencyFormatter}}</strong>
@@ -371,9 +392,9 @@
                     </tr>
                     <tr *ngFor="let afterCompletion of formData['initialForm']['buildingUnderConstructions']; let i= index">
                         <td>{{i + 1}}</td>
-                        <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildingName}}</td>
-                        <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildingDescription}}</td>
-                        <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildArea}}</td>
+                        <td class="text-left pl-1">{{afterCompletion?.buildingDetailsAfterCompletion.buildingName}}</td>
+                        <td class="text-left pl-1">{{afterCompletion?.buildingDetailsAfterCompletion.buildingDescription}}</td>
+                        <td class="pr-1 text-right">{{afterCompletion?.buildingDetailsAfterCompletion.buildArea}}</td>
                         <td class="text-right pr-1">Rs. {{afterCompletion?.buildingDetailsAfterCompletion.buildRate | currencyFormatter}}</td>
                         <td class="text-right pr-1">
                             <strong>Rs.{{afterCompletion?.buildingDetailsAfterCompletion.totalCost | currencyFormatter}}</strong>
@@ -408,16 +429,16 @@
                     </tr>
                     <tr *ngFor="let plantDetails of formData['initialForm']['plantDetails']; let i= index">
                         <td>{{i + 1}}</td>
-                        <td>{{plantDetails?.model}}</td>
+                        <td class="text-right pr-1">{{plantDetails?.model}}</td>
                         <td class="text-right pr-1">Rs. {{plantDetails?.quotation | currencyFormatter}}</td>
-                        <td>{{plantDetails?.supplier}}</td>
+                        <td class="text-left pl-1">{{plantDetails?.supplier}}</td>
                         <td class="text-right pr-1">Rs. {{plantDetails?.downPay | currencyFormatter}}</td>
                         <td *ngIf="formData['otherBranchcheck']">{{plantDetails?.plantBranch?.name}}</td>
-                        <td>{{plantDetails?.plantMachineryValuatorDate |date}}</td>
-                        <td>{{plantDetails?.plantMachineryValuator?.name}}</td>
-                        <td>{{plantDetails?.plantMachineryValuatorRepresentative}}</td>
-                        <td>{{plantDetails?.plantMachineryStaffRepresentativeName}}</td>
-                        <td>{{plantDetails?.plantMachineryAlternateStaffRepresentativeName}}</td>
+                        <td class="text-left pl-1">{{plantDetails?.plantMachineryValuatorDate |date}}</td>
+                        <td class="text-left pl-1">{{plantDetails?.plantMachineryValuator?.name}}</td>
+                        <td class="text-left pl-1">{{plantDetails?.plantMachineryValuatorRepresentative}}</td>
+                        <td class="text-left pl-1">{{plantDetails?.plantMachineryStaffRepresentativeName}}</td>
+                        <td class="text-left pl-1">{{plantDetails?.plantMachineryAlternateStaffRepresentativeName}}</td>
                     </tr>
                     </thead>
                 </table>
@@ -441,15 +462,15 @@
                     </tr>
                     <tr *ngFor="let depositDetails of formData['initialForm']['fixedDepositDetails']; let i= index">
                         <td>{{i + 1}}</td>
-                        <td>{{depositDetails?.receiptNumber}}</td>
+                        <td class="text-right pr-1">{{depositDetails?.receiptNumber}}</td>
                         <td class="text-right pr-1">Rs. {{depositDetails?.amount | roundvalue | currencyFormatter}}</td>
-                        <td>{{depositDetails?.expiryDate | date}}</td>
+                        <td class="text-left pl-1">{{depositDetails?.expiryDate | date}}</td>
                         <td class="text-right pr-1">Rs. {{depositDetails?.couponRate | currencyFormatter}}</td>
-                        <td>{{depositDetails?.beneficiary}}</td>
-                        <td>{{depositDetails?.remarks}}</td>
+                        <td class="text-left pl-1">{{depositDetails?.beneficiary}}</td>
+                        <td class="text-left pl-1">{{depositDetails?.remarks}}</td>
                     </tr>
                     <tr class="sb-bg-secondary text-white">
-                        <td colspan="2" >Total</td>
+                        <td colspan="2" class="text-left pl-1">Total</td>
                         <td colspan="5" class="text-right pr-1">Rs. {{totalAmount | currencyFormatter}}</td>
                     </tr>
                     </thead>
@@ -478,9 +499,9 @@
                     <tbody>
                     <tr *ngFor="let singleShareData of shareSecurity['shareSecurityDetails']; let i = index">
                         <td>{{i + 1}}</td>
-                        <td>{{singleShareData?.companyName}}</td>
-                        <td>{{singleShareData?.shareType}}</td>
-                        <td>{{singleShareData?.totalShareUnit}}</td>
+                        <td class="text-left pl-1">{{singleShareData?.companyName}}</td>
+                        <td class="text-left pl-1">{{singleShareData?.shareType}}</td>
+                        <td class="text-right pr-1">{{singleShareData?.totalShareUnit}}</td>
                         <td class="text-right pr-1">Rs. {{singleShareData?.amountPerUnit |currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{singleShareData?.total |currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
@@ -488,17 +509,17 @@
                     <tr>
                         <th></th>
                         <th class="sb-bg-secondary text-white">Price As per Date</th>
-                        <td colspan="2">{{shareSecurity?.sharePriceDate |date}}</td>
+                        <td colspan="2" class="text-left pl-1">{{shareSecurity?.sharePriceDate |date}}</td>
                         <th class="sb-bg-secondary text-white">Average Day's for Share Price</th>
-                        <td colspan="2">{{shareSecurity?.avgDaysForPrice}} days</td>
+                        <td colspan="2" class="text-left pl-1">{{shareSecurity?.avgDaysForPrice}} days</td>
                     </tr> <tr>
-                        <th class="text-right" colspan="5">Total</th>
+                        <th class="text-left pl-1" colspan="5">Total</th>
                         <th class="text-right pr-1">Rs. {{shareTotalValue |currencyFormatter}}</th>
                         <th class="text-right pr-1">Rs. {{totalConsideredValue |currencyFormatter}}</th>
                     </tr>
                     <tr>
-                        <th>Description</th>
-                        <th colspan="6">{{shareSecurity['securityOffered']}}</th>
+                        <th class="sb-bg-secondary text-white">Description</th>
+                        <td colspan="6" class="text-left pl-1">{{shareSecurity['securityOffered']}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -520,8 +541,8 @@
                     </tr>
                     <tr *ngFor="let hypothecationOfStock of formData['initialForm']['hypothecationOfStock']; let i= index">
                         <td>{{i + 1}}</td>
-                        <td>{{hypothecationOfStock?.owner}}</td>
-                        <td>{{hypothecationOfStock?.stock}}</td>
+                        <td class="text-left pl-1">{{hypothecationOfStock?.owner}}</td>
+                        <td class="text-left pl-1">{{hypothecationOfStock?.stock}}</td>
                         <td class="text-right pr-1">Rs. {{hypothecationOfStock?.value | currencyFormatter}}</td>
                     </tr>
                 </table>
@@ -544,11 +565,11 @@
                     </tr>
                     <tr *ngFor="let corporateGuarantee of formData['initialForm']['corporateGuarantee']; let i= index">
                         <td>{{i + 1}}</td>
-                        <td>{{corporateGuarantee?.name}}</td>
-                        <td>{{corporateGuarantee?.address}}</td>
-                        <td>{{corporateGuarantee?.keyPerson}}</td>
-                        <td>{{corporateGuarantee?.email}}</td>
-                        <td>{{corporateGuarantee?.phoneNumber}}</td>
+                        <td class="text-left pl-1">{{corporateGuarantee?.name}}</td>
+                        <td class="text-left pl-1">{{corporateGuarantee?.address}}</td>
+                        <td class="text-left pl-1">{{corporateGuarantee?.keyPerson}}</td>
+                        <td class="text-left pl-1">{{corporateGuarantee?.email}}</td>
+                        <td class="text-right pr-1">{{corporateGuarantee?.phoneNumber}}</td>
                     </tr>
                 </table>
             </div>
@@ -569,10 +590,10 @@
                     </tr>
                     <tr *ngFor="let personalGuarantee of formData['initialForm']['personalGuarantee']; let i= index">
                         <td>{{i + 1}}</td>
-                        <td>{{personalGuarantee?.name}}</td>
-                        <td>{{personalGuarantee?.address}}</td>
-                        <td>{{personalGuarantee?.email}}</td>
-                        <td>{{personalGuarantee?.phoneNumber}}</td>
+                        <td class="text-left pl-1">{{personalGuarantee?.name}}</td>
+                        <td class="text-left pl-1">{{personalGuarantee?.address}}</td>
+                        <td class="text-left pl-1">{{personalGuarantee?.email}}</td>
+                        <td class="text-right pr-1">{{personalGuarantee?.phoneNumber}}</td>
                     </tr>
                 </table>
             </div>
@@ -590,7 +611,7 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>{{formData['initialForm']['remark']}}</td>
+                        <td class="text-left pl-1">{{formData['initialForm']['remark']}}</td>
                     </tr>
                     </tbody>
                 </table>
