@@ -14,7 +14,7 @@
             </thead>
             <tbody>
             <tr>
-                <td>Credit Transaction in Account</td>
+                <td class="text-left pl-1">Credit Transaction in Account</td>
                 <td class="text-right pr-1">
                     Rs. {{this.data?.accountTransactionForm?.creditTransactionNumber | currencyFormatter}}
                 </td>
@@ -23,7 +23,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Debit Transaction in Account</td>
+                <td class="text-left pl-1">Debit Transaction in Account</td>
                 <td class="text-right pr-1">
                     Rs. {{this.data?.accountTransactionForm?.debitTransactionNumber | currencyFormatter}}
                 </td>
@@ -32,7 +32,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="sb-bg-secondary text-white">Repayment track in our bank</td>
+                <td class="sb-bg-secondary text-white text-left pl-1">Repayment track in our bank</td>
                 <td colspan="2">
                     {{this.data?.accountTransactionForm?.repaymentTrackWithCurrentBank}}
                 </td>

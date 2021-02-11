@@ -11,16 +11,16 @@
             <th>Nearby</th>
         </tr>
         <tr>
-            <td>{{formData['currentResidentDetails']['ownerName']}}</td>
-            <td>
+            <td class="text-left pl-1">{{formData['currentResidentDetails']['ownerName']}}</td>
+            <td class="text-left pl-1">
                 {{formData['currentResidentDetails']['address']?.province?.name}},
                 {{formData['currentResidentDetails']['address']?.district?.name}},
                 {{formData['currentResidentDetails']['address']?.municipalityVdc?.name}},
             </td>
-            <td> {{formData['currentResidentDetails']['address']?.ward}}</td>
-            <td> {{formData['currentResidentDetails']['address']?.address1}}</td>
-            <td> {{formData['currentResidentDetails']['address']?.address2}}</td>
-            <td>{{formData['currentResidentDetails']['nearBy']}}</td>
+            <td class="text-right pr-1"> {{formData['currentResidentDetails']['address']?.ward}}</td>
+            <td class="text-left pl-1"> {{formData['currentResidentDetails']['address']?.address1}}</td>
+            <td class="text-left pl-1"> {{formData['currentResidentDetails']['address']?.address2}}</td>
+            <td class="text-left pl-1">{{formData['currentResidentDetails']['nearBy']}}</td>
         </tr>
     </table>
 </div>
@@ -38,16 +38,16 @@
             <th>Address Line 2</th>
         </tr>
         <tr>
-            <td>{{formData['businessSiteVisitDetails']['nameOfThePersonContacted']}}</td>
-            <td>{{formData['businessSiteVisitDetails']['dateOfVisit'] | date}}</td>
-            <td>
+            <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['nameOfThePersonContacted']}}</td>
+            <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['dateOfVisit'] | date}}</td>
+            <td class="text-left pl-1">
                 {{formData['businessSiteVisitDetails']['officeAddress']?.province?.name}},
                 {{formData['businessSiteVisitDetails']['officeAddress']?.district?.name}},
                 {{formData['businessSiteVisitDetails']['officeAddress']?.municipalityVdc?.name}},
             </td>
-            <td> {{formData['businessSiteVisitDetails']['officeAddress']?.ward}}</td>
-            <td> {{formData['businessSiteVisitDetails']['officeAddress']?.address1}}</td>
-            <td> {{formData['businessSiteVisitDetails']['officeAddress']?.address2}}</td>
+            <td class="text-right pr-1"> {{formData['businessSiteVisitDetails']['officeAddress']?.ward}}</td>
+            <td class="text-left pl-1"> {{formData['businessSiteVisitDetails']['officeAddress']?.address1}}</td>
+            <td class="text-left pl-1"> {{formData['businessSiteVisitDetails']['officeAddress']?.address2}}</td>
         </tr>
         <tr class="text-white sb-bg-dark">
             <th colspan="2">Objective of Visit</th>
@@ -55,13 +55,13 @@
             <th colspan="3">Comments and Finding</th>
         </tr>
         <tr>
-            <td colspan="2">{{formData['businessSiteVisitDetails']['objectiveOfVisit']}}</td>
-            <td>{{formData['businessSiteVisitDetails']['staffRepresentativeName']}}</td>
-            <td>{{formData['businessSiteVisitDetails']['findingsAndComments']}}</td>
+            <td colspan="2" class="text-left pl-1">{{formData['businessSiteVisitDetails']['objectiveOfVisit']}}</td>
+            <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['staffRepresentativeName']}}</td>
+            <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['findingsAndComments']}}</td>
         </tr>
         <tr class="text-white sb-bg-dark">
             <th>Conclusion</th>
-            <td colspan="6">{{formData['businessSiteVisitDetails']['conclusion']}}</td>
+            <td colspan="6" class="text-left pl-1">{{formData['businessSiteVisitDetails']['conclusion']}}</td>
         </tr>
 
     </table>

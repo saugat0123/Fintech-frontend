@@ -24,13 +24,13 @@
       <tbody>
       <tr>
         <td>{{i+1}}.</td>
-        <td>{{insurance?.policyNumber}}</td>
-        <td>{{insurance?.assetInsured}}</td>
+        <td class="text-right pr-1">{{insurance?.policyNumber}}</td>
+        <td class="text-left pl-1">{{insurance?.assetInsured}}</td>
         <td class="text-right pr-1">Rs. {{insurance?.insuredAmount | currencyFormatter}}</td>
-        <td>{{insurance?.company}}</td>
+        <td class="text-left pl-1">{{insurance?.company}}</td>
         <td class="text-right pr-1">Rs. {{insurance?.premiumAmount | currencyFormatter}}</td>
-        <td>{{insurance?.issuedDate | date}}</td>
-        <td>{{insurance?.expiryDate | date}}</td>
+        <td class="text-left pl-1">{{insurance?.issuedDate | date}}</td>
+        <td class="text-left pl-1">{{insurance?.expiryDate | date}}</td>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th></th>
@@ -38,7 +38,7 @@
       </tr>
       <tr>
         <th></th>
-        <td colspan="7">{{insurance.policyType}}</td>
+        <td colspan="7" class="text-left pl-1">{{insurance.policyType}}</td>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th></th>
@@ -46,7 +46,7 @@
       </tr>
       <tr>
         <th></th>
-        <td colspan="7">{{insurance.remark}}</td>
+        <td colspan="7" class="text-left pl-1">{{insurance.remark}}</td>
       </tr>
       <ng-container *ngIf="insurance?.remarks?.length > 0">
         <tr class="text-white sb-bg-dark">
@@ -55,7 +55,7 @@
         </tr>
         <tr>
           <th></th>
-          <td colspan="5">{{insurance?.remarks}}</td>
+          <td colspan="5" class="text-left pl-1">{{insurance?.remarks}}</td>
         </tr>
       </ng-container>
       </tbody>

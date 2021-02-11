@@ -61,6 +61,10 @@ export class RelationshipList {
       name: 'Mother in Law',
     },
     {
+      id: 'Sister in Law',
+      name: 'Sister in Law',
+    },
+    {
       id: 'Cousin',
       name: 'Cousin',
     },

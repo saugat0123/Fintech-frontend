@@ -17,11 +17,11 @@
       <tbody>
       <tr *ngFor="let guarantor of guarantorData; let i= index">
         <td>{{i + 1}}</td>
-        <td>{{guarantor?.name}}</td>
-        <td>{{guarantor?.citizenNumber}}</td>
-        <td>{{guarantor?.issuedPlace }},{{guarantor?.province?.name}},{{guarantor?.district?.name}}</td>
-        <td>{{guarantor?.contactNumber}}</td>
-        <td>{{guarantor?.guarantorLegalDocumentAddress}}</td>
+        <td class="text-left pl-1">{{guarantor?.name}}</td>
+        <td class="text-right pr-1">{{guarantor?.citizenNumber}}</td>
+        <td class="text-left pl-1">{{guarantor?.issuedPlace }},{{guarantor?.province?.name}},{{guarantor?.district?.name}}</td>
+        <td class="text-right pr-1">{{guarantor?.contactNumber}}</td>
+        <td class="text-left pl-1">{{guarantor?.guarantorLegalDocumentAddress}}</td>
       </tr>
       </tbody>
     </table>
