@@ -180,6 +180,7 @@ export class CiclComponent implements OnInit {
   if (this.ciclHistory === false) {
       const controls = this.ciclForm.controls.ciclArray as FormArray;
       controls.clearAsyncValidators();
+      controls.clear();
   }
     if (this.ciclHistory === true) {
         if (this.ciclForm.invalid) {

@@ -144,15 +144,6 @@
         </button>
         <div class="clearfix"></div>
         <br/>
-        <div class="row">
-          <div class="col-md-12 form-group">
-            <label for="ciclRemarks"><b>Remarks</b></label>
-            <!--          <textarea class="form-control" id="ciclRemarks" name="ciclRemarks"  formControlName="ciclRemarks"-->
-            <!--                    placeholder="remarks" rows="5" -->
-            <!--          ></textarea>-->
-            <ckeditor id="ciclRemarks" formControlName="ciclRemarks" [config]="ckeConfig"></ckeditor>
-          </div>
-        </div>
         <nb-card *ngIf="!crgLambdaDisabled">
           <nb-card-body>
             <div class="row">
@@ -175,6 +166,15 @@
             </div>
           </nb-card-body>
         </nb-card>
+      </div>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label for="ciclRemarks"><b>Remarks</b></label>
+          <!--          <textarea class="form-control" id="ciclRemarks" name="ciclRemarks"  formControlName="ciclRemarks"-->
+          <!--                    placeholder="remarks" rows="5" -->
+          <!--          ></textarea>-->
+          <ckeditor id="ciclRemarks" formControlName="ciclRemarks" [config]="ckeConfig"></ckeditor>
+        </div>
       </div>
       <div class="py-4 d-flex justify-content-end">
         <button nbButton (click)="onSubmit()">save</button>
