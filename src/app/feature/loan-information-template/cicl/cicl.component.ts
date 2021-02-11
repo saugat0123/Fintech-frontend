@@ -81,7 +81,7 @@ export class CiclComponent implements OnInit {
       ciclRemarks: [ObjectUtil.isEmpty(this.ciclValue) ? '' : this.ciclValue.remarks],
       repaymentTrack: [ObjectUtil.isEmpty(this.ciclValue) ? '' : this.ciclValue.repaymentTrack,
           this.crgLambdaDisabled ? undefined : Validators.required],
-      cibCharge: [ObjectUtil.isEmpty(this.ciclValue) ? undefined : this.ciclValue.cibCharge, [Validators.required, Validators.min(0)]]
+      cibCharge: [ObjectUtil.isEmpty(this.ciclValue) ? undefined : this.ciclValue.cibCharge]
     });
     if (!ObjectUtil.isEmpty(this.ciclList)) {
       if ((this.ciclList.length > 0)) {
