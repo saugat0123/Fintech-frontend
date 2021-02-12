@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 
 @Component({
   selector: 'app-micro-synopsis',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./micro-synopsis.component.scss']
 })
 export class MicroSynopsisComponent implements OnInit {
-
+  @Input() public customerInfo: CustomerInfoData;
   constructor() { }
 
   ngOnInit() {

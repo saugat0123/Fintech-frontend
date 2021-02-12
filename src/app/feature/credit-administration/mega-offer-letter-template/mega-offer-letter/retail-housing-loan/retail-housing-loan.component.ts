@@ -14,6 +14,7 @@ import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad
 import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {Editor} from '../../../../../@core/utils/constants/editor';
 import {NepaliEditor} from '../../../../../@core/utils/constants/nepaliEditor';
+import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
     selector: 'app-retail-housing-loan',
@@ -37,7 +38,9 @@ export class RetailHousingLoanComponent implements OnInit {
     note = '<ul><li><span style="font-family:Preeti">C0fL tyf JolQmutsf] ;DklQ v\'nfpg] lnvt -</span><span>Net Worth Statement<span style="font-family:Preeti">_ kmf]6f] tyf ;Dks{ 7]ufgf ;lxt k]z ug\'kg]{5 .</span></li>' +
         '<li><span style="font-family:Preeti">tcGo a}+sx?;+u u/]sf] sf/f]jf/ af/] lnlvt ?kdf v\'nfpg\'kg]{ -</span><span>Multiple Banking Declaration<span style="font-family:Preeti">_ k]z ug\'{kg]{5 .</span></li> ' +
         '<li><span style="font-family:Preeti">tpNn]lvt k|:tfljt crn ;DklQsf] k"0f{ d\'Nofªsg k|ltj]bg -</span><span>Complete Valuation Report<span style="font-family:Preeti">_ k]z ePkZrft dfq shf{ e\'Qmfg ul/g]5 .</span></li> </ul>';
-    @Input() cadOfferLetterApprovedDoc;
+    @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+
+    nepData;
 
 
     constructor(private formBuilder: FormBuilder,
@@ -60,25 +63,21 @@ export class RetailHousingLoanComponent implements OnInit {
         this.form = this.formBuilder.group({
             date: [undefined],
             loanData: this.formBuilder.array([]),
+            multiCollateral: this.formBuilder.array([]),
             referenceNo: [undefined],
             applicantRelative: [undefined],
             applicantName: [undefined],
-            parmanentAddress: [undefined],
+            permanentAddress: [undefined],
             currentAddress: [undefined],
             mobileNo: [undefined],
             housingFinance: this.formBuilder.array([]),
             mortgageFinance: this.formBuilder.array([]),
             mortgageOverdraft: this.formBuilder.array([]),
             clearanceDate: [undefined],
-            district: [undefined],
-            wardNo: [undefined],
-            statekeyNo: [undefined],
-            keyNo: [undefined],
             selectedArray: undefined,
             noteOfCollateral: this.note,
             facility: undefined,
             action: undefined,
-            link: undefined,
             registrationType: undefined,
             applicantRelativeOne: undefined,
             applicantRelativeTwo: undefined,
@@ -86,17 +85,14 @@ export class RetailHousingLoanComponent implements OnInit {
             previousOwner: undefined,
             landNumberPreviousOwnerShow: true,
             tableShow: true,
-            address: undefined,
-            garidinuparni: undefined,
             insuranceExpDate: undefined,
             byaj: undefined,
             intervalTime: undefined,
-            parichayaPatraNum1: undefined,
-            parichayaPatraNum2: undefined,
+            idCardNo1: undefined,
+            idCardNo2: undefined,
             pageCount: undefined,
         });
     }
-
 
 
     removeLoanDetail(index) {
@@ -114,7 +110,7 @@ export class RetailHousingLoanComponent implements OnInit {
     }
 
     setTableData(data) {
-        const formArray =  this.form.get('loanData') as FormArray;
+        const formArray = this.form.get('loanData') as FormArray;
         if (ObjectUtil.isEmpty(data)) {
             this.addTableData();
             return;
@@ -122,47 +118,80 @@ export class RetailHousingLoanComponent implements OnInit {
         data.forEach(value => {
             formArray.push(this.formBuilder.group({
                 description: [value.description],
-                sumInsured : [value.sumInsured],
+                sumInsured: [value.sumInsured],
                 riskBearer: [value.riskBearer],
             }));
         });
     }
 
-    checkOfferLetterData() {
-        if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
-            this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-                === this.offerLetterConst.value(this.offerLetterConst.RETAIL_HOUSING).toString())[0];
-            if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-                this.addEmptyHousingFinancial();
-                this.addEmptyMortgageOverdraft();
-                this.addEmptyMortgageFinance();
-                this.addTableData();
-                this.offerLetterDocument = new OfferDocument();
-                this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_HOUSING);
-            } else {
-                const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-                this.selectedArray = initialInfo.selectedArray;
-                console.log(initialInfo);
-                this.initialInfoPrint = initialInfo;
-                console.log(this.offerLetterDocument);
-                this.existingOfferLetter = true;
-                this.form.patchValue(initialInfo, {emitEvent: false});
-                // this.form.get('noteOfCollateral').patchValue(this.note);
-                if (!ObjectUtil.isEmpty(initialInfo)) {
-                    this.setHousingFinancial(initialInfo.housingFinance);
-                    this.setMortgageFinance(initialInfo.mortgageFinance);
-                    this.setMortgageOverdraft(initialInfo.mortgageOverdraft);
-                    this.setTableData(initialInfo.loanData);
+    collateralFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            dhitoApplicantName: undefined,
+            district: undefined,
+            wardNo: undefined,
+            address: undefined,
+            stateKeyNo: undefined,
+            keyNo: undefined,
+            link: undefined,
+            garidinuparni: undefined,
+        });
+    }
 
-                }
-                // else {
-                //     this.addEmptyHousingFinancial('housingFinance');
-                //     this.addEmptyHousingFinancial('mortgageFinance');
-                //     this.addEmptyHousingFinancial('mortgageOverdraft');
-                //
-                // }
-                this.initialInfoPrint = initialInfo;
+    addMoreCollateral() {
+        (this.form.get('multiCollateral') as FormArray).push(this.collateralFormGroup());
+    }
+
+    removeCollateral(index: number) {
+        (this.form.get('multiCollateral') as FormArray).removeAt(index);
+    }
+
+    setMultiCollateralLoanData(details) {
+        const multiCollateralDetails = this.form.get('multiCollateral') as FormArray;
+        details.forEach(data => {
+            multiCollateralDetails.push(
+                this.formBuilder.group({
+                    dhitoApplicantName: [data.dhitoApplicantName],
+                    district: [data.district],
+                    wardNo: [data.wardNo],
+                    address: [data.address],
+                    stateKeyNo: [data.stateKeyNo],
+                    keyNo: [data.keyNo],
+                    link: [data.link],
+                    garidinuparni: [data.garidinuparni],
+                })
+            );
+        });
+    }
+
+    checkOfferLetterData() {
+        this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
+            === this.offerLetterConst.value(this.offerLetterConst.RETAIL_HOUSING).toString())[0];
+        if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
+            this.addEmptyHousingFinancial();
+            this.addEmptyMortgageOverdraft();
+            this.addEmptyMortgageFinance();
+            this.addTableData();
+            this.addMoreCollateral();
+            this.offerLetterDocument = new OfferDocument();
+            this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_HOUSING);
+        } else {
+            const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+            this.selectedArray = initialInfo.selectedArray;
+            console.log(initialInfo);
+            this.initialInfoPrint = initialInfo;
+            console.log(this.offerLetterDocument);
+            this.existingOfferLetter = true;
+            this.form.patchValue(initialInfo, {emitEvent: false});
+            // this.form.get('noteOfCollateral').patchValue(this.note);
+            if (!ObjectUtil.isEmpty(initialInfo)) {
+                this.setHousingFinancial(initialInfo.housingFinance);
+                this.setMortgageFinance(initialInfo.mortgageFinance);
+                this.setMortgageOverdraft(initialInfo.mortgageOverdraft);
+                this.setTableData(initialInfo.loanData);
+                this.setMultiCollateralLoanData(initialInfo.multiCollateral);
+
             }
+            this.initialInfoPrint = initialInfo;
         }
     }
 
@@ -183,6 +212,7 @@ export class RetailHousingLoanComponent implements OnInit {
             years: undefined,
             baseRate: undefined,
             premiumRate: undefined,
+            yearlyRate: undefined,
             maxAmount: undefined,
             serviceChargePercent: undefined,
             serviceChargeAmount: undefined,
@@ -193,15 +223,15 @@ export class RetailHousingLoanComponent implements OnInit {
     }
 
     setHousingFinancial(data) {
-        const formArray =  this.form.get('housingFinance') as FormArray;
+        const formArray = this.form.get('housingFinance') as FormArray;
         if (ObjectUtil.isEmpty(data)) {
             this.addEmptyHousingFinancial();
             return;
         }
         data.forEach(value => {
             formArray.push(this.formBuilder.group({
-                Byaj:[value.Byaj],
-                loanAmount : [value.loanAmount],
+                Byaj: [value.Byaj],
+                loanAmount: [value.loanAmount],
                 loanAmountInWord: [value.loanAmountInWord],
                 month: [value.month],
                 prices: [value.prices],
@@ -214,6 +244,7 @@ export class RetailHousingLoanComponent implements OnInit {
                 years: [value.years],
                 baseRate: [value.baseRate],
                 premiumRate: [value.premiumRate],
+                yearlyRate: [value.yearlyRate],
                 maxAmount: [value.maxAmount],
                 serviceChargePercent: [value.serviceChargePercent],
                 serviceChargeAmount: [value.serviceChargeAmount],
@@ -243,23 +274,24 @@ export class RetailHousingLoanComponent implements OnInit {
             years: undefined,
             baseRate: undefined,
             premiumRate: undefined,
+            yearlyRate: undefined,
             maxAmount: undefined,
             serviceChargePercent: undefined,
             serviceChargeAmount: undefined,
-            purbaBhuktaniSulka1 : undefined,
-            purbaBhuktaniSukla2 : undefined,
+            purbaBhuktaniSulka1: undefined,
+            purbaBhuktaniSukla2: undefined,
         }));
     }
 
     setMortgageFinance(data) {
-        const formArray =  this.form.get('mortgageFinance') as FormArray;
+        const formArray = this.form.get('mortgageFinance') as FormArray;
         if (ObjectUtil.isEmpty(data)) {
             this.addEmptyMortgageFinance();
             return;
         }
         data.forEach(value => {
             formArray.push(this.formBuilder.group({
-                loanAmount : [value.loanAmount],
+                loanAmount: [value.loanAmount],
                 loanAmountInWord: [value.loanAmountInWord],
                 month: [value.month],
                 prices: [value.prices],
@@ -272,12 +304,12 @@ export class RetailHousingLoanComponent implements OnInit {
                 years: [value.years],
                 baseRate: [value.baseRate],
                 premiumRate: [value.premiumRate],
-                yearlyRate:[value.yearlyRate],
+                yearlyRate: [value.yearlyRate],
                 maxAmount: [value.maxAmount],
                 serviceChargePercent: [value.serviceChargePercent],
                 serviceChargeAmount: [value.serviceChargeAmount],
-                purbaBhuktaniSulka1 : [value.purbaBhuktaniSulka1],
-                purbaBhuktaniSulka2 : [value.purbaBhuktaniSulka2],
+                purbaBhuktaniSulka1: [value.purbaBhuktaniSulka1],
+                purbaBhuktaniSulka2: [value.purbaBhuktaniSulka2],
             }));
         });
     }
@@ -300,9 +332,9 @@ export class RetailHousingLoanComponent implements OnInit {
             loanRate: undefined,
             loanRateShow: true,
             use: undefined,
-            years: undefined,
             baseRate: undefined,
             premiumRate: undefined,
+            yearlyRate: undefined,
             maxAmount: undefined,
             serviceChargePercent: undefined,
             serviceChargeAmount: undefined,
@@ -313,14 +345,14 @@ export class RetailHousingLoanComponent implements OnInit {
     }
 
     setMortgageOverdraft(data) {
-        const formArray =  this.form.get('mortgageOverdraft') as FormArray;
+        const formArray = this.form.get('mortgageOverdraft') as FormArray;
         if (ObjectUtil.isEmpty(data)) {
             this.addEmptyMortgageOverdraft();
             return;
         }
         data.forEach(value => {
             formArray.push(this.formBuilder.group({
-                loanAmount : [value.loanAmount],
+                loanAmount: [value.loanAmount],
                 loanAmountInWord: [value.loanAmountInWord],
                 month: [value.month],
                 prices: [value.prices],
@@ -333,6 +365,7 @@ export class RetailHousingLoanComponent implements OnInit {
                 years: [value.years],
                 baseRate: [value.baseRate],
                 premiumRate: [value.premiumRate],
+                yearlyRate: [value.yearlyRate],
                 maxAmount: [value.maxAmount],
                 serviceChargePercent: [value.serviceChargePercent],
                 serviceChargeAmount: [value.serviceChargeAmount],
@@ -346,6 +379,7 @@ export class RetailHousingLoanComponent implements OnInit {
     removeMortgageOverdraft(index) {
         (this.form.get('mortgageOverdraft') as FormArray).removeAt(index);
     }
+
     change(arraySelected) {
         console.log(arraySelected, 'sel');
         this.selectedArray = arraySelected;
@@ -368,7 +402,6 @@ export class RetailHousingLoanComponent implements OnInit {
         }
 
     }
-
 
 
     submit(): void {
@@ -412,6 +445,7 @@ export class RetailHousingLoanComponent implements OnInit {
         }
         this.form.get([formArrayName, index, formControlName]).patchValue(false);
     }
+
     undoRemovalOfOptionalField(formArrayName, index, formControlName) {
         if (ObjectUtil.isEmpty(formArrayName)) {
             this.form.get(formControlName).patchValue(true);

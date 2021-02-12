@@ -283,7 +283,7 @@
           ></app-credit-checklist-general>
         </nb-accordion-item-body>
       </nb-accordion-item>
-      <nb-accordion-item>
+      <nb-accordion-item *ngIf="customerInfo?.customerType === 'INSTITUTION'">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -300,7 +300,7 @@
           </div>
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <app-micro-synopsis></app-micro-synopsis>
+          <app-micro-synopsis [customerInfo]="customerInfo"></app-micro-synopsis>
         </nb-accordion-item-body>
       </nb-accordion-item>
       <!--   CRG GAMMA-->
