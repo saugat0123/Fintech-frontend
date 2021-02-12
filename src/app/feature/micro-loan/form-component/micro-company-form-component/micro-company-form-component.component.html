@@ -1,1 +1,62 @@
-<p>micro-company-form-component works!</p>
+<form [formGroup]="microCustomerForm">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="loanProducts"><strong>Loan products</strong></label>
+                    <textarea id="loanProducts" formControlName="loanProducts" name="loanProducts" type="text"
+                              class="form-control" placeholder="Loan products" rows="5"
+                              [ngClass]="{ 'is-invalid': (submitted) && form.additionalInfoRemark.errors }"></textarea>
+                    <div *ngIf="(submitted) && form.additionalInfoRemark.invalid"
+                         class="invalid-feedback">
+                        <div *ngIf="form.additionalInfoRemark.errors.required">
+                            Loan Products is required
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="loanProducts"><strong>Saving Products</strong></label>
+                    <textarea id="savingProducts" formControlName="savingProducts" name="savingProducts" type="text"
+                              class="form-control" placeholder="Saving Products" rows="5"
+                              [ngClass]="{ 'is-invalid': (submitted) && form.savingProducts.errors }"></textarea>
+                    <div *ngIf="(submitted) && form.savingProducts.invalid"
+                         class="invalid-feedback">
+                        <div *ngIf="form.savingProducts.errors.required">
+                            Saving Products is required
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="loanProducts"><strong> Other products</strong></label>
+                    <textarea id="otherProducts" formControlName="otherProducts" name="otherProducts" type="text"
+                              class="form-control" placeholder=" Other products" rows="5"
+                              [ngClass]="{ 'is-invalid': (submitted) && form.savingProducts.errors }"></textarea>
+                    <div *ngIf="(submitted) && form.savingProducts.invalid"
+                         class="invalid-feedback">
+                        <div *ngIf="form.savingProducts.errors.required">
+                            Other Products is required
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+               <div class="col-md-12">
+                   <div class="form-group">
+                       <label for="repaymentSchedule" class="title"><strong>Repayment Schedule</strong></label>
+                       <ckeditor [config]="ckeConfig"
+                                 [style]="{height:'250px !important;'}"
+                                 formControlName="repaymentSchedule"
+                                 id="repaymentSchedule"></ckeditor>
+                       <div *ngIf="submitted && microCustomerForm.get('repaymentSchedule').errors"
+                            class="invalid-feedback">
+                           Value is required!
+                       </div>
+                   </div>
+               </div>
+    </div>
+</form>

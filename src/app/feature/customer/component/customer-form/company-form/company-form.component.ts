@@ -179,6 +179,7 @@ export class CompanyFormComponent implements OnInit {
             this.srdbAffiliatedId = true;
         }
         this.companyInfo = this.formValue;
+        this.microCustomer = this.formValue.isMicroCustomer;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
             this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
             this.additionalFieldSelected = true;
@@ -822,6 +823,7 @@ export class CompanyFormComponent implements OnInit {
         }
         this.spinner = true;
         this.companyInfo = new CompanyInfo();
+        this.companyInfo.isMicroCustomer = this.microCustomer;
         // Company Information--
         this.companyInfo.id = this.companyInfoFormGroup.get('companyId').value;
         this.companyInfo.companyName = this.companyInfoFormGroup.get('companyName').value;
