@@ -1,5 +1,5 @@
 <div class="container nep text-justify">
-    <form (ngSubmit)="submit()" [formGroup]="personalGuarantee"  class="nep">
+    <form (ngSubmit)="submit()" [formGroup]="personalGuarantee"  class="nep" id="personalGuaranteePrint">
         <h4 class="text-center">जमानीपत्र</h4>
         <div class="row">
             <div class="col-md-12">
@@ -10,24 +10,28 @@
                            placeholder=""
                            formControlName="officeDistrict"
                            type="text"/>
+                           <span class="print-only nepaliFont"><b>{{personalGuarantee.get('officeDistrict').value ? personalGuarantee.get('officeDistrict').value  : '========='}}</b></span>
                     जिल्ला
                     <input class="form-field form-control-sm nepaliFont"
                            name="municipalityName"
                            placeholder=""
                            formControlName="municipalityName"
                            type="text"/>
+                           <span class="print-only nepaliFont"><b>{{personalGuarantee.get('municipalityName').value ? personalGuarantee.get('municipalityName').value  : '========='}}</b></span>
                     महानगरपालिका/उपमहानगरपालिका वडा नं.
                     <input class="form-field form-control-sm nepaliFont"
                            name="officeWardNo"
                            placeholder=""
                            formControlName="officeWardNo"
                            type="text"/>
+                           <span class="print-only nepaliFont"><b>{{personalGuarantee.get('officeWardNo').value ?personalGuarantee .get('officeWardNo').value  : '========='}}</b></span>
                     स्थित
                     <input class="form-field form-control-sm nepaliFont"
                            name="officeBranch"
                            placeholder=""
                            formControlName="officeBranch"
                            type="text"/>
+                           <span class="print-only nepaliFont"><b>{{personalGuarantee.get('officeBranch').value ?personalGuarantee .get('officeBranch').value  : '========='}}</b></span>
                     कार्यालय  (जसलाई यस उप्रान्त यस लिखतमा धनी बैंक भनिएको छ) जमानीको लिखत गरि दिनेका नाम
                     श्री
                     <input class="form-field form-control-sm nepaliFont"
@@ -35,18 +39,21 @@
                            placeholder=""
                            formControlName="grandFatherName"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('grandFatherName').value ?personalGuarantee .get('grandFatherName').value  : '========='}}</b></span>
                     को नाति/नातिनी/बुहारी, श्री
                     <input class="form-field form-control-sm nepaliFont"
                            name="fatherName"
                            placeholder=""
                            formControlName="fatherName"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('fatherName').value ?personalGuarantee .get('fatherName').value  : '========='}}</b></span>
                     को छोरा/छोरी/पत्नी,
                     <input class="form-field form-control-sm nepaliFont"
                            name="districtName"
                            placeholder=""
                            formControlName="districtName"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('districtName').value ?personalGuarantee .get('districtName').value  : '========='}}</b></span>
                     जिल्ला
 
                     <input class="form-field form-control-sm nepaliFont"
@@ -54,13 +61,15 @@
                            placeholder=""
                            formControlName="municipalityOrVdc"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('municipalityOrVdc').value ?personalGuarantee .get('').value  : '========='}}</b></span>
                     महानगरपालिका/नगरपालिका/गा.वि.स. वडा नं
 
                     <input class="form-field form-control-sm nepaliFont"
                            name="wardNo"
                            placeholder=""
-                           formControlName="wardNo"
+                           formControlName="wa r"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('').value ?personalGuarantee .get('').value  : '========='}}</b></span>
 
                     बस्ने बर्ष
                     <input class="form-field form-control-sm nepaliFont"
@@ -68,6 +77,7 @@
                            placeholder=""
                            formControlName="guarantorAge"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('').value ?personalGuarantee .get('').value  : '========='}}</b></span>
 
                     को/की श्री/श्रीमती/सुश्री
 
@@ -76,6 +86,7 @@
                            placeholder=""
                            formControlName="guarantorName"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('').value ?personalGuarantee .get('').value  : '========='}}</b></span>
 
                     (ना.प्र.प नं.
                     <input class="form-field form-control-sm nepaliFont"
@@ -83,78 +94,91 @@
                            placeholder=""
                            formControlName="citizenshipNo"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('').value ?personalGuarantee .get('').value  : '========='}}</b></span>
                     मिति
                     <input class="form-field form-control-sm nepaliFont"
                            name="citizenshipIssuedDate"
                            placeholder=""
                            formControlName="citizenshipIssuedDate"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('').value ?personalGuarantee .get('').value  : '========='}}</b></span>
                     मा जिल्ला प्रशासन कार्यालय
                     <input class="form-field form-control-sm nepaliFont"
                            name="citizenshipIssuedOffice"
                            placeholder=""
                            formControlName="citizenshipIssuedOffice"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('').value ?personalGuarantee .get('').value  : '========='}}</b></span>
                     बाट जारी भएको) आगे तपाई धनी बैंकले मेरो जमानी बसिदिने शर्तमा
                     <input class="form-field form-control-sm nepaliFont"
                            name="borrowerGrandFather"
                            placeholder=""
                            formControlName="borrowerGrandFather"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('').value ?personalGuarantee .get('').value  : '========='}}</b></span>
                     को नाति/नातिनी/बुहारी,
                     <input class="form-field form-control-sm nepaliFont"
                            name="borrowerFatherName2"
                            placeholder=""
                            formControlName="borrowerFatherName2"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('').value ?personalGuarantee .get('').value  : '========='}}</b></span>
                     को छोरा/छोरी/पत्नी,
                     <input class="form-field form-control-sm nepaliFont"
                            name="borrowerDistrict"
                            placeholder=""
                            formControlName="borrowerDistrict"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('borrowerDistrict').value ?personalGuarantee .get('borrowerDistrict').value  : '========='}}</b></span>
                     जिल्ला
                     <input class="form-field form-control-sm nepaliFont"
                            name="borrowerMunicipalityOrVdc"
                            placeholder=""
                            formControlName="borrowerMunicipalityOrVdc"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('borrowerMunicipalityOrVdc').value ?personalGuarantee .get('borrowerMunicipalityOrVdc').value  : '========='}}</b></span>
                     महानगरपालिका/नगरपालिकारउपनगरपालिका वडा नं
                     <input class="form-field form-control-sm nepaliFont"
                            name="borrowerWardNo"
                            placeholder=""
                            formControlName="borrowerWardNo"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('borrowerWardNo').value ?personalGuarantee .get('borrowerWardNo').value  : '========='}}</b></span>
                     बस्ने बर्ष
                     <input class="form-field form-control-sm nepaliFont"
                            name="borrowerAge"
                            placeholder=""
                            formControlName="borrowerAge"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('borrowerAge').value ?personalGuarantee .get('borrowerAge').value  : '========='}}</b></span>
                     कोरकी श्री/श्रीमती/सुश्री
                     <input class="form-field form-control-sm nepaliFont"
                            name="borrowerName"
                            placeholder=""
                            formControlName="borrowerName"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('borrowerName').value ?personalGuarantee .get('borrowerName').value  : '========='}}</b></span>
                     ( ना.प्र.प नं.
                     <input class="form-field form-control-sm nepaliFont"
                            name="borrowerCitizenshipNo"
                            placeholder=""
                            formControlName="borrowerCitizenshipNo"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('borrowerCitizenshipNo').value ?personalGuarantee .get('borrowerCitizenshipNo').value  : '========='}}</b></span>
                     मिति
                     <input class="form-field form-control-sm nepaliFont"
                            name="borrowerCitizenshipIssuedDate"
                            placeholder=""
                            formControlName="borrowerCitizenshipIssuedDate"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('borrowerCitizenshipIssuedDate').value ?personalGuarantee .get('borrowerCitizenshipIssuedDate').value  : '========='}}</b></span>
                     मा जिल्ला प्रशासन कार्यालय
                     <input class="form-field form-control-sm nepaliFont"
                            name="borrowerCitizenshipIssuedOffice"
                            placeholder=""
                            formControlName="borrowerCitizenshipIssuedOffice"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('borrowerCitizenshipIssuedOffice').value ?personalGuarantee .get('borrowerCitizenshipIssuedOffice').value  : '========='}}</b></span>
                     बाट जारी भएको) जसलाई यस उप्रान्त यस लिखतमा ऋणी भनिएको छ ) लाई यस अघि समय समयमा प्रदान गरेको, गर्दै आएको, हाल प्रदान गरिएको र साथै भविष्यमा
                     प्रदान गर्ने जम्मा रु.
                     <input class="form-field form-control-sm nepaliFont"
@@ -162,12 +186,14 @@
                            placeholder=""
                            formControlName="loanAmount"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('loanAmount').value ?personalGuarantee .get('loanAmount').value  : '========='}}</b></span>
                     (अक्षरेपी
                     <input class="form-field form-control-sm nepaliFont"
                            name="loanAmountInWord"
                            placeholder=""
                            formControlName="loanAmountInWord"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('loanAmountInWord').value ?personalGuarantee .get('loanAmountInWord').value  : '========='}}</b></span>
                     )
                     सम्मको बिभिन्न विभिन्न कर्जा सुविधा तथा बैंक जमानत आदि लगायत अन्य बैंकिङ्ग  कारोवार सुबिधाको लागि तपाई धनी बैंक र ऋणीका विच
                     मिति
@@ -176,6 +202,7 @@
                            placeholder=""
                            formControlName="loanApprovalDate"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('loanApprovalDate').value ?personalGuarantee .get('loanApprovalDate').value  : '========='}}</b></span>
                     मा सम्पन्न ऋण स्विकृतीपत्र (Offer Letter) संझौता तथा अन्य लिखत कागजात तथा सो नविकरण भएमा सो समेत बमोजिम ऋणीले तपाई धनी बैंकलाई तिर्न बुझाउन पर्ने सांवा,
                     व्याज, कमिशन फी, मार्जिन आदि अन्य रकम कलम वापत जमानत बसी दिन मेरो मंजुरी भएकोले तपाई धनी बैंकलाई ऋणीले तिर्न बुझाउन पर्ने उल्लेखित कर्जा तथा बैंकिङ्ग
                     कारोवार रकम कलम तपाई धनी बैंकले माग गरेमा तपसिलको शर्तबन्देजको अधिनमा रही जमानीकर्ताले तिर्न बुझाउन मंजुर गरी यो जमानीको लिखत गरिदिएको छु । तपाई धनी बैंकले
@@ -248,24 +275,28 @@
                                     formControlName="documentWrittenYear"
                                     type="text"
                                     size="10"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('documentWrittenYear').value ? personalGuarantee.get('documentWrittenYear').value  : '========='}}</b></span>
                     साल
                     <input class="form-field form-control-sm shortInput nepaliFont"
                            name="documentWrittenMonth"
                            placeholder=""
                            formControlName="documentWrittenMonth"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('documentWrittenMonth').value ? personalGuarantee.get('documentWrittenMonth').value  : '========='}}</b></span>
                     महिना
                     <input class="form-field form-control-sm shortInput nepaliFont"
                            name="documentWrittenDay"
                            placeholder=""
                            formControlName="documentWrittenDay"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('documentWrittenDay').value ? personalGuarantee.get('documentWrittenDay').value  : '========='}}</b></span>
                     गते रोज
                     <input class="form-field form-control-sm nepaliFont"
                            name="documentWrittenWeek"
                            placeholder=""
                            formControlName="documentWrittenWeek"
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('documentWrittenWeek').value ? personalGuarantee.get('documentWrittenWeek').value  : '========='}}</b></span>
                     शुभम् ।
                 </p>
             </div>
@@ -282,6 +313,7 @@
                                formControlName="bankStaffName"
                                placeholder=""
                                type="text"/>
+                        <span class="print-only nepaliFont"><b>{{personalGuarantee.get('bankStaffName').value ? personalGuarantee.get('bankStaffName').value  : '========='}}</b></span>
                     </p>
                     <p>
                         २.<input class="form-field form-control-sm nepaliFont"
@@ -289,12 +321,14 @@
                                  formControlName="witnessDistrict"
                                  placeholder=""
                                  type="text"/>
+                        <span class="print-only nepaliFont"><b>{{personalGuarantee.get('witnessDistrict').value ? personalGuarantee.get('witnessDistrict').value  : '========='}}</b></span>
                         जिल्ला
                         <input class="form-field form-control-sm nepaliFont"
                                name="witnessMunicipalityOrVdc"
                                formControlName="witnessMunicipalityOrVdc"
                                placeholder=""
                                type="text"/>
+                        <span class="print-only nepaliFont"><b>{{personalGuarantee.get('witnessMunicipalityOrVdc').value ? personalGuarantee.get('witnessMunicipalityOrVdc').value  : '========='}}</b></span>
                         नगरपालिका/गा.बि.स वडा नं
                         <input class="form-field form-control-sm nepaliFont"
                                name="witnessWardNo"
@@ -302,26 +336,34 @@
                                placeholder=""
                                type="text"
                                size="2"/>
+                        <span class="print-only nepaliFont"><b>{{personalGuarantee.get('witnessWardNo').value ? personalGuarantee.get('witnessWardNo').value  : '========='}}</b></span>
                         बस्ने बर्ष
                         <input class="form-field form-control-sm nepaliFont"
                                name="witnessAge"
                                formControlName="witnessAge"
                                placeholder=""
                                type="text"/>
+                        <span class="print-only nepaliFont"><b>{{personalGuarantee.get('witnessAge').value ? personalGuarantee.get('witnessAge').value  : '========='}}</b></span>
                         को/की
                         <input class="form-field form-control-sm nepaliFont"
                                name="witnessName"
                                formControlName="witnessName"
                                placeholder=""
                                type="text"/>
+                        <span class="print-only nepaliFont"><b>{{personalGuarantee.get('witnessName').value ? personalGuarantee.get('witnessName').value  : '========='}}</b></span>
                     </p>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row disable-print">
             <div class="col-md-12 text-right">
-                <button nbButton status="success" type="submit">Save</button>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="personalGuaranteePrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="personalGuaranteePrint" class="mr-2 custom-color" >Print</button>
+                <button nbButton status="success" (click)="submit()">Save</button>
+
+
             </div>
+
         </div>
     </form>
 </div>

@@ -1,5 +1,5 @@
 <div class="container nep text-justify">
-    <form (ngSubmit)="submit()" [formGroup]="promissorySingleNote" class="nep">
+    <form (ngSubmit)="submit()" [formGroup]="promissorySingleNote" class="nep" id="promissorySingleNotePrint">
         <div>
             <h1 style="text-align: center;">
                 प्रतिज्ञा पत्र
@@ -13,83 +13,99 @@
         </div> <!-- Header -->
         <div class="col-md-12">
             <p>रु<input class="form-field form-control-sm nepaliFont" formControlName="amount" name="amount" placeholder="" type="text"/>
-                (अक्षरेपी <input class="form-field form-control-sm nepaliFont"name="amountInWord"  formControlName="amountInWord" placeholder=""  type="text"/> )<br>
+                <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('amount').value ? promissorySingleNote.get('amount').value  : '========='}}</b></span>
+                (अक्षरेपी <input class="form-field form-control-sm nepaliFont"name="amountInWord"  formControlName="amountInWord" placeholder=""  type="text"/>
+                <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('amountInWord').value ?promissorySingleNote .get('amountInWord').value  : '========='}}</b></span>)<br>
                 <br>
 
                 लिखितम् श्री <input class="form-field form-control-sm nepaliFont" name="grandFatherName"  formControlName="grandFatherName" placeholder=""    type="text"/>
+                <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('grandFatherName').value ?promissorySingleNote .get('grandFatherName').value  : '========='}}</b></span>
                 को/की नाति/नातिनी/बुहारी श्री<input class="form-field form-control-sm nepaliFont" name="fatherName" formControlName="fatherName" placeholder=""    type="text"/>
+                <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('fatherName').value ?promissorySingleNote .get('fatherName').value  : '========='}}</b></span>
 
                 को छोरा/छोरी/श्रीमती
                 <input class="form-field form-control-sm nepaliFont"  name="perDistrictName"
                        formControlName="perDistrict"
                        placeholder=""
                        type="text"/>
+                <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('perDistrict').value ?promissorySingleNote .get('perDistrict').value  : '========='}}</b></span>
                 जिल्ला
                 <input class="form-field form-control-sm nepaliFont"
                        formControlName="perMunicipalityOrVdc"
                        name="perMunicipalityOrVdc"
                        placeholder=""
                        type="text"/>
+                <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('perMunicipalityOrVdc').value ?promissorySingleNote .get('perMunicipalityOrVdc').value  : '========='}}</b></span>
                 न.पा/गा.वि.स. वडा नं
                 <input class="form-field form-control-sm nepaliFont"
                        formControlName="perWardNo"
                        name="perWardNo"
                        placeholder=""
                        type="text"/>
+                <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('perWardNo').value ?promissorySingleNote .get('perWardNo').value  : '========='}}</b></span>
                 स्थायी ठेगाना भई हाल
                 <input class="form-field form-control-sm nepaliFont"
                        name="currentDistrict"
                        formControlName="currentDistrict"
                        placeholder=""
                        type="text"/>
+                <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('currentDistrict').value ?promissorySingleNote .get('currentDistrict').value  : '========='}}</b></span>
                 जिल्ला
                 <input class="form-field form-control-sm nepaliFont"
                        name="CurrentMunicipalityOrVdc"
                        formControlName="CurrentMunicipalityOrVdc"
                        placeholder=""
                        type="text"/>
+                <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('CurrentMunicipalityOrVdc').value ?promissorySingleNote .get('CurrentMunicipalityOrVdc').value  : '========='}}</b></span>
                 न.पा./गा.वि.स. वडा नं
                 <input class="form-field form-control-sm nepaliFont"
                        formControlName="CurrentWardNo"
                        name="CurrentWardNo"
                        placeholder=""
                        type="text"/>
+                <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('CurrentWardNo').value ?promissorySingleNote .get('CurrentWardNo').value  : '========='}}</b></span>
                 बर्ष
                 <input class="form-field form-control-sm nepaliFont"
                        formControlName="borrowerAge"
                        name="borrowerAge"
                        placeholder=""
                        type="text"/>
+                <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('borrowerAge').value ?promissorySingleNote .get('borrowerAge').value  : '========='}}</b></span>
                 को/की श्री/सुश्री/श्रीमती
                 <input class="form-field form-control-sm nepaliFont"
                        name="borrowerName"
                        formControlName="borrowerName"
                        placeholder=""
                        type="text"/>
+                <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('borrowerName').value ?promissorySingleNote .get('borrowerName').value  : '========='}}</b></span>
                 (ना.प्र.नं
                 <input class="form-field form-control-sm nepaliFont"
                        name="citizenshipNo"
                        formControlName="citizenshipNo"
                        placeholder=""
                        type="text"/>
+                <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('citizenshipNo').value ?promissorySingleNote .get('citizenshipNo').value  : '========='}}</b></span>
                 मिति
                 <input class="form-field form-control-sm nepaliFont"
                        name="citizenshipIssuedDate"
                        formControlName="citizenshipIssuedDate"
                        placeholder=""
                        type="text"/>
+                <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('citizenshipIssuedDate').value ?promissorySingleNote .get('citizenshipIssuedDate').value  : '========='}}</b></span>
                 .जि.प्र.का
                 <input class="form-field form-control-sm nepaliFont"
                        name="districtOffice"
                        formControlName="districtOffice"
                        placeholder=""
-                       type="text"/>)
+                       type="text"/>
+                <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('districtOffice').value ?promissorySingleNote .get('districtOffice').value  : '========='}}</b></span>)
                 आगे,तपाई मेगा बैंक नेपाल लिमिठे
                 <input class="form-field form-control-sm nepaliFont"
                        name="bankBranch"
                        formControlName="bankBranch"
                        placeholder=""
                        type="text"/>
+                <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('bankBranch').value ?promissorySingleNote .get('bankBranch').value  : '========='}}</b></span>
                 कार्यालय ले भुक्तानी
                 माग गरेका वखत तपाईलाई वा तपाईले निर्देशन दिएको व्यक्ति/संस्थालाई रु.
                 <input class="form-field form-control-sm nepaliFont"
@@ -97,18 +113,23 @@
                        formControlName="loanAmount"
                        placeholder=""
                        type="text"/>
+                <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('loanAmount').value ?promissorySingleNote .get('loanAmount').value  : '========='}}</b></span>
                 (अक्षरेपी
                 <input class="form-field form-control-sm nepaliFont"
                        name="loanAmountInWord"
                        formControlName="loanAmountInWord"
                        placeholder=""
-                       type="text"/>)
+                       type="text"/>
+                <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('loanAmountInWord').value ?promissorySingleNote .get('loanAmountInWord').value  : '========='}}</b></span>
+                )
                 र भुक्तानी माग गरेको मिति सम्मको बार्षिक
                 <input class="form-field form-control-sm nepaliFont"
                        name="loanInterest"
                        formControlName="loanInterest"
                        placeholder=""
                        type="text"/>
+                <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('loanInterest').value ?promissorySingleNote .get('loanInterest').value  : '========='}}</b></span>
+
                 प्रतिशतका दरले हुने ब्याज रकम समेत एकमुष्ठ तिर्न बुझाउन प्रतिज्ञा / कबुल गरी यो प्रतिज्ञापत्रको लिखत गरी दिएं ।
 
             </p>
@@ -126,6 +147,8 @@
                            formControlName="docWrittenName"
                            placeholder=""
                            type="text"/>
+                    <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('docWrittenName').value ?promissorySingleNote .get('docWrittenName').value  : '========='}}</b></span>
+
                     <br><br>
                     दस्तखतः<br><br>
 
@@ -152,6 +175,8 @@
                                        formControlName="witnessName"
                                        placeholder=""
                                        type="text"/>
+                    <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('witnessName').value ?promissorySingleNote .get('witnessName').value  : '========='}}</b></span>
+
                 </p>
                 <p>
                     (३)	ठेगानाः<input class="form-field form-control-sm nepaliFont"
@@ -159,6 +184,8 @@
                                          formControlName="witnessAddress"
                                          placeholder=""
                                          type="text"/>
+                    <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('witnessAddress').value ?promissorySingleNote .get('witnessAddress').value  : '========='}}</b></span>
+
                 </p>
                 <br>
                 <p>
@@ -170,6 +197,8 @@
                                       formControlName="witnessName1"
                                       placeholder=""
                                       type="text"/>
+                    <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('witnessName1').value ?promissorySingleNote .get('witnessName1').value  : '========='}}</b></span>
+
                 </p>
                 <p>
                     (६)	ठेगानाः<input class="form-field form-control-sm nepaliFont"
@@ -177,14 +206,19 @@
                                          formControlName="witnessAddress1"
                                          placeholder=""
                                          type="text"/>
+                    <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('witnessAddress1').value ?promissorySingleNote .get('witnessAddress1').value  : '========='}}</b></span>
+
                 </p>
             </div>
         </div>
         <!-- Footer -->
-        <div class="row">
+        <div class="row disable-print">
             <div class="col-md-12 text-right">
-                <button nbButton status="success" type="submit">Save</button>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="promissorySingleNotePrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="promissorySingleNotePrint" class="mr-2 custom-color" >Print</button>
+                <button nbButton status="success" (click)="submit()">Save</button>
+
+
             </div>
-        </div>
     </form>
 </div>
