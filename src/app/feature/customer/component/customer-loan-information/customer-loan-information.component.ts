@@ -26,6 +26,7 @@ import {IncomeFromAccount} from '../../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 import {CreditChecklistGeneral} from '../../../loan/model/creditChecklistGeneral';
 import {CustomerType} from '../../model/customerType';
+import {Customer} from '../../../admin/modal/customer';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -37,6 +38,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   @Input() public customerInfoId: number;
   @Input() public customerInfo: CustomerInfoData;
   @Input() public companyInfo: CompanyInfo;
+  @Input()isMicroCustomer: boolean;
 
   @ViewChild('siteVisitComponent', {static: false})
   public siteVisitComponent: SiteVisitComponent;
@@ -99,6 +101,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.isMicroCustomer);
     if (!ObjectUtil.isEmpty(this.customerInfo.siteVisit)) {
       this.siteVisit = this.customerInfo.siteVisit;
     }

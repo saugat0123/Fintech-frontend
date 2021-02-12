@@ -76,8 +76,44 @@
                          [fromProfile]="true"></app-financial>
         </nb-accordion-item-body>
       </nb-accordion-item>
+        <nb-accordion-item #loanPortofolio *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
+          <nb-accordion-item-header>
+            <div class="row col-md-12">
+              <div class="col-md-8">
+                <span>Loan Portfolios of borrowers</span>
+              </div>
+            </div>
+          </nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <app-borrower-loan-portofolio></app-borrower-loan-portofolio>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+        <nb-accordion-item #marketingActivities *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
+          <nb-accordion-item-header>
+            <div class="row col-md-12">
+              <div class="col-md-8">
+                <span>Marketing Activities</span>
+              </div>
+            </div>
+          </nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <app-marketing-activities></app-marketing-activities>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+        <nb-accordion-item #baselWiseRiskExposure *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
+          <nb-accordion-item-header>
+            <div class="row col-md-12">
+              <div class="col-md-8">
+                <span>BASEL wise Risk Weighted Exposure</span>
+              </div>
+            </div>
+          </nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <app-basel-risk-exposure></app-basel-risk-exposure>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
 
-      <nb-accordion-item #itemIncomeFromAccount>
+      <nb-accordion-item #itemIncomeFromAccount *ngIf="!isMicroCustomer">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -178,7 +214,7 @@
                          [guarantorDetailValue]="customerInfo?.guarantors" [customerInfo]="customerInfo"></app-guarantor>
         </nb-accordion-item-body>
       </nb-accordion-item>
-      <nb-accordion-item #itemInsurance>
+      <nb-accordion-item #itemInsurance *ngIf="!isMicroCustomer">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -256,7 +292,7 @@
 <!--        </nb-accordion-item-body>-->
 <!--      </nb-accordion-item>-->
       <!--  DEFAULT CRG-->
-      <nb-accordion-item #itemloanChecklist>
+      <nb-accordion-item #itemloanChecklist *ngIf="!isMicroCustomer">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
