@@ -319,7 +319,7 @@
           ></app-credit-checklist-general>
         </nb-accordion-item-body>
       </nb-accordion-item>
-      <nb-accordion-item *ngIf="customerInfo?.customerType === 'INSTITUTION'">
+      <nb-accordion-item *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">

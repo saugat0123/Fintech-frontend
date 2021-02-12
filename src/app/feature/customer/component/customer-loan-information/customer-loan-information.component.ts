@@ -139,10 +139,6 @@ export class CustomerLoanInformationComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.customerInfo.creditChecklist)) {
       this.creditChecklistGeneral = this.customerInfo.creditChecklist;
     }
-    console.log('customer type:')
-    console.log(this.customerType)
-    console.log('customer info:')
-    console.log(this.customerInfo)
   }
 
   public saveSiteVisit(data: string) {
