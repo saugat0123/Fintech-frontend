@@ -358,6 +358,108 @@
     </table>
   </div>
 
+  <!-- Added new hypothecation-->
+  <div class="row" *ngIf="hypothecation">
+    <div class="col-md-12">
+      <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+             *ngFor="let hypothecationOfStock of securityData['initialForm']['hypothecationOfStock']; let i= index">
+
+        <tr>
+          <th class="text-center" colspan="9">Hypothecation Of Stock</th>
+        </tr>
+        <tr class="text-center sb-bg-dark text-white">
+          <th>S.N</th>
+          <th colspan="3">Owner</th>
+          <th colspan="2">Stock Location</th>
+          <th colspan="2">Value</th>
+          <th>Collateral Owner Relationship</th>
+        </tr>
+        <tr>
+          <td rowspan="4">{{i + 1}}</td>
+          <td class="text-left pl-1" colspan="3">{{hypothecationOfStock?.owner}}</td>
+          <td class="text-left pl-1" colspan="2">{{hypothecationOfStock?.stock}}</td>
+          <td class="text-right pr-1" colspan="2">Rs. {{hypothecationOfStock?.value | currencyFormatter}}</td>
+          <td class="text-right pr-1">{{hypothecationOfStock?.hypothecationOwnerRelationship}}</td>
+        </tr>
+        <!-- owner Kyc hypothecation -->
+        <tr class="text-center sb-bg-dark text-white">
+          <th>Relation</th>
+          <th>Name</th>
+          <th>Citizenship Number</th>
+          <th colspan="2">Issued District</th>
+          <th>Issued Date</th>
+          <th>Mobile Number</th>
+          <th colspan="2">Address</th>
+        </tr>
+        <ng-container *ngFor="let kyc of hypothecationOfStock?.ownerKycApplicableData?.ownerKycDetails; let j = index">
+          <tr>
+            <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
+            <td class="text-left pl-1">{{kyc?.relationName}}</td>
+            <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
+            <td colspan="2" class="text-left pl-1">{{kyc?.issuedLocation}}</td>
+            <td class="text-left pl-1">{{kyc?.issuedDate | date}}</td>
+            <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
+            <td colspan="2" class="text-left pl-1">{{kyc?.address}}</td>
+          </tr>
+        </ng-container>
+      </table>
+    </div>
+  </div>
+
+  <!--  Corporate Guarantee-->
+  <div class="row" *ngIf="corporate">
+    <div class="col-md-12">
+      <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+
+        <tr>
+          <th class="text-center" colspan="6">Corporate Guarantee</th>
+        </tr>
+        <tr class="sb-bg-dark text-white">
+          <th>S.N</th>
+          <th>Name of Guarantor</th>
+          <th>Address</th>
+          <th>Key person</th>
+          <th>Email address</th>
+          <th>Phone number</th>
+        </tr>
+        <tr *ngFor="let corporateGuarantee of securityData['initialForm']['corporateGuarantee']; let i= index">
+          <td>{{i + 1}}</td>
+          <td class="text-left pl-1">{{corporateGuarantee?.name}}</td>
+          <td class="text-left pl-1">{{corporateGuarantee?.address}}</td>
+          <td class="text-left pl-1">{{corporateGuarantee?.keyPerson}}</td>
+          <td class="text-left pl-1">{{corporateGuarantee?.email}}</td>
+          <td class="text-right pr-1">{{corporateGuarantee?.phoneNumber}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+<!--  Personal Guarantee-->
+  <div class="row" *ngIf="personal">
+    <div class="col-md-12">
+      <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+
+        <tr>
+          <th class="text-center" colspan="5">Personal Guarantee</th>
+        </tr>
+        <tr class="sb-bg-dark text-white">
+          <th>S.N</th>
+          <th>Name of Guarantor</th>
+          <th>Address</th>
+          <th>Email address</th>
+          <th>Phone number</th>
+        </tr>
+        <tr *ngFor="let personalGuarantee of securityData['initialForm']['personalGuarantee']; let i= index">
+          <td>{{i + 1}}</td>
+          <td class="text-left pl-1">{{personalGuarantee?.name}}</td>
+          <td class="text-left pl-1">{{personalGuarantee?.address}}</td>
+          <td class="text-left pl-1">{{personalGuarantee?.email}}</td>
+          <td class="text-right pr-1">{{personalGuarantee?.phoneNumber}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
   <!--       apartmentDetails-->
   <div *ngIf="apartmentSelected" class="row">
     <table
