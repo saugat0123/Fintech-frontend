@@ -38,7 +38,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   @Input() public customerInfoId: number;
   @Input() public customerInfo: CustomerInfoData;
   @Input() public companyInfo: CompanyInfo;
-  @Input() public customer: Customer;
+  @Input()isMicroCustomer: boolean;
 
   @ViewChild('siteVisitComponent', {static: false})
   public siteVisitComponent: SiteVisitComponent;
@@ -92,7 +92,6 @@ export class CustomerLoanInformationComponent implements OnInit {
   public netTradingAssets: NetTradingAssets;
   public creditChecklistGeneral: CreditChecklistGeneral;
   customerType = CustomerType;
-  isMicroCustomer: boolean;
 
 
   constructor(
@@ -107,9 +106,6 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.financial)) {
       this.financial = this.customerInfo.financial;
-    }
-    if (this.customer.isMicroCustomer || this.companyInfo.isMicroCustomer){
-      this.isMicroCustomer = true;
     }
     /*if (!ObjectUtil.isEmpty(this.customerInfo.creditRiskGradingAlpha)) {
       this.creditRiskGradingAlpha = this.customerInfo.creditRiskGradingAlpha;

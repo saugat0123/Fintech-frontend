@@ -69,7 +69,6 @@ export class CompanyFormComponent implements OnInit {
     @Input() clientTypeInput: any;
 
     @ViewChild('companyLocation', {static: true}) companyLocation: CommonAddressComponent;
-    @ViewChild('microCompanyFormComponent', {static: true}) microCompanyFormComponent: MicroCompanyFormComponentComponent;
     @ViewChildren('shareholderKyc') shareholderKyc: QueryList<OwnerKycApplicableComponent>;
     calendarType = 'AD';
     microEnabled: boolean = environment.microLoan;
@@ -129,6 +128,10 @@ export class CompanyFormComponent implements OnInit {
     @ViewChild('marketScenarioComponent', {static: false})
     marketScenarioComponent: MarketScenarioComponent;
 
+    @ViewChild('microCompanyFormComponent', {static: false})
+    microCompanyFormComponent: MicroCompanyFormComponentComponent;
+
+
     experiences = Experience.enumObject();
     successionList = Succession.enumObject();
     regulatoryConcernList = RegulatoryConcern.enumObject();
@@ -182,6 +185,10 @@ export class CompanyFormComponent implements OnInit {
         if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
             this.srdbAffiliatedId = true;
         }
+        if (!ObjectUtil.isEmpty(this.formValue)) {
+            this.microCustomer = this.formValue.isMicroCustomer;
+            console.log(this.microCustomer);
+        }
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
             this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
@@ -189,8 +196,6 @@ export class CompanyFormComponent implements OnInit {
             if (JSON.stringify(this.additionalFieldData).includes(null)) {
                 this.additionalFieldSelected = false;
             }
-            this.microCustomer = this.formValue.isMicroCustomer;
-            console.log(this.microCustomer);
         }
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) {
             this.businessAndIndustry = JSON.parse(this.companyInfo.businessAndIndustry);
