@@ -53,6 +53,8 @@ import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
 import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
 import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
+import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-component/micro-company-form-component/micro-company-form-component.component';
+import {environment} from '../../../../../../environments/environment';
 
 @Component({
     selector: 'app-company-form',
@@ -67,8 +69,10 @@ export class CompanyFormComponent implements OnInit {
     @Input() clientTypeInput: any;
 
     @ViewChild('companyLocation', {static: true}) companyLocation: CommonAddressComponent;
+    @ViewChild('microCompanyFormComponent', {static: true}) microCompanyFormComponent: MicroCompanyFormComponentComponent;
     @ViewChildren('shareholderKyc') shareholderKyc: QueryList<OwnerKycApplicableComponent>;
     calendarType = 'AD';
+    microEnabled: boolean = environment.microLoan;
     microCustomer = false;
     companyInfoFormGroup: FormGroup;
     englishDateSelected = true;
@@ -179,13 +183,14 @@ export class CompanyFormComponent implements OnInit {
             this.srdbAffiliatedId = true;
         }
         this.companyInfo = this.formValue;
-        this.microCustomer = this.formValue.isMicroCustomer;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
             this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
             this.additionalFieldSelected = true;
             if (JSON.stringify(this.additionalFieldData).includes(null)) {
                 this.additionalFieldSelected = false;
             }
+            this.microCustomer = this.formValue.isMicroCustomer;
+            console.log(this.microCustomer);
         }
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) {
             this.businessAndIndustry = JSON.parse(this.companyInfo.businessAndIndustry);
@@ -199,7 +204,6 @@ export class CompanyFormComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.companyInfo)) {
             if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
                 this.companyAddress = JSON.parse(this.companyInfo.companyLocations.address);
-                console.log(this.companyInfo.companyLocations.address);
             }
         }
         this.buildForm();
@@ -812,6 +816,13 @@ export class CompanyFormComponent implements OnInit {
         if (!this.disableCrgAlpha) {
             this.bankingRelationComponent.onSubmit();
         }
+       /* if (this.microCustomer) {
+            if (this.microCompanyFormComponent.microCustomerForm.invalid) {
+                this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
+                return;
+            }
+            this.microCompanyFormComponent.onSubmit();
+        }*/
         this.companyLocation.onSubmit();
         if (this.companyInfoFormGroup.invalid || this.companyOtherDetailComponent.companyOtherDetailGroupForm.invalid
             || this.marketScenarioComponent.marketScenarioForm.invalid ||
@@ -967,6 +978,12 @@ export class CompanyFormComponent implements OnInit {
         submitData.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
         submitData.proprietorList = this.companyJsonData.proprietorList;
 
+        if (this.microCustomer) {
+            /** micro data **/
+            submitData.microCustomerDetail = this.microCompanyFormComponent.microCustomerForm.value;
+        }
+
+
         // swot
         submitData.swot = this.swot;
 
@@ -1033,7 +1050,6 @@ export class CompanyFormComponent implements OnInit {
 
     getClientType() {
         this.customerService.clientType().subscribe((res: any) => {
-                console.log(res.detail);
                 this.clientType = res.detail;
             }
             , error => {

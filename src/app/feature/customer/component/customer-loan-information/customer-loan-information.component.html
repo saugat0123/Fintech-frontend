@@ -77,7 +77,7 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-      <nb-accordion-item #itemIncomeFromAccount>
+      <nb-accordion-item #itemIncomeFromAccount *ngIf="!isMicroCustomer">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -178,7 +178,7 @@
                          [guarantorDetailValue]="customerInfo?.guarantors" [customerInfo]="customerInfo"></app-guarantor>
         </nb-accordion-item-body>
       </nb-accordion-item>
-      <nb-accordion-item #itemInsurance>
+      <nb-accordion-item #itemInsurance *ngIf="!isMicroCustomer">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -256,7 +256,7 @@
 <!--        </nb-accordion-item-body>-->
 <!--      </nb-accordion-item>-->
       <!--  DEFAULT CRG-->
-      <nb-accordion-item #itemloanChecklist>
+      <nb-accordion-item #itemloanChecklist *ngIf="!isMicroCustomer">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">

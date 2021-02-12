@@ -26,6 +26,7 @@ import {IncomeFromAccount} from '../../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 import {CreditChecklistGeneral} from '../../../loan/model/creditChecklistGeneral';
 import {CustomerType} from '../../model/customerType';
+import {Customer} from '../../../admin/modal/customer';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -37,6 +38,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   @Input() public customerInfoId: number;
   @Input() public customerInfo: CustomerInfoData;
   @Input() public companyInfo: CompanyInfo;
+  @Input() public customer: Customer;
 
   @ViewChild('siteVisitComponent', {static: false})
   public siteVisitComponent: SiteVisitComponent;
@@ -90,6 +92,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   public netTradingAssets: NetTradingAssets;
   public creditChecklistGeneral: CreditChecklistGeneral;
   customerType = CustomerType;
+  isMicroCustomer: boolean;
 
 
   constructor(
@@ -104,6 +107,9 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.financial)) {
       this.financial = this.customerInfo.financial;
+    }
+    if (this.customer.isMicroCustomer || this.companyInfo.isMicroCustomer){
+      this.isMicroCustomer = true;
     }
     /*if (!ObjectUtil.isEmpty(this.customerInfo.creditRiskGradingAlpha)) {
       this.creditRiskGradingAlpha = this.customerInfo.creditRiskGradingAlpha;

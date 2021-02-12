@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-micro-company-form-component',
@@ -18,6 +19,9 @@ export class MicroCompanyFormComponentComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    if (!ObjectUtil.isEmpty(this.data)) {
+      this.microCustomerForm.patchValue(this.data);
+    }
   }
 
   get form() {
@@ -31,5 +35,11 @@ export class MicroCompanyFormComponentComponent implements OnInit {
       savingProducts: [undefined , Validators.required],
       otherProducts: [undefined , Validators.required],
     });
+  }
+
+
+  onSubmit() {
+    this.submitted = true;
+    this.submitData = this.microCustomerForm.value;
   }
 }
