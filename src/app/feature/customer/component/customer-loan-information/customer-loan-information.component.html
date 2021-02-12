@@ -76,8 +76,7 @@
                          [fromProfile]="true"></app-financial>
         </nb-accordion-item-body>
       </nb-accordion-item>
-      <ng-container *ngIf="isMicroCustomer">
-        <nb-accordion-item #loanPortofolio *ngIf="customerInfo?.customerType == customerType.INSTITUTION">
+        <nb-accordion-item #loanPortofolio *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
           <nb-accordion-item-header>
             <div class="row col-md-12">
               <div class="col-md-8">
@@ -89,7 +88,7 @@
             <app-borrower-loan-portofolio></app-borrower-loan-portofolio>
           </nb-accordion-item-body>
         </nb-accordion-item>
-        <nb-accordion-item #marketingActivities *ngIf="customerInfo?.customerType == customerType.INSTITUTION">
+        <nb-accordion-item #marketingActivities *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
           <nb-accordion-item-header>
             <div class="row col-md-12">
               <div class="col-md-8">
@@ -101,7 +100,7 @@
             <app-marketing-activities></app-marketing-activities>
           </nb-accordion-item-body>
         </nb-accordion-item>
-        <nb-accordion-item #baselWiseRiskExposure *ngIf="customerInfo?.customerType == customerType.INSTITUTION">
+        <nb-accordion-item #baselWiseRiskExposure *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
           <nb-accordion-item-header>
             <div class="row col-md-12">
               <div class="col-md-8">
@@ -113,7 +112,6 @@
             <app-basel-risk-exposure></app-basel-risk-exposure>
           </nb-accordion-item-body>
         </nb-accordion-item>
-      </ng-container>
 
       <nb-accordion-item #itemIncomeFromAccount *ngIf="!isMicroCustomer">
         <nb-accordion-item-header>
