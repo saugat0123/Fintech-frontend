@@ -303,15 +303,9 @@
                     *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
                     [customerAllLoanList]="customerAllLoanList"
                     [security]="loanDataHolder?.security"></app-collateral-summary>
-            <app-proposal-justification-summary *ngIf="proposalSummary"
-                                                [customerAllLoanList]="customerAllLoanList"
-                                                [proposalData]="proposalData"></app-proposal-justification-summary>
 
             <app-security-summary *ngIf="securitySummary"
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
-
-            <app-guarantor-summary *ngIf="checkGuarantorData"
-                                   [guarantorData]="guarantorData"></app-guarantor-summary>
             <hr>
 
             <div class="row justify-content-end px-3 disable-print">{{docMsg}}</div>
