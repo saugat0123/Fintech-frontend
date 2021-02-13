@@ -35,6 +35,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ReadmoreModelComponent} from '../../readmore-model/readmore-model.component';
 import {DocAction} from '../../../model/docAction';
 import {Security} from '../../../../admin/modal/security';
+import {RoleHierarchyService} from '../../../../admin/component/role-hierarchy/role-hierarchy.service';
 
 @Component({
     selector: 'app-approval-sheet',
@@ -136,6 +137,8 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     fiscalYearArray = [];
 
     riskOfficerLevel = false;
+    private rolesForRisk = [];
+    public currentAuthorityList: LoanStage[] = [];
 
     constructor(
         private userService: UserService,
@@ -151,6 +154,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         private documentService: DocumentService,
         private customerLoanService: LoanFormService,
         private combinedLoanService: CombinedLoanService,
+        private roleHierarchyService: RoleHierarchyService,
         private commonRoutingUtilsService: CommonRoutingUtilsService,
         private toastService: ToastService,
         private fiscalYearService: FiscalYearService
@@ -166,11 +170,63 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loanDataHolder = this.loanData;
+        this.prepareAuthoritySection();
         this.loadSummary();
     }
 
     ngOnDestroy(): void {
         this.navigationSubscription.unsubscribe();
+    }
+
+    /**
+    *  Rearranges loan stage list in accordance with the Role name 'RISK OFFICER' **
+    * */
+    prepareAuthoritySection() {
+        this.roleHierarchyService.getAll().subscribe( res => {
+            let aboveRisk = true;
+            this.rolesForRisk = res.detail.map( e => {
+                return e.role.roleName;
+            }).filter( e => {
+                if (e === envSrdb.RISK_INITIAL_ROLE) {
+                    aboveRisk = false;
+                    return true;
+                }
+                return aboveRisk;
+            });
+
+            let previousBackIndex = 0;
+            [...this.loanDataHolder.previousList, this.loanDataHolder.currentStage].forEach((e, i) => {
+                if (e.docAction.toString() === DocAction.value(DocAction.BACKWARD)) {
+                    if (i !== 0) {
+                        this.currentAuthorityList.push(...
+                            ([...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
+                                .slice(previousBackIndex, i + 1)
+                                .some( v => v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE ||
+                                    v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE))
+                                ? [...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
+                                    .slice(previousBackIndex, i + 1)
+                                    .filter( v => {
+                                        return this.rolesForRisk.includes(v.fromRole.roleName) ||
+                                            this.rolesForRisk.includes(v.toRole.roleName);
+                                    }) : []
+                        );
+                        previousBackIndex = i + 1;
+                    }
+                }
+            });
+            if (previousBackIndex !== 0) {
+                const activeAuthorityList = [...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
+                    .splice(previousBackIndex);
+                this.currentAuthorityList.push(...(activeAuthorityList
+                    .some( v => v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE ||
+                        v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE))
+                    ? activeAuthorityList
+                        .filter( v => {
+                            return this.rolesForRisk.includes(v.fromRole.roleName) ||
+                                this.rolesForRisk.includes(v.toRole.roleName);
+                        }) : []);
+            }
+        });
     }
 
     loadSummary() {
@@ -272,7 +328,6 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         }
 
         if (this.loanDataHolder.taggedGuarantors.length > 0) {
-            console.log(this.loanDataHolder.taggedGuarantors);
             this.guarantorData = this.loanDataHolder.taggedGuarantors;
             this.checkGuarantorData = true;
             this.loanDataHolder.taggedGuarantors.forEach(value => {
@@ -496,7 +551,6 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
                     addedStages.set(loanStage.fromUser.id, index);
                 }
             }
-            console.log(loanStage);
         });
 
         return signatureList;
