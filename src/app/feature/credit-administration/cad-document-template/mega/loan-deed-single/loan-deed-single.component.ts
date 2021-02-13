@@ -19,6 +19,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 export class LoanDeedSingleComponent implements OnInit {
 
   loanDeedSingle: FormGroup;
+  singleData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
@@ -37,6 +38,9 @@ export class LoanDeedSingleComponent implements OnInit {
           this.loanDeedSingle.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
+    }
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      this.singleData = JSON.parse(this.cadData.loanHolder.nepData);
     }
   }
 
