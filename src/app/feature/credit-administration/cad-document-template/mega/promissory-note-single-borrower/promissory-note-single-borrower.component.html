@@ -16,50 +16,25 @@
                 (अक्षरेपी <input class="form-field form-control-sm nepaliFont"name="amountInWord"  formControlName="amountInWord" placeholder=""  type="text"/> )<br>
                 <br>
 
-                लिखितम् श्री <input class="form-field form-control-sm nepaliFont" name="grandFatherName"  formControlName="grandFatherName" placeholder=""    type="text"/>
-                को/की नाति/नातिनी/बुहारी श्री<input class="form-field form-control-sm nepaliFont" name="fatherName" formControlName="fatherName" placeholder=""    type="text"/>
+                लिखितम् श्री <strong class="nepaliFont"> {{nepData?.grandFatherName}}</strong>
+                को/की नाति/नातिनी/बुहारी श्री<strong class="nepaliFont"> {{nepData?.fatherName}}</strong>
 
                 को छोरा/छोरी/श्रीमती
-                <input class="form-field form-control-sm nepaliFont"  name="perDistrictName"
-                       formControlName="perDistrict"
-                       placeholder=""
-                       type="text"/>
+                <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong>
                 जिल्ला
-                <input class="form-field form-control-sm nepaliFont"
-                       formControlName="perMunicipalityOrVdc"
-                       name="perMunicipalityOrVdc"
-                       placeholder=""
-                       type="text"/>
+                <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
+                {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
                 न.पा/गा.वि.स. वडा नं
-                <input class="form-field form-control-sm nepaliFont"
-                       formControlName="perWardNo"
-                       name="perWardNo"
-                       placeholder=""
-                       type="text"/>
+                <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
                 स्थायी ठेगाना भई हाल
-                <input class="form-field form-control-sm nepaliFont"
-                       name="currentDistrict"
-                       formControlName="currentDistrict"
-                       placeholder=""
-                       type="text"/>
+                <strong class="nepaliFont">{{nepData?.temporaryDistrict}}</strong>
                 जिल्ला
-                <input class="form-field form-control-sm nepaliFont"
-                       name="CurrentMunicipalityOrVdc"
-                       formControlName="CurrentMunicipalityOrVdc"
-                       placeholder=""
-                       type="text"/>
+                <strong class="nepaliFont">{{nepData?.temporaryMunicipality}}</strong>
+                {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
                 न.पा./गा.वि.स. वडा नं
-                <input class="form-field form-control-sm nepaliFont"
-                       formControlName="CurrentWardNo"
-                       name="CurrentWardNo"
-                       placeholder=""
-                       type="text"/>
+                <strong class="nepaliFont">{{nepData?.temporaryWard}}</strong>
                 बर्ष
-                <input class="form-field form-control-sm nepaliFont"
-                       formControlName="borrowerAge"
-                       name="borrowerAge"
-                       placeholder=""
-                       type="text"/>
+                <strong class="nepaliFont">{{nepData?.age}}</strong>
                 को/की श्री/सुश्री/श्रीमती
                 <input class="form-field form-control-sm nepaliFont"
                        name="borrowerName"

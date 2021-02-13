@@ -30,44 +30,18 @@
                            type="text"/>
                     कार्यालय  (जसलाई यस उप्रान्त यस लिखतमा धनी बैंक भनिएको छ) जमानीको लिखत गरि दिनेका नाम
                     श्री
-                    <input class="form-field form-control-sm nepaliFont"
-                           name="grandFatherName"
-                           placeholder=""
-                           formControlName="grandFatherName"
-                           type="text"/>
+                    <strong class="nepaliFont"> {{nepData?.grandFatherName}}</strong>
                     को नाति/नातिनी/बुहारी, श्री
-                    <input class="form-field form-control-sm nepaliFont"
-                           name="fatherName"
-                           placeholder=""
-                           formControlName="fatherName"
-                           type="text"/>
+                    <strong class="nepaliFont"> {{nepData?.fatherName}}</strong>
                     को छोरा/छोरी/पत्नी,
-                    <input class="form-field form-control-sm nepaliFont"
-                           name="districtName"
-                           placeholder=""
-                           formControlName="districtName"
-                           type="text"/>
+                    <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong>
                     जिल्ला
-
-                    <input class="form-field form-control-sm nepaliFont"
-                           name="municipalityOrVdc"
-                           placeholder=""
-                           formControlName="municipalityOrVdc"
-                           type="text"/>
+                    <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
+                    {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
                     महानगरपालिका/नगरपालिका/गा.वि.स. वडा नं
-
-                    <input class="form-field form-control-sm nepaliFont"
-                           name="wardNo"
-                           placeholder=""
-                           formControlName="wardNo"
-                           type="text"/>
-
+                    <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
                     बस्ने बर्ष
-                    <input class="form-field form-control-sm nepaliFont"
-                           name="guarantorAge"
-                           placeholder=""
-                           formControlName="guarantorAge"
-                           type="text"/>
+                    <strong class="nepaliFont">{{nepData?.age}}</strong>
 
                     को/की श्री/श्रीमती/सुश्री
 

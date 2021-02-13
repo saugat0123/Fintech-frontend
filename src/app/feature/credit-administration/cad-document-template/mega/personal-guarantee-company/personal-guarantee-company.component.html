@@ -11,25 +11,9 @@
                 <div class="col-md-12">
                     <p>
                         लिखितम् ब्यक्तिगत जमानीको लिखत गराइ लिनेका नाम प्रचलित नेपाल कानून बमोजिम संस्थापित   तथा संचालित मेगा बैंक नेपाल लिमिटेडको
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-                               name="districtName"
-                               formControlName="districtName"
-                               placeholder=""
-                               type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('districtName').value ? personalGuaranteeCompany.get('districtName').value  : '========='}}</b></span>
-                        जिल्ला <input class="form-field form-control-sm nepaliFont disable-print disable-print"
-                                      name="municipalityName"
-                                      formControlName="municipalityName"
-                                      placeholder=""
-                                      type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('municipalityName').value ? personalGuaranteeCompany.get('municipalityName').value  : '========='}}</b></span>
-                        महानगरपालिका/नगरपालिका वडा नं <input class="form-field form-control-sm nepaliFont disable-print"
-                                                             name="wardNo"
-                                                             formControlName="wardNo"
-                                                             placeholder=""
-                                                             type="text"
-                                                             size="2"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('wardNo').value ? personalGuaranteeCompany.get('wardNo').value  : '========='}}</b></span>
+                        <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong>
+                        जिल्ला <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
+                        महानगरपालिका/नगरपालिका वडा नं <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
                         स्थित <input class="form-field form-control-sm nepaliFont disable-print"
                                      name="branchName"
                                      placeholder=""
@@ -37,12 +21,7 @@
                                      type="text"/>
                         <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('branchName').value ? personalGuaranteeCompany.get('branchName').value  : '========='}}</b></span>
                         कार्यालय (जसलाई यस उप्रान्त यस लिखतमा धनी बैंक भनिएको छ) जमानीको लिखत गरि दिनेका नाम श्री
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-                               name="GrandFatherName"
-                               placeholder=""
-                               formControlName="GrandFatherName"
-                               type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('GrandFatherName').value ? personalGuaranteeCompany.get('GrandFatherName').value  : '========='}}</b></span>
+                        <strong class="nepaliFont"> {{nepData?.grandFatherName}}</strong>
                         को नाति/नातिनी/बुहारी, श्री <input class="form-field form-control-sm nepaliFont disable-print"
                                                            name="grandChildrenName"
                                                            placeholder=""
@@ -50,33 +29,13 @@
                                                            type="text"/>
                         <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('grandChildrenName').value ? personalGuaranteeCompany.get('grandChildrenName').value  : '========='}}</b></span>
                         को छोरा/छोरी/पत्नी,
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-                               name="districtName2"
-                               placeholder=""
-                               formControlName="districtName2"
-                               type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('districtName2').value ? personalGuaranteeCompany.get('districtName2').value  : '========='}}</b></span>
+                        <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong>
                         जिल्ला
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-                               name="municipalityName2"
-                               placeholder=""
-                               formControlName="municipalityName2"
-                               type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('municipalityName2').value ? personalGuaranteeCompany.get('municipalityName2').value  : '========='}}</b></span>
+                        <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
+                        {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
                         महानगरपालिका/ नगरपालिका/उपनगरपालिका/गा.वि.स.
-                        वडा नं <input class="form-field form-control-sm nepaliFont disable-print"
-                                      name="wardNo2"
-                                      placeholder=""
-                                      formControlName="wardNo2"
-                                      type="text"
-                                      size="2"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('wardNo2').value ? personalGuaranteeCompany.get('wardNo2').value  : '========='}}</b></span>
-                        बस्ने बर्ष <input class="form-field form-control-sm nepaliFont disable-print"
-                                          name="age"
-                                          placeholder=""
-                                          formControlName="age"
-                                          type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('age').value ? personalGuaranteeCompany.get('age').value  : '========='}}</b></span>
+                        वडा नं <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
+                        बस्ने बर्ष < <strong class="nepaliFont">{{nepData?.age}}</strong>
                         को/की श्री/श्रीमती/सुश्री <input class="form-field form-control-sm nepaliFont disable-print"
                                                          name="guarantorName"
                                                          placeholder=""
