@@ -337,19 +337,19 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
+                        <tr *ngFor="let currentList of currentAuthorityList ; let i = index">
                             <td>{{i + 1}}</td>
                             <td>
-                                {{previousList?.lastModifiedAt | date}}
+                                {{currentList?.lastModifiedAt | date}}
                             </td>
                             <td>
                                 <div class="col-md-12">
                                     <div class="d-flex justify-content-center">
-                                        {{previousList?.fromUser?.name}}</div>
+                                        {{currentList?.fromUser?.name}}</div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="d-flex justify-content-center">
-                                        <span>({{previousList?.fromRole?.roleName}})</span>
+                                        <span>({{currentList?.fromRole?.roleName}})</span>
                                     </div>
 
                                 </div>
@@ -359,66 +359,25 @@
                             <td>
                                 <div class="col-md-12">
                                     <div class="d-flex justify-content-center">
-                                        {{previousList?.toUser?.name}}</div>
+                                        {{currentList?.toUser?.name}}</div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="d-flex justify-content-center">
-                                        ({{previousList?.toRole?.roleName}})
+                                        ({{currentList?.toRole?.roleName}})
                                     </div>
 
                                 </div>
                             </td>
 
-                            <td>{{previousList?.docAction}}</td>
+                            <td>{{currentList?.docAction}}</td>
                             <td class="text-center">
                                 <div class="cmt-height">
-                                    {{previousList?.comment?.length > 50 ?
-                                    previousList?.comment?.substring(0, 49) :
-                                    previousList?.comment}}
+                                    {{currentList?.comment?.length > 50 ?
+                                    currentList?.comment?.substring(0, 49) :
+                                    currentList?.comment}}
                                 </div>
-                                <a (click)="open(previousList?.comment)"
-                                   *ngIf="previousList?.comment?.length > 50"
-                                   class="justify-content-end read-margin">read more ....</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{{currentIndex + 1}}</td>
-                            <td>{{loanDataHolder?.currentStage?.lastModifiedAt | date}}</td>
-                            <td>
-                                <div class="col-md-12">
-                                    <div class="d-flex justify-content-center">
-                                        {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="d-flex justify-content-center">
-                                        <span>({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                                    </div>
-
-                                </div>
-                            </td>
-
-                            <td>
-                                <div class="col-md-12">
-                                    <div class="d-flex justify-content-center">
-                                        {{loanDataHolder?.currentStage?.toUser?.name}}</div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="d-flex justify-content-center">
-                                        <span>({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                                    </div>
-
-                                </div>
-                            </td>
-
-                            <td>{{loanDataHolder?.currentStage?.docAction}}</td>
-                            <td class="text-center">
-                                <div class="cmt-height">
-                                    {{loanDataHolder?.currentStage?.comment?.length > 50 ?
-                                    loanDataHolder?.currentStage?.comment?.substring(0, 49) :
-                                    loanDataHolder?.currentStage?.comment}}
-                                </div>
-                                <a (click)="open(loanDataHolder.currentStage.comment)"
-                                   *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
+                                <a (click)="open(currentList?.comment)"
+                                   *ngIf="currentList?.comment?.length > 50"
                                    class="justify-content-end read-margin">read more ....</a>
                             </td>
                         </tr>
