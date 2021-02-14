@@ -4,6 +4,25 @@
             <i class="fa fa-plus"></i>
         </button>
     </div>
+    <div class=row>
+        <div class="col-md-6">
+            <form (ngSubmit)="onSearch()">
+                <div class="row">
+                    <div class="col-md-8">
+                        <input (input)="onSearchChange($event.target.value)" [(ngModel)]="search.name"
+                               fullWidth name="name"
+                               nbInput
+                               placeholder="Name" type="text">
+                    </div>
+                    <div class="col-md-4">
+                        <button nbButton outline status="primary" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </nb-card-header>
 <nb-card-body>
     <table class="table table-bordered table-hover table-sm sb-small text-center" id="add-branch-table">
