@@ -6,7 +6,7 @@
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" *ngFor="let landDetails of securityData['initialForm']['landDetails']; let i= index">
       <thead>
       <tr>
-        <th colspan="9">{{i+1}}.Land Security Details</th>
+        <th colspan="10">{{i+1}}.Land Security Details</th>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th>S.N</th>
@@ -18,6 +18,7 @@
         <th>Considered Value</th>
         <th>Distress Value</th>
         <th>Fair Market Value</th>
+        <th>Collateral Owner Relationship</th>
       </tr>
       </thead>
       <tbody>
@@ -31,12 +32,13 @@
         <td class="text-right pr-1">Rs. {{landDetails?.landConsideredValue | currencyFormatter}}</td>
         <td class="text-right pr-1">Rs. {{landDetails?.distressValue | currencyFormatter}}</td>
         <td class="text-right pr-1">Rs. {{landDetails?.marketValue | currencyFormatter}}</td>
+        <td class="text-right pr-1">{{landDetails?.landCollateralOwnerRelationship}}</td>
       </tr>
       </tbody>
       <thead>
       <tr class="text-white sb-bg-dark">
         <th  *ngIf="securityData['otherBranchcheck']">Branch</th>
-        <th>Valuator Name</th>
+        <th colspan="2">Valuator Name</th>
         <th>Valuated Date</th>
         <th>Valuator Representative Name</th>
         <th>Staff Representative Designation</th>
@@ -48,7 +50,7 @@
       </thead>
       <tbody>
       <tr>
-        <td *ngIf="securityData['otherBranchcheck']">{{landDetails?.landBranch?.name}}</td>
+        <td *ngIf="securityData['otherBranchcheck']" colspan="2">{{landDetails?.landBranch?.name}}</td>
         <td class="text-left pl-1">{{landDetails?.landValuator?.name}}</td>
         <td class="text-left pl-1">{{landDetails?.landValuatorDate | date}}</td>
         <td cclass="text-left pl-1">{{landDetails?.landValuatorRepresentative}}</td>
@@ -60,9 +62,9 @@
       <tr>
       <tr class="text-white sb-bg-dark">
         <th></th>
-        <th>Type of Property</th>
+        <th colspan="2">Type of Property</th>
         <th>Mode of Transfer</th>
-        <th>Address as per Legal Document</th>
+        <th colspan="2">Address as per Legal Document</th>
         <th>Ownership transfer date</th>
        <th> Ownership transfer Through</th>
         <th *ngIf="landDetails.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 6 months plus 35 days? </th>
@@ -77,9 +79,9 @@
       </tr>
       <tr>
         <td></td>
-        <td class="text-left pl-1">{{landDetails?.typeOfProperty}}</td>
+        <td colspan="2"class="text-left pl-1">{{landDetails?.typeOfProperty}}</td>
         <td class="text-left pl-1">{{landDetails?.modeOfTransfer}}</td>
-        <td class="text-left pl-1">{{landDetails?.landSecurityLegalDocumentAddress}}</td>
+        <td colspan="2" class="text-left pl-1">{{landDetails?.landSecurityLegalDocumentAddress}}</td>
         <td class="text-left pl-1">{{landDetails?.ownershipTransferDate | date}}</td>
         <td>{{ownerShipTransfer[landDetails?.ownershipTransferThrough]}}</td>
         <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{landDetails?.saleOwnershipTransfer}}</td>
@@ -116,6 +118,29 @@
           <td colspan="1" class="pr-1">Rs. {{landDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
           <td colspan="1" class="pr-1">Rs. {{landDetails?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
         </tr>
+      </ng-container>
+
+      <ng-container>
+        <tr class="sb-bg-dark text-white">
+          <th>Relation</th>
+          <th colspan="2">Name</th>
+          <th>Citizenship Number</th>
+          <th colspan="2">Issued District</th>
+          <th>Issued Date</th>
+          <th>Mobile Number</th>
+          <th colspan="2">Address</th>
+        </tr>
+        <ng-container *ngFor="let kyc of landDetails?.ownerKycApplicableData?.ownerKycDetails; let j = index">
+          <tr>
+            <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
+            <td colspan="2" class="text-left pl-1">{{kyc?.relationName}}</td>
+            <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
+            <td colspan="2" class="text-left pl-1">{{kyc?.issuedLocation}}</td>
+            <td class="text-left pl-1">{{kyc?.issuedDate | date}}</td>
+            <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
+            <td colspan="2" class="text-left pl-1">{{kyc?.address}}</td>
+          </tr>
+        </ng-container>
       </ng-container>
       </tbody>
     </table>
@@ -172,6 +197,7 @@
           <th>Total cost</th>
           <th>Type of Property</th>
           <th>Mode of Transfer</th>
+          <th>Collateral Owner Relationship</th>
 
 
         </tr>
@@ -185,6 +211,7 @@
           <td class="text-right pr-1">Rs. {{landBuilding?.totalCost | currencyFormatter}}</td>
           <td class="text-left pl-1">{{landBuilding?.typeOfProperty}}</td>
           <td class="text-left pl-1">{{landBuilding?.modeOfTransfer}}</td>
+          <td class="text-left pl-1">{{landBuilding?.landBuildingCollateralOwnerRelationship}}</td>
 
         </tr>
         <tr class="text-center sb-bg-dark text-white">
@@ -302,6 +329,26 @@
             <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
           </tr>
         </ng-container>
+        <tr class="sb-bg-dark text-white">
+          <th>Relation</th>
+          <th>Name</th>
+          <th>Citizenship Number</th>
+          <th colspan="2">Issued District</th>
+          <th>Issued Date</th>
+          <th>Mobile Number</th>
+          <th colspan="2">Address</th>
+        </tr>
+        <ng-container *ngFor="let kyc of landBuilding?.ownerKycApplicableData?.ownerKycDetails; let j = index">
+          <tr>
+            <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
+            <td class="text-left pl-1">{{kyc?.relationName}}</td>
+            <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
+            <td colspan="2" class="text-left pl-1">{{kyc?.issuedLocation}}</td>
+            <td class="text-left pl-1">{{kyc?.issuedDate | date}}</td>
+            <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
+            <td colspan="2" class="text-left pl-1">{{kyc?.address}}</td>
+          </tr>
+        </ng-container>
         </tbody>
 
       </table>
@@ -313,6 +360,108 @@
         <td class="text-left pl-1">{{securityData['initialForm']?.landBuildingDescription}}</td>
       </tr>
     </table>
+  </div>
+
+  <!-- Added new hypothecation-->
+  <div class="row" *ngIf="hypothecation">
+    <div class="col-md-12">
+      <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+             *ngFor="let hypothecationOfStock of securityData['initialForm']['hypothecationOfStock']; let i= index">
+
+        <tr>
+          <th class="text-center" colspan="9">Hypothecation Of Stock</th>
+        </tr>
+        <tr class="text-center sb-bg-dark text-white">
+          <th>S.N</th>
+          <th colspan="3">Owner</th>
+          <th colspan="2">Stock Location</th>
+          <th colspan="2">Value</th>
+          <th>Collateral Owner Relationship</th>
+        </tr>
+        <tr>
+          <td rowspan="4">{{i + 1}}</td>
+          <td class="text-left pl-1" colspan="3">{{hypothecationOfStock?.owner}}</td>
+          <td class="text-left pl-1" colspan="2">{{hypothecationOfStock?.stock}}</td>
+          <td class="text-right pr-1" colspan="2">Rs. {{hypothecationOfStock?.value | currencyFormatter}}</td>
+          <td class="text-right pr-1">{{hypothecationOfStock?.hypothecationOwnerRelationship}}</td>
+        </tr>
+        <!-- owner Kyc hypothecation -->
+        <tr class="text-center sb-bg-dark text-white">
+          <th>Relation</th>
+          <th>Name</th>
+          <th>Citizenship Number</th>
+          <th colspan="2">Issued District</th>
+          <th>Issued Date</th>
+          <th>Mobile Number</th>
+          <th colspan="2">Address</th>
+        </tr>
+        <ng-container *ngFor="let kyc of hypothecationOfStock?.ownerKycApplicableData?.ownerKycDetails; let j = index">
+          <tr>
+            <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
+            <td class="text-left pl-1">{{kyc?.relationName}}</td>
+            <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
+            <td colspan="2" class="text-left pl-1">{{kyc?.issuedLocation}}</td>
+            <td class="text-left pl-1">{{kyc?.issuedDate | date}}</td>
+            <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
+            <td colspan="2" class="text-left pl-1">{{kyc?.address}}</td>
+          </tr>
+        </ng-container>
+      </table>
+    </div>
+  </div>
+
+  <!--  Corporate Guarantee-->
+  <div class="row" *ngIf="corporate">
+    <div class="col-md-12">
+      <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+
+        <tr>
+          <th class="text-center" colspan="6">Corporate Guarantee</th>
+        </tr>
+        <tr class="sb-bg-dark text-white">
+          <th>S.N</th>
+          <th>Name of Guarantor</th>
+          <th>Address</th>
+          <th>Key person</th>
+          <th>Email address</th>
+          <th>Phone number</th>
+        </tr>
+        <tr *ngFor="let corporateGuarantee of securityData['initialForm']['corporateGuarantee']; let i= index">
+          <td>{{i + 1}}</td>
+          <td class="text-left pl-1">{{corporateGuarantee?.name}}</td>
+          <td class="text-left pl-1">{{corporateGuarantee?.address}}</td>
+          <td class="text-left pl-1">{{corporateGuarantee?.keyPerson}}</td>
+          <td class="text-left pl-1">{{corporateGuarantee?.email}}</td>
+          <td class="text-right pr-1">{{corporateGuarantee?.phoneNumber}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+<!--  Personal Guarantee-->
+  <div class="row" *ngIf="personal">
+    <div class="col-md-12">
+      <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+
+        <tr>
+          <th class="text-center" colspan="5">Personal Guarantee</th>
+        </tr>
+        <tr class="sb-bg-dark text-white">
+          <th>S.N</th>
+          <th>Name of Guarantor</th>
+          <th>Address</th>
+          <th>Email address</th>
+          <th>Phone number</th>
+        </tr>
+        <tr *ngFor="let personalGuarantee of securityData['initialForm']['personalGuarantee']; let i= index">
+          <td>{{i + 1}}</td>
+          <td class="text-left pl-1">{{personalGuarantee?.name}}</td>
+          <td class="text-left pl-1">{{personalGuarantee?.address}}</td>
+          <td class="text-left pl-1">{{personalGuarantee?.email}}</td>
+          <td class="text-right pr-1">{{personalGuarantee?.phoneNumber}}</td>
+        </tr>
+      </table>
+    </div>
   </div>
 
   <!--       apartmentDetails-->

@@ -17,6 +17,9 @@ export class SecurityViewComponent implements OnInit {
   shareSecurity;
   vehicleSelected = false;
   landSelected = false;
+  hypothecation = false;
+  corporate = false;
+  personal= false;
   apartmentSelected = false;
   plantSelected = false;
   depositSelected = false;
@@ -60,6 +63,15 @@ export class SecurityViewComponent implements OnInit {
           break;
         case 'PlantSecurity' :
           this.plantSelected = true;
+          break;
+        case 'HypothecationOfStock':
+          this.hypothecation = true;
+          break;
+        case 'CorporateGuarantee':
+          this.corporate = true;
+          break;
+        case 'PersonalGuarantee':
+          this.personal = true;
       }
     });
     if (!ObjectUtil.isEmpty(this.shareSecurityData)) {
