@@ -225,6 +225,15 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
                             return this.rolesForRisk.includes(v.fromRole.roleName) ||
                                 this.rolesForRisk.includes(v.toRole.roleName);
                         }) : []);
+            }  else {
+                this.currentAuthorityList = [...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
+                    .some( v => v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE ||
+                        v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE)
+                    ? [...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
+                        .filter( v => {
+                            return this.rolesForRisk.includes(v.fromRole.roleName) ||
+                                this.rolesForRisk.includes(v.toRole.roleName);
+                        }) : [];
             }
         });
     }
