@@ -3,46 +3,56 @@
         <h6 class="font-weight-bold">Synopsis of Creditworthiness Analysis Based on Five Pillars Analysis</h6>
     </nb-card-header>
     <nb-card-body>
-        <form>
-            <div class="col-m-12">
-                <table class="table table-sm">
-                    <thead>
+        <form [formGroup]="synopsisFormGroup">
+            <div class="col-md-12">
+                <table class="table table-bordered table-responsive-md text-justify">
+                    <thead class="sb-bg-dark text-white">
                     <tr>
                         <th scope="col">SN</th>
                         <th scope="col">Credit Pillars</th>
-                        <th scope="col">Rating</th>
+                        <th colspan="5">Rating From 1 to 5</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <th scope="row" class="ml-1">1.</th>
+                        <th>1.</th>
                         <td>Industry Environment</td>
-                        <td style="width: 25px"><input type="number" class="form-control"></td>
+                        <ng-container>
+                            <td  *ngFor="let rating of ratingList" ><input [value]="rating" formControlName="industryEnvironment" type="radio"></td>
+                        </ng-container>
                     </tr>
                     <tr>
-                        <th scope="row">2.</th>
+                        <th>2.</th>
                         <td>Financial Condition</td>
-                        <td style="width: 25px"><input type="number" class="form-control"></td>
+                        <ng-container>
+                            <td  *ngFor="let rating of ratingList" ><input [value]="rating" formControlName="financialCondition" type="radio"></td>
+                        </ng-container>
                     </tr>
                     <tr>
-                        <th scope="row">3.</th>
+                        <th>3.</th>
                         <td>Management Quality</td>
-                        <td style="width: 25px"><input type="number" class="form-control"></td>
+                        <ng-container>
+                            <td  *ngFor="let rating of ratingList" ><input [value]="rating" formControlName="managementQuality" type="radio"></td>
+                        </ng-container>
                     </tr>
                     <tr>
-                        <th scope="row">4.</th>
-                        <td>Technical Quality</td>
-                        <td style="width: 25px"><input type="number" class="form-control"></td>
+                        <th>4.</th>
+                        <td>Technical Strength</td>
+                        <ng-container>
+                            <td  *ngFor="let rating of ratingList" ><input [value]="rating" formControlName="technicalStrength" type="radio"></td>
+                        </ng-container>
                     </tr>
                     <tr>
-                        <th scope="row">5.</th>
+                        <th>5.</th>
                         <td>Security Realization</td>
-                        <td style="width: 25px"><input type="number" class="form-control"></td>
+                        <ng-container>
+                            <td  *ngFor="let rating of ratingList" ><input [value]="rating" formControlName="securityRealization" type="radio"></td>
+                        </ng-container>
                     </tr>
                     <tr>
-                        <th scope="row">6.</th>
-                        <td><strong>Overall Rating</strong></td>
-                        <td style="width: 25px"><strong>{{4.2}}</strong></td>
+                        <th>6.</th>
+                        <td class="font-weight-bold">Overall Rating</td>
+                        <td colspan="5" class="font-weight-bold"><input readonly formControlName="overallRating" class="form-control text-center" value="{{overallRating()}}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -51,28 +61,28 @@
                 <h5 class="font-weight-bold">Justification of 5 Pillars</h5>
                 <div>
                     <div><label class="font-weight-bold">Industry Environment</label></div>
-                    <textarea rows="3" class="form-control"></textarea>
+                    <textarea rows="3" class="form-control" formControlName="industryEnvironmentPillar"></textarea>
                 </div>
                 <div>
                     <div><label class="font-weight-bold">Financial Condition</label></div>
-                    <textarea rows="3" class="form-control"></textarea>
+                    <textarea rows="3" class="form-control" formControlName="financialConditionPillar"></textarea>
                 </div>
                 <div>
                     <div><label class="font-weight-bold">Management Quality</label></div>
-                    <textarea rows="3" class="form-control"></textarea>
+                    <textarea rows="3" class="form-control" formControlName="managementQualityPillar"></textarea>
                 </div>
                 <div>
                     <div><label class="font-weight-bold">Operational Strength</label></div>
-                    <textarea rows="3" class="form-control"></textarea>
+                    <textarea rows="3" class="form-control" formControlName="operationStrengthPillar"></textarea>
                 </div>
                 <div>
                     <div><label class="font-weight-bold">Security Realization</label></div>
-                    <textarea rows="3" class="form-control"></textarea>
+                    <textarea rows="3" class="form-control" formControlName="securityRealizationPillar"></textarea>
                 </div>
             </div>
         </form>
     </nb-card-body>
     <nb-card-footer>
-        <button class="btn float-right" type="submit" nbButton>Save</button>
+        <button (click)="submitForm()" class="btn float-right" type="submit" nbButton>Save</button>
     </nb-card-footer>
 </nb-card>
