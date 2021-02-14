@@ -50,8 +50,8 @@
       </thead>
       <tbody>
       <tr>
-        <td *ngIf="securityData['otherBranchcheck']" colspan="2">{{landDetails?.landBranch?.name}}</td>
-        <td class="text-left pl-1">{{landDetails?.landValuator?.name}}</td>
+        <td *ngIf="securityData['otherBranchcheck']">{{landDetails?.landBranch?.name}}</td>
+        <td colspan="2" class="text-left pl-1">{{landDetails?.landValuator?.name}}</td>
         <td class="text-left pl-1">{{landDetails?.landValuatorDate | date}}</td>
         <td cclass="text-left pl-1">{{landDetails?.landValuatorRepresentative}}</td>
         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeDesignation}}</td>
