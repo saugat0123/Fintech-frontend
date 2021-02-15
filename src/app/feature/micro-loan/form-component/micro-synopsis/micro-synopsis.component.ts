@@ -1,7 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MicroLoanSynopsis} from '../../../loan/model/micro-loan-synopsis';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
   selector: 'app-micro-synopsis',
@@ -15,10 +17,17 @@ export class MicroSynopsisComponent implements OnInit {
   @Input() formData: MicroLoanSynopsis;
   dataForEdit;
   synopsisCreditworthiness: MicroLoanSynopsis = new MicroLoanSynopsis();
+  submitted = false;
 
   ratingList = ['1', '2', '3', '4', '5'];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private elementRef: ElementRef,
+              private toastService: ToastService,) {
+  }
+
+  get formControls() {
+    return this.synopsisFormGroup.controls;
   }
 
   ngOnInit() {
@@ -34,18 +43,35 @@ export class MicroSynopsisComponent implements OnInit {
 
   buildForm() {
     this.synopsisFormGroup = this.formBuilder.group({
-      industryEnvironment: [undefined],
-      financialCondition: [undefined],
-      managementQuality: [undefined],
-      technicalStrength: [undefined],
-      securityRealization: [undefined],
-      overallRating: [undefined],
-      industryEnvironmentPillar: [undefined],
-      financialConditionPillar: [undefined],
-      managementQualityPillar: [undefined],
-      operationStrengthPillar: [undefined],
-      securityRealizationPillar: [undefined],
+      industryEnvironment: [undefined, Validators.required],
+      financialCondition: [undefined, Validators.required],
+      managementQuality: [undefined, Validators.required],
+      technicalStrength: [undefined, Validators.required],
+      securityRealization: [undefined, Validators.required],
+      overallRating: [undefined, Validators.required],
+      industryEnvironmentPillar: [undefined, Validators.required],
+      financialConditionPillar: [undefined, Validators.required],
+      managementQualityPillar: [undefined, Validators.required],
+      operationStrengthPillar: [undefined, Validators.required],
+      securityRealizationPillar: [undefined, Validators.required],
     });
+  }
+
+  scrollToInvalidControl() {
+    const firstInvalidControl: HTMLElement = this.elementRef.nativeElement.querySelector(
+        'form .ng-invalid'
+    );
+    window.scroll({
+      top: this.getTopOffset(firstInvalidControl),
+      left: 0,
+      behavior: 'smooth'
+    });
+    firstInvalidControl.focus();
+  }
+
+  private getTopOffset(controlEl: HTMLElement): number {
+    const labelOffSet = 50;
+    return controlEl.getBoundingClientRect().top + window.scrollY - labelOffSet;
   }
 
   public overallRating() {
@@ -59,6 +85,12 @@ export class MicroSynopsisComponent implements OnInit {
   }
 
   public submitForm() {
+    this.submitted = true;
+    if (this.synopsisFormGroup.invalid) {
+      this.scrollToInvalidControl();
+      this.toastService.show(new Alert(AlertType.ERROR, 'All fields are mandatory!'));
+      return;
+    }
     this.synopsisCreditworthiness.data = JSON.stringify(this.synopsisFormGroup.value);
     this.creditworthinessEmitter.emit(this.synopsisCreditworthiness);
   }

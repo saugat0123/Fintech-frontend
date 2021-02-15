@@ -18,35 +18,45 @@
                         <th>1.</th>
                         <td>Industry Environment</td>
                         <ng-container>
-                            <td  *ngFor="let rating of ratingList" ><input [value]="rating" formControlName="industryEnvironment" type="radio"></td>
+                            <td  *ngFor="let rating of ratingList" ><input
+                                    [ngClass]="{ 'is-invalid': (submitted) && formControls.industryEnvironment.errors }"
+                                    [value]="rating" formControlName="industryEnvironment" type="radio"></td>
                         </ng-container>
                     </tr>
                     <tr>
                         <th>2.</th>
                         <td>Financial Condition</td>
                         <ng-container>
-                            <td  *ngFor="let rating of ratingList" ><input [value]="rating" formControlName="financialCondition" type="radio"></td>
+                            <td  *ngFor="let rating of ratingList" ><input
+                                    [ngClass]="{ 'is-invalid': (submitted) && formControls.financialCondition.errors }"
+                                    [value]="rating" formControlName="financialCondition" type="radio"></td>
                         </ng-container>
                     </tr>
                     <tr>
                         <th>3.</th>
                         <td>Management Quality</td>
                         <ng-container>
-                            <td  *ngFor="let rating of ratingList" ><input [value]="rating" formControlName="managementQuality" type="radio"></td>
+                            <td  *ngFor="let rating of ratingList" ><input
+                                    [ngClass]="{ 'is-invalid': (submitted) && formControls.managementQuality.errors }"
+                                    [value]="rating" formControlName="managementQuality" type="radio"></td>
                         </ng-container>
                     </tr>
                     <tr>
                         <th>4.</th>
                         <td>Technical Strength</td>
                         <ng-container>
-                            <td  *ngFor="let rating of ratingList" ><input [value]="rating" formControlName="technicalStrength" type="radio"></td>
+                            <td  *ngFor="let rating of ratingList" ><input
+                                    [ngClass]="{ 'is-invalid': (submitted) && formControls.technicalStrength.errors }"
+                                    [value]="rating" formControlName="technicalStrength" type="radio"></td>
                         </ng-container>
                     </tr>
                     <tr>
                         <th>5.</th>
                         <td>Security Realization</td>
                         <ng-container>
-                            <td  *ngFor="let rating of ratingList" ><input [value]="rating" formControlName="securityRealization" type="radio"></td>
+                            <td  *ngFor="let rating of ratingList" ><input
+                                    [ngClass]="{ 'is-invalid': (submitted) && formControls.securityRealization.errors }"
+                                    [value]="rating" formControlName="securityRealization" type="radio"></td>
                         </ng-container>
                     </tr>
                     <tr>
@@ -61,23 +71,28 @@
                 <h5 class="font-weight-bold">Justification of 5 Pillars</h5>
                 <div>
                     <div><label class="font-weight-bold">Industry Environment</label></div>
-                    <textarea rows="3" class="form-control" formControlName="industryEnvironmentPillar"></textarea>
+                    <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.industryEnvironmentPillar.errors }"
+                            rows="3" class="form-control" formControlName="industryEnvironmentPillar"></textarea>
                 </div>
                 <div>
                     <div><label class="font-weight-bold">Financial Condition</label></div>
-                    <textarea rows="3" class="form-control" formControlName="financialConditionPillar"></textarea>
+                    <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.financialConditionPillar.errors }"
+                            rows="3" class="form-control" formControlName="financialConditionPillar"></textarea>
                 </div>
                 <div>
                     <div><label class="font-weight-bold">Management Quality</label></div>
-                    <textarea rows="3" class="form-control" formControlName="managementQualityPillar"></textarea>
+                    <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.managementQualityPillar.errors }"
+                            rows="3" class="form-control" formControlName="managementQualityPillar"></textarea>
                 </div>
                 <div>
                     <div><label class="font-weight-bold">Operational Strength</label></div>
-                    <textarea rows="3" class="form-control" formControlName="operationStrengthPillar"></textarea>
+                    <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.operationStrengthPillar.errors }"
+                            rows="3" class="form-control" formControlName="operationStrengthPillar"></textarea>
                 </div>
                 <div>
                     <div><label class="font-weight-bold">Security Realization</label></div>
-                    <textarea rows="3" class="form-control" formControlName="securityRealizationPillar"></textarea>
+                    <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.securityRealizationPillar.errors }"
+                            rows="3" class="form-control" formControlName="securityRealizationPillar"></textarea>
                 </div>
             </div>
         </form>
