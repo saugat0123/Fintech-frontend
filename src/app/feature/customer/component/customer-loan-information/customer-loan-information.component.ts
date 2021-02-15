@@ -144,6 +144,9 @@ export class CustomerLoanInformationComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.customerInfo.creditChecklist)) {
       this.creditChecklistGeneral = this.customerInfo.creditChecklist;
     }
+    if (!ObjectUtil.isEmpty(this.customerInfo.synopsisCreditworthiness)) {
+      this.microLoanSynopsis = this.customerInfo.synopsisCreditworthiness;
+    }
   }
 
   public saveSiteVisit(data: string) {

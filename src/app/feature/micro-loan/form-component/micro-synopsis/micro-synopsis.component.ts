@@ -26,7 +26,7 @@ export class MicroSynopsisComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.formData)) {
       this.synopsisCreditworthiness = this.formData;
       this.dataForEdit = JSON.parse(this.formData.data);
-      this.synopsisFormGroup.patchValue(this.formData);
+      this.synopsisFormGroup.patchValue(this.dataForEdit);
     }
     console.log(this.dataForEdit);
   }
