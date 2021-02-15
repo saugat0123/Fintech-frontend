@@ -7,6 +7,7 @@ import { BorrowerLoanPortofolioComponent } from './template/borrower-loan-portof
 import { MarketingActivitiesComponent } from './template/marketing-activities/marketing-activities.component';
 import { BaselRiskExposureComponent } from './template/basel-risk-exposure/basel-risk-exposure.component';
 import { MicroSynopsisComponent } from './form-component/micro-synopsis/micro-synopsis.component';
+import { MicroSummaryComponent } from './summary/micro-summary/micro-summary.component';
 
 
 
@@ -17,7 +18,8 @@ import { MicroSynopsisComponent } from './form-component/micro-synopsis/micro-sy
       BorrowerLoanPortofolioComponent,
       MarketingActivitiesComponent,
       BaselRiskExposureComponent,
-      MicroSynopsisComponent],
+      MicroSynopsisComponent,
+      MicroSummaryComponent],
     exports: [
         MicroCompanyFormComponentComponent,
         MicroIndividualFormComponent,
