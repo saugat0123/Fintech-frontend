@@ -319,24 +319,27 @@
           ></app-credit-checklist-general>
         </nb-accordion-item-body>
       </nb-accordion-item>
-      <nb-accordion-item *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer">
+      <nb-accordion-item #synopsisAccordion *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
               <span class="text-uppercase">Synopsis of Creditworthiness</span>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
-              <span style="color:green" title="Status : Saved">
+              <span *ngIf="microLoanSynopsis" style="color:green" title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
               </span>
               <span style="color:red" title="Status :Not Saved">
-                <em class="fas fa-times-circle px-2"></em>
+                <em *ngIf="!microLoanSynopsis" class="fas fa-times-circle px-2"></em>
               </span>
             </div>
           </div>
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <app-micro-synopsis [customerInfo]="customerInfo"></app-micro-synopsis>
+          <app-micro-synopsis
+                  (creditworthinessEmitter)="saveSynopsisCreditworthiness($event)"
+                  *ngIf="synopsisAccordion.expanded"
+                  [formData]="customerInfo?.synopsisCreditworthiness"></app-micro-synopsis>
         </nb-accordion-item-body>
       </nb-accordion-item>
       <!--   CRG GAMMA-->
