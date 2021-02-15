@@ -1,4 +1,5 @@
 <nb-card-header>
+    <h6 class="text-center">Blacklisted Customer Details</h6><br>
     <div class="float-right">
         <button nbButton outline status="success" class="mb-4 mt-0" (click)="addExcelFile()">
             <i class="fa fa-plus"></i>
@@ -9,13 +10,13 @@
             <form (ngSubmit)="onSearch()">
                 <div class="row">
                     <div class="col-md-8">
-                        <input (input)="onSearchChange($event.target.value)" [(ngModel)]="search.name"
+                        <input [(ngModel)]="search.name"
                                fullWidth name="name"
                                nbInput
                                placeholder="Name" type="text">
                     </div>
                     <div class="col-md-4">
-                        <button nbButton outline status="primary" type="submit">
+                        <button nbButton outline status="primary" type="submit" (click)="onSearch()">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
