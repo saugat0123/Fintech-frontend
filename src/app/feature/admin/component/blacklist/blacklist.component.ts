@@ -54,13 +54,6 @@ export class BlacklistComponent implements OnInit {
     BlacklistComponent.loadData(this);
   }
 
-  onSearchChange(searchValue: string) {
-    this.search = {
-      'name': searchValue,
-    };
-
-    BlacklistComponent.loadData(this);
-  }
   onSearch() {
     BlacklistComponent.loadData(this);
   }
@@ -97,5 +90,9 @@ export class BlacklistComponent implements OnInit {
       });
     }
     this.modalService.dismissAll();
+  }
+
+  clearSearch() {
+    this.search.name = '';
   }
 }

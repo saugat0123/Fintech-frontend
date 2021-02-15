@@ -1,5 +1,5 @@
 <nb-card-header>
-    <h6 class="text-center">Blacklisted Customer Details</h6><br>
+    <h6 class="text-center">Blacklisted Customers Details</h6><br>
     <div class="float-right">
         <button nbButton outline status="success" class="mb-4 mt-0" (click)="addExcelFile()">
             <i class="fa fa-plus"></i>
@@ -16,9 +16,8 @@
                                placeholder="Name" type="text">
                     </div>
                     <div class="col-md-4">
-                        <button nbButton outline status="primary" type="submit" (click)="onSearch()">
-                            <i class="fa fa-search"></i>
-                        </button>
+                        <button nbButton status="info" size="small" type="submit" class="mr-2">Search</button>
+                        <button (click)="clearSearch()" class="mr-2" nbButton status="danger" size="small">Clear</button>
                     </div>
                 </div>
             </form>
