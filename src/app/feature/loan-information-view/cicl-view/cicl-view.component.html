@@ -2,38 +2,40 @@
   <div class="col-md-12 text-center">
     <p><strong>CICL</strong></p>
     <p class="float-left sb-small"><b>Cib Charge:</b> Rs {{ciclValue?.cibCharge | currencyFormatter}}</p>
-    <table
-        class="table table-bordered table-hover table-sm sb-small text-center">
-      <thead>
+    <div *ngIf="ciclList.length !== 0">
+      <table
+              class="table table-bordered table-hover table-sm sb-small text-center">
+        <thead>
 
-      <tr class="sb-bg-dark text-white">
-        <th>S.N</th>
-        <th>Name</th>
-        <th>Cicl Relation</th>
-        <th>Name of FI</th>
-        <th>Facility</th>
-        <th>OverDue Amount</th>
-        <th>status</th>
-        <th>Obtained Date</th>
-        <th>Loan Limit</th>
-        <th>Outstanding Amount</th>
-        <th>Overdue Installment(s)</th>
-      </tr>
-      <tr *ngFor="let data of ciclList; let i=index">
-        <td>{{i + 1}}</td>
-        <td class="text-left pl-1">{{data?.nameOfBorrower}}</td>
-        <td class="text-left pl-1">{{ciclRelationList[data.ciclRelation]}}</td>
-        <td class="text-left pl-1">{{data?.nameOfFI || 'NA'}}</td>
-        <td class="text-left pl-1">{{data?.facility || 'NA'}}</td>
-        <td class="text-right pr-1">Rs. {{data?.overdueAmount | currencyFormatter}}</td>
-        <td class="text-left pl-1">{{data?.status || 'NA'}}</td>
-        <td class="text-left pl-1">{{data?.obtaineddate | date}}</td>
-        <td class="text-right pr-1">Rs. {{data?.loanamount | currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{data?.outstandingAmount | currencyFormatter}}</td>
-        <td class="text-right pr-1">{{data?.overdue}}</td>
-      </tr>
-      </thead>
-    </table>
+        <tr class="sb-bg-dark text-white">
+          <th>S.N</th>
+          <th>Name</th>
+          <th>Cicl Relation</th>
+          <th>Name of FI</th>
+          <th>Facility</th>
+          <th>OverDue Amount</th>
+          <th>status</th>
+          <th>Obtained Date</th>
+          <th>Loan Limit</th>
+          <th>Outstanding Amount</th>
+          <th>Overdue Installment(s)</th>
+        </tr>
+        <tr *ngFor="let data of ciclList; let i=index">
+          <td>{{i + 1}}</td>
+          <td class="text-left pl-1">{{data?.nameOfBorrower}}</td>
+          <td class="text-left pl-1">{{ciclRelationList[data.ciclRelation]}}</td>
+          <td class="text-left pl-1">{{data?.nameOfFI || 'NA'}}</td>
+          <td class="text-left pl-1">{{data?.facility || 'NA'}}</td>
+          <td class="text-right pr-1">Rs. {{data?.overdueAmount | currencyFormatter}}</td>
+          <td class="text-left pl-1">{{data?.status || 'NA'}}</td>
+          <td class="text-left pl-1">{{data?.obtaineddate | date}}</td>
+          <td class="text-right pr-1">Rs. {{data?.loanamount | currencyFormatter}}</td>
+          <td class="text-right pr-1">Rs. {{data?.outstandingAmount | currencyFormatter}}</td>
+          <td class="text-right pr-1">{{data?.overdue}}</td>
+        </tr>
+        </thead>
+      </table>
+    </div>
     <table class="table table-bordered table-hover table-sm sb-small text-center" style="table-layout: fixed">
       <tr class="sb-bg-dark text-white ">
         <td>Remarks</td>
