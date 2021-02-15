@@ -1,0 +1,112 @@
+<section class="enable-print">
+    <nb-card>
+        <nb-card-body id="print-block">
+            <div class="row disable-print">
+                <div class="col-md-12">
+                    <div *ngIf="(loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
+                    loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'||
+                    loanDataHolder?.documentStatus?.toString() === 'INITIAL') && roleType === 'MAKER'">
+                        <button class="btn btn-primary sb-medium text-uppercase" nbButton size="small"
+                                status="primary" nbTooltip="Configure Approval Role Hierarchy"
+                                (click)="setRoleHierarchy(loanDataHolder?.id)">
+                            <i class="fa fa-user-shield"></i>Set Role Hierarchy
+                        </button>
+                    </div>
+                    <br>
+                    <button nbButton
+                            shape="rectangle"
+                            status="primary"
+                            size="tiny" (click)="goToCustomer()"><em class="fas fa-backward"></em> <span
+                            class="px-2">customer Profile</span></button>
+
+                    <button *ngIf="!disableApprovalSheetFlag"
+                            nbButton
+                            shape="rectangle"
+                            status="primary"
+                            class="float-right"
+                            size="tiny" (click)="goToApprovalSheet()">
+                        <span class="text-right px-2">
+                            Approval Sheet
+                        </span>
+                        <em class="fas fa-forward"></em>
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId"
+                 class="row text-success cursor disable-print">
+                <div class="col-md-6 text-left">
+                    <a (click)="renewedOrCloseFrom(loanDataHolder?.parentId,loanDataHolder?.loan?.id)"
+                       *ngIf="loanDataHolder?.parentId !== null"
+                       class="text-left">{{loanType[loanDataHolder.loanType]}} From <i
+                            class="p-1 fa fa-eye"></i></a>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a (click)="renewedOrCloseFrom(loanDataHolder?.childId,loanDataHolder?.loan?.id)"
+                       *ngIf="loanDataHolder?.childId !== null"
+                       class="text-right">{{loanType[loanDataHolder.loanType]}} to <i
+                            class="p-1 fa fa-eye"></i></a>
+                </div>
+                <div class="col-md-12">
+                    <hr/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-3">
+
+                            <div>
+                                <strong> Priority:</strong>
+                                <span class="badge badge-danger"
+                                      style="font-size: 11px">{{loanDataHolder.priority?.toString() | titlecase}}</span>
+                            </div>
+                            <div>
+                                <strong>Loan Status:</strong>
+                                <span class="badge badge-info"
+                                      style="font-size: 11px">{{loanDataHolder.documentStatus?.toString() | titlecase}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="report-header">
+                                <div class="report-header-heading">{{client}}</div>
+                                <div class="report-header-sub-heading">
+                                    <span class="sb-small"> Credit Appraisal of</span> <span
+                                        class="sb-medium"> {{loanConfig?.name}}</span>
+                                    <br/>
+                                    <span class="sb-small"> for </span>
+                                </div>
+                                <div
+                                        class="report-header-sub-heading"><span class="sb-medium"><strong>
+                                    {{loanCategory === 'INSTITUTION' ?
+                                    loanDataHolder?.companyInfo?.companyName
+                                    : loanDataHolder?.customerInfo?.customerName}}
+                               </strong> </span>
+                                </div>
+                                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
+                                <div class="badge badge-warning">Summary</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <img class="report-log img-thumbnail border-0" alt="logo"
+                                 src="../../../../../assets/img/logo.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="print-line">
+            <div class="row ">
+                <div class="col-md-12 sb-small">
+                    <div class="clearfix">
+                        <div class="float-left"><span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span></div>
+                        <div class="float-right" *ngIf="loanDataHolder?.isSol">
+                            <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span></div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <hr class="print-line disable-print">
+        </nb-card-body>
+    </nb-card>
+</section>

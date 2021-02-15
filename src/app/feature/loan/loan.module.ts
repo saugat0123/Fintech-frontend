@@ -76,8 +76,8 @@ import {AngularDraggableModule} from 'angular2-draggable';
 import {LoanInformationDetailViewModule} from '../loan-information-detail-view/loan-information-detail-view.module';
 import {AssignedOfferLetterComponent} from './loan-offer-letter/assigned-offer-letter/assigned-offer-letter.component';
 import { PostApprovalFormComponent } from './loan-offer-letter/post-approval-form/post-approval-form.component';
-import {CatalogueComponent} from "../admin/component/catalogue/catalogue.component";
-import {TransferDocComponent} from "./transfer-doc/transfer-doc.component";
+import {TransferDocComponent} from './transfer-doc/transfer-doc.component';
+import {MicroLoanSummaryComponent} from './component/micro-loan-summary/micro-loan-summary.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -131,6 +131,7 @@ const COMPONENTS = [
     LoanActionCombinedModalComponent,
     GuarantorAdderComponent,
     GuarantorDetailComponent,
+    MicroLoanSummaryComponent
 ];
 
 const ENTRY_COMPONENTS = [
