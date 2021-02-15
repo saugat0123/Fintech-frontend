@@ -163,6 +163,7 @@
                         <label><mark><strong>Note</strong>: <em>Please write <strong>Late</strong> in front of the name if relation person is deceased</em></mark></label>
 
                         <app-owner-kyc-applicable #ownerKycApplicable [data]="formDataForEdit?.landDetails[i]?.ownerKycApplicableData"
+                                                  [calendarType]="calendarType"
                                                       [kycId]="securityId.landId + i"></app-owner-kyc-applicable>
                     </div>
                     <div class="row">
@@ -1307,7 +1308,7 @@
                                 </div>
                             </div>
                             <div class="form-group" *ngIf="ownerKycRelationInfoCheckedForLandBuilding">
-                                <app-owner-kyc-applicable #ownerKycApplicableLandBuilding [data]="formDataForEdit?.landBuilding[i]?.ownerKycApplicableData"
+                                <app-owner-kyc-applicable #ownerKycApplicableLandBuilding [data]="formDataForEdit?.landBuilding[i]?.ownerKycApplicableData" [calendarType]="calendarType"
                                                           [kycId]="securityId.land_buildingId + i"></app-owner-kyc-applicable>
                             </div>
                         </div>
@@ -2460,6 +2461,7 @@
                         <div class="col-md-12">
                             <div class="form-group" *ngIf="ownerKycRelationInfoCheckedForHypothecation">
                                 <app-owner-kyc-applicable #ownerKycApplicableHypothecation [data]="formDataForEdit?.hypothecationOfStock[i]?.ownerKycApplicableData"
+                                                          [calendarType]="calendarType"
                                                           [kycId]="securityId.hypothecation_Id + i"></app-owner-kyc-applicable>
                             </div>
                         </div>

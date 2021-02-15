@@ -16,6 +16,7 @@ export class CatalogueSearch {
     isInsuranceExpired: string;
     postApprovalAssignStatus: string;
     postApprovalAssignedUser: string;
+    users: string;
 }
 
 @Injectable({

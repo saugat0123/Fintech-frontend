@@ -36,6 +36,7 @@ export class CiclComponent implements OnInit {
   ciclRelation = CiclRelationListEnum.pair();
 
   crgLambdaDisabled = environment.disableCrgLambda;
+  ciclHistory = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -59,25 +60,28 @@ export class CiclComponent implements OnInit {
 
 
   ngOnInit() {
-
     if (!ObjectUtil.isEmpty(this.ciclValue)) {
       this.ciclList = JSON.parse(this.ciclValue.data);
     } else {
       this.ciclValue = new CiclArray();
     }
+    const ciclList = this.ciclList[0];
+    if (ciclList === undefined) {
+        this.ciclHistory = false;
+    } else if (ciclList.nameOfBorrower !== null) {
+        this.ciclHistory = true;
+    }
+
     this.buildCiclForm();
     this.relationlist = this.relationshipList.relation;
-
-
   }
-
   buildCiclForm() {
     this.ciclForm = this.formBuilder.group({
       ciclArray: this.formBuilder.array([]),
       ciclRemarks: [ObjectUtil.isEmpty(this.ciclValue) ? '' : this.ciclValue.remarks],
       repaymentTrack: [ObjectUtil.isEmpty(this.ciclValue) ? '' : this.ciclValue.repaymentTrack,
           this.crgLambdaDisabled ? undefined : Validators.required],
-      cibCharge: [ObjectUtil.isEmpty(this.ciclValue) ? undefined : this.ciclValue.cibCharge, [Validators.required, Validators.min(0)]]
+      cibCharge: [ObjectUtil.isEmpty(this.ciclValue) ? undefined : this.ciclValue.cibCharge]
     });
     if (!ObjectUtil.isEmpty(this.ciclList)) {
       if ((this.ciclList.length > 0)) {
@@ -92,10 +96,9 @@ export class CiclComponent implements OnInit {
 
   addCiclFormGroup() {
     const controls = this.ciclForm.controls.ciclArray as FormArray;
-
     controls.push(
         this.formBuilder.group({
-          borrowerName: [undefined, Validators.required],
+          nameOfBorrower: [undefined, Validators.required],
           fiName: [undefined, Validators.required],
           facilityName: [undefined, Validators.required],
           overdueAmount: [undefined, Validators.required],
@@ -116,7 +119,7 @@ export class CiclComponent implements OnInit {
     }
     controls.push(
         this.formBuilder.group({
-          borrowerName: [undefined, Validators.required],
+          nameOfBorrower: [undefined, Validators.required],
           fiName: [undefined, Validators.required],
           facilityName: [undefined, Validators.required],
           overdueAmount: [undefined, Validators.required],
@@ -140,7 +143,7 @@ export class CiclComponent implements OnInit {
     ciclList.forEach(cicl => {
       controls.push(
           this.formBuilder.group({
-            borrowerName: [cicl.nameOfBorrower, Validators.required],
+            nameOfBorrower: [cicl.nameOfBorrower, Validators.required],
             fiName: [cicl.nameOfFI, Validators.required],
             facilityName: [cicl.facility, Validators.required],
             overdueAmount: [cicl.overdueAmount, Validators.required],
@@ -174,9 +177,16 @@ export class CiclComponent implements OnInit {
 
   onSubmit() {
   this.submitted = true;
-    if (this.ciclForm.invalid) {
-      this.scrollToFirstInvalidControl();
-      return;
+  if (this.ciclHistory === false) {
+      const controls = this.ciclForm.controls.ciclArray as FormArray;
+      controls.clearAsyncValidators();
+      controls.clear();
+  }
+    if (this.ciclHistory === true) {
+        if (this.ciclForm.invalid) {
+            this.scrollToFirstInvalidControl();
+            return;
+        }
     }
 
     // CICL
@@ -186,7 +196,7 @@ export class CiclComponent implements OnInit {
     for (const arrayControl of ciclControls.controls) {
       const controls = (arrayControl as FormGroup).controls;
       const cicl: Cicl = new Cicl();
-      cicl.nameOfBorrower = controls.borrowerName.value;
+      cicl.nameOfBorrower = controls.nameOfBorrower.value;
       cicl.nameOfFI = controls.fiName.value;
       cicl.facility = controls.facilityName.value;
       cicl.overdueAmount = controls.overdueAmount.value;
@@ -207,6 +217,14 @@ export class CiclComponent implements OnInit {
         this.ciclForm.get('repaymentTrack').value;
     this.ciclValue.data = JSON.stringify(this.ciclList);
     this.ciclDataEmitter.emit(this.ciclValue);
+  }
+
+  public ciclHistoryFound(ciclChk) {
+      if (!ciclChk) {
+          this.ciclHistory = false;
+      } else {
+          this.ciclHistory = true;
+      }
   }
 
 }
