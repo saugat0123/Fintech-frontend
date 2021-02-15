@@ -14,6 +14,7 @@ import {Cicl, CiclArray} from '../../admin/modal/cicl';
 import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../admin/modal/NetTradingAssets';
 import {CreditChecklistGeneral} from './creditChecklistGeneral';
+import {MicroLoanSynopsis} from './micro-loan-synopsis';
 
 export class CustomerInfoData {
     id: number;
@@ -51,4 +52,5 @@ export class CustomerInfoData {
     customerCode: string;
     subSectorDetailCode: string;
     nepData: string;
+    synopsisCreditworthiness: MicroLoanSynopsis;
 }

@@ -27,6 +27,8 @@ import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 import {CreditChecklistGeneral} from '../../../loan/model/creditChecklistGeneral';
 import {CustomerType} from '../../model/customerType';
 import {Customer} from '../../../admin/modal/customer';
+import {MicroLoanSynopsis} from '../../../loan/model/micro-loan-synopsis';
+import {MicroSynopsisComponent} from '../../../micro-loan/form-component/micro-synopsis/micro-synopsis.component';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -76,6 +78,8 @@ export class CustomerLoanInformationComponent implements OnInit {
   private itemCicl: NbAccordionItemComponent;
   @ViewChild('itemloanChecklist', {static: false})
   private itemloanChecklist: NbAccordionItemComponent;
+  @ViewChild('synopsisAccordion', {static: false})
+  private synopsisAccordion: NbAccordionItemComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
   calendarType: CalendarType = CalendarType.AD;
   private siteVisit: SiteVisit;
@@ -91,6 +95,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   public incomeFromAccountDataResponse: IncomeFromAccount;
   public netTradingAssets: NetTradingAssets;
   public creditChecklistGeneral: CreditChecklistGeneral;
+  public microLoanSynopsis: MicroLoanSynopsis;
   customerType = CustomerType;
 
 
@@ -138,6 +143,9 @@ export class CustomerLoanInformationComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.customerInfo.creditChecklist)) {
       this.creditChecklistGeneral = this.customerInfo.creditChecklist;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.synopsisCreditworthiness)) {
+      this.microLoanSynopsis = this.customerInfo.synopsisCreditworthiness;
     }
   }
 
@@ -352,6 +360,22 @@ export class CustomerLoanInformationComponent implements OnInit {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Credit Checklist!'));
     });
+  }
+
+  saveSynopsisCreditworthiness(data: MicroLoanSynopsis) {
+    if (ObjectUtil.isEmpty(this.microLoanSynopsis)) {
+      this.microLoanSynopsis = new MicroLoanSynopsis();
+    }
+    this.microLoanSynopsis = data;
+    this.customerInfoService.saveLoanInfo(this.microLoanSynopsis, this.customerInfoId, TemplateName.SYNOPSIS_CREDITWORTHINESS)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Synopsis Creditworthiness!'));
+          this.synopsisAccordion.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Synopsis Creditworthiness!'));
+        });
   }
 
 }

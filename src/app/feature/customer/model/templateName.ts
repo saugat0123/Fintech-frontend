@@ -15,4 +15,5 @@ export class TemplateName {
   static CICL = 'CICL';
   static INCOME_FROM_ACCOUNT = 'Income From Account';
   static CREDIT_CHECKlIST = 'Credit Checklist';
+  static SYNOPSIS_CREDITWORTHINESS = 'Synopsis Creditworthiness';
 }
