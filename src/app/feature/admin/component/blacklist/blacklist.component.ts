@@ -23,6 +23,7 @@ export class BlacklistComponent implements OnInit {
   spinner = false;
   toBlacklist: BlackList;
   removeBlackListed = false;
+  search: any = {};
 
   constructor(
       private modalService: NgbModal,
@@ -32,14 +33,17 @@ export class BlacklistComponent implements OnInit {
 
   static loadData(other: BlacklistComponent) {
     other.spinner = true;
-    other.blackListService.getAllBlackList(other.page, 5 ).subscribe((response: any) => {
-      other.blackList = response.detail.content;
-      other.pageable = PaginationUtils.getPageable(response.detail);
-      other.spinner = false;
-    }, () => {
-      other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
-      other.spinner = false;
-    });
+    other.blackListService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
+          other.blackList = response.detail.content;
+          other.pageable = PaginationUtils.getPageable(response.detail);
+          other.spinner = false;
+
+        }, error => {
+
+          other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data'));
+          other.spinner = false;
+        }
+    );
   }
 
   getDocType(blackListDocType: string) {
@@ -47,6 +51,10 @@ export class BlacklistComponent implements OnInit {
   }
 
   ngOnInit() {
+    BlacklistComponent.loadData(this);
+  }
+
+  onSearch() {
     BlacklistComponent.loadData(this);
   }
 
@@ -82,5 +90,9 @@ export class BlacklistComponent implements OnInit {
       });
     }
     this.modalService.dismissAll();
+  }
+
+  clearSearch() {
+    this.search.name = '';
   }
 }
