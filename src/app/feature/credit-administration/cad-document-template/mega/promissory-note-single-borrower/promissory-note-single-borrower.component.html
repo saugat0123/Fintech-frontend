@@ -16,62 +16,46 @@
                 (अक्षरेपी <input class="form-field form-control-sm nepaliFont"name="amountInWord"  formControlName="amountInWord" placeholder=""  type="text"/> )<br>
                 <br>
 
-                लिखितम् श्री <input class="form-field form-control-sm nepaliFont" name="grandFatherName"  formControlName="grandFatherName" placeholder=""    type="text"/>
-                को/की नाति/नातिनी/बुहारी श्री<input class="form-field form-control-sm nepaliFont" name="fatherName" formControlName="fatherName" placeholder=""    type="text"/>
+                लिखितम् श्री <span *ngIf="nepData?.gender==1">
+                        <strong class="nepaliFont">{{nepData?.grandFatherName}}</strong>को नाति
+                    श्री <strong class="nepaliFont"> {{nepData?.fatherName}}</strong> को छोरा
+                    </span>
+                <span *ngIf="nepData?.gender==0">
+                        <span *ngIf="nepData?.relationMedium==0">
+                            <strong class="nepaliFont">{{nepData?.grandFatherName}}</strong>को नातिनी
+                           श्री <strong class="nepaliFont"> {{nepData?.fatherName}}</strong> को छोरी
+                        </span>
+                        <span *ngIf="nepData?.relationMedium==1">
+                            <strong class="nepaliFont">{{nepData?.fatherInLawName}}</strong>को बुहारी
+                           श्री <strong class="nepaliFont"> {{nepData?.husbandName}}</strong> को श्रीमति
+                        </span>
+                    </span>
 
-                को छोरा/छोरी/श्रीमती
-                <input class="form-field form-control-sm nepaliFont"  name="perDistrictName"
-                       formControlName="perDistrict"
-                       placeholder=""
-                       type="text"/>
+                <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong>
                 जिल्ला
-                <input class="form-field form-control-sm nepaliFont"
-                       formControlName="perMunicipalityOrVdc"
-                       name="perMunicipalityOrVdc"
-                       placeholder=""
-                       type="text"/>
-                न.पा/गा.वि.स. वडा नं
-                <input class="form-field form-control-sm nepaliFont"
-                       formControlName="perWardNo"
-                       name="perWardNo"
-                       placeholder=""
-                       type="text"/>
+                <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
+                {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
+                 वडा नं
+                <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
                 स्थायी ठेगाना भई हाल
-                <input class="form-field form-control-sm nepaliFont"
-                       name="currentDistrict"
-                       formControlName="currentDistrict"
-                       placeholder=""
-                       type="text"/>
+                <strong class="nepaliFont">{{nepData?.temporaryDistrict}}</strong>
                 जिल्ला
-                <input class="form-field form-control-sm nepaliFont"
-                       name="CurrentMunicipalityOrVdc"
-                       formControlName="CurrentMunicipalityOrVdc"
-                       placeholder=""
-                       type="text"/>
-                न.पा./गा.वि.स. वडा नं
-                <input class="form-field form-control-sm nepaliFont"
-                       formControlName="CurrentWardNo"
-                       name="CurrentWardNo"
-                       placeholder=""
-                       type="text"/>
+                <strong class="nepaliFont">{{nepData?.temporaryMunicipality}}</strong>
+                {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
+                 वडा नं
+                <strong class="nepaliFont">{{nepData?.temporaryWard}}</strong>
                 बर्ष
-                <input class="form-field form-control-sm nepaliFont"
-                       formControlName="borrowerAge"
-                       name="borrowerAge"
-                       placeholder=""
-                       type="text"/>
-                को/की श्री/सुश्री/श्रीमती
+                <strong class="nepaliFont">{{nepData?.age}}</strong>
+                <span *ngIf="nepData?.gender==1">को </span>
+                <span *ngIf="nepData?.gender==0"> की </span>
+             श्री/सुश्री/श्रीमती
                 <input class="form-field form-control-sm nepaliFont"
                        name="borrowerName"
                        formControlName="borrowerName"
                        placeholder=""
                        type="text"/>
                 (ना.प्र.नं
-                <input class="form-field form-control-sm nepaliFont"
-                       name="citizenshipNo"
-                       formControlName="citizenshipNo"
-                       placeholder=""
-                       type="text"/>
+                <strong class="nepaliFont">{{nepData?.citizenshipNo}}</strong>
                 मिति
                 <input class="form-field form-control-sm nepaliFont"
                        name="citizenshipIssuedDate"
