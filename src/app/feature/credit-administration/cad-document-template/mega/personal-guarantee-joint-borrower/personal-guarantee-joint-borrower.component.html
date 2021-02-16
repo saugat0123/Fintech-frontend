@@ -12,25 +12,37 @@
                            placeholder=""
                            type="text"/>
                     शाखा कार्यालय (यसपछि धनी बैंक भनिएको ) जमानीको लिखत गरी दिनेका नाम
-                    <span *ngIf="nepData?.gender==1">
-                        <strong class="nepaliFont">{{nepData?.grandFatherName}}</strong> को नाति
-                        श्री <strong class="nepaliFont"> {{nepData?.fatherName}}</strong> को छोरा
-                    </span>
-                    <span *ngIf="nepData?.gender==0">
-                        <span *ngIf="nepData?.relationMedium==0">
-                            <strong class="nepaliFont">{{nepData?.grandFatherName}}</strong> को नातिनी
-                            श्री <strong class="nepaliFont"> {{nepData?.fatherName}}</strong> को छोरी
-                        </span>
-                        <span *ngIf="nepData?.relationMedium==1">
-                            <strong class="nepaliFont">{{nepData?.fatherInLawName}}</strong> को बुहारी
-                            श्री <strong class="nepaliFont"> {{nepData?.husbandName}}</strong> को श्रीमति
-                        </span>
-                    </span>
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarantorGrandFatherName"
+                           formControlName="guarantorGrandFatherName"
+                           placeholder=""
+                           type="text"/>
+                    को नाति/नातिनी/बुहारी
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarrantorFatherName"
+                           formControlName="guarrantorFatherName"
+                           placeholder=""
+                           type="text"/>
+                    छोरा/छोरी/श्रीमति
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarantorDistrict"
+                           formControlName="guarantorDistrict"
+                           placeholder=""
+                           type="text"/>
+
                     जिल्ला
-                    <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
-                    {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
-                   वडा नं.
-                    <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarantorMunicipalityOrVdc"
+                           formControlName="guarantorMunicipalityOrVdc"
+                           placeholder=""
+                           type="text"/>
+                    गाउँपालिका/नगरपालिका वडा नं.
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarantorWardNo"
+                           formControlName="guarantorWardNo"
+                           placeholder=""
+                           type="text"/>
+
                     घर भई हाल प्रदेश नं.
                     <strong class="nepaliFont">{{nepData?.temporaryProvince}}</strong>
 
@@ -47,7 +59,13 @@
                            type="text"/>
 
                     बस्ने वर्ष
-                    <strong class="nepaliFont">{{nepData?.age}}</strong>
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarantorAge"
+                           formControlName="guarantorAge"
+                           placeholder=""
+                           type="text"
+                           size="3"/>
+
                     को <input class="form-field form-control-sm nepaliFont"
                               name="guarantorName"
                               formControlName="guarantorName"

@@ -45,7 +45,12 @@
                  वडा नं
                 <strong class="nepaliFont">{{nepData?.temporaryWard}}</strong>
                 बर्ष
-                <strong class="nepaliFont">{{nepData?.age}}</strong>
+                <input class="form-field form-control-sm nepaliFont"
+                       formControlName="borrowerAge"
+                       name="borrowerAge"
+                       placeholder=""
+                       type="text"/>
+
                 <span *ngIf="nepData?.gender==1">को </span>
                 <span *ngIf="nepData?.gender==0"> की </span>
              श्री/सुश्री/श्रीमती

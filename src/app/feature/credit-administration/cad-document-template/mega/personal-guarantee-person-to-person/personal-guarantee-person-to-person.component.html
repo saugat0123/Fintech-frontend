@@ -52,7 +52,12 @@
                      वडा नं
                     <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
                     बस्ने बर्ष
-                    <strong class="nepaliFont">{{nepData?.age}}</strong>
+                    <input class="form-field form-control-sm nepaliFont"
+                           name="guarantorAge"
+                           placeholder=""
+                           formControlName="guarantorAge"
+                           type="text"/>
+
 
                     <span *ngIf="nepData?.gender==1">को </span>
                     <span *ngIf="nepData?.gender==0"> की </span>
