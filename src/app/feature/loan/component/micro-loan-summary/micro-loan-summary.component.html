@@ -110,3 +110,12 @@
         </nb-card-body>
     </nb-card>
 </section>
+<nb-card>
+    <nb-card-header>
+        <h6>Synopsis of Creditworthiness</h6>
+    </nb-card-header>
+    <nb-card-body>
+        <app-micro-synopsis-creditworthiness *ngIf="synopsis"
+                [synopsisData]="synopsisCreditWorthiness"></app-micro-synopsis-creditworthiness>
+    </nb-card-body>
+</nb-card>
