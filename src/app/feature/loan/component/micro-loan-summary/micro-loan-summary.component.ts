@@ -145,11 +145,13 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   taggedGuarantorWithDoc = [];
   insuranceWithDoc = [];
   showCadDoc = false;
+  synopsis = false;
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   fiscalYearArray = [];
 
   disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
   roleType;
+  synopsisCreditWorthiness;
 
 
   constructor(
@@ -183,6 +185,10 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
     this.loanDataHolder = this.loanData;
     this.loadSummary();
     this.roleType = LocalStorageUtil.getStorage().roleType;
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.synopsisCreditworthiness)) {
+      this.synopsisCreditWorthiness = this.loanDataHolder.loanHolder.synopsisCreditworthiness;
+      this.synopsis = true;
+    }
   }
 
   ngOnDestroy(): void {
