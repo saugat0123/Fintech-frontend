@@ -22,6 +22,8 @@ export class DeedHypoOfMachineryComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
+  nepData;
+
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -36,6 +38,9 @@ export class DeedHypoOfMachineryComponent implements OnInit {
           this.deepHypoMachinery.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
+    }
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
   }
   buildForm(){
