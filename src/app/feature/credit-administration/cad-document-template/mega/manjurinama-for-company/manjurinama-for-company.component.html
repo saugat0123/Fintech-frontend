@@ -7,80 +7,35 @@
                 <p>
                     लिखितम्  लिखितम लिखित गराइ लिनेका नाम प्रचलित बैंक तथा वित्तिय संस्था सम्बन्धी ऐन बमोजिम संस्थापित तथा संचालित काठमाण्डौं जिल्ला काठमाण्डौ महानगरपालिका वडा नं. २८
                     स्थित केन्द्रीय कार्यलय रहेको मेगा बैंक नेपाल लिमिटेडको <strong>प्रधान</strong> कार्यालय (जसलाई यस पछि धनी बैंक भनिएको), लिखत गरी दिने हामी तपसिलमा बमोजिमका मानिसहरु आगे
-                    श्री <input class="form-field form-control-sm nepaliFont disable-print"
-                                name="grandFatherName"
-                                formControlName="grandFatherName"
-                                placeholder=""
-                                type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('grandFatherName').value ? manjurimaCompany.get('grandFatherName').value  : '========='}}</b></span>
+                    श्री <strong class="nepaliFont"> {{nepData?.grandFatherName}}</strong>
                     को/की नाति/नातिनी/बुहारी, श्री
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="fatherName"
-                           formControlName="fatherName"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('fatherName').value ? manjurimaCompany.get('fatherName').value  : '========='}}</b></span>
-                    को/की ५ोरा/५ोरी,
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="husbandName"
-                           formControlName="husbandName"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('husbandName').value ? manjurimaCompany.get('husbandName').value  : '========='}}</b></span>
+                    <strong class="nepaliFont"> {{nepData?.fatherName}}</strong>
+                    को/की छोरा/छोरी,
+                    <strong class="nepaliFont">{{nepData?.husbandName}}</strong>
                     को/की  पत्नी,
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="perDistrictName"
-                           formControlName="perDistrictName"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('perDistrictName').value ? manjurimaCompany.get('perDistrictName').value  : '========='}}</b></span>
+                    <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong>
                     जिल्ला
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="perMunicipality"
-                           formControlName="perMunicipality"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('perMunicipality').value ? manjurimaCompany.get('perMunicipality').value  : '========='}}</b></span>
+                    <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
+                    {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
                     न.पा./गा.वि.स. वडा नं.
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="perWardNo"
-                           formControlName="perWardNo"
-                           placeholder=""
-                           type="text"
-                           size="3"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('perWardNo').value ? manjurimaCompany.get('perWardNo').value  : '========='}}</b></span>
+                    <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
                     हाल
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="tempAddProvinceName"
-                           formControlName="tempAddProvinceName"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('tempAddProvinceName').value ? manjurimaCompany.get('tempAddProvinceName').value  : '========='}}</b></span>
+                    <strong class="nepaliFont">{{nepData?.temporaryProvince}}</strong>
                     प्रदेश
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="tempAddDistrictName"
-                           formControlName="tempAddDistrictName"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('tempAddDistrictName').value ? manjurimaCompany.get('tempAddDistrictName').value  : '========='}}</b></span>
+                    <strong class="nepaliFont">{{nepData?.temporaryDistrict}}</strong>
                     जिल्ला
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="tempAddMunicipalityOrVdc"
-                           formControlName="tempAddMunicipalityOrVdc"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('tempAddMunicipalityOrVdc').value ? manjurimaCompany.get('tempAddMunicipalityOrVdc').value  : '========='}}</b></span>
+                    <strong class="nepaliFont">{{nepData?.temporaryMunicipality}}</strong>
+                    {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
                     गाउपालिका/महा/उपमहा/नगरपालिका वडा नं.
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="tempAddWardNo"
-                           formControlName="tempAddWardNo"
+                    <strong class="nepaliFont">{{nepData?.temporaryWard}}</strong>
+                    <input class="form-field form-control-sm nepaliFont"
+                           formControlName="temporaryAddress"
                            placeholder=""
-                           type="text"
-                           size="2"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('tempAddWardNo').value ? manjurimaCompany.get('tempAddWardNo').value  : '========='}}</b></span>
+                           type="text"/>
                     बस्ने वर्ष
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="borrowerAge"
-                           formControlName="borrowerAge"
-                           placeholder=""
-                           type="text"
-                           size="3"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('borrowerAge').value ? manjurimaCompany.get('borrowerAge').value  : '========='}}</b></span>
+                    <strong class="nepaliFont">{{nepData?.age}}</strong>
                     की श्री
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="borrowerName"
-                           formControlName="borrowerName"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{manjurimaCompany.get('borrowerName').value ? manjurimaCompany.get('borrowerName').value  : '========='}}</b></span>
+                    <strong class="nepaliFont">{{nepData?.name}}</strong>
                     को नाममा मालपोत कार्यालय
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="landRevenueOfficeBranch"

@@ -37,58 +37,25 @@
                                      type="text"/>
                         <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('branchName').value ? personalGuaranteeCompany.get('branchName').value  : '========='}}</b></span>
                         कार्यालय (जसलाई यस उप्रान्त यस लिखतमा धनी बैंक भनिएको छ) जमानीको लिखत गरि दिनेका नाम श्री
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-                               name="GrandFatherName"
-                               placeholder=""
-                               formControlName="GrandFatherName"
-                               type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('GrandFatherName').value ? personalGuaranteeCompany.get('GrandFatherName').value  : '========='}}</b></span>
-                        को नाति/नातिनी/बुहारी, श्री <input class="form-field form-control-sm nepaliFont disable-print"
-                                                           name="grandChildrenName"
-                                                           placeholder=""
-                                                           formControlName="grandChildrenName"
-                                                           type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('grandChildrenName').value ? personalGuaranteeCompany.get('grandChildrenName').value  : '========='}}</b></span>
-                        को छोरा/छोरी/पत्नी,
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-                               name="districtName2"
-                               placeholder=""
-                               formControlName="districtName2"
-                               type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('districtName2').value ? personalGuaranteeCompany.get('districtName2').value  : '========='}}</b></span>
+                        <strong class="nepaliFont"> {{nepData?.gender == 1 ? nepData?.grandFatherName : nepData?.relationMedium == 0 ? nepData?.grandFatherName : nepData?.fatherInLawName}}</strong>
+
+                        को {{nepData?.gender == 1 ? 'नाति' : nepData?.relationMedium == 0 ? 'नातिनी' : 'बुहारी'}}
+
+                        <strong class="nepaliFont">{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? nepData?.fatherName : null }}</strong>{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? ' को' : '' }}
+
+                        {{nepData?.gender == 0 && nepData?.relationMedium == 0 ? 'छोरी' : nepData?.gender == 1 ? 'छोरा': null }}
+
+                        <strong class="nepaliFont"> {{nepData?.gender == 0 && nepData?.relationMedium == 1 ? nepData?.husbandName : null }}</strong>{{nepData?.gender == 0 && nepData?.relationMedium == 1 ? ' कि पत्नी' : '' }}
+                        <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong>
                         जिल्ला
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-                               name="municipalityName2"
-                               placeholder=""
-                               formControlName="municipalityName2"
-                               type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('municipalityName2').value ? personalGuaranteeCompany.get('municipalityName2').value  : '========='}}</b></span>
+                        <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
+                        {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}} वडा नं.
+                        <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
                         महानगरपालिका/ नगरपालिका/उपनगरपालिका/गा.वि.स.
-                        वडा नं <input class="form-field form-control-sm nepaliFont disable-print"
-                                      name="wardNo2"
-                                      placeholder=""
-                                      formControlName="wardNo2"
-                                      type="text"
-                                      size="2"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('wardNo2').value ? personalGuaranteeCompany.get('wardNo2').value  : '========='}}</b></span>
-                        बस्ने बर्ष <input class="form-field form-control-sm nepaliFont disable-print"
-                                          name="age"
-                                          placeholder=""
-                                          formControlName="age"
-                                          type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('age').value ? personalGuaranteeCompany.get('age').value  : '========='}}</b></span>
-                        को/की श्री/श्रीमती/सुश्री <input class="form-field form-control-sm nepaliFont disable-print"
-                                                         name="guarantorName"
-                                                         placeholder=""
-                                                         formControlName="guarantorName"
-                                                         type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('guarantorName').value ? personalGuaranteeCompany.get('guarantorName').value  : '========='}}</b></span>
-                        ( ना.प्र.प नं.<input class="form-field form-control-sm nepaliFont disable-print"
-                                             name="citizenshipNo"
-                                             placeholder=""
-                                             formControlName="citizenshipNo"
-                                             type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('citizenshipNo').value ? personalGuaranteeCompany.get('citizenshipNo').value  : '========='}}</b></span>
+                        वडा नं  <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
+                        बस्ने बर्ष  <strong class="nepaliFont">{{nepData?.age}}</strong>
+                        को/की श्री/श्रीमती/सुश्री  <strong class="nepaliFont">{{nepData?.name}}</strong>
+                        ( ना.प्र.प नं. <strong class="nepaliFont">{{nepData?.citizenshipNo}}</strong>
                         , मिति <input class="form-field form-control-sm nepaliFont disable-print"
                                       name="date"
                                       formControlName="date"
