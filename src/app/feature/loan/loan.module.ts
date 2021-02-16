@@ -132,7 +132,8 @@ const COMPONENTS = [
     LoanActionCombinedModalComponent,
     GuarantorAdderComponent,
     GuarantorDetailComponent,
-    MicroLoanSummaryComponent
+    MicroLoanSummaryComponent,
+    MicroSynopsisCreditworthinessComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -171,7 +172,7 @@ const modules = {
 };
 
 @NgModule({
-    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent, PostApprovalFormComponent, TransferDocComponent, MicroSynopsisCreditworthinessComponent],
+    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent, PostApprovalFormComponent, TransferDocComponent],
     imports: [
         ThemeModule,
         CommonModule,
