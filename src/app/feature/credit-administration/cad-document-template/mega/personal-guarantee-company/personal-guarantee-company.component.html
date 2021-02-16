@@ -37,10 +37,15 @@
                                      type="text"/>
                         <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('branchName').value ? personalGuaranteeCompany.get('branchName').value  : '========='}}</b></span>
                         कार्यालय (जसलाई यस उप्रान्त यस लिखतमा धनी बैंक भनिएको छ) जमानीको लिखत गरि दिनेका नाम श्री
-                        <strong class="nepaliFont">{{nepData?.grandFatherName}}</strong>
-                        को नाति/नातिनी/बुहारी, श्री <strong class="nepaliFont">{{nepData?.fatherName}}</strong>
+                        <strong class="nepaliFont"> {{nepData?.gender == 1 ? nepData?.grandFatherName : nepData?.relationMedium == 0 ? nepData?.grandFatherName : nepData?.fatherInLawName}}</strong>
 
-                        को छोरा/छोरी/पत्नी,
+                        को {{nepData?.gender == 1 ? 'नाति' : nepData?.relationMedium == 0 ? 'नातिनी' : 'बुहारी'}}
+
+                        <strong class="nepaliFont">{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? nepData?.fatherName : null }}</strong>{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? ' को' : '' }}
+
+                        {{nepData?.gender == 0 && nepData?.relationMedium == 0 ? 'छोरी' : nepData?.gender == 1 ? 'छोरा': null }}
+
+                        <strong class="nepaliFont"> {{nepData?.gender == 0 && nepData?.relationMedium == 1 ? nepData?.husbandName : null }}</strong>{{nepData?.gender == 0 && nepData?.relationMedium == 1 ? ' कि पत्नी' : '' }}
                         <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong>
                         जिल्ला
                         <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>

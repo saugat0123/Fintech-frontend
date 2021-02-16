@@ -67,12 +67,15 @@
                 मा दर्ता भएको
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="proprietaryPartner" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('proprietaryPartner').value ? hypoOfStock.get('proprietaryPartner').value  : '========='}}</b></span>
                 फर्म/प्रा.लि./लि./कम्पनी (जसलाई यस उप्रान्त ऋ०ाी भनिएको छ) का हकमा एवं तर्फबा६ ऐ. का अख्तियार प्राप्त संचालकरप्रतिनिधि,श्री
-                <strong class="nepaliFont"> {{nepData?.grandFatherName}}</strong>
-                को नाति/नातिनी श्री
-                <strong class="nepaliFont"> {{nepData?.fatherName}}</strong>
+                <strong class="nepaliFont"> {{nepData?.gender == 1 ? nepData?.grandFatherName : nepData?.relationMedium == 0 ? nepData?.grandFatherName : nepData?.fatherInLawName}}</strong>
 
-                को छोरा/छोरी/पत्नी
-                <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong>
+                को {{nepData?.gender == 1 ? 'नाति' : nepData?.relationMedium == 0 ? 'नातिनी' : 'बुहारी'}}
+
+                <strong class="nepaliFont">{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? nepData?.fatherName : null }}</strong>{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? ' को' : '' }}
+
+                {{nepData?.gender == 0 && nepData?.relationMedium == 0 ? 'छोरी' : nepData?.gender == 1 ? 'छोरा': null }}
+
+                <strong class="nepaliFont"> {{nepData?.gender == 0 && nepData?.relationMedium == 1 ? nepData?.husbandName : null }}</strong>{{nepData?.gender == 0 && nepData?.relationMedium == 1 ? ' कि पत्नी' : '' }}
                 जिल्ला
                 <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
                 {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}

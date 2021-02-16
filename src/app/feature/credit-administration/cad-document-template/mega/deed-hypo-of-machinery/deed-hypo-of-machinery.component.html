@@ -85,12 +85,12 @@
                 प्रोप्राइटर फर्मरसाझेदारी फर्मरप्रा.लि./लि/कम्पनी (जसलाई यस उप्रान्त ऋणी भनिएको छ) का हकमा एवं तर्फबाट ऐ. का अख्तियार प्राप्त प्रोप्राइटररसाझेदाररसंचालक श्री
                 <strong class="nepaliFont"> {{nepData?.grandFatherName}}</strong>
 
-                को नाति/नातिनी श्री  <strong class="nepaliFont"> {{nepData?.fatherName}}</strong>
+                को {{nepData?.gender == 0 ? 'नातिनी' : 'नाति' }} श्री  <strong class="nepaliFont"> {{nepData?.fatherName}}</strong>
 
-                को छोरा/छोरी श्री
-                <strong class="nepaliFont"> {{nepData?.husbandName}}</strong>
+                को {{nepData?.gender == 0 ? 'छोरी' : 'छोरा' }} {{nepData?.relationMedium == 1 ? 'श्री' : null }}
+                <strong class="nepaliFont"> {{nepData?.relationMedium == 1 ? nepData?.husbandName : null }}</strong>
 
-                को पत्नी <strong class="nepaliFont"> {{nepData?.permanentDistrict}}</strong>
+                {{nepData?.relationMedium == 1 ? 'को पत्नी' : null }}<strong class="nepaliFont"> {{nepData?.permanentDistrict}}</strong>
 
                 जिल्ला  <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
                 {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
