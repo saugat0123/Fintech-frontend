@@ -28,6 +28,7 @@ export class SecuritySummaryComponent implements OnInit {
     loanSharePercent: NepseMaster = new NepseMaster();
     landBuilding = false;
     showTitle = false;
+    insurancePolicySelected = false;
 
     constructor() {
     }
@@ -75,6 +76,9 @@ export class SecuritySummaryComponent implements OnInit {
                     case 'PersonalGuarantee':
                         this.showTitle = true;
                         this.personal = true;
+                    case 'InsurancePolicySecurity':
+                        this.showTitle = true;
+                        this.insurancePolicySelected = true;
                 }
             });
         }

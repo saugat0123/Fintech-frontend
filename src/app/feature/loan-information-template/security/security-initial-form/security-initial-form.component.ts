@@ -74,6 +74,7 @@ export class SecurityInitialFormComponent implements OnInit {
     branchLists;
     securityValuator: SecurityValuator = new SecurityValuator();
     otherBranchcheck = false;
+    cashBackCheck = false;
     depositSelected = false;
     isFixedDeposit = false;
     shareSelected = false;
@@ -84,6 +85,7 @@ export class SecurityInitialFormComponent implements OnInit {
     ckeConfig;
     personal = false;
     spinner = false;
+    insurancePolicySelected = false;
     securityTypes = [
         {key: 'LandSecurity', value: 'Land Security'},
         {key: 'VehicleSecurity', value: 'Vehicle Security'},
@@ -95,6 +97,7 @@ export class SecurityInitialFormComponent implements OnInit {
         {key: 'HypothecationOfStock', value: 'Hypothecation of Stock'},
         {key: 'CorporateGuarantee', value: 'Corporate Guarantee'},
         {key: 'PersonalGuarantee', value: 'Personal Guarantee'},
+        {key: 'InsurancePolicySecurity', value: 'Insurance Policy Security'},
 
     ];
 
@@ -160,6 +163,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.ownerKycRelationInfoCheckedForLand = true;
             this.ownerKycRelationInfoCheckedForLandBuilding = true;
             this.ownerKycRelationInfoCheckedForHypothecation = true;
+            this.cashBackCheck = true;
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
             this.change(this.selectedArray);
@@ -180,6 +184,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.setHypothecation(this.formDataForEdit['hypothecationOfStock']);
             this.setCorporate(this.formDataForEdit['corporateGuarantee']);
             this.setPersonal(this.formDataForEdit['personalGuarantee']);
+            this.setInsurancePolicy(this.formDataForEdit['insurancePolicy']);
             this.securityForm.get('vehicleLoanExposure').patchValue(this.formDataForEdit['vehicleLoanExposure']);
         } else {
             this.addMoreLand();
@@ -192,6 +197,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addHypothecationOfStock();
             this.addCorporateGuarantee();
             this.addPersonalGuarantee();
+            this.addInsurancePolicy();
         }
 
         if (ObjectUtil.isEmpty(this.shareSecurity)) {
@@ -220,7 +226,8 @@ export class SecurityInitialFormComponent implements OnInit {
             remark: [undefined],
             hypothecationOfStock: this.formBuilder.array([]),
             corporateGuarantee: this.formBuilder.array([]),
-            personalGuarantee: this.formBuilder.array([])
+            personalGuarantee: this.formBuilder.array([]),
+            insurancePolicy: this.formBuilder.array([]),
 
         });
         this.buildShareSecurityForm();
@@ -673,10 +680,34 @@ export class SecurityInitialFormComponent implements OnInit {
         });
     }
 
+    setInsurancePolicy(currentData) {
+        if (!ObjectUtil.isEmpty(currentData)) {
+            const insurancePolicy = this.securityForm.get('insurancePolicy') as FormArray;
+            currentData.forEach((singleData) => {
+                insurancePolicy.push(
+                    this.formBuilder.group({
+                        insuredAmount: [singleData.insuredAmount],
+                        insuranceCompanyName: [singleData.insuranceCompanyName],
+                        policyStartDate: [singleData.policyStartDate],
+                        maturityDate: [singleData.maturityDate],
+                        insurancePolicyType: [singleData.insurancePolicyType],
+                        surrenderValue: [singleData.surrenderValue],
+                        earlySurrenderDate: [singleData.earlySurrenderDate],
+                        consideredValue: [singleData.consideredValue],
+                        cashBackAmount: [singleData.cashBackAmount],
+                        yearlyCashBack: [singleData.yearlyCashBack],
+                    })
+                );
+            });
+        }else {
+            this.addInsurancePolicy();
+        }
+    }
+
     change(arraySelected) {
         this.selectedArray = arraySelected;
         this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected
-            = this.underConstructionChecked = this.depositSelected = this.shareSelected = this.landBuilding = false;
+            = this.underConstructionChecked = this.depositSelected = this.shareSelected = this.landBuilding = this.insurancePolicySelected = false;
         arraySelected.forEach(selectedValue => {
             switch (selectedValue) {
                 case 'LandSecurity' :
@@ -708,6 +739,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     break;
                 case 'PersonalGuarantee':
                     this.personal = true;
+                    break;
+                case 'InsurancePolicySecurity':
+                    this.insurancePolicySelected = true;
             }
         });
 
@@ -882,6 +916,22 @@ export class SecurityInitialFormComponent implements OnInit {
             ownerKycApplicableData: [undefined],
         });
     }
+    //Insurance policy form group
+    insurancePolicyFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            insuredAmount: [undefined],
+            insuranceCompanyName: [undefined],
+            policyStartDate: [undefined],
+            maturityDate: [undefined],
+            insurancePolicyType: [undefined],
+            surrenderValue: [undefined],
+            earlySurrenderDate: [undefined],
+            consideredValue: [undefined],
+            cashBackAmount: [undefined],
+            yearlyCashBack: [undefined],
+            }
+        );
+    }
 
     plantDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
@@ -925,6 +975,16 @@ export class SecurityInitialFormComponent implements OnInit {
         }
     }
 
+    cashBack(checkedStatus) {
+        console.log(checkedStatus);
+        if (!checkedStatus) {
+            this.cashBackCheck = false;
+        } else {
+            this.cashBackCheck = true;
+        }
+        return this.cashBackCheck;
+    }
+
     addLandBuilding() {
         (this.securityForm.get('landBuilding') as FormArray).push(this.LandBuildingDetailsFormGroup());
     }
@@ -945,6 +1005,10 @@ export class SecurityInitialFormComponent implements OnInit {
         (this.securityForm.get('personalGuarantee') as FormArray).push(this.personalDetailsFormGroup());
     }
 
+    addInsurancePolicy() {
+        (this.securityForm.get('insurancePolicy') as FormArray).push(this.insurancePolicyFormGroup());
+    }
+
     removeLandDetails(index: number) {
         (<FormArray>this.securityForm.get('landDetails')).removeAt(index);
     }
@@ -960,6 +1024,10 @@ export class SecurityInitialFormComponent implements OnInit {
 
     removePersonal(index: number) {
         (<FormArray>this.securityForm.get('personalGuarantee')).removeAt(index);
+    }
+
+    removeInsurance(index: number) {
+        (<FormArray>this.securityForm.get('insurancePolicy')).removeAt(index);
     }
 
     addBuilding() {
@@ -1185,6 +1253,10 @@ export class SecurityInitialFormComponent implements OnInit {
         return this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
     }
 
+    get insuranceDetails() {
+        return this.securityForm.get('insurancePolicy') as FormArray;
+    }
+
     public removeShareList(index: number): void {
         this.shareField.removeAt(index);
     }
@@ -1244,6 +1316,7 @@ export class SecurityInitialFormComponent implements OnInit {
         this.shareSecurityForm.get('loanShareRate').setValue(this.activeNepseMaster);
         this.shareSecurityData.data = JSON.stringify(this.shareSecurityForm.value);
         this.shareSecurityData.customerShareData = this.getShareDataList();
+        console.log(this.getInsurance());
 
         if(this.ownerKycRelationInfoCheckedForLand) {
           this.fetchOwnerKycValue('landDetails', this.ownerKycApplicable, SecurityIds.landId);
@@ -1275,6 +1348,12 @@ export class SecurityInitialFormComponent implements OnInit {
         const list: Array<CustomerShareData> = [];
         this.shareField.controls.forEach(c => list.push(c.value));
         return list;
+    }
+
+    private getInsurance() {
+        const newlist: Array<CustomerShareData> = [];
+        this.insuranceDetails.controls.forEach(c => newlist.push(c.value));
+        return newlist;
     }
 
     calculateBuildUpAreaRate(i, type) {
