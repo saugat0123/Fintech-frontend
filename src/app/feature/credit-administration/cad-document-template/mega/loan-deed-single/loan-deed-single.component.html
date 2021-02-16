@@ -14,8 +14,17 @@
                                placeholder=""
                                type="text"/>
                         (यस पछि धनी बैंक भनिएको) लिखत गरि दिनेको नाम
-                        <strong class="nepaliFont"> {{singleData?.grandFatherName}}</strong>
-                        को नाति/ नातिनी/ बुहारी
+                    <span *ngIf="singleData?.gender==1">
+                        <strong class="nepaliFont">{{singleData?.grandFatherName}}</strong>को नाति
+                    </span>
+                    <span *ngIf="singleData?.gender==0">
+                        <span *ngIf="singleData?.relationMedium==0">
+                            <strong class="nepaliFont">{{singleData?.grandFatherName}}</strong>को नातिनी
+                        </span>
+                        <span *ngIf="singleData?.relationMedium==1">
+                            <strong class="nepaliFont">{{singleData?.fatherInLawName}}</strong>को बुहारी
+                        </span>
+                    </span>
                         <input class="form-field form-control-sm nepaliFont"
                                formControlName="parents"
                                placeholder=""
@@ -24,20 +33,26 @@
                         <strong class="nepaliFont"> {{singleData?.permanentDistrict}}</strong>
                         जिल्ला
                         <strong class="nepaliFont"> {{singleData?.permanentMunicipality}}</strong>
-                        गाउँपालिका/ नगरपालिका वडा नं.
+                        {{singleData?.permanentMunType == 0 ? 'नगरपालिका' : 'गाउँपालिका'}}
+                        वडा नं.
                         <strong class="nepaliFont"> {{singleData?.permanentWard}}</strong>
                         घर भई हाल प्रदेश नं.
                         <strong class="nepaliFont"> {{singleData?.temporaryProvince}}</strong>
                         <strong class="nepaliFont"> {{singleData?.temporaryDistrict}}</strong>
                         जिल्ला
                         <strong class="nepaliFont"> {{singleData?.temporaryMunicipality}}</strong>
-                        गाउँपालिका/ नगरपालिका वडा नं.
+                        {{singleData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गाउँपालिका'}}
+                        वडा नं.
                         <strong class="nepaliFont"> {{singleData?.temporaryWard}}</strong>
                         <strong class="nepaliFont"> {{singleData?.temporaryAddress}}</strong>
                         बस्ने वर्ष
                         <strong class="nepaliFont"> {{singleData?.age}}</strong>
                         को
-                        <strong class="nepaliFont"> {{singleData?.relationMedium}}</strong>
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="relation"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><b>{{loanDeedSingle.get('relation').value ? loanDeedSingle.get('relation').value  : '========='}}</b></span>
                         (ना. प्र. प. नं.
                         <strong class="nepaliFont"> {{singleData?.citizenshipNo}}</strong>
                         मिति

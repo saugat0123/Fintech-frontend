@@ -26,28 +26,41 @@
                                                                                      type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('amountInWords').value ? promissoryNoteJoint.get('amountInWords').value  : '========='}}</b></span> <b>मात्र ।)</b></p>
                     <p>
                         लिखितम्
-                        <strong class="nepaliFont">{{promissoryJoint.grandFatherName}}</strong>
-                        को/की नाति/नातिनी <input class="form-field form-control-sm nepaliFont disable-print"
+                        <span *ngIf="promissoryJoint?.gender==1">
+                            <strong class="nepaliFont">{{promissoryJoint?.grandFatherName}}</strong>को नाति
+                            </span>
+                        <span *ngIf="promissoryJoint?.gender==0">
+                                    <span *ngIf="promissoryJoint?.relationMedium==0">
+                                        <strong class="nepaliFont">{{promissoryJoint?.grandFatherName}}</strong>को नातिनी
+                                    </span>
+                                    <span *ngIf="promissoryJoint?.relationMedium==1">
+                                        <strong class="nepaliFont">{{promissoryJoint?.fatherInLawName}}</strong>को बुहारी
+                                    </span>
+                                </span>
+                        <input class="form-field form-control-sm nepaliFont disable-print"
                                                  formControlName="parents"
                                                  placeholder=""
                                                  type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('parents').value ? promissoryNoteJoint.get('parents').value  : '========='}}</b></span>
-                        को/की छोरा/छोरी
+                        <span>{{promissoryJoint?.gender==0?'कीे':'को'}}</span>&nbsp; छोरा/छोरी
                         <strong class="nepaliFont">{{promissoryJoint.permanentDistrict}}</strong>
                         जिल्ला
                         <strong class="nepaliFont">{{promissoryJoint.permanentMunicipality}}</strong>
-                        गाउँपालिका/ नगरपालिका वडा नं.
+                        {{promissoryJoint?.permanentMunType== 0 ? 'नगरपालिका': 'गा बि स'}} वडा नं.
                         <strong class="nepaliFont">{{promissoryJoint.permanentWard}}</strong>
                         घर भई हाल प्रदेश नं.
-                        <strong class="nepaliFont">{{promissoryJoint.temporaryProvince}}</strong>
+                        <strong class="nepaliFont">{{promissoryJoint.temporaryProvince}}</strong>&nbsp;
                         <strong class="nepaliFont">{{promissoryJoint.temporaryDistrict}}</strong>
                         जिल्ला
                         <strong class="nepaliFont">{{promissoryJoint.temporaryMunicipality}}</strong>
-                        गाउँपालिका/ नगरपालिका वडा नं.
+                        {{promissoryJoint?.temporaryMunType== 0 ? 'नगरपालिका': 'गा बि स'}} वडा नं.
                         <strong class="nepaliFont">{{promissoryJoint.temporaryWard}}</strong>
                         बस्ने वर्ष
                         <strong class="nepaliFont">{{promissoryJoint.age}}</strong>
-                        को/कीे
-                        <strong class="nepaliFont">{{promissoryJoint.relationMedium}}</strong>
+                        <span>{{promissoryJoint?.gender==0?'कीे':'को'}}</span>
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="relation"
+                               placeholder=""
+                               type="text"/><span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('relation').value ? promissoryNoteJoint.get('relation').value  : '========='}}</b></span>
                         (ना. प्र. प. नं.
                         <input class="form-field form-control-sm nepaliFont disable-print"
                                                 formControlName="citizenshipNo"
