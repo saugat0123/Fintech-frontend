@@ -30,21 +30,33 @@
                            type="text"/>
                     कार्यालय  (जसलाई यस उप्रान्त यस लिखतमा धनी बैंक भनिएको छ) जमानीको लिखत गरि दिनेका नाम
                     श्री
-                    <strong class="nepaliFont"> {{nepData?.grandFatherName}}</strong>
-                    को नाति/नातिनी/बुहारी, श्री
+                    <span *ngIf="nepData?.gender==1">
+                        <strong class="nepaliFont">{{nepData?.grandFatherName}}</strong>को नाति
+                    </span>
+                    <span *ngIf="nepData?.gender==0">
+                        <span *ngIf="nepData?.relationMedium==0">
+                            <strong class="nepaliFont">{{nepData?.grandFatherName}}</strong>को नातिनी
+                        </span>
+                        <span *ngIf="nepData?.relationMedium==1">
+                            <strong class="nepaliFont">{{nepData?.fatherInLawName}}</strong>को बुहारी
+                        </span>
+                    </span>
+                     श्री
                     <strong class="nepaliFont"> {{nepData?.fatherName}}</strong>
-                    को छोरा/छोरी/पत्नी,
+                    <span *ngIf="nepData?.gender==1">को छोरा </span>
+                    <span *ngIf="nepData?.gender==0"> को छोरी </span>
                     <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong>
                     जिल्ला
                     <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
                     {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
-                    महानगरपालिका/नगरपालिका/गा.वि.स. वडा नं
+                     वडा नं
                     <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
                     बस्ने बर्ष
                     <strong class="nepaliFont">{{nepData?.age}}</strong>
 
-                    को/की श्री/श्रीमती/सुश्री
-
+                    <span *ngIf="nepData?.gender==1">को </span>
+                    <span *ngIf="nepData?.gender==0"> की </span>
+                    श्री/श्रीमती/सुश्री
                     <input class="form-field form-control-sm nepaliFont"
                            name="guarantorName"
                            placeholder=""
@@ -52,11 +64,7 @@
                            type="text"/>
 
                     (ना.प्र.प नं.
-                    <input class="form-field form-control-sm nepaliFont"
-                           name="citizenshipNo"
-                           placeholder=""
-                           formControlName="citizenshipNo"
-                           type="text"/>
+                    <strong class="nepaliFont">{{nepData?.citizenshipNo}}</strong>
                     मिति
                     <input class="form-field form-control-sm nepaliFont"
                            name="citizenshipIssuedDate"

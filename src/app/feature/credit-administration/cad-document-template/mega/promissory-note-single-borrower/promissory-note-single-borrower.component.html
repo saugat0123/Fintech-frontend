@@ -16,37 +16,45 @@
                 (अक्षरेपी <input class="form-field form-control-sm nepaliFont"name="amountInWord"  formControlName="amountInWord" placeholder=""  type="text"/> )<br>
                 <br>
 
-                लिखितम् श्री <strong class="nepaliFont"> {{nepData?.grandFatherName}}</strong>
-                को/की नाति/नातिनी/बुहारी श्री<strong class="nepaliFont"> {{nepData?.fatherName}}</strong>
-
-                को छोरा/छोरी/श्रीमती
+                लिखितम् श्री <span *ngIf="nepData?.gender==1">
+                        <strong class="nepaliFont">{{nepData?.grandFatherName}}</strong>को नाति
+                    </span>
+                <span *ngIf="nepData?.gender==0">
+                        <span *ngIf="nepData?.relationMedium==0">
+                            <strong class="nepaliFont">{{nepData?.grandFatherName}}</strong>को नातिनी
+                        </span>
+                        <span *ngIf="nepData?.relationMedium==1">
+                            <strong class="nepaliFont">{{nepData?.fatherInLawName}}</strong>को बुहारी
+                        </span>
+                    </span>
+                 श्री<strong class="nepaliFont"> {{nepData?.fatherName}}</strong>
+                <span *ngIf="nepData?.gender==1">को छोरा </span>
+                <span *ngIf="nepData?.gender==0"> को छोरी </span>
                 <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong>
                 जिल्ला
                 <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
                 {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
-                न.पा/गा.वि.स. वडा नं
+                 वडा नं
                 <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
                 स्थायी ठेगाना भई हाल
                 <strong class="nepaliFont">{{nepData?.temporaryDistrict}}</strong>
                 जिल्ला
                 <strong class="nepaliFont">{{nepData?.temporaryMunicipality}}</strong>
                 {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
-                न.पा./गा.वि.स. वडा नं
+                 वडा नं
                 <strong class="nepaliFont">{{nepData?.temporaryWard}}</strong>
                 बर्ष
                 <strong class="nepaliFont">{{nepData?.age}}</strong>
-                को/की श्री/सुश्री/श्रीमती
+                <span *ngIf="nepData?.gender==1">को </span>
+                <span *ngIf="nepData?.gender==0"> की </span>
+             श्री/सुश्री/श्रीमती
                 <input class="form-field form-control-sm nepaliFont"
                        name="borrowerName"
                        formControlName="borrowerName"
                        placeholder=""
                        type="text"/>
                 (ना.प्र.नं
-                <input class="form-field form-control-sm nepaliFont"
-                       name="citizenshipNo"
-                       formControlName="citizenshipNo"
-                       placeholder=""
-                       type="text"/>
+                <strong class="nepaliFont">{{nepData?.citizenshipNo}}</strong>
                 मिति
                 <input class="form-field form-control-sm nepaliFont"
                        name="citizenshipIssuedDate"

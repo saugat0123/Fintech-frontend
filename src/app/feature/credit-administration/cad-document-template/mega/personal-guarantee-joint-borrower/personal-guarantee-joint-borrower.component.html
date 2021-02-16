@@ -12,15 +12,25 @@
                            placeholder=""
                            type="text"/>
                     शाखा कार्यालय (यसपछि धनी बैंक भनिएको ) जमानीको लिखत गरी दिनेका नाम
-                    <strong class="nepaliFont"> {{nepData?.grandFatherName}}</strong>
-                    को नाति/नातिनी/बुहारी
+                    <span *ngIf="nepData?.gender==1">
+                        <strong class="nepaliFont">{{nepData?.grandFatherName}}</strong> को नाति
+                    </span>
+                    <span *ngIf="nepData?.gender==0">
+                        <span *ngIf="nepData?.relationMedium==0">
+                            <strong class="nepaliFont">{{nepData?.grandFatherName}}</strong> को नातिनी
+                        </span>
+                        <span *ngIf="nepData?.relationMedium==1">
+                            <strong class="nepaliFont">{{nepData?.fatherInLawName}}</strong> को बुहारी
+                        </span>
+                    </span>
                     <strong class="nepaliFont"> {{nepData?.fatherName}}</strong>
-                    छोरा/छोरी/श्रीमति
-                    <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong>
+                    <span *ngIf="nepData?.gender==1">को छोरा </span>
+                    <span *ngIf="nepData?.gender==0"> को छोरी </span>
+                      <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong>
                     जिल्ला
                     <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
                     {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
-                    गाउँपालिका/नगरपालिका वडा नं.
+                   वडा नं.
                     <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
                     घर भई हाल प्रदेश नं.
                     <strong class="nepaliFont">{{nepData?.temporaryProvince}}</strong>
@@ -29,7 +39,7 @@
                     जिल्ला
                     <strong class="nepaliFont">{{nepData?.temporaryMunicipality}}</strong>
                     {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
-                    गाउँपालिकार नगरपालिका वडा नं.
+                     वडा नं.
                     <strong class="nepaliFont">{{nepData?.temporaryWard}}</strong>
                     <input class="form-field form-control-sm nepaliFont"
                            name="tempAddress"
