@@ -27,21 +27,19 @@
                     <p>
                         लिखितम्
                         <span *ngIf="promissoryJoint?.gender==1">
-                            <strong class="nepaliFont">{{promissoryJoint?.grandFatherName}}</strong>को नाति
-                            </span>
+                        <strong class="nepaliFont">{{promissoryJoint?.grandFatherName}}</strong>को नाति &nbsp;
+                        <strong class="nepaliFont">{{promissoryJoint.fatherName}}</strong>को छोरा
+                    </span>
                         <span *ngIf="promissoryJoint?.gender==0">
-                                    <span *ngIf="promissoryJoint?.relationMedium==0">
-                                        <strong class="nepaliFont">{{promissoryJoint?.grandFatherName}}</strong>को नातिनी
-                                    </span>
-                                    <span *ngIf="promissoryJoint?.relationMedium==1">
-                                        <strong class="nepaliFont">{{promissoryJoint?.fatherInLawName}}</strong>को बुहारी
-                                    </span>
-                                </span>
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-                                                 formControlName="parents"
-                                                 placeholder=""
-                                                 type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('parents').value ? promissoryNoteJoint.get('parents').value  : '========='}}</b></span>
-                        <span>{{promissoryJoint?.gender==0?'कीे':'को'}}</span>&nbsp; छोरा/छोरी
+                        <span *ngIf="promissoryJoint?.relationMedium==0">
+                            <strong class="nepaliFont">{{promissoryJoint?.grandFatherName}}</strong>को नातिनी &nbsp;
+                            <strong class="nepaliFont">{{promissoryJoint.fatherName}}</strong>को छोरी
+                        </span>
+                        <span *ngIf="promissoryJoint?.relationMedium==1">
+                            <strong class="nepaliFont">{{promissoryJoint?.fatherInLawName}}</strong>को बुहारी &nbsp;
+                            <strong class="nepaliFont">{{promissoryJoint.husbandName}}</strong>को श्रीमति
+                        </span>
+                    </span>
                         <strong class="nepaliFont">{{promissoryJoint.permanentDistrict}}</strong>
                         जिल्ला
                         <strong class="nepaliFont">{{promissoryJoint.permanentMunicipality}}</strong>
@@ -62,10 +60,7 @@
                                placeholder=""
                                type="text"/><span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('relation').value ? promissoryNoteJoint.get('relation').value  : '========='}}</b></span>
                         (ना. प्र. प. नं.
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-                                                formControlName="citizenshipNo"
-                                                placeholder=""
-                                                type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('citizenshipNo').value ? promissoryNoteJoint.get('citizenshipNo').value  : '========='}}</b></span>
+                        <strong class="nepaliFont">{{promissoryJoint?.citizenshipNo}}</strong>
                         मिति <input class="form-field form-control-sm nepaliFont disable-print"
                                     formControlName="issueDate"
                                     placeholder=""

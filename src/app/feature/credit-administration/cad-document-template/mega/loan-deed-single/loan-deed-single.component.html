@@ -15,21 +15,19 @@
                                type="text"/>
                         (यस पछि धनी बैंक भनिएको) लिखत गरि दिनेको नाम
                     <span *ngIf="singleData?.gender==1">
-                        <strong class="nepaliFont">{{singleData?.grandFatherName}}</strong>को नाति
+                        <strong class="nepaliFont">{{singleData?.grandFatherName}}</strong>को नाति &nbsp;
+                        <strong class="nepaliFont">{{singleData.fatherName}}</strong>को छोरा
                     </span>
                     <span *ngIf="singleData?.gender==0">
                         <span *ngIf="singleData?.relationMedium==0">
-                            <strong class="nepaliFont">{{singleData?.grandFatherName}}</strong>को नातिनी
+                            <strong class="nepaliFont">{{singleData?.grandFatherName}}</strong>को नातिनी &nbsp;
+                            <strong class="nepaliFont">{{singleData.fatherName}}</strong>को छोरी
                         </span>
                         <span *ngIf="singleData?.relationMedium==1">
-                            <strong class="nepaliFont">{{singleData?.fatherInLawName}}</strong>को बुहारी
+                            <strong class="nepaliFont">{{singleData?.fatherInLawName}}</strong>को बुहारी &nbsp;
+                            <strong class="nepaliFont">{{singleData.husbandName}}</strong>को श्रीमति
                         </span>
                     </span>
-                        <input class="form-field form-control-sm nepaliFont"
-                               formControlName="parents"
-                               placeholder=""
-                               type="text"/>
-                        छोरा/छोरी र श्रीमति
                         <strong class="nepaliFont"> {{singleData?.permanentDistrict}}</strong>
                         जिल्ला
                         <strong class="nepaliFont"> {{singleData?.permanentMunicipality}}</strong>

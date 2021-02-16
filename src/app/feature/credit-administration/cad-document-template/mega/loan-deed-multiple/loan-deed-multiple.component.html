@@ -19,21 +19,19 @@
                                    type="text"/><span class="print-only nepaliFont"><b>{{loanDeedMultiple.get('branch').value ? loanDeedMultiple.get('branch').value  : '========='}}</b></span>
                             (यस पछि धनी बैंक भनिएको) लिखत गरी दिनेको नाम
                             <span *ngIf="multipleData?.gender==1">
-                            <strong class="nepaliFont">{{multipleData?.grandFatherName}}</strong>को नाति
+                                <strong class="nepaliFont">{{multipleData?.grandFatherName}}</strong>को नाति &nbsp;
+                                <strong class="nepaliFont">{{multipleData.fatherName}}</strong>को छोरा
                             </span>
-                                <span *ngIf="multipleData?.gender==0">
-                                    <span *ngIf="multipleData?.relationMedium==0">
-                                        <strong class="nepaliFont">{{multipleData?.grandFatherName}}</strong>को नातिनी
-                                    </span>
-                                    <span *ngIf="multipleData?.relationMedium==1">
-                                        <strong class="nepaliFont">{{multipleData?.fatherInLawName}}</strong>को बुहारी
-                                    </span>
-                                </span>
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="parents"
-                                   placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedMultiple.get('parents').value ? loanDeedMultiple.get('parents').value  : '========='}}</b></span>
-                            छोरा/छोरी
+                            <span *ngIf="multipleData?.gender==0">
+                                <span *ngIf="multipleData?.relationMedium==0">
+                                <strong class="nepaliFont">{{multipleData?.grandFatherName}}</strong>को नातिनी &nbsp;
+                                <strong class="nepaliFont">{{multipleData.fatherName}}</strong>को छोरी
+                            </span>
+                            <span *ngIf="multipleData?.relationMedium==1">
+                                <strong class="nepaliFont">{{multipleData?.fatherInLawName}}</strong>को बुहारी &nbsp;
+                                <strong class="nepaliFont">{{multipleData.husbandName}}</strong>को श्रीमति
+                            </span>
+                            </span>
                             <strong class="nepaliFont">{{multipleData?.permanentDistrict}}</strong>
                             जिल्ला
                             <strong class="nepaliFont">{{multipleData?.permanentMunicipality}}</strong>&nbsp;
