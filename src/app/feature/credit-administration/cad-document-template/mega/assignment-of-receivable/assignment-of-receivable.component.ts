@@ -21,6 +21,7 @@ export class AssignmentOfReceivableComponent implements OnInit {
   @Input() documentId: number;
   @Input() customerLoanId: number;
   assignmentOfReceivable: FormGroup;
+  nepData;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -38,6 +39,9 @@ export class AssignmentOfReceivableComponent implements OnInit {
           this.assignmentOfReceivable.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
+    }
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
   }
 
