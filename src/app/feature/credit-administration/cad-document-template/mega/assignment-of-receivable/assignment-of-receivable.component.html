@@ -47,9 +47,9 @@
 
                 <strong class="nepaliFont"> {{nepData?.gender == 1 ? nepData?.grandFatherName : nepData?.relationMedium == 0 ? nepData?.grandFatherName : nepData?.fatherInLawName}}</strong>
 
-                को {{nepData?.gender == 1 ? 'नाति' : nepData?.relationMedium == 0 ? 'नातिनी' : 'बुहारी'}}
+                को {{nepData?.gender == 1 ? 'नाति' : nepData?.relationMedium == 0 ? 'नातिनी' : 'बुहारी'}},
 
-                <strong class="nepaliFont">{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? nepData?.fatherName : null }}</strong>{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? ' को' : '' }}
+                श्री <strong class="nepaliFont">{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? nepData?.fatherName : null }}</strong>{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? ' को' : '' }}
 
                  {{nepData?.gender == 0 && nepData?.relationMedium == 0 ? 'छोरी' : nepData?.gender == 1 ? 'छोरा': null }}
 
@@ -65,10 +65,7 @@
                 जिल्ला जिल्ला /गा.बि.स.वडा न
 
                 <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
-                <input class="form-field form-control-sm nepaliFont"
-                       formControlName="PermanentAddress"
-                       placeholder=""
-                       type="text"/>
+
                 बस्ने बष
                 <strong class="nepaliFont">{{nepData?.age}}</strong>
 
