@@ -1350,8 +1350,7 @@
 
 <!--  Insurance Policy -->
   <div class="row" *ngIf="insurancePolicySelected">
-    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
-           *ngFor="let insurancePolicy of securityData['initialForm']['insurancePolicy']; let i= index">
+    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
       <tr>
         <th class="text-center" colspan="12">Insurance Policy Security</th>
       </tr>
@@ -1365,10 +1364,12 @@
         <th>Surrender Value</th>
         <th>Early Surrender Date</th>
         <th>Considered Value</th>
-        <th *ngIf="insurancePolicy?.yearlyCashBack === true">Cash Back Amount</th>
+        <ng-container *ngFor="let insurancePolicy of securityData['initialForm']['insurancePolicy']; let i= index">
+          <th *ngIf="insurancePolicy?.yearlyCashBack === true">Cash Back Amount</th>
+        </ng-container>
       </tr>
-      <tr>
-        <td rowspan="5" class="align-middle">{{i + 1}}</td>
+      <tr *ngFor="let insurancePolicy of securityData['initialForm']['insurancePolicy']; let i= index">
+        <td class="align-middle">{{i + 1}}</td>
         <td class="text-left pl-1">{{insurancePolicy?.insuredAmount}}</td>
         <td class="text-left pl-1">{{insurancePolicy?.insuranceCompanyName}}</td>
         <td class="text-right pr-1">{{insurancePolicy?.policyStartDate | date}}</td>

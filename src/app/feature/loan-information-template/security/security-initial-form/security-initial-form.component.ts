@@ -27,6 +27,8 @@ import {DatePipe} from '@angular/common';
 import {NumberUtils} from '../../../../@core/utils/number-utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {RoleService} from '../../../admin/component/role-permission/role.service';
+import {InsuranceList} from "../../../loan/model/insuranceList";
+import {FormUtils} from "../../../../@core/utils/form.utils";
 
 
 @Component({
@@ -124,6 +126,8 @@ export class SecurityInitialFormComponent implements OnInit {
     ownerKycRelationInfoCheckedForHypothecation = false;
     ownerKycApplicableData: any;
     nepsePriceInfo: NepsePriceInfo = new NepsePriceInfo();
+    insuranceList: InsuranceList = new InsuranceList();
+    insuranceCompanyList = InsuranceList.insuranceCompanyList;
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -1006,7 +1010,13 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     addInsurancePolicy() {
-        (this.securityForm.get('insurancePolicy') as FormArray).push(this.insurancePolicyFormGroup());
+        const controls = this.securityForm.get('insurancePolicy') as FormArray
+        if (FormUtils.checkEmptyProperties(controls)) {
+            this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All fields To Add More'));
+            return;
+        }else{
+            (this.securityForm.get('insurancePolicy') as FormArray).push(this.insurancePolicyFormGroup());
+        }
     }
 
     removeLandDetails(index: number) {

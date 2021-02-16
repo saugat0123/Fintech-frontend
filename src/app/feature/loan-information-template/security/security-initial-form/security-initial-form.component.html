@@ -2653,18 +2653,23 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-8">
                             <div class="form-group">
-                                <label class="title">Insurance Company Name</label>
-                                <input class="form-control rounded" formControlName="insuranceCompanyName"
-                                       placeholder="Insurance Company Name"
-                                       type="text"/>
+<!--                                <label class="title">Insurance Company Name</label>-->
+<!--                                <input class="form-control rounded" formControlName="insuranceCompanyName"-->
+<!--                                       placeholder="Insurance Company Name"-->
+<!--                                       type="text"/>-->
+                                <label for="insuranceCompanyName"><strong>Insurance Company</strong></label>
+                                <select class="form-control" formControlName="insuranceCompanyName" id="insuranceCompanyName">
+                                    <option [ngValue]="null" hidden>Select Insurance Company</option>
+                                    <option *ngFor="let insuranceCompany of insuranceCompanyList" [ngValue]="insuranceCompany.id">{{insuranceCompany.name}}</option>
+                                </select>
                             </div>
                         </div>
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title">Insurance Policy Start & Maturity Date</label>
+                                <label class="title">Insurance Policy Start </label>
                                 <input class="form-control rounded" formControlName="policyStartDate"
                                        name="policyStartDate" placeholder="Insurance Policy Start date" [nbDatepicker]="insurancePolicyDate"
                                        *ngIf="calendarType === 'AD'">
