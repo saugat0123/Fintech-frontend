@@ -83,24 +83,23 @@
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registeredCompany" type="text">
                 <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('registeredCompany').value ? deepHypoMachinery.get('registeredCompany').value  : '========='}}</b></span>
                 प्रोप्राइटर फर्मरसाझेदारी फर्मरप्रा.लि./लि/कम्पनी (जसलाई यस उप्रान्त ऋणी भनिएको छ) का हकमा एवं तर्फबाट ऐ. का अख्तियार प्राप्त प्रोप्राइटररसाझेदाररसंचालक श्री
-                <strong class="nepaliFont"> {{nepData?.grandFatherName}}</strong>
+                <strong class="nepaliFont"> {{nepData?.gender == 1 ? nepData?.grandFatherName : nepData?.relationMedium == 0 ? nepData?.grandFatherName : nepData?.fatherInLawName}}</strong>
 
-                को {{nepData?.gender == 0 ? 'नातिनी' : 'नाति' }} श्री  <strong class="nepaliFont"> {{nepData?.fatherName}}</strong>
+                को {{nepData?.gender == 1 ? 'नाति' : nepData?.relationMedium == 0 ? 'नातिनी' : 'बुहारी'}},
 
-                को {{nepData?.gender == 0 ? 'छोरी' : 'छोरा' }} {{nepData?.relationMedium == 1 ? 'श्री' : null }}
-                <strong class="nepaliFont"> {{nepData?.relationMedium == 1 ? nepData?.husbandName : null }}</strong>
+                श्री <strong class="nepaliFont">{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? nepData?.fatherName : null }}</strong>{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? ' को' : '' }}
 
-                {{nepData?.relationMedium == 1 ? 'को पत्नी' : null }}<strong class="nepaliFont"> {{nepData?.permanentDistrict}}</strong>
+                {{nepData?.gender == 0 && nepData?.relationMedium == 0 ? 'छोरी' : nepData?.gender == 1 ? 'छोरा': null }}
+
+                <strong class="nepaliFont"> {{nepData?.gender == 0 && nepData?.relationMedium == 1 ? nepData?.husbandName : null }}</strong>{{nepData?.gender == 0 && nepData?.relationMedium == 1 ? ' कि पत्नी' : '' }}
+
 
                 जिल्ला  <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
                 {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
 
                 महानगरपालिका/न.पा.रउ.म.न.पा/गा.बि.स. वडा नं.
                 <strong class="nepaliFont"> {{nepData?.permanentWard}}</strong>
-                <input class="form-field form-control-sm nepaliFont"
-                       formControlName="permanentAddress"
-                       placeholder=""
-                       type="text"/>
+
                 बस्ने बष  <strong class="nepaliFont"> {{nepData?.age}}</strong>
 
                 को/कि श्री/श्रीमती/सुश्री  <strong class="nepaliFont">{{nepData?.name}}</strong>
