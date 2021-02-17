@@ -2735,22 +2735,12 @@
                                        type="number"/>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="col-md-4">
-                        <nb-checkbox #cashback formControlName="yearlyCashBack"
-                                     (change)="cashBack(cashback.checked, i)"
-                                     [id]="i+'yearlyCashBack'">
-                            <strong> Yearly Cash Back</strong>
-                        </nb-checkbox>
-                        <div class="mt-3">
-                            <div *ngIf="securityForm.get(['insurancePolicy',i,'yearlyCashBack'])?.value">
-                                <div class="form-group">
-                                    <label class="title">Cash Back Amount</label>
-                                    <input class="form-control rounded" formControlName="cashBackAmount"
-                                           placeholder="Cash Back Amount"
-                                           type="number"/>
-                                </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">Yearly Cash Back Amount <em class="sb-medium">(if any)</em></label>
+                                <input class="form-control rounded" formControlName="cashBackAmount"
+                                       placeholder="Cash Back Amount"
+                                       type="number"/>
                             </div>
                         </div>
                     </div>

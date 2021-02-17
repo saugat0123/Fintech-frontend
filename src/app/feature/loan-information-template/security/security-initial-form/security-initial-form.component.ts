@@ -76,7 +76,6 @@ export class SecurityInitialFormComponent implements OnInit {
     branchLists;
     securityValuator: SecurityValuator = new SecurityValuator();
     otherBranchcheck = false;
-    cashBackCheck = false;
     depositSelected = false;
     isFixedDeposit = false;
     shareSelected = false;
@@ -167,7 +166,6 @@ export class SecurityInitialFormComponent implements OnInit {
             this.ownerKycRelationInfoCheckedForLand = true;
             this.ownerKycRelationInfoCheckedForLandBuilding = true;
             this.ownerKycRelationInfoCheckedForHypothecation = true;
-            this.cashBackCheck = true;
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
             this.change(this.selectedArray);
@@ -699,7 +697,6 @@ export class SecurityInitialFormComponent implements OnInit {
                         earlySurrenderDate: [singleData.earlySurrenderDate],
                         consideredValue: [singleData.consideredValue],
                         cashBackAmount: [singleData.cashBackAmount],
-                        yearlyCashBack: [singleData.yearlyCashBack],
                     })
                 );
             });
@@ -932,7 +929,6 @@ export class SecurityInitialFormComponent implements OnInit {
             earlySurrenderDate: [undefined],
             consideredValue: [undefined],
             cashBackAmount: [undefined],
-            yearlyCashBack: [undefined],
             }
         );
     }
@@ -976,17 +972,6 @@ export class SecurityInitialFormComponent implements OnInit {
             this.otherBranchcheck = true;
         } else {
             this.otherBranchcheck = false;
-        }
-    }
-
-    cashBack(checkedStatus , index) {
-        const insurancePolicyValue = this.securityForm.get('insurancePolicy') as FormArray;
-        console.log(this.securityForm.get('insurancePolicy') as FormArray);
-        if (checkedStatus) {
-            insurancePolicyValue.at(index).get('yearlyCashBack').setValue(true);
-        } else {
-            (insurancePolicyValue).at(index).get('yearlyCashBack').setValue(false);
-            (insurancePolicyValue).at(index).get('cashBackAmount').clearValidators();
         }
     }
 

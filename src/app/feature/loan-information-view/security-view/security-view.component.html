@@ -1376,7 +1376,7 @@
         <td class="text-right pr-1">{{insurancePolicy?.surrenderValue | currencyFormatter}}</td>
         <td class="text-right pr-1"> {{insurancePolicy?.earlySurrenderDate | date}}</td>
         <td class="text-right pr-1">{{insurancePolicy?.consideredValue | currencyFormatter}}</td>
-        <td class="text-left pl-1" *ngIf="insurancePolicy?.yearlyCashBack === true">{{insurancePolicy?.cashBackAmount | currencyFormatter}}</td>
+        <td class="text-left pl-1">{{insurancePolicy?.cashBackAmount | currencyFormatter}}</td>
       </tr>
     </table>
   </div>
