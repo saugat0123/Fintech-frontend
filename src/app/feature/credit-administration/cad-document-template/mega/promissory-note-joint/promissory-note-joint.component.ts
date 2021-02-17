@@ -19,6 +19,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 export class PromissoryNoteJointComponent implements OnInit {
 
   promissoryNoteJoint: FormGroup;
+  promissoryJoint;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
@@ -37,6 +38,9 @@ export class PromissoryNoteJointComponent implements OnInit {
           this.promissoryNoteJoint.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
+    }
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)){
+      this.promissoryJoint = JSON.parse(this.cadData.loanHolder.nepData);
     }
   }
 

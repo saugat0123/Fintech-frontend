@@ -19,6 +19,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 export class LoanDeedMultipleComponent implements OnInit {
 
   loanDeedMultiple: FormGroup;
+  multipleData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
@@ -37,6 +38,9 @@ export class LoanDeedMultipleComponent implements OnInit {
           this.loanDeedMultiple.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
+    }
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)){
+      this.multipleData = JSON.parse(this.cadData.loanHolder.nepData);
     }
   }
 
