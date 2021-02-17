@@ -46,10 +46,16 @@
                                              formControlName="registrationDate"
                                              placeholder=""
                                              type="text"/>,) (यस पछि ऋणी भनिएको) को अख्तियारप्राप्त
-                            <strong class="nepaliFont"> {{nepData?.grandFatherName}}</strong>
-                            को नाति/ नातिनी/
-                            <strong class="nepaliFont"> {{nepData?.fatherName}}</strong>
-                            छोरा/छोरी
+                            <strong class="nepaliFont"> {{nepData?.gender == 1 ? nepData?.grandFatherName : nepData?.relationMedium == 0 ? nepData?.grandFatherName : nepData?.fatherInLawName}}</strong>
+
+                            को {{nepData?.gender == 1 ? 'नाति' : nepData?.relationMedium == 0 ? 'नातिनी' : 'बुहारी'}},
+
+                            श्री <strong class="nepaliFont">{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? nepData?.fatherName : null }}</strong>{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? ' को' : '' }}
+
+                            {{nepData?.gender == 0 && nepData?.relationMedium == 0 ? 'छोरी' : nepData?.gender == 1 ? 'छोरा': null }}
+
+                            <strong class="nepaliFont"> {{nepData?.gender == 0 && nepData?.relationMedium == 1 ? nepData?.husbandName : null }}</strong>{{nepData?.gender == 0 && nepData?.relationMedium == 1 ? ' कि पत्नी' : '' }}
+
                             <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong>
                             जिल्ला
                             <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
