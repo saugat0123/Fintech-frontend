@@ -67,7 +67,13 @@ const ENTRY_COMPONENTS = [];
         IncomeFromAccountSummeryComponent,
         NtaSummaryComponent,
         ProposalTermsAndConditionSummeryComponent,
-        ApprovalSheetComponent
+        ApprovalSheetComponent,
+        CollateralSummaryComponent,
+        ProposalJustificationSummaryComponent,
+        SecuritySummaryComponent,
+        GuarantorSummaryComponent,
+        SitevistSummaryComponentComponent,
+        InsuranceSummaryComponent
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

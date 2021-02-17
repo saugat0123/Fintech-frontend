@@ -1,0 +1,250 @@
+<div class="row">
+    <div class="col-md-12">
+        <p><strong>Basic Information</strong></p>
+        <table
+                class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>Application Name and Address</th>
+                <th>Customer’s category</th>
+                <th>Distance form Branch Office</th>
+                <th>Risk Rating</th>
+                <th>Basel -2 Risk Classification (in %)</th>
+                <th>Base of Risk Classification: RRP</th>
+                <th>Sector(as per NRB):</th>
+                <th>Sub-Sector</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
+                <td class="text-left pl-1">
+                    {{relative.customerRelativeName}}
+                </td>
+
+                <td class="text-left pl-1">
+                    {{relative.customerRelation}}
+                </td>
+                <td class="text-right pr-1">
+                    {{relative.citizenshipNumber}}
+                </td>
+                <td class="text-left pl-1">
+                    {{relative.citizenshipIssuedDate | date}}
+                </td>
+
+                <td>{{loanDataHolder?.loanHolder['clientType']}}</td>
+                <td>{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-12">
+        <p><strong>Details of Borrower</strong></p>
+    </div>
+    <div class="col-md-12">
+        <div>
+            <table
+                    class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                <thead>
+                <tr class="text-white sb-bg-dark">
+                    <th>Name</th>
+                    <th>Date Of Birth</th>
+                    <th>Citizenship Number</th>
+                    <th>Mobile Number</th>
+                    <th>LandLine Number</th>
+                    <th>Occupation</th>
+                    <th>Income Source</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="text-left">
+                    <td class="pl-1">{{loanDataHolder?.customerInfo?.customerName}}</td>
+                    <td class="pl-1">{{loanDataHolder?.customerInfo?.dob | date}}</td>
+                    <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
+                    <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.contactNumber}}</td>
+                    <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.landLineNumber}}</td>
+                    <td class="pl-1">{{(loanDataHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
+                    <td class="pl-1">{{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <p><strong>Family Details</strong></p>
+            <table
+                    class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <thead>
+                <tr class="text-white sb-bg-dark">
+                    <th>Name</th>
+                    <th>Relation Name</th>
+                    <th>Citizenship no.</th>
+                    <th>Citizenship Issued Date</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
+                    <td class="text-left pl-1">
+                        {{relative.customerRelativeName}}
+                    </td>
+
+                    <td class="text-left pl-1">
+                        {{relative.customerRelation}}
+                    </td>
+                    <td class="text-right pr-1">
+                        {{relative.citizenshipNumber}}
+                    </td>
+                    <td class="text-left pl-1">
+                        {{relative.citizenshipIssuedDate | date}}
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <div class="col-md-12">
+        <div>
+            <p><strong>BLB Agent</strong></p>
+        </div>
+        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>S.N</th>
+                <th>Name of BLB agent</th>
+                <th>BC Code</th>
+            </tr>
+            </thead>
+            <tbody>
+            <td>1 </td>
+            <td>SDsda</td>
+            <td>sad</td>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-12">
+        <div>
+            <p><strong> Categorization of customer as per NRB Directive 17.  </strong> </p>
+        </div>
+        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th>Name</th>
+                <th>Deprived section loan classification</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>asdf</td>
+                <td>adsfa</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
+        <div class="col-md-12">
+            <p><strong>Detail of Present Proposal of the Facility</strong></p>
+            <table class="table table-bordered text-center table-sm sb-small">
+                <tbody>
+                <tr>
+                    <th>Credit Facility</th>
+                    <td>{{loanDataHolder?.loan?.name}}</td>
+
+                    <th>Loan Category</th>
+                    <td>{{loanDataHolder?.loanCategory === 'INDIVIDUAL' ? 'PERSONAL'
+                        : 'BUSINESS'}}</td>
+
+                    <th>Proposed Limit</th>
+                    <td>{{dmsLoanFile?.proposedAmount
+                    || loanDataHolder?.proposal?.proposedLimit | currencyFormatter}}</td>
+
+                    <th>Interest Rate</th>
+                    <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}} %</td>
+
+                    <th>Tenure Duration In Month</th>
+                    <td>{{(dmsLoanFile?.tenureDuration
+                        || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
+
+                </tr>
+                <tr>
+                    <th>Service Charge</th>
+                    <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
+                        {{dmsLoanFile?.serviceChargeAmount || loanDataHolder?.proposal?.serviceCharge}}
+                        {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}
+                    </td>
+
+                    <th>FMV Funding Percentage</th>
+                    <td>{{dmsLoanFile?.fmvFundingPercent}} %</td>
+
+                    <th>Total FMV</th>
+                    <td>{{dmsLoanFile?.fmvTotal | currencyFormatter}}</td>
+
+                    <th>Total DV</th>
+                    <td>{{dmsLoanFile?.distressValue | currencyFormatter}}</td>
+
+                    <th>Total Loan Limit</th>
+                    <td>{{dmsLoanFile?.totalLoanLimit | currencyFormatter}}</td>
+                </tr>
+                <tr>
+                    <th>Individual Exposure</th>
+                    <td>{{dmsLoanFile?.individualExposure | currencyFormatter}}</td>
+
+                    <th>Group Exposure</th>
+                    <td>{{dmsLoanFile?.groupExpo | currencyFormatter}}</td>
+
+                    <th>Interest Coverage Ratio</th>
+                    <td>{{dmsLoanFile?.incomeCoverageRatio}}</td>
+
+                </tr>
+                <tr>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
+        <div class="col-md-12">
+            <p><strong>Security Offered</strong></p>
+            <p><label *ngFor="let security of securities; let i = index">{{i + 1}}
+                . {{Security[security]}}&nbsp;&nbsp;</label>
+            </p>
+        </div>
+    </div>
+
+    <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
+        <div class="col-md-12">
+            <p><strong>Recommendation and Conclusion</strong></p>
+            <p class="border text-justify p-1">
+                {{dmsLoanFile?.recommendationConclusion}}
+            </p>
+        </div>
+    </div>
+
+    <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
+        <div class="col-md-12">
+            <p><strong>Waiver</strong></p>
+            <p class="border text-justify p-1">
+                {{dmsLoanFile?.waiver}}
+            </p>
+        </div>
+    </div>
+
+    <div *ngIf="loanDataHolder?.compa?.withinLimitRemarks">
+        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <tr class="sb-bg-dark text-white">
+                <th>Within Limit Remarks (if any)</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"> {{loanDataHolder?.customerInfo?.withinLimitRemarks}}</td>
+            </tr>
+        </table>
+    </div>
+
+</div>

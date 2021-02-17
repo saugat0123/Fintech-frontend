@@ -15,6 +15,7 @@ import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../admin/modal/NetTradingAssets';
 import {CreditChecklistGeneral} from './creditChecklistGeneral';
 import {MicroLoanSynopsis} from './micro-loan-synopsis';
+import {BorrowerPortfolio} from './borrwerportfolio';
 import {MicroBaselRiskExposure} from './micro-basel-risk-exposure';
 
 export class CustomerInfoData {
@@ -54,5 +55,6 @@ export class CustomerInfoData {
     subSectorDetailCode: string;
     nepData: string;
     synopsisCreditworthiness: MicroLoanSynopsis;
+    borrowerPortFolio: BorrowerPortfolio;
     microBaselRiskExposure: MicroBaselRiskExposure;
 }

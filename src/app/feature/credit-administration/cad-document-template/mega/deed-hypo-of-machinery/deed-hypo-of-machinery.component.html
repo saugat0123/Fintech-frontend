@@ -83,33 +83,29 @@
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registeredCompany" type="text">
                 <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('registeredCompany').value ? deepHypoMachinery.get('registeredCompany').value  : '========='}}</b></span>
                 प्रोप्राइटर फर्मरसाझेदारी फर्मरप्रा.लि./लि/कम्पनी (जसलाई यस उप्रान्त ऋणी भनिएको छ) का हकमा एवं तर्फबाट ऐ. का अख्तियार प्राप्त प्रोप्राइटररसाझेदाररसंचालक श्री
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="moderatorName" type="text">
-                <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('moderatorName').value ? deepHypoMachinery.get('moderatorName').value  : '========='}}</b></span>
-                को नातिरनातिनी श्री <input class="form-field form-control-sm nepaliFont disable-print" formControlName="ModeratorGrandsonorGrandDaughter" type="text">
-                <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('ModeratorGrandsonorGrandDaughter').value ? deepHypoMachinery.get('ModeratorGrandsonorGrandDaughter').value  : '========='}}</b></span>
-                को छोरारछोरी श्री
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="mSonorDaghter" type="text">
-                <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('mSonorDaghter').value ? deepHypoMachinery.get('mSonorDaghter').value  : '========='}}</b></span>
+                <strong class="nepaliFont"> {{nepData?.gender == 1 ? nepData?.grandFatherName : nepData?.relationMedium == 0 ? nepData?.grandFatherName : nepData?.fatherInLawName}}</strong>
 
-                को पत्नी <input class="form-field form-control-sm nepaliFont disable-print" formControlName="mWife" type="text">
-                <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('mWife').value ? deepHypoMachinery.get('mWife').value  : '========='}}</b></span>
+                को {{nepData?.gender == 1 ? 'नाति' : nepData?.relationMedium == 0 ? 'नातिनी' : 'बुहारी'}},
 
-                जिल्ला  <input class="form-field form-control-sm nepaliFont disable-print" formControlName="mMetropolitan" type="text">
-                <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('mMetropolitan').value ? deepHypoMachinery.get('mMetropolitan').value  : '========='}}</b></span>
+                श्री <strong class="nepaliFont">{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? nepData?.fatherName : null }}</strong>{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? ' को' : '' }}
+
+                {{nepData?.gender == 0 && nepData?.relationMedium == 0 ? 'छोरी' : nepData?.gender == 1 ? 'छोरा': null }}
+
+                <strong class="nepaliFont"> {{nepData?.gender == 0 && nepData?.relationMedium == 1 ? nepData?.husbandName : null }}</strong>{{nepData?.gender == 0 && nepData?.relationMedium == 1 ? ' कि पत्नी' : '' }}
+
+
+                जिल्ला  <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
+                {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
 
                 महानगरपालिका/न.पा.रउ.म.न.पा/गा.बि.स. वडा नं.
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="mVdc" type="text">
-                <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('mVdc').value ? deepHypoMachinery.get('mVdc').value  : '========='}}</b></span>
+                <strong class="nepaliFont"> {{nepData?.permanentWard}}</strong>
 
-                बस्ने बष  <input class="form-field form-control-sm nepaliFont disable-print" formControlName="mAge" type="text">
-                <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('mAge').value ? deepHypoMachinery.get('mAge').value  : '========='}}</b></span>
+                बस्ने बष  <strong class="nepaliFont"> {{nepData?.age}}</strong>
 
-                कोरकि श्रीर श्रीमतीरसुश्री  <input class="form-field form-control-sm nepaliFont disable-print" formControlName="mrs" type="text">
-                <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('mrs').value ? deepHypoMachinery.get('mrs').value  : '========='}}</b></span>
+                को/कि श्री/श्रीमती/सुश्री  <strong class="nepaliFont">{{nepData?.name}}</strong>
 
                 (ना.प्र.प. नं
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="mMetropolitanNo" type="text">
-                <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('mMetropolitanNo').value ? deepHypoMachinery.get('mMetropolitanNo').value  : '========='}}</b></span>
+                <strong class="nepaliFont"> {{nepData?.citizenshipNo}}</strong>
 
                 , जिल्ला प्रशासन कार्यालय <input class="form-field form-control-sm nepaliFont disable-print" formControlName="mDistrictAdministrationOffice" type="text">
                 <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('mDistrictAdministrationOffice').value ? deepHypoMachinery.get('mDistrictAdministrationOffice').value  : '========='}}</b></span>
