@@ -1364,9 +1364,7 @@
         <th>Surrender Value</th>
         <th>Early Surrender Date</th>
         <th>Considered Value</th>
-        <ng-container *ngFor="let insurancePolicy of securityData['initialForm']['insurancePolicy']; let i= index">
-          <th *ngIf="insurancePolicy?.yearlyCashBack === true">Cash Back Amount</th>
-        </ng-container>
+        <th>Cash Back Amount</th>
       </tr>
       <tr *ngFor="let insurancePolicy of securityData['initialForm']['insurancePolicy']; let i= index">
         <td class="align-middle">{{i + 1}}</td>

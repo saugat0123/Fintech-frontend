@@ -979,14 +979,15 @@ export class SecurityInitialFormComponent implements OnInit {
         }
     }
 
-    cashBack(checkedStatus) {
-        console.log(checkedStatus);
-        if (!checkedStatus) {
-            this.cashBackCheck = false;
+    cashBack(checkedStatus , index) {
+        const insurancePolicyValue = this.securityForm.get('insurancePolicy') as FormArray;
+        console.log(this.securityForm.get('insurancePolicy') as FormArray);
+        if (checkedStatus) {
+            insurancePolicyValue.at(index).get('yearlyCashBack').setValue(true);
         } else {
-            this.cashBackCheck = true;
+            (insurancePolicyValue).at(index).get('yearlyCashBack').setValue(false);
+            (insurancePolicyValue).at(index).get('cashBackAmount').clearValidators();
         }
-        return this.cashBackCheck;
     }
 
     addLandBuilding() {
@@ -1010,13 +1011,12 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     addInsurancePolicy() {
-        const controls = this.securityForm.get('insurancePolicy') as FormArray
+        const controls = this.securityForm.get('insurancePolicy') as FormArray;
         if (FormUtils.checkEmptyProperties(controls)) {
             this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All fields To Add More'));
             return;
-        }else{
-            (this.securityForm.get('insurancePolicy') as FormArray).push(this.insurancePolicyFormGroup());
         }
+        (this.securityForm.get('insurancePolicy') as FormArray).push(this.insurancePolicyFormGroup());
     }
 
     removeLandDetails(index: number) {
