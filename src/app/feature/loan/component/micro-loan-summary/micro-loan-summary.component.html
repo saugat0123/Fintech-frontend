@@ -251,18 +251,46 @@
                 </div>
             </div>
 
-<!--            <app-micro-individual></app-micro-individual>
+            <app-micro-institution
+                    [companyInfo]="loanDataHolder?.companyInfo"
+                    [loanDataHolder]="loanDataHolder"></app-micro-institution>
 
-            <app-micro-institution></app-micro-institution>
+            <app-micro-individual
+            [customerInfo] = "loanDataHolder?.customerInfo"
+            [loanDataHolder]="loanDataHolder"></app-micro-individual>
 
-            <app-micro-proposal-summary></app-micro-proposal-summary>
+<!--            <app-micro-proposal-summary-->
+<!--                    *ngIf="proposalSummary"-->
+<!--                    [proposalData]="proposalData" ]></app-micro-proposal-summary>-->
 
-            <app-customer-group-summary></app-customer-group-summary>-->
+<!--            <div *ngIf="!productUtils.CBS_ENABLE">-->
+
+<!--            <app-customer-group-summary-->
+<!--                    *ngIf="loanDataHolder?.loanHolder?.customerGroup"-->
+<!--                    [groupDto]="loanDataHolder?.groupSummaryDto"-->
+<!--                    [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>-->
+<!--            </div>-->
+
             <app-borrower-portfolio-summary [borrowerData]="this.loanDataHolder?.loanHolder?.borrowerPortFolio"></app-borrower-portfolio-summary>
-        <!--    <app-collateral-summary></app-collateral-summary>
-            <app-proposal-justification-summary></app-proposal-justification-summary>
-            <app-security-summary></app-security-summary>
-            <app-nta-summary></app-nta-summary>
+
+            <app-collateral-summary
+                    *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
+                    [customerAllLoanList]="customerAllLoanList"
+                    [security]="loanDataHolder?.security"></app-collateral-summary>
+
+                       <app-proposal-justification-summary></app-proposal-justification-summary>
+            <app-security-summary
+                    *ngIf="securitySummary"
+                    [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
+
+            <app-financial-summary
+                    *ngIf="financialSummary" [formData]="financialData"
+                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
+
+            <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
+                            [fiscalYears]="fiscalYearArray"
+                            [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
+
             <app-income-from-account-summery></app-income-from-account-summery>
             <app-guarantor-summary></app-guarantor-summary>
             <app-sitevist-summary-component></app-sitevist-summary-component>
