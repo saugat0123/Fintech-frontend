@@ -13,7 +13,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 export class BaselRiskExposureComponent implements OnInit {
   @Output() baselRiskExposureEmitter = new EventEmitter();
   @Input() formData: MicroBaselRiskExposure;
-  formGroup: FormGroup;
+  baselRiskExposureForm: FormGroup;
   dataForEdit;
   baselRiskExposure: MicroBaselRiskExposure = new MicroBaselRiskExposure();
   submitted = false;
@@ -24,21 +24,22 @@ export class BaselRiskExposureComponent implements OnInit {
   }
 
   get formControls() {
-    return this.formGroup.controls;
+    return this.baselRiskExposureForm.controls;
   }
 
   ngOnInit() {
     this.buildForm();
+    console.log(this.formData);
     if (!ObjectUtil.isEmpty(this.formData)) {
       this.baselRiskExposure = this.formData;
       this.dataForEdit = JSON.parse(this.formData.data);
-      this.formGroup.patchValue(this.dataForEdit);
+      this.baselRiskExposureForm.patchValue(this.dataForEdit);
     }
     console.log(this.dataForEdit);
   }
 
   buildForm() {
-    this.formGroup = this.formBuilder.group({
+    this.baselRiskExposureForm = this.formBuilder.group({
       corporationClaimBookValue: [undefined, Validators.required],
       corporationClaimSpecificProvision: [undefined, Validators.required],
       corporationClaimEligible: [undefined, Validators.required],
@@ -71,14 +72,44 @@ export class BaselRiskExposureComponent implements OnInit {
     return controlEl.getBoundingClientRect().top + window.scrollY - labelOffSet;
   }
 
+  public calculateCorporateNetValue() {
+    const bookValue = Number(this.baselRiskExposureForm.get('corporationClaimBookValue').value);
+    const specificProvision = Number(this.baselRiskExposureForm.get('corporationClaimSpecificProvision').value);
+    const eligibleCRM = Number(this.baselRiskExposureForm.get('corporationClaimEligible').value);
+    const netValue = (bookValue - specificProvision - eligibleCRM);
+    return this.baselRiskExposureForm.get('corporationClaimNetValue').setValue(netValue);
+  }
+
+  public calculateCorporateRWE() {
+    const netValue = Number(this.baselRiskExposureForm.get('corporationClaimNetValue').value);
+    const riskWeight = Number(this.baselRiskExposureForm.get('corporationClaimRiskWeight').value);
+    const RWE = netValue * riskWeight;
+    return this.baselRiskExposureForm.get('corporationClaimRwe').setValue(RWE);
+  }
+
+  public calculateBalanceSheetNetValue() {
+    const bookValue = Number(this.baselRiskExposureForm.get('OffBalanceSheetItemBookValue').value);
+    const specificProvision = Number(this.baselRiskExposureForm.get('OffBalanceSheetItemSpecificProvision').value);
+    const eligibleCRM = Number(this.baselRiskExposureForm.get('OffBalanceSheetItemEligible').value);
+    const netValue = (bookValue - specificProvision - eligibleCRM);
+    return this.baselRiskExposureForm.get('OffBalanceSheetItemNetValue').setValue(netValue);
+  }
+
+  public calculateBalanceSheetRWE() {
+    const netValue = Number(this.baselRiskExposureForm.get('OffBalanceSheetItemNetValue').value);
+    const riskWeight = Number(this.baselRiskExposureForm.get('OffBalanceSheetItemRiskWeight').value);
+    const RWE = netValue * riskWeight;
+    return this.baselRiskExposureForm.get('OffBalanceSheetItemRwe').setValue(RWE);
+  }
+
   public submitForm() {
     this.submitted = true;
-    if (this.formGroup.invalid) {
+    if (this.baselRiskExposureForm.invalid) {
       this.scrollToInvalidControl();
       this.toastService.show(new Alert(AlertType.ERROR, 'Please fill all fields!'));
       return;
     }
-    this.baselRiskExposure.data = JSON.stringify(this.formGroup.value);
+    this.baselRiskExposure.data = JSON.stringify(this.baselRiskExposureForm.value);
     this.baselRiskExposureEmitter.emit(this.baselRiskExposure);
   }
 
