@@ -16,4 +16,5 @@ export class TemplateName {
   static INCOME_FROM_ACCOUNT = 'Income From Account';
   static CREDIT_CHECKlIST = 'Credit Checklist';
   static SYNOPSIS_CREDITWORTHINESS = 'Synopsis Creditworthiness';
+  static BASEL_RISK_EXPOSURE = 'Basel Risk Exposure';
 }
