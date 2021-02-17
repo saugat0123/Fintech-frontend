@@ -282,3 +282,13 @@
                 [synopsisData]="synopsisCreditWorthiness"></app-micro-synopsis-creditworthiness>
     </nb-card-body>
 </nb-card>
+
+<nb-card>
+    <nb-card-header>
+        <h6>BASEL wise Risk Exposure</h6>
+    </nb-card-header>
+    <nb-card-body>
+        <app-micro-basel-risk-exposure-summary *ngIf="baselRiskExposure"
+        [baselRiskData]="baselWiseRiskExposure"></app-micro-basel-risk-exposure-summary>
+    </nb-card-body>
+</nb-card>

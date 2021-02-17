@@ -83,6 +83,8 @@ import { MicroIndividualComponent } from './component/micro-loan-summary/micro-i
 import { MicroInstitutionComponent } from './component/micro-loan-summary/micro-institution/micro-institution.component';
 import {MicroProposalSummaryComponent} from './component/micro-loan-summary/micro-proposal-summary/micro-proposal-summary.component';
 import { BorrowerPortfolioSummaryComponent } from './component/micro-loan-summary/borrower-portfolio-summary/borrower-portfolio-summary.component';
+import {MicroLoanModule} from '../micro-loan/micro-loan.module';
+import {MicroBaselRiskExposureSummaryComponent} from './component/micro-loan-summary/micro-basel-risk-exposure-summary/micro-basel-risk-exposure-summary.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -141,7 +143,8 @@ const COMPONENTS = [
     MicroIndividualComponent,
     MicroInstitutionComponent,
     MicroProposalSummaryComponent,
-    BorrowerPortfolioSummaryComponent
+    BorrowerPortfolioSummaryComponent,
+    MicroBaselRiskExposureSummaryComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -204,7 +207,8 @@ const modules = {
         QuillModule.forRoot({modules: modules}),
         AngularDraggableModule,
         LoanInformationDetailViewModule,
-        NbTooltipModule
+        NbTooltipModule,
+        MicroLoanModule
     ],
 
     providers: [
