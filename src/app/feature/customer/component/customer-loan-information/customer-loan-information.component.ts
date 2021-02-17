@@ -26,9 +26,8 @@ import {IncomeFromAccount} from '../../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 import {CreditChecklistGeneral} from '../../../loan/model/creditChecklistGeneral';
 import {CustomerType} from '../../model/customerType';
-import {Customer} from '../../../admin/modal/customer';
 import {MicroLoanSynopsis} from '../../../loan/model/micro-loan-synopsis';
-import {MicroSynopsisComponent} from '../../../micro-loan/form-component/micro-synopsis/micro-synopsis.component';
+import {BorrowerPortfolio} from '../../../loan/model/borrwerportfolio';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -80,6 +79,10 @@ export class CustomerLoanInformationComponent implements OnInit {
   private itemloanChecklist: NbAccordionItemComponent;
   @ViewChild('synopsisAccordion', {static: false})
   private synopsisAccordion: NbAccordionItemComponent;
+  @ViewChild('loanPortfolio', {static: false})
+  private loanPortfolio: NbAccordionItemComponent;
+  @ViewChild('borrowerLoanPortfolioComponent', {static: false})
+  private borrowerLoanPortfolioComponent: NbAccordionItemComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
   calendarType: CalendarType = CalendarType.AD;
   private siteVisit: SiteVisit;
@@ -96,6 +99,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   public netTradingAssets: NetTradingAssets;
   public creditChecklistGeneral: CreditChecklistGeneral;
   public microLoanSynopsis: MicroLoanSynopsis;
+  public borrowerPortfolio: BorrowerPortfolio;
   customerType = CustomerType;
 
 
@@ -146,6 +150,9 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.synopsisCreditworthiness)) {
       this.microLoanSynopsis = this.customerInfo.synopsisCreditworthiness;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.borrowerPortFolio)) {
+      this.borrowerPortfolio = this.customerInfo.borrowerPortFolio;
     }
   }
 
@@ -375,6 +382,22 @@ export class CustomerLoanInformationComponent implements OnInit {
         }, error => {
           console.error(error);
           this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Synopsis Creditworthiness!'));
+        });
+  }
+
+  saveBorrowerPortFolio(data: BorrowerPortfolio) {
+    if (ObjectUtil.isEmpty(this.borrowerPortfolio)) {
+      this.borrowerPortfolio = new BorrowerPortfolio();
+    }
+    this.borrowerPortfolio = data;
+    this.customerInfoService.saveLoanInfo(this.borrowerPortfolio, this.customerInfoId, TemplateName.BORROWER_PORTFOLIO)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Borrower Portfolio!'));
+          this.loanPortfolio.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save  Borrower Portfolio!'));
         });
   }
 

@@ -76,23 +76,36 @@
                          [fromProfile]="true"></app-financial>
         </nb-accordion-item-body>
       </nb-accordion-item>
-        <nb-accordion-item #loanPortofolio *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
+        <nb-accordion-item #loanPortfolio *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
           <nb-accordion-item-header>
             <div class="row col-md-12">
               <div class="col-md-8">
-                <span>Loan Portfolios of borrowers</span>
+                <span>LOAN PORTFOLIO OF BORROWERS</span>
+              </div>
+              <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="borrowerPortfolio" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!borrowerPortfolio" class="fas fa-times-circle px-2"></em>
+              </span>
               </div>
             </div>
           </nb-accordion-item-header>
           <nb-accordion-item-body>
-            <app-borrower-loan-portofolio></app-borrower-loan-portofolio>
+            <app-borrower-loan-portofolio #borrowerLoanPortfolioComponent
+                                          *ngIf="loanPortfolio.expanded"
+                                          (dataEmitter)="saveBorrowerPortFolio($event)"
+                                          [fromProfile]="true"
+                                          [borrowerPortfolioData]="customerInfo?.borrowerPortFolio"
+            ></app-borrower-loan-portofolio>
           </nb-accordion-item-body>
         </nb-accordion-item>
         <nb-accordion-item #marketingActivities *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
           <nb-accordion-item-header>
             <div class="row col-md-12">
               <div class="col-md-8">
-                <span>Marketing Activities</span>
+                <span>MARKETING ACTIVITIES</span>
               </div>
             </div>
           </nb-accordion-item-header>
@@ -104,7 +117,7 @@
           <nb-accordion-item-header>
             <div class="row col-md-12">
               <div class="col-md-8">
-                <span>BASEL wise Risk Weighted Exposure</span>
+                <span>BASEL WISE RISK WEIGHTED EXPOSURE</span>
               </div>
             </div>
           </nb-accordion-item-header>
