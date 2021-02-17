@@ -118,9 +118,9 @@
         </nb-accordion-item-header>
         <nb-accordion-item-body>
           <app-basel-risk-exposure
-                  (baselRiskExposureEmitter)="saveBaselRiskExposure($event)"
+                  [formData]="customerInfo?.microBaselRiskExposure"
                   *ngIf="baselRiskAccordion.expanded"
-                  [formData]="customerInfo?.baselRiskExposure"></app-basel-risk-exposure>
+                  (baselRiskExposureEmitter)="saveBaselRiskExposure($event)"></app-basel-risk-exposure>
         </nb-accordion-item-body>
       </nb-accordion-item>
       <nb-accordion-item #itemIncomeFromAccount *ngIf="!isMicroCustomer">

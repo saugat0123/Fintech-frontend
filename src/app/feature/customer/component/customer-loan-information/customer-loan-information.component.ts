@@ -148,9 +148,18 @@ export class CustomerLoanInformationComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.customerInfo.creditChecklist)) {
       this.creditChecklistGeneral = this.customerInfo.creditChecklist;
     }
+    console.log(this.customerInfo, 'Customer info');
     if (!ObjectUtil.isEmpty(this.customerInfo.synopsisCreditworthiness)) {
       this.microLoanSynopsis = this.customerInfo.synopsisCreditworthiness;
+      console.log('I am inside synopsis');
     }
+    if (!ObjectUtil.isEmpty(this.customerInfo.microBaselRiskExposure)) {
+      this.microBaselRiskExposure = this.customerInfo.microBaselRiskExposure;
+      console.log(this.customerInfo.microBaselRiskExposure);
+      console.log('I am inside');
+      console.log(this.microBaselRiskExposure);
+    }
+    console.log(this.microBaselRiskExposure);
   }
 
   public saveSiteVisit(data: string) {

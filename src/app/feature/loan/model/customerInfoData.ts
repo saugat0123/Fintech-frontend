@@ -54,5 +54,5 @@ export class CustomerInfoData {
     subSectorDetailCode: string;
     nepData: string;
     synopsisCreditworthiness: MicroLoanSynopsis;
-    baselRiskExposure: MicroBaselRiskExposure;
+    microBaselRiskExposure: MicroBaselRiskExposure;
 }
