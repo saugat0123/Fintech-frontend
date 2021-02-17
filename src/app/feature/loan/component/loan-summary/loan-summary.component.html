@@ -408,6 +408,8 @@
                                 <th>LandLine Number</th>
                                 <th>Occupation</th>
                                 <th>Income Source</th>
+                                <th>Gender</th>
+                                <th>Marital Status</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -419,6 +421,8 @@
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.landLineNumber}}</td>
                                 <td class="pl-1">{{(loanDataHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
                                 <td class="pl-1">{{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>
+                                <td class="pl-1">{{loanDataHolder?.customerInfo?.gender}}</td>
+                                <td class="pl-1">{{loanDataHolder?.customerInfo?. maritalStatus}}</td>
                             </tr>
                             <tr class="text-white sb-bg-dark">
                                 <th>Customer Client Type</th>
