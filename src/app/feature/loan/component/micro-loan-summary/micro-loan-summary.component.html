@@ -251,14 +251,15 @@
                 </div>
             </div>
 
-            <app-micro-individual></app-micro-individual>
+<!--            <app-micro-individual></app-micro-individual>
 
             <app-micro-institution></app-micro-institution>
 
             <app-micro-proposal-summary></app-micro-proposal-summary>
 
-            <app-customer-group-summary></app-customer-group-summary>
-            <app-collateral-summary></app-collateral-summary>
+            <app-customer-group-summary></app-customer-group-summary>-->
+            <app-borrower-portfolio-summary [borrowerData]="this.loanDataHolder?.loanHolder?.borrowerPortFolio"></app-borrower-portfolio-summary>
+        <!--    <app-collateral-summary></app-collateral-summary>
             <app-proposal-justification-summary></app-proposal-justification-summary>
             <app-security-summary></app-security-summary>
             <app-nta-summary></app-nta-summary>
@@ -267,7 +268,7 @@
             <app-sitevist-summary-component></app-sitevist-summary-component>
             <app-report-summary></app-report-summary>
             <app-insurance-summary></app-insurance-summary>
-            <app-proposal-terms-and-condition-summery></app-proposal-terms-and-condition-summery>
+            <app-proposal-terms-and-condition-summery></app-proposal-terms-and-condition-summery>-->
 
         </nb-card-body>
     </nb-card>

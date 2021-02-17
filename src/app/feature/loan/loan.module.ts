@@ -82,6 +82,7 @@ import { MicroSynopsisCreditworthinessComponent } from './component/micro-loan-s
 import { MicroIndividualComponent } from './component/micro-loan-summary/micro-individual/micro-individual.component';
 import { MicroInstitutionComponent } from './component/micro-loan-summary/micro-institution/micro-institution.component';
 import {MicroProposalSummaryComponent} from './component/micro-loan-summary/micro-proposal-summary/micro-proposal-summary.component';
+import { BorrowerPortfolioSummaryComponent } from './component/micro-loan-summary/borrower-portfolio-summary/borrower-portfolio-summary.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -139,7 +140,8 @@ const COMPONENTS = [
     MicroSynopsisCreditworthinessComponent,
     MicroIndividualComponent,
     MicroInstitutionComponent,
-    MicroProposalSummaryComponent
+    MicroProposalSummaryComponent,
+    BorrowerPortfolioSummaryComponent
 ];
 
 const ENTRY_COMPONENTS = [
