@@ -28,6 +28,8 @@ import {CreditChecklistGeneral} from '../../../loan/model/creditChecklistGeneral
 import {CustomerType} from '../../model/customerType';
 import {MicroLoanSynopsis} from '../../../loan/model/micro-loan-synopsis';
 import {BorrowerPortfolio} from '../../../loan/model/borrwerportfolio';
+import {MicroSynopsisComponent} from '../../../micro-loan/form-component/micro-synopsis/micro-synopsis.component';
+import {MicroBaselRiskExposure} from '../../../loan/model/micro-basel-risk-exposure';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -83,6 +85,8 @@ export class CustomerLoanInformationComponent implements OnInit {
   private loanPortfolio: NbAccordionItemComponent;
   @ViewChild('borrowerLoanPortfolioComponent', {static: false})
   private borrowerLoanPortfolioComponent: NbAccordionItemComponent;
+  @ViewChild('baselRiskAccordion', {static: false})
+  private baselRiskAccordion: NbAccordionItemComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
   calendarType: CalendarType = CalendarType.AD;
   private siteVisit: SiteVisit;
@@ -100,6 +104,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   public creditChecklistGeneral: CreditChecklistGeneral;
   public microLoanSynopsis: MicroLoanSynopsis;
   public borrowerPortfolio: BorrowerPortfolio;
+  public microBaselRiskExposure: MicroBaselRiskExposure;
   customerType = CustomerType;
 
 
@@ -150,6 +155,9 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.synopsisCreditworthiness)) {
       this.microLoanSynopsis = this.customerInfo.synopsisCreditworthiness;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.microBaselRiskExposure)) {
+      this.microBaselRiskExposure = this.customerInfo.microBaselRiskExposure;
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.borrowerPortFolio)) {
       this.borrowerPortfolio = this.customerInfo.borrowerPortFolio;
@@ -398,6 +406,22 @@ export class CustomerLoanInformationComponent implements OnInit {
         }, error => {
           console.error(error);
           this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save  Borrower Portfolio!'));
+        });
+  }
+
+  saveBaselRiskExposure(data: MicroBaselRiskExposure) {
+    if (ObjectUtil.isEmpty(this.microBaselRiskExposure)) {
+      this.microBaselRiskExposure = new MicroBaselRiskExposure();
+    }
+    this.microBaselRiskExposure = data;
+    this.customerInfoService.saveLoanInfo(this.microBaselRiskExposure, this.customerInfoId, TemplateName.BASEL_RISK_EXPOSURE)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved BASEL wise Risk Weighted Exposure!'));
+          this.baselRiskAccordion.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save BASEL wise Risk Weighted Exposure!'));
         });
   }
 

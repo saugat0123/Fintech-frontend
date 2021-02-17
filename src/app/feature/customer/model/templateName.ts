@@ -17,4 +17,5 @@ export class TemplateName {
   static CREDIT_CHECKlIST = 'Credit Checklist';
   static SYNOPSIS_CREDITWORTHINESS = 'Synopsis Creditworthiness';
   static BORROWER_PORTFOLIO = 'Borrower Portfolio';
+  static BASEL_RISK_EXPOSURE = 'Basel Risk Exposure';
 }

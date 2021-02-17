@@ -16,6 +16,7 @@ import {NetTradingAssets} from '../../admin/modal/NetTradingAssets';
 import {CreditChecklistGeneral} from './creditChecklistGeneral';
 import {MicroLoanSynopsis} from './micro-loan-synopsis';
 import {BorrowerPortfolio} from './borrwerportfolio';
+import {MicroBaselRiskExposure} from './micro-basel-risk-exposure';
 
 export class CustomerInfoData {
     id: number;
@@ -55,4 +56,5 @@ export class CustomerInfoData {
     nepData: string;
     synopsisCreditworthiness: MicroLoanSynopsis;
     borrowerPortFolio: BorrowerPortfolio;
+    microBaselRiskExposure: MicroBaselRiskExposure;
 }
