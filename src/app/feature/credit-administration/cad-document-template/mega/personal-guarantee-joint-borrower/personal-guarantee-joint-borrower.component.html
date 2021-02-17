@@ -29,6 +29,7 @@
                            formControlName="guarantorDistrict"
                            placeholder=""
                            type="text"/>
+
                     जिल्ला
                     <input class="form-field form-control-sm nepaliFont"
                            name="guarantorMunicipalityOrVdc"
@@ -41,31 +42,16 @@
                            formControlName="guarantorWardNo"
                            placeholder=""
                            type="text"/>
+
                     घर भई हाल प्रदेश नं.
-                    <input class="form-field form-control-sm nepaliFont"
-                           name="tempAddProvinceNo"
-                           formControlName="tempProvinceNo"
-                           placeholder=""
-                           type="text"
-                           size="2"/>
-                    <input class="form-field form-control-sm nepaliFont"
-                           name="tempAddDistrict"
-                           formControlName="tempAddDistrict"
-                           placeholder=""
-                           type="text"/>
+                    <strong class="nepaliFont">{{nepData?.temporaryProvince}}</strong>
+
+                    <strong class="nepaliFont">{{nepData?.temporaryDistrict}}</strong>
                     जिल्ला
-                    <input class="form-field form-control-sm nepaliFont"
-                           name="tempAddMunicipality"
-                           formControlName="tempAddMunicipality"
-                           placeholder=""
-                           type="text"/>
-                    गाउँपालिकार नगरपालिका वडा नं.
-                    <input class="form-field form-control-sm nepaliFont"
-                           name="tempAddWardNo"
-                           formControlName="tempAddWardNo"
-                           placeholder=""
-                           type="text"
-                           size="2"/>
+                    <strong class="nepaliFont">{{nepData?.temporaryMunicipality}}</strong>
+                    {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
+                     वडा नं.
+                    <strong class="nepaliFont">{{nepData?.temporaryWard}}</strong>
                     <input class="form-field form-control-sm nepaliFont"
                            name="tempAddress"
                            formControlName="tempAddress"
@@ -79,6 +65,7 @@
                            placeholder=""
                            type="text"
                            size="3"/>
+
                     को <input class="form-field form-control-sm nepaliFont"
                               name="guarantorName"
                               formControlName="guarantorName"

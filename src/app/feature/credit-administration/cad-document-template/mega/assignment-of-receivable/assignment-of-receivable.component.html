@@ -34,8 +34,9 @@
                 <span class="print-only nepaliFont"><b>{{assignmentOfReceivable.get('metropolitan1').value ? assignmentOfReceivable.get('metropolitan1').value  : '========='}}</b></span>
 
                 महानगरपालिका/उ.म.न.पा./न.पा./गा.बि.स. वडा न
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="wardNo" type="text"/>
-                <span class="print-only nepaliFont"><b>{{assignmentOfReceivable.get('wardNo').value ? assignmentOfReceivable.get('wardNo').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="wife" type="text"/>
+                <span class="print-only nepaliFont"><b>{{assignmentOfReceivable.get('wardNo').value ? assignmentOfReceivable.get('wife').value  : '========='}}</b></span>
+
 
                 मा रजिष्टर्ड प्रधान/कार्याल
                 य रहेको
@@ -43,32 +44,30 @@
                 <span class="print-only nepaliFont"><b>{{assignmentOfReceivable.get('partnershipForm').value ? assignmentOfReceivable.get('partnershipForm').value  : '========='}}</b></span>
 
                 फर्म/ साझेदारी फर्म/प्रा.लि./लि./कम्पनी का तर्फबाट ऐ. का अख्तियारप्राप्त प्रोप्राइटर/साझेदार/संचालक/परतिनिधि श्री
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="representativeName" type="text"/>
-                <span class="print-only nepaliFont"><b>{{assignmentOfReceivable.get('representativeName').value ? assignmentOfReceivable.get('representativeName').value  : '========='}}</b></span>
 
-                को नाति /नातिनी/बुहारी
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="representativeGrandaughterName" type="text"/>
-                <span class="print-only nepaliFont"><b>{{assignmentOfReceivable.get('representativeGrandaughterName').value ? assignmentOfReceivable.get('representativeGrandaughterName').value  : '========='}}</b></span>
+                <strong class="nepaliFont"> {{nepData?.gender == 1 ? nepData?.grandFatherName : nepData?.relationMedium == 0 ? nepData?.grandFatherName : nepData?.fatherInLawName}}</strong>
 
-                को छोरा/छोरी
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sonOrDaughter" type="text"/>
-                <span class="print-only nepaliFont"><b>{{assignmentOfReceivable.get('sonOrDaughter').value ? assignmentOfReceivable.get('sonOrDaughter').value  : '========='}}</b></span>
+                को {{nepData?.gender == 1 ? 'नाति' : nepData?.relationMedium == 0 ? 'नातिनी' : 'बुहारी'}},
 
-                कि पत्नी
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="wife" type="text"/>
-                <span class="print-only nepaliFont"><b>{{assignmentOfReceivable.get('wife').value ? assignmentOfReceivable.get('wife').value  : '========='}}</b></span>
+                श्री <strong class="nepaliFont">{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? nepData?.fatherName : null }}</strong>{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? ' को' : '' }}
+
+                 {{nepData?.gender == 0 && nepData?.relationMedium == 0 ? 'छोरी' : nepData?.gender == 1 ? 'छोरा': null }}
+
+                <strong class="nepaliFont"> {{nepData?.gender == 0 && nepData?.relationMedium == 1 ? nepData?.husbandName : null }}</strong>{{nepData?.gender == 0 && nepData?.relationMedium == 1 ? ' कि पत्नी' : '' }}
+
+
+
+                <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong>
 
                 जिल्ला
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="district" type="text"/>
-                <span class="print-only nepaliFont"><b>{{assignmentOfReceivable.get('district').value ? assignmentOfReceivable.get('district').value  : '========='}}</b></span>
-
+                <strong class="nepaliFont">{{nepData?.permanentMunicipality}}</strong>
+                {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
                 जिल्ला जिल्ला /गा.बि.स.वडा न
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="metropolitan2" type="text"/>
-                <span class="print-only nepaliFont"><b>{{assignmentOfReceivable.get('metropolitan2').value ? assignmentOfReceivable.get('metropolitan2').value  : '========='}}</b></span>
+
+                <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
 
                 बस्ने बष
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="age" type="text"/>
-                <span class="print-only nepaliFont"><b>{{assignmentOfReceivable.get('age').value ? assignmentOfReceivable.get('age').value  : '========='}}</b></span>
+                <strong class="nepaliFont">{{nepData?.age}}</strong>
 
                 को/की श्री /श्रीमती/ सुश्री
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="mrOrMrs" type="text"/>
