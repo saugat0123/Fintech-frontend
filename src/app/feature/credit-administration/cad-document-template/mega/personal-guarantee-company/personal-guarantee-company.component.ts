@@ -22,6 +22,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
+  nepData;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -35,6 +36,9 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
           this.personalGuaranteeCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
+    }
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
   }
 
