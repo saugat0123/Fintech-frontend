@@ -19,6 +19,7 @@ import { CiclViewComponent } from './cicl-view/cicl-view.component';
 import { AllDocumentViewComponent } from './all-document-view/all-document-view.component';
 import { ProposalViewComponent } from './proposal-view/proposal-view.component';
 import { IncomeFromAccountViewComponent } from './income-from-account-view/income-from-account-view.component';
+import { CrgGammaDetailViewComponent } from './crg-gamma-detail-view/crg-gamma-detail-view.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { IncomeFromAccountViewComponent } from './income-from-account-view/incom
     AllDocumentViewComponent,
     ProposalViewComponent,
     IncomeFromAccountViewComponent,
+    CrgGammaDetailViewComponent,
   ],
     exports: [
         InsuranceViewComponent,
@@ -48,6 +50,7 @@ import { IncomeFromAccountViewComponent } from './income-from-account-view/incom
         AllDocumentViewComponent,
         ProposalViewComponent,
         IncomeFromAccountViewComponent,
+        CrgGammaDetailViewComponent,
     ],
   imports: [
     CommonModule,
