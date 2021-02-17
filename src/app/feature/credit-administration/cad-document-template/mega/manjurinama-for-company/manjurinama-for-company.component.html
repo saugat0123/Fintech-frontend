@@ -7,13 +7,16 @@
                 <p>
                     लिखितम्  लिखितम लिखित गराइ लिनेका नाम प्रचलित बैंक तथा वित्तिय संस्था सम्बन्धी ऐन बमोजिम संस्थापित तथा संचालित काठमाण्डौं जिल्ला काठमाण्डौ महानगरपालिका वडा नं. २८
                     स्थित केन्द्रीय कार्यलय रहेको मेगा बैंक नेपाल लिमिटेडको <strong>प्रधान</strong> कार्यालय (जसलाई यस पछि धनी बैंक भनिएको), लिखत गरी दिने हामी तपसिलमा बमोजिमका मानिसहरु आगे
-                    श्री <strong class="nepaliFont"> {{nepData?.grandFatherName}}</strong>
-                    को/की नाति/नातिनी/बुहारी, श्री
-                    <strong class="nepaliFont"> {{nepData?.fatherName}}</strong>
-                    को/की छोरा/छोरी,
-                    <strong class="nepaliFont">{{nepData?.husbandName}}</strong>
-                    को/की  पत्नी,
-                    <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong>
+                    श्री <strong class="nepaliFont"> {{nepData?.gender == 1 ? nepData?.grandFatherName : nepData?.relationMedium == 0 ? nepData?.grandFatherName : nepData?.fatherInLawName}}</strong>
+
+                    को {{nepData?.gender == 1 ? 'नाति' : nepData?.relationMedium == 0 ? 'नातिनी' : 'बुहारी'}},
+
+                    श्री <strong class="nepaliFont">{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? nepData?.fatherName : null }}</strong>{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? ' को' : '' }}
+
+                    {{nepData?.gender == 0 && nepData?.relationMedium == 0 ? 'छोरी' : nepData?.gender == 1 ? 'छोरा': null }}
+
+                    <strong class="nepaliFont"> {{nepData?.gender == 0 && nepData?.relationMedium == 1 ? nepData?.husbandName : null }}</strong>{{nepData?.gender == 0 && nepData?.relationMedium == 1 ? ' कि पत्नी' : '' }}
+
                     जिल्ला
                     <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
                     {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
@@ -28,10 +31,7 @@
                     {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
                     गाउपालिका/महा/उपमहा/नगरपालिका वडा नं.
                     <strong class="nepaliFont">{{nepData?.temporaryWard}}</strong>
-                    <input class="form-field form-control-sm nepaliFont"
-                           formControlName="temporaryAddress"
-                           placeholder=""
-                           type="text"/>
+
                     बस्ने वर्ष
                     <strong class="nepaliFont">{{nepData?.age}}</strong>
                     की श्री
