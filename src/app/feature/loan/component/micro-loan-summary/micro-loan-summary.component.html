@@ -291,12 +291,22 @@
                             [fiscalYears]="fiscalYearArray"
                             [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
 
-            <app-income-from-account-summery></app-income-from-account-summery>
-            <app-guarantor-summary></app-guarantor-summary>
-            <app-sitevist-summary-component></app-sitevist-summary-component>
+            <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
+                                             [formData]="incomeFromAccountData"></app-income-from-account-summery>
+
+            <app-guarantor-summary *ngIf="checkGuarantorData"
+                                   [guarantorData]="guarantorData"></app-guarantor-summary>
+
+            <app-sitevist-summary-component *ngIf="siteVisitSummary"
+                                            [formData]="siteVisitData"
+                                            [loanType]="loanDataHolder?.loanCategory"></app-sitevist-summary-component>
             <app-report-summary></app-report-summary>
-            <app-insurance-summary></app-insurance-summary>
-            <app-proposal-terms-and-condition-summery></app-proposal-terms-and-condition-summery>-->
+            <app-insurance-summary *ngIf="loanDataHolder?.insurance"
+                                   [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
+
+            <app-proposal-terms-and-condition-summery *ngIf="loanDataHolder && customerAllLoanList"
+                                                      [customerAllLoanList]="customerAllLoanList"
+                                                      [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
 
         </nb-card-body>
     </nb-card>
