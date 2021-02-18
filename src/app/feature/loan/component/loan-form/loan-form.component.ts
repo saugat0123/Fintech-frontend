@@ -715,7 +715,6 @@ export class LoanFormComponent implements OnInit {
             this.scrollNavService.scrollNavigateTo(this.priorityFormNav);
             return;
         }
-
         this.nextButtonAction = true;
         this.spinner.show();
 
@@ -738,6 +737,7 @@ export class LoanFormComponent implements OnInit {
                 return;
             }
             this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
+
                 this.loanDocument = response.detail;
                 this.customerLoanId = this.loanDocument.id;
                 this.loanDocument = new LoanDataHolder();

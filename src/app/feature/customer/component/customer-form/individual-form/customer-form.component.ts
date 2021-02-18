@@ -125,6 +125,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         } else {
             this.createRelativesArray();
         }
+
     }
 
     addRelatives() {
