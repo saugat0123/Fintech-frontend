@@ -1,1 +1,59 @@
-<p>basel-risk-exposure works!</p>
+<nb-card>
+    <nb-card-header>
+        <span>Basel Risk Exposure</span>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="baselRiskExposureForm">
+            <table class="table table-responsive table-bordered table-sm">
+                <thead class="sb-bg-secondary">
+                <tr>
+                    <th>Nature of Assets (Claim)</th>
+                    <th>Book Value (A)</th>
+                    <th>Specific Provision (B)</th>
+                    <th>Eligible CRM (C)</th>
+                    <th>Net Value (D) = (A-B-C)</th>
+                    <th>Risk Weight (E)</th>
+                    <th>RWE (F) = (D*E)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Corporate Claim</td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.corporationClaimBookValue.errors }"
+                            type="number" class="form-control border-0 bg-white" formControlName="corporationClaimBookValue"></td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.corporationClaimSpecificProvision.errors }"
+                            type="number" class="form-control border-0 bg-white" formControlName="corporationClaimSpecificProvision"></td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.corporationClaimEligible.errors }"
+                            type="number" class="form-control border-0 bg-white" formControlName="corporationClaimEligible"></td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.corporationClaimNetValue.errors }"
+                            type="number" readonly class="form-control border-0 bg-white" formControlName="corporationClaimNetValue" value="{{calculateCorporateNetValue()}}"></td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.corporationClaimRiskWeight.errors }"
+                            type="number" class="form-control border-0 bg-white" formControlName="corporationClaimRiskWeight"></td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.corporationClaimRwe.errors }"
+                            type="number" readonly class="form-control border-0 bg-white" formControlName="corporationClaimRwe" value="{{calculateCorporateRWE()}}"></td>
+                </tr>
+                <tr>
+                    <td>Off Balance Sheet Item</td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.OffBalanceSheetItemBookValue.errors }"
+                            type="number" class="form-control border-0 bg-white" formControlName="OffBalanceSheetItemBookValue"></td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.OffBalanceSheetItemSpecificProvision.errors }"
+                            type="number" class="form-control border-0 bg-white" formControlName="OffBalanceSheetItemSpecificProvision"></td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.OffBalanceSheetItemEligible.errors }"
+                            type="number" class="form-control border-0 bg-white" formControlName="OffBalanceSheetItemEligible"></td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.OffBalanceSheetItemNetValue.errors }"
+                            type="number" readonly class="form-control border-0 bg-white" formControlName="OffBalanceSheetItemNetValue" value="{{calculateBalanceSheetNetValue()}}"></td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.OffBalanceSheetItemRiskWeight.errors }"
+                            type="number" class="form-control border-0 bg-white" formControlName="OffBalanceSheetItemRiskWeight"></td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.OffBalanceSheetItemRwe.errors }"
+                            type="number" readonly class="form-control border-0 bg-white" formControlName="OffBalanceSheetItemRwe" value="{{calculateBalanceSheetRWE()}}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </nb-card-body>
+    <nb-card-footer>
+        <nb-card-footer>
+            <button (click)="submitForm()" class="btn float-right" type="submit" nbButton>Save</button>
+        </nb-card-footer>
+    </nb-card-footer>
+</nb-card>
