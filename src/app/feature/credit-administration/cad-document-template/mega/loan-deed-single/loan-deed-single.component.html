@@ -15,72 +15,37 @@
                                type="text"/>
                         <span class="print-only nepaliFont"><b>{{loanDeedSingle.get('branch').value ? loanDeedSingle.get('branch').value  : '========='}}</b></span>
                         (यस पछि धनी बैंक भनिएको) लिखत गरि दिनेको नाम
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-                               formControlName="name"
-                               placeholder=""
-                               type="text"/>
-                        <span class="print-only nepaliFont"><b>{{loanDeedSingle.get('name').value ? loanDeedSingle.get('name').value  : '========='}}</b></span>
-                        को नाति/ नातिनी/ बुहारी
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-                               formControlName="parents"
-                               placeholder=""
-                               type="text"/>
-                        <span class="print-only nepaliFont"><b>{{loanDeedSingle.get('parents').value ? loanDeedSingle.get('parents').value  : '========='}}</b></span>
-                        छोरा/छोरी र श्रीमति
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-
-                               formControlName="permanentDistrict"
-                               placeholder=""
-                               type="text"/>
-                        <span class="print-only nepaliFont"><b>{{loanDeedSingle.get('permanentDistrict').value ? loanDeedSingle.get('permanentDistrict').value  : '========='}}</b></span>
+                    <span *ngIf="singleData?.gender==1">
+                        <strong class="nepaliFont">{{singleData?.grandFatherName}}</strong>को नाति &nbsp;
+                        <strong class="nepaliFont">{{singleData.fatherName}}</strong>को छोरा
+                    </span>
+                    <span *ngIf="singleData?.gender==0">
+                        <span *ngIf="singleData?.relationMedium==0">
+                            <strong class="nepaliFont">{{singleData?.grandFatherName}}</strong>को नातिनी &nbsp;
+                            <strong class="nepaliFont">{{singleData.fatherName}}</strong>को छोरी
+                        </span>
+                        <span *ngIf="singleData?.relationMedium==1">
+                            <strong class="nepaliFont">{{singleData?.fatherInLawName}}</strong>को बुहारी &nbsp;
+                            <strong class="nepaliFont">{{singleData.husbandName}}</strong>को श्रीमति
+                        </span>
+                    </span>
+                        <strong class="nepaliFont"> {{singleData?.permanentDistrict}}</strong>
                         जिल्ला
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-
-                               formControlName="permanentMunicipalityVDC"
-                               placeholder=""
-                               type="text"/>
-                        <span class="print-only nepaliFont"><b>{{loanDeedSingle.get('permanentMunicipalityVDC').value ? loanDeedSingle.get('permanentMunicipalityVDC').value  : '========='}}</b></span>
-                        गाउँपालिका/ नगरपालिका वडा नं.
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-                               formControlName="permanentWardNo"
-                               placeholder=""
-                               type="text" size="2" />
-                        <span class="print-only nepaliFont"><b>{{loanDeedSingle.get('permanentWardNo').value ? loanDeedSingle.get('permanentWardNo').value  : '========='}}</b></span>
+                        <strong class="nepaliFont"> {{singleData?.permanentMunicipality}}</strong>
+                        {{singleData?.permanentMunType == 0 ? 'नगरपालिका' : 'गाउँपालिका'}}
+                        वडा नं.
+                        <strong class="nepaliFont"> {{singleData?.permanentWard}}</strong>
                         घर भई हाल प्रदेश नं.
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-
-                               formControlName="temporaryProvince"
-                               placeholder=""
-                               type="text" size="1" />
-                        <span class="print-only nepaliFont"><b>{{loanDeedSingle.get('temporaryProvince').value ? loanDeedSingle.get('temporaryProvince').value  : '========='}}</b></span>
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-                               formControlName="temporaryDistrict"
-                               placeholder=""
-                               type="text"/>
-                        <span class="print-only nepaliFont"><b>{{loanDeedSingle.get('temporaryProvince').value ? loanDeedSingle.get('temporaryProvince').value  : '========='}}</b></span>
+                        <strong class="nepaliFont"> {{singleData?.temporaryProvince}}</strong>
+                        <strong class="nepaliFont"> {{singleData?.temporaryDistrict}}</strong>
                         जिल्ला
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-                               formControlName="temporaryMunicipalityVDC"
-                               placeholder=""
-                               type="text"/>
-                        <span class="print-only nepaliFont"><b>{{loanDeedSingle.get('temporaryMunicipalityVDC').value ? loanDeedSingle.get('temporaryMunicipalityVDC').value  : '========='}}</b></span>
-                        गाउँपालिका/ नगरपालिका वडा नं.
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-                               formControlName="temporaryWardNo"
-                               placeholder=""
-                               type="text" size="2" />
-                        <span class="print-only nepaliFont"><b>{{loanDeedSingle.get('temporaryWardNo').value ? loanDeedSingle.get('temporaryWardNo').value  : '========='}}</b></span>
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-                               formControlName="temporaryAddress"
-                               placeholder=""
-                               type="text"/>
-                        <span class="print-only nepaliFont"><b>{{loanDeedSingle.get('temporaryAddress').value ? loanDeedSingle.get('temporaryAddress').value  : '========='}}</b></span>
+                        <strong class="nepaliFont"> {{singleData?.temporaryMunicipality}}</strong>
+                        {{singleData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गाउँपालिका'}}
+                        वडा नं.
+                        <strong class="nepaliFont"> {{singleData?.temporaryWard}}</strong>
+                        <strong class="nepaliFont"> {{singleData?.temporaryAddress}}</strong>
                         बस्ने वर्ष
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-                               formControlName="age"
-                               placeholder=""
-                               type="text" size="3" />
-                        <span class="print-only nepaliFont"><b>{{loanDeedSingle.get('age').value ? loanDeedSingle.get('age').value  : '========='}}</b></span>
+                        <strong class="nepaliFont"> {{singleData?.age}}</strong>
                         को
                         <input class="form-field form-control-sm nepaliFont disable-print"
                                formControlName="relation"
@@ -88,12 +53,7 @@
                                type="text"/>
                         <span class="print-only nepaliFont"><b>{{loanDeedSingle.get('relation').value ? loanDeedSingle.get('relation').value  : '========='}}</b></span>
                         (ना. प्र. प. नं.
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-
-                               formControlName="citizenshipNo"
-                               placeholder=""
-                               type="text"/>
-                        <span class="print-only nepaliFont"><b>{{loanDeedSingle.get('citizenshipNo').value ? loanDeedSingle.get('citizenshipNo').value  : '========='}}</b></span>
+                        <strong class="nepaliFont"> {{singleData?.citizenshipNo}}</strong>
                         मिति
                         <input class="form-field form-control-sm nepaliFont disable-print"
 
