@@ -185,8 +185,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.loanDataHolder = this.loanData;
         this.loadSummary();
         this.roleType = LocalStorageUtil.getStorage().roleType;
-        console.log('Data:', this.loanDataHolder);
-        console.log('Customer Info', this.customerInfo);
+
     }
 
     ngOnDestroy(): void {

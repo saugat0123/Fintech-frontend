@@ -27,17 +27,13 @@ export class IndividualViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('indivs', this.individual);
+
     if (!ObjectUtil.isEmpty(this.individual)) {
       if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
         this.individualJsonData = JSON.parse(this.individual.individualJsonData);
-        console.log('indiv', this.individual);
       }
     }
-    console.log(this.individual.gender);
-    console.log(this.individual.maritalStatus);
-    console.log(this.individual.customerName);
-    console.log(this.individual.citizenshipNumber);
+
   }
 
 }
