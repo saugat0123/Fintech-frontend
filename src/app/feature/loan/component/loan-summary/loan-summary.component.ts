@@ -36,6 +36,7 @@ import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 import {RouteConst} from '../../../credit-administration/model/RouteConst';
+import {LoginGuard} from '../../../../shared-service/authentication/login.guard';
 
 @Component({
     selector: 'app-loan-summary',
@@ -184,6 +185,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.loanDataHolder = this.loanData;
         this.loadSummary();
         this.roleType = LocalStorageUtil.getStorage().roleType;
+        console.log('Data:', this.loanDataHolder);
+        console.log('Customer Info', this.customerInfo);
     }
 
     ngOnDestroy(): void {

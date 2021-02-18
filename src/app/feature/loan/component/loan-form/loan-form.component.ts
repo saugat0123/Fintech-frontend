@@ -716,6 +716,8 @@ export class LoanFormComponent implements OnInit {
             return;
         }
 
+        console.log('form value', this.priorityForm.value);
+
         this.nextButtonAction = true;
         this.spinner.show();
 
@@ -738,6 +740,7 @@ export class LoanFormComponent implements OnInit {
                 return;
             }
             this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
+                console.log('loan document', this.loanDocument);
                 this.loanDocument = response.detail;
                 this.customerLoanId = this.loanDocument.id;
                 this.loanDocument = new LoanDataHolder();
