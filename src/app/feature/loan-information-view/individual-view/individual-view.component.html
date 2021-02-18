@@ -12,6 +12,9 @@
         <th>Citizenship no.</th>
         <th>Citizenship Issued Date</th>
         <th>Issued Place</th>
+        <th>Gender</th>
+        <th>Marital Status</th>
+
       </tr>
       </thead>
       <tbody>
@@ -22,6 +25,8 @@
         <td class="text-right pr-1">{{individual?.citizenshipNumber}}</td>
         <td class="text-left pl-1">{{individual?.citizenshipIssuedDate | date}}</td>
         <td class="text-left pl-1">{{individual?.citizenshipIssuedPlace}}</td>
+        <td class="text-left pl-1">{{customerInfo?.gender}}</td>
+        <td class="text-left pl-1">{{customerInfo?.maritalStatus}}</td>
       </tr>
       </tbody>
       <thead>
