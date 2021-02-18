@@ -101,6 +101,10 @@
         display: block;
       }
 
+      .disable-print {
+        display: inline;
+      }
+
       #print-document {
         display: none;
       }
