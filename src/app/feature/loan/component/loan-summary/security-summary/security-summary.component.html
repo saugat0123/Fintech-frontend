@@ -674,6 +674,40 @@
                 </table>
             </div>
         </div>
+<!--        Insurance Policy guarantee -->
+        <div class="row" *ngIf="insurancePolicySelected">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <tr>
+                        <th class="text-center sb-bg-dark text-white" colspan="12">Insurance Policy Security</th>
+                    </tr>
+                    <tr class="sb-bg-secondary text-white">
+                        <th>S.N</th>
+                        <th>Insured Amount</th>
+                        <th>Insurance Company</th>
+                        <th>Insurance Policy Start</th>
+                        <th>Maturity Date</th>
+                        <th>Insurance Policy Type</th>
+                        <th>Surrender Value</th>
+                        <th>Early Surrender Date</th>
+                        <th>Considered Value</th>
+                        <th>Cash Back Amount</th>
+                    </tr>
+                    <tr *ngFor="let insurancePolicy of formData['initialForm']['insurancePolicy']; let i= index">
+                        <td class="align-middle">{{i + 1}}</td>
+                        <td class="text-left pl-1">{{insurancePolicy?.insuredAmount}}</td>
+                        <td class="text-left pl-1">{{insurancePolicy?.insuranceCompanyName}}</td>
+                        <td class="text-right pr-1">{{insurancePolicy?.policyStartDate | date}}</td>
+                        <td class="text-left pl-1">{{insurancePolicy?.maturityDate | date}}</td>
+                        <td class="text-right pr-1">{{insurancePolicy?.insurancePolicyType}}</td>
+                        <td class="text-right pr-1">{{insurancePolicy?.surrenderValue | currencyFormatter}}</td>
+                        <td class="text-right pr-1"> {{insurancePolicy?.earlySurrenderDate | date}}</td>
+                        <td class="text-right pr-1">{{insurancePolicy?.consideredValue | currencyFormatter}}</td>
+                        <td class="text-left pl-1">{{insurancePolicy?.cashBackAmount | currencyFormatter}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
         <!--        guarantors details-->
         <!--<div *ngIf="isPresentGuarantor" class="row">
             <div class="col-md-12">
