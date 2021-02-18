@@ -25,6 +25,7 @@ export class SecurityViewComponent implements OnInit {
   depositSelected = false;
   totalAmount = 0;
   shareSelected = false;
+  insurancePolicySelected = false;
   shareTotalValue = 0;
   totalConsideredValue = 0;
   loanSharePercent: NepseMaster = new NepseMaster();
@@ -72,6 +73,9 @@ export class SecurityViewComponent implements OnInit {
           break;
         case 'PersonalGuarantee':
           this.personal = true;
+          break;
+        case 'InsurancePolicySecurity':
+          this.insurancePolicySelected = true;
       }
     });
     if (!ObjectUtil.isEmpty(this.shareSecurityData)) {
