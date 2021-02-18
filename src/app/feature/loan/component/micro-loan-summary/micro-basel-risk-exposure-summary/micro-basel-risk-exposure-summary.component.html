@@ -1,0 +1,37 @@
+<nb-card>
+    <nb-card-body>
+        <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
+            <thead class="sb-bg-secondary">
+            <tr>
+                <th>Nature of Assets (Claim)</th>
+                <th>Book Value (A)</th>
+                <th>Specific Provision (B)</th>
+                <th>Eligible CRM (C)</th>
+                <th>Net Value (D) = (A-B-C)</th>
+                <th>Risk Weight (E)</th>
+                <th>RWE (F) = (D*E)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Corporate Claim</td>
+                <td>{{baselRiskExposure?.corporationClaimBookValue}}</td>
+                <td>{{baselRiskExposure?.corporationClaimSpecificProvision}}</td>
+                <td>{{baselRiskExposure?.corporationClaimEligible}}</td>
+                <td>{{baselRiskExposure?.corporationClaimNetValue}}</td>
+                <td>{{baselRiskExposure?.corporationClaimRiskWeight}}</td>
+                <td>{{baselRiskExposure?.corporationClaimRwe}}</td>
+            </tr>
+            <tr>
+                <td>Off Balance Sheet Item</td>
+                <td>{{baselRiskExposure?.OffBalanceSheetItemBookValue}}</td>
+                <td>{{baselRiskExposure?.OffBalanceSheetItemSpecificProvision}}</td>
+                <td>{{baselRiskExposure?.OffBalanceSheetItemEligible}}</td>
+                <td>{{baselRiskExposure?.OffBalanceSheetItemNetValue}}</td>
+                <td>{{baselRiskExposure?.OffBalanceSheetItemRiskWeight}}</td>
+                <td>{{baselRiskExposure?.OffBalanceSheetItemRwe}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </nb-card-body>
+</nb-card>

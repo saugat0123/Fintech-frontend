@@ -146,12 +146,14 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   insuranceWithDoc = [];
   showCadDoc = false;
   synopsis = false;
+  baselRiskExposure = false;
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   fiscalYearArray = [];
 
   disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
   roleType;
   synopsisCreditWorthiness;
+  baselWiseRiskExposure;
 
 
   constructor(
@@ -188,6 +190,10 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.synopsisCreditworthiness)) {
       this.synopsisCreditWorthiness = this.loanDataHolder.loanHolder.synopsisCreditworthiness;
       this.synopsis = true;
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.microBaselRiskExposure)) {
+      this.baselWiseRiskExposure = this.loanDataHolder.loanHolder.microBaselRiskExposure;
+      this.baselRiskExposure = true;
     }
   }
 
