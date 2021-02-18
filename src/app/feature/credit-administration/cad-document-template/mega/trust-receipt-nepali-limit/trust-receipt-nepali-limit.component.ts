@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../model/CadFile';
@@ -39,7 +39,7 @@ export class TrustReceiptNepaliLimitComponent implements OnInit {
     }
   }
 
-  buildForm(){
+  buildForm() {
     this.trustReceiptNepali = this.formBuilder.group({
       loanApprovalDate: [undefined],
       valueOfGoods: [undefined],
