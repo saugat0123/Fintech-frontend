@@ -122,6 +122,10 @@
             <app-financial-view *ngIf="loanHolder?.financial"
                                 [customerType]="loanHolder?.customerType"
                                 [formData]="loanHolder?.financial"></app-financial-view>
+            <app-crg-gamma-detail-view
+                    *ngIf="loanDataHolder?.crgGamma"
+                    [formData]="loanDataHolder?.crgGamma">
+            </app-crg-gamma-detail-view>
             <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
                                 [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             <app-site-visit-view *ngIf="loanHolder?.siteVisit"

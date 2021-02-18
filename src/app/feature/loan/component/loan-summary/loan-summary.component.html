@@ -1045,14 +1045,17 @@
 
                             <td class="text-left pl-1">{{previousList?.docAction}}</td>
                             <td class="text-left">
-                                <div class="pl-1">
+                                <div class="pl-1 disable-print">
                                     {{previousList?.comment?.length > 50 ?
                                     previousList?.comment?.substring(0, 49) :
                                     previousList?.comment}}
                                 </div>
                                 <a (click)="open(previousList?.comment)"
                                    *ngIf="previousList?.comment?.length > 50"
-                                   class="text-left pl-1 read-margin">read more ....</a>
+                                   class="text-left pl-1 disable-print">read more ....</a>
+                                <div>
+                                    <span class="print-only justify-content">{{previousList?.comment}}</span>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -1076,14 +1079,17 @@
 
                             <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction}}</td>
                             <td class="text-left">
-                                <div class="pl-1">
+                                <div class="pl-1 disable-print">
                                     {{loanDataHolder?.currentStage?.comment?.length > 50 ?
                                     loanDataHolder?.currentStage?.comment?.substring(0, 49) :
                                     loanDataHolder?.currentStage?.comment}}
                                 </div>
                                 <a (click)="open(loanDataHolder.currentStage.comment)"
                                    *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
-                                   class="text-left pl-1 read-margin">read more ....</a>
+                                   class="text-left pl-1 disable-print">read more ....</a>
+                                <div>
+                                    <span class="pl-1 print-only text-justify pr-1">{{loanDataHolder?.currentStage?.comment}}</span>
+                                </div>
                             </td>
                         </tr>
                         </tbody>
