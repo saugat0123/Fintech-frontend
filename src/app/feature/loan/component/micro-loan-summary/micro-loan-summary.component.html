@@ -251,7 +251,7 @@
                 </div>
             </div>
 
-            <app-micro-institution
+            <app-micro-institution *ngIf="customerType==='INSTITUTION'"
                     [companyInfo]="loanDataHolder?.companyInfo"
                     [loanDataHolder]="loanDataHolder"></app-micro-institution>
 
@@ -272,6 +272,7 @@
 <!--            </div>-->
 
             <app-borrower-portfolio-summary [borrowerData]="this.loanDataHolder?.loanHolder?.borrowerPortFolio"></app-borrower-portfolio-summary>
+
 
             <app-collateral-summary
                     *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
@@ -311,7 +312,7 @@
         </nb-card-body>
     </nb-card>
 </section>
-<nb-card>
+<nb-card *ngIf="customerType === 'INSTITUTION'">
     <nb-card-header>
         <h6>Synopsis of Creditworthiness</h6>
     </nb-card-header>
@@ -321,7 +322,7 @@
     </nb-card-body>
 </nb-card>
 
-<nb-card>
+<nb-card *ngIf="customerType === 'INSTITUTION'">
     <nb-card-header>
         <h6>BASEL wise Risk Exposure</h6>
     </nb-card-header>

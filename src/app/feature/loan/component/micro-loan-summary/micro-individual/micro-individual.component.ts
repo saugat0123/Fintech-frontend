@@ -20,6 +20,7 @@ export class MicroIndividualComponent implements OnInit {
   contact = [];
   additionalInfoJsonData;
   customerLocationData;
+  otherInformationAndConfirmation;
 
   constructor() { }
 
@@ -28,6 +29,7 @@ export class MicroIndividualComponent implements OnInit {
       this.individualJsonData = JSON.parse(this.customerInfo.individualJsonData);
       // this.customerLocationData = JSON.parse(this.customerInfo.individualJsonData.address);
       this.contact = JSON.parse(this.customerInfo.contactNumber);
+      this.otherInformationAndConfirmation = JSON.parse(this.loanDataHolder.proposal.data);
     }
   }
 

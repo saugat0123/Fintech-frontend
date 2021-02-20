@@ -154,6 +154,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   roleType;
   synopsisCreditWorthiness;
   baselWiseRiskExposure;
+  customerType: string;
 
 
   constructor(
@@ -187,6 +188,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
     this.loanDataHolder = this.loanData;
     this.loadSummary();
     this.roleType = LocalStorageUtil.getStorage().roleType;
+    this.customerType = this.loanDataHolder.loanHolder.customerType;
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.synopsisCreditworthiness)) {
       this.synopsisCreditWorthiness = this.loanDataHolder.loanHolder.synopsisCreditworthiness;
       this.synopsis = true;
