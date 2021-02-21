@@ -31,6 +31,7 @@ export class MicroIndividualComponent implements OnInit {
       this.contact = JSON.parse(this.customerInfo.contactNumber);
       this.otherInformationAndConfirmation = JSON.parse(this.loanDataHolder.proposal.data);
     }
+    console.log(this.customerInfo, 'customer info');
   }
 
 }

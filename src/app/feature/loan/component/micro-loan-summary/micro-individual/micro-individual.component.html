@@ -8,32 +8,38 @@
                 <th>Application Name and Address</th>
                 <th>Customer’s category</th>
                 <th>Distance form Branch Office</th>
-                <th>Risk Rating</th>
                 <th>Basel -2 Risk Classification (in %)</th>
                 <th>Base of Risk Classification: RRP</th>
+                <th>Sector</th>
                 <th>Sub-Sector</th>
 
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
+            <tr>
                 <td class="text-left pl-1">
-                    {{relative.customerRelativeName}}
-                </td>
-
-                <td class="text-left pl-1">
-                    {{relative.customerRelation}}
+                    {{customerInfo?.customerName}} | {{individualJsonData?.permanentAddressLine1}}
                 </td>
                 <td class="text-right pr-1">
-                    {{relative.citizenshipNumber}}
+                    {{individualJsonData?.microCustomerDetail['customerCategory']}}
                 </td>
-                <td class="text-left pl-1">
-                    {{relative.citizenshipIssuedDate | date}}
+                <td class="text-right pr-1">
+                    {{individualJsonData?.microCustomerDetail['bankDistance']}}
+                </td>
+                <td class="text-right pr-1">
+                    {{individualJsonData?.microCustomerDetail['riskClassificationPercent']}}
+                </td>
+                <td class="text-right pr-1">
+                    {{individualJsonData?.microCustomerDetail['riskClassificationBase']}}
                 </td>
 
-                <td>{{loanDataHolder?.loanHolder['clientType']}}</td>
-                <td>{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
-                <td>{{loanDataHolder?.loanHolder['subSector']}}</td>
+                <td class="text-left pl-1">
+                    {{customerInfo?.clientType}}
+                </td>
+
+                <td class="text-left pl-1">
+                    {{customerInfo?.subsectorDetail}}
+                </td>
 
             </tr>
             </tbody>
