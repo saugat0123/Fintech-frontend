@@ -219,7 +219,8 @@ const modules = {
 
     entryComponents: [...ENTRY_COMPONENTS],
     exports: [
-        KycInfoComponent
+        KycInfoComponent,
+        MicroProposalSummaryComponent
     ]
 })
 export class LoanModule {
