@@ -6,10 +6,10 @@
                     <label for="loanProducts"><strong>Loan products</strong></label>
                     <textarea id="loanProducts" formControlName="loanProducts" name="loanProducts" type="text"
                               class="form-control" placeholder="Loan products" rows="5"
-                              [ngClass]="{ 'is-invalid': (submitted) && form.additionalInfoRemark.errors }"></textarea>
-                    <div *ngIf="(submitted) && form.additionalInfoRemark.invalid"
+                              [ngClass]="{ 'is-invalid': (submitted) && form.loanProducts.errors }"></textarea>
+                    <div *ngIf="(submitted) && form.loanProducts.invalid"
                          class="invalid-feedback">
-                        <div *ngIf="form.additionalInfoRemark.errors.required">
+                        <div *ngIf="form.loanProducts.errors.required">
                             Loan Products is required
                         </div>
                     </div>
@@ -35,10 +35,10 @@
                     <label for="loanProducts"><strong> Other products</strong></label>
                     <textarea id="otherProducts" formControlName="otherProducts" name="otherProducts" type="text"
                               class="form-control" placeholder=" Other products" rows="5"
-                              [ngClass]="{ 'is-invalid': (submitted) && form.savingProducts.errors }"></textarea>
-                    <div *ngIf="(submitted) && form.savingProducts.invalid"
+                              [ngClass]="{ 'is-invalid': (submitted) && form.otherProducts.errors }"></textarea>
+                    <div *ngIf="(submitted) && form.otherProducts.invalid"
                          class="invalid-feedback">
-                        <div *ngIf="form.savingProducts.errors.required">
+                        <div *ngIf="form.otherProducts.errors.required">
                             Other Products is required
                         </div>
                     </div>
@@ -47,16 +47,20 @@
         </div>
                <div class="col-md-12">
                    <div class="form-group">
-                       <label for="repaymentSchedule" class="title"><strong>Repayment Schedule</strong></label>
+                       <label for="repaymentSchedule" class="title"><sup class="text-danger">*</sup><strong>Repayment Schedule</strong></label>
                        <ckeditor [config]="ckeConfig"
                                  [style]="{height:'250px !important;'}"
                                  formControlName="repaymentSchedule"
-                                 id="repaymentSchedule"></ckeditor>
-                       <div *ngIf="submitted && microCustomerForm.get('repaymentSchedule').errors"
-                            class="invalid-feedback">
-                           Value is required!
-                       </div>
+                                 id="repaymentSchedule"
+                                 [ngClass]="{'is-invalid': form.repaymentSchedule.invalid && submitted}"></ckeditor>
                    </div>
                </div>
+        <div class="clearfix"></div>
+        <div class="col-md-12">
+            <div *ngIf="submitted">
+                    <span *ngIf="form.repaymentSchedule.invalid" class="text-danger">
+                      Repayment Schedule is required</span>
+            </div>
+        </div>
     </div>
 </form>

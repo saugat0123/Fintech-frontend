@@ -41,20 +41,20 @@ export class MicroIndividualFormComponent implements OnInit {
       customerCategory: [undefined, Validators.required],
       riskClassificationPercent: [undefined, Validators.required],
       riskClassificationBase: [undefined, Validators.required],
-      isDeprive: [undefined, Validators.required],
-      depriveSector: [undefined, Validators.required],
-      depriveSectorOthers: [undefined, Validators.required],
-      isBlBAgent: [undefined, Validators.required],
-      blbAgentName: [undefined, Validators.required],
-      blbAgentCode: [undefined, Validators.required],
+      isDeprive: [undefined],
+      depriveSector: [undefined],
+      depriveSectorOthers: [undefined],
+      isBlBAgent: [undefined],
+      blbAgentName: [undefined],
+      blbAgentCode: [undefined],
     });
   }
 
   onSubmit() {
     this.submitted = true;
-    if (this.microCustomerForm.invalid) {
-      return;
-    }
+    // if (this.microCustomerForm.invalid) {
+    //   return;
+    // }
     this.submitData = this.microCustomerForm.value;
   }
 
