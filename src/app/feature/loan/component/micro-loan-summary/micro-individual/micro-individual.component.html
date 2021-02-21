@@ -11,7 +11,6 @@
                 <th>Risk Rating</th>
                 <th>Basel -2 Risk Classification (in %)</th>
                 <th>Base of Risk Classification: RRP</th>
-                <th>Sector(as per NRB):</th>
                 <th>Sub-Sector</th>
 
             </tr>
@@ -34,6 +33,7 @@
 
                 <td>{{loanDataHolder?.loanHolder['clientType']}}</td>
                 <td>{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
+                <td>{{loanDataHolder?.loanHolder['subSector']}}</td>
 
             </tr>
             </tbody>
@@ -225,6 +225,26 @@
                 </tr>
                 </tbody>
             </table>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <thead class="sb-bg-dark text-white">
+                <th>Deviation</th>
+            </thead>
+            <tbody>
+            <td>{{otherInformationAndConfirmation?.waiverConclusionRecommendation}}</td>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <thead>
+            <th class="sb-bg-dark text-white">Overall Justification / Recommendation</th>
+            </thead>
+            <tbody>
+            <td>{{otherInformationAndConfirmation?.summeryRecommendation}}</td>
+            </tbody>
+        </table>
     </div>
 
     <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">

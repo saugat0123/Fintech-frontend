@@ -279,7 +279,9 @@
                     [customerAllLoanList]="customerAllLoanList"
                     [security]="loanDataHolder?.security"></app-collateral-summary>
 
-                       <app-proposal-justification-summary></app-proposal-justification-summary>
+                       <app-proposal-justification-summary *ngIf="proposalSummary"
+                                                           [customerAllLoanList]="customerAllLoanList"
+                                                           [proposalData]="proposalData"></app-proposal-justification-summary>
             <app-security-summary
                     *ngIf="securitySummary"
                     [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
@@ -301,7 +303,7 @@
             <app-sitevist-summary-component *ngIf="siteVisitSummary"
                                             [formData]="siteVisitData"
                                             [loanType]="loanDataHolder?.loanCategory"></app-sitevist-summary-component>
-            <app-report-summary></app-report-summary>
+
             <app-insurance-summary *ngIf="loanDataHolder?.insurance"
                                    [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
 
