@@ -110,7 +110,7 @@
         <th>{{i+1}}</th>
         <td class="text-left pl-2"><strong>{{keyIndicatorsHeaderParticularsMap.get(selectedParticular)}}</strong></td>
         <td *ngFor="let amount of financialData['keyIndicatorsData'][selectedParticular]" class="text-right pr-1">
-            Rs. {{amount.value}}
+            {{amount.value}}
         </td>
     </tr>
     </tbody>
