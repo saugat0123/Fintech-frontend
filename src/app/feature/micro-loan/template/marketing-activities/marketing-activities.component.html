@@ -1,6 +1,16 @@
 <nb-card>
     <nb-card-header>
         <strong>Marketing Strategies</strong>
+       <div class="d-flex justify-content-end">
+           <strong class="mb-0 pt-2 mr-2">Fiscal Year : </strong>
+           <nb-select (selectedChange)="onChangeFiscalYear($event)" [selected]="fiscalYearArray[0]"
+                      placeholder="Select Fiscal year">
+               <nb-option *ngFor="let fiscalYear of fiscalYearArray" [value]="fiscalYear">
+                   {{fiscalYear.year}}
+                   <ng-container *ngIf="fiscalYear?.isCurrentYear"> (Current Year)</ng-container>
+               </nb-option>
+           </nb-select>
+       </div>
     </nb-card-header>
     <nb-card-body>
         <div>
