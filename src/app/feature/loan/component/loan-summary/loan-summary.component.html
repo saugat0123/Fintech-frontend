@@ -408,6 +408,7 @@
                                 <th>LandLine Number</th>
                                 <th>Occupation</th>
                                 <th>Income Source</th>
+
                             </tr>
                             </thead>
                             <tbody>
@@ -419,6 +420,7 @@
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.landLineNumber}}</td>
                                 <td class="pl-1">{{(loanDataHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
                                 <td class="pl-1">{{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>
+
                             </tr>
                             <tr class="text-white sb-bg-dark">
                                 <th>Customer Client Type</th>
@@ -1050,7 +1052,7 @@
                                    *ngIf="previousList?.comment?.length > 50"
                                    class="text-left pl-1 disable-print">read more ....</a>
                                 <div>
-                                    <span class="print-only justify-content">{{previousList?.comment}}</span>
+                                    <span class="pl-1 print-only justify-content">{{previousList?.comment}}</span>
                                 </div>
                             </td>
                         </tr>
