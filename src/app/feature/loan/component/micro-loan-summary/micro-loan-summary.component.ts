@@ -147,6 +147,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   showCadDoc = false;
   synopsis = false;
   baselRiskExposure = false;
+  borrowerPortfolio = false;
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   fiscalYearArray = [];
 
@@ -155,6 +156,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   synopsisCreditWorthiness;
   baselWiseRiskExposure;
   customerType: string;
+  borrowerPortfolioDetail;
 
 
   constructor(
@@ -196,6 +198,10 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.microBaselRiskExposure)) {
       this.baselWiseRiskExposure = this.loanDataHolder.loanHolder.microBaselRiskExposure;
       this.baselRiskExposure = true;
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.borrowerPortFolio)) {
+      this.borrowerPortfolioDetail = this.loanDataHolder.loanHolder.borrowerPortFolio;
+      this.borrowerPortfolio = true;
     }
   }
 

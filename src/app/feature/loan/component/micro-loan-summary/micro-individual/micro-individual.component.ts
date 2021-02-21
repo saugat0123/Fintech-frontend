@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {BusinessType} from '../../../../admin/modal/businessType';
-import {CompanyJsonData} from '../../../../admin/modal/CompanyJsonData';
 import {Customer} from '../../../../admin/modal/customer';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
@@ -31,7 +30,6 @@ export class MicroIndividualComponent implements OnInit {
       this.contact = JSON.parse(this.customerInfo.contactNumber);
       this.otherInformationAndConfirmation = JSON.parse(this.loanDataHolder.proposal.data);
     }
-    console.log(this.customerInfo, 'customer info');
   }
 
 }
