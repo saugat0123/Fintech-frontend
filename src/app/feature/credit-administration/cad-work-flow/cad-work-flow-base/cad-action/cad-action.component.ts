@@ -126,6 +126,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     onSubmit(templateLogin) {
+        console.log(this.formAction);
         this.errorMsgStatus = false;
         this.falseCredential = false;
         this.submitted = true;
@@ -180,10 +181,13 @@ export class CadActionComponent implements OnInit, OnChanges {
 
     public getUserList(role) {
         this.userList = [];
+        console.log(this.formAction);
         if (role.roleType === RoleType.CAD_LEGAL) {
             this.formAction.patchValue({
                 toRole: role
             });
+            this.formAction.get('toUser').clearValidators();
+            this.formAction.updateValueAndValidity();
         } else {
             this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.selectedBranchId).subscribe((response: any) => {
                 this.userList = response.detail;
@@ -210,11 +214,12 @@ export class CadActionComponent implements OnInit, OnChanges {
     approvedForwardBackward(template, val, returnToMaker) {
         this.popUpTitle = val;
         this.userList = [];
+        console.log(this.popUpTitle);
         if (this.popUpTitle === 'FORWARD') {
             this.formAction = this.formBuilder.group(
                 {
                     toRole: [undefined, Validators.required],
-                    toUser: [undefined, Validators.required],
+                    toUser: [undefined],
                     cadId: [this.cadId],
                     docAction: [val],
                     comment: [undefined, Validators.required],
@@ -230,6 +235,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     this.sendForwardBackwardList = [];
                     this.sendForwardBackwardList = response.detail;
                     if (this.sendForwardBackwardList.length !== 0) {
+                        console.log('ayo');
                         this.getUserList(this.sendForwardBackwardList[0].role);
                     }
                 });

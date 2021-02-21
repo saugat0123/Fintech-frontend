@@ -56,6 +56,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         totalFMV_ConsiderValue: 0,
         deficit_Surplus: 0,
         coveragePercent: 0,
+        loanExposure: 0,
         totalApprovedLimit: 0,
         totalPendingLimit: 0,
         totalApprovedRequiredCollateral: 0,
@@ -127,7 +128,9 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
             this.collateralDtoData.deficit_Surplus = this.customerInfo.security.totalSecurityAmount -
                 this.collateralDtoData.totalRequiredCollateral;
             this.collateralDtoData.coveragePercent = (this.customerInfo.security.totalSecurityAmount /
-                (this.collateralDtoData.totalRequiredCollateral)) * 100;
+                (this.totalLoanProposedAmount)) * 100;
+            this.collateralDtoData.loanExposure = (
+                (this.totalLoanProposedAmount) / this.customerInfo.security.totalSecurityAmount) * 100;
         }
     }
 

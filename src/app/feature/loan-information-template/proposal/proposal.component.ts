@@ -72,6 +72,7 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.patchValue(this.formDataForEdit);
       this.setCheckedData(this.checkedDataEdit);
       this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
+      this.interestLimit = this.formDataForEdit['interestRate'];
       /*this.proposalForm.get('existingLimit').patchValue(this.formValue.proposedLimit);*/
       this.proposalForm.get('dateOfExpiry').patchValue(!ObjectUtil.isEmpty(this.formValue.dateOfExpiry)
           ? new Date(this.formValue.dateOfExpiry) : undefined);
@@ -109,14 +110,16 @@ export class ProposalComponent implements OnInit {
             if (!this.isFundable) {
               this.isGeneral = false;
             }
-            if ( this.isFixedDeposit) {
+            if (this.isFixedDeposit) {
               this.loanNatureSelected = false;
               this.fundableNonFundableSelcted = false;
             }
             this.proposalForm.get('proposedLimit').setValidators([Validators.required,
               MinimumAmountValidator.minimumAmountValidator(this.minimumAmountLimit)]);
             this.proposalForm.get('proposedLimit').updateValueAndValidity();
-            this.interestLimit = response.detail.interestRate;
+            if (ObjectUtil.isEmpty(this.formDataForEdit)) {
+              this.interestLimit = response.detail.interestRate;
+            }
             this.setCollateralRequirement(this.collateralRequirement);
             // this.checkLoanConfig();
             this.setValidatorForPrepaymentField();
@@ -200,8 +203,9 @@ export class ProposalComponent implements OnInit {
   }
 
   setValidatorForPrepaymentField () {
-    if ((this.loanNatureSelected && this.fundableNonFundableSelcted && this.isFundable && this.isTerminating) || this.isVehicle || this.isShare || this.isGeneral) {
-      this.proposalForm.get('prepaymentCharge').setValidators([ Validators.required, Validators.max(100), Validators.min(0)]);
+    if ((this.loanNatureSelected && this.fundableNonFundableSelcted &&
+        this.isFundable && this.isTerminating) || this.isVehicle || this.isShare || this.isGeneral) {
+      this.proposalForm.get('prepaymentCharge').setValidators([Validators.required, Validators.max(100), Validators.min(0)]);
     } else {
       this.proposalForm.get('prepaymentCharge').clearValidators();
     }
