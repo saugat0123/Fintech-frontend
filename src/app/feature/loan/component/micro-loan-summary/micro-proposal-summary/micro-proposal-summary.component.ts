@@ -2,6 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Proposal} from '../../../../admin/modal/proposal';
 import {LoanDataHolder} from '../../../model/loanData';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import { DocStatus } from '../../../model/docStatus';
+import { LoanType } from '../../../model/loanType';
+import { EnumUtils } from 'src/app/@core/utils/enums.utils';
 
 @Component({
   selector: 'app-micro-proposal-summary',
@@ -12,9 +15,9 @@ export class MicroProposalSummaryComponent implements OnInit {
 
   @Input() proposalData: Proposal;
   @Input() customerAllLoanList: LoanDataHolder[];
-  public DocStatus = this.DocStatus;
-  public LoanType = this.LoanType;
-  public EnumUtils = this.EnumUtils;
+  public DocStatus = DocStatus;
+  public LoanType = LoanType;
+  public EnumUtils = EnumUtils;
   proposalAllData: any;
   customerFundedLoanList: LoanDataHolder[];
   customerNonFundedLoanList: LoanDataHolder[];
