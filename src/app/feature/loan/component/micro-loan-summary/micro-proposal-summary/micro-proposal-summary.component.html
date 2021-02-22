@@ -17,7 +17,11 @@
         </ul>
     </div>
 </div>
+<div class="col-md-12">
+    <div class="row">
 
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
         <table
@@ -30,9 +34,9 @@
                 <th>Proposed Limit</th>
                 <th>Existing INT/COM/CM</th>
                 <th>Proposed INT/COM/CM</th>
+
                 <th>Service Charge</th>
                 <th>Limit Expiry/Tenure</th>
-
             </tr>
             </thead>
             <tbody>
@@ -73,23 +77,10 @@
                             %,</span>
                         COM:{{(loan?.proposal?.data | jsonParse)?.commissionPercentage || '0'}} %</span>
                 </td>
-                <!--                <td>{{(loan?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT' ? ' NRs. '-->
-                <!--                    : ''}}{{(loan?.proposal?.data | jsonParse)?.serviceCharge}}{{(loan?.proposal?.data | jsonParse)?.serviceChargeMethod-->
-                <!--                === 'PERCENT' ? ' %' : ''}}</td>-->
-
                 <td>
                     <div *ngIf="(loan?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage" class="text-right pr-1">Rs. {{(loan?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}</div>
                     <ng-template #percentage>{{(loan?.proposal?.data | jsonParse)?.serviceCharge}} %</ng-template>
                 </td>
-
-
-
-                <!--        <td>{{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths}} month</td>-->
-                <!--        <td>{{(loan?.proposal?.data | jsonParse)?.repaymentMode}}</td>-->
-                <!--        <td>Rs. {{(loan?.proposal?.data | jsonParse)?.installmentAmount | currencyFormatter}}</td>-->
-                <!--        <td>Rs. {{(loan?.proposal?.data | jsonParse)?.interestAmount | currencyFormatter}}</td>-->
-                <!--        <td>{{(loan?.proposal?.data | jsonParse)?.moratoriumPeriod }} months</td>-->
-                <!--        <td>Rs. {{(loan?.proposal?.data | jsonParse)?.prepaymentCharge | currencyFormatter}}</td>-->
                 <td width="150px" class="text-left pl-1">
                     <span *ngIf="!loan.proposal.limitExpiryMethod">-</span>
                     <span *ngIf="loan.proposal.limitExpiryMethod === 'ABSOLUTE'">{{loan.proposal?.dateOfExpiry | date}}</span>
@@ -105,7 +96,6 @@
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
-
             </tr>
             <tr class="sb-bg-secondary text-white">
                 <td class="text-left pl-1"><strong>Non-Funded</strong></td>
@@ -116,7 +106,6 @@
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
-
             </tr>
             <tr class="sb-bg-secondary text-white">
                 <td class="text-left pl-1"><strong>Total</strong></td>
@@ -128,7 +117,6 @@
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
-
             </tr>
             </tbody>
         </table>
@@ -152,69 +140,3 @@
     <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.FULL_SETTLEMENT_LOAN)"
        class="text-round">F</i>
 </ng-template>
-
-<div class="row">
-    <div class="col-md-12 sb-medium">
-        <strong>Propose Amount:</strong>
-        Rs. {{loanDataHolder?.proposal?.proposedAmountInWords}}
-        Only /-
-    </div>
-</div>
-<br>
-
-<div class="row">
-    <div class="col-md-12">
-        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-            <tr class="sb-bg-dark text-white">
-                <th>Security to be Obtained</th>
-                <th>Interest Rebate(%)</th>
-            </tr>
-            <tr>
-                <td>saafasdf</td>
-                <td>adfafasd</td>
-            </tr>
-        </table>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <div>
-            <p><strong>Other Information And Confirmation</strong></p>
-        </div>
-        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-            <tr class="sb-bg-dark text-white">
-                <th>S.N</th>
-                <th>Information</th>
-                <th>Confirmation</th>
-            </tr>
-            <tr>
-                <td width="5%"> 1 </td>
-                <td width="50%">Infor</td>
-                <td width="45%">re</td>
-            </tr>
-        </table>
-    </div>
-</div>
-
-<div *ngIf="loanDataHolder?.customerInfo?.withinLimitRemarks">
-    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-        <tr class="sb-bg-dark text-white">
-            <th>Within Limit Remarks (if any)</th>
-        </tr>
-        <tr>
-            <td class="text-left pl-1"> {{loanDataHolder?.customerInfo?.withinLimitRemarks}}</td>
-        </tr>
-    </table>
-</div>
-
-<div *ngIf="loanDataHolder?.companyInfo?.withinLimitRemarks">
-    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-        <tr class="sb-bg-dark text-white">
-            <th>Within Limit Remarks (if any)</th>
-        </tr>
-        <tr>
-            <td class="text-left pl-1"> {{loanDataHolder?.companyInfo?.withinLimitRemarks}}</td>
-        </tr>
-    </table>
-</div>

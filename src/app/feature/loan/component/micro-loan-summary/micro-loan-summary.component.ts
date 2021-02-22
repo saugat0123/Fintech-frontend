@@ -147,6 +147,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   showCadDoc = false;
   synopsis = false;
   baselRiskExposure = false;
+  borrowerPortfolio = false;
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   fiscalYearArray = [];
 
@@ -154,6 +155,8 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   roleType;
   synopsisCreditWorthiness;
   baselWiseRiskExposure;
+  customerType: string;
+  borrowerPortfolioDetail;
 
 
   constructor(
@@ -187,6 +190,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
     this.loanDataHolder = this.loanData;
     this.loadSummary();
     this.roleType = LocalStorageUtil.getStorage().roleType;
+    this.customerType = this.loanDataHolder.loanHolder.customerType;
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.synopsisCreditworthiness)) {
       this.synopsisCreditWorthiness = this.loanDataHolder.loanHolder.synopsisCreditworthiness;
       this.synopsis = true;
@@ -194,6 +198,10 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.microBaselRiskExposure)) {
       this.baselWiseRiskExposure = this.loanDataHolder.loanHolder.microBaselRiskExposure;
       this.baselRiskExposure = true;
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.borrowerPortFolio)) {
+      this.borrowerPortfolioDetail = this.loanDataHolder.loanHolder.borrowerPortFolio;
+      this.borrowerPortfolio = true;
     }
   }
 

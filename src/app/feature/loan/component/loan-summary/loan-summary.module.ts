@@ -74,7 +74,8 @@ const ENTRY_COMPONENTS = [];
         GuarantorSummaryComponent,
         SitevistSummaryComponentComponent,
         InsuranceSummaryComponent,
-        FinancialSummaryComponent
+        FinancialSummaryComponent,
+        ProposalSummaryComponent
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

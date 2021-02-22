@@ -11,7 +11,7 @@
                 <th>Balance</th>
                 <th colspan="4">Loan Classification</th>
                 <th>Total Non-Performing Loans</th>
-                <th></th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -28,18 +28,24 @@
             </tr><!--
             Up to 3 months	3-6 month (a)	6-13 month (b)	over 1 year (c)-->
             <ng-container [formGroup]="portfolioForm">
-                <ng-container  *ngFor="let f of portfolioForm.get('portfolioDetail')['controls']; let i = index" formArrayName="portfolioDetail">
-
-
+                <ng-container  *ngFor="let portFolioForm of portfolioForm.get('portfolioDetail')['controls']; let i = index" formArrayName="portfolioDetail">
                 <tr [formGroupName]="i">
-                    <td></td>
-                    <td><input class="cellInput" formControlName="loanType"></td>
-                    <td><input class="cellInput" formControlName="balance"></td>
-                    <td><input class="cellInput" formControlName="classificationThreeMonth"></td>
-                    <td><input class="cellInput" formControlName="classificationThreeToSix" (change)="calculateTotalNonPerformingLoan(i)"></td>
-                    <td><input class="cellInput" formControlName="classificationSixtoThirteen" (change)="calculateTotalNonPerformingLoan(i)"></td>
-                    <td><input class="cellInput" formControlName="classificationOverYear" (change)="calculateTotalNonPerformingLoan(i)"></td>
-                    <td><input class="cellInput" formControlName="totalNonPerformingLoan"></td>
+                    <td>{{i + 1}}</td>
+                    <td>
+                        <input [ngClass]="{ 'is-invalid': (submitted) && portFolioForm.get('loanType').errors}"
+                               class="form-control" formControlName="loanType"></td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && portFolioForm.get('balance').errors}"
+                               class="form-control" formControlName="balance" type="number"></td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && portFolioForm.get('classificationThreeMonth').errors}"
+                               class="form-control" formControlName="classificationThreeMonth" type="number"></td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && portFolioForm.get('classificationThreeToSix').errors}"
+                               class="form-control" formControlName="classificationThreeToSix" (change)="calculateTotalNonPerformingLoan(i)" type="number"></td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && portFolioForm.get('classificationSixtoThirteen').errors}"
+                               class="form-control" formControlName="classificationSixtoThirteen" (change)="calculateTotalNonPerformingLoan(i)" type="number"></td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && portFolioForm.get('classificationOverYear').errors}"
+                               class="form-control" formControlName="classificationOverYear" (change)="calculateTotalNonPerformingLoan(i)" type="number"></td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && portFolioForm.get('totalNonPerformingLoan').errors}"
+                               class="form-control" formControlName="totalNonPerformingLoan" type="number"></td>
                     <td>
                         <span>
                                <em *ngIf="portfolioForm.get('portfolioDetail')['length'] > 1" (click)="removePortFolioDetail(i)"
@@ -56,7 +62,7 @@
                 </ng-container>
                <tr>
                    <td></td>
-                   <td>total</td>
+                   <td>Total</td>
                    <td>{{total('balance')}}</td>
                    <td>{{total('classificationThreeMonth')}}</td>
                    <td>{{total('classificationThreeToSix')}}</td>
