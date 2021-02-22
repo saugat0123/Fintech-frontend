@@ -4,6 +4,7 @@ import {CompanyInfo} from '../../../../admin/modal/company-info';
 import {BusinessType} from '../../../../admin/modal/businessType';
 import {CompanyJsonData} from '../../../../admin/modal/CompanyJsonData';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {Proprietors} from '../../../../admin/modal/proprietors';
 
 @Component({
   selector: 'app-micro-institution',
@@ -28,6 +29,7 @@ export class MicroInstitutionComponent implements OnInit {
       this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
       this.contact = JSON.parse(this.companyInfo.contactPersons);
     }
+    console.log(this.companyJsonData.managementTeamList, 'Management team list');
   }
 
 }
