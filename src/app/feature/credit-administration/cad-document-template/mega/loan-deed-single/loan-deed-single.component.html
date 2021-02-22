@@ -357,10 +357,10 @@
                     </div>
                 </div>
                 <div class="row disable-print">
-                <div class="col-md-12">
+                <div class="col-md-12 text-right">
                     <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="loanDeedSinglePrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
                     <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="loanDeedSinglePrint" class="mr-2 custom-color" >Print</button>
-                    <button nbButton status="success" type="submit">Save</button>
+                    <button nbButton status="success" (click)="submit()">Save</button>
                 </div>
             </div>
 

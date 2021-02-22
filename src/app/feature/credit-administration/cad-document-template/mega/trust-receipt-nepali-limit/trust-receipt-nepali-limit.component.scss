@@ -25,6 +25,13 @@
     outline: none;
   }
 }
+.container-name div {
+  display: inline-block;
+  width: 500px;
+  min-height: 50px;
+  background-color: #eee;
+  height: auto;
+}
 
 li {
   list-style-type: none;

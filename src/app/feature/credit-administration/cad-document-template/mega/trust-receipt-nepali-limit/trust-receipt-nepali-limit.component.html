@@ -127,9 +127,9 @@
                             </td>
                             <span class="print-only nepaliFont"><b>{{trustReceiptNepali.get('paymentDate').value ? trustReceiptNepali.get('paymentDate').value  : '========='}}</b></span>
                             <td>
-                                <input class="form-field form-control-sm nepaliFont disable-print" name="goodsDetialNo" formControlName="goodsDetialNo" placeholder="" type="text"/>
+                                <input class="form-field form-control-sm nepaliFont disable-print" name="goodsDetailNo" formControlName="goodsDetailNo" placeholder="" type="text"/>
                             </td>
-                            <span class="print-only nepaliFont"><b>{{trustReceiptNepali.get('goodsDetialNo').value ? trustReceiptNepali.get('goodsDetialNo').value  : '========='}}</b></span>
+                            <span class="print-only nepaliFont"><b>{{trustReceiptNepali.get('goodsDetailNo').value ? trustReceiptNepali.get('goodsDetailNo').value  : '========='}}</b></span>
                             <td>
                                 <input class="form-field form-control-sm shortInput nepaliFont disable-print" name="noOfPackages" formControlName="noOfPackages" placeholder="" type="text"/>
                             </td>
@@ -158,23 +158,23 @@
         <div class="row align">
             <div class="col-md-12 footer">
                 <p>
-                    ऋणीको नाम ः– <input class="form-field form-control-sm nepaliFont disable-print" name="debtorName" formControlName="debtorName" placeholder="" type="text"/>
+                    ऋणीको नाम :– <input class="form-field form-control-sm nepaliFont disable-print" name="debtorName" formControlName="debtorName" placeholder="" type="text"/>
                     <span class="print-only nepaliFont"><b>{{trustReceiptNepali.get('debtorName').value ? trustReceiptNepali.get('debtorName').value  : '========='}}</b></span>
                 </p>
                 <p>
-                    ठेगाना ः– <input class="form-field form-control-sm nepaliFont disable-print" name="debtorAddress" formControlName="debtorAddress" placeholder="" type="text"/>
+                    ठेगाना :– <input class="form-field form-control-sm nepaliFont disable-print" name="debtorAddress" formControlName="debtorAddress" placeholder="" type="text"/>
                     <span class="print-only nepaliFont"><b>{{trustReceiptNepali.get('debtorAddress').value ? trustReceiptNepali.get('debtorAddress').value  : '========='}}</b></span>
                 </p>
                 <p>
                     अख्तियार प्राप्त व्यतिmको दस्तखत ः– <input class="form-field form-control-sm nepaliFont disable-print" name="authorizedPersonSignature" formControlName="authorizedPersonSignature" placeholder="" type="text"/>
                     <span class="print-only nepaliFont"><b>{{trustReceiptNepali.get('authorizedPersonSignature').value ? trustReceiptNepali.get('authorizedPersonSignature').value  : '========='}}</b></span>
                     <span style="float: right">
-            नाम ः- <input class="form-field form-control-sm nepaliFont disable-print" name="authorizedPersonName" formControlName="authorizedPersonName" placeholder="" type="text"/>
+            नाम :- <input class="form-field form-control-sm nepaliFont disable-print" name="authorizedPersonName" formControlName="authorizedPersonName" placeholder="" type="text"/>
                          <span class="print-only nepaliFont"><b>{{trustReceiptNepali.get('authorizedPersonName').value ? trustReceiptNepali.get('authorizedPersonName').value  : '========='}}</b></span>
           </span>
                 </p>
                 <p>
-                    कम्पनी/फर्मको छाप ः–
+                    कम्पनी/फर्मको छाप :–
                 </p>
             </div>
         </div>
@@ -189,7 +189,7 @@
                 </p>
                 <p>
                     २. <input class="form-field form-control-sm nepaliFont disable-print" name="witnessDistrict1" formControlName="witnessDistrict1" placeholder="" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{trustReceiptNepali.get('').value ? trustReceiptNepali.get('').value  : '========='}}</b></span>
+                    <span class="print-only nepaliFont"><b>{{trustReceiptNepali.get('witnessDistrict1').value ? trustReceiptNepali.get('witnessDistrict1').value  : '========='}}</b></span>
                     जिल्ला
                     <input class="form-field form-control-sm nepaliFont disable-print" name="witnessMunicipalityOrVdc1" formControlName="witnessMunicipalityOrVdc1" placeholder="" type="text"/>
                     <span class="print-only nepaliFont"><b>{{trustReceiptNepali.get('witnessMunicipalityOrVdc1').value ? trustReceiptNepali.get('witnessMunicipalityOrVdc1').value  : '========='}}</b></span>
@@ -241,7 +241,7 @@
             <div class="col-md-12 text-right">
                 <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="trustReceiptNepaliPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
                 <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="trustReceiptNepaliPrint" class="mr-2 custom-color" >Print</button>
-                <button nbButton status="success" type="submit">Save</button>
+                <button nbButton status="success" (click)="submit()">Save</button>
             </div>
         </div>
     </form>
