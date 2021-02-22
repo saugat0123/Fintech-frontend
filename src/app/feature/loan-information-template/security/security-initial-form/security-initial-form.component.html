@@ -1672,12 +1672,12 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="title" for="area">Remarks  of
-                            building
+                            land and building
                         </label>
                         <textarea class="form-control rounded"
                                   formControlName="landBuildingDescription"
                                   name="remarksBuilding"
-                                  placeholder="Description  of building"
+                                  placeholder="Description  of land and building"
                                   [ngClass]="{ 'is-invalid':(submitted) &&  securityForm.get('landBuildingDescription').errors }"
                                   rows="2" type="text"></textarea>
                         <div *ngIf="(submitted) && securityForm.get('landBuildingDescription').invalid"

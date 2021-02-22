@@ -115,7 +115,7 @@ export class SecurityInitialFormComponent implements OnInit {
     isShareSecurity = false;
     shareSecurityForm: FormGroup;
     shareSecurityData: ShareSecurity = new ShareSecurity();
-    typeOfProperty = ['Rajkar', 'Guthi', 'Others'];
+    typeOfProperty = [ 'Guthi', 'Lease Hold' , 'Free Hold' , 'Rajkar' , 'Others' ];
     designationList = [];
     ownershipTransferEnumPair = OwnershipTransfer.enumObject();
     ownershipTransfers = OwnershipTransfer;
