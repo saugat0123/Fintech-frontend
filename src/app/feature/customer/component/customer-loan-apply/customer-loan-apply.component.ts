@@ -185,7 +185,7 @@ export class CustomerLoanApplyComponent implements OnInit {
 
   sliceLoan() {
     this.loanTypeList.forEach((val) => {
-      if (val.key === 'CLOSURE_LOAN' || val.key === 'PARTIAL_SETTLEMENT_LOAN' || val.key === 'FULL_SETTLEMENT_LOAN') {
+      if (val.key === 'CLOSURE_LOAN' || val.key === 'PARTIAL_SETTLEMENT_LOAN' || val.key === 'FULL_SETTLEMENT_LOAN' || val.key === 'RE_INITIATE_LOAN') {
         return true;
       }
       this.multipleSelectedLoanType.push(val);

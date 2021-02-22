@@ -80,6 +80,7 @@ export class CatalogueComponent implements OnInit {
         {name: 'Enhance Loan', value: 'ENHANCED_LOAN', closeRenewFilter: true},
         {name: 'Partial Settle Loan', value: 'PARTIAL_SETTLEMENT_LOAN', closeRenewFilter: true},
         {name: 'Full Settle Loan', value: 'FULL_SETTLEMENT_LOAN', closeRenewFilter: true},
+        {name: 'Re-Initiate Loan', value: 'RE_INITIATE_LOAN', closeRenewFilter: true},
     ];
     transferSpinner = false;
 
