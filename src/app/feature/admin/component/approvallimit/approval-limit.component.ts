@@ -10,6 +10,8 @@ import {ApprovalLimitFormComponent} from './approval-limit-form/approval-limit-f
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {ApprovalLimitService} from './approval-limit.service';
 import {PermissionService} from '../../../../@core/service/permission.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-approval-limit',
@@ -25,6 +27,7 @@ export class ApprovalLimitComponent implements OnInit {
     spinner = false;
     search: any = {};
     pageable: Pageable = new Pageable();
+    isFilterCollapsed = true;
 
     activeCount: number;
     inactiveCount: number;
@@ -32,13 +35,15 @@ export class ApprovalLimitComponent implements OnInit {
     viewApprovalLimit = false;
     addViewApprovalLimit = false;
     downloadCsv = false;
+    filterForm: FormGroup;
 
     constructor(
         private service: ApprovalLimitService,
         private permissionService: PermissionService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private formBuilder: FormBuilder
     ) {
     }
 
@@ -57,6 +62,7 @@ export class ApprovalLimitComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.buildFilterForm();
         this.breadcrumbService.notify(this.title);
         this.permissionService.getPermissionOf('APPROVAL LIMIT').subscribe((response: any) => {
             this.permissions = response.detail;
@@ -75,20 +81,31 @@ export class ApprovalLimitComponent implements OnInit {
         });
     }
 
+    buildFilterForm() {
+        this.filterForm = this.formBuilder.group({
+            loanType: [undefined],
+            authorities: [undefined],
+            approvalType: [undefined]
+        });
+    }
+
+    clearSearch() {
+        this.buildFilterForm();
+        this.isFilterCollapsed = true;
+    }
+
     changePage(page: number) {
         this.page = page;
         ApprovalLimitComponent.loadData(this);
     }
 
     onSearch() {
-        ApprovalLimitComponent.loadData(this);
-    }
-
-    onSearchChange(searchValue: string) {
-        this.search = {
-            'name': searchValue
-        };
-
+        this.search.loanType = ObjectUtil.isEmpty(this.filterForm.get('loanType').value) ? undefined :
+            this.filterForm.get('loanType').value;
+        this.search.authorities = ObjectUtil.isEmpty(this.filterForm.get('authorities').value) ? undefined :
+            this.filterForm.get('authorities').value;
+        this.search.approvalType = ObjectUtil.isEmpty(this.filterForm.get('approvalType').value) ? undefined :
+            this.filterForm.get('approvalType').value;
         ApprovalLimitComponent.loadData(this);
     }
 
