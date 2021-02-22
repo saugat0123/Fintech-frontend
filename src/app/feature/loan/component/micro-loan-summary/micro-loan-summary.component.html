@@ -255,7 +255,7 @@
                     [companyInfo]="loanDataHolder?.companyInfo"
                     [loanDataHolder]="loanDataHolder"></app-micro-institution>
 
-            <app-micro-individual
+            <app-micro-individual *ngIf="customerType ==='INDIVIDUAL'"
             [customerInfo] = "loanDataHolder?.customerInfo"
             [loanDataHolder]="loanDataHolder"></app-micro-individual>
 
