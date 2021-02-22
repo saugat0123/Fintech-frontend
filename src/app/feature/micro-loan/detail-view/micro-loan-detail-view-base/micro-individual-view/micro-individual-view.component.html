@@ -1,0 +1,163 @@
+<div *ngIf="individual" class="row">
+    <div class="col-md-12 text-center">
+        <p><strong>Individual Details</strong></p>
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead>
+
+            <tr class="text-white sb-bg-dark">
+                <th>Name</th>
+                <th>Customer Id</th>
+                <th>Date of birth</th>
+                <th>Citizenship no.</th>
+                <th>Citizenship Issued Date</th>
+                <th>Issued Place</th>
+                <th>Gender</th>
+                <th>Marital Status</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-left pl-1">{{individual?.customerName}}</td>
+                <td class="text-right pr-1">{{customerInfo?.customerCode}}</td>
+                <td class="text-left pl-1">{{individual?.dob | date}}</td>
+                <td class="text-right pr-1">{{individual?.citizenshipNumber}}</td>
+                <td class="text-left pl-1">{{individual?.citizenshipIssuedDate | date}}</td>
+                <td class="text-left pl-1">{{individual?.citizenshipIssuedPlace}}</td>
+                <td class="text-left pl-1">{{customerInfo?.gender}}</td>
+                <td class="text-left pl-1">{{customerInfo?.maritalStatus}}</td>
+            </tr>
+            </tbody>
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>Mobile Number</th>
+                <th>LandLine Number</th>
+                <th>Email</th>
+                <th>Occupation</th>
+                <th>Income</th>
+                <th>Client Type</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-right pr-1">{{individual?.contactNumber || 'NA'}}</td>
+                <td class="text-right pr1">{{individual?.landLineNumber || 'NA'}}</td>
+                <td class="text-left pl-1">{{individual?.email || 'NA'}}</td>
+                <td class="text-left pl-1">{{(individual?.occupation| jsonParse)?.multipleOccupation || 'NA'}}</td>
+                <td class="text-left pl-1">{{(individual?.incomeSource| jsonParse)?.multipleIncome || 'NA'}}</td>
+                <td class="text-left pl-1">{{customerInfo?.clientType}}</td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Subsector</th>
+                <th>Address as per Legal Document</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{customerInfo?.subsectorDetail}}</td>
+                <td class="text-left pl-1">{{customerInfo?.customerLegalDocumentAddress}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th colspan="6">Permanent Address</th>
+            </tr>
+            <tr>
+                <th> Province</th>
+                <th>District</th>
+                <th> Municipalities</th>
+                <th>Ward no.</th>
+                <th>Address Line 1</th>
+                <th>Address Line 2</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{individual?.province?.name}}</td>
+                <td class="text-left pl-1">{{individual?.district?.name}}</td>
+                <td class="text-left pl-1">{{individual?.municipalities?.name}}</td>
+                <td class="text-right pr-1">{{individual?.wardNumber || 'NA'}}</td>
+                <td class="text-left pl-1">{{individualJsonData?.permanentAddressLine1 || 'NA'}}</td>
+                <td class="text-left pl-1">{{individualJsonData?.permanentAddressLine2 || 'NA'}}</td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th colspan="6">Temporary Address</th>
+            </tr>
+            <tr>
+                <th>Province</th>
+                <th>District</th>
+                <th>Municipalities</th>
+                <th>Ward no.</th>
+                <th>Address Line 1</th>
+                <th>Address Line 2</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{individual?.temporaryProvince?.name}}</td>
+                <td class="text-left pl-1">{{individual?.temporaryDistrict?.name}}</td>
+                <td class="text-left pl-1">{{individual?.temporaryMunicipalities?.name}}</td>
+                <td class="text-right pr-1">{{individual?.temporaryWardNumber || 'NA'}}</td>
+                <td class="text-left pl-1">{{individualJsonData?.temporaryAddressLine1 || 'NA'}}</td>
+                <td class="text-left pl-1">{{individualJsonData?.temporaryAddressLine2 || 'NA'}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-md-12 text-center">
+        <p><strong>Family Details</strong></p>
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>Name</th>
+                <th>Relation</th>
+                <th>Citizenship no.</th>
+                <th>Citizenship Issued Date</th>
+                <th>Citizenship Issued District</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let relative of individual?.customerRelatives">
+                <td class="text-left pl-1">
+                    {{relative.customerRelativeName}}
+                </td>
+
+                <td class="text-left pl-1">
+                    {{relative.customerRelation}}
+                </td>
+                <td class="text-right pr-1">
+                    {{relative.citizenshipNumber}}
+                </td>
+                <td class="text-left pl-1">
+                    {{relative.citizenshipIssuedDate | date}}
+                </td>
+                <td class="text-left pl-1">{{relative.citizenshipIssuedPlace}}</td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-12 text-center">
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th colspan="2">Introduction</th>
+            </tr>
+            <tr *ngIf="!crgLambdaDisabled" class="text-white sb-bg-dark">
+                <th>Banking Relationship</th>
+                <th>Net Worth</th>
+            </tr>
+            <tr *ngIf="!crgLambdaDisabled">
+                <td class="text-left pl-1">{{customerInfo?.bankingRelationship | jsonParse}}</td>
+                <td class="text-right pr-1">Rs. {{individual?.netWorth |currencyFormatter}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!--
+<div *ngIf="!individual" class="col-md-12">
+    <app-customer-info-search-form [customerType]="customerType.INDIVIDUAL"
+                                   [calendarType]="calendarType"
+                                   [loanId]="loanId"></app-customer-info-search-form>
+</div>
+-->

@@ -7,11 +7,13 @@ import {NgxPrintModule} from 'ngx-print';
 import {ReportingModule} from '../reporting/reporting.module';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
+import { DetailViewBaseComponent } from './detail-view-base/detail-view-base.component';
+import {MicroLoanModule} from '../micro-loan/micro-loan.module';
 
 
 
 @NgModule({
-  declarations: [LoanInformationDetailViewComponent],
+  declarations: [LoanInformationDetailViewComponent, DetailViewBaseComponent],
   imports: [
     CommonModule,
     LoanInformationViewModule,
@@ -20,6 +22,7 @@ import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.mod
     ReportingModule,
     LoanInformationTemplateModule,
     LoanSummaryModule,
+    MicroLoanModule,
 
   ]
 })

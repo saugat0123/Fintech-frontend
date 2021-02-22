@@ -41,6 +41,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     currentDocAction;
     fiscalYearArray = [];
     customerAllLoanList: Array<LoanDataHolder> = [];
+    isMicro = false;
 
 
     constructor(private loanConfigService: LoanConfigService,
@@ -99,6 +100,9 @@ export class LoanInformationDetailViewComponent implements OnInit {
         this.loanConfigService.detail(this.loanConfigId).subscribe(
             (response: any) => {
                 this.loanConfig = response.detail;
+                if (this.loanConfig.loanTag === 'MICRO_LOAN') {
+                    this.isMicro = true;
+                }
             }
         );
 

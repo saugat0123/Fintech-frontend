@@ -1,0 +1,68 @@
+<app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
+                     [calendarType]="calendarType"
+                     [individual]="loanDataHolder?.customerInfo"
+                     [loanId]="loanId" [customerInfo]="loanHolder"></app-individual-view>
+<app-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
+                       [calendarType]="calendarType"
+                       [formValue]="loanDataHolder?.companyInfo"
+                       [loanId]="loanId" [customerInfo]="loanHolder"></app-company-info-view>
+<app-proposal-view *ngIf="loanDataHolder?.proposal"
+                   [formData]="loanDataHolder?.proposal"></app-proposal-view>
+<app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
+                   [shareSecurityData]="loanHolder?.shareSecurity"></app-security-view>
+<app-financial-view *ngIf="loanHolder?.financial"
+                    [customerType]="loanHolder?.customerType"
+                    [formData]="loanHolder?.financial"></app-financial-view>
+<app-crg-gamma-detail-view
+        *ngIf="loanDataHolder?.crgGamma"
+        [formData]="loanDataHolder?.crgGamma">
+</app-crg-gamma-detail-view>
+<app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
+                    [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+<app-site-visit-view *ngIf="loanHolder?.siteVisit"
+                     [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
+<!--    <app-net-trading-assets *ngIf="loanHolder?.netTradingAssets"
+                            [fromProfile]="false"
+                            [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
+ -->
+<app-nta-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0" [fiscalYears]="fiscalYearArray" [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
+<app-income-from-account-view *ngIf="loanHolder?.incomeFromAccount"
+                              [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-view>
+<app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"
+                                 [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-summery>
+
+<div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
+
+    <app-report-summary
+            [approved]="true"
+            *ngIf="loanDataHolder?.reportingInfoLog"
+            [reportingInfoLevelLog]="loanDataHolder?.reportingInfoLog">
+    </app-report-summary>
+</div>
+<div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
+    <app-report-summary
+            [approved]="false"
+            *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0"
+            [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
+</div>
+
+<app-insurance-view *ngIf="loanDataHolder?.loanHolder?.insurance && loanDataHolder?.loanHolder?.insurance.length > 0"
+                    [insurance]="loanDataHolder?.loanHolder?.insurance"></app-insurance-view>
+<app-cicl-view *ngIf="loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
+<app-credit-checklist-general *ngIf="loanHolder?.creditChecklist" [formData]="loanHolder?.creditChecklist"
+                              [fromProfile]="false" [customerType]="loanHolder?.customerType"></app-credit-checklist-general>
+<!--            <app-credit-risk-grading-gamma *ngIf="loanHolder?.crgGamma" [formData]="loanHolder?.crgGamma"-->
+<!--                                           [fromProfile]="false"></app-credit-risk-grading-gamma>-->
+<!--            <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading"-->
+<!--                                [fromProfile]="false"></app-credit-grading>-->
+<div *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'">
+    <app-credit-risk-grading-alpha *ngIf="loanDataHolder?.creditRiskGradingAlpha"
+                                   [formData]="loanDataHolder?.creditRiskGradingAlpha"
+                                   [security]="loanHolder?.security"
+                                   [financialData]="loanDataHolder?.financial?.data"
+                                   [companyInfo]="loanDataHolder?.companyInfo"
+                                   [customerInfo]="loanDataHolder?.loanHolder"
+                                   [loanTag]="loanDataHolder?.loan?.loanTag"
+                                   [proposedLimit]="loanDataHolder?.proposal?.proposedLimit"></app-credit-risk-grading-alpha>
+</div>
+<app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
