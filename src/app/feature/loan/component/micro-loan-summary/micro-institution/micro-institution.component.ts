@@ -29,7 +29,6 @@ export class MicroInstitutionComponent implements OnInit {
       this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
       this.contact = JSON.parse(this.companyInfo.contactPersons);
     }
-    console.log(this.companyJsonData.managementTeamList, 'Management team list');
   }
 
 }
