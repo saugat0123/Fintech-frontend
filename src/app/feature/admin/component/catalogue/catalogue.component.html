@@ -220,7 +220,7 @@
                         {{model?.createdAt | date}}
                     </div>
                 </td>
-                <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew); else linkin">
+                <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model.documentStatus == docStatus[docStatus.APPROVED] || model.documentStatus == docStatus[docStatus.REJECTED]) && !model.isCloseRenew); else linkin">
                     <select [(ngModel)]="tempLoanType" class="custom-select py-0"
                             (ngModelChange)="onChange(model,onActionChange)">
                         <option [value]="null" selected hidden>Select Type</option>
@@ -229,12 +229,15 @@
                             </option>
                         </ng-container>
                         <ng-container
-                                *ngIf="model.documentStatus == docStatus[docStatus.APPROVED] && !model.isCloseRenew ">
+                                *ngIf="model.documentStatus == docStatus[docStatus.APPROVED] || model.documentStatus == docStatus[docStatus.REJECTED] && !model.isCloseRenew ">
                             <option value="RENEWED_LOAN">Renew Loan</option>
                             <option value="CLOSURE_LOAN">Close Loan</option>
                             <option value="ENHANCED_LOAN">Enhance Loan</option>
                             <option value="PARTIAL_SETTLEMENT_LOAN">Partial Settle Loan</option>
                             <option value="FULL_SETTLEMENT_LOAN">Full Settle Loan</option>
+                            <option value="RE_INITIATE_LOAN" *ngIf="model.documentStatus == docStatus[docStatus.REJECTED]">
+                                Re-Initiate Loan
+                            </option>
                         </ng-container>
                     </select>
                 </td>
