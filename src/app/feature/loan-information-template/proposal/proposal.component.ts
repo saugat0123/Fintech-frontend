@@ -161,6 +161,7 @@ export class ProposalComponent implements OnInit {
       existingLimit: [undefined],
       outStandingLimit: [undefined],
       collateralRequirement: [undefined, Validators.required],
+      swapCharge: [undefined],
       limitExpiryMethod: [undefined, Validators.required],
       duration: [undefined, Validators.required],
       condition: [undefined, Validators.required],
@@ -260,6 +261,7 @@ export class ProposalComponent implements OnInit {
     this.proposalData.existingLimit = this.proposalForm.get('existingLimit').value;
     this.proposalData.outStandingLimit = this.proposalForm.get('outStandingLimit').value;
     this.proposalData.collateralRequirement = this.proposalForm.get('collateralRequirement').value;
+    this.proposalData.swapCharge = this.proposalForm.get('swapCharge').value;
     this.proposalData.tenureDurationInMonths = this.proposalForm.get('tenureDurationInMonths').value;
     this.proposalData.limitExpiryMethod = this.proposalForm.get('limitExpiryMethod').value;
     this.proposalData.duration = this.proposalForm.get('duration').value;

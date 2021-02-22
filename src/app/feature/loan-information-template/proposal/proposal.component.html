@@ -463,6 +463,22 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
+                                        <label class="title" for="swapCharge"><strong>Swap Charge %</strong></label>
+                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.swapCharge.errors }"
+                                               class="form-control"
+                                               formControlName="swapCharge" id="swapCharge"
+                                               name="swapCharge"
+                                               placeholder="Swap Charge" type="number" appDecimalNumber/>
+                                        <div *ngIf="(submitted) && formControls.swapCharge.invalid"
+                                             class="invalid-feedback">
+                                            <span *ngIf="formControls.swapCharge.errors.required">Swap Charge is required.</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
                                         <label class="title"><strong>Limit Expiry/Loan Tenure </strong><br>
                                             <div class="pt-3">
                                                 <input
