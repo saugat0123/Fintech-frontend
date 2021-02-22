@@ -1,0 +1,16 @@
+@media screen {
+  .print-only {
+    display: none;
+  }
+
+  .disable-print {
+    display: inline;
+
+  }
+}
+
+@media print {
+  .print-only {
+    display: block;
+  }
+}
