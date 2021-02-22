@@ -1,18 +1,28 @@
-<div class="mt-3"><strong>Basic Information</strong></div>
-<div class="row sb-small">
-    <div class="col-md-6">
-        <label class="font-weight-bold">Applicant Name : </label> {{customerInfo?.customerName || 'NA'}} <br>
-        <label class="font-weight-bold">Applicant Address : </label> {{individualJsonData?.permanentAddressLine1 || 'NA'}} <br>
-        <label class="font-weight-bold">Customer’s category
-            : </label> {{individualJsonData?.microCustomerDetail['customerCategory'] || 'NA'}} <br>
-        <label class="font-weight-bold">Distance form Branch Office
-            : </label> {{individualJsonData?.microCustomerDetail['bankDistance'] || 'NA'}} <br>
-        <label class="font-weight-bold">Basel -2 Risk Classification (in %)
-            : </label>  {{individualJsonData?.microCustomerDetail['riskClassificationPercent'] || 'NA'}}<br>
-        <label class="font-weight-bold">Base of Risk Classification: RRP
-            : </label> {{individualJsonData?.microCustomerDetail['riskClassificationBase'] || 'NA'}}  <br>
-        <label class="font-weight-bold">Sector : </label>  {{customerInfo?.clientType || 'NA'}} <br>
-        <label class="font-weight-bold">Sub-Sector : </label> {{customerInfo?.subsectorDetail || 'NA'}}
+<div class="row">
+    <div class="col-md-12 mt-3"><strong>Basic Information</strong></div>
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead class="text-white sb-bg-dark">
+                <th>Applicant Name</th>
+                <th>Applicant Address</th>
+                <th>Customer’s category</th>
+                <th>Distance form Branch Office</th>
+                <th>Basel -2 Risk Classification (in %)</th>
+                <th>Base of Risk Classification: RRP</th>
+                <th>Sector</th>
+                <th>Sub-Sector</th>
+            </thead>
+            <tbody class="text-center">
+                <td>{{customerInfo?.customerName || 'NA'}} </td>
+                <td>{{individualJsonData?.permanentAddressLine1 || 'NA'}}</td>
+                <td>{{individualJsonData?.microCustomerDetail['customerCategory'] || 'NA'}}</td>
+                <td>{{individualJsonData?.microCustomerDetail['bankDistance'] || 'NA'}}</td>
+                <td>{{individualJsonData?.microCustomerDetail['riskClassificationPercent'] || 'NA'}}</td>
+                <td>{{individualJsonData?.microCustomerDetail['riskClassificationBase'] || 'NA'}}</td>
+                <td>{{customerInfo?.clientType || 'NA'}}</td>
+                <td>{{customerInfo?.subsectorDetail || 'NA'}}</td>
+            </tbody>
+        </table>
     </div>
 </div>
 <div class="row">
