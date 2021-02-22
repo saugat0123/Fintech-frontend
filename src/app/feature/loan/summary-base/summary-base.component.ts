@@ -201,6 +201,9 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 case EnumUtils.getEnum(LoanType, LoanType.FULL_SETTLEMENT_LOAN):
                     deferredDocs = this.loanDataHolder.loan.fullSettlement;
                     break;
+                case EnumUtils.getEnum(LoanType, LoanType.REINITIATE_LOAN):
+                    deferredDocs = this.loanDataHolder.loan.reInitiate;
+                    break;
                 default:
                     deferredDocs = [];
             }
