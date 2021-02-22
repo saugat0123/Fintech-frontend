@@ -251,3 +251,128 @@
     </div>
 
 </div>
+<div class="row">
+    <div class="col-md-12"><strong>Background of Company / Promoters / Directors</strong></div>
+    <div class="col-md-12">
+        <table class="table table-bordered text-center table-sm sb-small">
+            <thead class="sb-bg-dark text-white">
+                <th>Background of Company</th>
+            </thead>
+            <tbody>
+                <td>{{companyJsonData?.companyBackground}}</td>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12"><strong>Major Promoters/Shareholders & Shareholding Pattern</strong></div>
+    <div class="col-md-12">
+        <table class="table table-bordered text-center table-sm sb-small">
+            <thead class="sb-bg-dark text-white">
+            <th>S.N</th>
+            <th>Shareholder/Promoters</th>
+            <th>Designation</th>
+            <th>Share holding (%)</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let proprietor of companyJsonData.proprietorList; let i = index">
+                    <td>{{i + 1}}</td>
+                    <td>{{proprietor?.name || 'NA'}}</td>
+                    <td>{{proprietor?.type || 'NA'}}</td>
+                    <td>{{proprietor?.share || 'NA'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12"><strong>Management Team</strong></div>
+    <div class="col-md-12">
+        <table class="table table-bordered text-center table-sm sb-small">
+            <thead class="sb-bg-dark text-white">
+            <th>S.N</th>
+            <th>Name</th>
+            <th>Designation</th>
+            <th>Education & Experience</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let managements of companyJsonData.managementTeamList; let j = index;">
+                    <td>{{j + 1}}</td>
+                    <td>{{managements?.name || 'NA'}}</td>
+                    <td>{{managements?.designation || 'NA'}}</td>
+                    <td>{{managements?.description || 'NA'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row col-md-12">
+    <table class="table table-bordered text-center table-sm sb-small">
+        <thead class="sb-bg-dark text-white">
+        <th>Remarks</th>
+        </thead>
+        <tbody>
+        <td>{{companyJsonData?.managementTeamNote || 'NA'}}</td>
+        </tbody>
+    </table>
+</div>
+<div class="row col-md-12">
+    <table class="table table-bordered text-center table-sm sb-small">
+        <thead class="sb-bg-dark text-white">
+        <th>Market Risk</th>
+        </thead>
+        <tbody>
+        <td>{{companyJsonData?.marketScenario['BusinessIndustryOutlook'] || 'NA'}}</td>
+        </tbody>
+    </table>
+</div>
+<div class="row col-md-12">
+    <table class="table table-bordered text-center table-sm sb-small">
+        <thead class="sb-bg-dark text-white">
+        <th>Financial Risk</th>
+        </thead>
+        <tbody>
+        <td>{{companyJsonData?.marketScenario['financialAndCashFlowRisk'] || 'NA'}}</td>
+        </tbody>
+    </table>
+</div>
+<div class="row col-md-12">
+    <table class="table table-bordered text-center table-sm sb-small">
+        <thead class="sb-bg-dark text-white">
+        <th>Management Risk</th>
+        </thead>
+        <tbody>
+        <td>{{companyJsonData?.marketScenario['technicalAspect'] || 'NA'}}</td>
+        </tbody>
+    </table>
+</div>
+<div class="row col-md-12">
+    <table class="table table-bordered text-center table-sm sb-small">
+        <thead class="sb-bg-dark text-white">
+        <th>Security Risk</th>
+        </thead>
+        <tbody>
+        <td>{{companyJsonData?.marketScenario['securityRisk'] || 'NA'}}</td>
+        </tbody>
+    </table>
+</div>
+<div class="row col-md-12">
+    <div><strong>SWOT Analysis</strong></div>
+    <table class="table table-bordered text-center table-sm sb-small">
+        <thead class="sb-bg-dark text-white">
+        <th>Strengths</th>
+        <th>Weakness</th>
+        <th>Opportunities</th>
+        <th>Threats</th>
+        </thead>
+        <tbody>
+        <td>{{companyJsonData?.swot?.strength || 'NA'}}</td>
+        <td>{{companyJsonData?.swot?.weakness || 'NA'}}</td>
+        <td>{{companyJsonData?.swot?.opportunity || 'NA'}}</td>
+        <td>{{companyJsonData?.swot?.threats || 'NA'}}</td>
+        </tbody>
+    </table>
+</div>
+
