@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FinancialViewComponent } from './financial-view.component';
+import { MicroProposalViewComponent } from './micro-proposal-view.component';
 
-describe('FinancialViewComponent', () => {
-  let component: FinancialViewComponent;
-  let fixture: ComponentFixture<FinancialViewComponent>;
+describe('MicroProposalViewComponent', () => {
+  let component: MicroProposalViewComponent;
+  let fixture: ComponentFixture<MicroProposalViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FinancialViewComponent ]
+      declarations: [ MicroProposalViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FinancialViewComponent);
+    fixture = TestBed.createComponent(MicroProposalViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
