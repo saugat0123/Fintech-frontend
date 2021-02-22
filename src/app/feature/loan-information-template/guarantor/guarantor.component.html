@@ -223,7 +223,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label><strong>Guarantor's Father Name</strong></label>
+                                        <label><strong>Father's Name</strong></label>
                                         <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('fatherName').errors }"
                                                class="form-control form-control-sm-error rounded"
                                                formControlName="fatherName"
@@ -234,7 +234,7 @@
                                         <div *ngIf="(submitted) && guarantorDetails.get('fatherName').invalid"
                                              class="invalid-feedback">
                                             <div *ngIf="guarantorDetails.get('fatherName').errors.required">
-                                                Guarantors Father's name is required
+                                               Father's name is required
                                             </div>
                                         </div>
                                         <div *ngIf="(addMore) && guarantorDetails.get('fatherName').invalid"
@@ -245,31 +245,10 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label><strong>Guarantor's Mother Name</strong></label>
-                                        <input class="form-control form-control-sm-error rounded"
-                                               formControlName="motherName"
-                                               id="motherName"
-                                               name="motherName"
-                                               placeholder="Mother's Name"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label><strong>Guarantor's Spouse Name</strong></label>
-                                        <input class="form-control form-control-sm-error rounded"
-                                               formControlName="spouseName"
-                                               id="spouseName"
-                                               name="spouseName"
-                                               placeholder="Spouse's Name"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label><strong>Guarantor's Grandfather Name</strong></label>
+                                        <label><strong> Grandfather Name</strong></label>
                                         <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('grandFatherName').errors }"
                                                class="form-control form-control-sm-error rounded"
                                                formControlName="grandFatherName"
@@ -293,13 +272,35 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label><strong>Guarantor's Father-in-Law </strong></label>
+                                        <label><strong> Mother's Name</strong></label>
+                                        <input class="form-control form-control-sm-error rounded"
+                                               formControlName="motherName"
+                                               id="motherName"
+                                               name="motherName"
+                                               placeholder="Mother's Name"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong> Spouse's Name</strong></label>
+                                        <input class="form-control form-control-sm-error rounded"
+                                               formControlName="spouseName"
+                                               id="spouseName"
+                                               name="spouseName"
+                                               placeholder="Spouse's Name"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong> Father-in-Law's Name </strong></label>
                                         <input
                                             class="form-control form-control-sm-error rounded"
                                             formControlName="fatherInLaw"
                                             id="fatherInLaw"
                                             name="fatherInLaw"
-                                            placeholder="Grandfather's Father-in-Law "
+                                            placeholder="Father-in-Law's Name "
                                             type="text"/>
                                     </div>
                                 </div>
