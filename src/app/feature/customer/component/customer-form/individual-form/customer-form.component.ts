@@ -35,6 +35,8 @@ import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
 import {environment} from '../../../../../../environments/environment.srdb';
 import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
+import {CompanyInfo} from '../../../../admin/modal/company-info';
+import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
 
 @Component({
     selector: 'app-customer-form',
@@ -240,7 +242,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.submitted = true;
-        this.spinner = true;
         const tempId = this.basicInfo.get('citizenshipNumber').value;
         this.blackListService.checkBlacklistByRef(tempId).subscribe((response: any) => {
             this.isBlackListed = response.detail;
@@ -250,14 +251,23 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.spinner = false;
                 this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Customer'));
                 return;
-            } else {
-                if (this.basicInfo.invalid) {
+            }
+            if (this.microCustomer) {
+                this.microIndividualFormComponent.onSubmit();
+                if (this.microIndividualFormComponent.microCustomerForm.invalid) {
+                    this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
+                    return;
+                }
+            }
+            if (this.basicInfo.invalid) {
                     this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
                     this.scrollToFirstInvalidControl();
                     this.spinner = false;
                     return;
                 }
-                {
+                    this.spinner = true;
+                    this.customer = new Customer();
+                    this.customer.isMicroCustomer = this.microCustomer;
                     this.customer.id = this.customer ? (this.customer.id ? this.customer.id : undefined) : undefined;
                     this.customer.customerName = this.basicInfo.get('customerName').value;
                     this.customer.customerCode = this.basicInfo.get('customerCode').value;
@@ -304,9 +314,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
                     /** Remaining static read-write only data*/
                     this.customer.individualJsonData = this.setIndividualJsonData();
-
-                    this.customer.isMicroCustomer = this.microCustomer;
-
                     this.customerService.save(this.customer).subscribe(res => {
                         this.spinner = false;
                         this.close();
@@ -319,8 +326,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                         this.spinner = false;
                         this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
                     });
-                }
-            }
         });
     }
 
