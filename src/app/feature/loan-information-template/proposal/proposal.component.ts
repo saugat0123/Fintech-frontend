@@ -54,6 +54,7 @@ export class ProposalComponent implements OnInit {
   loanEnumType = LoanType;
   showInstallmentAmount = false;
   showRepaymentMode = false;
+  swapChargeChecked = false;
   client = environment.client;
 
   constructor(private formBuilder: FormBuilder,
@@ -151,6 +152,7 @@ export class ProposalComponent implements OnInit {
       baseRate: [undefined],
       premiumRateOnBaseRate: [undefined],
       serviceChargeMethod: ['PERCENT'],
+      swapChargeMethod: ['PERCENT'],
       serviceCharge: [undefined],
       tenureDurationInMonths: [undefined],
       repaymentMode: [undefined],
@@ -254,7 +256,8 @@ export class ProposalComponent implements OnInit {
     const mergeChecked = {
       solChecked: this.solChecked,
       waiverChecked: this.waiverChecked,
-      riskChecked: this.riskChecked
+      riskChecked: this.riskChecked,
+      swapChargeChecked: this.swapChargeChecked
     };
     this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
@@ -263,7 +266,6 @@ export class ProposalComponent implements OnInit {
     this.proposalData.existingLimit = this.proposalForm.get('existingLimit').value;
     this.proposalData.outStandingLimit = this.proposalForm.get('outStandingLimit').value;
     this.proposalData.collateralRequirement = this.proposalForm.get('collateralRequirement').value;
-    this.proposalData.swapCharge = this.proposalForm.get('swapCharge').value;
     this.proposalData.tenureDurationInMonths = this.proposalForm.get('tenureDurationInMonths').value;
     this.proposalData.limitExpiryMethod = this.proposalForm.get('limitExpiryMethod').value;
     this.proposalData.duration = this.proposalForm.get('duration').value;
@@ -316,6 +318,14 @@ export class ProposalComponent implements OnInit {
 
         }
         break;
+      case 'swapCharge':
+        if (event) {
+          this.swapChargeChecked = true;
+        } else {
+          this.swapChargeChecked = false;
+          this.proposalForm.get('swapCharge').setValue(null);
+        }
+        break;
     }
   }
 
@@ -324,6 +334,7 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(data['solChecked'], 'sol');
       this.checkChecked(data['waiverChecked'], 'waiver');
       this.checkChecked(data['riskChecked'], 'risk');
+      this.checkChecked(data['swapChargeChecked'], 'swapCharge');
     }
   }
 

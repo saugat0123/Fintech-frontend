@@ -42,8 +42,10 @@
         <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.baseRate}}</th>
         <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.premiumRateOnBaseRate}}</th>
         <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
-          <div *ngIf="proposalData.serviceChargeMethod === 'FLAT'; else percentage" class="text-right pr-1">{{proposalData.serviceCharge | currencyFormatter}}</div>
-          <ng-template #percentage>{{proposalData.serviceCharge}} % </ng-template>
+          <div *ngIf="proposalData.serviceChargeMethod === 'FLAT'; else percentage" class="text-right pr-1">Rs. {{proposalData.serviceCharge | currencyFormatter}}</div>
+          <ng-template #percentage>
+            <div class="text-right pr-1">{{proposalData.serviceCharge}} % </div>
+          </ng-template>
         </th>
       </tr>
     </table>
@@ -58,7 +60,7 @@
         <th *ngIf="!showInstallmentAmount &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">Interest Amount</th>
         <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral">Moratorium Period (Month)</th>
         <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">Commitment Fee</th>
-        <th *ngIf="client === 'ICFC Finance Limited'">Swap Charge %</th>
+        <th>Swap Charge</th>
       </tr>
       <tr>
         <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.tenureDurationInMonths}}</td>
@@ -67,7 +69,10 @@
         <td *ngIf="!showInstallmentAmount &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class="text-right pr-1">Rs. {{proposalData?.interestAmount | currencyFormatter}}</td>
         <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.moratoriumPeriod}}</td>
         <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral" class="text-right pr-1">Rs. {{proposalData?.commitmentFee  | currencyFormatter}}</td>
-        <td *ngIf="client === 'ICFC Finance Limited'" class="text-right pr-1">{{proposalData?.swapCharge  | currencyFormatter}}</td>
+        <td><div *ngIf="proposalData.swapChargeMethod === 'FLAT'; else percentage" class="text-right pr-1">Rs. {{proposalData.swapCharge | currencyFormatter}}</div>
+          <ng-template #percentage>
+            <div class="text-right pr-1">{{proposalData.swapCharge}} %</div>
+          </ng-template></td>
 
       </tr>
 
