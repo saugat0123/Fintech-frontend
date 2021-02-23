@@ -73,26 +73,56 @@
                     <div><label class="font-weight-bold">Industry Environment</label></div>
                     <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.industryEnvironmentPillar.errors }"
                             rows="3" class="form-control" formControlName="industryEnvironmentPillar"></textarea>
+                    <div *ngIf="(submitted) && formControls.industryEnvironmentPillar.invalid"
+                         class="invalid-feedback">
+                        <div *ngIf="formControls.industryEnvironmentPillar.errors.required">
+                            Industry Environment is required
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <div><label class="font-weight-bold">Financial Condition</label></div>
                     <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.financialConditionPillar.errors }"
                             rows="3" class="form-control" formControlName="financialConditionPillar"></textarea>
+                    <div *ngIf="(submitted) && formControls.financialConditionPillar.invalid"
+                         class="invalid-feedback">
+                        <div *ngIf="formControls.financialConditionPillar.errors.required">
+                            Financial Condition is required
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <div><label class="font-weight-bold">Management Quality</label></div>
                     <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.managementQualityPillar.errors }"
                             rows="3" class="form-control" formControlName="managementQualityPillar"></textarea>
+                    <div *ngIf="(submitted) && formControls.managementQualityPillar.invalid"
+                         class="invalid-feedback">
+                        <div *ngIf="formControls.managementQualityPillar.errors.required">
+                            Management Quality is required
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <div><label class="font-weight-bold">Operational Strength</label></div>
                     <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.operationStrengthPillar.errors }"
                             rows="3" class="form-control" formControlName="operationStrengthPillar"></textarea>
+                    <div *ngIf="(submitted) && formControls.operationStrengthPillar.invalid"
+                         class="invalid-feedback">
+                        <div *ngIf="formControls.operationStrengthPillar.errors.required">
+                            Operational Strength is required
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <div><label class="font-weight-bold">Security Realization</label></div>
                     <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.securityRealizationPillar.errors }"
                             rows="3" class="form-control" formControlName="securityRealizationPillar"></textarea>
+                    <div *ngIf="(submitted) && formControls.securityRealizationPillar.invalid"
+                         class="invalid-feedback">
+                        <div *ngIf="formControls.securityRealizationPillar.errors.required">
+                            Security Realization is required
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
