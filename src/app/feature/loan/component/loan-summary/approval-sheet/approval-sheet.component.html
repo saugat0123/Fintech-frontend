@@ -170,6 +170,41 @@
                             </tbody>
                         </table>
                     </div>
+
+
+                    <div *ngIf="loanCategory === 'INDIVIDUAL'">
+                        <p><strong>Family Details</strong></p>
+                        <table
+                                class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                            <thead>
+                            <tr class="text-white sb-bg-dark">
+                                <th>Name</th>
+                                <th>Relation Name</th>
+                                <th>Citizenship no.</th>
+                                <th>Citizenship Issued Date</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
+                                <td class="text-left pl-1">
+                                    {{relative.customerRelativeName}}
+                                </td>
+
+                                <td class="text-left pl-1">
+                                    {{relative.customerRelation}}
+                                </td>
+                                <td class="text-right pr-1">
+                                    {{relative.citizenshipNumber}}
+                                </td>
+                                <td class="text-left pl-1">
+                                    {{relative.citizenshipIssuedDate | date}}
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
@@ -306,6 +341,21 @@
 
             <app-security-summary *ngIf="securitySummary"
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
+            <hr>
+            <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
+
+                <app-report-summary
+                        [approved]="true"
+                        *ngIf="loanDataHolder?.reportingInfoLog"
+                        [reportingInfoLevelLog]="loanDataHolder?.reportingInfoLog">
+                </app-report-summary>
+            </div>
+            <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
+                <app-report-summary
+                        [approved]="false"
+                        *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0"
+                        [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
+            </div>
             <hr>
 
             <div class="row justify-content-end px-3 disable-print">{{docMsg}}</div>
