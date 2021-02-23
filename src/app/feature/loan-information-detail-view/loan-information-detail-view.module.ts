@@ -7,11 +7,13 @@ import {NgxPrintModule} from 'ngx-print';
 import {ReportingModule} from '../reporting/reporting.module';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
+import {CreditChecklistViewComponent} from '../loan-information-view/credit-checklist-view/credit-checklist-view.component';
+import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 
 
 
 @NgModule({
-  declarations: [LoanInformationDetailViewComponent],
+    declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent],
   imports: [
     CommonModule,
     LoanInformationViewModule,
@@ -20,6 +22,7 @@ import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.mod
     ReportingModule,
     LoanInformationTemplateModule,
     LoanSummaryModule,
+    NepaliCalendarModule,
 
   ]
 })
