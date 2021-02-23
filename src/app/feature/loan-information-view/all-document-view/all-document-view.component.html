@@ -1,156 +1,158 @@
-<div class="row">
-  <div class="col-md-12 disable-print">
+<nb-card class="disable-print">
+  <nb-card-header>
           <span>
             <b>All Documents</b>
             <button class="float-right sb-small sb-bg-dark text-white"  (click)=downloadAllDocument(loanDataHolder?.customerDocument[0]?.documentPath)> Download All Document</button>
           </span>
+  </nb-card-header>
+  <nb-card-body>
+  <hr>
+  <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row disable-print">
+    <div class="col-md-12">
+      <p><strong>Loan Documents</strong></p>
+    </div>
+    <div class="col-md-12">
+      <table class="table table-condensed table-bordered table-sm sb-small text-center">
+        <thead>
+        <tr class="text-white sb-bg-dark">
+          <th>S.N</th>
+          <th>Document</th>
+          <th>Preview</th>
+          <th>Download
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let singleDoc of loanDataHolder?.customerDocument; let i = index">
+          <td>{{i + 1}}</td>
+          <td class="text-left pl-1">{{singleDoc?.document?.name}}</td>
+          <td><i (click)="previewOfferLetterDocument(singleDoc?.documentPath,singleDoc?.document?.displayName)" class="fas fa-eye"></i> </td>
+          <td>
+            <i (click)="downloadCustomerDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
+               aria-hidden="true" class="fa fa-download"
+               style="cursor: pointer"></i>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
-<hr>
-<div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row disable-print">
-  <div class="col-md-12">
-    <p><strong>Loan Documents</strong></p>
-  </div>
-  <div class="col-md-12">
-    <table class="table table-condensed table-bordered table-sm sb-small text-center">
-      <thead>
-      <tr class="text-white sb-bg-dark">
-        <th>S.N</th>
-        <th>Document</th>
-        <th>Preview</th>
-        <th>Download
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let singleDoc of loanDataHolder?.customerDocument; let i = index">
-        <td>{{i + 1}}</td>
-        <td class="text-left pl-1">{{singleDoc?.document?.name}}</td>
-        <td><i (click)="previewOfferLetterDocument(singleDoc?.documentPath,singleDoc?.document?.displayName)" class="fas fa-eye"></i> </td>
-        <td>
-          <i (click)="downloadCustomerDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
-             aria-hidden="true" class="fa fa-download"
-             style="cursor: pointer"></i>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-<div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row disable-print">
-  <div class="col-md-12">
-    <table class="table table-condensed table-bordered table-sm sb-small text-center">
+  <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row disable-print">
+    <div class="col-md-12">
+      <table class="table table-condensed table-bordered table-sm sb-small text-center">
 
-      <tr class="text-white sb-bg-dark" >
-        <th colspan="4">            Customer General Document
-        </th>
-      </tr>
-      <tr class="text-white sb-bg-dark">
-        <th>SN</th>
-        <th>Document</th>
-        <th>Preview</th>
-        <th>Download</th>
-      </tr>
-      <tr *ngFor="let generalDoc of loanDataHolder?.loanHolder?.customerGeneralDocuments; let i=index">
-        <td>{{i+1}}</td>
-        <td class="text-left pl-1">{{generalDoc?.document?.displayName}}</td>
-        <td><i (click)="previewOfferLetterDocument(generalDoc?.docPath,generalDoc?.document?.displayName)" class="fas fa-eye"></i></td>
-        <td><i (click)="downloadCustomerDocument(generalDoc?.docPath,generalDoc?.document?.displayName)" class="fas fa-download"></i></td>
-      </tr>
-    </table>
+        <tr class="text-white sb-bg-dark" >
+          <th colspan="4">            Customer General Document
+          </th>
+        </tr>
+        <tr class="text-white sb-bg-dark">
+          <th>SN</th>
+          <th>Document</th>
+          <th>Preview</th>
+          <th>Download</th>
+        </tr>
+        <tr *ngFor="let generalDoc of loanDataHolder?.loanHolder?.customerGeneralDocuments; let i=index">
+          <td>{{i+1}}</td>
+          <td class="text-left pl-1">{{generalDoc?.document?.displayName}}</td>
+          <td><i (click)="previewOfferLetterDocument(generalDoc?.docPath,generalDoc?.document?.displayName)" class="fas fa-eye"></i></td>
+          <td><i (click)="downloadCustomerDocument(generalDoc?.docPath,generalDoc?.document?.displayName)" class="fas fa-download"></i></td>
+        </tr>
+      </table>
+    </div>
   </div>
-</div>
 
-<div *ngIf="minOneGuarantorDoc" class="row disable-print">
-  <div class="col-md-12">
-    <p><strong>Guarantor Documents</strong></p>
-    <table class="table table-condensed table-bordered table-sm sb-small text-center">
-      <thead>
-      <tr class="text-white sb-bg-dark">
-        <th>S.N</th>
-        <th>Guarantor</th>
-        <th>Preview</th>
-        <th>Document</th>
-        <th>Download
-        </th>
-      </tr>
-      </thead>
-      <tbody  *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
-      <tr *ngIf="singleDoc?.docPath">
-        <td>{{i + 1}}</td>
-        <td class="text-left pl-1">{{singleDoc?.name}}</td>
-        <td>Net Worth Document</td>
-        <td><i (click)="previewOfferLetterDocument(singleDoc?.docPath,singleDoc?.name + 'Net Worth Doc')" class="fas fa-eye"></i> </td>
-        <td>
-          <i (click)="downloadCustomerDocument(singleDoc?.docPath, singleDoc.name+' Net Worth Doc')"
-             aria-hidden="true" class="fa fa-download"
-             style="cursor: pointer"></i>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+  <div *ngIf="minOneGuarantorDoc" class="row disable-print">
+    <div class="col-md-12">
+      <p><strong>Guarantor Documents</strong></p>
+      <table class="table table-condensed table-bordered table-sm sb-small text-center">
+        <thead>
+        <tr class="text-white sb-bg-dark">
+          <th>S.N</th>
+          <th>Guarantor</th>
+          <th>Preview</th>
+          <th>Document</th>
+          <th>Download
+          </th>
+        </tr>
+        </thead>
+        <tbody  *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
+        <tr *ngIf="singleDoc?.docPath">
+          <td>{{i + 1}}</td>
+          <td class="text-left pl-1">{{singleDoc?.name}}</td>
+          <td>Net Worth Document</td>
+          <td><i (click)="previewOfferLetterDocument(singleDoc?.docPath,singleDoc?.name + 'Net Worth Doc')" class="fas fa-eye"></i> </td>
+          <td>
+            <i (click)="downloadCustomerDocument(singleDoc?.docPath, singleDoc.name+' Net Worth Doc')"
+               aria-hidden="true" class="fa fa-download"
+               style="cursor: pointer"></i>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
-<div *ngIf="minOneInsuranceDoc" class="row disable-print">
-  <div class="col-md-12">
-    <p><strong>Insurance Documents</strong></p>
-    <table class="table table-condensed table-bordered table-sm sb-small text-center">
-      <thead>
-      <tr class="text-white sb-bg-dark">
-        <th>S.N</th>
-        <th>Policy Number</th>
-        <th>Company</th>
-        <th>Document</th>
-        <th>Preview</th>
-        <th>Download</th>
-      </tr>
-      </thead>
-      <tbody *ngFor="let singleDoc of insuranceWithDoc; let i = index">
-      <tr *ngIf="singleDoc.policyDocumentPath">
-        <td>{{i + 1}}</td>
-        <td class="text-right pr-1">{{singleDoc?.policyNumber}}</td>
-        <td class="text-left pl-1">{{singleDoc?.company}}</td>
-        <td class="text-left pl-1">Insurance Policy</td>
-        <td><i (click)="previewOfferLetterDocument(singleDoc?.policyDocumentPath,singleDoc.policyNumber+' Insurance Policy Document')" class="fas fa-eye"></i> </td>
-        <td>
-          <i  (click)="downloadCustomerDocument(singleDoc?.policyDocumentPath, singleDoc?.policyNumber+' Insurance Policy Document')"
-              aria-hidden="true" class="fa fa-download"
-              style="cursor: pointer"></i>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+  <div *ngIf="minOneInsuranceDoc" class="row disable-print">
+    <div class="col-md-12">
+      <p><strong>Insurance Documents</strong></p>
+      <table class="table table-condensed table-bordered table-sm sb-small text-center">
+        <thead>
+        <tr class="text-white sb-bg-dark">
+          <th>S.N</th>
+          <th>Policy Number</th>
+          <th>Company</th>
+          <th>Document</th>
+          <th>Preview</th>
+          <th>Download</th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let singleDoc of insuranceWithDoc; let i = index">
+        <tr *ngIf="singleDoc.policyDocumentPath">
+          <td>{{i + 1}}</td>
+          <td class="text-right pr-1">{{singleDoc?.policyNumber}}</td>
+          <td class="text-left pl-1">{{singleDoc?.company}}</td>
+          <td class="text-left pl-1">Insurance Policy</td>
+          <td><i (click)="previewOfferLetterDocument(singleDoc?.policyDocumentPath,singleDoc.policyNumber+' Insurance Policy Document')" class="fas fa-eye"></i> </td>
+          <td>
+            <i  (click)="downloadCustomerDocument(singleDoc?.policyDocumentPath, singleDoc?.policyNumber+' Insurance Policy Document')"
+                aria-hidden="true" class="fa fa-download"
+                style="cursor: pointer"></i>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 
-<div *ngIf="loanDataHolder?.cadDocument?.length > 0  && showCadDoc" class="row disable-print">
-  <div class="col-md-12">
-    <p><strong>Cad Documents</strong></p>
-    <p *ngIf="affiliatedId"><i> CBS Loan File Number:</i>{{loanDataHolder?.cbsLoanFileNumber}}</p>
-    <table class="table table-condensed table-bordered table-sm sb-small text-center">
-      <thead class="text-white sb-bg-dark">
-      <tr>
-        <th>S.N</th>
-        <th>Document</th>
-        <th>Preview</th>
-        <th>Download</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let singleDoc of loanDataHolder?.cadDocument; let i = index">
-        <td>{{i + 1}}</td>
-        <td class="text-left pl-1">{{singleDoc?.document?.name}}</td>
-        <td>
-          <i (click)="previewOfferLetterDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
-             class="fas fa-eye"></i></td>
-        <td>
-          <i (click)="downloadCustomerDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
-             aria-hidden="true" class="fa fa-download"
-             style="cursor: pointer"></i>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+  <div *ngIf="loanDataHolder?.cadDocument?.length > 0  && showCadDoc" class="row disable-print">
+    <div class="col-md-12">
+      <p><strong>Cad Documents</strong></p>
+      <p *ngIf="affiliatedId"><i> CBS Loan File Number:</i>{{loanDataHolder?.cbsLoanFileNumber}}</p>
+      <table class="table table-condensed table-bordered table-sm sb-small text-center">
+        <thead class="text-white sb-bg-dark">
+        <tr>
+          <th>S.N</th>
+          <th>Document</th>
+          <th>Preview</th>
+          <th>Download</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let singleDoc of loanDataHolder?.cadDocument; let i = index">
+          <td>{{i + 1}}</td>
+          <td class="text-left pl-1">{{singleDoc?.document?.name}}</td>
+          <td>
+            <i (click)="previewOfferLetterDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
+               class="fas fa-eye"></i></td>
+          <td>
+            <i (click)="downloadCustomerDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
+               aria-hidden="true" class="fa fa-download"
+               style="cursor: pointer"></i>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
+  </nb-card-body>
 
+</nb-card>
