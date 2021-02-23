@@ -158,8 +158,10 @@
             <app-insurance-view *ngIf="loanDataHolder?.loanHolder?.insurance && loanDataHolder?.loanHolder?.insurance.length > 0"
                                 [insurance]="loanDataHolder?.loanHolder?.insurance"></app-insurance-view>
             <app-cicl-view *ngIf="loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
-            <app-credit-checklist-general *ngIf="loanHolder?.creditChecklist" [formData]="loanHolder?.creditChecklist"
-                                          [fromProfile]="false" [customerType]="loanHolder?.customerType"></app-credit-checklist-general>
+            <!--<app-credit-checklist-general *ngIf="loanHolder?.creditChecklist" [formData]="loanHolder?.creditChecklist"
+                                          [fromProfile]="false" [customerType]="loanHolder?.customerType"></app-credit-checklist-general>-->
+            <app-credit-checklist-view *ngIf="loanHolder?.creditChecklist" [formData]="loanHolder?.creditChecklist"
+                                          [fromProfile]="false" [customerType]="loanHolder?.customerType"></app-credit-checklist-view>
 <!--            <app-credit-risk-grading-gamma *ngIf="loanHolder?.crgGamma" [formData]="loanHolder?.crgGamma"-->
 <!--                                           [fromProfile]="false"></app-credit-risk-grading-gamma>-->
 <!--            <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading"-->
