@@ -104,6 +104,9 @@ export class LoanActionModalComponent implements OnInit {
                     }
 
                 } else if (this.userList.length > 1) {
+                    this.formAction.patchValue({
+                        toUser: this.userList[0]
+                    });
                     this.formAction.get('toUser').setValidators(Validators.required);
                     this.formAction.updateValueAndValidity();
                 }
@@ -165,7 +168,16 @@ export class LoanActionModalComponent implements OnInit {
                 this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, refId)
                     .subscribe((response: any) => {
                         this.sendForwardBackwardList = [];
-                        this.sendForwardBackwardList = response.detail;
+                        // this.sendForwardBackwardList = response.detail;
+                        this.sendForwardBackwardList = response.detail.sort(function(a, b) {
+                            return parseFloat(a.roleOrder) - parseFloat(b.roleOrder);
+                        });
+                        if (this.sendForwardBackwardList.length > 0) {
+                            this.formAction.patchValue({
+                                toRole: this.sendForwardBackwardList[0].role
+                            });
+                            this.getUserList(this.sendForwardBackwardList[0].role);
+                        }
                     });
                 break;
             default:
