@@ -461,7 +461,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-4" *ngIf="client === 'ICFC Finance Limited'">
                                     <div class="form-group">
                                         <label class="title" for="swapCharge"><strong>Swap Charge %</strong></label>
                                         <input [ngClass]="{ 'is-invalid': (submitted) && formControls.swapCharge.errors }"
