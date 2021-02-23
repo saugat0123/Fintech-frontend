@@ -251,7 +251,7 @@
                                        formControlName="citizenshipIssuedPlace"
                                        id="citizenshipIssuedPlace"
                                        [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipIssuedPlace.errors }"
-                                       placeholder="Select district">
+                                       >
                                 <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
                                     {{district?.name}}
                                 </ng-option>
