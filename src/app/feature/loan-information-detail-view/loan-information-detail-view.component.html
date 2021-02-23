@@ -160,9 +160,9 @@
             <app-cicl-view *ngIf="loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
             <app-credit-checklist-general *ngIf="loanHolder?.creditChecklist" [formData]="loanHolder?.creditChecklist"
                                           [fromProfile]="false" [customerType]="loanHolder?.customerType"></app-credit-checklist-general>
-<!--            <app-credit-risk-grading-gamma *ngIf="loanHolder?.crgGamma" [formData]="loanHolder?.crgGamma"-->
-<!--                                           [fromProfile]="false"></app-credit-risk-grading-gamma>-->
-<!--            <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading"-->
+            <!--        <app-credit-risk-grading-gamma *ngIf="loanHolder?.crgGamma" [formData]="loanHolder?.crgGamma"-->
+                    <!--                                         [fromProfile]="false"></app-credit-risk-grading-gamma-->
+                    <!--            <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading"-->
 <!--                                [fromProfile]="false"></app-credit-grading>-->
            <div *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'">
             <app-credit-risk-grading-alpha *ngIf="loanDataHolder?.creditRiskGradingAlpha"
@@ -184,7 +184,7 @@
                             class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                         <thead>
                         <tr class="sb-bg-dark text-white">
-                            <th>S.N</th>
+                            <th class="sn">S.N</th>
                             <th>Date</th>
                             <th>From User</th>
 

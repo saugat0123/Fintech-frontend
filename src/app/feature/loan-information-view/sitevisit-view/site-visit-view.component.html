@@ -314,7 +314,7 @@
         <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['stockValueReported'] | currencyFormatter}}</td>
         <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['rents']}}</td>
         <td *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['rentLeased']}}</td>
-        <td *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['isRentPmtUpToDate']}}</td>
+        <td *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['isRentUpToDate']}}</td>
         <td *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['isRentReceiptShown']}}</td>
     </tr>
 
@@ -578,7 +578,8 @@
 
     </tr>
 </table>
-
+<div class="row">
+    <div class="col-md-12 text-center">
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr>
@@ -586,7 +587,7 @@
         </th>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th>SN</th>
+        <th class="sn">S.N</th>
         <th>Party</th>
         <th>Within 3 Months</th>
         <th>6 Month</th>
@@ -594,7 +595,7 @@
         <th>1+ year</th>
     </tr>
     <tr *ngFor="let parties of formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.parties; let i=index">
-        <td>{{i + 1}}</td>
+        <td>{{i + 1}}.</td>
         <td class="text-left pl-1">{{parties?.party}}</td>
         <td class="text-right pr-1">Rs. {{parties?.withinThreeMonths | currencyFormatter}}</td>
         <td class="text-right pr-1">Rs. {{parties?.sixMonth | currencyFormatter}}</td>
@@ -633,6 +634,10 @@
         <td colspan="6" class="text-left pl-1">{{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.findingsAndCommentsForCurrentAssetsInspection}}</td>
     </tr>
 </table>
+    </div>
+</div>
+
+
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr>
@@ -640,7 +645,7 @@
         </th>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th>SN</th>
+        <th class="sn">S.N</th>
         <th>Party</th>
         <th>Within 3 Months</th>
         <th>6 Month</th>
@@ -690,7 +695,7 @@
         </th>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th>SN</th>
+        <th class="sn">S.N</th>
         <th>Particulars
         </th>
         <th>Amount</th>
@@ -712,7 +717,7 @@
         </th>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th>SN</th>
+        <th class="sn">S.N</th>
         <th>Name</th>
         <th>Position</th>
     </tr>
@@ -729,7 +734,7 @@
         </th>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th>SN</th>
+        <th class="sn">S.N</th>
         <th>Particulars</th>
         <th>Amount</th>
     </tr>
@@ -752,12 +757,12 @@
         </th>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th>SN</th>
+        <th class="sn">S.N</th>
         <th>Bank Name</th>
         <th>Amount</th>
     </tr>
     <tr *ngFor="let bank of formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.bankExposures; let i=index">
-        <td>{{i + 1}}</td>
+        <td>{{i + 1}}.</td>
         <td class="text-left pl-1">{{bank?.bankName}}</td>
         <td class="text-right pr-1">Rs. {{bank?.amount | currencyFormatter}}</td>
     </tr>
