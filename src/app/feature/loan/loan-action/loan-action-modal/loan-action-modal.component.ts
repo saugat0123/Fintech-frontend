@@ -170,7 +170,7 @@ export class LoanActionModalComponent implements OnInit {
                         this.sendForwardBackwardList = [];
                         // this.sendForwardBackwardList = response.detail;
                         this.sendForwardBackwardList = response.detail.sort(function(a, b) {
-                            return parseFloat(a.roleOrder) - parseFloat(b.roleOrder);
+                            return parseFloat(b.roleOrder) - parseFloat(a.roleOrder);
                         });
                         if (this.sendForwardBackwardList.length > 0) {
                             this.formAction.patchValue({
