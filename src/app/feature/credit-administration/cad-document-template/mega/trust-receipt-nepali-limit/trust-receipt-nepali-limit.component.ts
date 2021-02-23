@@ -102,12 +102,14 @@ export class TrustReceiptNepaliLimitComponent implements OnInit {
       this.cadData.cadFileList.push(cadFile);
     }
 
-    this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
+    console.log('cad Data ', this.cadData);
+    this.administrationService.saveCadDocumentBulk(this.cadData).subscribe((res: any) => {
+      console.log('Ress ', res);
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.dialogRef.close();
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
-      console.error(error);
+      console.error('Error ', error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.dialogRef.close();
     });
