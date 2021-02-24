@@ -1307,13 +1307,11 @@ export class SecurityInitialFormComponent implements OnInit {
         this.setRevaluationData('landDetails', this.revaluationComponent, SecurityIds.landId);
         this.setRevaluationData('buildingDetails', this.revaluationComponentApartment, SecurityIds.apartmentId);
         this.setRevaluationData('landBuilding', this.revaluationComponentLandBuilding, SecurityIds.land_buildingId);
-        console.log(this.securityForm.value);
         this.shareSecurityForm.get('loanShareRate').setValue(this.activeNepseMaster);
         this.shareSecurityData.data = JSON.stringify(this.shareSecurityForm.value);
         this.shareSecurityData.customerShareData = this.getShareDataList();
-        console.log(this.getInsurance());
 
-        if(this.ownerKycRelationInfoCheckedForLand) {
+        if (this.ownerKycRelationInfoCheckedForLand) {
           this.fetchOwnerKycValue('landDetails', this.ownerKycApplicable, SecurityIds.landId);
         }
         if (this.ownerKycRelationInfoCheckedForLandBuilding) {
@@ -1612,7 +1610,6 @@ export class SecurityInitialFormComponent implements OnInit {
             this.designationList = res.detail;
             this.spinner = false;
         }, error => {
-            console.log('error', error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Error While Fetching List'));
             this.spinner = false;
         });

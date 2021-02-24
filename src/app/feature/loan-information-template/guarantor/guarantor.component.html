@@ -129,8 +129,7 @@
                                         <label><strong>Citizenship Issued District</strong></label>
                                         <select [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('issuedPlace').errors }"
                                                    class="custom-select"
-                                                   formControlName="issuedPlace"
-                                                   placeholder="Select district">
+                                                   formControlName="issuedPlace">
                                             <option *ngFor="let district of allDistrict" [value]="district?.name">
                                                 {{district?.name}}
                                             </option>
