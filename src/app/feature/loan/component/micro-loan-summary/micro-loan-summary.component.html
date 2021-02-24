@@ -302,6 +302,15 @@
             <app-sitevist-summary-component *ngIf="siteVisitSummary"
                                             [formData]="siteVisitData"
                                             [loanType]="loanDataHolder?.loanCategory"></app-sitevist-summary-component>
+            <nb-card *ngIf="customerType === 'INSTITUTION'">
+                <nb-card-header>
+                    <h6>BASEL wise Risk Exposure</h6>
+                </nb-card-header>
+                <nb-card-body>
+                    <app-micro-basel-risk-exposure-summary *ngIf="baselRiskExposure"
+                                                           [baselRiskData]="baselWiseRiskExposure"></app-micro-basel-risk-exposure-summary>
+                </nb-card-body>
+            </nb-card>
 
             <app-insurance-summary *ngIf="loanDataHolder?.insurance"
                                    [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
@@ -321,15 +330,6 @@
                 </nb-card-body>
             </nb-card>
 
-            <nb-card *ngIf="customerType === 'INSTITUTION'">
-                <nb-card-header>
-                    <h6>BASEL wise Risk Exposure</h6>
-                </nb-card-header>
-                <nb-card-body>
-                    <app-micro-basel-risk-exposure-summary *ngIf="baselRiskExposure"
-                                                           [baselRiskData]="baselWiseRiskExposure"></app-micro-basel-risk-exposure-summary>
-                </nb-card-body>
-            </nb-card>
 
             <div class="row mt-3">
                 <div class="col-md-12">
