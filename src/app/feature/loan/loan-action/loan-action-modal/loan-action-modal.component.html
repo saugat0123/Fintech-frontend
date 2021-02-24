@@ -18,18 +18,20 @@
                 <div *ngIf="popUpTitle === 'Send Forward'" class="row">
 
                     <div class="col-md-12 form-group">
-                        <label class="toRole" for="toRole">TO</label>
+                        <label class="toRole">TO</label>
                         <select (change)="getUserList(this.formAction.get('toRole').value)"
                                 class="form-control form-control-sm"
                                 formControlName="toRole"
                                 id="toRole"
-                                name="toRole">
+                                name="toRole"
+                                *ngIf="isEmptyUser">
                             <option [value]="null" hidden>Select To</option>
                             <option *ngFor="let forwardBackward of sendForwardBackwardList"
                                     [ngValue]="forwardBackward.role">
                                 {{forwardBackward.role?.roleName}}
                             </option>
                         </select>
+                        <div *ngIf="!isEmptyUser">{{this.formAction.get('toRole').value?.roleName}}</div>
                         <div class="sb-small text-danger" *ngIf="isEmptyUser">No User Present in this Role For this
                             branch
                         </div>
