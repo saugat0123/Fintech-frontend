@@ -29,7 +29,6 @@ export class MicroIndividualFormComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    console.log(this.data);
     if (!ObjectUtil.isEmpty(this.data)) {
       this.microCustomerForm.patchValue(this.data);
     }
