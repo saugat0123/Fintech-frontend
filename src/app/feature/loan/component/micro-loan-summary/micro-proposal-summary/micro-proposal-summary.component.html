@@ -76,7 +76,7 @@
                             %,</span>
                         COM:{{(loan?.proposal?.data | jsonParse)?.commissionPercentage || '0'}} %</span>
                 </td>
-                <th class="text-right pr-1">{{proposalAllData?.interestRebate}}</th>
+                <th class="text-center">{{proposalAllData?.interestRebate}}%</th>
                 <td>
                     <div *ngIf="(loan?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage" class="text-right pr-1">Rs. {{(loan?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}</div>
                     <ng-template #percentage>{{(loan?.proposal?.data | jsonParse)?.serviceCharge}} %</ng-template>

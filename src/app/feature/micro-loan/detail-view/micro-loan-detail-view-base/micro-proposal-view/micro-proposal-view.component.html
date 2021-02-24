@@ -40,7 +40,7 @@
                 <th *ngIf="isFixedDeposit" class="text-right pr-1">{{proposalData?.couponRate}}</th>
                 <th *ngIf="isFixedDeposit" class="text-right pr-1">{{proposalData?.premiumOnCouponRate}}</th>
                 <th  *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.interestRate}}</th>
-                <th  class="text-right pr-1">{{proposalData?.interestRebate}}</th>
+                <th  class="text-center">{{proposalData?.interestRebate}}%</th>
                 <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.baseRate}}</th>
                 <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.premiumRateOnBaseRate}}</th>
                 <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
