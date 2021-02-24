@@ -1,123 +1,26 @@
 <nb-card>
     <nb-card-body>
-        <div class="row">
-            <div class="col-md-2">
-                <button (click)="onBack()" class="btn-primary float-left"><i class="fas fa-arrow-left"></i>
-                </button>
-            </div>
-            <div class="offset-8 col-md-2">
-                <button [useExistingCss]="true" class="btn-sm btn-warning float-right"
-                        ngxPrint printSectionId="print-detail" styleSheetFile="assets/css/printStyles.scss">
-                    PRINT<i class="col-md-1 fa fa-print"></i></button>
-            </div>
-        </div>
-        <div id="print-detail">
-            <div class="row text-center ">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-3">
-
-                            <div>
-                                Priority:
-                                <span class="badge badge-danger"
-                                      style="font-size: 11px">{{loanDataHolder?.priority?.toString() | titlecase}}</span>
-                            </div>
-                            <div>
-                                Loan Status:
-                                <span class="badge badge-info"
-                                      style="font-size: 11px">{{loanDataHolder?.documentStatus?.toString() | titlecase}}</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="report-header">
-                                <div class="report-header-heading"><strong>{{client}}</strong></div>
-                                <div class="report-header-sub-heading">
-                                    Credit Appraisal of {{loanConfig?.name}}
-                                    <br/>
-                                    for
-                                </div>
-                                <div
-                                        class="report-header-sub-heading">
-                                    {{loanCategory === 'INSTITUTION' ?
-                                    loanDataHolder?.companyInfo?.companyName
-                                    : loanDataHolder?.customerInfo?.customerName}}
-                                </div>
-                                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
-                                <div class="badge badge-warning">Detail</div>
-
-                            </div>
-                        </div>
-                        <div class="col-md-3 text-right">
-                            <img class="report-log img-thumbnail border-0"
-                                 src="../../../../../assets/img/logo.png">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="row mt-1">
-                <div class="col-md-6 text-left">
-                    <div *ngIf="currentDocAction === 'FORWARD' || currentDocAction === 'BACKWARD'
-                          || currentDocAction === 'PENDING'">
-                        <span><strong>Pending Under: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
-                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                    </div>
-                    <div *ngIf="currentDocAction === 'APPROVED'">
-                        <span><strong>Approved By: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
-                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                    </div>
-                    <div *ngIf="currentDocAction === 'REJECT'">
-                        <span><strong>Rejected By: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
-                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                    </div>
-                    <div *ngIf="currentDocAction === 'CLOSED'">
-                        <span><strong>Closed By: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
-                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                    </div>
-                </div>
-                <div class="col-md-6 text-right">
-                    <div *ngIf="currentDocAction === 'FORWARD'">
-                    <span><strong>Forwarded By: </strong>{{loanDataHolder?.currentStage?.fromUser?.name}}
-                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                    </div>
-                    <div *ngIf="currentDocAction === 'BACKWARD'">
-                    <span><strong>Backward By: </strong>{{loanDataHolder?.currentStage?.fromUser?.name}}
-                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                    </div>
-                    <!--<div class="col-md-6">
-                        <div class="text-right">
-                            <span><strong>Branch: </strong>{{loanDataHolder?.branch?.name}}</span>
-                        </div>
-                    </div>-->
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span>
-                </div>
-                <div class="col-md-6">
-                    <p class="text-right"><strong>Date: </strong>{{loanDataHolder?.createdAt | date}}
-                        <!--            ({{nepaliDate}})-->
-                    </p>
-                </div>
-            </div>
-            <hr>
-            <div>
-                <p><strong>Details of {{loanDataHolder?.loanCategory === 'INSTITUTION'
-                    ? 'Authorized Company'
-                    : 'Borrower'}}</strong></p>
-            </div>
             <app-micro-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
                                  [calendarType]="calendarType"
                                  [individual]="loanDataHolder?.customerInfo"
-                                 [loanId]="id" [customerInfo]="loanHolder"></app-micro-individual-view>
+                                 [loanId]="loanId" [customerInfo]="loanHolder"></app-micro-individual-view>
             <app-micro-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
                                    [calendarType]="calendarType"
                                    [formValue]="loanDataHolder?.companyInfo"
-                                   [loanId]="id" [customerInfo]="loanHolder"></app-micro-company-info-view>
-            <!--@mohamad-->
-           <!-- <app-micro-proposal-view *ngIf="loanDataHolder?.proposal"
-                               [formData]="loanDataHolder?.proposal"></app-micro-proposal-view>-->
+                                   [loanId]="loanId" [customerInfo]="loanHolder"></app-micro-company-info-view>
+
+            <app-micro-proposal-view *ngIf="loanDataHolder?.proposal"
+                                     [customerType]="loanHolder?.customerType"
+                               [formData]="loanDataHolder?.proposal"></app-micro-proposal-view>
+        <nb-card *ngIf="loanHolder?.customerType === 'INSTITUTION'">
+            <nb-card-header>
+                <h6>BASEL wise Risk Exposure</h6>
+            </nb-card-header>
+            <nb-card-body>
+                <app-borrower-portfolio-view *ngIf="loanHolder?.borrowerPortFolio"
+                                             [borrowerData]="loanHolder?.borrowerPortFolio"></app-borrower-portfolio-view>
+            </nb-card-body>
+        </nb-card>
             <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
                                [shareSecurityData]="loanHolder?.shareSecurity"></app-security-view>
             <app-financial-view *ngIf="loanHolder?.financial"
@@ -131,6 +34,15 @@
                                 [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             <app-site-visit-view *ngIf="loanHolder?.siteVisit"
                                  [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
+        <nb-card *ngIf="loanHolder?.customerType === 'INSTITUTION'">
+            <nb-card-header>
+                <h6>BASEL wise Risk Exposure</h6>
+            </nb-card-header>
+            <nb-card-body>
+                <app-micro-basel-risk-exposure-view *ngIf="loanHolder?.microBaselRiskExposure"
+                                                    [baselRiskData]="loanHolder?.microBaselRiskExposure"></app-micro-basel-risk-exposure-view>
+            </nb-card-body>
+        </nb-card>
             <!--    <app-net-trading-assets *ngIf="loanHolder?.netTradingAssets"
                                         [fromProfile]="false"
                                         [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
@@ -166,129 +78,15 @@
                                                [loanTag]="loanDataHolder?.loan?.loanTag"
                                                [proposedLimit]="loanDataHolder?.proposal?.proposedLimit"></app-credit-risk-grading-alpha>
             </div>
-            <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
-
-            <app-proposal-terms-and-condition-summery *ngIf="loanDataHolder && customerAllLoanList" [customerAllLoanList]="customerAllLoanList" [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
-            <div class="row mt-3">
-                <div class="col-md-12">
-                    <p><strong>Authority Section</strong></p>
-                    <table
-                            class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                        <thead>
-                        <tr class="sb-bg-dark text-white">
-                            <th>S.N</th>
-                            <th>Date</th>
-                            <th>From User</th>
-
-                            <th>To User</th>
-
-                            <th>Status</th>
-                            <th class="cmt-width">Remarks</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
-                            <td>{{i + 1}}</td>
-                            <td class="text-left pl-1">
-                                {{previousList?.lastModifiedAt | date}}
-                            </td>
-                            <td class="text-left">
-                                <div class="pl-1">
-                                    {{previousList?.fromUser?.name}}</div>
-                                <div class="pl-1">
-                                    <span>({{previousList?.fromRole?.roleName}})</span>
-                                </div>
-
-                            </td>
-
-                            <td class="text-left">
-                                <div class="pl-1">
-                                    {{previousList?.toUser?.name}}</div>
-                                <div class="pl-1">
-                                    ({{previousList?.toRole?.roleName}})
-                                </div>
-                            </td>
-
-                            <td class="text-left pl-1">{{previousList?.docAction}}</td>
-                            <td class="text-left pl-1">
-                                <div class="pl-1 disable-print">
-                                    {{previousList?.comment?.length > 50 ?
-                                    previousList?.comment?.substring(0, 49) :
-                                    previousList?.comment}}
-                                </div>
-                                <a (click)="open(previousList?.comment)"
-                                   *ngIf="previousList?.comment?.length > 50"
-                                   class="text-left pl-1 disable-print">read more ....</a>
-                                <div>
-                                    <span class="print-only justify-content">{{previousList?.comment}}</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{{currentIndex + 1}}</td>
-                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}</td>
-                            <td class="text-left">
-                                <div class="pl-1">
-                                    {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
-                                <div class="pl-1">
-                                    <span>({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                                </div>
-                            </td>
-
-                            <td class="text-left">
-                                <div class="pl-1">
-                                    {{loanDataHolder?.currentStage?.toUser?.name}}</div>
-                                <div class="pl-1">
-                                    <span>({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                                </div>
-                            </td>
-
-                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction}}</td>
-                            <td class="text-left">
-                                <div class="pl-1 disable-print">
-                                    {{loanDataHolder?.currentStage?.comment?.length > 50 ?
-                                    loanDataHolder?.currentStage?.comment?.substring(0, 49) :
-                                    loanDataHolder?.currentStage?.comment}}
-                                </div>
-                                <a (click)="open(loanDataHolder?.currentStage?.comment)"
-                                   *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
-                                   class="text-left pl-1 disable-print">read more ....</a>
-                                <div>
-                                    <span class="print-only text-justify pl-1 pr-1">{{loanDataHolder?.currentStage?.comment}}</span>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div *ngIf="signatureList.length > 0" class="row justify-content-between px-3"
-                 id="signatureDiv">
-                <div class="col-md-12 print-only">
-                    <p><strong>Approval Chain</strong></p>
-                </div>
-                <div *ngFor="let previous of signatureList; let i=index;"
-                     class="col-md-2 padding-0-125">
-                    <div class="signature-block">
-                        <div class="text-center p-2 bg-light mb-2 ">
-                            <span>{{loanHandler(i, signatureList.length)}}</span>
-                        </div>
-                        <hr class="border-dark m-0">
-                        <div class="row justify-content-center signature mx-auto">
-                            <div class="print-only signature-padding"></div>
-                            <img align="middle" alt="signature"
-                                 class="img-thumbnail border-0 signature-height signature-width"
-                                 src="{{previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage}}"/>
-                        </div>
-                        <div class="text-center signature-detail">
-                            <p class="m-0">{{previous?.fromUser?.name}}</p>
-                            <p class="m-0">({{previous?.fromUser?.role?.roleName}})</p>
-                            <p class="m-0">{{previous?.lastModifiedAt}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
+        <nb-card *ngIf="loanHolder?.customerType === 'INSTITUTION'">
+            <nb-card-header>
+                <h6>Synopsis of Creditworthiness</h6>
+            </nb-card-header>
+            <nb-card-body>
+                <app-micro-synopsis-creditworthiness *ngIf="loanHolder?.synopsisCreditworthiness"
+                                                     [synopsisData]="loanHolder?.synopsisCreditworthiness"></app-micro-synopsis-creditworthiness>
+            </nb-card-body>
+        </nb-card>
     </nb-card-body>
 </nb-card>

@@ -220,7 +220,8 @@ const modules = {
     entryComponents: [...ENTRY_COMPONENTS],
     exports: [
         KycInfoComponent,
-        MicroProposalSummaryComponent
+        MicroProposalSummaryComponent,
+        MicroBaselRiskExposureSummaryComponent
     ]
 })
 export class LoanModule {
