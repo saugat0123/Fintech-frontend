@@ -1,0 +1,126 @@
+<form [formGroup]="microFinancialForm">
+    <input #input>
+    <button (click)="addFiscalYear(input.value)">add</button>
+
+    <table class="table table-bordered table-sm sb-small text-center">
+        <thead class="text-center">
+        <tr class="text-white sb-bg-dark">
+            <th>S.N</th>
+            <th>Key Financial Indicators</th>
+            <th *ngFor="let year of microFinancialForm.get('fiscalYears').value; let i = index">
+                <strong>{{ year }}</strong>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>A</td>
+            <td><strong>Borrowing and Deposit to core capital (Times)</strong></td>
+            <td *ngFor="let cellValue of microFinancialForm.get('borrowingAndDepositToCoreCapital')['controls']; let i = index"
+            formArrayName="borrowingAndDepositToCoreCapital">
+                <ng-container [formGroupName]="i">
+                    <input class="cellInput text-center"
+                           formControlName="value" type="number">
+                </ng-container>
+            </td>
+        </tr>
+
+        <tr>
+            <td>B</td>
+            <td><strong>Cost of Fund (%)</strong></td>
+            <td *ngFor="let cellValue of microFinancialForm.get('costOfFund')['controls']; let i = index"
+                formArrayName="costOfFund">
+                <ng-container [formGroupName]="i">
+                    <input class="cellInput text-center"
+                           formControlName="value" type="number">
+                </ng-container>
+            </td>
+        </tr>
+
+        <tr>
+            <td>C</td>
+            <td><strong>Yield on Portfolio (%)</strong></td>
+            <td *ngFor="let cellValue of microFinancialForm.get('yieldOnPortfolio')['controls']; let i = index"
+                formArrayName="yieldOnPortfolio">
+                <ng-container [formGroupName]="i">
+                    <input class="cellInput text-center"
+                           formControlName="value" type="number">
+                </ng-container>
+            </td>
+        </tr>
+
+        <tr>
+            <td>B</td>
+            <td><strong>Capital Adequacy Ratio (%)</strong></td>
+            <td *ngFor="let cellValue of microFinancialForm.get('capitalAdequacyRatio')['controls']; let i = index"
+                formArrayName="capitalAdequacyRatio">
+                <ng-container [formGroupName]="i">
+                    <input class="cellInput text-center"
+                           formControlName="value" type="number">
+                </ng-container>
+            </td>
+        </tr>
+
+        <tr>
+            <td>B</td>
+            <td><strong>NPA Rate (%)</strong></td>
+            <td *ngFor="let cellValue of microFinancialForm.get('NPARate')['controls']; let i = index"
+                formArrayName="NPARate">
+                <ng-container [formGroupName]="i">
+                    <input class="cellInput text-center"
+                           formControlName="value" type="number">
+                </ng-container>
+            </td>
+        </tr>
+
+        <tr>
+            <td>B</td>
+            <td><strong>Debt/Equity Ratio (%)</strong></td>
+            <td *ngFor="let cellValue of microFinancialForm.get('debtEquityRatio')['controls']; let i = index"
+                formArrayName="debtEquityRatio">
+                <ng-container [formGroupName]="i">
+                    <input class="cellInput text-center"
+                           formControlName="value" type="number">
+                </ng-container>
+            </td>
+        </tr>
+
+        <tr>
+            <td>B</td>
+            <td><strong>Return on Asset (%)</strong></td>
+            <td *ngFor="let cellValue of microFinancialForm.get('returnOnAsset')['controls']; let i = index"
+                formArrayName="returnOnAsset">
+                <ng-container [formGroupName]="i">
+                    <input class="cellInput text-center"
+                           formControlName="value" type="number">
+                </ng-container>
+            </td>
+        </tr>
+
+        <tr>
+            <td>B</td>
+            <td><strong>ISCR</strong></td>
+            <td *ngFor="let cellValue of microFinancialForm.get('iscr')['controls']; let i = index"
+                formArrayName="iscr">
+                <ng-container [formGroupName]="i">
+                    <input class="cellInput text-center"
+                           formControlName="value" type="number">
+                </ng-container>
+            </td>
+        </tr>
+
+        <tr>
+            <td>B</td>
+            <td><strong>DSCR</strong></td>
+            <td *ngFor="let cellValue of microFinancialForm.get('dscr')['controls']; let i = index"
+                formArrayName="dscr">
+                <ng-container [formGroupName]="i">
+                    <input class="cellInput text-center"
+                           formControlName="value" type="number">
+                </ng-container>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</form>
