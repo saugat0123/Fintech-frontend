@@ -25,23 +25,42 @@
                     <div id="searchModel" class="col-md-12" [ngbCollapse]="isFilterCollapsed">
                         <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
                             <div class="row py-3">
-                                <div class="col-md-4">
-                                    <input formControlName="loanType" name="LoanType"
-                                           nbInput
-                                           placeholder="Loan Type"
-                                           type="text">
+                                <div class="col-md-3">
+<!--                                    <input formControlName="loanType" name="loanType"-->
+<!--                                           nbInput-->
+<!--                                           placeholder="Loan Type"-->
+<!--                                           type="text">-->
+                                    <select name="loanCategory" id="loanCategory"
+                                            class="custom-select" formControlName="loanCategory">
+                                        <option [ngValue]="undefined" hidden>Loan Category</option>
+                                        <option *ngFor="let loan of loanList">
+                                            {{loan.name}}
+                                        </option>
+                                    </select>
                                 </div>
-                                <div class="col-md-4">
-                                    <input formControlName="authorities" name="authorities"
-                                           nbInput
-                                           placeholder="Authorities"
-                                           type="text">
+                                <div class="col-md-3">
+<!--                                    <input formControlName="authorities" name="authorities"-->
+<!--                                           nbInput-->
+<!--                                           placeholder="Authorities"-->
+<!--                                           type="text">-->
+                                    <select class="custom-select" formControlName="authorities">
+                                        <option [value]="null" selected hidden>Select Authorities</option>
+                                        <option *ngFor="let role of roleList"
+                                                [selected]="role.id === model?.authorities?.id" [ngValue]="role.id">
+                                            {{role.roleName}}</option>
+                                    </select>
                                 </div>
-                                <div class="col-md-4">
-                                    <input formControlName="approvalType" name="approvalType"
-                                           nbInput
-                                           placeholder="Approval Type"
-                                           type="text">
+                                <div class="col-md-3">
+<!--                                    <input formControlName="loanApprovalType" name="loanApprovalType"-->
+<!--                                           nbInput-->
+<!--                                           placeholder="Approval Type"-->
+<!--                                           type="text">-->
+                                    <select class="custom-select" formControlName="loanApprovalType"
+                                            name="loanApprovalType" id="loanApprovalType">
+                                        <option [ngValue]="null" hidden>Approval Type</option>
+                                        <option value="INDIVIDUAL">INDIVIDUAL</option>
+                                        <option value="INSTITUTION">INSTITUTION</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-12 p-0">

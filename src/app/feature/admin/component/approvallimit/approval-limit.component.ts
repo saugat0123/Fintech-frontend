@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {ApprovalLimit} from '../../modal/approval-limit';
@@ -12,6 +12,10 @@ import {ApprovalLimitService} from './approval-limit.service';
 import {PermissionService} from '../../../../@core/service/permission.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {Role} from "../../modal/role";
+import {LoanConfig} from "../../modal/loan-config";
+import {RoleService} from "../role-permission/role.service";
+import {LoanConfigService} from "../loan-config/loan-config.service";
 
 @Component({
     selector: 'app-approval-limit',
@@ -22,6 +26,9 @@ export class ApprovalLimitComponent implements OnInit {
     page = 1;
     title = 'ApprovalLimit';
     breadcrumb = 'ApprovalLimit > List';
+
+    @Input()
+    model: ApprovalLimit;
 
     dataList: Array<ApprovalLimit> = new Array<ApprovalLimit>();
     spinner = false;
@@ -37,13 +44,20 @@ export class ApprovalLimitComponent implements OnInit {
     downloadCsv = false;
     filterForm: FormGroup;
 
+    roleList: Array<Role> = new Array<Role>();
+    loanList: Array<LoanConfig>;
+
+    loanCategory = new LoanConfig();
+
     constructor(
         private service: ApprovalLimitService,
         private permissionService: PermissionService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private roleService: RoleService,
+        private loanConfigService: LoanConfigService,
     ) {
     }
 
@@ -79,13 +93,25 @@ export class ApprovalLimitComponent implements OnInit {
                 }
             }
         });
+
+        //Getting approval Role types from api
+        this.roleService.getApprovalRoles().subscribe((response: any) => {
+
+            this.roleList = response.detail;
+        });
+
+        //Getting Loan list from the api;
+        this.loanConfigService.getAll().subscribe((response: any) => {
+            this.loanList = response.detail;
+            console.log(response.detail);
+        });
     }
 
     buildFilterForm() {
         this.filterForm = this.formBuilder.group({
-            loanType: [undefined],
+            loanCategory: [undefined],
             authorities: [undefined],
-            approvalType: [undefined]
+            loanApprovalType: [undefined]
         });
     }
 
@@ -100,13 +126,18 @@ export class ApprovalLimitComponent implements OnInit {
     }
 
     onSearch() {
-        this.search.loanType = ObjectUtil.isEmpty(this.filterForm.get('loanType').value) ? undefined :
-            this.filterForm.get('loanType').value;
+        this.search.loanCategory = ObjectUtil.isEmpty(this.filterForm.get('loanCategory').value) ? undefined :
+            this.filterForm.get('loanCategory').value;
+        console.log(this.search.loanCategory);
         this.search.authorities = ObjectUtil.isEmpty(this.filterForm.get('authorities').value) ? undefined :
             this.filterForm.get('authorities').value;
-        this.search.approvalType = ObjectUtil.isEmpty(this.filterForm.get('approvalType').value) ? undefined :
-            this.filterForm.get('approvalType').value;
+        console.log(this.search.authorities);
+        this.search.loanApprovalType = ObjectUtil.isEmpty(this.filterForm.get('loanApprovalType').value) ? undefined :
+            this.filterForm.get('loanApprovalType').value;
+        console.log(this.search.loanApprovalType);
         ApprovalLimitComponent.loadData(this);
+
+        console.log(this.filterForm);
     }
 
     add() {
