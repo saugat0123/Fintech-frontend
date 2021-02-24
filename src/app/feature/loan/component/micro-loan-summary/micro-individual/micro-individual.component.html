@@ -238,7 +238,7 @@
                 <th>Deviation</th>
             </thead>
             <tbody>
-            <td>{{otherInformationAndConfirmation?.waiverConclusionRecommendation}}</td>
+            <td><span [innerHTML]="otherInformationAndConfirmation?.waiverConclusionRecommendation"></span></td>
             </tbody>
         </table>
     </div>
@@ -248,7 +248,7 @@
             <th class="sb-bg-dark text-white">Overall Justification / Recommendation</th>
             </thead>
             <tbody>
-            <td>{{otherInformationAndConfirmation?.summeryRecommendation}}</td>
+            <td><span [innerHTML]="otherInformationAndConfirmation?.summeryRecommendation"></span></td>
             </tbody>
         </table>
     </div>
