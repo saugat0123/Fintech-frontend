@@ -12,6 +12,15 @@
             <app-micro-proposal-view *ngIf="loanDataHolder?.proposal"
                                      [customerType]="loanHolder?.customerType"
                                [formData]="loanDataHolder?.proposal"></app-micro-proposal-view>
+        <nb-card *ngIf="loanHolder?.customerType === 'INSTITUTION'">
+            <nb-card-header>
+                <h6>BASEL wise Risk Exposure</h6>
+            </nb-card-header>
+            <nb-card-body>
+                <app-borrower-portfolio-view *ngIf="loanHolder?.borrowerPortFolio"
+                                             [borrowerData]="loanHolder?.borrowerPortFolio"></app-borrower-portfolio-view>
+            </nb-card-body>
+        </nb-card>
             <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
                                [shareSecurityData]="loanHolder?.shareSecurity"></app-security-view>
             <app-financial-view *ngIf="loanHolder?.financial"
@@ -25,6 +34,15 @@
                                 [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             <app-site-visit-view *ngIf="loanHolder?.siteVisit"
                                  [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
+        <nb-card *ngIf="loanHolder?.customerType === 'INSTITUTION'">
+            <nb-card-header>
+                <h6>BASEL wise Risk Exposure</h6>
+            </nb-card-header>
+            <nb-card-body>
+                <app-micro-basel-risk-exposure-view *ngIf="loanHolder?.microBaselRiskExposure"
+                                                    [baselRiskData]="loanHolder?.microBaselRiskExposure"></app-micro-basel-risk-exposure-view>
+            </nb-card-body>
+        </nb-card>
             <!--    <app-net-trading-assets *ngIf="loanHolder?.netTradingAssets"
                                         [fromProfile]="false"
                                         [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
@@ -61,25 +79,6 @@
                                                [proposedLimit]="loanDataHolder?.proposal?.proposedLimit"></app-credit-risk-grading-alpha>
             </div>
         <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
-
-     <nb-card *ngIf="loanHolder?.customerType === 'INSTITUTION'">
-            <nb-card-header>
-                <h6>BASEL wise Risk Exposure</h6>
-            </nb-card-header>
-            <nb-card-body>
-                <app-borrower-portfolio-view *ngIf="loanHolder?.borrowerPortFolio"
-                                             [borrowerData]="loanHolder?.borrowerPortFolio"></app-borrower-portfolio-view>
-            </nb-card-body>
-        </nb-card>
-        <nb-card *ngIf="loanHolder?.customerType === 'INSTITUTION'">
-            <nb-card-header>
-                <h6>BASEL wise Risk Exposure</h6>
-            </nb-card-header>
-            <nb-card-body>
-                <app-micro-basel-risk-exposure-view *ngIf="loanHolder?.microBaselRiskExposure"
-                                                    [baselRiskData]="loanHolder?.microBaselRiskExposure"></app-micro-basel-risk-exposure-view>
-            </nb-card-body>
-        </nb-card>
         <nb-card *ngIf="loanHolder?.customerType === 'INSTITUTION'">
             <nb-card-header>
                 <h6>Synopsis of Creditworthiness</h6>
