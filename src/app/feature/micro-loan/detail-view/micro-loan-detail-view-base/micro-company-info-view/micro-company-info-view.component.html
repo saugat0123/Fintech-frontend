@@ -603,7 +603,54 @@
         </table>
     </div>
 </div>
-
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead class="sb-bg-dark text-white">
+                <th>Loan products</th>
+            </thead>
+            <tbody>
+                <td>{{companyJsonData?.microCustomerDetail['loanProducts'] || 'NA'}}</td>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead class="sb-bg-dark text-white">
+            <th>Other Products</th>
+            </thead>
+            <tbody>
+            <td>{{companyJsonData?.microCustomerDetail['otherProducts'] || 'NA'}}</td>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead class="sb-bg-dark text-white">
+            <th>Repayment Schedule</th>
+            </thead>
+            <tbody>
+            <td><span [innerHTML]="companyJsonData?.microCustomerDetail['repaymentSchedule'] || 'NA'"></span></td>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead class="sb-bg-dark text-white">
+            <th>Saving Products</th>
+            </thead>
+            <tbody>
+            <td>{{companyJsonData?.microCustomerDetail['savingProducts'] || 'NA'}}</td>
+            </tbody>
+        </table>
+    </div>
+</div>
 <!--
 
 <div *ngIf="!formValue" class="col-md-12">
