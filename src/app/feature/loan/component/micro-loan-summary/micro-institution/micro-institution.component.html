@@ -295,14 +295,14 @@
             <th>S.N</th>
             <th>Name</th>
             <th>Designation</th>
-            <th>Education & Experience</th>
+            <th>Address as per Legal Document</th>
             </thead>
             <tbody>
                 <tr *ngFor="let managements of companyJsonData.managementTeamList; let j = index;">
                     <td>{{j + 1}}</td>
                     <td>{{managements?.name || 'NA'}}</td>
                     <td>{{managements?.designation || 'NA'}}</td>
-                    <td>{{managements?.description || 'NA'}}</td>
+                    <td>{{managements?.companyLegalDocumentAddress || 'NA'}}</td>
                 </tr>
             </tbody>
         </table>

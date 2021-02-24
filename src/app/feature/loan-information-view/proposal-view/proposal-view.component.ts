@@ -29,6 +29,7 @@ export class ProposalViewComponent implements OnInit {
   allId;
   showInstallmentAmount = false;
   showRepaymentMode = false;
+  otherInformationAndConfirmation
 
   constructor(private activatedRoute: ActivatedRoute,
               private loanConfigService: LoanConfigService) {

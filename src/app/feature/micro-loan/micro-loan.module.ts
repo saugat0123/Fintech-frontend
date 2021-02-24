@@ -18,6 +18,7 @@ import {LoanInformationViewModule} from '../loan-information-view/loan-informati
 import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
 import {ReportingModule} from '../reporting/reporting.module';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
+import {LoanModule} from '../loan/loan.module';
 
 
 
@@ -51,7 +52,7 @@ import {LoanInformationTemplateModule} from '../loan-information-template/loan-i
         LoanInformationViewModule,
         LoanSummaryModule,
         ReportingModule,
-        LoanInformationTemplateModule
+        LoanInformationTemplateModule,
     ]
 })
 export class MicroLoanModule { }
