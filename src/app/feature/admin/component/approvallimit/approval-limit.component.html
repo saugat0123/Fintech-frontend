@@ -33,28 +33,20 @@
                                     <select name="loanCategory" id="loanCategory"
                                             class="custom-select" formControlName="loanCategory">
                                         <option [ngValue]="undefined" hidden>Loan Category</option>
-                                        <option *ngFor="let loan of loanList">
+                                        <option *ngFor="let loan of loanList" [value]="loan.id">
                                             {{loan.name}}
                                         </option>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
-<!--                                    <input formControlName="authorities" name="authorities"-->
-<!--                                           nbInput-->
-<!--                                           placeholder="Authorities"-->
-<!--                                           type="text">-->
                                     <select class="custom-select" formControlName="authorities">
                                         <option [value]="null" selected hidden>Select Authorities</option>
                                         <option *ngFor="let role of roleList"
-                                                [selected]="role.id === model?.authorities?.id" [ngValue]="role.id">
+                                                [selected]="role.id === model?.authorities?.id" [value]="role.id">
                                             {{role.roleName}}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
-<!--                                    <input formControlName="loanApprovalType" name="loanApprovalType"-->
-<!--                                           nbInput-->
-<!--                                           placeholder="Approval Type"-->
-<!--                                           type="text">-->
                                     <select class="custom-select" formControlName="loanApprovalType"
                                             name="loanApprovalType" id="loanApprovalType">
                                         <option [ngValue]="null" hidden>Approval Type</option>
