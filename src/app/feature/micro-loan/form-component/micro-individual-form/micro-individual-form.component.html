@@ -5,7 +5,7 @@
                 <label for="bankDistance"><strong>Distance From Branch</strong></label>
                 <input [ngClass]="{ 'is-invalid': (submitted) && microCustomerForm.get('bankDistance').errors }" class="form-control"
                        formControlName="bankDistance"
-                       id="bankDistance" placeholder="Distance From Branch" type="text">
+                       id="bankDistance" placeholder="Distance From Branch" type="number">
                 <div *ngIf="submitted && microCustomerForm.get('bankDistance').errors"
                      class="invalid-feedback">
                     Value is required!

@@ -821,13 +821,13 @@ export class CompanyFormComponent implements OnInit {
         if (!this.disableCrgAlpha) {
             this.bankingRelationComponent.onSubmit();
         }
-       /* if (this.microCustomer) {
+        if (this.microCustomer) {
+            this.microCompanyFormComponent.onSubmit();
             if (this.microCompanyFormComponent.microCustomerForm.invalid) {
                 this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
                 return;
             }
-            this.microCompanyFormComponent.onSubmit();
-        }*/
+        }
         this.companyLocation.onSubmit();
         if (this.companyInfoFormGroup.invalid || this.companyOtherDetailComponent.companyOtherDetailGroupForm.invalid
             || this.marketScenarioComponent.marketScenarioForm.invalid ||
