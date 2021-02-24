@@ -121,7 +121,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     crgLambdaDisabled = environment.disableCrgLambda;
 
     ngOnInit() {
-        console.log(this.formValue);
         this.getProvince();
         this.getAllDistrict();
         this.getClientType();
@@ -240,7 +239,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.submitted = true;
-        this.spinner = true;
         const tempId = this.basicInfo.get('citizenshipNumber').value;
         this.blackListService.checkBlacklistByRef(tempId).subscribe((response: any) => {
             this.isBlackListed = response.detail;
@@ -257,7 +255,15 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.spinner = false;
                     return;
                 }
+                if (this.microCustomer) {
+                    this.microIndividualFormComponent.onSubmit();
+                    if (this.microIndividualFormComponent.microCustomerForm.invalid) {
+                        this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
+                        return;
+                    }
+                }
                 {
+                    this.spinner = true;
                     this.customer.id = this.customer ? (this.customer.id ? this.customer.id : undefined) : undefined;
                     this.customer.customerName = this.basicInfo.get('customerName').value;
                     this.customer.customerCode = this.basicInfo.get('customerCode').value;
@@ -553,7 +559,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     getClientType() {
         this.customerService.clientType().subscribe((res: any) => {
-                console.log(res.detail);
                 this.clientType = res.detail;
             }
             , error => {
