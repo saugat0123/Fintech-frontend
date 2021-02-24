@@ -1,6 +1,6 @@
 <div *ngIf="proposalData" class="row">
     <div class="col-md-12">
-        <p><b>Proposal</b></p>
+        <p><b>Proposalasdasd</b></p>
         <table
                 class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
             <tr class="text-white sb-bg-dark">
@@ -29,6 +29,7 @@
                 <th  *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral">Interest
                     Rate(%)
                 </th>
+                <th>Interest Rebate(%)</th>
                 <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">Base Rate(%)</th>
                 <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">Premium Rate On Base
                     Rate(%)
@@ -39,6 +40,7 @@
                 <th *ngIf="isFixedDeposit" class="text-right pr-1">{{proposalData?.couponRate}}</th>
                 <th *ngIf="isFixedDeposit" class="text-right pr-1">{{proposalData?.premiumOnCouponRate}}</th>
                 <th  *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.interestRate}}</th>
+                <th  *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.interestRebate}}</th>
                 <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.baseRate}}</th>
                 <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.premiumRateOnBaseRate}}</th>
                 <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">

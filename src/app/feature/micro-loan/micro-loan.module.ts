@@ -19,6 +19,9 @@ import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.mod
 import {ReportingModule} from '../reporting/reporting.module';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import {LoanModule} from '../loan/loan.module';
+import {MicroBaselRiskExposureViewComponent} from './detail-view/micro-loan-detail-view-base/micro-basel-risk-exposure-view/micro-basel-risk-exposure-view.component';
+import {MicroSynopsisCreditworthinessViewComponent} from './detail-view/micro-loan-detail-view-base/micro-synopsis-creditworthiness-view/micro-synopsis-creditworthiness.component';
+import {BorrowerPortfolioViewComponent} from './detail-view/micro-loan-detail-view-base/borrower-portfolio-summary-view/borrower-portfolio-view.component';
 
 
 
@@ -34,6 +37,9 @@ import {LoanModule} from '../loan/loan.module';
       MicroLoanDetailViewBaseComponent,
       MicroIndividualViewComponent,
       MicroCompanyInfoViewComponent,
+      MicroBaselRiskExposureViewComponent,
+      MicroSynopsisCreditworthinessViewComponent,
+      BorrowerPortfolioViewComponent,
       MicroProposalViewComponent],
     exports: [
         MicroCompanyFormComponentComponent,
