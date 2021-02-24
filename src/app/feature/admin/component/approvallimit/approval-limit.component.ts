@@ -128,16 +128,11 @@ export class ApprovalLimitComponent implements OnInit {
     onSearch() {
         this.search.loanCategory = ObjectUtil.isEmpty(this.filterForm.get('loanCategory').value) ? undefined :
             this.filterForm.get('loanCategory').value;
-        console.log(this.search.loanCategory);
         this.search.authorities = ObjectUtil.isEmpty(this.filterForm.get('authorities').value) ? undefined :
             this.filterForm.get('authorities').value;
-        console.log(this.search.authorities);
         this.search.loanApprovalType = ObjectUtil.isEmpty(this.filterForm.get('loanApprovalType').value) ? undefined :
             this.filterForm.get('loanApprovalType').value;
-        console.log(this.search.loanApprovalType);
         ApprovalLimitComponent.loadData(this);
-
-        console.log(this.filterForm);
     }
 
     add() {
