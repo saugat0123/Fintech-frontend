@@ -273,41 +273,41 @@
                                    >
                                    <input *ngIf="calendarType === 'BS'" formControlName="citizenshipIssuedDate" hidden>
 
-                                   <app-calendar [ePreDate]="basicInfo.get('citizenshipIssuedDate')?.value"
-                                                 *ngIf="calendarType === 'BS'"
-                                                 (messageToEmit)="basicInfo.get('citizenshipIssuedDate').patchValue($event?.eDate)"></app-calendar>
-                                   <nb-datepicker #customerCitizenshipIssuedDate></nb-datepicker>
-                                   <div *ngIf="submitted && basicInfoControls.citizenshipIssuedDate.errors"
-                                        class="small text-danger">
-                                       <div
-                                               *ngIf="basicInfoControls.citizenshipIssuedDate.errors.required || basicInfoControls.citizenshipIssuedDate.errors.beforeToday">
-                                           Registration Date is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-md-4">
-                               <div class="form-group">
-                                   <label for="otherOccupation"><strong>Occupation </strong></label>
-                                   <nb-select [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.occupation.errors }"
-                                              formControlName="occupation"
-                                              placeholder="Occupation" multiple fullWidth
-                                              (selectedChange)="occupationChange()">
-                                       <nb-option value="Business Owner">Business Owner</nb-option>
-                                       <nb-option value="Chartered Accountant">Chartered Accountant</nb-option>
-                                       <nb-option value="Lawyer">Lawyer</nb-option>
-                                       <nb-option value="Doctor">Doctor</nb-option>
-                                       <nb-option value="Engineer">Engineer</nb-option>
-                                       <nb-option value="Government Job">Government Job</nb-option>
-                                       <nb-option value="Banker">Banker</nb-option>
-                                       <nb-option value="Teaching Professional">Teaching Professional</nb-option>
-                                       <nb-option value="Banker">Salary</nb-option>
-                                       <nb-option value="Teaching Professional">Farmer</nb-option>
-                                       <nb-option value="House Wife">House Wife</nb-option>
-                                       <nb-option value="Other">Other</nb-option>
-                                   </nb-select>
-                                   <div *ngIf="submitted && basicInfoControls.occupation.errors"
-                                        class="help-block small">
+                            <app-calendar [ePreDate]="basicInfo.get('citizenshipIssuedDate')?.value"
+                                          *ngIf="calendarType === 'BS'"
+                                          (messageToEmit)="basicInfo.get('citizenshipIssuedDate').patchValue($event?.eDate)"></app-calendar>
+                            <nb-datepicker #customerCitizenshipIssuedDate></nb-datepicker>
+                            <div *ngIf="submitted && basicInfoControls.citizenshipIssuedDate.errors"
+                                 class="small text-danger">
+                                <div
+                                        *ngIf="basicInfoControls.citizenshipIssuedDate.errors.required || basicInfoControls.citizenshipIssuedDate.errors.beforeToday">
+                                    Registration Date is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="otherOccupation"><strong>Occupation </strong></label>
+                            <nb-select [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.occupation.errors }"
+                                       formControlName="occupation"
+                                       placeholder="Occupation" multiple fullWidth
+                                       (selectedChange)="occupationChange()">
+                                <nb-option value="Business Owner">Business Owner</nb-option>
+                                <nb-option value="Chartered Accountant">Chartered Accountant</nb-option>
+                                <nb-option value="Lawyer">Lawyer</nb-option>
+                                <nb-option value="Doctor">Doctor</nb-option>
+                                <nb-option value="Engineer">Engineer</nb-option>
+                                <nb-option value="Government Job">Government Job</nb-option>
+                                <nb-option value="Banker">Banker</nb-option>
+                                <nb-option value="Teaching Professional">Teaching Professional</nb-option>
+                                <nb-option value="Salary">Salary</nb-option>
+                                <nb-option value="Farmer">Farmer</nb-option>
+                                <nb-option value="House Wife">House Wife</nb-option>
+                                <nb-option value="Other">Other</nb-option>
+                            </nb-select>
+                            <div *ngIf="submitted && basicInfoControls.occupation.errors"
+                                 class="help-block small">
                 <span *ngIf="basicInfoControls.occupation.errors.required" class="text-danger">
                   <span>Occupation is required</span>
                 </span>

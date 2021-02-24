@@ -9,11 +9,13 @@ import {LoanInformationTemplateModule} from '../loan-information-template/loan-i
 import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
 import { DetailViewBaseComponent } from './detail-view-base/detail-view-base.component';
 import {MicroLoanModule} from '../micro-loan/micro-loan.module';
+import {CreditChecklistViewComponent} from '../loan-information-view/credit-checklist-view/credit-checklist-view.component';
+import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 
 
 
 @NgModule({
-  declarations: [LoanInformationDetailViewComponent, DetailViewBaseComponent],
+  declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent , DetailViewBaseComponent],
   imports: [
     CommonModule,
     LoanInformationViewModule,
@@ -22,6 +24,7 @@ import {MicroLoanModule} from '../micro-loan/micro-loan.module';
     ReportingModule,
     LoanInformationTemplateModule,
     LoanSummaryModule,
+    NepaliCalendarModule,
     MicroLoanModule,
 
   ]

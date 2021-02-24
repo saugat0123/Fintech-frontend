@@ -28,8 +28,7 @@
           <ng-select [multiple]="false"
                      formControlName="idRegPlace"
                      id="idRegPlace"
-                     [ngClass]="{ 'is-invalid': (submitted) && searchControls.idRegPlace.errors }"
-                     placeholder="Select district">
+                     [ngClass]="{ 'is-invalid': (submitted) && searchControls.idRegPlace.errors }">
             <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
               {{district?.name}}
             </ng-option>
