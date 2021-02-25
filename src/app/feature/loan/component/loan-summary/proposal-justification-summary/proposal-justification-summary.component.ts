@@ -12,8 +12,8 @@ import {environment} from '../../../../../../environments/environment';
 export class ProposalJustificationSummaryComponent implements OnInit {
   @Input() proposalData: Proposal;
   @Input() customerAllLoanList: LoanDataHolder[];
-  clients: Clients;
   client = environment.client;
+  clientList = Clients ;
   constructor() { }
 
   ngOnInit() {
