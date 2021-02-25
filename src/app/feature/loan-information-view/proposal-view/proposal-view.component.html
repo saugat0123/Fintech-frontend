@@ -123,7 +123,8 @@
         <td class="text-left pl-1">{{proposalData?.repayment}}</td>
       </tr>
       <tr class="text-white sb-bg-dark">
-        <th>Background</th>
+        <th *ngIf="client != clientName.MEGA">Background</th>
+        <th *ngIf="client == clientName.MEGA">Justification and Purpose of present proposal</th>
       </tr>
       <tr>
         <td class="text-left pl-1"><span [innerHTML]="proposalData?.borrowerInformation  | safeHtml"></span> </td>
@@ -140,10 +141,10 @@
       <tr>
         <td class="text-left pl-1">{{proposalData?.remark}}</td>
       </tr>
-      <tr class="text-white sb-bg-dark">
+      <tr class="text-white sb-bg-dark col-md-12" *ngIf="client != clientName.MEGA">
         <th>Purpose of Loan</th>
       </tr>
-      <tr>
+      <tr *ngIf="client != clientName.MEGA">
         <td class="text-left pl-1">{{proposalData?.purposeOfLoan}}</td>
       </tr>
       <ng-container *ngIf="recommendationChecked?.waiverChecked">
