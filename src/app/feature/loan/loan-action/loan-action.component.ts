@@ -107,14 +107,12 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 };
                 break;
             case 'forward':
-                // if (this.loanFlags && this.loanFlags.length > 0) {
-                //     this.loanFlags.sort((a, b) => a.order - b.order);
-                //     this.toastService.show(new Alert(AlertType.INFO, this.loanFlags[0].description));
-                //     if (!((this.loanFlags[0].flag === LoanFlag[LoanFlag.EMPTY_COMPANY_VAT_PAN_EXPIRY]) ||
-                //         (this.loanFlags[0].flag === LoanFlag[LoanFlag.COMPANY_VAT_PAN_EXPIRY]))) {
-                //         return;
-                //     }
-                // }
+                if (this.loanFlags && this.loanFlags.length > 0) {
+                    this.loanFlags.sort((a, b) => a.order - b.order);
+                    this.toastService.show(new Alert(AlertType.INFO, this.loanFlags[0].description));
+
+                        return;
+                }
                 context = {
                     popUpTitle: 'Send Forward',
                     isForward: true,
@@ -130,11 +128,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
             case 'approve':
                 if (this.loanFlags && this.loanFlags.length > 0) {
                     this.loanFlags.sort((a, b) => a.order - b.order);
-                    this.toastService.show(new Alert(AlertType.INFO, this.loanFlags[0].description));
-                    if (!((this.loanFlags[0].flag === LoanFlag[LoanFlag.EMPTY_COMPANY_VAT_PAN_EXPIRY]) ||
-                        (this.loanFlags[0].flag === LoanFlag[LoanFlag.COMPANY_VAT_PAN_EXPIRY]))) {
+
                         return;
-                    }
                 }
                 context = {
                     popUpTitle: 'Approve',

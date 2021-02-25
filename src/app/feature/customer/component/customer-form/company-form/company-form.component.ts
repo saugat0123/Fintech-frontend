@@ -53,6 +53,7 @@ import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
 import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
 import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
+import {environment} from '../../../../../../environments/environment';
 
 @Component({
     selector: 'app-company-form',
@@ -83,6 +84,7 @@ export class CompanyFormComponent implements OnInit {
     companySearch = {
         registrationNumber: undefined
     };
+    client = environment.client;
     customer: Customer = new Customer();
     customerInfo: Customer;
     companyInfo: CompanyInfo;
@@ -909,9 +911,11 @@ export class CompanyFormComponent implements OnInit {
             municipalityVdc = this.getProprietor()[proprietorsIndex].municipalityVdc;
             proprietors.municipalityVdc = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].municipalityVdc))
                 ? municipalityVdc : undefined;
-            proprietors.kycInfo = this.shareholderKyc.filter(item => item.kycId.toString() ===
-                proprietorsIndex.toString())[0].ownerKycForm.value;
-
+            if (this.client !== 'Mega Bank Nepal') {
+                console.log('sup');
+                proprietors.kycInfo = this.shareholderKyc.filter(item => item.kycId.toString() ===
+                    proprietorsIndex.toString())[0].ownerKycForm.value;
+            }
             proprietorsIndex++;
             this.companyJsonData.proprietorList.push(proprietors);
         }

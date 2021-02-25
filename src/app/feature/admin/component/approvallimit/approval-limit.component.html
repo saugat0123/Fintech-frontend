@@ -3,7 +3,16 @@
         <nb-card>
             <nb-card-header>
                 <div class=row>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
+                        <button (click)="isFilterCollapsed = !isFilterCollapsed"
+                                [attr.aria-expanded]="!isFilterCollapsed"
+                                nbButton
+                                status="primary"
+                                size="small">
+                            <i class="fa fa-filter"> Filter</i>
+                        </button>
+                    </div>
+                    <div class="col-md-6">
                         <div class="float-right">
                             <button nbButton outline status="success" size="small" (click)="add()">
                                 <i class="fa fa-plus"></i>
@@ -11,6 +20,51 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div id="searchModel" class="col-md-12" [ngbCollapse]="isFilterCollapsed">
+                        <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
+                            <div class="row py-3">
+                                <div class="col-md-3">
+<!--                                    <input formControlName="loanType" name="loanType"-->
+<!--                                           nbInput-->
+<!--                                           placeholder="Loan Type"-->
+<!--                                           type="text">-->
+                                    <select name="loanCategory" id="loanCategory"
+                                            class="custom-select" formControlName="loanCategory">
+                                        <option [ngValue]="undefined" hidden>Loan Category</option>
+                                        <option *ngFor="let loan of loanList" [value]="loan.id">
+                                            {{loan.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="custom-select" formControlName="authorities">
+                                        <option [value]="null" selected hidden>Select Authorities</option>
+                                        <option *ngFor="let role of roleList"
+                                                [selected]="role.id === model?.authorities?.id" [value]="role.id">
+                                            {{role.roleName}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="custom-select" formControlName="loanApprovalType"
+                                            name="loanApprovalType" id="loanApprovalType">
+                                        <option [ngValue]="null" hidden>Approval Type</option>
+                                        <option value="INDIVIDUAL">INDIVIDUAL</option>
+                                        <option value="INSTITUTION">INSTITUTION</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 p-0">
+                                <button nbButton status="info" size="small" type="submit" class="mr-2">Search</button>
+                                <button (click)="clearSearch()" class="mr-2" nbButton
+                                        status="danger" size="small">Clear
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
             </nb-card-header>
             <nb-card-body>
                 <table id="add-approvalLimit-table" class="table table-sm table-bordered table-hover sb-small text-center">

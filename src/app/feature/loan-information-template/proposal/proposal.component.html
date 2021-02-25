@@ -591,8 +591,12 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group" style="max-height: 300px !important;height: 250px;">
-
+                                        <div *ngIf="client==='Mega Bank Nepal'">
+                                            <label class="title"><strong><sup class="text-danger">*</sup>Justification and Purpose of present proposal</strong></label>
+                                        </div>
+                                        <div *ngIf="client!=='Mega Bank Nepal'">
                                         <label class="title"><strong><sup class="text-danger">*</sup>Background</strong></label>
+                                        </div>
                                         <!--                    <textarea-->
                                         <!--                        [ngClass]="{ 'is-invalid': (submitted) && formControls.borrowerInformation.errors }"-->
                                         <!--                        class="form-control"-->
@@ -601,7 +605,6 @@
                                         <!--                        placeholder="Borrower Information"-->
                                         <!--                        rows="3"></textarea>-->
 
-
                                         <ckeditor formControlName="borrowerInformation"
                                                   [style]="{height:'250px !important;'}"
                                                   placeholder="Background"
@@ -609,7 +612,7 @@
                                                   [config]="ckeConfig"
                                                   [ngClass]="{'is-invalid': formControls.borrowerInformation.invalid && submitted}">
                                         </ckeditor>
-                                    </div>
+                                        </div>
 
 
                                 </div>
@@ -643,12 +646,12 @@
                                             rows="3"></textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                              <div class="col-md-12" *ngIf="client !== 'Mega Bank Nepal'">
                                     <div class="form-group">
                                         <label class="title"><b>Purpose of Loan</b></label>
                                         <textarea class="form-control" [rows]="3" formControlName="purposeOfLoan" placeholder="Purpose of Loan"></textarea>
                                     </div>
-                                </div>
+                              </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title"><strong>Terms And Condition</strong></label>
