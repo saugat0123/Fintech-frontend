@@ -911,11 +911,10 @@ export class CompanyFormComponent implements OnInit {
             municipalityVdc = this.getProprietor()[proprietorsIndex].municipalityVdc;
             proprietors.municipalityVdc = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].municipalityVdc))
                 ? municipalityVdc : undefined;
-            if (this.client !== 'MEGA BANK') {
+            if (this.client !== 'Mega Bank Nepal') {
                 console.log('sup');
                 proprietors.kycInfo = this.shareholderKyc.filter(item => item.kycId.toString() ===
                     proprietorsIndex.toString())[0].ownerKycForm.value;
-
             }
             proprietorsIndex++;
             this.companyJsonData.proprietorList.push(proprietors);
