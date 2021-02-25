@@ -61,7 +61,10 @@ import { CrgGammaDetailViewComponent } from './crg-gamma-detail-view/crg-gamma-d
     NgSelectModule,
     NepaliCalendarModule,
 
-  ]
+  ],
+    entryComponents: [
+        AllDocumentViewComponent
+    ]
 })
 export class LoanInformationViewModule {
 }
