@@ -34,15 +34,6 @@
                                 [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             <app-site-visit-view *ngIf="loanHolder?.siteVisit"
                                  [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
-        <nb-card *ngIf="loanHolder?.customerType === 'INSTITUTION'">
-            <nb-card-header>
-                <h6>BASEL wise Risk Exposure</h6>
-            </nb-card-header>
-            <nb-card-body>
-                <app-micro-basel-risk-exposure-view *ngIf="loanHolder?.microBaselRiskExposure"
-                                                    [baselRiskData]="loanHolder?.microBaselRiskExposure"></app-micro-basel-risk-exposure-view>
-            </nb-card-body>
-        </nb-card>
             <!--    <app-net-trading-assets *ngIf="loanHolder?.netTradingAssets"
                                         [fromProfile]="false"
                                         [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>

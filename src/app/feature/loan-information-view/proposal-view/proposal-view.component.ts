@@ -3,6 +3,7 @@ import {Proposal} from '../../admin/modal/proposal';
 import {ActivatedRoute, Params} from '@angular/router';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
+import {LoanDataHolder} from '../../loan/model/loanData';
 
 @Component({
   selector: 'app-proposal-view',
@@ -29,7 +30,7 @@ export class ProposalViewComponent implements OnInit {
   allId;
   showInstallmentAmount = false;
   showRepaymentMode = false;
-  otherInformationAndConfirmation
+  otherInformationAndConfirmation;
 
   constructor(private activatedRoute: ActivatedRoute,
               private loanConfigService: LoanConfigService) {
