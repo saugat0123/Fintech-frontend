@@ -11,6 +11,7 @@ import {BusinessGiven} from '../../admin/modal/businessGiven';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import {environment as envSrdb} from '../../../../environments/environment.srdb';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-company-info-view',
@@ -34,6 +35,7 @@ export class CompanyInfoViewComponent implements OnInit {
   companyLocationData;
   srdbAffiliatedId = false;
   disableCrgAlpha = envSrdb.disableCrgAlpha;
+  client = environment.client;
 
   constructor() {
   }

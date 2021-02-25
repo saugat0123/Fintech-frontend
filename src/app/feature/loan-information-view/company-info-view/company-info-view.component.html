@@ -297,7 +297,8 @@
                     <td class="text-left pl-1"><strong>{{holder?.addressLine1}}</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.addressLine2}}</strong></td>
                 </tr>
-                <tr>
+
+                <tr *ngIf="client !== 'Mega Bank Nepal'">
                     <td colspan="9">
                         <table class="table border-dark">
                             <thead class="sb-bg-dark text-white">
