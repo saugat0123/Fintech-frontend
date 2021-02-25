@@ -28,13 +28,13 @@
             <tbody>
             <ng-container *ngFor="let model of loanList;let i=index">
                 <tr class="cursor">
-                    <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-                    <td>{{model?.branch?.name}}</td>
-                    <td>{{model?.name}}</td>
-                    <td>{{model?.customerType}}</td>
-                    <td>{{model?.idNumber}}</td>
-                    <td>{{model?.idRegPlace}}</td>
-                    <td>{{model?.totalLoan}}</td>
+                    <td (click)="routerUtils.routeToCustomer(model?.id,model?.customerType,model?.associateId)">{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                    <td (click)="routerUtils.routeToCustomer(model?.id,model?.customerType,model?.associateId)">{{model?.branch?.name}}</td>
+                    <td (click)="routerUtils.routeToCustomer(model?.id,model?.customerType,model?.associateId)">{{model?.name}}</td>
+                    <td (click)="routerUtils.routeToCustomer(model?.id,model?.customerType,model?.associateId)">{{model?.customerType}}</td>
+                    <td (click)="routerUtils.routeToCustomer(model?.id,model?.customerType,model?.associateId)">{{model?.idNumber}}</td>
+                    <td (click)="routerUtils.routeToCustomer(model?.id,model?.customerType,model?.associateId)">{{model?.idRegPlace}}</td>
+                    <td (click)="routerUtils.routeToCustomer(model?.id,model?.customerType,model?.associateId)">{{model?.totalLoan}}</td>
                     <td>
                         <a class="px-2" (click)="model?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
                            nbTooltip="click to view detail Loan ">
@@ -50,17 +50,28 @@
                 <ng-container *ngIf="toggleArray[i].toggled">
 
                     <tr class="text-white sb-bg-dark"
-                        *ngIf="model?.customerLoanDtoList?.length > 1 ">
+                        *ngIf="model?.customerLoanDtoList?.length > 0 ">
                         <td colspan="1">SN</td>
                         <td>Loan Facility</td>
+                        <td>Approved On</td>
+                        <td>Approved By</td>
                         <td>Proposed Amount</td>
 
+
                     </tr>
-                    <tr class=" text-center"
+                    <tr class=" text-center cursor"  nbTooltip="click to view detail Loan "
                         *ngFor="let data of model?.customerLoanDtoList;let j=index">
-                        <td>{{j + 1}}</td>
-                        <td>{{data?.loan?.name}}</td>
-                        <td>{{data?.proposal?.proposedLimit}}</td>
+                        <td (click)="routerUtils.routeToLoanSummary(data?.loan?.id,data?.id)">{{j + 1}}</td>
+                        <td (click)="routerUtils.routeToLoanSummary(data?.loan?.id,data?.id)">{{data?.loan?.name}}</td>
+                        <td (click)="routerUtils.routeToLoanSummary(data?.loan?.id,data?.id)">{{data?.currentStage?.lastModifiedAt | date}}</td>
+                        <td (click)="routerUtils.routeToLoanSummary(data?.loan?.id,data?.id)">{{data?.currentStage?.toUser?.name }}</td>
+                        <td (click)="routerUtils.routeToLoanSummary(data?.loan?.id,data?.id)" class="text-right px-2">
+                            Rs. {{data?.proposal?.proposedLimit | currencyFormatter}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><Strong>Total</Strong></td>
+                        <td colspan="3" class="text-right px-2">
+                            Rs. {{getTotal('proposal?.proposedLimit', model?.customerLoanDtoList) | currencyFormatter}}</td>
                     </tr>
                     <tr class="sb-bg-dark">
                         <td colspan="9">.</td>
