@@ -70,9 +70,15 @@ export class AssignPopUpComponent implements OnInit {
         this.spinner = true;
         this.cadService.getRoleInCad().subscribe((res: any) => {
             this.roleListInCAD = res.detail;
-            if (this.roleListInCAD.length > 1) {
+            if (this.disbursementDataAssign) {
+
+                this.roleListInCAD = this.roleListInCAD.filter(c => c.role.roleName === 'CAD');
+
+            }
+            if (this.roleListInCAD.length >= 1) {
                 this.getUserList(this.roleListInCAD[0].role);
             }
+            this.spinner = false;
 
         }, error => {
             this.spinner = false;
@@ -136,7 +142,7 @@ export class AssignPopUpComponent implements OnInit {
             this.spinner = false;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'SuccessFully Assigned Cad Document'));
             this.onClose();
-       }, error => {
+        }, error => {
             this.spinner = false;
             this.onClose();
             console.log(error);
