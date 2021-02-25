@@ -140,14 +140,12 @@
       <tr>
         <td class="text-left pl-1">{{proposalData?.remark}}</td>
       </tr>
-      <div class="col-md-12" *ngIf="client !== 'Mega Bank Nepal'">
-      <tr class="text-white sb-bg-dark col-md-12">
+      <tr class="text-white sb-bg-dark col-md-12" *ngIf="client !== 'Mega Bank Nepal'">
         <th>Purpose of Loan</th>
       </tr>
-      <tr>
+      <tr *ngIf="client !== 'Mega Bank Nepal'">
         <td class="text-left pl-1">{{proposalData?.purposeOfLoan}}</td>
       </tr>
-      </div>
       <ng-container *ngIf="recommendationChecked?.waiverChecked">
         <tr class="text-white sb-bg-dark">
           <th>Waiver/Deviation</th>
