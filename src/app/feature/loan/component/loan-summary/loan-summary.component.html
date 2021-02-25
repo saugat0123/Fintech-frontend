@@ -30,6 +30,17 @@
                         </span>
                         <em class="fas fa-forward"></em>
                     </button>
+                    <button *ngIf="!disableApprovalSheetFlag"
+                            nbButton
+                            shape="rectangle"
+                            status="success"
+                            class="float-right"
+                            size="tiny" (click)="openApprovalSheetInfoModal()">
+                        <span class="text-right">
+                            Approval Config
+                        </span>
+                        <em class="fas fa-forward"></em>
+                    </button>
                 </div>
             </div>
             <div *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId"

@@ -1,0 +1,30 @@
+<nb-card accent="primary" [nbSpinner]="spinner">
+    <nb-card-header>Approval Info</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+          <div class="col-md-12" [hidden]="isCommittee">
+              <label>Select Documents for Post Approval</label>
+              <ng-select
+                      [items]="loanConfig?.approvedDocument"
+                      bindLabel="name"
+                      [appendTo]="'body'"
+                      placeholder="Select Documents"
+                      [multiple]="true"
+                      [(ngModel)]="postApprovalDocIdList"
+                      bindValue="id"
+              ></ng-select>
+          </div>
+          <div class="col-md-12 mt-4">
+              <label>Authority Comments</label>
+              <ckeditor [(ngModel)]="authorityReviewComments"
+                        [config]="ckeConfig"></ckeditor>
+          </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="col-md-12">
+            <button class="btn btn-danger" (click)="close()">Cancel</button>
+            <button class="btn btn-primary float-right" (click)="submit()">Submit</button>
+        </div>
+    </nb-card-footer>
+</nb-card>

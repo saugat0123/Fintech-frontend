@@ -36,7 +36,7 @@ import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 import {RouteConst} from '../../../credit-administration/model/RouteConst';
-import {LoginGuard} from '../../../../shared-service/authentication/login.guard';
+import {ApprovalSheetInfoComponent} from './approval-sheet-info/approval-sheet-info.component';
 
 @Component({
     selector: 'app-loan-summary',
@@ -588,6 +588,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     SetRoleHierarchy(loanId: number) {
         this.router.navigate(['home/approval-role-hierarchy', 'LOAN', loanId]);
+    }
+
+    openApprovalSheetInfoModal() {
+        const modal = this.modalService.open(ApprovalSheetInfoComponent, {size: 'lg'});
+        modal.componentInstance.loanConfig = this.loanConfig;
     }
 }
 
