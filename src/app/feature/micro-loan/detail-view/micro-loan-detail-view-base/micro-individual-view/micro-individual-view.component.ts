@@ -5,6 +5,7 @@ import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
 import {environment} from '../../../../../../environments/environment.srdb';
 import {CalendarType} from '../../../../../@core/model/calendar-type';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {LoanDataHolder} from '../../../../loan/model/loanData';
 
 @Component({
   selector: 'app-micro-individual-view',

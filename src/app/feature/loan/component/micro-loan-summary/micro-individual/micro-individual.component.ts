@@ -26,7 +26,6 @@ export class MicroIndividualComponent implements OnInit {
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.customerInfo)) {
       this.individualJsonData = JSON.parse(this.customerInfo.individualJsonData);
-      // this.customerLocationData = JSON.parse(this.customerInfo.individualJsonData.address);
       this.contact = JSON.parse(this.customerInfo.contactNumber);
       this.otherInformationAndConfirmation = JSON.parse(this.loanDataHolder.proposal.data);
     }

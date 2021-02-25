@@ -19,8 +19,8 @@
                 <td>{{individualJsonData?.microCustomerDetail['bankDistance'] || 'NA'}}</td>
                 <td>{{individualJsonData?.microCustomerDetail['riskClassificationPercent'] || 'NA'}}</td>
                 <td>{{individualJsonData?.microCustomerDetail['riskClassificationBase'] || 'NA'}}</td>
-                <td>{{customerInfo?.clientType || 'NA'}}</td>
-                <td>{{customerInfo?.subsectorDetail || 'NA'}}</td>
+                <td>{{loanDataHolder?.loanHolder['clientType'] || 'NA'}}</td>
+                <td>{{loanDataHolder?.loanHolder['subsectorDetail'] || 'NA'}}</td>
             </tbody>
         </table>
     </div>
@@ -238,7 +238,7 @@
                 <th>Deviation</th>
             </thead>
             <tbody>
-            <td><span [innerHTML]="otherInformationAndConfirmation?.waiverConclusionRecommendation"></span></td>
+            <td><span [innerHTML]="otherInformationAndConfirmation?.waiverConclusionRecommendation | safeHtml"></span></td>
             </tbody>
         </table>
     </div>
@@ -248,7 +248,7 @@
             <th class="sb-bg-dark text-white">Overall Justification / Recommendation</th>
             </thead>
             <tbody>
-            <td><span [innerHTML]="otherInformationAndConfirmation?.summeryRecommendation"></span></td>
+            <td><span [innerHTML]="otherInformationAndConfirmation?.summeryRecommendation | safeHtml"></span></td>
             </tbody>
         </table>
     </div>
