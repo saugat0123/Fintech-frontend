@@ -124,7 +124,7 @@
       </tr>
       <tr class="text-white sb-bg-dark">
         <th *ngIf="client != clientName.MEGA">Background</th>
-        <th *ngIf="client != clientName.MEGA">Justification and Purpose of present proposal</th>
+        <th *ngIf="client == clientName.MEGA">Justification and Purpose of present proposal</th>
       </tr>
       <tr>
         <td class="text-left pl-1"><span [innerHTML]="proposalData?.borrowerInformation  | safeHtml"></span> </td>

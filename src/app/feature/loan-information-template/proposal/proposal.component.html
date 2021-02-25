@@ -592,7 +592,8 @@
                                 <div class="col-md-12">
                                     <div class="form-group" style="max-height: 300px !important;height: 250px;">
 
-                                        <label class="title"><strong><sup class="text-danger">*</sup>Background</strong></label>
+                                        <label class="title" *ngIf="client != clientName.MEGA"><strong><sup class="text-danger">*</sup>Background</strong></label>
+                                        <label class="title" *ngIf="client == clientName.MEGA"><strong><sup class="text-danger">*</sup>Justification and Purpose of present proposal</strong></label>
                                         <!--                    <textarea-->
                                         <!--                        [ngClass]="{ 'is-invalid': (submitted) && formControls.borrowerInformation.errors }"-->
                                         <!--                        class="form-control"-->
@@ -619,7 +620,10 @@
                                 <div class="col-md-12" style="padding-top: 70px;">
                                     <div *ngIf="submitted">
                     <span *ngIf="formControls.borrowerInformation.invalid" class="text-danger">
-                      <sup>*</sup>Background Information is required.</span>
+                      <sup>*</sup>
+                        <div *ngIf="client != clientName.MEGA">Background Information is required.</div>
+                        <div *ngIf="client == clientName.MEGA">Justification and Purpose of present proposal</div>
+                    </span>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mt-3">
