@@ -1,7 +1,7 @@
 <div class="container nep text-justify">
     <form [formGroup]="personalGuarantee"  class="nep" id="personalGuarantee">
         <h4 class="text-center">जमानीपत्र</h4>
-        <div class="row">
+        <div class="row align">
             <div class="col-md-12">
                 <p>
                     लखितम् ब्यक्तिगत जमानीको लिखत गराइ लिनेका नाम प्रचलित नेपाल कानून बमोजिम संस्थापित तथा संचालित मेगा बैंक नेपाल लिमिटेडको
@@ -194,7 +194,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row align">
             <div class="col-md-12">
                 <h5 class="text-center">तपसील</h5>
                 <p>
@@ -248,7 +248,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row align">
             <div class="col-md-12">
                 <p>इति सम्बत <input class="form-field form-control-sm nepaliFont disable-print"
                                     name="documentWrittenYear"
@@ -284,7 +284,7 @@
         </div>
 
         <div class="evidence">
-            <div class="row">
+            <div class="row align">
                 <div class="col-md-12">
                     <h5 class="text-center">साक्षीः</h5>
                     <p>
@@ -336,7 +336,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row disable-print">
             <div class="col-md-12 text-right">
                 <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="personalGuarantee" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
                 <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="personalGuarantee" class="mr-2 custom-color" >Print</button>

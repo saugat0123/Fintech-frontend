@@ -55,7 +55,7 @@
                         बस्ने वर्ष
                         <strong class="nepaliFont">{{promissoryJoint.age}}</strong>
                         <span>{{promissoryJoint?.gender==0?'कीे':'को'}}</span>
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field form-control-sm nepaliFont disable-print"
                                formControlName="relation"
                                placeholder=""
                                type="text"/><span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('relation').value ? promissoryNoteJoint.get('relation').value  : '========='}}</b></span>
@@ -133,8 +133,16 @@
                                                                 formControlName="branch"
                                                                 placeholder=""
                                                                 type="text"/> <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('branch').value ? promissoryNoteJoint.get('branch').value  : '========='}}</b></span>    
-                        कार्यालयले भुक्तानी माग गरेका वखत तपाईलाई वा तपाईले निर्देशन दिएको व्यक्ति/संस्थालाई रु. <span class="nepaliFont form-field">{{promissoryNoteJoint.get('amount').value}}</span>/–
-                        (अक्षरेपी <span class="nepaliFont form-field">{{promissoryNoteJoint.get('amountInWords').value}}</span>) र भुक्तानी माग गरेको मिति सम्मको बार्षिक
+                        कार्यालयले भुक्तानी माग गरेका वखत तपाईलाई वा तपाईले निर्देशन दिएको व्यक्ति/संस्थालाई रु.<input class="form-field form-control-sm nepaliFont disable-print"
+                        formControlName="amount"
+                        placeholder=""
+                        type="text"/>
+                        <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('amount').value ? promissoryNoteJoint.get('amount').value : '========='}}</b></span>/–
+                        (अक्षरेपी <input class="form-field form-control-sm nepaliFont disable-print"
+                        formControlName="amountInWords"
+                         placeholder=""
+                         type="text"/>
+                        <span class="print-only nepaliFont"><b>{{promissoryNoteJoint.get('amountInWords').value ? promissoryNoteJoint.get('amountInWords').value : '========='}}</b></span>) र भुक्तानी माग गरेको मिति सम्मको बार्षिक
                         <input class="form-field form-control-sm nepaliFont disable-print"
                                formControlName="annualRate"
                                placeholder=""

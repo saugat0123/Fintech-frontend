@@ -1,6 +1,7 @@
 <div class="container nep text-justify">
     <form [formGroup]="promissorySingleNote" class="nep" id="promissorySingleNote">
         <div>
+            <div class="row align">
             <h1 style="text-align: center;">
                 प्रतिज्ञा पत्र
                 <br>
@@ -11,8 +12,9 @@
             <p style="text-align: end;">
                 मिति: <input class="form-field form-control-sm nepaliFont disable-print" name="date" formControlName="date" placeholder=""type="text"/></p>
             <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('date').value ? promissorySingleNote.get('date').value  : '========='}}</b></span>
-        </div> <!-- Header -->
-        <div class="col-md-12">
+            </div>
+            </div> <!-- Header -->
+        <div class="col-md-12 align">
             <p>रु<input class="form-field form-control-sm nepaliFont disable-print" formControlName="amount" name="amount" placeholder="" type="text"/>
                 <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('amount').value ? promissorySingleNote.get('amount').value  : '========='}}</b></span>
                 (अक्षरेपी <input class="form-field form-control-sm nepaliFont disable-print"name="amountInWord"  formControlName="amountInWord" placeholder=""  type="text"/>
@@ -114,7 +116,7 @@
             </p>
         </div> <!-- Main with form -->
 
-        <div class="row">
+        <div class="row align">
             <div class="column left" style="background-color:rgb(255, 255, 255);">
 
             </div>
@@ -141,7 +143,7 @@
 
 
 
-        <div class="row">
+        <div class="row align">
             <div class="col-md-12">
                 <h5>साक्षीः</h5>
                 <p>
@@ -186,7 +188,7 @@
             </div>
         </div>
         <!-- Footer -->
-        <div class="row">
+        <div class="row disable-print">
             <div class="col-md-12 text-right">
                 <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="promissorySingleNote" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
                 <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="promissorySingleNote" class="mr-2 custom-color" >Print</button>
