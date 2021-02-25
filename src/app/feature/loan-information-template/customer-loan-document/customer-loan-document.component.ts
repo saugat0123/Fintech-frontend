@@ -82,9 +82,6 @@ export class CustomerLoanDocumentComponent implements OnInit {
                     case LoanType.FULL_SETTLEMENT_LOAN:
                         this.initialDocuments = this.loanConfig.fullSettlement;
                         break;
-                    case LoanType.REINITIATE_LOAN:
-                        this.initialDocuments = this.loanConfig.initial;
-                        break;
                     default:
                         this.initialDocuments = this.loanConfig.initial;
                 }
@@ -148,9 +145,6 @@ export class CustomerLoanDocumentComponent implements OnInit {
             }
             if (LoanType[this.loanDataHolder.loanType] === LoanType.PARTIAL_SETTLEMENT_LOAN) {
                 formData.append('action', 'PARTIAL_SETTLEMENT_LOAN');
-            }
-            if (LoanType[this.loanDataHolder.loanType] === LoanType.REINITIATE_LOAN) {
-                formData.append('action', 'REINITIATE_LOAN');
             }
             this.loanFormService.uploadFile(formData).subscribe(
                 (result: any) => {

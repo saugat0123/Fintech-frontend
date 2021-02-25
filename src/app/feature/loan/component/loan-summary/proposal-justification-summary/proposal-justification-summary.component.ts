@@ -17,7 +17,6 @@ export class ProposalJustificationSummaryComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('hello', this.clients);
   }
 
 }

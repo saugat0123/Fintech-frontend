@@ -220,16 +220,13 @@
                         {{model?.createdAt | date}}
                     </div>
                 </td>
-                <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model.documentStatus == docStatus[docStatus.APPROVED] || model.documentStatus == docStatus[docStatus.REJECTED]) && !model.isCloseRenew ); else linkin">
+                <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew); else linkin">
                     <select [(ngModel)]="tempLoanType" class="custom-select py-0"
                             (ngModelChange)="onChange(model,onActionChange)">
                         <option [value]="null" selected hidden>Select Type</option>
                         <ng-container *ngIf="showUpdateLoanInfo(model?.loanHolder?.loanFlags)">
                             <option value="UPDATE_LOAN_INFORMATION" [ngStyle]="{color: 'red'}">Update Loan Information
                             </option>
-                        </ng-container>
-                        <ng-container *ngIf="model.documentStatus == docStatus[docStatus.REJECTED]">
-                            <option value="REINITIATE_LOAN">Re Initiate</option>
                         </ng-container>
                         <ng-container
                                 *ngIf="model.documentStatus == docStatus[docStatus.APPROVED] && !model.isCloseRenew ">

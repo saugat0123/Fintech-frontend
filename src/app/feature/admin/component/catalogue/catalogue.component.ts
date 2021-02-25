@@ -80,7 +80,6 @@ export class CatalogueComponent implements OnInit {
         {name: 'Enhance Loan', value: 'ENHANCED_LOAN', closeRenewFilter: true},
         {name: 'Partial Settle Loan', value: 'PARTIAL_SETTLEMENT_LOAN', closeRenewFilter: true},
         {name: 'Full Settle Loan', value: 'FULL_SETTLEMENT_LOAN', closeRenewFilter: true},
-        {name: 'Re Initiated Loan', value: 'REINITIATED_LOAN', closeRenewFilter: true},
     ];
     transferSpinner = false;
 
@@ -252,9 +251,6 @@ export class CatalogueComponent implements OnInit {
                 } else if (paramsValue.search === 'PENDING') {
                     this.catalogueService.search.documentStatus = ObjectUtil.isEmpty(this.filterForm.get('docStatus').value) ?
                         DocStatus.value(DocStatus.PENDING) : this.filterForm.get('docStatus').value;
-                } else if (paramsValue.search === 'REINITIATE') {
-                    this.catalogueService.search.documentStatus = ObjectUtil.isEmpty(this.filterForm.get('docStatus').value) ?
-                        DocStatus.value(DocStatus.PENDING) : this.filterForm.get('docStatus').value;
                 } else if (this.filterForm.get('docStatus').value === 'null' ||
                     this.filterForm.get('docStatus').value === null) {
                     this.catalogueService.search.documentStatus = null;
@@ -346,7 +342,6 @@ export class CatalogueComponent implements OnInit {
     changeAction() {
         this.onActionChangeSpinner = true;
         this.loanDataHolder.loanType = this.tempLoanType;
-        console.log('Loand ', this.loanDataHolder);
         this.loanFormService.renewLoan(this.loanDataHolder).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated loan type.'));
                 this.modalService.dismissAll('Close modal');

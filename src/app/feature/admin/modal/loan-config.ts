@@ -23,7 +23,6 @@ export class LoanConfig {
     renew: Array<Document>;
     closure: Array<Document>;
     enhance: Array<Document>;
-    reInitiate: Array<Document>;
     partialSettlement: Array<Document>;
     fullSettlement: Array<Document>;
     eligibilityDocuments: Array<Document>;

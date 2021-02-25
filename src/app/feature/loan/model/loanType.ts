@@ -5,7 +5,6 @@ export enum LoanType {
     ENHANCED_LOAN = 'Enhanced Loan',
     PARTIAL_SETTLEMENT_LOAN = 'Partial Settlement Loan',
     FULL_SETTLEMENT_LOAN = 'Full Settlement Loan',
-    REINITIATE_LOAN = 'Reinitiate Loan',
 }
 
 export namespace LoanType {
