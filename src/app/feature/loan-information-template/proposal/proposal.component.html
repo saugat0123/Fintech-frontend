@@ -391,7 +391,7 @@
                                 <div class="col-md-4"
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
                                     <div class="form-group">
-                                        <label class="title" for="commitmentFee"><strong>Commitment Fee</strong></label>
+                                        <label class="title" for="commitmentFee"><strong>Commitment Fee (in%)</strong></label>
                                         <input
                                                 class="form-control"
                                                 formControlName="commitmentFee" id="commitmentFee"
@@ -557,6 +557,12 @@
                                 <!--                end of Moratorium Period amount div-->
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label class="title"><b>Purpose of Loan</b></label>
+                                        <textarea class="form-control" [rows]="3" formControlName="purposeOfLoan" placeholder="Purpose of Loan"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <label class="title" for="disbursementCriteria"><strong>Disbursement
                                             Criteria</strong></label>
                                         <textarea
@@ -622,6 +628,16 @@
                       <sup>*</sup>Background Information is required.</span>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Terms And Condition</strong></label>
+                                        <ckeditor formControlName="termsAndCondition"
+                                                  [style]="{height:'250px !important;'}"
+                                                  placeholder="Terms & Condition"
+                                                  [config]="ckeConfig">
+                                        </ckeditor>
+                                    </div>
+                                </div>
                                 <div class="col-md-12 mt-3">
                                     <div class="form-group">
                                         <label class="title"><strong>Summary & Recommendation</strong></label>
@@ -641,22 +657,6 @@
                                             name="remark"
                                             placeholder="Remarks"
                                             rows="3"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="title"><b>Purpose of Loan</b></label>
-                                        <textarea class="form-control" [rows]="3" formControlName="purposeOfLoan" placeholder="Purpose of Loan"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="title"><strong>Terms And Condition</strong></label>
-                                        <ckeditor formControlName="termsAndCondition"
-                                                  [style]="{height:'250px !important;'}"
-                                                  placeholder="Terms & Condition"
-                                                  [config]="ckeConfig">
-                                        </ckeditor>
                                     </div>
                                 </div>
                                 <div class="col-md-12 form-group">
