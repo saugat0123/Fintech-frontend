@@ -123,7 +123,8 @@
         <td class="text-left pl-1">{{proposalData?.repayment}}</td>
       </tr>
       <tr class="text-white sb-bg-dark">
-        <th>Background</th>
+        <th *ngIf="client !== 'Mega Bank Nepal'">Background</th>
+        <th *ngIf="client === 'Mega Bank Nepal'">Justification and Purpose of present proposal</th>
       </tr>
       <tr>
         <td class="text-left pl-1"><span [innerHTML]="proposalData?.borrowerInformation  | safeHtml"></span> </td>
