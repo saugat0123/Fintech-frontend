@@ -13,7 +13,7 @@ export class ProposalJustificationSummaryComponent implements OnInit {
   @Input() proposalData: Proposal;
   @Input() customerAllLoanList: LoanDataHolder[];
   client = environment.client;
-  clientList = Clients ;
+  clientName = Clients ;
   constructor() { }
 
   ngOnInit() {

@@ -33,7 +33,7 @@ export class ProposalViewComponent implements OnInit {
   showRepaymentMode = false;
 
   client = environment.client;
-  clientList = Clients;
+  clientName = Clients;
 
 
   constructor(private activatedRoute: ActivatedRoute,

@@ -58,7 +58,7 @@ export class ProposalComponent implements OnInit {
   showInstallmentAmount = false;
   showRepaymentMode = false;
   client = environment.client;
-  clientList = Clients;
+  clientName = Clients;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,

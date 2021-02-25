@@ -86,7 +86,7 @@ export class CompanyFormComponent implements OnInit {
         registrationNumber: undefined
     };
     client = environment.client;
-    clientList = Clients;
+    clientName = Clients;
     customer: Customer = new Customer();
     customerInfo: Customer;
     companyInfo: CompanyInfo;
@@ -913,7 +913,7 @@ export class CompanyFormComponent implements OnInit {
             municipalityVdc = this.getProprietor()[proprietorsIndex].municipalityVdc;
             proprietors.municipalityVdc = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].municipalityVdc))
                 ? municipalityVdc : undefined;
-            if (this.clientList.name !== `MEGA`) {
+            if ( this.client !== this.clientName.MEGA) {
                 proprietors.kycInfo = this.shareholderKyc.filter(item => item.kycId.toString() ===
                     proprietorsIndex.toString())[0].ownerKycForm.value;
             }

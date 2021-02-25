@@ -82,7 +82,7 @@ export class LoanFormComponent implements OnInit {
     ];
 
     client = environment.client;
-    clientList = Clients;
+    clientName = Clients;
 
     customerId: number;
     id;
@@ -639,9 +639,7 @@ export class LoanFormComponent implements OnInit {
     }
 
     loadProposal() {
-        if (this.loanDocument.proposal === undefined && this.clientList.name === `MEGA`) {
-            return null;
-        } if (this.loanDocument.proposal === undefined) {
+        if (this.loanDocument.proposal === undefined) {
             return undefined;
         } else {
             return this.loanDocument.proposal;
