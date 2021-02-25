@@ -56,6 +56,7 @@ import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-
 import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
 import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
 import {environment} from '../../../../../environments/environment.srdb';
+import {Clients} from '../../../../../environments/Clients';
 
 @Component({
     selector: 'app-loan-form',
@@ -79,6 +80,9 @@ export class LoanFormComponent implements OnInit {
             templateUrl: null
         }
     ];
+
+    client = environment.client;
+    clientName = Clients;
 
     customerId: number;
     id;
