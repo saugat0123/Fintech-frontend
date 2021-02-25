@@ -84,7 +84,7 @@
       </tr>
       <tr>
         <td *ngIf="loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving" class="text-right pr-1">{{proposalData?.tenorOfEachDeal}}</td>
-        <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.prepaymentCharge}}</td>
+        <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.prepaymentCharge}}%</td>
         <td class="text-left pl-1">{{proposalData?.collateralRequirement}}</td>
         <td class="text-left pl-1">{{proposalData?.limitExpiryMethod}}</td>
         <td *ngIf="proposalData?.limitExpiryMethod === 'ABSOLUTE'" class="text-left pl-1">{{proposalData?.dateOfExpiry | date}}</td>
