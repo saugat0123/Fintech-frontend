@@ -27,6 +27,7 @@ import {CbsGroupModule} from '../../../cbs-group/cbs-group.module';
 import { ApprovalSheetConfigComponent } from './approval-sheet-config/approval-sheet-config.component';
 import { ApprovalSheetInfoComponent } from './approval-sheet-info/approval-sheet-info.component';
 import {NgSelectModule} from '@ng-select/ng-select';
+import { ApprovalSheetDocumentListComponent } from './approval-sheet/approval-sheet-document-list/approval-sheet-document-list.component';
 
 
 const COMPONENTS = [
@@ -53,7 +54,7 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent ],
+    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent ],
     imports: [
         CommonModule,
         ThemeModule,

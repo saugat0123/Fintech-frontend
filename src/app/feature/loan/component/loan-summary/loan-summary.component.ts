@@ -593,6 +593,12 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     openApprovalSheetInfoModal() {
         const modal = this.modalService.open(ApprovalSheetInfoComponent, {size: 'lg'});
         modal.componentInstance.loanConfig = this.loanConfig;
+        modal.componentInstance.loanDataHolder = this.loanDataHolder;
+        modal.result.then(loanDataHolder => {
+            if (!ObjectUtil.isEmpty(loanDataHolder)) {
+                this.loanDataHolder = loanDataHolder;
+            }
+        });
     }
 }
 

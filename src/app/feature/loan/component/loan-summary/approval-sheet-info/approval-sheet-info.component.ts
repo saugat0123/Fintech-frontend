@@ -3,10 +3,12 @@ import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {RoleType} from '../../../../admin/modal/roleType';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {ModalResponse, ToastService} from '../../../../../@core/utils';
+import {ToastService} from '../../../../../@core/utils';
 import {LoanFormService} from '../../loan-form/service/loan-form.service';
 import {LoanDataHolder} from '../../../model/loanData';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Editor} from '../../../../../@core/utils/constants/editor';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-approval-sheet-info',
@@ -29,14 +31,28 @@ export class ApprovalSheetInfoComponent implements OnInit {
 
   constructor(
       private loanFormService: LoanFormService,
+      private modalRef: NgbActiveModal,
       private toastService: ToastService,
       private ngbModal: NgbModal
   ) {
   }
 
   ngOnInit() {
-    console.log(LocalStorageUtil.getStorage().roleType , RoleType.COMMITTEE , this.isCommittee);
+    this.spinner = true;
+    this.ckeConfig = Editor.CK_CONFIG;
+    console.log(this.loanDataHolder.postApprovalDocIdList);
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.postApprovalDocIdList)) {
+      console.log('nonempty');
+      this.postApprovalDocIdList = JSON.parse(this.loanDataHolder.postApprovalDocIdList);
+    } else {
+      if (this.loanConfig.approvedDocument.length > 0) {
+        console.log('emoty');
+        this.postApprovalDocIdList = this.loanConfig.approvedDocument.map(value => value.id);
+      }
+    }
+    console.log(LocalStorageUtil.getStorage().roleType, RoleType.COMMITTEE, this.isCommittee);
     console.log(this.loanConfig);
+    this.spinner = false;
   }
 
   submit() {
@@ -44,19 +60,19 @@ export class ApprovalSheetInfoComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.postApprovalDocIdList);
     this.spinner = true;
     this.loanDataHolder.postApprovalDocIdList = JSON.stringify(this.postApprovalDocIdList);
-    this.loanDataHolder.authorityReviewComments = JSON.stringify(this.authorityReviewComments);
+    this.loanDataHolder.authorityReviewComments = this.authorityReviewComments;
     this.loanFormService.save(this.loanDataHolder).subscribe((response: any) => {
-      this.loanDataHolder = response.detail;
+      this.modalRef.close(response.detail);
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.SUCCESS, `Successfully Saved Approval Info`));
-      this.close();
     }, error => {
       console.error(error);
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.ERROR, `Error Saving Approval Info: ${error.error.message}`));
-      this.close();
+      this.modalRef.close({});
     });
   }
 
