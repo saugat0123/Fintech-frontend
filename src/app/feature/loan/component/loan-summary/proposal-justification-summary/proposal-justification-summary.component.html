@@ -1,5 +1,7 @@
 <div class="py-2">
-    <span><strong>Justification of Facilities:</strong></span>
+    <div *ngIf="client==='Mega Bank Nepal'"><span><strong>Justification and purpose of present proposal:</strong></span></div>
+    <div *ngIf="client!=='Mega Bank Nepal'"><span><strong>Justification of Facilities:</strong></span></div>
+
     <hr>
     <div class="py-2">
         <ol>
