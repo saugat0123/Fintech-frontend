@@ -116,6 +116,17 @@ export class RouterUtilsService {
 
     }
 
+
+    routeToLoanSummary(loanConfigId: number, customerId: number) {
+        this.router.navigate(['/home/loan/summary'], {
+            queryParams: {
+                loanConfigId: loanConfigId,
+                customerId: customerId,
+                catalogue: true
+            }
+        });
+    }
+
     encryptUrl(id) {
         const i = CryptoJS.AES.encrypt(id.toString(), 'id').toString();
         return i;

@@ -24,6 +24,13 @@ export class FeatureComponent implements OnInit {
     constructor(private menuService: FeatureMenuService,
                 private spinner: NgxSpinnerService,
                 private router: Router) {
+        this.router.events.subscribe(event => {
+            if (event instanceof RouteConfigLoadStart) {
+                this.spinner.show();
+            } else if (event instanceof RouteConfigLoadEnd) {
+                this.spinner.hide();
+            }
+        });
     }
 
     ngOnInit() {
@@ -53,13 +60,7 @@ export class FeatureComponent implements OnInit {
                 console.log(error);
             });
 
-        this.router.events.subscribe(event => {
-            if (event instanceof RouteConfigLoadStart) {
-                this.spinner.show();
-            } else if (event instanceof RouteConfigLoadEnd) {
-                this.spinner.hide();
-            }
-        });
+
     }
 
 
