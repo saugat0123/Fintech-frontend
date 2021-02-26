@@ -8,6 +8,9 @@ import {NbDialogService} from '@nebular/theme';
 import {AssignPopUpComponent} from '../assign-pop-up/assign-pop-up.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
+import {RouterUtilsService} from '../../utils/router-utils.service';
+import {LoanDataHolder} from '../../../loan/model/loanData';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-unassigned-loan',
@@ -26,7 +29,8 @@ export class UnassignedLoanComponent implements OnInit {
     constructor(private service: CreditAdministrationService,
                 private spinnerService: NgxSpinnerService,
                 private nbModalService: NbDialogService,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                public routerUtils: RouterUtilsService) {
     }
 
     static loadData(other: UnassignedLoanComponent) {
@@ -52,12 +56,33 @@ export class UnassignedLoanComponent implements OnInit {
     }
 
     openAssignPopUp(data: CustomerApprovedLoanCadDocumentation) {
-       const comp = this.modalService.open(AssignPopUpComponent);
-       comp.componentInstance.cadData = data;
+        const comp = this.modalService.open(AssignPopUpComponent);
+        comp.componentInstance.cadData = data;
     }
 
-    setSearchValue(value){
+    setSearchValue(value) {
         this.searchObj = value;
         UnassignedLoanComponent.loadData(this);
     }
+
+
+    public getTotal(key: string, loanList: LoanDataHolder[]): number {
+        return this.isNumber(loanList
+            .map(l => (l.proposal.proposedLimit))
+            .reduce((a, b) => a + b, 0));
+
+    }
+
+    isNumber(value) {
+        if (ObjectUtil.isEmpty(value)) {
+            return 0;
+        }
+        if (Number.isNaN(value)) {
+            return 0;
+        } else {
+            return value;
+        }
+
+    }
+
 }
