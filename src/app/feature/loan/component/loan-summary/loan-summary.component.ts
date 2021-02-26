@@ -152,6 +152,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
     roleType;
+    showApprovalSheetInfo = false;
 
 
     constructor(
@@ -185,7 +186,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.loanDataHolder = this.loanData;
         this.loadSummary();
         this.roleType = LocalStorageUtil.getStorage().roleType;
-
+        this.checkDocUploadConfig();
     }
 
     ngOnDestroy(): void {
@@ -592,6 +593,14 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         const modal = this.modalService.open(ApprovalSheetInfoComponent, {size: 'lg'});
         modal.componentInstance.loanConfig = this.loanConfig;
         modal.componentInstance.loanDataHolder = this.loanData;
+    }
+
+    checkDocUploadConfig() {
+        const storage = LocalStorageUtil.getStorage();
+        const docStatus = this.loanDataHolder.documentStatus.toString();
+        this.showApprovalSheetInfo = docStatus !== 'APPROVED' && docStatus !== 'CLOSED' && docStatus !== 'REJECTED'
+            && storage.roleType === 'COMMITTEE'
+            && this.loanDataHolder.currentStage.toUser.id === Number(storage.userId);
     }
 }
 
