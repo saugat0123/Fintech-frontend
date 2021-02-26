@@ -15,21 +15,21 @@
             <tbody>
             <tr>
                 <td>Corporate Claim</td>
-                <td>{{baselRiskExposure?.corporationClaimBookValue}}</td>
-                <td>{{baselRiskExposure?.corporationClaimSpecificProvision}}</td>
-                <td>{{baselRiskExposure?.corporationClaimEligible}}</td>
-                <td>{{baselRiskExposure?.corporationClaimNetValue}}</td>
-                <td>{{baselRiskExposure?.corporationClaimRiskWeight}}</td>
-                <td>{{baselRiskExposure?.corporationClaimRwe}}</td>
+                <td>Rs {{baselRiskExposure?.corporationClaimBookValue || 'NA'}} /-</td>
+                <td>Rs {{baselRiskExposure?.corporationClaimSpecificProvision || 'NA'}} /-</td>
+                <td>Rs {{baselRiskExposure?.corporationClaimEligible || 'NA'}} /-</td>
+                <td>Rs {{baselRiskExposure?.corporationClaimNetValue || 'NA'}} /-</td>
+                <td>{{baselRiskExposure?.corporationClaimRiskWeight || 'NA'}}</td>
+                <td>Rs {{baselRiskExposure?.corporationClaimRwe || 'NA'}} /-</td>
             </tr>
             <tr>
                 <td>Off Balance Sheet Item</td>
-                <td>{{baselRiskExposure?.OffBalanceSheetItemBookValue}}</td>
-                <td>{{baselRiskExposure?.OffBalanceSheetItemSpecificProvision}}</td>
-                <td>{{baselRiskExposure?.OffBalanceSheetItemEligible}}</td>
-                <td>{{baselRiskExposure?.OffBalanceSheetItemNetValue}}</td>
-                <td>{{baselRiskExposure?.OffBalanceSheetItemRiskWeight}}</td>
-                <td>{{baselRiskExposure?.OffBalanceSheetItemRwe}}</td>
+                <td>Rs {{baselRiskExposure?.OffBalanceSheetItemBookValue || 'NA'}} /-</td>
+                <td>Rs {{baselRiskExposure?.OffBalanceSheetItemSpecificProvision || 'NA'}} /-</td>
+                <td>Rs {{baselRiskExposure?.OffBalanceSheetItemEligible || 'NA'}} /-</td>
+                <td>Rs {{baselRiskExposure?.OffBalanceSheetItemNetValue || 'NA'}} /-</td>
+                <td>{{baselRiskExposure?.OffBalanceSheetItemRiskWeight || 'NA'}}</td>
+                <td>Rs {{baselRiskExposure?.OffBalanceSheetItemRwe || 'NA'}} /-</td>
             </tr>
             </tbody>
         </table>

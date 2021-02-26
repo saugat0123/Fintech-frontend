@@ -17,6 +17,12 @@
                 <h6>BASEL wise Risk Exposure</h6>
             </nb-card-header>
             <nb-card-body>
+                <app-micro-basel-risk-exposure-view *ngIf="loanHolder?.microBaselRiskExposure"
+                                             [baselRiskData]="loanHolder?.microBaselRiskExposure"></app-micro-basel-risk-exposure-view>
+            </nb-card-body>
+        </nb-card>
+        <nb-card *ngIf="loanHolder?.customerType === 'INSTITUTION'">
+            <nb-card-body>
                 <app-borrower-portfolio-view *ngIf="loanHolder?.borrowerPortFolio"
                                              [borrowerData]="loanHolder?.borrowerPortFolio"></app-borrower-portfolio-view>
             </nb-card-body>

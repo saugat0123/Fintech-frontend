@@ -83,8 +83,8 @@ export class BaselRiskExposureComponent implements OnInit {
   public calculateCorporateRWE() {
     const netValue = Number(this.baselRiskExposureForm.get('corporationClaimNetValue').value);
     const riskWeight = Number(this.baselRiskExposureForm.get('corporationClaimRiskWeight').value);
-    const RWE = netValue * riskWeight;
-    return this.baselRiskExposureForm.get('corporationClaimRwe').setValue(RWE);
+    const RWE = netValue * (riskWeight / 100);
+    return this.baselRiskExposureForm.get('corporationClaimRwe').setValue(RWE.toFixed(2));
   }
 
   public calculateBalanceSheetNetValue() {
@@ -98,8 +98,8 @@ export class BaselRiskExposureComponent implements OnInit {
   public calculateBalanceSheetRWE() {
     const netValue = Number(this.baselRiskExposureForm.get('OffBalanceSheetItemNetValue').value);
     const riskWeight = Number(this.baselRiskExposureForm.get('OffBalanceSheetItemRiskWeight').value);
-    const RWE = netValue * riskWeight;
-    return this.baselRiskExposureForm.get('OffBalanceSheetItemRwe').setValue(RWE);
+    const RWE = netValue * (riskWeight / 100);
+    return this.baselRiskExposureForm.get('OffBalanceSheetItemRwe').setValue(RWE.toFixed(2));
   }
 
   public submitForm() {
