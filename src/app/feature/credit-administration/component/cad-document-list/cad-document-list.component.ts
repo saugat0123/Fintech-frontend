@@ -119,7 +119,7 @@ export class CadDocumentListComponent implements OnInit {
             customerLoanDtoList: data.assignedLoan
         };
         comp.componentInstance.cadData = dataCad;
-        comp.componentInstance.disbursementDataAssign = true;
+        comp.componentInstance.disbursementDataAssign = false;
         comp.result.then(() => {
             console.log('When assigned closes');
             CadDocumentListComponent.loadData(this);
