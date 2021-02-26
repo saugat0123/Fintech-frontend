@@ -42,8 +42,10 @@
         <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.baseRate}}</th>
         <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.premiumRateOnBaseRate}}</th>
         <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
-          <div *ngIf="proposalData.serviceChargeMethod === 'FLAT'; else percentage" class="text-right pr-1">{{proposalData.serviceCharge | currencyFormatter}}</div>
-          <ng-template #percentage>{{proposalData.serviceCharge}} % </ng-template>
+          <div *ngIf="proposalData.serviceChargeMethod === 'FLAT'; else percentage" class="text-right pr-1">Rs. {{proposalData.serviceCharge | currencyFormatter}}</div>
+          <ng-template #percentage>
+            <div class="text-right pr-1">{{proposalData.serviceCharge}} % </div>
+          </ng-template>
         </th>
       </tr>
     </table>
@@ -81,14 +83,16 @@
         <th>Limit Expiry/Loan Tenure</th>
         <th *ngIf="proposalData?.limitExpiryMethod === 'ABSOLUTE'">Date of Expiry</th>
         <th *ngIf="proposalData?.limitExpiryMethod === 'CUSTOM'">Duration</th>
+        <th *ngIf="recommendationChecked?.swapChargeChecked">Swap Charge</th>
       </tr>
       <tr>
         <td *ngIf="loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving" class="text-right pr-1">{{proposalData?.tenorOfEachDeal}}</td>
         <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.prepaymentCharge}}%</td>
-        <td class="text-left pl-1">{{proposalData?.collateralRequirement}}</td>
+        <td class="text-right pr-1">{{proposalData?.collateralRequirement}}</td>
         <td class="text-left pl-1">{{proposalData?.limitExpiryMethod}}</td>
         <td *ngIf="proposalData?.limitExpiryMethod === 'ABSOLUTE'" class="text-left pl-1">{{proposalData?.dateOfExpiry | date}}</td>
         <td *ngIf="proposalData?.limitExpiryMethod === 'CUSTOM'" class="text-left pl-1">{{proposalData?.duration}}</td>
+        <td *ngIf="recommendationChecked?.swapChargeChecked" class="text-right pr-1">{{proposalData?.swapCharge}}</td>
 
       </tr>
     </table>

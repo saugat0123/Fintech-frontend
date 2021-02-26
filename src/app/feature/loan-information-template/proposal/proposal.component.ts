@@ -39,6 +39,7 @@ export class ProposalComponent implements OnInit {
   solChecked = false;
   waiverChecked = false;
   riskChecked = false;
+  swapChargeChecked = false;
   checkedDataEdit;
   ckeConfig;
   checkApproved = false;
@@ -202,7 +203,8 @@ export class ProposalComponent implements OnInit {
       riskConclusionRecommendation: [undefined],
       summeryRecommendation: undefined,
       purposeOfLoan: undefined,
-      termsAndCondition: undefined
+      termsAndCondition: undefined,
+      swapCharge: [undefined]
 
 
     });
@@ -257,10 +259,11 @@ export class ProposalComponent implements OnInit {
     const mergeChecked = {
       solChecked: this.solChecked,
       waiverChecked: this.waiverChecked,
-      riskChecked: this.riskChecked
+      riskChecked: this.riskChecked,
+      swapChargeChecked: this.swapChargeChecked
     };
     this.proposalData.checkedData = JSON.stringify(mergeChecked);
-
+    console.log('Data:');
     // Proposed Limit value--
     this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
     this.proposalData.existingLimit = this.proposalForm.get('existingLimit').value;
@@ -318,6 +321,14 @@ export class ProposalComponent implements OnInit {
 
         }
         break;
+      case 'swapCharge':
+        if (event) {
+          this.swapChargeChecked = true;
+        } else {
+          this.swapChargeChecked = false;
+          this.proposalForm.get('swapCharge').setValue(null);
+        }
+        break;
     }
   }
 
@@ -326,6 +337,7 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(data['solChecked'], 'sol');
       this.checkChecked(data['waiverChecked'], 'waiver');
       this.checkChecked(data['riskChecked'], 'risk');
+      this.checkChecked(data['swapChargeChecked'], 'swapCharge');
     }
   }
 
