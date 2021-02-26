@@ -138,7 +138,7 @@
                                   <div class="col-md-4" nbTooltip="Type 0 if there is no alternate source" nbTooltipStatus="primary" >
                                       <label for="alternateIncomeSourceAmount"><strong>Source Amount</strong></label>
                                       <input class="form-control" formControlName="alternateIncomeSourceAmount" id="alternateIncomeSourceAmount"
-                                             placeholder="Amount">
+                                             placeholder="Amount" appDecimalNumber/>
                                   </div>
                               </div>
                           </nb-card-body>
@@ -256,7 +256,7 @@
                             class="text-danger">*</strong>
                         <input class="form-control" formControlName="emiWithProposal" id="emiWithProposal"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('emiWithProposal').invalid}"
-                               placeholder="Total EMI of client including present proposal">
+                               placeholder="Total EMI of client including present proposal" appDecimalNumber/>
 
                         <div *ngIf="(submitted) && form.emiWithProposal.invalid"
                              class="invalid-feedback">
