@@ -12,6 +12,7 @@ import {Editor} from '../../../@core/utils/constants/editor';
 import {LoanType} from '../../loan/model/loanType';
 import {NumberUtils} from '../../../@core/utils/number-utils';
 import {environment} from '../../../../environments/environment';
+import {Clients} from '../../../../environments/Clients';
 
 @Component({
   selector: 'app-proposal',
@@ -56,6 +57,7 @@ export class ProposalComponent implements OnInit {
   showRepaymentMode = false;
   swapChargeChecked = false;
   client = environment.client;
+  clientName = Clients;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,

@@ -1,5 +1,5 @@
 export enum OwnershipTransfer {
-  SALE = 'Sale',
+  SALE = 'Sale(Rajinama)',
   FAMILY_SEPARATION = 'Family Separation',
   GIFT_BAKASPATRA = 'Gift (Bakaspatra)',
   OTHER = 'Other'

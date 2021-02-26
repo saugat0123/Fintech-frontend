@@ -391,7 +391,7 @@
                                 <div class="col-md-4"
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
                                     <div class="form-group">
-                                        <label class="title" for="commitmentFee"><strong>Commitment Fee</strong></label>
+                                        <label class="title" for="commitmentFee"><strong>Commitment Fee (in%)</strong></label>
                                         <input
                                                 class="form-control"
                                                 formControlName="commitmentFee" id="commitmentFee"
@@ -613,7 +613,8 @@
                                 <div class="col-md-12">
                                     <div class="form-group" style="max-height: 300px !important;height: 250px;">
 
-                                        <label class="title"><strong><sup class="text-danger">*</sup>Background</strong></label>
+                                        <label class="title" *ngIf="client != clientName.MEGA"><strong><sup class="text-danger">*</sup>Background</strong></label>
+                                        <label class="title" *ngIf="client == clientName.MEGA"><strong><sup class="text-danger">*</sup>Justification and Purpose of present proposal</strong></label>
                                         <!--                    <textarea-->
                                         <!--                        [ngClass]="{ 'is-invalid': (submitted) && formControls.borrowerInformation.errors }"-->
                                         <!--                        class="form-control"-->
@@ -640,7 +641,10 @@
                                 <div class="col-md-12" style="padding-top: 70px;">
                                     <div *ngIf="submitted">
                     <span *ngIf="formControls.borrowerInformation.invalid" class="text-danger">
-                      <sup>*</sup>Background Information is required.</span>
+                      <sup>*</sup>
+                        <div *ngIf="client != clientName.MEGA">Background Information is required.</div>
+                        <div *ngIf="client == clientName.MEGA">Justification and Purpose of present proposal</div>
+                    </span>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mt-3">
@@ -664,12 +668,12 @@
                                             rows="3"></textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                              <div class="col-md-12" *ngIf="client != clientName.MEGA">
                                     <div class="form-group">
                                         <label class="title"><b>Purpose of Loan</b></label>
                                         <textarea class="form-control" [rows]="3" formControlName="purposeOfLoan" placeholder="Purpose of Loan"></textarea>
                                     </div>
-                                </div>
+                              </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title"><strong>Terms And Condition</strong></label>

@@ -8,7 +8,7 @@ export class BooleanConvertPipe implements PipeTransform {
   transform(value: any, ...args: any[]): any {
     if (value === true) {
       return 'Yes';
-    } else if (value === false) {
+    } else {
       return 'No';
     }
   }
