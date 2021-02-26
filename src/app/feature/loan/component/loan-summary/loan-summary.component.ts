@@ -309,7 +309,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
 
         if (this.loanDataHolder.taggedGuarantors.length > 0) {
-            console.log(this.loanDataHolder.taggedGuarantors);
             this.guarantorData = this.loanDataHolder.taggedGuarantors;
             this.checkGuarantorData = true;
             this.loanDataHolder.taggedGuarantors.forEach(value => {
@@ -562,7 +561,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     addedStages.set(loanStage.fromUser.id, index);
                 }
             }
-            console.log(loanStage);
         });
 
         return signatureList;

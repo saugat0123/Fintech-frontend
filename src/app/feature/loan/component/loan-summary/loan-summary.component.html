@@ -30,7 +30,8 @@
                         </span>
                         <em class="fas fa-forward"></em>
                     </button>
-                    <button *ngIf="!disableApprovalSheetFlag && loanDataHolder?.documentStatus?.toString() !== 'APPROVED'"
+                    <button *ngIf="!disableApprovalSheetFlag && loanDataHolder?.documentStatus?.toString() !== 'APPROVED'
+                           && roleType === 'COMMITTEE'"
                             nbButton
                             shape="rectangle"
                             status="success"

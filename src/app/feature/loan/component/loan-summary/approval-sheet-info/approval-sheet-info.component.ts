@@ -52,16 +52,12 @@ export class ApprovalSheetInfoComponent implements OnInit {
     this.spinner = false;
   }
 
-  submit() {
-    console.log(this.postApprovalDocIdList , this.authorityReviewComments);
-  }
-
   onSubmit() {
     console.log(this.postApprovalDocIdList);
     this.spinner = true;
     this.loanDataHolder.postApprovalDocIdList = JSON.stringify(this.postApprovalDocIdList);
     this.loanDataHolder.authorityReviewComments = this.authorityReviewComments;
-    this.loanFormService.save(this.loanDataHolder).subscribe((response: any) => {
+    this.loanFormService.save(this.loanDataHolder).subscribe(() => {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.SUCCESS, `Successfully Saved Approval Info`));
       this.close();
