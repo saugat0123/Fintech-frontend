@@ -11,6 +11,10 @@ import {BaseInterestService} from '../../admin/service/base-interest.service';
 import {Editor} from '../../../@core/utils/constants/editor';
 import {LoanType} from '../../loan/model/loanType';
 import {NumberUtils} from '../../../@core/utils/number-utils';
+import {Clients} from '../../../../environments/Clients';
+import {environment} from '../../../../environments/environment';
+
+
 
 @Component({
   selector: 'app-proposal',
@@ -53,6 +57,8 @@ export class ProposalComponent implements OnInit {
   loanEnumType = LoanType;
   showInstallmentAmount = false;
   showRepaymentMode = false;
+  client = environment.client;
+  clientName = Clients;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
