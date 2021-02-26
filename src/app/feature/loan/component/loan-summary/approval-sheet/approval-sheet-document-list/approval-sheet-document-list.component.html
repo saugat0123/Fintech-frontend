@@ -6,14 +6,14 @@
                 <th>Security Documents Held/Required</th>
                 <th>Held</th>
                 <th>Req.</th>
-            </tr>y
+            </tr>
             <tr>
-                <td class="sb-bg-dark text-white">Facilities</td>
-                <td class="text-center" colspan="2">{{loanConfig?.name}}</td>
+                <td class="sb-bg-secondary text-white">Facilities</td>
+                <td class="text-center" colspan="2"><strong>{{loanConfig?.name}}</strong></td>
             </tr>
            <ng-container *ngFor="let a of loanConfig?.approvedDocument">
                <tr [hidden]="suspendedId(a?.id)">
-                   <td>{{a?.displayName}}{{a?.checkType}}</td>
+                   <td>{{a?.displayName}}</td>
                    <td><span *ngIf="a?.checkType?.toString() === 'REQUIRED'">R</span></td>
                    <td><span *ngIf="a?.checkType?.toString() !== 'REQUIRED'">H</span></td>
                </tr>

@@ -30,14 +30,14 @@
                         </span>
                         <em class="fas fa-forward"></em>
                     </button>
-                    <button *ngIf="!disableApprovalSheetFlag"
+                    <button *ngIf="!disableApprovalSheetFlag && loanDataHolder?.documentStatus?.toString() !== 'APPROVED'"
                             nbButton
                             shape="rectangle"
                             status="success"
                             class="float-right"
                             size="tiny" (click)="openApprovalSheetInfoModal()">
                         <span class="text-right">
-                            Approval Config
+                            Approval Doc Info
                         </span>
                         <em class="fas fa-forward"></em>
                     </button>

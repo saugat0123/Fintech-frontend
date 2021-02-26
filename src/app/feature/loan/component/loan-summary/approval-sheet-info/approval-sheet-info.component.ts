@@ -9,6 +9,7 @@ import {LoanDataHolder} from '../../../model/loanData';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Editor} from '../../../../../@core/utils/constants/editor';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-approval-sheet-info',
@@ -33,25 +34,21 @@ export class ApprovalSheetInfoComponent implements OnInit {
       private loanFormService: LoanFormService,
       private modalRef: NgbActiveModal,
       private toastService: ToastService,
-      private ngbModal: NgbModal
+      private ngbModal: NgbModal,
+      private router: Router,
   ) {
   }
 
   ngOnInit() {
     this.spinner = true;
     this.ckeConfig = Editor.CK_CONFIG;
-    console.log(this.loanDataHolder.postApprovalDocIdList);
     if (!ObjectUtil.isEmpty(this.loanDataHolder.postApprovalDocIdList)) {
-      console.log('nonempty');
       this.postApprovalDocIdList = JSON.parse(this.loanDataHolder.postApprovalDocIdList);
     } else {
       if (this.loanConfig.approvedDocument.length > 0) {
-        console.log('emoty');
         this.postApprovalDocIdList = this.loanConfig.approvedDocument.map(value => value.id);
       }
     }
-    console.log(LocalStorageUtil.getStorage().roleType, RoleType.COMMITTEE, this.isCommittee);
-    console.log(this.loanConfig);
     this.spinner = false;
   }
 
@@ -65,14 +62,25 @@ export class ApprovalSheetInfoComponent implements OnInit {
     this.loanDataHolder.postApprovalDocIdList = JSON.stringify(this.postApprovalDocIdList);
     this.loanDataHolder.authorityReviewComments = this.authorityReviewComments;
     this.loanFormService.save(this.loanDataHolder).subscribe((response: any) => {
-      this.modalRef.close(response.detail);
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.SUCCESS, `Successfully Saved Approval Info`));
+      this.close();
+        this.router.navigateByUrl('/home/dashboard').then(value => {
+          if (value) {
+            this.router.navigate(['/home/loan/summary'], {
+              queryParams: {
+                loanConfigId: this.loanConfig.id,
+                customerId: this.loanDataHolder.id,
+                catalogue: false
+              }
+            });
+          }
+        });
     }, error => {
       console.error(error);
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.ERROR, `Error Saving Approval Info: ${error.error.message}`));
-      this.modalRef.close({});
+      this.close();
     });
   }
 

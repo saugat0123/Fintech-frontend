@@ -23,7 +23,8 @@ export class ApprovalSheetDocumentListComponent implements OnInit {
   }
 
   suspendedId(id) {
-    return !(this.loanConfig.approvedDocument.map(value => value.id).includes(Number(id)));
+    console.log(this.postApprovalDocIdList.includes(id));
+    return !(this.postApprovalDocIdList.includes(id));
   }
 
 }
