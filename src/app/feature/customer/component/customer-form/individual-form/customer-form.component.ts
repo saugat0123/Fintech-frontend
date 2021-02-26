@@ -432,7 +432,9 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         individualJsonData.permanentAddressLine2 = this.basicInfoControls.permanentAddressLine2.value;
         individualJsonData.temporaryAddressLine1 = this.basicInfoControls.temporaryAddressLine1.value;
         individualJsonData.temporaryAddressLine2 = this.basicInfoControls.temporaryAddressLine2.value;
-        individualJsonData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
+        if (this.microCustomer) {
+            individualJsonData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
+        }
         return  JSON.stringify(individualJsonData);
     }
 
