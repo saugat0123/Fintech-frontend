@@ -126,7 +126,7 @@
           ></app-borrower-financial>
         </nb-accordion-item-body>
       </nb-accordion-item>
-        <nb-accordion-item #marketingActivities *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
+        <nb-accordion-item #marketingActivitiesAccordian *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
           <nb-accordion-item-header>
             <div class="row col-md-12">
               <div class="col-md-8">
@@ -143,7 +143,12 @@
             </div>
           </nb-accordion-item-header>
           <nb-accordion-item-body>
-            <app-marketing-activities></app-marketing-activities>
+            <app-marketing-activities
+                    *ngIf="borrowerFinancialHighlight.expanded"
+                    (dataEmitter)="saveBorrowerFinancial($event)"
+                    [fromProfile]="true"
+                    [microBorrowerFinancial]="customerInfo?.microBorrowerFinancial"
+            ></app-marketing-activities>
           </nb-accordion-item-body>
         </nb-accordion-item>
       <nb-accordion-item #baselRiskAccordion *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer">

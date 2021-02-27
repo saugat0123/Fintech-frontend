@@ -31,6 +31,7 @@ import {BorrowerPortfolio} from '../../../loan/model/borrwerportfolio';
 import {MicroSynopsisComponent} from '../../../micro-loan/form-component/micro-synopsis/micro-synopsis.component';
 import {MicroBaselRiskExposure} from '../../../loan/model/micro-basel-risk-exposure';
 import {MicroBorrowerFinancial} from '../../../loan/model/micro-borrower-financial';
+import {MarketingActivities} from '../../../loan/model/marketing-activities';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -88,6 +89,8 @@ export class CustomerLoanInformationComponent implements OnInit {
   private borrowerLoanPortfolioComponent: NbAccordionItemComponent;
   @ViewChild('borrowerFinancialHighlight', {static: false})
   private borrowerFinancialHighlight: NbAccordionItemComponent;
+  @ViewChild('marketingActivitiesAccordian', {static: false})
+  private marketingActivitiesAccordian: NbAccordionItemComponent;
   @ViewChild('baselRiskAccordion', {static: false})
   private baselRiskAccordion: NbAccordionItemComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
@@ -107,6 +110,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   public creditChecklistGeneral: CreditChecklistGeneral;
   public microLoanSynopsis: MicroLoanSynopsis;
   public borrowerPortfolio: BorrowerPortfolio;
+  public marketingActivities: MarketingActivities;
   public microBaselRiskExposure: MicroBaselRiskExposure;
   public microBorrowerFinancial: MicroBorrowerFinancial;
   customerType = CustomerType;
@@ -168,6 +172,9 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.microBorrowerFinancial)) {
       this.microBorrowerFinancial = this.customerInfo.microBorrowerFinancial;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.marketingActivities)) {
+      this.marketingActivities = this.customerInfo.marketingActivities;
     }
   }
 
@@ -445,6 +452,22 @@ export class CustomerLoanInformationComponent implements OnInit {
         }, error => {
           console.error(error);
           this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save  Borrower Portfolio!'));
+        });
+  }
+
+  saveMarketingActivities(data: MarketingActivities) {
+    if (ObjectUtil.isEmpty(this.borrowerPortfolio)) {
+      this.marketingActivities = new MarketingActivities();
+    }
+    this.marketingActivities = data;
+    this.customerInfoService.saveLoanInfo(this.marketingActivities, this.customerInfoId, TemplateName.MARKETING_ACTIVITIES)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Marketing Activities!'));
+          this.marketingActivitiesAccordian.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Marketing Activities!'));
         });
   }
 
