@@ -437,7 +437,7 @@ export class CustomerLoanInformationComponent implements OnInit {
       this.borrowerPortfolio = new BorrowerPortfolio();
     }
     this.borrowerPortfolio = data;
-    this.customerInfoService.saveLoanInfo(this.borrowerPortfolio, this.customerInfoId, TemplateName.BORROWER_PORTFOLIO)
+    this.customerInfoService.saveLoanInfo(this.borrowerPortfolio, this.customerInfoId, TemplateName.MICRO_BORROWER_FINANCIAL)
         .subscribe(() => {
           this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Borrower Portfolio!'));
           this.borrowerFinancialHighlight.close();
