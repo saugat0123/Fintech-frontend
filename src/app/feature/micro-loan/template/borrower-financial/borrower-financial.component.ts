@@ -19,7 +19,9 @@ export class BorrowerFinancialComponent implements OnInit {
   }
 
   submit() {
-    this.dataEmitter.emit(new MicroBorrowerFinancial());
+    const m = new MicroBorrowerFinancial();
+    m.data = 'amulye bro don';
+    this.dataEmitter.emit(m);
   }
 
 }
