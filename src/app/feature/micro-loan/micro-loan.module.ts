@@ -22,6 +22,7 @@ import {LoanModule} from '../loan/loan.module';
 import {MicroBaselRiskExposureViewComponent} from './detail-view/micro-loan-detail-view-base/micro-basel-risk-exposure-view/micro-basel-risk-exposure-view.component';
 import {MicroSynopsisCreditworthinessViewComponent} from './detail-view/micro-loan-detail-view-base/micro-synopsis-creditworthiness-view/micro-synopsis-creditworthiness.component';
 import {BorrowerPortfolioViewComponent} from './detail-view/micro-loan-detail-view-base/borrower-portfolio-summary-view/borrower-portfolio-view.component';
+import { BorrowerFinancialComponent } from './template/borrower-financial/borrower-financial.component';
 
 
 
@@ -40,7 +41,8 @@ import {BorrowerPortfolioViewComponent} from './detail-view/micro-loan-detail-vi
       MicroBaselRiskExposureViewComponent,
       MicroSynopsisCreditworthinessViewComponent,
       BorrowerPortfolioViewComponent,
-      MicroProposalViewComponent],
+      MicroProposalViewComponent,
+      BorrowerFinancialComponent],
     exports: [
         MicroCompanyFormComponentComponent,
         MicroIndividualFormComponent,
@@ -49,6 +51,7 @@ import {BorrowerPortfolioViewComponent} from './detail-view/micro-loan-detail-vi
         BorrowerLoanPortfolioComponent,
         MicroSynopsisComponent,
         MicroLoanDetailViewBaseComponent,
+        BorrowerFinancialComponent,
     ],
     imports: [
         CommonModule,
