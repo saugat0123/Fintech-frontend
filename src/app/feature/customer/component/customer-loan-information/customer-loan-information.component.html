@@ -101,6 +101,31 @@
             ></app-borrower-loan-portofolio>
           </nb-accordion-item-body>
         </nb-accordion-item>
+      <nb-accordion-item #borrowerFinancialHighlight *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span class="text-capitalize">FINANCIAL HIGHLIGHTS OF BORROWERS</span>
+            </div>
+            <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="microBorrowerFinancial" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+              <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!microBorrowerFinancial" class="fas fa-times-circle px-2"></em>
+              </span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-borrower-financial #borrowerFinancialComponent
+                                        *ngIf="borrowerFinancialHighlight.expanded"
+                                        (dataEmitter)="saveBorrowerFinancial($event)"
+                                        [fromProfile]="true"
+                                        [microBorrowerFinancial]="customerInfo?.microBorrowerFinancial"
+          ></app-borrower-financial>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
         <nb-accordion-item #marketingActivities *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
           <nb-accordion-item-header>
             <div class="row col-md-12">

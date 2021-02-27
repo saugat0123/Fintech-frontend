@@ -30,6 +30,7 @@ import {MicroLoanSynopsis} from '../../../loan/model/micro-loan-synopsis';
 import {BorrowerPortfolio} from '../../../loan/model/borrwerportfolio';
 import {MicroSynopsisComponent} from '../../../micro-loan/form-component/micro-synopsis/micro-synopsis.component';
 import {MicroBaselRiskExposure} from '../../../loan/model/micro-basel-risk-exposure';
+import {MicroBorrowerFinancial} from '../../../loan/model/micro-borrower-financial';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -85,6 +86,8 @@ export class CustomerLoanInformationComponent implements OnInit {
   private loanPortfolio: NbAccordionItemComponent;
   @ViewChild('borrowerLoanPortfolioComponent', {static: false})
   private borrowerLoanPortfolioComponent: NbAccordionItemComponent;
+  @ViewChild('borrowerFinancialHighlight', {static: false})
+  private borrowerFinancialHighlight: NbAccordionItemComponent;
   @ViewChild('baselRiskAccordion', {static: false})
   private baselRiskAccordion: NbAccordionItemComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
@@ -105,6 +108,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   public microLoanSynopsis: MicroLoanSynopsis;
   public borrowerPortfolio: BorrowerPortfolio;
   public microBaselRiskExposure: MicroBaselRiskExposure;
+  public microBorrowerFinancial: MicroBorrowerFinancial;
   customerType = CustomerType;
 
 
@@ -161,6 +165,9 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.borrowerPortFolio)) {
       this.borrowerPortfolio = this.customerInfo.borrowerPortFolio;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.microBorrowerFinancial)) {
+      this.microBorrowerFinancial = this.customerInfo.microBorrowerFinancial;
     }
   }
 
@@ -410,18 +417,34 @@ export class CustomerLoanInformationComponent implements OnInit {
   }
 
   saveBaselRiskExposure(data: MicroBaselRiskExposure) {
-    if (ObjectUtil.isEmpty(this.microBaselRiskExposure)) {
-      this.microBaselRiskExposure = new MicroBaselRiskExposure();
+    if (ObjectUtil.isEmpty(this.microBorrowerFinancial)) {
+      this.microBorrowerFinancial = new MicroBaselRiskExposure();
     }
-    this.microBaselRiskExposure = data;
-    this.customerInfoService.saveLoanInfo(this.microBaselRiskExposure, this.customerInfoId, TemplateName.BASEL_RISK_EXPOSURE)
+    this.microBorrowerFinancial = data;
+    this.customerInfoService.saveLoanInfo(this.microBorrowerFinancial, this.customerInfoId, TemplateName.MICRO_BORROWER_FINANCIAL)
         .subscribe(() => {
-          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved BASEL wise Risk Weighted Exposure!'));
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Micro Borrower Financial!'));
           this.baselRiskAccordion.close();
           this.triggerCustomerRefresh.emit(true);
         }, error => {
           console.error(error);
-          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save BASEL wise Risk Weighted Exposure!'));
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Micro Borrower Financial!'));
+        });
+  }
+
+  saveBorrowerFinancial(data: MicroBorrowerFinancial) {
+    if (ObjectUtil.isEmpty(this.borrowerPortfolio)) {
+      this.borrowerPortfolio = new BorrowerPortfolio();
+    }
+    this.borrowerPortfolio = data;
+    this.customerInfoService.saveLoanInfo(this.borrowerPortfolio, this.customerInfoId, TemplateName.BORROWER_PORTFOLIO)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Borrower Portfolio!'));
+          this.borrowerFinancialHighlight.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save  Borrower Portfolio!'));
         });
   }
 
