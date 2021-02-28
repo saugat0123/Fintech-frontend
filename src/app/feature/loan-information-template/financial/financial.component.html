@@ -138,7 +138,7 @@
                                   <div class="col-md-4" nbTooltip="Type 0 if there is no alternate source" nbTooltipStatus="primary" >
                                       <label for="alternateIncomeSourceAmount"><strong>Source Amount</strong></label>
                                       <input class="form-control" formControlName="alternateIncomeSourceAmount" id="alternateIncomeSourceAmount"
-                                             placeholder="Amount">
+                                             placeholder="Amount" appDecimalNumber/>
                                   </div>
                               </div>
                           </nb-card-body>
@@ -235,7 +235,7 @@
                         <label for="totalNetMonthlyIncome"><strong>Total Net monthly Income</strong></label>
                         <input class="form-control" formControlName="totalNetMonthlyIncome" id="totalNetMonthlyIncome"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('totalNetMonthlyIncome').invalid}"
-                               placeholder="Amount" readonly [value]="numberUtils.isNumber(form.totalIncome.value - form.totalExpense.value)">
+                               placeholder="Amount" readonly [value]="numberUtils.isNumber(form.totalIncome.value - form.totalExpense.value).toFixed(2)">
 
                         <div *ngIf="(submitted) && form.totalNetMonthlyIncome.invalid"
                              class="invalid-feedback">Invalid Net Monthly Income
@@ -245,7 +245,7 @@
                         <label for="grossMonthlyObligation"><strong>Total Gross Monthly income/Total monthly obligations</strong></label>
                         <input class="form-control" formControlName="grossMonthlyObligation" id="grossMonthlyObligation"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('grossMonthlyObligation').invalid}"
-                               placeholder="Amount" readonly [value]="numberUtils.isNumber(form.totalIncome.value/form.totalExpense.value)">
+                               placeholder="Amount" readonly [value]="numberUtils.isNumber(form.totalIncome.value/form.totalExpense.value).toFixed(2)">
 
                         <div *ngIf="(submitted) && form.grossMonthlyObligation.invalid"
                              class="invalid-feedback">Invalid Gross Monthly Obligation
@@ -256,12 +256,20 @@
                             class="text-danger">*</strong>
                         <input class="form-control" formControlName="emiWithProposal" id="emiWithProposal"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('emiWithProposal').invalid}"
-                               placeholder="Total EMI of client including present proposal">
+                               placeholder="Total EMI of client including present proposal" appDecimalNumber/>
 
                         <div *ngIf="(submitted) && form.emiWithProposal.invalid"
                              class="invalid-feedback">
                             Invalid EMI Amount
                         </div>
+                    </div>
+
+                    <div class="col-md-4" *ngIf="client === clientName.MEGA">
+                        <label for="totalEMIInterest"><strong>Total EMI and interest expenses to Gross income</strong></label>
+                        <input class="form-control" formControlName="totalEMIInterest" id="totalEMIInterest" name
+                               [ngClass]="{'is-invalid': submitted && financialForm.get('totalEMIInterest').invalid}"
+                               placeholder="Total EMI and Interest Expenses" readonly
+                               [value]="numberUtils.isNumber((form.emiWithProposal.value) / (form.totalIncome.value)).toFixed(2)">
                     </div>
                 </div>
             </nb-card-body>
