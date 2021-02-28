@@ -60,7 +60,7 @@
         <th *ngIf="!showInstallmentAmount &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">Interest Amount</th>
         <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral">Moratorium Period (Month)</th>
         <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">Commitment Fee</th>
-        <th *ngIf="recommendationChecked?.swapChargeChecked">Swap Charge</th>
+        <th *ngIf="(recommendationChecked?.swapChargeChecked && (client === clientName?.ICFC))">Swap Charge</th>
       </tr>
       <tr>
         <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.tenureDurationInMonths}}</td>
@@ -69,9 +69,10 @@
         <td *ngIf="!showInstallmentAmount &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class="text-right pr-1">Rs. {{proposalData?.interestAmount | currencyFormatter}}</td>
         <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.moratoriumPeriod}}</td>
         <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral" class="text-right pr-1">Rs. {{proposalData?.commitmentFee  | currencyFormatter}}</td>
-        <td><div *ngIf="(proposalData.swapChargeMethod === 'FLAT' && recommendationChecked?.swapChargeChecked); else percentage" class="text-right pr-1">Rs. {{proposalData.swapCharge | currencyFormatter}}</div>
+        <td *ngIf="recommendationChecked?.swapChargeChecked && (client === clientName?.ICFC)">
+          <div *ngIf="proposalData.swapChargeMethod === 'FLAT'; else percentage" class="text-right pr-1">Rs. {{proposalData.swapCharge | currencyFormatter}}</div>
           <ng-template #percentage>
-            <div class="text-right pr-1" *ngIf="recommendationChecked?.swapChargeChecked">{{proposalData.swapCharge}} %</div>
+            <div class="text-right pr-1">{{proposalData.swapCharge}} %</div>
           </ng-template></td>
 
       </tr>

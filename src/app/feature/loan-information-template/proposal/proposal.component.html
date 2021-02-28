@@ -553,7 +553,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4 form-group">
+                                <div class="col-md-4 form-group" *ngIf="client === clientName?.ICFC">
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'swapCharge')"
                                                  [checked]="swapChargeChecked"><b>Swap Charge<em class="sb-medium">(if any)</em></b>
                                     </nb-checkbox>
