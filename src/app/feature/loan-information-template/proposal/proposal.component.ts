@@ -11,10 +11,8 @@ import {BaseInterestService} from '../../admin/service/base-interest.service';
 import {Editor} from '../../../@core/utils/constants/editor';
 import {LoanType} from '../../loan/model/loanType';
 import {NumberUtils} from '../../../@core/utils/number-utils';
-import {Clients} from '../../../../environments/Clients';
 import {environment} from '../../../../environments/environment';
-
-
+import {Clients} from '../../../../environments/Clients';
 
 @Component({
   selector: 'app-proposal',
@@ -57,6 +55,7 @@ export class ProposalComponent implements OnInit {
   loanEnumType = LoanType;
   showInstallmentAmount = false;
   showRepaymentMode = false;
+  swapChargeChecked = false;
   client = environment.client;
   clientName = Clients;
 
@@ -155,6 +154,7 @@ export class ProposalComponent implements OnInit {
       baseRate: [undefined],
       premiumRateOnBaseRate: [undefined],
       serviceChargeMethod: ['PERCENT'],
+      swapChargeMethod: ['PERCENT'],
       serviceCharge: [undefined],
       tenureDurationInMonths: [undefined],
       repaymentMode: [undefined],
@@ -167,6 +167,7 @@ export class ProposalComponent implements OnInit {
       existingLimit: [undefined],
       outStandingLimit: [undefined],
       collateralRequirement: [undefined, Validators.required],
+      swapCharge: [undefined],
       limitExpiryMethod: [undefined, Validators.required],
       duration: [undefined, Validators.required],
       condition: [undefined, Validators.required],
@@ -257,7 +258,8 @@ export class ProposalComponent implements OnInit {
     const mergeChecked = {
       solChecked: this.solChecked,
       waiverChecked: this.waiverChecked,
-      riskChecked: this.riskChecked
+      riskChecked: this.riskChecked,
+      swapChargeChecked: this.swapChargeChecked
     };
     this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
@@ -318,6 +320,14 @@ export class ProposalComponent implements OnInit {
 
         }
         break;
+      case 'swapCharge':
+        if (event) {
+          this.swapChargeChecked = true;
+        } else {
+          this.swapChargeChecked = false;
+          this.proposalForm.get('swapCharge').setValue(null);
+        }
+        break;
     }
   }
 
@@ -326,6 +336,7 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(data['solChecked'], 'sol');
       this.checkChecked(data['waiverChecked'], 'waiver');
       this.checkChecked(data['riskChecked'], 'risk');
+      this.checkChecked(data['swapChargeChecked'], 'swapCharge');
     }
   }
 
