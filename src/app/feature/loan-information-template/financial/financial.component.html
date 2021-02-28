@@ -263,6 +263,14 @@
                             Invalid EMI Amount
                         </div>
                     </div>
+
+                    <div class="col-md-4" *ngIf="client === clientName.MEGA">
+                        <label for="totalEMIInterest"><strong>Total EMI and interest expenses to Gross income</strong></label>
+                        <input class="form-control" formControlName="totalEMIInterest" id="totalEMIInterest" name
+                               [ngClass]="{'is-invalid': submitted && financialForm.get('totalEMIInterest').invalid}"
+                               placeholder="Total EMI and Interest Expenses" readonly
+                               [value]="numberUtils.isNumber((form.emiWithProposal.value) / (form.totalIncome.value)).toFixed(2)">
+                    </div>
                 </div>
             </nb-card-body>
         </nb-card>
