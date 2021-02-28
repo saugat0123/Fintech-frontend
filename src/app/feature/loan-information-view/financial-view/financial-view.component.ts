@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, QueryList} from '@angular/core';
 import {Financial} from '../../loan/model/financial';
 import {CustomerType} from '../../customer/model/customerType';
-import {environment} from "../../../../environments/environment.srdb";
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-financial-view',
