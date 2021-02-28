@@ -20,7 +20,8 @@ import {NumberUtils} from '../../../@core/utils/number-utils';
 import {Pattern} from '../../../@core/utils/constants/pattern';
 import {TypeOfSourceOfIncome, TypeOfSourceOfIncomeArray, TypeOfSourceOfIncomeMap} from '../../admin/modal/crg/typeOfSourceOfIncome';
 import {NgSelectComponent} from '@ng-select/ng-select';
-import {environment} from '../../../../environments/environment.srdb';
+import {environment} from '../../../../environments/environment';
+import {Clients} from '../../../../environments/Clients';
 
 @Component({
     selector: 'app-financial',
@@ -48,6 +49,8 @@ export class FinancialComponent implements OnInit {
     financialData: Financial = new Financial();
     currentFormData: Object;
     submitted = false;
+    client = environment.client;
+    clientName = Clients;
 
     // Risk factors---
     salesProjectionVsAchievementArray = SalesProjectionVsAchievement.enumObject();
@@ -249,6 +252,7 @@ export class FinancialComponent implements OnInit {
             alternateIncomeSourceAmount: [undefined, [Validators.pattern(Pattern.NUMBER_ONLY)]],
             grossMonthlyObligation: [undefined],
             totalNetMonthlyIncome: [undefined],
+            totalEMIInterest: [undefined],
             emiWithProposal: [undefined , [Validators.required , Validators.pattern(Pattern.NUMBER_ONLY)]],
         });
     }

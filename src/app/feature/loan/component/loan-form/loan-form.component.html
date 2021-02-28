@@ -168,6 +168,7 @@
                     <ng-template ngbTabContent *ngIf="allList.name == 'Guarantor'">
                         <div class="py-4">
                             <app-guarantor-adder #guarantor
+                                                 *ngIf="loanHolder?.guarantors"
                                                  [taggedGuarantors]="loanDocument?.taggedGuarantors"
                                                  [guarantorData]="loanHolder?.guarantors">
 
