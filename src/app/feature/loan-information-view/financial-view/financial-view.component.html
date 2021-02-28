@@ -92,7 +92,7 @@
                 <td>
                     EMI With Proposal
                 </td>
-                <td>Total EMI & Interest expenses</td>
+                <td *ngIf="client === clientName?.MEGA">Total EMI & Interest<em class="sb-medium">(in ratio)</em></td>
             </tr>
             </thead>
             <tbody>
@@ -104,7 +104,7 @@
                 <td class="text-right pr-1">Rs.{{ financialData['initialForm']['totalIncome'] - financialData['initialForm']['totalExpense'] |currencyFormatter}}</td>
                 <td class="text-right pr-1">Rs.{{ financialData['initialForm']['totalIncome'] / financialData['initialForm']['totalExpense'] |currencyFormatter}}</td>
                 <td class="text-right pr-1">Rs.{{ financialData['initialForm']['emiWithProposal'] |currencyFormatter}}</td>
-                <td class="text-right pr-1">{{ financialData['initialForm']['emiWithProposal'] / financialData['initialForm']['totalIncome'] |currencyFormatter}}</td>
+                <td class="text-right pr-1" *ngIf="client === clientName?.MEGA">{{ financialData['initialForm']['emiWithProposal'] / financialData['initialForm']['totalIncome'] |currencyFormatter}}</td>
             </tr>
             </tbody>
         </table>
