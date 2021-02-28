@@ -153,7 +153,6 @@ export class CustomerDocComponent implements OnInit {
   getLoanOfLoanHolder() {
     this.loanService.getLoansByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
       this.listOfLoanOfCustomer = res.detail;
-      console.log(res);
     });
   }
 
