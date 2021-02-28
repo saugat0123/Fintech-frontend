@@ -417,11 +417,11 @@ export class CustomerLoanInformationComponent implements OnInit {
   }
 
   saveBaselRiskExposure(data: MicroBaselRiskExposure) {
-    if (ObjectUtil.isEmpty(this.microBorrowerFinancial)) {
-      this.microBorrowerFinancial = new MicroBaselRiskExposure();
+    if (ObjectUtil.isEmpty(this.microBaselRiskExposure)) {
+      this.microBaselRiskExposure = new MicroBaselRiskExposure();
     }
     this.microBorrowerFinancial = data;
-    this.customerInfoService.saveLoanInfo(this.microBorrowerFinancial, this.customerInfoId, TemplateName.MICRO_BORROWER_FINANCIAL)
+    this.customerInfoService.saveLoanInfo(this.microBorrowerFinancial, this.customerInfoId, TemplateName.BASEL_RISK_EXPOSURE)
         .subscribe(() => {
           this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Micro Borrower Financial!'));
           this.baselRiskAccordion.close();
