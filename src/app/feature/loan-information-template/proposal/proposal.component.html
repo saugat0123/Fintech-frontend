@@ -555,14 +555,13 @@
 
                                 <div class="col-md-4 form-group">
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'swapCharge')"
-                                                 [checked]="swapChargeChecked"><b>Swap Charge</b>
+                                                 [checked]="swapChargeChecked"><b>Swap Charge<em class="sb-medium">(if any)</em></b>
                                     </nb-checkbox>
                                     <div *ngIf="swapChargeChecked">
-                                        <label class="title" for="swapCharge"><strong>Swap Charge </strong>
                                             <input
                                                     formControlName="swapChargeMethod"
                                                     name="swapChargeMethod" type="radio"
-                                                    value="PERCENT"><strong>% </strong>
+                                                    value="PERCENT"><strong> % </strong>
                                             <input formControlName="swapChargeMethod" name="swapChargeMethod"
                                                    type="radio" value="FLAT"><strong> Flat</strong>
                                             <input  [ngClass]="{ 'is-invalid': (submitted) && formControls.swapCharge.errors }"
@@ -570,7 +569,6 @@
                                                     id="swapCharge"
                                                     name="swapCharge" placeholder="Swap Charge"
                                                     type="number" appDecimalNumber/>
-                                        </label>
                                     </div>
                                 </div>
 

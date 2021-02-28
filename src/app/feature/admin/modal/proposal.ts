@@ -9,7 +9,6 @@ export class Proposal {
     existingLimit: number;
     outStandingLimit: number;
     collateralRequirement: number;
-    swapCharge: number;
     limitExpiryMethod: string;
     dateOfExpiry: Date;
     duration: number;
