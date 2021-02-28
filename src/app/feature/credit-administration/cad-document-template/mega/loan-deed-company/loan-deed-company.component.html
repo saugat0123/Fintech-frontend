@@ -18,16 +18,16 @@
                                    formControlName="registrarRegistrationOfficeProvince"
                                    placeholder=""
                                    type="text" size="1" /> <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('registrarRegistrationOfficeProvince').value ? loanDeedCompany.get('registrarRegistrationOfficeProvince').value  : '========='}}</b></span>
-                            <input class="form-field form-control-sm nepaliFont disable-print"
+                            जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="registrarRegistrationOfficeDistrict"
                                    placeholder=""
                                    type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('registrarRegistrationOfficeDistrict').value ? loanDeedCompany.get('registrarRegistrationOfficeDistrict').value  : '========='}}</b></span>
-                            जिल्ला
+                            गाउँपालिका/ नगरपालिका
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="registrarRegistrationOfficeMunicipalityVDC"
                                    placeholder=""
                                    type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('registrarRegistrationOfficeMunicipalityVDC').value ? loanDeedCompany.get('registrarRegistrationOfficeMunicipalityVDC').value  : '========='}}</b></span>
-                            गाउँपालिका/ नगरपालिका वडा नं.
+                             वडा नं.
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="registrarRegistrationOfficeWardNo"
                                    placeholder=""
@@ -69,10 +69,10 @@
                                     <strong class="nepaliFont">{{nepData?.temporaryMunicipality}}</strong>
                                                             {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}} वडा नं.
                                     <strong class="nepaliFont">{{nepData?.temporaryWard}}</strong>
-                            <input class="form-field form-control-sm nepaliFont"
+                            <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="temporaryAddress"
                                    placeholder=""
-                                   type="text"/> बस्ने वर्ष
+                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('temporaryAddress').value ? loanDeedCompany.get('temporaryAddress').value  : '========='}}</b></span> बस्ने वर्ष
                                     <strong class="nepaliFont">{{nepData?.age}}</strong>
                             को
                             <input class="form-field form-control-sm nepaliFont disable-print"

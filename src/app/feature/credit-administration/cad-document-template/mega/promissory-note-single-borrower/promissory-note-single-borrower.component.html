@@ -1,16 +1,13 @@
 <div class="container nep text-justify">
-    <form [formGroup]="promissorySingleNote" class="nep" id="promissorySingleNote">
+    <div class="row">
+        <div class="col-md-12 viewFull" style="overflow-y: auto;height:500px;">
+
+        <form [formGroup]="promissorySingleNote" class="nep" id="promissorySingleNote">
         <div>
-            <div class="row align">
-            <h1 style="text-align: center;">
-                प्रतिज्ञा पत्र
-                <br>
-            </h1>
-            <h3 style="text-align: center;">
-                (PROMISSORY NOTE)
-            </h3>
-            <p style="text-align: end;">
-                मिति: <input class="form-field form-control-sm nepaliFont disable-print" name="date" formControlName="date" placeholder=""type="text"/></p>
+            <div class="nep">
+                <p class="text-center" style="font-size:24pt;"><b>प्रतिज्ञा पत्र</b></p>
+                <p class="text-center" style="font-size:24pt;"><b>(PROMISSORY NOTE)</b></p>
+                <p class="text-right">  मिति: <input class="form-field form-control-sm nepaliFont disable-print" name="date" formControlName="date" placeholder=""type="text"/></p>
             <span class="print-only nepaliFont"><b>{{promissorySingleNote.get('date').value ? promissorySingleNote.get('date').value  : '========='}}</b></span>
             </div>
             </div> <!-- Header -->
@@ -197,3 +194,6 @@
         </div>
     </form>
 </div>
+</div>
+</div>
+
