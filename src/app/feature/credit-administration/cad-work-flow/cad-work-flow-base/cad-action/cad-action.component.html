@@ -1,6 +1,6 @@
 <nb-card>
     <nb-card-header>
-        <div class="clearfix">
+        <div class="clearfix" *ngIf="!isOpened">
             <div class="float-left">
                 <button nbButton size="small" status="primary" [nbTooltip]="backwardToolTip"
                       [disabled]="isBackwardDisabled"  (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD',false)">RETURN
@@ -26,10 +26,10 @@
 </nb-card>
 
 <ng-template #sendForwardBackward>
-    <nb-card accent="primary">
+    <nb-card accent="primary" class="d-flex justify-content-start right-div">
         <div class="modal-content">
             <div class="modal-header" style="display:block">
-                <a (click)="onClose()" aria-label="Close" class="close cursor"
+                <a (click)="onClose() || closeNb()" aria-label="Close" class="close cursor"
                    data-dismiss="modal">
                     <span aria-hidden="true">×</span></a>
                 <h5 class="nav  navbar-right pull-left">{{popUpTitle}}</h5>
@@ -70,7 +70,7 @@
                 <div class="form-group col-md-12 py-3">
                     <label for="comment">Comment:</label>
                     <textarea [ngClass]="{ 'is-invalid': submitted && formAction.controls['comment'].errors }"
-                              class="form-control" formControlName="comment" id="comment"
+                              class="form-control" formControlName="comment" id="comment" rows="10"
                               name="text"
                     ></textarea>
                     <div *ngIf="submitted && formAction.controls['comment'].hasError('required')"

@@ -4,15 +4,23 @@
          nbSpinnerSize="giant"
          nbSpinnerStatus="primary">
     <nb-card-header>
-        <strong>{{cadOfferLetterApprovedDoc?.docStatus | replace:'_':' '}}</strong>
+        <div class="clearfix">
+            <div  [class]="!layoutFlag ? 'float-left':'float-right'">
+        <strong>{{cadOfferLetterApprovedDoc?.docStatus | replace:'_':' '}}</strong></div>
+        </div>
         <app-cad-action [cadId]="cadOfferLetterApprovedDoc?.id"
                         [selectedBranchId]="cadOfferLetterApprovedDoc?.loanHolder?.branch?.id"
                         [currentStatus]="cadOfferLetterApprovedDoc?.docStatus"
                         [currentCADStage]="cadOfferLetterApprovedDoc?.cadCurrentStage"
                         [cadOfferLetterApprovedDoc] = "cadOfferLetterApprovedDoc"
-                        *ngIf="showHideAction && cadOfferLetterApprovedDoc"></app-cad-action>
+                        *ngIf="showHideAction && cadOfferLetterApprovedDoc"
+        (isActionClicked)="changeCssOfCad($event)"></app-cad-action>
     </nb-card-header>
     <nb-card-body>
+
+        <div [class]="layoutFlag ? 'col-md-11 float-right':'col-md-12'">
+
+
         <nb-tabset fullWidth *ngIf="cadOfferLetterApprovedDoc?.docStatus !== 'OFFER_PENDING' && !isRoleLegal">
             <nb-tab tabTitle="Basic Info" [active]="activeTab === 0">
                 <app-cad-offerletter-profile *ngIf="cadOfferLetterApprovedDoc"
@@ -65,5 +73,7 @@
                                                   *ngIf="cadOfferLetterApprovedDoc && checkListLiteVersion == true"></app-document-checklist-view-lite>
             </nb-tab>
         </nb-tabset>
+
+        </div>
     </nb-card-body>
 </nb-card>
