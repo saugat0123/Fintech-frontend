@@ -12,7 +12,7 @@
                     <th>Specific Provision (B)</th>
                     <th>Eligible CRM (C)</th>
                     <th>Net Value (D) = (A-B-C)</th>
-                    <th>Risk Weight (E)</th>
+                    <th>Risk Weight (in%) (E)</th>
                     <th>RWE (F) = (D*E)</th>
                 </tr>
                 </thead>
@@ -27,7 +27,8 @@
                             type="number" class="form-control border-0 bg-white" formControlName="corporationClaimEligible"></td>
                     <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.corporationClaimNetValue.errors }"
                             type="number" readonly class="form-control border-0 bg-white" formControlName="corporationClaimNetValue" value="{{calculateCorporateNetValue()}}"></td>
-                    <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.corporationClaimRiskWeight.errors }"
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.corporationClaimRiskWeight.errors ||
+                                formControls.corporationClaimRiskWeight.hasError('pattern')}"
                             type="number" class="form-control border-0 bg-white" formControlName="corporationClaimRiskWeight"></td>
                     <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.corporationClaimRwe.errors }"
                             type="number" readonly class="form-control border-0 bg-white" formControlName="corporationClaimRwe" value="{{calculateCorporateRWE()}}"></td>
@@ -42,8 +43,9 @@
                             type="number" class="form-control border-0 bg-white" formControlName="OffBalanceSheetItemEligible"></td>
                     <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.OffBalanceSheetItemNetValue.errors }"
                             type="number" readonly class="form-control border-0 bg-white" formControlName="OffBalanceSheetItemNetValue" value="{{calculateBalanceSheetNetValue()}}"></td>
-                    <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.OffBalanceSheetItemRiskWeight.errors }"
-                            type="number" class="form-control border-0 bg-white" formControlName="OffBalanceSheetItemRiskWeight"></td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.OffBalanceSheetItemRiskWeight.errors ||
+                            formControls.OffBalanceSheetItemRiskWeight.hasError('pattern')}"
+                            type="number" class="form-control border-0 bg-white" formControlName="OffBalanceSheetItemRiskWeight" maxlength="100"></td>
                     <td><input [ngClass]="{ 'is-invalid': (submitted) && formControls.OffBalanceSheetItemRwe.errors }"
                             type="number" readonly class="form-control border-0 bg-white" formControlName="OffBalanceSheetItemRwe" value="{{calculateBalanceSheetRWE()}}"></td>
                 </tr>
