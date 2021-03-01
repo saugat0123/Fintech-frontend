@@ -10,6 +10,7 @@
                 <th>Types of Loan</th>
                 <th>Balance</th>
                 <th colspan="4">Loan Classification</th>
+                <th>Provision</th>
                 <th>Total Non-Performing Loans</th>
                 <th>Action</th>
             </tr>
@@ -44,6 +45,8 @@
                                class="form-control" formControlName="classificationSixtoThirteen" (change)="calculateTotalNonPerformingLoan(i)" type="number"></td>
                     <td><input [ngClass]="{ 'is-invalid': (submitted) && portFolioForm.get('classificationOverYear').errors}"
                                class="form-control" formControlName="classificationOverYear" (change)="calculateTotalNonPerformingLoan(i)" type="number"></td>
+                    <td><input [ngClass]="{ 'is-invalid': (submitted) && portFolioForm.get('provision').errors}"
+                               class="form-control" formControlName="provision" type="number"></td>
                     <td><input [ngClass]="{ 'is-invalid': (submitted) && portFolioForm.get('totalNonPerformingLoan').errors}"
                                class="form-control" formControlName="totalNonPerformingLoan" type="number"></td>
                     <td>
@@ -68,6 +71,7 @@
                    <td>{{total('classificationThreeToSix')}}</td>
                    <td>{{total('classificationSixtoThirteen')}}</td>
                    <td>{{total('classificationOverYear')}}</td>
+                   <td>{{total('provision')}}</td>
                    <td>{{total('totalNonPerformingLoan')}}</td>
                    <td></td>
                </tr>

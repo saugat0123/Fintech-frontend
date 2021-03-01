@@ -58,6 +58,7 @@ export class BorrowerLoanPortfolioComponent implements OnInit {
                 classificationSixtoThirteen: [data.classificationSixtoThirteen, Validators.required],
                 classificationOverYear: [data.classificationOverYear, Validators.required],
                 totalNonPerformingLoan: [data.totalNonPerformingLoan, Validators.required],
+                provision: [data.provision, Validators.required],
             }));
         });
     }
@@ -72,6 +73,7 @@ export class BorrowerLoanPortfolioComponent implements OnInit {
                 classificationSixtoThirteen: [undefined, Validators.required],
                 classificationOverYear: [undefined, Validators.required],
                 totalNonPerformingLoan: [undefined, Validators.required],
+                provision: [undefined, Validators.required],
             })
         );
     }
