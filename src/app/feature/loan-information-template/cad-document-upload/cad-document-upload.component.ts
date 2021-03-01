@@ -45,7 +45,7 @@ export class CadDocumentUploadComponent implements OnInit {
     this.loanFormService.detail(this.paramProperties.customerId).subscribe(
         (response: any) => {
           this.loanDataHolder = response.detail;
-          if (!ObjectUtil.isEmpty(this.loanDataHolder.postApprovalDocIdList)) {
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.postApprovalDocIdList)) {
               this.docList = JSON.parse(this.loanDataHolder.postApprovalDocIdList);
           }
           console.log(this.loanDataHolder, 'ld');
@@ -72,7 +72,9 @@ export class CadDocumentUploadComponent implements OnInit {
   }
 
   suspendedId(id) {
-      return !(this.initialDocuments.map(value => value.id).includes(Number(id)));
+      if (this.docList.length > 0) {
+          return !(this.docList.includes(id));
+      }
   }
 
   documentUploader(event, documentName: string, documentId, index: number) {

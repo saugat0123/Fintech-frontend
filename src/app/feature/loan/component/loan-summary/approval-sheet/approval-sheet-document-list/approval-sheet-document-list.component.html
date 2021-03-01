@@ -3,19 +3,15 @@
         <span class="float-right"><em>Loan Limit:</em><strong>{{proposal?.proposedLimit |currencyFormatter}}</strong></span>
         <table class="table table-condensed table-bordered table-sm sb-small text-center">
             <tr class="sb-bg-dark text-white">
-                <th>Security Documents Held/Required</th>
-                <th>Held</th>
-                <th>Req.</th>
+                <th>Security Documents</th>
             </tr>
             <tr>
                 <td class="sb-bg-secondary text-white">Facilities</td>
-                <td class="text-center" colspan="2"><strong>{{loanConfig?.name}}</strong></td>
+                <td class="text-center"><strong>{{loanConfig?.name}}</strong></td>
             </tr>
            <ng-container *ngFor="let a of loanConfig?.approvedDocument">
                <tr [hidden]="suspendedId(a?.id)">
                    <td>{{a?.displayName}}</td>
-                   <td><span *ngIf="a?.checkType?.toString() === 'REQUIRED'">R</span></td>
-                   <td><span *ngIf="a?.checkType?.toString() !== 'REQUIRED'">H</span></td>
                </tr>
            </ng-container>
         </table>

@@ -23,7 +23,9 @@ export class ApprovalSheetDocumentListComponent implements OnInit {
   }
 
   suspendedId(id) {
-    return !(this.postApprovalDocIdList.includes(id));
+    if (!ObjectUtil.isEmpty(this.postApprovalDocIdList)) {
+      return !(this.postApprovalDocIdList.includes(id));
+    }
   }
 
 }
