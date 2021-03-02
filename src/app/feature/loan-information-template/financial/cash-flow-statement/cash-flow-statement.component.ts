@@ -514,5 +514,9 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.formData['cashFlowStatementData'].justificationCashFlowStatement = this.cashFlowStatementForm.get('justificationCashFlowStatement').value;
+        const firstYearOpeningBalanceFormData = this.cashFlowStatementForm.get('addOpeningBalance') as FormArray;
+        if (firstYearOpeningBalanceFormData.controls.length > 0) {
+            this.formData['cashFlowStatementData'].addOpeningBalance[0].value = firstYearOpeningBalanceFormData.value[0].value;
+        }
     }
 }
