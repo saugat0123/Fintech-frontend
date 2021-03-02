@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
@@ -19,7 +19,7 @@ import {CreditAdministrationService} from '../../../service/credit-administratio
 import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {CadStage} from '../../../model/cadStage';
 import {RoleType} from '../../../../admin/modal/roleType';
-import {NbDialogService} from '@nebular/theme';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {SecurityComplianceCertificateComponent} from '../legal-and-disbursement/security-compliance-certificate/security-compliance-certificate.component';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {environment} from '../../../../../../environments/environment';
@@ -46,6 +46,8 @@ export class CadActionComponent implements OnInit, OnChanges {
 
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
 
+    @Output() isActionClicked: EventEmitter<any> = new EventEmitter();
+
     popUpTitle: string;
     currentUserRoleType = false;
 
@@ -64,6 +66,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     roleType = RoleType;
     client = environment.client;
     clientList = Clients;
+    isOpened = false;
 
     private securityUrl = ApiConfig.TOKEN;
     private headers = new HttpHeaders({
@@ -79,6 +82,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     showHideReturnToRm = true;
     missingSignDoc = false;
     missingDraftDoc = false;
+    public dialogRef: NbDialogRef<any>;
 
     constructor(private router: ActivatedRoute,
                 private route: Router,
@@ -135,7 +139,10 @@ export class CadActionComponent implements OnInit, OnChanges {
         }
 
         this.onClose();
+        this.closeNb();
         this.modalService.open(templateLogin);
+        this.isOpened = false;
+        this.isActionClicked.emit(this.isOpened);
 
 
     }
@@ -143,8 +150,15 @@ export class CadActionComponent implements OnInit, OnChanges {
 
     onClose() {
         this.modalService.dismissAll(this.formAction.value);
+        this.isOpened = false;
+        this.isActionClicked.emit(this.isOpened);
     }
 
+    closeNb() {
+        this.dialogRef.close();
+        this.isOpened = false;
+        this.isActionClicked.emit(this.isOpened);
+    }
 
     onLogin(dataValue) {
 
@@ -235,7 +249,6 @@ export class CadActionComponent implements OnInit, OnChanges {
                     this.sendForwardBackwardList = [];
                     this.sendForwardBackwardList = response.detail;
                     if (this.sendForwardBackwardList.length !== 0) {
-                        console.log('ayo');
                         this.getUserList(this.sendForwardBackwardList[0].role);
                     }
                 });
@@ -268,9 +281,16 @@ export class CadActionComponent implements OnInit, OnChanges {
             );
 
         }
-        this.modalService.open(template);
+        // this.modalService.open(template,{backdrop: false, scrollable: true});
+        this.dialogRef = this.nbDialogService.open(template,
+            {
+                closeOnBackdropClick: false,
+                hasBackdrop: false,
+                hasScroll: true
+            });
 
-
+        this.isOpened = true;
+        this.isActionClicked.emit(this.isOpened);
     }
 
     public getNewDocStatusOnApprove() {
