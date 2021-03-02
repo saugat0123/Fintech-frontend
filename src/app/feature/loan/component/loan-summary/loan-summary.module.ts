@@ -24,6 +24,10 @@ import { NtaSummaryComponent } from './nta-summary/nta-summary.component';
 import { ProposalTermsAndConditionSummeryComponent } from './proposal-terms-and-condition-summery/proposal-terms-and-condition-summery.component';
 import { ApprovalSheetComponent } from './approval-sheet/approval-sheet.component';
 import {CbsGroupModule} from '../../../cbs-group/cbs-group.module';
+import { ApprovalSheetConfigComponent } from './approval-sheet-config/approval-sheet-config.component';
+import { ApprovalSheetInfoComponent } from './approval-sheet-info/approval-sheet-info.component';
+import {NgSelectModule} from '@ng-select/ng-select';
+import { ApprovalSheetDocumentListComponent } from './approval-sheet/approval-sheet-document-list/approval-sheet-document-list.component';
 
 
 const COMPONENTS = [
@@ -47,10 +51,10 @@ const COMPONENTS = [
     ApprovalSheetComponent
 ];
 
-const ENTRY_COMPONENTS = [];
+const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS ],
+    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent ],
     imports: [
         CommonModule,
         ThemeModule,
@@ -59,7 +63,8 @@ const ENTRY_COMPONENTS = [];
         ReportingModule,
         NgxPrintModule,
         CoreModule,
-        CbsGroupModule
+        CbsGroupModule,
+        NgSelectModule
     ],
     exports: [
         LoanSummaryComponent,

@@ -30,31 +30,33 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let document of initialDocuments; let i=index">
-              <td>
-                {{i + 1}}
-              </td>
-              <td>{{document.name}}</td>
+            <ng-container *ngFor="let document of initialDocuments; let i=index">
+              <tr [hidden]="suspendedId(document?.id)">
+                <td>
+                  {{i + 1}}
+                </td>
+                <td>{{document.name}}</td>
 
-              <td><input (change)="documentUploader($event, document.name, document.id, i)"
-                         class="form-control-file"
-                         id="uploadDocument{{i}}" multiple=""
-                         type="file">
-                <!--<div *ngIf="submitted && form.file.errors"
-                     class="invalid-feedback">
-                  <div *ngIf="form.file.errors.required">Please upload the
-                    required
-                    documents
-                  </div>
-                </div>-->
-              </td>
-              <td>
+                <td><input (change)="documentUploader($event, document.name, document.id, i)"
+                           class="form-control-file"
+                           id="uploadDocument{{i}}" multiple=""
+                           type="file">
+                  <!--<div *ngIf="submitted && form.file.errors"
+                       class="invalid-feedback">
+                    <div *ngIf="form.file.errors.required">Please upload the
+                      required
+                      documents
+                    </div>
+                  </div>-->
+                </td>
+                <td>
                 <span *ngIf="document.checked" style="color:limegreen">
                   <i class="fas fa-check-circle"></i></span>
-                <span *ngIf="!document.checked || document.checked === null"
-                      style="color:red"><i class="fas fa-times-circle"></i></span>
-              </td>
-            </tr>
+                  <span *ngIf="!document.checked || document.checked === null"
+                        style="color:red"><i class="fas fa-times-circle"></i></span>
+                </td>
+              </tr>
+            </ng-container>
             </tbody>
           </table>
           <!--<div *ngFor="let path of imageUrl">
