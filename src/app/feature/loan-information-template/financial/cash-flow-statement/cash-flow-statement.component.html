@@ -386,9 +386,15 @@
                 <th scope="row">a</th>
                 <td>Add:Opening Balance</td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('addOpeningBalance')['controls']; let j = index"
-                    formArrayName="addOpeningBalance" scope="col">
+                    formArrayName="addOpeningBalance">
                     <div [formGroupName]="j" class="text-center">
-                        <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears">
+                            <input formControlName="value" class="text-center headingParticular" type="number" style="border: none; outline: none; " value="0">
+                        </ng-template>
+
+                        <ng-template #subsequentYears>
+                            <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                        </ng-template>
                     </div>
                 </td>
             </tr>
