@@ -25,6 +25,7 @@ export class CadDocumentUploadComponent implements OnInit {
   customerDocumentArray: Array<CadDocument> = new Array<CustomerDocuments>();
   initialDocuments: Document[] = [];
   loanDataHolder: LoanDataHolder = new LoanDataHolder();
+  docList = [];
   constructor(private loanConfigService: LoanConfigService,
               private toastService: ToastService,
               private activatedRoute: ActivatedRoute,
@@ -44,6 +45,9 @@ export class CadDocumentUploadComponent implements OnInit {
     this.loanFormService.detail(this.paramProperties.customerId).subscribe(
         (response: any) => {
           this.loanDataHolder = response.detail;
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.postApprovalDocIdList)) {
+              this.docList = JSON.parse(this.loanDataHolder.postApprovalDocIdList);
+          }
           console.log(this.loanDataHolder, 'ld');
           this.loanDataHolder.id = response.detail.id;
           this.getLoanData();
@@ -65,6 +69,12 @@ export class CadDocumentUploadComponent implements OnInit {
           }
         }
     );
+  }
+
+  suspendedId(id) {
+      if (this.docList.length > 0) {
+          return !(this.docList.includes(id));
+      }
   }
 
   documentUploader(event, documentName: string, documentId, index: number) {

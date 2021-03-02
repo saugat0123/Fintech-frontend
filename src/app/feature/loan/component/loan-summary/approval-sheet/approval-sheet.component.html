@@ -357,6 +357,10 @@
                         [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
             </div>
             <hr>
+                <app-approval-sheet-document-list
+                        [proposal]="loanDataHolder?.proposal"
+                        [postApprovalDocIdList]="loanDataHolder?.postApprovalDocIdList"
+                        [loanConfig]="loanConfig"></app-approval-sheet-document-list>
 
             <div class="row justify-content-end px-3 disable-print">{{docMsg}}</div>
             <app-proposal-terms-and-condition-summery *ngIf="loanDataHolder && customerAllLoanList"

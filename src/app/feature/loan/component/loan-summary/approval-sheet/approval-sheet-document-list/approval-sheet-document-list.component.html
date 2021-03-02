@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-md-12">
+        <span class="float-right"><em>Loan Limit:</em><strong>{{proposal?.proposedLimit |currencyFormatter}}</strong></span>
+        <table class="table table-condensed table-bordered table-sm sb-small text-center">
+            <tr class="sb-bg-dark text-white">
+                <th>Security Documents</th>
+            </tr>
+            <tr>
+                <td class="sb-bg-secondary text-white">Facilities</td>
+                <td class="text-center"><strong>{{loanConfig?.name}}</strong></td>
+            </tr>
+           <ng-container *ngFor="let a of loanConfig?.approvedDocument">
+               <tr [hidden]="suspendedId(a?.id)">
+                   <td>{{a?.displayName}}</td>
+               </tr>
+           </ng-container>
+        </table>
+    </div>
+</div>
