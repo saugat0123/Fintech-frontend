@@ -36,7 +36,7 @@ import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 import {RouteConst} from '../../../credit-administration/model/RouteConst';
-import {LoginGuard} from '../../../../shared-service/authentication/login.guard';
+import {ApprovalSheetInfoComponent} from './approval-sheet-info/approval-sheet-info.component';
 
 @Component({
     selector: 'app-loan-summary',
@@ -152,6 +152,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
     roleType;
+    showApprovalSheetInfo = false;
 
 
     constructor(
@@ -185,7 +186,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.loanDataHolder = this.loanData;
         this.loadSummary();
         this.roleType = LocalStorageUtil.getStorage().roleType;
-
+        this.checkDocUploadConfig();
     }
 
     ngOnDestroy(): void {
@@ -309,7 +310,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
 
         if (this.loanDataHolder.taggedGuarantors.length > 0) {
-            console.log(this.loanDataHolder.taggedGuarantors);
             this.guarantorData = this.loanDataHolder.taggedGuarantors;
             this.checkGuarantorData = true;
             this.loanDataHolder.taggedGuarantors.forEach(value => {
@@ -562,7 +562,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     addedStages.set(loanStage.fromUser.id, index);
                 }
             }
-            console.log(loanStage);
         });
 
         return signatureList;
@@ -588,6 +587,20 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     SetRoleHierarchy(loanId: number) {
         this.router.navigate(['home/approval-role-hierarchy', 'LOAN', loanId]);
+    }
+
+    openApprovalSheetInfoModal() {
+        const modal = this.modalService.open(ApprovalSheetInfoComponent, {size: 'lg'});
+        modal.componentInstance.loanConfig = this.loanConfig;
+        modal.componentInstance.loanDataHolder = this.loanData;
+    }
+
+    checkDocUploadConfig() {
+        const storage = LocalStorageUtil.getStorage();
+        const docStatus = this.loanDataHolder.documentStatus.toString();
+        this.showApprovalSheetInfo = docStatus !== 'APPROVED' && docStatus !== 'CLOSED' && docStatus !== 'REJECTED'
+            && storage.roleType === 'COMMITTEE'
+            && this.loanDataHolder.currentStage.toUser.id === Number(storage.userId);
     }
 }
 
