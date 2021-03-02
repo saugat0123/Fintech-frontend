@@ -44,13 +44,15 @@ export class BaselRiskExposureComponent implements OnInit {
       corporationClaimSpecificProvision: [undefined, Validators.required],
       corporationClaimEligible: [undefined, Validators.required],
       corporationClaimNetValue: [undefined, Validators.required],
-      corporationClaimRiskWeight: [undefined, Validators.required],
+      corporationClaimRiskWeight: [undefined, [Validators.required,
+        Validators.pattern('^[0-9]$|^[1-9][0-9]$|^(100)$')]],
       corporationClaimRwe: [undefined, Validators.required],
       OffBalanceSheetItemBookValue: [undefined, Validators.required],
       OffBalanceSheetItemSpecificProvision: [undefined, Validators.required],
       OffBalanceSheetItemEligible: [undefined, Validators.required],
       OffBalanceSheetItemNetValue: [undefined, Validators.required],
-      OffBalanceSheetItemRiskWeight: [undefined, Validators.required],
+      OffBalanceSheetItemRiskWeight: [undefined, [Validators.required,
+      Validators.pattern('^[0-9]$|^[1-9][0-9]$|^(100)$')]],
       OffBalanceSheetItemRwe: [undefined, Validators.required],
     });
   }

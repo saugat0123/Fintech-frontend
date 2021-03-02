@@ -273,7 +273,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
       this.crgGammaSummary = true;
       const crgParsedData = JSON.parse(this.loanDataHolder.crgGamma.data);
       this.crgGammaGrade = crgParsedData.grade;
-      this.crgGammaScore = ObjectUtil.isEmpty(crgParsedData.totalPoint) ? 0 : crgParsedData.totalPoint;
+      this.crgGammaScore = ObjectUtil.isEmpty(crgParsedData.totalPoint.toFixed(2)) ? 0 : crgParsedData.totalPoint.toFixed(2);
       if (this.crgGammaGrade === 'Superior' || this.crgGammaGrade === 'Good') {
         this.crgGammaGradeStatusBadge = 'badge badge-success';
       } else if (this.crgGammaGrade === 'Bad & Loss' || this.crgGammaGrade === 'Doubtful') {
