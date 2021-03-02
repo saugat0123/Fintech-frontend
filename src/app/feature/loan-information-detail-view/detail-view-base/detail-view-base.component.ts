@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {FiscalYear} from '../../admin/modal/FiscalYear';
 
 @Component({
   selector: 'app-detail-view-base',
@@ -10,6 +11,7 @@ export class DetailViewBaseComponent implements OnInit {
   @Input() loanHolder;
   @Input() calendarType;
   @Input() loanId;
+  fiscalYearArray: Array<FiscalYear>;
 
   constructor() { }
 
