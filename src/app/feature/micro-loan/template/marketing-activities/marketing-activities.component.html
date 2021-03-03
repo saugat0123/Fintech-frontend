@@ -1,7 +1,7 @@
-<nb-card>
-    <nb-card-header>
+<nb-card [formGroup]="marketingActivityForm">
+    <nb-card-header >
         <strong>Marketing Strategies</strong>
-       <div class="d-flex justify-content-end">
+      <!-- <div class="d-flex justify-content-end">
            <strong class="mb-0 pt-2 mr-2">Fiscal Year : </strong>
            <nb-select (selectedChange)="onChangeFiscalYear($event)" [selected]="fiscalYearArray[0]"
                       placeholder="Select Fiscal year">
@@ -10,10 +10,10 @@
                    <ng-container *ngIf="fiscalYear?.isCurrentYear"> (Current Year)</ng-container>
                </nb-option>
            </nb-select>
-       </div>
+       </div>-->
     </nb-card-header>
-    <nb-card-body>
-        <div>
+    <nb-card-body><!--
+        <div >
             <p>
                 The client is a D Class Financial Institution licensed by NRB. The details of loan and advances as per
                 NRB directives as on <input type="text" class="no-border"> and as well as projected estimation is reflected as under:
@@ -28,72 +28,103 @@
                 NPA %
                 Total Borrowing
             </p>
-        </div>
+        </div>-->
         <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
             <thead>
             <tr class="sb-bg-secondary text-white">
                 <th>Particulars</th>
-                <th>This Quarter</th>
-                <th>FY</th>
-                <th>FY</th>
+                <th><span>This Quarter</span><br>
+                 <span> <input class="cellInput" placeholder="year" [nbDatepicker]="quarterYear" formControlName="currentQuarterYear">
+                    <nb-datepicker #quarterYear></nb-datepicker>
+                     </span>
+                </th>
+                <th><span>FY</span><br>
+                <select class="cellInput" formControlName="firstFiscalYear">
+                    <option [value]="null">Select Year</option>
+                    <option *ngFor="let fiscalYear of fiscalYearArray" [ngValue]="fiscalYear?.year" >{{fiscalYear?.year}}</option>
+                </select>
+                </th>
+                <th><span>FY</span> <br>
+                    <select class="cellInput" formControlName="secondFiscalYear">
+                        <option [value]="null">Select Year</option>
+                        <option *ngFor="let fiscalYear of fiscalYearArray" [ngValue]="fiscalYear?.year" >{{fiscalYear?.year}}</option>
+                    </select></th>
+                <th><span>FY</span><br>
+                    <select class="cellInput" formControlName="thirdFiscalYear">
+                        <option [value]="null">Select Year</option>
+                        <option *ngFor="let fiscalYear of fiscalYearArray" [ngValue]="fiscalYear?.year" >{{fiscalYear?.year}}</option>
+                    </select></th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td>Districts covered</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><span><input class="cellInput" type="number" formControlName="currentQuarterYearDistrict"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="firstFiscalYearDistrict"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="secondFiscalYearDistrict"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="thirdFiscalYearDistrict"></span></td>
+
             </tr>
             <tr>
                 <td> No. of Branches</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><span><input class="cellInput" type="number" formControlName="currentQuarterYearBranchNo"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="firstFiscalYearBranchNo"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="secondFiscalYearBranchNo"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="thirdFiscalYearBranchNo"></span></td>
             </tr>
             <tr>
                 <td>Total Members</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><span><input class="cellInput" type="number" formControlName="currentQuarterYearMemberNo"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="firstFiscalYearMemberNo"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="secondFiscalYearMemberNo"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="thirdFiscalYearMemberNo"></span></td>
             </tr>
             <tr>
                 <td>Total Borrowers</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><span><input class="cellInput" type="number" formControlName="currentQuarterYearBorrowers"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="firstFiscalYearBorrowers"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="secondFiscalYearBorrowers"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="thirdFiscalYearBorrowers"></span></td>
             </tr>
             <tr>
                 <td> Total loan Disbursed (In 000’)</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><span><input class="cellInput" type="number" formControlName="currentQuarterYearDisbursed"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="firstFiscalYearDisbursed"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="secondFiscalYearDisbursed"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="thirdFiscalYearDisbursed"></span></td>
             </tr>
             <tr>
                 <td>Total Deposit</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><span><input class="cellInput" type="number" formControlName="currentQuarterYearDeposit"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="firstFiscalYearDeposit"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="secondFiscalYearDeposit"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="thirdFiscalYearDeposit"></span></td>
             </tr>
             <tr>
                 <td>Net Profit</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><span><input class="cellInput" type="number" formControlName="currentQuarterYearProfit"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="firstFiscalYearNetProfit"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="secondFiscalYearNetProfit"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="thirdFiscalYearNetProfit"></span></td>
             </tr>
             <tr>
                 <td> NPA %</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><span><input class="cellInput" type="number" formControlName="currentQuarterNPA"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="firstFiscalYearNPA"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="secondFiscalYearNPA"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="thirdFiscalYearNPA"></span></td>
             </tr>
             <tr>
                 <td>Total Borrowing</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><span><input class="cellInput" type="number" formControlName="currentQuarterTotalBorrow"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="firstFiscalYearTotalBorrow"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="secondFiscalYearTotalBorrow"></span></td>
+                <td><span><input class="cellInput" type="number" formControlName="thirdFiscalYearTotalBorrow"></span></td>
             </tr>
             </tbody>
         </table>
     </nb-card-body>
+    <nb-card-footer>
+        <button nbButton class="float-right" (click)="submitForm()"><i class="fa fa-save"></i></button>
+    </nb-card-footer>
 </nb-card>

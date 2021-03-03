@@ -18,6 +18,7 @@ import {MicroLoanSynopsis} from './micro-loan-synopsis';
 import {BorrowerPortfolio} from './borrwerportfolio';
 import {MicroBaselRiskExposure} from './micro-basel-risk-exposure';
 import {MicroBorrowerFinancial} from './micro-borrower-financial';
+import {MarketingActivities} from './marketing-activities';
 
 export class CustomerInfoData {
     id: number;
@@ -59,4 +60,5 @@ export class CustomerInfoData {
     borrowerPortFolio: BorrowerPortfolio;
     microBaselRiskExposure: MicroBaselRiskExposure;
     microBorrowerFinancial: MicroBorrowerFinancial;
+    marketingActivities: MarketingActivities;
 }
