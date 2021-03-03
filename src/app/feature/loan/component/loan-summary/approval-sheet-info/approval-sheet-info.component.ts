@@ -67,7 +67,8 @@ export class ApprovalSheetInfoComponent implements OnInit {
               queryParams: {
                 loanConfigId: this.loanConfig.id,
                 customerId: this.loanDataHolder.id,
-                catalogue: false
+                // to do: remove this if not required in future
+                // catalogue: false
               }
             });
           }
