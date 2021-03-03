@@ -49,6 +49,7 @@ import { SecurityComplianceCertificateComponent } from './cad-work-flow/cad-work
 import {NgxPrintModule} from 'ngx-print';
 import { AdditionalExposureComponent } from './component/disbursement/additional-exposure/additional-exposure.component';
 import { CadOfferLetterConfigurationComponent } from './cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
+import {AngularDraggableModule} from 'angular2-draggable';
 
 
 @NgModule({
@@ -103,6 +104,7 @@ import { CadOfferLetterConfigurationComponent } from './cad-offerletter-profile/
         CoreModule,
         MegaModule,
         NgxPrintModule,
+        AngularDraggableModule,
     ],
     entryComponents: [
         AssignPopUpComponent,

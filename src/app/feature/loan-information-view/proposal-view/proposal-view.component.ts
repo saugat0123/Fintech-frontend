@@ -29,14 +29,12 @@ export class ProposalViewComponent implements OnInit {
   isGeneral = false;
   isVehicle = false;
   isShare = false;
+  client = environment.client;
+  clientName = Clients;
   allId;
   showInstallmentAmount = false;
   showRepaymentMode = false;
   otherInformationAndConfirmation;
-
-  client = environment.client;
-  clientName = Clients;
-
 
   constructor(private activatedRoute: ActivatedRoute,
               private loanConfigService: LoanConfigService) {

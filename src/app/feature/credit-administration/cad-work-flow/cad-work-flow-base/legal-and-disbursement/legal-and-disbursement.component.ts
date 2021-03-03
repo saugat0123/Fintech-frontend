@@ -27,6 +27,7 @@ export class LegalAndDisbursementComponent implements OnInit {
     toggleArray: { toggled: boolean }[] = [];
     user = new User();
     isRoleLegal = false;
+    layoutFlag = false;
 
     constructor(private activatedRoute: ActivatedRoute,
                 private service: CreditAdministrationService,
@@ -84,6 +85,11 @@ export class LegalAndDisbursementComponent implements OnInit {
             this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
             this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
         }
+    }
+
+    changeCssOfCad(value){
+        console.log(value);
+        this.layoutFlag = value;
     }
 
 }
