@@ -12,6 +12,7 @@
             <thead>
             <tr class="text-white sb-bg-dark">
                 <th>Branch</th>
+                <th>Province</th>
                 <th>Customer Name</th>
                 <th>Type</th>
                 <th>Document Status</th>
@@ -23,6 +24,7 @@
             <ng-container *ngFor="let model of loanList;let i=index">
                 <tr class="cursor" (click)="loadProfile(model?.id)">
                     <td >{{model?.loanHolder?.branch?.name}}</td>
+                    <td >{{model?.loanHolder?.branch?.province?.name}}</td>
                     <td >{{model?.loanHolder?.name}}</td>
                     <td >{{model?.loanHolder?.customerType}}</td>
                     <td >{{model?.docStatus}}</td>
