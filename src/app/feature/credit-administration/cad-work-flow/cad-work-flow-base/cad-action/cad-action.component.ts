@@ -228,7 +228,6 @@ export class CadActionComponent implements OnInit, OnChanges {
     approvedForwardBackward(template, val, returnToMaker) {
         this.popUpTitle = val;
         this.userList = [];
-        console.log(this.popUpTitle);
         if (this.popUpTitle === 'FORWARD') {
             this.formAction = this.formBuilder.group(
                 {
