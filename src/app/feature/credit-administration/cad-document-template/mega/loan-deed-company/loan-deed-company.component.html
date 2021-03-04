@@ -152,7 +152,7 @@
                             गरि धनी मेगा बैंक नेपाल लिमिटेडलाई दिएँ । साक्षी किनाराका सदर ।</p>
                         <p class="text-center"><b>तपसिल</b></p>
                         धितो लेखिदिएको अचल सम्पत्तिको बिवरण
-                        <table border="1">
+                        <table class="table table-bordered">
                             <thead>
                             <tr>
                                 <th>क्र.सं.</th>
@@ -170,7 +170,7 @@
                                 <td><input class="form-field form-control-sm nepaliFont disable-print col-9"
                                            formControlName="sNo"
                                            placeholder=""
-                                           type="text" size="3" /> <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('sNo').value ? loanDeedCompany.get('sNo').value  : '========='}}</b></span></td>
+                                           type="text" /> <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('sNo').value ? loanDeedCompany.get('sNo').value  : '========='}}</b></span></td>
                                 <td>
                                     <input class="form-field form-control-sm nepaliFont disable-print col-9"
                                            formControlName="landOwnerName"
@@ -207,6 +207,7 @@
                                            placeholder=""
                                            type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('rNoDate').value ? loanDeedCompany.get('rNoDate').value  : '========='}}</b></span>
                                 </td>
+                                <td></td>
                             </tr>
                             </tbody>
                         </table>
