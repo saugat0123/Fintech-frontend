@@ -387,7 +387,6 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                 (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
                     'Short Term Loan', index))).toFixed(2);
             cashFlowStatement.longTermLoanReceived[index].value = Number(longTermLoan.controls['value'].value).toFixed(2);
-            cashFlowStatement.addOpeningBalance[index].value = incomeStatement.operatingProfit[index].value;
         }
 
         cashFlowStatement.closingBalance[index].value =

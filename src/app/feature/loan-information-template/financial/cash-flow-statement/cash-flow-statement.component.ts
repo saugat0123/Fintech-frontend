@@ -512,11 +512,20 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
         });
     }
 
+    onChangeAddOpeningBalance() {
+        const netCashFlowForInitialYear = (this.cashFlowStatementForm.get('netCashFlow') as FormArray).value[0].value;
+        const addOpeningBalanceForInitialYear = (this.cashFlowStatementForm.get('addOpeningBalance') as FormArray).value[0].value;
+        ((this.cashFlowStatementForm.get('closingCash') as FormArray).controls[0] as FormGroup)
+            .controls['value'].patchValue((Number(netCashFlowForInitialYear) + Number(addOpeningBalanceForInitialYear)).toFixed(2));
+    }
+
     ngOnDestroy(): void {
         this.formData['cashFlowStatementData'].justificationCashFlowStatement = this.cashFlowStatementForm.get('justificationCashFlowStatement').value;
         const firstYearOpeningBalanceFormData = this.cashFlowStatementForm.get('addOpeningBalance') as FormArray;
+        const firstYearClosingCashFormData = this.cashFlowStatementForm.get('closingCash') as FormArray;
         if (firstYearOpeningBalanceFormData.controls.length > 0) {
             this.formData['cashFlowStatementData'].addOpeningBalance[0].value = firstYearOpeningBalanceFormData.value[0].value;
+            this.formData['cashFlowStatementData'].closingCash[0].value = firstYearClosingCashFormData.value[0].value;
         }
     }
 }
