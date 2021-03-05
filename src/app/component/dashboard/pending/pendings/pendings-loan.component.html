@@ -93,6 +93,7 @@
                         <tr class="sb-bg-dark text-white">
                             <th>S.N</th>
                             <th>Branch</th>
+                            <th>Branch Province</th>
                             <th>Name</th>
                             <th>Contact Number</th>
                             <th>Facility</th>
@@ -116,6 +117,7 @@
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{i
                             + 1}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.branch?.name}}</td>
+                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.branch?.province?.name}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.loanHolder?.name}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.loanHolder?.contactNo || 'NA'}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.loan?.name}}</td>
