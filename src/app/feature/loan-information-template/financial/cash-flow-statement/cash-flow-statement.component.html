@@ -389,11 +389,14 @@
                     formArrayName="addOpeningBalance">
                     <div [formGroupName]="j" class="text-center">
                         <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears">
-                            <input formControlName="value" class="text-center headingParticular" type="number" style="border: none; outline: none; " value="0">
+                            <input (input)="onChangeAddOpeningBalance()"
+                                   formControlName="value" class="text-center headingParticular" type="number"
+                                   style="border: none; outline: none; " value="0">
                         </ng-template>
 
                         <ng-template #subsequentYears>
-                            <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                            <input formControlName="value" class="text-center" type="number"
+                                   style="border: none; outline: none; " value="0" readonly>
                         </ng-template>
                     </div>
                 </td>
