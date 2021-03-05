@@ -30,6 +30,8 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {NbTrigger} from '@nebular/theme';
 import {CustomerLoanFlag} from '../../../../@core/model/customer-loan-flag';
 import {LoanFlag} from '../../../../@core/model/enum/loan-flag.enum';
+import {Province} from '../../modal/province';
+import {AddressService} from '../../../../@core/service/baseservice/address.service';
 
 @Component({
     selector: 'app-catalogue',
@@ -65,9 +67,11 @@ export class CatalogueComponent implements OnInit {
     redirected = false;
     isFilterCollapsed = true;
     showBranch = true;
+    showBranchProvince = true;
     nbTrigger = NbTrigger;
     public insuranceToggle = false;
     selectedUserForTransfer;
+    provinces: Province[];
     public typesDropdown: {
         name: string,
         value: string,
@@ -96,7 +100,8 @@ export class CatalogueComponent implements OnInit {
         private userService: UserService,
         private roleService: RoleService,
         private socketService: SocketService,
-        private catalogueService: CatalogueService) {
+        private catalogueService: CatalogueService,
+        private location: AddressService) {
     }
 
     static loadData(other: CatalogueComponent) {
@@ -136,6 +141,7 @@ export class CatalogueComponent implements OnInit {
         }
         if (this.roleAccess === RoleAccess.OWN) {
             this.showBranch = false;
+            this.showBranchProvince = false;
         }
 
         if (this.accessSpecific || this.accessAll) {
@@ -152,7 +158,6 @@ export class CatalogueComponent implements OnInit {
                     this.roleList = response.detail;
                     this.roleList.splice(0, 1); // removes ADMIN
                 }, error => {
-                    console.log(error);
                     this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Roles'));
                 }
             );
@@ -175,6 +180,9 @@ export class CatalogueComponent implements OnInit {
             // resetSearch.documentStatus = DocStatus.value(DocStatus.PENDING);
             this.catalogueService.search = resetSearch;
         }
+        this.location.getProvince().subscribe((response: any) => {
+            this.provinces = response.detail;
+        });
         CatalogueComponent.loadData(this);
     }
 
@@ -191,7 +199,8 @@ export class CatalogueComponent implements OnInit {
             companyName: [undefined],
             showShareLoanExcessingLimit: [undefined],
             users: [undefined],
-            showExpriringInsurance: [undefined]
+            showExpriringInsurance: [undefined],
+            provinceId: [undefined]
         });
     }
 
@@ -278,6 +287,8 @@ export class CatalogueComponent implements OnInit {
             this.filterForm.get('companyName').value;
         this.catalogueService.search.users = ObjectUtil.isEmpty(this.filterForm.get('users').value) ? undefined :
             this.filterForm.get('users').value;
+        this.catalogueService.search.provinceId = ObjectUtil.isEmpty(this.filterForm.get('provinceId').value) ? undefined :
+            this.filterForm.get('provinceId').value;
         CatalogueComponent.loadData(this);
     }
 
