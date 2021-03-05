@@ -156,7 +156,6 @@ export class CatalogueComponent implements OnInit {
                     this.roleList = response.detail;
                     this.roleList.splice(0, 1); // removes ADMIN
                 }, error => {
-                    console.log(error);
                     this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Roles'));
                 }
             );
@@ -183,10 +182,6 @@ export class CatalogueComponent implements OnInit {
             this.provinces = response.detail;
         });
         CatalogueComponent.loadData(this);
-        console.log('Province: ');
-        // console.log(this.location.getProvince().subscribe((res: any) => {
-        //     this.provinces = res.detail;
-        // }));
     }
 
     buildFilterForm() {

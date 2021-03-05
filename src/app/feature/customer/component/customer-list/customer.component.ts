@@ -26,6 +26,7 @@ import {BranchService} from '../../../admin/component/branch/branch.service';
 import {CustomerGroupService} from '../../../admin/component/preference/services/customer-group.service';
 import {CustomerGroup} from '../../../admin/modal/customer-group';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
+import {Province} from '../../../admin/modal/province';
 
 @Component({
     selector: 'app-customer-component',
@@ -53,6 +54,7 @@ export class CustomerComponent implements OnInit {
     accessAll: boolean;
     showBranch = true;
     customerGroupList: Array<CustomerGroup>;
+    provinces: Province[];
 
     constructor(private customerService: CustomerService,
                 private toastService: ToastService,
@@ -67,6 +69,7 @@ export class CustomerComponent implements OnInit {
                 private branchService: BranchService,
                 private customerGroupService: CustomerGroupService,
                 private companyInfoService: CompanyInfoService,
+                private location: AddressService
     ) {
     }
 
@@ -96,6 +99,9 @@ export class CustomerComponent implements OnInit {
         this.getAllGroup();
         const roleType: string = LocalStorageUtil.getStorage().roleType;
         this.currentRoleTypeMaker = roleType === RoleType.MAKER;
+        this.location.getProvince().subscribe((response: any) => {
+            this.provinces = response.detail;
+        });
     }
 
     buildFilterForm() {
@@ -104,7 +110,8 @@ export class CustomerComponent implements OnInit {
             customerType: [undefined],
             idRegPlace: [undefined],
             branchIds: [undefined],
-            groupId: [undefined]
+            groupId: [undefined],
+            provinceId: [undefined]
         });
     }
 
@@ -248,7 +255,6 @@ export class CustomerComponent implements OnInit {
         } else if (CustomerType.INSTITUTION === CustomerType[model.customerType]) {
             this.companyInfoService.detail(model.associateId).subscribe((res: any) => {
                 const detail = res.detail;
-                console.log(detail);
                 this.dialogService.open(CompanyFormComponent, {
                 context: {
                     formValue: detail,
