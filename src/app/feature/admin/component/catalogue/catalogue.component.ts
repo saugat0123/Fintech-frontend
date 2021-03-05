@@ -30,6 +30,8 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {NbTrigger} from '@nebular/theme';
 import {CustomerLoanFlag} from '../../../../@core/model/customer-loan-flag';
 import {LoanFlag} from '../../../../@core/model/enum/loan-flag.enum';
+import {Province} from '../../modal/province';
+import {AddressService} from '../../../../@core/service/baseservice/address.service';
 
 @Component({
     selector: 'app-catalogue',
@@ -68,6 +70,7 @@ export class CatalogueComponent implements OnInit {
     nbTrigger = NbTrigger;
     public insuranceToggle = false;
     selectedUserForTransfer;
+    provinces: Province[];
     public typesDropdown: {
         name: string,
         value: string,
@@ -96,7 +99,8 @@ export class CatalogueComponent implements OnInit {
         private userService: UserService,
         private roleService: RoleService,
         private socketService: SocketService,
-        private catalogueService: CatalogueService) {
+        private catalogueService: CatalogueService,
+        private location: AddressService) {
     }
 
     static loadData(other: CatalogueComponent) {
@@ -175,7 +179,14 @@ export class CatalogueComponent implements OnInit {
             // resetSearch.documentStatus = DocStatus.value(DocStatus.PENDING);
             this.catalogueService.search = resetSearch;
         }
+        this.location.getProvince().subscribe((response: any) => {
+            this.provinces = response.detail;
+        });
         CatalogueComponent.loadData(this);
+        console.log('Province: ');
+        // console.log(this.location.getProvince().subscribe((res: any) => {
+        //     this.provinces = res.detail;
+        // }));
     }
 
     buildFilterForm() {
@@ -191,7 +202,8 @@ export class CatalogueComponent implements OnInit {
             companyName: [undefined],
             showShareLoanExcessingLimit: [undefined],
             users: [undefined],
-            showExpriringInsurance: [undefined]
+            showExpriringInsurance: [undefined],
+            provinceId: [undefined]
         });
     }
 
@@ -278,6 +290,8 @@ export class CatalogueComponent implements OnInit {
             this.filterForm.get('companyName').value;
         this.catalogueService.search.users = ObjectUtil.isEmpty(this.filterForm.get('users').value) ? undefined :
             this.filterForm.get('users').value;
+        this.catalogueService.search.provinceId = ObjectUtil.isEmpty(this.filterForm.get('provinceId').value) ? undefined :
+            this.filterForm.get('provinceId').value;
         CatalogueComponent.loadData(this);
     }
 
