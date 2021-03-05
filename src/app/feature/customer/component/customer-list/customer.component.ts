@@ -53,6 +53,7 @@ export class CustomerComponent implements OnInit {
     accessSpecific: boolean;
     accessAll: boolean;
     showBranch = true;
+    showBranchProvince = true;
     customerGroupList: Array<CustomerGroup>;
     provinces: Province[];
 
@@ -216,6 +217,7 @@ export class CustomerComponent implements OnInit {
         }
         if (this.roleAccess === RoleAccess.OWN) {
             this.showBranch = false;
+            this.showBranchProvince = false;
         }
 
         if (this.accessSpecific || this.accessAll) {

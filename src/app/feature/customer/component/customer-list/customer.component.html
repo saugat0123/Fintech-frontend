@@ -102,7 +102,6 @@
       <tr class="sb-bg-dark text-white">
         <th>S.No.</th>
         <th *ngIf="!isMaker">Branch</th>
-        <th>Branch Province</th>
         <th>Customer Name</th>
         <th>Customer Type</th>
         <th>ID Number</th>
@@ -111,6 +110,7 @@
         <th>Email</th>
         <th>Contact No</th>
         <th>Associated Since</th>
+        <th *ngIf="showBranchProvince">Branch Province</th>
         <th *ngIf="isMaker">Action</th>
 
 
@@ -121,7 +121,6 @@
           *ngFor="let model of customerList;let i=index" class="cursor">
         <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
         <td *ngIf="!isMaker" (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.branch?.name}}</td>
-        <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.branch?.province?.name}}</td>
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.name}}</td>
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.customerType}}</td>
 
@@ -132,6 +131,7 @@
 
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.contactNo || 'NA'}}</td>
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{(model?.createdAt|date) || 'NA'}}</td>
+        <td *ngIf="this.showBranchProvince" (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.branch?.province?.name}}</td>
         <td *ngIf="isMaker"><button  nbButton size="tiny" shape="rectangle" (click)="editCustomer(model)"><em class="fa fa-edit"></em></button></td>
       </tr>
 

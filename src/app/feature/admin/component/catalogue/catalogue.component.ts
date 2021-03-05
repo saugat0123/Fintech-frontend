@@ -67,6 +67,7 @@ export class CatalogueComponent implements OnInit {
     redirected = false;
     isFilterCollapsed = true;
     showBranch = true;
+    showBranchProvince = true;
     nbTrigger = NbTrigger;
     public insuranceToggle = false;
     selectedUserForTransfer;
@@ -140,6 +141,7 @@ export class CatalogueComponent implements OnInit {
         }
         if (this.roleAccess === RoleAccess.OWN) {
             this.showBranch = false;
+            this.showBranchProvince = false;
         }
 
         if (this.accessSpecific || this.accessAll) {
