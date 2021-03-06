@@ -159,10 +159,14 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.post(req.url, formData, {headers: req.header});
     }
 
-    public saveCustomerDocument(loanId , customerDocuments: Array<CustomerDocuments>) {
+    public saveCustomerDocument(loanId , customerDocuments: Array<CustomerDocuments>, data: string) {
         const api = `${this.getApi()}/cad-document?loanId=${loanId}`;
         const req = ApiUtils.getRequest(api);
-        return this.http.post(req.url, customerDocuments, {headers: req.header});
+        const params = {
+            headers: req.header,
+            params: new HttpParams().set('data', data)
+        };
+        return this.http.post(req.url, customerDocuments, params);
     }
     public saveCbsNumbers(loanDataHolder) {
         const api = `${this.getApi()}/cbs`;

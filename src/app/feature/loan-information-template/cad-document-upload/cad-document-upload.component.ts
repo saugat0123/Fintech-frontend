@@ -11,6 +11,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Document} from '../../admin/modal/document';
 import {CustomerLoanDocumentComponent} from '../customer-loan-document/customer-loan-document.component';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-cad-document-upload',
@@ -26,13 +27,17 @@ export class CadDocumentUploadComponent implements OnInit {
   initialDocuments: Document[] = [];
   loanDataHolder: LoanDataHolder = new LoanDataHolder();
   docList = [];
+  data: Object;
+  form: FormGroup;
   constructor(private loanConfigService: LoanConfigService,
               private toastService: ToastService,
               private activatedRoute: ActivatedRoute,
               private loanFormService: LoanFormService,
-              private route: Router) { }
+              private route: Router,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.buildForm();
     this.activatedRoute.queryParams.subscribe(
         (paramsValue: Params) => {
           this.paramProperties = {
@@ -45,13 +50,25 @@ export class CadDocumentUploadComponent implements OnInit {
     this.loanFormService.detail(this.paramProperties.customerId).subscribe(
         (response: any) => {
           this.loanDataHolder = response.detail;
+          console.log(this.loanDataHolder);
             if (!ObjectUtil.isEmpty(this.loanDataHolder.postApprovalDocIdList)) {
               this.docList = JSON.parse(this.loanDataHolder.postApprovalDocIdList);
           }
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.data)) {
+                this.data = JSON.parse(this.loanDataHolder.data);
+                this.form.patchValue(this.data);
+            }
           console.log(this.loanDataHolder, 'ld');
           this.loanDataHolder.id = response.detail.id;
           this.getLoanData();
         });
+  }
+
+  buildForm() {
+      this.form = this.formBuilder.group({
+          mainCode: [undefined],
+          nomineeCode: [undefined]
+      });
   }
 
   getLoanData() {
@@ -116,7 +133,8 @@ export class CadDocumentUploadComponent implements OnInit {
 
   saveLoan() {
     this.loanDataHolder.customerDocument =  this.customerDocumentArray;
-    this.loanFormService.saveCustomerDocument(this.loanDataHolder.id , this.customerDocumentArray).subscribe(value => {
+    this.loanDataHolder.data = JSON.stringify(this.form.value);
+    this.loanFormService.saveCustomerDocument(this.loanDataHolder.id , this.customerDocumentArray, this.loanDataHolder.data).subscribe(value => {
       this.route.navigate(['/home/loan/summary'], {
         queryParams: {
           loanConfigId: this.paramProperties.loanId,
