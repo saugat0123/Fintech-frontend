@@ -56,6 +56,7 @@ export class RolesSwitchComponent implements OnInit {
             const userName = res.detail;
 
             this.onLogin(userName, dataValue.value.password);
+
         });
     }
 
@@ -119,7 +120,7 @@ export class RolesSwitchComponent implements OnInit {
                 });
 
                 location.reload();
-
+                location.assign('/home/dashboard');
 
             }, error => {
                 this.falseCredentialMessage = ObjectUtil.isEmpty(error.error.errorDescription) ? '' : error.error.errorDescription;
