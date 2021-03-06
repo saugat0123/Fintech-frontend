@@ -157,7 +157,7 @@
                                             title="History">
                                         <i class="fas fa-history"></i>
                                     </button>
-                                    <button nbButton status="info" size="tiny" class="m-1" (click)="edit(allList)"
+                                    <button *ngIf="!allList?.primaryUserId" nbButton status="info" size="tiny" class="m-1" (click)="edit(allList)"
                                             title="Edit">
                                         <i class="fa fa-edit"></i>
                                     </button>
@@ -166,7 +166,7 @@
                                             title="Dismiss  Branch & role" *ngIf="allList.role !== null;">
                                         <i class="fa fa-ban"></i>
                                     </button>
-                                    <button nbButton status="danger" size="tiny" class="m-1"
+                                    <button nbButton status="danger" size="tiny" class="m-1" *ngIf="!allList?.primaryUserId"
                                             (click)="addRole(allList)"
                                             title="add role">
                                         <i class="fa fa-plus-circle"></i>
