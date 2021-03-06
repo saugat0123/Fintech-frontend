@@ -174,7 +174,12 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     }
 
     openOfferLetterConfigModal() {
-        this.nbDialogService.open(CadOfferLetterConfigurationComponent, {context: {customerInfo: this.customerInfoData}}).onClose
+        this.nbDialogService.open(CadOfferLetterConfigurationComponent, {
+            context: {
+                customerInfo: this.customerInfoData,
+                customer: this.cadOfferLetterApprovedDoc.assignedLoan[0].customerInfo
+            }
+        }).onClose
             .subscribe(value => {
                 if (!ObjectUtil.isEmpty(value)) {
                     this.customerInfoData = value;

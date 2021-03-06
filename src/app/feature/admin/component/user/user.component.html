@@ -166,6 +166,11 @@
                                             title="Dismiss  Branch & role" *ngIf="allList.role !== null;">
                                         <i class="fa fa-ban"></i>
                                     </button>
+                                    <button nbButton status="danger" size="tiny" class="m-1"
+                                            (click)="addRole(allList)"
+                                            title="add role">
+                                        <i class="fa fa-plus-circle"></i>
+                                    </button>
                                 </ng-container>
                             </td>
                         </tr>
