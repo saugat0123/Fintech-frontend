@@ -1,0 +1,188 @@
+<p><strong>Credit Risk Grading - Lambda</strong></p>
+<table aria-describedby="creditRiskGradingForm"
+       class="table table-sm table-bordered table-striped table-responsive-md text-center">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col">Type of Risk</th>
+        <th scope="col">Criteria</th>
+        <th scope="col">Weightage</th>
+        <th scope="col">Parameter</th>
+        <th scope="col">Automated Value</th>
+        <th scope="col">Obtained Score</th>
+    </tr>
+    </thead>
+    <tbody id="crgTableBody">
+    <tr>
+        <td colspan="2"><strong>Repayment Risk</strong></td>
+        <td colspan="4"><strong>60.00%</strong></td>
+    </tr>
+    <tr>
+        <td>(Character)</td>
+        <td>Type of Source of Income</td>
+        <td>40%</td>
+        <td>--</td>
+        <td>--</td>
+        <td>{{crgLambdaData?.typeOfSourceOfIncome?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Multiple source of income</td>
+        <td>20%</td>
+        <td>{{crgLambdaData?.multipleSourceOfIncome?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgLambdaData?.multipleSourceOfIncome?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Period of earning/Employment</td>
+        <td>5%</td>
+        <td>{{crgLambdaData?.periodOfEarningOrEmployment?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgLambdaData?.periodOfEarningOrEmployment?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Income Routing through bank</td>
+        <td>5%</td>
+        <td>{{crgLambdaData?.incomeRoutingThroughBank?.parameter}}</td>
+        <td>{{crgLambdaData?.incomeRoutingThroughBank?.automatedValue}}</td>
+        <td>{{crgLambdaData?.incomeRoutingThroughBank?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Total gross monthly income/total gross monthly expenses</td>
+        <td>20%</td>
+        <td>{{crgLambdaData?.totalGrossMonthlyIncomeOrTotalGrossMonthlyExpenses?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgLambdaData?.totalGrossMonthlyIncomeOrTotalGrossMonthlyExpenses?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Alternate/secondary source of income</td>
+        <td>10%</td>
+        <td>{{crgLambdaData?.alternateOrSecondarySourceOfIncome?.parameter}}</td>
+        <td>{{crgLambdaData?.alternateOrSecondarySourceOfIncome?.automatedValue}}</td>
+        <td>{{crgLambdaData?.alternateOrSecondarySourceOfIncome?.value}}%</td>
+    </tr>
+
+    <tr class="table-success">
+        <td class="text-right" colspan="4"><strong>Repayment Risk Total</strong></td>
+        <td colspan="2"><strong>{{crgLambdaData?.repaymentRiskTotal}}</strong></td>
+    </tr>
+
+    <tr>
+        <td colspan="2"><strong>Security Risk</strong></td>
+        <td colspan="4"><strong>30.00%</strong></td>
+    </tr>
+    <tr>
+        <td>(Capacity & Capital)</td>
+        <td>Security Coverage</td>
+        <td>70%</td>
+        <td>{{crgLambdaData?.securityCoverage?.parameter}}</td>
+        <td> {{crgLambdaData?.securityCoverage?.automatedValue}} </td>
+        <td>{{crgLambdaData?.securityCoverage?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Location of property</td>
+        <td>10%</td>
+        <td>{{crgLambdaData?.locationOfProperty?.parameter}}</td>
+        <td> --</td>
+        <td>{{crgLambdaData?.locationOfProperty?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Road Access</td>
+        <td>10%</td>
+        <td>{{ crgLambdaData?.roadAccess?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgLambdaData?.roadAccess?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Net Worth</td>
+        <td>10%</td>
+        <td>{{crgLambdaData?.netWorth?.parameter}}</td>
+        <td> {{crgLambdaData?.netWorth?.automatedValue}} </td>
+        <td>{{crgLambdaData?.netWorth?.value}}%</td>
+    </tr>
+
+    <tr class="table-success">
+        <td class="text-right" colspan="4"><strong>Security Risk Total</strong></td>
+        <td colspan="2"><strong>{{crgLambdaData?.securityRiskTotal}}</strong></td>
+    </tr>
+
+    <tr>
+        <td colspan="2"><strong>Relationship Risk</strong></td>
+        <td colspan="4"><strong>5.00%</strong></td>
+    </tr>
+    <tr>
+        <td>(Capacity)</td>
+        <td>Banking Relationship</td>
+        <td>50%</td>
+        <td>{{crgLambdaData?.bankingRelationship?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgLambdaData?.bankingRelationship?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Repayment History</td>
+        <td>50%</td>
+        <td>{{crgLambdaData?.repaymentHistory?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgLambdaData?.repaymentHistory?.value}}%</td>
+    </tr>
+
+    <tr class="table-success">
+        <td class="text-right" colspan="4"><strong>Relationship Risk Total</strong></td>
+        <td colspan="2"><strong>{{crgLambdaData?.relationshipRiskTotal}}</strong></td>
+    </tr>
+
+    <tr>
+        <td colspan="2"><strong>Exposure Risk</strong></td>
+        <td colspan="4"><strong>5.00%</strong></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Multibanking</td>
+        <td>50%</td>
+        <td>{{crgLambdaData?.multibanking?.parameter}}</td>
+        <td> {{crgLambdaData?.multibanking?.automatedValue}} </td>
+        <td>{{crgLambdaData?.multibanking?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Repayment track in other BFIs</td>
+        <td>50%</td>
+        <td>{{crgLambdaData?.repaymentTrackInOtherBfIs?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgLambdaData?.repaymentTrackInOtherBfIs?.value}}%</td>
+    </tr>
+
+    <tr class="table-success">
+        <td class="text-right" colspan="4"><strong>Exposure Risk Total</strong></td>
+        <td colspan="2"><strong>{{crgLambdaData?.exposureRiskTotal}}</strong></td>
+    </tr>
+
+    <tr>
+        <td colspan="6">&nbsp;</td>
+    </tr>
+    <tr class="table-success">
+        <td class="text-right" colspan="4"><strong>Grand Total</strong></td>
+        <td colspan="2"><strong>{{crgLambdaData?.totalScore}}</strong></td>
+    </tr>
+    <tr class="table-success">
+        <td class="text-right" colspan="4"><strong>Credit Risk Grade</strong></td>
+        <td colspan="2"><strong>{{crgLambdaData?.creditRiskGrade}}</strong></td>
+    </tr>
+    <tr class="table-success">
+        <td class="text-right" colspan="4"><strong>Credit Risk Rating</strong></td>
+        <td colspan="2"><strong>{{crgLambdaData?.creditRiskRating}}</strong></td>
+    </tr>
+    <tr class="table-success">
+        <td class="text-right" colspan="4"><strong>Premium</strong></td>
+        <td colspan="2"><strong>{{crgLambdaData?.premium}}</strong></td>
+    </tr>
+    </tbody>
+</table>
+
