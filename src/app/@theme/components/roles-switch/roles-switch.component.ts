@@ -22,6 +22,7 @@ export class RolesSwitchComponent implements OnInit {
     falseCredentialMessage;
     roleList = [];
     selectedRole = new Role();
+    spinner = false;
 
     constructor(private userService: UserService, private modalService: NgbModal,
                 private http: HttpClient, private router: Router,
@@ -29,6 +30,7 @@ export class RolesSwitchComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.spinner = true;
         this.userService.getLoggedInUser().subscribe((res: any) => {
             this.user = res.detail;
             this.roleList = this.user.roleList;
@@ -43,7 +45,8 @@ export class RolesSwitchComponent implements OnInit {
                 });
 
             }
-        });
+            this.spinner = false;
+        }, error =>   this.spinner = false);
     }
 
     verifyUserOpen(obj, template) {
