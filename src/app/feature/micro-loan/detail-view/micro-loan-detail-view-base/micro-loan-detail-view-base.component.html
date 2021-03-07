@@ -27,6 +27,12 @@
                                              [borrowerData]="loanHolder?.borrowerPortFolio"></app-borrower-portfolio-view>
             </nb-card-body>
         </nb-card>
+
+        <div *ngIf="loanHolder?.customerType === 'INSTITUTION'">
+            <app-marketing-activities-view *ngIf="loanHolder?.marketingActivities"
+                                           [marketingActivityData]="loanHolder?.marketingActivities"></app-marketing-activities-view>
+        </div>
+
             <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
                                [shareSecurityData]="loanHolder?.shareSecurity"></app-security-view>
             <app-financial-view *ngIf="loanHolder?.financial"
