@@ -93,4 +93,11 @@ export class CreditAdministrationService extends BaseService<any> {
         return this.http.post(req.url, formData, {headers: req.header});
     }
 
+    public getMakerUserByBranchID(branchId: any): Observable<any> {
+        const api = `${this.getApi()}/users/${branchId}`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.get(req.url, {headers: req.header});
+    }
+
 }
