@@ -61,4 +61,5 @@ export class CustomerInfoData {
     microBaselRiskExposure: MicroBaselRiskExposure;
     microBorrowerFinancial: MicroBorrowerFinancial;
     marketingActivities: MarketingActivities;
+    isMicroCustomer: boolean;
 }
