@@ -87,4 +87,9 @@ export class UserService extends BaseService<User> {
         const req = ApiUtils.getRequestWithFileSupport(`${UserService.API}/role-list/branch/${id}`);
         return this.http.post(req.url, idList, {headers: req.header});
     }
+
+    public updateUserRoles(obj: Object, id: number): Observable<any> {
+        const req = ApiUtils.getRequest(`${UserService.API}/update-roles/${id}`);
+        return this.http.post(req.url, obj, {headers: req.header});
+    }
 }

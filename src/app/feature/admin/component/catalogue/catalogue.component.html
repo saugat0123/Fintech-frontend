@@ -48,6 +48,14 @@
                             </option>
                         </select>
                     </div>
+                    <div class="col-md-3">
+                        <select class="custom-select" formControlName="provinceId">
+                            <option [value]="null" selected hidden>Province</option>
+                            <option *ngFor="let province of provinces"
+                                    value="{{province.id}}">
+                                {{province.name}}
+                        </select>
+                    </div>
                     <div class="col-md-3 mb-3">
                         <select class="custom-select" formControlName="loanType">
                             <option [value]="null" selected hidden>Select Loan Type</option>
@@ -146,6 +154,7 @@
                 <th>Loan lifespan</th>
                 <th *ngIf="transferDoc">Transfer</th>
                 <th>Created On</th>
+                <th *ngIf="this.showBranchProvince">Branch Province</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -220,6 +229,8 @@
                         {{model?.createdAt | date}}
                     </div>
                 </td>
+                <td (click)="onClick(model.loan.id,model.id)"
+                    *ngIf="this.showBranchProvince">{{model?.branch?.province?.name}}</td>
                 <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew); else linkin">
                     <select [(ngModel)]="tempLoanType" class="custom-select py-0"
                             (ngModelChange)="onChange(model,onActionChange)">

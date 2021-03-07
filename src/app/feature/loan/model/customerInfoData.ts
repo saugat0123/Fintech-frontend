@@ -10,7 +10,7 @@ import {CreditRiskGrading} from '../../admin/modal/creditRiskGrading';
 import {Branch} from '../../admin/modal/branch';
 import {CustomerLoanFlag} from '../../../@core/model/customer-loan-flag';
 import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
-import {Cicl, CiclArray} from '../../admin/modal/cicl';
+import {CiclArray} from '../../admin/modal/cicl';
 import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../admin/modal/NetTradingAssets';
 import {CreditChecklistGeneral} from './creditChecklistGeneral';
@@ -51,4 +51,5 @@ export class CustomerInfoData {
     customerCode: string;
     subSectorDetailCode: string;
     nepData: string;
+    gender: string;
 }

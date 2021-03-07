@@ -37,6 +37,14 @@
                          [value]="branch.id">{{branch.name}}</ng-option>
             </ng-select>
           </div>
+
+          <div class="col-md-3 mb-3">
+            <ng-select placeholder="Province" formControlName="provinceId">
+              <ng-option *ngFor="let province of provinces"
+                         [value]="province.id">{{province.name}}</ng-option>
+            </ng-select>
+          </div>
+
           <div class="col-md-3 mb-3">
             <input class="form-control rounded" formControlName="name" id="customerName"
                    placeholder="Enter customer name">
@@ -96,13 +104,13 @@
         <th *ngIf="!isMaker">Branch</th>
         <th>Customer Name</th>
         <th>Customer Type</th>
-
         <th>ID Number</th>
         <th>ID Issue Place</th>
         <th>ID Reg Date</th>
         <th>Email</th>
         <th>Contact No</th>
         <th>Associated Since</th>
+        <th *ngIf="showBranchProvince">Branch Province</th>
         <th *ngIf="isMaker">Action</th>
 
 
@@ -123,6 +131,7 @@
 
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.contactNo || 'NA'}}</td>
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{(model?.createdAt|date) || 'NA'}}</td>
+        <td *ngIf="this.showBranchProvince" (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.branch?.province?.name}}</td>
         <td *ngIf="isMaker"><button  nbButton size="tiny" shape="rectangle" (click)="editCustomer(model)"><em class="fa fa-edit"></em></button></td>
       </tr>
 

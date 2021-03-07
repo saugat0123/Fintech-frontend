@@ -65,7 +65,16 @@
                         </select>
 
                     </div>
+
                     <p *ngIf="errorMsgStatus" class="text-danger"><sup>*</sup>{{errorMsg}}</p>
+                </div>
+                <div *ngIf="isForApproveMaker" class="col-md-12 py-4 px-3">
+                    <select (change)="errorMsgStatus=false" class="form-control" formControlName="toUser"
+                            placeholder="select  User">
+                        <option [value]="null" hidden>Select To</option>
+                        <option *ngFor="let user of forApproveMaker" [ngValue]="user">{{user?.name}}-{{user?.role?.roleName}}</option>
+                    </select>
+
                 </div>
                 <div class="form-group col-md-12 py-3">
                     <label for="comment">Comment:</label>
