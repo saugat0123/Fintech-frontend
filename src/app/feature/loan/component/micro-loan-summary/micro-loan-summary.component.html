@@ -272,6 +272,7 @@
 
             <app-borrower-portfolio-summary *ngIf="borrowerPortfolio" [borrowerData]="borrowerPortfolioDetail"></app-borrower-portfolio-summary>
 
+            <app-marketing-activities-summary *ngIf="marketingActivity" [marketingActivity]="marketingActivityDetail"></app-marketing-activities-summary>
 
             <app-collateral-summary
                     *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
