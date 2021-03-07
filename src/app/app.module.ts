@@ -22,6 +22,7 @@ import {RequestInterceptor} from './@core/service/authentication/request-interce
 import {CKEditorModule} from 'ng2-ckeditor';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {EngToNepaliNumberPipe} from './@core/pipe/eng-to-nepali-number.pipe';
 
 
 
@@ -62,7 +63,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
         provide: LocationStrategy,
         useClass: HashLocationStrategy,
     }, { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
-        DatePipe],
+        DatePipe, EngToNepaliNumberPipe],
     bootstrap: [AppComponent],
     exports: [],
     entryComponents: []
