@@ -19,4 +19,6 @@ export class User {
     fingerPrint: [];
     resetPasswordToken: string;
     resetPasswordTokenExpiry: Date;
+    roleList: [];
+    primaryUserId: any;
 }

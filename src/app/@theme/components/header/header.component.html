@@ -19,7 +19,10 @@
         <ng-template #notification>
             <app-notification></app-notification>
         </ng-template>
-        <!--<nb-action class="control-item" icon="nb-email"></nb-action>-->
+        <nb-action [nbPopover]="roles" class="control-item" icon="swap-outline"></nb-action>
+        <ng-template  #roles>
+            <app-roles-switch></app-roles-switch>
+        </ng-template>
         <nb-action class="control-item">
             <nb-search type="rotate-layout" placeholder="Citizenship no."></nb-search>
         </nb-action>

@@ -20,6 +20,7 @@ import {Status} from '../../../../@core/Status';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {UserHistoryComponent} from './user-history/user-history.component';
 import {RoleType} from '../../modal/roleType';
+import {RoleAddComponent} from './role-add/role-add.component';
 
 @Component({
     selector: 'app-user',
@@ -187,6 +188,18 @@ export class UserComponent implements OnInit {
     dismiss(data, dismiss) {
         this.modalService.open(dismiss);
         this.user = data;
+    }
+
+    addRole(data) {
+        const modalRef = this.modalService.open(RoleAddComponent, {backdrop: false});
+        modalRef.componentInstance.user = data;
+        modalRef.result.then(
+            close => {
+                UserComponent.loadData(this);
+            }, dismiss => {
+                UserComponent.loadData(this);
+            }
+        );
     }
 
     setDismissBranch(value) {

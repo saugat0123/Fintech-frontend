@@ -53,14 +53,14 @@ export class HeaderComponent implements OnInit {
     ) {
 
         this.searchService.onSearchSubmit()
-        .subscribe((searchData: any) => {
-            const modalRef = this.modalService.open(SearchResultComponent, {backdrop: 'static'});
-            modalRef.componentInstance.searchData = searchData.term;
-            modalRef.result.then(
-                close => {
-                    if (close) {
-                        console.log(close);
-                        this.router.navigate(['/home/loan/summary'], {
+            .subscribe((searchData: any) => {
+                const modalRef = this.modalService.open(SearchResultComponent, {backdrop: 'static'});
+                modalRef.componentInstance.searchData = searchData.term;
+                modalRef.result.then(
+                    close => {
+                        if (close) {
+                            console.log(close);
+                            this.router.navigate(['/home/loan/summary'], {
                                 queryParams: {
                                     loanConfigId: close.loanConfigId,
                                     customerId: close.customerId
@@ -79,7 +79,7 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit() {
         this.userId = Number(LocalStorageUtil.getStorage().userId);
-        this.userFullName = LocalStorageUtil.getStorage().userFullName;
+        this.userFullName = LocalStorageUtil.getStorage().userFullName + ' (' + LocalStorageUtil.getStorage().roleName + ')';
         this.userProfilePicture = LocalStorageUtil.getStorage().userProfilePicture;
         this.roleName = LocalStorageUtil.getStorage().roleName;
 
