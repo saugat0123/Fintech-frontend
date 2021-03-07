@@ -67,6 +67,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     client = environment.client;
     clientList = Clients;
     isOpened = false;
+    forApproveMaker = [];
 
     private securityUrl = ApiConfig.TOKEN;
     private headers = new HttpHeaders({
@@ -83,6 +84,10 @@ export class CadActionComponent implements OnInit, OnChanges {
     missingSignDoc = false;
     missingDraftDoc = false;
     public dialogRef: NbDialogRef<any>;
+    customApproveSelection = false;
+    isForApproveMaker = false;
+    selectedTemplate;
+    commentVar;
 
     constructor(private router: ActivatedRoute,
                 private route: Router,
@@ -152,12 +157,14 @@ export class CadActionComponent implements OnInit, OnChanges {
         this.modalService.dismissAll(this.formAction.value);
         this.isOpened = false;
         this.isActionClicked.emit(this.isOpened);
+        this.isForApproveMaker = false;
     }
 
     closeNb() {
         this.dialogRef.close();
         this.isOpened = false;
         this.isActionClicked.emit(this.isOpened);
+        this.isForApproveMaker = false;
     }
 
     onLogin(dataValue) {
@@ -181,12 +188,37 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     postAction() {
+        this.isForApproveMaker = false;
         this.cadService.saveAction(this.formAction.value).subscribe((response: any) => {
             this.onClose();
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
             this.routerUtilsService.routeSummaryAndEncryptPathID(this.cadId);
         }, error => {
+            this.forApproveMaker = [];
+            switch (error.status) {
+                case 417:
+this.commentVar = this.formAction.get('comment').value;
+                    // tslint:disable-next-line:max-line-length
+                    this.cadService.getMakerUserByBranchID
+                    (this.cadOfferLetterApprovedDoc.loanHolder.branch.id).subscribe((resUser: any) => {
+                        this.approvedForwardBackward(this.selectedTemplate, 'APPROVED', false);
+                        this.isForApproveMaker = true;
+                        this.forApproveMaker = resUser.detail;
+                        if (this.forApproveMaker.length < 1) {
+                            this.toastService.show(new Alert(AlertType.ERROR, 'NO User Found Please Contact Admin'));
+                        } else {
+                            this.formAction.patchValue({
+                                toRole: this.forApproveMaker[this.forApproveMaker.length - 1].role,
+                                toUser: this.forApproveMaker[this.forApproveMaker.length - 1],
+                                customApproveSelection: true,
+                                comment: this.commentVar
+
+                            });
+                        }
+                    }, error1 => this.toastService.show(new Alert(AlertType.ERROR, error1.error.message)));
+                    break;
+            }
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
 
         });
@@ -205,7 +237,6 @@ export class CadActionComponent implements OnInit, OnChanges {
         } else {
             this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.selectedBranchId).subscribe((response: any) => {
                 this.userList = response.detail;
-                console.log('user list', this.userList);
                 if (this.userList.length === 1) {
                     this.formAction.patchValue({
                         toUser: this.userList[0],
@@ -226,6 +257,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     approvedForwardBackward(template, val, returnToMaker) {
+        this.selectedTemplate = template;
         this.popUpTitle = val;
         this.userList = [];
         if (this.popUpTitle === 'FORWARD') {
@@ -237,7 +269,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     docAction: [val],
                     comment: [undefined, Validators.required],
                     documentStatus: [this.forwardBackwardDocStatusChange()],
-                    isBackwardForMaker: returnToMaker
+                    isBackwardForMaker: returnToMaker,
                 }
             );
             const approvalType = 'CAD';
@@ -265,7 +297,11 @@ export class CadActionComponent implements OnInit, OnChanges {
                     docAction: [newDocStatus],
                     comment: [undefined, Validators.required],
                     documentStatus: [newDocStatus],
-                    isBackwardForMaker: returnToMaker
+                    isBackwardForMaker: returnToMaker,
+                    customApproveSelection: [false],
+                    toUser: [undefined],
+                    toRole: [undefined]
+
                 }
             );
         } else {
@@ -275,7 +311,10 @@ export class CadActionComponent implements OnInit, OnChanges {
                     docAction: [val],
                     comment: [undefined, Validators.required],
                     documentStatus: [this.forwardBackwardDocStatusChange()],
-                    isBackwardForMaker: returnToMaker
+                    isBackwardForMaker: returnToMaker,
+                    customApproveSelection: [false],
+                    toUser: [undefined],
+                    toRole: [undefined]
                 }
             );
 
