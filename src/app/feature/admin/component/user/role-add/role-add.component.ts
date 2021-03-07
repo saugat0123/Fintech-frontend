@@ -20,6 +20,8 @@ export class RoleAddComponent implements OnInit {
     roleForm: FormGroup;
     selectedRoleList = [];
     placeHolder = 'Select Role';
+    documentInRoles = [];
+    errorMessage = null;
 
     constructor(private roleService: RoleService,
                 private formBuilder: FormBuilder,
@@ -54,13 +56,24 @@ export class RoleAddComponent implements OnInit {
     }
 
     submit() {
+        this.errorMessage = null;
         const selected = this.roleForm.get('roleIds').value;
         this.userService.updateUserRoles(selected, this.user.id).subscribe((res: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED ROLES'));
             this.activeModal.close();
         }, error => {
-            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-            this.activeModal.close();
+            this.errorMessage = null;
+            switch (error.status) {
+                case 403:
+                    this.documentInRoles = error.error.detail;
+                    this.errorMessage = error.error.message;
+                    break;
+
+                default:
+                    this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+                    this.activeModal.close();
+            }
+
         });
     }
 

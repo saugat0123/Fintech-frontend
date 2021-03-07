@@ -9,6 +9,7 @@
             <span aria-hidden="true">×</span></button>
     </div>
     <div class="card-body">
+        <span class="text-danger" *ngIf="errorMessage"><sup>*</sup>{{errorMessage}}</span>
         <form [formGroup]="roleForm">
             <ng-select [items]="roleList"
                        [multiple]=true
@@ -26,5 +27,32 @@
             </div>
         </form>
     </div>
+
+    <div class="card" *ngIf="errorMessage">
+        <div class="card-header">
+            Current Loans in Roles
+        </div>
+        <div class="card-body">
+            <table class="table table-sm table-bordered table-responsive-md table-hover sb-small text-center">
+                <thead>
+                <th>Role</th>
+                <th>Loan Facility</th>
+                <th>Loan Amount</th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let model of documentInRoles;let i=index">
+                    <td>{{model?.currentStage?.toRole?.roleName}}</td>
+                    <td>{{model?.loan?.name}}</td>
+                    <td>
+                        <span
+                                class="d-flex justify-content-end pr-1">Rs. {{model?.proposal?.proposedLimit | currencyFormatter}}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
 
 </div>
