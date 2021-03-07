@@ -162,7 +162,7 @@
                                 <th>सिट नं.</th>
                                 <th>कि.नं.</th>
                                 <th>क्षेत्रफल</th>
-                                <th>र.नं. /मिति</th>
+                                <th>र.नं./मिति</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -201,13 +201,16 @@
                                            placeholder=""
                                            type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('area').value ? loanDeedCompany.get('area').value  : '========='}}</b></span>
                                 </td>
-                                <td>
-                                    <input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                <td><input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                           formControlName="wardNo"
+                                           placeholder=""
+                                           type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('wardNo').value ? loanDeedCompany.get('wardNo').value  : '========='}}</b></span>
+
+                                </td>
+                                <td><input class="form-field form-control-sm nepaliFont disable-print col-9"
                                            formControlName="rNoDate"
                                            placeholder=""
-                                           type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('rNoDate').value ? loanDeedCompany.get('rNoDate').value  : '========='}}</b></span>
-                                </td>
-                                <td></td>
+                                           type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('rNoDate').value ? loanDeedCompany.get('rNoDate').value  : '========='}}</b></span></td>
                             </tr>
                             </tbody>
                         </table>
