@@ -85,6 +85,7 @@ import {MicroProposalSummaryComponent} from './component/micro-loan-summary/micr
 import { BorrowerPortfolioSummaryComponent } from './component/micro-loan-summary/borrower-portfolio-summary/borrower-portfolio-summary.component';
 import {MicroLoanModule} from '../micro-loan/micro-loan.module';
 import {MicroBaselRiskExposureSummaryComponent} from './component/micro-loan-summary/micro-basel-risk-exposure-summary/micro-basel-risk-exposure-summary.component';
+import { MarketingActivitiesSummaryComponent } from './component/micro-loan-summary/marketing-activities-summary/marketing-activities-summary.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -145,6 +146,7 @@ const COMPONENTS = [
     MicroProposalSummaryComponent,
     BorrowerPortfolioSummaryComponent,
     MicroBaselRiskExposureSummaryComponent,
+    MarketingActivitiesSummaryComponent
 ];
 
 const ENTRY_COMPONENTS = [
