@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -11,6 +11,7 @@ import {CustomerService} from '../../../customer/service/customer.service';
 import {Customer} from '../../../admin/modal/customer';
 import {CustomerType} from '../../../customer/model/customerType';
 import {DatePipe} from '@angular/common';
+import {RelationshipNepali} from '../../../loan/model/relationshipListNepali';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -26,10 +27,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
 
     userConfigForm: FormGroup;
+    guarantorForm: FormGroup;
 
     spinner = false;
 
     submitted = false;
+    relationshipList = RelationshipNepali.enumObject();
 
 
     constructor(private formBuilder: FormBuilder,
@@ -48,6 +51,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     ngOnInit() {
 
         this.buildForm();
+        this.addGuarantor();
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
             this.userConfigForm.patchValue(data);
@@ -75,9 +79,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             permanentWard: [undefined],
             temporaryWard: [undefined],
             temporaryMunType: [1],
+            guarantorForm: this.formBuilder.array([])
         });
     }
-
 
     ageCalculation(startDate) {
         startDate = this.datepipe.transform(startDate, 'MMMM d, y, h:mm:ss a z');
@@ -138,5 +142,25 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.userConfigForm.get(s).updateValueAndValidity();
         });
     }
+    addGuarantor() {
+        (this.userConfigForm.get('guarantorForm') as FormArray).push(this.addGuarantorField());
+    }
+    addGuarantorField() {
+        return this.formBuilder.group({
+            'guarantorName': new FormControl(''),
+            'guarantorCitizenshipNum': new FormControl(''),
+            'guarantorIssueDate': new FormControl(''),
+            'guarantorIssueDistrict': new FormControl(''),
+            'guarantorAddress': new FormControl(''),
+            'guarantorRelationMedium': new FormControl('')
+        });
+    }
 
+    deleteAnswerField(control, index) {
+        control.removeAt(index);
+    }
+
+    removeAtIndex(i: any) {
+        (this.userConfigForm.get('guarantorForm') as FormArray).removeAt(i);
+    }
 }

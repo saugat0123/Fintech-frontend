@@ -8,9 +8,10 @@
             <span aria-hidden="true">×</span></a>
     </nb-card-header>
     <nb-card-body>
+        <form [formGroup]="userConfigForm">
         <nb-tabset>
             <nb-tab tabTitle="व्यक्तिगत विवरण">
-                <form [formGroup]="userConfigForm">
+
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
@@ -242,9 +243,93 @@
                             </div>
                         </div>
                     </div>
-                </form>
+
+            </nb-tab>
+            <nb-tab tabTitle="ग्यारेन्टर विवरण">
+                <div *ngFor="let guarantor of userConfigForm.get('guarantorForm')['controls']; let i = index;"
+                     class="form-group" formArrayName="guarantorForm">
+                    <div [formGroupName]="i">
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="title" for="name">ग्यारेन्टरको नाम</label>
+                                    <input  class="form-control rounded nepaliFont"
+                                            formControlName="guarantorName"
+                                            id="guarantorName"
+                                            [ngClass]="{ 'is-invalid': (submitted ) && guarantor.get('guarantorName').errors }"
+                                            name="name" placeholder="ग्यारेन्टरको नाम"
+                                            type="text"/>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="title" for="guarantorCitizenshipNum">नगरिकता नम्बर</label>
+                                    <input  class="form-control rounded nepaliFont"
+                                            formControlName="guarantorCitizenshipNum"
+                                            id="guarantorCitizenshipNum"
+                                            [ngClass]="{'is-invalid': submitted && configForm.name.errors}"
+                                            name="name" placeholder="नगरिकता नम्बर"
+                                            type="text"/>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="title" for="guarantorIssueDate">जारी मिति</label>
+                                    <input  class="form-control rounded nepaliFont"
+                                            formControlName="guarantorIssueDate"
+                                            id="guarantorIssueDate"
+                                            [ngClass]="{'is-invalid': submitted && configForm.name.errors}"
+                                            name="name" placeholder="जारी मिति"
+                                            type="text"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="title" for="guarantorIssueDistrict">जारी जिल्ला</label>
+                                    <input  class="form-control rounded nepaliFont"
+                                            formControlName="guarantorIssueDistrict"
+                                            id="guarantorIssueDistrict"
+                                            [ngClass]="{'is-invalid': submitted && configForm.name.errors}"
+                                            name="name" placeholder="जारी जिल्ला"
+                                            type="text"/>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="title" for="guarantorAddress">ठेगाना</label>
+                                    <input  class="form-control rounded nepaliFont"
+                                            formControlName="guarantorAddress"
+                                            id="guarantorAddress"
+                                            [ngClass]="{'is-invalid': submitted && configForm.name.errors}"
+                                            name="name" placeholder="ठेगाना"
+                                            type="text"/>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="relationMedium" for="guarantorRelationMedium">सम्बन्धको माध्यम</label>
+                                    <select class="form-control" formControlName="guarantorRelationMedium" id="guarantorRelationMedium"
+                                            [ngClass]="{'is-invalid': submitted && configForm.relationMedium.errors}">
+                                        <option [value]="null" hidden>सम्बन्धको माध्यम</option>
+                                        <option *ngFor="let relationship of relationshipList">{{relationship?.value}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="i !==0">
+                            <button class="btn btn-danger float-right" (click)="removeAtIndex(i)">
+                            <em class="fa fa-trash" style="color: white;"></em>
+                            </button>
+                        </div>
+                    </div>
+                    </div>
+                <button class="btn tbn-sm btn-flat btn-primary" (click)="addGuarantor()">Add Guarantor</button>
             </nb-tab>
         </nb-tabset>
+        </form>
     </nb-card-body>
     <nb-card-footer>
         <div class="row">
