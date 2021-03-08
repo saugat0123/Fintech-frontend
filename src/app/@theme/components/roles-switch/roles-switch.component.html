@@ -6,7 +6,7 @@
         <div *ngFor="let roles of roleList" class="cursor">
             <a (click)="verifyUserOpen(roles,loginVerification)">{{roles?.roleName}}</a>
         </div>
-        <div *ngIf="roleList < 1">
+        <div *ngIf="roleList.length < 1">
            NO Any Secondary Role Has Been Assigned
         </div>
     </nb-card-body>
