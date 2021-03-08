@@ -9,11 +9,13 @@
 <!--                <td class="sb-bg-secondary text-white">Facilities</td>-->
                 <td class="text-center"><strong>{{loanConfig?.name}}</strong></td>
             </tr>
-           <ng-container *ngFor="let a of loanConfig?.approvedDocument">
+            <ng-container *ngIf="postApprovalDocIdList && postApprovalDocIdList?.length>0">
+           <ng-container *ngFor="let a of loanConfig?.approvedDocument" >
                <tr [hidden]="suspendedId(a?.id)">
                    <td>{{a?.displayName}}</td>
                </tr>
            </ng-container>
+            </ng-container>
         </table>
     </div>
 </div>

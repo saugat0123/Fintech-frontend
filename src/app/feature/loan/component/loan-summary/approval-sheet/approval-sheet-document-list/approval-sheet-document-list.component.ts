@@ -17,7 +17,7 @@ export class ApprovalSheetDocumentListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.postApprovalDocIdList)){
+    if (!ObjectUtil.isEmpty(this.postApprovalDocIdList)) {
       this.postApprovalDocIdList = JSON.parse(this.postApprovalDocIdList);
     }
   }

@@ -30,6 +30,7 @@
             </tr>
             </thead>
             <tbody>
+            <ng-container *ngIf="docList && docList?.length>0">
             <ng-container *ngFor="let document of initialDocuments; let i=index">
               <tr [hidden]="suspendedId(document?.id)">
                 <td>
@@ -56,6 +57,7 @@
                         style="color:red"><i class="fas fa-times-circle"></i></span>
                 </td>
               </tr>
+            </ng-container>
             </ng-container>
             </tbody>
           </table>
