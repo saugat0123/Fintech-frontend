@@ -147,8 +147,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     getDistricts(province: Province) {
-        // const province = new Province();
-        // province.id = provinceId;
         this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
                 this.districtList = response.detail;
@@ -163,8 +161,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     getMunicipalities(district: District) {
-        // const district = new District();
-        // district.id = districtId;
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.municipalitiesList = response.detail;
@@ -178,8 +174,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     }
     getTemporaryDistricts(province: Province) {
-        // const province = new Province();
-        // province.id = provinceId;
         this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
                 this.temporaryDistrictList = response.detail;
@@ -194,8 +188,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     getTemporaryMunicipalities(district: District) {
-        // const district = new District();
-        // district.id = districtId;
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.temporaryMunicipalitiesList = response.detail;
