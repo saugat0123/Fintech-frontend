@@ -257,7 +257,7 @@
                                     <input  class="form-control rounded nepaliFont"
                                             formControlName="guarantorName"
                                             id="guarantorName"
-                                            [ngClass]="{ 'is-invalid': (submitted ) && guarantor.get('guarantorName').errors }"
+                                            [ngClass]="{ 'is-invalid': (submitted ) && configForm.name.errors }"
                                             name="name" placeholder="ग्यारेन्टरको नाम"
                                             type="text"/>
                                 </div>
@@ -268,7 +268,7 @@
                                     <input  class="form-control rounded nepaliFont"
                                             formControlName="guarantorCitizenshipNum"
                                             id="guarantorCitizenshipNum"
-                                            [ngClass]="{'is-invalid': submitted && configForm.name.errors}"
+                                            [ngClass]="{'is-invalid': submitted && configForm.citizenshipNo.errors}"
                                             name="name" placeholder="नगरिकता नम्बर"
                                             type="text"/>
                                 </div>
@@ -279,7 +279,7 @@
                                     <input  class="form-control rounded nepaliFont"
                                             formControlName="guarantorIssueDate"
                                             id="guarantorIssueDate"
-                                            [ngClass]="{'is-invalid': submitted && configForm.name.errors}"
+                                            [ngClass]="{'is-invalid': submitted && configForm.guarantorIssueDate.errors}"
                                             name="name" placeholder="जारी मिति"
                                             type="text"/>
                                 </div>
@@ -292,7 +292,7 @@
                                     <input  class="form-control rounded nepaliFont"
                                             formControlName="guarantorIssueDistrict"
                                             id="guarantorIssueDistrict"
-                                            [ngClass]="{'is-invalid': submitted && configForm.name.errors}"
+                                            [ngClass]="{'is-invalid': submitted && configForm.guarantorIssueDistrict.errors}"
                                             name="name" placeholder="जारी जिल्ला"
                                             type="text"/>
                                 </div>
@@ -303,7 +303,7 @@
                                     <input  class="form-control rounded nepaliFont"
                                             formControlName="guarantorAddress"
                                             id="guarantorAddress"
-                                            [ngClass]="{'is-invalid': submitted && configForm.name.errors}"
+                                            [ngClass]="{'is-invalid': submitted && configForm.guarantorAddress.errors}"
                                             name="name" placeholder="ठेगाना"
                                             type="text"/>
                                 </div>
