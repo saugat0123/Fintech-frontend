@@ -7,11 +7,27 @@
       <strong>Cad Document</strong></h3>
   </nb-card-header>
   <nb-card-body>
+
     <div *ngIf="initialDocuments?.length < 1">
       <span>Cad documents unavailable to upload</span>
     </div>
     <div *ngIf="initialDocuments?.length > 0" class="row">
       <div class="col-md-6">
+        <form [formGroup]="form">
+          <table>
+            <thead>
+            <th>Main Code</th>
+            <th class="ml-2">Nominee Code</th>
+            </thead>
+            <tbody>
+            <td>
+              <input class="form-control" formControlName="mainCode" type="text">
+            <td class="ml-2">
+              <input class="form-control" formControlName="nomineeCode" type="text">
+            </td>
+            </tbody>
+          </table>
+        </form>
         <div class="box-header with-border">
           <em><span
               style="color:red;">(select file smaller than 5Mb)</span></em>

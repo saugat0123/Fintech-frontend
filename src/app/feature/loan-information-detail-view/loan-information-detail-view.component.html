@@ -10,7 +10,7 @@
                     ngxPrint printSectionId="print-detail" styleSheetFile="assets/css/printStyles.scss">
                 PRINT<i class="col-md-1 fa fa-print"></i></button>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2" *ngIf="client === clientList.SHINE_RESUNGA">
             <button  [nbPopover]="allDocumentView" class="btn-sm btn-success float-right">
                 UPLOADED DOC<i class="col-md-1 fa fa-file"></i></button>
         </div>
@@ -131,6 +131,15 @@
                     *ngIf="loanDataHolder?.crgGamma"
                     [formData]="loanDataHolder?.crgGamma">
             </app-crg-gamma-detail-view>
+            <app-crg-alpha-detailed-view
+                    *ngIf="loanDataHolder?.creditRiskGradingAlpha"
+                    [loanTag]="loanDataHolder?.loan?.loanTag"
+                    [formData]="loanDataHolder?.creditRiskGradingAlpha">
+            </app-crg-alpha-detailed-view>
+            <app-crg-lambda-detail-view
+                    *ngIf="loanDataHolder?.creditRiskGradingLambda"
+                    [lambdaData]="loanDataHolder?.creditRiskGradingLambda">
+            </app-crg-lambda-detail-view>
             <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
                                 [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             <app-site-visit-view *ngIf="loanHolder?.siteVisit"
@@ -171,16 +180,6 @@
 <!--                                           [fromProfile]="false"></app-credit-risk-grading-gamma>-->
 <!--            <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading"-->
 <!--                                [fromProfile]="false"></app-credit-grading>-->
-           <div *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'">
-            <app-credit-risk-grading-alpha *ngIf="loanDataHolder?.creditRiskGradingAlpha"
-                                           [formData]="loanDataHolder?.creditRiskGradingAlpha"
-                                           [security]="loanHolder?.security"
-                                           [financialData]="loanDataHolder?.financial?.data"
-                                           [companyInfo]="loanDataHolder?.companyInfo"
-                                           [customerInfo]="loanDataHolder?.loanHolder"
-                                           [loanTag]="loanDataHolder?.loan?.loanTag"
-                                           [proposedLimit]="loanDataHolder?.proposal?.proposedLimit"></app-credit-risk-grading-alpha>
-           </div>
             <ng-template  #allDocumentView>
                 <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
             </ng-template>

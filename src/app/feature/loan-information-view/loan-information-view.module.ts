@@ -20,6 +20,8 @@ import { AllDocumentViewComponent } from './all-document-view/all-document-view.
 import { ProposalViewComponent } from './proposal-view/proposal-view.component';
 import { IncomeFromAccountViewComponent } from './income-from-account-view/income-from-account-view.component';
 import { CrgGammaDetailViewComponent } from './crg-gamma-detail-view/crg-gamma-detail-view.component';
+import { CrgAlphaDetailedViewComponent } from './crg-alpha-detailed-view/crg-alpha-detailed-view.component';
+import { CrgLambdaDetailViewComponent } from './crg-lambda-detail-view/crg-lambda-detail-view.component';
 
 
 @NgModule({
@@ -37,6 +39,8 @@ import { CrgGammaDetailViewComponent } from './crg-gamma-detail-view/crg-gamma-d
     ProposalViewComponent,
     IncomeFromAccountViewComponent,
     CrgGammaDetailViewComponent,
+    CrgAlphaDetailedViewComponent,
+    CrgLambdaDetailViewComponent
   ],
     exports: [
         InsuranceViewComponent,
@@ -51,6 +55,8 @@ import { CrgGammaDetailViewComponent } from './crg-gamma-detail-view/crg-gamma-d
         ProposalViewComponent,
         IncomeFromAccountViewComponent,
         CrgGammaDetailViewComponent,
+        CrgAlphaDetailedViewComponent,
+        CrgLambdaDetailViewComponent
     ],
   imports: [
     CommonModule,
