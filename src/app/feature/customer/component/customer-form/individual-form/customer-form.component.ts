@@ -75,6 +75,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
     province: Province = new Province();
     provinceList: Array<Province> = Array<Province>();
+    temporaryProvinceList: Array<Province> = Array<Province>();
     district: District = new District();
     districtList: Array<District> = Array<District>();
     municipality: MunicipalityVdc = new MunicipalityVdc();
@@ -146,6 +147,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     getDistricts(province: Province) {
+        // const province = new Province();
+        // province.id = provinceId;
         this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
                 this.districtList = response.detail;
@@ -160,26 +163,29 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     getMunicipalities(district: District) {
+        // const district = new District();
+        // district.id = districtId;
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.municipalitiesList = response.detail;
                 this.municipalitiesList.forEach(municipality => {
                     if (!ObjectUtil.isEmpty(this.customer.municipalities) && municipality.id === this.customer.municipalities.id) {
-                        this.basicInfo.controls.municipalities.setValue(municipality);
+                            this.basicInfo.controls.municipalities.setValue(municipality);
                     }
                 });
             }
         );
 
     }
-
     getTemporaryDistricts(province: Province) {
+        // const province = new Province();
+        // province.id = provinceId;
         this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
                 this.temporaryDistrictList = response.detail;
                 this.temporaryDistrictList.forEach(district => {
                     if (!ObjectUtil.isEmpty(this.customer.temporaryDistrict) && district.id === this.customer.temporaryDistrict.id) {
-                        this.basicInfo.controls.temporaryDistrict.setValue(district);
+                        this.basicInfo.controls.temporaryDistrict.patchValue(district);
                         this.getTemporaryMunicipalities(district);
                     }
                 });
@@ -188,13 +194,15 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     getTemporaryMunicipalities(district: District) {
+        // const district = new District();
+        // district.id = districtId;
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.temporaryMunicipalitiesList = response.detail;
                 this.temporaryMunicipalitiesList.forEach(municipality => {
                     if (!ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) &&
                         municipality.id === this.customer.temporaryMunicipalities.id) {
-                        this.basicInfo.controls.temporaryMunicipalities.setValue(municipality);
+                            this.basicInfo.controls.temporaryMunicipalities.setValue(municipality);
                     }
                 });
             }
@@ -531,7 +539,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     getClientType() {
         this.customerService.clientType().subscribe((res: any) => {
-                console.log(res.detail);
                 this.clientType = res.detail;
             }
             , error => {
@@ -589,7 +596,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.customer.temporaryDistrict = this.basicInfo.get('district').value;
         this.getTemporaryDistricts(this.basicInfo.get('temporaryProvince').value);
         this.customer.temporaryMunicipalities = this.basicInfo.get('municipalities').value;
-        this.getTemporaryMunicipalities(this.basicInfo.get('municipalities').value);
+        this.getTemporaryMunicipalities(this.basicInfo.get('temporaryMunicipalities').value);
         this.basicInfo.controls. temporaryAddressLine1.patchValue(this.basicInfo.get('permanentAddressLine1').value);
         this.basicInfo.controls. temporaryAddressLine2.patchValue(this.basicInfo.get('permanentAddressLine2').value);
         this.basicInfo.controls.temporaryWardNumber.setValue(this.basicInfo.get('wardNumber').value);
