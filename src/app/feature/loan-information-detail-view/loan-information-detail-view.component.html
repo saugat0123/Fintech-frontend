@@ -259,7 +259,7 @@
                                     </div>
                             </td>
 
-                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction}}</td>
+                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe}}</td>
                             <td class="text-left">
                                 <div class="pl-1 disable-print">
                                     {{loanDataHolder?.currentStage?.comment?.length > 50 ?
