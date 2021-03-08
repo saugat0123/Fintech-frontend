@@ -434,7 +434,7 @@
                 </div>
             </div>-->
             <div class="col-md-12">
-                <button *ngIf="riskOfficerLevel" (click)="openTermsAndCommentModal(termsConditionModel)"
+                <button  (click)="openTermsAndCommentModal(termsConditionModel)"
                         nbButton
                         size="tiny"
                         shape="rectangle"
@@ -489,7 +489,7 @@
 </section>
 <ng-template  #termsConditionModel>
     <nb-card accent="primary">
-        <nb-card-header>Terms</nb-card-header>
+        <nb-card-header>Comments/Terms and Conditions/Waiver</nb-card-header>
         <nb-card-body>
           <div class="col-md-12 mt-4">
               <label>Authority Comments</label>
