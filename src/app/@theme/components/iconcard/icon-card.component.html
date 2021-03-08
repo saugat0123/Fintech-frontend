@@ -1,12 +1,17 @@
 <nb-card>
-    <div class="icon-container">
-        <div class="icon status-{{ type }}">
-            <ng-content></ng-content>
+    <div class="row">
+        <div class="col-3">
+            <div class="icon-container">
+                <div class="icon status-{{ type }}">
+                    <ng-content></ng-content>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div class="details">
-        <div class="title h5">{{ title }}</div>
-        <div class="status paragraph-2">{{ detail}}</div>
+        <div class="col-7">
+            <div class="details">
+                <div class="title h5">{{ title }}</div>
+                <div class="status paragraph-2">{{ detail}}</div>
+            </div>
+        </div>
     </div>
 </nb-card>
