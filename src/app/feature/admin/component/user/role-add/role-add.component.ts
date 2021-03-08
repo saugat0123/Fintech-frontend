@@ -20,7 +20,8 @@ export class RoleAddComponent implements OnInit {
     roleForm: FormGroup;
     selectedRoleList = [];
     placeHolder = 'Select Role';
-    documentInRoles = [];
+    loanDocumentInRoles = [];
+    cadDocumentInRoles = [];
     errorMessage = null;
 
     constructor(private roleService: RoleService,
@@ -63,9 +64,12 @@ export class RoleAddComponent implements OnInit {
             this.activeModal.close();
         }, error => {
             this.errorMessage = null;
+            this.loanDocumentInRoles = [];
+            this.cadDocumentInRoles = [];
             switch (error.status) {
                 case 403:
-                    this.documentInRoles = error.error.detail;
+                    this.loanDocumentInRoles = error.error.detail.customerLoan;
+                    this.cadDocumentInRoles = error.error.detail.cadDocument;
                     this.errorMessage = error.error.message;
                     break;
 
