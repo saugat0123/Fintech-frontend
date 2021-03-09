@@ -26,7 +26,6 @@ export class ProposalSummaryComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.proposalAllData);
         this.proposalAllData = JSON.parse(this.proposalData.data);
     }
 

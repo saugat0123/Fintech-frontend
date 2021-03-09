@@ -36,6 +36,7 @@ import {ReadmoreModelComponent} from '../../readmore-model/readmore-model.compon
 import {DocAction} from '../../../model/docAction';
 import {Security} from '../../../../admin/modal/security';
 import {RoleHierarchyService} from '../../../../admin/component/role-hierarchy/role-hierarchy.service';
+import {GroupSummaryDto} from '../../../model/GroupSummaryDto';
 
 @Component({
     selector: 'app-approval-sheet',
@@ -135,6 +136,8 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     showCadDoc = false;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     fiscalYearArray = [];
+    age: number;
+    approveSheet = 'approveSheet';
 
     riskOfficerLevel = false;
     private rolesForRisk = [];
@@ -170,9 +173,9 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loanDataHolder = this.loanData;
-        console.log('approval' , this.loanDataHolder.postApprovalDocIdList);
         this.prepareAuthoritySection();
         this.loadSummary();
+        this.calculateAge();
     }
 
     ngOnDestroy(): void {
@@ -568,5 +571,13 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
 
     goToLoanSummary() {
         this.changeToLoanSummaryActive.next();
+    }
+
+    calculateAge() {
+        const dob = this.loanDataHolder.customerInfo.dob;
+        if (dob) {
+            const difference = Math.abs(Date.now() - new Date(dob).getTime());
+            this.age = Math.floor((difference / (1000 * 3600 * 24)) / 365);
+        }
     }
 }
