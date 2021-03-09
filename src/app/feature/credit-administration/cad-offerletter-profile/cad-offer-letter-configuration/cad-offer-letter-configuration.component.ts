@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Form, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -12,6 +12,9 @@ import {Customer} from '../../../admin/modal/customer';
 import {CustomerType} from '../../../customer/model/customerType';
 import {DatePipe} from '@angular/common';
 import {RelationshipNepali} from '../../../loan/model/relationshipListNepali';
+import {Guarantor} from '../../../loan/model/guarantor';
+import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
+import {CalendarType} from '../../../../@core/model/calendar-type';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -21,19 +24,19 @@ import {RelationshipNepali} from '../../../loan/model/relationshipListNepali';
 export class CadOfferLetterConfigurationComponent implements OnInit {
 
     @Input() customerInfo: CustomerInfoData;
+    @Input() guarantorDetail: GuarantorDetail;
+    @Input() calendarType: CalendarType;
     @Input() customer: Customer;
+    guarantarData: Guarantor;
 
     @Output()
     customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
 
     userConfigForm: FormGroup;
-    guarantorForm: FormGroup;
-
     spinner = false;
-
+    value = [undefined];
     submitted = false;
     relationshipList = RelationshipNepali.enumObject();
-
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
@@ -49,9 +52,23 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.buildForm();
-        this.addGuarantor();
+        if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
+            const guarantorList = this.customerInfo.guarantors.guarantorList;
+            const guarantorDetails = this.userConfigForm.get('guarantorDetails') as FormArray;
+            guarantorList.forEach(e => {
+                guarantorDetails.push(
+                    this.formBuilder.group({
+                        guarantorName : e.name,
+                        guarantorIssueDate : e.issuedYear,
+                        guarantorIssueDistrict : e.issuedPlace,
+                        guarantorAddress : e.district,
+                        guarantorRelationship : e.relationship,
+                        guarantorCitizenshipNum : e.citizenNumber
+                    })
+                ); }
+            );
+        }
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
             this.userConfigForm.patchValue(data);
@@ -79,7 +96,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             permanentWard: [undefined],
             temporaryWard: [undefined],
             temporaryMunType: [1],
-            guarantorForm: this.formBuilder.array([])
+            guarantorDetails: this.formBuilder.array([])
         });
     }
 
@@ -142,18 +159,20 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.userConfigForm.get(s).updateValueAndValidity();
         });
     }
+
     addGuarantor() {
-        (this.userConfigForm.get('guarantorForm') as FormArray).push(this.addGuarantorField());
+        (this.userConfigForm.get('guarantorDetails') as FormArray).push(this.addGuarantorField());
     }
+
     addGuarantorField() {
         return this.formBuilder.group({
-            'guarantorName': new FormControl(''),
-            'guarantorCitizenshipNum': new FormControl(''),
-            'guarantorIssueDate': new FormControl(''),
-            'guarantorIssueDistrict': new FormControl(''),
-            'guarantorAddress': new FormControl(''),
-            'guarantorRelationMedium': new FormControl('')
-        });
+            'name': new FormControl(''),
+            'citizenNumber': new FormControl(''),
+            'issuedYear': new FormControl(''),
+            'issuedPlace': new FormControl(''),
+            'permanentAddressLine1': new FormControl(''),
+            'relationship': new FormControl(''),
+             });
     }
 
     deleteAnswerField(control, index) {
@@ -161,6 +180,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     removeAtIndex(i: any) {
-        (this.userConfigForm.get('guarantorForm') as FormArray).removeAt(i);
+        (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
     }
 }

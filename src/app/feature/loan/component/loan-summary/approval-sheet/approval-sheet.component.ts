@@ -36,7 +36,7 @@ import {ReadmoreModelComponent} from '../../readmore-model/readmore-model.compon
 import {DocAction} from '../../../model/docAction';
 import {Security} from '../../../../admin/modal/security';
 import {RoleHierarchyService} from '../../../../admin/component/role-hierarchy/role-hierarchy.service';
-import {GroupSummaryDto} from '../../../model/GroupSummaryDto';
+import {Editor} from '../../../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-approval-sheet',
@@ -57,6 +57,8 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
 
     client: string;
 
+    ckeConfig = Editor.CK_CONFIG;
+    authorityReviewComments;
     docMsg;
     rootDocLength;
     dmsLoanFile: DmsLoanFile = new DmsLoanFile();
@@ -142,6 +144,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     riskOfficerLevel = false;
     private rolesForRisk = [];
     public currentAuthorityList: LoanStage[] = [];
+    private spinner = false;
 
     constructor(
         private userService: UserService,
@@ -173,6 +176,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loanDataHolder = this.loanData;
+        console.log('approval' , this.loanDataHolder.postApprovalDocIdList);
         this.prepareAuthoritySection();
         this.loadSummary();
         this.calculateAge();
@@ -572,6 +576,42 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     goToLoanSummary() {
         this.changeToLoanSummaryActive.next();
     }
+
+    openTermsAndCommentModal(model) {
+        this.authorityReviewComments = this.loanDataHolder.authorityReviewComments;
+        this.modalService.open(model , {size: 'lg'});
+    }
+
+    saveTermsAndCommentModal() {
+            this.spinner = true;
+            this.loanDataHolder.authorityReviewComments = this.authorityReviewComments;
+            this.loanFormService.save(this.loanDataHolder).subscribe(() => {
+                this.spinner = false;
+                this.toastService.show(new Alert(AlertType.SUCCESS, `Successfully Saved Authority Comments`));
+                this.close();
+                this.router.navigateByUrl('/home/dashboard').then(value => {
+                    if (value) {
+                        this.router.navigate(['/home/loan/summary'], {
+                            queryParams: {
+                                loanConfigId: this.loanConfig.id,
+                                customerId: this.loanDataHolder.id,
+                                // to do: remove this if not required in future
+                                // catalogue: false
+                            }
+                        });
+                    }
+                });
+            }, error => {
+                console.error(error);
+                this.spinner = false;
+                this.toastService.show(new Alert(AlertType.ERROR, `Error Saving Authority Comments: ${error.error.message}`));
+                this.close();
+            });
+        }
+
+        close() {
+        this.modalService.dismissAll();
+        }
 
     calculateAge() {
         const dob = this.loanDataHolder.customerInfo.dob;

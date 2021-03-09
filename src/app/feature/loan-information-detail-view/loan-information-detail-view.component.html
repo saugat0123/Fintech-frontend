@@ -10,7 +10,7 @@
                     ngxPrint printSectionId="print-detail" styleSheetFile="assets/css/printStyles.scss">
                 PRINT<i class="col-md-1 fa fa-print"></i></button>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2" *ngIf="client === clientList.SHINE_RESUNGA">
             <button  [nbPopover]="allDocumentView" class="btn-sm btn-success float-right">
                 UPLOADED DOC<i class="col-md-1 fa fa-file"></i></button>
         </div>
@@ -261,7 +261,7 @@
                                     </div>
                             </td>
 
-                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction}}</td>
+                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe}}</td>
                             <td class="text-left">
                                 <div class="pl-1 disable-print">
                                     {{loanDataHolder?.currentStage?.comment?.length > 50 ?

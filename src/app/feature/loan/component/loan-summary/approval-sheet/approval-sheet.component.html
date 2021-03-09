@@ -436,7 +436,30 @@
                     </table>
                 </div>
             </div>-->
-
+            <div class="col-md-12">
+                <button  *ngIf="riskOfficerLevel" (click)="openTermsAndCommentModal(termsConditionModel)"
+                        nbButton
+                        size="tiny"
+                        shape="rectangle"
+                        status="success"
+                        class="float-right">
+                        <span class="text-right">
+                            Authority Comments
+                        </span>
+                    <em class="fas fa-comment"></em>
+                </button>
+                            <div class="row sb-medium py-2">
+                                <div class="col-md-12">
+                                    <h6>Authority Comments</h6>
+                                </div>
+                                <div class="col-md-12 py-2">
+                                    <!--            <div>-->
+                                    <span  [innerHTML]="(loanDataHolder?.authorityReviewComments) || 'NA' "></span>
+                                    <!--            </div>-->
+                                </div>
+                            </div>
+                            <hr>
+            </div>
             <div *ngIf="riskOfficerLevel && signatureList.length > 0" class="row justify-content-between px-3"
                  id="signatureDiv">
                 <div class="col-md-12 print-only">
@@ -467,3 +490,21 @@
         </nb-card-body>
     </nb-card>
 </section>
+<ng-template  #termsConditionModel>
+    <nb-card accent="primary">
+        <nb-card-header>Comments/Terms and Conditions/Waiver</nb-card-header>
+        <nb-card-body>
+          <div class="col-md-12 mt-4">
+              <label>Authority Comments</label>
+              <ckeditor [(ngModel)]="authorityReviewComments"
+                        [config]="ckeConfig"></ckeditor>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+            <div class="col-md-12">
+                <button class="btn btn-danger" (click)="close()">Close</button>
+                <button class="btn btn-primary float-right" (click)="saveTermsAndCommentModal()">Submit</button>
+            </div>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>

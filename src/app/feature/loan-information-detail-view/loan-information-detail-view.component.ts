@@ -17,8 +17,7 @@ import {FiscalYearService} from '../admin/service/fiscal-year.service';
 import {ToastService} from '../../@core/utils';
 import {CombinedLoan} from '../loan/model/combined-loan';
 import {CombinedLoanService} from '../service/combined-loan.service';
-import {AllDocumentViewComponent} from '../loan-information-view/all-document-view/all-document-view.component';
-import {SearchResultComponent} from '../../@theme/components/header/header-form/searchResult.component';
+import {Clients} from "../../../environments/Clients";
 
 @Component({
     selector: 'app-loan-information-detail-view',
@@ -35,6 +34,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     spinner;
     loanCategory;
     client;
+    clientList;
     currentIndex;
     signatureList: Array<LoanStage> = new Array<LoanStage>();
     RootUrl = ApiConfig.URL;
@@ -54,6 +54,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
                 private combinedLoanService: CombinedLoanService,
     ) {
         this.client = environment.client;
+        this.clientList = Clients;
 
     }
 
