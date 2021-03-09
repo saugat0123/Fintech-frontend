@@ -9,6 +9,7 @@ import {LoanInformationTemplateModule} from '../loan-information-template/loan-i
 import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
 import {CreditChecklistViewComponent} from '../loan-information-view/credit-checklist-view/credit-checklist-view.component';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
+import {CoreModule} from '../../@core/core.module';
 
 
 
@@ -23,6 +24,7 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
     LoanInformationTemplateModule,
     LoanSummaryModule,
     NepaliCalendarModule,
+    CoreModule,
 
   ]
 })
