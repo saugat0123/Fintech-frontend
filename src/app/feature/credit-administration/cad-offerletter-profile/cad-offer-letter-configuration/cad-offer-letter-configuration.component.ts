@@ -174,10 +174,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
              });
     }
 
-    deleteAnswerField(control, index) {
-        control.removeAt(index);
-    }
-
     removeAtIndex(i: any) {
         (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
     }
