@@ -144,7 +144,7 @@
             <thead>
             <tr class="sb-bg-dark text-white">
                 <th>S.No.</th>
-                <th *ngIf="this.showBranch">Branch</th>
+                <th *ngIf="showBranch">Branch</th>
                 <th>Customer Name</th>
                 <th>Loan Facility</th>
                 <th>Proposed Amount</th>
@@ -154,7 +154,7 @@
                 <th>Loan lifespan</th>
                 <th *ngIf="transferDoc">Transfer</th>
                 <th>Created On</th>
-                <th *ngIf="this.showBranchProvince">Branch Province</th>
+                <th *ngIf="showBranchProvince">Branch Province</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -166,7 +166,7 @@
                 class="cursor">
                 <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                 <td (click)="onClick(model.loan.id,model.id)"
-                    *ngIf="this.showBranch">{{model?.branch?.name}}</td>
+                    *ngIf="showBranch">{{model?.branch?.name}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">
                     {{model?.loanCategory === 'INSTITUTION' ?
                     model?.companyInfo?.companyName
@@ -230,7 +230,7 @@
                     </div>
                 </td>
                 <td (click)="onClick(model.loan.id,model.id)"
-                    *ngIf="this.showBranchProvince">{{model?.branch?.province?.name}}</td>
+                    *ngIf="showBranchProvince">{{model?.branch?.province?.name}}</td>
                 <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew); else linkin">
                     <select [(ngModel)]="tempLoanType" class="custom-select py-0"
                             (ngModelChange)="onChange(model,onActionChange)">
