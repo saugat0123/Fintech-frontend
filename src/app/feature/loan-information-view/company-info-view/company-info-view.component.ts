@@ -22,6 +22,7 @@ import {Clients} from '../../../../environments/Clients';
 export class CompanyInfoViewComponent implements OnInit {
   @Input() formValue: CompanyInfo;
   customerType = CustomerType;
+  @Input() loanData;
 
   @Input() calendarType: CalendarType;
   @Input() customerInfo: CustomerInfoData;

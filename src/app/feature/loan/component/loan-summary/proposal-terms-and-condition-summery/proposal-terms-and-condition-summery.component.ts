@@ -12,8 +12,6 @@ export class ProposalTermsAndConditionSummeryComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.customerAllLoanList);
-    console.log(this.loanDataHolder);
   }
 
 }
