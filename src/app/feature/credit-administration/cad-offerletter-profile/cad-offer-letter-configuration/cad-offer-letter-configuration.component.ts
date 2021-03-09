@@ -27,7 +27,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     @Input() guarantorDetail: GuarantorDetail;
     @Input() calendarType: CalendarType;
     @Input() customer: Customer;
-    guarantarData: Guarantor;
 
     @Output()
     customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
@@ -166,17 +165,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     addGuarantorField() {
         return this.formBuilder.group({
-            'name': new FormControl(''),
-            'citizenNumber': new FormControl(''),
-            'issuedYear': new FormControl(''),
-            'issuedPlace': new FormControl(''),
-            'permanentAddressLine1': new FormControl(''),
-            'relationship': new FormControl(''),
+            guarantorName : '',
+            guarantorIssueDate : '',
+            guarantorIssueDistrict : '',
+            guarantorAddress : '',
+            guarantorRelationship : '',
+            guarantorCitizenshipNum : ''
              });
-    }
-
-    deleteAnswerField(control, index) {
-        control.removeAt(index);
     }
 
     removeAtIndex(i: any) {
