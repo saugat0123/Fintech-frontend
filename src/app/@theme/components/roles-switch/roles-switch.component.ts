@@ -24,6 +24,7 @@ export class RolesSwitchComponent implements OnInit {
     selectedRole = new Role();
     spinner = false;
 
+
     constructor(private userService: UserService, private modalService: NgbModal,
                 private http: HttpClient, private router: Router,
                 private productModeService: ProductModeService) {
