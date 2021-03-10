@@ -18,6 +18,7 @@ export class CompanyInfoSummaryComponent implements OnInit {
   contact = [];
   additionalInfoJsonData;
   companyLocationData;
+  @Input() approveSheet;
 
 
   constructor() { }

@@ -91,7 +91,6 @@ export class PendingsLoanComponent implements OnInit {
     }
 
     ngOnInit() {
-        PendingsLoanComponent.loadData(this);
         this.search.documentStatus = this.router.url.substr(this.router.url.lastIndexOf('/') + 1);
         this.buildFilterForm();
         if (this.search.documentStatus.toString() === DocStatus.value(DocStatus.PENDING)) {
@@ -100,6 +99,7 @@ export class PendingsLoanComponent implements OnInit {
             this.docStatusForMaker();
             this.showDocStatusList = true;
         }
+        PendingsLoanComponent.loadData(this);
         this.userService.getLoggedInUser().subscribe(
             (response: any) => {
                 this.user = response.detail;
