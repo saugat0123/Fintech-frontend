@@ -84,6 +84,7 @@ export class NtaMegaComponent implements OnInit {
             netTradingAssets: this.formBuilder.group(this.quarterCalculationObject),
             deRatio: this.formBuilder.group(this.quarterCalculationObject),
             wcLoanOrLimit: this.formBuilder.group(this.quarterCalculationObject),
+            ytdSales: this.formBuilder.group(this.quarterCalculationObject),
             asOnDate: this.formBuilder.group(this.quarterCalculationObject)
           });
         });
@@ -131,6 +132,7 @@ export class NtaMegaComponent implements OnInit {
           asOnDate: this.formBuilder.group(this.setNestedDateValues(v.asOnDate)),
           netTradingAssets: this.formBuilder.group(this.setNestedFormValues(v.netTradingAssets)),
           deRatio: this.formBuilder.group(this.setNestedFormValues(v.deRatio)),
+          ytdSales: this.formBuilder.group(this.setNestedFormValues(v.ytdSales)),
           wcLoanOrLimit: this.formBuilder.group(this.setNestedFormValues(v.wcLoanOrLimit))
         };
         this.netTradingAssetsFormArray.push(
@@ -156,6 +158,7 @@ export class NtaMegaComponent implements OnInit {
           asOnDate: this.formBuilder.group(this.quarterCalculationObject),
           netTradingAssets: this.formBuilder.group(this.quarterCalculationObject),
           deRatio: this.formBuilder.group(this.quarterCalculationObject),
+          ytdSales: this.formBuilder.group(this.quarterCalculationObject),
           wcLoanOrLimit: this.formBuilder.group(this.quarterCalculationObject)
         };
         this.netTradingAssetsFormArray.push(this.formBuilder.group(formObjectData));
@@ -242,8 +245,8 @@ export class NtaMegaComponent implements OnInit {
         Number(ntaFormGroup.get(['otherCurrentLiability', quarter]).value)
     );
     ntaFormGroup.get(['deRatio', quarter]).patchValue(
-        Number(ntaFormGroup.get(['wcLoanOrLimit', quarter]).value) /
-        Number(ntaFormGroup.get(['netTradingAssets', quarter]).value));
+        (Number(ntaFormGroup.get(['wcLoanOrLimit', quarter]).value) /
+        Number(ntaFormGroup.get(['netTradingAssets', quarter]).value)));
   }
 
   onChangeFiscalYear(selectedFiscalYearObj) {

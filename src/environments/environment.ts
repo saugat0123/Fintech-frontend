@@ -24,6 +24,7 @@ export const environment = {
   enablePreAddingAccountNumber: true,
   disableCrgAlpha: true,
   disableApprovalSheet: false,
+  isMega: true
 };
 
 /*
