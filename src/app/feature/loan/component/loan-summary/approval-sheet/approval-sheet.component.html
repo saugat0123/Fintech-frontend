@@ -121,7 +121,7 @@
 
             <div *ngIf="loanCategory === 'INSTITUTION'" class="row">
                 <div class="col-md-12">
-                    <app-company-info-summary
+                    <app-company-info-summary [approveSheet]="approveSheet"
                             [companyInfo]="loanDataHolder?.companyInfo"
                             [loanDataHolder]="loanDataHolder"></app-company-info-summary>
                 </div>
@@ -139,6 +139,7 @@
                             <tr class="text-white sb-bg-dark">
                                 <th>Name</th>
                                 <th>Date Of Birth</th>
+                                <th>Age</th>
                                 <th>Citizenship Number</th>
                                 <th>Mobile Number</th>
                                 <th>LandLine Number</th>
@@ -148,23 +149,25 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
-                                <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
-                                <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
-                                <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
-                                <td>{{loanDataHolder?.customerInfo?.landLineNumber}}</td>
-                                <td>{{(loanDataHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
-                                <td>{{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>
+                                <td class="text-left pl-1">{{loanDataHolder?.customerInfo?.customerName}}</td>
+                                <td class="text-left pl-1">{{loanDataHolder?.customerInfo?.dob | date}}</td>
+                                <td class="text-right pr-1">{{age}} years</td>
+                                <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
+                                <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.contactNumber}}</td>
+                                <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.landLineNumber}}</td>
+                                <td class="text-left pl-1">{{(loanDataHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
+                                <td class="text-left pl-1">{{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>
                             </tr>
                             <tr class="text-white sb-bg-dark">
                                 <td>Customer Client Type</td>
                                 <td>SubSector</td>
+                                <th>Obligor Code</th>
                                 <!--<td>Address as per Legal Document</td>-->
                             </tr>
                             <tr>
-                                <td>{{loanDataHolder?.loanHolder['clientType']}}</td>
-                                <td>{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
-                                <!--<td>{{loanDataHolder?.customerInfo?.customerLegalDocumentAddress}}</td>-->
+                                <td class="text-left pl-1">{{loanDataHolder?.loanHolder['clientType']}}</td>
+                                <td class="text-left pl-1">{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
+                                <td class="text-right pr-1">{{loanDataHolder?.groupSummaryDto?.groupCode}}</td>
 
                             </tr>
                             </tbody>
@@ -433,7 +436,30 @@
                     </table>
                 </div>
             </div>-->
-
+            <div class="col-md-12">
+                <button  *ngIf="riskOfficerLevel && loanDataHolder?.documentStatus.toString() != 'APPROVED'" (click)="openTermsAndCommentModal(termsConditionModel)"
+                        nbButton
+                        size="tiny"
+                        shape="rectangle"
+                        status="success"
+                        class="float-right">
+                        <span class="text-right">
+                            Authority Comments
+                        </span>
+                    <em class="fas fa-comment"></em>
+                </button>
+                            <div class="row sb-medium py-2">
+                                <div class="col-md-12">
+                                    <h6>Authority Comments</h6>
+                                </div>
+                                <div class="col-md-12 py-2">
+                                    <!--            <div>-->
+                                    <span  [innerHTML]="(loanDataHolder?.authorityReviewComments) || 'NA' "></span>
+                                    <!--            </div>-->
+                                </div>
+                            </div>
+                            <hr>
+            </div>
             <div *ngIf="riskOfficerLevel && signatureList.length > 0" class="row justify-content-between px-3"
                  id="signatureDiv">
                 <div class="col-md-12 print-only">
@@ -464,3 +490,21 @@
         </nb-card-body>
     </nb-card>
 </section>
+<ng-template  #termsConditionModel>
+    <nb-card accent="primary">
+        <nb-card-header>Comments/Terms and Conditions/Waiver</nb-card-header>
+        <nb-card-body>
+          <div class="col-md-12 mt-4">
+              <label>Authority Comments</label>
+              <ckeditor [(ngModel)]="authorityReviewComments"
+                        [config]="ckeConfig"></ckeditor>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+            <div class="col-md-12">
+                <button class="btn btn-danger" (click)="close()">Close</button>
+                <button class="btn btn-primary float-right" (click)="saveTermsAndCommentModal()">Submit</button>
+            </div>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>
