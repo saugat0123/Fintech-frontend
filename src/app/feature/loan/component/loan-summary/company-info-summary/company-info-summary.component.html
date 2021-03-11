@@ -136,7 +136,12 @@
           <td><b>SubSector</b></td>
           <td>{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
         </tr>
-        <br>
+
+        <tr *ngIf="approveSheet === 'approveSheet'">
+          <td><b>Obligor Code</b></td>
+          <td>{{loanDataHolder?.groupSummaryDto?.groupCode}}</td>
+        </tr>
+
       </table>
     </div>
 </div>

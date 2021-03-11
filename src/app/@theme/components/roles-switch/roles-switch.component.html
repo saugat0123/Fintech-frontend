@@ -1,0 +1,54 @@
+<nb-card accent="primary" [nbSpinner]="spinner">
+    <nb-card-header>
+       Switch Roles
+    </nb-card-header>
+    <nb-card-body>
+        <div *ngFor="let roles of roleList" class="cursor">
+            <a (click)="verifyUserOpen(roles,loginVerification)">{{roles?.roleName}}</a>
+        </div>
+        <div *ngIf="roleList.length < 1">
+           NO Any Secondary Role Has Been Assigned
+        </div>
+    </nb-card-body>
+</nb-card>
+
+<ng-template #loginVerification>
+    <div class="card">
+        <div class="card-header">
+            <div class="clearfix">
+                <div class="float-right">
+                    <a (click)="onClose()" aria-label="Close" class="close cursor"><span aria-hidden="true">×</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="login-box-msg">Please Enter Your Credential for Confirmation</p>
+            <p *ngIf="falseCredential" class="text-danger">Please enter
+                again. {{falseCredentialMessage}}</p>
+
+            <form #lform="ngForm" class="login-form" name="login-form">
+                <div class="form-group has-feedback mt-2">
+                    <input #pass="ngModel" [ngClass]="{'is-invalid': lform.submitted && pass.invalid}"
+                           class="form-control"
+                           id="password"
+                           name="password"
+                           ngModel placeholder="Password" required
+                           type="password">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    <div *ngIf="pass.invalid && lform.submitted" class="invalid-feedback">
+                        Password is required
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer">
+            <div class="clearfix">
+                <div class="float-right">
+                    <button (click)="switchRole(lform)" [disabled]="lform.invalid" nbButton>Verify</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</ng-template>

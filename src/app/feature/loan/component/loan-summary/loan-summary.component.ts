@@ -153,6 +153,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
     roleType;
     showApprovalSheetInfo = false;
+    notApprove = 'notApprove';
 
 
     constructor(

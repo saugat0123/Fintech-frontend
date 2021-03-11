@@ -83,9 +83,14 @@ export class UserService extends BaseService<User> {
         return this.http.get(req.url, {headers: req.header});
     }
 
-    public getAllUserByCurrentRoleBranchAccess(){
+    public getAllUserByCurrentRoleBranchAccess() {
         const req = ApiUtils.getRequest(`${this.getApi()}/allUser`);
         return this.http.get(req.url, {headers: req.header});
     }
 
+
+    public switchUserRole(role: any) {
+        const req = ApiUtils.getRequest(`${this.getApi()}/switch-user`);
+        return this.http.post(req.url, role, {headers: req.header});
+    }
 }

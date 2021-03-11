@@ -50,6 +50,7 @@ import {NgxPrintModule} from 'ngx-print';
 import { AdditionalExposureComponent } from './component/disbursement/additional-exposure/additional-exposure.component';
 import { CadOfferLetterConfigurationComponent } from './cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
 import {AngularDraggableModule} from 'angular2-draggable';
+import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 
 
 @NgModule({
@@ -105,6 +106,7 @@ import {AngularDraggableModule} from 'angular2-draggable';
         MegaModule,
         NgxPrintModule,
         AngularDraggableModule,
+        NepaliCalendarModule,
     ],
     entryComponents: [
         AssignPopUpComponent,

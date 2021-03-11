@@ -396,7 +396,7 @@
 
             <div *ngIf="loanCategory === 'INSTITUTION'" class="row">
                 <div class="col-md-12">
-                    <app-company-info-summary
+                    <app-company-info-summary [approveSheet]="notApprove"
                             [companyInfo]="loanDataHolder?.companyInfo"
                             [loanDataHolder]="loanDataHolder"></app-company-info-summary>
                 </div>
@@ -1086,7 +1086,7 @@
                                 </div>
                             </td>
 
-                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction}}</td>
+                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe }}</td>
                             <td class="text-left">
                                 <div class="pl-1 disable-print">
                                     {{loanDataHolder?.currentStage?.comment?.length > 50 ?

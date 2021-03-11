@@ -72,6 +72,7 @@ import { DeleteModalComponent } from './components/delete-modal/delete-modal.com
 import {ChartModule} from '../chart/chart.module';
 import {ChatModule} from '../chat/chat.module';
 import { JsonParsePipe } from './pipes/json-parse.pipe';
+import { RolesSwitchComponent } from './components/roles-switch/roles-switch.component';
 
 // import {NbSecurityModule} from '@nebular/security';
 
@@ -178,7 +179,7 @@ const NB_THEME_PROVIDERS = [
 @NgModule({
     imports: [...BASE_MODULES, ...NB_MODULES, RouterModule, NgxSpinnerModule, ChatModule],
     exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES, NgxSpinnerModule],
-    declarations: [...COMPONENTS, ...PIPES, ProfileComponent, ChangePasswordComponent],
+    declarations: [...COMPONENTS, ...PIPES, ProfileComponent, ChangePasswordComponent, RolesSwitchComponent],
     entryComponents: [...ENTRY_COMPONENTS],
 })
 export class ThemeModule {

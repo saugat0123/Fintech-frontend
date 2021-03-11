@@ -13,6 +13,7 @@
             <tr class="text-white sb-bg-dark">
                 <th>S.N</th>
                 <th>Branch</th>
+                <th>Province</th>
                 <th>Customer Name</th>
                 <th>Type</th>
                 <th>Loan Document No</th>
@@ -29,18 +30,20 @@
                 <tr class="cursor">
                     <td (click)="loadProfile(model?.id,model)">{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.name}}</td>
+                    <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.province?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.customerType}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.assignedLoan?.length}}</td>
+                    <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.cadCurrentStage?.toUser?.name}}-{{model?.cadCurrentStage?.toRole?.roleName}}</td>
+
+
                     <td>
                         <a class="px-2 cursor"
                            (click)="model?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
                            nbTooltip="click to view detail comments ">
                             <em class="fa fa-eye"></em>
                         </a></td>
-                    <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.cadCurrentStage?.toUser?.name}}</td>
-
-                </tr>
+               </tr>
                 <ng-container *ngIf="toggleArray[i].toggled">
                     <tr>
                         <td colspan="10"><b>Post Approval Document Comments</b></td>
@@ -53,7 +56,7 @@
                         <th>To User</th>
 
                         <th>Status</th>
-                        <th class="cmt-width" colspan="3">Remarks</th>
+                        <th class="cmt-width" colspan="5">Remarks</th>
                     </tr>
 
                     <tr *ngFor="let previousList of model?.previousList ; let j = index">
@@ -89,7 +92,7 @@
                         </td>
 
                         <td>{{previousList?.docAction | replace:'_':' '}}</td>
-                        <td class="text-left px-2" colspan="3">
+                        <td class="text-left px-2" colspan="5">
                             {{ previousList?.comment}}
                         </td>
                     </tr>
@@ -123,7 +126,7 @@
                         </td>
 
                         <td>{{model?.cadCurrentStage?.docAction | replace:'_':' '}}</td>
-                        <td class="text-left px-2" colspan="3">
+                        <td class="text-left px-2" colspan="5">
 
                             {{model?.cadCurrentStage?.comment}}
 
@@ -131,7 +134,7 @@
                         </td>
                     </tr>
                     <tr class="sb-bg-dark text-white">
-                        <td colspan="8">.</td>
+                        <td colspan="10">.</td>
                     </tr>
                 </ng-container>
             </ng-container>

@@ -10,6 +10,7 @@ import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {User} from '../../../../admin/modal/user';
 import {RoleType} from '../../../../admin/modal/roleType';
 import {UserService} from '../../../../../@core/service/user.service';
+import {Stage} from '../../../../loan/model/stage';
 
 @Component({
     selector: 'app-offer-letter-list',
@@ -46,9 +47,11 @@ export class OfferLetterListComponent implements OnInit {
         other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, 10).subscribe((res: any) => {
             other.loanList = res.detail.content;
             other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
+            other.loanList.forEach((l) => l.loanStage = other.getInitiator(l.assignedLoan));
             other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: l.previousList.length}));
             other.pageable = PaginationUtils.getPageable(res.detail);
             other.spinner = false;
+          
 
         }, error => {
             console.log(error);
@@ -79,6 +82,24 @@ export class OfferLetterListComponent implements OnInit {
         this.userService.getLoggedInUser().subscribe((res: any) => {
             this.user = res.detail;
         });
+    }
+
+
+    /**
+     *  last modified is of approved date
+     */
+    public getInitiator(loan: any) {
+        let stage = new Stage();
+        if (loan.length > 1) {
+            const commentLoan = loan[loan.length - 1];
+            stage = commentLoan.previousList[0];
+            stage.lastModifiedAt = commentLoan.lastModifiedAt;
+            return stage;
+        } else if (loan.length === 1) {
+            stage = loan[0].previousList[0];
+            stage.lastModifiedAt = loan[0].lastModifiedAt;
+            return stage;
+        }
     }
 
 }

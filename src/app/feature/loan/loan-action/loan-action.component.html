@@ -14,14 +14,16 @@
           [disabled]="!actionsList.approved"
           [ngStyle]="{ 'filter' : (actionsList.approved === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-success">
-    APPROVE<i class="col-md-1 fa fa-check"></i>
+    APPROVE
+<!--    <i class="col-md-1 fa fa-check"></i>-->
   </button>
 
   <button (click)="loanAction('forward')" *ngIf="!catalogueStatus"
           [disabled]="!actionsList.sendForward"
           [ngStyle]="{ 'filter' : (actionsList.sendForward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-info">
-    SEND FORWARD<i class="col-md-1 fa fa-arrow-circle-up"></i>
+    SEND FORWARD
+<!--    <i class="col-md-1 fa fa-arrow-circle-up"></i>-->
   </button>
 
   <button (click)="loanAction('backward')" *ngIf="!catalogueStatus"
@@ -29,7 +31,8 @@
           [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm"
           style="color:lightseagreen;">
-    RETURN<i class="col-md-1 fa fa-arrow-circle-left"></i>
+    RETURN
+<!--    <i class="col-md-1 fa fa-arrow-circle-left"></i>-->
   </button>
 
   <button (click)="loanAction('backwardCommittee')" *ngIf="committeeRole && !catalogueStatus"
@@ -37,13 +40,15 @@
           [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-info"
           style="color:white;">
-    BACK TO COMMITTEE<i class="col-md-1 fas fa-angle-double-left"></i>
+    BACK TO COMMITTEE
+<!--    <i class="col-md-1 fas fa-angle-double-left"></i>-->
   </button>
 
   <button (click)="onEdit()" *ngIf="!catalogueStatus" [disabled]="!actionsList.edit"
           [ngStyle]="{ 'filter' : (actionsList.edit === false)? 'grayscale(100%)': 'grayscale(0%)'}"
-          class="btn-flat btn-sm btn-primary">
-    EDIT<i class="col-md-1 fa fa-edit"></i>
+          class="btn-sm btn-primary">
+    EDIT
+<!--    <i class="col-md-1 fa fa-edit"></i>-->
   </button>
 
   <button (click)="loanAction('close')" *ngIf="!catalogueStatus"
@@ -51,7 +56,8 @@
           [ngStyle]="{ 'filter' : (actionsList.closed === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-info"
           value="CLOSED">
-    CLOSE/SETTLEMENT<i class="col-md-1 fa-close"></i>
+    CLOSE/SETTLEMENT
+<!--    <i class="col-md-1 fa-close"></i>-->
   </button>
 
   <button (click)="loanAction('reject')" *ngIf="!catalogueStatus"
@@ -59,25 +65,32 @@
           [ngStyle]="{ 'filter' : (!actionsList.rejected || actionsList.roleTypeMaker)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-danger"
           value="REJECTED">
-    REJECT<i class="col-md-1 fa fa-ban"></i>
+    REJECT
+<!--    <i class="col-md-1 fa fa-ban"></i>-->
   </button>
 
   <button [useExistingCss]="true" class="btn-sm btn-warning d-flex justify-content-end"
           ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss">
-    PRINT<i class="col-md-1 fa fa-print"></i>
+    PRINT
+<!--    <i class="col-md-1 fa fa-print"></i>-->
   </button>
 
   <button (click)="openConfirmationModal()" *ngIf="isMaker && !catalogueStatus"
           class="btn-sm btn-danger d-flex justify-content-end">
-    Delete<i class="col-md-1 fa fa-ban"></i>
+    Delete
+<!--    <i class="col-md-1 fa fa-ban"></i>-->
   </button>
   <button class="btn-sm btn-toolbar d-flex justify-content-end" (click)="detailedViewAction()">
-    DETAILED-VIEW<em class="col-md-1 fa fa-eye"></em></button>
+    DETAILED-VIEW
+<!--    <em class="col-md-1 fa fa-eye"></em>-->
+  </button>
   <button (click)="onUploadDocument()"
           *ngIf="showCadDocumentRoute && actionsList.loanApproveStatus && productUtils.CAD_LITE_VERSION"
           [ngStyle]="{ 'filter' : (actionsList.approved=== false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-success">
-    Documents<i class="col-md-1 fa fa-file-upload"></i></button>
+    Documents
+<!--    <i class="col-md-1 fa fa-file-upload"></i>-->
+  </button>
 
 
 </div>

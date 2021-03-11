@@ -1,0 +1,280 @@
+<p class="my-2"><strong>Credit Risk Grading - Alpha</strong></p>
+<table aria-describedby="creditRiskGradingForm"
+       class="table table-sm table-bordered table-striped table-responsive-md text-center">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col">Type of Risk</th>
+        <th scope="col">Criteria</th>
+        <th scope="col">Weightage</th>
+        <th scope="col">Parameter</th>
+        <th scope="col">Automated Value</th>
+        <th scope="col">Obtained Score</th>
+    </tr>
+    </thead>
+    <tbody id="crgTableBody">
+    <tr>
+        <td colspan="2"><strong>Relationship Risk</strong></td>
+        <td colspan="4"><strong>10.00%</strong></td>
+    </tr>
+    <tr>
+        <td>(Character)</td>
+        <td>Banking Relationship</td>
+        <td>3.00%</td>
+        <td>{{crgAlphaData.bankingRelationship.parameter}}</td>
+        <td>--</td>
+        <td>{{crgAlphaData.bankingRelationship.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Account Turnover</td>
+        <td>3.00%</td>
+        <td>{{crgAlphaData?.accountTurnover?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgAlphaData?.accountTurnover?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Repayment History</td>
+        <td>4.00%</td>
+        <td>{{crgAlphaData?.repaymentHistory?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgAlphaData?.repaymentHistory?.value}}%</td>
+    </tr>
+
+    <tr class="table-success">
+        <td class="text-right" colspan="4"><strong>Relationship Risk Total</strong></td>
+        <td colspan="2"><strong>{{crgAlphaData?.relationshipTotal}}</strong></td>
+    </tr>
+
+    <tr>
+        <td colspan="2"><strong>Financial Risk</strong></td>
+        <td colspan="4"><strong>30.00%</strong></td>
+    </tr>
+    <tr>
+        <td>(Capacity & Capital)</td>
+        <td>Sales to WCL Limit</td>
+        <td>4.50%</td>
+        <td>{{crgAlphaData?.salesToWclLimit?.parameter}}</td>
+        <td> {{crgAlphaData?.salesToWclLimit?.automatedValue}} </td>
+        <td>{{crgAlphaData?.salesToWclLimit?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Sales Growth</td>
+        <td>3.00%</td>
+        <td>{{crgAlphaData?.salesGrowth?.parameter}}</td>
+        <td> {{crgAlphaData?.salesGrowth?.automatedValue}} </td>
+        <td>{{crgAlphaData?.salesGrowth?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Sales - Projection Vs Achievement</td>
+        <td>1.50%</td>
+        <td>{{crgAlphaData?.salesProjectionVsAchievement?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgAlphaData?.salesProjectionVsAchievement?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Profitability</td>
+        <td>3.00%</td>
+        <td>{{crgAlphaData?.profitability?.parameter}}</td>
+        <td> {{crgAlphaData?.profitability?.automatedValue}} </td>
+        <td>{{crgAlphaData?.profitability?.value}}</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Current Ratio</td>
+        <td>3.00%</td>
+        <td>{{crgAlphaData?.currentRatio?.parameter}}</td>
+        <td> {{crgAlphaData?.currentRatio?.automatedValue}} </td>
+        <td>{{crgAlphaData?.currentRatio?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Working Capital Cycle</td>
+        <td>3.00%</td>
+        <td>{{crgAlphaData?.workingCapitalCycle?.parameter}}</td>
+        <td> {{crgAlphaData?.workingCapitalCycle?.automatedValue}} </td>
+        <td>{{crgAlphaData?.workingCapitalCycle?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Net Worth of Firm/Company</td>
+        <td>3.00%</td>
+        <td>{{crgAlphaData?.netWorthOfFirmOrCompany?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgAlphaData?.netWorthOfFirmOrCompany?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>DE Ratio</td>
+        <td>3.00%</td>
+        <td>{{crgAlphaData?.deRatio?.parameter}}</td>
+        <td> {{crgAlphaData?.deRatio?.automatedValue}} </td>
+        <td>{{crgAlphaData?.deRatio?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>ISCR and DSCR</td>
+        <td>3.00%</td>
+        <td>{{crgAlphaData?.iscrAndDscr?.parameter}}</td>
+        <td> {{crgAlphaData?.iscrAndDscr?.automatedValue}} </td>
+        <td>{{crgAlphaData?.iscrAndDscr?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Tax Compliance</td>
+        <td>3.00%</td>
+        <td>{{crgAlphaData?.taxCompliance?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgAlphaData?.taxCompliance?.value}}%</td>
+    </tr>
+
+    <tr class="table-success">
+        <td class="text-right" colspan="4"><strong>Financial Risk Total</strong></td>
+        <td colspan="2"><strong>{{crgAlphaData?.financialTotal}}</strong></td>
+    </tr>
+
+    <tr>
+        <td colspan="2"><strong>Management Risk</strong></td>
+        <td colspan="4"><strong>10.00%</strong></td>
+    </tr>
+    <tr>
+        <td>(Capacity)</td>
+        <td>Experience</td>
+        <td>7.00%</td>
+        <td>{{crgAlphaData?.experience?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgAlphaData?.experience?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Succession</td>
+        <td>3.00%</td>
+        <td>{{crgAlphaData?.succession?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgAlphaData?.succession?.value}}%</td>
+    </tr>
+
+    <tr class="table-success">
+        <td class="text-right" colspan="4"><strong>Management Risk Total</strong></td>
+        <td colspan="2"><strong>{{crgAlphaData?.managementTotal}}</strong></td>
+    </tr>
+
+    <tr>
+        <td colspan="2"><strong>Business/Industry Risk</strong></td>
+        <td colspan="4"><strong>5.00%</strong></td>
+    </tr>
+    <tr>
+        <td>(Condition)</td>
+        <td>Regulatory Concern</td>
+        <td>1.00%</td>
+        <td>{{crgAlphaData?.regulatoryConcern?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgAlphaData?.regulatoryConcern?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Industry Growth</td>
+        <td>1.00%</td>
+        <td>{{crgAlphaData?.industryGrowth?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgAlphaData?.industryGrowth?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Market Competition</td>
+        <td>1.00%</td>
+        <td>{{crgAlphaData?.marketCompetition?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgAlphaData?.marketCompetition?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Supplier Risk (No. of Suppliers)</td>
+        <td>1.00%</td>
+        <td>{{crgAlphaData?.supplier?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgAlphaData?.supplier?.value}}%</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Buyer Risk (No. of Buyers)</td>
+        <td>1.00%</td>
+        <td>{{crgAlphaData?.buyer?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgAlphaData?.buyer?.value}}%</td>
+    </tr>
+
+    <tr class="table-success">
+        <td class="text-right" colspan="4"><strong>Business and Industry Risk Total</strong></td>
+        <td colspan="2"><strong>{{crgAlphaData?.businessAndIndustryTotal}}</strong></td>
+    </tr>
+
+    <tr>
+        <td colspan="2"><strong>Security Risk</strong></td>
+        <td colspan="4"><strong>45.00%</strong></td>
+    </tr>
+    <ng-container *ngIf="loanTag === loanTagEnum.GENERAL">
+        <tr>
+            <td>(Collateral)</td>
+            <td>Security Coverage - FAC</td>
+            <td>40.00%</td>
+            <td>{{crgAlphaData?.securityCoverageFAC?.parameter}}</td>
+            <td> {{crgAlphaData?.securityCoverageFAC?.automatedValue}} </td>
+            <td>{{crgAlphaData?.securityCoverageFAC?.value}}%</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>FAC (Land and Building) Location</td>
+            <td>2.50%</td>
+            <td>{{crgAlphaData?.FACLocation?.parameter}}</td>
+            <td>--</td>
+            <td>{{crgAlphaData?.FACLocation?.value}}%</td>
+        </tr>
+    </ng-container>
+
+    <ng-container *ngIf="loanTag === loanTagEnum.VEHICLE">
+        <tr>
+            <td>&nbsp;</td>
+            <td>Security Coverage - Vehicle</td>
+            <td>42.50%</td>
+            <td>{{crgAlphaData?.securityCoverageVehicle?.parameter}}</td>
+            <td>--</td>
+            <td>{{crgAlphaData?.securityCoverageVehicle?.value}}%</td>
+        </tr>
+    </ng-container>
+    <tr>
+        <td>&nbsp;</td>
+        <td>Guarantee</td>
+        <td>2.50%</td>
+        <td>{{crgAlphaData?.guarantee?.parameter}}</td>
+        <td>--</td>
+        <td>{{crgAlphaData?.guarantee?.value}}%</td>
+    </tr>
+    <tr class="table-success">
+        <td class="text-right" colspan="4"><strong>Security Risk Total</strong></td>
+        <td colspan="2"><strong>{{crgAlphaData?.securityTotal}}</strong></td>
+    </tr>
+    <tr>
+        <td colspan="6">&nbsp;</td>
+    </tr>
+    <tr class="table-success">
+        <td class="text-right" colspan="4"><strong>Grand Total</strong></td>
+        <td colspan="2"><strong>{{crgAlphaData?.totalScore}}</strong></td>
+    </tr>
+    <tr class="table-success">
+        <td class="text-right" colspan="4"><strong>Credit Risk Grade</strong></td>
+        <td colspan="2"><strong>{{crgAlphaData?.creditRiskGrade}}</strong></td>
+    </tr>
+    <tr class="table-success">
+        <td class="text-right" colspan="4"><strong>Credit Risk Rating</strong></td>
+        <td colspan="2"><strong>{{crgAlphaData?.creditRiskRating}}</strong></td>
+    </tr>
+    <tr class="table-success">
+        <td class="text-right" colspan="4"><strong>Premium</strong></td>
+        <td colspan="2"><strong>{{crgAlphaData?.premium}}</strong></td>
+    </tr>
+    </tbody>
+</table>

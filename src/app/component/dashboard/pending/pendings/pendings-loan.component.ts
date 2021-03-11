@@ -23,6 +23,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ProductUtils} from '../../../../feature/admin/service/product-mode.service';
 import {NbTrigger} from '@nebular/theme';
+import {AddressService} from '../../../../@core/service/baseservice/address.service';
 
 @Component({
     selector: 'app-pendings',
@@ -39,7 +40,8 @@ export class PendingsLoanComponent implements OnInit {
         loanConfigId: undefined,
         branchIds: undefined,
         loanNewRenew: undefined,
-        customerName: undefined
+        customerName: undefined,
+        provinceId: undefined
     };
     filterForm: FormGroup;
     loanList: Array<LoanConfig> = new Array<LoanConfig>();
@@ -47,6 +49,7 @@ export class PendingsLoanComponent implements OnInit {
     spinner = false;
     page = 1;
     branchList = [];
+    provinces = [];
     branchFilter = true;
     isFilterCollapsed = true;
     docStatus = DocStatus;
@@ -66,7 +69,8 @@ export class PendingsLoanComponent implements OnInit {
         private toastService: ToastService,
         private route: ActivatedRoute,
         private datePipe: DatePipe,
-        private formBuilder: FormBuilder) {
+        private formBuilder: FormBuilder,
+        private location: AddressService) {
     }
 
 
@@ -87,7 +91,6 @@ export class PendingsLoanComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.search.documentStatus = this.router.url.substr(this.router.url.lastIndexOf('/') + 1);
         this.buildFilterForm();
         if (this.search.documentStatus.toString() === DocStatus.value(DocStatus.PENDING)) {
@@ -96,7 +99,6 @@ export class PendingsLoanComponent implements OnInit {
             this.docStatusForMaker();
             this.showDocStatusList = true;
         }
-
         PendingsLoanComponent.loadData(this);
         this.userService.getLoggedInUser().subscribe(
             (response: any) => {
@@ -125,6 +127,9 @@ export class PendingsLoanComponent implements OnInit {
             });
         }
         this.userRoleType = LocalStorageUtil.getStorage().roleType;
+        this.location.getProvince().subscribe((response: any) => {
+            this.provinces = response.detail;
+        });
     }
 
     buildFilterForm() {
@@ -133,7 +138,8 @@ export class PendingsLoanComponent implements OnInit {
             customerName: [undefined],
             loanType: [undefined],
             loan: [undefined],
-            documentStatus: [undefined]
+            documentStatus: [undefined],
+            provinceId: [undefined]
         });
     }
 
@@ -146,6 +152,8 @@ export class PendingsLoanComponent implements OnInit {
             this.filterForm.get('customerName').value;
         this.search.documentStatus = ObjectUtil.isEmpty(this.filterForm.get('documentStatus').value) ? undefined :
             this.filterForm.get('documentStatus').value;
+        this.search.provinceId = ObjectUtil.isEmpty(this.filterForm.get('provinceId').value) ? undefined :
+            this.filterForm.get('provinceId').value;
         PendingsLoanComponent.loadData(this);
     }
 
