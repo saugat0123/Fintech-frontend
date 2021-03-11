@@ -1,35 +1,35 @@
 <div class="row">
     <div class="col-md-3 col-sm-6 col-xs-13">
         <a routerLink="/home/status/initial">
-            <app-icon-card detail="{{initCount}}"  title="Initial" type="warning">
-                <i class="fas fa-mail-bulk"></i>
+            <app-icon-card detail="{{initCount}}"  title="Initial" type="info">
+                <i class="far fa-flag"></i>
             </app-icon-card>
         </a>
     </div>
 
     <div class="col-md-3 col-sm-6 col-xs-13">
         <a routerLink="/home/status/PENDING">
-            <app-icon-card detail="{{pendingCount}}" title="Pending" type="primary">
-                <i class="fas fa-hourglass"></i>
+            <app-icon-card detail="{{pendingCount}}" title="Pending" type="warning">
+                <i class="far fa-hourglass"></i>
             </app-icon-card>
         </a>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-13 cursor">
         <app-icon-card (click)="resolveToCatalogue('approved')" detail="{{approvedCount}}"
                        title="Approved" type="success">
-            <i class="fas fa-thumbs-up"></i>
+            <i class="far fa-check-circle"></i>
         </app-icon-card>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-13 cursor">
         <app-icon-card (click)="resolveToCatalogue('rejected')" detail="{{rejectedCount}}"
-                       title="Rejected" type="warning">
+                       title="Rejected" type="danger">
             <i class="fa fa-ban"></i>
         </app-icon-card>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-13 cursor">
         <app-icon-card (click)="resolveToCatalogue('closed')" detail="{{closedCount}}" title="Closed"
                        type="info">
-            <i class="fa fa-times"></i>
+            <i class="far fa-times-circle"></i>
         </app-icon-card>
     </div>
     <div class="col-md-6 col-sm-6 col-xs-13 cursor" *ngIf="postApprovalDocStat && !productUtils.CAD_LITE_VERSION  && !productUtils.FULL_CAD">

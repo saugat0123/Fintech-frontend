@@ -390,68 +390,63 @@
                                </div>
                            </div>
 
-                           <div class="col-md-4">
-                               <div class="form-group">
-                                   <label for="province"><strong>Province</strong></label>
-                                   <select (change)="getDistricts(this.basicInfo.get('province').value)"
-                                           [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.province.errors }"
+                    <div class="col-md-4 form-group">
+                        <label for="province">Province</label>
+                        <select (change)="getDistricts(basicInfoControls.province.value)"
+                                [ngClass]="{'is-invalid': submitted && basicInfoControls.province.errors}"
                                            class="custom-select"
                                            formControlName="province"
-                                           id="province"
-                                           name="province">
-                                       <option [value]="null" hidden>Select Province</option>
-                                       <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal"
-                                               [selected]="provinceVal.id === province?.id">
+                                id="province">
+                            <option [ngValue]="null" hidden>Province</option>
+                            <option *ngFor="let provinceVal of provinceList"
+                                    [ngValue]="provinceVal">
                                            {{provinceVal.name}}
+                            </option>
                                    </select>
                                    <div *ngIf="(submitted) && basicInfoControls.province.invalid"
                                         class="invalid-feedback">
-                                       <span *ngIf="basicInfoControls.province.errors.required">Province is required</span>
+                            <div *ngIf="basicInfoControls.province.errors.required">
+                                Province is required
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-4">
-                               <div class="form-group">
-                                   <label for="district"><strong>District</strong></label>
-                                   <select (change)="getMunicipalities(this.basicInfo.get('district').value)"
-                                           [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.district.errors }"
+                    <div class="col-md-4 form-group">
+                        <label for="district">District</label>
+                        <select (change)="getMunicipalities(basicInfoControls?.district.value)"
+                                [ngClass]="{'is-invalid': submitted && basicInfoControls.district.errors}"
                                            class="custom-select"
                                            formControlName="district"
-                                           id="district"
-                                           name="district">
-                                       <option [ngValue]="null" hidden>Select District</option>
-                                       <option *ngFor="let districtVal of districtList" [ngValue]="districtVal"
-                                               [selected]="districtVal.id === district?.id">
+                                id="district">
+                            <option [ngValue]="null" hidden>District</option>
+                            <option *ngFor="let districtVal of districtList"
+                                    [ngValue]="districtVal">
                                            {{districtVal.name}}
                                        </option>
                                    </select>
                                    <div *ngIf="(submitted) &&  basicInfoControls.district.invalid"
                                         class="invalid-feedback">
-                <span
-                        *ngIf="basicInfoControls.district.errors.required">district is required</span>
+                            <div *ngIf="basicInfoControls.district.errors.required">
+                                District is required
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-4">
-                               <div class="form-group">
-                                   <label for="municipality"><strong>Municipalities or VDC</strong></label>
+                    <div class="col-md-4 form-group">
+                        <label for="municipality">Municipalities or VDC</label>
                                    <select
-                                           [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.municipalities.errors }"
-                                           class="custom-select" formControlName="municipalities"
+                                [ngClass]="{'is-invalid': submitted && basicInfoControls.municipalities.errors}"
+                                class="custom-select"
+                                formControlName="municipalities"
                                            id="municipality"
                                            name="municipality">
-                                       <option [ngValue]="null" hidden>Select Municipality</option>
+                            <option [ngValue]="null" hidden>Municipality</option>
                                        <option *ngFor="let municipalityVal of municipalitiesList"
-                                               [ngValue]="municipalityVal"
-                                               [selected]="municipalityVal.id === municipality?.id">
+                                    [ngValue]="municipalityVal">
                                            {{municipalityVal.name}}
                                        </option>
                                    </select>
                                    <div *ngIf="(submitted) && basicInfoControls.municipalities.invalid"
                                         class="invalid-feedback">
-                <span
-                        *ngIf="basicInfoControls.municipalities.errors.required"> Municipalities/VDCs required</span>
-                                   </div>
+                            Municipality is required
                                </div>
                            </div>
 
@@ -519,68 +514,63 @@
                                </div>
                            </div>
 
-                           <div class="col-md-4">
-                               <div class="form-group">
-                                   <label for="temporaryProvince"><strong>Province</strong></label>
-                                   <select (change)="getTemporaryDistricts(this.basicInfo.get('temporaryProvince').value)"
-                                           [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.temporaryProvince.errors }"
+                    <div class="col-md-4 form-group">
+                        <label for="temporaryProvince">Province</label>
+                        <select (change)="getTemporaryDistricts(basicInfoControls.temporaryProvince.value)"
+                                [ngClass]="{'is-invalid': submitted && basicInfoControls.temporaryProvince.errors}"
                                            class="custom-select"
                                            formControlName="temporaryProvince"
-                                           id="temporaryProvince"
-                                           name="temporaryProvince">
-                                       <option [value]="null" hidden>Select Province</option>
-                                       <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal"
-                                               [selected]="provinceVal.id === province?.id">
+                                id="temporaryProvince">
+                            <option [ngValue]="null" hidden>Province</option>
+                            <option *ngFor="let provinceVal of provinceList"
+                                    [ngValue]="provinceVal">
                                            {{provinceVal.name}}
+                            </option>
                                    </select>
                                    <div *ngIf="(submitted) && basicInfoControls.temporaryProvince.invalid"
                                         class="invalid-feedback">
-                                       <span *ngIf="basicInfoControls.temporaryProvince.errors.required">Province is required</span>
+                            <div *ngIf="basicInfoControls.temporaryProvince.errors.required">
+                                Province is required
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-4">
-                               <div class="form-group">
-                                   <label for="temporaryDistrict"><strong>District</strong></label>
-                                   <select (change)="getTemporaryMunicipalities(this.basicInfo.get('temporaryDistrict').value)"
-                                           [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.temporaryDistrict.errors }"
+                    <div class="col-md-4 form-group">
+                        <label for="temporaryDistrict">District</label>
+                        <select (change)="getTemporaryMunicipalities(basicInfoControls?.temporaryDistrict?.value)"
+                                [ngClass]="{'is-invalid': submitted && basicInfoControls.temporaryDistrict.errors}"
                                            class="custom-select"
                                            formControlName="temporaryDistrict"
-                                           id="temporaryDistrict"
-                                           name="temporaryDistrict">
-                                       <option [ngValue]="null" hidden>Select District</option>
-                                       <option *ngFor="let districtVal of temporaryDistrictList" [ngValue]="districtVal"
-                                       >
+                                id="temporaryDistrict">
+                            <option [ngValue]="null" hidden>District</option>
+                            <option *ngFor="let districtVal of temporaryDistrictList"
+                                    [ngValue]="districtVal">
                                            {{districtVal.name}}
                                        </option>
                                    </select>
                                    <div *ngIf="(submitted) &&  basicInfoControls.temporaryDistrict.invalid"
                                         class="invalid-feedback">
-                <span
-                        *ngIf="basicInfoControls.temporaryDistrict.errors.required">district is required</span>
+                            <div *ngIf="basicInfoControls.temporaryDistrict.errors.required">
+                                District is required
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-4">
-                               <div class="form-group">
-                                   <label for="temporaryMunicipalities"><strong>Municipalities or VDC</strong></label>
+                    <div class="col-md-4 form-group">
+                        <label for="temporaryMunicipalities">Municipalities or VDC</label>
                                    <select
-                                           [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.temporaryMunicipalities.errors }"
-                                           class="custom-select" formControlName="temporaryMunicipalities"
+                                [ngClass]="{'is-invalid': submitted && basicInfoControls.temporaryMunicipalities.errors}"
+                                class="custom-select"
+                                formControlName="temporaryMunicipalities"
                                            id="temporaryMunicipalities"
                                            name="temporaryMunicipalities">
-                                       <option [ngValue]="null" hidden>Select Municipality</option>
+                            <option [ngValue]="null" hidden>Municipality</option>
                                        <option *ngFor="let municipalityVal of temporaryMunicipalitiesList"
-                                               [ngValue]="municipalityVal"
-                                       >
+                                    [ngValue]="municipalityVal">
                                            {{municipalityVal.name}}
                                        </option>
                                    </select>
                                    <div *ngIf="(submitted) && basicInfoControls.temporaryMunicipalities.invalid"
                                         class="invalid-feedback">
-                <span
-                        *ngIf="basicInfoControls.temporaryMunicipalities.errors.required"> Municipalities/VDCs required</span>
-                                   </div>
+                            Municipality is required
                                </div>
                            </div>
 

@@ -93,5 +93,6 @@ export class LoanDataHolder extends BaseEntity {
     solUser: User;
     postApprovalDocIdList: string;
     authorityReviewComments: string;
+    data: string;
 
 }

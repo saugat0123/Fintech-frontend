@@ -11,6 +11,7 @@ import { DetailViewBaseComponent } from './detail-view-base/detail-view-base.com
 import {MicroLoanModule} from '../micro-loan/micro-loan.module';
 import {CreditChecklistViewComponent} from '../loan-information-view/credit-checklist-view/credit-checklist-view.component';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
+import {CoreModule} from '../../@core/core.module';
 
 
 
@@ -26,6 +27,7 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
     LoanSummaryModule,
     NepaliCalendarModule,
     MicroLoanModule,
+    CoreModule,
 
   ]
 })
