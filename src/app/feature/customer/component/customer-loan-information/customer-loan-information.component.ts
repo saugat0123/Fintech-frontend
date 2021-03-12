@@ -26,6 +26,7 @@ import {IncomeFromAccount} from '../../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 import {CreditChecklistGeneral} from '../../../loan/model/creditChecklistGeneral';
 import {CustomerType} from '../../model/customerType';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -90,6 +91,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   public netTradingAssets: NetTradingAssets;
   public creditChecklistGeneral: CreditChecklistGeneral;
   customerType = CustomerType;
+  isMega = environment.isMega;
 
 
   constructor(

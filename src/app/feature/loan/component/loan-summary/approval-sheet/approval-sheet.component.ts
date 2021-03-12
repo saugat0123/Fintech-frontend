@@ -37,6 +37,7 @@ import {DocAction} from '../../../model/docAction';
 import {Security} from '../../../../admin/modal/security';
 import {RoleHierarchyService} from '../../../../admin/component/role-hierarchy/role-hierarchy.service';
 import {Editor} from '../../../../../@core/utils/constants/editor';
+import {ApprovalSheetInfoComponent} from '../approval-sheet-info/approval-sheet-info.component';
 
 @Component({
     selector: 'app-approval-sheet',
@@ -145,6 +146,8 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     private rolesForRisk = [];
     public currentAuthorityList: LoanStage[] = [];
     private spinner = false;
+    disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
+    showApprovalSheetInfo = false;
 
     constructor(
         private userService: UserService,
@@ -181,6 +184,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
             this.calculateAge();
         }
+        this.checkDocUploadConfig();
     }
 
     ngOnDestroy(): void {
@@ -377,7 +381,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         if (this.signatureList.length > 0) {
             lastIndex = this.signatureList.length;
             this.signatureList.forEach((v, i) => {
-                if (v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE) {
+                if (v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE) {
                     riskOfficerIndex = i;
                 }
             });
@@ -620,5 +624,19 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
             const difference = Math.abs(Date.now() - new Date(dob).getTime());
             this.age = Math.floor((difference / (1000 * 3600 * 24)) / 365);
         }
+    }
+
+    openApprovalSheetInfoModal() {
+        const modal = this.modalService.open(ApprovalSheetInfoComponent, {size: 'lg'});
+        modal.componentInstance.loanConfig = this.loanConfig;
+        modal.componentInstance.loanDataHolder = this.loanData;
+    }
+
+    checkDocUploadConfig() {
+        const storage = LocalStorageUtil.getStorage();
+        const docStatus = this.loanDataHolder.documentStatus.toString();
+        this.showApprovalSheetInfo = docStatus !== 'APPROVED' && docStatus !== 'CLOSED' && docStatus !== 'REJECTED'
+            && storage.roleType === 'COMMITTEE'
+            && this.loanDataHolder.currentStage.toUser.id === Number(storage.userId);
     }
 }

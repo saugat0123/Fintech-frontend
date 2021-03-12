@@ -19,6 +19,17 @@
                         </span>
                         <em class="fas fa-forward"></em>
                     </button>
+                    <button *ngIf="!disableApprovalSheetFlag && showApprovalSheetInfo"
+                            nbButton
+                            shape="rectangle"
+                            status="success"
+                            class="float-right"
+                            size="tiny" (click)="openApprovalSheetInfoModal()">
+                        <span class="text-right">
+                            Approval Doc Info
+                        </span>
+                        <em class="fas fa-forward"></em>
+                    </button>
                 </div>
             </div>
             <div *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId"
@@ -437,12 +448,12 @@
                 </div>
             </div>-->
             <div class="col-md-12">
-                <button  *ngIf="riskOfficerLevel && loanDataHolder?.documentStatus.toString() != 'APPROVED'" (click)="openTermsAndCommentModal(termsConditionModel)"
+                <button  *ngIf="riskOfficerLevel" (click)="openTermsAndCommentModal(termsConditionModel)"
                         nbButton
                         size="tiny"
                         shape="rectangle"
                         status="success"
-                        class="float-right">
+                        class="float-right disable-print">
                         <span class="text-right">
                             Authority Comments
                         </span>
@@ -495,7 +506,7 @@
         <nb-card-header>Comments/Terms and Conditions/Waiver</nb-card-header>
         <nb-card-body>
           <div class="col-md-12 mt-4">
-              <label>Authority Comments</label>
+              <label><strong>Authority Comments</strong></label>
               <ckeditor [(ngModel)]="authorityReviewComments"
                         [config]="ckeConfig"></ckeditor>
           </div>
