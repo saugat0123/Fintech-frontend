@@ -68,7 +68,7 @@
                             जिल्ला
                                     <strong class="nepaliFont">{{nepData?.temporaryMunicipality}}</strong>
                                                             {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}} वडा नं.
-                                    <strong class="nepaliFont">{{nepData?.temporaryWard}}</strong>
+                                    <strong class="nepaliFont">{{nepData?.temporaryWardNo}}</strong>
                             <input class="form-field form-control-sm nepaliFont"
                                    formControlName="temporaryAddress"
                                    placeholder=""
@@ -187,17 +187,23 @@
                                     <input class="form-field form-control-sm nepaliFont disable-print col-9"
                                            formControlName="seatNo"
                                            placeholder=""
-                                           type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('seatNo').value ? loanDeedCompany.get('seatNo').value  : '========='}}</b></span>
+                                           type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('wardNo').value ? loanDeedCompany.get('wardNo').value  : '========='}}</b></span>
                                 </td>
                                 <td>
                                     <input class="form-field form-control-sm nepaliFont disable-print col-9"
                                            formControlName="kNo"
                                            placeholder=""
-                                           type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('kNo').value ? loanDeedCompany.get('kNo').value  : '========='}}</b></span>
+                                           type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('seatNo').value ? loanDeedCompany.get('seatNo').value  : '========='}}</b></span>
                                 </td>
                                 <td>
                                     <input class="form-field form-control-sm nepaliFont disable-print col-9"
                                            formControlName="area"
+                                           placeholder=""
+                                           type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('kNo').value ? loanDeedCompany.get('kNo').value  : '========='}}</b></span>
+                                </td>
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                           formControlName="rNoDate"
                                            placeholder=""
                                            type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('area').value ? loanDeedCompany.get('area').value  : '========='}}</b></span>
                                 </td>
