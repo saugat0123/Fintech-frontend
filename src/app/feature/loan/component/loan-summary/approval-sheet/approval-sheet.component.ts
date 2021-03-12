@@ -36,6 +36,8 @@ import {ReadmoreModelComponent} from '../../readmore-model/readmore-model.compon
 import {DocAction} from '../../../model/docAction';
 import {Security} from '../../../../admin/modal/security';
 import {RoleHierarchyService} from '../../../../admin/component/role-hierarchy/role-hierarchy.service';
+import {Editor} from '../../../../../@core/utils/constants/editor';
+import {ApprovalSheetInfoComponent} from '../approval-sheet-info/approval-sheet-info.component';
 
 @Component({
     selector: 'app-approval-sheet',
@@ -56,6 +58,8 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
 
     client: string;
 
+    ckeConfig = Editor.CK_CONFIG;
+    authorityReviewComments;
     docMsg;
     rootDocLength;
     dmsLoanFile: DmsLoanFile = new DmsLoanFile();
@@ -135,10 +139,15 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     showCadDoc = false;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     fiscalYearArray = [];
+    age: number;
+    approveSheet = 'approveSheet';
 
     riskOfficerLevel = false;
     private rolesForRisk = [];
     public currentAuthorityList: LoanStage[] = [];
+    private spinner = false;
+    disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
+    showApprovalSheetInfo = false;
 
     constructor(
         private userService: UserService,
@@ -170,9 +179,12 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loanDataHolder = this.loanData;
-        console.log('approval' , this.loanDataHolder.postApprovalDocIdList);
         this.prepareAuthoritySection();
         this.loadSummary();
+        this.checkDocUploadConfig();
+        if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
+            this.calculateAge();
+        }
     }
 
     ngOnDestroy(): void {
@@ -369,12 +381,12 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         if (this.signatureList.length > 0) {
             lastIndex = this.signatureList.length;
             this.signatureList.forEach((v, i) => {
-                if (v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE) {
+                if (v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE) {
                     riskOfficerIndex = i;
                 }
             });
 
-            if (riskOfficerIndex) {
+            if (!ObjectUtil.isEmpty(riskOfficerIndex)) {
                 this.riskOfficerLevel = true;
                 this.signatureList = this.signatureList.slice(riskOfficerIndex, lastIndex);
             }
@@ -568,5 +580,63 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
 
     goToLoanSummary() {
         this.changeToLoanSummaryActive.next();
+    }
+
+    openTermsAndCommentModal(model) {
+        this.authorityReviewComments = this.loanDataHolder.authorityReviewComments;
+        this.modalService.open(model , {size: 'lg'});
+    }
+
+    saveTermsAndCommentModal() {
+            this.spinner = true;
+            this.loanDataHolder.authorityReviewComments = this.authorityReviewComments;
+            this.loanFormService.save(this.loanDataHolder).subscribe(() => {
+                this.spinner = false;
+                this.toastService.show(new Alert(AlertType.SUCCESS, `Successfully Saved Authority Comments`));
+                this.close();
+                this.router.navigateByUrl('/home/dashboard').then(value => {
+                    if (value) {
+                        this.router.navigate(['/home/loan/summary'], {
+                            queryParams: {
+                                loanConfigId: this.loanConfig.id,
+                                customerId: this.loanDataHolder.id,
+                                // to do: remove this if not required in future
+                                // catalogue: false
+                            }
+                        });
+                    }
+                });
+            }, error => {
+                console.error(error);
+                this.spinner = false;
+                this.toastService.show(new Alert(AlertType.ERROR, `Error Saving Authority Comments: ${error.error.message}`));
+                this.close();
+            });
+        }
+
+        close() {
+        this.modalService.dismissAll();
+        }
+
+    calculateAge() {
+        const dob = this.loanDataHolder.customerInfo.dob;
+        if (dob) {
+            const difference = Math.abs(Date.now() - new Date(dob).getTime());
+            this.age = Math.floor((difference / (1000 * 3600 * 24)) / 365);
+        }
+    }
+
+    openApprovalSheetInfoModal() {
+        const modal = this.modalService.open(ApprovalSheetInfoComponent, {size: 'lg'});
+        modal.componentInstance.loanConfig = this.loanConfig;
+        modal.componentInstance.loanDataHolder = this.loanData;
+    }
+
+    checkDocUploadConfig() {
+        const storage = LocalStorageUtil.getStorage();
+        const docStatus = this.loanDataHolder.documentStatus.toString();
+        this.showApprovalSheetInfo = docStatus !== 'APPROVED' && docStatus !== 'CLOSED' && docStatus !== 'REJECTED'
+            && storage.roleType === 'COMMITTEE'
+            && this.loanDataHolder.currentStage.toUser.id === Number(storage.userId);
     }
 }

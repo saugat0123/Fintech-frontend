@@ -28,6 +28,7 @@ import { ApprovalSheetConfigComponent } from './approval-sheet-config/approval-s
 import { ApprovalSheetInfoComponent } from './approval-sheet-info/approval-sheet-info.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import { ApprovalSheetDocumentListComponent } from './approval-sheet/approval-sheet-document-list/approval-sheet-document-list.component';
+import {LoanInformationViewModule} from '../../../loan-information-view/loan-information-view.module';
 import {RoleHierarchyChainComponent} from './role-heirarchy-chain/role-hierarchy-chain.component';
 
 
@@ -66,7 +67,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         NgxPrintModule,
         CoreModule,
         CbsGroupModule,
-        NgSelectModule
+        NgSelectModule,
+        LoanInformationViewModule
     ],
     exports: [
         LoanSummaryComponent,

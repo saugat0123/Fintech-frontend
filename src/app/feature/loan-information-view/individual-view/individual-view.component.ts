@@ -14,6 +14,7 @@ import {environment} from '../../../../environments/environment.srdb';
 export class IndividualViewComponent implements OnInit {
   @Input() individual: Customer;
   @Input() customerInfo;
+  @Input() loanData;
   customerType = CustomerType;
   individualJsonData: IndividualJsonData;
 
