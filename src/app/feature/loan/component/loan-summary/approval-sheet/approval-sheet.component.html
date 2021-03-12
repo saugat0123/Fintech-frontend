@@ -19,6 +19,17 @@
                         </span>
                         <em class="fas fa-forward"></em>
                     </button>
+                    <button *ngIf="!disableApprovalSheetFlag && showApprovalSheetInfo"
+                            nbButton
+                            shape="rectangle"
+                            status="success"
+                            class="float-right"
+                            size="tiny" (click)="openApprovalSheetInfoModal()">
+                        <span class="text-right">
+                            Approval Doc Info
+                        </span>
+                        <em class="fas fa-forward"></em>
+                    </button>
                 </div>
             </div>
             <div *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId"
@@ -437,12 +448,12 @@
                 </div>
             </div>-->
             <div class="col-md-12">
-                <button  *ngIf="riskOfficerLevel && loanDataHolder?.documentStatus.toString() != 'APPROVED'" (click)="openTermsAndCommentModal(termsConditionModel)"
+                <button  *ngIf="riskOfficerLevel && (loggedUserAccess == 'ALL' || loggedUserAccess == 'SPECIFIC')" (click)="openTermsAndCommentModal(termsConditionModel)"
                         nbButton
                         size="tiny"
                         shape="rectangle"
                         status="success"
-                        class="float-right">
+                        class="float-right disable-print">
                         <span class="text-right">
                             Authority Comments
                         </span>
@@ -469,18 +480,18 @@
                      class="col-md-2 padding-0-125">
                     <div class="signature-block">
                         <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
-                            <span>{{loanHandler(i, signatureList.length, previous?.fromUser?.role?.authorityLabel)}}</span>
+                            <span>{{loanHandler(i, signatureList.length, previous?.toUser?.role?.authorityLabel)}}</span>
                         </div>
                         <hr class="border-dark m-0">
                         <div class="row justify-content-center signature mx-auto">
                             <div class="print-only signature-padding"></div>
                             <img align="middle" alt="signature"
                                  class="img-thumbnail border-0 signature-height signature-width"
-                                 src="{{previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage}}"/>
+                                 src="{{previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage}}"/>
                         </div>
                         <div class="text-center signature-detail sb-bg-secondary text-white">
-                            <p class="m-0 sb-small">{{previous?.fromUser?.name}}</p>
-                            <p class="m-0 sb-small">({{previous?.fromUser?.role?.roleName}})</p>
+                            <p class="m-0 sb-small">{{previous?.toUser?.name}}</p>
+                            <p class="m-0 sb-small">({{previous?.toUser?.role?.roleName}})</p>
                             <p class="m-0 sb-small">{{previous?.lastModifiedAt}}</p>
                         </div>
                     </div>
@@ -495,7 +506,7 @@
         <nb-card-header>Comments/Terms and Conditions/Waiver</nb-card-header>
         <nb-card-body>
           <div class="col-md-12 mt-4">
-              <label>Authority Comments</label>
+              <label><strong>Authority Comments</strong></label>
               <ckeditor [(ngModel)]="authorityReviewComments"
                         [config]="ckeConfig"></ckeditor>
           </div>

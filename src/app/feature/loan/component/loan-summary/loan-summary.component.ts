@@ -37,6 +37,7 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 import {RouteConst} from '../../../credit-administration/model/RouteConst';
 import {ApprovalSheetInfoComponent} from './approval-sheet-info/approval-sheet-info.component';
+import {Clients} from '../../../../../environments/Clients';
 
 @Component({
     selector: 'app-loan-summary',
@@ -56,6 +57,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     @Input() nepaliDate;
 
     client: string;
+    clientName = Clients;
 
     docMsg;
     rootDocLength;
