@@ -1,5 +1,4 @@
-<div ngDraggable [ngResizable]="true">
-    <nb-card>
+<nb-card ngDraggable [ngResizable]="true">
         <nb-card-header>
             <strong>{{popUpTitle}}</strong>
             <button (click)="nbDialogRef.close()" aria-label="Close"
@@ -50,13 +49,13 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-12 form-group">
+                    <div class="col-md-12">
                         <label for="comment">Comment:</label>
-                        <textarea
-                                [ngClass]="{ 'is-invalid': submitted && formAction.controls['comment'].errors }"
-                                class="form-control" formControlName="comment" id="comment" rows="5"
-                                name="text"
-                        ></textarea>
+                        <ckeditor [ngClass]="{ 'is-invalid': submitted && formAction.controls['comment'].errors }"
+                                  formControlName="comment" id="comment"></ckeditor>
+                        <div *ngIf="submitted && formAction.controls['comment'].hasError('required')"
+                             class="error-message" style="color: red;">comment is required
+                        </div>
                         <div *ngIf="submitted && formAction.controls['comment'].hasError('required')"
                              class="error-message"
                              style="color: red;">comment is required
@@ -113,5 +112,5 @@
             </button>
         </nb-card-footer>
     </nb-card>
-</div>
+
 
