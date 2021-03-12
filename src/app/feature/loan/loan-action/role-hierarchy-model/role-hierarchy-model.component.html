@@ -1,0 +1,55 @@
+<nb-card [ngResizable]="true">
+        <nb-card-header>
+            <strong>{{popUpTitle}}</strong>
+            <button (click)="nbDialogRef.close()" aria-label="Close"
+                    class="close cursor d-inline-flex justify-content-end" nbButton
+                    size="tiny"
+                    status="primary">
+                <span aria-hidden="true">X</span></button>
+        </nb-card-header>
+        <nb-card-body>
+            <form [formGroup]="form" role="form">
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label class="toUser" for="toRole">To</label>
+                        <select class="form-control form-control-sm" formControlName="toRole" id="toRole"
+                                name="toUser" (change)="getUserList(this.form.get('toRole').value)">
+                            <option [value]="null" hidden>Select Role</option>
+                            <option *ngFor="let item of transferRoleList"
+                                    [ngValue]="item.role">{{item.role.roleName}}
+                        </select>
+                    </div>
+                </div>
+
+                <div *ngIf="userList?.length > 1 && showUserList" class="row">
+                    <div class="col-md-12 form-group">
+                        <label class="toUser" for="toUser">To User</label>
+                        <select class="form-control form-control-sm" formControlName="toUser" id="toUser"
+                                name="toUser">
+                            <option *ngFor="let user of userList"
+                                    [ngValue]="user">
+                                {{user.username}}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="comment">Comment:</label>
+                        <ckeditor formControlName="comment" id="comment" [config]="ckeConfig"
+                                  [ngClass]="{'is-invalid': submitted && form.controls['comment'].errors }"></ckeditor>
+                        <div *ngIf="submitted && form.controls['comment'].hasError('required')"
+                             class="error-message" style="color: red;">comment is required
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </nb-card-body>
+        <nb-card-footer>
+            <button (click)="onSubmit()"  [disabled]="form.invalid" nbButton type="button">
+                <em class="fa fa-save"></em>
+            </button>
+        </nb-card-footer>
+    </nb-card>
+
+

@@ -65,7 +65,6 @@ export class RoleHierarchyChainComponent implements OnInit, OnChanges {
         }
           this.popUpTitle = 'Transfer';
       });
-      console.log(this.defaultRoleHierarchies);
     });
     this.route.queryParamMap.subscribe((param) => {
       this.loanConfigId = +param.get('loanConfigId');

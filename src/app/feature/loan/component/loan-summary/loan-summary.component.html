@@ -3,7 +3,9 @@
         <nb-card-body id="print-block">
             <div class="row disable-print">
                 <div class="col-md-12">
-                    <div>
+                    <div *ngIf="loanDataHolder?.documentStatus?.toString() === 'PENDING'||
+                    loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
+                    loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'">
                         <app-role-heirarchy-chain [refId]="id"
                         [loanDataHolder]="loanDataHolder"
                         [branchId]="loanDataHolder?.branch?.id"
@@ -1181,9 +1183,9 @@
                             <td class="text-left pl-1">{{previousList?.docAction}}</td>
                             <td class="text-left">
                                 <div class="pl-1">
-                                    {{previousList?.comment?.length > 50 ?
+                                    <span [innerHTML]="previousList?.comment?.length > 50 ?
                                     previousList?.comment?.substring(0, 49) :
-                                    previousList?.comment}}
+                                    previousList?.comment | safeHtml"></span>
                                 </div>
                                 <a (click)="open(previousList?.comment)"
                                    *ngIf="previousList?.comment?.length > 50"
