@@ -9,5 +9,6 @@ export const environment = {
   enablePreAddingAccountNumber: false,
   disableCrgAlpha: true,
   disableApprovalSheet: false,
-  microLoan: true
+  microLoan: true,
+  isMega: true
 };

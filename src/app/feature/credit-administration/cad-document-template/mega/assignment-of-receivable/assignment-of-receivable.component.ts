@@ -49,6 +49,7 @@ export class AssignmentOfReceivableComponent implements OnInit {
     this.assignmentOfReceivable = this.formBuilder.group({
       address: [undefined],
       department: [undefined],
+      mantralaya: [undefined],
       officeName: [undefined],
       regNo: [undefined],
       regDate: [undefined],

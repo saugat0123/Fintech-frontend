@@ -24,7 +24,8 @@ export const environment = {
   enablePreAddingAccountNumber: true,
   disableCrgAlpha: true,
   disableApprovalSheet: false,
-  microLoan: true
+  microLoan: true,
+  isMega: true
 };
 
 /*

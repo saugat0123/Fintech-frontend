@@ -40,6 +40,7 @@ import {CadDocumentUploadComponent} from './cad-document-upload/cad-document-upl
 import {SecurityRevaluationComponent} from './security/security-initial-form/security-revaluation/security-revaluation.component';
 import {FeatureModule} from '../feature.module';
 import {OwnerKycApplicableComponent} from './security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
+import {NtaMegaComponent} from './nta-mega/nta-mega.component';
 import { MicroProposalComponent } from '../micro-loan/form-component/micro-proposal/micro-proposal.component';
 
 const COMPONENTS = [
@@ -49,34 +50,36 @@ const COMPONENTS = [
     IncomeStatementComponent,
     BalanceSheetComponent,
     CashFlowStatementComponent,
-  KeyIndicatorsComponent,
-  InitialFormComponent,
-  FiscalYearModalComponent,
-  SecurityComponent,
-  SecurityInitialFormComponent,
-  GuarantorComponent,
-  InsuranceComponent,
-  CustomerLoanDocumentComponent,
-  CreditRiskGradingAlphaComponent,
-  CreditGradingComponent,
-  ProposalComponent,
-  CreditRiskGradingGammaComponent,
-  FinancialDeleteComponentComponent,
-  CiclComponent,
-  TemplateDocumentComponent,
-  NetTradingAssetsComponent,
-  IncomeFromAccountComponent,
-  CreditRiskGradingLambdaComponent,
-  CreditChecklistGeneralComponent,
-  SecurityRevaluationComponent,
-  OwnerKycApplicableComponent
+    KeyIndicatorsComponent,
+    InitialFormComponent,
+    FiscalYearModalComponent,
+    SecurityComponent,
+    SecurityInitialFormComponent,
+    GuarantorComponent,
+    InsuranceComponent,
+    CustomerLoanDocumentComponent,
+    CreditRiskGradingAlphaComponent,
+    CreditGradingComponent,
+    ProposalComponent,
+    CreditRiskGradingGammaComponent,
+    FinancialDeleteComponentComponent,
+    CiclComponent,
+    TemplateDocumentComponent,
+    NetTradingAssetsComponent,
+    IncomeFromAccountComponent,
+    CreditRiskGradingLambdaComponent,
+    CreditChecklistGeneralComponent,
+    SecurityRevaluationComponent,
+    OwnerKycApplicableComponent,
+    CadDocumentUploadComponent,
+    NtaMegaComponent
 ];
 
 
 @NgModule({
   declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent],
     exports: [...COMPONENTS, MicroProposalComponent],
-  entryComponents: [...COMPONENTS],
+    entryComponents: [...COMPONENTS],
     imports: [
         CommonModule,
         ThemeModule,

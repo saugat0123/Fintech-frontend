@@ -26,6 +26,7 @@ import {IncomeFromAccount} from '../../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 import {CreditChecklistGeneral} from '../../../loan/model/creditChecklistGeneral';
 import {CustomerType} from '../../model/customerType';
+import {environment} from '../../../../../environments/environment';
 import {MicroLoanSynopsis} from '../../../loan/model/micro-loan-synopsis';
 import {BorrowerPortfolio} from '../../../loan/model/borrwerportfolio';
 import {MicroBaselRiskExposure} from '../../../loan/model/micro-basel-risk-exposure';
@@ -113,6 +114,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   public microBaselRiskExposure: MicroBaselRiskExposure;
   public microBorrowerFinancial: MicroBorrowerFinancial;
   customerType = CustomerType;
+  isMega = environment.isMega;
 
 
   constructor(

@@ -216,12 +216,23 @@
           </div>
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <app-net-trading-assets
-                  (netTradingAssetsEventEmitter) = "saveNetTradingAssets($event)"
-                  [fromProfile]=true
-                  *ngIf="itemNetTradingAssets.expanded"
-                  [netTradingAssetsData]="netTradingAssets">
-          </app-net-trading-assets>
+          <ng-container *ngIf="!isMega; else ntaMega">
+            <app-net-trading-assets
+                    (netTradingAssetsEventEmitter) = "saveNetTradingAssets($event)"
+                    [fromProfile]=true
+                    *ngIf="itemNetTradingAssets.expanded"
+                    [netTradingAssetsData]="netTradingAssets">
+            </app-net-trading-assets>
+          </ng-container>
+
+          <ng-template #ntaMega>
+            <app-nta-mega
+                    (netTradingAssetsEventEmitter) = "saveNetTradingAssets($event)"
+                    [fromProfile]=true
+                    *ngIf="itemNetTradingAssets.expanded"
+                    [netTradingAssetsData]="netTradingAssets">
+            </app-nta-mega>
+          </ng-template>
         </nb-accordion-item-body>
       </nb-accordion-item>
 
