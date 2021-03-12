@@ -386,7 +386,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
                 }
             });
 
-            if (riskOfficerIndex) {
+            if (!ObjectUtil.isEmpty(riskOfficerIndex)) {
                 this.riskOfficerLevel = true;
                 this.signatureList = this.signatureList.slice(riskOfficerIndex, lastIndex);
             }
