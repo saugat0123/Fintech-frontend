@@ -78,6 +78,7 @@ import {AssignedOfferLetterComponent} from './loan-offer-letter/assigned-offer-l
 import { PostApprovalFormComponent } from './loan-offer-letter/post-approval-form/post-approval-form.component';
 import {CatalogueComponent} from "../admin/component/catalogue/catalogue.component";
 import {TransferDocComponent} from "./transfer-doc/transfer-doc.component";
+import { RoleHierarchyModelComponent } from './loan-action/role-hierarchy-model/role-hierarchy-model.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -131,6 +132,7 @@ const COMPONENTS = [
     LoanActionCombinedModalComponent,
     GuarantorAdderComponent,
     GuarantorDetailComponent,
+    RoleHierarchyModelComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -141,7 +143,8 @@ const ENTRY_COMPONENTS = [
     LoanActionModalComponent,
     LoanActionVerificationComponent,
     LoanActionCombinedModalComponent,
-    GuarantorDetailComponent
+    GuarantorDetailComponent,
+    RoleHierarchyModelComponent
 ];
 
 const modules = {

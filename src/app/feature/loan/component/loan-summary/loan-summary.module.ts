@@ -28,6 +28,7 @@ import { ApprovalSheetConfigComponent } from './approval-sheet-config/approval-s
 import { ApprovalSheetInfoComponent } from './approval-sheet-info/approval-sheet-info.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import { ApprovalSheetDocumentListComponent } from './approval-sheet/approval-sheet-document-list/approval-sheet-document-list.component';
+import {RoleHierarchyChainComponent} from './role-heirarchy-chain/role-hierarchy-chain.component';
 
 
 const COMPONENTS = [
@@ -48,7 +49,8 @@ const COMPONENTS = [
     CollateralSummaryComponent,
     NtaSummaryComponent,
     ProposalTermsAndConditionSummeryComponent,
-    ApprovalSheetComponent
+    ApprovalSheetComponent,
+    RoleHierarchyChainComponent
 ];
 
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];

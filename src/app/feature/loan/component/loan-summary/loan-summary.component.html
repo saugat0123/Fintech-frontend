@@ -3,6 +3,12 @@
         <nb-card-body id="print-block">
             <div class="row disable-print">
                 <div class="col-md-12">
+                    <div>
+                        <app-role-heirarchy-chain [refId]="id"
+                        [loanDataHolder]="loanDataHolder"
+                        [branchId]="loanDataHolder?.branch?.id"
+                        [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"></app-role-heirarchy-chain>
+                    </div>
                     <div *ngIf="(loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
                     loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'||
                     loanDataHolder?.documentStatus?.toString() === 'INITIAL') && roleType === 'MAKER' && productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL.toString() === 'LOAN'">

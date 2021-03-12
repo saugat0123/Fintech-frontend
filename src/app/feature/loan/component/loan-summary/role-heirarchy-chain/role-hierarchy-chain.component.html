@@ -1,0 +1,17 @@
+<div id="menu">
+    <ul>
+        <li *ngFor="let item of defaultRoleHierarchies">
+            <span class="font-weight-bold badge badge-light"
+                  nbTooltip="Approval Role Hierarchy">{{item.role?.roleName}}
+                <span *ngIf="currentRoleType === 'MAKER' || currentRoleType ==='COMMITTEE';else show_file_icon_only">
+                    <a (click)="openRoleHierarchyModel()" nbTooltip="File Under Possession" style="cursor: pointer"
+                       *ngIf="item?.isCurrentRole">
+                    <i class="fas fa-file text-danger"></i></a>
+                </span>>>
+                <ng-template #show_file_icon_only>
+                    <span nbTooltip="File Under Possession" *ngIf="item?.isCurrentRole"><i class="fas fa-file"></i></span>
+                </ng-template>
+            </span>
+        </li>
+    </ul>
+</div>
