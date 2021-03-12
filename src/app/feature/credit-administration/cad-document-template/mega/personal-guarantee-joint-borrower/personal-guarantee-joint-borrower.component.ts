@@ -127,7 +127,7 @@ export class PersonalGuaranteeJointBorrowerComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {

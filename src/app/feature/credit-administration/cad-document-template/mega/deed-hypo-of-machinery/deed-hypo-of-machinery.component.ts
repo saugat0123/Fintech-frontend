@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../model/CadFile';
@@ -43,7 +43,7 @@ export class DeedHypoOfMachineryComponent implements OnInit {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
   }
-  buildForm(){
+  buildForm() {
     this.deepHypoMachinery = this.formBuilder.group({
       hintNumber: [undefined],
       loanLimitInRupees: [undefined],
@@ -82,6 +82,7 @@ export class DeedHypoOfMachineryComponent implements OnInit {
       month: [undefined],
       day: [undefined],
       documentWrittenWeek: [undefined],
+      karmachari: [undefined],
       witnessDistrict: [undefined],
       witnessMetropolitan: [undefined],
       witnessVdc: [undefined],
