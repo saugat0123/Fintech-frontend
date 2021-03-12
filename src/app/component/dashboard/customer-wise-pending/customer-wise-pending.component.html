@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <nb-card>
+        <nb-card [nbSpinner]="spinner">
             <nb-card-header>
                 <div class="col-md-12">
                     <div class="row">
@@ -65,7 +65,7 @@
                                 </select>
                             </div>
 
-                            <div *ngIf="showDocStatusList" class="col-md-3">
+                            <div *ngIf="showDocStatusList" class="col-md-3 py-2">
                                 <ng-select [items]="docStatusMakerList"
                                            [multiple]="false"
                                            bindLabel="name"
@@ -73,6 +73,28 @@
                                            formControlName="documentStatus"
                                            placeholder="Select the docStatus">
                                 </ng-select>
+                            </div>
+
+                            <div class="col-md-3 mb-3 py-2">
+                                <select class="custom-select" formControlName="customerType"
+                                        placeholder="Customer Type">
+                                    <option [ngValue]="null">Select Customer Type</option>
+                                    <option [value]="'INSTITUTION'">INSTITUTION</option>
+                                    <option [value]="'INDIVIDUAL'">INDIVIDUAL</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-3 py-2">
+                                <select
+                                        class="custom-select" formControlName="clientType">
+                                    <option [ngValue]="null">Select Client Type</option>
+                                    <option *ngFor="let data of clientType" [ngValue]="data"
+                                    >{{data}}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3 py-2">
+                                <input class="form-control" formControlName="customerCode" id="code" nbInput
+                                       placeholder="Customer code" type="text">
                             </div>
                         </div>
                         <div class="col-md-12 p-0">
@@ -95,6 +117,7 @@
                             <th>Branch</th>
                             <th>Branch Province</th>
                             <th>Customer Name</th>
+                            <th>Customer Code</th>
                             <th>Customer Type</th>
                             <th>Business Unit</th>
                             <th>Contact Number</th>
@@ -109,6 +132,7 @@
                                 <td>{{loanHolderLoans?.customerInfo?.branch?.name}}</td>
                                 <td>{{loanHolderLoans?.customerInfo?.branch?.province?.name}}</td>
                                 <td>{{loanHolderLoans?.customerInfo?.name}}</td>
+                                <td>{{loanHolderLoans?.customerInfo?.customerCode || '-'}}</td>
                                 <td>{{loanHolderLoans?.customerInfo?.customerType}}</td>
                                 <td>{{loanHolderLoans?.customerInfo?.clientType || '-'}}</td>
                                 <td>{{loanHolderLoans?.customerInfo?.contactNo || '-'}}</td>
@@ -130,8 +154,7 @@
                                     <td>Priority</td>
                                     <td>Status</td>
                                     <td>Current Possession</td>
-                                    <td>Initiated On</td>
-                                    <td>Forwarded At</td>
+                                    <td>Received On</td>
                                 </tr>
                                 <tr *ngFor="let l of loanHolderLoans?.loanSingleList" (click)="onClick(l.loan.id,l.id)">
                                     <td>{{l?.loan?.name}}</td>
@@ -139,7 +162,6 @@
                                     <td>{{l?.priority}}</td>
                                     <td>{{l?.documentStatus}}</td>
                                     <td>{{l?.currentStage?.toUser?.name}}</td>
-                                    <td>{{l?.createdAt | date}}</td>
                                     <td><span *ngIf="l?.previousList.length > 0">
                                    {{l?.currentStage?.lastModifiedAt | date}}
                                     </span></td>
@@ -151,7 +173,6 @@
                                     <td>{{l?.priority}}</td>
                                     <td>{{l?.documentStatus}}</td>
                                     <td>{{l?.currentStage?.toUser?.name}}</td>
-                                    <td>{{l?.createdAt | date}}</td>
                                     <td><span *ngIf="l?.previousList.length > 0">
                                    {{l?.currentStage?.lastModifiedAt | date}}
                                     </span></td>
@@ -168,7 +189,6 @@
                         </tbody>
                     </table>
                 </div>
-                <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
                 <app-paging (changePage)="changePage($event)" *ngIf="!spinner"
                             [pageable]="pageable"></app-paging>
             </nb-card-body>

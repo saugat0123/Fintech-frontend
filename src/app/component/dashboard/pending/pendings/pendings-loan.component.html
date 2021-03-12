@@ -1,147 +1,147 @@
-<!--<div class="row">-->
-<!--    <div class="col-md-12">-->
-<!--        <nb-card>-->
-<!--            <nb-card-header>-->
-<!--                <div class="col-md-12">-->
-<!--                    <div class="row">-->
-<!--                        <div class="col-md-6">-->
-<!--                            <button-->
-<!--                                    (click)="isFilterCollapsed = !isFilterCollapsed"-->
-<!--                                    [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"-->
-<!--                                    nbButton-->
-<!--                                    shape="rectangle"-->
-<!--                                    size="small"-->
-<!--                                    status="primary">-->
-<!--                                <em class="fa fa-filter"> Filter</em>-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                        <div class="col-md-6 d-flex justify-content-end">-->
-<!--                            <button (click)="getCsv()" nbButton outline-->
-<!--                                    status="info" size="small">-->
-<!--                                <i aria-hidden="true" class="fa fa-download"></i></button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+<div class="row" *ngIf="!productUtils?.CUSTOMER_BASE_LOAN">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button
+                                    (click)="isFilterCollapsed = !isFilterCollapsed"
+                                    [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+                                    nbButton
+                                    shape="rectangle"
+                                    size="small"
+                                    status="primary">
+                                <em class="fa fa-filter"> Filter</em>
+                            </button>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <button (click)="getCsv()" nbButton outline
+                                    status="info" size="small">
+                                <i aria-hidden="true" class="fa fa-download"></i></button>
+                        </div>
+                    </div>
+                </div>
 
-<!--                <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">-->
-<!--                    <form (ngSubmit)="onSearch()" [formGroup]="filterForm">-->
-<!--                        <div class="row py-3">-->
-<!--                            <div *ngIf="branchFilter" class="col-md-3">-->
-<!--                                <select class="custom-select" formControlName="branch">-->
-<!--                                    <option [value]="null" hidden selected>Select Branch</option>-->
-<!--                                    <option *ngFor="let branch of branchList"-->
-<!--                                            [value]="branch.id">{{branch.name}}</option>-->
-<!--                                </select>-->
-<!--                            </div>-->
+                <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">
+                    <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
+                        <div class="row py-3">
+                            <div *ngIf="branchFilter" class="col-md-3">
+                                <select class="custom-select" formControlName="branch">
+                                    <option [value]="null" hidden selected>Select Branch</option>
+                                    <option *ngFor="let branch of branchList"
+                                            [value]="branch.id">{{branch.name}}</option>
+                                </select>
+                            </div>
 
-<!--                            <div class="col-md-3">-->
-<!--                                <select class="custom-select" formControlName="provinceId">-->
-<!--                                    <option [value]="null" hidden selected>Select Province</option>-->
-<!--                                    <option *ngFor="let province of provinces"-->
-<!--                                            [value]="province.id">{{province.name}}</option>-->
-<!--                                </select>-->
-<!--                            </div>-->
+                            <div class="col-md-3">
+                                <select class="custom-select" formControlName="provinceId">
+                                    <option [value]="null" hidden selected>Select Province</option>
+                                    <option *ngFor="let province of provinces"
+                                            [value]="province.id">{{province.name}}</option>
+                                </select>
+                            </div>
 
-<!--                            <div class="col-md-3">-->
-<!--                                <input class="form-control" formControlName="customerName" id="name" nbInput-->
-<!--                                       placeholder="Customer Name" type="text">-->
-<!--                            </div>-->
-<!--                            <div class="col-md-3">-->
-<!--                                <select class="custom-select" formControlName="loan" id="facility">-->
-<!--                                    <option [value]="null" hidden selected>Select Facility</option>-->
-<!--                                    <option [value]="null">All Facilities</option>-->
-<!--                                    <option *ngFor="let facility of loanList"-->
-<!--                                            [value]="facility.id">{{facility.name}}</option>-->
+                            <div class="col-md-3">
+                                <input class="form-control" formControlName="customerName" id="name" nbInput
+                                       placeholder="Customer Name" type="text">
+                            </div>
+                            <div class="col-md-3">
+                                <select class="custom-select" formControlName="loan" id="facility">
+                                    <option [value]="null" hidden selected>Select Facility</option>
+                                    <option [value]="null">All Facilities</option>
+                                    <option *ngFor="let facility of loanList"
+                                            [value]="facility.id">{{facility.name}}</option>
 
-<!--                                </select>-->
-<!--                            </div>-->
-<!--                            <div class="col-md-3">-->
-<!--                                <select class="custom-select" formControlName="loanType">-->
-<!--                                    <option [value]="null" hidden selected>Select Type</option>-->
-<!--                                    <option [value]="null">All Types</option>-->
-<!--                                    <option *ngFor="let status of loanType.values()"-->
-<!--                                            [value]="status">{{loanType[status]}}-->
-<!--                                    </option>-->
-<!--                                </select>-->
-<!--                            </div>-->
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="custom-select" formControlName="loanType">
+                                    <option [value]="null" hidden selected>Select Type</option>
+                                    <option [value]="null">All Types</option>
+                                    <option *ngFor="let status of loanType.values()"
+                                            [value]="status">{{loanType[status]}}
+                                    </option>
+                                </select>
+                            </div>
 
-<!--                            <div *ngIf="showDocStatusList" class="col-md-3">-->
-<!--                                <ng-select [items]="docStatusMakerList"-->
-<!--                                           [multiple]="false"-->
-<!--                                           bindLabel="name"-->
-<!--                                           bindValue="name"-->
-<!--                                           formControlName="documentStatus"-->
-<!--                                           placeholder="Select the docStatus">-->
-<!--                                </ng-select>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-md-12 p-0">-->
-<!--                            <button [disabled]="!filterForm.valid" class="mr-2" nbButton shape="rectangle"-->
-<!--                                    size="small" status="info" type="submit">Search-->
-<!--                            </button>-->
-<!--                            <button (click)="buildFilterForm()" nbButton shape="rectangle" status="danger"-->
-<!--                                    size="small" type="button">Clear-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </nb-card-header>-->
-<!--            <nb-card-body>-->
-<!--                <div class="box-body">-->
-<!--                    <table class="table table-sm sb-small table-bordered table-hover text-center">-->
-<!--                        <thead>-->
-<!--                        <tr class="sb-bg-dark text-white">-->
-<!--                            <th>S.N</th>-->
-<!--                            <th>Branch</th>-->
-<!--                            <th>Branch Province</th>-->
-<!--                            <th>Name</th>-->
-<!--                            <th>Contact Number</th>-->
-<!--                            <th>Facility</th>-->
-<!--                            <th>Type</th>-->
-<!--                            <th>Priority</th>-->
-<!--                            <th>File Possession</th>-->
-<!--                            <th>Stage</th>-->
-<!--                            <th *ngIf="userRoleType != 'MAKER' && userRoleType != 'APPROVAL'">Action</th>-->
-<!--                        </tr>-->
-<!--                        </thead>-->
-<!--                        <tbody>-->
-<!--                        <tr-->
-<!--                            *ngFor="let loanDataHolder of loanDataHolders; let i =index"-->
-<!--                            [nbPopoverTrigger]="loanDataHolder?.limitExceed ? nbTrigger.HINT : nbTrigger.NOOP"-->
-<!--                            [nbPopover]="loanDataHolder?.loanRemarks"-->
-<!--                            [ngStyle]="{'color': (loanDataHolder.limitExceed === 1) ? 'red': 'auto'}"-->
-<!--                            class="cursor">-->
-<!--                            <div *ngIf="!loanDataHolders.length > 0">-->
-<!--                                <p>No Content Found</p>-->
-<!--                            </div>-->
-<!--                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{i-->
-<!--                            + 1}}</td>-->
-<!--                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.branch?.name}}</td>-->
-<!--                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.branch?.province?.name}}</td>-->
-<!--                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.loanHolder?.name}}</td>-->
-<!--                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.loanHolder?.contactNo || 'NA'}}</td>-->
-<!--                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.loan?.name}}</td>-->
-<!--                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder.loanType}}</td>-->
-<!--                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.priority}}</td>-->
-<!--                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{user?.role?.roleName}}</td>-->
-<!--                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder.documentStatus}}</td>-->
-<!--                            <td *ngIf="userRoleType != 'MAKER' && userRoleType != 'APPROVAL'">-->
-<!--                                <button *ngIf="productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL === 'LOAN'"-->
-<!--                                        (click)="configureRole(loanDataHolder.id)" nbButton size="small"-->
-<!--                                        status="primary" nbTooltip="Configure Approval Role Hierarchy">-->
-<!--                                    <i class="fa fa-user-shield"></i>-->
-<!--                                </button>-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                        </tbody>-->
-<!--                    </table>-->
-<!--                </div>-->
-<!--                <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>-->
-<!--                <app-paging (changePage)="changePage($event)" *ngIf="!spinner"-->
-<!--                            [pageable]="pageable"></app-paging>-->
-<!--            </nb-card-body>-->
-<!--        </nb-card>-->
-<!--    </div>-->
-<!--</div>-->
+                            <div *ngIf="showDocStatusList" class="col-md-3">
+                                <ng-select [items]="docStatusMakerList"
+                                           [multiple]="false"
+                                           bindLabel="name"
+                                           bindValue="name"
+                                           formControlName="documentStatus"
+                                           placeholder="Select the docStatus">
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-0">
+                            <button [disabled]="!filterForm.valid" class="mr-2" nbButton shape="rectangle"
+                                    size="small" status="info" type="submit">Search
+                            </button>
+                            <button (click)="buildFilterForm()" nbButton shape="rectangle" status="danger"
+                                    size="small" type="button">Clear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="box-body">
+                    <table class="table table-sm sb-small table-bordered table-hover text-center">
+                        <thead>
+                        <tr class="sb-bg-dark text-white">
+                            <th>S.N</th>
+                            <th>Branch</th>
+                            <th>Branch Province</th>
+                            <th>Name</th>
+                            <th>Contact Number</th>
+                            <th>Facility</th>
+                            <th>Type</th>
+                            <th>Priority</th>
+                            <th>File Possession</th>
+                            <th>Stage</th>
+                            <th *ngIf="userRoleType != 'MAKER' && userRoleType != 'APPROVAL'">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr
+                                *ngFor="let loanDataHolder of loanDataHolders; let i =index"
+                                [nbPopoverTrigger]="loanDataHolder?.limitExceed ? nbTrigger.HINT : nbTrigger.NOOP"
+                                [nbPopover]="loanDataHolder?.loanRemarks"
+                                [ngStyle]="{'color': (loanDataHolder.limitExceed === 1) ? 'red': 'auto'}"
+                                class="cursor">
+                            <div *ngIf="!loanDataHolders.length > 0">
+                                <p>No Content Found</p>
+                            </div>
+                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{i
+                            + 1}}</td>
+                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.branch?.name}}</td>
+                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.branch?.province?.name}}</td>
+                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.loanHolder?.name}}</td>
+                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.loanHolder?.contactNo || 'NA'}}</td>
+                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.loan?.name}}</td>
+                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder.loanType}}</td>
+                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.priority}}</td>
+                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{user?.role?.roleName}}</td>
+                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder.documentStatus}}</td>
+                            <td *ngIf="userRoleType != 'MAKER' && userRoleType != 'APPROVAL'">
+                                <button *ngIf="productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL === 'LOAN'"
+                                        (click)="configureRole(loanDataHolder.id)" nbButton size="small"
+                                        status="primary" nbTooltip="Configure Approval Role Hierarchy">
+                                    <i class="fa fa-user-shield"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
+                <app-paging (changePage)="changePage($event)" *ngIf="!spinner"
+                            [pageable]="pageable"></app-paging>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
 
-<app-customer-wise-pending></app-customer-wise-pending>
+<app-customer-wise-pending *ngIf="productUtils?.CUSTOMER_BASE_LOAN"></app-customer-wise-pending>

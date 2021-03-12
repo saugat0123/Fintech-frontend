@@ -26,6 +26,7 @@ import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {LoanHolderLoans} from '../modal/loanHolderLoans';
 import {ProposalCalculationUtils} from '../../../feature/loan/component/loan-summary/ProposalCalculationUtils';
 import {LoanDataKey} from '../../../@core/utils/constants/loan-data-key';
+import {CustomerService} from '../../../feature/admin/service/customer.service';
 
 @Component({
     selector: 'app-customer-wise-pending',
@@ -44,7 +45,10 @@ export class CustomerWisePendingComponent implements OnInit {
         branchIds: undefined,
         loanNewRenew: undefined,
         customerName: undefined,
-        provinceId: undefined
+        provinceId: undefined,
+        customerType: undefined,
+        clientType: undefined,
+        customerCode: undefined
     };
     filterForm: FormGroup;
     loanList: Array<LoanConfig> = new Array<LoanConfig>();
@@ -64,6 +68,9 @@ export class CustomerWisePendingComponent implements OnInit {
     loanHolderLoanList: Array<LoanHolderLoans> = new Array<LoanHolderLoans>();
     toggleArray: { toggled: boolean }[] = [];
     loanForCombine: { loan: Array<LoanDataHolder> }[] = [];
+    initStatus;
+    clientType = [];
+    subSector = [];
 
     constructor(
         private service: DmsLoanService,
@@ -76,7 +83,8 @@ export class CustomerWisePendingComponent implements OnInit {
         private route: ActivatedRoute,
         private datePipe: DatePipe,
         private formBuilder: FormBuilder,
-        private location: AddressService) {
+        private location: AddressService,
+        private customerService: CustomerService) {
     }
 
 
@@ -84,6 +92,7 @@ export class CustomerWisePendingComponent implements OnInit {
         other.spinner = true;
         other.toggleArray = [];
         other.loanForCombine = [];
+        other.loanHolderLoanList = [];
         other.loanFormService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe(
             (response: any) => {
                 other.dmsLoanFiles = response.detail.content;
@@ -101,7 +110,10 @@ export class CustomerWisePendingComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.getClientType();
+        this.getSubSector();
         this.search.documentStatus = this.router.url.substr(this.router.url.lastIndexOf('/') + 1);
+        this.initStatus = this.search.documentStatus;
         this.buildFilterForm();
         if (this.search.documentStatus.toString() === DocStatus.value(DocStatus.PENDING)) {
             this.showDocStatusList = false;
@@ -142,6 +154,31 @@ export class CustomerWisePendingComponent implements OnInit {
         });
     }
 
+    getClientType() {
+        this.customerService.clientType().subscribe((res: any) => {
+                this.clientType = res.detail;
+            }
+            , error => {
+                console.error(error);
+            });
+    }
+
+    getSubSector() {
+        this.customerService.subSector().subscribe((res: any) => {
+                const response = res.detail;
+                const sectorArray = [];
+                Object.keys(res.detail).forEach(value => {
+                    sectorArray.push({
+                        key: value, value: response[value]
+                    });
+                });
+                this.subSector = sectorArray;
+            }
+            , error => {
+                console.error(error);
+            });
+    }
+
     buildFilterForm() {
         this.filterForm = this.formBuilder.group({
             branch: [undefined],
@@ -149,21 +186,31 @@ export class CustomerWisePendingComponent implements OnInit {
             loanType: [undefined],
             loan: [undefined],
             documentStatus: [undefined],
-            provinceId: [undefined]
+            provinceId: [undefined],
+            customerType: [undefined],
+            clientType: [undefined],
+            customerCode: [undefined]
         });
     }
 
     onSearch() {
+
         this.search.branchIds = ObjectUtil.isEmpty(this.filterForm.get('branch').value) ? undefined : this.filterForm.get('branch').value;
         this.search.loanConfigId = ObjectUtil.isEmpty(this.filterForm.get('loan').value) ? undefined : this.filterForm.get('loan').value;
         this.search.loanNewRenew = ObjectUtil.isEmpty(this.filterForm.get('loanType').value) ? undefined :
             this.filterForm.get('loanType').value;
         this.search.customerName = ObjectUtil.isEmpty(this.filterForm.get('customerName').value) ? undefined :
             this.filterForm.get('customerName').value;
-        this.search.documentStatus = ObjectUtil.isEmpty(this.filterForm.get('documentStatus').value) ? undefined :
+        this.search.documentStatus = ObjectUtil.isEmpty(this.filterForm.get('documentStatus').value) ? this.initStatus :
             this.filterForm.get('documentStatus').value;
         this.search.provinceId = ObjectUtil.isEmpty(this.filterForm.get('provinceId').value) ? undefined :
             this.filterForm.get('provinceId').value;
+        this.search.customerType = ObjectUtil.isEmpty(this.filterForm.get('customerType').value) ? undefined :
+            this.filterForm.get('customerType').value;
+        this.search.clientType = ObjectUtil.isEmpty(this.filterForm.get('clientType').value) ? undefined :
+            this.filterForm.get('clientType').value;
+        this.search.customerCode = ObjectUtil.isEmpty(this.filterForm.get('customerCode').value) ? undefined :
+            this.filterForm.get('customerCode').value;
         CustomerWisePendingComponent.loadData(this);
     }
 
