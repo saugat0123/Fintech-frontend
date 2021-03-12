@@ -30,7 +30,9 @@
                         </span>
                         <em class="fas fa-forward"></em>
                     </button>
-                    <button *ngIf="!disableApprovalSheetFlag && showApprovalSheetInfo"
+                  <!--
+                  uncomment if needed
+                  <button *ngIf="!disableApprovalSheetFlag && showApprovalSheetInfo"
                             nbButton
                             shape="rectangle"
                             status="success"
@@ -40,7 +42,7 @@
                             Approval Doc Info
                         </span>
                         <em class="fas fa-forward"></em>
-                    </button>
+                    </button>-->
                 </div>
             </div>
             <div *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId"
@@ -396,7 +398,7 @@
 
             <div *ngIf="loanCategory === 'INSTITUTION'" class="row">
                 <div class="col-md-12">
-                    <app-company-info-summary
+                    <app-company-info-summary [approveSheet]="notApprove"
                             [companyInfo]="loanDataHolder?.companyInfo"
                             [loanDataHolder]="loanDataHolder"></app-company-info-summary>
                 </div>

@@ -37,6 +37,7 @@ import {DocAction} from '../../../model/docAction';
 import {Security} from '../../../../admin/modal/security';
 import {RoleHierarchyService} from '../../../../admin/component/role-hierarchy/role-hierarchy.service';
 import {Editor} from '../../../../../@core/utils/constants/editor';
+import {ApprovalSheetInfoComponent} from '../approval-sheet-info/approval-sheet-info.component';
 
 @Component({
     selector: 'app-approval-sheet',
@@ -138,11 +139,15 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     showCadDoc = false;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     fiscalYearArray = [];
+    age: number;
+    approveSheet = 'approveSheet';
 
     riskOfficerLevel = false;
     private rolesForRisk = [];
     public currentAuthorityList: LoanStage[] = [];
     private spinner = false;
+    disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
+    showApprovalSheetInfo = false;
 
     constructor(
         private userService: UserService,
@@ -174,9 +179,10 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loanDataHolder = this.loanData;
-        console.log('approval' , this.loanDataHolder.postApprovalDocIdList);
         this.prepareAuthoritySection();
         this.loadSummary();
+        this.calculateAge();
+        this.checkDocUploadConfig();
     }
 
     ngOnDestroy(): void {
@@ -373,11 +379,12 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         if (this.signatureList.length > 0) {
             lastIndex = this.signatureList.length;
             this.signatureList.forEach((v, i) => {
-                if (v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE) {
+                if (v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE) {
                     riskOfficerIndex = i;
                 }
             });
 
+            console.log(this.signatureList);
             if (riskOfficerIndex) {
                 this.riskOfficerLevel = true;
                 this.signatureList = this.signatureList.slice(riskOfficerIndex, lastIndex);
@@ -609,4 +616,26 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         close() {
         this.modalService.dismissAll();
         }
+
+    calculateAge() {
+        const dob = this.loanDataHolder.customerInfo.dob;
+        if (dob) {
+            const difference = Math.abs(Date.now() - new Date(dob).getTime());
+            this.age = Math.floor((difference / (1000 * 3600 * 24)) / 365);
+        }
+    }
+
+    openApprovalSheetInfoModal() {
+        const modal = this.modalService.open(ApprovalSheetInfoComponent, {size: 'lg'});
+        modal.componentInstance.loanConfig = this.loanConfig;
+        modal.componentInstance.loanDataHolder = this.loanData;
+    }
+
+    checkDocUploadConfig() {
+        const storage = LocalStorageUtil.getStorage();
+        const docStatus = this.loanDataHolder.documentStatus.toString();
+        this.showApprovalSheetInfo = docStatus !== 'APPROVED' && docStatus !== 'CLOSED' && docStatus !== 'REJECTED'
+            && storage.roleType === 'COMMITTEE'
+            && this.loanDataHolder.currentStage.toUser.id === Number(storage.userId);
+    }
 }
