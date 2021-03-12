@@ -181,10 +181,10 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         this.loanDataHolder = this.loanData;
         this.prepareAuthoritySection();
         this.loadSummary();
+        this.checkDocUploadConfig();
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
             this.calculateAge();
         }
-        this.checkDocUploadConfig();
     }
 
     ngOnDestroy(): void {
