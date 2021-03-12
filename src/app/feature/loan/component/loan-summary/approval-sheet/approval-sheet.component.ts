@@ -181,7 +181,9 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         this.loanDataHolder = this.loanData;
         this.prepareAuthoritySection();
         this.loadSummary();
-        this.calculateAge();
+        if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
+            this.calculateAge();
+        }
         this.checkDocUploadConfig();
     }
 
@@ -384,7 +386,6 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
                 }
             });
 
-            console.log(this.signatureList);
             if (riskOfficerIndex) {
                 this.riskOfficerLevel = true;
                 this.signatureList = this.signatureList.slice(riskOfficerIndex, lastIndex);
