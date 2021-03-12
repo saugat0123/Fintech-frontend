@@ -52,4 +52,5 @@ export class CustomerInfoData {
     subSectorDetailCode: string;
     nepData: string;
     gender: string;
+    clientType: any;
 }

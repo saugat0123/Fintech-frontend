@@ -29,7 +29,6 @@ import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
 import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../admin/modal/NetTradingAssets';
 import {BaseEntity} from '../../../@core/model/base-entity';
-import {GroupDto} from './GroupDto';
 import {GroupSummaryDto} from './GroupSummaryDto';
 import {CreditRiskGradingLambda} from '../../admin/modal/CreditRiskGradingLambda';
 import {CadDocument} from './cadDocument';
@@ -94,5 +93,7 @@ export class LoanDataHolder extends BaseEntity {
     postApprovalDocIdList: string;
     authorityReviewComments: string;
     data: string;
+    limitExceed: any;
+    loanRemarks: any;
 
 }
