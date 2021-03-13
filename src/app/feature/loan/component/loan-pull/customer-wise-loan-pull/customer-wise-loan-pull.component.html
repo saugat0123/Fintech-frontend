@@ -183,7 +183,11 @@
                                     <th>Action</th>
                                     <th>Checked/History</th>
                                 </tr>
-                                <tr *ngFor="let l of loanHolderLoans?.loanSingleList ;let j = index" class="cursor">
+                                <tr *ngFor="let l of loanHolderLoans?.loanSingleList ;let j = index"
+                                    class="cursor"
+                                    nbTooltip="Click to View Detail"
+                                    nbTooltipStatus="control"
+                                    nbTooltipIcon="question-mark-circle-outline">
                                     <td (click)="onClick(l.loan.id,l.id)">{{l?.loan?.name}}</td>
                                     <td (click)="onClick(l.loan.id,l.id)" class="d-flex justify-content-end pr-1">Rs
                                         .{{l?.proposal?.proposedLimit | currencyFormatter}}</td>
@@ -231,7 +235,10 @@
                                     </td>
                                 </tr>
                                 <tr *ngFor="let l of loanForCombine[i].loan;let x = index"
-                                    class="cursor">
+                                    class="cursor"
+                                    nbTooltip="Click to View Detail"
+                                    nbTooltipStatus="control"
+                                    nbTooltipIcon="question-mark-circle-outline">
                                     <td (click)="onClick(l.loan.id,l.id)">{{l?.loan?.name}}</td>
                                     <td (click)="onClick(l.loan.id,l.id)" class="d-flex justify-content-end pr-1">Rs
                                         .{{l?.proposal?.proposedLimit | currencyFormatter}}</td>

@@ -156,7 +156,11 @@
                                     <td>Current Possession</td>
                                     <td>Received On</td>
                                 </tr>
-                                <tr *ngFor="let l of loanHolderLoans?.loanSingleList" (click)="onClick(l.loan.id,l.id)">
+                                <tr *ngFor="let l of loanHolderLoans?.loanSingleList" (click)="onClick(l.loan.id,l.id)"
+                                    class="cursor"
+                                    nbTooltip="Click to View Detail"
+                                    nbTooltipStatus="control"
+                                    nbTooltipIcon="question-mark-circle-outline">
                                     <td>{{l?.loan?.name}}</td>
                                     <td class="d-flex justify-content-end pr-1">Rs .{{l?.proposal?.proposedLimit }}</td>
                                     <td>{{l?.priority}}</td>
@@ -167,7 +171,10 @@
                                     </span></td>
                                 </tr>
                                 <tr *ngFor="let l of loanForCombine[i].loan;let x = index"
-                                    (click)="onClick(l.loan.id,l.id)">
+                                    (click)="onClick(l.loan.id,l.id)" class="cursor"
+                                    nbTooltip="Click to View Detail"
+                                    nbTooltipStatus="control"
+                                    nbTooltipIcon="question-mark-circle-outline">
                                     <td>{{l?.loan?.name}}</td>
                                     <td class="d-flex justify-content-end pr-1">Rs .{{l?.proposal?.proposedLimit}}</td>
                                     <td>{{l?.priority}}</td>
