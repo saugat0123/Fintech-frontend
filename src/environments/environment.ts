@@ -26,7 +26,7 @@ export const environment = {
   disableApprovalSheet: false,
   isMega: true,
   SBS_GROUP: false,
-  MEGA_GROUP: false,
+  MEGA_GROUP: true,
 };
 
 /*

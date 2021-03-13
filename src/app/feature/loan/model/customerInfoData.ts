@@ -14,6 +14,7 @@ import {CiclArray} from '../../admin/modal/cicl';
 import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../admin/modal/NetTradingAssets';
 import {CreditChecklistGeneral} from './creditChecklistGeneral';
+import {MGroup} from '../../customer/model/mGroup';
 
 export class CustomerInfoData {
     id: number;
@@ -52,4 +53,5 @@ export class CustomerInfoData {
     subSectorDetailCode: string;
     nepData: string;
     gender: string;
+    mgroupInfo: MGroup;
 }
