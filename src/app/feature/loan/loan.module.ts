@@ -28,7 +28,6 @@ import {environment} from '../../../environments/environment';
 import {AgmCoreModule} from '@agm/core';
 import {LoanPullComponent} from './component/loan-pull/loan-pull.component';
 // tslint:disable-next-line:max-line-length
-
 import {LoanOfferLetterComponent} from './loan-offer-letter/loan-offer-letter.component';
 import {OfferLetterActionComponent} from './loan-offer-letter/offer-letter-action/offer-letter-action.component';
 import {GroupComponent} from './component/loan-main-template/group/group.component';
@@ -75,9 +74,9 @@ import {QuillModule} from 'ngx-quill';
 import {AngularDraggableModule} from 'angular2-draggable';
 import {LoanInformationDetailViewModule} from '../loan-information-detail-view/loan-information-detail-view.module';
 import {AssignedOfferLetterComponent} from './loan-offer-letter/assigned-offer-letter/assigned-offer-letter.component';
-import { PostApprovalFormComponent } from './loan-offer-letter/post-approval-form/post-approval-form.component';
-import {CatalogueComponent} from "../admin/component/catalogue/catalogue.component";
-import {TransferDocComponent} from "./transfer-doc/transfer-doc.component";
+import {PostApprovalFormComponent} from './loan-offer-letter/post-approval-form/post-approval-form.component';
+import {TransferDocComponent} from './transfer-doc/transfer-doc.component';
+import {CustomerWiseLoanPullComponent} from './component/loan-pull/customer-wise-loan-pull/customer-wise-loan-pull.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -169,7 +168,7 @@ const modules = {
 };
 
 @NgModule({
-    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent, PostApprovalFormComponent, TransferDocComponent],
+    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent, PostApprovalFormComponent, TransferDocComponent, CustomerWiseLoanPullComponent],
     imports: [
         ThemeModule,
         CommonModule,
@@ -204,7 +203,7 @@ const modules = {
 
     entryComponents: [...ENTRY_COMPONENTS],
     exports: [
-        KycInfoComponent
+        KycInfoComponent, CustomerWiseLoanPullComponent
     ]
 })
 export class LoanModule {
