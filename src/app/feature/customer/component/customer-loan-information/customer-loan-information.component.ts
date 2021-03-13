@@ -27,6 +27,11 @@ import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 import {CreditChecklistGeneral} from '../../../loan/model/creditChecklistGeneral';
 import {CustomerType} from '../../model/customerType';
 import {environment} from '../../../../../environments/environment';
+import {MicroLoanSynopsis} from '../../../loan/model/micro-loan-synopsis';
+import {BorrowerPortfolio} from '../../../loan/model/borrwerportfolio';
+import {MicroBaselRiskExposure} from '../../../loan/model/micro-basel-risk-exposure';
+import {MicroBorrowerFinancial} from '../../../loan/model/micro-borrower-financial';
+import {MarketingActivities} from '../../../loan/model/marketing-activities';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -38,6 +43,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   @Input() public customerInfoId: number;
   @Input() public customerInfo: CustomerInfoData;
   @Input() public companyInfo: CompanyInfo;
+  @Input()isMicroCustomer: boolean;
 
   @ViewChild('siteVisitComponent', {static: false})
   public siteVisitComponent: SiteVisitComponent;
@@ -75,6 +81,18 @@ export class CustomerLoanInformationComponent implements OnInit {
   private itemCicl: NbAccordionItemComponent;
   @ViewChild('itemloanChecklist', {static: false})
   private itemloanChecklist: NbAccordionItemComponent;
+  @ViewChild('synopsisAccordion', {static: false})
+  private synopsisAccordion: NbAccordionItemComponent;
+  @ViewChild('loanPortfolio', {static: false})
+  private loanPortfolio: NbAccordionItemComponent;
+  @ViewChild('borrowerLoanPortfolioComponent', {static: false})
+  private borrowerLoanPortfolioComponent: NbAccordionItemComponent;
+  @ViewChild('borrowerFinancialHighlight', {static: false})
+  private borrowerFinancialHighlight: NbAccordionItemComponent;
+  @ViewChild('baselRiskAccordion', {static: false})
+  private marketingActivitiesAccordian: NbAccordionItemComponent;
+  @ViewChild('marketingActivitiesAccordian', {static: false})
+  private baselRiskAccordion: NbAccordionItemComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
   calendarType: CalendarType = CalendarType.AD;
   private siteVisit: SiteVisit;
@@ -90,6 +108,11 @@ export class CustomerLoanInformationComponent implements OnInit {
   public incomeFromAccountDataResponse: IncomeFromAccount;
   public netTradingAssets: NetTradingAssets;
   public creditChecklistGeneral: CreditChecklistGeneral;
+  public microLoanSynopsis: MicroLoanSynopsis;
+  public borrowerPortfolio: BorrowerPortfolio;
+  public marketingActivities: MarketingActivities;
+  public microBaselRiskExposure: MicroBaselRiskExposure;
+  public microBorrowerFinancial: MicroBorrowerFinancial;
   customerType = CustomerType;
   isMega = environment.isMega;
 
@@ -101,6 +124,8 @@ export class CustomerLoanInformationComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.isMicroCustomer);
+    this.customerInfo.isMicroCustomer = this.isMicroCustomer;
     if (!ObjectUtil.isEmpty(this.customerInfo.siteVisit)) {
       this.siteVisit = this.customerInfo.siteVisit;
     }
@@ -137,6 +162,21 @@ export class CustomerLoanInformationComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.customerInfo.creditChecklist)) {
       this.creditChecklistGeneral = this.customerInfo.creditChecklist;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.synopsisCreditworthiness)) {
+      this.microLoanSynopsis = this.customerInfo.synopsisCreditworthiness;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.microBaselRiskExposure)) {
+      this.microBaselRiskExposure = this.customerInfo.microBaselRiskExposure;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.borrowerPortFolio)) {
+      this.borrowerPortfolio = this.customerInfo.borrowerPortFolio;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.marketingActivities)) {
+      this.marketingActivities = this.customerInfo.marketingActivities;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.microBorrowerFinancial)) {
+      this.microBorrowerFinancial = this.customerInfo.microBorrowerFinancial;
     }
   }
 
@@ -351,6 +391,86 @@ export class CustomerLoanInformationComponent implements OnInit {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Credit Checklist!'));
     });
+  }
+
+  saveSynopsisCreditworthiness(data: MicroLoanSynopsis) {
+    if (ObjectUtil.isEmpty(this.microLoanSynopsis)) {
+      this.microLoanSynopsis = new MicroLoanSynopsis();
+    }
+    this.microLoanSynopsis = data;
+    this.customerInfoService.saveLoanInfo(this.microLoanSynopsis, this.customerInfoId, TemplateName.SYNOPSIS_CREDITWORTHINESS)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Synopsis Creditworthiness!'));
+          this.synopsisAccordion.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Synopsis Creditworthiness!'));
+        });
+  }
+
+  saveBorrowerPortFolio(data: BorrowerPortfolio) {
+    if (ObjectUtil.isEmpty(this.borrowerPortfolio)) {
+      this.borrowerPortfolio = new BorrowerPortfolio();
+    }
+    this.borrowerPortfolio = data;
+    this.customerInfoService.saveLoanInfo(this.borrowerPortfolio, this.customerInfoId, TemplateName.BORROWER_PORTFOLIO)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Borrower Portfolio!'));
+          this.loanPortfolio.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save  Borrower Portfolio!'));
+        });
+  }
+
+  saveBaselRiskExposure(data: MicroBaselRiskExposure) {
+    if (ObjectUtil.isEmpty(this.microBaselRiskExposure)) {
+      this.microBaselRiskExposure = new MicroBaselRiskExposure();
+    }
+    this.microBorrowerFinancial = data;
+    this.customerInfoService.saveLoanInfo(this.microBorrowerFinancial, this.customerInfoId, TemplateName.BASEL_RISK_EXPOSURE)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Basel Wise Risk Exposure!'));
+          this.baselRiskAccordion.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Basel Wise Risk Exposure!'));
+        });
+  }
+
+  saveBorrowerFinancial(data: MicroBorrowerFinancial) {
+    if (ObjectUtil.isEmpty(this.borrowerPortfolio)) {
+      this.borrowerPortfolio = new BorrowerPortfolio();
+    }
+    this.borrowerPortfolio = data;
+    this.customerInfoService.saveLoanInfo(this.borrowerPortfolio, this.customerInfoId, TemplateName.MICRO_BORROWER_FINANCIAL)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Borrower Portfolio!'));
+          this.borrowerFinancialHighlight.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save  Borrower Portfolio!'));
+        });
+  }
+
+  saveMarketingActivities(data: MarketingActivities) {
+    if (ObjectUtil.isEmpty(this.marketingActivities)) {
+      this.marketingActivities = new MarketingActivities();
+    }
+    this.marketingActivities = data;
+    this.customerInfoService.saveLoanInfo(this.marketingActivities, this.customerInfoId, TemplateName.MARKETING_ACTIVITIES)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Marketing Activities!'));
+          this.marketingActivitiesAccordian.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Marketing Activities!'));
+        });
   }
 
 }

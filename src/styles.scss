@@ -163,6 +163,10 @@ input[type=number] {
 .sn{
   width: 3%;
 }
+.cellInput {
+  border: none;
+  outline: none;
+}
 
 .form-control-tiny {
   height: calc(1.5em + 0.35rem + 2px);

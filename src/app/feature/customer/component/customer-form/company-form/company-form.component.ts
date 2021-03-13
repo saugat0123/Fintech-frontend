@@ -55,6 +55,7 @@ import {environment as envSrdb} from '../../../../../../environments/environment
 import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
+import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-component/micro-company-form-component/micro-company-form-component.component';
 
 @Component({
     selector: 'app-company-form',
@@ -71,6 +72,8 @@ export class CompanyFormComponent implements OnInit {
     @ViewChild('companyLocation', {static: true}) companyLocation: CommonAddressComponent;
     @ViewChildren('shareholderKyc') shareholderKyc: QueryList<OwnerKycApplicableComponent>;
     calendarType = 'AD';
+    microEnabled: boolean = environment.microLoan;
+    microCustomer = false;
     companyInfoFormGroup: FormGroup;
     englishDateSelected = true;
     customerId;
@@ -128,6 +131,10 @@ export class CompanyFormComponent implements OnInit {
     @ViewChild('marketScenarioComponent', {static: false})
     marketScenarioComponent: MarketScenarioComponent;
 
+    @ViewChild('microCompanyFormComponent', {static: false})
+    microCompanyFormComponent: MicroCompanyFormComponentComponent;
+
+
     experiences = Experience.enumObject();
     successionList = Succession.enumObject();
     regulatoryConcernList = RegulatoryConcern.enumObject();
@@ -181,6 +188,10 @@ export class CompanyFormComponent implements OnInit {
         if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
             this.srdbAffiliatedId = true;
         }
+        if (!ObjectUtil.isEmpty(this.formValue)) {
+            this.microCustomer = this.formValue.isMicroCustomer;
+            console.log(this.microCustomer);
+        }
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
             this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
@@ -201,7 +212,6 @@ export class CompanyFormComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.companyInfo)) {
             if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
                 this.companyAddress = JSON.parse(this.companyInfo.companyLocations.address);
-                console.log(this.companyInfo.companyLocations.address);
             }
         }
         this.buildForm();
@@ -814,6 +824,13 @@ export class CompanyFormComponent implements OnInit {
         if (!this.disableCrgAlpha) {
             this.bankingRelationComponent.onSubmit();
         }
+        if (this.microCustomer) {
+            this.microCompanyFormComponent.onSubmit();
+            if (this.microCompanyFormComponent.microCustomerForm.invalid) {
+                this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
+                return;
+            }
+        }
         this.companyLocation.onSubmit();
         if (this.companyInfoFormGroup.invalid || this.companyOtherDetailComponent.companyOtherDetailGroupForm.invalid
             || this.marketScenarioComponent.marketScenarioForm.invalid ||
@@ -825,6 +842,7 @@ export class CompanyFormComponent implements OnInit {
         }
         this.spinner = true;
         this.companyInfo = new CompanyInfo();
+        this.companyInfo.isMicroCustomer = this.microCustomer;
         // Company Information--
         this.companyInfo.id = this.companyInfoFormGroup.get('companyId').value;
         this.companyInfo.companyName = this.companyInfoFormGroup.get('companyName').value;
@@ -969,6 +987,12 @@ export class CompanyFormComponent implements OnInit {
         submitData.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
         submitData.proprietorList = this.companyJsonData.proprietorList;
 
+        if (this.microCustomer) {
+            /** micro data **/
+            submitData.microCustomerDetail = this.microCompanyFormComponent.microCustomerForm.value;
+        }
+
+
         // swot
         submitData.swot = this.swot;
 
@@ -1035,7 +1059,6 @@ export class CompanyFormComponent implements OnInit {
 
     getClientType() {
         this.customerService.clientType().subscribe((res: any) => {
-                console.log(res.detail);
                 this.clientType = res.detail;
             }
             , error => {
