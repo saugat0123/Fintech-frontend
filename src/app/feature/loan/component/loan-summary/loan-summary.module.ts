@@ -29,6 +29,7 @@ import { ApprovalSheetInfoComponent } from './approval-sheet-info/approval-sheet
 import {NgSelectModule} from '@ng-select/ng-select';
 import { ApprovalSheetDocumentListComponent } from './approval-sheet/approval-sheet-document-list/approval-sheet-document-list.component';
 import {LoanInformationViewModule} from '../../../loan-information-view/loan-information-view.module';
+import { NtaMegaSummaryComponent } from './nta-mega-summary/nta-mega-summary.component';
 
 
 const COMPONENTS = [
@@ -49,7 +50,8 @@ const COMPONENTS = [
     CollateralSummaryComponent,
     NtaSummaryComponent,
     ProposalTermsAndConditionSummeryComponent,
-    ApprovalSheetComponent
+    ApprovalSheetComponent,
+    NtaMegaSummaryComponent
 ];
 
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
@@ -74,7 +76,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         IncomeFromAccountSummeryComponent,
         NtaSummaryComponent,
         ProposalTermsAndConditionSummeryComponent,
-        ApprovalSheetComponent
+        ApprovalSheetComponent,
+        NtaMegaSummaryComponent
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

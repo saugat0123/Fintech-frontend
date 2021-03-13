@@ -43,6 +43,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     currentDocAction;
     fiscalYearArray = [];
     customerAllLoanList: Array<LoanDataHolder> = [];
+    isMega = environment.isMega;
 
 
     constructor(private loanConfigService: LoanConfigService,
