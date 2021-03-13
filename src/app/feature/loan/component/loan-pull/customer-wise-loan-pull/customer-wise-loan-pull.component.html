@@ -3,54 +3,71 @@
         <nb-card [nbSpinner]="spinner">
             <nb-card-header>
                 <div class="col-md-12">
-                    <div class="col-md-6">
-                        <button
-                                nbButton shape="rectangle" status="primary"
-                                (click)="isFilterCollapsed = !isFilterCollapsed"
-                                [attr.aria-expanded]="!isFilterCollapsed"
-                                aria-controls="searchModel">
-                            <i class="fa fa-filter"> Filter</i>
-                        </button>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button
+                                    (click)="isFilterCollapsed = !isFilterCollapsed"
+                                    [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+                                    nbButton
+                                    shape="rectangle"
+                                    size="tiny"
+                                    status="primary">
+                                <em class="fa fa-filter"> Filter</em>
+                            </button>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <button (click)="getCsv()" nbButton outline
+                                    status="info"  size="tiny">
+                                <i aria-hidden="true" class="fa fa-download"></i></button>
+                        </div>
                     </div>
-
-                </div>
-                <div class="col-md-12 d-flex justify-content-end">
-
-                    <button nbButton outline status="info"
-                            (click)="getCsv()">
-                        <i class="fa fa-download" aria-hidden="true"></i></button>
-
                 </div>
                 <div id="searchModel" class="col-md-12" [ngbCollapse]="isFilterCollapsed">
                     <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
+
                         <div class="row py-3">
-                            <div class="col-md-3" *ngIf="accessSpecific || accessAll">
-                                <select class="custom-select" formControlName="branch">
+                            <div class="col-md-3 py-2" *ngIf="accessSpecific || accessAll">
+                                <select class="form-control form-control-tiny" formControlName="branch">
                                     <option [value]="null" selected hidden>Select Branch</option>
                                     <option [value]="null">All Branches</option>
-                                    <option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <select class="custom-select" formControlName="loanType">
-                                    <option [value]="null" selected hidden>Select Loan Type</option>
-                                    <option [value]="null">All Loan Types</option>
-                                    <option *ngFor="let loanType of loanTypeList"
-                                            [value]="loanType.id">{{loanType.name}}
+                                    <option *ngFor="let branch of branchList" [value]="branch.id"><span
+                                            class="sb-small">{{branch.name}}</span>
                                     </option>
                                 </select>
                             </div>
 
-                            <div class="col-md-3">
-                                <input id="startDate" [nbDatepicker]="startDate" class="form-control rounded"
+                            <div class="col-md-3 py-2">
+                                <select class="form-control form-control-tiny" formControlName="provinceId">
+                                    <option [value]="null" hidden selected>Select Province</option>
+                                    <option *ngFor="let province of provinces"
+                                            [value]="province.id">
+                                        <span
+                                                class="sb-small">
+                                            {{province.name}}</span></option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3 py-2">
+                                <select class="form-control form-control-tiny" formControlName="loanType">
+                                    <option [value]="null" selected hidden>Select Loan Type</option>
+                                    <option [value]="null">All Loan Types</option>
+                                    <option *ngFor="let loanType of loanTypeList"
+                                            [value]="loanType.id">
+                                        <span
+                                                class="sb-small">{{loanType.name}}</span>
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3 py-2">
+                                <input id="startDate" [nbDatepicker]="startDate" class="form-control form-control-tiny rounded"
                                        (change)="checkIfDateFiltration()" formControlName="startDate"
                                        placeholder="Enter Start Date" [ngClass]="{ 'is-invalid': !validStartDate }">
                                 <nb-datepicker #startDate></nb-datepicker>
                                 <div *ngIf="!validStartDate" class="invalid-feedback">Invalid start date</div>
                             </div>
-                            <div class="col-md-3">
-                                <input id="endDate" [nbDatepicker]="endDate" class="form-control rounded"
+                            <div class="col-md-3 py-2">
+                                <input id="endDate" [nbDatepicker]="endDate" class="form-control form-control-tiny rounded"
                                        (change)="checkIfDateFiltration()" formControlName="endDate"
                                        placeholder="Enter End Date" [ngClass]="{ 'is-invalid': !validEndDate }">
                                 <nb-datepicker #endDate></nb-datepicker>
@@ -58,28 +75,57 @@
                             </div>
 
 
-                            <div class="col-md-3">
-                                <select class="custom-select" formControlName="loanNewRenew">
+                            <div class="col-md-3 py-2">
+                                <select class="form-control form-control-tiny" formControlName="loanNewRenew">
                                     <option [value]="null" selected hidden>Select Type</option>
                                     <option [value]="null">All Types</option>
                                     <option *ngFor="let status of loanType.values()"
-                                            [value]="status">{{loanType[status]}}
+                                            [value]="status">
+                                        <span
+                                                class="sb-small">{{loanType[status]}}</span>
                                     </option>
                                 </select>
                             </div>
 
-                            <div class="col-md-3">
-                                <input id="customerName" class="form-control rounded" formControlName="customerName"
+                            <div class="col-md-3 py-2">
+                                <input id="customerName" class="form-control form-control-tiny rounded" formControlName="customerName"
                                        placeholder="Enter customer name">
+                            </div>
+                            <div class="col-md-3 mb-3 py-2">
+                                <select class="form-control form-control-tiny" formControlName="customerType"
+                                        placeholder="Customer Type">
+                                    <option [ngValue]="null">Select Customer Type</option>
+                                    <option [value]="'INSTITUTION'"><span
+                                            class="sb-small">INSTITUTION</span></option>
+                                    <option [value]="'INDIVIDUAL'"><span
+                                            class="sb-small">INDIVIDUAL</span></option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-3 py-2">
+                                <select
+                                        class="form-control form-control-tiny" formControlName="clientType">
+                                    <option [ngValue]="null">Select Business Unit</option>
+                                    <option *ngFor="let data of clientType" [ngValue]="data"
+                                    >
+                                        <span
+                                                class="sb-small">
+                                            {{data}}</span></option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 py-2">
+                                <input class="form-control form-control-tiny" formControlName="customerCode" id="code"
+                                       placeholder="Customer Code" type="text">
                             </div>
                         </div>
 
                         <div class="col-md-12 p-0">
-                            <button nbButton status="info" shape="rectangle" class="mr-2"
+                            <button nbButton status="info" shape="rectangle" class="mr-2"  size="tiny"
                                     [disabled]="!filterForm.valid"
                                     type="submit">Search
                             </button>
-                            <button (click)="clearSearch()" shape="rectangle" nbButton status="danger">Clear</button>
+                            <button (click)="clearSearch()" shape="rectangle" nbButton status="danger"  size="tiny">
+                                Clear
+                            </button>
                         </div>
                     </form>
                 </div>

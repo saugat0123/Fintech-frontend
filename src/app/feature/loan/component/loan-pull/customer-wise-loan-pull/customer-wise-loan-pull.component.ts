@@ -28,6 +28,8 @@ import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 import {LoanHolderLoans} from '../../../../../component/dashboard/modal/loanHolderLoans';
 import {ProposalCalculationUtils} from '../../loan-summary/ProposalCalculationUtils';
 import {LoanDataKey} from '../../../../../@core/utils/constants/loan-data-key';
+import {AddressService} from '../../../../../@core/service/baseservice/address.service';
+import {CustomerService} from '../../../../admin/service/customer.service';
 
 @Component({
     selector: 'app-customer-wise-loan-pull',
@@ -66,6 +68,7 @@ export class CustomerWiseLoanPullComponent implements OnInit {
     model: LoanDataHolder = new LoanDataHolder();
     isCombine = false;
     formVal = [];
+    provinces = [];
 
     constructor(
         private branchService: BranchService,
@@ -79,10 +82,12 @@ export class CustomerWiseLoanPullComponent implements OnInit {
         private loanActionService: LoanActionService,
         private userService: UserService,
         private socketService: SocketService,
-        private catalogueService: CatalogueService) {
+        private location: AddressService,
+        private catalogueService: CatalogueService,
+        private customerService: CustomerService) {
     }
 
-    static  loadData(other: CustomerWiseLoanPullComponent) {
+    static loadData(other: CustomerWiseLoanPullComponent) {
         other.spinner = true;
         other.toggleArray = [];
         other.loanForCombine = [];
@@ -107,10 +112,12 @@ export class CustomerWiseLoanPullComponent implements OnInit {
             (paramsValue: Params) => {
                 this.redirected = paramsValue.redirect === 'true';
             });
-
+        this.getClientType();
         this.buildFilterForm();
         this.buildActionForm();
-
+        this.location.getProvince().subscribe((response: any) => {
+            this.provinces = response.detail;
+        });
         this.roleAccess = LocalStorageUtil.getStorage().roleAccess;
         if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
             this.roleType = true;
@@ -158,7 +165,11 @@ export class CustomerWiseLoanPullComponent implements OnInit {
             startDate: [undefined],
             endDate: [undefined],
             role: [undefined],
-            customerName: [undefined]
+            customerName: [undefined],
+            provinceId: [undefined],
+            customerType: [undefined],
+            clientType: [undefined],
+            customerCode: [undefined]
         });
     }
 
@@ -219,6 +230,15 @@ export class CustomerWiseLoanPullComponent implements OnInit {
             this.filterForm.get('role').value;
         this.catalogueService.search.customerName = ObjectUtil.isEmpty(this.filterForm.get('customerName').value) ? undefined :
             this.filterForm.get('customerName').value;
+
+        this.catalogueService.search.provinceId = ObjectUtil.isEmpty(this.filterForm.get('provinceId').value) ? undefined :
+            this.filterForm.get('provinceId').value;
+        this.catalogueService.search.customerType = ObjectUtil.isEmpty(this.filterForm.get('customerType').value) ? undefined :
+            this.filterForm.get('customerType').value;
+        this.catalogueService.search.clientType = ObjectUtil.isEmpty(this.filterForm.get('clientType').value) ? undefined :
+            this.filterForm.get('clientType').value;
+        this.catalogueService.search.customerCode = ObjectUtil.isEmpty(this.filterForm.get('customerCode').value) ? undefined :
+            this.filterForm.get('customerCode').value;
         CustomerWiseLoanPullComponent.loadData(this);
     }
 
@@ -368,6 +388,15 @@ export class CustomerWiseLoanPullComponent implements OnInit {
         });
         return finalOp;
 
+    }
+
+    getClientType() {
+        this.customerService.clientType().subscribe((res: any) => {
+                this.clientType = res.detail;
+            }
+            , error => {
+                console.error(error);
+            });
     }
 
 }

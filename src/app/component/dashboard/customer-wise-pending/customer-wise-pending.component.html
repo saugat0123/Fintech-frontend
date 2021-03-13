@@ -10,14 +10,14 @@
                                     [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
                                     nbButton
                                     shape="rectangle"
-                                    size="small"
+                                    size="tiny"
                                     status="primary">
                                 <em class="fa fa-filter"> Filter</em>
                             </button>
                         </div>
                         <div class="col-md-6 d-flex justify-content-end">
                             <button (click)="getCsv()" nbButton outline
-                                    status="info" size="small">
+                                    status="info" size="tiny">
                                 <i aria-hidden="true" class="fa fa-download"></i></button>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                     <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
                         <div class="row py-3">
                             <div *ngIf="branchFilter" class="col-md-3">
-                                <select class="custom-select" formControlName="branch">
+                                <select class="form-control form-control-tiny" formControlName="branch">
                                     <option [value]="null" hidden selected>Select Branch</option>
                                     <option *ngFor="let branch of branchList"
                                             [value]="branch.id">{{branch.name}}</option>
@@ -35,7 +35,7 @@
                             </div>
 
                             <div class="col-md-3">
-                                <select class="custom-select" formControlName="provinceId">
+                                <select class="form-control form-control-tiny" formControlName="provinceId">
                                     <option [value]="null" hidden selected>Select Province</option>
                                     <option *ngFor="let province of provinces"
                                             [value]="province.id">{{province.name}}</option>
@@ -43,11 +43,11 @@
                             </div>
 
                             <div class="col-md-3">
-                                <input class="form-control" formControlName="customerName" id="name" nbInput
+                                <input class="form-control form-control-tiny" formControlName="customerName" id="name"
                                        placeholder="Customer Name" type="text">
                             </div>
                             <div class="col-md-3">
-                                <select class="custom-select" formControlName="loan" id="facility">
+                                <select class="form-control form-control-tiny" formControlName="loan" id="facility">
                                     <option [value]="null" hidden selected>Select Facility</option>
                                     <option [value]="null">All Facilities</option>
                                     <option *ngFor="let facility of loanList"
@@ -55,8 +55,8 @@
 
                                 </select>
                             </div>
-                            <div class="col-md-3">
-                                <select class="custom-select" formControlName="loanType">
+                            <div class="col-md-3 py-2">
+                                <select class="form-control form-control-tiny" formControlName="loanType">
                                     <option [value]="null" hidden selected>Select Type</option>
                                     <option [value]="null">All Types</option>
                                     <option *ngFor="let status of loanType.values()"
@@ -76,7 +76,7 @@
                             </div>
 
                             <div class="col-md-3 mb-3 py-2">
-                                <select class="custom-select" formControlName="customerType"
+                                <select class="form-control form-control-tiny" formControlName="customerType"
                                         placeholder="Customer Type">
                                     <option [ngValue]="null">Select Customer Type</option>
                                     <option [value]="'INSTITUTION'">INSTITUTION</option>
@@ -85,7 +85,7 @@
                             </div>
                             <div class="col-md-3 mb-3 py-2">
                                 <select
-                                        class="custom-select" formControlName="clientType">
+                                        class="form-control form-control-tiny" formControlName="clientType">
                                     <option [ngValue]="null">Select Client Type</option>
                                     <option *ngFor="let data of clientType" [ngValue]="data"
                                     >{{data}}</option>
@@ -93,16 +93,16 @@
                             </div>
 
                             <div class="col-md-3 py-2">
-                                <input class="form-control" formControlName="customerCode" id="code" nbInput
+                                <input class="form-control form-control-tiny" formControlName="customerCode" id="code"
                                        placeholder="Customer code" type="text">
                             </div>
                         </div>
                         <div class="col-md-12 p-0">
                             <button [disabled]="!filterForm.valid" class="mr-2" nbButton shape="rectangle"
-                                    size="small" status="info" type="submit">Search
+                                    size="tiny" status="info" type="submit">Search
                             </button>
                             <button (click)="buildFilterForm()" nbButton shape="rectangle" status="danger"
-                                    size="small" type="button">Clear
+                                    size="tiny" type="button">Clear
                             </button>
                         </div>
                     </form>

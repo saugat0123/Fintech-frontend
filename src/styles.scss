@@ -164,3 +164,11 @@ input[type=number] {
   width: 3%;
 }
 
+.form-control-tiny {
+  height: calc(1.5em + 0.35rem + 2px);
+  padding: 0.19rem 0.45rem;
+  font-size: 0.7375rem;
+  line-height: 2;
+  border-radius: 0.1rem;
+  font-family: 'Microsoft Sans Serif' , Arial, Helvetica, Verdana;
+}
