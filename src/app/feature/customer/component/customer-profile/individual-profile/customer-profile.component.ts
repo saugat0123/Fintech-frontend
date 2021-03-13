@@ -30,6 +30,7 @@ import {CustomerLoanApplyComponent} from '../../customer-loan-apply/customer-loa
 import {CustomerListGroupComponent} from '../../customer-group-associate-loan-list/customer-list-group.component';
 import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {ProductUtilService} from '../../../../../@core/service/product-util.service';
+import {environment} from '../../../../../../environments/environment';
 
 
 @Component({
@@ -74,6 +75,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     profilePic;
     isRemarkEdited = false;
     json = JSON;
+    sbsGroupEnabled = environment.SBS_GROUP;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
 
 
@@ -103,6 +105,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     ngOnInit() {
+        console.log(this.sbsGroupEnabled);
         this.associateId = this.route.snapshot.params.id;
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {

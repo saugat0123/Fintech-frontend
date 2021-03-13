@@ -10,5 +10,7 @@ export const environment = {
     disableCrgAlpha: true,
     disableCrgLambda: true,
     disableApprovalSheet: false,
-    RISK_INITIAL_ROLE: 'RISK OFFICER'
+    RISK_INITIAL_ROLE: 'RISK OFFICER',
+    SBS_GROUP: false,
+    MEGA_GROUP: false,
 };
