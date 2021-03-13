@@ -1,7 +1,6 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ApprovalRoleHierarchyService} from '../../../approval/approval-role-hierarchy.service';
-import {ApprovalRoleHierarchy} from '../../../approval/ApprovalRoleHierarchy';
 import {LoanDataHolder} from '../../../model/loanData';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {RoleHierarchyModelComponent} from '../../../loan-action/role-hierarchy-model/role-hierarchy-model.component';
@@ -37,6 +36,7 @@ export class RoleHierarchyChainComponent implements OnInit, OnChanges {
   popUpTitle: string;
   currentRoleOrder: number;
   currentRoleType: string;
+  arrow = '>>';
 
   constructor(
       private route: ActivatedRoute,
