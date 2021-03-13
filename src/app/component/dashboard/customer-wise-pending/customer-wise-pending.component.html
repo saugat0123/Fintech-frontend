@@ -127,7 +127,7 @@
                         </thead>
                         <tbody>
                         <ng-container *ngFor="let loanHolderLoans of loanHolderLoanList; let i =index">
-                            <tr>
+                            <tr class="cursor">
                                 <td>{{i + 1}}</td>
                                 <td>{{loanHolderLoans?.customerInfo?.branch?.name}}</td>
                                 <td>{{loanHolderLoans?.customerInfo?.branch?.province?.name}}</td>
@@ -155,34 +155,69 @@
                                     <td>Status</td>
                                     <td>Current Possession</td>
                                     <td>Received On</td>
+                                    <th>Comment History</th>
                                 </tr>
-                                <tr *ngFor="let l of loanHolderLoans?.loanSingleList" (click)="onClick(l.loan.id,l.id)"
-                                    class="cursor"
-                                    nbTooltip="Click to View Detail"
-                                    nbTooltipStatus="control"
-                                    nbTooltipIcon="question-mark-circle-outline">
-                                    <td>{{l?.loan?.name}}</td>
-                                    <td class="d-flex justify-content-end pr-1">Rs .{{l?.proposal?.proposedLimit }}</td>
-                                    <td>{{l?.priority}}</td>
-                                    <td>{{l?.documentStatus}}</td>
-                                    <td>{{l?.currentStage?.toUser?.name}}</td>
+                                <tr *ngFor="let l of loanHolderLoans?.loanSingleList"
+                                    >
+                                    <td (click)="onClick(l.loan.id,l.id)"
+                                        class="cursor"
+                                        nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline">{{l?.loan?.name}}</td>
+                                    <td    nbTooltip="Click to View Detail"
+                                           nbTooltipStatus="control"
+                                           nbTooltipIcon="question-mark-circle-outline" class="d-flex justify-content-end pr-1">Rs .{{l?.proposal?.proposedLimit }}</td>
+                                    <td                class="cursor"
+                                                       nbTooltip="Click to View Detail"
+                                                       nbTooltipStatus="control"
+                                                       nbTooltipIcon="question-mark-circle-outline">{{l?.priority}}</td>
+                                    <td                class="cursor"
+                                                       nbTooltip="Click to View Detail"
+                                                       nbTooltipStatus="control"
+                                                       nbTooltipIcon="question-mark-circle-outline">{{l?.documentStatus}}</td>
+                                    <td                class="cursor"
+                                                       nbTooltip="Click to View Detail"
+                                                       nbTooltipStatus="control"
+                                                       nbTooltipIcon="question-mark-circle-outline">{{l?.currentStage?.toUser?.name}}</td>
                                     <td><span *ngIf="l?.previousList.length > 0">
                                    {{l?.currentStage?.lastModifiedAt | date}}
                                     </span></td>
+                                    <td>
+                                        <i class="fas fa-eye" (click)="openCommentModal(commentModal,l)"
+                                           nbTooltipStatus="control"
+                                           nbTooltipIcon="info-outline"
+                                           nbTooltip="Click to see Loan History"></i>
+                                    </td>
                                 </tr>
                                 <tr *ngFor="let l of loanForCombine[i].loan;let x = index"
-                                    (click)="onClick(l.loan.id,l.id)" class="cursor"
-                                    nbTooltip="Click to View Detail"
-                                    nbTooltipStatus="control"
-                                    nbTooltipIcon="question-mark-circle-outline">
-                                    <td>{{l?.loan?.name}}</td>
-                                    <td class="d-flex justify-content-end pr-1">Rs .{{l?.proposal?.proposedLimit}}</td>
-                                    <td>{{l?.priority}}</td>
-                                    <td>{{l?.documentStatus}}</td>
-                                    <td>{{l?.currentStage?.toUser?.name}}</td>
-                                    <td><span *ngIf="l?.previousList.length > 0">
+                                   class="cursor"
+                                   >
+                                    <td   nbTooltip="Click to View Detail"
+                                          nbTooltipStatus="control"
+                                          nbTooltipIcon="question-mark-circle-outline" (click)="onClick(l.loan.id,l.id)">{{l?.loan?.name}}</td>
+                                    <td   nbTooltip="Click to View Detail"
+                                          nbTooltipStatus="control"
+                                          nbTooltipIcon="question-mark-circle-outline"  (click)="onClick(l.loan.id,l.id)" class="d-flex justify-content-end pr-1">Rs .{{l?.proposal?.proposedLimit}}</td>
+                                    <td  nbTooltip="Click to View Detail"
+                                         nbTooltipStatus="control"
+                                         nbTooltipIcon="question-mark-circle-outline" (click)="onClick(l.loan.id,l.id)" >{{l?.priority}}</td>
+                                    <td  nbTooltip="Click to View Detail"
+                                         nbTooltipStatus="control"
+                                         nbTooltipIcon="question-mark-circle-outline" (click)="onClick(l.loan.id,l.id)" >{{l?.documentStatus}}</td>
+                                    <td  nbTooltip="Click to View Detail"
+                                         nbTooltipStatus="control"
+                                         nbTooltipIcon="question-mark-circle-outline"  (click)="onClick(l.loan.id,l.id)">{{l?.currentStage?.toUser?.name}}</td>
+                                    <td  nbTooltip="Click to View Detail"
+                                         nbTooltipStatus="control"
+                                         nbTooltipIcon="question-mark-circle-outline"  (click)="onClick(l.loan.id,l.id)"> <span *ngIf="l?.previousList.length > 0">
                                    {{l?.currentStage?.lastModifiedAt | date}}
                                     </span></td>
+                                    <td>
+                                        <i class="fas fa-eye" (click)="openCommentModal(commentModal,l)"
+                                           nbTooltipStatus="control"
+                                           nbTooltipIcon="info-outline"
+                                           nbTooltip="Click to see Loan History"></i>
+                                    </td>
                                 </tr>
 
                                 <tr>
@@ -202,3 +237,51 @@
         </nb-card>
     </div>
 </div>
+
+<ng-template #commentModal>
+    <div class="card">
+        <div class="card-header">
+            <div class="clearfix">
+                <div class="float-left">Loan Activity</div>
+                <div class="float-right"><a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
+                    <span aria-hidden="true">&times;</span>
+                </a></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+
+        <table class="table table-sm sb-small table-bordered table-hover text-center">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th>Date</th>
+                <th>From User</th>
+                <th>To User</th>
+                <th>Action</th>
+                <th colspan="6">Comment</th>
+            </tr>
+            </thead>
+            <tr *ngFor="let previous of model?.previousList">
+                <td>{{previous?.lastModifiedAt | date}}</td>
+                <td>{{previous?.fromUser?.name}}</td>
+                <td>{{previous?.toUser.name}}</td>
+                <td>{{previous?.docAction}}</td>
+                <td colspan="6">{{previous.comment}}</td>
+            </tr>
+            <tr>
+                <td>{{model?.currentStage?.lastModifiedAt | date}}</td>
+                <td>{{model?.currentStage?.fromUser?.name}}</td>
+
+                <td>{{model?.currentStage?.toUser.name}}</td>
+
+                <td>{{model?.currentStage?.docAction}}</td>
+                <td colspan="6">{{model?.currentStage?.comment}}</td>
+
+            </tr>
+            <tr class="sb-bg-dark">
+                <td colspan="12">.</td>
+            </tr>
+        </table>
+
+    </div>
+</ng-template>

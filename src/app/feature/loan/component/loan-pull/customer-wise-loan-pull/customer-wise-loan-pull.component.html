@@ -143,7 +143,6 @@
                             <th>Customer Type</th>
                             <th>Business Unit</th>
                             <th>Contact Number</th>
-                            <th>Total Loan</th>
                             <th>Detail</th>
                         </tr>
                         </thead>
@@ -158,7 +157,7 @@
                                 <td>{{loanHolderLoans?.customerInfo?.customerType}}</td>
                                 <td>{{loanHolderLoans?.customerInfo?.clientType || '-'}}</td>
                                 <td>{{loanHolderLoans?.customerInfo?.contactNo || '-'}}</td>
-                                <td>{{loanHolderLoans?.totalLoan}}</td>
+
                                 <td>
                                     <a class="px-2 cursor"
                                        (click)="loanHolderLoans?.customerInfo?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"

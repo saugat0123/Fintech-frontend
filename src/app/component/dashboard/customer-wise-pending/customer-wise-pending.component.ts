@@ -27,6 +27,7 @@ import {LoanHolderLoans} from '../modal/loanHolderLoans';
 import {ProposalCalculationUtils} from '../../../feature/loan/component/loan-summary/ProposalCalculationUtils';
 import {LoanDataKey} from '../../../@core/utils/constants/loan-data-key';
 import {CustomerService} from '../../../feature/admin/service/customer.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-customer-wise-pending',
@@ -71,6 +72,7 @@ export class CustomerWisePendingComponent implements OnInit {
     initStatus;
     clientType = [];
     subSector = [];
+    model = new LoanDataHolder();
 
     constructor(
         private service: DmsLoanService,
@@ -84,7 +86,8 @@ export class CustomerWisePendingComponent implements OnInit {
         private datePipe: DatePipe,
         private formBuilder: FormBuilder,
         private location: AddressService,
-        private customerService: CustomerService) {
+        private customerService: CustomerService,
+        private modalService: NgbModal) {
     }
 
 
@@ -280,5 +283,15 @@ export class CustomerWisePendingComponent implements OnInit {
         });
         return finalOp;
 
+    }
+
+    openCommentModal(template, data: LoanDataHolder) {
+        this.model = new LoanDataHolder();
+        this.model = data;
+        this.modalService.open(template);
+    }
+
+    onClose(){
+        this.modalService.dismissAll();
     }
 }
