@@ -12,6 +12,9 @@ export class LoanStatusPipe implements PipeTransform {
         if ('BACKWARD' === value) {
             return 'RETURNED';
         }
+        if ('FORWARD' === value) {
+            return 'FORWARDED';
+        }
         return value;
     }
 

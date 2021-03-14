@@ -94,3 +94,4 @@
     </div>
 </form>
 <span *ngIf="submitted">{{editPreviousValue | json}}</span>
+<app-common-data-view  *ngIf="submitted" [config]="config" [data]="editPreviousValue"></app-common-data-view>

@@ -18,6 +18,9 @@ export class CatalogueSearch {
     postApprovalAssignedUser: string;
     users: string;
     provinceId: string;
+    customerType: string;
+    clientType: string;
+    customerCode: string;
 }
 
 @Injectable({
