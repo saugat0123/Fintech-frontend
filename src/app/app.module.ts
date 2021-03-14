@@ -23,8 +23,7 @@ import {CKEditorModule} from 'ng2-ckeditor';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {EngToNepaliNumberPipe} from './@core/pipe/eng-to-nepali-number.pipe';
-
-
+import {CurrencyFormatterPipe} from './@core/pipe/currency-formatter.pipe';
 
 
 @NgModule({
@@ -41,7 +40,6 @@ import {EngToNepaliNumberPipe} from './@core/pipe/eng-to-nepali-number.pipe';
         BrowserAnimationsModule,
         HttpClientModule,
         FormsModule,
-
         ThemeModule.forRoot(),
         QuillModule,
         RouterModule,
@@ -62,8 +60,8 @@ import {EngToNepaliNumberPipe} from './@core/pipe/eng-to-nepali-number.pipe';
     providers: [AddressService, {
         provide: LocationStrategy,
         useClass: HashLocationStrategy,
-    }, { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
-        DatePipe, EngToNepaliNumberPipe],
+    }, {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
+        DatePipe, EngToNepaliNumberPipe, CurrencyFormatterPipe],
     bootstrap: [AppComponent],
     exports: [],
     entryComponents: []
@@ -71,6 +69,7 @@ import {EngToNepaliNumberPipe} from './@core/pipe/eng-to-nepali-number.pipe';
 })
 export class AppModule {
 }
+
 export function httpTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http);
 }

@@ -1,38 +1,42 @@
 import {Component, OnInit} from '@angular/core';
-import {ToastService} from '../../../../@core/utils';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {LoanFormService} from '../loan-form/service/loan-form.service';
-import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
-import {Alert, AlertType} from '../../../../@theme/model/Alert';
-import {CatalogueSearch, CatalogueService} from '../../../admin/component/catalogue/catalogue.service';
-import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
-import {LoanDataHolder} from '../../model/loanData';
-import {Branch} from '../../../admin/modal/branch';
-import {LoanConfig} from '../../../admin/modal/loan-config';
-import {Role} from '../../../admin/modal/role';
-import {DocStatus} from '../../model/docStatus';
-import {LoanType} from '../../model/loanType';
+import {Branch} from '../../../../admin/modal/branch';
+import {LoanConfig} from '../../../../admin/modal/loan-config';
+import {LoanDataHolder} from '../../../model/loanData';
+import {Role} from '../../../../admin/modal/role';
+import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
+import {LoanType} from '../../../model/loanType';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {BranchService} from '../../../admin/component/branch/branch.service';
-import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
+import {BranchService} from '../../../../admin/component/branch/branch.service';
+import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
+import {ToastService} from '../../../../../@core/utils';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {LoanFormService} from '../../loan-form/service/loan-form.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {LoanActionService} from '../../loan-action/service/loan-action.service';
-import {UserService} from '../../../admin/component/user/user.service';
-import {SocketService} from '../../../../@core/service/socket.service';
-import {RoleType} from '../../../admin/modal/roleType';
-import {RoleAccess} from '../../../admin/modal/role-access';
-import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {DocAction} from '../../model/docAction';
-import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
-import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
-import {ProductUtils} from '../../../admin/service/product-mode.service';
+import {LoanActionService} from '../../../loan-action/service/loan-action.service';
+import {UserService} from '../../../../admin/component/user/user.service';
+import {SocketService} from '../../../../../@core/service/socket.service';
+import {CatalogueSearch, CatalogueService} from '../../../../admin/component/catalogue/catalogue.service';
+import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
+import {RoleType} from '../../../../admin/modal/roleType';
+import {RoleAccess} from '../../../../admin/modal/role-access';
+import {DocStatus} from '../../../model/docStatus';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {DocAction} from '../../../model/docAction';
+import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
+import {LoanHolderLoans} from '../../../../../component/dashboard/modal/loanHolderLoans';
+import {ProposalCalculationUtils} from '../../loan-summary/ProposalCalculationUtils';
+import {LoanDataKey} from '../../../../../@core/utils/constants/loan-data-key';
+import {AddressService} from '../../../../../@core/service/baseservice/address.service';
+import {CustomerService} from '../../../../admin/service/customer.service';
 
 @Component({
-    selector: 'app-loan-pull',
-    templateUrl: './loan-pull.component.html',
-    styleUrls: ['./loan-pull.component.scss']
+    selector: 'app-customer-wise-loan-pull',
+    templateUrl: './customer-wise-loan-pull.component.html',
+    styleUrls: ['./customer-wise-loan-pull.component.scss']
 })
-export class LoanPullComponent implements OnInit {
+export class CustomerWiseLoanPullComponent implements OnInit {
     branchList: Array<Branch> = new Array<Branch>();
     loanTypeList: Array<LoanConfig> = new Array<LoanConfig>();
     loanDataHolderList: Array<LoanDataHolder> = new Array<LoanDataHolder>();
@@ -56,8 +60,15 @@ export class LoanPullComponent implements OnInit {
     redirected = false;
     isFilterCollapsed = true;
     toggleArray: { toggled: boolean }[] = [];
-    productUtils:ProductUtils = LocalStorageUtil.getStorage().productUtil;
-
+    loanHolderLoanList: Array<LoanHolderLoans> = new Array<LoanHolderLoans>();
+    loanForCombine: { loan: Array<LoanDataHolder> }[] = [];
+    initStatus;
+    clientType = [];
+    subSector = [];
+    model: LoanDataHolder = new LoanDataHolder();
+    isCombine = false;
+    formVal = [];
+    provinces = [];
 
     constructor(
         private branchService: BranchService,
@@ -71,14 +82,22 @@ export class LoanPullComponent implements OnInit {
         private loanActionService: LoanActionService,
         private userService: UserService,
         private socketService: SocketService,
-        private catalogueService: CatalogueService) {
+        private location: AddressService,
+        private catalogueService: CatalogueService,
+        private customerService: CustomerService) {
     }
 
-    static loadData(other: LoanPullComponent) {
+    static loadData(other: CustomerWiseLoanPullComponent) {
+        other.spinner = true;
+        other.toggleArray = [];
+        other.loanForCombine = [];
+        other.loanHolderLoanList = [];
         other.catalogueService.search.committee = 'true';
         other.loanFormService.getCommitteePull(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
-            other.loanDataHolderList = response.detail.content;
-            other.loanDataHolderList.forEach(() => other.toggleArray.push({toggled: false}));
+            other.loanHolderLoanList = response.detail.content;
+            other.loanHolderLoanList.forEach(() => other.toggleArray.push({toggled: false}));
+            other.loanHolderLoanList.forEach((l) => other.loanForCombine.push({loan: other.getLoansData(l.combineList)}));
+
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
         }, error => {
@@ -93,10 +112,12 @@ export class LoanPullComponent implements OnInit {
             (paramsValue: Params) => {
                 this.redirected = paramsValue.redirect === 'true';
             });
-
+        this.getClientType();
         this.buildFilterForm();
         this.buildActionForm();
-
+        this.location.getProvince().subscribe((response: any) => {
+            this.provinces = response.detail;
+        });
         this.roleAccess = LocalStorageUtil.getStorage().roleAccess;
         if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
             this.roleType = true;
@@ -133,7 +154,7 @@ export class LoanPullComponent implements OnInit {
             resetSearch.documentStatus = DocStatus.value(DocStatus.PENDING);
             this.catalogueService.search = resetSearch;
         }
-        LoanPullComponent.loadData(this);
+        CustomerWiseLoanPullComponent.loadData(this);
     }
 
     buildFilterForm() {
@@ -144,7 +165,11 @@ export class LoanPullComponent implements OnInit {
             startDate: [undefined],
             endDate: [undefined],
             role: [undefined],
-            customerName: [undefined]
+            customerName: [undefined],
+            provinceId: [undefined],
+            customerType: [undefined],
+            clientType: [undefined],
+            customerCode: [undefined]
         });
     }
 
@@ -164,7 +189,7 @@ export class LoanPullComponent implements OnInit {
 
     changePage(page: number) {
         this.page = page;
-        LoanPullComponent.loadData(this);
+        CustomerWiseLoanPullComponent.loadData(this);
     }
 
     getDifferenceInDays(createdDate: Date): number {
@@ -205,7 +230,16 @@ export class LoanPullComponent implements OnInit {
             this.filterForm.get('role').value;
         this.catalogueService.search.customerName = ObjectUtil.isEmpty(this.filterForm.get('customerName').value) ? undefined :
             this.filterForm.get('customerName').value;
-        LoanPullComponent.loadData(this);
+
+        this.catalogueService.search.provinceId = ObjectUtil.isEmpty(this.filterForm.get('provinceId').value) ? undefined :
+            this.filterForm.get('provinceId').value;
+        this.catalogueService.search.customerType = ObjectUtil.isEmpty(this.filterForm.get('customerType').value) ? undefined :
+            this.filterForm.get('customerType').value;
+        this.catalogueService.search.clientType = ObjectUtil.isEmpty(this.filterForm.get('clientType').value) ? undefined :
+            this.filterForm.get('clientType').value;
+        this.catalogueService.search.customerCode = ObjectUtil.isEmpty(this.filterForm.get('customerCode').value) ? undefined :
+            this.filterForm.get('customerCode').value;
+        CustomerWiseLoanPullComponent.loadData(this);
     }
 
     onClick(loanConfigId: number, customerId: number) {
@@ -224,20 +258,44 @@ export class LoanPullComponent implements OnInit {
         this.isFilterCollapsed = true;
     }
 
-    onPullClick(template, customerLoanId, userId) {
+    onPullClick(template, customerLoanId, loans) {
+        const customerLoan: LoanDataHolder = loans;
+        this.formVal = [];
+        if (ObjectUtil.isEmpty(customerLoan.combinedLoan)) {
+            this.isCombine = false;
 
-        this.formAction.patchValue({
-                customerLoanId: customerLoanId,
-                docAction: DocAction.value(DocAction.PULLED),
-                documentStatus: DocStatus.PENDING,
-                comment: 'PULLED'
-            }
-        );
+            this.formAction.patchValue({
+                    customerLoanId: customerLoanId,
+                    docAction: DocAction.value(DocAction.PULLED),
+                    documentStatus: DocStatus.PENDING,
+                    comment: 'PULLED'
+                }
+            );
+        } else {
+            this.isCombine = true;
+            const customerLoanIdList = customerLoan.data.split(',').map(Number);
+
+            this.formVal = customerLoanIdList.map(c => {
+                return {
+                    customerLoanId: c,
+                    docAction: DocAction.value(DocAction.PULLED),
+                    documentStatus: DocStatus.PENDING,
+                    comment: 'PULLED'
+                };
+            });
+        }
+
         this.modalService.open(template);
     }
 
     onClose() {
         this.modalService.dismissAll();
+    }
+
+    openCommentModal(template, data: LoanDataHolder) {
+        this.model = new LoanDataHolder();
+        this.model = data;
+        this.modalService.open(template);
     }
 
 
@@ -253,15 +311,30 @@ export class LoanPullComponent implements OnInit {
 
     confirm() {
         this.onClose();
-        this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
-                this.formAction.get('docAction').value));
+        this.spinner = true;
+        if (this.isCombine) {
+            this.loanFormService.postCombinedLoanAction(this.formVal, false).subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
+                    'PULLED'));
 
-            LoanPullComponent.loadData(this);
-        }, error => {
-            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+                CustomerWiseLoanPullComponent.loadData(this);
+            }, error => {
+                this.spinner = false;
+                this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
 
-        });
+            });
+        } else {
+            this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
+                    this.formAction.get('docAction').value));
+
+                CustomerWiseLoanPullComponent.loadData(this);
+            }, error => {
+                this.spinner = false;
+                this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+
+            });
+        }
     }
 
     onChange(data, onActionChange) {
@@ -283,6 +356,47 @@ export class LoanPullComponent implements OnInit {
         });
     }
 
+    public getLoansData(datas) {
+        const finalOp = [];
+        const inputArray: Array<Map<number, Array<LoanDataHolder>>> = datas;
+        inputArray.forEach(data => {
+            let loanData = new LoanDataHolder();
+            let name = '';
+            const input: Map<number, Array<LoanDataHolder>> = data;
+
+            // tslint:disable-next-line:forin
+            for (const key in input) {
+                const loanDataList: Array<LoanDataHolder> = data[key];
+                loanData = new LoanDataHolder();
+                loanData = loanDataList[0];
+                // tslint:disable-next-line:max-line-length
+                loanData.proposal.proposedLimit = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, loanDataList);
+                name = loanDataList.map(a => {
+                    return a.loan;
+                }).map(b => {
+                    return b.name;
+                }).join(',');
+                loanData.loan.name = name;
+                const ids = loanDataList.map(a => {
+                    return a.id;
+                }).join(',');
+                loanData.data = ids;
+                finalOp.push(loanData);
+            }
+
+
+        });
+        return finalOp;
+
+    }
+
+    getClientType() {
+        this.customerService.clientType().subscribe((res: any) => {
+                this.clientType = res.detail;
+            }
+            , error => {
+                console.error(error);
+            });
+    }
 
 }
-

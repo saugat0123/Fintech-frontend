@@ -15,20 +15,21 @@ import {NepaliCalendarModule} from './nepali-calendar/nepali-calendar.module';
 import {MouseScrollDisableDirective} from '../@core/directive/mouse-scroll-disable.directive';
 import {CommonAddressComponent} from './common-address/common-address.component';
 import {CadDataComponent} from '../component/dashboard/cad-data/cad-data.component';
+import {CustomerWisePendingComponent} from '../component/dashboard/customer-wise-pending/customer-wise-pending.component';
 
 
 @NgModule({
-    imports: [
-        FeatureRoutingModule,
-        ThemeModule,
-        NbAccordionModule,
-        NgxChartsModule,
-        NbSelectModule,
-        NbDatepickerModule.forRoot(),
-        NgSelectModule,
-        DragDropModule,
-        NepaliCalendarModule
-    ],
+        imports: [
+            FeatureRoutingModule,
+            ThemeModule,
+            NbAccordionModule,
+            NgxChartsModule,
+            NbSelectModule,
+            NbDatepickerModule.forRoot(),
+            NgSelectModule,
+            DragDropModule,
+            NepaliCalendarModule
+        ],
         declarations: [
             FeatureComponent,
             DashboardComponent,
@@ -38,9 +39,10 @@ import {CadDataComponent} from '../component/dashboard/cad-data/cad-data.compone
             DataVisualizationComponent,
             ApprovalRoleHierarchyComponent,
             MouseScrollDisableDirective,
-            CommonAddressComponent
+            CommonAddressComponent,
+            CustomerWisePendingComponent
         ],
-    exports: [MouseScrollDisableDirective, CommonAddressComponent],
+        exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent],
         providers: []
     }
 )
