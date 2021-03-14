@@ -156,6 +156,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     roleType;
     showApprovalSheetInfo = false;
     notApprove = 'notApprove';
+    isMega = environment.isMega;
 
 
     constructor(
