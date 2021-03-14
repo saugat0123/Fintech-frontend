@@ -155,7 +155,18 @@
                                     [fromProfile]="false"
                                     [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
          -->
-            <app-nta-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0" [fiscalYears]="fiscalYearArray" [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
+            <ng-container *ngIf="!isMega; else ntaMegaSummary">
+                <app-nta-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
+                                 [fiscalYears]="fiscalYearArray"
+                                 [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
+            </ng-container>
+
+            <ng-template #ntaMegaSummary>
+                <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
+                                      [fiscalYears]="fiscalYearArray"
+                                      [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
+            </ng-template>
+
             <app-income-from-account-view *ngIf="loanHolder?.incomeFromAccount"
                                           [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-view>
             <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"

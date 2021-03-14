@@ -134,6 +134,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     netTradingAssetsData: NetTradingAssets;
     minOneInsuranceDoc = false;
     minOneGuarantorDoc = false;
+    loggedUserAccess;
     taggedGuarantorWithDoc = [];
     insuranceWithDoc = [];
     showCadDoc = false;
@@ -179,12 +180,13 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loanDataHolder = this.loanData;
+        this.loggedUserAccess=LocalStorageUtil.getStorage().roleAccess;
         this.prepareAuthoritySection();
         this.loadSummary();
+        this.checkDocUploadConfig();
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
             this.calculateAge();
         }
-        this.checkDocUploadConfig();
     }
 
     ngOnDestroy(): void {
@@ -386,7 +388,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
                 }
             });
 
-            if (riskOfficerIndex) {
+            if (!ObjectUtil.isEmpty(riskOfficerIndex)) {
                 this.riskOfficerLevel = true;
                 this.signatureList = this.signatureList.slice(riskOfficerIndex, lastIndex);
             }
