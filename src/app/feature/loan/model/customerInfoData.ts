@@ -63,4 +63,5 @@ export class CustomerInfoData {
     microBorrowerFinancial: MicroBorrowerFinancial;
     marketingActivities: MarketingActivities;
     isMicroCustomer: boolean;
+    clientType: any;
 }
