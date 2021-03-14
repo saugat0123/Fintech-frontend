@@ -17,7 +17,7 @@ import {FiscalYearService} from '../admin/service/fiscal-year.service';
 import {ToastService} from '../../@core/utils';
 import {CombinedLoan} from '../loan/model/combined-loan';
 import {CombinedLoanService} from '../service/combined-loan.service';
-import {Clients} from "../../../environments/Clients";
+import {Clients} from '../../../environments/Clients';
 
 @Component({
     selector: 'app-loan-information-detail-view',
@@ -25,6 +25,7 @@ import {Clients} from "../../../environments/Clients";
     styleUrls: ['./loan-information-detail-view.component.scss']
 })
 export class LoanInformationDetailViewComponent implements OnInit {
+    megaGroupEnabled = environment.MEGA_GROUP;
     allId;
     customerId;
     loanConfigId;
