@@ -1,4 +1,14 @@
-import {Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {
+    Component,
+    DoCheck,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    QueryList, ViewChild,
+    ViewChildren
+} from '@angular/core';
 import {Customer} from '../../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
@@ -23,6 +33,8 @@ import {Gender} from '../../../../../@core/model/enum/gender';
 import {MaritalStatus} from '../../../../../@core/model/enum/marital-status';
 import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
 import {environment} from '../../../../../../environments/environment.srdb';
+import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
+import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
 
 @Component({
     selector: 'app-customer-form',
@@ -47,6 +59,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         return this.basicInfo.controls;
     }
 
+    @ViewChild('microIndividualFormComponent' , {static: false}) microIndividualFormComponent: MicroIndividualFormComponent;
+
     @Input() formValue: Customer = new Customer();
     @Input() clientTypeInput: any;
     @Input() customerIdInput: any;
@@ -55,8 +69,11 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     @Input() gender;
     @Input() maritalStatus;
     @Input() customerLegalDocumentAddress;
-    calendarType = 'AD';
     @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    calendarType = 'AD';
+    microCustomer = false;
+    microEnabled: boolean = environment.microLoan;
 
     basicInfo: FormGroup;
     submitted = false;
@@ -114,6 +131,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             if (!ObjectUtil.isEmpty(this.formValue.individualJsonData)) {
                 this.individualJsonData = JSON.parse(this.formValue.individualJsonData);
             }
+            this.microCustomer = this.formValue.isMicroCustomer;
             this.customerDetailField.showFormField = true;
             this.customer = this.formValue;
             this.customer.clientType = this.clientTypeInput;
@@ -221,7 +239,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.submitted = true;
-        this.spinner = true;
         const tempId = this.basicInfo.get('citizenshipNumber').value;
         this.blackListService.checkBlacklistByRef(tempId).subscribe((response: any) => {
             this.isBlackListed = response.detail;
@@ -238,7 +255,15 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.spinner = false;
                     return;
                 }
+                if (this.microCustomer) {
+                    this.microIndividualFormComponent.onSubmit();
+                    if (this.microIndividualFormComponent.microCustomerForm.invalid) {
+                        this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
+                        return;
+                    }
+                }
                 {
+                    this.spinner = true;
                     this.customer.id = this.customer ? (this.customer.id ? this.customer.id : undefined) : undefined;
                     this.customer.customerName = this.basicInfo.get('customerName').value;
                     this.customer.customerCode = this.basicInfo.get('customerCode').value;
@@ -285,6 +310,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
                     /** Remaining static read-write only data*/
                     this.customer.individualJsonData = this.setIndividualJsonData();
+
+                    this.customer.isMicroCustomer = this.microCustomer;
 
                     this.customerService.save(this.customer).subscribe(res => {
                         this.spinner = false;
@@ -405,6 +432,9 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         individualJsonData.permanentAddressLine2 = this.basicInfoControls.permanentAddressLine2.value;
         individualJsonData.temporaryAddressLine1 = this.basicInfoControls.temporaryAddressLine1.value;
         individualJsonData.temporaryAddressLine2 = this.basicInfoControls.temporaryAddressLine2.value;
+        if (this.microCustomer) {
+            individualJsonData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
+        }
         return  JSON.stringify(individualJsonData);
     }
 
@@ -589,10 +619,33 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.getTemporaryDistricts(this.basicInfo.get('temporaryProvince').value);
         this.customer.temporaryMunicipalities = this.basicInfo.get('municipalities').value;
         this.getTemporaryMunicipalities(this.basicInfo.get('temporaryMunicipalities').value);
-        this.basicInfo.controls. temporaryAddressLine1.patchValue(this.basicInfo.get('permanentAddressLine1').value);
-        this.basicInfo.controls. temporaryAddressLine2.patchValue(this.basicInfo.get('permanentAddressLine2').value);
+        this.basicInfo.controls.temporaryAddressLine1.patchValue(this.basicInfo.get('permanentAddressLine1').value);
+        this.basicInfo.controls.temporaryAddressLine2.patchValue(this.basicInfo.get('permanentAddressLine2').value);
         this.basicInfo.controls.temporaryWardNumber.setValue(this.basicInfo.get('wardNumber').value);
 
+    }
+
+    /** @Param validate --- true for add validation and false for remove validation
+     * @Param controlNames --- list of formControlName**/
+    controlValidation(controlNames: string[], validate) {
+        controlNames.forEach(s => {
+            if (validate) {
+                this.basicInfo.get(s).setValidators(Validators.required);
+            } else {
+                this.basicInfo.get(s).clearValidators();
+            }
+            this.basicInfo.get(s).updateValueAndValidity();
+        });
+    }
+
+    onCustomerTypeChange() {
+        if (this.microCustomer) {
+            this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk', 'bankingRelationship',
+                'netWorth'], false);
+        } else {
+            this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk', 'bankingRelationship',
+                'netWorth'], true);
+        }
     }
 
 }

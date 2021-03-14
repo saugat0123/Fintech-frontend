@@ -23,12 +23,22 @@
 
     </nb-card-header>
     <nb-card-body>
-        <app-loan-summary (changeToApprovalSheetActive)="activeApprovalSheet()"
-                          *ngIf="loanSummaryActive && loanDataHolder?.id"
-                          [loanConfig]="loanConfig"
-                          [loanData]="loanDataHolder"
-                          [nepaliDate]="nepaliDate">
-        </app-loan-summary>
+        <ng-container *ngIf="loanSummaryActive && loanDataHolder?.id">
+       <ng-container [ngSwitch]="loanConfig.loanTag">
+           <app-micro-loan-summary
+                   *ngSwitchCase="'MICRO_LOAN'"
+                   (changeToApprovalSheetActive)="activeApprovalSheet()"
+                   [loanConfig]="loanConfig"
+                   [loanData]="loanDataHolder"
+                   [nepaliDate]="nepaliDate"></app-micro-loan-summary>
+           <app-loan-summary *ngSwitchDefault
+                   (changeToApprovalSheetActive)="activeApprovalSheet()"
+                             [loanConfig]="loanConfig"
+                             [loanData]="loanDataHolder"
+                             [nepaliDate]="nepaliDate">
+           </app-loan-summary>
+       </ng-container>
+        </ng-container>
 
         <app-approval-sheet (changeToLoanSummaryActive)="activeLoanSummary()"
                             *ngIf="approvalSheetActive && loanDataHolder?.id"

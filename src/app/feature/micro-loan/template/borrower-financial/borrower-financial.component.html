@@ -1,0 +1,170 @@
+<div *ngIf="auditorList.length > 0" class="row mb-4">
+    <div class="col-md-12">
+        <nb-card class="mark">
+            <nb-card-body>
+                <h3 class="mb-2">Financial Auditor Detail Information</h3>
+                <table aria-describedby="auditor list table" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">S.N</th>
+                        <th scope="col">Audited</th>
+                        <th scope="col">Audit Firm</th>
+                        <th scope="col">Propriete/Partner</th>
+                        <th scope="col">Membership No.</th>
+                        <th scope="col">Certificate of Practice</th>
+                        <th scope="col">Class</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let auditor of auditorList; let i = index">
+                        <td><strong>{{i + 1}}</strong></td>
+                        <td>{{auditor['audited']}}</td>
+                        <td>{{auditor['auditFirm']}}</td>
+                        <td>{{auditor['proprietePartner']}}</td>
+                        <td>{{auditor['membershipNo']}}</td>
+                        <td>{{auditor['certificateOfPractice']}}</td>
+                        <td>{{auditor['class']}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+
+<form [formGroup]="microFinancialForm">
+    <div class="row my-2">
+        <div class="col-md-12 text-right">
+            <button (click)="openFiscalYearModal()" class="mb-2" nbButton>Add Fiscal year</button>
+        </div>
+    </div>
+    <table class="table table-bordered table-sm sb-small text-center">
+        <thead class="text-center">
+        <tr class="text-white sb-bg-dark">
+            <th>S.N</th>
+            <th>Key Financial Indicators</th>
+            <th *ngFor="let year of fiscalYear; let j = index">
+                <strong>{{ year }}</strong>
+                <div *ngIf="j === (fiscalYear.length - 1)" class="float-right">
+                    <a (click)="removingFiscalYear(year, j)" data-toggle="tooltip"
+                       data-placement="top">
+                        <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                    </a>
+                </div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>A</td>
+            <td><strong>Borrowing and Deposit to core capital (Times)</strong></td>
+            <td *ngFor="let cellValue of microFinancialForm.get('borrowingAndDepositToCoreCapital')['controls']; let i = index"
+                formArrayName="borrowingAndDepositToCoreCapital">
+                <ng-container [formGroupName]="i">
+                    <input class="cellInput text-center"
+                           formControlName="value" type="number">
+                </ng-container>
+            </td>
+        </tr>
+
+        <tr>
+            <td>B</td>
+            <td><strong>Cost of Fund (%)</strong></td>
+            <td *ngFor="let cellValue of microFinancialForm.get('costOfFund')['controls']; let i = index"
+                formArrayName="costOfFund">
+                <ng-container [formGroupName]="i">
+                    <input class="cellInput text-center"
+                           formControlName="value" type="number">
+                </ng-container>
+            </td>
+        </tr>
+
+        <tr>
+            <td>C</td>
+            <td><strong>Yield on Portfolio (%)</strong></td>
+            <td *ngFor="let cellValue of microFinancialForm.get('yieldOnPortfolio')['controls']; let i = index"
+                formArrayName="yieldOnPortfolio">
+                <ng-container [formGroupName]="i">
+                    <input class="cellInput text-center"
+                           formControlName="value" type="number">
+                </ng-container>
+            </td>
+        </tr>
+
+        <tr>
+            <td>D</td>
+            <td><strong>Capital Adequacy Ratio (%)</strong></td>
+            <td *ngFor="let cellValue of microFinancialForm.get('capitalAdequacyRatio')['controls']; let i = index"
+                formArrayName="capitalAdequacyRatio">
+                <ng-container [formGroupName]="i">
+                    <input class="cellInput text-center"
+                           formControlName="value" type="number">
+                </ng-container>
+            </td>
+        </tr>
+
+        <tr>
+            <td>E</td>
+            <td><strong>NPA Rate (%)</strong></td>
+            <td *ngFor="let cellValue of microFinancialForm.get('NPARate')['controls']; let i = index"
+                formArrayName="NPARate">
+                <ng-container [formGroupName]="i">
+                    <input class="cellInput text-center"
+                           formControlName="value" type="number">
+                </ng-container>
+            </td>
+        </tr>
+
+        <tr>
+            <td>F</td>
+            <td><strong>Debt/Equity Ratio (%)</strong></td>
+            <td *ngFor="let cellValue of microFinancialForm.get('debtEquityRatio')['controls']; let i = index"
+                formArrayName="debtEquityRatio">
+                <ng-container [formGroupName]="i">
+                    <input class="cellInput text-center"
+                           formControlName="value" type="number">
+                </ng-container>
+            </td>
+        </tr>
+
+        <tr>
+            <td>G</td>
+            <td><strong>Return on Asset (%)</strong></td>
+            <td *ngFor="let cellValue of microFinancialForm.get('returnOnAsset')['controls']; let i = index"
+                formArrayName="returnOnAsset">
+                <ng-container [formGroupName]="i">
+                    <input class="cellInput text-center"
+                           formControlName="value" type="number">
+                </ng-container>
+            </td>
+        </tr>
+
+        <tr>
+            <td>H</td>
+            <td><strong>ISCR</strong></td>
+            <td *ngFor="let cellValue of microFinancialForm.get('iscr')['controls']; let i = index"
+                formArrayName="iscr">
+                <ng-container [formGroupName]="i">
+                    <input class="cellInput text-center"
+                           formControlName="value" type="number">
+                </ng-container>
+            </td>
+        </tr>
+
+        <tr>
+            <td>I</td>
+            <td><strong>DSCR</strong></td>
+            <td *ngFor="let cellValue of microFinancialForm.get('dscr')['controls']; let i = index"
+                formArrayName="dscr">
+                <ng-container [formGroupName]="i">
+                    <input class="cellInput text-center"
+                           formControlName="value" type="number">
+                </ng-container>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</form>
+
+<button nbButton (click)="onSubmit()">Save</button>

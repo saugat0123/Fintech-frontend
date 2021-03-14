@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NtaSummaryComponent } from './nta-summary.component';
+import { BaselRiskExposureComponent } from './basel-risk-exposure.component';
 
-describe('NtaSummaryComponent', () => {
-  let component: NtaSummaryComponent;
-  let fixture: ComponentFixture<NtaSummaryComponent>;
+describe('BaselRiskExposureComponent', () => {
+  let component: BaselRiskExposureComponent;
+  let fixture: ComponentFixture<BaselRiskExposureComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NtaSummaryComponent ]
+      declarations: [ BaselRiskExposureComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NtaSummaryComponent);
+    fixture = TestBed.createComponent(BaselRiskExposureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

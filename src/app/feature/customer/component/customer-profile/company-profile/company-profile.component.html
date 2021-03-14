@@ -426,6 +426,7 @@
             *ngIf="customerInfo && maker"
             [customerInfoId]="customerInfoId"
             [customerInfo]="customerInfo"
+            [isMicroCustomer]="companyInfo?.isMicroCustomer"
             [companyInfo]="companyInfo"></app-customer-loan-information>
         <app-customer-loan-information-view *ngIf="!maker"
                                             [customerInfo]="customerInfo"></app-customer-loan-information-view>

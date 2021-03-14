@@ -2,6 +2,7 @@
     nbSpinnerStatus="primary"
     nbSpinnerSize="giant">
     <nb-card-header>
+        <nb-checkbox [hidden]="!microEnabled" [(ngModel)]="microCustomer">Micro Customer</nb-checkbox>
         <div class="d-flex justify-content-end">
             <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex" name="companyInfoCalendarType">
                 <nb-radio value="AD">AD</nb-radio>
@@ -1627,6 +1628,10 @@
                                        </div>
                                    </div>
                        </div>
+                   </nb-tab>
+                   <!--micro customer detail-->
+                   <nb-tab *ngIf="microCustomer" tabTitle="Micro Customer">
+                       <app-micro-company-form-component #microCompanyFormComponent [data]="companyJsonData?.microCustomerDetail"></app-micro-company-form-component>
                    </nb-tab>
                </nb-tabset>
             </form>

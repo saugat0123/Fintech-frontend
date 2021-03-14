@@ -20,6 +20,7 @@ import {ObjectUtil} from 'src/app/@core/utils/ObjectUtil';
 import {DocumentCheckType} from '../../../@core/model/enum/document-check-type.enum';
 import {Document} from '../../admin/modal/document';
 import {EnumUtils} from '../../../@core/utils/enums.utils';
+import {LoanTag} from '../model/loanTag';
 
 @Component({
     selector: 'app-summary-base',
@@ -46,6 +47,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
 
     loanSummaryActive = true;
     approvalSheetActive = false;
+    loanTag= LoanTag;
 
     constructor(private userService: UserService,
                 private loanFormService: LoanFormService,
