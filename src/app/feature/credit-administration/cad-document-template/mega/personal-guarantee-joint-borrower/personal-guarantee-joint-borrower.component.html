@@ -1,5 +1,5 @@
 <div class="container nep text-justify">
-    <form (ngSubmit)="onSubmit()" [formGroup]="personalGuaranteeJoint" class="nep" id="personalGuaranteeJoint">
+    <form (ngSubmit)="submit()" [formGroup]="personalGuaranteeJoint" class="nep" id="personalGuaranteeJointPrint">
         <h4 class="text-center">व्यक्तिगत जमानत</h4>
         <div class="row">
             <div class="col-md-12">
@@ -331,33 +331,33 @@
                         <tbody>
                         <!--row1-->
                         <tr>
-                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="loanFacility1" formControlName="loanFacility1" placeholder="" type="text"/>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont disable-print" name="loanFacility1" formControlName="loanFacility1" placeholder="" type="text"/>
                                 <span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('loanFacility1').value ? personalGuaranteeJoint.get('loanFacility1').value  : '========='}}</b></span></td>
-                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="purpose1" formControlName="purpose1" placeholder="" type="text"/>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont disable-print" name="purpose1" formControlName="purpose1" placeholder="" type="text"/>
                                 <span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('purpose1').value ? personalGuaranteeJoint.get('purpose1').value  : '========='}}</b></span></td>
-                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="loanFacilityAmount1" formControlName="loanFacilityAmount1" placeholder="" type="text"/>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont disable-print" name="loanFacilityAmount1" formControlName="loanFacilityAmount1" placeholder="" type="text"/>
                                 <span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('loanFacilityAmount1').value ? personalGuaranteeJoint.get('loanFacilityAmount1').value  : '========='}}</b></span></td>
-                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="interestRate1" formControlName="interestRate1" placeholder="" type="text" size="3"/>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont disable-print" name="interestRate1" formControlName="interestRate1" placeholder="" type="text" size="3"/>
                                 <span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('interestRate1').value ? personalGuaranteeJoint.get('interestRate1').value  : '========='}}</b></span></td>
-                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="timePeriod1" formControlName="timePeriod1" placeholder="" type="text" size="15"/>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont disable-print" name="timePeriod1" formControlName="timePeriod1" placeholder="" type="text" size="15"/>
                                 <span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('timePeriod1').value ? personalGuaranteeJoint.get('timePeriod1').value  : '========='}}</b></span></td>
-                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="apology1" formControlName="apology1" placeholder="" type="text"/>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont disable-print" name="apology1" formControlName="apology1" placeholder="" type="text"/>
                                 <span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('apology1').value ? personalGuaranteeJoint.get('apology1').value  : '========='}}</b></span></td>
                         </tr>
 
                         <!--row2-->
                         <tr>
-                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="loanFacility2" formControlName="loanFacility2" placeholder="" type="text"/>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont disable-print" name="loanFacility2" formControlName="loanFacility2" placeholder="" type="text"/>
                                 <span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('loanFacility2').value ? personalGuaranteeJoint.get('loanFacility2').value  : '========='}}</b></span></td>
-                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="purpose2" formControlName="purpose2" placeholder="" type="text"/>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont disable-print" name="purpose2" formControlName="purpose2" placeholder="" type="text"/>
                                 <span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('purpose2').value ? personalGuaranteeJoint.get('purpose2').value  : '========='}}</b></span></td>
-                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="loanFacilityAmount2" formControlName="loanFacilityAmount2" placeholder="" type="text"/>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont disable-print" name="loanFacilityAmount2" formControlName="loanFacilityAmount2" placeholder="" type="text"/>
                                 <span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('loanFacilityAmount2').value ? personalGuaranteeJoint.get('loanFacilityAmount2').value  : '========='}}</b></span></td>
-                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="interestRate2" formControlName="interestRate2" placeholder="" type="text" size="3"/>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont disable-print" name="interestRate2" formControlName="interestRate2" placeholder="" type="text" size="3"/>
                                 <span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('interestRate2').value ? personalGuaranteeJoint.get('interestRate2').value  : '========='}}</b></span></td>
-                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="timePeriod2" formControlName="timePeriod2" placeholder="" type="text" size="15"/>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont disable-print" name="timePeriod2" formControlName="timePeriod2" placeholder="" type="text" size="15"/>
                                 <span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('timePeriod2').value ? personalGuaranteeJoint.get('timePeriod2').value  : '========='}}</b></span></td>
-                            <td><input class="form-field form-control-sm tableInput nepaliFont" name="apology2" formControlName="apology2" placeholder="" type="text"/>
+                            <td><input class="form-field form-control-sm tableInput nepaliFont disable-print" name="apology2" formControlName="apology2" placeholder="" type="text"/>
                                 <span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('apology2').value ? personalGuaranteeJoint.get('apology2').value  : '========='}}</b></span></td>
                         </tr>
                         </tbody>
@@ -456,7 +456,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="table-responsive">
+                <div class="">
                     <table class="table table-borderless">
                         <tbody>
                         <tr>
@@ -466,7 +466,7 @@
                                 </p>
                                 <p>
                                     नाम, थर :
-                                    <input class="form-field form-control-sm tableInput nepaliFont" name="staffName" formControlName="staffName" placeholder="" type="text"/>
+                                    <input class="form-field form-control-sm tableInput nepaliFont disable-print" name="staffName" formControlName="staffName" placeholder="" type="text"/>
                                     <span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('staffName').value ? personalGuaranteeJoint.get('staffName').value  : '========='}}</b></span>
                                 </p>
                                 <p>
@@ -486,10 +486,10 @@
                                     हस्ताक्षरः
                                 </p>
                                 <p>
-                                    औठा छाप ः    दाँया                 वाँया
+                                    औठा छाप :    दाँया                 वाँया
                                 </p>
                                 <p>
-                                    ठेगाना ः <input class="form-field form-control-sm nepaliFont disable-print"
+                                    ठेगाना : <input class="form-field form-control-sm nepaliFont disable-print"
                                                     name="guarantorAddress"
                                                     formControlName="guarantorAddress"
                                                     placeholder=""
@@ -563,8 +563,8 @@
 
         <div class="row disable-print">
             <div class="col-md-12 text-right">
-                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="personalGuaranteeJoint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
-                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="personalGuaranteeJoint" class="mr-2 custom-color" >Print</button>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="personalGuaranteeJointPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="personalGuaranteeJointPrint" class="mr-2 custom-color" >Print</button>
                 <button nbButton status="success" (click)="submit()">Save</button>
             </div>
         </div>

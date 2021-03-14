@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../model/CadFile';
@@ -28,8 +28,9 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
               private toastService: ToastService,
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
               private routerUtilsService: RouterUtilsService) { }
-  ngOnInit(){
+  ngOnInit() {
     this.buildForm();
+    const guarantorList = this.cadData.loanHolder.guarantors.guarantorList;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
@@ -40,10 +41,27 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
+    if (!ObjectUtil.isEmpty(guarantorList)) {
+      const guarantorDetails = this.personalGuaranteeCompany.get('personalGuaranteeCompany') as FormArray;
+      console.log('list' , guarantorList);
+      console.log('details' , guarantorDetails);
+      // guarantorList.forEach(e => {
+      //   guarantorDetails.push(
+      //       this.formBuilder.group({
+      //         guarantorName : e.name,
+      //         date : e.issuedYear,
+      //         guarantorIssueDistrict : e.issuedPlace,
+      //         guarantorAddress : e.district,
+      //         guarantorRelationship : e.relationship,
+      //         citizenshipNo : e.citizenNumber
+      //       })
+      //   ); }
+      // );
+    }
   }
 
 
-  buildForm(){
+  buildForm() {
     this.personalGuaranteeCompany = this.formBuilder.group({
       districtName: [undefined],
       municipalityName: [undefined],
@@ -79,7 +97,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
     });
   }
 
-  submit(){
+  submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
