@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FiscalYear} from '../../admin/modal/FiscalYear';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-detail-view-base',
@@ -12,6 +13,8 @@ export class DetailViewBaseComponent implements OnInit {
   @Input() calendarType;
   @Input() loanId;
   fiscalYearArray: Array<FiscalYear>;
+
+  isMega = environment.isMega;
 
   constructor() { }
 

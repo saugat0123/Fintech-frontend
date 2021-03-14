@@ -126,9 +126,11 @@
             <ng-template  #allDocumentView>
                 <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
             </ng-template>
-            <app-proposal-terms-and-condition-summery *ngIf="loanDataHolder && customerAllLoanList"
-                                                      [customerAllLoanList]="customerAllLoanList"
-                                                      [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
+
+            <app-proposal-terms-and-condition-summery
+                    *ngIf="loanDataHolder && customerAllLoanList"
+                    [customerAllLoanList]="customerAllLoanList"
+                    [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
             <div class="row mt-3">
                 <div class="col-md-12">
                     <p><strong>Authority Section</strong></p>
