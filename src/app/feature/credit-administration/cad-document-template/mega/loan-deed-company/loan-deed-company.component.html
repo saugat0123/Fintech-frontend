@@ -69,11 +69,14 @@
                                     <strong class="nepaliFont">{{nepData?.temporaryMunicipality}}</strong>
                                                             {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}} वडा नं.
                                     <strong class="nepaliFont">{{nepData?.temporaryWardNo}}</strong>
-                            <input class="form-field form-control-sm nepaliFont"
+                            <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="temporaryAddress"
                                    placeholder=""
-                                   type="text"/> बस्ने वर्ष
-                                    <strong class="nepaliFont">{{nepData?.age}}</strong>
+                                   type="text"/>
+                            <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('temporaryAddress').value ? loanDeedCompany.get('temporaryAddress').value  : '========='}}</b></span>
+                            बस्ने वर्ष
+                                    <strong class="nepaliFont">
+                                        {{nepData?.age}}</strong>
                             को
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="relation"
@@ -152,7 +155,7 @@
                             गरि धनी मेगा बैंक नेपाल लिमिटेडलाई दिएँ । साक्षी किनाराका सदर ।</p>
                         <p class="text-center"><b>तपसिल</b></p>
                         धितो लेखिदिएको अचल सम्पत्तिको बिवरण
-                        <table border="1">
+                        <table border="1" width="100%">
                             <thead>
                             <tr>
                                 <th>क्र.सं.</th>
@@ -302,7 +305,8 @@
                                 <input class="form-field form-control-sm nepaliFont disable-print"
                                        formControlName="wardNoOfWitness"
                                        placeholder=""
-                                       type="text" size="2"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('wardNoOfWitness').value ? loanDeedCompany.get('wardNoOfWitness').value  : '========='}}</b></span>
+                                       type="text" size="2"/>
+                                <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('wardNoOfWitness').value ? loanDeedCompany.get('wardNoOfWitness').value  : '========='}}</b></span>
                                 बस्ने बर्ष
                                 <input class="form-field form-control-sm nepaliFont disable-print"
                                        formControlName="ageOfWitness"
@@ -326,7 +330,8 @@
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="wardNoOfWitness2"
                                    placeholder=""
-                                   type="text" size="2" /> <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('wardNoOfWitness2').value ? loanDeedCompany.get('wardNoOfWitness2').value  : '========='}}</b></span>
+                                   type="text" size="2" />
+                            <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('wardNoOfWitness2').value ? loanDeedCompany.get('wardNoOfWitness2').value  : '========='}}</b></span>
                             बस्ने बर्ष
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="ageOfWitness2"
