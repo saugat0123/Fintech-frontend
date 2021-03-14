@@ -77,7 +77,16 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         NtaSummaryComponent,
         ProposalTermsAndConditionSummeryComponent,
         ApprovalSheetComponent,
-        NtaMegaSummaryComponent
+        NtaMegaSummaryComponent,
+        ApprovalSheetComponent,
+        CollateralSummaryComponent,
+        ProposalJustificationSummaryComponent,
+        SecuritySummaryComponent,
+        GuarantorSummaryComponent,
+        SitevistSummaryComponentComponent,
+        InsuranceSummaryComponent,
+        FinancialSummaryComponent,
+        ProposalSummaryComponent
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

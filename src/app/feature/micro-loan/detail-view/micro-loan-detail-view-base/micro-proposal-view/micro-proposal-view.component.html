@@ -1,0 +1,268 @@
+<div *ngIf="proposalData" class="row">
+    <div class="col-md-12">
+        <p><b>Proposal</b></p>
+        <table
+                class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th *ngIf="checkApproved" class="">Existing Limit</th>
+                <th *ngIf="checkApproved">Outstanding Limit</th>
+                <th>Proposed Limit</th>
+                <th *ngIf="!isFundable && fundableNonFundableSelcted">Cash Margin</th>
+                <th *ngIf="!isFundable && fundableNonFundableSelcted">Commission (%)</th>
+                <th *ngIf="!isFundable && fundableNonFundableSelcted">Commission Frequency</th>
+            </tr>
+            <tr>
+                <th *ngIf="checkApproved" class="text-right pr-1">{{proposalData?.existingLimit | currencyFormatter}}</th>
+                <th *ngIf="checkApproved" class="text-right pr-1">{{proposalData?.outStandingLimit | currencyFormatter}}</th>
+                <th class="text-right pr-1">Rs. {{proposalData?.proposedLimit | currencyFormatter}}</th>
+                <th *ngIf="!isFundable && fundableNonFundableSelcted" class="text-right pr-1">{{proposalData?.cashMargin}}</th>
+                <th *ngIf="!isFundable && fundableNonFundableSelcted" class="text-right pr-1">{{proposalData?.commissionPercentage}}</th>
+                <th *ngIf="!isFundable && fundableNonFundableSelcted" class="text-right pr-1">{{proposalData?.commissionFrequency}}</th>
+            </tr>
+        </table>
+        <table
+                class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
+
+            <tr class="text-white sb-bg-dark">
+                <th *ngIf="isFixedDeposit">Coupon Rate</th>
+                <th *ngIf="isFixedDeposit">Premium On Coupon Rate</th>
+                <th  *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral">Interest
+                    Rate(%)
+                </th>
+                <th>Interest Rebate(%)</th>
+                <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">Base Rate(%)</th>
+                <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">Premium Rate On Base
+                    Rate(%)
+                </th>
+                <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">Service Charge</th>
+            </tr>
+            <tr>
+                <th *ngIf="isFixedDeposit" class="text-right pr-1">{{proposalData?.couponRate}}</th>
+                <th *ngIf="isFixedDeposit" class="text-right pr-1">{{proposalData?.premiumOnCouponRate}}</th>
+                <th  *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.interestRate}}</th>
+                <th  class="text-center">{{proposalData?.interestRebate}}%</th>
+                <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.baseRate}}</th>
+                <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.premiumRateOnBaseRate}}</th>
+                <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
+                    <div *ngIf="proposalData.serviceChargeMethod === 'FLAT'; else percentage" class="text-right pr-1">{{proposalData.serviceCharge | currencyFormatter}}</div>
+                    <ng-template #percentage>{{proposalData.serviceCharge}} % </ng-template>
+                </th>
+            </tr>
+        </table>
+        <table
+                class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
+            <tr class="text-white sb-bg-dark">
+                <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">Tenure Duration in
+                    Month
+                </th>
+                <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral">Repayment Mode</th>
+                <th *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))">Installment Amount</th>
+                <th *ngIf="!showInstallmentAmount &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">Interest Amount</th>
+                <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral">Moratorium Period (Month)</th>
+                <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">Commitment Fee</th>
+            </tr>
+            <tr>
+                <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.tenureDurationInMonths}}</td>
+                <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral" class="text-left pl-1">{{proposalData?.repaymentMode}}</td>
+                <td *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))" class="text-right pr-1">Rs. {{proposalData?.installmentAmount | currencyFormatter}}</td>
+                <td *ngIf="!showInstallmentAmount &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class="text-right pr-1">Rs. {{proposalData?.interestAmount | currencyFormatter}}</td>
+                <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.moratoriumPeriod}}</td>
+                <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral" class="text-right pr-1">Rs. {{proposalData?.commitmentFee  | currencyFormatter}}</td>
+
+            </tr>
+
+
+        </table>
+        <table
+                class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
+
+            <tr class="text-white sb-bg-dark">
+                <th *ngIf="loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving">Tenure of each deal</th>
+                <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">Prepayment Charge</th>
+                <th>Collateral requirement (in%)</th>
+                <th>Limit Expiry/Loan Tenure</th>
+                <th *ngIf="proposalData?.limitExpiryMethod === 'ABSOLUTE'">Date of Expiry</th>
+                <th *ngIf="proposalData?.limitExpiryMethod === 'CUSTOM'">Duration</th>
+            </tr>
+            <tr>
+                <td *ngIf="loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving" class="text-right pr-1">{{proposalData?.tenorOfEachDeal}}</td>
+                <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.prepaymentCharge}}</td>
+                <td class="text-left pl-1">{{proposalData?.collateralRequirement}}</td>
+                <td class="text-left pl-1">{{proposalData?.limitExpiryMethod}}</td>
+                <td *ngIf="proposalData?.limitExpiryMethod === 'ABSOLUTE'" class="text-left pl-1">{{proposalData?.dateOfExpiry | date}}</td>
+                <td *ngIf="proposalData?.limitExpiryMethod === 'CUSTOM'" class="text-left pl-1">{{proposalData?.duration}}</td>
+
+            </tr>
+        </table>
+        <table
+                class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
+            <tr class="text-white sb-bg-dark">
+                <th *ngIf="proposalData?.limitExpiryMethod === 'CUSTOM'">Frequency</th>
+                <th *ngIf="proposalData?.limitExpiryMethod === 'CUSTOM'">Condition</th>
+            </tr>
+            <tr>
+                <td *ngIf="proposalData?.limitExpiryMethod === 'CUSTOM'" class="text-right pr-1">{{proposalData?.frequency}}</td>
+                <td *ngIf="proposalData?.limitExpiryMethod === 'CUSTOM'" class="text-left pl-1">{{proposalData?.condition}}</td>
+
+            </tr>
+
+        </table>
+        <table
+                class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
+            <tr class="text-white sb-bg-dark">
+                <th>Security to be Obtained</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{proposalData?.securityToBeObtained}}</td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Disbursement
+                    Criteria
+                </th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{proposalData?.disbursementCriteria}}</td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Repayment</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{proposalData?.repayment}}</td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Background</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"><span [innerHTML]="proposalData?.borrowerInformation  | safeHtml"></span> </td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Summery & Recommendation</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"><span [innerHTML]="proposalData?.summeryRecommendation  | safeHtml"></span> </td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Remarks</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{proposalData?.remark}}</td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Purpose of Loan</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{proposalData?.purposeOfLoan}}</td>
+            </tr>
+            <ng-container *ngIf="recommendationChecked?.waiverChecked">
+                <tr class="text-white sb-bg-dark">
+                    <th>Waiver/Deviation</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1"><span [innerHTML]="proposalData?.waiverConclusionRecommendation | safeHtml"></span></td>
+                </tr>
+            </ng-container>
+            <ng-container *ngIf="recommendationChecked?.solChecked">
+                <tr class="text-white sb-bg-dark">
+                    <th>Single
+                        Obligor Limit</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1"><span [innerHTML]="proposalData?.solConclusionRecommendation | safeHtml"></span></td>
+                </tr>
+            </ng-container>
+            <ng-container *ngIf="recommendationChecked?.riskChecked">
+                <tr class="text-white sb-bg-dark">
+                    <th>Risk &
+                        Mitigation</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1"><span [innerHTML]="proposalData?.riskConclusionRecommendation | safeHtml"></span></td>
+                </tr>
+            </ng-container>
+
+        </table>
+
+        <div class="col-md-12">
+            <div>
+                <p><strong>Other Information and Confirmation</strong></p>
+            </div>
+            <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <thead class="sb-bg-dark text-white">
+                <th>S.N</th>
+                <th>Information</th>
+                <th>YES / NO</th>
+                <th>Remarks</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1.</td>
+                    <td>Is the loan processing fee as per our standard charges?</td>
+                    <td>{{proposalData?.loanProcessingFee}}</td>
+                    <td>{{proposalData?.loanProcessingRemarks}}</td>
+                </tr>
+                <tr>
+                    <td>2.</td>
+                    <td>Is the customer eligible for loan from Mega Bank as per prevailing law & NRB guidelines?</td>
+                    <td>{{proposalData?.customerEligibile}}</td>
+                    <td>{{proposalData?.customerEligibileRemarks}}</td>
+                </tr>
+                <tr>
+                    <td>3.</td>
+                    <td>Has the customer taken consent from its family members for the proposal?</td>
+                    <td>{{proposalData?.customerTakenConsent}}</td>
+                    <td>{{proposalData?.customerTakenConsentRemarks}}</td>
+                </tr>
+                <tr>
+                    <td>4.</td>
+                    <td>Did you visit the business site? Can it be regularly monitored by the branch office?</td>
+                    <td>{{proposalData?.businessSite}}</td>
+                    <td>{{proposalData?.businessSiteRemarks}}</td>
+                </tr>
+                <tr>
+                    <td>5.</td>
+                    <td>Has the customer understand all the terms & conditions as per our PPG?</td>
+                    <td>{{proposalData?.customerUnderstand}}</td>
+                    <td>{{proposalData?.customerUnderstandRemarks}}</td>
+                </tr>
+                <tr>
+                    <td>6.</td>
+                    <td>Did the applicant submit all the required documents as per PPG and verified with true copy?</td>
+                    <td>{{proposalData?.applicantSubmit}}</td>
+                    <td>{{proposalData?.applicantSubmitRemarks}}</td>
+                </tr>
+                <tr>
+                    <td>7.</td>
+                    <td>Has the customer is experience in the same field more than 1 year</td>
+                    <td>{{proposalData?.customerExperience}}</td>
+                    <td>{{proposalData?.customerExperienceRemarks}}</td>
+                </tr>
+                <tr>
+                    <td>8.</td>
+                    <td>Please check whether followings are in defaulters' black list as published by CIB</td>
+                    <td>{{proposalData?.checkWhether}}</td>
+                    <td>{{proposalData?.checkWhetherRemarks}}</td>
+                </tr>
+                <tr>
+                    <td>a.</td>
+                    <td>Applicant</td>
+                    <td>{{proposalData?.applicant}}</td>
+                    <td>{{proposalData?.applicantRemarks}}</td>
+                </tr>
+                <tr>
+                    <td>b.</td>
+                    <td>Undivided family members of applicants</td>
+                    <td>{{proposalData?.undividedFamily}}</td>
+                    <td>{{proposalData?.undividedFamilyRemarks}}</td>
+                </tr>
+                <tr>
+                    <td>c.</td>
+                    <td>PG providers of applicant</td>
+                    <td>{{proposalData?.providersApplicant}}</td>
+                    <td>{{proposalData?.providersApplicantRemarks}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
