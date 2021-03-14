@@ -184,5 +184,87 @@
 
     </table>
 
+    <div class="col-md-12">
+      <div>
+        <p><strong>Other Information and Confirmation</strong></p>
+      </div>
+      <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+        <thead class="sb-bg-dark text-white">
+        <th>S.N</th>
+        <th>Information</th>
+        <th>YES / NO</th>
+        <th>Remarks</th>
+        </thead>
+        <tbody>
+        <tr>
+          <td>1.</td>
+          <td>Is the loan processing fee as per our standard charges?</td>
+          <td>{{otherInformationAndConfirmation?.loanProcessingFee}}</td>
+          <td>{{otherInformationAndConfirmation?.loanProcessingRemarks}}</td>
+        </tr>
+        <tr>
+          <td>2.</td>
+          <td>Is the customer eligible for loan from Mega Bank as per prevailing law & NRB guidelines?</td>
+          <td>{{otherInformationAndConfirmation?.customerEligibile}}</td>
+          <td>{{otherInformationAndConfirmation?.customerEligibileRemarks}}</td>
+        </tr>
+        <tr>
+          <td>3.</td>
+          <td>Has the customer taken consent from its family members for the proposal?</td>
+          <td>{{otherInformationAndConfirmation?.customerTakenConsent}}</td>
+          <td>{{otherInformationAndConfirmation?.customerTakenConsentRemarks}}</td>
+        </tr>
+        <tr>
+          <td>4.</td>
+          <td>Did you visit the business site? Can it be regularly monitored by the branch office?</td>
+          <td>{{otherInformationAndConfirmation?.businessSite}}</td>
+          <td>{{otherInformationAndConfirmation?.businessSiteRemarks}}</td>
+        </tr>
+        <tr>
+          <td>5.</td>
+          <td>Has the customer understand all the terms & conditions as per our PPG?</td>
+          <td>{{otherInformationAndConfirmation?.customerUnderstand}}</td>
+          <td>{{otherInformationAndConfirmation?.customerUnderstandRemarks}}</td>
+        </tr>
+        <tr>
+          <td>6.</td>
+          <td>Did the applicant submit all the required documents as per PPG and verified with true copy?</td>
+          <td>{{otherInformationAndConfirmation?.applicantSubmit}}</td>
+          <td>{{otherInformationAndConfirmation?.applicantSubmitRemarks}}</td>
+        </tr>
+        <tr>
+          <td>7.</td>
+          <td>Has the customer is experience in the same field more than 1 year</td>
+          <td>{{otherInformationAndConfirmation?.customerExperience}}</td>
+          <td>{{otherInformationAndConfirmation?.customerExperienceRemarks}}</td>
+        </tr>
+        <tr>
+          <td>8.</td>
+          <td>Please check whether followings are in defaulters' black list as published by CIB</td>
+          <td>{{otherInformationAndConfirmation?.checkWhether}}</td>
+          <td>{{otherInformationAndConfirmation?.checkWhetherRemarks}}</td>
+        </tr>
+        <tr>
+          <td>a.</td>
+          <td>Applicant</td>
+          <td>{{otherInformationAndConfirmation?.applicant}}</td>
+          <td>{{otherInformationAndConfirmation?.applicantRemarks}}</td>
+        </tr>
+        <tr>
+          <td>b.</td>
+          <td>Undivided family members of applicants</td>
+          <td>{{otherInformationAndConfirmation?.undividedFamily}}</td>
+          <td>{{otherInformationAndConfirmation?.undividedFamilyRemarks}}</td>
+        </tr>
+        <tr>
+          <td>c.</td>
+          <td>PG providers of applicant</td>
+          <td>{{otherInformationAndConfirmation?.providersApplicant}}</td>
+          <td>{{otherInformationAndConfirmation?.providersApplicantRemarks}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
   </div>
 </div>

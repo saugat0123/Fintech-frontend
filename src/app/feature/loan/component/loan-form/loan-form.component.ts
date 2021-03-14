@@ -57,6 +57,7 @@ import {CreditRiskGradingLambdaComponent} from '../../../loan-information-templa
 import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
 import {environment} from '../../../../../environments/environment.srdb';
 import {Clients} from '../../../../../environments/Clients';
+import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -195,6 +196,9 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('insurance', {static: false})
     insuranceComponent: InsuranceComponent;
+
+    @ViewChild('microProposalInfo', {static: false})
+    microProposalInfo: MicroProposalComponent;
 
     loanTag: string;
     loanHolder = new CustomerInfoData();
@@ -440,7 +444,7 @@ export class LoanFormComponent implements OnInit {
 
         tabSet.tabs.forEach(templateListMember => {
             if (Number(templateListMember.id) === Number(evt.activeId) && !this.nextButtonAction) {
-                this.selectChild(templateListMember.title, true);
+                this.selectChild(templateListMember.title, true, this.loanTag);
             }
             if (Number(templateListMember.id) === Number(evt.nextId)) {
                 this.selectedTab = templateListMember.title;
@@ -477,7 +481,7 @@ export class LoanFormComponent implements OnInit {
     }
 
     nextTab() {
-        if (this.selectChild(this.selectedTab, true)) {
+        if (this.selectChild(this.selectedTab, true, this.loanTag)) {
             return;
         }
         this.nxtParameter = this.loanDataService.getNext();
@@ -493,7 +497,7 @@ export class LoanFormComponent implements OnInit {
         this.nextButtonAction = true;
         tabSet.tabs.some(templateListMember => {
             if (Number(templateListMember.id) === Number(tabSet.activeId)) {
-                if (this.selectChild(templateListMember.title, true)) {
+                if (this.selectChild(templateListMember.title, true, this.loanTag)) {
                     this.nextButtonAction = false;
                     return true;
                 } else {
@@ -504,7 +508,7 @@ export class LoanFormComponent implements OnInit {
         });
     }
 
-    selectChild(name, action) {
+    selectChild(name, action, loanTag) {
         // if (name === 'Customer Info' && action) {
         //   if (this.basicInfo.basicInfo.invalid && this.nextButtonAction) {
         //     this.basicInfo.submitted = true;
@@ -544,7 +548,17 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.customerInfo.customerRelatives = customerRelatives;
         }
 
-        if (name === 'Proposal' && action) {
+        if (name === 'Proposal' && action && loanTag === 'MICRO_LOAN') {
+            if (this.microProposalInfo.microProposalForm.invalid && this.nextButtonAction) {
+                this.microProposalInfo.scrollToFirstInvalidControl();
+                this.microProposalInfo.submitted = true;
+                return true;
+            }
+            this.microProposalInfo.onSubmit();
+            this.loanDocument.proposal = this.microProposalInfo.proposalData;
+        }
+
+        if (name === 'Proposal' && action && loanTag !== 'MICRO_LOAN') {
             if (this.proposalDetail.proposalForm.invalid && this.nextButtonAction) {
                 this.proposalDetail.scrollToFirstInvalidControl();
                 this.proposalDetail.submitted = true;
@@ -722,7 +736,7 @@ export class LoanFormComponent implements OnInit {
         this.nextButtonAction = true;
         this.spinner.show();
 
-        if (this.selectChild(this.selectedTab, true)) {
+        if (this.selectChild(this.selectedTab, true, this.loanTag)) {
             this.spinner.hide();
             this.nextButtonAction = false;
             return;

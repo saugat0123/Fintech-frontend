@@ -367,6 +367,7 @@
                         (triggerCustomerRefresh)="refreshCustomerInfo()"
                         *ngIf="customerInfo && maker"
                         [customerInfoId]="customerInfoId"
+                        [isMicroCustomer]="customer?.isMicroCustomer"
                         [customerInfo]="customerInfo"></app-customer-loan-information>
                 <app-customer-loan-information-view *ngIf="!maker"
                                                     [customerInfo]="customerInfo"></app-customer-loan-information-view>

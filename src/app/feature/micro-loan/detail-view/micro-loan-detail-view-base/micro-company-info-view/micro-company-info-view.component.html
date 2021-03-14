@@ -1,0 +1,664 @@
+<div class="row" *ngIf="formValue">
+    <div class="col-md-12">
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th colspan="12">Company Information</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Company Name</th>
+                <th>Customer ID</th>
+                <th>Establishment Date</th>
+                <th>Registration Number</th>
+                <th>Issue Place</th>
+                <th>PAN</th>
+                <th>Business Type</th>
+                <th>Address as per Legal Document</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-left pl-1">{{formValue?.companyName}}</td>
+                <td class="text-right pr-1">{{customerInfo['customerCode']}}</td>
+                <td class="text-left pl-1">{{formValue?.establishmentDate | date}}</td>
+                <td class="text-right pr-1">{{formValue?.registrationNumber}}</td>
+                <td class="text-left pl-1">{{formValue?.issuePlace}}</td>
+                <td class="text-right pr1">{{formValue?.panNumber}}</td>
+                <td class="text-left pl-1">{{formValue?.businessType}}</td>
+                <td class=" pl-1">{{formValue?.companyLegalDocumentAddress}}</td>
+            </tr>
+            </tbody>
+            <tr class="text-white sb-bg-dark">
+                <th>Email</th>
+                <th>Mobile Number</th>
+                <th>LandLine Number</th>
+                <th>Major products/Service</th>
+                <th>Relationship Since</th>
+                <th>Client Type</th>
+                <th>Sub Sector</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{formValue?.email}}</td>
+                <td class="text-right pr-1">{{formValue?.contactNum}}</td>
+                <td class="text-right pr-1">{{formValue?.landLineNumber}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.majorProductService}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.relationshipSince | date}}</td>
+                <td class="text-left pl-1">{{customerInfo['clientType']}}</td>
+                <td class="text-left pl-1">{{customerInfo['subsectorDetail']}}</td>
+
+            </tr>
+        </table>
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th colspan="5">Additional registration/license information
+                </th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <td>Type of Registration/License</td>
+                <td>Name of license holder</td>
+                <td>License Issued Date</td>
+                <td>License Expiry Date</td>
+                <td>License Issue Place</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-left pl-1">{{additionalInfoJsonData?.registrationType}}</td>
+                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseHolderName}}</td>
+                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseIssuedDate | date}}</td>
+                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseExpiryDate | date}}</td>
+                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseIssuePlace}}</td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Remarks</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{additionalInfoJsonData?.additionalInfoRemark}}</td>
+
+            </tr>
+            </tbody>
+        </table>
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th colspan="7">Legal Status</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Corporate Structure</th>
+                <th>Registered Office</th>
+                <th>Registered Under Act</th>
+                <th>Registration Date</th>
+                <th>PAN/VAT Registration Office</th>
+                <th>PAN/VAT Registration Date</th>
+                <th>Registration Expiry Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-left pl-1">{{formValue?.legalStatus?.corporateStructure?.name}}</td>
+                <td class="text-left pl-1">{{registeredOffice[formValue?.legalStatus?.registeredOffice]}}</td>
+                <td class="text-left pl-1">{{formValue?.legalStatus?.registeredUnderAct}}</td>
+                <td class="text-right pr-1">{{formValue?.legalStatus?.registrationDate | date}}</td>
+                <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationOffice}}</td>
+                <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationDate |date}}</td>
+                <td class="text-left pl-1">{{formValue?.legalStatus?.registrationExpiryDate | date}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th colspan="4">Capital Information (in NPR 000)</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Authorized Capital</th>
+                <th>Issued Capital</th>
+                <th>Paid Up Capital</th>
+                <!--        <th>Total Capital</th>-->
+                <!--        <th>Fixed Capital</th>-->
+                <!--        <th>Working Capital</th>-->
+                <th>Number Of Shareholder</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-right pr-1">Rs. {{formValue?.capital?.authorizedCapital | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{formValue?.capital?.issuedCapital | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{formValue?.capital?.paidUpCapital | currencyFormatter}}</td>
+                <!--        <td>{{formValue?.capital?.totalCapital}}</td>-->
+                <!--        <td>{{formValue?.capital?.fixedCapital}}</td>-->
+                <!--        <td>{{formValue?.capital?.workingCapital}}</td>-->
+                <td class="text-right pr-1">{{formValue?.capital?.numberOfShareholder}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th colspan="6">Contact Person Details</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Sn</th>
+                <th>Name</th>
+                <th>Contact Number</th>
+                <th>Email</th>
+                <th>Functional Position</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let contactPerson of contactPersonJsonData; let i=index;">
+                <td>{{i + 1}}</td>
+                <td class="text-left pl-1">{{contactPerson?.contactName}}</td>
+                <td class="text-right pr-1">{{contactPerson?.contactNumber}}</td>
+                <td class="text-left pl-1">{{contactPerson?.contactEmail}}</td>
+                <td class="text-left pl-1">{{contactPerson?.functionalPosition}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th colspan="5">Company Location Detail</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Address</th>
+                <th>Ward</th>
+                <th>Address Line 1</th>
+                <th>Address Line 2</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-left pl-1">
+                    ({{companyLocationData?.province?.name}},{{companyLocationData?.district?.name}}
+                    , {{companyLocationData?.municipalityVdc?.name}})
+                </td>
+                <td class="text-right pr-1"> {{companyLocationData?.ward}}</td>
+                <td class="text-left pl-1"> {{companyLocationData?.address1}}</td>
+                <td class="text-left pl-1"> {{companyLocationData?.address2}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>Sister Concern</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{companyJsonData?.sisterConcern}}</td>
+            </tr>
+            </thead>
+        </table>
+
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th colspan="8">Other Details</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Tax Clearance Till</th>
+                <th>Tax Clearance Remark</th>
+                <th>Customer Negative List Checked</th>
+                <th>Negative List Remark</th>
+                <th>Classification as per NRB directive</th>
+                <th></th>
+                <th></th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.taxClearanceTill}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.taxClearanceRemark}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.negativeList}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.negativeListRemark}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.ClassificationByNRB}}</td>
+
+            </tr>
+            </tbody>
+        </table>
+
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th>Company Background</th>
+            </tr>
+            <tr>
+                <th class="text-left pl-1">{{companyJsonData?.companyBackground}}</th>
+            </tr>
+        </table>
+
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th colspan="8">Management Team</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>S.N</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Address as per Legal Document</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let management of companyJsonData.managementTeamList; let i=index">
+                <td>{{i + 1}}</td>
+                <td>{{management?.name}}</td>
+                <td>{{management?.designation}}</td>
+                <td>{{management?.companyLegalDocumentAddress}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead class="text-white sb-bg-dark">
+                <th>Management Team Note</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-left pl-1">{{companyJsonData?.managementTeamNote}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th colspan="9">Information of Proprietor/Shareholder/Partner with holder %</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>S.N</th>
+                <th>Type</th>
+                <th>Name</th>
+                <th>Contact No</th>
+                <th>Share %</th>
+                <th>Address</th>
+                <th>Ward No.</th>
+                <th>Address Line 1</th>
+                <th>Address Line 2</th>
+            </tr>
+            </thead>
+            <ng-container *ngFor="let holder of companyJsonData.proprietorList;let i =index">
+                <tr>
+                    <td>{{i+1}}</td>
+                    <td class="text-left pl-1"><strong>{{holder?.name}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.type}}</strong></td>
+                    <td class="text-right pr-1"><strong>{{holder?.contactNo}}</strong></td>
+                    <td class="text-right pr-1"><strong>{{holder?.share}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.province?.name}}, {{holder?.district?.name}}, {{holder?.municipalityVdc?.name}}</strong></td>
+                    <td class="text-right pr-1"><strong>{{holder?.holderPercentWardNumber}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.addressLine1}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.addressLine2}}</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="9">
+                        <table class="table border-dark">
+                            <thead class="sb-bg-dark text-white">
+                            <tr>
+                                <th>S.N</th>
+                                <th>Owner Relationship</th>
+                                <th>Relation Name</th>
+                                <th>Citizenship Number</th>
+                                <th>Issued Location</th>
+                                <th>Issued Date</th>
+                                <th>Mobile Number</th>
+                                <th>Address</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <ng-container *ngFor="let d of holder?.kycInfo?.ownerKycDetails; let j = index">
+                                <tr>
+                                    <td>{{j+1}}</td>
+                                    <td class="text-left pl-1">{{d?.ownerRelationship ? d?.ownerRelationship : 'N/A' }}</td>
+                                    <td class="text-left pl-1">{{d?.relationName ? d?.relationName : 'N/A' }}</td>
+                                    <td class="text-right pr-1">{{d?.citizenshipNumber ? d?.citizenshipNumber : 'N/A' }}</td>
+                                    <td class="text-left pl-1">{{d?.issuedLocation ? d?.issuedLocation : 'N/A' }}</td>
+                                    <td class="text-left pl-1">{{d?.issuedDate ? (d?.issuedDate | date) : 'N/A'}}</td>
+                                    <td class="text-right pr-1">{{d?.mobileNumber ? d?.mobileNumber : 'N/A' }}</td>
+                                    <td class="text-left pl-1">{{d?.address ? d?.address : 'N/A'}}</td>
+                                </tr>
+                            </ng-container>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </ng-container>
+        </table>
+        <!-- todo uncomment it and verify-->
+        <!-- <table
+                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+             <thead>
+             <tr class="text-white sb-bg-dark">
+                 <th colspan="8">Shareholder KYC Details</th>
+             </tr>
+             <tr class="text-white sb-bg-dark">
+                 <th>S.N</th>
+                 <th>Relation</th>
+                 <th>Name</th>
+                 <th>Citizenship No</th>
+                 <th>Issued District</th>
+                 <th>Issued Date</th>
+                 <th>Contact No</th>
+                 <th>Address</th>
+             </tr>
+             </thead>
+             <tbody *ngFor="let shareholderKyc of formValue?.shareholderKycList; let i=index;">
+             <tr>
+                 <td>{{i + 1}}</td>
+                 <td>{{shareholderKyc?.shareholderRelationship}}</td>
+                 <td>{{shareholderKyc?.relationName}}</td>
+                 <td>{{shareholderKyc?.citizenshipNumber}}</td>
+                 <td>{{shareholderKyc?.district?.name}}</td>
+                 <td>{{shareholderKyc?.citizenshipIssuedDate | date}}</td>
+                 <td>{{shareholderKyc?.mobileNumber}}</td>
+                 <td>{{shareholderKyc?.shareholderKycAddress}}</td>
+             </tr>
+             </tbody>
+         </table>-->
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th colspan="4">SWOT Analysis</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Strength</th>
+                <th>Weakness</th>
+                <th>Opportunity</th>
+                <th>Threats</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-left pl-1">{{companyJsonData?.swot?.strength}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.swot?.weakness}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.swot?.opportunity}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.swot?.threats}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th>Succession Risk</th>
+            </tr>
+            <tr>
+                <th class="text-left pl-1">{{formValue?.successionPlanning}}</th>
+            </tr>
+        </table>
+
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th>Business Objective</th>
+            </tr>
+            <tr class="text-left pl-1">{{companyJsonData?.businessObjective}}</tr>
+        </table>
+
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th colspan="2">Raw Materials</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Raw Material Sourcing</th>
+                <th>Raw Materials Availability</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{companyJsonData?.rawMaterialSourcing}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.rawMaterialAvailability}}</td>
+            </tr>
+        </table>
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th>Market Scenario</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Market demand of product/service</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{companyJsonData?.marketScenario['marketDemandService']}}</td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Key Suppliers</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{companyJsonData?.marketScenario['keySupplier']}}</td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Key Buyers</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{companyJsonData?.marketScenario['KeyBuyers']}}</td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Competitors Overview</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{companyJsonData?.marketScenario['competitorsOverview']}}</td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Industry/Market Risk</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{companyJsonData?.marketScenario['BusinessIndustryOutlook']}}</td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Marketing Strategies</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{companyJsonData?.marketScenario['marketingStrategies']}}</td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Business/Management Risk</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{companyJsonData?.marketScenario['technicalAspect']}}</td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Security Risk</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{companyJsonData?.marketScenario['securityRisk']}}</td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Financial and Cash Flow Risk</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{companyJsonData?.marketScenario['financialAndCashFlowRisk']}}</td>
+            </tr>
+        </table>
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th>Group’s background</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{companyJsonData?.groupsBackGround}}</td>
+            </tr>
+        </table>
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th>Legal review Remarks</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{companyJsonData?.legalReviewRemark}}</td>
+            </tr>
+        </table>
+        <table *ngIf="!srdbAffiliatedId"
+               class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr>
+                <th colspan="2">Business given</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Particular</th>
+                <th>Amount(Rs)</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">Interest Income</td>
+                <th class="text-right pr-1">Rs. {{businessGiven?.interestIncomeDuringReview | currencyFormatter}}</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">Loan Processing Fee</td>
+                <th class="text-right pr-1">Rs. {{businessGiven?.loanProcessingFeeDuringReview | currencyFormatter}}</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">LC Commission</td>
+                <th class="text-right pr-1">Rs. {{businessGiven?.lcCommissionDuringReview | currencyFormatter}}</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">Guarantee Commission</td>
+                <th class="text-right pr-1">Rs. {{businessGiven?.guaranteeCommissionDuringReview | currencyFormatter}}</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">Other Commission</td>
+                <th class="text-right pr-1">Rs. {{businessGiven?.otherCommissionDuringReview | currencyFormatter}}</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">Saving Account</td>
+                <th class="text-right pr-1">Rs. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">Payroll Account</td>
+                <th class="text-right pr-1">Rs. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">Debit Cards</td>
+                <th class="text-right pr-1">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">Credit Cards</td>
+                <th class="text-right pr-1">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">Mobile Bank / Internet Banking</td>
+                <th class="text-right pr-1">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">Locker</td>
+                <th class="text-right pr-1">Rs. {{businessGiven?.lockerDuringReview | currencyFormatter}}</th>
+            </tr>
+            <tr>
+                <th class="text-left pl-1">Total</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.total | currencyFormatter}}</th>
+            </tr>
+
+        </table>
+        <table *ngIf="!disableCrgAlpha"
+               class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th colspan="2">Company Relationship with Bank</th>
+            </tr>
+            <tr>
+                <th class="text-white sb-bg-dark">Banking Relationship</th>
+                <td class="text-left pl-1">{{bankingRelation?.bankingRelationship}}</td>
+            </tr>
+            <tr>
+                <th class="text-white sb-bg-dark">Account Turnover
+                </th>
+                <td class="text-left pl-1">{{bankingRelation?.accountTurnover}}</td>
+            </tr>
+            <tr>
+                <th class="text-white sb-bg-dark">Repayment History</th>
+                <td class="text-left pl-1">{{bankingRelation?.repaymentHistory}}</td>
+            </tr>
+        </table>
+
+        <table *ngIf="!disableCrgAlpha"
+               class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th colspan="5">Business & Industry</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Regulatory Concern</th>
+                <th>Supplier</th>
+                <th>Buyer</th>
+                <th>Industry Growth</th>
+                <th>Market Competition</th>
+            </tr>
+            <tr>
+                <td>{{businessAndIndustry?.regulatoryConcern}}</td>
+                <td>{{businessAndIndustry?.supplier}}</td>
+                <td>{{businessAndIndustry?.buyer}}</td>
+                <td>{{formValue?.industryGrowth}}</td>
+                <td>{{formValue?.marketCompetition}}</td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Experience</th>
+                <th>Succession</th>
+            </tr>
+            <tr>
+                <td>{{formValue?.experience}}</td>
+                <td>{{formValue?.succession}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead class="sb-bg-dark text-white">
+                <th>Loan products</th>
+            </thead>
+            <tbody>
+                <td>{{companyJsonData?.microCustomerDetail['loanProducts'] || 'NA'}}</td>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead class="sb-bg-dark text-white">
+            <th>Other Products</th>
+            </thead>
+            <tbody>
+            <td>{{companyJsonData?.microCustomerDetail['otherProducts'] || 'NA'}}</td>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead class="sb-bg-dark text-white">
+            <th>Repayment Schedule</th>
+            </thead>
+            <tbody>
+            <td><span [innerHTML]="companyJsonData?.microCustomerDetail['repaymentSchedule'] || 'NA'"></span></td>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead class="sb-bg-dark text-white">
+            <th>Saving Products</th>
+            </thead>
+            <tbody>
+            <td>{{companyJsonData?.microCustomerDetail['savingProducts'] || 'NA'}}</td>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--
+
+<div *ngIf="!formValue" class="col-md-12">
+    <app-customer-info-search-form [customerType]="customerType.INSTITUTION"
+                                   [calendarType]="calendarType"
+                                   [loanId]="loanId"></app-customer-info-search-form>
+</div>
+-->
+

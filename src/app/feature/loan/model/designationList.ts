@@ -25,6 +25,10 @@ export class DesignationList {
       name: 'Managing Director',
     },
     {
+      id: 'BOD',
+      name: 'Board Of Director',
+    },
+    {
       id: 'General Manager',
       name: 'General Manager',
     },
