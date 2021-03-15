@@ -23,6 +23,7 @@ export class DetailViewBaseComponent implements OnInit {
   isMega = environment.isMega;
   customerAllLoanList: LoanDataHolder[] = [];
   proposalData: Proposal;
+  megaGroupEnabled = environment.MEGA_GROUP;
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService) { }
 

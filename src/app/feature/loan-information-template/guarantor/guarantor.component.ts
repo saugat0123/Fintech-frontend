@@ -184,10 +184,10 @@ export class GuarantorComponent implements OnInit {
         ObjectUtil.setUndefinedIfNull(data.wardNumber), Validators.required
       ],
 
-      permanentAddressLine1: [ObjectUtil.setUndefinedIfNull(data.permanentAddressLine1)],
-      permanentAddressLine2: [ObjectUtil.setUndefinedIfNull(data.permanentAddressLine2)],
-      temporaryAddressLine1: [ObjectUtil.setUndefinedIfNull(data.temporaryAddressLine1)],
-      temporaryAddressLine2: [ObjectUtil.setUndefinedIfNull(data.temporaryAddressLine2)],
+      permanentAddressLineOne: [ObjectUtil.setUndefinedIfNull(data.permanentAddressLineOne)],
+      permanentAddressLineTwo: [ObjectUtil.setUndefinedIfNull(data.permanentAddressLineTwo)],
+      temporaryAddressLineOne: [ObjectUtil.setUndefinedIfNull(data.temporaryAddressLineOne)],
+      temporaryAddressLineTwo: [ObjectUtil.setUndefinedIfNull(data.temporaryAddressLineTwo)],
 
       wardNumberTemporary: [
         ObjectUtil.setUndefinedIfNull(data.wardNumberTemporary), Validators.required
@@ -325,9 +325,9 @@ export class GuarantorComponent implements OnInit {
     this.getMunicipalitiesTemporary(this.form.get(['guarantorDetails', i, 'district']).value, i);
     this.getDistrictTemporary(this.form.get(['guarantorDetails', i, 'province']).value, i);
     this.form.get(['guarantorDetails', i, 'wardNumberTemporary']).patchValue(this.form.get(['guarantorDetails', i, 'wardNumber']).value);
-    this.form.get(['guarantorDetails', i, 'temporaryAddressLine1'])
-        .patchValue(this.form.get(['guarantorDetails', i, 'permanentAddressLine1']).value);
-    this.form.get(['guarantorDetails', i, 'temporaryAddressLine2'])
-        .patchValue(this.form.get(['guarantorDetails', i, 'permanentAddressLine2']).value);
+    this.form.get(['guarantorDetails', i, 'temporaryAddressLineOne'])
+        .patchValue(this.form.get(['guarantorDetails', i, 'permanentAddressLineOne']).value);
+    this.form.get(['guarantorDetails', i, 'temporaryAddressLineTwo'])
+        .patchValue(this.form.get(['guarantorDetails', i, 'permanentAddressLineTwo']).value);
   }
 }
