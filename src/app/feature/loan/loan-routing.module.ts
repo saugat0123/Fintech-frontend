@@ -11,6 +11,7 @@ import {CadDocumentUploadComponent} from '../loan-information-template/cad-docum
 import { PostApprovalFormComponent } from './loan-offer-letter/post-approval-form/post-approval-form.component';
 import {CatalogueComponent} from "../admin/component/catalogue/catalogue.component";
 import {TransferDocComponent} from "./transfer-doc/transfer-doc.component";
+import {MicroLoanDetailViewBaseComponent} from '../micro-loan/detail-view/micro-loan-detail-view-base/micro-loan-detail-view-base.component';
 
 export const routes: Routes = [
     {path: 'loanForm', component: LoanFormComponent},
@@ -20,6 +21,7 @@ export const routes: Routes = [
     {path: 'pull', component: LoanPullComponent},
     {path: 'loan-offer-letter', component: LoanOfferLetterComponent},
     {path: 'detailed-summary', component: LoanInformationDetailViewComponent},
+    {path: 'micro-detailed-summary', component: MicroLoanDetailViewBaseComponent},
     {path: 'cad-document', component: CadDocumentUploadComponent},
     {path: 'transfer-doc', component: TransferDocComponent},
     {path: 'post-approval-form', component: PostApprovalFormComponent},

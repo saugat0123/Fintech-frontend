@@ -41,6 +41,7 @@ import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.mod
 import {TranslateModule} from '@ngx-translate/core';
 import {FeatureModule} from '../feature.module';
 import {CbsGroupModule} from '../cbs-group/cbs-group.module';
+import {MicroLoanModule} from '../micro-loan/micro-loan.module';
 import { CustomerGroupComponent } from './component/customer-profile/individual-profile/customer-group/customer-group.component';
 
 const COMPONENTS = [
@@ -96,7 +97,8 @@ const COMPONENTS = [
         LoanSummaryModule,
         TranslateModule,
         FeatureModule,
-        CbsGroupModule
+        CbsGroupModule,
+        MicroLoanModule
 
 
     ],

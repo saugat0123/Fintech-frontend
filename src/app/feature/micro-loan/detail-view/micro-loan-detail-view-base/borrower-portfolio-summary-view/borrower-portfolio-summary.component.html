@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-md-12">
+<strong>Loan Portfolios of borrowers</strong>
+
+        <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th> S.N.</th>
+                <th>Types of Loan</th>
+                <th>Balance</th>
+                <th colspan="4">Loan Classification</th>
+                <th>Provision</th>
+                <th>Total Non-Performing Loans</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Up to 3 months</td>
+                <td>3-6 month (a)</td>
+                <td>6-13 month (b)</td>
+                <td>over 1 year (c)</td>
+                <td></td>
+            </tr><!--
+            Up to 3 months	3-6 month (a)	6-13 month (b)	over 1 year (c)-->
+            <ng-container>
+                <ng-container  *ngFor="let f of parsedData?.portfolioDetail; let i = index">
+
+
+                    <tr>
+                        <td>{{i+1}}</td>
+                        <td>{{f?.loanType}}</td>
+                        <td>Rs. {{f?.balance |currencyFormatter}}</td>
+                        <td>Rs. {{f?.classificationThreeMonth |currencyFormatter}}</td>
+                        <td>Rs. {{f?.classificationThreeToSix |currencyFormatter}}</td>
+                        <td>Rs. {{f?.classificationSixtoThirteen |currencyFormatter}}</td>
+                        <td>Rs. {{f?.classificationOverYear |currencyFormatter}}</td>
+                        <td>Rs. {{f?.provision |currencyFormatter}}</td>
+                        <td>Rs. {{calcTotal([f?.classificationThreeToSix , f?.classificationSixtoThirteen , f?.classificationOverYear]) |currencyFormatter}}</td>
+                    </tr>
+                </ng-container>
+                <tr>
+                    <td></td>
+                    <td>total</td>
+                    <td>Rs.{{total('balance') |currencyFormatter}}</td>
+                    <td>Rs.{{total('classificationThreeMonth') |currencyFormatter}}</td>
+                    <td>Rs.{{total('classificationThreeToSix') |currencyFormatter}}</td>
+                    <td>Rs.{{total('classificationSixtoThirteen') |currencyFormatter}}</td>
+                    <td>Rs.{{total('classificationOverYear') |currencyFormatter}}</td>
+                    <td>Rs.{{total('provision') |currencyFormatter}}</td>
+                    <td>Rs.{{total('totalNonPerformingLoan')|currencyFormatter}}</td>
+                    <td></td>
+                </tr>
+            </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div>

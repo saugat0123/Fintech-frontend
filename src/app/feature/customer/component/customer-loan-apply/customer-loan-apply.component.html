@@ -25,7 +25,7 @@
         </div>
       </div>
 
-      <div *ngIf="singleOrCombine === 'Single'" class="row">
+      <div *ngIf="singleOrCombine === 'Single' && !isMicroCustomer" class="row">
         <div class="col-md-12">
           <select #type="ngModel"
                   [(ngModel)]="applyForm.loanId"
@@ -33,7 +33,20 @@
                   class="form-control rounded"
                   name="loanId" required>
             <option [ngValue]="undefined" hidden> select Loan Type</option>
-            <option *ngFor="let allList of loanList"
+            <option *ngFor="let allList of nonMicroLoanList"
+                    [ngValue]="allList.id">{{allList.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div *ngIf="singleOrCombine === 'Single' && isMicroCustomer" class="row">
+        <div class="col-md-12">
+          <select #type="ngModel"
+                  [(ngModel)]="applyForm.loanId"
+                  [ngClass]="{ 'is-invalid': f.submitted && type.invalid }"
+                  class="form-control rounded"
+                  name="loanId" required>
+            <option [ngValue]="undefined" hidden> select Loan Type</option>
+            <option *ngFor="let allList of microLoanList"
                     [ngValue]="allList.id">{{allList.name}}</option>
           </select>
         </div>

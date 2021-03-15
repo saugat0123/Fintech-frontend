@@ -1,0 +1,87 @@
+<strong>Marketing Activities</strong>
+<table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
+    <thead>
+    <tr class="sb-bg-dark text-white">
+        <th>Particulars</th>
+        <th><span>This Quarter</span><br>
+            <span>{{marketingActivityDetail['currentQuarterYear'] || 'NA'}}</span>
+        </th>
+        <th><span>FY</span><br>
+            {{marketingActivityDetail['firstFiscalYear'] || 'NA'}}
+        </th>
+        <th><span>FY</span> <br>
+            {{marketingActivityDetail['secondFiscalYear'] || 'NA'}}
+        </th>
+        <th><span>FY</span><br>
+            {{marketingActivityDetail['thirdFiscalYear'] || 'NA'}}
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Districts covered</td>
+        <td><span>{{marketingActivityDetail['currentQuarterYearDistrict'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['firstFiscalYearDistrict'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['secondFiscalYearDistrict'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['thirdFiscalYearDistrict'] || 'NA'}}</span></td>
+
+    </tr>
+    <tr>
+        <td> No. of Branches</td>
+        <td><span>{{marketingActivityDetail['currentQuarterYearBranchNo'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['firstFiscalYearBranchNo'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['secondFiscalYearBranchNo'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['thirdFiscalYearBranchNo'] || 'NA'}}</span></td>
+    </tr>
+    <tr>
+        <td>Total Members</td>
+        <td><span>{{marketingActivityDetail['currentQuarterYearMemberNo'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['firstFiscalYearMemberNo'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['secondFiscalYearMemberNo'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['thirdFiscalYearMemberNo'] || 'NA'}}</span></td>
+    </tr>
+    <tr>
+        <td>Total Borrowers</td>
+        <td><span>{{marketingActivityDetail['currentQuarterYearBorrowers'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['firstFiscalYearBorrowers'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['secondFiscalYearBorrowers'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['thirdFiscalYearBorrowers'] || 'NA'}}</span></td>
+    </tr>
+    <tr>
+        <td> Total loan Disbursed (In 000’)</td>
+        <td><span>{{marketingActivityDetail['currentQuarterYearDisbursed'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['firstFiscalYearDisbursed'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['secondFiscalYearDisbursed'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['thirdFiscalYearDisbursed'] || 'NA'}}</span></td>
+    </tr>
+    <tr>
+        <td>Total Deposit</td>
+        <td><span>{{marketingActivityDetail['currentQuarterYearDeposit'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['firstFiscalYearDeposit'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['secondFiscalYearDeposit'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['thirdFiscalYearDeposit'] || 'NA'}}</span></td>
+    </tr>
+    <tr>
+        <td>Net Profit</td>
+        <td><span>{{marketingActivityDetail['currentQuarterYearProfit'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['firstFiscalYearNetProfit'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['secondFiscalYearNetProfit'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['thirdFiscalYearNetProfit'] || 'NA'}}</span></td>
+    </tr>
+    <tr>
+        <td> NPA %</td>
+        <td><span>{{marketingActivityDetail['currentQuarterNPA'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['firstFiscalYearNPA'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['secondFiscalYearNPA'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['thirdFiscalYearNPA'] || 'NA'}}</span></td>
+    </tr>
+    <tr>
+        <td>Total Borrowing</td>
+        <td><span>{{marketingActivityDetail['currentQuarterTotalBorrow'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['firstFiscalYearTotalBorrow'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['secondFiscalYearTotalBorrow'] || 'NA'}}</span></td>
+        <td><span>{{marketingActivityDetail['thirdFiscalYearTotalBorrow'] || 'NA'}}</span></td>
+    </tr>
+    </tbody>
+</table>
+

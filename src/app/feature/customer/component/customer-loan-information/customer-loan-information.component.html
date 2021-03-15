@@ -76,8 +76,105 @@
                          [fromProfile]="true"></app-financial>
         </nb-accordion-item-body>
       </nb-accordion-item>
-
-      <nb-accordion-item #itemIncomeFromAccount>
+        <nb-accordion-item #loanPortfolio *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
+          <nb-accordion-item-header>
+            <div class="row col-md-12">
+              <div class="col-md-8">
+                <span>LOAN PORTFOLIO OF BORROWERS</span>
+              </div>
+              <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="borrowerPortfolio" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!borrowerPortfolio" class="fas fa-times-circle px-2"></em>
+              </span>
+              </div>
+            </div>
+          </nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <app-borrower-loan-portofolio #borrowerLoanPortfolioComponent
+                                          *ngIf="loanPortfolio.expanded"
+                                          (dataEmitter)="saveBorrowerPortFolio($event)"
+                                          [fromProfile]="true"
+                                          [borrowerPortfolioData]="customerInfo?.borrowerPortFolio"
+            ></app-borrower-loan-portofolio>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      <nb-accordion-item #borrowerFinancialHighlight *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span class="text-capitalize">FINANCIAL HIGHLIGHTS OF BORROWERS</span>
+            </div>
+            <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="microBorrowerFinancial" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+              <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!microBorrowerFinancial" class="fas fa-times-circle px-2"></em>
+              </span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-borrower-financial #borrowerFinancialComponent
+                                        *ngIf="borrowerFinancialHighlight.expanded"
+                                        (dataEmitter)="saveBorrowerFinancial($event)"
+                                        [fromProfile]="true"
+                                        [microBorrowerFinancial]="customerInfo?.microBorrowerFinancial"
+          ></app-borrower-financial>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+        <nb-accordion-item #marketingActivitiesAccordian *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
+          <nb-accordion-item-header>
+            <div class="row col-md-12">
+              <div class="col-md-8">
+                <span>MARKETING ACTIVITIES</span>
+              </div>
+              <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="borrowerPortfolio" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!borrowerPortfolio" class="fas fa-times-circle px-2"></em>
+              </span>
+              </div>
+            </div>
+          </nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <app-marketing-activities
+                    *ngIf="marketingActivitiesAccordian.expanded"
+                    (dataEmitter)="saveMarketingActivities($event)"
+                    [fromProfile]="true"
+                    [marketingActivitiesData]="customerInfo?.marketingActivities"
+            ></app-marketing-activities>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      <nb-accordion-item #baselRiskAccordion *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer">
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span class="text-uppercase">BASEL wise Risk Weighted Exposure</span>
+            </div>
+            <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="microBaselRiskExposure" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+              <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!microBaselRiskExposure" class="fas fa-times-circle px-2"></em>
+              </span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-basel-risk-exposure
+                  [formData]="customerInfo?.microBaselRiskExposure"
+                  *ngIf="baselRiskAccordion.expanded"
+                  (baselRiskExposureEmitter)="saveBaselRiskExposure($event)"></app-basel-risk-exposure>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+      <nb-accordion-item #itemIncomeFromAccount *ngIf="!isMicroCustomer">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -189,7 +286,7 @@
                          [guarantorDetailValue]="customerInfo?.guarantors" [customerInfo]="customerInfo"></app-guarantor>
         </nb-accordion-item-body>
       </nb-accordion-item>
-      <nb-accordion-item #itemInsurance>
+      <nb-accordion-item #itemInsurance *ngIf="!isMicroCustomer">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -267,7 +364,7 @@
 <!--        </nb-accordion-item-body>-->
 <!--      </nb-accordion-item>-->
       <!--  DEFAULT CRG-->
-      <nb-accordion-item #itemloanChecklist>
+      <nb-accordion-item #itemloanChecklist *ngIf="!isMicroCustomer">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -292,6 +389,29 @@
               [calendarType]="calendarType"
               [customerType]="customerInfo?.customerType"
           ></app-credit-checklist-general>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+      <nb-accordion-item #synopsisAccordion *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer">
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span class="text-uppercase">Synopsis of Creditworthiness</span>
+            </div>
+            <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="microLoanSynopsis" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+              <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!microLoanSynopsis" class="fas fa-times-circle px-2"></em>
+              </span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-micro-synopsis
+                  (creditworthinessEmitter)="saveSynopsisCreditworthiness($event)"
+                  *ngIf="synopsisAccordion.expanded"
+                  [formData]="customerInfo?.synopsisCreditworthiness"></app-micro-synopsis>
         </nb-accordion-item-body>
       </nb-accordion-item>
       <!--   CRG GAMMA-->

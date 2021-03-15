@@ -15,4 +15,9 @@ export class TemplateName {
   static CICL = 'CICL';
   static INCOME_FROM_ACCOUNT = 'Income From Account';
   static CREDIT_CHECKlIST = 'Credit Checklist';
+  static SYNOPSIS_CREDITWORTHINESS = 'Synopsis Creditworthiness';
+  static BORROWER_PORTFOLIO = 'Borrower Portfolio';
+  static BASEL_RISK_EXPOSURE = 'Basel Risk Exposure';
+  static MICRO_BORROWER_FINANCIAL = 'Micro Borrower Financial';
+  static MARKETING_ACTIVITIES = 'Marketing Activities';
 }

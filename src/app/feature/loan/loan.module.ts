@@ -28,7 +28,6 @@ import {environment} from '../../../environments/environment';
 import {AgmCoreModule} from '@agm/core';
 import {LoanPullComponent} from './component/loan-pull/loan-pull.component';
 // tslint:disable-next-line:max-line-length
-
 import {LoanOfferLetterComponent} from './loan-offer-letter/loan-offer-letter.component';
 import {OfferLetterActionComponent} from './loan-offer-letter/offer-letter-action/offer-letter-action.component';
 import {GroupComponent} from './component/loan-main-template/group/group.component';
@@ -75,9 +74,18 @@ import {QuillModule} from 'ngx-quill';
 import {AngularDraggableModule} from 'angular2-draggable';
 import {LoanInformationDetailViewModule} from '../loan-information-detail-view/loan-information-detail-view.module';
 import {AssignedOfferLetterComponent} from './loan-offer-letter/assigned-offer-letter/assigned-offer-letter.component';
-import { PostApprovalFormComponent } from './loan-offer-letter/post-approval-form/post-approval-form.component';
-import {CatalogueComponent} from "../admin/component/catalogue/catalogue.component";
-import {TransferDocComponent} from "./transfer-doc/transfer-doc.component";
+import {PostApprovalFormComponent} from './loan-offer-letter/post-approval-form/post-approval-form.component';
+import {TransferDocComponent} from './transfer-doc/transfer-doc.component';
+import {MicroLoanSummaryComponent} from './component/micro-loan-summary/micro-loan-summary.component';
+import {MicroSynopsisCreditworthinessComponent} from './component/micro-loan-summary/micro-synopsis-creditworthiness/micro-synopsis-creditworthiness.component';
+import {MicroIndividualComponent} from './component/micro-loan-summary/micro-individual/micro-individual.component';
+import {MicroInstitutionComponent} from './component/micro-loan-summary/micro-institution/micro-institution.component';
+import {MicroProposalSummaryComponent} from './component/micro-loan-summary/micro-proposal-summary/micro-proposal-summary.component';
+import {BorrowerPortfolioSummaryComponent} from './component/micro-loan-summary/borrower-portfolio-summary/borrower-portfolio-summary.component';
+import {MicroLoanModule} from '../micro-loan/micro-loan.module';
+import {MicroBaselRiskExposureSummaryComponent} from './component/micro-loan-summary/micro-basel-risk-exposure-summary/micro-basel-risk-exposure-summary.component';
+import {MarketingActivitiesSummaryComponent} from './component/micro-loan-summary/marketing-activities-summary/marketing-activities-summary.component';
+import {CustomerWiseLoanPullComponent} from './component/loan-pull/customer-wise-loan-pull/customer-wise-loan-pull.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -131,6 +139,14 @@ const COMPONENTS = [
     LoanActionCombinedModalComponent,
     GuarantorAdderComponent,
     GuarantorDetailComponent,
+    MicroLoanSummaryComponent,
+    MicroSynopsisCreditworthinessComponent,
+    MicroIndividualComponent,
+    MicroInstitutionComponent,
+    MicroProposalSummaryComponent,
+    BorrowerPortfolioSummaryComponent,
+    MicroBaselRiskExposureSummaryComponent,
+    MarketingActivitiesSummaryComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -169,7 +185,8 @@ const modules = {
 };
 
 @NgModule({
-    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent, PostApprovalFormComponent, TransferDocComponent],
+    // tslint:disable-next-line:max-line-length
+    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent, PostApprovalFormComponent, TransferDocComponent, CustomerWiseLoanPullComponent],
     imports: [
         ThemeModule,
         CommonModule,
@@ -193,7 +210,8 @@ const modules = {
         QuillModule.forRoot({modules: modules}),
         AngularDraggableModule,
         LoanInformationDetailViewModule,
-        NbTooltipModule
+        NbTooltipModule,
+        MicroLoanModule
     ],
 
     providers: [
@@ -204,7 +222,10 @@ const modules = {
 
     entryComponents: [...ENTRY_COMPONENTS],
     exports: [
-        KycInfoComponent
+        KycInfoComponent,
+        MicroProposalSummaryComponent,
+        MicroBaselRiskExposureSummaryComponent
+        , CustomerWiseLoanPullComponent
     ]
 })
 export class LoanModule {

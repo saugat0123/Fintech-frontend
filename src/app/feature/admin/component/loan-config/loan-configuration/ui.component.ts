@@ -21,6 +21,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CustomerType} from '../../../../customer/model/customerType';
 import { loanNature } from 'src/app/feature/admin/modal/loanNature';
 import { financedAssets } from 'src/app/feature/admin/modal/financedAssets';
+import {environment} from '../../../../../../environments/environment';
 
 
 @Component({
@@ -66,6 +67,7 @@ export class UIComponent implements OnInit, DoCheck {
   cadDocumentUploadList = [];
   finalCadDocumentUploadList = Array<Document>();
   formLabel: string;
+  enableMicro = environment.microLoan;
 
   @ViewChild('loanConfigForm', {static: true}) loanConfigForm: NgForm;
 
@@ -265,7 +267,17 @@ export class UIComponent implements OnInit, DoCheck {
         }
       });
     }
-  }
+
+    if (!other.enableMicro) {
+      const  index = other.loanTagList.indexOf(other.loanTagList.filter(value => value.toString() === 'MICRO LOAN')[0]);
+      other.loanTagList.forEach(value => {
+        if (value.toString() === 'MICRO LOAN') {
+          other.loanTagList.indexOf(value);
+        }
+      });
+      other.loanTagList.splice(index , 1);
+    }
+        }
 
   ngOnInit() {
     UIComponent.loadData(this);
@@ -396,5 +408,9 @@ export class UIComponent implements OnInit, DoCheck {
           this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Loan Config!'));
         }
     );
+  }
+
+  onLoanTagChange() {
+    console.log(this.selectedLoanTag);
   }
 }

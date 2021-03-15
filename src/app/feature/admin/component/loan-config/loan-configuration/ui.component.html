@@ -127,6 +127,7 @@
                                        bindValue="key" name="loanTag"
                                        [required]="true"
                                        [(ngModel)]="selectedLoanTag"
+                                       (change)="onLoanTagChange()"
                                        placeholder="Select Loan tag">
                             </ng-select>
                             <div *ngIf="loanConfigForm.submitted && loanTag.invalid">

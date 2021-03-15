@@ -12,4 +12,5 @@ export const environment = {
   isMega: true,
   SBS_GROUP: false,
   MEGA_GROUP: false,
+  microLoan: true,
 };

@@ -25,6 +25,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {DocAction} from '../../model/docAction';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {ProductUtils} from '../../../admin/service/product-mode.service';
 
 @Component({
     selector: 'app-loan-pull',
@@ -55,6 +56,7 @@ export class LoanPullComponent implements OnInit {
     redirected = false;
     isFilterCollapsed = true;
     toggleArray: { toggled: boolean }[] = [];
+    productUtils:ProductUtils = LocalStorageUtil.getStorage().productUtil;
 
 
     constructor(
