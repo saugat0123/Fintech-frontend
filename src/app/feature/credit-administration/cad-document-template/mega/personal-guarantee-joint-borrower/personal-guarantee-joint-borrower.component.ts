@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../model/CadFile';
@@ -10,6 +10,9 @@ import {ToastService} from '../../../../../@core/utils';
 import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
+import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
+import {Guarantor} from '../../../../loan/model/guarantor';
+import {id} from '@swimlane/ngx-charts/release/utils';
 
 @Component({
   selector: 'app-personal-guarantee-joint-borrower',
@@ -31,6 +34,18 @@ export class PersonalGuaranteeJointBorrowerComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
+    const guarantorDetails = [this.cadData.loanHolder.guarantors.guarantorList];
+          console.log('guarantor', guarantorDetails);
+
+    // guarantorDetails.forEach(e => {
+    //      const asd = this.personalGuaranteeJoint.get('sad') as FormArray;
+    //   // this.asd.push(
+    //   //         this.formBuilder.group({
+    //   //           guarantorGrandFatherName : e.name;
+    //   //         })
+    //   //     );
+    //   //   }
+    // );
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
