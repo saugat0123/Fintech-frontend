@@ -87,7 +87,8 @@ export class DeedHypoOfMachineryComponent implements OnInit {
       witnessMetropolitan: [undefined],
       witnessVdc: [undefined],
       witnessAge: [undefined],
-      witnessEvidence: [undefined]
+      witnessEvidence: [undefined],
+      mulya: [undefined]
     });
   }
 
