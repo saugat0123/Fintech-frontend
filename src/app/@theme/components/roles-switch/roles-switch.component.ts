@@ -74,6 +74,7 @@ export class RolesSwitchComponent implements OnInit {
             'Content-type': 'application/x-www-form-urlencoded',
             Authorization: 'Basic Y3Atc29sdXRpb246Y3Bzb2x1dGlvbjEyMyoj',
         });
+        this.spinner = true;
         this.http.post(ApiConfig.TOKEN, params.toString(), {headers})
             .subscribe(async (loginResponse: any) => {
                 this.selectedRole = new Role();
@@ -97,6 +98,7 @@ export class RolesSwitchComponent implements OnInit {
                     storage.roleType = user.role.roleType;
                     storage.roleId = (user.role.id).toString();
                     LocalStorageUtil.setStorage(storage);
+                    this.spinner = false;
                 }, error => console.error(error));
                 await this.productModeService.getProductUtils().subscribe((response: any) => {
                     storage.productUtil = response.detail;
@@ -129,6 +131,7 @@ export class RolesSwitchComponent implements OnInit {
             }, error => {
                 this.falseCredentialMessage = ObjectUtil.isEmpty(error.error.errorDescription) ? '' : error.error.errorDescription;
                 this.falseCredential = true;
+                this.spinner = false;
             });
     }
 
