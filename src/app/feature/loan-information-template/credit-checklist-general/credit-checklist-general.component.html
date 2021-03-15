@@ -534,7 +534,6 @@
                     <td *ngIf="fromProfile"><input class="form-control" formControlName="promoterRemark"
                                placeholder="Remarks"></td>
                     <td *ngIf="!fromProfile">{{dataForEdit?.promoterRemark}}</td>
-
                   </tr>
                   <tr>
                     <td>2.</td>
@@ -628,14 +627,14 @@
                 </table>
               </nb-tab>
 
-              <nb-tab tabTitle="AML / CFT Checklist">
+              <nb-tab *ngIf="client === clientName.MEGA"  tabTitle="AML / CFT Checklist">
                 <table class="table table-responsive-md table-bordered text-justify">
                   <thead>
                   <tr  *ngIf="fromProfile">
                     <th></th>
                     <th></th>
                     <th colspan="3">
-                      <button (click)="directiveKhaYesAll()"
+                      <button (click)="AMLYesAll()"
                               class="btn-sm sb-small sb-bg-dark text-white">Click to say yes to all
                       </button>
                     </th>
@@ -651,19 +650,21 @@
                   </tr>
                   </thead>
                   <tbody>
+
                   <tr>
                     <td>1.</td>
-                    <td>The Borrower or his undivided family member is not a Promoter of the Bank
+                    <td>
+                      Has the following information/documents been obtained?
                     </td>
                     <ng-container *ngIf="fromProfile">
                       <td *ngFor="let option of optionListRegulatory"><input
-                              [value]="option" formControlName="promoter" type="radio"></td>
+                              [value]="option" formControlName="information" type="radio"></td>
                     </ng-container>
-                    <td *ngIf="!fromProfile">{{dataForEdit?.promoter}}</td>
+                    <td *ngIf="!fromProfile">{{dataForEdit?.information}}</td>
 
-                    <td *ngIf="fromProfile"><input class="form-control" formControlName="promoterRemark"
+                    <td *ngIf="fromProfile"><input class="form-control" formControlName="informationRemark"
                                                    placeholder="Remarks"></td>
-                    <td *ngIf="!fromProfile">{{dataForEdit?.promoterRemark}}</td>
+                    <td *ngIf="!fromProfile">{{dataForEdit?.informationRemark}}</td>
 
                   </tr>
                   <tr>
@@ -671,13 +672,13 @@
                     <td> a) Duly filled Account Opening Form</td>
                     <ng-container *ngIf="fromProfile">
                       <td *ngFor="let option of optionListRegulatory"><input
-                              [value]="option" formControlName="promoter" type="radio"></td>
+                              [value]="option" formControlName="form" type="radio"></td>
                     </ng-container>
-                    <td *ngIf="!fromProfile">{{dataForEdit?.promoter}}</td>
+                    <td *ngIf="!fromProfile">{{dataForEdit?.form}}</td>
 
-                    <td *ngIf="fromProfile"><input class="form-control" formControlName="promoterRemark"
+                    <td *ngIf="fromProfile"><input class="form-control" formControlName="formRemark"
                                                    placeholder="Remarks"></td>
-                    <td *ngIf="!fromProfile">{{dataForEdit?.promoterRemark}}</td>
+                    <td *ngIf="!fromProfile">{{dataForEdit?.formRemark}}</td>
                   </tr>
                   <tr>
                                         <td></td>
@@ -686,9 +687,9 @@
                                           b) Duly filled KYC form of Customer</td>
                                         <ng-container *ngIf="fromProfile">
                                           <td *ngFor="let option of optionListRegulatory"><input
-                                                  [value]="option" formControlName="promoter" type="radio"></td>
+                                                  [value]="option" formControlName="kyc" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoter}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.kyc}}</td>
 
                                         <td *ngIf="fromProfile"><input class="form-control" formControlName="promoterRemark"
                                                                        placeholder="Remarks"></td>
@@ -700,13 +701,13 @@
                                           c) Duly filled KYC form of account operator and Directors (in case of corporate account)</td>
                                         <ng-container *ngIf="fromProfile">
                                           <td *ngFor="let option of optionListRegulatory"><input
-                                                  [value]="option" formControlName="promoter" type="radio"></td>
+                                                  [value]="option" formControlName="operator" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoter}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.operator}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="promoterRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoterRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
                                       </tr>
                                       <tr>
                                         <td></td>
@@ -714,13 +715,13 @@
                                           d) Necessary documents as per NRB Directive No. 19 (Annexure 19.1) and Bank's Checklist for Account Opening</td>
                                         <ng-container *ngIf="fromProfile">
                                           <td *ngFor="let option of optionListRegulatory"><input
-                                                  [value]="option" formControlName="promoter" type="radio"></td>
+                                                  [value]="option" formControlName="document" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoter}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.document}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="promoterRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoterRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
                                       </tr>
                                       <tr>
                                         <td></td>
@@ -728,13 +729,13 @@
                                           e) Nature of Business and Income Source been identified?</td>
                                         <ng-container *ngIf="fromProfile">
                                           <td *ngFor="let option of optionListRegulatory"><input
-                                                  [value]="option" formControlName="promoter" type="radio"></td>
+                                                  [value]="option" formControlName="nature" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoter}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.nature}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="promoterRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoterRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
                                       </tr>
                   <tr>
                     <td>2.</td>
@@ -742,13 +743,13 @@
                     </td>
                     <ng-container *ngIf="fromProfile">
                       <td *ngFor="let option of optionListRegulatory"><input
-                              [value]="option" formControlName="promoter" type="radio"></td>
+                              [value]="option" formControlName="audited" type="radio"></td>
                     </ng-container>
-                    <td *ngIf="!fromProfile">{{dataForEdit?.promoter}}</td>
+                    <td *ngIf="!fromProfile">{{dataForEdit?.audited}}</td>
 
-                    <td *ngIf="fromProfile"><input class="form-control" formControlName="promoterRemark"
+                    <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
                                                    placeholder="Remarks"></td>
-                    <td *ngIf="!fromProfile">{{dataForEdit?.promoterRemark}}</td>
+                    <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
 
                   </tr>
                   <tr>
@@ -757,13 +758,13 @@
                                           a) If yes, any dual financials observed?</td>
                                         <ng-container *ngIf="fromProfile">
                                           <td *ngFor="let option of optionListRegulatory"><input
-                                                  [value]="option" formControlName="promoter" type="radio"></td>
+                                                  [value]="option" formControlName="financial" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoter}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.financial}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="promoterRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoterRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
                                       </tr>
                                       <tr>
                                         <td></td>
@@ -772,13 +773,13 @@
                                           b) If yes, is it in line with nature of business?</td>
                                         <ng-container *ngIf="fromProfile">
                                           <td *ngFor="let option of optionListRegulatory"><input
-                                                  [value]="option" formControlName="promoter" type="radio"></td>
+                                                  [value]="option" formControlName="business" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoter}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.business}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="promoterRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoterRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
                                       </tr>
 
 
@@ -790,13 +791,13 @@
                                         <ng-container *ngIf="fromProfile">
 
                                           <td *ngFor="let option of optionListRegulatory"><input
-                                                  [value]="option" formControlName="guarantorOfBank" type="radio"></td>
+                                                  [value]="option" formControlName="customer" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.guarantorOfBank}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.customer}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="guarantorOfBankRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.guarantorOfBankRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
 
                                       </tr>
                   <tr>
@@ -806,13 +807,13 @@
                                         <ng-container *ngIf="fromProfile">
 
                                           <td *ngFor="let option of optionListRegulatory"><input
-                                                  [value]="option" formControlName="financialInterest" type="radio"></td>
+                                                  [value]="option" formControlName="loan" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.financialInterest}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.loan}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="financialInterestRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.financialInterestRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
 
                                       </tr>
                                       <tr>
@@ -820,13 +821,13 @@
                                      <td> a) If yes, has the loan been settled?</td>
                                       <ng-container *ngIf="fromProfile">
                                         <td *ngFor="let option of optionListRegulatory"><input
-                                                [value]="option" formControlName="promoter" type="radio"></td>
+                                                [value]="option" formControlName="settled" type="radio"></td>
                                       </ng-container>
-                                      <td *ngIf="!fromProfile">{{dataForEdit?.promoter}}</td>
+                                      <td *ngIf="!fromProfile">{{dataForEdit?.settled}}</td>
 
-                                      <td *ngIf="fromProfile"><input class="form-control" formControlName="promoterRemark"
+                                      <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
                                                                      placeholder="Remarks"></td>
-                                      <td *ngIf="!fromProfile">{{dataForEdit?.promoterRemark}}</td>
+                                      <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
                                       </tr>
 
                                       <tr>
@@ -835,26 +836,26 @@
                                         b) If yes, has pre-payment been made?</td>
                                         <ng-container *ngIf="fromProfile">
                                           <td *ngFor="let option of optionListRegulatory"><input
-                                                  [value]="option" formControlName="promoter" type="radio"></td>
+                                                  [value]="option" formControlName="payment" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoter}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.payment}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="promoterRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoterRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
                                       </tr>
                                       <tr>
                                         <td></td>
                                       <td>  c) If pre-payment been made, has the source of fund been identified?</td>
                                         <ng-container *ngIf="fromProfile">
                                           <td *ngFor="let option of optionListRegulatory"><input
-                                                  [value]="option" formControlName="promoter" type="radio"></td>
+                                                  [value]="option" formControlName="identified" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoter}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.identified}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="promoterRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoterRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
                                       </tr>
                   <tr>
                   <tr>
@@ -864,13 +865,13 @@
                                         <ng-container *ngIf="fromProfile">
 
                                           <td *ngFor="let option of optionListRegulatory"><input
-                                                  [value]="option" formControlName="collateral" type="radio"></td>
+                                                  [value]="option" formControlName="risk" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.collateral}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.risk}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="collateralRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.collateralRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
 
                                       </tr>
                                       <tr>
@@ -878,13 +879,13 @@
                                       <td>  a) If yes, has enhanced due diligence been conducted?</td>
                                         <ng-container *ngIf="fromProfile">
                                           <td *ngFor="let option of optionListRegulatory"><input
-                                                  [value]="option" formControlName="promoter" type="radio"></td>
+                                                  [value]="option" formControlName="enhanced" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoter}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.enhanced}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="promoterRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoterRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
                                       </tr>
                                       <tr>
                                         <td>6.</td>
@@ -893,13 +894,13 @@
                                         <ng-container *ngIf="fromProfile">
 
                                           <td *ngFor="let option of optionListRegulatory"><input
-                                                  [value]="option" formControlName="votingRight" type="radio"></td>
+                                                  [value]="option" formControlName="PEP" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.votingRight}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.PEP}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="votingRightRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.votingRightRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
 
                                       </tr>
                                       <tr>
@@ -907,13 +908,13 @@
                                        <td> a) If yes, has enhanced due diligence been conducted?</td>
                                         <ng-container *ngIf="fromProfile">
                                           <td *ngFor="let option of optionListRegulatory"><input
-                                                  [value]="option" formControlName="promoter" type="radio"></td>
+                                                  [value]="option" formControlName="diligence" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoter}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.diligence}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="promoterRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoterRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
                                       </tr>
                                       <tr>
                                         <td>7.</td>
@@ -922,13 +923,13 @@
                                         <ng-container *ngIf="fromProfile">
 
                                           <td *ngFor="let option of optionListRegulatory"><input
-                                                  [value]="option" formControlName="votingRight" type="radio"></td>
+                                                  [value]="option" formControlName="CIC" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.votingRight}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.CIC}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="votingRightRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.votingRightRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
 
                                       </tr>
                                       <tr>
@@ -938,13 +939,13 @@
                                         <ng-container *ngIf="fromProfile">
 
                                           <td *ngFor="let option of optionListRegulatory"><input
-                                                  [value]="option" formControlName="votingRight" type="radio"></td>
+                                                  [value]="option" formControlName="rating" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.votingRight}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.rating}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="votingRightRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.votingRightRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
 
                                       </tr>
                                       <tr>
@@ -954,18 +955,19 @@
                                         <ng-container *ngIf="fromProfile">
 
                                           <td *ngFor="let option of optionListRegulatory"><input
-                                                  [value]="option" formControlName="votingRight" type="radio"></td>
+                                                  [value]="option" formControlName="transaction" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.votingRight}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.transaction}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="votingRightRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.votingRightRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
 
                                       </tr>
                   </tbody>
                 </table>
               </nb-tab>
+
             </nb-tabset>
 
           </nb-tab>

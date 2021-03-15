@@ -4,6 +4,8 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CalendarType} from '../../../@core/model/calendar-type';
 import {CustomerType} from '../../customer/model/customerType';
+import {Clients} from '../../../../environments/Clients';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-credit-checklist-general',
@@ -16,6 +18,9 @@ export class CreditChecklistGeneralComponent implements OnInit {
   @Input() fromProfile;
   @Input() calendarType: CalendarType;
   @Input() customerType: CustomerType;
+  @Input()
+  client = environment.client;
+  clientName = Clients;
 
   formGroupCheckList: FormGroup;
   dataForEdit;
@@ -98,6 +103,30 @@ export class CreditChecklistGeneralComponent implements OnInit {
       directorUndividedRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.directorUndividedRemark)],
       borrowingFirmCompanyRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.borrowingFirmCompanyRemark)],
       borrowerPromoterRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.borrowerPromoterRemark)],
+      information: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.information)],
+      informationRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.informationRemark)],
+      form: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.form)],
+      formRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.formRemark)],
+      kyc: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.kyc)],
+      AMLRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.AMLRemark)],
+      operator: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.operator)],
+      document: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.document)],
+      nature: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.nature)],
+      audited: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.audited)],
+      financial: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.financial)],
+      business: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.business)],
+      customer: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.customer)],
+      loan: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.loan)],
+      settled: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.settled)],
+      payment: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.payment)],
+      identified: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.identified)],
+      risk: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.risk)],
+      enhanced: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.enhanced)],
+      PEP: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.PEP)],
+      diligence: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.diligence)],
+      CIC: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.CIC)],
+      rating: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.rating)],
+      transaction: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.transaction)],
     });
   }
 
@@ -134,6 +163,32 @@ export class CreditChecklistGeneralComponent implements OnInit {
     this.formGroupCheckList.get('financialInterest').patchValue('Yes');
     this.formGroupCheckList.get('collateral').patchValue('Yes');
     this.formGroupCheckList.get('votingRight').patchValue('Yes');
+
+  }
+  AMLYesAll() {
+    this.formGroupCheckList.get('information').patchValue('Yes');
+    this.formGroupCheckList.get('form').patchValue('Yes');
+    this.formGroupCheckList.get('kyc').patchValue('Yes');
+    this.formGroupCheckList.get('operator').patchValue('Yes');
+    this.formGroupCheckList.get('document').patchValue('Yes');
+    this.formGroupCheckList.get('nature').patchValue('Yes');
+    this.formGroupCheckList.get('audited').patchValue('Yes');
+    this.formGroupCheckList.get('financial').patchValue('Yes');
+    this.formGroupCheckList.get('business').patchValue('Yes');
+    this.formGroupCheckList.get('customer').patchValue('Yes');
+    this.formGroupCheckList.get('loan').patchValue('Yes');
+    this.formGroupCheckList.get('settled').patchValue('Yes');
+    this.formGroupCheckList.get('payment').patchValue('Yes');
+    this.formGroupCheckList.get('identified').patchValue('Yes');
+
+    this.formGroupCheckList.get('risk').patchValue('Yes');
+    this.formGroupCheckList.get('enhanced').patchValue('Yes');
+    this.formGroupCheckList.get('PEP').patchValue('Yes');
+    this.formGroupCheckList.get('diligence').patchValue('Yes')
+    this.formGroupCheckList.get('CIC').patchValue('Yes');
+    this.formGroupCheckList.get('rating').patchValue('Yes');
+    this.formGroupCheckList.get('transaction').patchValue('Yes');
+
   }
 
   submitForm() {
