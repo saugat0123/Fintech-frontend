@@ -27,6 +27,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     @Input() guarantorDetail: GuarantorDetail;
     @Input() calendarType: CalendarType;
     @Input() customer: Customer;
+    guarantorList: Array<Guarantor>;
 
     @Output()
     customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
@@ -56,17 +57,21 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             const guarantorList = this.customerInfo.guarantors.guarantorList;
             const guarantorDetails = this.userConfigForm.get('guarantorDetails') as FormArray;
             guarantorList.forEach(e => {
-                guarantorDetails.push(
-                    this.formBuilder.group({
-                        guarantorName : e.name,
-                        guarantorIssueDate : e.issuedYear,
-                        guarantorIssueDistrict : e.issuedPlace,
-                        guarantorAddress : e.district,
-                        guarantorRelationship : e.relationship,
-                        guarantorCitizenshipNum : e.citizenNumber
-                    })
-                ); }
+                    guarantorDetails.push(
+                        this.formBuilder.group({
+                            guarantorName: e.name,
+                            guarantorIssueDate: e.issuedYear,
+                            guarantorIssueDistrict: e.issuedPlace,
+                            guarantorAddress: e.district,
+                            guarantorRelationship: e.relationship,
+                            guarantorCitizenshipNum: e.citizenNumber
+                        })
+                    );
+                }
             );
+            this.guarantorList = guarantorList;
+            // console.log(guarantorList);
+            console.log('Guarantor List::', this.guarantorList);
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
@@ -171,7 +176,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             guarantorAddress : '',
             guarantorRelationship : '',
             guarantorCitizenshipNum : ''
-             });
+        });
     }
 
     removeAtIndex(i: any) {

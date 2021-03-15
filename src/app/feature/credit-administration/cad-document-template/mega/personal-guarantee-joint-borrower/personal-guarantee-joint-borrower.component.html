@@ -12,86 +12,53 @@
                            placeholder=""
                            type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('bankBranchName').value ? personalGuaranteeJoint.get('bankBranchName').value  : '========='}}</b></span>
                     शाखा कार्यालय (यसपछि धनी बैंक भनिएको ) जमानीको लिखत गरी दिनेका नाम
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="guarantorGrandFatherName"
-                           formControlName="guarantorGrandFatherName"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarantorGrandFatherName').value ? personalGuaranteeJoint.get('guarantorGrandFatherName').value  : '========='}}</b></span>
-                    को नाति/नातिनी/बुहारी
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="guarrantorFatherName"
-                           formControlName="guarrantorFatherName"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarrantorFatherName').value ? personalGuaranteeJoint.get('guarrantorFatherName').value  : '========='}}</b></span>
-                    छोरा/छोरी/श्रीमति
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="guarantorDistrict"
-                           formControlName="guarantorDistrict"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarantorDistrict').value ? personalGuaranteeJoint.get('guarantorDistrict').value  : '========='}}</b></span>
+                <div *ngFor="let guarantor of guarantorDetail; let i=index">
+                    {{guarantor.grandFatherName}}को
+                    नाति/नातिनी/बुहारी {{guarantor.fatherName}}को छोरा/छोरी/श्रीमति
+                    {{guarantor.district}} जिल्ला
+                    {{guarantor?.municipalitiesTemporary}} &nbsp;
+                    (ना.प्र.प नं. {{guarantor?.citizenNumber}} &nbsp;
+                    मिति {{guarantor?.issuedYear}} &nbsp;
+                    जिल्ला {{guarantor?.issuedPlace}} )
 
-                    जिल्ला
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="guarantorMunicipalityOrVdc"
-                           formControlName="guarantorMunicipalityOrVdc"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarantorMunicipalityOrVdc').value ? personalGuaranteeJoint.get('guarantorMunicipalityOrVdc').value  : '========='}}</b></span>
-                    गाउँपालिका/नगरपालिका वडा नं.
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="guarantorWardNo"
-                           formControlName="guarantorWardNo"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarantorWardNo').value ? personalGuaranteeJoint.get('guarantorWardNo').value  : '========='}}</b></span>
+                </div>
+                <input class="form-field form-control-sm nepaliFont disable-print"
+                       name="guarantorMunicipalityOrVdc"
+                       formControlName="guarantorMunicipalityOrVdc"
+                       placeholder=""
+                       type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarantorMunicipalityOrVdc').value ? personalGuaranteeJoint.get('guarantorMunicipalityOrVdc').value  : '========='}}</b></span>
+                गाउँपालिका/नगरपालिका वडा नं.
+                <input class="form-field form-control-sm nepaliFont disable-print"
+                       name="guarantorWardNo"
+                       formControlName="guarantorWardNo"
+                       placeholder=""
+                       type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarantorWardNo').value ? personalGuaranteeJoint.get('guarantorWardNo').value  : '========='}}</b></span>
 
-                    घर भई हाल प्रदेश नं.
-                    <strong class="nepaliFont">{{nepData?.temporaryProvince}}</strong>&nbsp;
+                घर भई हाल प्रदेश नं.
+                <strong class="nepaliFont">{{nepData?.temporaryProvince}}</strong>&nbsp;
 
-                    <strong class="nepaliFont">{{nepData?.temporaryDistrict}}</strong>
-                    जिल्ला
-                    <strong class="nepaliFont">{{nepData?.temporaryMunicipality}}</strong>
-                    {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
-                     वडा नं.
-                    <strong class="nepaliFont">{{nepData?.temporaryWard}}</strong>
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="tempAddress"
-                           formControlName="tempAddress"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('tempAddress').value ? personalGuaranteeJoint.get('tempAddress').value  : '========='}}</b></span>
+                <strong class="nepaliFont">{{nepData?.temporaryDistrict}}</strong>
+                जिल्ला
+                <strong class="nepaliFont">{{nepData?.temporaryMunicipality}}</strong>
+                {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
+                वडा नं.
+                <strong class="nepaliFont">{{nepData?.temporaryWard}}</strong>
+                <input class="form-field form-control-sm nepaliFont disable-print"
+                       name="tempAddress"
+                       formControlName="tempAddress"
+                       placeholder=""
+                       type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('tempAddress').value ? personalGuaranteeJoint.get('tempAddress').value  : '========='}}</b></span>
 
-                    बस्ने वर्ष
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="guarantorAge"
-                           formControlName="guarantorAge"
-                           placeholder=""
-                           type="text"
-                           size="3"/>
+                बस्ने वर्ष
+                <input class="form-field form-control-sm nepaliFont disable-print"
+                       name="guarantorAge"
+                       formControlName="guarantorAge"
+                       placeholder=""
+                       type="text"
+                       size="3"/>
 
-                    को <input class="form-field form-control-sm nepaliFont disable-print"
-                              name="guarantorName"
-                              formControlName="guarantorName"
-                              placeholder=""
-                              type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarantorName').value ? personalGuaranteeJoint.get('guarantorName').value  : '========='}}</b></span>
-                    (ना.प्र.प नं. <input class="form-field form-control-sm nepaliFont disable-print"
-                                         name="guarantorCitizenshipNo"
-                                         formControlName="guarantorCitizenshipNo"
-                                         placeholder=""
-                                         type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarantorCitizenshipNo').value ? personalGuaranteeJoint.get('guarantorCitizenshipNo').value  : '========='}}</b></span>
-                    मिति <input class="form-field form-control-sm nepaliFont disable-print"
-                                name="guarantorCitizenshipIssuedDate"
-                                formControlName="guarantorCitizenshipIssuedDate"
-                                placeholder=""
-                                type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarantorCitizenshipIssuedDate').value ? personalGuaranteeJoint.get('guarantorCitizenshipIssuedDate').value  : '========='}}</b></span>
-                    जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
-                                  name="citizenshipIssuedDistrict"
-                                  formControlName="citizenshipIssuedDistrict"
-                                  placeholder=""
-                                  type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('citizenshipIssuedDistrict').value ? personalGuaranteeJoint.get('citizenshipIssuedDistrict').value  : '========='}}</b></span>
-                    )
-                    (यस पछि जमानीकर्ता भनिएको) आगे <input class="form-field form-control-sm nepaliFont disable-print"
-                                                          name="guarantorGrandfather1"
-                                                          formControlName="guarantorGrandfather1"
-                                                          placeholder=""
-                                                          type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarantorGrandfather1').value ? personalGuaranteeJoint.get('guarantorGrandfather1').value  : '========='}}</b></span>
+                <p>
+                    <!--                    (यस पछि जमानीकर्ता भनिएको) आगे {{guarantor.grandFatherName}}-->
                     को नाति/नातिनी/बुहारी
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="guarrantorFatherName1"
@@ -116,14 +83,15 @@
                            formControlName="guarantorWardNo1"
                            placeholder=""
                            type="text"
-                           size="2"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarantorMunicipalityOrVdc1').value ? personalGuaranteeJoint.get('guarantorMunicipalityOrVdc1').value  : '========='}}</b></span>
+                           size="2"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarantorWardNo1').value ? personalGuaranteeJoint.get('guarantorWardNo1').value  : '========='}}</b></span>
                     घर भई हाल प्रदेश नं.
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="guarantorProvinceNo"
                            formControlName="guarantorProvinceNo"
                            placeholder=""
                            type="text"
-                           size="3"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarantorMunicipalityOrVdc1').value ? personalGuaranteeJoint.get('guarantorMunicipalityOrVdc1').value  : '========='}}</b></span>
+                           size="3"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarantorProvinceNo').value ? personalGuaranteeJoint.get('guarantorProvinceNo').value  : '========='}}</b></span>
+
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="tempAddDistrict1"
                            formControlName="tempAddDistrict1"

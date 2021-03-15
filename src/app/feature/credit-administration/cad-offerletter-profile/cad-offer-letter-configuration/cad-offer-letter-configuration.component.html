@@ -9,8 +9,8 @@
     </nb-card-header>
     <nb-card-body>
         <form [formGroup]="userConfigForm">
-        <nb-tabset>
-            <nb-tab tabTitle="व्यक्तिगत विवरण">
+            <nb-tabset>
+                <nb-tab tabTitle="व्यक्तिगत विवरण">
 
                     <div class="row">
                         <div class="col">
@@ -47,92 +47,92 @@
                             </div>
                         </div>
                     </div>
-                <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="gender">लिङ्ग</label>
-                                    <select class="form-control" formControlName="gender" id="gender"
-                                            [ngClass]="{'is-invalid': submitted && configForm.gender.errors}">
-                                        <option [value]="null" hidden>Select Gender</option>
-                                        <option value="0">महिला</option>
-                                        <option value="1">पुरुष</option>
-                                       <!-- <option value="2">अन्य</option>-->
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col" *ngIf="configForm?.gender?.value == 0">
-                                <div class="form-group">
-                                    <label class="relationMedium" for="relationMedium">सम्बन्ध माध्यम</label>
-                                    <select class="form-control" formControlName="relationMedium" id="relationMedium"
-                                            [ngClass]="{'is-invalid': submitted && configForm.relationMedium.errors}">
-                                        <option [value]="null" hidden>Select Relation Medium</option>
-                                        <option value="0">पैत्रिक नाताबाट</option>
-                                        <option value="1">मैत्रिक नाताबाट</option>
-                                    </select>
-                                </div>
-                            </div>
-                </div>
                     <div class="row">
-              <!--          <div [hidden]="configForm?.relationMedium?.value == '1'">-->
-                            <div class="col" [hidden]="!(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 1">
-                                <div class="form-group">
-                                    <label class="title" for="name">पिताको नाम</label>
-                                    <input  class="form-control rounded nepaliFont"
-                                            formControlName="fatherName"
-                                            [ngClass]="{'is-invalid': submitted && configForm.fatherName.errors}"
-                                            id="fatherName"
-                                            name="name" placeholder="पिताको नाम"
-                                            type="text"/>
-                                </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="title" for="gender">लिङ्ग</label>
+                                <select class="form-control" formControlName="gender" id="gender"
+                                        [ngClass]="{'is-invalid': submitted && configForm.gender.errors}">
+                                    <option [value]="null" hidden>Select Gender</option>
+                                    <option value="0">महिला</option>
+                                    <option value="1">पुरुष</option>
+                                    <!-- <option value="2">अन्य</option>-->
+                                </select>
                             </div>
-                            <div class="col" [hidden]="!(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 1">
-                                <div class="form-group">
-                                    <label class="title" for="grandFatherName">हजुरबुबाको नाम</label>
-                                    <input  class="form-control rounded nepaliFont"
-                                            formControlName="grandFatherName"
-                                            [ngClass]="{'is-invalid': submitted && configForm.grandFatherName.errors}"
-                                            id="grandFatherName"
-                                            name="grandFatherName" placeholder="हजुरबुबाको नाम"
-                                            type="text"/>
-                                </div>
+                        </div>
+                        <div class="col" *ngIf="configForm?.gender?.value == 0">
+                            <div class="form-group">
+                                <label class="relationMedium" for="relationMedium">सम्बन्ध माध्यम</label>
+                                <select class="form-control" formControlName="relationMedium" id="relationMedium"
+                                        [ngClass]="{'is-invalid': submitted && configForm.relationMedium.errors}">
+                                    <option [value]="null" hidden>Select Relation Medium</option>
+                                    <option value="0">पैत्रिक नाताबाट</option>
+                                    <option value="1">मैत्रिक नाताबाट</option>
+                                </select>
                             </div>
-                            <div class="col" [hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">
-                                <div class="form-group">
-                                    <label class="title" for="husbandName">पतिको नाम </label>
-                                    <input  class="form-control rounded nepaliFont"
-                                            formControlName="husbandName"
-                                            [ngClass]="{'is-invalid': submitted && configForm.husbandName.errors}"
-                                            id="husbandName"
-                                            name="husbandName" placeholder="पतिको नाम"
-                                            type="text"/>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--          <div [hidden]="configForm?.relationMedium?.value == '1'">-->
+                        <div class="col" [hidden]="!(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 1">
+                            <div class="form-group">
+                                <label class="title" for="name">पिताको नाम</label>
+                                <input  class="form-control rounded nepaliFont"
+                                        formControlName="fatherName"
+                                        [ngClass]="{'is-invalid': submitted && configForm.fatherName.errors}"
+                                        id="fatherName"
+                                        name="name" placeholder="पिताको नाम"
+                                        type="text"/>
                             </div>
-                            <div class="col" [hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">
-                                <div class="form-group">
-                                    <label class="title" for="fatherInLawName">ससुराको नाम</label>
-                                    <input  class="form-control rounded nepaliFont"
-                                            formControlName="fatherInLawName"
-                                            [ngClass]="{'is-invalid': submitted && configForm.fatherInLawName.errors}"
-                                            id="fatherInLawName"
-                                            name="fatherInLawName" placeholder="ससुराको नाम"
-                                            type="text"/>
-                                </div>
+                        </div>
+                        <div class="col" [hidden]="!(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 1">
+                            <div class="form-group">
+                                <label class="title" for="grandFatherName">हजुरबुबाको नाम</label>
+                                <input  class="form-control rounded nepaliFont"
+                                        formControlName="grandFatherName"
+                                        [ngClass]="{'is-invalid': submitted && configForm.grandFatherName.errors}"
+                                        id="grandFatherName"
+                                        name="grandFatherName" placeholder="हजुरबुबाको नाम"
+                                        type="text"/>
                             </div>
+                        </div>
+                        <div class="col" [hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">
+                            <div class="form-group">
+                                <label class="title" for="husbandName">पतिको नाम </label>
+                                <input  class="form-control rounded nepaliFont"
+                                        formControlName="husbandName"
+                                        [ngClass]="{'is-invalid': submitted && configForm.husbandName.errors}"
+                                        id="husbandName"
+                                        name="husbandName" placeholder="पतिको नाम"
+                                        type="text"/>
+                            </div>
+                        </div>
+                        <div class="col" [hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">
+                            <div class="form-group">
+                                <label class="title" for="fatherInLawName">ससुराको नाम</label>
+                                <input  class="form-control rounded nepaliFont"
+                                        formControlName="fatherInLawName"
+                                        [ngClass]="{'is-invalid': submitted && configForm.fatherInLawName.errors}"
+                                        id="fatherInLawName"
+                                        name="fatherInLawName" placeholder="ससुराको नाम"
+                                        type="text"/>
+                            </div>
+                        </div>
                     </div>
                     <hr>
                     <div class="row">
-                       <div class="col-md-12 text-center">
-                           <strong>स्थाई ठेगाना</strong>
-                           <div class="offset-10 col-md-2">
-                               <div class="form-group">
-                                   <select class="form-control" formControlName="permanentMunType" id="permanentMunType"
-                                           [ngClass]="{'is-invalid': submitted && configForm.permanentMunType.errors}">
-                                       <option value="0">नगरपालिका</option>
-                                       <option value="1">गा बि स</option>
-                                   </select>
-                               </div>
-                           </div>
-                       </div>
+                        <div class="col-md-12 text-center">
+                            <strong>स्थाई ठेगाना</strong>
+                            <div class="offset-10 col-md-2">
+                                <div class="form-group">
+                                    <select class="form-control" formControlName="permanentMunType" id="permanentMunType"
+                                            [ngClass]="{'is-invalid': submitted && configForm.permanentMunType.errors}">
+                                        <option value="0">नगरपालिका</option>
+                                        <option value="1">गा बि स</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="col">
                             <div class="form-group">
@@ -158,7 +158,7 @@
                             </div>
                         </div>
                         <div class="col">
-                    <div class="form-group">
+                            <div class="form-group">
                                 <label class="title" for="permanentMunicipality">{{configForm.permanentMunType.value == 0
                                     ? 'नगरपालिका' : 'गा बि स'}}</label>
                                 <input  class="form-control rounded nepaliFont"
@@ -168,9 +168,9 @@
                                         name="permanentMunicipality" placeholder="नगरपालिका"
                                         type="text"/>
                             </div>
-                    </div>
+                        </div>
                         <div class="col">
-                    <div class="form-group">
+                            <div class="form-group">
                                 <label class="title" for="permanentWard">वार्ड न</label>
                                 <input  class="form-control rounded nepaliFont"
                                         formControlName="permanentWard"
@@ -179,22 +179,22 @@
                                         name="permanentMunicipality" placeholder="वार्ड न"
                                         type="text"/>
                             </div>
-                    </div>
+                        </div>
                     </div>
                     <hr>
                     <div class="row">
-                       <div class="col-md-12 text-center">
-                           <strong>अस्थायी ठेगाना</strong>
-                           <div class="offset-10 col-md-2">
-                               <div class="form-group">
-                                   <select class="form-control" formControlName="temporaryMunType" id="temporaryMunType"
-                                           [ngClass]="{'is-invalid': submitted && configForm.temporaryMunType.errors}">
-                                       <option value="0">नगरपालिका</option>
-                                       <option value="1">गा बि स</option>
-                                   </select>
-                               </div>
-                           </div>
-                       </div>
+                        <div class="col-md-12 text-center">
+                            <strong>अस्थायी ठेगाना</strong>
+                            <div class="offset-10 col-md-2">
+                                <div class="form-group">
+                                    <select class="form-control" formControlName="temporaryMunType" id="temporaryMunType"
+                                            [ngClass]="{'is-invalid': submitted && configForm.temporaryMunType.errors}">
+                                        <option value="0">नगरपालिका</option>
+                                        <option value="1">गा बि स</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col">
                             <div class="form-group">
                                 <label class="title" for="temporaryProvince">
@@ -208,7 +208,7 @@
                             </div>
                         </div>
                         <div class="col">
-                        <div class="form-group">
+                            <div class="form-group">
                                 <label class="title" for="temporaryDistrict">जिल्ला</label>
                                 <input  class="form-control rounded nepaliFont"
                                         formControlName="temporaryDistrict"
@@ -219,7 +219,7 @@
                             </div>
                         </div>
                         <div class="col">
-                    <div class="form-group">
+                            <div class="form-group">
                                 <label class="title" for="temporaryMunicipality">
                                     {{configForm.temporaryMunType.value == 0 ? 'नगरपालिका' : 'गा बि स'}}
                                 </label>
@@ -230,7 +230,7 @@
                                         name="temporaryMunicipality" placeholder="नगरपालिका"
                                         type="text"/>
                             </div>
-                    </div>
+                        </div>
                         <div class="col">
                             <div class="form-group">
                                 <label class="title" for="temporaryWard">वार्ड न</label>
@@ -244,100 +244,128 @@
                         </div>
                     </div>
 
-            </nb-tab>
-            <nb-tab tabTitle="ग्यारेन्टर विवरण">
-                <div *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
-                     class="form-group" formArrayName="guarantorDetails">
-                    <div [formGroupName]="i">
-                        <br>
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="name">ग्यारेन्टरको नाम</label>
-                                    <input class="form-control rounded nepaliFont"
-                                            formControlName="guarantorName"
-                                            id="guarantorName"
-                                            [ngClass]="{ 'is-invalid': (submitted ) && guarantor.get('guarantorName').errors }"
-                                            name="name" placeholder="ग्यारेन्टरको नाम"
-                                            type="text"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="guarantorCitizenshipNum">नगरिकता नम्बर</label>
-                                    <input  class="form-control rounded nepaliFont"
-                                            formControlName="guarantorCitizenshipNum"
-                                            id="guarantorCitizenshipNum"
-                                            [ngClass]="{'is-invalid': submitted && configForm.citizenshipNo.errors}"
-                                            name="name" placeholder="नगरिकता नम्बर"
-                                            type="text"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="guarantorIssueDate">जारी मिति</label>
-                                    <input #guarantorIssueDate [nbDatepicker]="guarantorIssueDate"
-                                            class="form-control rounded nepaliFont"
-                                            formControlName="guarantorIssueDate"
-                                            id="guarantorIssueDate"
-                                            [ngClass]="{'is-invalid': submitted && configForm.guarantorIssueDate.errors}"
-                                            name="name" placeholder="जारी मिति"
-                                            type="text"/>
-                                    <app-calendar
-                                            [ePreDate]="userConfigForm.get(['guarantorDetails', i, 'issuedYear']).value"
-                                            *ngIf="calendarType === 'BS'"
-                                            (messageToEmit)="userConfigForm.get(['guarantorDetails', i, 'issuedYear']).patchValue($event?.eDate)">
-                                            </app-calendar>
-                                    <nb-datepicker #guarantorIssueDate></nb-datepicker>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="guarantorIssueDistrict">जारी जिल्ला</label>
-                                    <input  class="form-control rounded nepaliFont"
-                                            formControlName="guarantorIssueDistrict"
-                                            id="guarantorIssueDistrict"
-                                            [ngClass]="{'is-invalid': submitted && configForm.guarantorIssueDistrict.errors}"
-                                            name="name" placeholder="जारी जिल्ला"
-                                            type="text"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="guarantorAddress">ठेगाना</label>
-                                    <input  class="form-control rounded nepaliFont"
-                                            formControlName="guarantorAddress"
-                                            id="guarantorAddress"
-                                            [ngClass]="{'is-invalid': submitted && configForm.guarantorAddress.errors}"
-                                            name="name" placeholder="ठेगाना"
-                                            type="text"/>
+                </nb-tab>
+                <nb-tab tabTitle="ग्यारेन्टर विवरण">
 
+                    <div *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
+                         class="form-group" formArrayName="guarantorDetails">
+                        <div [formGroupName]="i">
+                            <div *ngFor="let guarantor12 of guarantorList; let j=index;">
+                                <div *ngIf="i==j">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label class="title" for="name">
+                                                    Name: {{guarantor12?.name}} / &nbsp;
+                                                </label>
+                                                <label class="title">
+                                                    Citizenship Number: {{guarantor12?.citizenNumber}} / &nbsp;
+                                                </label>
+                                                <label class="title">
+                                                    Citizenship Issue Year: {{guarantor12?.issuedYear}} / &nbsp;
+                                                </label>
+                                                <label class="title">
+                                                    Citizenship Issue District: {{guarantor12?.issuedPlace}} / &nbsp;
+                                                </label>
+                                                <label class="title">
+                                                    Address: {{guarantor12?.permanentAddressLine1}} / &nbsp;
+                                                </label>
+                                                <label class="title">
+                                                    Relationship: {{guarantor12?.relationship}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="relationMedium" for="guarantorRelationship">सम्बन्धको माध्यम</label>
-                                    <select class="form-control" formControlName="guarantorRelationship" id="guarantorRelationship"
-                                            [ngClass]="{'is-invalid': submitted && configForm.relationMedium.errors}">
-<!--                                        <option formControlName=""></option>-->
-                                        <option *ngFor="let relationship of relationshipList">{{relationship?.value}}</option>
-                                    </select>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="name">ग्यारेन्टरको नाम</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="guarantorName"
+                                               id="guarantorName"
+                                               [ngClass]="{ 'is-invalid': (submitted ) && guarantor.get('guarantorName').errors }"
+                                               name="name" placeholder="ग्यारेन्टरको नाम"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="guarantorCitizenshipNum">नगरिकता नम्बर</label>
+                                        <input  class="form-control rounded nepaliFont"
+                                                formControlName="guarantorCitizenshipNum"
+                                                id="guarantorCitizenshipNum"
+                                                [ngClass]="{'is-invalid': submitted && configForm.citizenshipNo.errors}"
+                                                name="name" placeholder="नगरिकता नम्बर"
+                                                type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="guarantorIssueDate">जारी मिति</label>
+                                        <input #guarantorIssueDate [nbDatepicker]="guarantorIssueDate"
+                                               class="form-control rounded nepaliFont"
+                                               formControlName="guarantorIssueDate"
+                                               id="guarantorIssueDate"
+                                               [ngClass]="{'is-invalid': submitted && configForm.guarantorIssueDate.errors}"
+                                               name="name" placeholder="जारी मिति"
+                                               type="text"/>
+                                        <app-calendar
+                                                [ePreDate]="userConfigForm.get(['guarantorDetails', i, 'issuedYear']).value"
+                                                *ngIf="calendarType === 'BS'"
+                                                (messageToEmit)="userConfigForm.get(['guarantorDetails', i, 'issuedYear']).patchValue($event?.eDate)">
+                                        </app-calendar>
+                                        <nb-datepicker #guarantorIssueDate></nb-datepicker>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="guarantorIssueDistrict">जारी जिल्ला</label>
+                                        <input  class="form-control rounded nepaliFont"
+                                                formControlName="guarantorIssueDistrict"
+                                                id="guarantorIssueDistrict"
+                                                [ngClass]="{'is-invalid': submitted && configForm.guarantorIssueDistrict.errors}"
+                                                name="name" placeholder="जारी जिल्ला"
+                                                type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="guarantorAddress">ठेगाना</label>
+                                        <input  class="form-control rounded nepaliFont"
+                                                formControlName="guarantorAddress"
+                                                id="guarantorAddress"
+                                                [ngClass]="{'is-invalid': submitted && configForm.guarantorAddress.errors}"
+                                                name="name" placeholder="ठेगाना"
+                                                type="text"/>
+
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="relationMedium" for="guarantorRelationship">सम्बन्धको माध्यम</label>
+                                        <select class="form-control" formControlName="guarantorRelationship" id="guarantorRelationship"
+                                                [ngClass]="{'is-invalid': submitted && configForm.relationMedium.errors}">
+                                            <!--                                        <option formControlName=""></option>-->
+                                            <option *ngFor="let relationship of relationshipList">{{relationship?.value}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="i !==0">
+                                <button class="btn btn-danger float-right" (click)="removeAtIndex(i)" style="position: static">
+                                    <em class="fa fa-trash" style="color: white;"></em>
+                                </button>
+                            </div>
+                            <hr>
                         </div>
-                        <div *ngIf="i !==0">
-                            <button class="btn btn-danger float-right" (click)="removeAtIndex(i)" style="position: static">
-                            <em class="fa fa-trash" style="color: white;"></em>
-                            </button>
-                        </div>
-                        </div>
-                    <hr>
                     </div>
-                <button class="btn tbn-sm btn-flat btn-primary" (click)="addGuarantor()">Add Guarantor</button>
-            </nb-tab>
-        </nb-tabset>
+                    <button class="btn tbn-sm btn-flat btn-primary" (click)="addGuarantor()">Add Guarantor</button>
+                </nb-tab>
+            </nb-tabset>
         </form>
     </nb-card-body>
     <nb-card-footer>
