@@ -2,14 +2,16 @@
     <nb-card-header>
         <div class="row shadow-sm">
 
-            <div class="col-md-4" *ngIf="productUtils.CBS_ENABLE || sbsGroupEnabled">
-                <strong>Associated Group:</strong>
-                <span *ngIf="!productUtils.CBS_ENABLE && sbsGroupEnabled">
+            <div class="col-md-4">
+                <ng-container  *ngIf="productUtils.CBS_ENABLE || sbsGroupEnabled">
+                    <strong>Associated Group:</strong>
+                    <span *ngIf="!productUtils.CBS_ENABLE && sbsGroupEnabled">
                     {{customerInfo?.customerGroup != undefined ? customerInfo?.customerGroup?.groupCode : ' No group has been assigned.'}}
                 </span>
-                <span *ngIf="productUtils.CBS_ENABLE">
+                    <span *ngIf="productUtils.CBS_ENABLE">
                     {{customerInfo?.obligor || ' No group has been assigned.'}}
                 </span>
+                </ng-container>
                 <div class="py-2">
                     <button [nbPopover]="activity" nbButton size="small" [nbPopoverPlacement]="'right'"> Customer
                         Activity
@@ -27,7 +29,7 @@
                                           (stringValue)="cbsGroupUpdate($event)">
                     </app-tag-cbs-customer>
                 </div>
-                <div *ngIf="!productUtils.CBS_ENABLE && sbsGroupEnabled">
+                <div *ngIf="sbsGroupEnabled">
                     <button [nbPopover]="groupWindow" class="float-right mb-3" nbButton size="small"
                             [nbPopoverPlacement]="'left'">
                         Groups
