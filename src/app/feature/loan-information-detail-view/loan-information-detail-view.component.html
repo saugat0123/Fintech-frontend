@@ -125,8 +125,7 @@
             <app-proposal-view *ngIf="loanDataHolder?.proposal"
                                [formData]="loanDataHolder?.proposal"></app-proposal-view>
             <div *ngIf="megaGroupEnabled">
-                <app-m-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
-                                     [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
+                <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
             </div>
             <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
                                [shareSecurityData]="loanHolder?.shareSecurity"></app-security-view>

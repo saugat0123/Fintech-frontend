@@ -665,8 +665,7 @@
             </div>
 
             <div *ngIf="megaGroupEnabled">
-                <app-m-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
-                                            [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
+                <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
             </div>
 
             <div *ngIf="sbsGroupEnabled">
