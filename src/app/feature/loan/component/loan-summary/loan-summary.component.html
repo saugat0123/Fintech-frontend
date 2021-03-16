@@ -672,7 +672,11 @@
                 </table>
             </div>
 
-            <div *ngIf="!productUtils.CBS_ENABLE">
+            <div *ngIf="megaGroupEnabled">
+                <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
+            </div>
+
+            <div *ngIf="sbsGroupEnabled">
                 <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
                                             [groupDto]="loanDataHolder?.groupSummaryDto"
                                             [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>
