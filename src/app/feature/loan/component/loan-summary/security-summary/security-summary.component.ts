@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NepseMaster} from '../../../../admin/modal/NepseMaster';
+import {environment} from '../../../../../../environments/environment';
+import {Clients} from '../../../../../../environments/Clients';
 
 
 @Component({
@@ -29,6 +31,8 @@ export class SecuritySummaryComponent implements OnInit {
     landBuilding = false;
     showTitle = false;
     insurancePolicySelected = false;
+    client = environment.client;
+    clientName = Clients;
 
     constructor() {
     }

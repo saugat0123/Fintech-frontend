@@ -124,6 +124,7 @@
         <tr class="sb-bg-dark text-white">
           <th>Relation</th>
           <th colspan="2">Name</th>
+          <th *ngIf="client === clientName.SHINE_RESUNGA" colspan="2">Age</th>
           <th>Citizenship Number</th>
           <th colspan="2">Issued District</th>
           <th>Issued Date</th>
@@ -134,6 +135,7 @@
           <tr>
             <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
             <td colspan="2" class="text-left pl-1">{{kyc?.relationName}}</td>
+            <td *ngIf="client === clientName.SHINE_RESUNGA" colspan="2" class="text-left pl-1">{{kyc?.age}}</td>
             <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
             <td colspan="2" class="text-left pl-1">{{kyc?.issuedLocation}}</td>
             <td class="text-left pl-1">{{kyc?.issuedDate | date}}</td>
@@ -332,6 +334,7 @@
         <tr class="sb-bg-dark text-white">
           <th>Relation</th>
           <th>Name</th>
+          <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
           <th>Citizenship Number</th>
           <th colspan="2">Issued District</th>
           <th>Issued Date</th>
@@ -342,6 +345,7 @@
           <tr>
             <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
             <td class="text-left pl-1">{{kyc?.relationName}}</td>
+            <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
             <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
             <td colspan="2" class="text-left pl-1">{{kyc?.issuedLocation}}</td>
             <td class="text-left pl-1">{{kyc?.issuedDate | date}}</td>
@@ -389,6 +393,7 @@
         <tr class="text-center sb-bg-dark text-white">
           <th>Relation</th>
           <th>Name</th>
+          <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
           <th>Citizenship Number</th>
           <th colspan="2">Issued District</th>
           <th>Issued Date</th>
@@ -399,6 +404,7 @@
           <tr>
             <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
             <td class="text-left pl-1">{{kyc?.relationName}}</td>
+            <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
             <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
             <td colspan="2" class="text-left pl-1">{{kyc?.issuedLocation}}</td>
             <td class="text-left pl-1">{{kyc?.issuedDate | date}}</td>
