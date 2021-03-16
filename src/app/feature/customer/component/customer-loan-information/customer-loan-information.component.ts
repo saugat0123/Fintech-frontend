@@ -124,7 +124,6 @@ export class CustomerLoanInformationComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.isMicroCustomer);
     this.customerInfo.isMicroCustomer = this.isMicroCustomer;
     if (!ObjectUtil.isEmpty(this.customerInfo.siteVisit)) {
       this.siteVisit = this.customerInfo.siteVisit;

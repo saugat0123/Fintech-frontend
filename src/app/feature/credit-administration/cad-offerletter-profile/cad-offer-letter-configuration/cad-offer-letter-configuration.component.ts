@@ -25,12 +25,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     @Input() customerInfo: CustomerInfoData;
     @Input() guarantorDetail: GuarantorDetail;
-    @Input() calendarType: CalendarType;
     @Input() customer: Customer;
-
     @Output()
     customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
+    @Output() guarantorDataEmitter = new EventEmitter();
 
+    guarantorList: Array<Guarantor>;
     userConfigForm: FormGroup;
     spinner = false;
     value = [undefined];
@@ -54,19 +54,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
             const guarantorList = this.customerInfo.guarantors.guarantorList;
-            const guarantorDetails = this.userConfigForm.get('guarantorDetails') as FormArray;
             guarantorList.forEach(e => {
-                guarantorDetails.push(
-                    this.formBuilder.group({
-                        guarantorName : e.name,
-                        guarantorIssueDate : e.issuedYear,
-                        guarantorIssueDistrict : e.issuedPlace,
-                        guarantorAddress : e.district,
-                        guarantorRelationship : e.relationship,
-                        guarantorCitizenshipNum : e.citizenNumber
-                    })
-                ); }
+                    this.addGuarantor();
+                }
             );
+            this.guarantorList = guarantorList;
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
@@ -129,6 +121,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         if (this.userConfigForm.invalid) {
             return;
         }
+        // this.guarantorDetail.guarantorList = new Array<Guarantor>();
+        // const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
+        // formArray['controls'].forEach(c => {
+        //     const guarantor: Guarantor = c.value;
+        //     this.guarantorDetail.guarantorList.push(guarantor);
+        //     this.guarantorDataEmitter.emit(this.guarantorDetail);
+        // });
         this.spinner = true;
         const data = JSON.stringify(this.userConfigForm.value);
         this.customerInfoService.updateNepaliConfigData(data, this.customerInfo.id).subscribe(res => {
@@ -171,7 +170,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             guarantorAddress : '',
             guarantorRelationship : '',
             guarantorCitizenshipNum : ''
-             });
+        });
     }
 
     removeAtIndex(i: any) {
