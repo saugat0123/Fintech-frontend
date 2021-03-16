@@ -116,13 +116,12 @@
                                   [calendarType]="calendarType"
                                   [loanDataHolder]="loanDataHolder" [loanHolder]="loanHolder"
                                   [loanId]="id"></app-detail-view-base>
-            <!-- Not require for SRDB -->
-<!--            <app-micro-loan-detail-view-base *ngIf="loanHolder && isMicro"-->
-<!--                                             [calendarType]="calendarType"-->
-<!--                                             [customerAllLoanList]="customerAllLoanList"-->
-<!--                                             [fiscalYearArray]="fiscalYearArray"-->
-<!--                                             [loanDataHolder]="loanDataHolder" [loanHolder]="loanHolder"-->
-<!--                                             [loanId]="id"></app-micro-loan-detail-view-base>-->
+            <app-micro-loan-detail-view-base *ngIf="loanHolder && isMicro"
+                                             [calendarType]="calendarType"
+                                             [customerAllLoanList]="customerAllLoanList"
+                                             [fiscalYearArray]="fiscalYearArray"
+                                             [loanDataHolder]="loanDataHolder" [loanHolder]="loanHolder"
+                                             [loanId]="id"></app-micro-loan-detail-view-base>
 
             <ng-template  #allDocumentView>
                 <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>

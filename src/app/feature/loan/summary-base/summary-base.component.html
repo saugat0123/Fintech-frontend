@@ -25,13 +25,12 @@
     <nb-card-body>
         <ng-container *ngIf="loanSummaryActive && loanDataHolder?.id">
        <ng-container [ngSwitch]="loanConfig.loanTag">
-           <!-- Not require for SRDB -->
-<!--           <app-micro-loan-summary-->
-<!--                   *ngSwitchCase="'MICRO_LOAN'"-->
-<!--                   (changeToApprovalSheetActive)="activeApprovalSheet()"-->
-<!--                   [loanConfig]="loanConfig"-->
-<!--                   [loanData]="loanDataHolder"-->
-<!--                   [nepaliDate]="nepaliDate"></app-micro-loan-summary>-->
+           <app-micro-loan-summary
+                   *ngSwitchCase="'MICRO_LOAN'"
+                   (changeToApprovalSheetActive)="activeApprovalSheet()"
+                   [loanConfig]="loanConfig"
+                   [loanData]="loanDataHolder"
+                   [nepaliDate]="nepaliDate"></app-micro-loan-summary>
            <app-loan-summary *ngSwitchDefault
                    (changeToApprovalSheetActive)="activeApprovalSheet()"
                              [loanConfig]="loanConfig"
