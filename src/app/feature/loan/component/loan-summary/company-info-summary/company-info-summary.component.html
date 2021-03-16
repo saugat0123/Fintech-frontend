@@ -144,4 +144,31 @@
 
       </table>
     </div>
+
+  <div class="col-md-12" *ngIf="client === clientName?.MEGA">
+  <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+    <thead>
+    <tr class="text-white sb-bg-dark">
+      <th class="sn">S.No</th>
+      <th>Shareholder/Promoters</th>
+      <th>Designation</th>
+      <th>Share holding(%)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let share of companyJsonData.proprietorList; let i=index">
+      <tr>
+        <td>{{i+1}}</td>
+        <td class="text-left pl-1">{{share?.name}}</td>
+        <td class="text-left pl-1">{{share?.type}}</td>
+        <td class="text-right pr-1">{{share?.share}}%</td>
+      </tr>
+    </ng-container>
+    <tr>
+      <th colspan="3" class="text-left pl-1">Total</th>
+      <th class="text-right pr-1">{{companyJsonData?.totalSharePercent}}%</th>
+    </tr>
+    </tbody>
+  </table>
+  </div>
 </div>

@@ -14,6 +14,7 @@ import {CiclArray} from '../../admin/modal/cicl';
 import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../admin/modal/NetTradingAssets';
 import {CreditChecklistGeneral} from './creditChecklistGeneral';
+import {MGroup} from '../../customer/model/mGroup';
 import {MicroLoanSynopsis} from './micro-loan-synopsis';
 import {BorrowerPortfolio} from './borrwerportfolio';
 import {MicroBaselRiskExposure} from './micro-basel-risk-exposure';
@@ -57,6 +58,7 @@ export class CustomerInfoData {
     subSectorDetailCode: string;
     nepData: string;
     gender: string;
+    mgroupInfo: MGroup;
     synopsisCreditworthiness: MicroLoanSynopsis;
     borrowerPortFolio: BorrowerPortfolio;
     microBaselRiskExposure: MicroBaselRiskExposure;

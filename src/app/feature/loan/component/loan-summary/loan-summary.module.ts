@@ -30,6 +30,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import { ApprovalSheetDocumentListComponent } from './approval-sheet/approval-sheet-document-list/approval-sheet-document-list.component';
 import {LoanInformationViewModule} from '../../../loan-information-view/loan-information-view.module';
 import { NtaMegaSummaryComponent } from './nta-mega-summary/nta-mega-summary.component';
+import { MGroupSummaryComponent } from './m-group-summary/m-group-summary.component';
 
 
 const COMPONENTS = [
@@ -57,7 +58,7 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent ],
+    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent ],
     imports: [
         CommonModule,
         ThemeModule,
@@ -86,7 +87,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         SitevistSummaryComponentComponent,
         InsuranceSummaryComponent,
         FinancialSummaryComponent,
-        ProposalSummaryComponent
+        ProposalSummaryComponent,
+        MGroupSummaryComponent
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })
