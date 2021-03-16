@@ -15,6 +15,7 @@ import {RelationshipNepali} from '../../../loan/model/relationshipListNepali';
 import {Guarantor} from '../../../loan/model/guarantor';
 import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 import {CalendarType} from '../../../../@core/model/calendar-type';
+import {Province} from '../../../admin/modal/province';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -27,11 +28,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     @Input() guarantorDetail: GuarantorDetail;
     @Input() calendarType: CalendarType;
     @Input() customer: Customer;
-    guarantorList: Array<Guarantor>;
-
     @Output()
     customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
+    @Output() guarantorDataEmitter = new EventEmitter();
 
+    guarantorList: Array<Guarantor>;
     userConfigForm: FormGroup;
     spinner = false;
     value = [undefined];
@@ -70,8 +71,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 }
             );
             this.guarantorList = guarantorList;
-            // console.log(guarantorList);
-            console.log('Guarantor List::', this.guarantorList);
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
@@ -134,8 +133,16 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         if (this.userConfigForm.invalid) {
             return;
         }
+        // this.guarantorDetail.guarantorList = new Array<Guarantor>();
+        // const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
+        // formArray['controls'].forEach(c => {
+        //     const guarantor: Guarantor = c.value;
+        //     this.guarantorDetail.guarantorList.push(guarantor);
+        //     this.guarantorDataEmitter.emit(this.guarantorDetail);
+        // });
         this.spinner = true;
         const data = JSON.stringify(this.userConfigForm.value);
+        console.log('this is data', data);
         this.customerInfoService.updateNepaliConfigData(data, this.customerInfo.id).subscribe(res => {
             this.customerInfoData = res.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated!!!'));

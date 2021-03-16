@@ -10,7 +10,6 @@ import {ToastService} from '../../../../../@core/utils';
 import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
-import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
 import {Guarantor} from '../../../../loan/model/guarantor';
 
 @Component({
@@ -38,27 +37,29 @@ export class PersonalGuaranteeJointBorrowerComponent implements OnInit {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.guarantors.guarantorList)) {
       const guarantorList = this.cadData.loanHolder.guarantors.guarantorList;
-      const guarantorDetails = this.personalGuaranteeJoint.get('guarantorDetails') as FormArray;
-      guarantorList.forEach(e => {
-        guarantorDetails.push(
-            this.formBuilder.group({
-              guarantorName : e.name,
-              guarantorCitizenshipIssuedDate : e.issuedYear,
-              citizenshipIssuedDistrict : e.issuedPlace,
-              guarantorAddress : e.district,
-              guarantorCitizenshipNo : e.citizenNumber
-            })
-        ); }
-      );
+      console.log('this is list', guarantorList);
+      // const guarantorDetails = this.personalGuaranteeJoint.get('guarantorDetails') as FormArray;
+      // guarantorList.forEach(e => {
+      //   guarantorDetails.push(
+      //       this.formBuilder.group({
+      //         guarantorName : e.name,
+      //         guarantorCitizenshipIssuedDate : e.issuedYear,
+      //         citizenshipIssuedDistrict : e.issuedPlace,
+      //         guarantorAddress : e.district,
+      //         guarantorCitizenshipNo : e.citizenNumber
+      //       })
+      //   ); }
+      // );
       this.guarantorDetail = guarantorList;
+      console.log('this is detail', this.guarantorDetail);
     }
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.personalGuaranteeJoint.patchValue(JSON.parse(singleCadFile.initialInformation));
-        }
-      });
-    }
+    // if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+    //   this.cadData.cadFileList.forEach(singleCadFile => {
+    //     if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+    //       this.personalGuaranteeJoint.patchValue(JSON.parse(singleCadFile.initialInformation));
+    //     }
+    //   });
+    // }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
       console.log(this.nepData);

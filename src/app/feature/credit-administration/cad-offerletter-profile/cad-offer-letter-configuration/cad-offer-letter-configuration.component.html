@@ -246,38 +246,35 @@
 
                 </nb-tab>
                 <nb-tab tabTitle="ग्यारेन्टर विवरण">
-
-                    <div *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
-                         class="form-group" formArrayName="guarantorDetails">
-                        <div [formGroupName]="i">
-                            <div *ngFor="let guarantor12 of guarantorList; let j=index;">
-                                <div *ngIf="i==j">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label class="title" for="name">
-                                                    Name: {{guarantor12?.name}} / &nbsp;
-                                                </label>
-                                                <label class="title">
-                                                    Citizenship Number: {{guarantor12?.citizenNumber}} / &nbsp;
-                                                </label>
-                                                <label class="title">
-                                                    Citizenship Issue Year: {{guarantor12?.issuedYear}} / &nbsp;
-                                                </label>
-                                                <label class="title">
-                                                    Citizenship Issue District: {{guarantor12?.issuedPlace}} / &nbsp;
-                                                </label>
-                                                <label class="title">
-                                                    Address: {{guarantor12?.permanentAddressLine1}} / &nbsp;
-                                                </label>
-                                                <label class="title">
-                                                    Relationship: {{guarantor12?.relationship}}
-                                                </label>
-                                            </div>
-                                        </div>
+                    <div *ngFor="let guarantor12 of guarantorList; let j=index;">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="name">
+                                            Name: {{guarantor12?.name}} / &nbsp;
+                                        </label>
+                                        <label class="title">
+                                            Citizenship Number: {{guarantor12?.citizenNumber}} / &nbsp;
+                                        </label>
+                                        <label class="title">
+                                            Citizenship Issue Year: {{guarantor12?.issuedYear}} / &nbsp;
+                                        </label>
+                                        <label class="title">
+                                            Citizenship Issue District: {{guarantor12?.issuedPlace}} / &nbsp;
+                                        </label>
+                                        <label class="title">
+                                            Address: {{guarantor12?.guarantorLegalDocumentAddress}} / &nbsp;
+                                        </label>
+                                        <label class="title">
+                                            Relationship: {{guarantor12?.relationship}}
+                                        </label>
                                     </div>
                                 </div>
                             </div>
+                    </div>
+                    <div *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
+                         class="form-group" formArrayName="guarantorDetails">
+                        <div [formGroupName]="i">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
