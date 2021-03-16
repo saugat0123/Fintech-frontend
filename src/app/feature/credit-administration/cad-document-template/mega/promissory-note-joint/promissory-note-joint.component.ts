@@ -10,6 +10,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../model/CadFile';
 import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {NepaliNumberAndWords} from '../../../model/nepaliNumberAndWords';
 
 @Component({
   selector: 'app-promissory-note-joint',
@@ -23,6 +24,7 @@ export class PromissoryNoteJointComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
+  @Input() nepaliAmount: NepaliNumberAndWords;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,

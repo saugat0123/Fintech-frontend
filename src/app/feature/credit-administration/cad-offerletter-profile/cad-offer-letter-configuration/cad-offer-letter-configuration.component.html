@@ -35,6 +35,31 @@
                                         type="text"/>
                             </div>
                         </div>
+
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="title" for="citizenshipNo">नगरिकता जारी  मिति</label>
+                                <input  class="form-control rounded nepaliFont"
+                                        formControlName="citizenshipIssueDate"
+                                        id="citizenshipIssueDate"
+                                        [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDate.errors}"
+                                        name="name" placeholder="नगरिकता मिति"
+                                        type="text"/>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="title" for="citizenshipNo">नगरिकता जारी  जिल्ला</label>
+                                <input  class="form-control rounded nepaliFont"
+                                        formControlName="citizenshipIssueDistrict"
+                                        id="citizenshipIssueDistrict"
+                                        [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDistrict.errors}"
+                                        name="name" placeholder="नगरिकता जिल्ला"
+                                        type="text"/>
+                            </div>
+                        </div>
+
                         <div class="col">
                             <div class="form-group">
                                 <label class="title" for="name">उमेर  </label>
