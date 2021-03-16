@@ -1,0 +1,18 @@
+<div class="row" >
+    <span class="mt-4 ml-3"><b>Group Detail</b></span>
+    <div class="col-md-12">
+        <span class="float-right"><strong>Group Code:</strong><em>{{mGroup?.groupCode || 'NA'}}</em></span>
+        <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th>Detail Information</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-left pl-1 "> <span  class="sb-medium" [innerHTML]="(mGroup?.detailInformation) || 'NA' "></span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

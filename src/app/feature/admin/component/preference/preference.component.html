@@ -45,12 +45,12 @@
                 <app-notification-master *ngIf="itemNotification.expanded"></app-notification-master>
             </nb-accordion-item-body>
         </nb-accordion-item>
-        <nb-accordion-item #customerGroup>
+        <nb-accordion-item #customerGroup *ngIf="sbsGroupEnabled || productUtils.CBS_ENABLE">
             <nb-accordion-item-header>
                 &#9890; &nbsp; Customer Group
             </nb-accordion-item-header>
             <nb-accordion-item-body>
-                <div *ngIf="!productUtils.CBS_ENABLE">
+                <div *ngIf="sbsGroupEnabled">
                 <app-group-config *ngIf="customerGroup.expanded"></app-group-config></div>
                 <div *ngIf="productUtils.CBS_ENABLE">
                     <app-cbs-group-executor></app-cbs-group-executor>
