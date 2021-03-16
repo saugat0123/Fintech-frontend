@@ -40,7 +40,6 @@ export class SecuritySummaryComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.formData, 'Data');
         if (!ObjectUtil.isEmpty(this.formData)) {
             (this.formData['selectedArray'] as Array<any>).forEach(selectedValue => {
                 switch (selectedValue) {
