@@ -306,7 +306,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="title" for="guarantorIssueDate">जारी मिति</label>
-                                        <input #guarantorIssueDate [nbDatepicker]="guarantorIssueDate"
+                                        <input
                                                class="form-control rounded nepaliFont"
                                                formControlName="guarantorIssueDate"
                                                id="guarantorIssueDate"
@@ -314,12 +314,6 @@
                                                [ngClass]="{'is-invalid': submitted}"
                                                name="name" placeholder="जारी मिति"
                                                type="text"/>
-                                        <app-calendar
-                                                [ePreDate]="userConfigForm.get(['guarantorDetails', i, 'issuedYear']).value"
-                                                *ngIf="calendarType === 'BS'"
-                                                (messageToEmit)="userConfigForm.get(['guarantorDetails', i, 'issuedYear']).patchValue($event?.eDate)">
-                                        </app-calendar>
-                                        <nb-datepicker #guarantorIssueDate></nb-datepicker>
                                     </div>
                                 </div>
                             </div>
