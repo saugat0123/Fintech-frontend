@@ -109,7 +109,7 @@ export class CreditChecklistGeneralComponent implements OnInit {
       formRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.formRemark)],
       kyc: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.kyc)],
       AMLRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.AMLRemark)],
-      operator: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.operator)],
+      operators: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.operators)],
       document: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.document)],
       nature: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.nature)],
       audited: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.audited)],
@@ -127,6 +127,25 @@ export class CreditChecklistGeneralComponent implements OnInit {
       CIC: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.CIC)],
       rating: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.rating)],
       transaction: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.transaction)],
+      transactionRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.transactionRemark)],
+      ratingRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.ratingRemark)],
+      CICRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.CICRemark)],
+      diligenceRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.diligenceRemark)],
+      PEPRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.PEPRemark)],
+      enhancedRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.enhancedRemark)],
+      riskRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.riskRemark)],
+      identifiedRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.identifiedRemark)],
+      paymentRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.paymentRemark)],
+      settledRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.settledRemark)],
+      loanRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.loanRemark)],
+      customerRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.customerRemark)],
+      businessRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.businessRemark)],
+      financialRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.financialRemark)],
+      natureRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.natureRemark)],
+      documentRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.documentRemark)],
+      operatorsRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.operatorsRemark)],
+      kycRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.kycRemark)],
+
     });
   }
 
@@ -169,7 +188,7 @@ export class CreditChecklistGeneralComponent implements OnInit {
     this.formGroupCheckList.get('information').patchValue('Yes');
     this.formGroupCheckList.get('form').patchValue('Yes');
     this.formGroupCheckList.get('kyc').patchValue('Yes');
-    this.formGroupCheckList.get('operator').patchValue('Yes');
+    this.formGroupCheckList.get('operators').patchValue('Yes');
     this.formGroupCheckList.get('document').patchValue('Yes');
     this.formGroupCheckList.get('nature').patchValue('Yes');
     this.formGroupCheckList.get('audited').patchValue('Yes');
@@ -184,7 +203,7 @@ export class CreditChecklistGeneralComponent implements OnInit {
     this.formGroupCheckList.get('risk').patchValue('Yes');
     this.formGroupCheckList.get('enhanced').patchValue('Yes');
     this.formGroupCheckList.get('PEP').patchValue('Yes');
-    this.formGroupCheckList.get('diligence').patchValue('Yes')
+    this.formGroupCheckList.get('diligence').patchValue('Yes');
     this.formGroupCheckList.get('CIC').patchValue('Yes');
     this.formGroupCheckList.get('rating').patchValue('Yes');
     this.formGroupCheckList.get('transaction').patchValue('Yes');

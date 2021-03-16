@@ -691,9 +691,9 @@
                                         </ng-container>
                                         <td *ngIf="!fromProfile">{{dataForEdit?.kyc}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="promoterRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="kycRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.promoterRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.kycRemark}}</td>
                                       </tr>
                   <tr>
                                         <td></td>
@@ -701,13 +701,13 @@
                                           c) Duly filled KYC form of account operator and Directors (in case of corporate account)</td>
                                         <ng-container *ngIf="fromProfile">
                                           <td *ngFor="let option of optionListRegulatory"><input
-                                                  [value]="option" formControlName="operator" type="radio"></td>
+                                                  [value]="option" formControlName="operators" type="radio"></td>
                                         </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.operator}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.operators}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="operatorsRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.operatorsRemark}}</td>
                                       </tr>
                                       <tr>
                                         <td></td>
@@ -719,9 +719,9 @@
                                         </ng-container>
                                         <td *ngIf="!fromProfile">{{dataForEdit?.document}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="documentRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.documentRemark}}</td>
                                       </tr>
                                       <tr>
                                         <td></td>
@@ -733,9 +733,9 @@
                                         </ng-container>
                                         <td *ngIf="!fromProfile">{{dataForEdit?.nature}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="natureRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.natureRemark}}</td>
                                       </tr>
                   <tr>
                     <td>2.</td>
@@ -762,9 +762,9 @@
                                         </ng-container>
                                         <td *ngIf="!fromProfile">{{dataForEdit?.financial}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="financialRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.financialRemark}}</td>
                                       </tr>
                                       <tr>
                                         <td></td>
@@ -777,9 +777,9 @@
                                         </ng-container>
                                         <td *ngIf="!fromProfile">{{dataForEdit?.business}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="businessRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.businessRemark}}</td>
                                       </tr>
 
 
@@ -795,9 +795,9 @@
                                         </ng-container>
                                         <td *ngIf="!fromProfile">{{dataForEdit?.customer}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="customerRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.customerRemark}}</td>
 
                                       </tr>
                   <tr>
@@ -811,9 +811,9 @@
                                         </ng-container>
                                         <td *ngIf="!fromProfile">{{dataForEdit?.loan}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="loanRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.loanRemark}}</td>
 
                                       </tr>
                                       <tr>
@@ -825,9 +825,9 @@
                                       </ng-container>
                                       <td *ngIf="!fromProfile">{{dataForEdit?.settled}}</td>
 
-                                      <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
+                                      <td *ngIf="fromProfile"><input class="form-control" formControlName="settledRemark"
                                                                      placeholder="Remarks"></td>
-                                      <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
+                                      <td *ngIf="!fromProfile">{{dataForEdit?.settledRemark}}</td>
                                       </tr>
 
                                       <tr>
@@ -840,9 +840,9 @@
                                         </ng-container>
                                         <td *ngIf="!fromProfile">{{dataForEdit?.payment}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="paymentRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.paymentRemark}}</td>
                                       </tr>
                                       <tr>
                                         <td></td>
@@ -853,9 +853,9 @@
                                         </ng-container>
                                         <td *ngIf="!fromProfile">{{dataForEdit?.identified}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="identifiedRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.identifiedRemark}}</td>
                                       </tr>
                   <tr>
                   <tr>
@@ -869,9 +869,9 @@
                                         </ng-container>
                                         <td *ngIf="!fromProfile">{{dataForEdit?.risk}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="riskRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.riskRemark}}</td>
 
                                       </tr>
                                       <tr>
@@ -883,9 +883,9 @@
                                         </ng-container>
                                         <td *ngIf="!fromProfile">{{dataForEdit?.enhanced}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="enhancedRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.enhancedRemark}}</td>
                                       </tr>
                                       <tr>
                                         <td>6.</td>
@@ -898,9 +898,9 @@
                                         </ng-container>
                                         <td *ngIf="!fromProfile">{{dataForEdit?.PEP}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="PEPRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.PEPRemark}}</td>
 
                                       </tr>
                                       <tr>
@@ -912,9 +912,9 @@
                                         </ng-container>
                                         <td *ngIf="!fromProfile">{{dataForEdit?.diligence}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="diligenceRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.diligenceRemark}}</td>
                                       </tr>
                                       <tr>
                                         <td>7.</td>
@@ -927,9 +927,9 @@
                                         </ng-container>
                                         <td *ngIf="!fromProfile">{{dataForEdit?.CIC}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="CICRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.CICRemark}}</td>
 
                                       </tr>
                                       <tr>
@@ -943,9 +943,9 @@
                                         </ng-container>
                                         <td *ngIf="!fromProfile">{{dataForEdit?.rating}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="ratingRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.ratingRemark}}</td>
 
                                       </tr>
                                       <tr>
@@ -959,9 +959,9 @@
                                         </ng-container>
                                         <td *ngIf="!fromProfile">{{dataForEdit?.transaction}}</td>
 
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="transactionRemark"
                                                                        placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.transactionRemark}}</td>
 
                                       </tr>
                   </tbody>
