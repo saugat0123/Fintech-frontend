@@ -322,7 +322,7 @@
                                     <td>{{j+1}}</td>
                                     <td class="text-left pl-1">{{d?.ownerRelationship ? d?.ownerRelationship : 'N/A' }}</td>
                                     <td class="text-left pl-1">{{d?.relationName ? d?.relationName : 'N/A' }}</td>
-                                    <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{d?.age ? d?.age : 'N/A' }}</td>
+                                    <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{d?.age || 'N/A' }}</td>
                                     <td class="text-right pr-1">{{d?.citizenshipNumber ? d?.citizenshipNumber : 'N/A' }}</td>
                                     <td class="text-left pl-1">{{d?.issuedLocation ? d?.issuedLocation : 'N/A' }}</td>
                                     <td class="text-left pl-1">{{d?.issuedDate ? (d?.issuedDate | date) : 'N/A'}}</td>
