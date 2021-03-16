@@ -25,6 +25,7 @@ import {Clients} from '../../../environments/Clients';
     styleUrls: ['./loan-information-detail-view.component.scss']
 })
 export class LoanInformationDetailViewComponent implements OnInit {
+    megaGroupEnabled = environment.MEGA_GROUP;
     allId;
     customerId;
     loanConfigId;

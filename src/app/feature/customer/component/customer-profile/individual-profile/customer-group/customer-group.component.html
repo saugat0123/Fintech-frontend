@@ -1,0 +1,31 @@
+<div class="row" [formGroup]="form" [nbSpinner]="spinner">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="groupCode">GroupCode</label>
+            <input class="form-control"
+                   [ngClass]="{'is-invalid': submitted && formControls.groupCode.errors}"
+                   placeholder="Group Code" id="groupCode" formControlName="groupCode">
+            <div *ngIf="submitted && formControls.groupCode?.errors "
+                 class="invalid-feedback">
+                <div *ngIf="formControls.groupCode?.errors">
+                    GroupCode is required
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="groupCode">Detail Information</label>
+            <ckeditor id="detailInformation" formControlName="detailInformation"
+                      [config]="ckeConfig"></ckeditor>
+            <span *ngIf="submitted && formControls.detailInformation?.errors ">
+                    Detail Information is required
+            </span>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <button nbButton (click)="onSubmit()" class="float-right">Submit</button>
+    </div>
+</div>

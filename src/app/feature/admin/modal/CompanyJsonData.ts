@@ -22,4 +22,5 @@ export class CompanyJsonData {
   swot: Swot;
   proprietorList: Array<Proprietors> = new Array<Proprietors>();
   microCustomerDetail: string;
+  totalSharePercent: string;
 }

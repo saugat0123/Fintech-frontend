@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, OnInit} from '@angular/core';
+import {AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
 import {CompanyInfo} from '../../../../admin/modal/company-info';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {CompanyInfoService} from '../../../../admin/service/company-info.service';
@@ -10,7 +10,7 @@ import {CustomerType} from '../../../model/customerType';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
-import {NbDialogService} from '@nebular/theme';
+import {NbAccordionItemComponent, NbDialogService} from '@nebular/theme';
 import {CompanyDetailEditComponent} from './company-profile-detail-edit/company-detail-edit.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BusinessType} from '../../../../admin/modal/businessType';
@@ -24,6 +24,8 @@ import {FormUtils} from '../../../../../@core/utils/form.utils';
 import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {ProductUtilService} from '../../../../../@core/service/product-util.service';
 import {CompanyJsonData} from '../../../../admin/modal/CompanyJsonData';
+import {MGroup} from '../../../model/mGroup';
+import {environment} from '../../../../../../environments/environment';
 
 @Component({
     selector: 'app-company-profile',
@@ -31,6 +33,9 @@ import {CompanyJsonData} from '../../../../admin/modal/CompanyJsonData';
     styleUrls: ['./company-profile.component.scss']
 })
 export class CompanyProfileComponent implements OnInit, AfterContentInit {
+    @ViewChild('mGroupAccordion', {static: false})
+    public mGroupAccordion: NbAccordionItemComponent
+
     companyInfo: CompanyInfo = new CompanyInfo();
     customerInfo: CustomerInfoData;
     customerInfoId;
@@ -62,6 +67,8 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     companyLocationData;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     companyJsonData: CompanyJsonData = new CompanyJsonData();
+    sbsGroupEnabled = environment.SBS_GROUP;
+    megaGroupEnabled = environment.MEGA_GROUP;
 
     constructor(private companyInfoService: CompanyInfoService,
                 private customerInfoService: CustomerInfoService,
@@ -306,5 +313,10 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
             this.spinner = false;
         });
+    }
+
+    setMGroupData(mGroup: MGroup) {
+        this.customerInfo.mgroupInfo = mGroup;
+        this.mGroupAccordion.close();
     }
 }
