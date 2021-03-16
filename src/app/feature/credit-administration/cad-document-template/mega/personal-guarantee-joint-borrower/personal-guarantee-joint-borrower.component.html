@@ -22,7 +22,7 @@
                     जिल्ला <strong>{{guarantor?.issuedPlace}}</strong> )
                     <strong>{{guarantor?.municipalities.name}}</strong> गाउँपालिका/नगरपालिका वडा नं.
                     <strong class="">{{guarantor?.wardNumber}}</strong> घर भई हाल प्रदेश नं.
-                    <strong class="">{{guarantor?.provinceTemporary.name}}</strong>&nbsp;
+                    <strong class="">{{guarantor?.provinceTemporary.name}}</strong>,
                     <strong class="">{{guarantor?.districtTemporary.name}}</strong> जिल्ला
                     <strong class="">{{guarantor?.municipalitiesTemporary.name}}</strong>
                     {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}} वडा नं.
@@ -36,8 +36,7 @@
                        type="text"
                        size="3"/>,&nbsp;
             </span>
-                </p>
-                <div>
+                <span>
 <!--                    को नाति/नातिनी/बुहारी-->
 <!--                    <input class="form-field form-control-sm nepaliFont disable-print"-->
 <!--                           name="guarrantorFatherName1"-->
@@ -128,8 +127,7 @@
 <!--                           formControlName="guarantorGrandFather2"-->
 <!--                           placeholder=""-->
 <!--                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarantorGrandFather2').value ? personalGuaranteeJoint.get('guarantorGrandFather2').value  : '========='}}</b></span>-->
-                </div>
-                <p>
+                </span>
                 को नाति/नातिनी/बुहारी
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="guarrantorFatherName2"
