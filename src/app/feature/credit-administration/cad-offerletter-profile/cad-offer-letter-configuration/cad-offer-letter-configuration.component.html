@@ -246,54 +246,57 @@
 
                 </nb-tab>
                 <nb-tab tabTitle="ग्यारेन्टर विवरण">
-                    <div *ngFor="let guarantor12 of guarantorList; let j=index;">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="name">
-                                            Name: {{guarantor12?.name}} / &nbsp;
-                                        </label>
-                                        <label class="title">
-                                            Citizenship Number: {{guarantor12?.citizenNumber}} / &nbsp;
-                                        </label>
-                                        <label class="title">
-                                            Citizenship Issue Year: {{guarantor12?.issuedYear}} / &nbsp;
-                                        </label>
-                                        <label class="title">
-                                            Citizenship Issue District: {{guarantor12?.issuedPlace}} / &nbsp;
-                                        </label>
-                                        <label class="title">
-                                            Address: {{guarantor12?.guarantorLegalDocumentAddress}} / &nbsp;
-                                        </label>
-                                        <label class="title">
-                                            Relationship: {{guarantor12?.relationship}}
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
+
                     <div *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
                          class="form-group" formArrayName="guarantorDetails">
                         <div [formGroupName]="i">
+                            <div *ngFor="let guarantor1 of guarantorList; let j=index;">
+                                <div *ngIf="i == j">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="name">
+                                                Name: {{guarantor1?.name}} / &nbsp;
+                                            </label>
+                                            <label class="title">
+                                                Citizenship Number: {{guarantor1?.citizenNumber}} / &nbsp;
+                                            </label>
+                                            <label class="title">
+                                                Citizenship Issue Year: {{guarantor1?.issuedYear}} / &nbsp;
+                                            </label>
+                                            <label class="title">
+                                                Citizenship Issue District: {{guarantor1?.issuedPlace}} / &nbsp;
+                                            </label>
+                                            <label class="title">
+                                                Address: {{guarantor1?.guarantorLegalDocumentAddress}} / &nbsp;
+                                            </label>
+                                            <label class="title">
+                                                Relationship: {{guarantor1?.relationship}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="name">ग्यारेन्टरको नाम</label>
+                                        <label class="title">ग्यारेन्टरको नाम</label>
                                         <input class="form-control rounded nepaliFont"
                                                formControlName="guarantorName"
                                                id="guarantorName"
-                                               [ngClass]="{ 'is-invalid': (submitted ) && guarantor.get('guarantorName').errors }"
+                                               [ngClass]="{ 'is-invalid': (submitted )}"
                                                name="name" placeholder="ग्यारेन्टरको नाम"
                                                type="text"/>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="title" for="guarantorCitizenshipNum">नगरिकता नम्बर</label>
+                                        <label class="title">नगरिकता नम्बर</label>
                                         <input  class="form-control rounded nepaliFont"
                                                 formControlName="guarantorCitizenshipNum"
                                                 id="guarantorCitizenshipNum"
-                                                [ngClass]="{'is-invalid': submitted && configForm.citizenshipNo.errors}"
+                                                [ngClass]="{'is-invalid': submitted}"
                                                 name="name" placeholder="नगरिकता नम्बर"
                                                 type="text"/>
                                     </div>
@@ -305,7 +308,7 @@
                                                class="form-control rounded nepaliFont"
                                                formControlName="guarantorIssueDate"
                                                id="guarantorIssueDate"
-                                               [ngClass]="{'is-invalid': submitted && configForm.guarantorIssueDate.errors}"
+                                               [ngClass]="{'is-invalid': submitted}"
                                                name="name" placeholder="जारी मिति"
                                                type="text"/>
                                         <app-calendar
@@ -324,7 +327,7 @@
                                         <input  class="form-control rounded nepaliFont"
                                                 formControlName="guarantorIssueDistrict"
                                                 id="guarantorIssueDistrict"
-                                                [ngClass]="{'is-invalid': submitted && configForm.guarantorIssueDistrict.errors}"
+                                                [ngClass]="{'is-invalid': submitted}"
                                                 name="name" placeholder="जारी जिल्ला"
                                                 type="text"/>
                                     </div>
@@ -335,7 +338,7 @@
                                         <input  class="form-control rounded nepaliFont"
                                                 formControlName="guarantorAddress"
                                                 id="guarantorAddress"
-                                                [ngClass]="{'is-invalid': submitted && configForm.guarantorAddress.errors}"
+                                                [ngClass]="{'is-invalid': submitted}"
                                                 name="name" placeholder="ठेगाना"
                                                 type="text"/>
 
@@ -345,8 +348,7 @@
                                     <div class="form-group">
                                         <label class="relationMedium" for="guarantorRelationship">सम्बन्धको माध्यम</label>
                                         <select class="form-control" formControlName="guarantorRelationship" id="guarantorRelationship"
-                                                [ngClass]="{'is-invalid': submitted && configForm.relationMedium.errors}">
-                                            <!--                                        <option formControlName=""></option>-->
+                                                [ngClass]="{'is-invalid': submitted}">
                                             <option *ngFor="let relationship of relationshipList">{{relationship?.value}}</option>
                                         </select>
                                     </div>

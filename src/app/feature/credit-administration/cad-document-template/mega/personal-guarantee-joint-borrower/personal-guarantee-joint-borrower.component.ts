@@ -11,6 +11,7 @@ import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {Guarantor} from '../../../../loan/model/guarantor';
+import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
 
 @Component({
   selector: 'app-personal-guarantee-joint-borrower',
@@ -20,12 +21,13 @@ import {Guarantor} from '../../../../loan/model/guarantor';
 export class PersonalGuaranteeJointBorrowerComponent implements OnInit {
 
   personalGuaranteeJoint: FormGroup;
+  @Input() customerInfo: CustomerInfoData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
   guarantorDetail: Array<Guarantor>;
   nepData;
-  guarantor1;
+  guarantorData;
   submitted = false;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -37,32 +39,18 @@ export class PersonalGuaranteeJointBorrowerComponent implements OnInit {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.guarantors.guarantorList)) {
       const guarantorList = this.cadData.loanHolder.guarantors.guarantorList;
-      console.log('this is list', guarantorList);
-      // const guarantorDetails = this.personalGuaranteeJoint.get('guarantorDetails') as FormArray;
-      // guarantorList.forEach(e => {
-      //   guarantorDetails.push(
-      //       this.formBuilder.group({
-      //         guarantorName : e.name,
-      //         guarantorCitizenshipIssuedDate : e.issuedYear,
-      //         citizenshipIssuedDistrict : e.issuedPlace,
-      //         guarantorAddress : e.district,
-      //         guarantorCitizenshipNo : e.citizenNumber
-      //       })
-      //   ); }
-      // );
       this.guarantorDetail = guarantorList;
-      console.log('this is detail', this.guarantorDetail);
     }
-    // if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-    //   this.cadData.cadFileList.forEach(singleCadFile => {
-    //     if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-    //       this.personalGuaranteeJoint.patchValue(JSON.parse(singleCadFile.initialInformation));
-    //     }
-    //   });
-    // }
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      this.cadData.cadFileList.forEach(singleCadFile => {
+        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+          this.personalGuaranteeJoint.patchValue(JSON.parse(singleCadFile.initialInformation));
+        }
+      });
+    }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
-      console.log(this.nepData);
+      this.guarantorData = Object.values(this.nepData.guarantorDetails);
     }
   }
 
@@ -146,8 +134,7 @@ export class PersonalGuaranteeJointBorrowerComponent implements OnInit {
       witnessMunicipalityOrVdc2: [undefined],
       witnessWardNo2: [undefined],
       witnessAge2: [undefined],
-      witnessName2: [undefined],
-      guarantorDetails: this.formBuilder.array([])
+      witnessName2: [undefined]
     });
   }
 
@@ -188,7 +175,6 @@ export class PersonalGuaranteeJointBorrowerComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.dialogRef.close();
     });
-    console.log(this.personalGuaranteeJoint.value);
   }
 
 }
