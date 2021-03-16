@@ -623,7 +623,8 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                <label *ngIf="client === clientName.MEGA" >AML / CFT Checklist</label>
+                <div *ngIf="client === clientName.MEGA">
+                <label  >AML / CFT Checklist</label>
                 <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                     <thead>
                     <tr  *ngIf="fromProfile">
@@ -963,7 +964,7 @@
                     </tbody>
                 </table>
 
-
+                </div>
 
             </form>
         </div>
