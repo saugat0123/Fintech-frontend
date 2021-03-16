@@ -56,19 +56,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
             const guarantorList = this.customerInfo.guarantors.guarantorList;
-            // const guarantorDetails = this.userConfigForm.get('guarantorDetails') as FormArray;
             guarantorList.forEach(e => {
                     this.addGuarantor();
-                    //         guarantorDetails.push(
-            //             this.formBuilder.group({
-            //                 guarantorName: e.name,
-            //                 guarantorIssueDate: e.issuedYear,
-            //                 guarantorIssueDistrict: e.issuedPlace,
-            //                 guarantorAddress: e.district,
-            //                 guarantorRelationship: e.relationship,
-            //                 guarantorCitizenshipNum: e.citizenNumber
-            //             })
-            //         );
                 }
             );
             this.guarantorList = guarantorList;
