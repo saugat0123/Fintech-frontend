@@ -26,6 +26,7 @@ export class CustomerLoanApplyComponent implements OnInit {
   @Input() paramProp;
   @Input() associateId;
   @Input() customerInfo: CustomerInfoData;
+  @Input() isMicroCustomer: boolean;
   @Input() singleOrCombine;
   spinner = false;
   applyForm = {
@@ -47,7 +48,6 @@ export class CustomerLoanApplyComponent implements OnInit {
   loanTag = LoanTag;
   microLoanList = [];
   nonMicroLoanList = [];
-  isMicroCustomer: boolean;
 
   constructor(
       public activeModal: NgbActiveModal,
@@ -61,17 +61,19 @@ export class CustomerLoanApplyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isMicroCustomer = this.customerInfo.isMicroCustomer;
     this.sliceLoan();
     this.selectedLoanType = this.multipleSelectedLoanType[0]['key'];
     this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
       this.loanList = response.detail;
-      this.microLoanList = this.loanList.filter((f) => {
-        return f.loanTag === 'MICRO_LOAN';
-      });
-      this.nonMicroLoanList = this.loanList.filter((f) => {
-        return f.loanTag !== 'MICRO_LOAN';
-      });
+      // this.microLoanList = this.loanList.filter((f) => {
+      //   return f.loanTag === 'MICRO_LOAN';
+      // });
+      // this.nonMicroLoanList = this.loanList.filter((f) => {
+      //   return f.loanTag !== 'MICRO_LOAN';
+      // });
+      if (this.isMicroCustomer) {
+        this.loanList = this.loanList.filter(value => value.loanTag === 'MICRO_LOAN');
+      }
     });
     this.customerLoanService.getInitialLoansByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
       this.customerGroupLoanList = res.detail;

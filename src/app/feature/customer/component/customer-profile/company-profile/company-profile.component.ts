@@ -179,6 +179,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         modalRef.componentInstance.paramProp = this.paramProp;
         modalRef.componentInstance.associateId = this.paramProp.companyInfoId;
         modalRef.componentInstance.customerInfo = this.customerInfo;
+        modalRef.componentInstance.isMicroCustomer = this.companyInfo.isMicroCustomer;
         modalRef.componentInstance.singleOrCombine = 'Single';
 
     }
@@ -189,6 +190,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         modalRef.componentInstance.paramProp = this.paramProp;
         modalRef.componentInstance.associateId = this.paramProp.companyInfoId;
         modalRef.componentInstance.customerInfo = this.customerInfo;
+        modalRef.componentInstance.isMicroCustomer = this.companyInfo.isMicroCustomer;
         modalRef.componentInstance.singleOrCombine = 'Combine';
 
     }
