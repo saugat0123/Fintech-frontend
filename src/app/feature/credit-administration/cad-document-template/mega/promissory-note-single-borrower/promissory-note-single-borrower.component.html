@@ -12,8 +12,8 @@
                 मिति: <input class="form-field form-control-sm nepaliFont" name="date" formControlName="date" placeholder=""type="text"/></p>
         </div> <!-- Header -->
         <div class="col-md-12">
-            <p>रु<input class="form-field form-control-sm nepaliFont" formControlName="amount" name="amount" placeholder="" type="text"/>
-                (अक्षरेपी <input class="form-field form-control-sm nepaliFont"name="amountInWord"  formControlName="amountInWord" placeholder=""  type="text"/> )<br>
+            <p>रु .<strong>{{nepaliAmount?.numberNepali}}</strong> <input class="form-field form-control-sm nepaliFont" formControlName="amount" name="amount" placeholder="" type="text" *ngIf="!nepaliAmount"/>
+                (अक्षरेपी {{nepaliAmount?.nepaliWords}}<input *ngIf="!nepaliAmount" class="form-field form-control-sm nepaliFont"name="amountInWord"  formControlName="amountInWord" placeholder=""  type="text"/> )<br>
                 <br>
 
                 लिखितम् श्री <span *ngIf="nepData?.gender==1">
