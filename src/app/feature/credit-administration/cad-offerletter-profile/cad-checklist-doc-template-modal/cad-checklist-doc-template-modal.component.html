@@ -20,7 +20,7 @@
       <app-loan-deed-single *ngSwitchCase="cadTemplate.LOAN_DEED_SINGLE"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-loan-deed-single>
       <app-loan-deed-multiple *ngSwitchCase="cadTemplate.LOAN_DEED_MULTIPLE"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-loan-deed-multiple>
       <app-promissory-note-company *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_COMPANY"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-promissory-note-company>
-      <app-promissory-note-joint *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_JOINT"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-promissory-note-joint>
+      <app-promissory-note-joint *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_JOINT"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId" [nepaliAmount]="nepaliNumber"></app-promissory-note-joint>
 
       <p *ngSwitchDefault>No Template is available for this Document!!! </p>
 

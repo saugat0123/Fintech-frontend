@@ -87,7 +87,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             permanentWard: [undefined],
             temporaryWard: [undefined],
             temporaryMunType: [1],
-            guarantorDetails: this.formBuilder.array([])
+            guarantorDetails: this.formBuilder.array([]),
+            citizenshipIssueDistrict: [undefined],
+            citizenshipIssueDate: [undefined],
         });
     }
 
@@ -164,12 +166,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     addGuarantorField() {
         return this.formBuilder.group({
-            guarantorName : '',
-            guarantorIssueDate : '',
-            guarantorIssueDistrict : '',
-            guarantorAddress : '',
-            guarantorRelationship : '',
-            guarantorCitizenshipNum : ''
+            guarantorName: '',
+            guarantorIssueDate: '',
+            guarantorIssueDistrict: '',
+            guarantorAddress: '',
+            guarantorRelationship: '',
+            guarantorCitizenshipNum: ''
         });
     }
 
