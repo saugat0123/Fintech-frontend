@@ -74,7 +74,8 @@ import {QuillModule} from 'ngx-quill';
 import {AngularDraggableModule} from 'angular2-draggable';
 import {LoanInformationDetailViewModule} from '../loan-information-detail-view/loan-information-detail-view.module';
 import {AssignedOfferLetterComponent} from './loan-offer-letter/assigned-offer-letter/assigned-offer-letter.component';
-import {PostApprovalFormComponent} from './loan-offer-letter/post-approval-form/post-approval-form.component';
+import { PostApprovalFormComponent } from './loan-offer-letter/post-approval-form/post-approval-form.component';
+import { RoleHierarchyModelComponent } from './loan-action/role-hierarchy-model/role-hierarchy-model.component';
 import {TransferDocComponent} from './transfer-doc/transfer-doc.component';
 import {MicroLoanSummaryComponent} from './component/micro-loan-summary/micro-loan-summary.component';
 import {MicroSynopsisCreditworthinessComponent} from './component/micro-loan-summary/micro-synopsis-creditworthiness/micro-synopsis-creditworthiness.component';
@@ -139,6 +140,7 @@ const COMPONENTS = [
     LoanActionCombinedModalComponent,
     GuarantorAdderComponent,
     GuarantorDetailComponent,
+    RoleHierarchyModelComponent,
     MicroLoanSummaryComponent,
     MicroSynopsisCreditworthinessComponent,
     MicroIndividualComponent,
@@ -157,7 +159,8 @@ const ENTRY_COMPONENTS = [
     LoanActionModalComponent,
     LoanActionVerificationComponent,
     LoanActionCombinedModalComponent,
-    GuarantorDetailComponent
+    GuarantorDetailComponent,
+    RoleHierarchyModelComponent
 ];
 
 const modules = {

@@ -4,7 +4,9 @@
       <h3 class="modal-title w-100">Comments</h3>
     </div>
     <div class="modal-body">
-      <div class="text-justify">{{comments}}</div>
+      <div class="text-justify">
+        <span [innerHTML]="comments | safeHtml"></span>
+      </div>
     </div>
   </div>
 </div>
