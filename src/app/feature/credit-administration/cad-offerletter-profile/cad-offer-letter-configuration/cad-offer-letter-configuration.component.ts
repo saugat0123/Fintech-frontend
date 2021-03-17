@@ -53,12 +53,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
-            const guarantorList = this.customerInfo.guarantors.guarantorList;
-            guarantorList.forEach(e => {
-                    this.addGuarantor();
-                }
-            );
-            this.guarantorList = guarantorList;
+            if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
+                const guarantorList = this.customerInfo.guarantors.guarantorList;
+                guarantorList.forEach(e => {
+                        this.addGuarantor();
+                    }
+                );
+                this.guarantorList = guarantorList;
+            }
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
@@ -75,17 +77,23 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             relationMedium: [undefined],
             husbandName: [undefined],
             fatherInLawName: [undefined],
-            citizenshipNo: [this.engToNepNumber.transform(this.customerInfo.idNumber)],
+            citizenshipNo: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customerInfo.idNumber) : undefined],
             age: [this.checkIsIndividual() ? this.ageCalculation(this.customer.dob) : undefined],
-            permanentProvince: [undefined],
-            permanentDistrict: [undefined],
-            permanentMunicipality: [undefined],
+            // tslint:disable-next-line:max-line-length
+            permanentProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.province.nepaliName) ? undefined : this.customer.province.nepaliName : undefined],
+            // tslint:disable-next-line:max-line-length
+            permanentDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.district.nepaliName) ? undefined : this.customer.district.nepaliName : undefined],
+            // tslint:disable-next-line:max-line-length
+            permanentMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.municipalities.nepaliName) ? undefined : this.customer.municipalities.nepaliName : undefined],
             permanentMunType: [0],
-            temporaryProvince: [undefined],
-            temporaryDistrict: [undefined],
-            temporaryMunicipality: [undefined],
-            permanentWard: [undefined],
-            temporaryWard: [undefined],
+            // tslint:disable-next-line:max-line-length
+            temporaryProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryProvince.nepaliName) ? undefined : this.customer.temporaryProvince.nepaliName : undefined],
+            // tslint:disable-next-line:max-line-length
+            temporaryDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryDistrict.nepaliName) ? undefined : this.customer.temporaryDistrict.nepaliName : undefined],
+            // tslint:disable-next-line:max-line-length
+            temporaryMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryMunicipalities.nepaliName) ? undefined : this.customer.temporaryMunicipalities.nepaliName : undefined],
+            permanentWard: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customer.wardNumber) : undefined],
+            temporaryWard: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customer.temporaryWardNumber) : undefined],
             temporaryMunType: [1],
             guarantorDetails: this.formBuilder.array([]),
             citizenshipIssueDistrict: [undefined],
