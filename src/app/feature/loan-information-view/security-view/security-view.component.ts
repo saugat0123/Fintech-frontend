@@ -43,7 +43,6 @@ export class SecurityViewComponent implements OnInit {
 
   ngOnInit() {
     this.securityData = JSON.parse(this.security.data);
-    console.log(this.securityData.data , this.securityData);
 
     (this.securityData['selectedArray'] as Array<any>).forEach(selectedValue => {
       switch (selectedValue) {

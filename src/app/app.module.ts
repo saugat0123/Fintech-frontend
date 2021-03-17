@@ -24,6 +24,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {EngToNepaliNumberPipe} from './@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from './@core/pipe/currency-formatter.pipe';
+import {NepaliCurrencyWordPipe} from './@core/pipe/nepali-currency-word.pipe';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {CurrencyFormatterPipe} from './@core/pipe/currency-formatter.pipe';
         ForgotPasswordComponent,
         ResentForgotPasswordComponent,
         LoginBaseComponent,
-        NewPasswordComponent
+        NewPasswordComponent,
+        NepaliCurrencyWordPipe
     ],
     imports: [
         BrowserModule,
@@ -61,7 +63,7 @@ import {CurrencyFormatterPipe} from './@core/pipe/currency-formatter.pipe';
         provide: LocationStrategy,
         useClass: HashLocationStrategy,
     }, {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
-        DatePipe, EngToNepaliNumberPipe, CurrencyFormatterPipe],
+        DatePipe, EngToNepaliNumberPipe, CurrencyFormatterPipe, NepaliCurrencyWordPipe],
     bootstrap: [AppComponent],
     exports: [],
     entryComponents: []

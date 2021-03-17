@@ -70,9 +70,9 @@
         <th *ngIf="landDetails.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 6 months plus 35 days? </th>
         <th  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION'">Has transfer date elapsed by 3 month?</th>
         <th  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Has transfer date elapsed by 2 year plus 35 days? </th>
-        <th  *ngIf="landDetails.ownershipTransferThrough == 'SALE'">Registration amount in transfer</th>
-        <th  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION'">Registration amount in transfer</th>
-        <th  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Registration amount in transfer</th>
+        <th  *ngIf="landDetails.ownershipTransferThrough == 'SALE' && landDetails['saleOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
+        <th  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION' && landDetails['familyTransferOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
+        <th  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landDetails['giftOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
         <th *ngIf="landDetails?.ownershipTransferThrough == 'OTHER'">Other</th>
 
 
@@ -87,9 +87,9 @@
         <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{landDetails?.saleOwnershipTransfer}}</td>
         <td  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-left pl-1">{{landDetails?.familyTransferOwnershipTransfer}}</td>
         <td  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-left pl-1">{{landDetails?.giftOwnershipTransfer}}</td>
-        <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE'" class="text-right pr-1">Rs. {{landDetails?.saleRegistrationAmount | currencyFormatter}}</td>
-        <td  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-right pr-1">Rs. {{landDetails?.familyRegistrationAmount}}</td>
-        <td  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-right pr-1">Rs. {{landDetails?.giftRegistrationAmount}}</td>
+        <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE' && landDetails['saleOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landDetails?.saleRegistrationAmount | currencyFormatter}}</td>
+        <td  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION' && landDetails['familyTransferOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landDetails?.familyRegistrationAmount}}</td>
+        <td  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landDetails['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landDetails?.giftRegistrationAmount}}</td>
         <th *ngIf="landDetails?.ownershipTransferThrough == 'OTHER'" class="text-right pr-1">Rs. {{landDetails?.otherOwnershipTransferValue}}</th>
 
 
@@ -242,9 +242,9 @@
           <th *ngIf="landBuilding.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 6 months plus 35 days? </th>
           <th  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION'">Has transfer date elapsed by 3 month?</th>
           <th  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Has transfer date elapsed by 2 year plus 35 days? </th>
-          <th  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'">Registration amount in transfer</th>
-          <th  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION'">Registration amount in transfer</th>
-          <th  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Registration amount in transfer</th>
+          <th  *ngIf="landBuilding.ownershipTransferThrough == 'SALE' && landBuilding['saleOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
+          <th  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION' && landBuilding['familyTransferOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
+          <th  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landBuilding['giftOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
           <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'">Other</th>
         </tr>
         <tr>
@@ -255,9 +255,9 @@
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{landBuilding?.saleOwnershipTransfer}}</td>
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-left pl-1">{{landBuilding?.familyTransferOwnershipTransfer}}</td>
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-left pl-1">{{landBuilding?.giftOwnershipTransfer}}</td>
-          <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'" class="text-right pr-1">Rs. {{landBuilding?.saleRegistrationAmount}}</td>
-          <td  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-right pr-1">Rs. {{landBuilding?.familyRegistrationAmount}}</td>
-          <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-right pr-1">Rs. {{landBuilding?.giftRegistrationAmount}}</td>
+          <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE' && landBuilding['saleOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landBuilding?.saleRegistrationAmount}}</td>
+          <td  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION' && landBuilding['familyTransferOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landBuilding?.familyRegistrationAmount}}</td>
+          <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landBuilding['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landBuilding?.giftRegistrationAmount}}</td>
           <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'" class="text-right pr-1">Rs. {{landBuilding?.otherOwnershipTransferValue}}</th>
 
         </tr>

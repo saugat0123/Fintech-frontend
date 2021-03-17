@@ -3,6 +3,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NepseMaster} from '../../../../admin/modal/NepseMaster';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
+import {OwnershipTransfer} from '../../../model/ownershipTransfer';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class SecuritySummaryComponent implements OnInit {
     insurancePolicySelected = false;
     client = environment.client;
     clientName = Clients;
+    ownerShipTransfer = OwnershipTransfer;
 
     constructor() {
     }
