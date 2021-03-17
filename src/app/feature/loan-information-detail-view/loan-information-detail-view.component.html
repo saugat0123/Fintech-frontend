@@ -208,15 +208,15 @@
                             <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe}}</td>
                             <td class="text-left">
                                 <div class="pl-1 disable-print">
-                                    {{loanDataHolder?.currentStage?.comment?.length > 50 ?
+                                   <span [innerHTML]="loanDataHolder?.currentStage?.comment?.length > 50 ?
                                     loanDataHolder?.currentStage?.comment?.substring(0, 49) :
-                                    loanDataHolder?.currentStage?.comment}}
+                                    loanDataHolder?.currentStage?.comment | safeHtml"></span>
                                 </div>
                                 <a (click)="open(loanDataHolder?.currentStage?.comment)"
                                    *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
                                    class="text-left pl-1 disable-print">read more ....</a>
                                 <div>
-                                    <span class="print-only text-justify pl-1 pr-1">{{loanDataHolder?.currentStage?.comment}}</span>
+                                    <span class="print-only text-justify pl-1 pr-1" [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
                                 </div>
                             </td>
                         </tr>
