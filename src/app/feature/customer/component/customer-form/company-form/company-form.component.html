@@ -1028,7 +1028,7 @@
                                            <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('share').errors }" class="form-control" formControlName="share"
                                                   id="share"
                                                   name="share" placeholder="Share"
-                                                  type="number" appDecimalNumber/>
+                                                  type="number" appDecimalNumber (input)="calculateSharePercent('proprietors', 'totalSharePercent')"/>
                                            <div
                                                *ngIf="(submitted) && proprietor.get('share').invalid"
                                                class="invalid-feedback">
@@ -1153,10 +1153,17 @@
                                </div>
                            </div>
                        </div>
-                       <div class="text-right" *ngIf="client != clientName.MEGA">
-                           <input [disabled]="!companyInfoFormGroup.get('proprietors').valid" (click)="addProprietor()" class="btn btn-sm btn-flat btn-primary"
-                                  type="button"
-                                  value="Add More"/>
+
+                       <div class="row">
+                           <div class="col-md-6 pl-5" *ngIf="client === clientName?.MEGA">
+                               <label class="title"><strong>Total Share Percent :
+                                   {{companyInfoFormGroup.get('totalSharePercent').value}}%</strong></label>
+                           </div>
+                           <div class="col-md-6 text-right">
+                               <input [disabled]="!companyInfoFormGroup.get('proprietors').valid" (click)="addProprietor()" class="btn btn-sm btn-flat btn-primary"
+                                      type="button"
+                                      value="Add More"/>
+                           </div>
                        </div>
 
                        <hr>

@@ -534,7 +534,6 @@
                     <td *ngIf="fromProfile"><input class="form-control" formControlName="promoterRemark"
                                placeholder="Remarks"></td>
                     <td *ngIf="!fromProfile">{{dataForEdit?.promoterRemark}}</td>
-
                   </tr>
                   <tr>
                     <td>2.</td>
@@ -607,7 +606,7 @@
 
                   </tr>
                   <tr>
-                    <td>4.</td>
+                    <td>6.</td>
                     <td>A Director of the Bank or an Employee of the Bank does not hold more than
                       15%
                       pf the total voting rights in the Borrowing firm/Company.
@@ -627,6 +626,348 @@
                   </tbody>
                 </table>
               </nb-tab>
+
+              <nb-tab *ngIf="client === clientName.MEGA"  tabTitle="AML / CFT Checklist">
+                <table class="table table-responsive-md table-bordered text-justify">
+                  <thead>
+                  <tr  *ngIf="fromProfile">
+                    <th></th>
+                    <th></th>
+                    <th colspan="3">
+                      <button (click)="AMLYesAll()"
+                              class="btn-sm sb-small sb-bg-dark text-white">Click to say yes to all
+                      </button>
+                    </th>
+
+                  </tr>
+                  <tr>
+                    <th>SN</th>
+                    <th>Particulars</th>
+                    <th *ngIf="fromProfile">Yes</th>
+                    <th *ngIf="fromProfile">No</th>
+                    <th *ngIf="!fromProfile">Yes/No</th>
+                    <th class="width">Remarks</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+
+                  <tr>
+                    <td>1.</td>
+                    <td>
+                      Has the following information/documents been obtained?
+                    </td>
+                    <ng-container *ngIf="fromProfile">
+                      <td *ngFor="let option of optionListRegulatory"><input
+                              [value]="option" formControlName="information" type="radio"></td>
+                    </ng-container>
+                    <td *ngIf="!fromProfile">{{dataForEdit?.information}}</td>
+
+                    <td *ngIf="fromProfile"><input class="form-control" formControlName="informationRemark"
+                                                   placeholder="Remarks"></td>
+                    <td *ngIf="!fromProfile">{{dataForEdit?.informationRemark}}</td>
+
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td> a) Duly filled Account Opening Form</td>
+                    <ng-container *ngIf="fromProfile">
+                      <td *ngFor="let option of optionListRegulatory"><input
+                              [value]="option" formControlName="form" type="radio"></td>
+                    </ng-container>
+                    <td *ngIf="!fromProfile">{{dataForEdit?.form}}</td>
+
+                    <td *ngIf="fromProfile"><input class="form-control" formControlName="formRemark"
+                                                   placeholder="Remarks"></td>
+                    <td *ngIf="!fromProfile">{{dataForEdit?.formRemark}}</td>
+                  </tr>
+                  <tr>
+                                        <td></td>
+                                        <td>
+
+                                          b) Duly filled KYC form of Customer</td>
+                                        <ng-container *ngIf="fromProfile">
+                                          <td *ngFor="let option of optionListRegulatory"><input
+                                                  [value]="option" formControlName="kyc" type="radio"></td>
+                                        </ng-container>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.kyc}}</td>
+
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="kycRemark"
+                                                                       placeholder="Remarks"></td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.kycRemark}}</td>
+                                      </tr>
+                  <tr>
+                                        <td></td>
+                                        <td>
+                                          c) Duly filled KYC form of account operator and Directors (in case of corporate account)</td>
+                                        <ng-container *ngIf="fromProfile">
+                                          <td *ngFor="let option of optionListRegulatory"><input
+                                                  [value]="option" formControlName="operators" type="radio"></td>
+                                        </ng-container>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.operators}}</td>
+
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="operatorsRemark"
+                                                                       placeholder="Remarks"></td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.operatorsRemark}}</td>
+                                      </tr>
+                                      <tr>
+                                        <td></td>
+                                        <td>
+                                          d) Necessary documents as per NRB Directive No. 19 (Annexure 19.1) and Bank's Checklist for Account Opening</td>
+                                        <ng-container *ngIf="fromProfile">
+                                          <td *ngFor="let option of optionListRegulatory"><input
+                                                  [value]="option" formControlName="document" type="radio"></td>
+                                        </ng-container>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.document}}</td>
+
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="documentRemark"
+                                                                       placeholder="Remarks"></td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.documentRemark}}</td>
+                                      </tr>
+                                      <tr>
+                                        <td></td>
+                                        <td>
+                                          e) Nature of Business and Income Source been identified?</td>
+                                        <ng-container *ngIf="fromProfile">
+                                          <td *ngFor="let option of optionListRegulatory"><input
+                                                  [value]="option" formControlName="nature" type="radio"></td>
+                                        </ng-container>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.nature}}</td>
+
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="natureRemark"
+                                                                       placeholder="Remarks"></td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.natureRemark}}</td>
+                                      </tr>
+                  <tr>
+                    <td>2.</td>
+                    <td>Audited financials been reviewed? (For corporate account)
+                    </td>
+                    <ng-container *ngIf="fromProfile">
+                      <td *ngFor="let option of optionListRegulatory"><input
+                              [value]="option" formControlName="audited" type="radio"></td>
+                    </ng-container>
+                    <td *ngIf="!fromProfile">{{dataForEdit?.audited}}</td>
+
+                    <td *ngIf="fromProfile"><input class="form-control" formControlName="AMLRemark"
+                                                   placeholder="Remarks"></td>
+                    <td *ngIf="!fromProfile">{{dataForEdit?.AMLRemark}}</td>
+
+                  </tr>
+                  <tr>
+                                        <td></td>
+                                        <td>
+                                          a) If yes, any dual financials observed?</td>
+                                        <ng-container *ngIf="fromProfile">
+                                          <td *ngFor="let option of optionListRegulatory"><input
+                                                  [value]="option" formControlName="financial" type="radio"></td>
+                                        </ng-container>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.financial}}</td>
+
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="financialRemark"
+                                                                       placeholder="Remarks"></td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.financialRemark}}</td>
+                                      </tr>
+                                      <tr>
+                                        <td></td>
+                                        <td>
+
+                                          b) If yes, is it in line with nature of business?</td>
+                                        <ng-container *ngIf="fromProfile">
+                                          <td *ngFor="let option of optionListRegulatory"><input
+                                                  [value]="option" formControlName="business" type="radio"></td>
+                                        </ng-container>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.business}}</td>
+
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="businessRemark"
+                                                                       placeholder="Remarks"></td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.businessRemark}}</td>
+                                      </tr>
+
+
+
+                  <tr>
+                    <td>3.</td>
+                                        <td>Is the customer our existing customer?
+                                        </td>
+                                        <ng-container *ngIf="fromProfile">
+
+                                          <td *ngFor="let option of optionListRegulatory"><input
+                                                  [value]="option" formControlName="customer" type="radio"></td>
+                                        </ng-container>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.customer}}</td>
+
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="customerRemark"
+                                                                       placeholder="Remarks"></td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.customerRemark}}</td>
+
+                                      </tr>
+                  <tr>
+                                        <td>4.</td>
+                                        <td>Has the customer availed loan previously from Mega Bank?
+                                        </td>
+                                        <ng-container *ngIf="fromProfile">
+
+                                          <td *ngFor="let option of optionListRegulatory"><input
+                                                  [value]="option" formControlName="loan" type="radio"></td>
+                                        </ng-container>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.loan}}</td>
+
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="loanRemark"
+                                                                       placeholder="Remarks"></td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.loanRemark}}</td>
+
+                                      </tr>
+                                      <tr>
+                                        <td></td>
+                                     <td> a) If yes, has the loan been settled?</td>
+                                      <ng-container *ngIf="fromProfile">
+                                        <td *ngFor="let option of optionListRegulatory"><input
+                                                [value]="option" formControlName="settled" type="radio"></td>
+                                      </ng-container>
+                                      <td *ngIf="!fromProfile">{{dataForEdit?.settled}}</td>
+
+                                      <td *ngIf="fromProfile"><input class="form-control" formControlName="settledRemark"
+                                                                     placeholder="Remarks"></td>
+                                      <td *ngIf="!fromProfile">{{dataForEdit?.settledRemark}}</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td></td>
+                                        <td>
+                                        b) If yes, has pre-payment been made?</td>
+                                        <ng-container *ngIf="fromProfile">
+                                          <td *ngFor="let option of optionListRegulatory"><input
+                                                  [value]="option" formControlName="payment" type="radio"></td>
+                                        </ng-container>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.payment}}</td>
+
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="paymentRemark"
+                                                                       placeholder="Remarks"></td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.paymentRemark}}</td>
+                                      </tr>
+                                      <tr>
+                                        <td></td>
+                                      <td>  c) If pre-payment been made, has the source of fund been identified?</td>
+                                        <ng-container *ngIf="fromProfile">
+                                          <td *ngFor="let option of optionListRegulatory"><input
+                                                  [value]="option" formControlName="identified" type="radio"></td>
+                                        </ng-container>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.identified}}</td>
+
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="identifiedRemark"
+                                                                       placeholder="Remarks"></td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.identifiedRemark}}</td>
+                                      </tr>
+                  <tr>
+                  <tr>
+                                        <td>5.</td>
+                                        <td>Is the customer categorized as high risk?
+                                        </td>
+                                        <ng-container *ngIf="fromProfile">
+
+                                          <td *ngFor="let option of optionListRegulatory"><input
+                                                  [value]="option" formControlName="risk" type="radio"></td>
+                                        </ng-container>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.risk}}</td>
+
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="riskRemark"
+                                                                       placeholder="Remarks"></td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.riskRemark}}</td>
+
+                                      </tr>
+                                      <tr>
+                                        <td></td>
+                                      <td>  a) If yes, has enhanced due diligence been conducted?</td>
+                                        <ng-container *ngIf="fromProfile">
+                                          <td *ngFor="let option of optionListRegulatory"><input
+                                                  [value]="option" formControlName="enhanced" type="radio"></td>
+                                        </ng-container>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.enhanced}}</td>
+
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="enhancedRemark"
+                                                                       placeholder="Remarks"></td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.enhancedRemark}}</td>
+                                      </tr>
+                                      <tr>
+                                        <td>6.</td>
+                                        <td>Is the customer categorized as PEP?
+                                        </td>
+                                        <ng-container *ngIf="fromProfile">
+
+                                          <td *ngFor="let option of optionListRegulatory"><input
+                                                  [value]="option" formControlName="PEP" type="radio"></td>
+                                        </ng-container>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.PEP}}</td>
+
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="PEPRemark"
+                                                                       placeholder="Remarks"></td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.PEPRemark}}</td>
+
+                                      </tr>
+                                      <tr>
+                                        <td></td>
+                                       <td> a) If yes, has enhanced due diligence been conducted?</td>
+                                        <ng-container *ngIf="fromProfile">
+                                          <td *ngFor="let option of optionListRegulatory"><input
+                                                  [value]="option" formControlName="diligence" type="radio"></td>
+                                        </ng-container>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.diligence}}</td>
+
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="diligenceRemark"
+                                                                       placeholder="Remarks"></td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.diligenceRemark}}</td>
+                                      </tr>
+                                      <tr>
+                                        <td>7.</td>
+                                        <td>Has information from CIC been obtained?
+                                        </td>
+                                        <ng-container *ngIf="fromProfile">
+
+                                          <td *ngFor="let option of optionListRegulatory"><input
+                                                  [value]="option" formControlName="CIC" type="radio"></td>
+                                        </ng-container>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.CIC}}</td>
+
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="CICRemark"
+                                                                       placeholder="Remarks"></td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.CICRemark}}</td>
+
+                                      </tr>
+                                      <tr>
+                                        <td>8.</td>
+                                        <td>Is credit rating of customer in line with Bank's provision?
+                                        </td>
+                                        <ng-container *ngIf="fromProfile">
+
+                                          <td *ngFor="let option of optionListRegulatory"><input
+                                                  [value]="option" formControlName="rating" type="radio"></td>
+                                        </ng-container>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.rating}}</td>
+
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="ratingRemark"
+                                                                       placeholder="Remarks"></td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.ratingRemark}}</td>
+
+                                      </tr>
+                                      <tr>
+                                        <td>9.</td>
+                                        <td>Any suspicious/unusual behavior observed regarding the account/ transaction?
+                                        </td>
+                                        <ng-container *ngIf="fromProfile">
+
+                                          <td *ngFor="let option of optionListRegulatory"><input
+                                                  [value]="option" formControlName="transaction" type="radio"></td>
+                                        </ng-container>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.transaction}}</td>
+
+                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="transactionRemark"
+                                                                       placeholder="Remarks"></td>
+                                        <td *ngIf="!fromProfile">{{dataForEdit?.transactionRemark}}</td>
+
+                                      </tr>
+                  </tbody>
+                </table>
+              </nb-tab>
+
             </nb-tabset>
 
           </nb-tab>

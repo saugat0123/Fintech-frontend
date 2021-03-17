@@ -281,6 +281,7 @@ export class CompanyFormComponent implements OnInit {
             showFormField: (!ObjectUtil.isEmpty(this.formValue)),
             isOldCustomer: (ObjectUtil.isEmpty(this.formValue))
         };
+        this.calculateSharePercent('proprietors', 'totalSharePercent');
     }
 
     buildForm() {
@@ -557,7 +558,8 @@ export class CompanyFormComponent implements OnInit {
                 this.businessGiven.lockerDuringReview],
             total: [ObjectUtil.isEmpty(this.businessGiven)
             || ObjectUtil.isEmpty(this.businessGiven.total) ? undefined :
-                this.businessGiven.total]
+                this.businessGiven.total],
+            totalSharePercent: [0],
 
 
         });
@@ -986,6 +988,7 @@ export class CompanyFormComponent implements OnInit {
         submitData.marketScenario = this.marketScenarioComponent.submitData;
         submitData.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
         submitData.proprietorList = this.companyJsonData.proprietorList;
+        submitData.totalSharePercent = this.companyInfoFormGroup.get('totalSharePercent').value;
 
         if (this.microCustomer) {
             /** micro data **/
@@ -1098,5 +1101,14 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfoFormGroup.get('total').patchValue(total.toFixed(2));
         // console.log(this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
         //     this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value);
+    }
+
+    // Calculation of Share %
+    calculateSharePercent(formArrayName, resultControllerName) {
+        let total = 0;
+        (this.companyInfoFormGroup.get(formArrayName) as FormArray).controls.forEach( group => {
+            total = Number(group.get('share').value) + Number(total);
+        });
+        this.companyInfoFormGroup.get(resultControllerName).setValue(total);
     }
 }
