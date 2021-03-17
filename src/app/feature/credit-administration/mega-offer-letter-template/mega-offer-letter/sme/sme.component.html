@@ -128,15 +128,15 @@
                                <tr>
                                    <td> व्याज</td>
                                    <td><b>आधार दर (Base Rate) + प्रिमियम दर(Premium Rate)</b> (हालको आधार दर
-                                       <input class="form-fields form-control-sm nepaliFont col-3"
+                                       <input (keyup)="calculateRate(overdraftIndex)" class="form-fields form-control-sm nepaliFont col-3"
                                               formControlName="overdrafLoanCurrentTermRate"
                                               placeholder="९.७६%"
                                               type="text"/>% + प्रिमियम दर
-                                       <input class="form-fields form-control-sm nepaliFont col-3"
+                                       <input (keyup)="calculateRate(overdraftIndex)" class="form-fields form-control-sm nepaliFont col-3"
                                               formControlName="overdrafLoanPremiumRate"
                                               placeholder="प्रिमियम दर"
                                               type="text"/>%) का
-                                       दरले हाललाई बार्षिक <input class="form-fields form-control-sm nepaliFont col-3"
+                                       दरले हाललाई बार्षिक <input (keyup)="calculateRate(overdraftIndex)" class="form-fields form-control-sm nepaliFont col-3"
                                                                   formControlName="overdrafLoanCurrentAnnualRate"
                                                                   placeholder="दरले हाललाई बार्षिक %"
                                                                   type="text"/> % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ
