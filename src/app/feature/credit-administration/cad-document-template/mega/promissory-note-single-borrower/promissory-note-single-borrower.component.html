@@ -1,5 +1,7 @@
 <div class="container nep text-justify">
-    <form (ngSubmit)="submit()" [formGroup]="promissorySingleNote" class="nep">
+    <form (ngSubmit)="submit()" [formGroup]="promissorySingleNote"
+          id="promissoryNoteSinglePrint"
+          class="nep">
         <div>
             <h1 style="text-align: center;">
                 प्रतिज्ञा पत्र
@@ -12,8 +14,9 @@
                 मिति: <input class="form-field form-control-sm nepaliFont" name="date" formControlName="date" placeholder=""type="text"/></p>
         </div> <!-- Header -->
         <div class="col-md-12">
-            <p>रु .<strong>{{nepaliAmount?.numberNepali}}</strong> <input class="form-field form-control-sm nepaliFont" formControlName="amount" name="amount" placeholder="" type="text" *ngIf="!nepaliAmount"/>
-                (अक्षरेपी {{nepaliAmount?.nepaliWords}}<input *ngIf="!nepaliAmount" class="form-field form-control-sm nepaliFont"name="amountInWord"  formControlName="amountInWord" placeholder=""  type="text"/> )<br>
+            <p>रु .<strong>{{nepaliAmount?.numberNepali}}</strong> <input class="form-field form-control-sm disable-print nepaliFont" formControlName="amount" name="amount" placeholder="" type="text" *ngIf="!nepaliAmount"/>
+                (<strong>अक्षरेपी {{nepaliAmount?.nepaliWords}}</strong><input *ngIf="!nepaliAmount" class="form-field disable-print form-control-sm nepaliFont"name="amountInWord"  formControlName="amountInWord" placeholder=""  type="text"/>
+                <b> मात्र ।)</b>
                 <br>
 
                 लिखितम् श्री <span *ngIf="nepData?.gender==1">
@@ -44,56 +47,60 @@
                 {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
                  वडा नं
                 <strong class="nepaliFont">{{nepData?.temporaryWard}}</strong>
-                बर्ष
-                <input class="form-field form-control-sm nepaliFont"
+                बर्ष <strong class="nepaliFont">{{nepData?.age}}</strong>
+                <input *ngIf="!nepData?.age" class="form-field form-control-sm nepaliFont"
                        formControlName="borrowerAge"
                        name="borrowerAge"
                        placeholder=""
                        type="text"/>
 
-                <span *ngIf="nepData?.gender==1">को </span>
+                <span *ngIf="nepData?.gender==1"> को </span>
                 <span *ngIf="nepData?.gender==0"> की </span>
-             श्री/सुश्री/श्रीमती
-                <input class="form-field form-control-sm nepaliFont"
+                श्री/सुश्री/श्रीमती <strong class="nepaliFont">{{nepData?.name}}</strong>
+                <input *ngIf="!nepData?.name" class="form-field disable-print form-control-sm nepaliFont"
                        name="borrowerName"
                        formControlName="borrowerName"
                        placeholder=""
                        type="text"/>
                 (ना.प्र.नं
                 <strong class="nepaliFont">{{nepData?.citizenshipNo}}</strong>
-                मिति
-                <input class="form-field form-control-sm nepaliFont"
+                मिति <strong class="nepaliFont"> {{nepData?.citizenshipIssueDate}}</strong>
+                <input *ngIf="!nepData?.citizenshipIssueDate"
+                        class="form-field disable-print form-control-sm nepaliFont"
                        name="citizenshipIssuedDate"
                        formControlName="citizenshipIssuedDate"
                        placeholder=""
                        type="text"/>
-                .जि.प्र.का
-                <input class="form-field form-control-sm nepaliFont"
+                .जि.प्र.का  <strong class="nepaliFont"> {{nepData?.citizenshipIssueDistrict}}</strong>
+                <input *ngIf="!nepData?.citizenshipIssueDistrict"
+                        class="form-field disable-print form-control-sm nepaliFont"
                        name="districtOffice"
                        formControlName="districtOffice"
                        placeholder=""
                        type="text"/>)
                 आगे,तपाई मेगा बैंक नेपाल लिमिठे
-                <input class="form-field form-control-sm nepaliFont"
+                <input class="form-field disable-print form-control-sm nepaliFont"
                        name="bankBranch"
                        formControlName="bankBranch"
                        placeholder=""
                        type="text"/>
                 कार्यालय ले भुक्तानी
                 माग गरेका वखत तपाईलाई वा तपाईले निर्देशन दिएको व्यक्ति/संस्थालाई रु.
-                <input class="form-field form-control-sm nepaliFont"
+                <strong> {{nepaliAmount?.numberNepali}}</strong>
+                <input *ngIf="!nepaliAmount"
+                        class="form-field form-control-sm nepaliFont"
                        name="loanAmount"
                        formControlName="loanAmount"
                        placeholder=""
                        type="text"/>
-                (अक्षरेपी
-                <input class="form-field form-control-sm nepaliFont"
+                (<strong>अक्षरेपी {{nepaliAmount?.nepaliWords}}</strong>
+                <input *ngIf="!nepaliAmount" class="form-field form-control-sm nepaliFont"
                        name="loanAmountInWord"
                        formControlName="loanAmountInWord"
                        placeholder=""
-                       type="text"/>)
+                       type="text"/><strong> मात्र ।</strong>)
                 र भुक्तानी माग गरेको मिति सम्मको बार्षिक
-                <input class="form-field form-control-sm nepaliFont"
+                <input class="form-field disable-print form-control-sm nepaliFont"
                        name="loanInterest"
                        formControlName="loanInterest"
                        placeholder=""
@@ -143,7 +150,7 @@
                                        type="text"/>
                 </p>
                 <p>
-                    (३)	ठेगानाः<input class="form-field form-control-sm nepaliFont"
+                    (३)	ठेगानाः<input class="form-field form-control-sm nepaliFont disable-print"
                                          name="witnessAddress"
                                          formControlName="witnessAddress"
                                          placeholder=""
@@ -154,7 +161,7 @@
                     (४)	लेखात्मक सहीः
                 </p>
                 <p>
-                    (५)	नामः<input class="form-field form-control-sm nepaliFont"
+                    (५)	नामः<input class="form-field form-control-sm nepaliFont disable-print"
                                       name="witnessName1"
                                       formControlName="witnessName1"
                                       placeholder=""
@@ -170,10 +177,22 @@
             </div>
         </div>
         <!-- Footer -->
-        <div class="row">
+        <div class="row disable-print">
             <div class="col-md-12 text-right">
-                <button nbButton status="success" type="submit">Save</button>
+                <button nbButton ngxPrint [useExistingCss]="true"
+                        styleSheetFile="assets/css/printStyles.scss"
+                        printSectionId="promissoryNoteSinglePrint" (click)="submit()" class="mr-2"
+                        status="basic">Save & Print
+                </button>
+                <button nbButton ngxPrint [useExistingCss]="true"
+                        styleSheetFile="assets/css/printStyles.scss"
+                        printSectionId="promissoryNoteSinglePrint" class="mr-2 custom-color">Print
+                </button>
+                <button nbButton status="success" (click)="submit()">Save</button>
+
+
             </div>
+
         </div>
     </form>
 </div>
