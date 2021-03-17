@@ -63,7 +63,7 @@
       <tr class="text-white sb-bg-dark">
         <th></th>
         <th colspan="2">Type of Property</th>
-        <th>Mode of Transfer</th>
+        <th *ngIf="client !== clientName?.SHINE_RESUNGA">Mode of Transfer</th>
         <th colspan="2">Address as per Legal Document</th>
         <th>Ownership transfer date</th>
        <th> Ownership transfer Through</th>
@@ -80,7 +80,7 @@
       <tr>
         <td></td>
         <td colspan="2"class="text-left pl-1">{{landDetails?.typeOfProperty}}</td>
-        <td class="text-left pl-1">{{landDetails?.modeOfTransfer}}</td>
+        <td class="text-left pl-1" *ngIf="client !== clientName?.SHINE_RESUNGA">{{landDetails?.modeOfTransfer}}</td>
         <td colspan="2" class="text-left pl-1">{{landDetails?.landSecurityLegalDocumentAddress}}</td>
         <td class="text-left pl-1">{{landDetails?.ownershipTransferDate | date}}</td>
         <td>{{ownerShipTransfer[landDetails?.ownershipTransferThrough]}}</td>
@@ -198,7 +198,7 @@
           <th>Cost per sqf</th>
           <th>Total cost</th>
           <th>Type of Property</th>
-          <th>Mode of Transfer</th>
+          <th *ngIf="client !== clientName?.SHINE_RESUNGA">Mode of Transfer</th>
           <th>Collateral Owner Relationship</th>
 
 
@@ -212,7 +212,7 @@
           <td class="text-right pr-1">Rs. {{landBuilding?.costPerSquare  | currencyFormatter}}</td>
           <td class="text-right pr-1">Rs. {{landBuilding?.totalCost | currencyFormatter}}</td>
           <td class="text-left pl-1">{{landBuilding?.typeOfProperty}}</td>
-          <td class="text-left pl-1">{{landBuilding?.modeOfTransfer}}</td>
+          <td class="text-left pl-1" *ngIf="client !== clientName?.SHINE_RESUNGA">{{landBuilding?.modeOfTransfer}}</td>
           <td class="text-left pl-1">{{landBuilding?.landBuildingCollateralOwnerRelationship}}</td>
 
         </tr>
@@ -288,7 +288,7 @@
           <th></th>
           <th>Fair Market Value</th>
           <th>Type of Property</th>
-          <th>Mode of Transfer</th>
+          <th *ngIf="client !== clientName?.SHINE_RESUNGA">Mode of Transfer</th>
           <th>House Number</th>
           <th>Total building area
             (Sqf)</th>
@@ -299,7 +299,7 @@
           <th></th>
           <td class="text-right pr-1">Rs. {{landBuilding?.marketValueConstruction | currencyFormatter}}</td>
           <td class="text-left pl-1">{{landBuilding?.typeOfPropertyConstruction}}</td>
-          <td class="text-right pr-1">{{landBuilding?.modeOfTransferConstruction}}</td>
+          <td class="text-right pr-1" *ngIf="client !== clientName?.SHINE_RESUNGA">{{landBuilding?.modeOfTransferConstruction}}</td>
           <td class="text-right pr-1">{{landBuilding?.houseNumberConstruction}}</td>
           <td class="text-right pr-1">{{landBuilding?.totalBuildingAreaConstruction}}</td>
           <td class="text-right pr-1">Rs.{{landBuilding?.costPerSquareConstruction | currencyFormatter}}</td>
@@ -909,12 +909,12 @@
       <tr class="text-white sb-bg-dark">
         <th></th>
         <th>Type of Property</th>
-        <th>Mode of Transfer</th>
+        <th *ngIf="client !== clientName?.SHINE_RESUNGA">Mode of Transfer</th>
       </tr>
       <tr>
         <td></td>
         <td class="text-left pl-1">{{landBuildingDetails?.typeOfProperty}}</td>
-        <td class="text-left pl-1">{{landBuildingDetails?.modeOfTransfer}}</td>      </tr>
+        <td class="text-left pl-1" *ngIf="client !== clientName?.SHINE_RESUNGA">{{landBuildingDetails?.modeOfTransfer}}</td>      </tr>
     </table>
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
       <thead>
@@ -1006,13 +1006,13 @@
         <tr class="text-white sb-bg-dark">
           <th></th>
           <th>Type of property</th>
-          <th>Mode of transfer</th>
+          <th *ngIf="client !== clientName?.SHINE_RESUNGA">Mode of transfer</th>
 
         </tr>
         <tr>
           <td></td>
           <td class="text-left pl-1">{{beforeCompletion?.buildingDetailsBeforeCompletion?.typeOfProperty}}</td>
-          <td class="text-left pl-1">{{beforeCompletion?.buildingDetailsBeforeCompletion?.modeOfTransfer}}</td>
+          <td class="text-left pl-1" *ngIf="client !== clientName?.SHINE_RESUNGA">{{beforeCompletion?.buildingDetailsBeforeCompletion?.modeOfTransfer}}</td>
         </tr>
       </table>
 
@@ -1087,12 +1087,12 @@
         <tr class="text-white sb-bg-dark">
           <th></th>
           <th>Type of property</th>
-          <th>Mode of transfer</th>
+          <th *ngIf="client !== clientName?.SHINE_RESUNGA">Mode of transfer</th>
         </tr>
         <tr>
           <td></td>
           <td class="text-left pl-1">{{afterCompletion?.buildingDetailsAfterCompletion?.typeOfProperty}}</td>
-          <td class="text-left pl-1">{{afterCompletion?.buildingDetailsAfterCompletion?.modeOfTransfer}}</td>
+          <td class="text-left pl-1" *ngIf="client !== clientName?.SHINE_RESUNGA">{{afterCompletion?.buildingDetailsAfterCompletion?.modeOfTransfer}}</td>
         </tr>
       </table>
   </div>

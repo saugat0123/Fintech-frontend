@@ -32,6 +32,8 @@ import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {ProductUtilService} from '../../../../../@core/service/product-util.service';
 import {environment} from '../../../../../../environments/environment';
 import {MGroup} from '../../../model/mGroup';
+import {environment as envSrdb} from "../../../../../../environments/environment.srdb";
+import {Clients} from "../../../../../../environments/Clients";
 
 
 @Component({
@@ -82,6 +84,9 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     sbsGroupEnabled = environment.SBS_GROUP;
     megaGroupEnabled = environment.MEGA_GROUP;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+    crgLambdaDisabled = envSrdb.disableCrgLambda;
+    client = environment.client;
+    clientName = Clients;
 
 
     constructor(private route: ActivatedRoute,
