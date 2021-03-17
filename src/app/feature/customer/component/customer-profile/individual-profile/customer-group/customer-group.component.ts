@@ -24,7 +24,7 @@ export class CustomerGroupComponent implements OnInit {
 
   ckeConfig = Editor.CK_CONFIG;
   mGroupInfo: MGroup = new MGroup();
-  private spinner = false;
+   spinner = false;
 
   constructor(private formBuilder: FormBuilder,
               private toastService: ToastService,
