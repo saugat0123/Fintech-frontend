@@ -52,7 +52,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
+        if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
             const guarantorList = this.customerInfo.guarantors.guarantorList;
             guarantorList.forEach(e => {
                     this.addGuarantor();

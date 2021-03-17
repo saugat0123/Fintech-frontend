@@ -37,7 +37,7 @@ export class PersonalGuaranteeJointBorrowerComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.guarantors.guarantorList)) {
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.guarantors)) {
       const guarantorList = this.cadData.loanHolder.guarantors.guarantorList;
       this.guarantorDetail = guarantorList;
     }
@@ -69,9 +69,9 @@ export class PersonalGuaranteeJointBorrowerComponent implements OnInit {
       tempAddress: [undefined],
       guarantorAge: [undefined],
       guarantorName: [undefined],
-      guarantorCitizenshipNo: [undefined],
-      guarantorCitizenshipIssuedDate: [undefined],
-      citizenshipIssuedDistrict: [undefined],
+      guarantorCitizenshipNum: [undefined],
+      guarantorIssueDate: [undefined],
+      guarantorIssueDistrict: [undefined],
       guarantorGrandfather1: [undefined],
       guarrantorFatherName1: [undefined],
       guarantorDistrict1: [undefined],
