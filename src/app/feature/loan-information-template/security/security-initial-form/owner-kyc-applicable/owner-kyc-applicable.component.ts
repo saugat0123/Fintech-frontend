@@ -6,6 +6,8 @@ import {District} from '../../../../admin/modal/district';
 import {ShareSecurity} from '../../../../admin/modal/shareSecurity';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {Pattern} from '../../../../../@core/utils/constants/pattern';
+import {environment} from '../../../../../../environments/environment';
+import {Clients} from '../../../../../../environments/Clients';
 
 @Component({
     selector: 'app-owner-kyc-applicable',
@@ -22,12 +24,13 @@ export class OwnerKycApplicableComponent implements OnInit {
     submitValue: any;
     @Input() kycId;
     @Input() calendarType = 'AD';
+    client = environment.client;
+    clientName = Clients;
     constructor(private formBuilder: FormBuilder,
                 private districtService: AddressService) {
     }
 
     ngOnInit() {
-
         this.buildForm();
         this.submitValue = this.ownerKycForm.value;
 
@@ -58,6 +61,7 @@ export class OwnerKycApplicableComponent implements OnInit {
                     issuedDate: [singleData.issuedDate],
                     mobileNumber: [singleData.mobileNumber],
                     address: [singleData.address],
+                    age: [singleData.age],
 
                 })
             );
@@ -73,6 +77,7 @@ export class OwnerKycApplicableComponent implements OnInit {
                 issuedDate: [undefined],
                 mobileNumber: [undefined, Validators.pattern(Pattern.NUMBER_MOBILE)],
                 address: [undefined],
+                age: [undefined],
             }
         );
     }
