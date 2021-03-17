@@ -80,7 +80,7 @@ export class SmeComponent implements OnInit {
       console.log('this is overdraftTotal', this.overdraftTotal);
       this.loanRateDetail[overdraftIndex].overdrafLoanCurrentAnnualRate = this.overdraftTotal;
       console.log(this.loanRateDetail);
-      this.loanForm.get('overdrafLoanCurrentAnnualRate').patchValue(this.overdraftTotal);
+      // this.loanForm.get('overdraftLoan').setValue(overdrafLoanCurrentAnnualRate);
   }
 
   buildForm() {
