@@ -52,7 +52,7 @@
                     <div class="col-md-12">
                         <label for="comment">Comment:</label>
                         <ckeditor [ngClass]="{ 'is-invalid': submitted && formAction.controls['comment'].errors }"
-                                  formControlName="comment" id="comment"></ckeditor>
+                                  formControlName="comment" id="comment" [config]="ckeConfig"></ckeditor>
                         <div *ngIf="submitted && formAction.controls['comment'].hasError('required')"
                              class="error-message" style="color: red;">comment is required
                         </div>
