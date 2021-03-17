@@ -253,7 +253,7 @@ export class NetTradingAssetsComponent implements OnInit {
         );
         ntaFormGroup.get(['drawingPowerAmount', quarter]).patchValue(
             Number(ntaFormGroup.get(['netTradingAssetsAfter', quarter]).value) *
-            Number(ntaFormGroup.get(['drawingPower', quarter]).value));
+            Number(ntaFormGroup.get(['drawingPower', quarter]).value) / 100);
     }
 
     onChangeFiscalYear(selectedFiscalYearObj) {

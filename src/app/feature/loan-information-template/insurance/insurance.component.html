@@ -18,23 +18,17 @@
                         <div class="col-md-4 form-group">
                             <label for="policyNumber"><strong>Policy Number</strong></label>
                             <input class="form-control" formControlName="policyNumber" id="policyNumber"
-                                   placeholder="Policy Number" required
-                                   type="text" [ngClass]="{'is-invalid': isSubmitted && formArrays.get('policyNumber').errors}">
-                            <div *ngIf="isSubmitted && formArrays.get('policyNumber').invalid" class="invalid-feedback">
-                                Policy Number is required!
-                            </div>
+                                   placeholder="Policy Number"
+                                   type="text">
                         </div>
                         <div class="col-md-4 form-group">
                             <label for="policyNumber"><strong>Asset Insured</strong></label>
                             <select class="form-control" formControlName="assetInsured" id="assetInsured"
-                                   placeholder="Asset Insured" required
-                                    type="text" [ngClass]="{'is-invalid': isSubmitted && formArrays.get('assetInsured').errors}">
+                                   placeholder="Asset Insured"
+                                    type="text">
                                 <option [ngValue]="null" hidden>Select Asset Insured</option>
                                 <option *ngFor="let assets of assetsInsured" [ngValue]="assets">{{assets}}</option>
                             </select>
-                            <div *ngIf="isSubmitted && formArrays.get('assetInsured').invalid" class="invalid-feedback">
-                                Asset Insured is required!
-                            </div>
                         </div>
                     </div>
 
@@ -52,18 +46,12 @@
                 <div class="col form-group">
                     <label for="insuredAmount"><strong>Insured Amount</strong></label>
                     <input class="form-control" formControlName="insuredAmount" id="insuredAmount"
-                           type="text" [ngClass]="{'is-invalid': isSubmitted && formArrays.get('insuredAmount').errors}">
-                    <div *ngIf="isSubmitted && formArrays.get('insuredAmount').invalid" class="invalid-feedback">
-                        Insured Amount is required!
-                    </div>
+                           type="text">
                 </div>
                 <div class="col form-group">
                     <label for="premiumAmount"><strong>Premium Amount</strong></label>
                     <input class="form-control" formControlName="premiumAmount" id="premiumAmount"
-                           type="text" [ngClass]="{'is-invalid': isSubmitted && formArrays.get('premiumAmount').errors}">
-                    <div *ngIf="isSubmitted && formArrays.get('premiumAmount').invalid" class="invalid-feedback">
-                        Premium Amount is required!
-                    </div>
+                           type="text">
                 </div>
 
                         <div class="col form-group">
@@ -71,10 +59,7 @@
                             <input [nbDatepicker]="issuedDate"
                                    class="form-control" formControlName="issuedDate"
                                    id="issuedDate" placeholder="03/04/2020"
-                                   type="text" required [ngClass]="{'is-invalid': isSubmitted && formArrays.get('issuedDate').errors}">
-                            <div *ngIf="isSubmitted && formArrays.get('issuedDate').invalid" class="invalid-feedback">
-                                Issued Date is required!
-                            </div>
+                                   type="text">
                             <nb-datepicker #issuedDate></nb-datepicker>
                         </div>
                         <div class="col form-group">
@@ -83,11 +68,8 @@
                                    class="form-control"
                                    formControlName="expiryDate"
                                    id="expiryDate" placeholder="03/04/2021"
-                                   required type="text" [ngClass]="{'is-invalid': isSubmitted && formArrays.get('expiryDate').errors}">
-                            <div *ngIf="isSubmitted && formArrays.get('expiryDate').invalid" class="invalid-feedback">
-                                Expiry Date is required!
-                            </div>
-                            <nb-datepicker #expiryDate [min]="returnIssuedDate(form.get(['formArray' ,i, 'issuedDate']))"></nb-datepicker>
+                                    type="text">
+                            <nb-datepicker #expiryDate></nb-datepicker>
                         </div>
                     </div>
                     <div class="form-group">

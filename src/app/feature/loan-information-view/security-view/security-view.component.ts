@@ -4,6 +4,7 @@ import {NepseMaster} from '../../admin/modal/NepseMaster';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {OwnershipTransfer} from '../../loan/model/ownershipTransfer';
 import {environment} from '../../../../environments/environment.srdb';
+import {Clients} from '../../../../environments/Clients';
 
 @Component({
   selector: 'app-security-view',
@@ -34,6 +35,8 @@ export class SecurityViewComponent implements OnInit {
   ownerShipTransfer = OwnershipTransfer;
   disableCrgAlphaParams = environment.disableCrgAlpha;
   crgLambdaDisabled = environment.disableCrgLambda;
+  client = environment;
+  clientName = Clients;
 
   constructor() {
   }
