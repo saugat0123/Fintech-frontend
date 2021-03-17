@@ -15,10 +15,10 @@
             <tbody class="text-center">
                 <td>{{customerInfo?.customerName || 'NA'}} </td>
                 <td>{{individualJsonData?.permanentAddressLine1 || 'NA'}}</td>
-                <td>{{individualJsonData?.microCustomerDetail['customerCategory'] || 'NA'}}</td>
-                <td>{{individualJsonData?.microCustomerDetail['bankDistance'] || 'NA'}}</td>
-                <td>{{individualJsonData?.microCustomerDetail['riskClassificationPercent'] || 'NA'}}</td>
-                <td>{{individualJsonData?.microCustomerDetail['riskClassificationBase'] || 'NA'}}</td>
+                <td>{{individualJsonData?.microCustomerDetail?.customerCategory || 'NA'}}</td>
+                <td>{{individualJsonData?.microCustomerDetail?.bankDistance || 'NA'}}</td>
+                <td>{{individualJsonData?.microCustomerDetail?.riskClassificationPercent || 'NA'}}</td>
+                <td>{{individualJsonData?.microCustomerDetail?.riskClassificationBase || 'NA'}}</td>
                 <td>{{loanDataHolder?.loanHolder['clientType'] || 'NA'}}</td>
                 <td>{{loanDataHolder?.loanHolder['subsectorDetail'] || 'NA'}}</td>
             </tbody>
@@ -94,7 +94,7 @@
         </div>
     </div>
     <br>
-    <div *ngIf="individualJsonData?.microCustomerDetail['isBlBAgent'] === 'yes'" class="col-md-12">
+    <div *ngIf="individualJsonData?.microCustomerDetail?.isBlBAgent === 'yes'" class="col-md-12">
         <div>
             <p><strong>BLB Agent</strong></p>
         </div>
@@ -114,7 +114,7 @@
         </table>
     </div>
 
-    <div *ngIf="individualJsonData?.microCustomerDetail['isDeprive'] === 'yes'" class="col-md-12">
+    <div *ngIf="individualJsonData?.microCustomerDetail?.isDeprive === 'yes'" class="col-md-12">
         <div>
             <p><strong> Categorization of customer as per NRB Directive 17.  </strong> </p>
         </div>
