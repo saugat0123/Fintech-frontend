@@ -1,9 +1,12 @@
-<nb-card>
+<nb-card [nbSpinner]="spinner">
     <nb-card-body>
         <Form [formGroup]="nepForm">
             <div class="col-md-12 row" >
                 <div class="col-md-6">
-                    <input type="number" (change)="onChangeValue($event)"  class="form-control form-control-sm" formControlName="engNumber"/>
+                    <input type="number"
+                           [ngClass]="{'is-invalid': submitted && nepFormControls.engNumber.errors}"
+
+                           (change)="onChangeValue($event)"  class="form-control form-control-sm" formControlName="engNumber"/>
                 </div>
 
                 <div class="col-md-6">
@@ -16,7 +19,7 @@
     <nb-card-footer>
         <div class="row">
             <div class="col-md-12">
-                <button class="float-right" nbButton (click)="save()">save</button>
+                <button class="float-right" nbButton (click)="save()" [disabled]="spinner">save</button>
             </div>
         </div>
     </nb-card-footer>
