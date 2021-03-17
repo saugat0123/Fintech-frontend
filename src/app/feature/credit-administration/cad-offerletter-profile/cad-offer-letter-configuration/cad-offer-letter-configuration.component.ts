@@ -15,6 +15,7 @@ import {RelationshipNepali} from '../../../loan/model/relationshipListNepali';
 import {Guarantor} from '../../../loan/model/guarantor';
 import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 import {CalendarType} from '../../../../@core/model/calendar-type';
+import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -24,6 +25,7 @@ import {CalendarType} from '../../../../@core/model/calendar-type';
 export class CadOfferLetterConfigurationComponent implements OnInit {
 
     @Input() customerInfo: CustomerInfoData;
+    @Input() cadData: CustomerApprovedLoanCadDocumentation;
     @Input() guarantorDetail: GuarantorDetail;
     @Input() customer: Customer;
     @Output()
@@ -36,6 +38,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     value = [undefined];
     submitted = false;
     relationshipList = RelationshipNepali.enumObject();
+    hideSaveBtn = false;
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
@@ -151,6 +154,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.spinner = false;
             this.dialogRef.close();
         });
+
     }
 
     closeModal() {
@@ -185,5 +189,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     removeAtIndex(i: any) {
         (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
+    }
+
+    onChangeTab(event) {
+        this.hideSaveBtn = false;
+        console.log(event.tabId);
+        if (event.tabId === '2') {
+            this.hideSaveBtn = true;
+        }
+
     }
 }

@@ -1,0 +1,24 @@
+<nb-card>
+    <nb-card-body>
+        <Form [formGroup]="nepForm">
+            <div class="col-md-12 row" >
+                <div class="col-md-6">
+                    <input type="number" (change)="onChangeValue($event)"  class="form-control form-control-sm" formControlName="engNumber"/>
+                </div>
+
+                <div class="col-md-6">
+                    <Strong>{{nepaliNumber.numberNepali}} : in Words :</Strong>   <span>{{nepaliNumber.nepaliWords}}</span>
+                </div>
+            </div>
+
+        </Form>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="row">
+            <div class="col-md-12">
+                <button class="float-right" nbButton (click)="save()">save</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>
+
