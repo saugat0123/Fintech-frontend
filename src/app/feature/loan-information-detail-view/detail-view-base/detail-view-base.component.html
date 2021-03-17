@@ -1,11 +1,10 @@
 <app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
                      [calendarType]="calendarType"
-                     [loanData]="loanDataHolder?.groupSummaryDto?.groupCode"
+                     [customerInfoData]="loanDataHolder?.loanHolder"
                      [individual]="loanDataHolder?.customerInfo"
                      [loanId]="loanId" [customerInfo]="loanHolder"></app-individual-view>
 <app-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
                        [calendarType]="calendarType"
-                       [loanData]="loanDataHolder?.groupSummaryDto?.groupCode"
                        [formValue]="loanDataHolder?.companyInfo"
                        [loanId]="loanId" [customerInfo]="loanHolder"></app-company-info-view>
 <app-proposal-view *ngIf="loanDataHolder?.proposal"
