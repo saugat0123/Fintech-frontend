@@ -37,7 +37,7 @@
                 <th>Relationship Since</th>
                 <th>Client Type</th>
                 <th>Sub Sector</th>
-                <th>Obligor Code</th>
+                <th *ngIf="client === clientName?.SHINE_RESUNGA">Obligor Code</th>
             </tr>
             <tr>
                 <td class="text-left pl-1">{{formValue?.email}}</td>
@@ -47,7 +47,7 @@
                 <td class="text-left pl-1">{{companyJsonData?.relationshipSince | date}}</td>
                 <td class="text-left pl-1">{{customerInfo['clientType']}}</td>
                 <td class="text-left pl-1">{{customerInfo['subsectorDetail']}}</td>
-                <td class="text-left pl-1">{{loanData}}</td>
+                <td class="text-left pl-1" *ngIf="client === clientName?.SHINE_RESUNGA">{{customerInfo?.obligor}}</td>
 
             </tr>
         </table>
