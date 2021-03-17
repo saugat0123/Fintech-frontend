@@ -37,7 +37,7 @@ export class PersonalGuaranteeJointBorrowerComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.guarantors.guarantorList)) {
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.guarantors)) {
       const guarantorList = this.cadData.loanHolder.guarantors.guarantorList;
       this.guarantorDetail = guarantorList;
     }
