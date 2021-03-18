@@ -201,4 +201,75 @@
     Rs. {{loanDataHolder?.proposal?.proposedAmountInWords}}
     Only /-
   </div>
+  <div class="col-md-12">
+    <table
+            class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
+
+      <tr class="text-white sb-bg-dark">
+        <th>Disbursement
+          Criteria
+        </th>
+      </tr>
+      <tr>
+        <td class="text-left pl-1">{{proposalAllData?.disbursementCriteria}}</td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>Repayment</th>
+      </tr>
+      <tr>
+        <td class="text-left pl-1">{{proposalAllData?.repayment}}</td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>Background</th>
+      </tr>
+      <tr>
+        <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.borrowerInformation  | safeHtml"></span> </td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>Summery & Recommendation</th>
+      </tr>
+      <tr>
+        <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.summeryRecommendation  | safeHtml"></span> </td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>Remarks</th>
+      </tr>
+      <tr>
+        <td class="text-left pl-1">{{proposalAllData?.remark}}</td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>Purpose of Loan</th>
+      </tr>
+      <tr>
+        <td class="text-left pl-1">{{proposalAllData?.purposeOfLoan}}</td>
+      </tr>
+      <ng-container>
+        <tr class="text-white sb-bg-dark">
+          <th>Waiver/Deviation</th>
+        </tr>
+        <tr>
+          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation | safeHtml"></span></td>
+        </tr>
+      </ng-container>
+      <ng-container>
+        <tr class="text-white sb-bg-dark">
+          <th>Single
+            Obligor Limit</th>
+        </tr>
+        <tr>
+          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.solConclusionRecommendation | safeHtml"></span></td>
+        </tr>
+      </ng-container>
+      <ng-container>
+        <tr class="text-white sb-bg-dark">
+          <th>Risk &
+            Mitigation</th>
+        </tr>
+        <tr>
+          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.riskConclusionRecommendation | safeHtml"></span></td>
+        </tr>
+      </ng-container>
+
+    </table>
+  </div>
 </div>
