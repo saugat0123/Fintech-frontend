@@ -2,5 +2,7 @@ export class NepaliNumberAndWords {
     numberNepali: string;
     nepaliWords: string;
     engNumber: any;
-    flag:boolean;
+    engWords: string;
+    flag: boolean;
+    initDate: string;
 }
