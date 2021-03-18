@@ -21,7 +21,7 @@ export class ProposalViewComponent implements OnInit {
   proposalAllData: any;
   customerFundedLoanList: LoanDataHolder[];
   customerNonFundedLoanList: LoanDataHolder[];
-  loanType: LoanType;
+  loanType: any;
 
   constructor() {
   }
