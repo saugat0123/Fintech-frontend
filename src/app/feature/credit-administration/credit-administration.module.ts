@@ -51,6 +51,7 @@ import { AdditionalExposureComponent } from './component/disbursement/additional
 import { CadOfferLetterConfigurationComponent } from './cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
 import {AngularDraggableModule} from 'angular2-draggable';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
+import { NepProposedAmountFormComponent } from './cad-offerletter-profile/cad-offer-letter-configuration/nep-proposed-amount-form/nep-proposed-amount-form.component';
 
 
 @NgModule({
@@ -93,7 +94,8 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
         DocumentChecklistViewLiteComponent,
         SecurityComplianceCertificateComponent,
         AdditionalExposureComponent,
-        CadOfferLetterConfigurationComponent],
+        CadOfferLetterConfigurationComponent,
+        NepProposedAmountFormComponent],
     imports: [
         ThemeModule,
         CommonModule,

@@ -10,6 +10,7 @@ import {NepaliCurrencyWordPipe} from '../../../../@core/pipe/nepali-currency-wor
 import {ProposalCalculationUtils} from '../../../loan/component/loan-summary/ProposalCalculationUtils';
 import {LoanDataKey} from '../../../../@core/utils/constants/loan-data-key';
 import {NepaliNumberAndWords} from '../../model/nepaliNumberAndWords';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-cad-checklist-doc-template-modal',
@@ -41,9 +42,14 @@ export class CadChecklistDocTemplateModalComponent implements OnInit {
     }
 
     calulation() {
-       const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
-        this.nepaliNumber.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
-        this.nepaliNumber.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
+        if (ObjectUtil.isEmpty(this.cadData.nepData)) {
+            const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
+            this.nepaliNumber.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
+            this.nepaliNumber.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
+            this.nepaliNumber.engNumber = number;
+        } else {
+            this.nepaliNumber = JSON.parse(this.cadData.nepData);
+        }
 
     }
 }
