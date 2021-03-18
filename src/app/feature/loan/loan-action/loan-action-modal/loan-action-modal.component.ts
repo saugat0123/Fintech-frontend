@@ -19,6 +19,7 @@ import {Role} from '../../../admin/modal/role';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {RoleType} from '../../../admin/modal/roleType';
 import {RoleService} from '../../../admin/component/role-permission/role.service';
+import {Editor} from '../../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-loan-action-modal',
@@ -51,6 +52,7 @@ export class LoanActionModalComponent implements OnInit {
     isNoUserSelectedSol = false;
     isEmptyUser = false;
     showUserList = true;
+    ckeConfig = Editor.CK_CONFIG;
 
     // selectedRoleForSol:Role = undefined;
 

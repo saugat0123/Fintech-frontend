@@ -21,12 +21,16 @@ export class ProposalViewComponent implements OnInit {
   proposalAllData: any;
   customerFundedLoanList: LoanDataHolder[];
   customerNonFundedLoanList: LoanDataHolder[];
+  loanType: any;
 
   constructor() {
   }
 
   ngOnInit() {
     this.proposalAllData = JSON.parse(this.proposalData.data);
+    if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+      this.loanType = this.loanDataHolder.loanType;
+    }
   }
 
   public getTotal(key: string): number {

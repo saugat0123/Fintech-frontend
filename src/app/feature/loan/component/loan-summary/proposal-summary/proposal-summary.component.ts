@@ -15,18 +15,23 @@ import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatte
 export class ProposalSummaryComponent implements OnInit {
     @Input() proposalData: Proposal;
     @Input() customerAllLoanList: LoanDataHolder[];
+    @Input() loanDataHolder;
     public DocStatus = DocStatus;
     public LoanType = LoanType;
     public EnumUtils = EnumUtils;
     proposalAllData: any;
     customerFundedLoanList: LoanDataHolder[];
     customerNonFundedLoanList: LoanDataHolder[];
+    loanType: any;
 
     constructor() {
     }
 
     ngOnInit() {
         this.proposalAllData = JSON.parse(this.proposalData.data);
+        if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+            this.loanType = this.loanDataHolder.loanType;
+        }
     }
 
     public getTotal(key: string): number {

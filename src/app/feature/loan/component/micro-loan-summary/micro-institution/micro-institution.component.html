@@ -131,19 +131,19 @@
             </tr>
             <tr>
                 <td><b>Loan products</b></td>
-                <td colspan="2">{{companyJsonData?.microCustomerDetail['loanProducts'] || 'NA'}}</td>
+                <td colspan="2">{{companyJsonData?.microCustomerDetail?.loanProducts || 'NA'}}</td>
             </tr>
             <tr>
                 <td><b>Saving Products</b></td>
-                <td colspan="2">{{companyJsonData?.microCustomerDetail['otherProducts'] || 'NA'}}</td>
+                <td colspan="2">{{companyJsonData?.microCustomerDetail?.otherProducts || 'NA'}}</td>
             </tr>
             <tr>
                 <td><b>Other products</b></td>
-                <td colspan="2"><span [innerHTML]="companyJsonData?.microCustomerDetail['repaymentSchedule'] || 'NA'"></span></td>
+                <td colspan="2"><span [innerHTML]="companyJsonData?.microCustomerDetail?.repaymentSchedule || 'NA'"></span></td>
             </tr>
             <tr>
                 <td><b>Repayment Schedule</b></td>
-                <td colspan="2">{{companyJsonData?.microCustomerDetail['savingProducts'] || 'NA'}}</td>
+                <td colspan="2">{{companyJsonData?.microCustomerDetail?.savingProducts || 'NA'}}</td>
             </tr>
 
         </table>

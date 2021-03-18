@@ -3,6 +3,14 @@
         <nb-card-body id="print-block">
             <div class="row disable-print">
                 <div class="col-md-12">
+                    <div *ngIf="loanDataHolder?.documentStatus?.toString() === 'PENDING'||
+                    loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
+                    loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'">
+                        <app-role-heirarchy-chain [refId]="id"
+                        [loanDataHolder]="loanDataHolder"
+                        [branchId]="loanDataHolder?.branch?.id"
+                        [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"></app-role-heirarchy-chain>
+                    </div>
                     <div *ngIf="(loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
                     loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'||
                     loanDataHolder?.documentStatus?.toString() === 'INITIAL') && roleType === 'MAKER' && productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL.toString() === 'LOAN'">
@@ -634,7 +642,8 @@
             <app-proposal-summary
                     *ngIf="proposalSummary"
                     [customerAllLoanList]="customerAllLoanList"
-                    [proposalData]="proposalData"></app-proposal-summary>
+                    [proposalData]="proposalData"
+                    [loanDataHolder]="loanDataHolder"></app-proposal-summary>
             <div class="row">
                 <div class="col-md-12 sb-medium">
                     <strong>Propose Amount:</strong>
@@ -1113,15 +1122,15 @@
                             <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe }}</td>
                             <td class="text-left">
                                 <div class="pl-1 disable-print">
-                                    {{loanDataHolder?.currentStage?.comment?.length > 50 ?
+                                    <span [innerHTML]="loanDataHolder?.currentStage?.comment?.length > 50 ?
                                     loanDataHolder?.currentStage?.comment?.substring(0, 49) :
-                                    loanDataHolder?.currentStage?.comment}}
+                                    loanDataHolder?.currentStage?.comment | safeHtml"></span>
                                 </div>
                                 <a (click)="open(loanDataHolder.currentStage.comment)"
                                    *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
                                    class="text-left pl-1 disable-print">read more ....</a>
                                 <div>
-                                    <span class="pl-1 print-only text-justify pr-1">{{loanDataHolder?.currentStage?.comment}}</span>
+                                    <span class="pl-1 print-only text-justify pr-1" [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
                                 </div>
                             </td>
                         </tr>
@@ -1187,9 +1196,9 @@
                             <td class="text-left pl-1">{{previousList?.docAction}}</td>
                             <td class="text-left">
                                 <div class="pl-1">
-                                    {{previousList?.comment?.length > 50 ?
+                                    <span [innerHTML]="previousList?.comment?.length > 50 ?
                                     previousList?.comment?.substring(0, 49) :
-                                    previousList?.comment}}
+                                    previousList?.comment | safeHtml"></span>
                                 </div>
                                 <a (click)="open(previousList?.comment)"
                                    *ngIf="previousList?.comment?.length > 50"

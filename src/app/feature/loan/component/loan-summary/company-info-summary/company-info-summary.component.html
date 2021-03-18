@@ -137,9 +137,10 @@
           <td>{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
         </tr>
 
-        <tr *ngIf="approveSheet === 'approveSheet'">
+<!--        Obligor Code for SRDB only-->
+        <tr *ngIf="approveSheet === 'approveSheet' && client === clientName.SHINE_RESUNGA">
           <td><b>Obligor Code</b></td>
-          <td>{{loanDataHolder?.groupSummaryDto?.groupCode}}</td>
+          <td>{{loanDataHolder?.loanHolder?.obligor}}</td>
         </tr>
 
       </table>
