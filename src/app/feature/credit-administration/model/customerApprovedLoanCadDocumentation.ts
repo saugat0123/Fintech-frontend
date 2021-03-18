@@ -23,6 +23,7 @@ export class CustomerApprovedLoanCadDocumentation extends BaseEntity {
     data: any;
     disbursementComment: string;
     additionalDocumentList: Array<AdditionalDocument>;
+    nepData: any;
 
 
 }
