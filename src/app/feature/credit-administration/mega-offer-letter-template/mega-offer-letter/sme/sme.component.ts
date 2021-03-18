@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {Form, FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
@@ -27,6 +27,8 @@ export class SmeComponent implements OnInit {
   spinner = false;
   existingOfferLetter = false;
   initialInfoPrint;
+  loanRateDetail;
+  overdraftTotal = [undefined];
   offerLetterConst = MegaOfferLetterConst;
   offerLetterDocument: OfferDocument;
   selectedLoanArray = [];
@@ -67,6 +69,12 @@ export class SmeComponent implements OnInit {
     this.checkOfferLetterData();
     this.chooseLoanType(this.selectedLoanArray);
     this.listOfLoan.push(this.loanForm.get('loanTypeSelectedArray').value);
+  }
+
+  calculateRate(overdraftIndex) {
+      this.loanRateDetail = this.loanForm.get('overdraftLoan').value;
+      this.overdraftTotal[overdraftIndex] = this.loanRateDetail[overdraftIndex].overdrafLoanCurrentTermRate +
+        this.loanRateDetail[overdraftIndex].overdrafLoanPremiumRate;
   }
 
   buildForm() {
