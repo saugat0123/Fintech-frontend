@@ -90,18 +90,20 @@
                                 {{one?.guarantorIssueDistrict}}
                                 </strong>), आगे
                     </span>
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="borrowerGrandFather"
-                           formControlName="guarantorGrandFather2"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarantorGrandFather2').value ? personalGuaranteeJoint.get('guarantorGrandFather2').value  : '========='}}</b></span>
-                    को नाति/नातिनी/बुहारी
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="guarrantorFatherName2"
-                           formControlName="guarrantorFatherName2"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarrantorFatherName2').value ? personalGuaranteeJoint.get('guarrantorFatherName2').value  : '========='}}</b></span>
-                    छोरा/छोरी/श्रीमति
+                    <span *ngIf="nepData?.gender==1">
+                        <strong class="nepaliFont">{{nepData?.grandFatherName}}</strong>को नाति &nbsp;
+                        <strong class="nepaliFont">{{nepData.fatherName}}</strong>को छोरा
+                    </span>
+                    <span *ngIf="nepData?.gender==0">
+                        <span *ngIf="nepData?.relationMedium==0">
+                            <strong class="nepaliFont">{{nepData?.grandFatherName}}</strong>को नातिनी &nbsp;
+                            <strong class="nepaliFont">{{nepData.fatherName}}</strong>को छोरी
+                        </span>
+                        <span *ngIf="nepData?.relationMedium==1">
+                            <strong class="nepaliFont">{{nepData?.fatherInLawName}}</strong>को बुहारी &nbsp;
+                            <strong class="nepaliFont">{{nepData.husbandName}}</strong>को श्रीमति
+                        </span>
+                    </span>
                     <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong> जिल्ला
                     <strong class="nepaliFont">{{nepData?.permanentMunicipality}}</strong>
                     {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
