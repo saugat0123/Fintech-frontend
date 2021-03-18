@@ -57,18 +57,24 @@
                            formControlName="tempAddDistrict"
                            placeholder=""
                            type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('tempAddDistrict').value ? personalGuaranteeJoint.get('tempAddDistrict').value  : '========='}}</b></span>
-                    <strong class="nepaliFont">{{nepData?.temporaryDistrict}}</strong>
                     जिल्ला
-                    <strong class="nepaliFont">{{nepData?.temporaryMunicipality}}</strong>
+                     <input class="form-field form-control-sm nepaliFont disable-print"
+                            name="tempAddMunicipality"
+                            formControlName="tempAddMunicipality"
+                            placeholder=""
+                            type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('tempAddMunicipality').value ? personalGuaranteeJoint.get('tempAddMunicipality').value  : '========='}}</b></span>
                     {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
                     वडा नं.
-                    <strong class="nepaliFont">{{nepData?.temporaryWard}}</strong>
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="tempAddWardNo"
+                           formControlName="tempAddWardNo"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('tempAddWardNo').value ? personalGuaranteeJoint.get('tempAddWardNo').value  : '========='}}</b></span>
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="tempAddress"
                            formControlName="tempAddress"
                            placeholder=""
                            type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('tempAddress').value ? personalGuaranteeJoint.get('tempAddress').value  : '========='}}</b></span>
-
                     बस्ने वर्ष
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="guarantorAge"
@@ -76,7 +82,6 @@
                            placeholder=""
                            type="text"
                            size="3"/>
-
                     को <strong class="nepaliFont">{{one?.guarantorName}}</strong>
                         (ना.प्र.प नं. <strong class="nepaliFont">
                                 {{one?.guarantorCitizenshipNum}}
