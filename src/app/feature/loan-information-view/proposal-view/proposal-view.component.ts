@@ -31,6 +31,7 @@ export class ProposalViewComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
       this.loanType = this.loanDataHolder.loanType;
     }
+    console.log('Proposal Data::', this.proposalAllData);
   }
 
   public getTotal(key: string): number {
