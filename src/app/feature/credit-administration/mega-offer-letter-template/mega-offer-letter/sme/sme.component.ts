@@ -28,7 +28,7 @@ export class SmeComponent implements OnInit {
   existingOfferLetter = false;
   initialInfoPrint;
   loanRateDetail;
-  overdraftTotal;
+  overdraftTotal = [undefined];
   offerLetterConst = MegaOfferLetterConst;
   offerLetterDocument: OfferDocument;
   selectedLoanArray = [];
@@ -73,14 +73,8 @@ export class SmeComponent implements OnInit {
 
   calculateRate(overdraftIndex) {
       this.loanRateDetail = this.loanForm.get('overdraftLoan').value;
-      // this.baseRate = Integer. valueOf()
-      this.overdraftTotal = this.loanRateDetail[overdraftIndex].overdrafLoanCurrentTermRate +
-          this.loanRateDetail[overdraftIndex].overdrafLoanPremiumRate;
-      // this.asd = Object.values(this.loanRateTotal);
-      console.log('this is overdraftTotal', this.overdraftTotal);
-      this.loanRateDetail[overdraftIndex].overdrafLoanCurrentAnnualRate = this.overdraftTotal;
-      console.log(this.loanRateDetail);
-      // this.loanForm.get('overdraftLoan').setValue(overdrafLoanCurrentAnnualRate);
+      this.overdraftTotal[overdraftIndex] = this.loanRateDetail[overdraftIndex].overdrafLoanCurrentTermRate +
+      this.loanRateDetail[overdraftIndex].overdrafLoanPremiumRate;
   }
 
   buildForm() {
