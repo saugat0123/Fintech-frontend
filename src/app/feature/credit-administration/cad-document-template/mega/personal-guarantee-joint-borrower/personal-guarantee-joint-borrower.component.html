@@ -47,7 +47,11 @@
                            type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarantorWardNo').value ? personalGuaranteeJoint.get('guarantorWardNo').value  : '========='}}</b></span>
 
                     घर भई हाल प्रदेश नं.
-                    <strong class="nepaliFont">{{nepData?.temporaryProvince}}</strong>&nbsp;
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="tempProvinceNo"
+                           formControlName="tempProvinceNo"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('tempProvinceNo').value ? personalGuaranteeJoint.get('tempProvinceNo').value  : '========='}}</b></span>
 
                     <strong class="nepaliFont">{{nepData?.temporaryDistrict}}</strong>
                     जिल्ला
@@ -69,12 +73,8 @@
                            type="text"
                            size="3"/>
 
-                    को <input class="form-field form-control-sm nepaliFont disable-print"
-                              name="guarantorName"
-                              formControlName="guarantorName"
-                              placeholder=""
-                              type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarantorName').value ? personalGuaranteeJoint.get('guarantorName').value  : '========='}}</b></span>
-                    (ना.प्र.प नं. <strong class="nepaliFont">
+                    को {{one?.guarantorName}}
+                        (ना.प्र.प नं. <strong class="nepaliFont">
                                 {{one?.guarantorCitizenshipNum}}
                                 </strong>
                     मिति <strong class="nepaliFont">{{one?.guarantorIssueDate}}</strong>
@@ -94,18 +94,10 @@
                            placeholder=""
                            type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('guarrantorFatherName2').value ? personalGuaranteeJoint.get('guarrantorFatherName2').value  : '========='}}</b></span>
                     छोरा/छोरी/श्रीमति
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="borrowerDistrict"
-                           formControlName="borrowerDistrict"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('borrowerDistrict').value ? personalGuaranteeJoint.get('borrowerDistrict').value  : '========='}}</b></span>
-                    जिल्ला
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="borrowerMunicipalityOrVdc"
-                           formControlName="borrowerMunicipalityOrVdc"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('borrowerMunicipalityOrVdc').value ? personalGuaranteeJoint.get('borrowerMunicipalityOrVdc').value  : '========='}}</b></span>
-                    गाउँपालिकार नगरपालिका वडा नं.
+                    <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong> जिल्ला
+                    <strong class="nepaliFont">{{nepData?.permanentMunicipality}}</strong>
+                    {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
+                    वडा नं.
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="borrowerWardNo"
                            formControlName="borrowerWardNo"
@@ -142,38 +134,12 @@
                            formControlName="tempAddress2"
                            placeholder=""
                            type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('tempAddress2').value ? personalGuaranteeJoint.get('tempAddress2').value  : '========='}}</b></span>
-                    बस्ने वर्ष
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="borrowerAge"
-                           formControlName="borrowerAge"
-                           placeholder=""
-                           type="text"
-                           size="3"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('borrowerAge').value ? personalGuaranteeJoint.get('borrowerAge').value  : '========='}}</b></span>
-                    को
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="borrowerName"
-                           formControlName="borrowerName"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('borrowerName').value ? personalGuaranteeJoint.get('borrowerName').value  : '========='}}</b></span>
+                    बस्ने वर्ष <strong class="nepaliFont">{{nepData?.age}}</strong>
+                    को <strong class="nepaliFont">{{nepData?.name}}</strong>
                     (ना.प्र.प नं.
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="borrowerCitizenshipNo"
-                           formControlName="borrowerCitizenshipNo"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('borrowerCitizenshipNo').value ? personalGuaranteeJoint.get('borrowerCitizenshipNo').value  : '========='}}</b></span>
-                    मिति
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="borrowerCitizenshipIssuedDate"
-                           formControlName="borrowerCitizenshipIssuedDate"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('borrowerCitizenshipIssuedDate').value ? personalGuaranteeJoint.get('borrowerCitizenshipIssuedDate').value  : '========='}}</b></span>
-                    जिल्ला
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="borrowerCitizenshipIssuedDistrict"
-                           formControlName="borrowerCitizenshipIssuedDistrict"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('borrowerCitizenshipIssuedDistrict').value ? personalGuaranteeJoint.get('borrowerCitizenshipIssuedDistrict').value  : '========='}}</b></span>
-                    ) , —१ समेत जना
+                    <strong class="nepaliFont">{{nepData?.citizenshipNo}}</strong> मिति
+                    <strong class="nepaliFont">{{nepData?.citizenshipIssueDate}}</strong>
+                    जिल्ला <strong class="nepaliFont">{{nepData?.citizenshipIssueDistrict}}</strong>, —१ समेत जना
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="numberOfGuarantor"
                            formControlName="numberOfGuarantor"

@@ -74,7 +74,7 @@ export class SmeComponent implements OnInit {
   calculateRate(overdraftIndex) {
       this.loanRateDetail = this.loanForm.get('overdraftLoan').value;
       this.overdraftTotal[overdraftIndex] = this.loanRateDetail[overdraftIndex].overdrafLoanCurrentTermRate +
-      this.loanRateDetail[overdraftIndex].overdrafLoanPremiumRate;
+        this.loanRateDetail[overdraftIndex].overdrafLoanPremiumRate;
   }
 
   buildForm() {
