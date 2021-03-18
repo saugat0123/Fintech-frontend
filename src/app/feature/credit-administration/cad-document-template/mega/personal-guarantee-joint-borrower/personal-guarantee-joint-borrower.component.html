@@ -96,39 +96,14 @@
                     छोरा/छोरी/श्रीमति
                     <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong> जिल्ला
                     <strong class="nepaliFont">{{nepData?.permanentMunicipality}}</strong>
+                    {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
+                    वडा नं. {{nepData?.permanentWard}}
+                    घर भई हाल प्रदेश नं. <strong class="nepaliFont">{{nepData?.temporaryProvince}}</strong>
+                    <strong class="nepaliFont">{{nepData?.temporaryDistrict}}</strong> जिल्ला
+                    <strong class="nepaliFont">{{nepData?.temporaryMunicipality}}</strong>
                     {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
-                    वडा नं.
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="borrowerWardNo"
-                           formControlName="borrowerWardNo"
-                           placeholder=""
-                           type="text"
-                           size="3"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('borrowerWardNo').value ? personalGuaranteeJoint.get('borrowerWardNo').value  : '========='}}</b></span>
-                    घर भई हाल प्रदेश नं.
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="borrowerProvinceNo"
-                           formControlName="borrowerProvinceNo"
-                           placeholder=""
-                           type="text"
-                           size="2"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('borrowerProvinceNo').value ? personalGuaranteeJoint.get('borrowerProvinceNo').value  : '========='}}</b></span>
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="borrowerTempDistrict"
-                           formControlName="borrowerTempDistrict"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('borrowerTempDistrict').value ? personalGuaranteeJoint.get('borrowerTempDistrict').value  : '========='}}</b></span>
-                    जिल्ला
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="tempMunicipalityOrVdc2"
-                           formControlName="tempMunicipalityOrVdc2"
-                           placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('tempMunicipalityOrVdc2').value ? personalGuaranteeJoint.get('tempMunicipalityOrVdc2').value  : '========='}}</b></span>
-                    गाउँपालिका/नगरपालिका वडा नं.
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="tempWardNo2"
-                           formControlName="tempWardNo2"
-                           placeholder=""
-                           type="text"
-                           size="3"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('tempWardNo2').value ? personalGuaranteeJoint.get('tempWardNo2').value  : '========='}}</b></span>
+                    वडा नं. <strong class="nepaliFont">{{nepData?.temporaryWard}}</strong>
+
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="tempAddress2"
                            formControlName="tempAddress2"
@@ -139,7 +114,7 @@
                     (ना.प्र.प नं.
                     <strong class="nepaliFont">{{nepData?.citizenshipNo}}</strong> मिति
                     <strong class="nepaliFont">{{nepData?.citizenshipIssueDate}}</strong>
-                    जिल्ला <strong class="nepaliFont">{{nepData?.citizenshipIssueDistrict}}</strong>, —१ समेत जना
+                    जिल्ला <strong class="nepaliFont">{{nepData?.citizenshipIssueDistrict}}</strong>), —१ समेत जना
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="numberOfGuarantor"
                            formControlName="numberOfGuarantor"
