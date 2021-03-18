@@ -11,9 +11,8 @@
                            formControlName="bankBranchName"
                            placeholder=""
                            type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('bankBranchName').value ? personalGuaranteeJoint.get('bankBranchName').value  : '========='}}</b></span>
-                    शाखा कार्यालय (यसपछि धनी बैंक भनिएको ) जमानीको लिखत गरी दिनेका
+                    शाखा कार्यालय (यसपछि धनी बैंक भनिएको ) जमानीको लिखत गरी दिनेका नाम
                     <span *ngFor="let one of guarantorData">
-                    नाम
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="guarantorGrandFatherName"
                            formControlName="guarantorGrandFatherName"
@@ -89,7 +88,7 @@
                     मिति <strong class="nepaliFont">{{one?.guarantorIssueDate}}</strong>
                         जिल्ला <strong class="nepaliFont">
                                 {{one?.guarantorIssueDistrict}}
-                                </strong>), &nbsp;
+                                </strong>), आगे
                     </span>
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="borrowerGrandFather"
