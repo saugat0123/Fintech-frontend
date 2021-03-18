@@ -52,7 +52,11 @@
                            formControlName="tempProvinceNo"
                            placeholder=""
                            type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('tempProvinceNo').value ? personalGuaranteeJoint.get('tempProvinceNo').value  : '========='}}</b></span>
-
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="tempAddDistrict"
+                           formControlName="tempAddDistrict"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('tempAddDistrict').value ? personalGuaranteeJoint.get('tempAddDistrict').value  : '========='}}</b></span>
                     <strong class="nepaliFont">{{nepData?.temporaryDistrict}}</strong>
                     जिल्ला
                     <strong class="nepaliFont">{{nepData?.temporaryMunicipality}}</strong>
@@ -73,7 +77,7 @@
                            type="text"
                            size="3"/>
 
-                    को {{one?.guarantorName}}
+                    को <strong class="nepaliFont">{{one?.guarantorName}}</strong>
                         (ना.प्र.प नं. <strong class="nepaliFont">
                                 {{one?.guarantorCitizenshipNum}}
                                 </strong>
@@ -97,7 +101,7 @@
                     <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong> जिल्ला
                     <strong class="nepaliFont">{{nepData?.permanentMunicipality}}</strong>
                     {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
-                    वडा नं. {{nepData?.permanentWard}}
+                    वडा नं. <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
                     घर भई हाल प्रदेश नं. <strong class="nepaliFont">{{nepData?.temporaryProvince}}</strong>
                     <strong class="nepaliFont">{{nepData?.temporaryDistrict}}</strong> जिल्ला
                     <strong class="nepaliFont">{{nepData?.temporaryMunicipality}}</strong>
