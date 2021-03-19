@@ -3,8 +3,9 @@ import {Security} from '../../loan/model/security';
 import {NepseMaster} from '../../admin/modal/NepseMaster';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {OwnershipTransfer} from '../../loan/model/ownershipTransfer';
-import {environment} from '../../../../environments/environment.srdb';
+import {environment as envSrdb} from '../../../../environments/environment.srdb';
 import {Clients} from '../../../../environments/Clients';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-security-view',
@@ -20,7 +21,7 @@ export class SecurityViewComponent implements OnInit {
   landSelected = false;
   hypothecation = false;
   corporate = false;
-  personal= false;
+  personal = false;
   apartmentSelected = false;
   plantSelected = false;
   depositSelected = false;
@@ -33,9 +34,9 @@ export class SecurityViewComponent implements OnInit {
   buildingSelected = false;
   landBuilding = false;
   ownerShipTransfer = OwnershipTransfer;
-  disableCrgAlphaParams = environment.disableCrgAlpha;
-  crgLambdaDisabled = environment.disableCrgLambda;
-  client = environment;
+  disableCrgAlphaParams = envSrdb.disableCrgAlpha;
+  crgLambdaDisabled = envSrdb.disableCrgLambda;
+  client = environment.client;
   clientName = Clients;
 
   constructor() {

@@ -25,7 +25,6 @@ export class PersonalGuaranteeJointBorrowerComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
-  guarantorDetail: Array<Guarantor>;
   nepData;
   guarantorData;
   submitted = false;
@@ -37,10 +36,6 @@ export class PersonalGuaranteeJointBorrowerComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.guarantors)) {
-      const guarantorList = this.cadData.loanHolder.guarantors.guarantorList;
-      this.guarantorDetail = guarantorList;
-    }
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {

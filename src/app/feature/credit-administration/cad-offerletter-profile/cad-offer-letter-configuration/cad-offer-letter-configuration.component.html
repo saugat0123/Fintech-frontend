@@ -9,8 +9,8 @@
     </nb-card-header>
     <nb-card-body>
         <form [formGroup]="userConfigForm">
-            <nb-tabset>
-                <nb-tab tabTitle="व्यक्तिगत विवरण">
+            <nb-tabset (changeTab)="onChangeTab($event)">
+                <nb-tab tabId="0" tabTitle="व्यक्तिगत विवरण" #personal>
 
                     <div class="row">
                         <div class="col">
@@ -32,6 +32,7 @@
                                         id="citizenshipNo"
                                         [ngClass]="{'is-invalid': submitted && configForm.citizenshipNo.errors}"
                                         name="name" placeholder="नगरिकता न"
+                                        readonly="readonly"
                                         type="text"/>
                             </div>
                         </div>
@@ -68,6 +69,7 @@
                                         id="age"
                                         [ngClass]="{'is-invalid': submitted && configForm.age.errors}"
                                         name="age" placeholder="उमेर  "
+                                        readonly="readonly"
                                         type="text"/>
                             </div>
                         </div>
@@ -270,7 +272,7 @@
                     </div>
 
                 </nb-tab>
-                <nb-tab tabTitle="ग्यारेन्टर विवरण">
+                <nb-tab tabId="1"  tabTitle="ग्यारेन्टर विवरण">
 
                     <div *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
                          class="form-group" formArrayName="guarantorDetails">
@@ -388,13 +390,18 @@
                     </div>
                     <button class="btn tbn-sm btn-flat btn-primary" (click)="addGuarantor()">Add Guarantor</button>
                 </nb-tab>
+                <nb-tab tabId="2"  tabTitle=" प्रस्तावित रकम">
+                    <app-nep-proposed-amount-form [cadData]="cadData">
+
+                    </app-nep-proposed-amount-form>
+                </nb-tab>
             </nb-tabset>
         </form>
     </nb-card-body>
     <nb-card-footer>
-        <div class="row">
+        <div class="row" *ngIf="!hideSaveBtn">
             <div class="col-md-12">
-                <button class="float-right" nbButton (click)="save()">save</button>
+                <button class="float-right" nbButton (click)="save()" >save</button>
             </div>
         </div>
     </nb-card-footer>

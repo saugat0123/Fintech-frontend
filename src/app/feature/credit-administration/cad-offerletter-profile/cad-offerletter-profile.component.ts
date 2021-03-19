@@ -176,6 +176,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     openOfferLetterConfigModal() {
         this.nbDialogService.open(CadOfferLetterConfigurationComponent, {
             context: {
+                cadData: this.cadOfferLetterApprovedDoc,
                 customerInfo: this.customerInfoData,
                 customer: this.cadOfferLetterApprovedDoc.assignedLoan[0].customerInfo
             }
