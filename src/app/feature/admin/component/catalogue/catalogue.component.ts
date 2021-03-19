@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {BranchService} from '../branch/branch.service';
 import {Branch} from '../../modal/branch';
 import {LoanConfig} from '../../modal/loan-config';
@@ -27,7 +27,7 @@ import {SocketService} from '../../../../@core/service/socket.service';
 import {CatalogueSearch, CatalogueService} from './catalogue.service';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
-import {NbTrigger} from '@nebular/theme';
+import {NbDialogRef, NbDialogService, NbTrigger} from '@nebular/theme';
 import {CustomerLoanFlag} from '../../../../@core/model/customer-loan-flag';
 import {LoanFlag} from '../../../../@core/model/enum/loan-flag.enum';
 import {Province} from '../../modal/province';
@@ -499,5 +499,29 @@ export class CatalogueComponent implements OnInit {
 
     public showUpdateLoanInfo(loanFlags: CustomerLoanFlag[]): boolean {
         return loanFlags.map((f) => f.flag).includes(LoanFlag[LoanFlag.INSURANCE_EXPIRY]);
+    }
+
+    public onReInitiate(loan) {
+        this.onActionChangeSpinner = true;
+        this.loanDataHolder.loanType = loan;
+        this.loanFormService.renewLoan(this.loanDataHolder).subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully re-initiated loan.'));
+                this.modalService.dismissAll('Close modal');
+                this.tempLoanType = null;
+                this.clearSearch();
+                this.catalogueService.search.documentStatus = DocStatus.value(DocStatus.PENDING);
+                this.onSearch();
+                this.onActionChangeSpinner = false;
+            }, error => {
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to re-initiate loan type.'));
+                this.modalService.dismissAll('Close modal');
+            }
+        );
+
+    }
+
+    public onReInitiateClick(data, onReInitiateAction) {
+        this.loanDataHolder = data;
+        this.modalService.open(onReInitiateAction);
     }
 }

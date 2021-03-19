@@ -8,6 +8,7 @@ export enum DocStatus {
     VALUATION,
     UNDER_REVIEW,
     INITIAL,
+    RE_INITIATE,
 }
 
 export namespace DocStatus {
@@ -37,6 +38,8 @@ export namespace DocStatus {
             return 'UNDER_REVIEW';
         } else if (docStatus === DocStatus.INITIAL) {
             return 'INITIAL';
+        } else if (docStatus === DocStatus.RE_INITIATE) {
+            return 'RE_INITIATE';
         }
     }
 }
