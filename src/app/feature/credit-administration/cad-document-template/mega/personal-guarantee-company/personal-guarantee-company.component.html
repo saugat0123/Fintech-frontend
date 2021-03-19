@@ -57,20 +57,14 @@
                         <span *ngIf="nepData?.gender==1">को </span>
                         <span *ngIf="nepData?.gender==0"> की </span>
                         <span *ngFor="let one of guarantorData">
-                        श्री/श्रीमती/सुश्री <input class="form-field form-control-sm nepaliFont disable-print"
-                                                   name="guarantorName"
-                                                   placeholder=""
-                                                   formControlName="guarantorName"
-                                                   type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('guarantorName').value ? personalGuaranteeCompany.get('guarantorName').value  : '========='}}</b></span>
-                        ( ग्यारेन्टरको नाम <strong class="nepaliFont">{{one?.guarantorName}}</strong>
+                        श्री/श्रीमती/सुश्री
+                            <strong class="nepaliFont">{{one?.guarantorName}}</strong>,
                         ना.प्र.प नं. <strong class="nepaliFont">{{one?.guarantorCitizenshipNum}}</strong>
                     मिति <strong class="nepaliFont">{{one?.guarantorIssueDate}}</strong>
                         जिल्ला <strong class="nepaliFont">
                                 {{one?.guarantorIssueDistrict}}
-                                </strong>
-                        ठेगाना<strong class="nepaliFont">{{one?.guarantorAddress}}</strong>)
-                        </span>
+                        </strong> </span>
+
                             ( ना.प्र.प नं.<strong class="nepaliFont">{{nepData?.citizenshipNo}}</strong>
                         , मिति <input class="form-field form-control-sm nepaliFont disable-print"
                                       name="date"

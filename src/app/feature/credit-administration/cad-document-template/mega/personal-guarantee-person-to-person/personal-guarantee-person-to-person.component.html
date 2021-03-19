@@ -67,27 +67,12 @@
                     <span *ngIf="nepData?.gender==0"> की </span>
                     <span *ngFor="let one of guarantorData">
                     श्री/श्रीमती/सुश्री
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="guarantorName"
-                           placeholder=""
-                           formControlName="guarantorName"
-                           type="text"/>
+                    <strong class="nepaliFont">{{one?.guarantorName}}</strong>
                     <span class="print-only nepaliFont"><b>{{personalGuarantee.get('guarantorName').value ? personalGuarantee.get('guarantorName').value  : '========='}}</b></span>
-                  ( ग्यारेन्टरको नाम <strong class="nepaliFont">{{one?.guarantorName}}</strong>
                         ना.प्र.प नं. <strong class="nepaliFont">{{one?.guarantorCitizenshipNum}}</strong>
                     मिति <strong class="nepaliFont">{{one?.guarantorIssueDate}}</strong>
-                        जिल्ला <strong class="nepaliFont">
-                                {{one?.guarantorIssueDistrict}}
-                                </strong>
-                        ठेगाना<strong class="nepaliFont">{{one?.guarantorAddress}}</strong>)
-                        </span>
                     मा जिल्ला प्रशासन कार्यालय
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="citizenshipIssuedOffice"
-                           placeholder=""
-                           formControlName="citizenshipIssuedOffice"
-                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuarantee.get('citizenshipIssuedOffice').value ? personalGuarantee.get('citizenshipIssuedOffice').value  : '========='}}</b></span>
-
+                    <strong class="nepaliFont">{{one?.guarantorIssueDistrict}}</strong> </span>
                     बाट जारी भएको) आगे तपाई धनी बैंकले मेरो जमानी बसिदिने शर्तमा
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="borrowerGrandFather"

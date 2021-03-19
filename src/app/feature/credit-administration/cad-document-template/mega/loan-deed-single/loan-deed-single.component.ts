@@ -20,11 +20,10 @@ import {Guarantor} from '../../../../loan/model/guarantor';
 export class LoanDeedSingleComponent implements OnInit {
 
   loanDeedSingle: FormGroup;
-  singleData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
-  guarantorDetail: Array<Guarantor>;
+  singleData;
   nepData;
   guarantorData;
   submitted = false;
@@ -37,10 +36,6 @@ export class LoanDeedSingleComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      const guarantorList = this.cadData.loanHolder.guarantors.guarantorList;
-      this.guarantorDetail = guarantorList;
-    }
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           this.loanDeedSingle.patchValue(JSON.parse(singleCadFile.initialInformation));
@@ -49,7 +44,7 @@ export class LoanDeedSingleComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.singleData = JSON.parse(this.cadData.loanHolder.nepData);
-      this.guarantorData = Object.values(this.nepData.guarantorDetails);
+      this.guarantorData = Object.values(this.singleData.guarantorDetails);
     }
   }
 
@@ -145,6 +140,5 @@ export class LoanDeedSingleComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
     });
-    console.log(this.loanDeedSingle.value);
   }
 }

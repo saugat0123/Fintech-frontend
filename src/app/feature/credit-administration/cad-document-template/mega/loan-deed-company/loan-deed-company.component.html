@@ -250,29 +250,21 @@
                             <p class="text-left"><b><u>रोहबर</u></b></p>
                             धितो जमानीकर्ताको सहिछाप :
                             <br />
-                            <span *ngFor="let one of guarantorData">
+
                             नाम : <input class="form-field form-control-sm nepaliFont disable-print"
                                          formControlName="guarantorName"
                                          placeholder=""
-                                         type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('guarantorName').value ? loanDeedCompany.get('guarantorName').value  : '========='}}</b></span>
+                                         type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('guarantorName').value ? loanDeedSingle.get('guarantorName').value  : '========='}}</b></span>
                             <br />
+                            <br />
+                                <br />
                             <br />
                             जमानीकर्ताको सहिछाप :
                             <br />
-                            नाम : <input class="form-field form-control-sm nepaliFont disable-print"
-                                         formControlName="guarantorName2"
-                                         placeholder=""
-                                         type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('guarantorName2').value ? loanDeedCompany.get('guarantorName2').value  : '========='}}</b></span>
-                            ( ग्यारेन्टरको नाम <strong class="nepaliFont">{{one?.guarantorName}}</strong>
-                        ना.प्र.प नं. <strong class="nepaliFont">{{one?.guarantorCitizenshipNum}}</strong>
-                    मिति <strong class="nepaliFont">{{one?.guarantorIssueDate}}</strong>
-                        जिल्ला <strong class="nepaliFont">
-                                {{one?.guarantorIssueDistrict}}
-                                </strong>
-                        ठेगाना<strong class="nepaliFont">{{one?.guarantorAddress}}</strong>
-                        ),
-                    </span>
-                                <br />
+                           <span *ngFor="let one of guarantorData">
+                            ग्यारेन्टरको नाम <strong class="nepaliFont">{{one?.guarantorName}}</strong>
+                        </span>
+                            <br />
                         </div>
                         <br />
                         <br />
