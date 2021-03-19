@@ -108,14 +108,11 @@
                                <strong style="left: 32px">{{i+1 | nepaliWord:'unicode'}}) प्रस्तावित सुविधा : घर कर्जा (Housing Finance)</strong>
                                <i (click)="removeHousing(i)"  size="small" class="float-right fa fa-trash" *ngIf="form.get('housingFinance')['length']>1"></i>
                                 <br>
-                               रकम : रु.<input class="form-fields form-control-sm nepaliFont"
+                               रकम : रु.<input (change)="nepaliToEng(i , 'loanAmount')" class="form-fields form-control-sm"
                                               formControlName="loanAmount"
                                               placeholder=" ३०,००,०००.०० "
-                                              type="text"/>/- (अक्षेरुपी <input class="form-fields form-control-sm nepaliFont"
-                                                                                formControlName="loanAmountInWord"
-                                                                                placeholder="रीस लाख रुपैयाँ"
-                                                                                type="text"/>
-                               रुपैयाँ मात्र ।)<br><br>
+                                              type="text"/>/- (अक्षेरुपी <strong>{{finalNepaliWord[i]}}</strong>
+                               मात्र ।)<br><br>
                                प्रयोजन :  <input class="form-fields form-control-sm nepaliFont"
                                                  formControlName="use"> प्रयोजनार्थ ।<br><br>
                                समय : बैंकबाट कर्जा भुक्तानी भएको मितिले  <input class="form-fields form-control-sm nepaliFont"
