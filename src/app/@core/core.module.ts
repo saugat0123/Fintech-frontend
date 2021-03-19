@@ -11,9 +11,10 @@ import {NepaliWordPipe} from './pipe/nepali-word.pipe';
 import {ReplacePipe} from './utils/replace.pipe';
 import {RoundvaluePipe} from './pipe/roundvalue.pipe';
 import {BooleanConvertPipe} from './pipe/boolean-convert.pipe';
-import { DecimalNumberDirective } from './directive/decimal-number.directive';
-import { EngToNepaliNumberPipe } from './pipe/eng-to-nepali-number.pipe';
-import { LoanStatusPipe } from './pipe/loan-status-pipe';
+import {DecimalNumberDirective} from './directive/decimal-number.directive';
+import {NepaliToEngNumberPipe} from './pipe/nepali-to-eng-number.pipe';
+import {LoanStatusPipe} from './pipe/loan-status-pipe';
+import {EngToNepaliNumberPipe} from './pipe/eng-to-nepali-number.pipe';
 // import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 // import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 
@@ -105,8 +106,9 @@ export const NB_CORE_PROVIDERS = [
         RoundvaluePipe,
         BooleanConvertPipe,
         DecimalNumberDirective,
-        EngToNepaliNumberPipe,
-        LoanStatusPipe
+        NepaliToEngNumberPipe,
+        LoanStatusPipe,
+        EngToNepaliNumberPipe
     ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
@@ -117,8 +119,9 @@ export const NB_CORE_PROVIDERS = [
         RoundvaluePipe,
         BooleanConvertPipe,
         DecimalNumberDirective,
-        EngToNepaliNumberPipe,
+        NepaliToEngNumberPipe,
         LoanStatusPipe,
+        EngToNepaliNumberPipe
     ],
 })
 export class CoreModule {
