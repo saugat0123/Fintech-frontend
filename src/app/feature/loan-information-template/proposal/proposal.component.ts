@@ -56,6 +56,7 @@ export class ProposalComponent implements OnInit {
   showInstallmentAmount = false;
   showRepaymentMode = false;
   swapChargeChecked = false;
+  subsidizedLoanChecked = false;
   client = environment.client;
   clientName = Clients;
 
@@ -168,6 +169,7 @@ export class ProposalComponent implements OnInit {
       outStandingLimit: [undefined],
       collateralRequirement: [undefined, Validators.required],
       swapCharge: [undefined],
+      subsidizedLoan: [undefined],
       limitExpiryMethod: [undefined, Validators.required],
       duration: [undefined, Validators.required],
       condition: [undefined, Validators.required],
@@ -259,7 +261,8 @@ export class ProposalComponent implements OnInit {
       solChecked: this.solChecked,
       waiverChecked: this.waiverChecked,
       riskChecked: this.riskChecked,
-      swapChargeChecked: this.swapChargeChecked
+      swapChargeChecked: this.swapChargeChecked,
+      subsidizedLoanChecked: this.subsidizedLoanChecked
     };
     this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
@@ -328,6 +331,14 @@ export class ProposalComponent implements OnInit {
           this.proposalForm.get('swapCharge').setValue(null);
         }
         break;
+      case 'subsidizedLoan':
+        if (event) {
+          this.subsidizedLoanChecked = true;
+        } else {
+          this.subsidizedLoanChecked = false;
+          this.proposalForm.get('subsidizedLoan').setValue(null);
+        }
+        break;
     }
   }
 
@@ -337,6 +348,7 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(data['waiverChecked'], 'waiver');
       this.checkChecked(data['riskChecked'], 'risk');
       this.checkChecked(data['swapChargeChecked'], 'swapCharge');
+      this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
     }
   }
 
@@ -522,4 +534,13 @@ export class ProposalComponent implements OnInit {
         const interestAmount = (proposeLimit * (interestRate / 100) * tenureDurationInMonths) / 12;
         return this.proposalForm.get('interestAmount').setValue(Number(interestAmount).toFixed(2));
     }
+
+  calculateInterestRate() {
+    const baseRate = Number(this.proposalForm.get('baseRate').value);
+    const premiumRateOnBaseRate = Number(this.proposalForm.get('premiumRateOnBaseRate').value);
+    const discountRate = Number(this.proposalForm.get('subsidizedLoan').value);
+
+    const interestRate = (baseRate - discountRate + premiumRateOnBaseRate);
+    return this.proposalForm.get('interestRate').setValue(Number(interestRate).toFixed(2));
+  }
 }
