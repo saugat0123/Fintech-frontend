@@ -10,6 +10,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../model/CadFile';
 import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {Guarantor} from '../../../../loan/model/guarantor';
 
 @Component({
   selector: 'app-loan-deed-single',
@@ -23,15 +24,22 @@ export class LoanDeedSingleComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
-
+  guarantorDetail: Array<Guarantor>;
+  nepData;
+  guarantorData;
+  submitted = false;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
               private routerUtilsService: RouterUtilsService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.buildForm();
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      const guarantorList = this.cadData.loanHolder.guarantors.guarantorList;
+      this.guarantorDetail = guarantorList;
+    }
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
@@ -41,6 +49,7 @@ export class LoanDeedSingleComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.singleData = JSON.parse(this.cadData.loanHolder.nepData);
+      this.guarantorData = Object.values(this.nepData.guarantorDetails);
     }
   }
 
@@ -136,5 +145,6 @@ export class LoanDeedSingleComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
     });
+    console.log(this.loanDeedSingle.value);
   }
 }

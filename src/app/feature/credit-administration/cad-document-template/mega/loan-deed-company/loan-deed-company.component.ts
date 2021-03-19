@@ -10,6 +10,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../model/CadFile';
 import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {Guarantor} from '../../../../loan/model/guarantor';
 
 @Component({
   selector: 'app-loan-deed-company',
@@ -22,7 +23,10 @@ export class LoanDeedCompanyComponent implements OnInit {
   @Input() documentId: number;
   @Input() customerLoanId: number;
   loanDeedCompany: FormGroup;
+  guarantorDetail: Array<Guarantor>;
   nepData;
+  guarantorData;
+  submitted = false;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -30,10 +34,14 @@ export class LoanDeedCompanyComponent implements OnInit {
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
               private routerUtilsService: RouterUtilsService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
+      const guarantorList = this.cadData.loanHolder.guarantors.guarantorList;
+      this.guarantorDetail = guarantorList;
+    }
+      if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+        this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           this.loanDeedCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
@@ -41,6 +49,7 @@ export class LoanDeedCompanyComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+      this.guarantorData = Object.values(this.nepData.guarantorDetails);
     }
   }
 

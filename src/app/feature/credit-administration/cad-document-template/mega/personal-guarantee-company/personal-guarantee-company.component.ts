@@ -10,6 +10,7 @@ import {ToastService} from '../../../../../@core/utils';
 import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
+import {Guarantor} from '../../../../loan/model/guarantor';
 
 @Component({
   selector: 'app-personal-guarantee-company',
@@ -22,15 +23,21 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
+  guarantorDetail: Array<Guarantor>;
+  guarantorData;
   nepData;
+  submitted = false;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
               private routerUtilsService: RouterUtilsService) { }
-  ngOnInit() {
+  ngOnInit(): void {
     this.buildForm();
-    const guarantorList = this.cadData.loanHolder.guarantors.guarantorList;
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.guarantors.guarantorList)) {
+      const guarantorList = this.cadData.loanHolder.guarantors.guarantorList;
+      this.guarantorDetail = guarantorList;
+    }
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
@@ -40,27 +47,21 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+      this.guarantorData = Object.values(this.nepData.guarantorDetails);
     }
-    if (!ObjectUtil.isEmpty(guarantorList)) {
-      const guarantorDetails = this.personalGuaranteeCompany.get('personalGuaranteeCompany') as FormArray;
-      console.log('list' , guarantorList);
-      console.log('details' , guarantorDetails);
-      // guarantorList.forEach(e => {
-      //   guarantorDetails.push(
-      //       this.formBuilder.group({
-      //         guarantorName : e.name,
-      //         date : e.issuedYear,
-      //         guarantorIssueDistrict : e.issuedPlace,
-      //         guarantorAddress : e.district,
-      //         guarantorRelationship : e.relationship,
-      //         citizenshipNo : e.citizenNumber
-      //       })
-      //   ); }
-      // );
-    }
+    // guarantorList.forEach(e => {
+    //   guarantorDetails.push(
+    //       this.formBuilder.group({
+    //         guarantorName : e.name,
+    //         date : e.issuedYear,
+    //         guarantorIssueDistrict : e.issuedPlace,
+    //         guarantorAddress : e.district,
+    //         guarantorRelationship : e.relationship,
+    //         citizenshipNo : e.citizenNumber
+    //       })
+    //   ); }
+    // );
   }
-
-
   buildForm() {
     this.personalGuaranteeCompany = this.formBuilder.group({
       districtName: [undefined],
