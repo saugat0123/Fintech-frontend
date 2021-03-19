@@ -15,7 +15,9 @@
             <nb-radio value="AD">AD</nb-radio>
             <nb-radio value="BS">BS</nb-radio>
         </nb-radio-group>
-        <nb-checkbox #checkboxComponent [hidden]="!microEnabled" [(ngModel)]="microCustomer" class="d-inline-flex" (ngModelChange)="onCustomerTypeChange(checkboxComponent.checked)">Micro Customer</nb-checkbox>
+        <div *ngIf="microEnabled">
+            <nb-checkbox #checkboxComponent [(ngModel)]="microCustomer" class="d-inline-flex" (ngModelChange)="onCustomerTypeChange(checkboxComponent.checked)">Micro Customer</nb-checkbox>
+        </div>
        <div class="form-group">
            <form [formGroup]="basicInfo" class="form-horizontal">
            <!--    <button (click)="showHideNep()">NepDate</button>-->
@@ -788,6 +790,7 @@
 
                </nb-tab>
                <nb-tab *ngIf="microCustomer" tabTitle="Micro Customer">
+                   check micro customer::{{microCustomer}}
                    <app-micro-individual-form #microIndividualFormComponent [data]="individualJsonData?.microCustomerDetail"></app-micro-individual-form>
                </nb-tab>
            </nb-tabset>
