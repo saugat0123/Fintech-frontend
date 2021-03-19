@@ -164,7 +164,8 @@
                                                 class="form-control" formControlName="interestRate"
                                                 id="interestRate" name="interestRate" placeholder="Interest Rate(%)"
                                                 [(ngModel)]="interestLimit"
-                                                type="number" (input)="checkRepaymentMode(); checkCustomRepaymentMode()" appDecimalNumber>
+                                                type="number" (input)="checkRepaymentMode(); checkCustomRepaymentMode()" appDecimalNumber
+                                                (change)="calculateInterestRate()">
                                         <!--                    <div *ngIf="(submitted) && formControls.interestRate.invalid"-->
                                         <!--                         class="invalid-feedback">-->
                                         <!--                      <span *ngIf="formControls.interestRate.errors.required">Interest Rate is required</span>-->
@@ -569,6 +570,20 @@
                                                     id="swapCharge"
                                                     name="swapCharge" placeholder="Swap Charge"
                                                     type="number" appDecimalNumber/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 form-group" *ngIf="client === clientName?.ICFC">
+                                    <nb-checkbox (change)="checkChecked($event.target.checked,'subsidizedLoan')"
+                                                 [checked]="subsidizedLoanChecked"><b>Subsidized Loan<em class="sb-medium">(if any)</em></b>
+                                    </nb-checkbox>
+                                    <div *ngIf="subsidizedLoanChecked">
+                                        <label class="title" for="condition"><strong>Discount Rate(%)</strong></label>
+                                        <input  [ngClass]="{ 'is-invalid': (submitted) && formControls.subsidizedLoan.errors }"
+                                                class="form-control" formControlName="subsidizedLoan"
+                                                id="subsidizedLoan"
+                                                name="subsidizedLoan" placeholder="Discount Rate"
+                                                type="number" appDecimalNumber (change)="calculateInterestRate()"/>
                                     </div>
                                 </div>
 
