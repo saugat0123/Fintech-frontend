@@ -32,7 +32,8 @@ import {EnumUtils} from '../../../../../@core/utils/enums.utils';
 import {Gender} from '../../../../../@core/model/enum/gender';
 import {MaritalStatus} from '../../../../../@core/model/enum/marital-status';
 import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
-import {environment} from '../../../../../../environments/environment.srdb';
+import {environment as env} from '../../../../../../environments/environment';
+import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
 import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
 
@@ -73,7 +74,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     calendarType = 'AD';
     microCustomer = false;
-    microEnabled: boolean = environment.microLoan;
+    microEnabled: boolean = env.microLoan;
 
     basicInfo: FormGroup;
     submitted = false;
@@ -119,7 +120,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     placeHolderForMaritalStatus;
     individualJsonData: IndividualJsonData;
 
-    crgLambdaDisabled = environment.disableCrgLambda;
+    crgLambdaDisabled = envSrdb.disableCrgLambda;
 
     ngOnInit() {
         this.getProvince();
