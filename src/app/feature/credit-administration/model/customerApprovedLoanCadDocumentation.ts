@@ -7,6 +7,8 @@ import {CadDocStatus} from './CadDocStatus';
 import {Exposure} from './Exposure';
 import {CadStage} from './cadStage';
 import {AdditionalDocument} from './AdditionalDocument';
+import {CadDocument} from '../../loan/model/cadDocument';
+import {Document} from '../../admin/modal/document';
 
 export class CustomerApprovedLoanCadDocumentation extends BaseEntity {
 
@@ -24,6 +26,7 @@ export class CustomerApprovedLoanCadDocumentation extends BaseEntity {
     disbursementComment: string;
     additionalDocumentList: Array<AdditionalDocument>;
     nepData: any;
+    requiredDocument: Array<Document>;
 
 
 }
