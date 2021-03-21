@@ -52,11 +52,11 @@ export class NepProposedAmountFormComponent implements OnInit {
         this.nepForm = this.formBuilder.group({
             nepaliNumber: [this.nepaliNumber.numberNepali],
             engNumber: [this.nepaliNumber.engNumber, Validators.required],
+            initDate: [this.nepaliNumber.initDate, Validators.required],
         });
     }
 
     onChangeValue(event) {
-        console.log(event.target.value);
         let number = 0;
         if (!ObjectUtil.isEmpty(event.target.value)) {
             number = event.target.value;

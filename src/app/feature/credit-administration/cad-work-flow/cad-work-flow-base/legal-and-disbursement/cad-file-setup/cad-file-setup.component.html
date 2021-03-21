@@ -1,0 +1,29 @@
+<nb-card [nbSpinner]="spinner" style="height: 500px !important;" accent="primary">
+    <nb-card-header>
+        Setup Required Cad Legal Document
+        <a (click)="closeModal()" aria-label="Close" class="close cursor"
+           data-dismiss="modal">
+            <span aria-hidden="true">×</span></a>
+    </nb-card-header>
+    <nb-card-body>
+
+        <form [formGroup]="form">
+            <div class="col-md-12 row">
+                <div *ngFor="let f of form.get('documents')['controls']; let i = index;"
+                     class="form-group col-md-4" formArrayName="documents">
+                    <div [formGroupName]="i">
+                        <input type="checkbox" formControlName="checked" class="cursor"/> <span class="px-2">{{(f.get('document').value)?.document?.displayName}}</span>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </nb-card-body>
+    <nb-card-footer>
+
+            <div class="col-md-12">
+                <button class="float-right" nbButton (click)="save()" >save</button>
+            </div>
+
+    </nb-card-footer>
+</nb-card>
