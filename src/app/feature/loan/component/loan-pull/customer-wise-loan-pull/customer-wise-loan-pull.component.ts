@@ -69,6 +69,7 @@ export class CustomerWiseLoanPullComponent implements OnInit {
     isCombine = false;
     formVal = [];
     provinces = [];
+    currentUserId = LocalStorageUtil.getStorage().userId;
 
     constructor(
         private branchService: BranchService,
