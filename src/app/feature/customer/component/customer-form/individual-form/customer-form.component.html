@@ -251,7 +251,7 @@
                                               formControlName="citizenshipIssuedPlace"
                                               id="citizenshipIssuedPlace"
                                               [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipIssuedPlace.errors }">
-                                       <ng-option value="null">Select Citizenship Issued District </ng-option>
+                                       <ng-option [value]="null">Select Citizenship Issued District </ng-option>
                                        <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
                                            {{district?.name}}
                                        </ng-option>
@@ -645,7 +645,6 @@
                                                <ng-select [multiple]="false"
                                                           formControlName="citizenshipIssuedPlace"
                                                           id="issuedDistrict{{i}}">
-                                                   <ng-option value="null">Select Issue District</ng-option>
                                                    <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
                                                        {{district?.name}}
                                                    </ng-option>
