@@ -69,6 +69,7 @@ export class ProposalComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('Loan Type:', this.loanType);
     this.configEditor();
     this.buildForm();
     this.checkLoanTypeAndBuildForm();
@@ -183,6 +184,7 @@ export class ProposalComponent implements OnInit {
       premiumOnCouponRate: [undefined],
       tenorOfEachDeal: [undefined],
       cashMarginMethod: ['PERCENT'],
+      enhanceLimitAmount: [undefined],
 
 
 
@@ -223,7 +225,7 @@ export class ProposalComponent implements OnInit {
 
   checkLoanTypeAndBuildForm() {
     if (this.loanType === 'RENEWED_LOAN' || this.loanType === 'ENHANCED_LOAN' || this.loanType === 'PARTIAL_SETTLEMENT_LOAN'
-        || this.loanType === 'FULL_SETTLEMENT_LOAN') {
+        || this.loanType === 'FULL_SETTLEMENT_LOAN' || this.loanType === 'RENEW_WITH_ENHANCEMENT') {
       this.checkApproved = true;
       this.proposalForm.get('existingLimit').setValidators(Validators.required);
       this.proposalForm.get('outStandingLimit').setValidators(Validators.required);
@@ -284,6 +286,7 @@ export class ProposalComponent implements OnInit {
     this.proposalData.premiumOnCouponRate = this.proposalForm.get('premiumOnCouponRate').value;
     this.proposalData.tenorOfEachDeal = this.proposalForm.get('tenorOfEachDeal').value;
     this.proposalData.cashMarginMethod = this.proposalForm.get('cashMarginMethod').value;
+    this.proposalData.enhanceLimitAmount = this.proposalForm.get('enhanceLimitAmount').value;
   }
 
   get formControls() {

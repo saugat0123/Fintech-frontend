@@ -64,6 +64,7 @@ export class CustomerLoanApplyComponent implements OnInit {
     this.isMicroCustomer = this.customerInfo.isMicroCustomer;
     this.sliceLoan();
     this.selectedLoanType = this.multipleSelectedLoanType[0]['key'];
+    console.log('Multiple Selected Loan Type:', this.multipleSelectedLoanType);
     this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
       this.loanList = response.detail;
       this.microLoanList = this.loanList.filter((f) => {
@@ -196,9 +197,10 @@ export class CustomerLoanApplyComponent implements OnInit {
   sliceLoan() {
     this.loanTypeList.forEach((val) => {
       if (val.key === 'CLOSURE_LOAN' || val.key === 'PARTIAL_SETTLEMENT_LOAN' || val.key === 'FULL_SETTLEMENT_LOAN') {
+        console.log('Loan Type Val::', val.key);
         return true;
       }
-      this.multipleSelectedLoanType.push(val);
+      console.log('Pus loan:', this.multipleSelectedLoanType.push(val));
 
     });
   }
