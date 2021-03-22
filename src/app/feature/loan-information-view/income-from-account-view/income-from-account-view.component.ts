@@ -7,14 +7,10 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
   styleUrls: ['./income-from-account-view.component.scss']
 })
 export class IncomeFromAccountViewComponent implements OnInit {
-  @Input() formData;
-  data;
+  @Input()  data;
   constructor() { }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.formData)) {
-      this.data = JSON.parse(this.formData.data);
-    }
   }
 
 }

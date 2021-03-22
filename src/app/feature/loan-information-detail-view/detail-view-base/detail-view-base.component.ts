@@ -24,6 +24,8 @@ export class DetailViewBaseComponent implements OnInit {
   customerAllLoanList: LoanDataHolder[] = [];
   proposalData: Proposal;
   megaGroupEnabled = environment.MEGA_GROUP;
+  private incomeFromAccountParsedData: any;
+  private newCustomerFlag: boolean[];
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService) { }
 
@@ -31,6 +33,10 @@ export class DetailViewBaseComponent implements OnInit {
     this.getAllLoans(this.loanDataHolder.loanHolder.id);
     if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
       this.proposalData = this.loanDataHolder.proposal;
+      if (!ObjectUtil.isEmpty(this.loanHolder.incomeFromAccount)) {
+        this.incomeFromAccountParsedData = JSON.parse(this.loanHolder.incomeFromAccount.data);
+        this.newCustomerFlag = this.incomeFromAccountParsedData.newCustomerChecked;
+      }
     }
   }
 
