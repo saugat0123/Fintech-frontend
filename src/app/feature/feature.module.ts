@@ -16,6 +16,7 @@ import {MouseScrollDisableDirective} from '../@core/directive/mouse-scroll-disab
 import {CommonAddressComponent} from './common-address/common-address.component';
 import {CadDataComponent} from '../component/dashboard/cad-data/cad-data.component';
 import {CustomerWisePendingComponent} from '../component/dashboard/customer-wise-pending/customer-wise-pending.component';
+import {SafePipe} from './memo/pipe/safe.pipe';
 
 
 @NgModule({
@@ -43,7 +44,7 @@ import {CustomerWisePendingComponent} from '../component/dashboard/customer-wise
             CustomerWisePendingComponent
         ],
         exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent],
-        providers: []
+        providers: [SafePipe]
     }
 )
 export class FeatureModule {
