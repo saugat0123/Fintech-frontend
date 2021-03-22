@@ -28,6 +28,7 @@ import {ProposalCalculationUtils} from '../../../feature/loan/component/loan-sum
 import {LoanDataKey} from '../../../@core/utils/constants/loan-data-key';
 import {CustomerService} from '../../../feature/admin/service/customer.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {SafePipe} from '../../../feature/memo/pipe/safe.pipe';
 
 @Component({
     selector: 'app-customer-wise-pending',
@@ -87,7 +88,8 @@ export class CustomerWisePendingComponent implements OnInit {
         private formBuilder: FormBuilder,
         private location: AddressService,
         private customerService: CustomerService,
-        private modalService: NgbModal) {
+        private modalService: NgbModal,
+        private safePipe: SafePipe) {
     }
 
 
@@ -291,7 +293,12 @@ export class CustomerWisePendingComponent implements OnInit {
         this.modalService.open(template);
     }
 
-    onClose(){
+    onClose() {
         this.modalService.dismissAll();
+    }
+
+
+    public customSafePipe(val) {
+        return this.safePipe.transform(val);
     }
 }
