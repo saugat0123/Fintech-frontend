@@ -129,7 +129,8 @@
           <th colspan="2">Issued District</th>
           <th>Issued Date</th>
           <th>Mobile Number</th>
-          <th colspan="2">Address</th>
+          <th>Address</th>
+          <th>Remarks</th>
         </tr>
         <ng-container *ngFor="let kyc of landDetails?.ownerKycApplicableData?.ownerKycDetails; let j = index">
           <tr>
@@ -140,7 +141,8 @@
             <td colspan="2" class="text-left pl-1">{{kyc?.issuedLocation}}</td>
             <td class="text-left pl-1">{{kyc?.issuedDate | date}}</td>
             <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
-            <td colspan="2" class="text-left pl-1">{{kyc?.address}}</td>
+            <td class="text-left pl-1">{{kyc?.address}}</td>
+            <td class="text-left pl-1">{{kyc?.remark}}</td>
           </tr>
         </ng-container>
       </ng-container>
@@ -339,7 +341,8 @@
           <th colspan="2">Issued District</th>
           <th>Issued Date</th>
           <th>Mobile Number</th>
-          <th colspan="2">Address</th>
+          <th>Address</th>
+          <th>Remarks</th>
         </tr>
         <ng-container *ngFor="let kyc of landBuilding?.ownerKycApplicableData?.ownerKycDetails; let j = index">
           <tr>
@@ -350,7 +353,8 @@
             <td colspan="2" class="text-left pl-1">{{kyc?.issuedLocation}}</td>
             <td class="text-left pl-1">{{kyc?.issuedDate | date}}</td>
             <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
-            <td colspan="2" class="text-left pl-1">{{kyc?.address}}</td>
+            <td class="text-left pl-1">{{kyc?.address}}</td>
+            <td class="text-left pl-1">{{kyc?.remark}}</td>
           </tr>
         </ng-container>
         </tbody>
@@ -398,7 +402,8 @@
           <th colspan="2">Issued District</th>
           <th>Issued Date</th>
           <th>Mobile Number</th>
-          <th colspan="2">Address</th>
+          <th>Address</th>
+          <th>Remarks</th>
         </tr>
         <ng-container *ngFor="let kyc of hypothecationOfStock?.ownerKycApplicableData?.ownerKycDetails; let j = index">
           <tr>
@@ -409,7 +414,8 @@
             <td colspan="2" class="text-left pl-1">{{kyc?.issuedLocation}}</td>
             <td class="text-left pl-1">{{kyc?.issuedDate | date}}</td>
             <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
-            <td colspan="2" class="text-left pl-1">{{kyc?.address}}</td>
+            <td class="text-left pl-1">{{kyc?.address}}</td>
+            <td class="text-left pl-1">{{kyc?.remark}}</td>
           </tr>
         </ng-container>
       </table>

@@ -33,7 +33,6 @@ export class PendingLoanComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('asd');
         this.getPostApprovalDocStat();
         this.loanFormService.getStatus().subscribe(
             (response: any) => {
