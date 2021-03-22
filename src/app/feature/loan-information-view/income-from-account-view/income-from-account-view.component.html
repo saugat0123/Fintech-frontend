@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12 text-center">
         <table class="table table-condensed table-bordered table-sm
-        table-responsive-md text-center table-sm sb-small" *ngIf="!this.formData?.newCustomerChecked">
+        table-responsive-md text-center table-sm sb-small">
             <thead>
             <tr>
                 <th colspan="5">Account History</th>
@@ -33,7 +33,7 @@
             </tr>
             <tr>
                 <td class="sb-bg-secondary text-white text-left pl-1">Repayment track in our bank</td>
-                <td colspan="2">
+                <td colspan="2" class="text-left pl-1">
                     {{this.data?.accountTransactionForm?.repaymentTrackWithCurrentBank}}
                 </td>
             </tr>
