@@ -152,6 +152,7 @@
                                     <td>Loan Facility</td>
                                     <td>Proposed Amount</td>
                                     <td>Priority</td>
+                                    <td>Loan Type</td>
                                     <td>Status</td>
                                     <td>Current Possession</td>
                                     <td>Received On</td>
@@ -172,6 +173,11 @@
                                         nbTooltip="Click to View Detail"
                                         nbTooltipStatus="control"
                                         nbTooltipIcon="question-mark-circle-outline">{{l?.priority}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)" class="cursor"
+                                        nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline">{{l?.loanType}}</td>
+
                                     <td (click)="onClick(l.loan.id,l.id)" class="cursor"
                                         nbTooltip="Click to View Detail"
                                         nbTooltipStatus="control"
@@ -205,6 +211,11 @@
                                         nbTooltipStatus="control"
                                         nbTooltipIcon="question-mark-circle-outline"
                                         (click)="onClick(l.loan.id,l.id)">{{l?.priority}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)" class="cursor"
+                                        nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline">{{l?.loanType}}</td>
+
                                     <td nbTooltip="Click to View Detail"
                                         nbTooltipStatus="control"
                                         nbTooltipIcon="question-mark-circle-outline"
@@ -269,24 +280,22 @@
             </tr>
             </thead>
             <tr *ngFor="let previous of model?.previousList">
-                <td>{{previous?.lastModifiedAt | date}}</td>
+                <td>{{previous?.lastModifiedAt | date:'medium'}}</td>
                 <td>{{previous?.fromUser?.name}}</td>
                 <td>{{previous?.toUser.name}}</td>
                 <td>{{previous?.docAction}}</td>
-                <td colspan="6">{{previous.comment}}</td>
+                <td colspan="6"><span [innerHTML]="customSafePipe(previous.comment)"></span></td>
             </tr>
             <tr>
-                <td>{{model?.currentStage?.lastModifiedAt | date}}</td>
+                <td>{{model?.currentStage?.lastModifiedAt | date:'medium'}}</td>
                 <td>{{model?.currentStage?.fromUser?.name}}</td>
-
                 <td>{{model?.currentStage?.toUser.name}}</td>
-
                 <td>{{model?.currentStage?.docAction}}</td>
-                <td colspan="6">{{model?.currentStage?.comment}}</td>
+                <td colspan="6"><span [innerHTML]="customSafePipe(model?.currentStage?.comment)"></span></td>
 
             </tr>
-            <tr class="sb-bg-dark">
-                <td colspan="12">.</td>
+            <tr >
+                <td colspan="12" class="sb-bg-dark">.</td>
             </tr>
         </table>
 

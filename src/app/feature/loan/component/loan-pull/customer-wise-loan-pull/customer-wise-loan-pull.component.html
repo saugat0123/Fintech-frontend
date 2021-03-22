@@ -370,7 +370,7 @@
                 <td>{{previous?.fromUser?.name}}</td>
                 <td>{{previous?.toUser.name}}</td>
                 <td>{{previous?.docAction | loanStatusPipe}}</td>
-                <td colspan="6">{{previous.comment}}</td>
+                <td colspan="6"><span [innerHTML]="previous.comment | safeHtml"></span></td>
             </tr>
             <tr>
                 <td>{{model?.currentStage?.lastModifiedAt | date:'medium'}}</td>
@@ -379,7 +379,8 @@
                 <td>{{model?.currentStage?.toUser.name}}</td>
 
                 <td>{{model?.currentStage?.docAction | loanStatusPipe}}</td>
-                <td colspan="6">{{model?.currentStage?.comment}}</td>
+                <td colspan="6"><span [innerHTML]="model?.currentStage?.comment | safeHtml"></span></td>
+
 
             </tr>
             <tr class="sb-bg-dark">
