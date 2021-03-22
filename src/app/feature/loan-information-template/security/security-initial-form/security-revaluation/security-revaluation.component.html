@@ -34,6 +34,7 @@
                                     bindLabel="name"
                                     formControlName="newValuator"
                                     placeholder="">
+                                <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                 <ng-option
                                         *ngFor="let valuator of valuators"
                                         [value]="valuator">{{valuator.name}}</ng-option>

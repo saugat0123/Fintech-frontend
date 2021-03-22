@@ -7,7 +7,7 @@
       <label><strong>Tax Clearance Till</strong></label>
       <select formControlName="taxClearanceTill" id="taxClearanceTill"
               [ngClass]="{'is-invalid':submitted &&  form.taxClearanceTill?.errors}" class="form-control">
-        <option [value]="null" hidden>Select Tax Clearance Till</option>
+        <option [value]="null">Select Tax Clearance Till</option>
         <option  *ngFor="let fiscalYear of fiscalYears" [value]="fiscalYear.year">
           {{fiscalYear.year}}
       </select>
@@ -55,7 +55,7 @@
             class="form-control rounded"
             formControlName="ClassificationByNRB"
             id="ClassificationByNRB">
-          <option [ngValue]="null" hidden>Select Classification as per NRB directive</option>
+          <option [ngValue]="null">Select Classification as per NRB directive</option>
           <option *ngFor="let nrbDirective of nrbDirective" [ngValue]="nrbDirective.key">{{nrbDirective.value}}</option>
         </select>
         <div *ngIf="submitted && form.ClassificationByNRB?.errors "
