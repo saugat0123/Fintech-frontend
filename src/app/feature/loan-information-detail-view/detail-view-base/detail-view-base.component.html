@@ -52,10 +52,11 @@
                                       [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
             </ng-template>
 
-<app-income-from-account-view *ngIf="loanHolder?.incomeFromAccount"
-                              [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-view>
 <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"
                                  [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-summery>
+
+<app-income-from-account-view *ngIf="!newCustomerFlag"
+                              [data]="incomeFromAccountParsedData"></app-income-from-account-view>
 
 <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
 
@@ -83,6 +84,5 @@
 <!--                                           [fromProfile]="false"></app-credit-risk-grading-gamma>-->
 <!--            <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading"-->
 <!--                                [fromProfile]="false"></app-credit-grading>-->
-<ng-template  #allDocumentView>
+
     <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
-</ng-template>

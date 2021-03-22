@@ -1,17 +1,25 @@
 <nb-card [nbSpinner]="spinner">
     <nb-card-body>
         <Form [formGroup]="nepForm">
-            <div class="col-md-12 row" >
+            <div class="col-md-12 row">
                 <div class="col-md-6">
                     <input type="number"
                            [ngClass]="{'is-invalid': submitted && nepFormControls.engNumber.errors}"
-
-                           (change)="onChangeValue($event)"  class="form-control form-control-sm" formControlName="engNumber"/>
+                            placeholder="प्रस्तावित रकम"
+                           (change)="onChangeValue($event)" class="form-control"
+                           formControlName="engNumber"/>
                 </div>
-
                 <div class="col-md-6">
-                    <Strong>{{nepaliNumber.numberNepali}} : in Words :</Strong>   <span>{{nepaliNumber.nepaliWords}}</span>
+                    <input type="text" placeholder="मिति"
+                           [ngClass]="{'is-invalid': submitted && nepFormControls.initDate.errors}"
+                           class="form-control form-control-sm nepaliFont" formControlName="initDate"/>
                 </div>
+
+
+            </div>
+            <hr>
+            <div class="col-md-12">
+                <Strong>{{nepaliNumber.numberNepali}} : अक्षरेपी :</Strong> <span>{{nepaliNumber.nepaliWords}}</span>
             </div>
 
         </Form>
