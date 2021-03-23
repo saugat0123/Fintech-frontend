@@ -360,7 +360,7 @@
                 </div>
             </div>
 
-            <div class="print-only">
+            <div>
                 <p><strong>Credit Risk Grading</strong></p>
                 <table
                         class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
@@ -762,7 +762,7 @@
             <app-insurance-summary *ngIf="loanDataHolder?.insurance"
                                    [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
 
-            <div *ngIf="client === clientName?.MEGA">
+            <div *ngIf="client === clientName?.MEGA || clientName?.SHINE_RESUNGA">
                 <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
             </div>
             <div class="row">
