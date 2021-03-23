@@ -11,6 +11,7 @@
         <i class="text-round">C</i>losure Loan
         <i class="text-round">P</i>artial Settlement Loan
         <i class="text-round">F</i>ull Settlement Loan
+        <i class="text-round">R/E</i>new With Enhancement
       </li>
       <li class="sb-medium"><span><sup>*</sup>  IR : Interest Rate ,<sup>*</sup> BR : Base Rate ,<sup>*</sup> PR : Premium Rate ,<sup>*</sup> COM : Commission ,<sup>*</sup> CM : Cash margin</span>
       </li>
@@ -201,6 +202,8 @@
      class="text-round">P</i>
   <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.FULL_SETTLEMENT_LOAN)"
      class="text-round">F</i>
+  <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.RENEW_WITH_ENHANCEMENT)"
+     class="text-round">R/E</i>
 </ng-template>
 <div class="row">
   <div class="col-md-12 sb-medium">

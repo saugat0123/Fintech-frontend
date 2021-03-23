@@ -143,6 +143,7 @@ export class ProposalComponent implements OnInit {
     this.checkInstallmentAmount();
       this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
           .patchValue(Number(value)));
+      this.calculateProposedLimit();
 
   }
 
@@ -545,5 +546,12 @@ export class ProposalComponent implements OnInit {
 
     const interestRate = (baseRate - discountRate + premiumRateOnBaseRate);
     return this.proposalForm.get('interestRate').setValue(Number(interestRate).toFixed(2));
+  }
+
+  public calculateProposedLimit() {
+    const existingLimit = Number(this.proposalForm.get('existingLimit').value);
+    const enhanceLimit = Number(this.proposalForm.get('enhanceLimitAmount').value);
+    const totalProposedLimit = enhanceLimit + enhanceLimit;
+    return this.proposalForm.get('proposedLimit').setValue(Number(totalProposedLimit));
   }
 }
