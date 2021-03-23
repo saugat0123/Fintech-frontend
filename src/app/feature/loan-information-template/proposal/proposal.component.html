@@ -72,7 +72,7 @@
                                                     formControlName="proposedLimit" id="proposedLimitWithEnhancement"
                                                     name="proposedLimit" placeholder="Proposed limit"
                                                     type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()"
-                                                    appDecimalNumber value="{{calculateProposedLimit()}}">
+                                                    value="{{calculateProposedLimit()}}" appDecimalNumber>
                                             <div *ngIf=" (submitted)  && formControls.proposedLimit.errors"
                                                  class="invalid-feedback">
                                                 <span *ngIf="(formControls.proposedLimit.errors.required)">Proposed Limit is required</span>
