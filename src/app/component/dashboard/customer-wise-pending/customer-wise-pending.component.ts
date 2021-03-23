@@ -235,13 +235,19 @@ export class CustomerWisePendingComponent implements OnInit {
     }
 
     getCsv() {
+        this.spinner = true;
         this.loanFormService.download(this.search).subscribe((response: any) => {
+            this.spinner = false;
             const link = document.createElement('a');
             link.target = '_blank';
             link.href = ApiConfig.URL + '/' + response.detail;
             link.download = ApiConfig.URL + '/' + response.detail;
             link.setAttribute('visibility', 'hidden');
             link.click();
+
+        }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to download'));
+            this.spinner = false;
         });
     }
 
