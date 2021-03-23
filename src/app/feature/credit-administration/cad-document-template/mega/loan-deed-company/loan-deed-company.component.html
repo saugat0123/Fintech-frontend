@@ -248,21 +248,17 @@
                         </div>
                         <div>
                             <p class="text-left"><b><u>रोहबर</u></b></p>
+
                             धितो जमानीकर्ताको सहिछाप :
-                            <br />
-                            नाम : <input class="form-field form-control-sm nepaliFont disable-print"
-                                         formControlName="guarantorName"
-                                         placeholder=""
-                                         type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('guarantorName').value ? loanDeedCompany.get('guarantorName').value  : '========='}}</b></span>
-                            <br />
-                            <br />
+                            <br >
+                            <span *ngFor="let one of guarantorData">
+                            नाम :<strong class="nepaliFont">{{one?.guarantorName}}</strong> <br>  </span>
+
                             जमानीकर्ताको सहिछाप :
-                            <br />
-                            नाम : <input class="form-field form-control-sm nepaliFont disable-print"
-                                         formControlName="guarantorName2"
-                                         placeholder=""
-                                         type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('guarantorName2').value ? loanDeedCompany.get('guarantorName2').value  : '========='}}</b></span>
-                            <br />
+                            <br >
+                            <span *ngFor="let one of guarantorData">
+                            नाम :<strong class="nepaliFont">{{one?.guarantorName}}</strong> <br> </span>
+
                         </div>
                         <br />
                         <br />
