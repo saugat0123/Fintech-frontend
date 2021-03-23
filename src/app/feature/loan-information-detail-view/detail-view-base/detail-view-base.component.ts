@@ -24,8 +24,8 @@ export class DetailViewBaseComponent implements OnInit {
   customerAllLoanList: LoanDataHolder[] = [];
   proposalData: Proposal;
   megaGroupEnabled = environment.MEGA_GROUP;
-  private incomeFromAccountParsedData: any;
-  private newCustomerFlag: boolean[];
+  incomeFromAccountParsedData: any;
+  newCustomerFlag: boolean[];
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService) { }
 

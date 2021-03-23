@@ -62,6 +62,7 @@ export class OwnerKycApplicableComponent implements OnInit {
                     mobileNumber: [singleData.mobileNumber],
                     address: [singleData.address],
                     age: [singleData.age],
+                    remark: [singleData.remark]
 
                 })
             );
@@ -78,6 +79,7 @@ export class OwnerKycApplicableComponent implements OnInit {
                 mobileNumber: [undefined, Validators.pattern(Pattern.NUMBER_MOBILE)],
                 address: [undefined],
                 age: [undefined],
+                remark: [undefined]
             }
         );
     }
