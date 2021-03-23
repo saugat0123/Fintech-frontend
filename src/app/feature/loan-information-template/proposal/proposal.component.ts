@@ -551,7 +551,7 @@ export class ProposalComponent implements OnInit {
   public calculateProposedLimit() {
     const existingLimit = Number(this.proposalForm.get('existingLimit').value);
     const enhanceLimit = Number(this.proposalForm.get('enhanceLimitAmount').value);
-    const totalProposedLimit = enhanceLimit + enhanceLimit;
+    const totalProposedLimit = enhanceLimit + existingLimit;
     return this.proposalForm.get('proposedLimit').setValue(Number(totalProposedLimit));
   }
 }
