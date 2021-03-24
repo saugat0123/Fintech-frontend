@@ -142,7 +142,6 @@ export class ProposalComponent implements OnInit {
     this.checkInstallmentAmount();
       this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
           .patchValue(Number(value)));
-
   }
 
   buildForm() {
@@ -183,6 +182,7 @@ export class ProposalComponent implements OnInit {
       premiumOnCouponRate: [undefined],
       tenorOfEachDeal: [undefined],
       cashMarginMethod: ['PERCENT'],
+      enhanceLimitAmount: [undefined],
 
 
 
@@ -223,7 +223,7 @@ export class ProposalComponent implements OnInit {
 
   checkLoanTypeAndBuildForm() {
     if (this.loanType === 'RENEWED_LOAN' || this.loanType === 'ENHANCED_LOAN' || this.loanType === 'PARTIAL_SETTLEMENT_LOAN'
-        || this.loanType === 'FULL_SETTLEMENT_LOAN') {
+        || this.loanType === 'FULL_SETTLEMENT_LOAN' || this.loanType === 'RENEW_WITH_ENHANCEMENT') {
       this.checkApproved = true;
       this.proposalForm.get('existingLimit').setValidators(Validators.required);
       this.proposalForm.get('outStandingLimit').setValidators(Validators.required);
@@ -284,6 +284,7 @@ export class ProposalComponent implements OnInit {
     this.proposalData.premiumOnCouponRate = this.proposalForm.get('premiumOnCouponRate').value;
     this.proposalData.tenorOfEachDeal = this.proposalForm.get('tenorOfEachDeal').value;
     this.proposalData.cashMarginMethod = this.proposalForm.get('cashMarginMethod').value;
+    this.proposalData.enhanceLimitAmount = this.proposalForm.get('enhanceLimitAmount').value;
   }
 
   get formControls() {
@@ -542,5 +543,12 @@ export class ProposalComponent implements OnInit {
 
     const interestRate = (baseRate - discountRate + premiumRateOnBaseRate);
     return this.proposalForm.get('interestRate').setValue(Number(interestRate).toFixed(2));
+  }
+
+  public calculateProposedLimit() {
+    const existingLimit = Number(this.proposalForm.get('existingLimit').value);
+    const enhanceLimit = Number(this.proposalForm.get('enhanceLimitAmount').value);
+    const totalProposedLimit = enhanceLimit + existingLimit;
+    return this.proposalForm.get('proposedLimit').setValue(Number(totalProposedLimit));
   }
 }
