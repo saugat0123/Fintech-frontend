@@ -125,6 +125,10 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.calculateCrgMatrix();
+  }
+
+  calculateCrgMatrix() {
     // Calculate risks within company info portion --
     if (!ObjectUtil.isEmpty(this.companyInfo)) {
       const bankingRelationshipParsed = JSON.parse(this.customerInfo.bankingRelationship);
@@ -157,14 +161,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
       this.parsedFinancialData = JSON.parse(this.financialData);
       this.historicalDataPresent = this.parsedFinancialData.initialForm.historicalDataPresent;
       if (this.parsedFinancialData.fiscalYear.length > 0) {
-        this.financialCurrentYearIndex = Number(this.parsedFinancialData.fiscalYear.length - 1);
-        this.calculateSalesToWclLimit(this.parsedFinancialData, this.financialCurrentYearIndex);
-        this.calculateSalesGrowth(this.parsedFinancialData, this.financialCurrentYearIndex);
-        this.calculateProfitability(this.parsedFinancialData, this.financialCurrentYearIndex);
-        this.calculateCurrentRatio(this.parsedFinancialData, this.financialCurrentYearIndex);
-        this.calculateWorkingCapitalCycle(this.parsedFinancialData, this.financialCurrentYearIndex);
-        this.calculateDERatio(this.parsedFinancialData, this.financialCurrentYearIndex);
-        this.calculateIscrAndDscr(this.parsedFinancialData, this.financialCurrentYearIndex);
+        this.reCalculateFinancial(Number(this.parsedFinancialData.fiscalYear.length - 1));
       } else {
         this.missingAlerts.push({
           type: 'danger',
@@ -208,6 +205,22 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
         message: 'Security data absent! Please refer security tab for necessary data entries',
       });
     }
+    this.calculateTotalScore();
+  }
+
+  reCalculateFinancial(currentFiscalYearIndex) {
+    this.financialCurrentYearIndex = currentFiscalYearIndex;
+    this.calculateSalesToWclLimit(this.parsedFinancialData, this.financialCurrentYearIndex);
+    this.calculateSalesGrowth(this.parsedFinancialData, this.financialCurrentYearIndex);
+    this.calculateProfitability(this.parsedFinancialData, this.financialCurrentYearIndex);
+    this.calculateCurrentRatio(this.parsedFinancialData, this.financialCurrentYearIndex);
+    this.calculateWorkingCapitalCycle(this.parsedFinancialData, this.financialCurrentYearIndex);
+    this.calculateDERatio(this.parsedFinancialData, this.financialCurrentYearIndex);
+    this.calculateIscrAndDscr(this.parsedFinancialData, this.financialCurrentYearIndex);
+  }
+
+  fiscalYearChangeHandler(yearIndex) {
+    this.reCalculateFinancial(yearIndex);
     this.calculateTotalScore();
   }
 
