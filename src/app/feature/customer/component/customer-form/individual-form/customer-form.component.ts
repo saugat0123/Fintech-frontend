@@ -32,10 +32,11 @@ import {EnumUtils} from '../../../../../@core/utils/enums.utils';
 import {Gender} from '../../../../../@core/model/enum/gender';
 import {MaritalStatus} from '../../../../../@core/model/enum/marital-status';
 import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
-import {environment as env} from '../../../../../../environments/environment';
+import {environment, environment as env} from '../../../../../../environments/environment';
 import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
 import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
+import {Clients} from '../../../../../../environments/Clients';
 
 @Component({
     selector: 'app-customer-form',
@@ -121,6 +122,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     individualJsonData: IndividualJsonData;
 
     crgLambdaDisabled = envSrdb.disableCrgLambda;
+    client = environment.client;
+    clientName = Clients;
 
     ngOnInit() {
         this.getProvince();
@@ -156,6 +159,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 citizenshipNumber: [undefined],
                 citizenshipIssuedPlace: [undefined],
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
+                age: [undefined, Validators.required],
                 version: [0]
             })
         );
@@ -251,6 +255,13 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Customer'));
                 return;
             } else {
+                if (this.client !== this.clientName.SHINE_RESUNGA) {
+                    const ageControl = this.basicInfo.get('customerRelatives') as FormArray;
+                    ageControl.controls.filter(f => {
+                        f.get('age').clearValidators();
+                        f.get('age').updateValueAndValidity();
+                    });
+                }
                 if (this.basicInfo.invalid) {
                     this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
                     this.scrollToFirstInvalidControl();
@@ -449,6 +460,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 citizenshipNumber: [undefined],
                 citizenshipIssuedPlace: [undefined],
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
+                age: [undefined, Validators.required],
                 version: [undefined]
             }));
         });
@@ -468,7 +480,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     citizenshipNumber: [singleRelatives.citizenshipNumber],
                     citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
                     citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
-                        undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore]
+                        undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore],
+                    age: [singleRelatives.age, Validators.required]
                 }));
             });
 

@@ -672,6 +672,18 @@
                                                </div>
                                            </div>
                                        </div>
+                                       <div class="col-md-2" *ngIf="client === clientName.SHINE_RESUNGA">
+                                           <div class="form-group">
+                                               <label for="age{{i}}"><strong>Age</strong></label>
+                                               <input class="form-control"
+                                                      formControlName="age"
+                                                      id="age{{i}}" type="number"
+                                                      [ngClass]="{'is-invalid': (submitted) && relatives.get('age').errors}">
+                                               <div *ngIf="submitted && relatives.get('age').errors" class="small text-danger">
+                                                   Age is required
+                                               </div>
+                                           </div>
+                                       </div>
                                        <div *ngIf="i>1" class="ml-3">
                                            <button (click)="removeRelatives(i)"
                                                    class="float-right" nbButton
