@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ElementRef} from '@angular/core';
+import {Component, ElementRef, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CreditRiskGradingAlpha} from '../../admin/modal/CreditRiskGradingAlpha';
@@ -50,6 +50,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   creditRiskData: CreditRiskGradingAlpha = new CreditRiskGradingAlpha();
   submitted = true;
   financialCurrentYearIndex: number;
+  fiscalYearList = [];
   parsedFinancialData: any;
   loanTagEnum = LoanTag;
 
@@ -161,6 +162,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
       this.parsedFinancialData = JSON.parse(this.financialData);
       this.historicalDataPresent = this.parsedFinancialData.initialForm.historicalDataPresent;
       if (this.parsedFinancialData.fiscalYear.length > 0) {
+        this.fiscalYearList = this.parsedFinancialData.fiscalYear;
         this.reCalculateFinancial(Number(this.parsedFinancialData.fiscalYear.length - 1));
       } else {
         this.missingAlerts.push({
@@ -220,8 +222,24 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   }
 
   fiscalYearChangeHandler(yearIndex) {
+    this.resetFinancialRiskAutoCalc();
     this.reCalculateFinancial(yearIndex);
     this.calculateTotalScore();
+  }
+
+  resetFinancialRiskAutoCalc() {
+    this.financialRiskCriteriaArray.forEach(v => {
+      if (!['salesProjectionVsAchievement',
+        'netWorthOfFirmOrCompany',
+        'taxCompliance'].includes(v)) {
+        this.creditRiskGradingForm.get(v).patchValue({
+          parameter: undefined,
+          value: undefined,
+          automatedValue: undefined
+        });
+      }
+    });
+    this.creditRiskGradingForm.get('financialTotal').patchValue(undefined);
   }
 
   buildForm() {
@@ -636,6 +654,10 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.formData)) {
       this.creditRiskData = this.formData;
     }
-    this.creditRiskData.data = JSON.stringify(this.creditRiskGradingForm.value);
+
+    this.creditRiskData.data = JSON.stringify({
+      ...this.creditRiskGradingForm.value,
+      currentFiscalYear: this.fiscalYearList[this.financialCurrentYearIndex]
+    });
   }
 }

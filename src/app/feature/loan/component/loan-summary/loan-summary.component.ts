@@ -125,6 +125,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     creditRiskAlphaScore = 0;
     creditRiskAlphaPremium;
     creditRiskRatingAlpha;
+    creditRiskRatingAlphaCurrentYear;
     // noComplianceLoanAlpha = false;
     creditRiskAlphaSummary = false;
     /*alphaFiscalYearArray = [];
@@ -280,6 +281,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             const crgParsedData = JSON.parse(this.loanDataHolder.creditRiskGradingAlpha.data);
             this.creditRiskGradeAlpha = crgParsedData.creditRiskGrade;
             this.creditRiskRatingAlpha = crgParsedData.creditRiskRating;
+            this.creditRiskRatingAlphaCurrentYear = crgParsedData.currentFiscalYear;
             this.creditRiskAlphaPremium = crgParsedData.premium;
             this.creditRiskAlphaScore = ObjectUtil.isEmpty(crgParsedData.totalScore) || Number.isNaN(Number(crgParsedData.totalScore)) ?
                 0 : crgParsedData.totalScore;
