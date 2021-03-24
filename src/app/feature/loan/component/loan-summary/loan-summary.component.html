@@ -490,6 +490,7 @@
                                 <th>Relation Name</th>
                                 <th>Citizenship no.</th>
                                 <th>Citizenship Issued Date</th>
+                                <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
 
                             </tr>
                             </thead>
@@ -507,6 +508,9 @@
                                 </td>
                                 <td class="text-left pl-1">
                                     {{relative.citizenshipIssuedDate | date}}
+                                </td>
+                                <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">
+                                    {{relative.age}}
                                 </td>
 
                             </tr>
