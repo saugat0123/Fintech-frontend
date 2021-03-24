@@ -22,5 +22,6 @@ export class Proposal {
     tenorOfEachDeal: string;
     cashMarginMethod: string;
     prepaymentCharge: number;
+    enhanceLimitAmount: number;
 
 }
