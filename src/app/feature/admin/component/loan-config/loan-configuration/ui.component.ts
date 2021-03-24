@@ -70,7 +70,8 @@ export class UIComponent implements OnInit, DoCheck {
   enableMicro = environment.microLoan;
 
   @ViewChild('loanConfigForm', {static: true}) loanConfigForm: NgForm;
-
+  finalRenewWithEnhancementDocument = Array<Document>();
+  renewWithEnhancementDocumentList = [];
 
   constructor(
       private loanTemplateService: LoanTemplateService,
@@ -268,6 +269,25 @@ export class UIComponent implements OnInit, DoCheck {
       });
     }
 
+    // Id of Renew with Enhancement Loan cycle is set to 13 in loan_cycle.sql patch backend
+    other.documentService.getByLoanCycleAndStatus(13, Status.ACTIVE).subscribe((response: any) => {
+      other.renewWithEnhancementDocumentList = response.detail;
+
+      if (other.id !== undefined && other.id !== 0) {
+        other.service.detail(other.id).subscribe((res: any) => {
+          other.loanConfig = res.detail;
+          other.renewWithEnhancementDocumentList.forEach(renewWithEnhancementDocument => {
+            other.loanConfig.renewWithEnhancement.forEach(loanConfigRenewWithEnhancementDocument => {
+              if (renewWithEnhancementDocument.id === loanConfigRenewWithEnhancementDocument.id) {
+                other.finalRenewWithEnhancementDocument.push(renewWithEnhancementDocument);
+                renewWithEnhancementDocument.checked = true;
+              }
+            });
+          });
+        });
+      }
+    });
+
     if (!other.enableMicro) {
       const  index = other.loanTagList.indexOf(other.loanTagList.filter(value => value.toString() === 'MICRO LOAN')[0]);
       other.loanTagList.forEach(value => {
@@ -383,6 +403,7 @@ export class UIComponent implements OnInit, DoCheck {
     this.loanConfig.partialSettlement = this.finalPartialSettlementDocument;
     this.loanConfig.fullSettlement = this.finalFullSettlementDocument;
     this.loanConfig.approvedDocument = this.finalCadDocumentUploadList;
+    this.loanConfig.renewWithEnhancement = this.finalRenewWithEnhancementDocument;
 
     this.loanConfig.offerLetters = this.selectedOfferLetterList;
     this.loanConfig.loanCategory = this.selectedLoanCategory;
