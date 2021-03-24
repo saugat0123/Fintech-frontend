@@ -57,13 +57,13 @@
                         <span *ngIf="nepData?.gender==1">को </span>
                         <span *ngIf="nepData?.gender==0"> की </span>
                         <span *ngFor="let one of guarantorData">
-                        श्री/श्रीमती/सुश्रीको  <strong class="nepaliFont">{{one?.guarantorName}}</strong>
+                       ( श्री/श्रीमती/सुश्रीको  <strong class="nepaliFont">{{one?.guarantorName}}</strong>
                         ना.प्र.प नं.
                              <strong class="nepaliFont">{{one?.guarantorCitizenshipNum}}</strong>
                         , मिति  <strong class="nepaliFont">{{one?.guarantorIssueDate}}</strong>
-                        मा जिल्ला प्रशासन कार्यालय  <strong class="nepaliFont">{{one?.guarantorIssueDistrict}}</strong>
+                        मा जिल्ला प्रशासन कार्यालय  <strong class="nepaliFont">{{one?.guarantorIssueDistrict}}</strong>)
                         </span>
-                        बाट जारी भएको) आगे तपाई धनी बैंकले  मेरो जमानी बसिदिने शर्तमा प्रचलित नेपाल कानून बमोजिम संस्थापित,संचालित तथा
+                        बाट जारी भएको, आगे तपाई धनी बैंकले  मेरो जमानी बसिदिने शर्तमा प्रचलित नेपाल कानून बमोजिम संस्थापित,संचालित तथा
                         <input class="form-field form-control-sm nepaliFont disable-print"
                                name="registeredOffice"
                                formControlName="registeredOffice"

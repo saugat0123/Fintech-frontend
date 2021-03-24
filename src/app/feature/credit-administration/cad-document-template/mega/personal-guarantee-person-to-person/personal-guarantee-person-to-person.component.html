@@ -65,7 +65,7 @@
                     <span *ngIf="nepData?.gender==1">को </span>
                     <span *ngIf="nepData?.gender==0"> की </span>
                     <span *ngFor="let one of guarantorData">
-                    श्री/श्रीमती/सुश्री
+                  (  श्री/श्रीमती/सुश्री
                         <strong class="nepaliFont">{{one?.guarantorName}}</strong>
                         ना.प्र.प नं.
                         <strong class="nepaliFont">
@@ -76,7 +76,7 @@
                        मा जिल्ला प्रशासन कार्यालय
                         <strong class="nepaliFont">
                                 {{one?.guarantorIssueDistrict}}
-                                </strong></span>
+                                </strong>)</span>
                     बाट जारी भएको) आगे तपाई धनी बैंकले मेरो जमानी बसिदिने शर्तमा
 
                     <input class="form-field form-control-sm nepaliFont disable-print"
@@ -151,7 +151,7 @@
                            placeholder=""
                            formControlName="loanAmountInWord"
                            type="text"/><span class="print-only nepaliFont"><b>{{personalGuarantee.get('loanAmountInWord').value ? personalGuarantee.get('loanAmountInWord').value  : '========='}}</b></span>
-                    )
+                    रुपैंया मात्र । )
                     सम्मको बिभिन्न विभिन्न कर्जा सुविधा तथा बैंक जमानत आदि लगायत अन्य बैंकिङ्ग  कारोवार सुबिधाको लागि तपाई धनी बैंक र ऋणीका विच
                     मिति
                     <input class="form-field form-control-sm nepaliFont disable-print"
