@@ -7,4 +7,5 @@ export class CustomerRelative {
     citizenshipNumber: string;
     citizenshipIssuedDate: Date;
     citizenshipIssuedPlace: string;
+    age: number;
 }
