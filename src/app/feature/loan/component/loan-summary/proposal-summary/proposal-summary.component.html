@@ -236,3 +236,57 @@
     <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.RENEW_WITH_ENHANCEMENT)"
        class="text-round">R/E</i>
 </ng-template>
+
+<div class="row" *ngIf="client === clientName?.SHINE_RESUNGA">
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
+            <tr class="text-white sb-bg-dark">
+                <th>Disbursement Criteria</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{proposalAllData?.disbursementCriteria}}</td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Repayment</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{proposalAllData?.repayment}}</td>
+            </tr>
+            <tr class="text-white sb-bg-dark" *ngIf="client !== clientName?.MEGA">
+                <th>Purpose of Loan</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1" *ngIf="client !== clientName?.MEGA">{{proposalAllData?.purposeOfLoan}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div *ngIf="approveSheet === 'approveSheet'" class="col-md-12">
+        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
+            <ng-container *ngIf="checkedData?.waiverChecked">
+                <tr class="text-white sb-bg-dark">
+                    <th>Waiver/Deviation</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation | safeHtml"></span></td>
+                </tr>
+            </ng-container>
+            <ng-container *ngIf="checkedData?.solChecked">
+                <tr class="text-white sb-bg-dark">
+                    <th>Single Obligor Limit</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.solConclusionRecommendation | safeHtml"></span></td>
+                </tr>
+            </ng-container>
+            <ng-container *ngIf="checkedData?.riskChecked">
+                <tr class="text-white sb-bg-dark">
+                    <th>Risk & Mitigation</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.riskConclusionRecommendation | safeHtml"></span></td>
+                </tr>
+            </ng-container>
+        </table>
+    </div>
+</div>
