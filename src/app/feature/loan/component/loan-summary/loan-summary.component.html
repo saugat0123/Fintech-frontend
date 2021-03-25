@@ -364,7 +364,7 @@
                 </div>
             </div>
 
-            <div>
+            <div *ngIf="creditRiskAlphaSummary || creditRiskLambdaSummary || crgGammaSummary">
                 <p><strong>Credit Risk Grading</strong></p>
                 <table
                         class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
@@ -372,9 +372,9 @@
                     <tr class="text-white sb-bg-dark">
                         <th>Credit Risk Grading (Flavour)</th>
                         <th>Credit Risk Grade</th>
-                        <th>Credit Risk Rating</th>
+                        <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Credit Risk Rating</th>
                         <th>Credit Risk Score</th>
-                        <th>Premium</th>
+                        <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Premium</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -400,9 +400,7 @@
                     <tr *ngIf="crgGammaSummary">
                         <td>Gamma</td>
                         <td><span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span></td>
-                        <td>N/A</td>
                         <td><span><strong> {{ crgGammaScore }}</strong></span></td>
-                        <td>N/A</td>
                     </tr>
                     </tbody>
                 </table>
