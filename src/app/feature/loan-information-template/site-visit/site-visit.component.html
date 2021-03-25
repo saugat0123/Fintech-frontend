@@ -777,7 +777,7 @@
                             <label class="title" for="insuranceCompany">Insurance Company</label>
                             <select class="form-control" formControlName="insuranceCompany"
                                    id="insuranceCompany" name="insuranceCompany">
-                                <option [ngValue]="''" hidden>Select Insurance Company</option>
+                                <option [ngValue]="null">Select Insurance Company</option>
                                 <option *ngFor="let insurance of insuranceList" [ngValue]="insurance.id">{{insurance.name}}</option>
 
                             </select>

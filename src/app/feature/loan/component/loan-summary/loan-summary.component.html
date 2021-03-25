@@ -91,8 +91,7 @@
                             <div class="report-header">
                                 <div class="report-header-heading">{{client}}</div>
                                 <div class="report-header-sub-heading">
-                                    <span class="sb-small"> Credit Appraisal of</span> <span
-                                        class="sb-medium"> {{loanConfig?.name}}</span>
+                                    <span class="sb-small"> Credit Appraisal </span>
                                     <br/>
                                     <span class="sb-small"> for </span>
                                 </div>
@@ -129,7 +128,7 @@
 
             <hr class="print-line disable-print">
 
-            <div class="row disable-print">
+            <div class="row">
 
                 <!-- CRG - Normal-->
                 <!--        <div *ngIf="creditRiskSummary" class="col-md-12">-->
@@ -176,7 +175,7 @@
                             <h6>Credit Risk Gauge (Gamma)</h6>
                         </nb-card-header>
                         <nb-card-body>
-                            <div class="row disable-print">
+                            <div class="row">
                                 <div class="col-md-6 text-right">
                                     <app-gauge-chart [chartHeight]="180"
                                                      [chartWidth]="275"
@@ -221,6 +220,11 @@
                                     </div>
                                     <div class="col-md-6 ml-0 gauge-label-padding">
                                         <div class="vertical-line">
+                                            <div class="text-left pl-2">
+                                                Current year (as) :
+                                                <span><strong> {{ creditRiskRatingAlphaCurrentYear }}</strong></span>
+                                            </div>
+                                            <br>
                                             <div class="text-left pl-2">
                                                 Credit Risk Grade :
                                                 <span [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha | titlecase}}</span>
@@ -360,7 +364,7 @@
                 </div>
             </div>
 
-            <div class="print-only">
+            <div *ngIf="creditRiskAlphaSummary || creditRiskLambdaSummary || crgGammaSummary">
                 <p><strong>Credit Risk Grading</strong></p>
                 <table
                         class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
@@ -368,9 +372,9 @@
                     <tr class="text-white sb-bg-dark">
                         <th>Credit Risk Grading (Flavour)</th>
                         <th>Credit Risk Grade</th>
-                        <th>Credit Risk Rating</th>
+                        <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Credit Risk Rating</th>
                         <th>Credit Risk Score</th>
-                        <th>Premium</th>
+                        <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Premium</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -396,9 +400,7 @@
                     <tr *ngIf="crgGammaSummary">
                         <td>Gamma</td>
                         <td><span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span></td>
-                        <td>N/A</td>
                         <td><span><strong> {{ crgGammaScore }}</strong></span></td>
-                        <td>N/A</td>
                     </tr>
                     </tbody>
                 </table>
@@ -491,6 +493,7 @@
                                 <th>Relation Name</th>
                                 <th>Citizenship no.</th>
                                 <th>Citizenship Issued Date</th>
+                                <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
 
                             </tr>
                             </thead>
@@ -508,6 +511,9 @@
                                 </td>
                                 <td class="text-left pl-1">
                                     {{relative.citizenshipIssuedDate | date}}
+                                </td>
+                                <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">
+                                    {{relative.age}}
                                 </td>
 
                             </tr>
@@ -762,7 +768,7 @@
             <app-insurance-summary *ngIf="loanDataHolder?.insurance"
                                    [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
 
-            <div *ngIf="client === clientName?.MEGA">
+            <div *ngIf="client === clientName?.MEGA || clientName?.SHINE_RESUNGA">
                 <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
             </div>
             <div class="row">

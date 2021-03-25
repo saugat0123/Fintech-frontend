@@ -1,4 +1,3 @@
-
 import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
@@ -15,6 +14,10 @@ import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {Editor} from '../../../../../@core/utils/constants/editor';
 import {NepaliEditor} from '../../../../../@core/utils/constants/nepaliEditor';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {NepaliNumberAndWords} from '../../../model/nepaliNumberAndWords';
+import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
+import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
 
 @Component({
     selector: 'app-retail-housing-loan',
@@ -27,6 +30,9 @@ export class RetailHousingLoanComponent implements OnInit {
     spinner = false;
     existingOfferLetter = false;
     initialInfoPrint;
+    nepaliNumber = new NepaliNumberAndWords();
+    nepaliAmount = [];
+    finalNepaliWord = [];
     offerLetterConst = MegaOfferLetterConst;
     offerLetterDocument: OfferDocument;
     selectedArray = [];
@@ -48,6 +54,9 @@ export class RetailHousingLoanComponent implements OnInit {
                 private toastService: ToastService,
                 private administrationService: CreditAdministrationService,
                 private routerUtilsService: RouterUtilsService,
+                private engToNepNumberPipe: EngToNepaliNumberPipe,
+                private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+                private currencyFormatPipe: CurrencyFormatterPipe,
                 protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>) {
     }
 
@@ -453,5 +462,16 @@ export class RetailHousingLoanComponent implements OnInit {
         }
         this.form.get([formArrayName, index, formControlName]).patchValue(true);
 
+    }
+
+    nepaliToEng(i , formControlName) {
+        const valueHolder = this.form.get('housingFinance').value;
+        this.nepaliAmount[i] = valueHolder[i].loanAmount;
+        this.nepaliNumber.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.nepaliAmount[i]));
+        // this.form['housingFinance',i, formControlName];
+        console.log('formControlName' , formControlName);
+        console.log('this.nepaliNumber.numberNepali', this.nepaliNumber.numberNepali);
+        this.finalNepaliWord[i] = this.nepaliCurrencyWordPipe.transform(this.nepaliAmount[i]);
+        console.log('this.nepaliNumber.numberNepali', this.finalNepaliWord[i]);
     }
 }

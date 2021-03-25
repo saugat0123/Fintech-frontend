@@ -142,7 +142,7 @@
                                 <select class="form-control rounded" formControlName="landCollateralOwnerRelationship"
                                         id="landCollateralOwnerRelationship"
                                         name="landCollateralOwnerRelationship">
-                                    <option [ngValue]="null" hidden>--Select Relationship--</option>
+                                    <option [ngValue]="null">--Select Relationship--</option>
                                     <option *ngFor="let relationship of collateralOwnerRelationshipList.relation" [ngValue]="relationship.id">{{relationship.name}}</option>
                                 </select>
                             </div>
@@ -174,6 +174,7 @@
                                            bindLabel="name"
                                            placeholder=""
                                            formControlName="landValuator" (click)="valuator(null,'land',i)">
+                                    <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.landValuator[i]" [value]="valuator">{{valuator.name}}</ng-option>
                                 </ng-select>
                             </div>
@@ -229,7 +230,7 @@
                                 <select class="form-control rounded" formControlName="landAlternateStaffRepresentativeDesignation"
                                         id="landAlternateStaffRepresentativeDesignation"
                                         name="landAlternateStaffRepresentativeDesignation">
-                                    <option [ngValue]="null" hidden>Alternate Staff Representative Designation</option>
+                                    <option [ngValue]="null">Alternate Staff Representative Designation</option>
                                     <option *ngFor="let designation of designationList"
                                             [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                 </select>
@@ -249,7 +250,7 @@
                                 <label class="title">Type of property</label>
                                 <select class="form-control rounded" formControlName="typeOfProperty"
                                        name="typeOfProperty">
-                                    <option [value]="null" hidden>Select Type of property</option>
+                                    <option [value]="null">Select Type of property</option>
                                     <option *ngFor="let property of typeOfProperty" [value]="property">{{property}}</option>
                                 </select>
                             </div>
@@ -280,7 +281,7 @@
                                 <label class="title">Ownership transfer Through</label>
                                 <select class="form-control rounded" formControlName="ownershipTransferThrough"
                                         name="ownershipTransferThrough" (change)="resetOtherTransferParameter('landDetails', i,false)">
-                                    <option  [value]="null" hidden>Select Ownership transfer through</option>
+                                    <option  [value]="null">Select Ownership transfer through</option>
                                     <option  *ngFor="let ownership of ownershipTransferEnumPair" [ngValue]="ownership.key">{{ownership.value}}</option>
                                 </select>
                             </div>
@@ -592,6 +593,7 @@
                                                    bindLabel="name"
                                                    placeholder=""
                                                    formControlName="ApartmentValuator" (click)="valuator(null,'apartment',i)">
+                                            <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                             <ng-option *ngFor="let valuator of securityValuator.apartmentValuator[i]" [value]="valuator">{{valuator.name}}</ng-option>
                                         </ng-select>
                                     </div>
@@ -1159,7 +1161,7 @@
                                     <select class="form-control rounded"
                                            formControlName="areaFormat"
                                            name="areaFormat">
-                                        <option [value]="null" hidden>Select Area Format</option>
+                                        <option [value]="null">Select Area Format</option>
                                         <option [value]="area" *ngFor="let area of areaFormat">{{area}}</option>
                                     </select>
                                 </div>
@@ -1291,7 +1293,7 @@
                                     <select class="form-control rounded" formControlName="landBuildingCollateralOwnerRelationship"
                                             id="landBuildingCollateralOwnerRelationship"
                                             name="landBuildingCollateralOwnerRelationship">
-                                        <option [ngValue]="null" hidden>--Select Relationship--</option>
+                                        <option [ngValue]="null">--Select Relationship--</option>
                                         <option *ngFor="let relationship of collateralOwnerRelationshipList.relation" [ngValue]="relationship.id">{{relationship.name}}</option>
                                     </select>
                                 </div>
@@ -1321,6 +1323,7 @@
                                                bindLabel="name"
                                                formControlName="buildingValuator"
                                                placeholder="">
+                                        <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                         <ng-option
                                             *ngFor="let valuator of securityValuator.buildingValuator[i]"
                                             [value]="valuator">{{valuator.name}}</ng-option>
@@ -1386,7 +1389,7 @@
                                     <select class="form-control rounded" formControlName="landBuildingAlternateStaffRepresentativeDesignation"
                                             id="landBuildingAlternateStaffRepresentativeDesignation"
                                             name="landBuildingAlternateStaffRepresentativeDesignation">
-                                        <option [ngValue]="null" hidden>Alternate Staff Representative Designation</option>
+                                        <option [ngValue]="null">Alternate Staff Representative Designation</option>
                                         <option *ngFor="let designation of designationList"
                                                 [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                     </select>
@@ -1406,7 +1409,7 @@
                                     <label class="title">Type of property</label>
                                     <select class="form-control rounded" formControlName="typeOfProperty"
                                             name="typeOfProperty">
-                                        <option [value]="null" hidden>Select Type of property</option>
+                                        <option [value]="null">Select Type of property</option>
                                         <option *ngFor="let property of typeOfProperty" [value]="property">{{property}}</option>
                                     </select>
                                 </div>
@@ -1437,7 +1440,7 @@
                                     <label class="title">Ownership transfer Through</label>
                                     <select class="form-control rounded" formControlName="ownershipTransferThrough"
                                             name="ownershipTransferThrough" (change)="resetOtherTransferParameter('landBuilding', i,false)">
-                                        <option  [value]="null" hidden>Select Ownership transfer through</option>
+                                        <option  [value]="null">Select Ownership transfer through</option>
                                         <option  *ngFor="let ownership of ownershipTransferEnumPair" [ngValue]="ownership.key">{{ownership.value}}</option>
                                     </select>
                                 </div>
@@ -1540,7 +1543,7 @@
                                         <select class="form-control rounded"
                                                 formControlName="areaFormatConstruction"
                                                 name="areaFormat">
-                                            <option [value]="null" hidden>Select Area Format</option>
+                                            <option [value]="null">Select Area Format</option>
                                             <option [value]="area" *ngFor="let area of areaFormat">{{area}}</option>
                                         </select>
                                     </div>
@@ -1776,6 +1779,7 @@
                                            bindLabel="name"
                                            placeholder=""
                                            formControlName="plantMachineryValuator" (click)="valuator(null,'plant',i)">
+                                    <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.plantValuator[i]" [value]="valuator">{{valuator.name}}</ng-option>
                                 </ng-select>
                             </div>
@@ -1831,7 +1835,7 @@
                                 <select class="form-control rounded" formControlName="plantMachineryAlternateStaffRepresentativeDesignation"
                                         id="plantMachineryAlternateStaffRepresentativeDesignation"
                                         name="plantMachineryAlternateStaffRepresentativeDesignation">
-                                    <option [ngValue]="null" hidden>Alternate Staff Representative Designation</option>
+                                    <option [ngValue]="null">Alternate Staff Representative Designation</option>
                                     <option *ngFor="let designation of designationList"
                                             [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                 </select>
@@ -2017,6 +2021,7 @@
                                            bindLabel="name"
                                            placeholder=""
                                            formControlName="vehicalValuator" (click)="valuator(null,'vehicle',i)">
+                                    <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.vehicalValuator[i]" [value]="valuator">{{valuator.name}}</ng-option>
                                 </ng-select>
                             </div>
@@ -2072,7 +2077,7 @@
                                 <select class="form-control rounded" formControlName="vehicalAlternateStaffRepresentativeDesignation"
                                         id="vehicalAlternateStaffRepresentativeDesignation"
                                         name="vehicalAlternateStaffRepresentativeDesignation">
-                                    <option [ngValue]="null" hidden>Alternate Staff Representative Designation</option>
+                                    <option [ngValue]="null">Alternate Staff Representative Designation</option>
                                     <option *ngFor="let designation of designationList"
                                             [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                 </select>
@@ -2444,7 +2449,7 @@
                                 <select class="form-control rounded" formControlName="hypothecationOwnerRelationship"
                                         id="hypothecationOwnerRelationship"
                                         name="hypothecationOwnerRelationship">
-                                    <option [ngValue]="null" hidden>Select Relationship</option>
+                                    <option [ngValue]="null">Select Relationship</option>
                                     <option *ngFor="let relationship of collateralOwnerRelationshipList.relation" [ngValue]="relationship.id">{{relationship.name}}</option>
                                 </select>
                             </div>
@@ -2705,7 +2710,7 @@
 <!--                                       type="text"/>-->
                                 <label for="insuranceCompanyName"><strong>Insurance Company</strong></label>
                                 <select class="form-control" formControlName="insuranceCompanyName" id="insuranceCompanyName">
-                                    <option [ngValue]="null" hidden>Select Insurance Company</option>
+                                    <option [ngValue]="null">--Select Insurance Company--</option>
                                     <option *ngFor="let insuranceCompany of insuranceCompanyList" [ngValue]="insuranceCompany.id">{{insuranceCompany.name}}</option>
                                 </select>
                             </div>

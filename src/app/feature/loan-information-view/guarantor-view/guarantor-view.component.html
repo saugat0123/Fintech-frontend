@@ -12,6 +12,8 @@
         <th>CitizenNumber</th>
         <th>Issued Year</th>
         <th>Issued Place</th>
+        <th>Address 1</th>
+        <th>Address 2</th>
         <th>Province</th>
         <th>District</th>
         <th>Address as per Legal Document</th>
@@ -23,6 +25,8 @@
         <td class="text-right pr-1">{{guarantor?.citizenNumber}}</td>
         <td class="text-left pl-1">{{guarantor?.issuedYear | date}}</td>
         <td class="text-left pl-1">{{guarantor?.issuedPlace}}</td>
+        <td class="text-left pl-1">{{guarantor?.permanentAddressLineOne}}</td>
+        <td class="text-left pl-1">{{guarantor?.permanentAddressLineTwo}}</td>
         <td class="text-left pl-1">{{guarantor?.province?.name}}</td>
         <td class="text-left pl-1">{{guarantor?.district?.name}}</td>
         <td class="text-left pl-1">{{guarantor?.guarantorLegalDocumentAddress}}</td>
@@ -68,6 +72,8 @@
       </tr>
       <tr class="text-white sb-bg-dark">
         <th>Net Worth</th>
+        <th>Temporary Address 1</th>
+        <th>Temporary Address 2</th>
         <th>Temporary Province</th>
         <th>Temporary District</th>
         <th>Temporary Municipalities</th>
@@ -77,6 +83,8 @@
       </tr>
       <tr>
         <td class="text-right pr-1">Rs. {{guarantor?.netWorth | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{guarantor?.temporaryAddressLineOne}}</td>
+        <td class="text-right pr-1">Rs. {{guarantor?.temporaryAddressLineTwo}}</td>
         <td class="text-left pl-1">{{guarantor?.provinceTemporary?.name}}</td>
         <td class="text-left pl-1">{{guarantor?.districtTemporary?.name}}</td>
         <td class="text-left pl-1">{{guarantor?.municipalitiesTemporary?.name}}</td>
@@ -85,10 +93,10 @@
 
       </tr>
       <tr class="text-white sb-bg-dark">
-        <td colspan="6">BackGround</td>
+        <td colspan="9">BackGround</td>
       </tr>
       <tr>
-        <th colspan="6" class="text-left pl-1">{{guarantor?.background}}</th>
+        <th colspan="9" class="text-left pl-1">{{guarantor?.background}}</th>
 
       </tr>
     </table>

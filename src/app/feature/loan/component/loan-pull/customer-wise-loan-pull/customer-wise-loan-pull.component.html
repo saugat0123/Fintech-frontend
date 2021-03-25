@@ -17,7 +17,7 @@
                         </div>
                         <div class="col-md-6 d-flex justify-content-end">
                             <button (click)="getCsv()" nbButton outline
-                                    status="info"  size="tiny">
+                                    status="info" size="tiny">
                                 <i aria-hidden="true" class="fa fa-download"></i></button>
                         </div>
                     </div>
@@ -60,14 +60,16 @@
                             </div>
 
                             <div class="col-md-3 py-2">
-                                <input id="startDate" [nbDatepicker]="startDate" class="form-control form-control-tiny rounded"
+                                <input id="startDate" [nbDatepicker]="startDate"
+                                       class="form-control form-control-tiny rounded"
                                        (change)="checkIfDateFiltration()" formControlName="startDate"
                                        placeholder="Enter Start Date" [ngClass]="{ 'is-invalid': !validStartDate }">
                                 <nb-datepicker #startDate></nb-datepicker>
                                 <div *ngIf="!validStartDate" class="invalid-feedback">Invalid start date</div>
                             </div>
                             <div class="col-md-3 py-2">
-                                <input id="endDate" [nbDatepicker]="endDate" class="form-control form-control-tiny rounded"
+                                <input id="endDate" [nbDatepicker]="endDate"
+                                       class="form-control form-control-tiny rounded"
                                        (change)="checkIfDateFiltration()" formControlName="endDate"
                                        placeholder="Enter End Date" [ngClass]="{ 'is-invalid': !validEndDate }">
                                 <nb-datepicker #endDate></nb-datepicker>
@@ -88,7 +90,8 @@
                             </div>
 
                             <div class="col-md-3 py-2">
-                                <input id="customerName" class="form-control form-control-tiny rounded" formControlName="customerName"
+                                <input id="customerName" class="form-control form-control-tiny rounded"
+                                       formControlName="customerName"
                                        placeholder="Enter customer name">
                             </div>
                             <div class="col-md-3 mb-3 py-2">
@@ -119,11 +122,11 @@
                         </div>
 
                         <div class="col-md-12 p-0">
-                            <button nbButton status="info" shape="rectangle" class="mr-2"  size="tiny"
+                            <button nbButton status="info" shape="rectangle" class="mr-2" size="tiny"
                                     [disabled]="!filterForm.valid"
                                     type="submit">Search
                             </button>
-                            <button (click)="clearSearch()" shape="rectangle" nbButton status="danger"  size="tiny">
+                            <button (click)="clearSearch()" shape="rectangle" nbButton status="danger" size="tiny">
                                 Clear
                             </button>
                         </div>
@@ -173,8 +176,8 @@
                                     <td>Loan Facility</td>
                                     <td>Proposed Amount</td>
                                     <td>Priority</td>
+                                    <td>Loan Type</td>
                                     <td>Status</td>
-
                                     <th>Possession Under/Days</th>
                                     <td>Received On</td>
                                     <th>Loan lifespan</th>
@@ -191,6 +194,7 @@
                                     <td (click)="onClick(l.loan.id,l.id)" class="d-flex justify-content-end pr-1">Rs
                                         .{{l?.proposal?.proposedLimit | currencyFormatter}}</td>
                                     <td (click)="onClick(l.loan.id,l.id)">{{l?.priority}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)">{{l?.loanType |  replace:'_':' '}}</td>
                                     <td (click)="onClick(l.loan.id,l.id)">{{l?.documentStatus}}</td>
                                     <td (click)="onClick(l.loan.id,l.id)">
                                         <div *ngIf='l?.documentStatus.toString()==="PENDING"'>
@@ -215,10 +219,13 @@
                                             {{getDaysDifference(l?.currentStage?.lastModifiedAt, l?.currentStage?.createdAt)}}</div>
 
                                     </td>
-                                    <td>
+                                    <td class="cursor">
                                         <a nbTooltip="click to pull Document"
+                                           *ngIf="(l?.currentStage?.toUser?.id).toString() !== currentUserId"
                                            (click)="onPullClick(pullDocument,l?.id,l)"><i
                                                 class="fas fa-angle-double-down"></i> pull</a>
+                                        <span
+                                                *ngIf="(l?.currentStage?.toUser?.id).toString() === currentUserId">In My bucket</span>
                                     </td>
 
                                     <td>
@@ -242,6 +249,7 @@
                                     <td (click)="onClick(l.loan.id,l.id)" class="d-flex justify-content-end pr-1">Rs
                                         .{{l?.proposal?.proposedLimit | currencyFormatter}}</td>
                                     <td (click)="onClick(l.loan.id,l.id)">{{l?.priority}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)">{{l?.loanType |  replace:'_':' '}}</td>
                                     <td (click)="onClick(l.loan.id,l.id)">{{l?.documentStatus}}</td>
                                     <td (click)="onClick(l.loan.id,l.id)">
                                         <div *ngIf='l?.documentStatus.toString()==="PENDING"'>
@@ -269,8 +277,11 @@
 
                                     <td class="cursor">
                                         <a nbTooltip="click to pull Document"
+                                           *ngIf="(l?.currentStage?.toUser?.id).toString() !== currentUserId"
                                            (click)="onPullClick(pullDocument,l?.id,l)"><i
                                                 class="fas fa-angle-double-down"></i> pull</a>
+                                        <span
+                                           *ngIf="(l?.currentStage?.toUser?.id).toString() === currentUserId">In My bucket</span>
                                     </td>
 
                                     <td>
@@ -358,20 +369,21 @@
             </tr>
             </thead>
             <tr *ngFor="let previous of model?.previousList">
-                <td>{{previous?.lastModifiedAt | date}}</td>
+                <td>{{previous?.lastModifiedAt | date:'medium'}}</td>
                 <td>{{previous?.fromUser?.name}}</td>
                 <td>{{previous?.toUser.name}}</td>
                 <td>{{previous?.docAction | loanStatusPipe}}</td>
-                <td colspan="6">{{previous.comment}}</td>
+                <td colspan="6"><span [innerHTML]="previous.comment | safeHtml"></span></td>
             </tr>
             <tr>
-                <td>{{model?.currentStage?.lastModifiedAt | date}}</td>
+                <td>{{model?.currentStage?.lastModifiedAt | date:'medium'}}</td>
                 <td>{{model?.currentStage?.fromUser?.name}}</td>
 
                 <td>{{model?.currentStage?.toUser.name}}</td>
 
                 <td>{{model?.currentStage?.docAction | loanStatusPipe}}</td>
-                <td colspan="6">{{model?.currentStage?.comment}}</td>
+                <td colspan="6"><span [innerHTML]="model?.currentStage?.comment | safeHtml"></span></td>
+
 
             </tr>
             <tr class="sb-bg-dark">

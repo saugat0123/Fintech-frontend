@@ -26,7 +26,7 @@
                             <select class="form-control" formControlName="assetInsured" id="assetInsured"
                                    placeholder="Asset Insured"
                                     type="text">
-                                <option [ngValue]="null" hidden>Select Asset Insured</option>
+                                <option [ngValue]="null">--Select Asset Insured--</option>
                                 <option *ngFor="let assets of assetsInsured" [ngValue]="assets">{{assets}}</option>
                             </select>
                         </div>
@@ -35,7 +35,7 @@
             <div class="form-group">
                 <label for="insuranceCompany"><strong>Insurance Company</strong></label>
                 <select class="form-control" formControlName="company" id="insuranceCompany" [ngClass]="{'is-invalid': isSubmitted && formArrays.get('company').errors}">
-                    <option [ngValue]="null" hidden>Select Insurance Company</option>
+                    <option [ngValue]="null">--Select Insurance Company--</option>
                     <option *ngFor="let insuranceCompany of insuranceCompanyList" [ngValue]="insuranceCompany.id">{{insuranceCompany.name}}</option>
                 </select>
                 <div *ngIf="isSubmitted && formArrays.get('company').invalid" class="invalid-feedback">

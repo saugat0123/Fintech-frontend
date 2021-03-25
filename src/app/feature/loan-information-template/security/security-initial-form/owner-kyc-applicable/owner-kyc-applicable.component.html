@@ -15,7 +15,7 @@
                                 <select class="form-control rounded" formControlName="ownerRelationship"
                                         id="ownerRelationship"
                                         name="ownerRelationship">
-                                    <option [ngValue]="null" hidden>Select Relationship</option>
+                                    <option [ngValue]="null">Select Relationship</option>
                                     <option *ngFor="let relationship of ownerRelationship.relation" [ngValue]="relationship.id">{{relationship.name}}</option>
                                 </select>
                             </div>
@@ -58,7 +58,7 @@
                             <select class="form-control rounded" formControlName="issuedLocation"
                                     id="issuedLocation"
                                     name="issuedLocation">
-                                <option [ngValue]="null" hidden>Select District</option>
+                                <option [ngValue]="null">Select District</option>
                                 <option *ngFor="let district of allDistrict" [ngValue]="district.name">{{district.name}}</option>
                             </select>
                         </div>
@@ -101,6 +101,15 @@
                                        placeholder="Address" type="text">
                             </div>
                         </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="remark">Remarks</label>
+                            <input type="text" class="form-control"
+                            formControlName="remark"
+                            id="remark"
+                            name="remark" placeholder="Remarks">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

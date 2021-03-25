@@ -152,34 +152,41 @@
                                     <td>Loan Facility</td>
                                     <td>Proposed Amount</td>
                                     <td>Priority</td>
+                                    <td>Loan Type</td>
                                     <td>Status</td>
                                     <td>Current Possession</td>
                                     <td>Received On</td>
                                     <th>Comment History</th>
                                 </tr>
                                 <tr *ngFor="let l of loanHolderLoans?.loanSingleList"
-                                    >
+                                >
                                     <td (click)="onClick(l.loan.id,l.id)"
                                         class="cursor"
                                         nbTooltip="Click to View Detail"
                                         nbTooltipStatus="control"
                                         nbTooltipIcon="question-mark-circle-outline">{{l?.loan?.name}}</td>
-                                    <td    nbTooltip="Click to View Detail"
-                                           nbTooltipStatus="control"
-                                           nbTooltipIcon="question-mark-circle-outline" class="d-flex justify-content-end pr-1">Rs .{{l?.proposal?.proposedLimit }}</td>
-                                    <td                class="cursor"
-                                                       nbTooltip="Click to View Detail"
-                                                       nbTooltipStatus="control"
-                                                       nbTooltipIcon="question-mark-circle-outline">{{l?.priority}}</td>
-                                    <td                class="cursor"
-                                                       nbTooltip="Click to View Detail"
-                                                       nbTooltipStatus="control"
-                                                       nbTooltipIcon="question-mark-circle-outline">{{l?.documentStatus}}</td>
-                                    <td                class="cursor"
-                                                       nbTooltip="Click to View Detail"
-                                                       nbTooltipStatus="control"
-                                                       nbTooltipIcon="question-mark-circle-outline">{{l?.currentStage?.toUser?.name}}</td>
-                                    <td><span *ngIf="l?.previousList.length > 0">
+                                    <td (click)="onClick(l.loan.id,l.id)" nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline"
+                                        class="d-flex justify-content-end pr-1">Rs .{{l?.proposal?.proposedLimit }}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)" class="cursor"
+                                        nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline">{{l?.priority}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)" class="cursor"
+                                        nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline">{{l?.loanType}}</td>
+
+                                    <td (click)="onClick(l.loan.id,l.id)" class="cursor"
+                                        nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline">{{l?.documentStatus}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)" class="cursor"
+                                        nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline">{{l?.currentStage?.toUser?.name}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)"><span *ngIf="l?.previousList.length > 0">
                                    {{l?.currentStage?.lastModifiedAt | date}}
                                     </span></td>
                                     <td>
@@ -190,26 +197,37 @@
                                     </td>
                                 </tr>
                                 <tr *ngFor="let l of loanForCombine[i].loan;let x = index"
-                                   class="cursor"
-                                   >
-                                    <td   nbTooltip="Click to View Detail"
-                                          nbTooltipStatus="control"
-                                          nbTooltipIcon="question-mark-circle-outline" (click)="onClick(l.loan.id,l.id)">{{l?.loan?.name}}</td>
-                                    <td   nbTooltip="Click to View Detail"
-                                          nbTooltipStatus="control"
-                                          nbTooltipIcon="question-mark-circle-outline"  (click)="onClick(l.loan.id,l.id)" class="d-flex justify-content-end pr-1">Rs .{{l?.proposal?.proposedLimit}}</td>
-                                    <td  nbTooltip="Click to View Detail"
-                                         nbTooltipStatus="control"
-                                         nbTooltipIcon="question-mark-circle-outline" (click)="onClick(l.loan.id,l.id)" >{{l?.priority}}</td>
-                                    <td  nbTooltip="Click to View Detail"
-                                         nbTooltipStatus="control"
-                                         nbTooltipIcon="question-mark-circle-outline" (click)="onClick(l.loan.id,l.id)" >{{l?.documentStatus}}</td>
-                                    <td  nbTooltip="Click to View Detail"
-                                         nbTooltipStatus="control"
-                                         nbTooltipIcon="question-mark-circle-outline"  (click)="onClick(l.loan.id,l.id)">{{l?.currentStage?.toUser?.name}}</td>
-                                    <td  nbTooltip="Click to View Detail"
-                                         nbTooltipStatus="control"
-                                         nbTooltipIcon="question-mark-circle-outline"  (click)="onClick(l.loan.id,l.id)"> <span *ngIf="l?.previousList.length > 0">
+                                    class="cursor"
+                                >
+                                    <td nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline"
+                                        (click)="onClick(l.loan.id,l.id)">{{l?.loan?.name}}</td>
+                                    <td nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline" (click)="onClick(l.loan.id,l.id)"
+                                        class="d-flex justify-content-end pr-1">Rs .{{l?.proposal?.proposedLimit}}</td>
+                                    <td nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline"
+                                        (click)="onClick(l.loan.id,l.id)">{{l?.priority}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)" class="cursor"
+                                        nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline">{{l?.loanType}}</td>
+
+                                    <td nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline"
+                                        (click)="onClick(l.loan.id,l.id)">{{l?.documentStatus}}</td>
+                                    <td nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline"
+                                        (click)="onClick(l.loan.id,l.id)">{{l?.currentStage?.toUser?.name}}</td>
+                                    <td nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline" (click)="onClick(l.loan.id,l.id)"> <span
+                                            *ngIf="l?.previousList.length > 0">
                                    {{l?.currentStage?.lastModifiedAt | date}}
                                     </span></td>
                                     <td>
@@ -262,24 +280,22 @@
             </tr>
             </thead>
             <tr *ngFor="let previous of model?.previousList">
-                <td>{{previous?.lastModifiedAt | date}}</td>
+                <td>{{previous?.lastModifiedAt | date:'medium'}}</td>
                 <td>{{previous?.fromUser?.name}}</td>
                 <td>{{previous?.toUser.name}}</td>
                 <td>{{previous?.docAction}}</td>
-                <td colspan="6">{{previous.comment}}</td>
+                <td colspan="6"><span [innerHTML]="customSafePipe(previous.comment)"></span></td>
             </tr>
             <tr>
-                <td>{{model?.currentStage?.lastModifiedAt | date}}</td>
+                <td>{{model?.currentStage?.lastModifiedAt | date:'medium'}}</td>
                 <td>{{model?.currentStage?.fromUser?.name}}</td>
-
                 <td>{{model?.currentStage?.toUser.name}}</td>
-
                 <td>{{model?.currentStage?.docAction}}</td>
-                <td colspan="6">{{model?.currentStage?.comment}}</td>
+                <td colspan="6"><span [innerHTML]="customSafePipe(model?.currentStage?.comment)"></span></td>
 
             </tr>
-            <tr class="sb-bg-dark">
-                <td colspan="12">.</td>
+            <tr >
+                <td colspan="12" class="sb-bg-dark">.</td>
             </tr>
         </table>
 

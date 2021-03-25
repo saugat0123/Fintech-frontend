@@ -38,6 +38,7 @@
                 <form [formGroup]="docStatusForm">
                     <label><strong>
                         <mark class="ql-color-yellow"> Phase - Loan Build Cycle</mark>
+                        Loan Type: {{loanType}}
                     </strong></label>
                     <ng-select [items]="docStatusMakerList"
                                [multiple]="false"
@@ -160,7 +161,8 @@
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Customer Document'">
                         <app-customer-loan-document #customerDocument
-                                                    [loanDataHolder]="loanDocument"></app-customer-loan-document>
+                                                    [loanDataHolder]="loanDocument"
+                        [loanType]="loanType"></app-customer-loan-document>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Group'">
                         <app-group #group [groupValue]="loanDocument?.group"
@@ -224,6 +226,9 @@
                             </button>
                         </div>
                         <div class="col-md-6 d-flex justify-content-end">
+
+                            <button nbButton status="info" (click)="goToCustomer()" class=" mr-2">Close</button>
+
                             <button nbButton status="primary"
                                     (click)="nextButtonActionFxn(tabSet);scrollToTop()"
                                     *ngIf="nextTabId !== totalTabCount">Next

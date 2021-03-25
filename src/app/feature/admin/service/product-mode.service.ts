@@ -64,6 +64,7 @@ export class ProductUtils {
     FULL_CAD: boolean;
     CHECK_LIST_LITE_VERSION: boolean;
     CUSTOMER_BASE_LOAN: boolean;
+    CONFIGURE_LEGAL_DOCUMENT: boolean;
 
 }
 

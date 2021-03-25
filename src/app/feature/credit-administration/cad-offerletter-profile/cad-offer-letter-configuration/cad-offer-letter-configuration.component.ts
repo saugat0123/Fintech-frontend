@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
-import {Form, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -14,7 +14,7 @@ import {DatePipe} from '@angular/common';
 import {RelationshipNepali} from '../../../loan/model/relationshipListNepali';
 import {Guarantor} from '../../../loan/model/guarantor';
 import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
-import {CalendarType} from '../../../../@core/model/calendar-type';
+import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -24,18 +24,19 @@ import {CalendarType} from '../../../../@core/model/calendar-type';
 export class CadOfferLetterConfigurationComponent implements OnInit {
 
     @Input() customerInfo: CustomerInfoData;
+    @Input() cadData: CustomerApprovedLoanCadDocumentation;
     @Input() guarantorDetail: GuarantorDetail;
     @Input() customer: Customer;
     @Output()
     customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
     @Output() guarantorDataEmitter = new EventEmitter();
-
     guarantorList: Array<Guarantor>;
     userConfigForm: FormGroup;
     spinner = false;
     value = [undefined];
     submitted = false;
     relationshipList = RelationshipNepali.enumObject();
+    hideSaveBtn = false;
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
@@ -151,6 +152,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.spinner = false;
             this.dialogRef.close();
         });
+
     }
 
     closeModal() {
@@ -185,5 +187,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     removeAtIndex(i: any) {
         (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
+    }
+
+    onChangeTab(event) {
+        this.hideSaveBtn = false;
+        console.log(event.tabId);
+        if (event.tabId === '2') {
+            this.hideSaveBtn = true;
+        }
+
     }
 }

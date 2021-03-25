@@ -70,8 +70,7 @@
                             <div class="report-header">
                                 <div class="report-header-heading">{{client}}</div>
                                 <div class="report-header-sub-heading">
-                                    <span class="sb-small"> Credit Appraisal of</span> <span
-                                        class="sb-medium"> {{loanConfig?.name}}</span>
+                                    <span class="sb-small"> Credit Appraisal </span>
                                     <br/>
                                     <span class="sb-small"> for </span>
                                 </div>
@@ -323,6 +322,7 @@
 
             <app-proposal-summary
                     *ngIf="proposalSummary"
+                    [approveSheet]="approveSheet"
                     [customerAllLoanList]="customerAllLoanList"
                     [proposalData]="proposalData"></app-proposal-summary>
             <div class="row">
@@ -382,6 +382,7 @@
                                                       [customerAllLoanList]="customerAllLoanList"
                                                       [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
 
+            <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
            <!-- <div class="row mt-3 disable-print">
                 <div class="col-md-12">
                     <p><strong>Authority Section</strong></p>
