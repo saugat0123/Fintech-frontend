@@ -169,7 +169,7 @@
                        <tbody>
                        <tr>
                            <td width="20%" style="vertical-align: top;">कर्जा सिमा रकम :</td>
-                           <td><p><strong>रु. </strong> <strong class="">{{mortgageFinance.loanAmount}} ∕– </strong> (अक्षेरुपी  <strong class="nepaliFont">{{mortgageFinance.loanAmountInWord}}</strong> रुपैयाँ मात्र ।)</p></td>
+                           <td><p><strong>रु. </strong> <strong class="">{{mortgageFinance.loanAmount}} ∕– </strong> (अक्षेरुपी  <strong class="">{{mortgageFinance.loanAmountInWord}}</strong> रुपैयाँ मात्र ।)</p></td>
                        </tr>
                        <tr>
                            <td width="20%" style="vertical-align: top;">उद्देश्य :</td>
@@ -238,7 +238,11 @@
                             <tbody>
                             <tr>
                                 <td width="20%" style="vertical-align: top;">कर्जा सिमा रकम :</td>
-                                <td><p><strong>रु. </strong> <strong class="nepaliFont">{{mortgageOverdrafts.loanAmount}}</strong> ∕– (अक्षेरुपी <strong class="nepaliFont">{{mortgageOverdrafts.loanAmountInWord}}</strong> रुपैयाँ मात्र ।)</p></td>
+                                <td><p><strong>रु. </strong> <strong class="">{{mortgageOverdrafts.loanAmount}}</strong> ∕– (अक्षेरुपी <strong class="">{{mortgageOverdrafts.loanAmountInWord}}</strong> रुपैयाँ मात्र ।)</p></td>
+                            </tr>
+                            <tr>
+                                <td width="20%" style="vertical-align: top;">उद्देश्य :</td>
+                                <td><p><strong class="">{{mortgageOverdrafts.use}}</strong></p></td>
                             </tr>
                             <tr>
                                 <td width="20%" style="vertical-align: top;">प्रयोजन :</td>
@@ -606,7 +610,7 @@
                     ऋणीः <br>
                     <div class="ml-4">
                         <strong>नाम : </strong><strong class="nepaliFont">{{loanHolderInfo?.name}}</strong> <br>
-                        <strong>ठेगाना : </strong><strong class="nepaliFont">
+                        <strong>ठेगाना : </strong><strong class="">
                         प्रदेश
                         <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
                         जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
@@ -630,7 +634,6 @@
                             <span *ngIf="loanHolderInfo?.temporaryMunType==0">
                                नगरपालिका
                            </span><strong class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</strong><br>
-                        <strong>मोबाईल नं.:</strong><strong class="nepaliFont"> {{letter['mobileNo']}}</strong> <br>
                         </strong>
                     </div>
                     <br>

@@ -50,6 +50,7 @@ export class RetailHousingLoanComponent implements OnInit {
     nepData;
     external = [];
     loanHolderInfo;
+    percentTotal;
 
 
     constructor(private formBuilder: FormBuilder,
@@ -60,7 +61,8 @@ export class RetailHousingLoanComponent implements OnInit {
                 protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
-                private currencyFormatPipe: CurrencyFormatterPipe) {
+                private currencyFormatPipe: CurrencyFormatterPipe,
+                private nepToEngNumberPipe: NepaliToEngNumberPipe) {
     }
 
     ngOnInit() {
@@ -422,7 +424,6 @@ export class RetailHousingLoanComponent implements OnInit {
 
 
     submit(): void {
-        console.log('sab value', this.form.get('housingFinance').value);
         this.spinner = true;
         this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
 
@@ -485,8 +486,12 @@ export class RetailHousingLoanComponent implements OnInit {
             this.form.get([formArrayName, i, 'loanAmountReturnInWord']).patchValue(this.finalNepaliWord[i]);
         }
     }
-    trialFunction(asd) {
-        console.log('this is $event', asd);
-        this.external = asd;
+
+    calcYearlyRate(formArrayName, i ) {
+        const baseRate = this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i , 'baseRate']).value);
+        const premiumRate = this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i , 'premiumRate']).value);
+        this.percentTotal = this.engToNepNumberPipe.transform(baseRate + premiumRate);
+        console.log('this is percentTotal', this.percentTotal);
+        this.form.get([formArrayName, i, 'yearlyRate']).patchValue(this.percentTotal);
     }
 }
