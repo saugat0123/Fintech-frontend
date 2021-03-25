@@ -228,6 +228,9 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Initial</nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <div><button type="button" nbButton size="tiny" (click)="checkAll('initial')">
+                                        Check All<i class="fa fa-check-square"></i>
+                                    </button></div><br>
                                     <div class="row">
                                         <div class="col-md-4"
                                              *ngFor="let initialDocument of initialDocumentList; let documentIndex = index">
@@ -250,6 +253,9 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Renew</nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <div><button type="button" nbButton size="tiny" (click)="checkAll('renew')">
+                                        Check All<i class="fa fa-check-square"></i>
+                                    </button></div><br>
                                     <div class="row">
                                         <div class="col-md-4"
                                              *ngFor="let renewalDocument of renewalDocumentList; let documentIndex = index;">
@@ -270,6 +276,9 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Closure</nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <div><button type="button" nbButton size="tiny" (click)="checkAll('closure')">
+                                        Check All<i class="fa fa-check-square"></i>
+                                    </button></div><br>
                                     <div class="row">
                                         <div class="col-md-4"
                                              *ngFor="let closureDocument of closureDocumentList; let documentIndex = index">
@@ -290,6 +299,9 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Eligibility</nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <div><button type="button" nbButton size="tiny" (click)="checkAll('eligibility')">
+                                        Check All<i class="fa fa-check-square"></i>
+                                    </button></div><br>
                                     <div class="row">
                                         <div
                                                 *ngFor="let eligibilityDocument of eligibilityDocumentList; let documentIndex = index"
@@ -313,6 +325,9 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Enhance</nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <div><button type="button" nbButton size="tiny" (click)="checkAll('enhance')">
+                                        Check All<i class="fa fa-check-square"></i>
+                                    </button></div><br>
                                     <div class="row">
                                         <div
                                                 *ngFor="let enhanceDocument of enhanceDocumentList; let documentIndex = index"
@@ -336,6 +351,9 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Partial Settlement</nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <div><button type="button" nbButton size="tiny" (click)="checkAll('partialSettlement')">
+                                        Check All<i class="fa fa-check-square"></i>
+                                    </button></div><br>
                                     <div class="row">
                                         <div
                                                 *ngFor="let partialDocument of partialSettlementDocumentList; let documentIndex = index"
@@ -359,6 +377,9 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Full Settlement</nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <div><button type="button" nbButton size="tiny" (click)="checkAll('fullSettlement')">
+                                        Check All<i class="fa fa-check-square"></i>
+                                    </button></div><br>
                                     <div class="row">
                                         <div
                                                 *ngFor="let fullDocument of fullSettlementDocumentList; let documentIndex = index"
@@ -382,6 +403,9 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Cad Documents</nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <div><button type="button" nbButton size="tiny" (click)="checkAll('cadDocument')">
+                                        Check All<i class="fa fa-check-square"></i>
+                                    </button></div><br>
                                     <div class="row">
                                         <div
                                             *ngFor="let cadDocument of cadDocumentUploadList; let documentIndex = index"
@@ -404,6 +428,9 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Renew With Enhancement</nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <div><button type="button" nbButton size="tiny" (click)="checkAll('renewWithEnhancement')">
+                                        Check All<i class="fa fa-check-square"></i>
+                                    </button></div><br>
                                     <div class="row">
                                         <div
                                                 *ngFor="let renewWithEnhancementDocument of renewWithEnhancementDocumentList; let documentIndex = index"
