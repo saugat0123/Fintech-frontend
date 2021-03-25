@@ -490,8 +490,8 @@ export class RetailHousingLoanComponent implements OnInit {
     calcYearlyRate(formArrayName, i ) {
         const baseRate = this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i , 'baseRate']).value);
         const premiumRate = this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i , 'premiumRate']).value);
-        this.percentTotal = this.engToNepNumberPipe.transform(baseRate + premiumRate);
-        console.log('this is percentTotal', this.percentTotal);
+        const addRate = parseInt(baseRate) + parseInt(premiumRate);
+        this.percentTotal = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
         this.form.get([formArrayName, i, 'yearlyRate']).patchValue(this.percentTotal);
     }
 }

@@ -134,11 +134,11 @@
                                                  formControlName="use"> प्रयोजनार्थ ।<br><br>
                                समय : बैंकबाट कर्जा भुक्तानी भएको मितिले  <input class="form-fields form-control-sm nepaliFont"
                                                                                 formControlName="years" size="2"/> वर्ष । <br><br>
-                               व्याज : <strong> आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) </strong> (हालको आधार दर  <input class="form-fields form-control-sm nepaliFont"
+                               व्याज : <strong> आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) </strong> (हालको आधार दर  <input (change)="calcYearlyRate('housingFinance', i)" class="form-fields form-control-sm nepaliFont"
                                                                                                                                  formControlName="baseRate" size="2"/>%
-                               + प्रिमियम दर  <input class="form-fields form-control-sm nepaliFont"
+                               + प्रिमियम दर  <input (change)="calcYearlyRate('housingFinance', i)" class="form-fields form-control-sm nepaliFont"
                                                      formControlName="premiumRate" size="2"/>%) का दरले हाललाई बार्षिक
-                               <input class="form-fields form-control-sm nepaliFont"
+                               <input readonly class="form-fields form-control-sm"
                                       formControlName="yearlyRate" size="2"/>%)  वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
                                बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर
                                संसोधन (घट्न∕बढ्न) सक्नेछ । <br><br>
@@ -173,9 +173,9 @@
                                <input class="form-fields form-control-sm nepaliFont" placeholder="१३" type="text" formControlName="asulRakam" type="text" size="2"/>
                                प्रतिशतले हुन आउने रकम मध्ये कम हुने रकम पूर्व भुक्तानी शुल्क लाग्नेछ ।
                                <br><br>
-                               सेवा शुल्क : भुक्तानी दिने ऋण सुविधा रकमको <input (change)="nepaliToEng('housingFinance', i, 'serviceChargePercent')" class="form-fields form-control-sm"
+                               सेवा शुल्क : भुक्तानी दिने ऋण सुविधा रकमको <input class="form-fields form-control-sm nepaliFont"
                                                                                  formControlName="serviceChargePercent"
-                                                                                 type="text" size="2"/> % (<input class="form-fields form-control-sm"
+                                                                                 type="text" size="2"/> % (<input class="form-fields form-control-sm nepaliFont"
                                                                                                          formControlName="serviceChargeAmount"
                                                                                                          type="text"/> प्रतिशत) ।
                                <br><br>
@@ -225,9 +225,9 @@
                                                                                             type="text"/> मात्र ।)<br><br>
                                उद्देश्य :  <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="use"/> प्रयोजनार्थ ।<br><br>
-                               व्याज : <strong> आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) </strong> (हालको आधार दर <input (keyup)="calcYearlyRate('mortgageFinance', i)" class="form-fields form-control-sm nepaliFont"
+                               व्याज : <strong> आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) </strong> (हालको आधार दर <input (change)="calcYearlyRate('mortgageFinance', i)" class="form-fields form-control-sm nepaliFont"
                                                                                                                                  formControlName="baseRate"  size="2"/>%
-                               + प्रिमियम दर  <input (keyup)="calcYearlyRate('mortgageFinance', i)"
+                               + प्रिमियम दर  <input (change)="calcYearlyRate('mortgageFinance', i)"
                                    class="form-fields form-control-sm nepaliFont"
                                                      formControlName="premiumRate" size="2"/>%) का दरले हाललाई बार्षिक
                                <input readonly class="form-fields form-control-sm"
@@ -270,11 +270,11 @@
                                       formControlName="purbaBhuktaniSulka2"
                                       type="text" size="2"/> प्रतिशतले हुन आउने रकम मध्ये कम हुने रकम पूर्व भुक्तानी शुल्क लाग्नेछ ।
                                <br><br>
-                               सेवा शुल्क : भुक्तानी दिने ऋण सुविधा रकमको <input (change)="nepaliToEng('mortgageFinance', i , 'serviceChargePercent')" class="form-fields form-control-sm"
-                                                                                 formControlName="serviceChargePercent"
-                                                                                 type="text" size="2"/> % (<input readonly class="form-fields form-control-sm"
-                                                                                                         formControlName="serviceChargeAmount"
-                                                                                                         type="text"/> प्रतिशत मात्र) ।
+                               सेवा शुल्क : भुक्तानी दिने ऋण सुविधा रकमको  <input class="form-fields form-control-sm nepaliFont"
+                                                                                  formControlName="serviceChargePercent"
+                                                                                  type="text" size="2"/> % (<input class="form-fields form-control-sm nepaliFont"
+                                                                                                                   formControlName="serviceChargeAmount"
+                                                                                                                   type="text"/>  प्रतिशत मात्र) ।
                                <br><br>
                                <p *ngIf="form.get(['mortgageFinance',i,'loanRateShow']).value">
                                    क.सु.के. दस्तुर : रु<input
@@ -329,11 +329,11 @@
                                प्रयोजन :  <input class="form-fields form-control-sm nepaliFont"
                                                  formControlName="use" size="2"/> प्रयोजनार्थ ।<br><br>
 
-                               व्याज : <strong>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) </strong> (हालको आधार दर  <input class="form-fields form-control-sm nepaliFont"
+                               व्याज : <strong>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) </strong> (हालको आधार दर  <input (change)="calcYearlyRate('mortgageOverdraft', i)" class="form-fields form-control-sm nepaliFont"
                                                                                                                                  formControlName="baseRate" size="2"/> %
-                               + प्रिमियम दर  <input class="form-fields form-control-sm nepaliFont"
+                               + प्रिमियम दर  <input (change)="calcYearlyRate('mortgageOverdraft', i)" class="form-fields form-control-sm nepaliFont"
                                                      formControlName="premiumRate" size="2"/>%) का दरले हाललाई बार्षिक
-                               <input class="form-fields form-control-sm nepaliFont"
+                               <input readonly class="form-fields form-control-sm nepaliFont"
                                       formControlName="yearlyRate" size="2"/>% त्रैमाशिक रुपमा (आस्विन मसान्त , पौष मसन्त, चैत्र मसान्त र असाध मसन्त)
 
                                वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
@@ -363,11 +363,11 @@
                                       type="text"/> प्रतिशतले हुन आउने प्रतिशतका दरले मात्र । <br>
                                भुक्तानी शुल्क : भुक्तानी हुने ऋण सुविधा रकमको ०.७५% (शुन्य दशमलव सात पाँच प्रतिशत) मात्र ।
                                <br><br>
-                               सेवा शुल्क : भुक्तानी दिने ऋण सुविधा रकमको <input (change)="nepaliToEng('mortgageOverdraft', i, 'serviceChargePercent')" class="form-fields form-control-sm"
-                                                                                 formControlName="serviceChargePercent"
-                                                                                 type="text" size="2"/> % (<input readonly class="form-fields form-control-sm"
-                                                                                                                  formControlName="serviceChargeAmount"
-                                                                                                                  type="text"/> प्रतिशत मात्र) ।
+                               सेवा शुल्क : भुक्तानी दिने ऋण सुविधा रकमको  <input class="form-fields form-control-sm nepaliFont"
+                                                                                  formControlName="serviceChargePercent"
+                                                                                  type="text" size="2"/> % (<input class="form-fields form-control-sm nepaliFont"
+                                                                                                                   formControlName="serviceChargeAmount"
+                                                                                                                   type="text"/> प्रतिशत मात्र) ।
                                <p *ngIf="form.get(['mortgageOverdraft',i,'loanRateShow']).value">
                                    क.सु.के. दस्तुर : रु<input
                                    class="form-fields form-control-sm nepaliFont"
