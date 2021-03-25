@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MegaOfferLetterConst} from '../../../../mega-offer-letter-const';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
   selector: 'app-retail-housing-loan-print',
@@ -7,7 +9,9 @@ import {MegaOfferLetterConst} from '../../../../mega-offer-letter-const';
   styleUrls: ['./retail-housing-loan-print.component.scss']
 })
 export class RetailHousingLoanPrintComponent implements OnInit {
+  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() letter: any;
+  loanHolderInfo;
   offerLetterConst = MegaOfferLetterConst;
   housingFinanceSelected = false;
   mortgageFinance = false;
@@ -15,7 +19,8 @@ export class RetailHousingLoanPrintComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.letter.selectedArray.forEach(value =>{
+    console.log('this is cadOfferLetterApprovedDoc', this.cadOfferLetterApprovedDoc);
+    this.letter.selectedArray.forEach(value => {
       switch (value) {
         case 'Housing Finance': this.housingFinanceSelected = true;
           break;
@@ -25,8 +30,11 @@ export class RetailHousingLoanPrintComponent implements OnInit {
         break;
 
       }
-
-    })
+    });
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+      this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+    }
+    console.log('this is caddoc all value', this.cadOfferLetterApprovedDoc.nepData);
   }
 
 }
