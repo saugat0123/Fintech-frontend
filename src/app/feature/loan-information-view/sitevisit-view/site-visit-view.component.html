@@ -127,6 +127,9 @@
         <th>Type Of Property</th>
         <th>Shape Of Land</th>
         <th>Location And Shape Of Land As Per Blueprint</th>
+        <th>Road Approach</th>
+        <th>Road Width</th>
+        <th>Road Access From</th>
 
     </tr>
     <tr>
@@ -144,14 +147,14 @@
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['typeOfProperty']}}</td>
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['shapeOfLand']}}</td>
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['locationAndShapeOfLand']}}</td>
+        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['roadApproach']}}</td>
+        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['roadWidth']}}</td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['facilities']['roadAccessFrom']}}</td>
 
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th>Road Approach</th>
-        <th>Road Width(in feet)</th>
-        <th>Road Access From</th>
         <th>Prominent Place</th>
-        <th>Approach Distance(in feet)</th>
+        <th>Approach Distance</th>
         <th>Water Supply</th>
         <th>Electricity</th>
         <th>Boundary wall</th>
@@ -162,12 +165,9 @@
 
     </tr>
 
-    <!--   Facilities     ==================-->
+    <!--   Other Facilities     ==================-->
 
     <tr>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['roadApproach']}}</td>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['roadWidth']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['facilities']['roadAccessFrom']}}</td>
         <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['prominentPlace']}}</td>
         <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['approachDistance']}}</td>
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['waterSupply'] | booleanConvert}}</td>
@@ -177,13 +177,15 @@
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['drainage'] | booleanConvert}}</td>
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['open'] | booleanConvert}}</td>
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['telephoneLine'] | booleanConvert}}</td>
-    </tr>
 
     <tr class="text-white sb-bg-dark">
-        <th colspan="12">Remarks</th>
-    </tr>
+        <th colspan="8">Remarks</th>
+
     <tr>
-        <td colspan="12" class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['remarksForOtherFacility']}}</td>
+    </tr>
+    <td colspan="8" class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['remarksForOtherFacility']}}</td>
+
+    <tr>
     </tr>
 </table>
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
