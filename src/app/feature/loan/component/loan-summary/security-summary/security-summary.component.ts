@@ -26,6 +26,7 @@ export class SecuritySummaryComponent implements OnInit {
     totalConsideredValue = 0;
     buildingSelected = false;
     hypothecation = false;
+    securityOther = false;
     corporate = false;
     personal = false;
     loanSharePercent: NepseMaster = new NepseMaster();
@@ -35,6 +36,9 @@ export class SecuritySummaryComponent implements OnInit {
     client = environment.client;
     clientName = Clients;
     ownerShipTransfer = OwnershipTransfer;
+    otherDetail: any;
+    assignments = false;
+    leaseAssignment: any;
 
     constructor() {
     }
@@ -74,6 +78,14 @@ export class SecuritySummaryComponent implements OnInit {
                     case 'HypothecationOfStock':
                         this.showTitle = true;
                         this.hypothecation = true;
+                        break;
+                    case 'OtherSecurity':
+                        this.showTitle = true;
+                        this.securityOther = true;
+                        break;
+                    case 'LeaseAssignment':
+                        this.showTitle = true;
+                        this.assignments = true;
                         break;
                     case 'CorporateGuarantee':
                         this.showTitle = true;
@@ -115,4 +127,6 @@ export class SecuritySummaryComponent implements OnInit {
             this.totalConsideredValue += share.consideredValue;
         });
     }
+
 }
+

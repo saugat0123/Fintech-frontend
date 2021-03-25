@@ -27,8 +27,8 @@ import {DatePipe} from '@angular/common';
 import {NumberUtils} from '../../../../@core/utils/number-utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {RoleService} from '../../../admin/component/role-permission/role.service';
-import {InsuranceList} from "../../../loan/model/insuranceList";
-import {FormUtils} from "../../../../@core/utils/form.utils";
+import {InsuranceList} from '../../../loan/model/insuranceList';
+import {FormUtils} from '../../../../@core/utils/form.utils';
 
 
 @Component({
@@ -82,6 +82,8 @@ export class SecurityInitialFormComponent implements OnInit {
     landBuilding = false;
     underBuildingConstructionChecked = false;
     hypothecation = false;
+    assignments = false;
+    securityOther = false;
     corporate = false;
     ckeConfig;
     personal = false;
@@ -99,7 +101,8 @@ export class SecurityInitialFormComponent implements OnInit {
         {key: 'CorporateGuarantee', value: 'Corporate Guarantee'},
         {key: 'PersonalGuarantee', value: 'Personal Guarantee'},
         {key: 'InsurancePolicySecurity', value: 'Insurance Policy Security'},
-
+        {key: 'LeaseAssignment', value: 'Lease Assignment'},
+        {key: 'OtherSecurity', value: 'Other Security'}
     ];
 
     areaFormat = ['R-A-P-D', 'B-K-D', 'SQF', 'Sq.m'];
@@ -123,6 +126,7 @@ export class SecurityInitialFormComponent implements OnInit {
     ownerKycRelationInfoCheckedForLand = false;
     ownerKycRelationInfoCheckedForLandBuilding = false;
     ownerKycRelationInfoCheckedForHypothecation = false;
+    // ownerKycRelationInfoCheckedForAssignment = false;
     ownerKycApplicableData: any;
     nepsePriceInfo: NepsePriceInfo = new NepsePriceInfo();
     insuranceList: InsuranceList = new InsuranceList();
@@ -184,6 +188,8 @@ export class SecurityInitialFormComponent implements OnInit {
             this.setLandBuildingDescription(this.formDataForEdit['landBuildingDescription']);
             this.setRemark(this.formDataForEdit['remark']);
             this.setHypothecation(this.formDataForEdit['hypothecationOfStock']);
+            this.setAssignments(this.formDataForEdit['leaseAssignment']);
+            this.setSecurityOther(this.formDataForEdit['otherSecurity']);
             this.setCorporate(this.formDataForEdit['corporateGuarantee']);
             this.setPersonal(this.formDataForEdit['personalGuarantee']);
             this.setInsurancePolicy(this.formDataForEdit['insurancePolicy']);
@@ -197,6 +203,8 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addFixedDeposit();
             this.addLandBuilding();
             this.addHypothecationOfStock();
+            this.addAssignments();
+            this.addSecurityOther();
             this.addCorporateGuarantee();
             this.addPersonalGuarantee();
             this.addInsurancePolicy();
@@ -230,6 +238,8 @@ export class SecurityInitialFormComponent implements OnInit {
             corporateGuarantee: this.formBuilder.array([]),
             personalGuarantee: this.formBuilder.array([]),
             insurancePolicy: this.formBuilder.array([]),
+            leaseAssignment: this.formBuilder.array([]),
+            otherSecurity: this.formBuilder.array([]),
 
         });
         this.buildShareSecurityForm();
@@ -381,6 +391,39 @@ export class SecurityInitialFormComponent implements OnInit {
         }
 
     }
+
+    setAssignments(currentData) {
+        if (!ObjectUtil.isEmpty(currentData)) {
+            const assignmentsDetails = this.securityForm.get('leaseAssignment') as FormArray;
+            currentData.forEach((singleData) => {
+                assignmentsDetails.push(
+                    this.formBuilder.group({
+                        otherDetail: [singleData.otherDetail],
+                    })
+                );
+            });
+        } else {
+            this.addAssignments();
+        }
+
+    }
+
+    setSecurityOther(currentData) {
+        if (!ObjectUtil.isEmpty(currentData)) {
+            const securityOtherDetails = this.securityForm.get('otherSecurity') as FormArray;
+            currentData.forEach((singleData) => {
+                securityOtherDetails.push(
+                    this.formBuilder.group({
+                        otherDetail: [singleData.otherDetail],
+                    })
+                );
+            });
+        } else {
+            this.addSecurityOther();
+        }
+
+    }
+
 
     setCorporate(currentData) {
         if (!ObjectUtil.isEmpty(currentData)) {
@@ -700,15 +743,14 @@ export class SecurityInitialFormComponent implements OnInit {
                     })
                 );
             });
-        }else {
+        }  else {
             this.addInsurancePolicy();
         }
     }
 
     change(arraySelected) {
         this.selectedArray = arraySelected;
-        this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected
-            = this.underConstructionChecked = this.depositSelected = this.shareSelected = this.landBuilding = this.insurancePolicySelected = false;
+        this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected = this.underConstructionChecked = this.depositSelected = this.shareSelected = this.landBuilding = this.insurancePolicySelected = this.assignments = this.securityOther = false;
         arraySelected.forEach(selectedValue => {
             switch (selectedValue) {
                 case 'LandSecurity' :
@@ -735,6 +777,12 @@ export class SecurityInitialFormComponent implements OnInit {
                 case 'HypothecationOfStock':
                     this.hypothecation = true;
                     break;
+                case 'LeaseAssignment':
+                    this.assignments = true;
+                    break;
+                case 'OtherSecurity':
+                    this.securityOther = true;
+                    break;
                 case 'CorporateGuarantee':
                     this.corporate = true;
                     break;
@@ -758,6 +806,22 @@ export class SecurityInitialFormComponent implements OnInit {
                 hypothecationOwnerRelationship: [undefined],
                 ownerKycApplicableData: [undefined],
 
+            }
+        );
+    }
+
+    assignmentsDetailsFormGroup(): FormGroup {
+        return this.formBuilder.group({
+                otherDetail: [undefined],
+                ownerKycApplicableData: [undefined],
+
+            }
+        );
+    }
+
+    securityOtherDetailsFormGroup(): FormGroup {
+        return this.formBuilder.group({
+                otherDetail: [undefined],
             }
         );
     }
@@ -917,7 +981,7 @@ export class SecurityInitialFormComponent implements OnInit {
             ownerKycApplicableData: [undefined],
         });
     }
-    //Insurance policy form group
+    // Insurance policy form group
     insurancePolicyFormGroup(): FormGroup {
         return this.formBuilder.group({
             insuredAmount: [undefined],
@@ -987,6 +1051,14 @@ export class SecurityInitialFormComponent implements OnInit {
         (this.securityForm.get('hypothecationOfStock') as FormArray).push(this.hypothecationDetailsFormGroup());
     }
 
+    addAssignments() {
+        (this.securityForm.get('leaseAssignment') as FormArray).push(this.assignmentsDetailsFormGroup());
+    }
+
+    addSecurityOther() {
+        (this.securityForm.get('otherSecurity') as FormArray).push(this.securityOtherDetailsFormGroup());
+    }
+
     addCorporateGuarantee() {
         (this.securityForm.get('corporateGuarantee') as FormArray).push(this.corporateDetailsFormGroup());
     }
@@ -1010,6 +1082,14 @@ export class SecurityInitialFormComponent implements OnInit {
 
     removeHypothecation(index: number) {
         (<FormArray>this.securityForm.get('hypothecationOfStock')).removeAt(index);
+    }
+
+    removeAssignments(index: number) {
+        (<FormArray>this.securityForm.get('leaseAssignment')).removeAt(index);
+    }
+
+    removeSecurityOther(index: number) {
+        (<FormArray>this.securityForm.get('otherSecurity')).removeAt(index);
     }
 
     removeCorporate(index: number) {
@@ -1317,9 +1397,12 @@ export class SecurityInitialFormComponent implements OnInit {
         if (this.ownerKycRelationInfoCheckedForLandBuilding) {
           this.fetchOwnerKycValue('landBuilding', this.ownerKycApplicableLandBuilding, SecurityIds.land_buildingId);
         }
-        if (this.ownerKycRelationInfoCheckedForHypothecation){
+        if (this.ownerKycRelationInfoCheckedForHypothecation) {
           this.fetchOwnerKycValue('hypothecationOfStock', this.ownerKycApplicableHypothecation, SecurityIds.hypothecation_Id);
         }
+        // if (this.ownerKycRelationInfoCheckedForAssignment) {
+        //     this.fetchOwnerKycValue('leaseAssignment', this.ownerKycApplicableAssignment, SecurityIds.assignment_Id);
+        // }
 
     }
 
