@@ -59,6 +59,21 @@ export class ProposalComponent implements OnInit {
   subsidizedLoanChecked = false;
   client = environment.client;
   clientName = Clients;
+  othersSubsidyLoan = false;
+
+  subsidyLoanType = [
+    {value: 'Literate Youth Self Employment Loan'},
+    {value: 'Project Loan For Youth Returning From Foreign'},
+    {value: 'Female Entrepreneur Loan'},
+    {value: 'Business Loan For Marginalized Group of People'},
+    {value: 'Loan For Higher Technical Know How'},
+    {value: 'Residential Home Loan For Earthquake Affected'},
+    {value: 'Loan For Garment Industry Operation'},
+    {value: 'Loan For Training From Approved Technical Know How'},
+    {value: 'Agriculture Business Loan (Overdraft)'},
+    {value: 'Agriculture Business Loan (Term)'},
+    {value: 'Others'},
+  ];
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -142,6 +157,8 @@ export class ProposalComponent implements OnInit {
     this.checkInstallmentAmount();
       this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
           .patchValue(Number(value)));
+
+  this.onChange();
   }
 
   buildForm() {
@@ -183,6 +200,8 @@ export class ProposalComponent implements OnInit {
       tenorOfEachDeal: [undefined],
       cashMarginMethod: ['PERCENT'],
       enhanceLimitAmount: [undefined],
+      subsidyLoanType: [undefined],
+      others: [undefined],
 
 
 
@@ -338,6 +357,7 @@ export class ProposalComponent implements OnInit {
         } else {
           this.subsidizedLoanChecked = false;
           this.proposalForm.get('subsidizedLoan').setValue(null);
+          this.proposalForm.get('subsidyLoanType').setValue(null);
         }
         break;
     }
@@ -551,4 +571,15 @@ export class ProposalComponent implements OnInit {
     const totalProposedLimit = enhanceLimit + existingLimit;
     return this.proposalForm.get('proposedLimit').setValue(Number(totalProposedLimit));
   }
+
+  onChange() {
+    const isOtherSelected = this.proposalForm.get('subsidyLoanType').value.includes('Others');
+    if (isOtherSelected) {
+      this.othersSubsidyLoan = true;
+    } else {
+      this.othersSubsidyLoan = false;
+      this.proposalForm.get('others').setValue(null);
+    }
+  }
+
 }
