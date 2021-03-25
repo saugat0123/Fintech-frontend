@@ -122,22 +122,16 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             });
             this.totalPoints = total;
             this.creditRiskGrading.get('totalPoint').patchValue(this.totalPoints);
-            if (this.totalPoints === 100) {
-                this.grading = 'Superior';
-            } else if (this.totalPoints >= 85) {
-                this.grading = 'Good';
-            } else if (this.totalPoints >= 75 && this.totalPoints < 85) {
-                this.grading = 'Acceptable';
+            if (this.totalPoints >= 90) {
+                this.grading = 'Excellent';
+            } else if (this.totalPoints >= 75 && this.totalPoints < 90) {
+                this.grading = 'Very Good';
             } else if (this.totalPoints >= 65 && this.totalPoints < 75) {
-                this.grading = 'Marginal/Watchlist';
-            } else if (this.totalPoints >= 55 && this.totalPoints < 65) {
-                this.grading = 'Special Mention';
-            } else if (this.totalPoints >= 45 && this.totalPoints < 55) {
-                this.grading = 'Substandard';
-            } else if (this.totalPoints >= 35 && this.totalPoints < 45) {
-                this.grading = 'Doubtful';
-            } else if (this.totalPoints <= 35) {
-                this.grading = 'Bad & Loss';
+                this.grading = 'Good';
+            } else if (this.totalPoints >= 50 && this.totalPoints < 65) {
+                this.grading = 'Acceptable';
+            } else if (this.totalPoints < 50) {
+                this.grading = 'Not Eligible for new loans';
             }
             this.creditRiskGrading.get('grade').patchValue(this.grading);
         }
