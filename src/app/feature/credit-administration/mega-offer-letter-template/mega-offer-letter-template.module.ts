@@ -23,6 +23,7 @@ import {CoreModule} from '../../../@core/core.module';
 import {NbAccordionModule} from '@nebular/theme';
 import {RetailLoanAgainstInsuranceComponent} from "./mega-offer-letter/retail-loan-against-insurance/retail-loan-against-insurance.component";
 import { RetailAgainstInsPrintComponent } from './mega-offer-letter/retail-loan-against-insurance/retail-against-ins-print/retail-against-ins-print.component';
+import { CustomInputComponent } from './mega-offer-letter/custom-input/custom-input.component';
 
 const COMPONENTS = [
     MegaOfferLetterComponent,
@@ -48,7 +49,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent],
+    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent],
     exports: [
         HayerPurchaseComponent,
         RetailEducationalLoanComponent,

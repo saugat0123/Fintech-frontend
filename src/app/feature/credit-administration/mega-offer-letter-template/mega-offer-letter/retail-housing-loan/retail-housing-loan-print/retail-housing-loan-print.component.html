@@ -18,17 +18,37 @@
             </div>
             <div class="row mt-0">
                 <div class="col-md-12">
-                    <b>नाम:</b><b class="nepaliFont">{{letter['applicantName']}}</b>
+                    <b>नाम:</b><strong class="nepaliFont">{{loanHolderInfo?.name}}</strong>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <b>स्थायी ठेगाना:</b> <b class="nepaliFont">{{letter['permanentAddress']}}</b>
+                    <b>स्थायी ठेगाना:</b>
+                    प्रदेश
+                    <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
+                    जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
+                    वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
+                    <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+                    <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <b>हाल: </b> <b class="nepaliFont">{{letter['currentAddress']}}</b>
+                    <b>हाल:</b>
+                    प्रदेश
+                    <strong class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</strong>,
+                    जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</strong>
+                    वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</strong>
+                    <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                               गा बि स
+                           </span>
+                    <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                               नगरपालिका
+                           </span><strong class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</strong>
                 </div>
             </div>
             <div class="row form-group">
@@ -56,7 +76,7 @@
                     <br>
                     पक्षहरु :– <br>
                     <div class="ml-4">
-                        १. <strong class="nepaliFont">{{letter['applicantName']}}</strong> (यस पछि “ऋणी” भनिएको)<br>
+                        १. <strong class="nepaliFont">{{loanHolderInfo?.name}}</strong> (यस पछि “ऋणी” भनिएको)<br>
                         २. श्री मेगा बैंक नेपाल लिमिटेड (यस पछि “बैंक” भनिएको)
                     </div>
                 </div>
@@ -78,7 +98,7 @@
                             <tbody>
                             <tr>
                                 <td width="20%" style="vertical-align: top;">रकम :</td>
-                                <td><p><strong>रु. </strong><strong class="nepaliFont"> {{housing.loanAmount}} ∕– </strong> (अक्षेरुपी <strong class="nepaliFont">{{housing.loanAmountInWord}}</strong> रुपैयाँ मात्र ।)</p></td>
+                                <td><p><strong>रु. </strong><strong> {{housing.loanAmount}} ∕– </strong> (अक्षेरुपी <strong>{{housing.loanAmountInWord}}</strong> मात्र ।)</p></td>
                             </tr>
                             <tr>
                                 <td width="20%" style="vertical-align: top;">प्रयोजन :</td>
@@ -106,7 +126,7 @@
                                 <td width="20%" style="vertical-align: top;">ऋण चुक्ता :</td>
                                 <td><p>बैंकबाट कर्जाको प्रथम किस्ता भुक्तानी भएको मितिको <strong class="nepaliFont">{{housing.month}} </strong>महिना पछि बाट प्रथम किस्ता
                                     प्रारंभ हुने गरी <strong class="nepaliFont">{{housing.prices}}</strong> समान मासिक किस्ता बन्दीमा <strong>रु. </strong>
-                                    <strong class="nepaliFont">{{housing.loanAmountReturn}}</strong> ∕– <strong> (अक्षेरुपी </strong><strong class="nepaliFont">{{housing.loanAmountReturnInWord}}</strong>
+                                    <strong class="">{{housing.loanAmountReturn}}</strong> ∕– <strong> (अक्षेरुपी </strong><strong class="">{{housing.loanAmountReturnInWord}}</strong>
                                     <strong> रुपैयाँ मात्र)</strong> का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको <strong class="nepaliFont">{{housing.clearanceDate}} </strong>तारिखमा चुक्ता भुक्तान
                                     गर्नु पर्नेछ ।</p></td>
                             </tr>
@@ -149,7 +169,7 @@
                        <tbody>
                        <tr>
                            <td width="20%" style="vertical-align: top;">कर्जा सिमा रकम :</td>
-                           <td><p><strong>रु. </strong> <strong class="nepaliFont">{{mortgageFinance.loanAmount}} ∕– </strong> (अक्षेरुपी  <strong class="nepaliFont">{{mortgageFinance.loanAmountInWord}}</strong> रुपैयाँ मात्र ।)</p></td>
+                           <td><p><strong>रु. </strong> <strong class="">{{mortgageFinance.loanAmount}} ∕– </strong> (अक्षेरुपी  <strong class="">{{mortgageFinance.loanAmountInWord}}</strong> रुपैयाँ मात्र ।)</p></td>
                        </tr>
                        <tr>
                            <td width="20%" style="vertical-align: top;">उद्देश्य :</td>
@@ -171,7 +191,7 @@
                            <td width="20%" style="vertical-align: top;">ऋण चुक्ता :</td>
                            <td><p>बैंकबाट कर्जा भुक्तानी भएको मितिको <strong class="nepaliFont">{{mortgageFinance.month}}</strong> महिना पछि बाट प्रथम किस्ता
                                प्रारंभ हुने गरी <strong class="nepaliFont">{{mortgageFinance.prices}}</strong> समान मासिक किस्ता बन्दीमा <strong>रु. </strong>
-                               <strong class="nepaliFont">{{mortgageFinance.loanAmountReturn}}</strong> ∕– <strong> (अक्षेरुपी </strong><strong class="nepaliFont">{{mortgageFinance.loanAmountReturnInWord}}</strong>
+                               <strong class="">{{mortgageFinance.loanAmountReturn}}</strong> ∕– <strong> (अक्षेरुपी </strong><strong class="">{{mortgageFinance.loanAmountReturnInWord}}</strong>
                                <strong> रुपैयाँ मात्र)</strong> का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको <strong class="nepaliFont">{{mortgageFinance.clearanceDate}} </strong> तारिखमा चुक्ता भुक्तान
                                गर्नु पर्नेछ ।</p></td>
                        </tr>
@@ -218,7 +238,11 @@
                             <tbody>
                             <tr>
                                 <td width="20%" style="vertical-align: top;">कर्जा सिमा रकम :</td>
-                                <td><p><strong>रु. </strong> <strong class="nepaliFont">{{mortgageOverdrafts.loanAmount}}</strong> ∕– (अक्षेरुपी <strong class="nepaliFont">{{mortgageOverdrafts.loanAmountInWord}}</strong> रुपैयाँ मात्र ।)</p></td>
+                                <td><p><strong>रु. </strong> <strong class="">{{mortgageOverdrafts.loanAmount}}</strong> ∕– (अक्षेरुपी <strong class="">{{mortgageOverdrafts.loanAmountInWord}}</strong> रुपैयाँ मात्र ।)</p></td>
+                            </tr>
+                            <tr>
+                                <td width="20%" style="vertical-align: top;">उद्देश्य :</td>
+                                <td><p><strong class="">{{mortgageOverdrafts.use}}</strong></p></td>
                             </tr>
                             <tr>
                                 <td width="20%" style="vertical-align: top;">प्रयोजन :</td>
@@ -292,7 +316,7 @@
                      <strong class="nepaliFont">{{datas['keyNo']}}</strong> व.मी)
                     <br>
                     को <strong class="nepaliFont">{{datas['link']}}</strong> सम्बन्धित निकायबाट बैंकको नाममा धितोको प्रथम र पूर्ण हक कायम हुने गरि धितो बन्धकीको तमसुक रजिष्ट्रेशन <strong class="nepaliFont">{{datas['garidinuparni']}}</strong> ।</p>
-                    २.४ - <strong class="nepaliFont">{{letter['applicantName']}}</strong><strong>को</strong> हकवालाले माथि उल्लेखित अचल धितो सम्पत्ति धितो सुरक्षण कायम राख्न दिएको मञ्जुरीनामा (<strong>नाता प्रमाणित सहित</strong>) ।<br>
+                    २.४ - <strong class="nepaliFont">{{loanHolderInfo?.name}}</strong><strong>को</strong> हकवालाले माथि उल्लेखित अचल धितो सम्पत्ति धितो सुरक्षण कायम राख्न दिएको मञ्जुरीनामा (<strong>नाता प्रमाणित सहित</strong>) ।<br>
                     २.५ - <strong class="nepaliFont">{{letter.applicantRelativeOne}}</strong> <strong> र </strong> <strong class="nepaliFont">{{letter.applicantRelativeTwo}}</strong> <strong>को</strong> सम्पूर्ण कर्जा सिमा रकम बराबरको छुट्टाछुट्टै व्यक्तिगत जमानी ।
                      <p *ngIf="letter?.landNumberPreviousOwnerShow">
                          २.६ - कि.न. <strong class="nepaliFont">{{letter.landNumber}}</strong> <strong>को</strong> पुर्व जग्गाधनी <strong class="nepaliFont">{{letter.previousOwner}}</strong> को हकवालाले माथि उल्लेखित अचल धितो सम्पत्ति धितो सुरक्षण कायम राख्न दिएको मञ्जुरीनामा (<strong>स्वःघोषित नाता प्रमाणित सहित</strong>) ।</p>
@@ -585,11 +609,32 @@
                     <br>
                     ऋणीः <br>
                     <div class="ml-4">
-                        <strong>नाम : </strong><strong class="nepaliFont">{{letter['applicantName']}}</strong> <br>
-                        <strong>ठेगाना : </strong><strong class="nepaliFont">{{letter['permanentAddress']}}</strong>
+                        <strong>नाम : </strong><strong class="nepaliFont">{{loanHolderInfo?.name}}</strong> <br>
+                        <strong>ठेगाना : </strong><strong class="">
+                        प्रदेश
+                        <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
+                        जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
+                        वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
+                        <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+                        <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong>
+                    </strong>
                         <br>
-                        <strong>हाल :</strong><strong class="nepaliFont"> {{letter['currentAddress']}}</strong> <br>
-                        <strong>मोबाईल नं.:</strong><strong class="nepaliFont"> {{letter['mobileNo']}}</strong> <br>
+                        <strong>हाल :
+                            प्रदेश
+                            <strong class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</strong>,
+                            जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</strong>
+                            वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</strong>
+                            <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                               गा बि स
+                           </span>
+                            <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                               नगरपालिका
+                           </span><strong class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</strong><br>
+                        </strong>
                     </div>
                     <br>
                     यो सुविधाको प्रस्ताव उपर स्वीकृति दिन को लागि माथि उल्लेखित मिति देखि ३० दिनसम्म को समय दिईएको छ र
@@ -629,7 +674,7 @@
                 यसमा उल्लेख गरिएको सम्पूर्ण शर्तहरु पालना गर्न म/हामी मन्जुर गर्दछु ।
                 गर्दछौं र बैंकसंग यस अन्तर्गत लिएको ऋण पूर्ण रुपमा चुक्ता भुक्तान नगरे सम्म यसमा उल्ल्ेखित शर्तहरुको
                 पूर्ण रुपले पालना गर्ने प्रतिज्ञा गर्दछु/गर्दछौं ।<br>
-                ऋणीको नाम :<strong class="nepaliFont">{{letter['applicantName']}}</strong> ।
+                ऋणीको नाम :<strong class="nepaliFont">{{loanHolderInfo?.name}}</strong> ।
                 <br>
 
                 <div class="row mt-5">
