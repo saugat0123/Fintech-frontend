@@ -27,24 +27,34 @@
                        </div>
                    </div>
                    <div class="mb-2">
-                       <b>नाम :</b> <input class="form-fields form-control-sm nepaliFont"
-                                              formControlName="applicantName"
-                                              placeholder="श्री ∕ सुश्री ∕ श्रीमती"
-                                              type="text"/>
+                       <b>नाम :</b><strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
                    </div>
                    <div class="mb-2">
-                       <b>स्थायी ठेगाना:</b> <input class="form-fields form-control-sm nepaliFont"
-                                                    formControlName="permanentAddress"
-                                                    placeholder="मनकामना वडा नं. ५, स्याङजा"
-                                                    style="width: 250px"
-                                                    type="text"/>
+                       <b>स्थायी ठेगाना:</b>
+                       प्रदेश
+                       <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
+                       जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
+                       वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
+                           <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+                           <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong>
                    </div>
 
                    <div class="mb-2">
-                       <b>हाल:</b> <input class="form-fields form-control-sm nepaliFont"
-                                          formControlName="currentAddress"
-                                          placeholder="वालिङ वडा नं. १, स्याङजा"
-                                          style="width: 250px"/>
+                       <b>हाल:</b>
+                       प्रदेश
+                       <strong class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</strong>,
+                       जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</strong>
+                       वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</strong>
+                       <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                               गा बि स
+                           </span>
+                       <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                               नगरपालिका
+                           </span><strong class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</strong>
                    </div>
                    <div class="mb-2">
                        <b>मोबाईल नं.: </b><input class="form-fields form-control-sm nepaliFont"
@@ -79,7 +89,7 @@
                            <br>
                            पक्षहरु :– <br>
                            <div class="ml-4">
-                               १. <strong><span class="nepaliFont form-field nep">{{form.get('applicantName').value}} </span></strong> (यस पछि “ऋणी” भनिएको)<br>
+                               १. <strong class="nepaliFont">{{loanHolderInfo?.name}}</strong> (यस पछि “ऋणी” भनिएको)<br>
                                २. श्री मेगा बैंक नेपाल लिमिटेड (यस पछि “बैंक” भनिएको)
                            </div>
                        </div>
@@ -108,11 +118,18 @@
                                <strong style="left: 32px">{{i+1 | nepaliWord:'unicode'}}) प्रस्तावित सुविधा : घर कर्जा (Housing Finance)</strong>
                                <i (click)="removeHousing(i)"  size="small" class="float-right fa fa-trash" *ngIf="form.get('housingFinance')['length']>1"></i>
                                 <br>
-                               रकम : रु.<input (change)="nepaliToEng(i , 'loanAmount')" class="form-fields form-control-sm"
-                                              formControlName="loanAmount"
-                                              placeholder=" ३०,००,०००.०० "
-                                              type="text"/>/- (अक्षेरुपी <strong>{{finalNepaliWord[i]}}</strong>
-                               मात्र ।)<br><br>
+                               रकम : रु.
+<!--                               <app-custom-input (Amount)="trialFunction($event)"></app-custom-input>{{external}}-->
+                               <input (change)="nepaliToEng('housingFinance' , i , 'loanAmount')"
+                                      class="form-fields form-control-sm"
+                                      formControlName="loanAmount"
+                                      placeholder=" ३०,००,०००.०० "
+                                      type="text"/>/-
+                               (अक्षेरुपी <input readonly class="form-fields form-control-sm"
+                                                 formControlName="loanAmountInWord"
+                                                 placeholder="रीस लाख"
+                                                 type="text"/> मात्र ।)
+                                <br><br>
                                प्रयोजन :  <input class="form-fields form-control-sm nepaliFont"
                                                  formControlName="use"> प्रयोजनार्थ ।<br><br>
                                समय : बैंकबाट कर्जा भुक्तानी भएको मितिले  <input class="form-fields form-control-sm nepaliFont"
@@ -135,10 +152,11 @@
                                प्रारंभ हुने गरी <input class="form-fields form-control-sm nepaliFont"
                                                        formControlName="prices"
                                                        placeholder="१७४"/> समान मासिक किस्ता बन्दीमा रु
-                               <input class="form-fields form-control-sm nepaliFont"
+                               <input (change)="nepaliToEng('housingFinance', i, 'loanAmountReturn')"
+                                      class="form-fields form-control-sm"
                                       formControlName="loanAmountReturn"
-                                      placeholder="३७,९१९.७१"/>/- (अक्षेरुपी <input
-                               class="form-fields form-control-sm nepaliFont"
+                                      placeholder="३७,९१९.७१"/>/- (अक्षेरुपी <input readonly
+                               class="form-fields form-control-sm"
                                formControlName="loanAmountReturnInWord"
                                placeholder="सैंतीस हजार नौ सय उन्नाईस रुपैयाँ एकहत्तर पैसा"
                                type="text"/>
@@ -198,13 +216,13 @@
                                <strong style="left: 32px">{{i+1 | nepaliWord: 'unicode'}}) प्रस्तावित सुविधा : धितो कर्जा (Mortgage Finance)</strong>
                                <i (click)="removeMortgageFinance(i)"  size="small" class="float-right fa fa-trash" *ngIf="form.get('mortgageFinance')['length']>1"></i>
                                <br>
-                               कर्जा सिमा रकम : रु. <input class="form-fields form-control-sm nepaliFont"
+                               कर्जा सिमा रकम : रु. <input (change)="nepaliToEng('mortgageFinance' , i , 'loanAmount')" class="form-fields form-control-sm"
                                                           formControlName="loanAmount"
                                                           placeholder="३०,००,००० "
-                                                          type="text"/>/- (अक्षेरुपी <input class="form-fields form-control-sm nepaliFont"
+                                                          type="text"/>/- (अक्षेरुपी <input readonly class="form-fields form-control-sm"
                                                                                             formControlName="loanAmountInWord"
                                                                                             placeholder="रीस लाख"
-                                                                                            type="text"/>रुपैयाँ मात्र ।)<br><br>
+                                                                                            type="text"/> रुपैयाँ मात्र ।)<br><br>
                                उद्देश्य :  <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="use"/> प्रयोजनार्थ ।<br><br>
                                व्याज : <strong> आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) </strong> (हालको आधार दर  <input class="form-fields form-control-sm nepaliFont"
@@ -224,10 +242,10 @@
                                प्रारंभ हुने गरी <input class="form-fields form-control-sm nepaliFont"
                                                        formControlName="prices"
                                                        placeholder="१७४"/> समान मासिक किस्ता बन्दीमा रु
-                               <input class="form-fields form-control-sm nepaliFont"
+                               <input (change)="nepaliToEng('mortgageFinance' , i , 'loanAmountReturn')" class="form-fields form-control-sm"
                                       formControlName="loanAmountReturn"
                                       placeholder=" ३७,९१९.७१"/>/- (अक्षेरुपी <input
-                               class="form-fields form-control-sm nepaliFont"
+                               class="form-fields form-control-sm"
                                formControlName="loanAmountReturnInWord"
                                placeholder="सैंतीस हजार नौ सय उन्नाईस रुपैयाँ एकहत्तर पैसा"
                                type="text"/>रुपैयाँ मात्र) का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको <strong><input class="form-fields form-control-sm nepaliFont"
@@ -295,10 +313,11 @@
 
                                <br><br>
 
-                               कर्ज सिमा रकम : रु. <input class="form-fields form-control-sm nepaliFont"
+                               कर्ज सिमा रकम : रु. <input (change)="nepaliToEng('mortgageOverdraft' , i , 'loanAmount')"
+                                                          class="form-fields form-control-sm "
                                                         formControlName="loanAmount"
                                                         placeholder="३०,००,००० "
-                                                        type="text"/>/- (अक्षेरुपी <input class="form-fields form-control-sm nepaliFont"
+                                                        type="text"/>/- (अक्षेरुपी <input readonly class="form-fields form-control-sm"
                                                                                           formControlName="loanAmountInWord"
                                                                                           placeholder="रीस लाख रुपैयाँ"
                                                                                           type="text"/>रुपैयाँ मात्र ।)<br>
@@ -776,11 +795,29 @@
                            ऋणीः <br>
                            <div class="ml-4">
                                <strong>नाम : </strong><strong
-                                   class="nepaliFont">{{this.form.get('applicantName').value}}</strong> <br>
-                               <strong>ठेगाना : </strong><strong
-                                   class="nepaliFont">{{this.form.get('permanentAddress').value}}</strong> <br>
-                               <strong>हाल :</strong><strong
-                                   class="nepaliFont"> {{this.form.get('currentAddress').value}}</strong> <br>
+                                   class="nepaliFont">{{loanHolderInfo?.name}}</strong> <br>
+                               <strong>ठेगाना : </strong>
+                               प्रदेश
+                               <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
+                               जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
+                               वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
+                               <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                               </span>
+                               <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                               </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong><br>
+                               <strong>हाल :</strong>
+                               प्रदेश
+                               <strong class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</strong>,
+                               जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</strong>
+                               वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</strong>
+                               <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                               गा बि स
+                               </span>
+                               <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                               नगरपालिका
+                           </span><strong class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</strong><br>
                            </div>
                            <br>
                            यो सुविधाको प्रस्ताव उपर स्वीकृति दिन को लागि माथि उल्लेखित मिति देखि ३० दिनसम्म को समय दिईएको छ र
@@ -831,7 +868,7 @@
                        यसमा उल्लेख गरिएको सम्पूर्ण शर्तहरु पालना गर्न म/हामी मन्जुर गर्दछु ।
                        गर्दछौं र बैंकसंग यस अन्तर्गत लिएको ऋण पूर्ण रुपमा चुक्ता भुक्तान नगरे सम्म यसमा उल्ल्ेखित शर्तहरुको
                        पूर्ण रुपले पालना गर्ने प्रतिज्ञा गर्दछु/गर्दछौं ।<br>
-                       ऋणीको नाम : <strong><span class="nepaliFont form-field nep">{{form.get('applicantName').value}} </span></strong> ।
+                       ऋणीको नाम : <strong class="nepaliFont">{{loanHolderInfo?.name}}</strong> ।
                        <br>
                        <div class="row mt-5">
                            <div class="col-md-6">
@@ -869,6 +906,7 @@
 </div>
 
 <app-retail-housing-loan-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint"
+                               [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                                hidden></app-retail-housing-loan-print>
 
 
