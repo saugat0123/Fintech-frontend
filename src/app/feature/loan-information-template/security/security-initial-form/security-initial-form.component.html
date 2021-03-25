@@ -2495,6 +2495,34 @@
                        value="Add More Hypothecation Of Stock"/>
             </div>
         </nb-card>
+        <nb-card [hidden]="!assignment" class="p-3">
+            <div *ngFor="let assignment of securityForm.get('assignmentOfReceivables')['controls']; let i = index"
+                 class="font-weight-bold"
+                 formArrayName="assignmentOfReceivables">
+                <div [formGroupName]="i">
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="title" for="description">Amount</label>
+                                <input class="form-control rounded" formControlName="amount"
+                                       placeholder="Amount"
+                                       type="number"/>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Other Detail</label>
+                                <ckeditor formControlName="otherDetail" [config]="ckeConfig"></ckeditor>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <hr>
+            </div>
+        </nb-card>
 
         <nb-card [hidden]="!corporate" class="p-3">
             <div class="box-header with-border">
