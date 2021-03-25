@@ -612,18 +612,39 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4 form-group" *ngIf="client === clientName?.ICFC">
-                                    <nb-checkbox (change)="checkChecked($event.target.checked,'subsidizedLoan')"
+                                <div *ngIf="client !== clientName?.MEGA">
+                                    <nb-checkbox class="ml-3" (change)="checkChecked($event.target.checked,'subsidizedLoan')"
                                                  [checked]="subsidizedLoanChecked"><b>Subsidized Loan<em class="sb-medium">(if any)</em></b>
                                     </nb-checkbox>
-                                    <div *ngIf="subsidizedLoanChecked">
-                                        <label class="title" for="condition"><strong>Discount Rate(%)</strong></label>
-                                        <input  [ngClass]="{ 'is-invalid': (submitted) && formControls.subsidizedLoan.errors }"
-                                                class="form-control" formControlName="subsidizedLoan"
-                                                id="subsidizedLoan"
-                                                name="subsidizedLoan" placeholder="Discount Rate"
-                                                type="number" appDecimalNumber (change)="calculateInterestRate()"/>
+                                    <div class="row ml-2">
+                                        <div class="col-md-4 form-group">
+                                            <div *ngIf="subsidizedLoanChecked">
+                                                <label for="subsidizedLoan"><strong>Discount Rate(%)</strong></label>
+                                                <input  [ngClass]="{ 'is-invalid': (submitted) && formControls.subsidizedLoan.errors }"
+                                                        class="form-control" formControlName="subsidizedLoan"
+                                                        id="subsidizedLoan"
+                                                        name="subsidizedLoan" placeholder="Discount Rate"
+                                                        type="number" appDecimalNumber (change)="calculateInterestRate()"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <div *ngIf="subsidizedLoanChecked">
+                                                <label for="subsidyLoanType"><strong>Subsidy Loan Type</strong></label>
+                                                <nb-select formControlName="subsidyLoanType" id="subsidyLoanType"
+                                                      placeholder="Select Loan Type" fullWidth (selectedChange)="onChange()">
+                                                    <nb-option *ngFor="let type of subsidyLoanType" [value]="type?.value">
+                                                        {{type?.value}}
+                                                    </nb-option>
+                                                </nb-select>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="othersSubsidyLoan" class="col-md-4 form-group">
+                                            <label for="others"><strong>Others</strong></label>
+                                            <input class="form-control" formControlName="others"
+                                                   id="others" placeholder="Others">
+                                        </div>
                                     </div>
+
                                 </div>
 
 
