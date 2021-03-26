@@ -8,15 +8,8 @@ import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-num
     selector: 'app-custom-input',
     styleUrls: ['./custom-input.component.scss'],
     templateUrl: './custom-input.component.html',
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => CustomInputComponent),
-            multi: true
-        }
-    ]
 })
-export class CustomInputComponent implements ControlValueAccessor, OnInit {
+export class CustomInputComponent implements OnInit {
     @Input() name: string;
     @Output() eventEmit = new EventEmitter();
 
@@ -29,31 +22,10 @@ export class CustomInputComponent implements ControlValueAccessor, OnInit {
     ) {
     }
 
-    set value(val) {
-        this.val = val;
-        this.nepVal = this.nepaliCurrencyWordPipe.transform(this.val);
-        this.onChange(val);
-        this.onTouch(val);
-    }
-
-    val: '';
+    val: string;
     engVal = this.val;
     nepVal;
 
-    onChange: any = () => {};
-    onTouch: any = () => {};
-
-    writeValue(value: any) {
-        this.value = value;
-    }
-
-    registerOnChange(fn: any) {
-        this.onChange = fn;
-    }
-
-    registerOnTouched(fn: any) {
-        this.onTouch = fn;
-    }
 
     changeAmount(val) {
         const val1 = this.nepToEngNumberPipe.transform(val);
@@ -66,6 +38,7 @@ export class CustomInputComponent implements ControlValueAccessor, OnInit {
     }
 
     ngOnInit(): void {
+        this.val = this.name;
     }
 }
 

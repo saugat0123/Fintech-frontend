@@ -210,6 +210,7 @@ export class NepaliCurrencyWordPipe implements PipeTransform {
             paisa = this.numberIntoWordsNepaliPaisa(afterDecimal[1]);
         }
         let a = '';
+        e = afterDecimal[0];
         const n = Math.floor(e % 100).toString();
         if (('' + e).length > 2) {
             a = ('' + e).substring(('' + e).length - 3, ('' + e).length - 2);

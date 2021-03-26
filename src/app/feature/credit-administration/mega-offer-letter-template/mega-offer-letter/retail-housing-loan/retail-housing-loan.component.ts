@@ -76,6 +76,7 @@ export class RetailHousingLoanComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         }
+        console.log('this is form', this.form.value);
     }
 
 
@@ -477,7 +478,6 @@ export class RetailHousingLoanComponent implements OnInit {
     }
 
     nepaliToEng(event: any, i , formArrayName) {
-        console.log('this is event', event);
         this.form.get([formArrayName, i, 'loanAmountReturnInWord']).patchValue(event.nepVal);
         this.form.get([formArrayName, i, 'loanAmountReturn']).patchValue(event.val);
     }
@@ -485,9 +485,12 @@ export class RetailHousingLoanComponent implements OnInit {
     calcYearlyRate(formArrayName, i ) {
         const baseRate = this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i , 'baseRate']).value);
         const premiumRate = this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i , 'premiumRate']).value);
-        const addRate = parseInt(baseRate) + parseInt(premiumRate);
-        this.percentTotal = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
-        this.form.get([formArrayName, i, 'yearlyRate']).patchValue(this.percentTotal);
+        const addRate = parseFloat(baseRate) + parseFloat(premiumRate);
+        console.log('this is premiumRate', premiumRate);
+        console.log('this is baseRate', baseRate);
+        console.log('this is addRate', addRate);
+        const asd = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
+        this.form.get([formArrayName, i, 'yearlyRate']).patchValue(asd);
     }
     calcpercent(formArrayName, i ) {
         const serviceChargePercent = this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i , 'serviceChargePercent']).value);
@@ -496,8 +499,12 @@ export class RetailHousingLoanComponent implements OnInit {
     }
 
     changeToNepAmount(event: any, i , formArrayName) {
-        console.log('this is event', event);
         this.form.get([formArrayName, i, 'loanAmountInWord']).patchValue(event.nepVal);
         this.form.get([formArrayName, i, 'loanAmount']).patchValue(event.val);
+    }
+
+    patchFunction(formArrayName, i, formControlName) {
+        const patchValue1 = this.form.get([formArrayName, i, formControlName]).value;
+        return patchValue1;
     }
 }
