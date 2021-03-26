@@ -1087,18 +1087,27 @@ export class CompanyFormComponent implements OnInit {
 
     calculateTotalIncomeDuringReview() {
         let total = 0;
-        total = this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
-            this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value +
-            this.companyInfoFormGroup.get('lcCommissionDuringReview').value +
-            this.companyInfoFormGroup.get('guaranteeCommissionDuringReview').value +
-            this.companyInfoFormGroup.get('otherCommissionDuringReview').value +
-            this.companyInfoFormGroup.get('savingAccountDuringReview').value +
-            this.companyInfoFormGroup.get('payrollAccountDuringReview').value +
-            this.companyInfoFormGroup.get('debitCardsDuringReview').value +
-            this.companyInfoFormGroup.get('creditCardsDuringReview').value +
-            this.companyInfoFormGroup.get('mobileBankingDuringReview').value +
-            this.companyInfoFormGroup.get('lockerDuringReview').value;
-        this.companyInfoFormGroup.get('total').patchValue(total.toFixed(2));
+        if (this.client !== this.clientName.MEGA) {
+            total = this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
+                this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value +
+                this.companyInfoFormGroup.get('lcCommissionDuringReview').value +
+                this.companyInfoFormGroup.get('guaranteeCommissionDuringReview').value +
+                this.companyInfoFormGroup.get('otherCommissionDuringReview').value +
+                this.companyInfoFormGroup.get('savingAccountDuringReview').value +
+                this.companyInfoFormGroup.get('payrollAccountDuringReview').value +
+                this.companyInfoFormGroup.get('debitCardsDuringReview').value +
+                this.companyInfoFormGroup.get('creditCardsDuringReview').value +
+                this.companyInfoFormGroup.get('mobileBankingDuringReview').value +
+                this.companyInfoFormGroup.get('lockerDuringReview').value;
+            this.companyInfoFormGroup.get('total').patchValue(total.toFixed(2));
+        } else {
+            total = this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
+                this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value +
+                this.companyInfoFormGroup.get('lcCommissionDuringReview').value +
+                this.companyInfoFormGroup.get('guaranteeCommissionDuringReview').value +
+                this.companyInfoFormGroup.get('otherCommissionDuringReview').value;
+            this.companyInfoFormGroup.get('total').patchValue(total.toFixed(2));
+        }
         // console.log(this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
         //     this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value);
     }
