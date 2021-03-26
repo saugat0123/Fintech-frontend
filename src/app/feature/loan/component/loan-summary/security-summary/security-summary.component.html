@@ -670,8 +670,8 @@
                     </tr>
                     <tr>
                         <td rowspan="4">{{i + 1}}</td>
-                        <td class="text-left pl-1" colspan="3">{{assignmentOfReceivables?.amount}}</td>
-                        <td [innerHTML]="assignmentOfReceivables?.otherDetail">{{assignmentOfReceivables?.otherDetail}}</td>
+                        <td class="text-right pr-1" colspan="3">Rs.{{assignmentOfReceivables?.amount}}</td>
+                        <td [innerHTML]="assignmentOfReceivables?.otherDetail" class="text-left">{{assignmentOfReceivables?.otherDetail}}</td>
                     </tr>
                 </table>
             </div>
