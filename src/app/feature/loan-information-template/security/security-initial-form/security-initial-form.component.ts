@@ -27,8 +27,8 @@ import {DatePipe} from '@angular/common';
 import {NumberUtils} from '../../../../@core/utils/number-utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {RoleService} from '../../../admin/component/role-permission/role.service';
-import {InsuranceList} from "../../../loan/model/insuranceList";
-import {FormUtils} from "../../../../@core/utils/form.utils";
+import {InsuranceList} from '../../../loan/model/insuranceList';
+import {FormUtils} from '../../../../@core/utils/form.utils';
 
 
 @Component({
@@ -87,6 +87,7 @@ export class SecurityInitialFormComponent implements OnInit {
     personal = false;
     spinner = false;
     insurancePolicySelected = false;
+    assignment = false;
     securityTypes = [
         {key: 'LandSecurity', value: 'Land Security'},
         {key: 'VehicleSecurity', value: 'Vehicle Security'},
@@ -99,6 +100,7 @@ export class SecurityInitialFormComponent implements OnInit {
         {key: 'CorporateGuarantee', value: 'Corporate Guarantee'},
         {key: 'PersonalGuarantee', value: 'Personal Guarantee'},
         {key: 'InsurancePolicySecurity', value: 'Insurance Policy Security'},
+        {key: 'AssignmentOfReceivables', value: 'Assignment of Receivables'},
 
     ];
 
@@ -188,6 +190,8 @@ export class SecurityInitialFormComponent implements OnInit {
             this.setPersonal(this.formDataForEdit['personalGuarantee']);
             this.setInsurancePolicy(this.formDataForEdit['insurancePolicy']);
             this.securityForm.get('vehicleLoanExposure').patchValue(this.formDataForEdit['vehicleLoanExposure']);
+            this.setAssignment(this.formDataForEdit['assignmentOfReceivables']);
+
         } else {
             this.addMoreLand();
             this.addBuilding();
@@ -200,6 +204,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addCorporateGuarantee();
             this.addPersonalGuarantee();
             this.addInsurancePolicy();
+            this.addAssignment();
         }
 
         if (ObjectUtil.isEmpty(this.shareSecurity)) {
@@ -230,6 +235,7 @@ export class SecurityInitialFormComponent implements OnInit {
             corporateGuarantee: this.formBuilder.array([]),
             personalGuarantee: this.formBuilder.array([]),
             insurancePolicy: this.formBuilder.array([]),
+            assignmentOfReceivables: this.formBuilder.array([]),
 
         });
         this.buildShareSecurityForm();
@@ -700,15 +706,34 @@ export class SecurityInitialFormComponent implements OnInit {
                     })
                 );
             });
-        }else {
+        } else {
             this.addInsurancePolicy();
         }
     }
+    setAssignment(currentData) {
+        if (!ObjectUtil.isEmpty(currentData)) {
+            const assignmentDetails = this.securityForm.get('assignmentOfReceivables') as FormArray;
+            currentData.forEach((singleData) => {
+                assignmentDetails.push(
+                    this.formBuilder.group({
+                        amount: [singleData.amount],
+                        otherDetail: [singleData.otherDetail]
+                    })
+                );
+            });
+        } else {
+            this.addAssignment();
+        }
+
+    }
+
+
 
     change(arraySelected) {
         this.selectedArray = arraySelected;
         this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected
-            = this.underConstructionChecked = this.depositSelected = this.shareSelected = this.landBuilding = this.insurancePolicySelected = false;
+            = this.underConstructionChecked = this.depositSelected = this.shareSelected =
+            this.landBuilding = this.insurancePolicySelected = this.hypothecation = this.assignment = this.corporate = this.personal = this.insurancePolicySelected = false;
         arraySelected.forEach(selectedValue => {
             switch (selectedValue) {
                 case 'LandSecurity' :
@@ -743,6 +768,10 @@ export class SecurityInitialFormComponent implements OnInit {
                     break;
                 case 'InsurancePolicySecurity':
                     this.insurancePolicySelected = true;
+                    break;
+                case 'AssignmentOfReceivables':
+                    this.assignment = true;
+                    break;
             }
         });
 
@@ -917,7 +946,7 @@ export class SecurityInitialFormComponent implements OnInit {
             ownerKycApplicableData: [undefined],
         });
     }
-    //Insurance policy form group
+    // Insurance policy form group
     insurancePolicyFormGroup(): FormGroup {
         return this.formBuilder.group({
             insuredAmount: [undefined],
@@ -950,6 +979,14 @@ export class SecurityInitialFormComponent implements OnInit {
             plantMachineryAlternateStaffRepresentativeName: [undefined],
         });
     }
+    assignmentDetailsFormGroup(): FormGroup {
+        return this.formBuilder.group({
+                amount: [undefined],
+                otherDetail: [undefined]
+            }
+        );
+    }
+
 
     underConstruction(checkedStatus) {
         if (checkedStatus) {
@@ -1003,6 +1040,9 @@ export class SecurityInitialFormComponent implements OnInit {
         }
         (this.securityForm.get('insurancePolicy') as FormArray).push(this.insurancePolicyFormGroup());
     }
+    addAssignment() {
+        (this.securityForm.get('assignmentOfReceivables') as FormArray).push(this.assignmentDetailsFormGroup());
+    }
 
     removeLandDetails(index: number) {
         (<FormArray>this.securityForm.get('landDetails')).removeAt(index);
@@ -1048,6 +1088,9 @@ export class SecurityInitialFormComponent implements OnInit {
 
     selectDate(value) {
         this.englishDateSelected = !value;
+    }
+    removeAssignment(index: number) {
+        (<FormArray>this.securityForm.get('assignmentOfReceivables')).removeAt(index);
     }
 
     vehicleDetailsFormGroup(): FormGroup {
@@ -1310,14 +1353,13 @@ export class SecurityInitialFormComponent implements OnInit {
         this.shareSecurityForm.get('loanShareRate').setValue(this.activeNepseMaster);
         this.shareSecurityData.data = JSON.stringify(this.shareSecurityForm.value);
         this.shareSecurityData.customerShareData = this.getShareDataList();
-
         if (this.ownerKycRelationInfoCheckedForLand) {
           this.fetchOwnerKycValue('landDetails', this.ownerKycApplicable, SecurityIds.landId);
         }
         if (this.ownerKycRelationInfoCheckedForLandBuilding) {
           this.fetchOwnerKycValue('landBuilding', this.ownerKycApplicableLandBuilding, SecurityIds.land_buildingId);
         }
-        if (this.ownerKycRelationInfoCheckedForHypothecation){
+        if (this.ownerKycRelationInfoCheckedForHypothecation) {
           this.fetchOwnerKycValue('hypothecationOfStock', this.ownerKycApplicableHypothecation, SecurityIds.hypothecation_Id);
         }
 
