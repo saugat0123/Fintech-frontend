@@ -69,14 +69,11 @@ export class RetailHousingLoanComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        console.log('this is cad data', this.cadOfferLetterApprovedDoc);
         this.checkOfferLetterData();
         this.change(this.selectedArray);
-        console.log(this.form.value, 'form');
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         }
-        console.log('this is form', this.form.value);
     }
 
 
@@ -250,7 +247,6 @@ export class RetailHousingLoanComponent implements OnInit {
             return;
         }
         data.forEach(value => {
-            console.log('this is amount in words', value.loanAmountInWord);
             formArray.push(this.formBuilder.group({
                 Byaj: [value.Byaj],
                 loanAmount: [value.loanAmount],
@@ -486,9 +482,6 @@ export class RetailHousingLoanComponent implements OnInit {
         const baseRate = this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i , 'baseRate']).value);
         const premiumRate = this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i , 'premiumRate']).value);
         const addRate = parseFloat(baseRate) + parseFloat(premiumRate);
-        console.log('this is premiumRate', premiumRate);
-        console.log('this is baseRate', baseRate);
-        console.log('this is addRate', addRate);
         const asd = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
         this.form.get([formArrayName, i, 'yearlyRate']).patchValue(asd);
     }

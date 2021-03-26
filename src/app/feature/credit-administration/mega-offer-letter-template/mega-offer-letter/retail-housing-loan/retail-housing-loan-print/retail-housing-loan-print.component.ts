@@ -19,7 +19,6 @@ export class RetailHousingLoanPrintComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('this is cadOfferLetterApprovedDoc', this.cadOfferLetterApprovedDoc);
     this.letter.selectedArray.forEach(value => {
       switch (value) {
         case 'Housing Finance': this.housingFinanceSelected = true;
@@ -34,7 +33,6 @@ export class RetailHousingLoanPrintComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
     }
-    console.log('this is caddoc all value', this.cadOfferLetterApprovedDoc.nepData);
   }
 
 }
