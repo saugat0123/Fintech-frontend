@@ -89,6 +89,7 @@ export class SecurityInitialFormComponent implements OnInit {
     personal = false;
     spinner = false;
     insurancePolicySelected = false;
+    assignment = false;
     securityTypes = [
         {key: 'LandSecurity', value: 'Land Security'},
         {key: 'VehicleSecurity', value: 'Vehicle Security'},
@@ -101,6 +102,8 @@ export class SecurityInitialFormComponent implements OnInit {
         {key: 'CorporateGuarantee', value: 'Corporate Guarantee'},
         {key: 'PersonalGuarantee', value: 'Personal Guarantee'},
         {key: 'InsurancePolicySecurity', value: 'Insurance Policy Security'},
+        {key: 'AssignmentOfReceivables', value: 'Assignment of Receivables'},
+
         {key: 'LeaseAssignment', value: 'Lease Assignment'},
         {key: 'OtherSecurity', value: 'Other Security'}
     ];
@@ -126,7 +129,6 @@ export class SecurityInitialFormComponent implements OnInit {
     ownerKycRelationInfoCheckedForLand = false;
     ownerKycRelationInfoCheckedForLandBuilding = false;
     ownerKycRelationInfoCheckedForHypothecation = false;
-    // ownerKycRelationInfoCheckedForAssignment = false;
     ownerKycApplicableData: any;
     nepsePriceInfo: NepsePriceInfo = new NepsePriceInfo();
     insuranceList: InsuranceList = new InsuranceList();
@@ -194,6 +196,8 @@ export class SecurityInitialFormComponent implements OnInit {
             this.setPersonal(this.formDataForEdit['personalGuarantee']);
             this.setInsurancePolicy(this.formDataForEdit['insurancePolicy']);
             this.securityForm.get('vehicleLoanExposure').patchValue(this.formDataForEdit['vehicleLoanExposure']);
+            this.setAssignment(this.formDataForEdit['assignmentOfReceivables']);
+
         } else {
             this.addMoreLand();
             this.addBuilding();
@@ -208,6 +212,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addCorporateGuarantee();
             this.addPersonalGuarantee();
             this.addInsurancePolicy();
+            this.addAssignment();
         }
 
         if (ObjectUtil.isEmpty(this.shareSecurity)) {
@@ -240,6 +245,7 @@ export class SecurityInitialFormComponent implements OnInit {
             insurancePolicy: this.formBuilder.array([]),
             leaseAssignment: this.formBuilder.array([]),
             otherSecurity: this.formBuilder.array([]),
+            assignmentOfReceivables: this.formBuilder.array([]),
 
         });
         this.buildShareSecurityForm();
@@ -743,14 +749,34 @@ export class SecurityInitialFormComponent implements OnInit {
                     })
                 );
             });
-        }  else {
+        } else {
             this.addInsurancePolicy();
         }
     }
+    setAssignment(currentData) {
+        if (!ObjectUtil.isEmpty(currentData)) {
+            const assignmentDetails = this.securityForm.get('assignmentOfReceivables') as FormArray;
+            currentData.forEach((singleData) => {
+                assignmentDetails.push(
+                    this.formBuilder.group({
+                        amount: [singleData.amount],
+                        otherDetail: [singleData.otherDetail]
+                    })
+                );
+            });
+        } else {
+            this.addAssignment();
+        }
+
+    }
+
+
 
     change(arraySelected) {
         this.selectedArray = arraySelected;
-        this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected = this.underConstructionChecked = this.depositSelected = this.shareSelected = this.landBuilding = this.insurancePolicySelected = this.assignments = this.securityOther = false;
+        this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected
+            = this.underConstructionChecked = this.depositSelected = this.shareSelected =
+            this.landBuilding = this.insurancePolicySelected = this.hypothecation = this.assignment = this.corporate = this.personal = this.insurancePolicySelected = false;
         arraySelected.forEach(selectedValue => {
             switch (selectedValue) {
                 case 'LandSecurity' :
@@ -791,6 +817,10 @@ export class SecurityInitialFormComponent implements OnInit {
                     break;
                 case 'InsurancePolicySecurity':
                     this.insurancePolicySelected = true;
+                    break;
+                case 'AssignmentOfReceivables':
+                    this.assignment = true;
+                    break;
             }
         });
 
@@ -1014,6 +1044,14 @@ export class SecurityInitialFormComponent implements OnInit {
             plantMachineryAlternateStaffRepresentativeName: [undefined],
         });
     }
+    assignmentDetailsFormGroup(): FormGroup {
+        return this.formBuilder.group({
+                amount: [undefined],
+                otherDetail: [undefined]
+            }
+        );
+    }
+
 
     underConstruction(checkedStatus) {
         if (checkedStatus) {
@@ -1075,6 +1113,9 @@ export class SecurityInitialFormComponent implements OnInit {
         }
         (this.securityForm.get('insurancePolicy') as FormArray).push(this.insurancePolicyFormGroup());
     }
+    addAssignment() {
+        (this.securityForm.get('assignmentOfReceivables') as FormArray).push(this.assignmentDetailsFormGroup());
+    }
 
     removeLandDetails(index: number) {
         (<FormArray>this.securityForm.get('landDetails')).removeAt(index);
@@ -1128,6 +1169,9 @@ export class SecurityInitialFormComponent implements OnInit {
 
     selectDate(value) {
         this.englishDateSelected = !value;
+    }
+    removeAssignment(index: number) {
+        (<FormArray>this.securityForm.get('assignmentOfReceivables')).removeAt(index);
     }
 
     vehicleDetailsFormGroup(): FormGroup {
@@ -1400,9 +1444,6 @@ export class SecurityInitialFormComponent implements OnInit {
         if (this.ownerKycRelationInfoCheckedForHypothecation) {
           this.fetchOwnerKycValue('hypothecationOfStock', this.ownerKycApplicableHypothecation, SecurityIds.hypothecation_Id);
         }
-        // if (this.ownerKycRelationInfoCheckedForAssignment) {
-        //     this.fetchOwnerKycValue('leaseAssignment', this.ownerKycApplicableAssignment, SecurityIds.assignment_Id);
-        // }
 
     }
 

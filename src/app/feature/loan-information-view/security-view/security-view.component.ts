@@ -40,6 +40,7 @@ export class SecurityViewComponent implements OnInit {
   clientName = Clients;
   securityOther: any;
   assignments: any;
+  assignment = false;
 
   constructor() {
   }
@@ -87,6 +88,10 @@ export class SecurityViewComponent implements OnInit {
           break;
         case 'InsurancePolicySecurity':
           this.insurancePolicySelected = true;
+          break;
+        case 'AssignmentOfReceivables':
+          this.assignment = true;
+
       }
     });
     if (!ObjectUtil.isEmpty(this.shareSecurityData)) {

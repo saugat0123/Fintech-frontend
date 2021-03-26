@@ -36,6 +36,7 @@ export class SecuritySummaryComponent implements OnInit {
     client = environment.client;
     clientName = Clients;
     ownerShipTransfer = OwnershipTransfer;
+    assignment = false;
     otherDetail: any;
     assignments = false;
     leaseAssignment: any;
@@ -94,9 +95,14 @@ export class SecuritySummaryComponent implements OnInit {
                     case 'PersonalGuarantee':
                         this.showTitle = true;
                         this.personal = true;
+                        break;
                     case 'InsurancePolicySecurity':
                         this.showTitle = true;
                         this.insurancePolicySelected = true;
+                        break;
+                    case 'AssignmentOfReceivables':
+                        this.showTitle = true;
+                        this.assignment = true;
                 }
             });
         }
@@ -127,6 +133,4 @@ export class SecuritySummaryComponent implements OnInit {
             this.totalConsideredValue += share.consideredValue;
         });
     }
-
 }
-
