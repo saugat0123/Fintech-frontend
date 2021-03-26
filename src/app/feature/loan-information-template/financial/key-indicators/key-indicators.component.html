@@ -21,15 +21,15 @@
       <tbody>
       <tr>
         <th >1</th>
-        <td class="text-left pl-1">
-          <strong>Growth</strong>
+        <td>
+          <strong>Growth (in %)</strong>
           <div class="float-right">
             <nb-checkbox [checked]="summaryCheckListMap.get('growth')" (checkedChange)="checkForSummaryList('growth', $event)"></nb-checkbox>
           </div>
         </td>
         <td *ngFor="let amount of keyIndicatorsForm.get('growth')['controls']; let j = index"
             formArrayName="growth" >
-          <div [formGroupName]="j" class="text-left pl-1">
+          <div [formGroupName]="j" class="text-center">
             <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
           </div>
         </td>
@@ -39,7 +39,7 @@
       <tbody>
       <tr>
         <th >a</th>
-        <td>Sales
+        <td>Sales (in %)
           <div class="float-right">
             <nb-checkbox [checked]="summaryCheckListMap.get('sales')" (checkedChange)="checkForSummaryList('sales', $event)"></nb-checkbox>
           </div>
@@ -56,7 +56,7 @@
       <tbody>
       <tr>
         <th >b</th>
-        <td>Gross Profit
+        <td>Gross Profit (in %)
           <div class="float-right">
             <nb-checkbox [checked]="summaryCheckListMap.get('grossProfitKI')" (checkedChange)="checkForSummaryList('grossProfitKI', $event)"></nb-checkbox>
           </div>
@@ -73,7 +73,7 @@
       <tbody>
       <tr>
         <th >c</th>
-        <td>Operating Profit(EBIT)
+        <td>Operating Profit(EBIT) (in %)
           <div class="float-right">
             <nb-checkbox [checked]="summaryCheckListMap.get('operatingProfitKI')" (checkedChange)="checkForSummaryList('operatingProfitKI', $event)"></nb-checkbox>
           </div>
@@ -90,7 +90,7 @@
       <tbody>
       <tr>
         <th >d</th>
-        <td>PAT
+        <td>PAT (in %)
           <div class="float-right">
             <nb-checkbox [checked]="summaryCheckListMap.get('pAT')" (checkedChange)="checkForSummaryList('pAT', $event)"></nb-checkbox>
           </div>
@@ -107,7 +107,7 @@
       <tbody>
       <tr>
         <th >2</th>
-        <td><strong>Profitability</strong>
+        <td><strong>Profitability (in %)</strong>
           <div class="float-right">
             <nb-checkbox [checked]="summaryCheckListMap.get('profitability')" (checkedChange)="checkForSummaryList('profitability', $event)"></nb-checkbox>
           </div>
@@ -124,7 +124,7 @@
       <tbody>
       <tr>
         <th >a</th>
-        <td>Gross Profit Margin
+        <td>Gross Profit Margin (in %)
           <div class="float-right">
             <nb-checkbox [checked]="summaryCheckListMap.get('grossProfitMargin')" (checkedChange)="checkForSummaryList('grossProfitMargin', $event)"></nb-checkbox>
           </div>
@@ -141,7 +141,7 @@
       <tbody>
       <tr>
         <th >b</th>
-        <td>Net Profit Margin
+        <td>Net Profit Margin (in %)
           <div class="float-right">
             <nb-checkbox [checked]="summaryCheckListMap.get('netProfitMargin')" (checkedChange)="checkForSummaryList('netProfitMargin', $event)"></nb-checkbox>
           </div>
@@ -158,7 +158,7 @@
       <tbody>
       <tr>
         <th >c</th>
-        <td>EBIT to Sales
+        <td>EBIT to Sales (in %)
           <div class="float-right">
             <nb-checkbox [checked]="summaryCheckListMap.get('eBITtoSales')" (checkedChange)="checkForSummaryList('eBITtoSales', $event)"></nb-checkbox>
           </div>
@@ -175,7 +175,7 @@
       <tbody>
       <tr>
         <th >d</th>
-        <td>Return On Equity
+        <td>Return On Equity (in %)
           <div class="float-right">
             <nb-checkbox [checked]="summaryCheckListMap.get('returnOnEquity')" (checkedChange)="checkForSummaryList('returnOnEquity', $event)"></nb-checkbox>
           </div>
@@ -311,7 +311,7 @@
       <tbody>
       <tr>
         <th>g</th>
-        <td>Debt-Equity Ratio (Overall)
+        <td>Debt-Equity Ratio (Overall) (in %)
           <div class="float-right">
             <nb-checkbox [checked]="summaryCheckListMap.get('debtEquityRatioOverall')" (checkedChange)="checkForSummaryList('debtEquityRatioOverall', $event)"></nb-checkbox>
           </div>
@@ -328,7 +328,7 @@
       <tbody>
       <tr>
         <th>h</th>
-        <td>Debt-Equity Ratio - Long Term (times)
+        <td>Debt-Equity Ratio - Long Term (times) (in %)
           <div class="float-right">
             <nb-checkbox [checked]="summaryCheckListMap.get('debtEquityRatioLongTerm')" (checkedChange)="checkForSummaryList('debtEquityRatioLongTerm', $event)"></nb-checkbox>
           </div>
@@ -345,7 +345,7 @@
       <tbody>
       <tr>
         <th>i</th>
-        <td>Debt-Equity Ratio - Working Capital (times)
+        <td>Debt-Equity Ratio - Working Capital (times) (in %)
           <div class="float-right">
             <nb-checkbox [checked]="summaryCheckListMap.get('debtEquityRatioWorkingCapital')" (checkedChange)="checkForSummaryList('debtEquityRatioWorkingCapital', $event)"></nb-checkbox>
           </div>
@@ -362,7 +362,7 @@
       <tbody>
       <tr>
         <th>j</th>
-        <td>Debt-Equity Ratio - General
+        <td>Debt-Equity Ratio - General (in %)
           <div class="float-right">
             <nb-checkbox [checked]="summaryCheckListMap.get('debtEquityRatioGeneral')" (checkedChange)="checkForSummaryList('debtEquityRatioGeneral', $event)"></nb-checkbox>
           </div>
