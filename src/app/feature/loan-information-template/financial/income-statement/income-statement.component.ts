@@ -5,6 +5,7 @@ import {FinancialDeleteComponentComponent} from '../financial-delete-component/f
 import {ModalResponse} from '../../../../@core/utils';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Editor} from '../../../../@core/utils/constants/editor';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-income-statement',
@@ -379,6 +380,13 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
 
         keyIndicators.netOperatingCycle[index].value = Number(keyIndicators.stockInHandDays[index].value)
             + Number(keyIndicators.averageCollectionPeriod[index].value) - Number(keyIndicators.averagePaymentPeriod[index].value);
+
+        if (!ObjectUtil.isEmpty(keyIndicators.cashFlowKI)) {
+            keyIndicators.cashFlowKI[index].value =
+                Number(profitAfterTax.controls['value'].value) +
+                Number(this.financialService.fetchValuesForSubCategories(this.incomeStatementForm
+                    .get('operatingExpensesCategory'), 'Depreciation', index));
+        }
     }
 
     checkForLatterFiscalYearChanges(index: number) {
