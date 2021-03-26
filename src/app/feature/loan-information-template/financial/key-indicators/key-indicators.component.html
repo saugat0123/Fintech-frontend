@@ -527,6 +527,16 @@
           </div>
         </td>
       </tr>
+      <tr>
+        <th>5</th>
+        <td>Cash Flow</td>
+        <td *ngFor="let amount of keyIndicatorsForm.get('cashFlowKI')['controls']; let j = index"
+            formArrayName="cashFlowKI" >
+          <div [formGroupName]="j" class="text-center">
+            <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+          </div>
+        </td>
+      </tr>
       </tbody>
     </table>
   </section>
