@@ -781,8 +781,4 @@ export class LoanFormComponent implements OnInit {
         const loanHolder = this.loanDocument.loanHolder;
         this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
     }
-
-    // onClose() {
-    //     this.modalService.open(CustomerProfileComponent );
-    // }
 }
