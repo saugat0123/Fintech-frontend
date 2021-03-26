@@ -29,7 +29,7 @@ export class EngToNepaliNumberPipe implements PipeTransform {
     for (let i = 0; i < value.length; i++) {
       if (this.numbersObject[value.charAt(i)]) {
         nepNumber += this.numbersObject[value.charAt(i)];
-      } else { nepNumber += value.charAt(i); }
+      }
     }
 
     return nepNumber;

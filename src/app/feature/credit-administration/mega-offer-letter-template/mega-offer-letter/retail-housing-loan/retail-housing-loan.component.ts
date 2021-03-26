@@ -13,11 +13,12 @@ import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad
 import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {Editor} from '../../../../../@core/utils/constants/editor';
 import {NepaliEditor} from '../../../../../@core/utils/constants/nepaliEditor';
-import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {NepaliNumberAndWords} from '../../../model/nepaliNumberAndWords';
-import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
+import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 
 @Component({
     selector: 'app-retail-housing-loan',
@@ -47,6 +48,9 @@ export class RetailHousingLoanComponent implements OnInit {
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
 
     nepData;
+    external = [];
+    loanHolderInfo;
+    percentTotal;
 
 
     constructor(private formBuilder: FormBuilder,
@@ -54,17 +58,22 @@ export class RetailHousingLoanComponent implements OnInit {
                 private toastService: ToastService,
                 private administrationService: CreditAdministrationService,
                 private routerUtilsService: RouterUtilsService,
-                private engToNepNumberPipe: EngToNepaliNumberPipe,
+                protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+                private engToNepNumberPipe: EngToNepaliNumberPipe,
                 private currencyFormatPipe: CurrencyFormatterPipe,
-                protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>) {
+                private nepToEngNumberPipe: NepaliToEngNumberPipe) {
     }
 
     ngOnInit() {
         this.buildForm();
+        console.log('this is cad data', this.cadOfferLetterApprovedDoc);
         this.checkOfferLetterData();
         this.change(this.selectedArray);
         console.log(this.form.value, 'form');
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+            this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+        }
     }
 
 
@@ -238,6 +247,7 @@ export class RetailHousingLoanComponent implements OnInit {
             return;
         }
         data.forEach(value => {
+            console.log('this is amount in words', value.loanAmountInWord);
             formArray.push(this.formBuilder.group({
                 Byaj: [value.Byaj],
                 loanAmount: [value.loanAmount],
@@ -464,14 +474,24 @@ export class RetailHousingLoanComponent implements OnInit {
 
     }
 
-    nepaliToEng(i , formControlName) {
-        const valueHolder = this.form.get('housingFinance').value;
-        this.nepaliAmount[i] = valueHolder[i].loanAmount;
-        this.nepaliNumber.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.nepaliAmount[i]));
-        // this.form['housingFinance',i, formControlName];
-        console.log('formControlName' , formControlName);
-        console.log('this.nepaliNumber.numberNepali', this.nepaliNumber.numberNepali);
+    nepaliToEng(formArrayName, i , formControlName) {
+        this.nepaliAmount[i] = this.form.get([formArrayName, i, formControlName]).value;
         this.finalNepaliWord[i] = this.nepaliCurrencyWordPipe.transform(this.nepaliAmount[i]);
-        console.log('this.nepaliNumber.numberNepali', this.finalNepaliWord[i]);
+        this.external[i] = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.nepaliAmount[i]));
+        this.form.get([formArrayName, i, formControlName]).patchValue(this.external[i]);
+        if (formControlName === 'loanAmount') {
+            this.form.get([formArrayName, i, 'loanAmountInWord']).patchValue(this.finalNepaliWord[i]);
+        }
+        if (formControlName === 'loanAmountReturn') {
+            this.form.get([formArrayName, i, 'loanAmountReturnInWord']).patchValue(this.finalNepaliWord[i]);
+        }
+    }
+
+    calcYearlyRate(formArrayName, i ) {
+        const baseRate = this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i , 'baseRate']).value);
+        const premiumRate = this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i , 'premiumRate']).value);
+        const addRate = parseInt(baseRate) + parseInt(premiumRate);
+        this.percentTotal = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
+        this.form.get([formArrayName, i, 'yearlyRate']).patchValue(this.percentTotal);
     }
 }
