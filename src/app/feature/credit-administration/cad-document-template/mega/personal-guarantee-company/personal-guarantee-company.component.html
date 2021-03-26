@@ -56,26 +56,14 @@
                         बस्ने बर्ष <strong class="nepaliFont">{{nepData?.age}}</strong>
                         <span *ngIf="nepData?.gender==1">को </span>
                         <span *ngIf="nepData?.gender==0"> की </span>
-                        श्री/श्रीमती/सुश्री <input class="form-field form-control-sm nepaliFont disable-print"
-                                                   name="guarantorName"
-                                                   placeholder=""
-                                                   formControlName="guarantorName"
-                                                   type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('guarantorName').value ? personalGuaranteeCompany.get('guarantorName').value  : '========='}}</b></span>
-                        ( ना.प्र.प नं.<strong class="nepaliFont">{{nepData?.citizenshipNo}}</strong>
-                        , मिति <input class="form-field form-control-sm nepaliFont disable-print"
-                                      name="date"
-                                      formControlName="date"
-                                      placeholder=""
-                                      type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('date').value ? personalGuaranteeCompany.get('date').value  : '========='}}</b></span>
-                        मा जिल्ला प्रशासन कार्यालय <input class="form-field form-control-sm nepaliFont disable-print"
-                                                          name="districtAdministrationOfficeName"
-                                                          placeholder=""
-                                                          formControlName="districtAdministrationOfficeName"
-                                                          type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('districtAdministrationOfficeName').value ? personalGuaranteeCompany.get('districtAdministrationOfficeName').value  : '========='}}</b></span>
-                        बाट जारी भएको) आगे तपाई धनी बैंकले  मेरो जमानी बसिदिने शर्तमा प्रचलित नेपाल कानून बमोजिम संस्थापित,संचालित तथा
+                        <span *ngFor="let one of guarantorData">
+                       ( श्री/श्रीमती/सुश्रीको  <strong class="nepaliFont">{{one?.guarantorName}}</strong>
+                        ना.प्र.प नं.
+                             <strong class="nepaliFont">{{one?.guarantorCitizenshipNum}}</strong>
+                        , मिति  <strong class="nepaliFont">{{one?.guarantorIssueDate}}</strong>
+                        मा जिल्ला प्रशासन कार्यालय  <strong class="nepaliFont">{{one?.guarantorIssueDistrict}}</strong>)
+                        </span>
+                        बाट जारी भएको, आगे तपाई धनी बैंकले  मेरो जमानी बसिदिने शर्तमा प्रचलित नेपाल कानून बमोजिम संस्थापित,संचालित तथा
                         <input class="form-field form-control-sm nepaliFont disable-print"
                                name="registeredOffice"
                                formControlName="registeredOffice"
