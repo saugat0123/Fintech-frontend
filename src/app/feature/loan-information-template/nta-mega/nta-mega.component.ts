@@ -246,7 +246,7 @@ export class NtaMegaComponent implements OnInit {
     );
     ntaFormGroup.get(['deRatio', quarter]).patchValue(
         (Number(ntaFormGroup.get(['wcLoanOrLimit', quarter]).value) /
-        Number(ntaFormGroup.get(['netTradingAssets', quarter]).value)));
+        Number(ntaFormGroup.get(['netTradingAssets', quarter]).value)) * 100);
   }
 
   onChangeFiscalYear(selectedFiscalYearObj) {

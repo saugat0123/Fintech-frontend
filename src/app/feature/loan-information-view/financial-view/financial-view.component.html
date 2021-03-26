@@ -932,6 +932,11 @@
                             <td class="text-left pl-1">Net WC before Bank(Rs. in 000)</td>
                             <td *ngFor="let amount of financialData['keyIndicatorsData']['netWCBeforeBank']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
                         </tr>
+                        <tr>
+                            <th>5</th>
+                            <td class="text-left pl-1">Cash Flow</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['cashFlowKI']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
+                        </tr>
                         </tbody>
                     </table>
             <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
