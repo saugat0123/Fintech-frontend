@@ -508,7 +508,8 @@
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Particular</th>
-                <th>Amount(Rs)</th>
+                <th *ngIf="client === clientName?.MEGA">Amount(Rs/value)</th>
+                <th *ngIf="client !== clientName?.MEGA">Amount(Rs)</th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Interest Income</td>
@@ -532,27 +533,57 @@
             </tr>
             <tr>
                 <td class="text-left pl-1">Saving Account</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</th>
+                <th>
+                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.savingAccountDuringReview}}</div>
+                        <ng-template #notMega>
+                            <div class="text-right pr-1">Rs. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</div>
+                        </ng-template>
+                </th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Payroll Account</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</th>
+                <th>
+                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.payrollAccountDuringReview}}</div>
+                    <ng-template #notMega>
+                        <div class="text-right pr-1">Rs. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</div>
+                    </ng-template>
+                </th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Debit Cards</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</th>
+                <th>
+                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.debitCardsDuringReview}}</div>
+                    <ng-template #notMega>
+                        <div class="text-right pr-1">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</div>
+                    </ng-template>
+                </th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Credit Cards</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</th>
+                <th>
+                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.creditCardsDuringReview}}</div>
+                    <ng-template #notMega>
+                        <div class="text-right pr-1">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</div>
+                    </ng-template>
+                </th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Mobile Bank / Internet Banking</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</th>
+                <th>
+                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.mobileBankingDuringReview}}</div>
+                    <ng-template #notMega>
+                        <div class="text-right pr-1">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</div>
+                    </ng-template>
+                </th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Locker</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.lockerDuringReview | currencyFormatter}}</th>
+                <th>
+                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.lockerDuringReview}}</div>
+                    <ng-template #notMega>
+                        <div class="text-right pr-1">Rs. {{businessGiven?.lockerDuringReview | currencyFormatter}}</div>
+                    </ng-template>
+                </th>
             </tr>
             <tr>
                 <th class="text-left pl-1">Total</th>
