@@ -23,14 +23,15 @@ export class LoanDeedCompanyComponent implements OnInit {
   @Input() customerLoanId: number;
   loanDeedCompany: FormGroup;
   nepData;
-
+  guarantorData;
+  submitted = false;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
               private routerUtilsService: RouterUtilsService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
@@ -41,6 +42,7 @@ export class LoanDeedCompanyComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+      this.guarantorData = Object.values(this.nepData.guarantorDetails);
     }
   }
 
