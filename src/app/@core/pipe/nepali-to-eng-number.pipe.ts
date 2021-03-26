@@ -20,6 +20,7 @@ export class NepaliToEngNumberPipe implements PipeTransform {
         ',': ',',
         '/': '/',
         '-': '-',
+        '=': '.'
     };
     transform(value: any, ...args: any[]): any {
         if (ObjectUtil.isEmpty(value)) {

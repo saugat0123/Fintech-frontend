@@ -2,9 +2,9 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {ObjectUtil} from '../utils/ObjectUtil';
 
 @Pipe({
-    name: 'nepaliCurrencyWord'
+    name: 'nepaliPercentWord'
 })
-export class NepaliCurrencyWordPipe implements PipeTransform {
+export class NepaliPercentWordPipe implements PipeTransform {
     units = [
         'सुन्य',
         'एक',
@@ -146,7 +146,8 @@ export class NepaliCurrencyWordPipe implements PipeTransform {
         9: '९',
         0: '०',
         '.': '.',
-        ',': ','
+        ',': ',',
+        '=': '.'
     };
     decimalTens;
     decimalWords;
@@ -191,7 +192,7 @@ export class NepaliCurrencyWordPipe implements PipeTransform {
             Number(i) > 0 && (t += ' ' + this.teens[i] + ' हजार'),
             Number(a) > 0 && (t += ' ' + this.teens[a] + ' सय'),
             Number(n) > 0 && (t += ' ' + this.teens[n]),
-            '' !== t.trim() && (t += ' पैसा'),
+            '' !== t.trim() && (t += ''),
             r > 0 && (t += ('' !== t.trim() ? ', ' : '') + this.decimalWords),
                 t
         );
@@ -207,7 +208,7 @@ export class NepaliCurrencyWordPipe implements PipeTransform {
         const r = 0;
         const afterDecimal = e.toString().split('.');
         if (afterDecimal.length > 1) {
-            paisa = this.numberIntoWordsNepaliPaisa(afterDecimal[1]);
+            paisa = 'दसमलब' + this.numberIntoWordsNepaliPaisa(afterDecimal[1]);
         }
         let a = '';
         e = afterDecimal[0];
@@ -234,7 +235,7 @@ export class NepaliCurrencyWordPipe implements PipeTransform {
         Number(i) > 0 && (t += ' ' + this.teens[i] + ' हजार'),
         Number(a) > 0 && (t += ' ' + this.teens[a] + ' सय'),
         Number(n) > 0 && (t += ' ' + this.teens[n]),
-        '' !== t.trim() && (t += ' रुपैंया'),
+        '' !== t.trim() && (t += ''),
         r > 0 && (t += ('' !== t.trim() ? ', ' : '') + this.decimalWords),
             t);
         return finalNep + paisa;
