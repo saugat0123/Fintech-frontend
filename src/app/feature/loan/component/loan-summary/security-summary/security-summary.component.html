@@ -655,6 +655,27 @@
                 </table>
             </div>
         </div>
+        <div class="row" *ngIf="assignment">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+                       *ngFor="let assignmentOfReceivables of formData['initialForm']['assignmentOfReceivables']; let i= index">
+
+                    <tr>
+                        <th class="text-center sb-bg-dark text-white" colspan="9">Assignment Of Receivables</th>
+                    </tr>
+                    <tr class="sb-bg-secondary text-white">
+                        <th>S.N</th>
+                        <th colspan="3">Amount</th>
+                        <th>Details</th>
+                    </tr>
+                    <tr>
+                        <td rowspan="4">{{i + 1}}</td>
+                        <td class="text-right pr-1" colspan="3">Rs.{{assignmentOfReceivables?.amount}}</td>
+                        <td [innerHTML]="assignmentOfReceivables?.otherDetail" class="text-left">{{assignmentOfReceivables?.otherDetail}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
         <div class="row" *ngIf="corporate">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
@@ -758,6 +779,7 @@
                 </table>
             </div>
         </div>
+
         <!--        guarantors details-->
         <!--<div *ngIf="isPresentGuarantor" class="row">
             <div class="col-md-12">

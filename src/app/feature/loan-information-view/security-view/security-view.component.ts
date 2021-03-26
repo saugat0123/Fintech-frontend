@@ -38,6 +38,7 @@ export class SecurityViewComponent implements OnInit {
   crgLambdaDisabled = envSrdb.disableCrgLambda;
   client = environment.client;
   clientName = Clients;
+  assignment = false;
 
   constructor() {
   }
@@ -79,6 +80,10 @@ export class SecurityViewComponent implements OnInit {
           break;
         case 'InsurancePolicySecurity':
           this.insurancePolicySelected = true;
+          break;
+        case 'AssignmentOfReceivables':
+          this.assignment = true;
+
       }
     });
     if (!ObjectUtil.isEmpty(this.shareSecurityData)) {
