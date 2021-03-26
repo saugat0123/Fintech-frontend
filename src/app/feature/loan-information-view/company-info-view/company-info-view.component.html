@@ -508,12 +508,8 @@
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Particular</th>
-                <th>
-                    <div *ngIf="client === clientName?.MEGA; else notMega">Amount(Rs.)</div>
-                    <ng-template #notMega>
-                        Amount(Rs/Value)
-                    </ng-template>
-                </th>
+                <th *ngIf="client === clientName?.MEGA">Amount(Rs/value)</th>
+                <th *ngIf="client !== clientName?.MEGA">Amount(Rs)</th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Interest Income</td>
