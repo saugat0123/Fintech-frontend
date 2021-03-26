@@ -176,7 +176,8 @@ export class FinancialComponent implements OnInit {
         'averageCollectionPeriod',
         'averagePaymentPeriod',
         'netOperatingCycle',
-        'netWCBeforeBank'
+        'netWCBeforeBank',
+        'cashFlowKI'
     ];
 
     numberUtils = NumberUtils;
