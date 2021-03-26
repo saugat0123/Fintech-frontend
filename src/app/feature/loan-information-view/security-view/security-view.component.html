@@ -422,6 +422,49 @@
     </div>
   </div>
 
+
+  <!-- Added new Other Security-->
+  <div class="row" *ngIf="securityOther">
+    <div class="col-md-12">
+      <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+             *ngFor="let otherSecurity of securityData['initialForm']['otherSecurity']; let i= index">
+
+        <tr>
+          <th class="text-center" colspan="9">Other Security</th>
+        </tr>
+        <tr class="text-center sb-bg-dark text-white">
+          <th class="sn">S.N</th>
+          <th colspan="3">Other Detail</th>
+        </tr>
+        <tr>
+          <td rowspan="4">{{i + 1}}</td>
+          <td class="text-left pl-1" colspan="3" [innerHTML]="otherSecurity?.otherDetail">{{otherSecurity?.otherDetail}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Added new Lease Assignment-->
+  <div class="row" *ngIf="assignments">
+    <div class="col-md-12">
+      <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+             *ngFor="let assignments of securityData['initialForm']['leaseAssignment']; let i= index">
+
+        <tr>
+          <th class="text-center" colspan="9">Other Security</th>
+        </tr>
+        <tr class="text-center sb-bg-dark text-white">
+          <th class="sn">S.N</th>
+          <th colspan="3">Other Detail</th>
+        </tr>
+        <tr>
+          <td rowspan="4">{{i + 1}}</td>
+          <td class="text-left pl-1" colspan="3" [innerHTML]="assignments?.otherDetail">{{assignments?.otherDetail}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
   <!--  Corporate Guarantee-->
   <div class="row" *ngIf="corporate">
     <div class="col-md-12">
