@@ -119,12 +119,7 @@
                                <i (click)="removeHousing(i)"  size="small" class="float-right fa fa-trash" *ngIf="form.get('housingFinance')['length']>1"></i>
                                 <br>
                                रकम : रु.
-<!--                               <app-custom-input (Amount)="trialFunction($event)"></app-custom-input>{{external}}-->
-                               <input (change)="nepaliToEng('housingFinance' , i , 'loanAmount')"
-                                      class="form-fields form-control-sm"
-                                      formControlName="loanAmount"
-                                      placeholder=" ३०,००,०००.०० "
-                                      type="text"/>/-
+                               <app-custom-input (eventEmit)="changeToNepAmount($event, i , 'housingFinance')"></app-custom-input>/-
                                (अक्षेरुपी <input readonly class="form-fields form-control-sm"
                                                  formControlName="loanAmountInWord"
                                                  placeholder="रीस लाख"
@@ -152,10 +147,7 @@
                                प्रारंभ हुने गरी <input class="form-fields form-control-sm nepaliFont"
                                                        formControlName="prices"
                                                        placeholder="१७४"/> समान मासिक किस्ता बन्दीमा रु
-                               <input (change)="nepaliToEng('housingFinance', i, 'loanAmountReturn')"
-                                      class="form-fields form-control-sm"
-                                      formControlName="loanAmountReturn"
-                                      placeholder="३७,९१९.७१"/>/- (अक्षेरुपी <input readonly
+                               <app-custom-input (eventEmit)="nepaliToEng($event, i , 'mortgageFinance')"></app-custom-input>/- (अक्षेरुपी <input readonly
                                class="form-fields form-control-sm"
                                formControlName="loanAmountReturnInWord"
                                placeholder="सैंतीस हजार नौ सय उन्नाईस रुपैयाँ एकहत्तर पैसा"
@@ -173,7 +165,7 @@
                                <input class="form-fields form-control-sm nepaliFont" placeholder="१३" type="text" formControlName="asulRakam" type="text" size="2"/>
                                प्रतिशतले हुन आउने रकम मध्ये कम हुने रकम पूर्व भुक्तानी शुल्क लाग्नेछ ।
                                <br><br>
-                               सेवा शुल्क : भुक्तानी दिने ऋण सुविधा रकमको <input class="form-fields form-control-sm nepaliFont"
+                               सेवा शुल्क : भुक्तानी दिने ऋण सुविधा रकमको <input (change)="calcpercent('mortgageFinance', i )" class="form-fields form-control-sm nepaliFont"
                                                                                  formControlName="serviceChargePercent"
                                                                                  type="text" size="2"/> % (<input class="form-fields form-control-sm nepaliFont"
                                                                                                          formControlName="serviceChargeAmount"
@@ -216,10 +208,8 @@
                                <strong style="left: 32px">{{i+1 | nepaliWord: 'unicode'}}) प्रस्तावित सुविधा : धितो कर्जा (Mortgage Finance)</strong>
                                <i (click)="removeMortgageFinance(i)"  size="small" class="float-right fa fa-trash" *ngIf="form.get('mortgageFinance')['length']>1"></i>
                                <br>
-                               कर्जा सिमा रकम : रु. <input (change)="nepaliToEng('mortgageFinance' , i , 'loanAmount')" class="form-fields form-control-sm"
-                                                          formControlName="loanAmount"
-                                                          placeholder="३०,००,००० "
-                                                          type="text"/>/- (अक्षेरुपी <input readonly class="form-fields form-control-sm"
+                               कर्जा सिमा रकम : रु. <app-custom-input (eventEmit)="changeToNepAmount($event, i , 'mortgageFinance')"></app-custom-input>/-
+                               (अक्षेरुपी <input readonly class="form-fields form-control-sm"
                                                                                             formControlName="loanAmountInWord"
                                                                                             placeholder="रीस लाख"
                                                                                             type="text"/> मात्र ।)<br><br>
@@ -243,9 +233,7 @@
                                प्रारंभ हुने गरी <input class="form-fields form-control-sm nepaliFont"
                                                        formControlName="prices"
                                                        placeholder="१७४"/> समान मासिक किस्ता बन्दीमा रु
-                               <input (change)="nepaliToEng('mortgageFinance' , i , 'loanAmountReturn')" class="form-fields form-control-sm"
-                                      formControlName="loanAmountReturn"
-                                      placeholder=" ३७,९१९.७१"/>/- (अक्षेरुपी <input
+                               <app-custom-input (eventEmit)="nepaliToEng($event, i , 'mortgageFinance')"></app-custom-input>/- (अक्षेरुपी <input
                                class="form-fields form-control-sm"
                                formControlName="loanAmountReturnInWord"
                                placeholder="सैंतीस हजार नौ सय उन्नाईस रुपैयाँ एकहत्तर पैसा"
@@ -314,15 +302,12 @@
 
                                <br><br>
 
-                               कर्ज सिमा रकम : रु. <input (change)="nepaliToEng('mortgageOverdraft' , i , 'loanAmount')"
-                                                          class="form-fields form-control-sm "
-                                                        formControlName="loanAmount"
-                                                        placeholder="३०,००,००० "
-                                                        type="text"/>/- (अक्षेरुपी <input readonly class="form-fields form-control-sm"
+                               कर्ज सिमा रकम : रु. <app-custom-input (eventEmit)="changeToNepAmount($event, i , 'mortgageOverdraft')"></app-custom-input>/-
+                               (अक्षेरुपी <input readonly class="form-fields form-control-sm"
                                                                                           formControlName="loanAmountInWord"
                                                                                           placeholder="रीस लाख रुपैयाँ"
                                                                                           type="text"/> मात्र ।)<br>
-                               उद्देश्य :<input class="form-fields form-control-sm nepaliFont"
+                               उद्देश्य :<input class="form-fields form-control-sm"
                                                 formControlName="use"
                                                 placeholder="रीस लाख रुपैयाँ"
                                                 type="text"/>प्रायोजनार्थ। <br>

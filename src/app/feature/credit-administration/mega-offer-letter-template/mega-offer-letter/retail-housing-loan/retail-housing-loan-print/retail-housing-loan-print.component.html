@@ -98,7 +98,7 @@
                             <tbody>
                             <tr>
                                 <td width="20%" style="vertical-align: top;">रकम :</td>
-                                <td><p><strong>रु. </strong><strong> {{housing.loanAmount}} ∕– </strong> (अक्षेरुपी <strong>{{housing.loanAmountInWord}}</strong> मात्र ।)</p></td>
+                                <td><p><strong>रु. </strong><strong class="nepaliFont"> {{housing.loanAmount}} ∕– </strong> (अक्षेरुपी <strong>{{housing.loanAmountInWord}}</strong> मात्र ।)</p></td>
                             </tr>
                             <tr>
                                 <td width="20%" style="vertical-align: top;">प्रयोजन :</td>
@@ -112,7 +112,7 @@
                                 <td width="20%" style="vertical-align: top;">व्याज :</td>
                                 <td><p><strong>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) </strong> (हालको आधार दर  <strong class="nepaliFont">{{housing.baseRate}}</strong>%
                                     + प्रिमियम दर  <strong class="nepaliFont">{{housing.premiumRate}}</strong>%) का दरले हाललाई बार्षिक
-                                    <strong class="nepaliFont">{{housing.yearlyRate}}</strong>% वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
+                                    <strong class="">{{housing.yearlyRate}}</strong>% वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
                                     बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर
                                     संसोधन (घट्न∕बढ्न) सक्नेछ ।</p></td>
                             </tr>
@@ -169,7 +169,7 @@
                        <tbody>
                        <tr>
                            <td width="20%" style="vertical-align: top;">कर्जा सिमा रकम :</td>
-                           <td><p><strong>रु. </strong> <strong class="">{{mortgageFinance.loanAmount}} ∕– </strong> (अक्षेरुपी  <strong class="">{{mortgageFinance.loanAmountInWord}}</strong> रुपैयाँ मात्र ।)</p></td>
+                           <td><p><strong>रु. </strong> <strong class="nepaliFont">{{mortgageFinance.loanAmount}} ∕– </strong> (अक्षेरुपी  <strong class="">{{mortgageFinance.loanAmountInWord}}</strong> रुपैयाँ मात्र ।)</p></td>
                        </tr>
                        <tr>
                            <td width="20%" style="vertical-align: top;">उद्देश्य :</td>
@@ -179,7 +179,7 @@
                            <td width="20%" style="vertical-align: top;">व्याज :</td>
                            <td><p><strong>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) </strong> (हालको आधार दर  <strong class="nepaliFont">{{mortgageFinance.baseRate}}</strong>%
                                + प्रिमियम दर  <strong class="nepaliFont">{{mortgageFinance.premiumRate}}</strong>%) का दरले हाललाई बार्षिक
-                               <strong class="nepaliFont">{{mortgageFinance.yearlyRate}}</strong>% वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
+                               <strong class="">{{mortgageFinance.yearlyRate}}</strong>% वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
                                बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर
                                संसोधन (घट्न∕बढ्न) सक्नेछ ।</p></td>
                        </tr>
@@ -238,11 +238,7 @@
                             <tbody>
                             <tr>
                                 <td width="20%" style="vertical-align: top;">कर्जा सिमा रकम :</td>
-                                <td><p><strong>रु. </strong> <strong class="">{{mortgageOverdrafts.loanAmount}}</strong> ∕– (अक्षेरुपी <strong class="">{{mortgageOverdrafts.loanAmountInWord}}</strong> रुपैयाँ मात्र ।)</p></td>
-                            </tr>
-                            <tr>
-                                <td width="20%" style="vertical-align: top;">उद्देश्य :</td>
-                                <td><p><strong class="">{{mortgageOverdrafts.use}}</strong></p></td>
+                                <td><p><strong>रु. </strong> <strong class="nepaliFont">{{mortgageOverdrafts.loanAmount}}</strong> ∕– (अक्षेरुपी <strong class="">{{mortgageOverdrafts.loanAmountInWord}}</strong> रुपैयाँ मात्र ।)</p></td>
                             </tr>
                             <tr>
                                 <td width="20%" style="vertical-align: top;">प्रयोजन :</td>
@@ -252,7 +248,7 @@
                                 <td width="20%" style="vertical-align: top;">व्याज :</td>
                                 <td><p><strong>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) </strong> (हालको आधार दर  <strong class="nepaliFont">{{mortgageOverdrafts.baseRate}}</strong>%
                                     + प्रिमियम दर   <strong class="nepaliFont">{{mortgageOverdrafts.premiumRate}}</strong>%) का दरले हाललाई बार्षिक
-                                    <strong class="nepaliFont">{{mortgageOverdrafts.yearlyRate}}</strong>% त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
+                                    <strong class="">{{mortgageOverdrafts.yearlyRate}}</strong>% त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
                                     बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर
                                     संसोधन (घट्न∕बढ्न) सक्नेछ ।</p></td>
                             </tr>
