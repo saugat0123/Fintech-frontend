@@ -15,6 +15,7 @@ import {RelationshipNepali} from '../../../loan/model/relationshipListNepali';
 import {Guarantor} from '../../../loan/model/guarantor';
 import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
+import {stringify} from 'querystring';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -53,19 +54,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
-            if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
-                const guarantorList = this.customerInfo.guarantors.guarantorList;
-                guarantorList.forEach(e => {
-                        this.addGuarantor();
-                    }
-                );
-                this.guarantorList = guarantorList;
-            }
-        }
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
             this.userConfigForm.patchValue(data);
+            this.setGuarantors(data.guarantorDetails);
         }
     }
 
@@ -152,6 +144,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.spinner = false;
             this.dialogRef.close();
         });
+        console.log('this is customer Info', this.customerInfo);
 
     }
 
@@ -176,12 +169,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     addGuarantorField() {
         return this.formBuilder.group({
-            guarantorName: '',
-            guarantorIssueDate: '',
-            guarantorIssueDistrict: '',
-            guarantorAddress: '',
-            guarantorRelationship: '',
-            guarantorCitizenshipNum: ''
+            name: '',
+            issuedYear: '',
+            issuedPlace: '',
+            guarantorLegalDocumentAddress: '',
+            relationship: '',
+            citizenNumber: ''
         });
     }
 
@@ -196,5 +189,25 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.hideSaveBtn = true;
         }
 
+    }
+
+    private setGuarantors(guarantorDetails: any) {
+        const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
+        if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
+            if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
+                const guarantorList = this.customerInfo.guarantors.guarantorList;
+                this.guarantorList = guarantorList;
+            }
+        }
+            guarantorDetails.forEach(value => {
+                formArray.push(this.formBuilder.group({
+                    name: [value.name],
+                    issuedYear: [value.issuedYear],
+                    issuedPlace: [value.issuedPlace],
+                    guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
+                    relationship: [value.relationship],
+                    citizenNumber: [value.citizenNumber]
+                }));
+            });
     }
 }

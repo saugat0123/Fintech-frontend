@@ -15,6 +15,7 @@ import {DecimalNumberDirective} from './directive/decimal-number.directive';
 import {NepaliToEngNumberPipe} from './pipe/nepali-to-eng-number.pipe';
 import {LoanStatusPipe} from './pipe/loan-status-pipe';
 import {EngToNepaliNumberPipe} from './pipe/eng-to-nepali-number.pipe';
+import {NepaliPercentWordPipe} from './pipe/nepali-percent-word.pipe';
 // import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 // import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 
@@ -121,7 +122,8 @@ export const NB_CORE_PROVIDERS = [
         DecimalNumberDirective,
         NepaliToEngNumberPipe,
         LoanStatusPipe,
-        EngToNepaliNumberPipe
+        EngToNepaliNumberPipe,
+        NepaliPercentWordPipe
     ],
 })
 export class CoreModule {
