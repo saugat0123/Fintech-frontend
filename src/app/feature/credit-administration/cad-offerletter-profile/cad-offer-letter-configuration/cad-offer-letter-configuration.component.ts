@@ -15,7 +15,6 @@ import {RelationshipNepali} from '../../../loan/model/relationshipListNepali';
 import {Guarantor} from '../../../loan/model/guarantor';
 import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
-import {stringify} from 'querystring';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -30,11 +29,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     @Input() customer: Customer;
     @Output()
     customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
-    @Output() guarantorDataEmitter = new EventEmitter();
     guarantorList: Array<Guarantor>;
     userConfigForm: FormGroup;
     spinner = false;
-    value = [undefined];
     submitted = false;
     relationshipList = RelationshipNepali.enumObject();
     hideSaveBtn = false;
@@ -124,13 +121,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         if (this.userConfigForm.invalid) {
             return;
         }
-        // this.guarantorDetail.guarantorList = new Array<Guarantor>();
-        // const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
-        // formArray['controls'].forEach(c => {
-        //     const guarantor: Guarantor = c.value;
-        //     this.guarantorDetail.guarantorList.push(guarantor);
-        //     this.guarantorDataEmitter.emit(this.guarantorDetail);
-        // });
         this.spinner = true;
         const data = JSON.stringify(this.userConfigForm.value);
         this.customerInfoService.updateNepaliConfigData(data, this.customerInfo.id).subscribe(res => {
