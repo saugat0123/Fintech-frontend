@@ -438,7 +438,8 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   }
 
   calculateWorkingCapitalCycle(financialData, currentFiscalYearIndex) {
-    const workingCapitalCycle = ((Number(financialData.balanceSheetData.currentAssets[currentFiscalYearIndex].value) -
+    /** Calculation scheme used in the past **/
+    /*const workingCapitalCycle = ((Number(financialData.balanceSheetData.currentAssets[currentFiscalYearIndex].value) -
         Number(financialData.balanceSheetData.currentLiabilities[currentFiscalYearIndex].value)) * 365) /
         Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value);
 
@@ -446,7 +447,10 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
         (financialData.balanceSheetData.currentAssetsCategory as Array<any>).filter(
             singleCategory => singleCategory['name'] === 'Account Receivable'
         )[0]['amount'][currentFiscalYearIndex].value
-    ) / Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value)) * 365;
+    ) / Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value)) * 365;*/
+
+    const workingCapitalCycle = Number(financialData.keyIndicatorsData.netOperatingCycle[currentFiscalYearIndex].value);
+    const receivableCollectionPeriod = Number(financialData.keyIndicatorsData.averageCollectionPeriod[currentFiscalYearIndex].value);
 
     const automatedValue = `${workingCapitalCycle.toFixed(2)}, ${receivableCollectionPeriod.toFixed(2)}`;
 
@@ -491,11 +495,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     const iscr = Number(financialData.incomeStatementData.operatingProfit[currentFiscalYearIndex].value) /
         Number(financialData.incomeStatementData.interestExpenses[currentFiscalYearIndex].value);
 
-    const dscr = Number(financialData.incomeStatementData.operatingProfit[currentFiscalYearIndex].value) /
-        Number(financialData.balanceSheetData.currentLiabilities[currentFiscalYearIndex].value) +
-        Number(financialData.balanceSheetData.longTermLoan[currentFiscalYearIndex].value) +
-        Number(financialData.balanceSheetData.otherLongTermLiabilities[currentFiscalYearIndex].value) +
-        Number(financialData.balanceSheetData.otherProvisions[currentFiscalYearIndex].value);
+    const dscr = Number(financialData.keyIndicatorsData.debtServiceCoverageRatio[currentFiscalYearIndex].value);
 
     const automatedValue = `${iscr.toFixed(2)}, ${dscr.toFixed(2)}`;
 
