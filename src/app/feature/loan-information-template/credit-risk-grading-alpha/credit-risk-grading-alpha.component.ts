@@ -400,12 +400,16 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     }
   }
 
-  calculateProfitability(financialData, currentFiscalYearIndex) {
-    const profitability = ((Number(financialData.incomeStatementData.netProfitTransferredToBalanceSheet[currentFiscalYearIndex].value) +
+  calculateProfitability(financialData, currentFiscalYearIndex: number) {
+    const profitability = ((Number(financialData.incomeStatementData.profitAfterTax[currentFiscalYearIndex].value) +
         Number(this.getSubCategory(financialData, 'incomeStatementData', 'operatingExpensesCategory', 'Depreciation')
             [0]['amount'][currentFiscalYearIndex].value)) /
         Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value)) * 100;
-    const netCashFlow = Number(financialData.cashFlowStatementData.netCashFlow[currentFiscalYearIndex].value);
+    let netCashFlow = Number(financialData.keyIndicatorsData.cashFlowKI[currentFiscalYearIndex].value);
+    if (currentFiscalYearIndex > 0) {
+      netCashFlow = Number(financialData.keyIndicatorsData.cashFlowKI[currentFiscalYearIndex].value) -
+          Number(financialData.keyIndicatorsData.cashFlowKI[currentFiscalYearIndex - 1].value);
+    }
     const automatedValue = `${profitability.toFixed(2)}, ${netCashFlow.toFixed(2)}`;
     if (profitability >= 5 && netCashFlow > 0) {
       this.setValueForCriteria('profitability', 'Minimum net profit of 5%, increasing cash flow', 3, automatedValue);
@@ -438,7 +442,8 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   }
 
   calculateWorkingCapitalCycle(financialData, currentFiscalYearIndex) {
-    const workingCapitalCycle = ((Number(financialData.balanceSheetData.currentAssets[currentFiscalYearIndex].value) -
+    /** Calculation scheme used in the past **/
+    /*const workingCapitalCycle = ((Number(financialData.balanceSheetData.currentAssets[currentFiscalYearIndex].value) -
         Number(financialData.balanceSheetData.currentLiabilities[currentFiscalYearIndex].value)) * 365) /
         Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value);
 
@@ -446,7 +451,10 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
         (financialData.balanceSheetData.currentAssetsCategory as Array<any>).filter(
             singleCategory => singleCategory['name'] === 'Account Receivable'
         )[0]['amount'][currentFiscalYearIndex].value
-    ) / Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value)) * 365;
+    ) / Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value)) * 365;*/
+
+    const workingCapitalCycle = Number(financialData.keyIndicatorsData.netOperatingCycle[currentFiscalYearIndex].value);
+    const receivableCollectionPeriod = Number(financialData.keyIndicatorsData.averageCollectionPeriod[currentFiscalYearIndex].value);
 
     const automatedValue = `${workingCapitalCycle.toFixed(2)}, ${receivableCollectionPeriod.toFixed(2)}`;
 
@@ -491,11 +499,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     const iscr = Number(financialData.incomeStatementData.operatingProfit[currentFiscalYearIndex].value) /
         Number(financialData.incomeStatementData.interestExpenses[currentFiscalYearIndex].value);
 
-    const dscr = Number(financialData.incomeStatementData.operatingProfit[currentFiscalYearIndex].value) /
-        Number(financialData.balanceSheetData.currentLiabilities[currentFiscalYearIndex].value) +
-        Number(financialData.balanceSheetData.longTermLoan[currentFiscalYearIndex].value) +
-        Number(financialData.balanceSheetData.otherLongTermLiabilities[currentFiscalYearIndex].value) +
-        Number(financialData.balanceSheetData.otherProvisions[currentFiscalYearIndex].value);
+    const dscr = Number(financialData.keyIndicatorsData.debtServiceCoverageRatio[currentFiscalYearIndex].value);
 
     const automatedValue = `${iscr.toFixed(2)}, ${dscr.toFixed(2)}`;
 
