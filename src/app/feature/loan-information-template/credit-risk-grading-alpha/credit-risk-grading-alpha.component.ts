@@ -400,12 +400,16 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     }
   }
 
-  calculateProfitability(financialData, currentFiscalYearIndex) {
-    const profitability = ((Number(financialData.incomeStatementData.netProfitTransferredToBalanceSheet[currentFiscalYearIndex].value) +
+  calculateProfitability(financialData, currentFiscalYearIndex: number) {
+    const profitability = ((Number(financialData.incomeStatementData.profitAfterTax[currentFiscalYearIndex].value) +
         Number(this.getSubCategory(financialData, 'incomeStatementData', 'operatingExpensesCategory', 'Depreciation')
             [0]['amount'][currentFiscalYearIndex].value)) /
         Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value)) * 100;
-    const netCashFlow = Number(financialData.cashFlowStatementData.netCashFlow[currentFiscalYearIndex].value);
+    let netCashFlow = Number(financialData.keyIndicatorsData.cashFlowKI[currentFiscalYearIndex].value);
+    if (currentFiscalYearIndex > 0) {
+      netCashFlow = Number(financialData.keyIndicatorsData.cashFlowKI[currentFiscalYearIndex].value) -
+          Number(financialData.keyIndicatorsData.cashFlowKI[currentFiscalYearIndex - 1].value);
+    }
     const automatedValue = `${profitability.toFixed(2)}, ${netCashFlow.toFixed(2)}`;
     if (profitability >= 5 && netCashFlow > 0) {
       this.setValueForCriteria('profitability', 'Minimum net profit of 5%, increasing cash flow', 3, automatedValue);
