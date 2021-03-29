@@ -310,7 +310,7 @@
                                     <div class="form-group">
                                         <label class="title">ग्यारेन्टरको नाम</label>
                                         <input class="form-control rounded nepaliFont"
-                                               formControlName="guarantorName"
+                                               formControlName="name"
                                                id="guarantorName"
                                                autocomplete="off"
                                                [ngClass]="{ 'is-invalid': (submitted )}"
@@ -322,7 +322,7 @@
                                     <div class="form-group">
                                         <label class="title">नगरिकता नम्बर</label>
                                         <input  class="form-control rounded nepaliFont"
-                                                formControlName="guarantorCitizenshipNum"
+                                                formControlName="citizenNumber"
                                                 id="guarantorCitizenshipNum"
                                                 autocomplete="off"
                                                 [ngClass]="{'is-invalid': submitted}"
@@ -335,7 +335,7 @@
                                         <label class="title" for="guarantorIssueDate">जारी मिति</label>
                                         <input
                                                class="form-control rounded nepaliFont"
-                                               formControlName="guarantorIssueDate"
+                                               formControlName="issuedYear"
                                                id="guarantorIssueDate"
                                                autocomplete="off"
                                                [ngClass]="{'is-invalid': submitted}"
@@ -349,7 +349,7 @@
                                     <div class="form-group">
                                         <label class="title" for="guarantorIssueDistrict">जारी जिल्ला</label>
                                         <input  class="form-control rounded nepaliFont"
-                                                formControlName="guarantorIssueDistrict"
+                                                formControlName="issuedPlace"
                                                 id="guarantorIssueDistrict"
                                                 autocomplete="off"
                                                 [ngClass]="{'is-invalid': submitted}"
@@ -361,7 +361,7 @@
                                     <div class="form-group">
                                         <label class="title" for="guarantorAddress">ठेगाना</label>
                                         <input  class="form-control rounded nepaliFont"
-                                                formControlName="guarantorAddress"
+                                                formControlName="guarantorLegalDocumentAddress"
                                                 id="guarantorAddress"
                                                 autocomplete="off"
                                                 [ngClass]="{'is-invalid': submitted}"
@@ -373,7 +373,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="relationMedium" for="guarantorRelationship">सम्बन्धको माध्यम</label>
-                                        <select class="form-control" formControlName="guarantorRelationship" id="guarantorRelationship"
+                                        <select class="form-control" formControlName="relationship" id="guarantorRelationship"
                                                 [ngClass]="{'is-invalid': submitted}">
                                             <option *ngFor="let relationship of relationshipList">{{relationship?.value}}</option>
                                         </select>

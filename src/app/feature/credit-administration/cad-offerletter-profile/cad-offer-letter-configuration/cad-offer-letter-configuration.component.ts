@@ -29,11 +29,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     @Input() customer: Customer;
     @Output()
     customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
-    @Output() guarantorDataEmitter = new EventEmitter();
     guarantorList: Array<Guarantor>;
     userConfigForm: FormGroup;
     spinner = false;
-    value = [undefined];
     submitted = false;
     relationshipList = RelationshipNepali.enumObject();
     hideSaveBtn = false;
@@ -53,19 +51,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
-            if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
-                const guarantorList = this.customerInfo.guarantors.guarantorList;
-                guarantorList.forEach(e => {
-                        this.addGuarantor();
-                    }
-                );
-                this.guarantorList = guarantorList;
-            }
-        }
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
             this.userConfigForm.patchValue(data);
+            this.setGuarantors(data.guarantorDetails);
         }
     }
 
@@ -132,13 +121,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         if (this.userConfigForm.invalid) {
             return;
         }
-        // this.guarantorDetail.guarantorList = new Array<Guarantor>();
-        // const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
-        // formArray['controls'].forEach(c => {
-        //     const guarantor: Guarantor = c.value;
-        //     this.guarantorDetail.guarantorList.push(guarantor);
-        //     this.guarantorDataEmitter.emit(this.guarantorDetail);
-        // });
         this.spinner = true;
         const data = JSON.stringify(this.userConfigForm.value);
         this.customerInfoService.updateNepaliConfigData(data, this.customerInfo.id).subscribe(res => {
@@ -152,6 +134,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.spinner = false;
             this.dialogRef.close();
         });
+        console.log('this is customer Info', this.customerInfo);
 
     }
 
@@ -176,12 +159,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     addGuarantorField() {
         return this.formBuilder.group({
-            guarantorName: '',
-            guarantorIssueDate: '',
-            guarantorIssueDistrict: '',
-            guarantorAddress: '',
-            guarantorRelationship: '',
-            guarantorCitizenshipNum: ''
+            name: '',
+            issuedYear: '',
+            issuedPlace: '',
+            guarantorLegalDocumentAddress: '',
+            relationship: '',
+            citizenNumber: ''
         });
     }
 
@@ -196,5 +179,25 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.hideSaveBtn = true;
         }
 
+    }
+
+    private setGuarantors(guarantorDetails: any) {
+        const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
+        if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
+            if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
+                const guarantorList = this.customerInfo.guarantors.guarantorList;
+                this.guarantorList = guarantorList;
+            }
+        }
+            guarantorDetails.forEach(value => {
+                formArray.push(this.formBuilder.group({
+                    name: [value.name],
+                    issuedYear: [value.issuedYear],
+                    issuedPlace: [value.issuedPlace],
+                    guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
+                    relationship: [value.relationship],
+                    citizenNumber: [value.citizenNumber]
+                }));
+            });
     }
 }
