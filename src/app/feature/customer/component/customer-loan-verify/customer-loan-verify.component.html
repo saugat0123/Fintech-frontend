@@ -1,0 +1,62 @@
+<nb-card [nbSpinner]="spinner">
+    <nb-card-header>
+        Loan Verification
+        <a (click)="close()" aria-label="Close" class="close cursor">
+            <span aria-hidden="true">&times;</span></a>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="box-body">
+            <div *ngIf="!loanDataHolders.length > 0">
+                <p>This Customer Has no any Loan Pending You can Proceed Forward</p>
+            </div>
+            <div *ngIf="loanDataHolders.length > 0 && showHideConfirmBtn" class="d-flex justify-content-center">
+                <p class="text-danger"><sup>*</sup>This Customer Has Following Loan Pending Do You want to raise Loan?
+                </p>
+            </div>
+            <div *ngIf="loanDataHolders.length > 0 && !showHideConfirmBtn" class="d-flex justify-content-center">
+                <p class="text-danger"><sup>*</sup>This Customer Has Following Loan Pending Please contact current
+                    possession users and backward loan or approve those loan.
+                </p>
+            </div>
+            <table *ngIf="loanDataHolders.length > 0"
+                   class="table table-sm sb-small table-bordered table-hover text-center">
+                <thead>
+                <tr class="sb-bg-dark text-white" nbTooltip="click to preview">
+                    <th>S.N</th>
+                    <th>Facility</th>
+                    <th>Type</th>
+                    <th>Priority</th>
+                    <th>File Possession</th>
+                    <th>Stage</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr
+                        *ngFor="let loanDataHolder of loanDataHolders; let i =index"
+
+                        class="cursor">
+
+                    <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{i
+                    + 1}}</td>
+
+                    <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.loan?.name}}</td>
+                    <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder.loanType}}</td>
+                    <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.priority}}</td>
+                    <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.currentStage?.toUser?.username}}-{{loanDataHolder?.currentStage?.toRole?.roleName}}</td>
+                    <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder.documentStatus}}</td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </nb-card-body>
+    <nb-card-footer *ngIf="showHideConfirmBtn">
+        <div class="clearfix">
+            <div class="float-right">
+                <button nbButton size="small" status="primary" (click)="confirmed()">Yes</button>
+            </div>
+
+        </div>
+
+    </nb-card-footer>
+</nb-card>

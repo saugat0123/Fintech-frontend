@@ -16,6 +16,9 @@ import {LoanFormService} from '../../component/loan-form/service/loan-form.servi
 import {Router} from '@angular/router';
 import {LoanDataHolder} from '../../model/loanData';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {Editor} from '../../../../@core/utils/constants/editor';
+import {RoleService} from '../../../admin/component/role-permission/role.service';
+import {RoleType} from '../../../admin/modal/roleType';
 
 @Component({
     selector: 'app-loan-action-combined-modal',
@@ -31,11 +34,12 @@ export class LoanActionCombinedModalComponent implements OnInit {
     @Input() additionalDetails: any;
     @Input() isMaker: boolean;
     @Input() branchId: number;
+    @Input() toRole: number;
 
     public combinedLoan: CombinedLoan;
     public LoanType = LoanType;
     public stageType: 'individually' | 'combined';
-    public sendForwardBackwardList: [];
+    public sendForwardBackwardList = [];
     public combinedType: {
         form?: FormGroup,
         userList?: User[],
@@ -57,6 +61,10 @@ export class LoanActionCombinedModalComponent implements OnInit {
     submitted = false;
     isSolUserPresentForCombine = true;
     isUserNotPresentForCombine = false;
+    spinner = false;
+    ckeConfig = Editor.CK_CONFIG;
+    showUserList = true;
+    productUtils = LocalStorageUtil.getStorage().productUtil;
 
     constructor(
         public nbDialogRef: NbDialogRef<LoanActionCombinedModalComponent>,
@@ -67,11 +75,13 @@ export class LoanActionCombinedModalComponent implements OnInit {
         private approvalRoleHierarchyService: ApprovalRoleHierarchyService,
         private nbDialogService: NbDialogService,
         private loanFormService: LoanFormService,
-        private router: Router
+        private router: Router,
+        private roleService: RoleService
     ) {
     }
 
     ngOnInit() {
+        this.spinner = true;
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.combinedLoanService.detail(this.combinedLoanId).subscribe((response) => {
             this.combinedLoan = response.detail;
@@ -80,11 +90,16 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 this.isSolUserPresent[i] = true;
                 this.preSelectedSolUser[i] = {isSol: l.isSol, solUser: l.solUser};
             });
+            this.stageType = 'combined';
+            this.changeStageType(this.stageType);
+            this.conditionalCombinedDataLoad();
+            this.spinner = false;
         }, error => {
             console.error(error);
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load combined loan'));
         });
-        this.conditionalCombinedDataLoad();
+
     }
 
     public changeStageType(value: 'individually' | 'combined'): void {
@@ -105,18 +120,43 @@ export class LoanActionCombinedModalComponent implements OnInit {
 
     public getCombinedUserList(role) {
         this.isUserNotPresentForCombine = false;
-        this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
-            this.combinedType.userList = response.detail;
-            if (this.combinedType.userList.length === 1) {
-                this.combinedType.form.patchValue({
-                    toUser: this.combinedType.userList[0]
-                });
-            } else if (this.combinedType.userList.length > 1) {
-                this.combinedType.form.get('toUser').setValidators(Validators.required);
-                this.combinedType.form.updateValueAndValidity();
-            } else if (this.combinedType.userList.length === 0) {
-                this.isUserNotPresentForCombine = true;
-            }
+        this.showUserList = false;
+        this.combinedType.form.patchValue({
+            toUser: undefined,
+            toRole: role
+        });
+        this.roleService.detail(role.id).subscribe((res: any) => {
+            role = res.detail;
+            this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
+                this.showUserList = true;
+                this.combinedType.userList = response.detail;
+                if (this.combinedType.userList.length === 1) {
+                    this.combinedType.form.patchValue({
+                        toUser: this.combinedType.userList[0]
+                    });
+                } else if ((role.roleType === RoleType.COMMITTEE) && this.combinedType.userList.length > 1) {
+                    const committeeDefaultUser = this.combinedType.userList.filter(f => f.name.includes('default'));
+                    this.showUserList = false;
+                    if (committeeDefaultUser.length === 0) {
+                        this.combinedType.form.patchValue({
+                            toUser: this.combinedType.userList[0]
+                        });
+                    } else {
+                        this.combinedType.form.patchValue({
+                            toUser: committeeDefaultUser[0]
+                        });
+                    }
+
+                } else if (this.combinedType.userList.length > 1) {
+                    this.combinedType.form.patchValue({
+                        toUser: this.combinedType.userList[0]
+                    });
+                    this.combinedType.form.get('toUser').setValidators(Validators.required);
+                    this.combinedType.form.updateValueAndValidity();
+                } else if (this.combinedType.userList.length === 0) {
+                    this.isUserNotPresentForCombine = true;
+                }
+            });
         });
     }
 
@@ -220,8 +260,22 @@ export class LoanActionCombinedModalComponent implements OnInit {
                     .subscribe((response: any) => {
                         this.sendForwardBackwardList = [];
                         this.sendForwardBackwardList = response.detail;
+                        this.sendForwardBackwardList = response.detail.sort(function (a, b) {
+                            return parseFloat(b.roleOrder) - parseFloat(a.roleOrder);
+                        });
+                        if (this.sendForwardBackwardList.length > 0) {
+                            this.combinedType.form.patchValue({
+                                toRole: this.sendForwardBackwardList[0].role
+                            });
+                            this.getCombinedUserList(this.sendForwardBackwardList[0].role);
+                        }
                     });
                 break;
+            default:
+                if (!ObjectUtil.isEmpty(this.toRole)) {
+                    console.log('this.roleId', this.toRole);
+                    this.getCombinedUserList(this.toRole);
+                }
         }
     }
 
@@ -246,11 +300,11 @@ export class LoanActionCombinedModalComponent implements OnInit {
             actions = this.individualType.form.get('actions').value;
         }
         this.loanFormService.postCombinedLoanAction(actions, !isCombined).subscribe(() => {
-          const msg = `Document Has been Successfully ${this.docAction}`;
-          this.toastService.show(new Alert(AlertType.SUCCESS, msg));
-          this.router.navigate(['/home/pending']);
+            const msg = `Document Has been Successfully ${this.docAction}`;
+            this.toastService.show(new Alert(AlertType.SUCCESS, msg));
+            this.router.navigate(['/home/pending']);
         }, error => {
-          this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
         });
     }
 

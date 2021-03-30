@@ -1,5 +1,5 @@
 <div ngDraggable [ngResizable]="true">
-    <nb-card>
+    <nb-card [nbSpinner]="spinner">
         <nb-card-header>
             <strong>{{popUpTitle}}</strong>
             <button (click)="nbDialogRef.close()" aria-label="Close"
@@ -43,190 +43,194 @@
             </div>
             <hr/>
             <ng-container *ngIf="combinedLoan?.loans?.length > 0">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p>{{popUpTitle}} individually or combined:</p>
-                        <div class="text-center">
-                            <nb-radio-group
-                                #radioStageType
-                                (valueChange)="changeStageType($event)"
-                                [(ngModel)]="stageType" class="d-inline-flex">
-                                <nb-radio value="individually">Individually</nb-radio>
-                                <nb-radio value="combined">Combined</nb-radio>
-                            </nb-radio-group>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="radioStageType.value === 'individually'" class="row">
-                    <div class="col-md-12">
-                        <form [formGroup]="individualType?.form">
-                            <nb-accordion formArrayName="actions">
-                                <nb-accordion-item
-                                        *ngFor="let control of individualType?.form?.get('actions')['controls']; let i = index"
-                                        [formGroupName]="i.toString()">
-                                    <nb-accordion-item-header>
-                                        {{ getLoanById(control?.get('customerLoanId').value)?.loan?.name }}
-                                        ({{ getLoanById(control?.get('customerLoanId').value)?.createdAt | date }})
-                                        - {{ getLoanById(
-                                        control?.get('customerLoanId').value)?.proposal?.proposedLimit | number }}
-                                    </nb-accordion-item-header>
-                                    <nb-accordion-item-body>
-                                        <div *ngIf="popUpTitle === 'Send Forward'" class="row">
-                                            <div class="col-md-12 form-group">
-                                                <label class="toRole" for="toRole">TO</label>
-                                                <select (change)="getIndividualUserList(control?.get('toRole').value, i)"
-                                                        class="custom-select"
-                                                        formControlName="toRole"
-                                                        id="toRole{{i}}"
-                                                        name="toRole">
-                                                    <option [value]="null" hidden>Select To</option>
-                                                    <option
-                                                            *ngFor="let forwardBackward of sendForwardBackwardList"
-                                                            [ngValue]="forwardBackward?.role">
-                                                        {{forwardBackward?.role?.roleName}}
-                                                    </option>
-                                                </select>
-                                                <div class="sb-small text-danger" *ngIf="!isUserPresent[i]">No User
-                                                    Present in this Role for this Branch
-                                                </div>
-                                            </div>
+                                <div class="row"*ngIf="!productUtils.CUSTOMER_BASE_LOAN">
+                                    <div class="col-md-12">
+                                        <p>{{popUpTitle}} individually or combined:</p>
+                                        <div class="text-center">
+                                            <nb-radio-group
+                                                #radioStageType
+                                                (valueChange)="changeStageType($event)"
+                                                [(ngModel)]="stageType" class="d-inline-flex">
+                                                <nb-radio value="individually">Individually</nb-radio>
+                                                <nb-radio value="combined">Combined</nb-radio>
+                                            </nb-radio-group>
                                         </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="stageType === 'individually'" class="row">
+                                    <div class="col-md-12">
+                                        <form [formGroup]="individualType?.form">
+                                            <nb-accordion formArrayName="actions">
+                                                <nb-accordion-item
+                                                        *ngFor="let control of individualType?.form?.get('actions')['controls']; let i = index"
+                                                        [formGroupName]="i.toString()">
+                                                    <nb-accordion-item-header>
+                                                        {{ getLoanById(control?.get('customerLoanId').value)?.loan?.name }}
+                                                        ({{ getLoanById(control?.get('customerLoanId').value)?.createdAt | date }})
+                                                        - {{ getLoanById(
+                                                        control?.get('customerLoanId').value)?.proposal?.proposedLimit | number }}
+                                                    </nb-accordion-item-header>
+                                                    <nb-accordion-item-body>
+                                                        <div *ngIf="popUpTitle === 'Send Forward'" class="row">
+                                                            <div class="col-md-12 form-group">
+                                                                <label class="toRole" for="toRole">TO</label>
+                                                                <select (change)="getIndividualUserList(control?.get('toRole').value, i)"
+                                                                        class="custom-select"
+                                                                        formControlName="toRole"
+                                                                        id="toRole{{i}}"
+                                                                        name="toRole">
+                                                                    <option [value]="null" hidden>Select To</option>
+                                                                    <option
+                                                                            *ngFor="let forwardBackward of sendForwardBackwardList"
+                                                                            [ngValue]="forwardBackward?.role">
+                                                                        {{forwardBackward?.role?.roleName}}
+                                                                    </option>
+                                                                </select>
+                                                                <div class="sb-small text-danger" *ngIf="!isUserPresent[i]">No User
+                                                                    Present in this Role for this Branch
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                                        <div *ngIf="individualType?.users.get(i)?.length > 1" class="row">
-                                            <div class="col-md-12 form-group">
-                                                <label class="toUser" for="toUser">To User</label>
-                                                <select class="custom-select" formControlName="toUser" id="toUser{{i}}"
-                                                        name="toUser">
-                                                    <option *ngFor="let user of individualType?.users.get(i)"
-                                                            [ngValue]="user">
-                                                        {{user.username}}
-                                                </select>
-                                            </div>
-                                        </div>
+                                                        <div *ngIf="individualType?.users.get(i)?.length > 1" class="row">
+                                                            <div class="col-md-12 form-group">
+                                                                <label class="toUser" for="toUser">To User</label>
+                                                                <select class="custom-select" formControlName="toUser" id="toUser{{i}}"
+                                                                        name="toUser">
+                                                                    <option *ngFor="let user of individualType?.users.get(i)"
+                                                                            [ngValue]="user">
+                                                                        {{user.username}}
+                                                                </select>
+                                                            </div>
+                                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-md-12 form-group">
-                                                <label for="comment">Comment:</label>
-                                                <textarea
-                                                        [ngClass]="{ 'is-invalid': individualType?.submitted && control?.get('comment')?.errors }"
-                                                        class="form-control" formControlName="comment" id="comment{{i}}"
-                                                        name="text"
-                                                ></textarea>
-                                                <div
-                                                        *ngIf="individualType?.submitted && control?.get('comment')?.hasError('required')"
-                                                        class="error-message"
-                                                        style="color: red;">comment is required
-                                                </div>
-                                            </div>
-                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12 form-group">
+                                                                <label for="comment">Comment:</label>
+                                                                <textarea
+                                                                        [ngClass]="{ 'is-invalid': individualType?.submitted && control?.get('comment')?.errors }"
+                                                                        class="form-control" formControlName="comment" id="comment{{i}}"
+                                                                        name="text"
+                                                                ></textarea>
+                                                                <div
+                                                                        *ngIf="individualType?.submitted && control?.get('comment')?.hasError('required')"
+                                                                        class="error-message"
+                                                                        style="color: red;">comment is required
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                                        <!--                  //sol-->
-                                        <div *ngIf="isMaker">
-                                            <div class="col-md-12">
-                                                <nb-checkbox class="cursor" [checked]="preSelectedSolUser[i]?.isSol"
-                                                             formControlName="isSol"
-                                                             (checkedChange)="showHideSol($event,i)">is SOL?
-                                                </nb-checkbox>
-                                            </div>
+                                                        <!--                  //sol-->
+                                                        <div *ngIf="isMaker">
+                                                            <div class="col-md-12">
+                                                                <nb-checkbox class="cursor" [checked]="preSelectedSolUser[i]?.isSol"
+                                                                             formControlName="isSol"
+                                                                             (checkedChange)="showHideSol($event,i)">is SOL?
+                                                                </nb-checkbox>
+                                                            </div>
 
-                                            <div class="col-md-12 row" *ngIf="showSolUser[i]?.value">
-                                                <div class="col-md-6">
-                                                    <label class="selectedRoleForSol" for="selectedRoleForSol{{i}}">Approval
-                                                        Role</label>
-                                                    <select style="width: 100%"
-                                                            [compareWith]="compareFn"
-                                                            (change)="getIndividualUserSolList(control?.get('selectedRoleForSol').value, i)"
-                                                            class="form-control form-control-sm"
-                                                            formControlName="selectedRoleForSol"
-                                                            id="selectedRoleForSol{{i}}"
-                                                            name="selectedRoleForSol">
-                                                        <option [value]="null" hidden>Select To</option>
-                                                        <option
-                                                                *ngFor="let forwardBackward of sendForwardBackwardList"
-                                                                [ngValue]="forwardBackward?.role"
-                                                               >
-                                                            {{forwardBackward?.role?.roleName}}
-                                                        </option>
-                                                    </select>
-                                                    <div class="sb-small text-danger" *ngIf="!isSolUserPresent[i]">
-                                                        No User Present in this Role for this Branch
-                                                    </div>
-                                                </div>
-
-
-                                                <div *ngIf="individualType?.solUsers.get(i)?.length > 1" class="row">
-                                                    <div class="col-md-12 form-group">
-                                                        <label class="solUser" for="toUser">Approval User</label>
-                                                        <select class="form-control form-control-sm"
-                                                                style="width: 100%"
-                                                                formControlName="solUser" id="solUser{{i}}"
-                                                                name="solUser"
-                                                                [compareWith]="compareFn">
-                                                            <option *ngFor="let user of individualType?.solUsers.get(i)"
-                                                                    [ngValue]="user"
-                                                                    >
-                                                                {{user.username}}
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                                            <div class="col-md-12 row" *ngIf="showSolUser[i]?.value">
+                                                                <div class="col-md-6">
+                                                                    <label class="selectedRoleForSol" for="selectedRoleForSol{{i}}">Approval
+                                                                        Role</label>
+                                                                    <select style="width: 100%"
+                                                                            [compareWith]="compareFn"
+                                                                            (change)="getIndividualUserSolList(control?.get('selectedRoleForSol').value, i)"
+                                                                            class="form-control form-control-sm"
+                                                                            formControlName="selectedRoleForSol"
+                                                                            id="selectedRoleForSol{{i}}"
+                                                                            name="selectedRoleForSol">
+                                                                        <option [value]="null" hidden>Select To</option>
+                                                                        <option
+                                                                                *ngFor="let forwardBackward of sendForwardBackwardList"
+                                                                                [ngValue]="forwardBackward?.role"
+                                                                               >
+                                                                            {{forwardBackward?.role?.roleName}}
+                                                                        </option>
+                                                                    </select>
+                                                                    <div class="sb-small text-danger" *ngIf="!isSolUserPresent[i]">
+                                                                        No User Present in this Role for this Branch
+                                                                    </div>
+                                                                </div>
 
 
-                                            </div>
+                                                                <div *ngIf="individualType?.solUsers.get(i)?.length > 1" class="row">
+                                                                    <div class="col-md-12 form-group">
+                                                                        <label class="solUser" for="toUser">Approval User</label>
+                                                                        <select class="form-control form-control-sm"
+                                                                                style="width: 100%"
+                                                                                formControlName="solUser" id="solUser{{i}}"
+                                                                                name="solUser"
+                                                                                [compareWith]="compareFn">
+                                                                            <option *ngFor="let user of individualType?.solUsers.get(i)"
+                                                                                    [ngValue]="user"
+                                                                                    >
+                                                                                {{user.username}}
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
 
 
-                                        </div>
-                                    </nb-accordion-item-body>
-                                </nb-accordion-item>
-                            </nb-accordion>
-                        </form>
-                    </div>
-                </div>
+                                                            </div>
 
-                <div *ngIf="radioStageType.value === 'combined'" class="row">
-                    <div class="col-md-12">
-                        <form [formGroup]="combinedType.form">
 
-                            <div *ngIf="popUpTitle === 'Send Forward'" class="row">
-                                <div class="col-md-12 form-group">
-                                    <label class="toRole" for="toRole">TO</label>
-                                    <select (change)="getCombinedUserList(combinedType?.form.get('toRole').value)"
-                                            class="custom-select"
-                                            formControlName="toRole"
-                                            id="toRole"
-                                            name="toRole">
-                                        <option [value]="null" hidden>Select To</option>
-                                        <option *ngFor="let forwardBackward of sendForwardBackwardList"
-                                                [ngValue]="forwardBackward?.role">
-                                            {{forwardBackward?.role?.roleName}}
-                                        </option>
-                                    </select>
-                                    <div *ngIf="isUserNotPresentForCombine" class="sb-small text-danger">
-                                        No User Present In this Role For this Branch
+                                                        </div>
+                                                    </nb-accordion-item-body>
+                                                </nb-accordion-item>
+                                            </nb-accordion>
+                                        </form>
                                     </div>
                                 </div>
 
-                            </div>
+                <div class="row" *ngIf="stageType === 'combined'">
+                    <div class="col-md-12">
+                        <form [formGroup]="combinedType.form">
+                            <div class="col-md-12 row">
+                                <div class="col-md-6">
+                                    <div *ngIf="popUpTitle === 'Send Forward'" class="row">
+                                        <div class="col-md-12 form-group">
+                                            <label class="toRole" for="toRole">TO</label>
+                                            <select (change)="getCombinedUserList(combinedType?.form.get('toRole').value)"
+                                                    class="form-control form-control-tiny"
+                                                    formControlName="toRole"
+                                                    id="toRole"
+                                                    name="toRole">
+                                                <option [value]="null" hidden>Select To</option>
+                                                <option *ngFor="let forwardBackward of sendForwardBackwardList"
+                                                        [ngValue]="forwardBackward?.role">
+                                                    {{forwardBackward?.role?.roleName}}
+                                                </option>
+                                            </select>
+                                            <div *ngIf="isUserNotPresentForCombine" class="sb-small text-danger">
+                                                No User Present In this Role For this Branch
+                                            </div>
+                                        </div>
 
-                            <div *ngIf="combinedType?.userList?.length > 1" class="row">
-                                <div class="col-md-12 form-group">
-                                    <label class="toUser" for="toUser">To User</label>
-                                    <select class="custom-select" formControlName="toUser" id="toUser"
-                                            name="toUser">
-                                        <option *ngFor="let user of combinedType?.userList"
-                                                [ngValue]="user">
-                                            {{user.username}}
-                                    </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div *ngIf="combinedType?.userList?.length > 1 && showUserList" class="row">
+                                        <div class="col-md-12 form-group">
+                                            <label class="toUser" for="toUser">To User</label>
+                                            <select class="form-control form-control-tiny" formControlName="toUser"
+                                                    id="toUser"
+                                                    name="toUser">
+                                                <option *ngFor="let user of combinedType?.userList"
+                                                        [ngValue]="user">
+                                                    {{user.username}}
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="row">
+                            <div class="row py-2">
                                 <div class="col-md-12 form-group">
                                     <label for="comment">Comment:</label>
-                                    <textarea
+                                    <ckeditor
                                             [ngClass]="{ 'is-invalid': combinedType?.submitted && combinedType?.form.controls['comment'].errors }"
-                                            class="form-control" formControlName="comment" id="comment"
-                                            name="text" rows="5"
-                                    ></textarea>
+                                            formControlName="comment" id="comment"
+                                            [config]="ckeConfig"
+                                    ></ckeditor>
                                     <div
                                             *ngIf="combinedType?.submitted && combinedType?.form.controls['comment'].hasError('required')"
                                             class="error-message"
@@ -237,9 +241,10 @@
 
                             <!--//sol-->
 
-                            <div *ngIf="isMaker">
+                            <div *ngIf="isMaker" class="clearfix">
                                 <div class="col-md-12">
-                                    <nb-checkbox class="cursor" formControlName="isSol" [checked]="preSelectedSolUser[0]?.isSol"
+                                    <nb-checkbox class="cursor" formControlName="isSol"
+                                                 [checked]="preSelectedSolUser[0]?.isSol"
                                                  (checkedChange)="showHideSolCombine($event)"
                                     >is SOL?
                                     </nb-checkbox>
@@ -256,7 +261,7 @@
                                             <option [value]="null" hidden>Select To</option>
                                             <option *ngFor="let forwardBackward of sendForwardBackwardList"
                                                     [ngValue]="forwardBackward.role"
-                                                   >
+                                            >
                                                 {{forwardBackward.role?.roleName}}
                                             </option>
                                         </select>
@@ -274,7 +279,7 @@
                                                     [compareWith]="compareFn">
                                                 <option *ngFor="let user of combinedType?.solUserList"
                                                         [ngValue]="user"
-                                                        >
+                                                >
                                                     {{user.username}}</option>
                                             </select>
 
@@ -292,12 +297,17 @@
 
         </nb-card-body>
         <nb-card-footer>
-            <button
-                    (click)="onSubmit()"
-                    [disabled]="!stageType || (stageType === 'individually' ? individualType?.form?.invalid : combinedType?.form?.invalid)"
-                    nbButton type="button">
-                <em class="fa fa-save"></em>
-            </button>
+            <div class="clearfix">
+                <div class="float-right">
+                    <button
+                            (click)="onSubmit()"
+                            [disabled]="!stageType || (stageType === 'individually' ? individualType?.form?.invalid : combinedType?.form?.invalid)"
+                            nbButton type="button">
+                        <em class="fa fa-save"></em>
+                    </button>
+                </div>
+            </div>
+
         </nb-card-footer>
     </nb-card>
 </div>

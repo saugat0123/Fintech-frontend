@@ -32,8 +32,9 @@ import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {ProductUtilService} from '../../../../../@core/service/product-util.service';
 import {environment} from '../../../../../../environments/environment';
 import {MGroup} from '../../../model/mGroup';
-import {environment as envSrdb} from "../../../../../../environments/environment.srdb";
-import {Clients} from "../../../../../../environments/Clients";
+import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
+import {Clients} from '../../../../../../environments/Clients';
+import {CustomerLoanVerifyComponent} from '../../customer-loan-verify/customer-loan-verify.component';
 
 
 @Component({
@@ -186,6 +187,22 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
 
 
     openSingleSelectLoanTemplate() {
+        if (this.productUtils.CUSTOMER_BASE_LOAN) {
+            const modalRef = this.modalService.open(CustomerLoanVerifyComponent, {size: 'lg', backdrop: 'static'});
+            modalRef.componentInstance.customerInfo = this.customerInfo;
+
+            modalRef.result.then((close) => {
+                if (close) {
+                    this.openLoanSelectionModal();
+                }
+            });
+        } else {
+            this.openLoanSelectionModal();
+        }
+
+    }
+
+    openLoanSelectionModal() {
         const modalRef = this.modalService.open(CustomerLoanApplyComponent, {size: 'lg'});
         modalRef.componentInstance.customerType = this.filterLoanCat;
         modalRef.componentInstance.paramProp = this.paramProp;

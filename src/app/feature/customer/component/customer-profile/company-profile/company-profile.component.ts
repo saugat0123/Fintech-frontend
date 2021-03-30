@@ -26,6 +26,7 @@ import {ProductUtilService} from '../../../../../@core/service/product-util.serv
 import {CompanyJsonData} from '../../../../admin/modal/CompanyJsonData';
 import {MGroup} from '../../../model/mGroup';
 import {environment} from '../../../../../../environments/environment';
+import {CustomerLoanVerifyComponent} from '../../customer-loan-verify/customer-loan-verify.component';
 
 @Component({
     selector: 'app-company-profile',
@@ -34,7 +35,7 @@ import {environment} from '../../../../../../environments/environment';
 })
 export class CompanyProfileComponent implements OnInit, AfterContentInit {
     @ViewChild('mGroupAccordion', {static: false})
-    public mGroupAccordion: NbAccordionItemComponent
+    public mGroupAccordion: NbAccordionItemComponent;
 
     companyInfo: CompanyInfo = new CompanyInfo();
     customerInfo: CustomerInfoData;
@@ -174,13 +175,28 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     }
 
     openSingleSelectLoanTemplate() {
+        if (this.productUtils.CUSTOMER_BASE_LOAN) {
+            const modalRef = this.modalService.open(CustomerLoanVerifyComponent, {size: 'lg', backdrop: 'static'});
+            modalRef.componentInstance.customerInfo = this.customerInfo;
+
+            modalRef.result.then(close => {
+                if (close) {
+                    this.openLoanSelectionModal();
+                }
+            });
+        } else {
+            this.openLoanSelectionModal();
+        }
+
+    }
+
+    openLoanSelectionModal() {
         const modalRef = this.modalService.open(CustomerLoanApplyComponent, {size: 'lg'});
         modalRef.componentInstance.customerType = this.filterLoanCat;
         modalRef.componentInstance.paramProp = this.paramProp;
         modalRef.componentInstance.associateId = this.paramProp.companyInfoId;
         modalRef.componentInstance.customerInfo = this.customerInfo;
         modalRef.componentInstance.singleOrCombine = 'Single';
-
     }
 
     openCombineSelectLoanTemplate() {
@@ -199,7 +215,6 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
             this.maker = true;
         }
     }
-
 
 
     openCompanyDetailEdit(companyInfo) {
