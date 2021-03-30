@@ -414,6 +414,32 @@
                   [formData]="customerInfo?.synopsisCreditworthiness"></app-micro-synopsis>
         </nb-accordion-item-body>
       </nb-accordion-item>
+      <nb-accordion-item #reportingInfoLevelAccordion>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span class="text-uppercase">Customer Reporting Info Tagging</span>
+            </div>
+            <div class="col-md-4 d-flex justify-content-end">
+              <span style="color: green" title="Status : Saved">
+                <em *ngIf="reportingInfoLevelCode && reportingInfoLevelDescription" class="fas fa-check-circle px-2"></em>
+              </span>
+              <span style="color: red" title="Status : Not Saved">
+                <em *ngIf="!reportingInfoLevelCode && !reportingInfoLevelDescription" class="fas fa-times-circle px-2"></em>
+              </span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-reporting-info-tagging #reportingInfoTagging
+                                      *ngIf="reportingInfoLevelAccordion.expanded"
+                                      (reportingInfoLevelsEmitter)="saveCustomerReportingInfo($event)"
+                  [reportingInfoLevels]="customerInfo?.reportingInfoLevels"></app-reporting-info-tagging>
+          <div>
+            <button class="btn float-right d-flex justify-content-end" (click)="reportingInfoTaggingComponent.onSubmit()" type="submit" nbButton>Save</button>
+          </div>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
       <!--   CRG GAMMA-->
 <!--      <nb-accordion-item #itemCrgGamma>-->
 <!--        <nb-accordion-item-header>-->
