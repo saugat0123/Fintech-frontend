@@ -134,7 +134,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.spinner = false;
             this.dialogRef.close();
         });
-        console.log('this is customer Info', this.customerInfo);
 
     }
 
@@ -181,7 +180,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     }
 
-    private setGuarantors(guarantorDetails: any) {
+    setGuarantors(guarantorDetails: any) {
         const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
         if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
             if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
