@@ -1,8 +1,9 @@
 import {Component, EventEmitter, forwardRef, Input, OnInit, Output} from '@angular/core';
-import {ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
 
 @Component({
     selector: 'app-custom-input',
@@ -18,7 +19,8 @@ export class CustomInputComponent implements OnInit {
     constructor(
         private engToNepNumberPipe: EngToNepaliNumberPipe,
         private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-        private nepToEngNumberPipe: NepaliToEngNumberPipe
+        private nepToEngNumberPipe: NepaliToEngNumberPipe,
+        private currencyFormatPipe: CurrencyFormatterPipe,
     ) {
     }
 
