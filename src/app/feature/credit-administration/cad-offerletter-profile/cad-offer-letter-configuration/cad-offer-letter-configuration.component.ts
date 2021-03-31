@@ -134,7 +134,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.spinner = false;
             this.dialogRef.close();
         });
-        console.log('this is customer Info', this.customerInfo);
 
     }
 

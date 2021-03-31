@@ -369,7 +369,7 @@
                                     <div class="form-group">
                                         <label class="relationMedium" for="guarantorRelationship">सम्बन्धको माध्यम</label>
                                         <select class="form-control" formControlName="relationship" id="guarantorRelationship">
-                                            <option *ngFor="let relationship of relationshipList">{{relationship?.value}}</option>
+                                            <option *ngFor="let relationship of relationshipList" [value]="relationship.value">{{relationship?.value}}</option>
                                         </select>
                                     </div>
                                 </div>
