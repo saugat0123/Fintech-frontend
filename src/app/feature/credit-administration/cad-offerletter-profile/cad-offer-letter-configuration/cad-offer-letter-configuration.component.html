@@ -289,7 +289,7 @@
                                                 Citizenship Number: {{guarantor1?.citizenNumber}} / &nbsp;
                                             </label>
                                             <label class="title">
-                                                Citizenship Issue Year: {{guarantor1?.issuedYear}} / &nbsp;
+                                                Citizenship Issue Year: {{guarantor1?.issuedYear | date}} / &nbsp;
                                             </label>
                                             <label class="title">
                                                 Citizenship Issue District: {{guarantor1?.issuedPlace}} / &nbsp;
@@ -313,7 +313,6 @@
                                                formControlName="name"
                                                id="guarantorName"
                                                autocomplete="off"
-                                               [ngClass]="{ 'is-invalid': (submitted )}"
                                                name="name" placeholder="ग्यारेन्टरको नाम"
                                                type="text"/>
                                     </div>
@@ -325,7 +324,6 @@
                                                 formControlName="citizenNumber"
                                                 id="guarantorCitizenshipNum"
                                                 autocomplete="off"
-                                                [ngClass]="{'is-invalid': submitted}"
                                                 name="name" placeholder="नगरिकता नम्बर"
                                                 type="text"/>
                                     </div>
@@ -338,7 +336,6 @@
                                                formControlName="issuedYear"
                                                id="guarantorIssueDate"
                                                autocomplete="off"
-                                               [ngClass]="{'is-invalid': submitted}"
                                                name="name" placeholder="जारी मिति"
                                                type="text"/>
                                     </div>
@@ -352,7 +349,6 @@
                                                 formControlName="issuedPlace"
                                                 id="guarantorIssueDistrict"
                                                 autocomplete="off"
-                                                [ngClass]="{'is-invalid': submitted}"
                                                 name="name" placeholder="जारी जिल्ला"
                                                 type="text"/>
                                     </div>
@@ -364,7 +360,6 @@
                                                 formControlName="guarantorLegalDocumentAddress"
                                                 id="guarantorAddress"
                                                 autocomplete="off"
-                                                [ngClass]="{'is-invalid': submitted}"
                                                 name="name" placeholder="ठेगाना"
                                                 type="text"/>
 
@@ -373,8 +368,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="relationMedium" for="guarantorRelationship">सम्बन्धको माध्यम</label>
-                                        <select class="form-control" formControlName="relationship" id="guarantorRelationship"
-                                                [ngClass]="{'is-invalid': submitted}">
+                                        <select class="form-control" formControlName="relationship" id="guarantorRelationship">
                                             <option *ngFor="let relationship of relationshipList">{{relationship?.value}}</option>
                                         </select>
                                     </div>
