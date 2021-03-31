@@ -871,23 +871,38 @@
                         </tr>
                         <tr>
                             <th>e</th>
+                            <td class="text-left pl-1">DE Ratio (Excluding Loan from shareholder/director) (in %)</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['deRatioExcludingLoanFromShareholderOrDirector']" class="text-right pr-1">{{amount.value | currencyFormatter}}%</td>
+                        </tr>
+                        <tr>
+                            <th>f</th>
+                            <td class="text-left pl-1">DE Ratio (Including Loan from shareholder/director) (in %)</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['deRatioIncludingLoanFromShareholderOrDirector']" class="text-right pr-1">{{amount.value | currencyFormatter}}%</td>
+                        </tr>
+                        <tr>
+                            <th>g</th>
                             <td class="text-left pl-1">Debt-Equity Ratio (Overall) (in %)</td>
                             <td *ngFor="let amount of financialData['keyIndicatorsData']['debtEquityRatioOverall']" class="text-right pr-1">{{amount.value | currencyFormatter}}%</td>
                         </tr>
                         <tr>
-                            <th>f</th>
+                            <th>h</th>
                             <td class="text-left pl-1">Debt-Equity Ratio - Long Term (times) (in %)</td>
                             <td *ngFor="let amount of financialData['keyIndicatorsData']['debtEquityRatioLongTerm']" class="text-right pr-1">{{amount.value | currencyFormatter}}%</td>
                         </tr>
                         <tr>
-                            <th>g</th>
+                            <th>i</th>
                             <td class="text-left pl-1">Debt-Equity Ratio - Working Capital (times) (in %)</td>
                             <td *ngFor="let amount of financialData['keyIndicatorsData']['debtEquityRatioWorkingCapital']" class="text-right pr-1">{{amount.value | currencyFormatter}}%</td>
                         </tr>
                         <tr>
-                            <th>h</th>
+                            <th>j</th>
                             <td class="text-left pl-1">Debt-Equity Ratio - General (in %)</td>
                             <td *ngFor="let amount of financialData['keyIndicatorsData']['debtEquityRatioGeneral']" class="text-right pr-1">{{amount.value | currencyFormatter}}%</td>
+                        </tr>
+                        <tr>
+                            <th>k</th>
+                            <td class="text-left pl-1">Leverage ratio (in %)</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['leverageRatio']" class="text-right pr-1">{{amount.value | currencyFormatter}}%</td>
                         </tr>
                         </tbody>
                         <tbody>
@@ -929,12 +944,12 @@
                         </tr>
                         <tr>
                             <th>g</th>
-                            <td class="text-left pl-1">Net WC before Bank(Rs. in 000)</td>
+                            <td class="text-left pl-1">Net WC before Bank</td>
                             <td *ngFor="let amount of financialData['keyIndicatorsData']['netWCBeforeBank']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
                         </tr>
                         <tr>
                             <th>5</th>
-                            <td class="text-left pl-1">Cash Flow</td>
+                            <td class="text-left pl-1"><strong>Cash Flow</strong></td>
                             <td *ngFor="let amount of financialData['keyIndicatorsData']['cashFlowKI']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
                         </tr>
                         </tbody>

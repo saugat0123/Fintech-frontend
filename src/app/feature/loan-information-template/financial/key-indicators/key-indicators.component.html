@@ -277,7 +277,7 @@
       <tbody>
       <tr>
         <th>e</th>
-        <td>DE Ratio (Excluding Loan from shareholder/director)
+        <td>DE Ratio (Excluding Loan from shareholder/director) (in %)
           <div class="float-right">
             <nb-checkbox [checked]="summaryCheckListMap.get('deRatioExcludingLoanFromShareholderOrDirector')" (checkedChange)="checkForSummaryList('deRatioExcludingLoanFromShareholderOrDirector', $event)"></nb-checkbox>
           </div>
@@ -294,7 +294,7 @@
       <tbody>
       <tr>
         <th>f</th>
-        <td>DE Ratio (Including Loan from shareholder/director)
+        <td>DE Ratio (Including Loan from shareholder/director) (in %)
           <div class="float-right">
             <nb-checkbox [checked]="summaryCheckListMap.get('deRatioIncludingLoanFromShareholderOrDirector')" (checkedChange)="checkForSummaryList('deRatioIncludingLoanFromShareholderOrDirector', $event)"></nb-checkbox>
           </div>
@@ -379,7 +379,7 @@
       <tbody>
       <tr>
         <th>k</th>
-        <td>Leverage ratio
+        <td>Leverage ratio (in %)
           <div class="float-right">
             <nb-checkbox [checked]="summaryCheckListMap.get('leverageRatio')" (checkedChange)="checkForSummaryList('leverageRatio', $event)"></nb-checkbox>
           </div>
@@ -515,7 +515,7 @@
       <tbody>
       <tr>
         <th>g</th>
-        <td>Net WC before Bank(Rs. in 000)
+        <td>Net WC before Bank
           <div class="float-right">
             <nb-checkbox [checked]="summaryCheckListMap.get('netWCBeforeBank')" (checkedChange)="checkForSummaryList('netWCBeforeBank', $event)"></nb-checkbox>
           </div>
@@ -529,7 +529,7 @@
       </tr>
       <tr>
         <th>5</th>
-        <td>Cash Flow</td>
+        <td><strong>Cash Flow</strong></td>
         <td *ngFor="let amount of keyIndicatorsForm.get('cashFlowKI')['controls']; let j = index"
             formArrayName="cashFlowKI" >
           <div [formGroupName]="j" class="text-center">
