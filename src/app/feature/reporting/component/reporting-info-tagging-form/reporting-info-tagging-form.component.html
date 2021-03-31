@@ -2,7 +2,7 @@
   <p>No reporting tags available!!!</p>
 </ng-container>
 <ng-container *ngIf="report?.reportingInfoLevels?.length > 0">
-  <button (click)="expandAllLevels = !expandAllLevels" nbButton size="small"
+  <button (click)="expandAllLevels = !expandAllLevels" nbButton size="tiny"
           status="{{expandAllLevels ? 'danger' : 'success'}}">
     {{expandAllLevels ? 'Collapse' : 'Expand'}} All
   </button>

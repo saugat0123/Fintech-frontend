@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ReportingInfoLevel} from '../../model/reporting-info-level';
 import {ReportingInfo} from '../../model/reporting-info';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -15,6 +15,7 @@ import {ReportingInfoTaggingFormComponent} from '../reporting-info-tagging-form/
 })
 export class ReportingInfoTaggingComponent implements OnInit {
   @Input() public reportingInfoLevels: Array<ReportingInfoLevel>;
+  @Output() public reportingInfoLevelsEmitter = new EventEmitter();
   public reportingInfoList: Array<ReportingInfo> = new Array<ReportingInfo>();
   public isFilterCollapsed = true;
   public filterForm: FormGroup;
@@ -86,5 +87,6 @@ export class ReportingInfoTaggingComponent implements OnInit {
       reportingInfoLevel.id = v;
       return reportingInfoLevel;
     });
+    this.reportingInfoLevelsEmitter.emit(this.finalReportingInfoLevels);
   }
 }

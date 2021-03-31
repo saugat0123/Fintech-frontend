@@ -32,6 +32,8 @@ import {BorrowerPortfolio} from '../../../loan/model/borrwerportfolio';
 import {MicroBaselRiskExposure} from '../../../loan/model/micro-basel-risk-exposure';
 import {MicroBorrowerFinancial} from '../../../loan/model/micro-borrower-financial';
 import {MarketingActivities} from '../../../loan/model/marketing-activities';
+import {ReportingInfoLevel} from '../../../reporting/model/reporting-info-level';
+import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -93,6 +95,10 @@ export class CustomerLoanInformationComponent implements OnInit {
   private marketingActivitiesAccordian: NbAccordionItemComponent;
   @ViewChild('marketingActivitiesAccordian', {static: false})
   private baselRiskAccordion: NbAccordionItemComponent;
+  @ViewChild('reportingInfoLevelAccordion', {static: false})
+  public reportingInfoLevelAccordion: NbAccordionItemComponent;
+  @ViewChild('reportingInfoTagging', {static: false})
+  public reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
   calendarType: CalendarType = CalendarType.AD;
   private siteVisit: SiteVisit;
@@ -115,6 +121,9 @@ export class CustomerLoanInformationComponent implements OnInit {
   public microBorrowerFinancial: MicroBorrowerFinancial;
   customerType = CustomerType;
   isMega = environment.isMega;
+  public reportingInfoLevels: Array<ReportingInfoLevel>;
+  public reportingInfoLevelCode: string;
+  public reportingInfoLevelDescription: string;
 
 
   constructor(
@@ -176,6 +185,13 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.microBorrowerFinancial)) {
       this.microBorrowerFinancial = this.customerInfo.microBorrowerFinancial;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.reportingInfoLevels)) {
+      this.reportingInfoLevels = this.customerInfo.reportingInfoLevels;
+      this.reportingInfoLevels.filter(f => {
+        this.reportingInfoLevelCode = f.code;
+        this.reportingInfoLevelDescription = f.description;
+      });
     }
   }
 
@@ -469,6 +485,23 @@ export class CustomerLoanInformationComponent implements OnInit {
         }, error => {
           console.error(error);
           this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Marketing Activities!'));
+        });
+  }
+
+  saveCustomerReportingInfo(data: Array<ReportingInfoLevel>) {
+    if (ObjectUtil.isEmpty(this.reportingInfoLevels)) {
+      this.reportingInfoLevels = new Array<ReportingInfoLevel>();
+    }
+    this.reportingInfoLevels = data;
+    this.customerInfoService.saveLoanInfo(this.reportingInfoLevels, this.customerInfoId, TemplateName.CUSTOMER_REPORTING_INFO)
+        .subscribe(() => {
+          console.log('Reporting Info Level:', this.reportingInfoLevels);
+          this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully save Customer Reporting Info!'));
+          this.reportingInfoLevelAccordion.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.log(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Customer Reporting Info!'));
         });
   }
 
