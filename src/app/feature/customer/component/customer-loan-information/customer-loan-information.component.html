@@ -414,6 +414,8 @@
                   [formData]="customerInfo?.synopsisCreditworthiness"></app-micro-synopsis>
         </nb-accordion-item-body>
       </nb-accordion-item>
+
+
       <nb-accordion-item #reportingInfoLevelAccordion>
         <nb-accordion-item-header>
           <div class="row col-md-12">
@@ -470,7 +472,7 @@
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
-              <span class="text-uppercase">Previous Comments</span>
+              <span class="text-uppercase">Comments</span>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="data" style="color:green" title="Status : Saved">
@@ -486,6 +488,9 @@
           <app-previous-comments *ngIf="previousCommentAccordion.expanded"
                   (previousCommentEmitter)="savePreviousComments($event)"
                   [data]="customerInfo?.data"></app-previous-comments>
+          <div>
+            <button class="btn float-right d-flex justify-content-end" (click)="previousCommentsComponent.onSubmit()" type="submit" nbButton>Save</button>
+          </div>
         </nb-accordion-item-body>
       </nb-accordion-item>
 

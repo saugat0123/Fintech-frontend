@@ -34,6 +34,8 @@ import {MicroBorrowerFinancial} from '../../../loan/model/micro-borrower-financi
 import {MarketingActivities} from '../../../loan/model/marketing-activities';
 import {ReportingInfoLevel} from '../../../reporting/model/reporting-info-level';
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
+import {PreviousCommentsComponent} from '../../../loan-information-template/previous-comments/previous-comments.component';
+import {Comments} from '../../../loan-information-template/previous-comments/model/comments';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -98,9 +100,10 @@ export class CustomerLoanInformationComponent implements OnInit {
   @ViewChild('reportingInfoLevelAccordion', {static: false})
   public reportingInfoLevelAccordion: NbAccordionItemComponent;
   @ViewChild('reportingInfoTagging', {static: false})
+  public reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
   @ViewChild('previousCommentAccordion', {static: false})
   private previousCommentAccordion: NbAccordionItemComponent;
-  public reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
+  public previousCommentsComponent: PreviousCommentsComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
   calendarType: CalendarType = CalendarType.AD;
   private siteVisit: SiteVisit;
