@@ -42,6 +42,7 @@ import {FeatureModule} from '../feature.module';
 import {OwnerKycApplicableComponent} from './security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {NtaMegaComponent} from './nta-mega/nta-mega.component';
 import { MicroProposalComponent } from '../micro-loan/form-component/micro-proposal/micro-proposal.component';
+import { PreviousCommentsComponent } from './previous-comments/previous-comments.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -72,7 +73,8 @@ const COMPONENTS = [
     SecurityRevaluationComponent,
     OwnerKycApplicableComponent,
     CadDocumentUploadComponent,
-    NtaMegaComponent
+    NtaMegaComponent,
+    PreviousCommentsComponent
 ];
 
 

@@ -98,6 +98,8 @@ export class CustomerLoanInformationComponent implements OnInit {
   @ViewChild('reportingInfoLevelAccordion', {static: false})
   public reportingInfoLevelAccordion: NbAccordionItemComponent;
   @ViewChild('reportingInfoTagging', {static: false})
+  @ViewChild('previousCommentAccordion', {static: false})
+  private previousCommentAccordion: NbAccordionItemComponent;
   public reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
   calendarType: CalendarType = CalendarType.AD;
@@ -124,6 +126,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   public reportingInfoLevels: Array<ReportingInfoLevel>;
   public reportingInfoLevelCode: string;
   public reportingInfoLevelDescription: string;
+  public data;
 
 
   constructor(
@@ -192,6 +195,9 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.reportingInfoLevelCode = f.code;
         this.reportingInfoLevelDescription = f.description;
       });
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.data)) {
+      this.data = this.customerInfo.data;
     }
   }
 
@@ -502,6 +508,22 @@ export class CustomerLoanInformationComponent implements OnInit {
         }, error => {
           console.log(error);
           this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Customer Reporting Info!'));
+        });
+  }
+
+  savePreviousComments(data: string) {
+    if (ObjectUtil.isEmpty(this.customerInfo.data)) {
+        this.data = this.customerInfo.data;
+    }
+    this.data = data;
+    this.customerInfoService.saveLoanInfo(this.data, this.customerInfoId, TemplateName.PREVIOUS_COMMENT)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved previous comments!'));
+          this.previousCommentAccordion.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save previous!'));
         });
   }
 

@@ -1,0 +1,24 @@
+<nb-card>
+    <nb-card-header>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label for="previousComments"><b>Previous Approving Comments</b></label>
+                    <textarea rows="4" class="form-control" formControlName="previousComments"
+                    id="previousComments" placeholder="Previous Approving Comments"></textarea>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label for="auditorComments"><b>Auditor Comments</b></label>
+                    <textarea rows="4" class="form-control" formControlName="auditorComments"
+                    id="auditorComments" placeholder="Auditor Comments"></textarea>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+    <nb-card-footer>
+        <button (click)="submit()" class="btn float-right" type="button" nbButton>Save</button>
+    </nb-card-footer>
+</nb-card>
+
