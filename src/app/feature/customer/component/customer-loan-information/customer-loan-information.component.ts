@@ -36,7 +36,6 @@ import {ReportingInfoLevel} from '../../../reporting/model/reporting-info-level'
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 import {PreviousCommentsComponent} from '../../../loan-information-template/previous-comments/previous-comments.component';
 import {Comments} from '../../../loan-information-template/previous-comments/model/comments';
-
 @Component({
   selector: 'app-customer-loan-information',
   templateUrl: './customer-loan-information.component.html',
@@ -129,6 +128,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   public reportingInfoLevels: Array<ReportingInfoLevel>;
   public reportingInfoLevelCode: string;
   public reportingInfoLevelDescription: string;
+  public comments: Comments;
   public data;
 
 
@@ -200,7 +200,7 @@ export class CustomerLoanInformationComponent implements OnInit {
       });
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.data)) {
-      this.data = this.customerInfo.data;
+      this.comments = this.customerInfo.comments;
     }
   }
 
@@ -514,12 +514,12 @@ export class CustomerLoanInformationComponent implements OnInit {
         });
   }
 
-  savePreviousComments(data: string) {
-    if (ObjectUtil.isEmpty(this.customerInfo.data)) {
-        this.data = this.customerInfo.data;
+  savePreviousComments(data: Comments) {
+    if (ObjectUtil.isEmpty(this.comments)) {
+        this.comments = new Comments();
     }
-    this.data = data;
-    this.customerInfoService.saveLoanInfo(this.data, this.customerInfoId, TemplateName.PREVIOUS_COMMENT)
+    this.comments = data;
+    this.customerInfoService.saveLoanInfo(this.comments, this.customerInfoId, TemplateName.PREVIOUS_COMMENT)
         .subscribe(() => {
           this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved previous comments!'));
           this.previousCommentAccordion.close();

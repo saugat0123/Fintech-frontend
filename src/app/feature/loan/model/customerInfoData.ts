@@ -69,5 +69,6 @@ export class CustomerInfoData {
     isMicroCustomer: boolean;
     clientType: any;
     reportingInfoLevels: Array<ReportingInfoLevel>;
+    comments: Comments;
     data: string;
 }

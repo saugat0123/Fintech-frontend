@@ -1,6 +1,6 @@
 <nb-card>
     <nb-card-body>
-        <form [formGroup]="form">
+        <form (ngSubmit)="onSubmit()" [formGroup]="form">
             <div class="row">
                 <div class="col-md-12 form-group">
                     <label for="previousComments"><b>Previous Approving Comments</b></label>
