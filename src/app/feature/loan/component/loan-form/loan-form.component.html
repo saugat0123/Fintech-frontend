@@ -38,6 +38,7 @@
                 <form [formGroup]="docStatusForm">
                     <label><strong>
                         <mark class="ql-color-yellow"> Phase - Loan Build Cycle</mark>
+                        Loan Type: {{loanType}}
                     </strong></label>
                     <ng-select [items]="docStatusMakerList"
                                [multiple]="false"
@@ -107,8 +108,9 @@
                                                    [loanId]="id"></app-company-info-view>
                         </div>
                     </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Proposal'">
-                        <app-proposal [formValue]="loadProposal()" [loanType]="loanType" #proposalInfo></app-proposal>
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Proposal' && loanTag">
+                        <app-proposal *ngIf="loanTag !== 'MICRO_LOAN'" [formValue]="loadProposal()" [loanType]="loanType" #proposalInfo></app-proposal>
+                        <app-micro-proposal *ngIf="loanTag === 'MICRO_LOAN'" [formValue]="loadProposal()" [loanType]="loanType" #microProposalInfo></app-micro-proposal>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'CICL'">
                         <div class="py-4">
@@ -159,7 +161,8 @@
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Customer Document'">
                         <app-customer-loan-document #customerDocument
-                                                    [loanDataHolder]="loanDocument"></app-customer-loan-document>
+                                                    [loanDataHolder]="loanDocument"
+                        [loanType]="loanType"></app-customer-loan-document>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Group'">
                         <app-group #group [groupValue]="loanDocument?.group"
@@ -168,7 +171,6 @@
                     <ng-template ngbTabContent *ngIf="allList.name == 'Guarantor'">
                         <div class="py-4">
                             <app-guarantor-adder #guarantor
-                                                 *ngIf="loanHolder?.guarantors"
                                                  [taggedGuarantors]="loanDocument?.taggedGuarantors"
                                                  [guarantorData]="loanHolder?.guarantors">
 
@@ -224,6 +226,9 @@
                             </button>
                         </div>
                         <div class="col-md-6 d-flex justify-content-end">
+
+                            <button nbButton status="info" (click)="goToCustomer()" class=" mr-2">Close</button>
+
                             <button nbButton status="primary"
                                     (click)="nextButtonActionFxn(tabSet);scrollToTop()"
                                     *ngIf="nextTabId !== totalTabCount">Next

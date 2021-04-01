@@ -56,8 +56,24 @@ export class ProposalComponent implements OnInit {
   showInstallmentAmount = false;
   showRepaymentMode = false;
   swapChargeChecked = false;
+  subsidizedLoanChecked = false;
   client = environment.client;
   clientName = Clients;
+  othersSubsidyLoan = false;
+
+  subsidyLoanType = [
+    {value: 'Literate Youth Self Employment Loan'},
+    {value: 'Project Loan For Youth Returning From Foreign'},
+    {value: 'Female Entrepreneur Loan'},
+    {value: 'Business Loan For Marginalized Group of People'},
+    {value: 'Loan For Higher Technical Know How'},
+    {value: 'Residential Home Loan For Earthquake Affected'},
+    {value: 'Loan For Garment Industry Operation'},
+    {value: 'Loan For Training From Approved Technical Know How'},
+    {value: 'Agriculture Business Loan (Overdraft)'},
+    {value: 'Agriculture Business Loan (Term)'},
+    {value: 'Others'},
+  ];
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -142,6 +158,7 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
           .patchValue(Number(value)));
 
+  this.onChange();
   }
 
   buildForm() {
@@ -168,6 +185,7 @@ export class ProposalComponent implements OnInit {
       outStandingLimit: [undefined],
       collateralRequirement: [undefined, Validators.required],
       swapCharge: [undefined],
+      subsidizedLoan: [undefined],
       limitExpiryMethod: [undefined, Validators.required],
       duration: [undefined, Validators.required],
       condition: [undefined, Validators.required],
@@ -181,6 +199,9 @@ export class ProposalComponent implements OnInit {
       premiumOnCouponRate: [undefined],
       tenorOfEachDeal: [undefined],
       cashMarginMethod: ['PERCENT'],
+      enhanceLimitAmount: [undefined],
+      subsidyLoanType: [undefined],
+      others: [undefined],
 
 
 
@@ -221,7 +242,7 @@ export class ProposalComponent implements OnInit {
 
   checkLoanTypeAndBuildForm() {
     if (this.loanType === 'RENEWED_LOAN' || this.loanType === 'ENHANCED_LOAN' || this.loanType === 'PARTIAL_SETTLEMENT_LOAN'
-        || this.loanType === 'FULL_SETTLEMENT_LOAN') {
+        || this.loanType === 'FULL_SETTLEMENT_LOAN' || this.loanType === 'RENEW_WITH_ENHANCEMENT') {
       this.checkApproved = true;
       this.proposalForm.get('existingLimit').setValidators(Validators.required);
       this.proposalForm.get('outStandingLimit').setValidators(Validators.required);
@@ -259,7 +280,8 @@ export class ProposalComponent implements OnInit {
       solChecked: this.solChecked,
       waiverChecked: this.waiverChecked,
       riskChecked: this.riskChecked,
-      swapChargeChecked: this.swapChargeChecked
+      swapChargeChecked: this.swapChargeChecked,
+      subsidizedLoanChecked: this.subsidizedLoanChecked
     };
     this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
@@ -281,6 +303,7 @@ export class ProposalComponent implements OnInit {
     this.proposalData.premiumOnCouponRate = this.proposalForm.get('premiumOnCouponRate').value;
     this.proposalData.tenorOfEachDeal = this.proposalForm.get('tenorOfEachDeal').value;
     this.proposalData.cashMarginMethod = this.proposalForm.get('cashMarginMethod').value;
+    this.proposalData.enhanceLimitAmount = this.proposalForm.get('enhanceLimitAmount').value;
   }
 
   get formControls() {
@@ -328,6 +351,15 @@ export class ProposalComponent implements OnInit {
           this.proposalForm.get('swapCharge').setValue(null);
         }
         break;
+      case 'subsidizedLoan':
+        if (event) {
+          this.subsidizedLoanChecked = true;
+        } else {
+          this.subsidizedLoanChecked = false;
+          this.proposalForm.get('subsidizedLoan').setValue(null);
+          this.proposalForm.get('subsidyLoanType').setValue(null);
+        }
+        break;
     }
   }
 
@@ -337,6 +369,7 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(data['waiverChecked'], 'waiver');
       this.checkChecked(data['riskChecked'], 'risk');
       this.checkChecked(data['swapChargeChecked'], 'swapCharge');
+      this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
     }
   }
 
@@ -522,4 +555,31 @@ export class ProposalComponent implements OnInit {
         const interestAmount = (proposeLimit * (interestRate / 100) * tenureDurationInMonths) / 12;
         return this.proposalForm.get('interestAmount').setValue(Number(interestAmount).toFixed(2));
     }
+
+  calculateInterestRate() {
+    const baseRate = Number(this.proposalForm.get('baseRate').value);
+    const premiumRateOnBaseRate = Number(this.proposalForm.get('premiumRateOnBaseRate').value);
+    const discountRate = Number(this.proposalForm.get('subsidizedLoan').value);
+
+    const interestRate = (baseRate - discountRate + premiumRateOnBaseRate);
+    return this.proposalForm.get('interestRate').setValue(Number(interestRate).toFixed(2));
+  }
+
+  public calculateProposedLimit() {
+    const existingLimit = Number(this.proposalForm.get('existingLimit').value);
+    const enhanceLimit = Number(this.proposalForm.get('enhanceLimitAmount').value);
+    const totalProposedLimit = enhanceLimit + existingLimit;
+    return this.proposalForm.get('proposedLimit').setValue(Number(totalProposedLimit));
+  }
+
+  onChange() {
+    const isOtherSelected = this.proposalForm.get('subsidyLoanType').value.includes('Others');
+    if (isOtherSelected) {
+      this.othersSubsidyLoan = true;
+    } else {
+      this.othersSubsidyLoan = false;
+      this.proposalForm.get('others').setValue(null);
+    }
+  }
+
 }

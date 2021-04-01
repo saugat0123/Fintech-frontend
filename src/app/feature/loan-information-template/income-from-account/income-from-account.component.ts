@@ -148,7 +148,6 @@ export class IncomeFromAccountComponent implements OnInit {
   }
 
   onAdditionalFieldSelect(chk) {
-    console.log(chk);
     if (chk) {
       this.incomeFormGroup.get('accountTransactionForm').disable();
     } else {

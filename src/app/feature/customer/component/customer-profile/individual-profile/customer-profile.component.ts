@@ -24,12 +24,16 @@ import {CustomerInfoService} from '../../../service/customer-info.service';
 // @ts-ignore
 import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
 import {KycFormComponent} from './kyc-form/kyc-form.component';
-import {NbDialogService} from '@nebular/theme';
+import {NbAccordionItemComponent, NbDialogService} from '@nebular/theme';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {CustomerLoanApplyComponent} from '../../customer-loan-apply/customer-loan-apply.component';
 import {CustomerListGroupComponent} from '../../customer-group-associate-loan-list/customer-list-group.component';
 import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {ProductUtilService} from '../../../../../@core/service/product-util.service';
+import {environment} from '../../../../../../environments/environment';
+import {MGroup} from '../../../model/mGroup';
+import {environment as envSrdb} from "../../../../../../environments/environment.srdb";
+import {Clients} from "../../../../../../environments/Clients";
 
 
 @Component({
@@ -40,6 +44,9 @@ import {ProductUtilService} from '../../../../../@core/service/product-util.serv
 export class CustomerProfileComponent implements OnInit, AfterContentInit {
     @ViewChild('customerListGroupComponent', {static: false})
     public customerListGroupComponent: CustomerListGroupComponent;
+
+    @ViewChild('mGroupAccordion', {static: false})
+    public mGroupAccordion: NbAccordionItemComponent;
 
     associateId: number;
     customerInfoId: number;
@@ -74,7 +81,12 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     profilePic;
     isRemarkEdited = false;
     json = JSON;
+    sbsGroupEnabled = environment.SBS_GROUP;
+    megaGroupEnabled = environment.MEGA_GROUP;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+    crgLambdaDisabled = envSrdb.disableCrgLambda;
+    client = environment.client;
+    clientName = Clients;
 
 
     constructor(private route: ActivatedRoute,
@@ -103,6 +115,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     ngOnInit() {
+        console.log(this.sbsGroupEnabled);
         this.associateId = this.route.snapshot.params.id;
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
@@ -408,4 +421,8 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         });
     }
 
+    setMGroupData(mGroup: MGroup) {
+        this.customerInfo.mgroupInfo = mGroup;
+        this.mGroupAccordion.close();
+    }
 }

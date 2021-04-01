@@ -97,21 +97,208 @@
     </tbody>
 </table>-->
 
-<table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
+
+ <!--Referenced for dynamic Checkbox summary-->
+<!--<table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
     <thead>
     <tr class="text-white sb-bg-dark">
-        <th>S.No</th>
         <th>Key Financial Indicators</th>
         <th *ngFor="let year of financialData['fiscalYear']">{{year}}</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let selectedParticular of summaryCheckedList; let i = index">
-        <th>{{i+1}}</th>
         <td class="text-left pl-2"><strong>{{keyIndicatorsHeaderParticularsMap.get(selectedParticular)}}</strong></td>
         <td *ngFor="let amount of financialData['keyIndicatorsData'][selectedParticular]" class="text-right pr-1">
             {{amount.value}}
         </td>
+    </tr>
+    </tbody>
+</table>-->
+
+
+<!--New MEGA requirement 2021, March 21-->
+<table
+        class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
+    <thead>
+    <tr class="text-white sb-bg-dark">
+        <th>S.No</th>
+        <th>Particulars</th>
+        <th *ngFor="let year of financialData['fiscalYear']">{{year}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th scope="row">A</th>
+        <td class="text-left pl-1"><b>Total Sales Revenue</b></td>
+        <td *ngFor="let amount of financialData['incomeStatementData']['totalSalesRevenue']; " class="text-right pr-1">
+            <b>Rs. {{amount.value | currencyFormatter}}</b></td>
+    </tr>
+    <tr>
+        <th scope="row">B</th>
+        <td class="text-left pl-1"><b>Net Worth</b></td>
+        <td *ngFor="let amount of financialData['balanceSheetData']['netWorth']" class="text-right pr-1">
+            <b>Rs. {{amount.value | currencyFormatter}}</b></td>
+    </tr>
+    <tr>
+        <th scope="row">C</th>
+        <td class="text-left pl-1"><b>Net Profit (Profit after tax)</b></td>
+        <td *ngFor="let amount of financialData['incomeStatementData']['profitAfterTax']" class="text-right pr-1">
+            <b>Rs. {{amount.value | currencyFormatter}}</b></td>
+    </tr>
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+        <th>1</th>
+        <td class="text-left pl-1"><strong>Growth</strong></td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['growth']" class="text-right pr-1">
+            <b>{{amount.value | currencyFormatter}}%</b></td>
+    </tr>
+    <tr>
+        <th>a</th>
+        <td class="text-left pl-1">Sales</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['sales']" class="text-right pr-1">{{amount.value | currencyFormatter}}%</td>
+    </tr>
+    <tr>
+        <th>b</th>
+        <td class="text-left pl-1">Gross Profit</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['grossProfitKI']" class="text-right pr-1">{{amount.value | currencyFormatter}}%</td>
+    </tr>
+    <tr>
+        <th>c</th>
+        <td class="text-left pl-1">Operating Profit(EBIT)</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['operatingProfitKI']" class="text-right pr-1">{{amount.value | currencyFormatter}}%</td>
+    </tr>
+    <tr>
+        <th>d</th>
+        <td class="text-left pl-1">PAT</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['pAT']" class="text-right pr-1">{{amount.value | currencyFormatter}}%</td>
+    </tr>
+    </tbody>
+    <tbody>
+    <tr>
+        <th>2</th>
+        <td class="text-left pl-1"><strong>Profitability</strong></td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['profitability']" class="text-right pr-1">
+            <b>{{amount.value}}%</b></td>
+    </tr>
+    <tr>
+        <th>a</th>
+        <td class="text-left pl-1">Gross Profit Margin</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['grossProfitMargin']" class="text-right pr-1">{{amount.value | currencyFormatter}}%</td>
+    </tr>
+    <tr>
+        <th>b</th>
+        <td class="text-left pl-1">Net Profit Margin</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['netProfitMargin']" class="text-right pr-1">{{amount.value | currencyFormatter}}%</td>
+    </tr>
+    <tr>
+        <th>c</th>
+        <td class="text-left pl-1">EBIT to Sales</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['eBITtoSales']" class="text-right pr-1">{{amount.value | currencyFormatter}}%</td>
+    </tr>
+    <tr>
+        <th>d</th>
+        <td class="text-left pl-1">Return On Equity</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['returnOnEquity']" class="text-right pr-1">{{amount.value | currencyFormatter}}%</td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+        <th>3</th>
+        <td class="text-left pl-1"><strong>Solvency</strong></td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['solvency']" class="text-right pr-1">
+            <b>{{amount.value | currencyFormatter}}</b></td>
+    </tr>
+    <tr>
+        <th>a</th>
+        <td class="text-left pl-1">Quick Ratio (times)</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['quickRatio']" class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+    </tr>
+    <tr>
+        <th>b</th>
+        <td class="text-left pl-1">Current Ratio (times)</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['currentRatio']" class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+    </tr>
+    <tr>
+        <th>c</th>
+        <td class="text-left pl-1">Debt Service Coverage Ratio (times)</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['debtServiceCoverageRatio']" class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+    </tr>
+    <tr>
+        <th>d</th>
+        <td class="text-left pl-1">Interest Coverage Ratio (times)</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['interestCoverageRatio']" class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+    </tr>
+    <tr>
+        <th>e</th>
+        <td class="text-left pl-1">Debt-Equity Ratio (Overall)</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['debtEquityRatioOverall']" class="text-right pr-1">{{amount.value | currencyFormatter}}%</td>
+    </tr>
+    <tr>
+        <th>f</th>
+        <td class="text-left pl-1">Debt-Equity Ratio - Long Term (times)</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['debtEquityRatioLongTerm']" class="text-right pr-1">{{amount.value | currencyFormatter}}%</td>
+    </tr>
+    <tr>
+        <th>g</th>
+        <td class="text-left pl-1">Debt-Equity Ratio - Working Capital (times)</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['debtEquityRatioWorkingCapital']" class="text-right pr-1">{{amount.value | currencyFormatter}}%</td>
+    </tr>
+    <tr>
+        <th>h</th>
+        <td class="text-left pl-1">Debt-Equity Ratio - General</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['debtEquityRatioGeneral']" class="text-right pr-1">{{amount.value | currencyFormatter}}%</td>
+    </tr>
+    </tbody>
+    <tbody>
+    <tr>
+        <th>4</th>
+        <td class="text-left pl-1"><strong>Operating Cycle</strong></td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['operatingCycle']" class="text-right pr-1">
+            <b>{{amount.value | currencyFormatter}}</b></td>
+    </tr>
+    <tr>
+        <th>a</th>
+        <td class="text-left pl-1">Inventory Turnover Ratio (times)</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['inventoryTurnoverRatio']" class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+    </tr>
+    <tr>
+        <th>b</th>
+        <td class="text-left pl-1">Stock in Hand - Days</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['stockInHandDays']" class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+    </tr>
+    <tr>
+        <th>c</th>
+        <td class="text-left pl-1">Debtor Turnover Ratio (times)</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['debtorTurnOverRatio']" class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+    </tr>
+    <tr>
+        <th>d</th>
+        <td class="text-left pl-1">Average Collection Period - Days</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['averageCollectionPeriod']" class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+    </tr>
+    <tr>
+        <th>e</th>
+        <td class="text-left pl-1">Average Payment Period - Days</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['averagePaymentPeriod']" class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+    </tr>
+    <tr>
+        <th>f</th>
+        <td class="text-left pl-1">Net Operating Cycle - Days</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['netOperatingCycle']" class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+    </tr>
+    <tr>
+        <th>g</th>
+        <td class="text-left pl-1">Net WC before Bank(Rs. in 000)</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['netWCBeforeBank']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
+    </tr>
+    <tr>
+        <th>5</th>
+        <td class="text-left pl-1">Cash Flow</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['cashFlowKI']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
     </tr>
     </tbody>
 </table>

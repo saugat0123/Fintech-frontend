@@ -37,7 +37,7 @@
                 <th>Relationship Since</th>
                 <th>Client Type</th>
                 <th>Sub Sector</th>
-                <th>Obligor Code</th>
+                <th *ngIf="client === clientName?.SHINE_RESUNGA">Obligor Code</th>
             </tr>
             <tr>
                 <td class="text-left pl-1">{{formValue?.email}}</td>
@@ -47,7 +47,7 @@
                 <td class="text-left pl-1">{{companyJsonData?.relationshipSince | date}}</td>
                 <td class="text-left pl-1">{{customerInfo['clientType']}}</td>
                 <td class="text-left pl-1">{{customerInfo['subsectorDetail']}}</td>
-                <td class="text-left pl-1">{{loanData}}</td>
+                <td class="text-left pl-1" *ngIf="client === clientName?.SHINE_RESUNGA">{{customerInfo?.obligor}}</td>
 
             </tr>
         </table>
@@ -115,7 +115,7 @@
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
-                <th colspan="4">Capital Information (in NPR 000)</th>
+                <th colspan="4">Capital Information</th>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Authorized Capital</th>
@@ -277,8 +277,8 @@
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th class="sn">S.N</th>
-                <th>Type</th>
                 <th>Name</th>
+                <th>Type</th>
                 <th>Contact No</th>
                 <th>Share %</th>
                 <th>Address</th>
@@ -308,11 +308,13 @@
                                 <th class="sn">S.N</th>
                                 <th>Owner Relationship</th>
                                 <th>Relation Name</th>
+                                <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
                                 <th>Citizenship Number</th>
                                 <th>Issued Location</th>
                                 <th>Issued Date</th>
                                 <th>Mobile Number</th>
                                 <th>Address</th>
+                                <th>Remarks</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -321,11 +323,13 @@
                                     <td>{{j+1}}</td>
                                     <td class="text-left pl-1">{{d?.ownerRelationship ? d?.ownerRelationship : 'N/A' }}</td>
                                     <td class="text-left pl-1">{{d?.relationName ? d?.relationName : 'N/A' }}</td>
+                                    <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-right pr-1">{{d?.age || 'N/A' }}</td>
                                     <td class="text-right pr-1">{{d?.citizenshipNumber ? d?.citizenshipNumber : 'N/A' }}</td>
                                     <td class="text-left pl-1">{{d?.issuedLocation ? d?.issuedLocation : 'N/A' }}</td>
                                     <td class="text-left pl-1">{{d?.issuedDate ? (d?.issuedDate | date) : 'N/A'}}</td>
                                     <td class="text-right pr-1">{{d?.mobileNumber ? d?.mobileNumber : 'N/A' }}</td>
                                     <td class="text-left pl-1">{{d?.address ? d?.address : 'N/A'}}</td>
+                                    <td class="text-left pl-1">{{d?.remark ? d?.remark : 'N/A'}}</td>
                                 </tr>
                             </ng-container>
                             </tbody>
@@ -504,7 +508,8 @@
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Particular</th>
-                <th>Amount(Rs)</th>
+                <th *ngIf="client === clientName?.MEGA">Amount(Rs/value)</th>
+                <th *ngIf="client !== clientName?.MEGA">Amount(Rs)</th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Interest Income</td>
@@ -528,27 +533,57 @@
             </tr>
             <tr>
                 <td class="text-left pl-1">Saving Account</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</th>
+                <th>
+                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.savingAccountDuringReview}}</div>
+                        <ng-template #notMega>
+                            <div class="text-right pr-1">Rs. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</div>
+                        </ng-template>
+                </th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Payroll Account</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</th>
+                <th>
+                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.payrollAccountDuringReview}}</div>
+                    <ng-template #notMega>
+                        <div class="text-right pr-1">Rs. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</div>
+                    </ng-template>
+                </th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Debit Cards</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</th>
+                <th>
+                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.debitCardsDuringReview}}</div>
+                    <ng-template #notMega>
+                        <div class="text-right pr-1">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</div>
+                    </ng-template>
+                </th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Credit Cards</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</th>
+                <th>
+                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.creditCardsDuringReview}}</div>
+                    <ng-template #notMega>
+                        <div class="text-right pr-1">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</div>
+                    </ng-template>
+                </th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Mobile Bank / Internet Banking</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</th>
+                <th>
+                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.mobileBankingDuringReview}}</div>
+                    <ng-template #notMega>
+                        <div class="text-right pr-1">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</div>
+                    </ng-template>
+                </th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Locker</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.lockerDuringReview | currencyFormatter}}</th>
+                <th>
+                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.lockerDuringReview}}</div>
+                    <ng-template #notMega>
+                        <div class="text-right pr-1">Rs. {{businessGiven?.lockerDuringReview | currencyFormatter}}</div>
+                    </ng-template>
+                </th>
             </tr>
             <tr>
                 <th class="text-left pl-1">Total</th>

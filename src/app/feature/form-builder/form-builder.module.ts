@@ -28,6 +28,7 @@ import { InputRadioFormComponent } from './dynamic-forms/input-radio-form/input-
 import { InputArrayAddComponent } from './form-builder-add/input-array-add/input-array-add.component';
 import { DoubleClickDirective } from './form-builder-add/double-click.directive';
 import { ArrayFormComponent } from './dynamic-forms/array-form/array-form.component';
+import { CommonDataViewComponent } from './common-data-view/common-data-view.component';
 
 
 @NgModule({
@@ -40,7 +41,7 @@ import { ArrayFormComponent } from './dynamic-forms/array-form/array-form.compon
         InputTextareaFormComponent, InputSelectFormComponent,
         InputDateFormComponent, FormInvalidFocusDirective,
         InputRadioFormComponent, InputArrayAddComponent,
-        DoubleClickDirective, ArrayFormComponent],
+        DoubleClickDirective, ArrayFormComponent, CommonDataViewComponent],
     exports: [
         FormBuilderAddComponent,
         DynamicFormsComponent,

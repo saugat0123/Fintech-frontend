@@ -5,6 +5,7 @@ import {FinancialDeleteComponentComponent} from '../financial-delete-component/f
 import {ModalResponse} from '../../../../@core/utils';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Editor} from '../../../../@core/utils/constants/editor';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-income-statement',
@@ -345,10 +346,9 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
                 .convertToPercent(Number(profitAfterTax.controls['value'].value) / Number(balanceSheet.netWorth[index].value));
 
         keyIndicators.debtServiceCoverageRatio[index].value = Number(balanceSheet.longTermLoan[index].value) === 0 ? 0 :
-            ((Number(interestExpenses.controls['value'].value)
-                + Number(this.financialService.fetchValuesForSubCategories(this.incomeStatementForm
+            ((Number(this.financialService.fetchValuesForSubCategories(this.incomeStatementForm
                     .get('operatingExpensesCategory'), 'Depreciation', index))
-                + Number(profitAfterTax.controls['value'].value)) /
+                + Number(operatingProfit.controls['value'].value)) /
             (Number(interestExpenses.controls['value'].value)
                 + Number(balanceSheet.principleInstalmentPaidDuringTheYear[index].value))).toFixed(2);
 
@@ -380,6 +380,13 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
 
         keyIndicators.netOperatingCycle[index].value = Number(keyIndicators.stockInHandDays[index].value)
             + Number(keyIndicators.averageCollectionPeriod[index].value) - Number(keyIndicators.averagePaymentPeriod[index].value);
+
+        if (!ObjectUtil.isEmpty(keyIndicators.cashFlowKI)) {
+            keyIndicators.cashFlowKI[index].value =
+                Number(profitAfterTax.controls['value'].value) +
+                Number(this.financialService.fetchValuesForSubCategories(this.incomeStatementForm
+                    .get('operatingExpensesCategory'), 'Depreciation', index));
+        }
     }
 
     checkForLatterFiscalYearChanges(index: number) {

@@ -21,6 +21,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
     public static FILE_SIZE_5MB = 5242880;
     public static FILE_SIZE_10MB = 10485760;
     @Input() loanDataHolder: LoanDataHolder;
+    @Input() loanType: LoanType;
     initialDocuments: Document[] = [];
     renewDocuments: Document[] = [];
     loanConfig: LoanConfig = new LoanConfig();
@@ -63,7 +64,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
             (response: any) => {
                 this.loanConfig = response.detail;
                 this.loanName = this.loanConfig.name;
-                switch (LoanType[this.loanDataHolder.loanType]) {
+                switch (LoanType[this.loanType]) {
                     case LoanType.NEW_LOAN:
                         this.initialDocuments = this.loanConfig.initial;
                         break;
@@ -81,6 +82,9 @@ export class CustomerLoanDocumentComponent implements OnInit {
                         break;
                     case LoanType.FULL_SETTLEMENT_LOAN:
                         this.initialDocuments = this.loanConfig.fullSettlement;
+                        break;
+                    case LoanType.RENEW_WITH_ENHANCEMENT:
+                        this.initialDocuments = this.loanConfig.renewWithEnhancement;
                         break;
                     default:
                         this.initialDocuments = this.loanConfig.initial;
@@ -145,6 +149,9 @@ export class CustomerLoanDocumentComponent implements OnInit {
             }
             if (LoanType[this.loanDataHolder.loanType] === LoanType.PARTIAL_SETTLEMENT_LOAN) {
                 formData.append('action', 'PARTIAL_SETTLEMENT_LOAN');
+            }
+            if (LoanType[this.loanDataHolder.loanType] === LoanType.RENEW_WITH_ENHANCEMENT) {
+                formData.append('action', 'RENEW_WITH_ENHANCEMENT');
             }
             this.loanFormService.uploadFile(formData).subscribe(
                 (result: any) => {

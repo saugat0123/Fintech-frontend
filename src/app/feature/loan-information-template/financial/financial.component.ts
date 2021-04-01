@@ -176,7 +176,8 @@ export class FinancialComponent implements OnInit {
         'averageCollectionPeriod',
         'averagePaymentPeriod',
         'netOperatingCycle',
-        'netWCBeforeBank'
+        'netWCBeforeBank',
+        'cashFlowKI'
     ];
 
     numberUtils = NumberUtils;
@@ -249,11 +250,11 @@ export class FinancialComponent implements OnInit {
             majorSourceIncomeType: [undefined, [Validators.required]],
             periodOfEarning: [undefined, [Validators.required , Validators.pattern(Pattern.NUMBER_ONLY)]],
             alternateIncomeSource: [undefined],
-            alternateIncomeSourceAmount: [undefined, [Validators.pattern(Pattern.NUMBER_ONLY)]],
+            alternateIncomeSourceAmount: [undefined, [Validators.pattern(Pattern.NUMBER_DOUBLE)]],
             grossMonthlyObligation: [undefined],
             totalNetMonthlyIncome: [undefined],
             totalEMIInterest: [undefined],
-            emiWithProposal: [undefined , [Validators.required , Validators.pattern(Pattern.NUMBER_ONLY)]],
+            emiWithProposal: [undefined , [Validators.required , Validators.pattern(Pattern.NUMBER_DOUBLE)]],
         });
     }
 

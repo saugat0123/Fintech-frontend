@@ -38,6 +38,7 @@ import {Security} from '../../../../admin/modal/security';
 import {RoleHierarchyService} from '../../../../admin/component/role-hierarchy/role-hierarchy.service';
 import {Editor} from '../../../../../@core/utils/constants/editor';
 import {ApprovalSheetInfoComponent} from '../approval-sheet-info/approval-sheet-info.component';
+import {Clients} from '../../../../../../environments/Clients';
 
 @Component({
     selector: 'app-approval-sheet',
@@ -57,6 +58,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     @Input() nepaliDate;
 
     client: string;
+    clientName = Clients;
 
     ckeConfig = Editor.CK_CONFIG;
     authorityReviewComments;
@@ -180,7 +182,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loanDataHolder = this.loanData;
-        this.loggedUserAccess=LocalStorageUtil.getStorage().roleAccess;
+        this.loggedUserAccess = LocalStorageUtil.getStorage().roleAccess;
         this.prepareAuthoritySection();
         this.loadSummary();
         this.checkDocUploadConfig();

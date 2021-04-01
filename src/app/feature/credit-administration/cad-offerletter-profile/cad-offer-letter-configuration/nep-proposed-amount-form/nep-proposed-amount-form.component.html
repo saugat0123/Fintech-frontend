@@ -1,0 +1,35 @@
+<nb-card [nbSpinner]="spinner">
+    <nb-card-body>
+        <Form [formGroup]="nepForm">
+            <div class="col-md-12 row">
+                <div class="col-md-6">
+                    <input type="number"
+                           [ngClass]="{'is-invalid': submitted && nepFormControls.engNumber.errors}"
+                            placeholder="प्रस्तावित रकम"
+                           (change)="onChangeValue($event)" class="form-control"
+                           formControlName="engNumber"/>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" placeholder="मिति"
+                           [ngClass]="{'is-invalid': submitted && nepFormControls.initDate.errors}"
+                           class="form-control form-control-sm nepaliFont" formControlName="initDate"/>
+                </div>
+
+
+            </div>
+            <hr>
+            <div class="col-md-12">
+                <Strong>{{nepaliNumber.numberNepali}} : अक्षरेपी :</Strong> <span>{{nepaliNumber.nepaliWords}}</span>
+            </div>
+
+        </Form>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="row">
+            <div class="col-md-12">
+                <button class="float-right" nbButton (click)="save()" [disabled]="spinner">save</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>
+

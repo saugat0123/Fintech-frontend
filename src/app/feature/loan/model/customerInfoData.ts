@@ -14,6 +14,13 @@ import {CiclArray} from '../../admin/modal/cicl';
 import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../admin/modal/NetTradingAssets';
 import {CreditChecklistGeneral} from './creditChecklistGeneral';
+import {MGroup} from '../../customer/model/mGroup';
+import {MicroLoanSynopsis} from './micro-loan-synopsis';
+import {BorrowerPortfolio} from './borrwerportfolio';
+import {MicroBaselRiskExposure} from './micro-basel-risk-exposure';
+import {MicroBorrowerFinancial} from './micro-borrower-financial';
+import {MarketingActivities} from './marketing-activities';
+import {ReportingInfoLevel} from '../../reporting/model/reporting-info-level';
 
 export class CustomerInfoData {
     id: number;
@@ -52,4 +59,13 @@ export class CustomerInfoData {
     subSectorDetailCode: string;
     nepData: string;
     gender: string;
+    mgroupInfo: MGroup;
+    synopsisCreditworthiness: MicroLoanSynopsis;
+    borrowerPortFolio: BorrowerPortfolio;
+    microBaselRiskExposure: MicroBaselRiskExposure;
+    microBorrowerFinancial: MicroBorrowerFinancial;
+    marketingActivities: MarketingActivities;
+    isMicroCustomer: boolean;
+    clientType: any;
+    reportingInfoLevels: Array<ReportingInfoLevel>;
 }

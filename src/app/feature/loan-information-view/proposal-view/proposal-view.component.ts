@@ -1,10 +1,14 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {Proposal} from '../../admin/modal/proposal';
-import {ActivatedRoute, Params} from '@angular/router';
+import {LoanDataHolder} from '../../loan/model/loanData';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
-import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
+import {DocStatus} from '../../loan/model/docStatus';
+import {LoanType} from '../../loan/model/loanType';
+import {EnumUtils} from '../../../@core/utils/enums.utils';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
+import {ActivatedRoute, Params} from '@angular/router';
+import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 
 @Component({
   selector: 'app-proposal-view',
@@ -12,12 +16,19 @@ import {Clients} from '../../../../environments/Clients';
   styleUrls: ['./proposal-view.component.scss']
 })
 export class ProposalViewComponent implements OnInit {
-  @Input() formData: Proposal;
-  proposalData;
-  recommendationChecked;
-  checkApproved = false;
-  absoluteSelected = false;
-  customSelected = false;
+  @Input() proposalData: Proposal;
+  @Input() customerAllLoanList: LoanDataHolder[];
+  @Input() loanDataHolder: LoanDataHolder;
+  public DocStatus = DocStatus;
+  public LoanType = LoanType;
+  public EnumUtils = EnumUtils;
+  proposalAllData: any;
+  customerFundedLoanList: LoanDataHolder[];
+  customerNonFundedLoanList: LoanDataHolder[];
+  loanType: any;
+  checkedData;
+  client = environment.client;
+  clientName = Clients;
   isFundable = false;
   fundableNonFundableSelcted = false;
   isFixedDeposit = false;
@@ -28,22 +39,76 @@ export class ProposalViewComponent implements OnInit {
   isGeneral = false;
   isVehicle = false;
   isShare = false;
-  client = environment.client;
-  clientName = Clients;
   allId;
   showInstallmentAmount = false;
   showRepaymentMode = false;
+  showPrincipalAmount = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private loanConfigService: LoanConfigService) {
   }
 
-
   ngOnInit() {
-    this.proposalData = JSON.parse(this.formData.data);
-    this.recommendationChecked = JSON.parse(this.formData.checkedData);
+    this.proposalAllData = JSON.parse(this.proposalData.data);
+    this.checkedData = JSON.parse(this.proposalData.checkedData);
     this.getLoanConfig();
     this.checkInstallmentAmount();
+    if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+      this.loanType = this.loanDataHolder.loanType;
+    }
+  }
+
+  public getTotal(key: string): number {
+    const tempList = this.customerAllLoanList
+        .filter(l => JSON.parse(l.proposal.data)[key]);
+    const total = tempList
+        .map(l => JSON.parse(l.proposal.data)[key])
+        .reduce((a, b) => a + b, 0);
+    return this.isNumber(total);
+  }
+
+  public getTotalFundable(key: string, funded: boolean, loanList: LoanDataHolder[]): number {
+    this.fundedAndNonfundedList(loanList);
+    let numb;
+    if (funded) {
+      const tempList = this.customerFundedLoanList
+          .filter(l => JSON.parse(l.proposal.data)[key]);
+      numb = tempList
+          .map(l => JSON.parse(l.proposal.data)[key])
+          .reduce((a, b) => a + b, 0);
+    } else {
+      const tempList = this.customerNonFundedLoanList
+          .filter(l => JSON.parse(l.proposal.data)[key]);
+      numb = tempList
+          .map(l => JSON.parse(l.proposal.data)[key])
+          .reduce((a, b) => a + b, 0);
+    }
+
+    return this.isNumber(numb);
+
+  }
+
+  fundedAndNonfundedList(loanList: LoanDataHolder[]) {
+    this.customerFundedLoanList = loanList.filter((l) => l.loan.isFundable);
+    if (ObjectUtil.isEmpty(this.customerFundedLoanList)) {
+      this.customerFundedLoanList = [];
+    }
+    this.customerNonFundedLoanList = this.customerAllLoanList.filter((l) => !l.loan.isFundable);
+    if (ObjectUtil.isEmpty(this.customerNonFundedLoanList)) {
+      this.customerNonFundedLoanList = [];
+    }
+  }
+
+  isNumber(value) {
+    if (ObjectUtil.isEmpty(value)) {
+      return 0;
+    }
+    if (Number.isNaN(value)) {
+      return 0;
+    } else {
+      return value;
+    }
+
   }
 
   getLoanConfig() {
@@ -80,11 +145,14 @@ export class ProposalViewComponent implements OnInit {
         });
   }
   checkInstallmentAmount() {
-    if (this.proposalData.repaymentMode === 'EMI' || this.proposalData.repaymentMode === 'EQI') {
+    if (this.proposalAllData.repaymentMode === 'EMI' || this.proposalAllData.repaymentMode === 'EQI') {
       this.showInstallmentAmount = true;
     }
-    if (this.proposalData.repaymentMode === 'CUSTOM') {
+    if (this.proposalAllData.repaymentMode === 'CUSTOM') {
       this.showRepaymentMode = true;
+    }
+    if (this.proposalAllData.repaymentMode === 'AT MATURITY') {
+      this.showPrincipalAmount = true;
     }
   }
 }

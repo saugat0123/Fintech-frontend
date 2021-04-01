@@ -64,30 +64,21 @@
 
                     <span *ngIf="nepData?.gender==1">को </span>
                     <span *ngIf="nepData?.gender==0"> की </span>
-                    श्री/श्रीमती/सुश्री
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="guarantorName"
-                           placeholder=""
-                           formControlName="guarantorName"
-                           type="text"/>
-                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('guarantorName').value ? personalGuarantee.get('guarantorName').value  : '========='}}</b></span>
-
-                    (ना.प्र.प नं.
-                    <strong class="nepaliFont">{{nepData?.citizenshipNo}}</strong>
-                    मिति
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="citizenshipIssuedDate"
-                           placeholder=""
-                           formControlName="citizenshipIssuedDate"
-                           type="text"/>
-                    <span class="print-only nepaliFont"><b>{{personalGuarantee.get('citizenshipIssuedDate').value ? personalGuarantee.get('citizenshipIssuedDate').value  : '========='}}</b></span>
-                    मा जिल्ला प्रशासन कार्यालय
-                    <input class="form-field form-control-sm nepaliFont disable-print"
-                           name="citizenshipIssuedOffice"
-                           placeholder=""
-                           formControlName="citizenshipIssuedOffice"
-                           type="text"/><span class="print-only nepaliFont"><b>{{personalGuarantee.get('citizenshipIssuedOffice').value ? personalGuarantee.get('citizenshipIssuedOffice').value  : '========='}}</b></span>
+                    <span *ngFor="let one of guarantorData">
+                  (  श्री/श्रीमती/सुश्री
+                        <strong class="nepaliFont">{{one?.guarantorName}}</strong>
+                        ना.प्र.प नं.
+                        <strong class="nepaliFont">
+                                {{one?.guarantorCitizenshipNum}}
+                                </strong>
+                       मिति
+                        <strong class="nepaliFont">{{one?.guarantorIssueDate}}</strong>
+                       मा जिल्ला प्रशासन कार्यालय
+                        <strong class="nepaliFont">
+                                {{one?.guarantorIssueDistrict}}
+                                </strong>)</span>
                     बाट जारी भएको) आगे तपाई धनी बैंकले मेरो जमानी बसिदिने शर्तमा
+
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="borrowerGrandFather"
                            placeholder=""
@@ -147,7 +138,7 @@
                            placeholder=""
                            formControlName="borrowerCitizenshipIssuedOffice"
                            type="text"/><span class="print-only nepaliFont"><b>{{personalGuarantee.get('borrowerCitizenshipIssuedOffice').value ? personalGuarantee.get('borrowerCitizenshipIssuedOffice').value  : '========='}}</b></span>
-                    बाट जारी भएको) जसलाई यस उप्रान्त यस लिखतमा ऋणी भनिएको छ ) लाई यस अघि समय समयमा प्रदान गरेको, गर्दै आएको, हाल प्रदान गरिएको र साथै भविष्यमा
+                    बाट जारी भएको) ( जसलाई यस उप्रान्त यस लिखतमा ऋणी भनिएको छ ) लाई यस अघि समय समयमा प्रदान गरेको, गर्दै आएको, हाल प्रदान गरिएको र साथै भविष्यमा
                     प्रदान गर्ने जम्मा रु.
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="loanAmount"
@@ -160,7 +151,7 @@
                            placeholder=""
                            formControlName="loanAmountInWord"
                            type="text"/><span class="print-only nepaliFont"><b>{{personalGuarantee.get('loanAmountInWord').value ? personalGuarantee.get('loanAmountInWord').value  : '========='}}</b></span>
-                    )
+                    रुपैंया मात्र । )
                     सम्मको बिभिन्न विभिन्न कर्जा सुविधा तथा बैंक जमानत आदि लगायत अन्य बैंकिङ्ग  कारोवार सुबिधाको लागि तपाई धनी बैंक र ऋणीका विच
                     मिति
                     <input class="form-field form-control-sm nepaliFont disable-print"
@@ -242,13 +233,13 @@
                                     size="10"/>
                     <span class="print-only nepaliFont"><b>{{personalGuarantee.get('documentWrittenYear').value ? personalGuarantee.get('documentWrittenYear').value  : '========='}}</b></span>
                     साल
-                    <input class="form-field form-control-sm shortInput nepaliFont"
+                    <input class="form-field form-control-sm shortInput nepaliFont disable-print"
                            name="documentWrittenMonth"
                            placeholder=""
                            formControlName="documentWrittenMonth"
                            type="text"/><span class="print-only nepaliFont"><b>{{personalGuarantee.get('documentWrittenMonth').value ? personalGuarantee.get('documentWrittenMonth').value  : '========='}}</b></span>
                     महिना
-                    <input class="form-field form-control-sm shortInput nepaliFont"
+                    <input class="form-field form-control-sm shortInput nepaliFont disable-print"
                            name="documentWrittenDay"
                            placeholder=""
                            formControlName="documentWrittenDay"

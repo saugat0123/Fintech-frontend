@@ -130,6 +130,7 @@
                                         <select [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('issuedPlace').errors }"
                                                    class="custom-select"
                                                    formControlName="issuedPlace">
+                                            <option [value]="null">--Select Citizenship Issued District-- </option>
                                             <option *ngFor="let district of allDistrict" [value]="district?.name">
                                                 {{district?.name}}
                                             </option>
@@ -214,7 +215,7 @@
                                                formControlName="profession"
                                                id="profession"
                                                 name="profession">
-                                            <option value="null" hidden>Select Profession</option>
+                                            <option [value]="null">Select Profession</option>
                                             <option [value]="profession.key" *ngFor="let profession of occupation">{{profession.value}}</option>
 
                                         </select>
@@ -311,7 +312,7 @@
                                                formControlName="relationship"
                                                id="relationship"
                                                name="relationship">
-                                            <option [value]="null" hidden>--Select Relationship--</option>
+                                            <option [value]="null">--Select Relationship--</option>
                                             <option *ngFor="let relationship of relationList" [ngValue]="relationship.id">{{relationship.name}}</option>
                                         </select>
                                         <div *ngIf="(submitted) && guarantorDetails.get('relationship').invalid"
@@ -353,7 +354,7 @@
                                     <div class="form-group">
                                         <label><strong>Address Line 1</strong></label>
                                         <input class="form-control"
-                                               formControlName="permanentAddressLine1"
+                                               formControlName="permanentAddressLineOne"
                                                placeholder="Address Line 1 (optional)"
                                                type="text">
                                     </div>
@@ -363,7 +364,7 @@
                                     <div class="form-group">
                                         <label><strong>Address Line 2</strong></label>
                                         <input class="form-control"
-                                               formControlName="permanentAddressLine2"
+                                               formControlName="permanentAddressLineTwo"
                                                placeholder="Address Line 2 (optional)"
                                                type="text">
                                     </div>
@@ -501,7 +502,7 @@
                                     <div class="form-group">
                                         <label><strong>Address Line 1</strong></label>
                                         <input class="form-control"
-                                               formControlName="temporaryAddressLine1"
+                                               formControlName="temporaryAddressLineOne"
                                                placeholder="Address Line 1 (optional)"
                                                type="text">
                                     </div>
@@ -511,7 +512,7 @@
                                     <div class="form-group">
                                         <label><strong>Address Line 2</strong></label>
                                         <input class="form-control"
-                                               formControlName="temporaryAddressLine2"
+                                               formControlName="temporaryAddressLineTwo"
                                                placeholder="Address Line 2 (optional)"
                                                type="text">
                                     </div>

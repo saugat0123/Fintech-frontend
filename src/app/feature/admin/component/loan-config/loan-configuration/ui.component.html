@@ -127,6 +127,7 @@
                                        bindValue="key" name="loanTag"
                                        [required]="true"
                                        [(ngModel)]="selectedLoanTag"
+                                       (change)="onLoanTagChange()"
                                        placeholder="Select Loan tag">
                             </ng-select>
                             <div *ngIf="loanConfigForm.submitted && loanTag.invalid">
@@ -391,6 +392,28 @@
                                                 id="{{'cad'+ documentIndex}}"
                                                 status="primary">
                                                 <span>{{cadDocument.displayName}}</span>
+                                            </nb-checkbox>
+                                        </div>
+                                    </div>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
+                    </div>
+                    <div class="box box-primary col-md-6 mb-2">
+                        <nb-accordion>
+                            <nb-accordion-item>
+                                <nb-accordion-item-header>Renew With Enhancement</nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <div class="row">
+                                        <div
+                                                *ngFor="let renewWithEnhancementDocument of renewWithEnhancementDocumentList; let documentIndex = index"
+                                                class="col-md-4">
+                                            <nb-checkbox
+                                                    (change)="updateDocument($event, renewWithEnhancementDocument, finalRenewWithEnhancementDocument)"
+                                                    [value]="renewWithEnhancementDocument.checked"
+                                                    id="{{'renewWithEnhancement'+documentIndex}}"
+                                                    status="primary">
+                                                <span>{{renewWithEnhancementDocument.displayName}}</span>
                                             </nb-checkbox>
                                         </div>
                                     </div>

@@ -3,7 +3,9 @@ import {Security} from '../../loan/model/security';
 import {NepseMaster} from '../../admin/modal/NepseMaster';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {OwnershipTransfer} from '../../loan/model/ownershipTransfer';
-import {environment} from '../../../../environments/environment.srdb';
+import {environment as envSrdb} from '../../../../environments/environment.srdb';
+import {Clients} from '../../../../environments/Clients';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-security-view',
@@ -19,7 +21,7 @@ export class SecurityViewComponent implements OnInit {
   landSelected = false;
   hypothecation = false;
   corporate = false;
-  personal= false;
+  personal = false;
   apartmentSelected = false;
   plantSelected = false;
   depositSelected = false;
@@ -32,15 +34,19 @@ export class SecurityViewComponent implements OnInit {
   buildingSelected = false;
   landBuilding = false;
   ownerShipTransfer = OwnershipTransfer;
-  disableCrgAlphaParams = environment.disableCrgAlpha;
-  crgLambdaDisabled = environment.disableCrgLambda;
+  disableCrgAlphaParams = envSrdb.disableCrgAlpha;
+  crgLambdaDisabled = envSrdb.disableCrgLambda;
+  client = environment.client;
+  clientName = Clients;
+  securityOther: any;
+  assignments: any;
+  assignment = false;
 
   constructor() {
   }
 
   ngOnInit() {
     this.securityData = JSON.parse(this.security.data);
-    console.log(this.securityData.data , this.securityData);
 
     (this.securityData['selectedArray'] as Array<any>).forEach(selectedValue => {
       switch (selectedValue) {
@@ -68,6 +74,12 @@ export class SecurityViewComponent implements OnInit {
         case 'HypothecationOfStock':
           this.hypothecation = true;
           break;
+        case 'OtherSecurity':
+          this.securityOther = true;
+          break;
+        case 'LeaseAssignment':
+          this.assignments = true;
+          break;
         case 'CorporateGuarantee':
           this.corporate = true;
           break;
@@ -76,6 +88,10 @@ export class SecurityViewComponent implements OnInit {
           break;
         case 'InsurancePolicySecurity':
           this.insurancePolicySelected = true;
+          break;
+        case 'AssignmentOfReceivables':
+          this.assignment = true;
+
       }
     });
     if (!ObjectUtil.isEmpty(this.shareSecurityData)) {

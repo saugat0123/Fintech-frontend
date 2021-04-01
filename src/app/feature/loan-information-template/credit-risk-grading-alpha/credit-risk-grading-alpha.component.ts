@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ElementRef} from '@angular/core';
+import {Component, ElementRef, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CreditRiskGradingAlpha} from '../../admin/modal/CreditRiskGradingAlpha';
@@ -50,6 +50,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   creditRiskData: CreditRiskGradingAlpha = new CreditRiskGradingAlpha();
   submitted = true;
   financialCurrentYearIndex: number;
+  fiscalYearList = [];
   parsedFinancialData: any;
   loanTagEnum = LoanTag;
 
@@ -125,6 +126,10 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.calculateCrgMatrix();
+  }
+
+  calculateCrgMatrix() {
     // Calculate risks within company info portion --
     if (!ObjectUtil.isEmpty(this.companyInfo)) {
       const bankingRelationshipParsed = JSON.parse(this.customerInfo.bankingRelationship);
@@ -157,14 +162,8 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
       this.parsedFinancialData = JSON.parse(this.financialData);
       this.historicalDataPresent = this.parsedFinancialData.initialForm.historicalDataPresent;
       if (this.parsedFinancialData.fiscalYear.length > 0) {
-        this.financialCurrentYearIndex = Number(this.parsedFinancialData.fiscalYear.length - 1);
-        this.calculateSalesToWclLimit(this.parsedFinancialData, this.financialCurrentYearIndex);
-        this.calculateSalesGrowth(this.parsedFinancialData, this.financialCurrentYearIndex);
-        this.calculateProfitability(this.parsedFinancialData, this.financialCurrentYearIndex);
-        this.calculateCurrentRatio(this.parsedFinancialData, this.financialCurrentYearIndex);
-        this.calculateWorkingCapitalCycle(this.parsedFinancialData, this.financialCurrentYearIndex);
-        this.calculateDERatio(this.parsedFinancialData, this.financialCurrentYearIndex);
-        this.calculateIscrAndDscr(this.parsedFinancialData, this.financialCurrentYearIndex);
+        this.fiscalYearList = this.parsedFinancialData.fiscalYear;
+        this.reCalculateFinancial(Number(this.parsedFinancialData.fiscalYear.length - 1));
       } else {
         this.missingAlerts.push({
           type: 'danger',
@@ -209,6 +208,38 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
       });
     }
     this.calculateTotalScore();
+  }
+
+  reCalculateFinancial(currentFiscalYearIndex) {
+    this.financialCurrentYearIndex = currentFiscalYearIndex;
+    this.calculateSalesToWclLimit(this.parsedFinancialData, this.financialCurrentYearIndex);
+    this.calculateSalesGrowth(this.parsedFinancialData, this.financialCurrentYearIndex);
+    this.calculateProfitability(this.parsedFinancialData, this.financialCurrentYearIndex);
+    this.calculateCurrentRatio(this.parsedFinancialData, this.financialCurrentYearIndex);
+    this.calculateWorkingCapitalCycle(this.parsedFinancialData, this.financialCurrentYearIndex);
+    this.calculateDERatio(this.parsedFinancialData, this.financialCurrentYearIndex);
+    this.calculateIscrAndDscr(this.parsedFinancialData, this.financialCurrentYearIndex);
+  }
+
+  fiscalYearChangeHandler(yearIndex) {
+    this.resetFinancialRiskAutoCalc();
+    this.reCalculateFinancial(yearIndex);
+    this.calculateTotalScore();
+  }
+
+  resetFinancialRiskAutoCalc() {
+    this.financialRiskCriteriaArray.forEach(v => {
+      if (!['salesProjectionVsAchievement',
+        'netWorthOfFirmOrCompany',
+        'taxCompliance'].includes(v)) {
+        this.creditRiskGradingForm.get(v).patchValue({
+          parameter: undefined,
+          value: undefined,
+          automatedValue: undefined
+        });
+      }
+    });
+    this.creditRiskGradingForm.get('financialTotal').patchValue(undefined);
   }
 
   buildForm() {
@@ -369,12 +400,16 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     }
   }
 
-  calculateProfitability(financialData, currentFiscalYearIndex) {
-    const profitability = ((Number(financialData.incomeStatementData.netProfitTransferredToBalanceSheet[currentFiscalYearIndex].value) +
+  calculateProfitability(financialData, currentFiscalYearIndex: number) {
+    const profitability = ((Number(financialData.incomeStatementData.profitAfterTax[currentFiscalYearIndex].value) +
         Number(this.getSubCategory(financialData, 'incomeStatementData', 'operatingExpensesCategory', 'Depreciation')
             [0]['amount'][currentFiscalYearIndex].value)) /
         Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value)) * 100;
-    const netCashFlow = Number(financialData.cashFlowStatementData.netCashFlow[currentFiscalYearIndex].value);
+    let netCashFlow = Number(financialData.keyIndicatorsData.cashFlowKI[currentFiscalYearIndex].value);
+    if (currentFiscalYearIndex > 0) {
+      netCashFlow = Number(financialData.keyIndicatorsData.cashFlowKI[currentFiscalYearIndex].value) -
+          Number(financialData.keyIndicatorsData.cashFlowKI[currentFiscalYearIndex - 1].value);
+    }
     const automatedValue = `${profitability.toFixed(2)}, ${netCashFlow.toFixed(2)}`;
     if (profitability >= 5 && netCashFlow > 0) {
       this.setValueForCriteria('profitability', 'Minimum net profit of 5%, increasing cash flow', 3, automatedValue);
@@ -407,7 +442,8 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   }
 
   calculateWorkingCapitalCycle(financialData, currentFiscalYearIndex) {
-    const workingCapitalCycle = ((Number(financialData.balanceSheetData.currentAssets[currentFiscalYearIndex].value) -
+    /** Calculation scheme used in the past **/
+    /*const workingCapitalCycle = ((Number(financialData.balanceSheetData.currentAssets[currentFiscalYearIndex].value) -
         Number(financialData.balanceSheetData.currentLiabilities[currentFiscalYearIndex].value)) * 365) /
         Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value);
 
@@ -415,7 +451,10 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
         (financialData.balanceSheetData.currentAssetsCategory as Array<any>).filter(
             singleCategory => singleCategory['name'] === 'Account Receivable'
         )[0]['amount'][currentFiscalYearIndex].value
-    ) / Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value)) * 365;
+    ) / Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value)) * 365;*/
+
+    const workingCapitalCycle = Number(financialData.keyIndicatorsData.netOperatingCycle[currentFiscalYearIndex].value);
+    const receivableCollectionPeriod = Number(financialData.keyIndicatorsData.averageCollectionPeriod[currentFiscalYearIndex].value);
 
     const automatedValue = `${workingCapitalCycle.toFixed(2)}, ${receivableCollectionPeriod.toFixed(2)}`;
 
@@ -460,11 +499,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     const iscr = Number(financialData.incomeStatementData.operatingProfit[currentFiscalYearIndex].value) /
         Number(financialData.incomeStatementData.interestExpenses[currentFiscalYearIndex].value);
 
-    const dscr = Number(financialData.incomeStatementData.operatingProfit[currentFiscalYearIndex].value) /
-        Number(financialData.balanceSheetData.currentLiabilities[currentFiscalYearIndex].value) +
-        Number(financialData.balanceSheetData.longTermLoan[currentFiscalYearIndex].value) +
-        Number(financialData.balanceSheetData.otherLongTermLiabilities[currentFiscalYearIndex].value) +
-        Number(financialData.balanceSheetData.otherProvisions[currentFiscalYearIndex].value);
+    const dscr = Number(financialData.keyIndicatorsData.debtServiceCoverageRatio[currentFiscalYearIndex].value);
 
     const automatedValue = `${iscr.toFixed(2)}, ${dscr.toFixed(2)}`;
 
@@ -623,6 +658,10 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.formData)) {
       this.creditRiskData = this.formData;
     }
-    this.creditRiskData.data = JSON.stringify(this.creditRiskGradingForm.value);
+
+    this.creditRiskData.data = JSON.stringify({
+      ...this.creditRiskGradingForm.value,
+      currentFiscalYear: this.fiscalYearList[this.financialCurrentYearIndex]
+    });
   }
 }

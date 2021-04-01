@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NepseMaster} from '../../../../admin/modal/NepseMaster';
+import {environment} from '../../../../../../environments/environment';
+import {Clients} from '../../../../../../environments/Clients';
+import {OwnershipTransfer} from '../../../model/ownershipTransfer';
 
 
 @Component({
@@ -23,12 +26,20 @@ export class SecuritySummaryComponent implements OnInit {
     totalConsideredValue = 0;
     buildingSelected = false;
     hypothecation = false;
+    securityOther = false;
     corporate = false;
     personal = false;
     loanSharePercent: NepseMaster = new NepseMaster();
     landBuilding = false;
     showTitle = false;
     insurancePolicySelected = false;
+    client = environment.client;
+    clientName = Clients;
+    ownerShipTransfer = OwnershipTransfer;
+    assignment = false;
+    otherDetail: any;
+    assignments = false;
+    leaseAssignment: any;
 
     constructor() {
     }
@@ -69,6 +80,14 @@ export class SecuritySummaryComponent implements OnInit {
                         this.showTitle = true;
                         this.hypothecation = true;
                         break;
+                    case 'OtherSecurity':
+                        this.showTitle = true;
+                        this.securityOther = true;
+                        break;
+                    case 'LeaseAssignment':
+                        this.showTitle = true;
+                        this.assignments = true;
+                        break;
                     case 'CorporateGuarantee':
                         this.showTitle = true;
                         this.corporate = true;
@@ -76,9 +95,14 @@ export class SecuritySummaryComponent implements OnInit {
                     case 'PersonalGuarantee':
                         this.showTitle = true;
                         this.personal = true;
+                        break;
                     case 'InsurancePolicySecurity':
                         this.showTitle = true;
                         this.insurancePolicySelected = true;
+                        break;
+                    case 'AssignmentOfReceivables':
+                        this.showTitle = true;
+                        this.assignment = true;
                 }
             });
         }

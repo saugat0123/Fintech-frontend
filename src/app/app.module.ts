@@ -23,8 +23,11 @@ import {CKEditorModule} from 'ng2-ckeditor';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {EngToNepaliNumberPipe} from './@core/pipe/eng-to-nepali-number.pipe';
-
-
+import {CurrencyFormatterPipe} from './@core/pipe/currency-formatter.pipe';
+import {NepaliCurrencyWordPipe} from './@core/pipe/nepali-currency-word.pipe';
+import {NepaliToEngNumberPipe} from './@core/pipe/nepali-to-eng-number.pipe';
+import {NepaliWordPipe} from './@core/pipe/nepali-word.pipe';
+import {NepaliPercentWordPipe} from './@core/pipe/nepali-percent-word.pipe';
 
 
 @NgModule({
@@ -34,14 +37,14 @@ import {EngToNepaliNumberPipe} from './@core/pipe/eng-to-nepali-number.pipe';
         ForgotPasswordComponent,
         ResentForgotPasswordComponent,
         LoginBaseComponent,
-        NewPasswordComponent
+        NewPasswordComponent,
+        NepaliCurrencyWordPipe
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
         FormsModule,
-
         ThemeModule.forRoot(),
         QuillModule,
         RouterModule,
@@ -62,8 +65,9 @@ import {EngToNepaliNumberPipe} from './@core/pipe/eng-to-nepali-number.pipe';
     providers: [AddressService, {
         provide: LocationStrategy,
         useClass: HashLocationStrategy,
-    }, { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
-        DatePipe, EngToNepaliNumberPipe],
+    }, {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
+        DatePipe, EngToNepaliNumberPipe, CurrencyFormatterPipe, NepaliCurrencyWordPipe , NepaliToEngNumberPipe, NepaliWordPipe,
+        NepaliPercentWordPipe],
     bootstrap: [AppComponent],
     exports: [],
     entryComponents: []
@@ -71,6 +75,7 @@ import {EngToNepaliNumberPipe} from './@core/pipe/eng-to-nepali-number.pipe';
 })
 export class AppModule {
 }
+
 export function httpTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http);
 }

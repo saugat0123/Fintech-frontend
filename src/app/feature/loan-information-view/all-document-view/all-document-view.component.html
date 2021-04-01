@@ -1,4 +1,4 @@
-<nb-card class="disable-print">
+<nb-card class="modal-dialog-scrollable">
   <nb-card-header>
           <span>
             <b>All Documents</b>
@@ -6,8 +6,7 @@
           </span>
   </nb-card-header>
   <nb-card-body>
-  <hr>
-  <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row disable-print">
+  <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row">
     <div class="col-md-12">
       <p><strong>Loan Documents</strong></p>
     </div>
@@ -37,7 +36,7 @@
       </table>
     </div>
   </div>
-  <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row disable-print">
+  <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row">
     <div class="col-md-12">
       <table class="table table-condensed table-bordered table-sm sb-small text-center">
 
@@ -61,7 +60,7 @@
     </div>
   </div>
 
-  <div *ngIf="minOneGuarantorDoc" class="row disable-print">
+  <div *ngIf="minOneGuarantorDoc" class="row">
     <div class="col-md-12">
       <p><strong>Guarantor Documents</strong></p>
       <table class="table table-condensed table-bordered table-sm sb-small text-center">
@@ -91,7 +90,7 @@
       </table>
     </div>
   </div>
-  <div *ngIf="minOneInsuranceDoc" class="row disable-print">
+  <div *ngIf="minOneInsuranceDoc" class="row">
     <div class="col-md-12">
       <p><strong>Insurance Documents</strong></p>
       <table class="table table-condensed table-bordered table-sm sb-small text-center">
@@ -123,7 +122,7 @@
     </div>
   </div>
 
-  <div *ngIf="loanDataHolder?.cadDocument?.length > 0  && showCadDoc" class="row disable-print">
+  <div *ngIf="loanDataHolder?.cadDocument?.length > 0  && showCadDoc" class="row">
     <div class="col-md-12">
       <p><strong>Cad Documents</strong></p>
       <p *ngIf="affiliatedId"><i> CBS Loan File Number:</i>{{loanDataHolder?.cbsLoanFileNumber}}</p>

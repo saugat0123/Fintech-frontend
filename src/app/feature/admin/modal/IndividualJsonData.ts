@@ -6,4 +6,5 @@ export class IndividualJsonData {
     permanentAddressLine2: string;
     temporaryAddressLine1: string;
     temporaryAddressLine2: string;
+    microCustomerDetail: any;
 }

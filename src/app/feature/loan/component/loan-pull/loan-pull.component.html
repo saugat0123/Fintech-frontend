@@ -1,3 +1,5 @@
+
+<div *ngIf="!productUtils?.CUSTOMER_BASE_LOAN">
 <nb-card>
     <nb-card-header>
         <div class="col-md-12">
@@ -220,3 +222,8 @@
 
 
 </nb-card>
+</div>
+
+<div *ngIf="productUtils?.CUSTOMER_BASE_LOAN">
+    <app-customer-wise-loan-pull></app-customer-wise-loan-pull>
+</div>

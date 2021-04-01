@@ -54,16 +54,16 @@ export class InsuranceComponent implements OnInit {
     addFormData(data: Insurance) {
         return this.formBuilder.group({id: [ObjectUtil.setUndefinedIfNull(data.id)],
                 version: [ObjectUtil.setUndefinedIfNull(data.version)],
-                company: [ObjectUtil.setUndefinedIfNull(data.company), [Validators.required]],
-                insuredAmount: [ObjectUtil.setUndefinedIfNull(data.insuredAmount), [Validators.required]],
-                premiumAmount: [ObjectUtil.setUndefinedIfNull(data.premiumAmount), [Validators.required]],
-                issuedDate: [data.issuedDate === undefined ? undefined : new Date(data.issuedDate), [Validators.required]],
-                expiryDate: [data.expiryDate === undefined ? undefined : new Date(data.expiryDate), [Validators.required]],
+                company: [ObjectUtil.setUndefinedIfNull(data.company)],
+                insuredAmount: [ObjectUtil.setUndefinedIfNull(data.insuredAmount)],
+                premiumAmount: [ObjectUtil.setUndefinedIfNull(data.premiumAmount)],
+                issuedDate: [data.issuedDate],
+                expiryDate: [data.expiryDate],
                 policyType: [ObjectUtil.setUndefinedIfNull(data.policyType)],
-                policyNumber: [ObjectUtil.setUndefinedIfNull(data.policyNumber), [Validators.required]],
+                policyNumber: [ObjectUtil.setUndefinedIfNull(data.policyNumber)],
                 policyDocumentPath: [ObjectUtil.setUndefinedIfNull(data.policyDocumentPath)],
                 remark: [ObjectUtil.setUndefinedIfNull(data.remark)],
-                assetInsured: [ObjectUtil.setUndefinedIfNull(data.assetInsured), [Validators.required]]});
+                assetInsured: [ObjectUtil.setUndefinedIfNull(data.assetInsured)]});
     }
     addEmptyForm() {
         const formArray = this.form.get('formArray') as FormArray;
@@ -77,9 +77,6 @@ export class InsuranceComponent implements OnInit {
 
     submit() {
         this.isSubmitted = true;
-        if (this.form.invalid) {
-            return;
-        }
         const formArray = this.form.get('formArray') as FormArray;
         formArray['controls'].forEach((data => {
             const insurance: Insurance = data.value;

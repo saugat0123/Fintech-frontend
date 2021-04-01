@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
-import {Form, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -14,7 +14,7 @@ import {DatePipe} from '@angular/common';
 import {RelationshipNepali} from '../../../loan/model/relationshipListNepali';
 import {Guarantor} from '../../../loan/model/guarantor';
 import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
-import {CalendarType} from '../../../../@core/model/calendar-type';
+import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -24,18 +24,17 @@ import {CalendarType} from '../../../../@core/model/calendar-type';
 export class CadOfferLetterConfigurationComponent implements OnInit {
 
     @Input() customerInfo: CustomerInfoData;
+    @Input() cadData: CustomerApprovedLoanCadDocumentation;
     @Input() guarantorDetail: GuarantorDetail;
-    @Input() calendarType: CalendarType;
     @Input() customer: Customer;
-
     @Output()
     customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
-
+    guarantorList: Array<Guarantor>;
     userConfigForm: FormGroup;
     spinner = false;
-    value = [undefined];
     submitted = false;
     relationshipList = RelationshipNepali.enumObject();
+    hideSaveBtn = false;
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
@@ -52,25 +51,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
-            const guarantorList = this.customerInfo.guarantors.guarantorList;
-            const guarantorDetails = this.userConfigForm.get('guarantorDetails') as FormArray;
-            guarantorList.forEach(e => {
-                guarantorDetails.push(
-                    this.formBuilder.group({
-                        guarantorName : e.name,
-                        guarantorIssueDate : e.issuedYear,
-                        guarantorIssueDistrict : e.issuedPlace,
-                        guarantorAddress : e.district,
-                        guarantorRelationship : e.relationship,
-                        guarantorCitizenshipNum : e.citizenNumber
-                    })
-                ); }
-            );
-        }
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
             this.userConfigForm.patchValue(data);
+            this.setGuarantors(data.guarantorDetails);
         }
     }
 
@@ -83,19 +67,27 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             relationMedium: [undefined],
             husbandName: [undefined],
             fatherInLawName: [undefined],
-            citizenshipNo: [this.engToNepNumber.transform(this.customerInfo.idNumber)],
+            citizenshipNo: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customerInfo.idNumber) : undefined],
             age: [this.checkIsIndividual() ? this.ageCalculation(this.customer.dob) : undefined],
-            permanentProvince: [undefined],
-            permanentDistrict: [undefined],
-            permanentMunicipality: [undefined],
+            // tslint:disable-next-line:max-line-length
+            permanentProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.province.nepaliName) ? undefined : this.customer.province.nepaliName : undefined],
+            // tslint:disable-next-line:max-line-length
+            permanentDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.district.nepaliName) ? undefined : this.customer.district.nepaliName : undefined],
+            // tslint:disable-next-line:max-line-length
+            permanentMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.municipalities.nepaliName) ? undefined : this.customer.municipalities.nepaliName : undefined],
             permanentMunType: [0],
-            temporaryProvince: [undefined],
-            temporaryDistrict: [undefined],
-            temporaryMunicipality: [undefined],
-            permanentWard: [undefined],
-            temporaryWard: [undefined],
+            // tslint:disable-next-line:max-line-length
+            temporaryProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryProvince.nepaliName) ? undefined : this.customer.temporaryProvince.nepaliName : undefined],
+            // tslint:disable-next-line:max-line-length
+            temporaryDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryDistrict.nepaliName) ? undefined : this.customer.temporaryDistrict.nepaliName : undefined],
+            // tslint:disable-next-line:max-line-length
+            temporaryMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryMunicipalities.nepaliName) ? undefined : this.customer.temporaryMunicipalities.nepaliName : undefined],
+            permanentWard: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customer.wardNumber) : undefined],
+            temporaryWard: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customer.temporaryWardNumber) : undefined],
             temporaryMunType: [1],
-            guarantorDetails: this.formBuilder.array([])
+            guarantorDetails: this.formBuilder.array([]),
+            citizenshipIssueDistrict: [undefined],
+            citizenshipIssueDate: [undefined],
         });
     }
 
@@ -142,6 +134,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.spinner = false;
             this.dialogRef.close();
         });
+
     }
 
     closeModal() {
@@ -165,16 +158,45 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     addGuarantorField() {
         return this.formBuilder.group({
-            guarantorName : '',
-            guarantorIssueDate : '',
-            guarantorIssueDistrict : '',
-            guarantorAddress : '',
-            guarantorRelationship : '',
-            guarantorCitizenshipNum : ''
-             });
+            name: '',
+            issuedYear: '',
+            issuedPlace: '',
+            guarantorLegalDocumentAddress: '',
+            relationship: '',
+            citizenNumber: ''
+        });
     }
 
     removeAtIndex(i: any) {
         (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
+    }
+
+    onChangeTab(event) {
+        this.hideSaveBtn = false;
+        console.log(event.tabId);
+        if (event.tabId === '2') {
+            this.hideSaveBtn = true;
+        }
+
+    }
+
+    setGuarantors(guarantorDetails: any) {
+        const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
+        if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
+            if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
+                const guarantorList = this.customerInfo.guarantors.guarantorList;
+                this.guarantorList = guarantorList;
+            }
+        }
+            guarantorDetails.forEach(value => {
+                formArray.push(this.formBuilder.group({
+                    name: [value.name],
+                    issuedYear: [value.issuedYear],
+                    issuedPlace: [value.issuedPlace],
+                    guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
+                    relationship: [value.relationship],
+                    citizenNumber: [value.citizenNumber]
+                }));
+            });
     }
 }

@@ -55,6 +55,7 @@ import {environment as envSrdb} from '../../../../../../environments/environment
 import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
+import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-component/micro-company-form-component/micro-company-form-component.component';
 
 @Component({
     selector: 'app-company-form',
@@ -71,6 +72,8 @@ export class CompanyFormComponent implements OnInit {
     @ViewChild('companyLocation', {static: true}) companyLocation: CommonAddressComponent;
     @ViewChildren('shareholderKyc') shareholderKyc: QueryList<OwnerKycApplicableComponent>;
     calendarType = 'AD';
+    microEnabled: boolean = environment.microLoan;
+    microCustomer = false;
     companyInfoFormGroup: FormGroup;
     englishDateSelected = true;
     customerId;
@@ -128,6 +131,10 @@ export class CompanyFormComponent implements OnInit {
     @ViewChild('marketScenarioComponent', {static: false})
     marketScenarioComponent: MarketScenarioComponent;
 
+    @ViewChild('microCompanyFormComponent', {static: false})
+    microCompanyFormComponent: MicroCompanyFormComponentComponent;
+
+
     experiences = Experience.enumObject();
     successionList = Succession.enumObject();
     regulatoryConcernList = RegulatoryConcern.enumObject();
@@ -181,6 +188,10 @@ export class CompanyFormComponent implements OnInit {
         if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
             this.srdbAffiliatedId = true;
         }
+        if (!ObjectUtil.isEmpty(this.formValue)) {
+            this.microCustomer = this.formValue.isMicroCustomer;
+            console.log(this.microCustomer);
+        }
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
             this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
@@ -201,7 +212,6 @@ export class CompanyFormComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.companyInfo)) {
             if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
                 this.companyAddress = JSON.parse(this.companyInfo.companyLocations.address);
-                console.log(this.companyInfo.companyLocations.address);
             }
         }
         this.buildForm();
@@ -271,6 +281,7 @@ export class CompanyFormComponent implements OnInit {
             showFormField: (!ObjectUtil.isEmpty(this.formValue)),
             isOldCustomer: (ObjectUtil.isEmpty(this.formValue))
         };
+        this.calculateSharePercent('proprietors', 'totalSharePercent');
     }
 
     buildForm() {
@@ -547,7 +558,8 @@ export class CompanyFormComponent implements OnInit {
                 this.businessGiven.lockerDuringReview],
             total: [ObjectUtil.isEmpty(this.businessGiven)
             || ObjectUtil.isEmpty(this.businessGiven.total) ? undefined :
-                this.businessGiven.total]
+                this.businessGiven.total],
+            totalSharePercent: [0],
 
 
         });
@@ -814,6 +826,13 @@ export class CompanyFormComponent implements OnInit {
         if (!this.disableCrgAlpha) {
             this.bankingRelationComponent.onSubmit();
         }
+        if (this.microCustomer) {
+            this.microCompanyFormComponent.onSubmit();
+            if (this.microCompanyFormComponent.microCustomerForm.invalid) {
+                this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
+                return;
+            }
+        }
         this.companyLocation.onSubmit();
         if (this.companyInfoFormGroup.invalid || this.companyOtherDetailComponent.companyOtherDetailGroupForm.invalid
             || this.marketScenarioComponent.marketScenarioForm.invalid ||
@@ -825,6 +844,7 @@ export class CompanyFormComponent implements OnInit {
         }
         this.spinner = true;
         this.companyInfo = new CompanyInfo();
+        this.companyInfo.isMicroCustomer = this.microCustomer;
         // Company Information--
         this.companyInfo.id = this.companyInfoFormGroup.get('companyId').value;
         this.companyInfo.companyName = this.companyInfoFormGroup.get('companyName').value;
@@ -968,6 +988,13 @@ export class CompanyFormComponent implements OnInit {
         submitData.marketScenario = this.marketScenarioComponent.submitData;
         submitData.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
         submitData.proprietorList = this.companyJsonData.proprietorList;
+        submitData.totalSharePercent = this.companyInfoFormGroup.get('totalSharePercent').value;
+
+        if (this.microCustomer) {
+            /** micro data **/
+            submitData.microCustomerDetail = this.microCompanyFormComponent.microCustomerForm.value;
+        }
+
 
         // swot
         submitData.swot = this.swot;
@@ -1035,7 +1062,6 @@ export class CompanyFormComponent implements OnInit {
 
     getClientType() {
         this.customerService.clientType().subscribe((res: any) => {
-                console.log(res.detail);
                 this.clientType = res.detail;
             }
             , error => {
@@ -1061,19 +1087,37 @@ export class CompanyFormComponent implements OnInit {
 
     calculateTotalIncomeDuringReview() {
         let total = 0;
-        total = this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
-            this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value +
-            this.companyInfoFormGroup.get('lcCommissionDuringReview').value +
-            this.companyInfoFormGroup.get('guaranteeCommissionDuringReview').value +
-            this.companyInfoFormGroup.get('otherCommissionDuringReview').value +
-            this.companyInfoFormGroup.get('savingAccountDuringReview').value +
-            this.companyInfoFormGroup.get('payrollAccountDuringReview').value +
-            this.companyInfoFormGroup.get('debitCardsDuringReview').value +
-            this.companyInfoFormGroup.get('creditCardsDuringReview').value +
-            this.companyInfoFormGroup.get('mobileBankingDuringReview').value +
-            this.companyInfoFormGroup.get('lockerDuringReview').value;
-        this.companyInfoFormGroup.get('total').patchValue(total.toFixed(2));
+        if (this.client !== this.clientName.MEGA) {
+            total = this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
+                this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value +
+                this.companyInfoFormGroup.get('lcCommissionDuringReview').value +
+                this.companyInfoFormGroup.get('guaranteeCommissionDuringReview').value +
+                this.companyInfoFormGroup.get('otherCommissionDuringReview').value +
+                this.companyInfoFormGroup.get('savingAccountDuringReview').value +
+                this.companyInfoFormGroup.get('payrollAccountDuringReview').value +
+                this.companyInfoFormGroup.get('debitCardsDuringReview').value +
+                this.companyInfoFormGroup.get('creditCardsDuringReview').value +
+                this.companyInfoFormGroup.get('mobileBankingDuringReview').value +
+                this.companyInfoFormGroup.get('lockerDuringReview').value;
+            this.companyInfoFormGroup.get('total').patchValue(total.toFixed(2));
+        } else {
+            total = this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
+                this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value +
+                this.companyInfoFormGroup.get('lcCommissionDuringReview').value +
+                this.companyInfoFormGroup.get('guaranteeCommissionDuringReview').value +
+                this.companyInfoFormGroup.get('otherCommissionDuringReview').value;
+            this.companyInfoFormGroup.get('total').patchValue(total.toFixed(2));
+        }
         // console.log(this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
         //     this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value);
+    }
+
+    // Calculation of Share %
+    calculateSharePercent(formArrayName, resultControllerName) {
+        let total = 0;
+        (this.companyInfoFormGroup.get(formArrayName) as FormArray).controls.forEach( group => {
+            total = Number(group.get('share').value) + Number(total);
+        });
+        this.companyInfoFormGroup.get(resultControllerName).setValue(total);
     }
 }

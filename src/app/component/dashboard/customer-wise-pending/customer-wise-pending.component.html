@@ -1,0 +1,303 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card [nbSpinner]="spinner">
+            <nb-card-header>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button
+                                    (click)="isFilterCollapsed = !isFilterCollapsed"
+                                    [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+                                    nbButton
+                                    shape="rectangle"
+                                    size="tiny"
+                                    status="primary">
+                                <em class="fa fa-filter"> Filter</em>
+                            </button>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <button (click)="getCsv()" nbButton outline
+                                    status="info" size="tiny">
+                                <i aria-hidden="true" class="fa fa-download"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">
+                    <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
+                        <div class="row py-3">
+                            <div *ngIf="branchFilter" class="col-md-3">
+                                <select class="form-control form-control-tiny" formControlName="branch">
+                                    <option [value]="null" hidden selected>Select Branch</option>
+                                    <option *ngFor="let branch of branchList"
+                                            [value]="branch.id">{{branch.name}}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <select class="form-control form-control-tiny" formControlName="provinceId">
+                                    <option [value]="null" hidden selected>Select Province</option>
+                                    <option *ngFor="let province of provinces"
+                                            [value]="province.id">{{province.name}}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <input class="form-control form-control-tiny" formControlName="customerName" id="name"
+                                       placeholder="Customer Name" type="text">
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-control form-control-tiny" formControlName="loan" id="facility">
+                                    <option [value]="null" hidden selected>Select Facility</option>
+                                    <option [value]="null">All Facilities</option>
+                                    <option *ngFor="let facility of loanList"
+                                            [value]="facility.id">{{facility.name}}</option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-3 py-2">
+                                <select class="form-control form-control-tiny" formControlName="loanType">
+                                    <option [value]="null" hidden selected>Select Type</option>
+                                    <option [value]="null">All Types</option>
+                                    <option *ngFor="let status of loanType.values()"
+                                            [value]="status">{{loanType[status]}}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div *ngIf="showDocStatusList" class="col-md-3 py-2">
+                                <ng-select [items]="docStatusMakerList"
+                                           [multiple]="false"
+                                           bindLabel="name"
+                                           bindValue="name"
+                                           formControlName="documentStatus"
+                                           placeholder="Select the docStatus">
+                                </ng-select>
+                            </div>
+
+                            <div class="col-md-3 mb-3 py-2">
+                                <select class="form-control form-control-tiny" formControlName="customerType"
+                                        placeholder="Customer Type">
+                                    <option [ngValue]="null">Select Customer Type</option>
+                                    <option [value]="'INSTITUTION'">INSTITUTION</option>
+                                    <option [value]="'INDIVIDUAL'">INDIVIDUAL</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-3 py-2">
+                                <select
+                                        class="form-control form-control-tiny" formControlName="clientType">
+                                    <option [ngValue]="null">Select Client Type</option>
+                                    <option *ngFor="let data of clientType" [ngValue]="data"
+                                    >{{data}}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3 py-2">
+                                <input class="form-control form-control-tiny" formControlName="customerCode" id="code"
+                                       placeholder="Customer code" type="text">
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-0">
+                            <button [disabled]="!filterForm.valid" class="mr-2" nbButton shape="rectangle"
+                                    size="tiny" status="info" type="submit">Search
+                            </button>
+                            <button (click)="buildFilterForm()" nbButton shape="rectangle" status="danger"
+                                    size="tiny" type="button">Clear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="box-body">
+                    <table class="table table-sm sb-small table-bordered table-hover text-center">
+                        <thead>
+                        <tr class="sb-bg-dark text-white">
+                            <th>S.N</th>
+                            <th>Branch</th>
+                            <th>Branch Province</th>
+                            <th>Customer Name</th>
+                            <th>Customer Code</th>
+                            <th>Customer Type</th>
+                            <th>Business Unit</th>
+                            <th>Contact Number</th>
+                            <th>Total Loan</th>
+                            <th>Detail</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <ng-container *ngFor="let loanHolderLoans of loanHolderLoanList; let i =index">
+                            <tr class="cursor">
+                                <td>{{i + 1}}</td>
+                                <td>{{loanHolderLoans?.customerInfo?.branch?.name}}</td>
+                                <td>{{loanHolderLoans?.customerInfo?.branch?.province?.name}}</td>
+                                <td>{{loanHolderLoans?.customerInfo?.name}}</td>
+                                <td>{{loanHolderLoans?.customerInfo?.customerCode || '-'}}</td>
+                                <td>{{loanHolderLoans?.customerInfo?.customerType}}</td>
+                                <td>{{loanHolderLoans?.customerInfo?.clientType || '-'}}</td>
+                                <td>{{loanHolderLoans?.customerInfo?.contactNo || '-'}}</td>
+                                <td>{{loanHolderLoans?.totalLoan}}</td>
+                                <td>
+                                    <a class="px-2 cursor"
+                                       (click)="loanHolderLoans?.customerInfo?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
+                                       nbTooltip="click to view detail Loan Data ">
+                                        <em class="fa fa-eye"></em>
+                                    </a></td>
+                            </tr>
+                            <ng-container *ngIf="toggleArray[i].toggled">
+                                <tr>
+                                    <td colspan="10"><b>Customer Loan Detail</b></td>
+                                </tr>
+                                <tr class="sb-bg-dark text-white">
+                                    <td>Loan Facility</td>
+                                    <td>Proposed Amount</td>
+                                    <td>Priority</td>
+                                    <td>Loan Type</td>
+                                    <td>Status</td>
+                                    <td>Current Possession</td>
+                                    <td>Received On</td>
+                                    <th>Comment History</th>
+                                </tr>
+                                <tr *ngFor="let l of loanHolderLoans?.loanSingleList"
+                                >
+                                    <td (click)="onClick(l.loan.id,l.id)"
+                                        class="cursor"
+                                        nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline">{{l?.loan?.name}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)" nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline"
+                                        class="d-flex justify-content-end pr-1">Rs .{{l?.proposal?.proposedLimit }}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)" class="cursor"
+                                        nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline">{{l?.priority}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)" class="cursor"
+                                        nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline">{{l?.loanType}}</td>
+
+                                    <td (click)="onClick(l.loan.id,l.id)" class="cursor"
+                                        nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline">{{l?.documentStatus}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)" class="cursor"
+                                        nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline">{{l?.currentStage?.toUser?.name}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)"><span *ngIf="l?.previousList.length > 0">
+                                   {{l?.currentStage?.lastModifiedAt | date}}
+                                    </span></td>
+                                    <td>
+                                        <i class="fas fa-eye" (click)="openCommentModal(commentModal,l)"
+                                           nbTooltipStatus="control"
+                                           nbTooltipIcon="info-outline"
+                                           nbTooltip="Click to see Loan History"></i>
+                                    </td>
+                                </tr>
+                                <tr *ngFor="let l of loanForCombine[i].loan;let x = index"
+                                    class="cursor"
+                                >
+                                    <td nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline"
+                                        (click)="onClick(l.loan.id,l.id)">{{l?.loan?.name}}</td>
+                                    <td nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline" (click)="onClick(l.loan.id,l.id)"
+                                        class="d-flex justify-content-end pr-1">Rs .{{l?.proposal?.proposedLimit}}</td>
+                                    <td nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline"
+                                        (click)="onClick(l.loan.id,l.id)">{{l?.priority}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)" class="cursor"
+                                        nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline">{{l?.loanType}}</td>
+
+                                    <td nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline"
+                                        (click)="onClick(l.loan.id,l.id)">{{l?.documentStatus}}</td>
+                                    <td nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline"
+                                        (click)="onClick(l.loan.id,l.id)">{{l?.currentStage?.toUser?.name}}</td>
+                                    <td nbTooltip="Click to View Detail"
+                                        nbTooltipStatus="control"
+                                        nbTooltipIcon="question-mark-circle-outline" (click)="onClick(l.loan.id,l.id)"> <span
+                                            *ngIf="l?.previousList.length > 0">
+                                   {{l?.currentStage?.lastModifiedAt | date}}
+                                    </span></td>
+                                    <td>
+                                        <i class="fas fa-eye" (click)="openCommentModal(commentModal,l)"
+                                           nbTooltipStatus="control"
+                                           nbTooltipIcon="info-outline"
+                                           nbTooltip="Click to see Loan History"></i>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="10"><b>.</b></td>
+                                </tr>
+
+                            </ng-container>
+
+
+                        </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+                <app-paging (changePage)="changePage($event)" *ngIf="!spinner"
+                            [pageable]="pageable"></app-paging>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+
+<ng-template #commentModal>
+    <div class="card">
+        <div class="card-header">
+            <div class="clearfix">
+                <div class="float-left">Loan Activity</div>
+                <div class="float-right"><a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
+                    <span aria-hidden="true">&times;</span>
+                </a></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+
+        <table class="table table-sm sb-small table-bordered table-hover text-center">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th>Date</th>
+                <th>From User</th>
+                <th>To User</th>
+                <th>Action</th>
+                <th colspan="6">Comment</th>
+            </tr>
+            </thead>
+            <tr *ngFor="let previous of model?.previousList">
+                <td>{{previous?.lastModifiedAt | date:'medium'}}</td>
+                <td>{{previous?.fromUser?.name}}</td>
+                <td>{{previous?.toUser.name}}</td>
+                <td>{{previous?.docAction}}</td>
+                <td colspan="6"><span [innerHTML]="customSafePipe(previous.comment)"></span></td>
+            </tr>
+            <tr>
+                <td>{{model?.currentStage?.lastModifiedAt | date:'medium'}}</td>
+                <td>{{model?.currentStage?.fromUser?.name}}</td>
+                <td>{{model?.currentStage?.toUser.name}}</td>
+                <td>{{model?.currentStage?.docAction}}</td>
+                <td colspan="6"><span [innerHTML]="customSafePipe(model?.currentStage?.comment)"></span></td>
+
+            </tr>
+            <tr >
+                <td colspan="12" class="sb-bg-dark">.</td>
+            </tr>
+        </table>
+
+    </div>
+</ng-template>

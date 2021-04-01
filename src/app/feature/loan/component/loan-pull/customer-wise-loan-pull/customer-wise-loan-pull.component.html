@@ -1,0 +1,395 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card [nbSpinner]="spinner">
+            <nb-card-header>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button
+                                    (click)="isFilterCollapsed = !isFilterCollapsed"
+                                    [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+                                    nbButton
+                                    shape="rectangle"
+                                    size="tiny"
+                                    status="primary">
+                                <em class="fa fa-filter"> Filter</em>
+                            </button>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <button (click)="getCsv()" nbButton outline
+                                    status="info" size="tiny">
+                                <i aria-hidden="true" class="fa fa-download"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div id="searchModel" class="col-md-12" [ngbCollapse]="isFilterCollapsed">
+                    <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
+
+                        <div class="row py-3">
+                            <div class="col-md-3 py-2" *ngIf="accessSpecific || accessAll">
+                                <select class="form-control form-control-tiny" formControlName="branch">
+                                    <option [value]="null" selected hidden>Select Branch</option>
+                                    <option [value]="null">All Branches</option>
+                                    <option *ngFor="let branch of branchList" [value]="branch.id"><span
+                                            class="sb-small">{{branch.name}}</span>
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3 py-2">
+                                <select class="form-control form-control-tiny" formControlName="provinceId">
+                                    <option [value]="null" hidden selected>Select Province</option>
+                                    <option *ngFor="let province of provinces"
+                                            [value]="province.id">
+                                        <span
+                                                class="sb-small">
+                                            {{province.name}}</span></option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3 py-2">
+                                <select class="form-control form-control-tiny" formControlName="loanType">
+                                    <option [value]="null" selected hidden>Select Loan Type</option>
+                                    <option [value]="null">All Loan Types</option>
+                                    <option *ngFor="let loanType of loanTypeList"
+                                            [value]="loanType.id">
+                                        <span
+                                                class="sb-small">{{loanType.name}}</span>
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3 py-2">
+                                <input id="startDate" [nbDatepicker]="startDate"
+                                       class="form-control form-control-tiny rounded"
+                                       (change)="checkIfDateFiltration()" formControlName="startDate"
+                                       placeholder="Enter Start Date" [ngClass]="{ 'is-invalid': !validStartDate }">
+                                <nb-datepicker #startDate></nb-datepicker>
+                                <div *ngIf="!validStartDate" class="invalid-feedback">Invalid start date</div>
+                            </div>
+                            <div class="col-md-3 py-2">
+                                <input id="endDate" [nbDatepicker]="endDate"
+                                       class="form-control form-control-tiny rounded"
+                                       (change)="checkIfDateFiltration()" formControlName="endDate"
+                                       placeholder="Enter End Date" [ngClass]="{ 'is-invalid': !validEndDate }">
+                                <nb-datepicker #endDate></nb-datepicker>
+                                <div *ngIf="!validEndDate" class="invalid-feedback">Invalid end date</div>
+                            </div>
+
+
+                            <div class="col-md-3 py-2">
+                                <select class="form-control form-control-tiny" formControlName="loanNewRenew">
+                                    <option [value]="null" selected hidden>Select Type</option>
+                                    <option [value]="null">All Types</option>
+                                    <option *ngFor="let status of loanType.values()"
+                                            [value]="status">
+                                        <span
+                                                class="sb-small">{{loanType[status]}}</span>
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3 py-2">
+                                <input id="customerName" class="form-control form-control-tiny rounded"
+                                       formControlName="customerName"
+                                       placeholder="Enter customer name">
+                            </div>
+                            <div class="col-md-3 mb-3 py-2">
+                                <select class="form-control form-control-tiny" formControlName="customerType"
+                                        placeholder="Customer Type">
+                                    <option [ngValue]="null">Select Customer Type</option>
+                                    <option [value]="'INSTITUTION'"><span
+                                            class="sb-small">INSTITUTION</span></option>
+                                    <option [value]="'INDIVIDUAL'"><span
+                                            class="sb-small">INDIVIDUAL</span></option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-3 py-2">
+                                <select
+                                        class="form-control form-control-tiny" formControlName="clientType">
+                                    <option [ngValue]="null">Select Business Unit</option>
+                                    <option *ngFor="let data of clientType" [ngValue]="data"
+                                    >
+                                        <span
+                                                class="sb-small">
+                                            {{data}}</span></option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 py-2">
+                                <input class="form-control form-control-tiny" formControlName="customerCode" id="code"
+                                       placeholder="Customer Code" type="text">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 p-0">
+                            <button nbButton status="info" shape="rectangle" class="mr-2" size="tiny"
+                                    [disabled]="!filterForm.valid"
+                                    type="submit">Search
+                            </button>
+                            <button (click)="clearSearch()" shape="rectangle" nbButton status="danger" size="tiny">
+                                Clear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="box-body">
+                    <table class="table table-sm sb-small table-bordered table-hover text-center">
+                        <thead>
+                        <tr class="sb-bg-dark text-white">
+                            <th>S.N</th>
+                            <th>Branch</th>
+                            <th>Branch Province</th>
+                            <th>Customer Name</th>
+                            <th>Customer Code</th>
+                            <th>Customer Type</th>
+                            <th>Business Unit</th>
+                            <th>Contact Number</th>
+                            <th>Detail</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <ng-container *ngFor="let loanHolderLoans of loanHolderLoanList; let i =index">
+                            <tr>
+                                <td>{{i + 1}}</td>
+                                <td>{{loanHolderLoans?.customerInfo?.branch?.name}}</td>
+                                <td>{{loanHolderLoans?.customerInfo?.branch?.province?.name}}</td>
+                                <td>{{loanHolderLoans?.customerInfo?.name}}</td>
+                                <td>{{loanHolderLoans?.customerInfo?.customerCode || '-'}}</td>
+                                <td>{{loanHolderLoans?.customerInfo?.customerType}}</td>
+                                <td>{{loanHolderLoans?.customerInfo?.clientType || '-'}}</td>
+                                <td>{{loanHolderLoans?.customerInfo?.contactNo || '-'}}</td>
+
+                                <td>
+                                    <a class="px-2 cursor"
+                                       (click)="loanHolderLoans?.customerInfo?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
+                                       nbTooltip="click to view detail Loan Data ">
+                                        <em class="fa fa-eye"></em>
+                                    </a></td>
+                            </tr>
+                            <ng-container *ngIf="toggleArray[i].toggled">
+                                <tr>
+                                    <td colspan="10"><b>Customer Loan Detail</b></td>
+                                </tr>
+                                <tr class="sb-bg-dark text-white">
+                                    <td>Loan Facility</td>
+                                    <td>Proposed Amount</td>
+                                    <td>Priority</td>
+                                    <td>Loan Type</td>
+                                    <td>Status</td>
+                                    <th>Possession Under/Days</th>
+                                    <td>Received On</td>
+                                    <th>Loan lifespan</th>
+
+                                    <th>Action</th>
+                                    <th>Checked/History</th>
+                                </tr>
+                                <tr *ngFor="let l of loanHolderLoans?.loanSingleList ;let j = index"
+                                    class="cursor"
+                                    nbTooltip="Click to View Detail"
+                                    nbTooltipStatus="control"
+                                    nbTooltipIcon="question-mark-circle-outline">
+                                    <td (click)="onClick(l.loan.id,l.id)">{{l?.loan?.name}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)" class="d-flex justify-content-end pr-1">Rs
+                                        .{{l?.proposal?.proposedLimit | currencyFormatter}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)">{{l?.priority}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)">{{l?.loanType |  replace:'_':' '}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)">{{l?.documentStatus}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)">
+                                        <div *ngIf='l?.documentStatus.toString()==="PENDING"'>
+                                            {{l?.currentStage?.toUser?.username}}
+                                            / {{getDifferenceInDays(l?.currentStage?.lastModifiedAt)}}
+                                        </div>
+                                        <div *ngIf='(l?.documentStatus.toString()==="CLOSED" ||
+                        l?.documentStatus.toString()==="REJECTED" ||
+                        l?.documentStatus.toString()==="APPROVED")'>
+                                            {{l?.currentStage?.toUser?.name}}
+                                            /{{getDaysDifference(l?.currentStage.lastModifiedAt, l?.previousList[l?.previousList.length - 1].lastModifiedAt)}}
+                                        </div>
+                                    </td>
+                                    <td (click)="onClick(l.loan.id,l.id)"><span *ngIf="l?.previousList.length > 0">
+                                   {{l?.currentStage?.lastModifiedAt | date}}
+                                    </span></td>
+                                    <td (click)="onClick(l.loan.id,l.id)">
+                                        <div *ngIf='l?.documentStatus.toString()==="PENDING"'>{{getDifferenceInDays(l?.currentStage?.createdAt)}}</div>
+                                        <div *ngIf='(l?.documentStatus.toString()==="CLOSED" ||
+                        l?.documentStatus.toString()==="REJECTED" ||
+                        l?.documentStatus.toString()==="APPROVED")'>
+                                            {{getDaysDifference(l?.currentStage?.lastModifiedAt, l?.currentStage?.createdAt)}}</div>
+
+                                    </td>
+                                    <td class="cursor">
+                                        <a nbTooltip="click to pull Document"
+                                           *ngIf="(l?.currentStage?.toUser?.id).toString() !== currentUserId"
+                                           (click)="onPullClick(pullDocument,l?.id,l)"><i
+                                                class="fas fa-angle-double-down"></i> pull</a>
+                                        <span
+                                                *ngIf="(l?.currentStage?.toUser?.id).toString() === currentUserId">In My bucket</span>
+                                    </td>
+
+                                    <td>
+                                                  <span *ngIf="l?.pulled"
+                                                        style="color:limegreen"><i
+                                                          class="fas fa-check-circle"></i></span>
+                                        <span *ngIf="!l?.pulled || l?.pulled === null"
+                                              style="color:red"><i class="fas fa-times-circle"></i></span>/
+                                        <i class="fas fa-eye" (click)="openCommentModal(commentModal,l)"
+                                           nbTooltip="Click to see Loan History"></i>
+
+
+                                    </td>
+                                </tr>
+                                <tr *ngFor="let l of loanForCombine[i].loan;let x = index"
+                                    class="cursor"
+                                    nbTooltip="Click to View Detail"
+                                    nbTooltipStatus="control"
+                                    nbTooltipIcon="question-mark-circle-outline">
+                                    <td (click)="onClick(l.loan.id,l.id)">{{l?.loan?.name}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)" class="d-flex justify-content-end pr-1">Rs
+                                        .{{l?.proposal?.proposedLimit | currencyFormatter}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)">{{l?.priority}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)">{{l?.loanType |  replace:'_':' '}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)">{{l?.documentStatus}}</td>
+                                    <td (click)="onClick(l.loan.id,l.id)">
+                                        <div *ngIf='l?.documentStatus.toString()==="PENDING"'>
+                                            {{l?.currentStage?.toUser?.username}}
+                                            / {{getDifferenceInDays(l?.currentStage?.lastModifiedAt)}}
+                                        </div>
+                                        <div *ngIf='(l?.documentStatus.toString()==="CLOSED" ||
+                        l?.documentStatus.toString()==="REJECTED" ||
+                        l?.documentStatus.toString()==="APPROVED")'>
+                                            {{l?.currentStage?.toUser?.name}}
+                                            /{{getDaysDifference(l?.currentStage.lastModifiedAt, l?.previousList[l?.previousList.length - 1].lastModifiedAt)}}
+                                        </div>
+                                    </td>
+                                    <td (click)="onClick(l.loan.id,l.id)"><span *ngIf="l?.previousList.length > 0">
+                                   {{l?.currentStage?.lastModifiedAt | date}}
+                                    </span></td>
+                                    <td (click)="onClick(l.loan.id,l.id)">
+                                        <div *ngIf='l?.documentStatus.toString()==="PENDING"'>{{getDifferenceInDays(l?.currentStage?.createdAt)}}</div>
+                                        <div *ngIf='(l?.documentStatus.toString()==="CLOSED" ||
+                        l?.documentStatus.toString()==="REJECTED" ||
+                        l?.documentStatus.toString()==="APPROVED")'>
+                                            {{getDaysDifference(l?.currentStage?.lastModifiedAt, l?.currentStage?.createdAt)}}</div>
+
+                                    </td>
+
+                                    <td class="cursor">
+                                        <a nbTooltip="click to pull Document"
+                                           *ngIf="(l?.currentStage?.toUser?.id).toString() !== currentUserId"
+                                           (click)="onPullClick(pullDocument,l?.id,l)"><i
+                                                class="fas fa-angle-double-down"></i> pull</a>
+                                        <span
+                                           *ngIf="(l?.currentStage?.toUser?.id).toString() === currentUserId">In My bucket</span>
+                                    </td>
+
+                                    <td>
+                                             <span *ngIf="l?.pulled"
+                                                   style="color:limegreen"><i
+                                                     class="fas fa-check-circle"></i></span>
+                                        <span *ngIf="!l?.pulled || l?.pulled === null"
+                                              style="color:red"><i class="fas fa-times-circle"></i></span>/
+                                        <i class="fas fa-eye" (click)="openCommentModal(commentModal,l)"
+                                           nbTooltip="Click to see Loan History"></i>
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="10"><b>.</b></td>
+                                </tr>
+
+                            </ng-container>
+
+
+                        </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+                <app-paging (changePage)="changePage($event)" *ngIf="!spinner"
+                            [pageable]="pageable"></app-paging>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+
+
+<ng-template #pullDocument>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Pull Loan Document</h4>
+        <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
+            <span aria-hidden="true">&times;</span>
+        </a>
+    </div>
+    <div class="modal-body">
+        Do you want to pull this Document?
+
+
+        <div class="col-md-12">
+            <form>
+                <div class="d-flex justify-content-end">
+                    <div class="px-2">
+                        <button type="submit" class="btn btn-danger btn-sm btn-flat fa-pull-left" (click)="onClose()">
+                            NO
+                        </button>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-success float-right" (click)="confirm()">YES
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+
+    </div>
+</ng-template>
+
+<ng-template #commentModal>
+    <div class="card">
+        <div class="card-header">
+            <div class="clearfix">
+                <div class="float-left">Loan Activity</div>
+                <div class="float-right"><a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
+                    <span aria-hidden="true">&times;</span>
+                </a></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+
+        <table class="table table-sm sb-small table-bordered table-hover text-center">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th>Date</th>
+                <th>From User</th>
+                <th>To User</th>
+                <th>Action</th>
+                <th colspan="6">Comment</th>
+            </tr>
+            </thead>
+            <tr *ngFor="let previous of model?.previousList">
+                <td>{{previous?.lastModifiedAt | date:'medium'}}</td>
+                <td>{{previous?.fromUser?.name}}</td>
+                <td>{{previous?.toUser.name}}</td>
+                <td>{{previous?.docAction | loanStatusPipe}}</td>
+                <td colspan="6"><span [innerHTML]="previous.comment | safeHtml"></span></td>
+            </tr>
+            <tr>
+                <td>{{model?.currentStage?.lastModifiedAt | date:'medium'}}</td>
+                <td>{{model?.currentStage?.fromUser?.name}}</td>
+
+                <td>{{model?.currentStage?.toUser.name}}</td>
+
+                <td>{{model?.currentStage?.docAction | loanStatusPipe}}</td>
+                <td colspan="6"><span [innerHTML]="model?.currentStage?.comment | safeHtml"></span></td>
+
+
+            </tr>
+            <tr class="sb-bg-dark">
+                <td colspan="12">.</td>
+            </tr>
+        </table>
+
+    </div>
+</ng-template>

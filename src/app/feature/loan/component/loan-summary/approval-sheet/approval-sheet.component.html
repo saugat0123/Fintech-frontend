@@ -70,8 +70,7 @@
                             <div class="report-header">
                                 <div class="report-header-heading">{{client}}</div>
                                 <div class="report-header-sub-heading">
-                                    <span class="sb-small"> Credit Appraisal of</span> <span
-                                        class="sb-medium"> {{loanConfig?.name}}</span>
+                                    <span class="sb-small"> Credit Appraisal </span>
                                     <br/>
                                     <span class="sb-small"> for </span>
                                 </div>
@@ -172,14 +171,15 @@
                             <tr class="text-white sb-bg-dark">
                                 <td>Customer Client Type</td>
                                 <td>SubSector</td>
-                                <th>Obligor Code</th>
+
+<!--                                Obligor Code for SRDB only-->
+                                <td *ngIf="client === clientName?.SHINE_RESUNGA">Obligor Code</td>
                                 <!--<td>Address as per Legal Document</td>-->
                             </tr>
                             <tr>
                                 <td class="text-left pl-1">{{loanDataHolder?.loanHolder['clientType']}}</td>
                                 <td class="text-left pl-1">{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
-                                <td class="text-right pr-1">{{loanDataHolder?.groupSummaryDto?.groupCode}}</td>
-
+                                <td class="text-left pl-1" *ngIf="client === clientName?.SHINE_RESUNGA">{{loanDataHolder?.loanHolder?.obligor}}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -322,6 +322,7 @@
 
             <app-proposal-summary
                     *ngIf="proposalSummary"
+                    [approveSheet]="approveSheet"
                     [customerAllLoanList]="customerAllLoanList"
                     [proposalData]="proposalData"></app-proposal-summary>
             <div class="row">
@@ -381,6 +382,7 @@
                                                       [customerAllLoanList]="customerAllLoanList"
                                                       [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
 
+            <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
            <!-- <div class="row mt-3 disable-print">
                 <div class="col-md-12">
                     <p><strong>Authority Section</strong></p>

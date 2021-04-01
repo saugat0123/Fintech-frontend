@@ -1,4 +1,5 @@
 <section>
+
     <nb-accordion class="mb-4">
         <nb-accordion-item>
             <nb-accordion-item-header>
@@ -31,16 +32,16 @@
                         <td>3</td>
                         <td>Good</td>
                         <td>G</td>
-                        <td>50-64</td>
+                        <td>65-74</td>
                     </tr>
                     <tr>
                         <td>4</td>
                         <td>Acceptable</td>
                         <td>S</td>
-                        <td>65-74</td>
+                        <td>50-64</td>
                     </tr>
                     <tr>
-                        <td>8</td>
+                        <td>5</td>
                         <td>Not Eligible for new loans</td>
                         <td>BL</td>
                         <td><50</td>
@@ -51,6 +52,7 @@
     </nb-accordion>
 
     <form [formGroup]="creditRiskGrading">
+       <mark> <strong>Note : All Risk Criteria need to be checked for scoring</strong></mark>
         <table class="table table-bordered table-striped text-center">
             <thead>
             <tr>

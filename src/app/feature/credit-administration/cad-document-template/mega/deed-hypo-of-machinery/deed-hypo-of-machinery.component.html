@@ -21,7 +21,9 @@
                     ऋण कर्जाको सीमा <b>रु</b><input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanLimitInRupees" type="text"/>
                     <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('loanLimitInRupees').value ? deepHypoMachinery.get('loanLimitInRupees').value  : '========='}}</b></span>
                     <b>(अक्षरुपी </b>
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanLimitInAlphabetical" type="text"/><b>)</b>
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanLimitInAlphabetical" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('loanLimitInAlphabetical').value ? deepHypoMachinery.get('loanLimitInAlphabetical').value  : '========='}}</b></span>
+                    <b>)</b>
                 </strong>
             </p>
         </div>
@@ -252,7 +254,10 @@
             <h6><strong>१०.सिमान्त (मार्जिन):</strong></h6>
             <p class="ml-lg-5">
                 धितो सुरक्षणमा रहेको मेशिनरी सामानको बजार भाउ मूल्य र सो सामानको लागत तथा सोबाट प्राप्त आम्दानीको बिस्तृत बिबरण (Detailed Statement) र सो सम्बन्धमा बैंकद्वारा दाखिला गर्न भनिएका प्रमाणहरु ऋणीले समय  समयमा बैंकले माग गरेका वखत बैंकलाई उपलव्ध गराउन पर्ने छ ।
-                बैंकलाई तिर्न वांकी अतिशेष भन्दा तत्काल धितो सुरक्षणमा रहेका मालसामानहरुको बजारभाउ मूल्य ...... प्रतिशत बढी हुने गरी यस लिखतको शिर भागमा उल्लेखित सीमान्त सुरक्षण अवधिभर बैंकको पक्षमा कायम रहेको हुनु पर्दछ । बैंकलाई तिर्न बुझाउन वाँकी रकम र सोमा उल्लेखित सीमान्त
+                बैंकलाई तिर्न वांकी अतिशेष भन्दा तत्काल धितो सुरक्षणमा रहेका मालसामानहरुको बजारभाउ मूल्य
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="mulya" type="text">
+                <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('mulya').value ? deepHypoMachinery.get('mulya').value  : '========='}}</b></span>
+                प्रतिशत बढी हुने गरी यस लिखतको शिर भागमा उल्लेखित सीमान्त सुरक्षण अवधिभर बैंकको पक्षमा कायम रहेको हुनु पर्दछ । बैंकलाई तिर्न बुझाउन वाँकी रकम र सोमा उल्लेखित सीमान्त
                 प्रतिशतका आधारमा हिसाव गर्दा हुने रकम दुबै जोडी जम्मा हुन आउने कुल रकम भन्दा तत्काल धितो सुरक्षणमा रहेका सामानहरुको तत्कालिन बजार भाउ, मूल्य कम भएमा ऋणीले तत्कालै बैंकले लिखितरुपमा स्वीकृत गरेका मेशिनरीसामान धितो सुरक्षणमा थपेर वा नगद भुक्तान गरी उल्लेख गरे
                 अनुसारको सीमान्त बैंकको पक्षमा कायम राखी रहनु पर्नेछ । धितो सुरक्षणमा रहेका मेशिनरीसामानको तत्कालिन बजारभाउको सन्दर्भमा बैंकका अधिकृत वा कर्मचारीले आवश्यक जांचबुझ गरी प्रमाणित गरी दिएको बजार भाउलाईनै उपरोक्त सामानहरुको बास्तविक बजार भाउ मानिनेछ ।
             </p>
@@ -371,10 +376,8 @@
         <div>
             <strong>साक्षी</strong> <br>
             <p class="ml-lg-5">
-                १.कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने धनी बैंकका कर्मचारी
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witnessDistrict" type="text"/>
-                <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('karmachari').value ? deepHypoMachinery.get('karmachari').value  : '========='}}</b></span>जिल्ला
-
+                १.कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने धनी बैंकका कर्मचारी <input class="form-field form-control-sm nepaliFont disable-print" formControlName="karmachari" type="text"/>
+                <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('karmachari').value ? deepHypoMachinery.get('karmachari').value  : '========='}}</b></span>जिल्ला<br>
                 २.<input class="form-field form-control-sm nepaliFont disable-print" formControlName="witnessDistrict" type="text"/>
                 <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('witnessDistrict').value ? deepHypoMachinery.get('witnessDistrict').value  : '========='}}</b></span>जिल्ला
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witnessMetropolitan" type="text"/>
@@ -382,7 +385,7 @@
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witnessVdc" type="text"/>
                 <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('witnessVdc').value ? deepHypoMachinery.get('witnessVdc').value  : '========='}}</b></span>बस्ने बर्ष
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witnessAge" type="text"/>
-                <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('witnessAge').value ? deepHypoMachinery.get('witnessAge').value  : '========='}}</b></span>sको/की
+                <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('witnessAge').value ? deepHypoMachinery.get('witnessAge').value  : '========='}}</b></span>को/की
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witnessEvidence" type="text"/>
                 <span class="print-only nepaliFont"><b>{{deepHypoMachinery.get('witnessEvidence').value ? deepHypoMachinery.get('witnessEvidence').value  : '========='}}</b></span>
 

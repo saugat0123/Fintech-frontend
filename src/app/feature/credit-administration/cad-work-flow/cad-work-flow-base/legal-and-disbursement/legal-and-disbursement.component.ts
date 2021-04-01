@@ -8,6 +8,8 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {UserService} from '../../../../../@core/service/user.service';
 import {User} from '../../../../admin/modal/user';
 import {RoleType} from '../../../../admin/modal/roleType';
+import {NbDialogService} from '@nebular/theme';
+import {CadFileSetupComponent} from './cad-file-setup/cad-file-setup.component';
 
 @Component({
     selector: 'app-legal-and-disbursement',
@@ -28,21 +30,30 @@ export class LegalAndDisbursementComponent implements OnInit {
     user = new User();
     isRoleLegal = false;
     layoutFlag = false;
+    isCad = false;
+    isInCurrentUser = false;
+    productUtils = LocalStorageUtil.getStorage().productUtil;
 
     constructor(private activatedRoute: ActivatedRoute,
                 private service: CreditAdministrationService,
                 private userService: UserService,
+                private nbService: NbDialogService
     ) {
     }
 
 
     static loadData(other: LegalAndDisbursementComponent) {
         other.spinner = true;
+        other.toggleArray = [];
+        other.isInCurrentUser = false;
         other.service.detail(other.cadDocumentId).subscribe((res: any) => {
             other.cadOfferLetterApprovedDoc = res.detail;
             other.customerInfoData = other.cadOfferLetterApprovedDoc.loanHolder;
             other.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => other.toggleArray.push({toggled: false}));
             console.log(res.detail);
+            if (other.cadOfferLetterApprovedDoc.cadCurrentStage.toUser.id.toString() === LocalStorageUtil.getStorage().userId) {
+                other.isInCurrentUser = true;
+            }
             other.spinner = false;
         }, error => {
             console.log(error);
@@ -57,6 +68,9 @@ export class LegalAndDisbursementComponent implements OnInit {
             this.cadOfferLetterApprovedDoc = history.state.data;
             this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
             this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
+            if (this.cadOfferLetterApprovedDoc.cadCurrentStage.toUser.id.toString() === LocalStorageUtil.getStorage().userId) {
+                this.isInCurrentUser = true;
+            }
         } else {
             LegalAndDisbursementComponent.loadData(this);
         }
@@ -74,6 +88,9 @@ export class LegalAndDisbursementComponent implements OnInit {
             } else {
                 this.isRoleLegal = false;
             }
+            if (this.user.role.roleName === 'CAD') {
+                this.isCad = true;
+            }
         });
     }
 
@@ -87,9 +104,17 @@ export class LegalAndDisbursementComponent implements OnInit {
         }
     }
 
-    changeCssOfCad(value){
+    changeCssOfCad(value) {
         console.log(value);
         this.layoutFlag = value;
+    }
+
+    openCadFIleSetup() {
+        this.nbService.open(CadFileSetupComponent, {
+            context: {
+                cadData: this.cadOfferLetterApprovedDoc
+            }
+        });
     }
 
 }

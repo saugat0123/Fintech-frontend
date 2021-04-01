@@ -6,6 +6,8 @@ import {LoanType} from '../../../model/loanType';
 import {EnumUtils} from '../../../../../@core/utils/enums.utils';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
+import {environment} from '../../../../../../environments/environment';
+import {Clients} from '../../../../../../environments/Clients';
 
 @Component({
     selector: 'app-proposal-summary',
@@ -15,18 +17,28 @@ import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatte
 export class ProposalSummaryComponent implements OnInit {
     @Input() proposalData: Proposal;
     @Input() customerAllLoanList: LoanDataHolder[];
+    @Input() loanDataHolder;
+    @Input() approveSheet;
     public DocStatus = DocStatus;
     public LoanType = LoanType;
     public EnumUtils = EnumUtils;
     proposalAllData: any;
     customerFundedLoanList: LoanDataHolder[];
     customerNonFundedLoanList: LoanDataHolder[];
+    loanType: any;
+    client = environment.client;
+    clientName = Clients;
+    checkedData;
 
     constructor() {
     }
 
     ngOnInit() {
         this.proposalAllData = JSON.parse(this.proposalData.data);
+        this.checkedData = JSON.parse(this.proposalData.checkedData);
+        if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+            this.loanType = this.loanDataHolder.loanType;
+        }
     }
 
     public getTotal(key: string): number {

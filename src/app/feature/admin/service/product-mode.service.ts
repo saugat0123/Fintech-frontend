@@ -32,6 +32,7 @@ export class ProductModeService extends BaseService<ProductMode> {
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
     }
+
     public getBankUtils() {
         const api = `${this.getApi()}/bankUtils`;
         const req = ApiUtils.getRequest(api);
@@ -62,6 +63,8 @@ export class ProductUtils {
     CBS_ENABLE: boolean;
     FULL_CAD: boolean;
     CHECK_LIST_LITE_VERSION: boolean;
+    CUSTOMER_BASE_LOAN: boolean;
+    CONFIGURE_LEGAL_DOCUMENT: boolean;
 
 }
 

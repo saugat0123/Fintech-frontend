@@ -2,6 +2,7 @@
     nbSpinnerStatus="primary"
     nbSpinnerSize="giant">
     <nb-card-header>
+        <nb-checkbox [hidden]="!microEnabled" [(ngModel)]="microCustomer">Micro Customer</nb-checkbox>
         <div class="d-flex justify-content-end">
             <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex" name="companyInfoCalendarType">
                 <nb-radio value="AD">AD</nb-radio>
@@ -126,7 +127,7 @@
                                        <label for="issuePlace"><strong>Issue Place</strong></label>
                                        <select formControlName="issuePlace" id="issuePlace"
                                                [ngClass]="{'is-invalid':submitted &&  form.issuePlace?.errors}" class="form-control">
-                                           <option [value]="null" hidden>Select Issued Place</option>
+                                           <option [value]="null">Select Issued Place</option>
                                            <option  *ngFor="let district of allDistrict" [value]="district?.name">
                                                {{district?.name}}</option>
                                        </select>
@@ -365,8 +366,8 @@
                                        <label for="issuePlace"><strong>License Issue Place</strong></label>
                                        <ng-select [ngClass]="{ 'is-invalid':submitted && additionalInfoForm.licenseIssuePlace.errors }"
                                                   formControlName="licenseIssuePlace"
-                                                  id="licenseIssuePlace"
-                                                  placeholder="Select License issued place">
+                                                  id="licenseIssuePlace">
+                                           <ng-option [value]="null">SelectLicense Issue Place</ng-option>
                                            <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
                                                {{district?.name}}
                                            </ng-option>
@@ -411,7 +412,7 @@
                                            name="corporateStructure"
                                            class="form-control custom-select"
                                            [ngClass]="{ 'is-invalid': (submitted) && form.corporateStructure.errors }">
-                                       <option [value]="null" hidden>--Select Corporate Structure--</option>
+                                       <option [value]="null">--Select Corporate Structure--</option>
                                        <option [ngValue]="companyStructure.id" *ngFor="let companyStructure of companyStructureList">{{companyStructure.name}}</option>
                                    </select>
                                    <div *ngIf="(submitted) && form.corporateStructure.invalid"
@@ -433,7 +434,7 @@
                                            name="registeredOffice"
                                            class="form-control"
                                            [ngClass]="{ 'is-invalid': (submitted) && form.registeredOffice.errors }">
-                                       <option [value]="null" hidden>Select Registered Office</option>
+                                       <option [value]="null">Select Registered Office</option>
                                        <option *ngFor="let office of registeredOffice"
                                                [ngValue]="office.key">{{office.value}}</option>
                                    </select>
@@ -535,7 +536,7 @@
                        <hr>
 
                        <div class="box-header with-border">
-                           <h5 class="box-title">2. Capital Information (in NPR 000)</h5>
+                           <h5 class="box-title">2. Capital Information</h5>
                        </div>
                        <!-- START ROW -->
                        <div class="row">
@@ -731,7 +732,7 @@
                                            formControlName="functionalPosition"
                                            id="functionalPosition"
                                            name="functionalPosition">
-                                           <option [ngValue]="null" hidden>Select Position</option>
+                                           <option [value]="null">Select Position</option>
                                            <option *ngFor="let designations of designation"
                                                    [ngValue]="designations.id">{{designations.name}}</option>
                                        </select>
@@ -885,7 +886,7 @@
                                                    formControlName="designation"
                                                    id="designation"
                                                    name="designation">
-                                               <option [ngValue]="null" hidden>Select Designation
+                                               <option [ngValue]="null">Select Designation
                                                </option>
                                                <option *ngFor="let designations of designation"
                                                        [ngValue]="designations.id">{{designations.name}}</option>
@@ -972,7 +973,7 @@
                                                [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('type').errors }"
                                                class="form-control" formControlName="type"
                                                name="type">
-                                               <option [ngValue]="null" hidden>Select type</option>
+                                               <option [value]="null">Select type</option>
                                                <option *ngFor="let designations of designation"
                                                        [ngValue]="designations.id">{{designations.name}}</option>
                                            </select>
@@ -1027,7 +1028,7 @@
                                            <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('share').errors }" class="form-control" formControlName="share"
                                                   id="share"
                                                   name="share" placeholder="Share"
-                                                  type="number" appDecimalNumber/>
+                                                  type="number" appDecimalNumber (input)="calculateSharePercent('proprietors', 'totalSharePercent')"/>
                                            <div
                                                *ngIf="(submitted) && proprietor.get('share').invalid"
                                                class="invalid-feedback">
@@ -1069,8 +1070,8 @@
                                <div class="row">
                                    <div class="col-md-4">
                                        <div class="form-group">
-                                           <label><strong>Province</strong></label>
-                                           <ng-select formControlName="province" (change)="getDistricts(proprietor.get('province').value.id, proprietorIndex)" bindLabel="name" placeholder="Select Province">
+                                           <label for="province"><strong>Province</strong></label>
+                                           <ng-select formControlName="province" (change)="getDistricts(proprietor.get('province').value.id, proprietorIndex)" bindLabel="name" id="province">
                                                <ng-option *ngFor="let province of provinceList" [value]="province">{{province.name}}</ng-option>
                                            </ng-select>
                                            <div
@@ -1085,8 +1086,8 @@
                                    </div>
                                    <div class="col-md-4">
                                        <div class="form-group">
-                                           <label><strong>District</strong></label>
-                                           <ng-select formControlName="district" (change)="getMunicipalities(proprietor.get('district').value.id, proprietorIndex)" bindLabel="name" placeholder="Select District">
+                                           <label for="district"><strong>District</strong></label>
+                                           <ng-select formControlName="district" (change)="getMunicipalities(proprietor.get('district').value.id, proprietorIndex)" bindLabel="name" id="district">
                                                <ng-option *ngFor="let districtVal of addressList[proprietorIndex].districtList" [value]="districtVal">{{districtVal.name}}</ng-option>
                                            </ng-select>
                                            <div
@@ -1101,9 +1102,8 @@
                                    </div>
                                    <div class="col-md-4">
                                        <div class="form-group">
-                                           <label><strong>Municipalities or
-                                               VDC</strong></label>
-                                           <ng-select formControlName="municipalityVdc" bindLabel="name" placeholder=" Select Municipality Vdc">
+                                           <label for="municipalityVdc"><strong>Municipalities or VDC</strong></label>
+                                           <ng-select formControlName="municipalityVdc" bindLabel="name" id="municipalityVdc">
                                                <ng-option *ngFor="let municipalityVal of addressList[proprietorIndex].municipalityVdcList" [value]="municipalityVal">{{municipalityVal.name}}</ng-option>
                                            </ng-select>
                                            <div
@@ -1152,10 +1152,17 @@
                                </div>
                            </div>
                        </div>
-                       <div class="text-right" *ngIf="client != clientName.MEGA">
-                           <input [disabled]="!companyInfoFormGroup.get('proprietors').valid" (click)="addProprietor()" class="btn btn-sm btn-flat btn-primary"
-                                  type="button"
-                                  value="Add More"/>
+
+                       <div class="row">
+                           <div class="col-md-6 pl-5" *ngIf="client === clientName?.MEGA">
+                               <label class="title"><strong>Total Share Percent :
+                                   {{companyInfoFormGroup.get('totalSharePercent').value}}%</strong></label>
+                           </div>
+                           <div class="col-md-6 text-right">
+                               <input [disabled]="!companyInfoFormGroup.get('proprietors').valid" (click)="addProprietor()" class="btn btn-sm btn-flat btn-primary"
+                                      type="button"
+                                      value="Add More"/>
+                           </div>
                        </div>
 
                        <hr>
@@ -1483,7 +1490,7 @@
 
                                </tr>
                                <tr>
-                                   <td>Total</td>
+                                   <td><strong>Total</strong></td>
                                    <td><input readonly formControlName="total" class="form-control text-center"></td>
                                </tr>
 
@@ -1506,7 +1513,7 @@
                                <label><strong>Regulatory Concern</strong></label>
                                <select formControlName="regulatoryConcern" id="regulatoryConcern"
                                        [ngClass]="{'is-invalid':submitted &&  form.regulatoryConcern?.errors}" class="form-control">
-                                   <option [value]="null" hidden>Select regulatory concern here</option>
+                                   <option [value]="null">Select regulatory concern here</option>
                                    <option *ngFor="let regConcern of regulatoryConcernList"
                                            [value]="regConcern?.value">
                                        {{regConcern?.value}}
@@ -1520,7 +1527,7 @@
                            <div class="col-md-3">
                                <label><strong>Supplier</strong></label>
                                <select formControlName="supplier" id="supplier" class="form-control">
-                                   <option [value]="null" hidden>Select supplier</option>
+                                   <option [value]="null">Select supplier</option>
                                    <option *ngFor="let supplier of supplierList"
                                            [value]="supplier?.value">
                                        {{supplier?.value}}
@@ -1536,7 +1543,7 @@
                                <label><strong>Buyer</strong></label>
                                <select formControlName="buyer" id="buyer"
                                        [ngClass]="{'is-invalid':submitted &&  form.buyer?.errors}" class="form-control">
-                                   <option [value]="null" hidden>Select Buyer</option>
+                                   <option [value]="null">Select Buyer</option>
                                    <option *ngFor="let buyer of buyerList"
                                            [value]="buyer?.value">
                                        {{buyer?.value}}
@@ -1558,7 +1565,7 @@
                                <div class="form-group">
                                    <select formControlName="industryGrowth" id="industryGrowth"
                                            [ngClass]="{'is-invalid':submitted &&  form.industryGrowth?.errors}" class="form-control">
-                                       <option [value]="null" hidden>Select Industry Growth</option>
+                                       <option [value]="null">Select Industry Growth</option>
                                        <option *ngFor="let industryGrowth of industryGrowthList"
                                                [value]="industryGrowth?.value">
                                            {{industryGrowth?.value}}
@@ -1577,7 +1584,7 @@
                                <div class="form-group">
                                    <select formControlName="marketCompetition" id="marketCompetition"
                                            [ngClass]="{'is-invalid':submitted &&  form.marketCompetition?.errors}" class="form-control">
-                                       <option [value]="null" hidden>Select Market Competition</option>
+                                       <option [value]="null">Select Market Competition</option>
                                        <option  *ngFor="let marketComp of marketCompetitionList"
                                                 [value]="marketComp?.value">
                                            {{marketComp?.value}}
@@ -1596,7 +1603,7 @@
                                <div class="form-group">
                                    <select formControlName="experience" id="experience"
                                            [ngClass]="{'is-invalid':submitted &&  form.experience?.errors}" class="form-control">
-                                       <option [value]="null" hidden>Select Experience</option>
+                                       <option [value]="null">Select Experience</option>
                                        <option  *ngFor="let experience of experiences"
                                                 [value]="experience?.value">
                                            {{experience?.value}}
@@ -1615,7 +1622,7 @@
                                        </div>
                                        <select formControlName="succession" id="succession"
                                                [ngClass]="{'is-invalid':submitted &&  form.succession?.errors}" class="form-control">
-                                           <option [value]="null" hidden>Select succession</option>
+                                           <option [value]="null">Select succession</option>
                                            <option  *ngFor="let succession of successionList"
                                                     [value]="succession?.value">
                                                {{succession?.value}}
@@ -1627,6 +1634,10 @@
                                        </div>
                                    </div>
                        </div>
+                   </nb-tab>
+                   <!--micro customer detail-->
+                   <nb-tab *ngIf="microCustomer" tabTitle="Micro Customer">
+                       <app-micro-company-form-component #microCompanyFormComponent [data]="companyJsonData?.microCustomerDetail"></app-micro-company-form-component>
                    </nb-tab>
                </nb-tabset>
             </form>

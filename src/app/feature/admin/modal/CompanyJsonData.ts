@@ -21,4 +21,6 @@ export class CompanyJsonData {
   managementTeamList: Array<ManagementTeam> = new Array<ManagementTeam>();
   swot: Swot;
   proprietorList: Array<Proprietors> = new Array<Proprietors>();
+  microCustomerDetail: any;
+  totalSharePercent: string;
 }
