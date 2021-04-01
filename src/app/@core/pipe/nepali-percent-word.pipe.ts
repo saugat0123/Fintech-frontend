@@ -240,7 +240,7 @@ export class NepaliPercentWordPipe implements PipeTransform {
             t);
         console.log(finalNep);
         if (finalNep === null  || finalNep === '0' || finalNep === '') {
-            return 'सुन्य ' + paisa;
+            return 'सुन्य' + ' ' + paisa;
         } else {
             return finalNep + paisa;
         }

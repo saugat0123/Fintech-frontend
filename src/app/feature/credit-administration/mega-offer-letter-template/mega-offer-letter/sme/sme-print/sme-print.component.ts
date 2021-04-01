@@ -22,6 +22,7 @@ export class SmePrintComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log('this is letter', this.letter);
     this.letter.loanTypeSelectedArray.forEach(loanType => {
       switch (loanType) {
         case 'Overdraft': this.overdraft = true;
