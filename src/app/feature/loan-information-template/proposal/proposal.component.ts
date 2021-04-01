@@ -159,6 +159,8 @@ export class ProposalComponent implements OnInit {
           .patchValue(Number(value)));
 
   this.onChange();
+
+    console.log(this.proposalData, 'Initaializtion');
   }
 
   buildForm() {
@@ -183,6 +185,7 @@ export class ProposalComponent implements OnInit {
       interestAmount: [undefined],
       existingLimit: [undefined],
       outStandingLimit: [undefined],
+      outStandingLimit1: [undefined],
       collateralRequirement: [undefined, Validators.required],
       swapCharge: [undefined],
       subsidizedLoan: [undefined],
@@ -304,6 +307,8 @@ export class ProposalComponent implements OnInit {
     this.proposalData.tenorOfEachDeal = this.proposalForm.get('tenorOfEachDeal').value;
     this.proposalData.cashMarginMethod = this.proposalForm.get('cashMarginMethod').value;
     this.proposalData.enhanceLimitAmount = this.proposalForm.get('enhanceLimitAmount').value;
+
+    console.log(this.proposalData, 'Proposal Data');
   }
 
   get formControls() {

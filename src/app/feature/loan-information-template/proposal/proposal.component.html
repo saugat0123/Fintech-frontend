@@ -22,24 +22,75 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4" *ngIf="checkApproved">
+<!--                                <div class="col-md-4" *ngIf="checkApproved">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label class="title" for="outStandingLimit">-->
+<!--                                            <span [ngSwitch]="loanType">-->
+<!--                                            <strong  *ngSwitchCase = "('PARTIAL_SETTLEMENT_LOAN' && 'FULL_SETTLEMENT_LOAN')">Settlement Amount</strong>-->
+<!--                                            <strong  *ngSwitchCase = "'ENHANCED_LOAN'">Enhancement Amount</strong>-->
+<!--                                            <strong  *ngSwitchDefault>Outstanding Limit</strong>-->
+<!--                                            </span>-->
+<!--                                        </label>-->
+<!--                                        <input class="form-control"-->
+<!--                                               [ngClass]="{ 'is-invalid': (submitted) && formControls.outStandingLimit.errors }"-->
+<!--                                               (keyup)="calculateLimitValues()"-->
+<!--                                               formControlName="outStandingLimit" id="outStandingLimit"-->
+<!--                                               name="outStandingLimit" placeholder="Limit Amount"-->
+<!--                                               type="number">-->
+<!--                                        <div *ngIf=" (submitted)  && formControls.outStandingLimit.errors"-->
+<!--                                             class="invalid-feedback">-->
+<!--                                            <span *ngIf="(formControls.outStandingLimit.errors.required)">Amount is required</span>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+                                <div class="col-md-4" *ngIf="loanType === ('PARTIAL_SETTLEMENT_LOAN' || 'FULL_SETTLEMENT_LOAN')">
                                     <div class="form-group">
-                                        <label class="title" for="outStandingLimit">
-                                            <span [ngSwitch]="loanType">
-                                            <strong  *ngSwitchCase = "'PARTIAL_SETTLEMENT_LOAN'">Settlement Amount</strong>
-                                            <strong  *ngSwitchCase = "'ENHANCED_LOAN'">Enhancement Amount</strong>
-                                            <strong  *ngSwitchDefault>Outstanding Limit</strong>
-                                            </span>
+                                        <label class="title" for="settlementAmount">
+                                            <strong>Settlement Amount</strong>
                                         </label>
                                         <input class="form-control"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.outStandingLimit.errors }"
                                                (keyup)="calculateLimitValues()"
-                                               formControlName="outStandingLimit" id="outStandingLimit"
-                                               name="outStandingLimit" placeholder="Limit Amount"
+                                               formControlName="outStandingLimit" id="settlementAmount"
+                                               name="settlementAmount" placeholder="Settlement amount"
                                                type="number">
                                         <div *ngIf=" (submitted)  && formControls.outStandingLimit.errors"
                                              class="invalid-feedback">
-                                            <span *ngIf="(formControls.outStandingLimit.errors.required)">Amount is required</span>
+                                            <span *ngIf="(formControls.outStandingLimit.errors.required)">Settlement amount is required</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4" *ngIf="loanType === 'ENHANCED_LOAN'">
+                                    <div class="form-group">
+                                        <label class="title" for="enhancementAmount">
+                                            <strong>Enhancement Amount</strong>
+                                        </label>
+                                        <input class="form-control"
+                                               [ngClass]="{ 'is-invalid': (submitted) && formControls.outStandingLimit.errors }"
+                                               (keyup)="calculateLimitValues()"
+                                               formControlName="outStandingLimit" id="enhancementAmount"
+                                               name="enhancementAmount" placeholder="Enhancement Amount"
+                                               type="number">
+                                        <div *ngIf=" (submitted)  && formControls.outStandingLimit.errors"
+                                             class="invalid-feedback">
+                                            <span *ngIf="(formControls.outStandingLimit.errors.required)">Enhancement amount is required</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4" *ngIf="checkApproved">
+                                    <div class="form-group">
+                                        <label class="title" for="outStandingLimit1"><strong>Outstanding Limit</strong></label>
+                                        <input class="form-control"
+                                               [ngClass]="{ 'is-invalid': (submitted) && formControls.outStandingLimit1.errors }"
+                                               formControlName="outStandingLimit1" id="outStandingLimit1"
+                                               name="outStandingLimit1" placeholder="Outstanding Limit Amount"
+                                               type="number">
+                                        <div *ngIf=" (submitted)  && formControls.outStandingLimit1.errors"
+                                             class="invalid-feedback">s
+                                            <span *ngIf="(formControls.outStandingLimit1.errors.required)">Amount is required</span>
                                         </div>
                                     </div>
                                 </div>
