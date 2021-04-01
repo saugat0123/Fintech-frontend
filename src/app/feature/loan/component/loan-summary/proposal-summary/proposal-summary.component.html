@@ -65,9 +65,11 @@
                         *ngIf="(loan?.proposal?.data | jsonParse)?.existingLimit">Rs. {{(loan?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}</span>
                     <span *ngIf="!(loan?.proposal?.data | jsonParse)?.existingLimit">-</span></td>
                 <td class="text-right pr-1">
-                    <span *ngIf="(loan?.proposal?.data | jsonParse)?.outStandingLimit && (loanType === 'RENEWED_LOAN' || loanType === 'RENEW_WITH_ENHANCEMENT')">
-                    Rs. {{(loan?.proposal?.data | jsonParse)?.outStandingLimit | currencyFormatter}}</span>
-                    <span *ngIf="!(loan?.proposal?.data | jsonParse)?.outStandingLimit && loanType !== 'RENEWED_LOAN' || loanType !== 'RENEW_WITH_ENHANCEMENT'">-</span>
+                    <span *ngIf="(loan?.proposal?.data | jsonParse)?.outStandingLimit1 && (loanType === 'RENEWED_LOAN' || loanType === 'RENEW_WITH_ENHANCEMENT'
+                    || loanType === 'FULL_SETTLEMENT_LOAN' || loanType === 'PARTIAL_SETTLEMENT_LOAN' || loanType === 'ENHANCED_LOAN')">
+                    Rs. {{(loan?.proposal?.data | jsonParse)?.outStandingLimit1 | currencyFormatter}}</span>
+                    <span *ngIf="!(loan?.proposal?.data | jsonParse)?.outStandingLimit1 && (loanType !== 'RENEWED_LOAN' || loanType !== 'RENEW_WITH_ENHANCEMENT'
+                    || loanType !== 'FULL_SETTLEMENT_LOAN' || loanType !== 'PARTIAL_SETTLEMENT_LOAN' || loanType !== 'ENHANCED_LOAN')">-</span>
                 </td>
                 <td class="text-right pr-1">
                     <span *ngIf="(loan?.proposal?.data | jsonParse)?.outStandingLimit && loanType === 'ENHANCED_LOAN'">
@@ -131,10 +133,12 @@
                 <td class="text-left pl-1"><strong>Funded</strong></td>
                 <td class="text-right pr-1">Rs. {{ (getTotalFundable('existingLimit', true, customerAllLoanList)) | currencyFormatter }}</td>
                 <td class="text-right pr-1">
-                    <span *ngIf="loanType === 'RENEWED_LOAN' || loanType === 'RENEW_WITH_ENHANCEMENT'">
-                        Rs. {{ getTotalFundable('outStandingLimit', true, customerAllLoanList) | currencyFormatter }}
+                    <span *ngIf="loanType === 'RENEWED_LOAN' || loanType === 'RENEW_WITH_ENHANCEMENT' || loanType === 'FULL_SETTLEMENT_LOAN'
+                    || loanType === 'PARTIAL_SETTLEMENT_LOAN' || loanType === 'ENHANCED_LOAN'">
+                        Rs. {{ getTotalFundable('outStandingLimit1', true, customerAllLoanList) | currencyFormatter }}
                     </span>
-                    <span *ngIf="loanType !== 'RENEWED_LOAN' && loanType !== 'RENEW_WITH_ENHANCEMENT'">-</span>
+                    <span *ngIf="loanType !== 'RENEWED_LOAN' && loanType !== 'RENEW_WITH_ENHANCEMENT' && loanType !== 'FULL_SETTLEMENT_LOAN' &&
+                    loanType !== 'PARTIAL_SETTLEMENT_LOAN' && loanType !== 'ENHANCED_LOAN'">-</span>
                     </td>
                 <td class="text-right pr-1">
                     <span *ngIf="loanType === 'ENHANCED_LOAN'">
@@ -162,10 +166,12 @@
                 <td class="text-left pl-1"><strong>Non-Funded</strong></td>
                 <td class="text-right pr-1">Rs. {{ (getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter)}}</td>
                 <td class="text-right pr-1">
-                    <span *ngIf="loanType==='RENEWED_LOAN' || loanType === 'RENEW_WITH_ENHANCEMENT'">
-                        Rs. {{ getTotalFundable('outStandingLimit', false, customerAllLoanList) | currencyFormatter }}
+                    <span *ngIf="loanType==='RENEWED_LOAN' || loanType === 'RENEW_WITH_ENHANCEMENT' || loanType === 'FULL_SETTLEMENT_LOAN' ||
+                    loanType === 'PARTIAL_SETTLEMENT_LOAN' || loanType === 'ENHANCED_LOAN'">
+                        Rs. {{ getTotalFundable('outStandingLimit1', false, customerAllLoanList) | currencyFormatter }}
                     </span>
-                    <span *ngIf="loanType !=='RENEWED_LOAN' && loanType !== 'RENEW_WITH_ENHANCEMENT'">-</span>
+                    <span *ngIf="loanType !=='RENEWED_LOAN' && loanType !== 'RENEW_WITH_ENHANCEMENT' && loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'PARTIAL_SETTLEMENT_LOAN'
+                    && loanType !== 'ENHANCED_LOAN'">-</span>
                 </td>
                 <td class="text-right pr-1">
                     <span *ngIf="loanType==='ENHANCED_LOAN'">
@@ -194,8 +200,10 @@
 
                 <td class="text-right pr-1">Rs. {{ getTotal('existingLimit') | currencyFormatter }}</td>
                 <td class="text-right pr-1">
-                    <span *ngIf="loanType === 'RENEWED_LOAN' || loanType === 'RENEW_WITH_ENHANCEMENT'">Rs. {{ getTotal('outStandingLimit') | currencyFormatter }}</span>
-                    <span *ngIf="loanType !== 'RENEWED_LOAN' && loanType !== 'RENEW_WITH_ENHANCEMENT'">-</span>
+                    <span *ngIf="loanType === 'RENEWED_LOAN' || loanType === 'RENEW_WITH_ENHANCEMENT' || loanType === 'FULL_SETTLEMENT_LOAN' ||
+                    loanType === 'PARTIAL_SETTLEMENT_LOAN' || loanType === 'ENHANCED_LOAN'">Rs. {{ getTotal('outStandingLimit1') | currencyFormatter }}</span>
+                    <span *ngIf="loanType !== 'RENEWED_LOAN' && loanType !== 'RENEW_WITH_ENHANCEMENT' && loanType !== 'FULL_SETTLEMENT_LOAN' && loanType !== 'PARTIAL_SETTLEMENT_LOAN'
+                    && loanType !== 'ENHANCED_LOAN'">-</span>
                 </td>
                 <td class="text-right pr-1">
                     <span *ngIf="loanType === 'ENHANCED_LOAN'">Rs. {{ getTotal('outStandingLimit') | currencyFormatter }}</span>
