@@ -15,6 +15,11 @@ import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad
 import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {Editor} from '../../../../../@core/utils/constants/editor';
 import {NepaliEditor} from '../../../../../@core/utils/constants/nepaliEditor';
+import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
+import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
+import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-word.pipe';
 
 @Component({
   selector: 'app-sme',
@@ -62,19 +67,18 @@ export class SmeComponent implements OnInit {
                private toastService: ToastService,
                private administrationService: CreditAdministrationService,
                protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-               private routerUtilsService: RouterUtilsService) { }
+               private routerUtilsService: RouterUtilsService,
+               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+               private engToNepNumberPipe: EngToNepaliNumberPipe,
+               private currencyFormatPipe: CurrencyFormatterPipe,
+               private nepToEngNumberPipe: NepaliToEngNumberPipe,
+               private nepPercentWordPipe: NepaliPercentWordPipe) { }
 
   ngOnInit() {
     this.buildForm();
     this.checkOfferLetterData();
     this.chooseLoanType(this.selectedLoanArray);
     this.listOfLoan.push(this.loanForm.get('loanTypeSelectedArray').value);
-  }
-
-  calculateRate(overdraftIndex) {
-      this.loanRateDetail = this.loanForm.get('overdraftLoan').value;
-      this.overdraftTotal[overdraftIndex] = this.loanRateDetail[overdraftIndex].overdrafLoanCurrentTermRate +
-        this.loanRateDetail[overdraftIndex].overdrafLoanPremiumRate;
   }
 
   buildForm() {
@@ -119,15 +123,15 @@ export class SmeComponent implements OnInit {
 
   overdraftFormGroup(): FormGroup {
     return this.formBuilder.group({
-      overdrafLoanCurrentTermRate: [undefined],
-      overdrafLoanAmountInWord: [undefined],
-      overdrafLoanAmount: [undefined],
-      overdrafLoanPremiumRate: [undefined],
-      overdrafLoanCurrentAnnualRate: [undefined],
+      baseRate: [undefined],
+      loanAmountInWord: [undefined],
+      loanAmount: [undefined],
+      premiumRate: [undefined],
+      yearlyRate: [undefined],
       overdrafLoanEndOfFiscalYear: [undefined],
       overdrafLoanPayment: [undefined],
       overdrafLoanServiceRate: [undefined],
-      overdrafLoanServiceCharge: [undefined],
+      serviceChargeAmount: [undefined],
       overdrafLoanPrices: [undefined],
       overdrafLoanReturned: [undefined],
       dasturFlag: [true],
@@ -144,16 +148,16 @@ export class SmeComponent implements OnInit {
 
   demandLoanFormGroup(): FormGroup {
     return this.formBuilder.group({
-      demandLoanLimit: [undefined],
-      demandLoanLimitInWord: [undefined],
+      LoanAmount: [undefined],
+      loanAmountInWord: [undefined],
       demandLoanPurpose: [undefined],
-      demandLoanCurrentBaseRate: [undefined],
-      demandLoanPremiumRate: [undefined],
+      baseRate: [undefined],
+      premiumRate: [undefined],
       demandLoanNetTradingAsset: [undefined],
       demandLoanLimitDuration: [undefined],
       demandLoanLimitDurationAmount: [undefined],
       demandLoanDasturAmount: [undefined],
-      demandLoanAnnualRate: [undefined],
+      yearlyRate: [undefined],
       demandLoanDurationRatio: [undefined],
       dasturFlag: [true],
     });
@@ -169,22 +173,22 @@ export class SmeComponent implements OnInit {
 
   fixTermLoanFormGroup(): FormGroup {
     return this.formBuilder.group({
-      fixedTermLoanBoundaryAmountInNumber: [undefined],
-      fixedTermLoanBoundaryAmountInWord: [undefined],
+      loanAmount: [undefined],
+      loanAmountInWord: [undefined],
       fixedTermLoanPlanBankName: [undefined],
       fixedTermLoanTime: [undefined],
       fixedTermLoanMonthlyTerm: [undefined],
       fixedTermLoanAmountInNumber: [undefined],
       fixedTermLoanAmountInWord: [undefined],
       fixedTermLoanMonth: [undefined],
-      fixedTermLoanBaseRate: [undefined],
-      fixedTermLoanPremiumRate: [undefined],
-      fixedTermLoanCurrentYearPercent: [undefined],
+      baseRate: [undefined],
+      premiumRate: [undefined],
+      yearlyRate: [undefined],
       fixedTermLoanBankName: [undefined],
       fixedTermLoanPaymentFee: [undefined],
       fixedTermLoanBorrowPercent: [undefined],
       fixedTermLoanPaymentAmount: [undefined],
-      fixedTermLoanPaymentAmountDescription: [undefined],
+      serviceChargeAmount: [undefined],
       fixedTermLoanTwoBoundaryAmountInNumber: [undefined],
       fixedTermLoanTwoBoundaryAmountInWord: [undefined],
       fixedTermLoanTwoBankName: [undefined],
@@ -193,14 +197,14 @@ export class SmeComponent implements OnInit {
       fixedTermLoanTwoAmountInNumber: [undefined],
       fixedTermLoanTwoAmountInWord: [undefined],
       fixedTermTwoLoanMonth: [undefined],
-      fixedTermLoanTwoBaseRate: [undefined],
-      fixedTermLoanTwoPremiumRate: [undefined],
-      fixedTermLoanTwoCurrentYearPercent: [undefined],
+      secondBaseRate: [undefined],
+      secondPremiumRate: [undefined],
+      secondYearlyRate: [undefined],
       fixedTermLoanTwoPaymentBankName: [undefined],
       fixedTermLoanTwoPaymentFee: [undefined],
       fixedTermLoanTwoBorrowPercent: [undefined],
       fixedTermLoanTwoPaymentAmount: [undefined],
-      fixedTermLoanPaymentTwoAmountDescription: [undefined],
+      secondServiceChargeAmount: [undefined],
         dasturFlag: [true],
     });
   }
@@ -215,13 +219,13 @@ export class SmeComponent implements OnInit {
 
   hirePurchaseLoan(): FormGroup {
       return this.formBuilder.group({
-        hirePurchasePaymentAmountInNumber: [undefined],
-        hirePurchaseLoanPaymentAmountInWord: [undefined],
+        loanAmount: [undefined],
+        loanAmountInWord: [undefined],
         hirePurchaseLoanPlanBankName: [undefined],
         hirePurchaseLoanTime: [undefined],
-        hirePurchaseLoanBaseRate: [undefined],
-        hirePurchaseLoanPremiumRate: [undefined],
-        hirePurchaseLoanCurrentYear: [undefined],
+        baseRate: [undefined],
+        premiumRate: [undefined],
+        yearlyRate: [undefined],
         hirePurchaseLoanTerm: [undefined],
         hirePurchaseLoanAmountInNumber: [undefined],
         hirePurchaseLoanInWord: [undefined],
@@ -245,8 +249,8 @@ export class SmeComponent implements OnInit {
 
   letterOfCreditFormGroup(): FormGroup {
     return this.formBuilder.group({
-      letterOfCreditAmountInNumber: [undefined],
-      latterOfCreditAmountInWord: [undefined],
+      loanAmount: [undefined],
+      loanAmountInWord: [undefined],
       letterOfCreditMargin: [undefined],
       letterOfCreditMarginPercent: [undefined],
       letterOfCreditCurrentFiscalYear: [undefined],
@@ -267,11 +271,11 @@ export class SmeComponent implements OnInit {
 
   trustReceiptFormGroup(): FormGroup {
     return this.formBuilder.group({
-      trustReceiptAmountInNumber: [undefined],
-      trustReceiptAmountInWord: [undefined],
-      trustReceiptBaseRate: [undefined],
-      trustReceiptPremiumRate: [undefined],
-      trustReceiptYearlyRate: [undefined],
+      loanAmount: [undefined],
+      loanAmountInWord: [undefined],
+      baseRate: [undefined],
+      premiumRate: [undefined],
+      yearlyRate: [undefined],
       trustReceiptPayment: [undefined],
       trustReceiptTerm: [undefined],
       trustReceiptFixTerm: [undefined],
@@ -290,12 +294,12 @@ export class SmeComponent implements OnInit {
 
   cashCreditFormGroup(): FormGroup {
     return this.formBuilder.group({
-      cashCreditAmountInNumber: [undefined],
-      cashCreditAmountInWord: [undefined],
+      loanAmount: [undefined],
+      loanAmountInWord: [undefined],
       casCreditAim: [undefined],
-      cashCreditBaseRate: [undefined],
-      cashCreditPremiumRate: [undefined],
-      cashCreditCurrentYear: [undefined],
+      baseRate: [undefined],
+      premiumRate: [undefined],
+      yearlyRate: [undefined],
       cashCreditPay: [undefined],
       cashCreditPayTill: [undefined],
       cashCreditTerm: [undefined],
@@ -316,8 +320,8 @@ export class SmeComponent implements OnInit {
 
   shortTermLoanFormGroup(): FormGroup {
     return this.formBuilder.group({
-      shortTermLoanAmountInNumber: [undefined],
-      shortTermLoanAmountInWord: [undefined],
+      loanAmount: [undefined],
+      loanAmountInWord: [undefined],
       shortTermLoanAim: [undefined],
       shortTermLoanBaseRate: [undefined],
       shortTermLoanPremiumRate: [undefined],
@@ -341,8 +345,8 @@ export class SmeComponent implements OnInit {
 
   bankGuaranteeFormGroup(): FormGroup {
     return this.formBuilder.group({
-      bankGuaranteeAmountInNumber: [undefined],
-      bankGuaranteeAmountInWord: [undefined],
+      loanAmount: [undefined],
+      loanAmountInWord: [undefined],
       bankGuaranteeAmountAim: [undefined],
       bankGuaranteeCommission: [undefined],
       bankGuaranteeTimePlan: [undefined],
@@ -407,15 +411,15 @@ export class SmeComponent implements OnInit {
         details.forEach(data => {
             overDraftDetails.push(
                 this.formBuilder.group({
-                    overdrafLoanCurrentTermRate: [data.overdrafLoanCurrentTermRate],
-                    overdrafLoanAmountInWord: [data.overdrafLoanAmountInWord],
-                    overdrafLoanAmount: [data.overdrafLoanAmount],
-                    overdrafLoanPremiumRate: [data.overdrafLoanPremiumRate],
-                    overdrafLoanCurrentAnnualRate: [data.overdrafLoanCurrentAnnualRate],
+                    baseRate: [data.baseRate],
+                    loanAmountInWord: [data.loanAmountInWord],
+                    loanAmount: [data.loanAmount],
+                    premiumRate: [data.premiumRate],
+                    yearlyRate: [data.yearlyRate],
                     overdrafLoanEndOfFiscalYear: [data.overdrafLoanEndOfFiscalYear],
                     overdrafLoanPayment: [data.overdrafLoanPayment],
                     overdrafLoanServiceRate: [data.overdrafLoanServiceRate],
-                    overdrafLoanServiceCharge: [data.overdrafLoanServiceCharge],
+                    serviceChargeAmount: [data.serviceChargeAmount],
                     overdrafLoanPrices: [data.overdrafLoanPrices],
                     overdrafLoanReturned: [data.overdrafLoanReturned],
                     dasturFlag: [data.dasturFlag],
@@ -429,16 +433,16 @@ export class SmeComponent implements OnInit {
     details.forEach(data => {
         demandLoanDetails.push(
           this.formBuilder.group({
-              demandLoanLimit: [data.demandLoanLimit],
-              demandLoanLimitInWord: [data.demandLoanLimitInWord],
+              loanAmount: [data.LoanAmount],
+              loanAmountInWord: [data.loanAmountInWord],
               demandLoanPurpose: [data.demandLoanPurpose],
-              demandLoanCurrentBaseRate: [data.demandLoanCurrentBaseRate],
-              demandLoanPremiumRate: [data.demandLoanPremiumRate],
+              baseRate: [data.baseRate],
+              premiumRate: [data.premiumRate],
               demandLoanNetTradingAsset: [data.demandLoanNetTradingAsset],
               demandLoanLimitDuration: [data.demandLoanLimitDuration],
               demandLoanLimitDurationAmount: [data.demandLoanLimitDurationAmount],
               demandLoanDasturAmount: [data.demandLoanDasturAmount],
-              demandLoanAnnualRate: [data.demandLoanAnnualRate],
+              yearlyRate: [data.yearlyRate],
               demandLoanDurationRatio: [data.demandLoanDurationRatio],
               dasturFlag: [data.dasturFlag],
           })
@@ -451,22 +455,22 @@ export class SmeComponent implements OnInit {
     details.forEach(data => {
         fixTermLoanDetails.push(
           this.formBuilder.group({
-              fixedTermLoanBoundaryAmountInNumber: [data.fixedTermLoanBoundaryAmountInNumber],
-              fixedTermLoanBoundaryAmountInWord: [data.fixedTermLoanBoundaryAmountInWord],
+              loanAmount: [data.loanAmount],
+              loanAmountInWord: [data.loanAmountInWord],
               fixedTermLoanPlanBankName: [data.fixedTermLoanPlanBankName],
               fixedTermLoanTime: [data.fixedTermLoanTime],
               fixedTermLoanMonthlyTerm: [data.fixedTermLoanMonthlyTerm],
               fixedTermLoanAmountInNumber: [data.fixedTermLoanAmountInNumber],
               fixedTermLoanAmountInWord: [data.fixedTermLoanAmountInWord],
               fixedTermLoanMonth: [data.fixedTermLoanMonth],
-              fixedTermLoanBaseRate: [data.fixedTermLoanBaseRate],
-              fixedTermLoanPremiumRate: [data.fixedTermLoanPremiumRate],
-              fixedTermLoanCurrentYearPercent: [data.fixedTermLoanCurrentYearPercent],
+              baseRate: [data.baseRate],
+              premiumRate: [data.premiumRate],
+              yearlyRate: [data.yearlyRate],
               fixedTermLoanBankName: [data.fixedTermLoanBankName],
               fixedTermLoanPaymentFee: [data.fixedTermLoanPaymentFee],
               fixedTermLoanBorrowPercent: [data.fixedTermLoanBorrowPercent],
               fixedTermLoanPaymentAmount: [data.fixedTermLoanPaymentAmount],
-              fixedTermLoanPaymentAmountDescription: [data.fixedTermLoanPaymentAmountDescription],
+              serviceChargeAmount: [data.serviceChargeAmount],
               fixedTermLoanTwoBoundaryAmountInNumber: [data.fixedTermLoanTwoBoundaryAmountInNumber],
               fixedTermLoanTwoBoundaryAmountInWord: [data.fixedTermLoanTwoBoundaryAmountInWord],
               fixedTermLoanTwoBankName: [data.fixedTermLoanTwoBankName],
@@ -475,14 +479,14 @@ export class SmeComponent implements OnInit {
               fixedTermLoanTwoAmountInNumber: [data.fixedTermLoanTwoAmountInNumber],
               fixedTermLoanTwoAmountInWord: [data.fixedTermLoanTwoAmountInWord],
               fixedTermTwoLoanMonth: [data.fixedTermTwoLoanMonth],
-              fixedTermLoanTwoBaseRate: [data.fixedTermLoanTwoBaseRate],
-              fixedTermLoanTwoPremiumRate: [data.fixedTermLoanTwoPremiumRate],
-              fixedTermLoanTwoCurrentYearPercent: [data.fixedTermLoanTwoCurrentYearPercent],
+              secondBaseRate: [data.secondBaseRate],
+              secondPremiumRate: [data.secondPremiumRate],
+              secondYearlyRate: [data.secondYearlyRate],
               fixedTermLoanTwoPaymentBankName: [data.fixedTermLoanTwoPaymentBankName],
               fixedTermLoanTwoPaymentFee: [data.fixedTermLoanTwoPaymentFee],
               fixedTermLoanTwoBorrowPercent: [data.fixedTermLoanTwoBorrowPercent],
               fixedTermLoanTwoPaymentAmount: [data.fixedTermLoanTwoPaymentAmount],
-              fixedTermLoanPaymentTwoAmountDescription: [data.fixedTermLoanPaymentTwoAmountDescription],
+              secondServiceChargeAmount: [data.secondServiceChargeAmount],
               dasturFlag: [data.dasturFlag],
           })
       );
@@ -494,13 +498,13 @@ export class SmeComponent implements OnInit {
     details.forEach(data => {
         hirePurchaseDetails.push(
           this.formBuilder.group({
-              hirePurchasePaymentAmountInNumber: [data.hirePurchasePaymentAmountInNumber],
-              hirePurchaseLoanPaymentAmountInWord: [data.hirePurchaseLoanPaymentAmountInWord],
+              loanAmount: [data.loanAmount],
+              loanAmountInWord: [data.loanAmountInWord],
               hirePurchaseLoanPlanBankName: [data.hirePurchaseLoanPlanBankName],
               hirePurchaseLoanTime: [data.hirePurchaseLoanTime],
-              hirePurchaseLoanBaseRate: [data.hirePurchaseLoanBaseRate],
-              hirePurchaseLoanPremiumRate: [data.hirePurchaseLoanPremiumRate],
-              hirePurchaseLoanCurrentYear: [data.hirePurchaseLoanCurrentYear],
+              baseRate: [data.baseRate],
+              premiumRate: [data.premiumRate],
+              yearlyRate: [data.yearlyRate],
               hirePurchaseLoanTerm: [data.hirePurchaseLoanTerm],
               hirePurchaseLoanAmountInNumber: [data.hirePurchaseLoanAmountInNumber],
               hirePurchaseLoanInWord: [data.hirePurchaseLoanInWord],
@@ -521,8 +525,8 @@ export class SmeComponent implements OnInit {
     details.forEach(data => {
         letterOfCreditDetails.push(
           this.formBuilder.group({
-              letterOfCreditAmountInNumber: [data.letterOfCreditAmountInNumber],
-              latterOfCreditAmountInWord: [data.latterOfCreditAmountInWord],
+              loanAmount: [data.loanAmount],
+              loanAmountInWord: [data.loanAmountInWord],
               letterOfCreditMargin: [data.letterOfCreditMargin],
               letterOfCreditMarginPercent: [data.letterOfCreditMarginPercent],
               letterOfCreditCurrentFiscalYear: [data.letterOfCreditCurrentFiscalYear],
@@ -540,11 +544,11 @@ export class SmeComponent implements OnInit {
     details.forEach(data => {
         trustReceiptDetails.push(
           this.formBuilder.group({
-              trustReceiptAmountInNumber: [data.trustReceiptAmountInNumber],
-              trustReceiptAmountInWord: [data.trustReceiptAmountInWord],
-              trustReceiptBaseRate: [data.trustReceiptBaseRate],
-              trustReceiptPremiumRate: [data.trustReceiptPremiumRate],
-              trustReceiptYearlyRate: [data.trustReceiptYearlyRate],
+              loanAmount: [data.loanAmount],
+              loanAmountInWord: [data.loanAmountInWord],
+              baseRate: [data.baseRate],
+              premiumRate: [data.premiumRate],
+              yearlyRate: [data.yearlyRate],
               trustReceiptPayment: [data.trustReceiptPayment],
               trustReceiptTerm: [data.trustReceiptTerm],
               trustReceiptFixTerm: [data.trustReceiptFixTerm],
@@ -560,12 +564,12 @@ export class SmeComponent implements OnInit {
     details.forEach(data => {
         cashCreditDetails.push(
           this.formBuilder.group({
-              cashCreditAmountInNumber: [data.cashCreditAmountInNumber],
-              cashCreditAmountInWord: [data.cashCreditAmountInWord],
+              loanAmount: [data.loanAmount],
+              loanAmountInWord: [data.loanAmountInWord],
               casCreditAim: [data.casCreditAim],
-              cashCreditBaseRate: [data.cashCreditBaseRate],
-              cashCreditPremiumRate: [data.cashCreditPremiumRate],
-              cashCreditCurrentYear: [data.cashCreditCurrentYear],
+              baseRate: [data.baseRate],
+              premiumRate: [data.premiumRate],
+              yearlyRate: [data.yearlyRate],
               cashCreditPay: [data.cashCreditPay],
               cashCreditPayTill: [data.cashCreditPayTill],
               cashCreditTerm: [data.cashCreditTerm],
@@ -583,8 +587,8 @@ export class SmeComponent implements OnInit {
     details.forEach(data => {
         shortTermLoanDetails.push(
           this.formBuilder.group({
-              shortTermLoanAmountInNumber: [data.shortTermLoanAmountInNumber],
-              shortTermLoanAmountInWord: [data.shortTermLoanAmountInWord],
+              loanAmount: [data.loanAmount],
+              loanAmountInWord: [data.loanAmountInWord],
               shortTermLoanAim: [data.shortTermLoanAim],
               shortTermLoanBaseRate: [data.shortTermLoanBaseRate],
               shortTermLoanPremiumRate: [data.shortTermLoanPremiumRate],
@@ -605,8 +609,8 @@ export class SmeComponent implements OnInit {
     details.forEach(data => {
         bankGuaranteeDetails.push(
           this.formBuilder.group({
-              bankGuaranteeAmountInNumber: [data.bankGuaranteeAmountInNumber],
-              bankGuaranteeAmountInWord: [data.bankGuaranteeAmountInWord],
+              loanAmount: [data.loanAmount],
+              loanAmountInWord: [data.loanAmountInWord],
               bankGuaranteeAmountAim: [data.bankGuaranteeAmountAim],
               bankGuaranteeCommission: [data.bankGuaranteeCommission],
               bankGuaranteeTimePlan: [data.bankGuaranteeTimePlan],
@@ -760,4 +764,40 @@ export class SmeComponent implements OnInit {
       }
     });
   }
+
+    changeToNepAmount(event , i , formArrayName) {
+          this.loanForm.get([formArrayName, i, 'loanAmountInWord']).patchValue(event.nepVal);
+          this.loanForm.get([formArrayName, i, 'loanAmount']).patchValue(event.val);
+    }
+
+    patchValueFunction(formArrayName , i: any, formControlName) {
+      // if (this.loanForm.get([formArrayName, i, formControlName]).value !== null) {
+      //     const patchValue1 = this.loanForm.get([formArrayName, i, formControlName]).value;
+      //     return patchValue1;
+      // }
+    }
+    calcYearlyRate(formArrayName, i ) {
+        const baseRate = this.nepToEngNumberPipe.transform(this.loanForm.get([formArrayName, i , 'baseRate']).value);
+        const premiumRate = this.nepToEngNumberPipe.transform(this.loanForm.get([formArrayName, i , 'premiumRate']).value);
+        const addRate = parseFloat(baseRate) + parseFloat(premiumRate);
+        const finalValue = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
+        this.loanForm.get([formArrayName, i, 'yearlyRate']).patchValue(finalValue);
+    }
+    calcSecondYearlyRate(formArrayName, i ) {
+        const baseRate = this.nepToEngNumberPipe.transform(this.loanForm.get([formArrayName, i , 'secondBaseRate']).value);
+        const premiumRate = this.nepToEngNumberPipe.transform(this.loanForm.get([formArrayName, i , 'secondPremiumRate']).value);
+        const addRate = parseFloat(baseRate) + parseFloat(premiumRate);
+        const finalValue = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
+        this.loanForm.get([formArrayName, i, 'secondYearlyRate']).patchValue(finalValue);
+    }
+    calcPercent(formArrayName, i , formControlName) {
+        const serviceChargePercent = this.nepToEngNumberPipe.transform(this.loanForm.get([formArrayName, i , formControlName]).value);
+        const returnVal = this.nepPercentWordPipe.transform(serviceChargePercent);
+        this.loanForm.get([formArrayName, i, 'serviceChargeAmount']).patchValue(returnVal);
+    }
+    secondCalcPercent(formArrayName, i , formControlName) {
+        const serviceChargePercent = this.nepToEngNumberPipe.transform(this.loanForm.get([formArrayName, i , formControlName]).value);
+        const returnVal = this.nepPercentWordPipe.transform(serviceChargePercent);
+        this.loanForm.get([formArrayName, i, 'secondServiceChargeAmount']).patchValue(returnVal);
+    }
 }
