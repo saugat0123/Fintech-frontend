@@ -1,24 +1,20 @@
 <nb-card style="max-height: 90vh;">
     <nb-card-header>
         <div>
-        <div class="float-left">
-            <button (click)="onBack()" class="btn-primary float-left"><i class="fas fa-arrow-left"></i>
-            </button>
-        </div>
-        <div class="float-right">
-            <button [useExistingCss]="true" class="btn-sm btn-warning float-right"
-                    ngxPrint printSectionId="print-detail" styleSheetFile="assets/css/printStyles.scss">
-                PRINT
-<!--                <i class="col-md-1 fa fa-print"></i>-->
-            </button>
-        </div>
-            <div class="float-right" *ngIf="client === clientList.SHINE_RESUNGA">
-                <button  [nbPopover]="allDocumentView" class="btn-sm btn-success float-right">
-                    UPLOADED DOC
-                    <!--                <i class="col-md-1 fa fa-file"></i>-->
-                </button>
-            </div>
-
+            <div class="row">
+                <div class="col-md-2">
+                    <button (click)="onBack()" class="btn-primary float-left"><i class="fas fa-arrow-left"></i>
+                    </button>
+                </div>
+                <div class="offset-6 col-md-2">
+                    <button [useExistingCss]="true" class="btn-sm btn-warning float-right"
+                            ngxPrint printSectionId="print-detail" styleSheetFile="assets/css/printStyles.scss">
+                        PRINT<i class="col-md-1 fa fa-print"></i></button>
+                </div>
+                <div class="col-md-2" *ngIf="client === clientList.SHINE_RESUNGA">
+                    <button  [nbPopover]="allDocumentView" class="btn-sm btn-success float-right">
+                        UPLOADED DOC<i class="col-md-1 fa fa-file"></i></button>
+                </div>
     </div></nb-card-header>
     <nb-card-body>
         <div id="print-detail">
