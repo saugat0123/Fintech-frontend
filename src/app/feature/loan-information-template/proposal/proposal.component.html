@@ -44,7 +44,7 @@
 <!--                                    </div>-->
 <!--                                </div>-->
 
-                                <div class="col-md-4" *ngIf="loanType === ('PARTIAL_SETTLEMENT_LOAN' || 'FULL_SETTLEMENT_LOAN')">
+                                <div class="col-md-4" *ngIf="loanType === ('PARTIAL_SETTLEMENT_LOAN' || 'FULL_SETTLEMENT_LOAN') && checkApproved">
                                     <div class="form-group">
                                         <label class="title" for="settlementAmount">
                                             <strong>Settlement Amount</strong>
