@@ -189,8 +189,8 @@ export class SmeComponent implements OnInit {
       fixedTermLoanBorrowPercent: [undefined],
       fixedTermLoanPaymentAmount: [undefined],
       serviceChargeAmount: [undefined],
-      fixedTermLoanTwoBoundaryAmountInNumber: [undefined],
-      fixedTermLoanTwoBoundaryAmountInWord: [undefined],
+      secondFixedTermLoan: [undefined],
+      secondFixedTermLoanInWord: [undefined],
       fixedTermLoanTwoBankName: [undefined],
       fixedTermLoanTwoTime: [undefined],
       fixedTermLoanTwoMonthlyTerm: [undefined],
@@ -234,7 +234,7 @@ export class SmeComponent implements OnInit {
         hirPurchaseLoanPaymentPercent: [undefined],
         hirePurchaseLoanPaymentMonth: [undefined],
         hirePurchaseLoanServiceCharge: [undefined],
-        hirePurchaseLoanServicePercent: [undefined],
+        serviceChargeAmount: [undefined],
         dasturFlag: [true],
       });
   }
@@ -323,9 +323,9 @@ export class SmeComponent implements OnInit {
       loanAmount: [undefined],
       loanAmountInWord: [undefined],
       shortTermLoanAim: [undefined],
-      shortTermLoanBaseRate: [undefined],
-      shortTermLoanPremiumRate: [undefined],
-      shortTermLoanCurrentYear: [undefined],
+      baseRate: [undefined],
+      premiumRate: [undefined],
+      yearlyRate: [undefined],
       shortTermLoanPay: [undefined],
       shortTermLoanPayTill: [undefined],
       shortTermLoanTimePlan: [undefined],
@@ -471,8 +471,8 @@ export class SmeComponent implements OnInit {
               fixedTermLoanBorrowPercent: [data.fixedTermLoanBorrowPercent],
               fixedTermLoanPaymentAmount: [data.fixedTermLoanPaymentAmount],
               serviceChargeAmount: [data.serviceChargeAmount],
-              fixedTermLoanTwoBoundaryAmountInNumber: [data.fixedTermLoanTwoBoundaryAmountInNumber],
-              fixedTermLoanTwoBoundaryAmountInWord: [data.fixedTermLoanTwoBoundaryAmountInWord],
+              secondFixedTermLoan: [data.secondFixedTermLoan],
+              secondFixedTermLoanInWord: [data.secondFixedTermLoanInWord],
               fixedTermLoanTwoBankName: [data.fixedTermLoanTwoBankName],
               fixedTermLoanTwoTime: [data.fixedTermLoanTwoTime],
               fixedTermLoanTwoMonthlyTerm: [data.fixedTermLoanTwoMonthlyTerm],
@@ -513,7 +513,7 @@ export class SmeComponent implements OnInit {
               hirPurchaseLoanPaymentPercent: [data.hirPurchaseLoanPaymentPercent],
               hirePurchaseLoanPaymentMonth: [data.hirePurchaseLoanPaymentMonth],
               hirePurchaseLoanServiceCharge: [data.hirePurchaseLoanServiceCharge],
-              hirePurchaseLoanServicePercent: [data.hirePurchaseLoanServicePercent],
+              serviceChargeAmount: [data.serviceChargeAmount],
               dasturFlag: [data.dasturFlag],
           })
       );
@@ -590,9 +590,9 @@ export class SmeComponent implements OnInit {
               loanAmount: [data.loanAmount],
               loanAmountInWord: [data.loanAmountInWord],
               shortTermLoanAim: [data.shortTermLoanAim],
-              shortTermLoanBaseRate: [data.shortTermLoanBaseRate],
-              shortTermLoanPremiumRate: [data.shortTermLoanPremiumRate],
-              shortTermLoanCurrentYear: [data.shortTermLoanCurrentYear],
+              baseRate: [data.baseRate],
+              premiumRate: [data.premiumRate],
+              yearlyRate: [data.yearlyRate],
               shortTermLoanPay: [data.shortTermLoanPay],
               shortTermLoanPayTill: [data.shortTermLoanPayTill],
               shortTermLoanTimePlan: [data.shortTermLoanTimePlan],
@@ -769,8 +769,18 @@ export class SmeComponent implements OnInit {
           this.loanForm.get([formArrayName, i, 'loanAmountInWord']).patchValue(event.nepVal);
           this.loanForm.get([formArrayName, i, 'loanAmount']).patchValue(event.val);
     }
+    changeToNepAmount2(event , i , formArrayName) {
+          this.loanForm.get([formArrayName, i, 'secondFixedTermLoanInWord']).patchValue(event.nepVal);
+          this.loanForm.get([formArrayName, i, 'secondFixedTermLoan']).patchValue(event.val);
+    }
 
     patchValueFunction(formArrayName , i: any, formControlName) {
+      // if (this.loanForm.get([formArrayName, i, formControlName]).value !== null) {
+          const patchValue1 = this.loanForm.get([formArrayName, i, formControlName]).value;
+          return patchValue1;
+      // }
+    }
+    patchValueFunction2(formArrayName , i: any, formControlName) {
       // if (this.loanForm.get([formArrayName, i, formControlName]).value !== null) {
       //     const patchValue1 = this.loanForm.get([formArrayName, i, formControlName]).value;
       //     return patchValue1;

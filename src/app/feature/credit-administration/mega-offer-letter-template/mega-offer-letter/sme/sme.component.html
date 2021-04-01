@@ -228,106 +228,106 @@
                    </div>
 
                    <div *ngIf="demandLoan">
-                       <div *ngFor="let demandLoan of loanForm.get('demandLoanType')['controls']; let demandLoanIndex = index"
-                            formArrayName="demandLoanType">
-                           <div [formGroupName]="demandLoanIndex">
-                               <div *ngIf="loanForm.get('demandLoanType')['length'] > 1">
-                                   <button class="btn btn-danger" nbButton size="tiny" (click)="removeDemandLoan(demandLoanIndex)">हटाउनुहोस्</button>
-                               </div>
-                               <table class="table table-bordered table-responsive-md table-hover">
-                                   <tr>
-                                       <th scope="col" style="width: 15%;">ख) प्रस्तावित सुविधा</th>
-                                       <th scope="col">डिमाण्ड कर्जा(Demand Loan)</th>
-                                   </tr>
-                                   <tbody>
-                                   <tr>
-                                       <td> कर्जा सीमा रकम</td>
-                                       <td><b>रु</b>
-                                           <app-custom-input (eventEmit)="changeToNepAmount($event, demandLoanIndex , 'demandLoanType')" [name]="patchValueFunction('demandLoanType',demandLoanIndex,'loanAmount')"></app-custom-input>/-
-                                           (अक्षरुपी<input readonly
-                                               class="form-fields form-control-sm"
-                                               formControlName="loanAmountInWord"
-                                               placeholder=" दुई करोड"/> मात्र ।)
-                                       </td>
-                                   </tr>
-                                   <tr>
-                                       <td>उद्देश्य</td>
-                                       <td><input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="demandLoanPurpose"
-                                                  placeholder="चालुपूँजी प्रयोजनार्थ ।"
-                                                  type="text"/> प्रयोजनार्थ ।</td>
-                                   </tr>
-                                   <tr>
-                                       <td> व्याज</td>
-                                       <td> <b>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate)</b> (हालको आधार दर
-                                           <input (change)="calcYearlyRate('demandLoanType', demandLoanIndex)" class="form-fields form-control-sm nepaliFont col-3"
-                                                  formControlName="baseRate"
-                                                  type="text"/>% + प्रिमियम दर
-                                           <input (change)="calcYearlyRate('demandLoanType', demandLoanIndex)" class="form-fields form-control-sm nepaliFont col-3"
-                                                  formControlName="premiumRate"
-                                                  type="text"/>%) का
-                                           दरले
-                                           हाललाई बार्षिक
-                                           <input readonly class="form-fields form-control-sm"
-                                                  formControlName="yearlyRate"
-                                                  placeholder="१०.२६० %"
-                                                  type="text"/> % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा
-                                           समय समयमा
-                                           बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि। बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर
-                                           परिवर्तन
-                                           हुन गएमा सोही बमोजिम बार्षिक ब्याजदर संसोधन (घट्न∕बढ्न) सक्नेछ ।
-                                       </td>
-                                   </tr>
-                                   <tr>
-                                       <td> भुक्तानी</td>
-                                       <td>यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरु
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="demandLoanNetTradingAsset"
-                                                  placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/> को
-                                           आधारमा रही डेब्ट इक्वीटी अनुपात
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="demandLoanDurationRatio"
-                                                  placeholder="८०ः२०"
-                                                  type="text"/> कायम गरि भुक्तानी गरिने छ ।
-                                       </td>
-                                   </tr>
-                                   <tr>
-                                       <td> समयावधि</td>
-                                       <td>रिभल्भिङः <input class="form-fields form-control-sm nepaliFont"
-                                                            formControlName="demandLoanLimitDuration"
-                                                            placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                            type="text"/>मा पुनरावलोकन हुने गरि र भुक्तानी हुने प्रत्येक डिमाण्ड कर्जा सुविधाको अवधि अधिकतम्
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="demandLoanLimitDurationAmount"
-                                                  placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/> दिन सम्म मात्र ।</td>
-                                   </tr>
-                                   <tr *ngIf="demandLoan.get('dasturFlag').value">
-                                       <td> क.सु.के दस्तुर</td>
-                                       <td>रु<input class="form-fields form-control-sm nepaliFont"
-                                                    formControlName="demandLoanDasturAmount"
-                                                    placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                    type="text"/>/- मात्र ।
-                                           <a (click)="removeOptionalField('demandLoanType', demandLoanIndex, 'dasturFlag')"
-                                              data-placement="top" class="text-danger cursor">
-                                               हटाउनुहोस्
-                                           </a>
-                                       </td>
-                                   </tr>
-                                   <tr *ngIf="!demandLoan.get('dasturFlag').value">
-                                       <td></td>
-                                       <td>
-                                           <a (click)="undoRemovalOfOptionalField('demandLoanType', demandLoanIndex, 'dasturFlag')"
-                                              data-placement="top" class="text-warning cursor">
-                                               क.सु.के दस्तुर थप्नुहोस्
-                                           </a>
-                                       </td>
-                                   </tr>
-                                   </tbody>
-                               </table>
-                           </div>
-                       </div>
+<!--                       <div *ngFor="let demandLoan of loanForm.get('demandLoanType')['controls']; let demandLoanIndex = index"-->
+<!--                            formArrayName="demandLoanType">-->
+<!--                           <div [formGroupName]="demandLoanIndex">-->
+<!--                               <div *ngIf="loanForm.get('demandLoanType')['length'] > 1">-->
+<!--                                   <button class="btn btn-danger" nbButton size="tiny" (click)="removeDemandLoan(demandLoanIndex)">हटाउनुहोस्</button>-->
+<!--                               </div>-->
+<!--                               <table class="table table-bordered table-responsive-md table-hover">-->
+<!--                                   <tr>-->
+<!--                                       <th scope="col" style="width: 15%;">ख) प्रस्तावित सुविधा</th>-->
+<!--                                       <th scope="col">डिमाण्ड कर्जा(Demand Loan)</th>-->
+<!--                                   </tr>-->
+<!--                                   <tbody>-->
+<!--                                   <tr>-->
+<!--                                       <td> कर्जा सीमा रकम</td>-->
+<!--                                       <td><b>रु</b>-->
+<!--                                           <app-custom-input (eventEmit)="changeToNepAmount($event, demandLoanIndex , 'demandLoanType')" [name]="patchValueFunction('demandLoanType',demandLoanIndex,'loanAmount')"></app-custom-input>/- -->
+<!--                                           (अक्षरुपी<input readonly-->
+<!--                                               class="form-fields form-control-sm"-->
+<!--                                               formControlName="loanAmountInWord"-->
+<!--                                               placeholder=" दुई करोड"/> मात्र ।)-->
+<!--                                       </td>-->
+<!--                                   </tr>-->
+<!--                                   <tr>-->
+<!--                                       <td>उद्देश्य</td>-->
+<!--                                       <td><input class="form-fields form-control-sm nepaliFont"-->
+<!--                                                  formControlName="demandLoanPurpose"-->
+<!--                                                  placeholder="चालुपूँजी प्रयोजनार्थ ।"-->
+<!--                                                  type="text"/> प्रयोजनार्थ ।</td>-->
+<!--                                   </tr>-->
+<!--                                   <tr>-->
+<!--                                       <td> व्याज</td>-->
+<!--                                       <td> <b>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate)</b> (हालको आधार दर-->
+<!--                                           <input (change)="calcYearlyRate('demandLoanType', demandLoanIndex)" class="form-fields form-control-sm nepaliFont col-3"-->
+<!--                                                  formControlName="baseRate"-->
+<!--                                                  type="text"/>% + प्रिमियम दर-->
+<!--                                           <input (change)="calcYearlyRate('demandLoanType', demandLoanIndex)" class="form-fields form-control-sm nepaliFont col-3"-->
+<!--                                                  formControlName="premiumRate"-->
+<!--                                                  type="text"/>%) का-->
+<!--                                           दरले-->
+<!--                                           हाललाई बार्षिक-->
+<!--                                           <input readonly class="form-fields form-control-sm"-->
+<!--                                                  formControlName="yearlyRate"-->
+<!--                                                  placeholder="१०.२६० %"-->
+<!--                                                  type="text"/> % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा-->
+<!--                                           समय समयमा-->
+<!--                                           बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि। बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर-->
+<!--                                           परिवर्तन-->
+<!--                                           हुन गएमा सोही बमोजिम बार्षिक ब्याजदर संसोधन (घट्न∕बढ्न) सक्नेछ ।-->
+<!--                                       </td>-->
+<!--                                   </tr>-->
+<!--                                   <tr>-->
+<!--                                       <td> भुक्तानी</td>-->
+<!--                                       <td>यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरु-->
+<!--                                           <input class="form-fields form-control-sm nepaliFont"-->
+<!--                                                  formControlName="demandLoanNetTradingAsset"-->
+<!--                                                  placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"-->
+<!--                                                  type="text"/> को-->
+<!--                                           आधारमा रही डेब्ट इक्वीटी अनुपात-->
+<!--                                           <input class="form-fields form-control-sm nepaliFont"-->
+<!--                                                  formControlName="demandLoanDurationRatio"-->
+<!--                                                  placeholder="८०ः२०"-->
+<!--                                                  type="text"/> कायम गरि भुक्तानी गरिने छ ।-->
+<!--                                       </td>-->
+<!--                                   </tr>-->
+<!--                                   <tr>-->
+<!--                                       <td> समयावधि</td>-->
+<!--                                       <td>रिभल्भिङः <input class="form-fields form-control-sm nepaliFont"-->
+<!--                                                            formControlName="demandLoanLimitDuration"-->
+<!--                                                            placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"-->
+<!--                                                            type="text"/>मा पुनरावलोकन हुने गरि र भुक्तानी हुने प्रत्येक डिमाण्ड कर्जा सुविधाको अवधि अधिकतम्-->
+<!--                                           <input class="form-fields form-control-sm nepaliFont"-->
+<!--                                                  formControlName="demandLoanLimitDurationAmount"-->
+<!--                                                  placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"-->
+<!--                                                  type="text"/> दिन सम्म मात्र ।</td>-->
+<!--                                   </tr>-->
+<!--                                   <tr *ngIf="demandLoan.get('dasturFlag').value">-->
+<!--                                       <td> क.सु.के दस्तुर</td>-->
+<!--                                       <td>रु<input class="form-fields form-control-sm nepaliFont"-->
+<!--                                                    formControlName="demandLoanDasturAmount"-->
+<!--                                                    placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"-->
+<!--                                                    type="text"/>/- मात्र ।-->
+<!--                                           <a (click)="removeOptionalField('demandLoanType', demandLoanIndex, 'dasturFlag')"-->
+<!--                                              data-placement="top" class="text-danger cursor">-->
+<!--                                               हटाउनुहोस्-->
+<!--                                           </a>-->
+<!--                                       </td>-->
+<!--                                   </tr>-->
+<!--                                   <tr *ngIf="!demandLoan.get('dasturFlag').value">-->
+<!--                                       <td></td>-->
+<!--                                       <td>-->
+<!--                                           <a (click)="undoRemovalOfOptionalField('demandLoanType', demandLoanIndex, 'dasturFlag')"-->
+<!--                                              data-placement="top" class="text-warning cursor">-->
+<!--                                               क.सु.के दस्तुर थप्नुहोस्-->
+<!--                                           </a>-->
+<!--                                       </td>-->
+<!--                                   </tr>-->
+<!--                                   </tbody>-->
+<!--                               </table>-->
+<!--                           </div>-->
+<!--                       </div>-->
                        <div>
                            <button class="btn btn-primary btn-sm float-right" type="button" (click)="addMoreDemandLoan()">अझै थप्नुहोस्</button>
                        </div>
@@ -471,11 +471,10 @@
                                    </tr>
                                    <tr>
                                        <td> कर्जा सीमा रकम</td>
-                                       <td><b>रु</b><input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="fixedTermLoanTwoBoundaryAmountInNumber"
-                                                  placeholder="रु. ९,५९,२५६.५३र–"
-                                                  type="text"/>/- (अक्षरुपी <input readonly class="form-fields form-control-sm nepaliFont"
-                                                                                 formControlName="fixedTermLoanTwoBoundaryAmountInWord"
+                                       <td><b>रु</b>
+                                           <app-custom-input (eventEmit)="changeToNepAmount2($event, fixTermLoanIndex , 'fixTermLoan')" [name]="patchValueFunction2('fixTermLoan',fixTermLoanIndex,'secondFixedTermLoan')"></app-custom-input>
+                                           /- (अक्षरुपी <input readonly class="form-fields form-control-sm nepaliFont"
+                                                                                 formControlName="secondFixedTermLoanInWord"
                                                                                  placeholder="नौ लाख उनान्साठी हजार दुई सय छपन्न रुपैयाँ त्रीपन्न पैसा"
                                                                                  type="text"/> मात्र ।)
                                        </td>
@@ -702,12 +701,13 @@
                                    <tr>
                                        <td> सेवा शुल्क</td>
                                        <td>भुक्तानी हुने ऋण सुविधा रकमको
-                                           <input class="form-fields form-control-sm nepaliFont"
+                                           <input (change)="calcPercent('hirePurchaseLoan', hirePurchaseIndex , 'hirePurchaseLoanServiceCharge')"
+                                                  class="form-fields form-control-sm nepaliFont"
                                                   formControlName="hirePurchaseLoanServiceCharge"
                                                   placeholder="०.२५% "
                                                   type="text"/>(
                                            <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="hirePurchaseLoanServicePercent"
+                                                  formControlName="serviceChargeAmount"
                                                   placeholder="शुन्य दशमलव दुई पाँच "
                                                   type="text"/>प्रतिशत मात्र) ।
                                        </td>
@@ -1057,16 +1057,15 @@
                                    <tr>
                                        <td> व्याज</td>
                                        <td><b>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) </b>
-                                           (हालको आधार दर <input class="form-fields form-control-sm nepaliFont"
-                                                                 formControlName="shortTermLoanBaseRate"
-                                                                 placeholder="८.१४%"
-                                                                 type="text"/> + प्रिमियम दर
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="shortTermLoanPremiumRate"
-                                                  placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
+                                           (हालको आधार दर
+                                           <input (change)="calcYearlyRate('shortTermLoan', stlIndex)" class="form-fields form-control-sm nepaliFont col-3"
+                                                  formControlName="baseRate"
+                                                  type="text"/> + प्रिमियम दर
+                                           <input (change)="calcYearlyRate('shortTermLoan', stlIndex)" class="form-fields form-control-sm nepaliFont col-3"
+                                                  formControlName="premiumRate"
                                                   type="text"/>%)
-                                           का दरले हाललाई बार्षिक <input class="form-fields form-control-sm nepaliFont"
-                                                                         formControlName="shortTermLoanCurrentYear"
+                                           का दरले हाललाई बार्षिक <input readonly class="form-fields form-control-sm"
+                                                                         formControlName="yearlyRate"
                                                                          placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
                                                                          type="text"/> % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा
                                            समय समयमा बैंकले तोके बमोजिम चुक्ताभुक्तान गर्नु पर्ने गरि । बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा
