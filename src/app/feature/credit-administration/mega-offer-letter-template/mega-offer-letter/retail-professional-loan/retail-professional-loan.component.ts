@@ -249,4 +249,23 @@ submit(): void {
             return patchValue1;
         // }
     }
+    change(arraySelected) {
+        console.log(arraySelected, 'sel');
+        this.selectedArray = arraySelected;
+        this.proTermLoanSelected = this.proOverdraftLoanSelected = false;
+        if (!ObjectUtil.isEmpty(arraySelected)) {
+            arraySelected.forEach(selectedValue => {
+                switch (selectedValue) {
+                    case 'Professional Term Loan':
+                        this.proTermLoanSelected = true;
+                        break;
+                    case 'Professional Overdraft Loan':
+                        this.proOverdraftLoanSelected = true;
+                        break;
+}
+            });
+
+        }
+
+    }
 }
