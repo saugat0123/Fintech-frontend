@@ -97,15 +97,31 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 sb-small">
                     <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span>
                 </div>
-                <div class="col-md-6">
-                    <p class="text-right"><strong>Date: </strong>{{loanDataHolder?.createdAt | date}}
-                        <!--            ({{nepaliDate}})-->
-                    </p>
+            </div>
+
+            <div class="row sb-small">
+                <div class="col-md-12">
+                    <b>Purpose: {{loanDataHolder?.loan?.name}}</b>
+                    <span class="float-right"><b>Loan Authority Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
+                        ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
                 </div>
             </div>
+            <div class="row sb-small mb-1">
+                <div class="col-md-12">
+                    <span> <b>Application Received On:</b> {{loanDataHolder?.createdAt | date}} </span>
+                    <span class="float-right"><b>
+                        <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
+                        <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
+                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}})
+                        <b> on:</b> {{loanDataHolder?.lastModifiedAt | date}}
+                    </span>
+
+                </div>
+            </div>
+
             <hr>
             <div>
                 <p><strong>Details of {{loanDataHolder?.loanCategory === 'INSTITUTION'
