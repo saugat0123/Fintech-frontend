@@ -34,6 +34,8 @@ import {MicroBorrowerFinancial} from '../../../loan/model/micro-borrower-financi
 import {MarketingActivities} from '../../../loan/model/marketing-activities';
 import {ReportingInfoLevel} from '../../../reporting/model/reporting-info-level';
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
+import {Comments} from '../../../admin/modal/comments';
+import {CommentsComponent} from '../../../loan-information-template/comments/comments.component';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -101,6 +103,10 @@ export class CustomerLoanInformationComponent implements OnInit {
   public reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
   calendarType: CalendarType = CalendarType.AD;
+  @ViewChild('commentsFromAccount', {static: false})
+  private commentsFromAccount: NbAccordionItemComponent;
+  @ViewChild('commentsInfoTagging', {static: false})
+  public commentsComponent: CommentsComponent;
   private siteVisit: SiteVisit;
   private financial: Financial;
   /*private creditRiskGradingAlpha: CreditRiskGradingAlpha;*/
@@ -124,6 +130,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   public reportingInfoLevels: Array<ReportingInfoLevel>;
   public reportingInfoLevelCode: string;
   public reportingInfoLevelDescription: string;
+  public commentsDataResponse: Comments;
 
 
   constructor(
@@ -192,6 +199,9 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.reportingInfoLevelCode = f.code;
         this.reportingInfoLevelDescription = f.description;
       });
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.dataFromComments)) {
+      this.commentsDataResponse = this.customerInfo.dataFromComments;
     }
   }
 
@@ -502,6 +512,22 @@ export class CustomerLoanInformationComponent implements OnInit {
         }, error => {
           console.log(error);
           this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Customer Reporting Info!'));
+        });
+  }
+
+  saveDataFromComments(data: Comments ) {
+    if (ObjectUtil.isEmpty(this.commentsDataResponse)) {
+      this.commentsDataResponse = new Comments();
+    }
+    this.commentsDataResponse = data;
+    this.customerInfoService.saveLoanInfo(this.commentsDataResponse, this.customerInfoId, TemplateName.COMMENTS)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Comments!'));
+          this.commentsFromAccount.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Comments)!'));
         });
   }
 

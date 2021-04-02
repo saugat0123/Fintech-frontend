@@ -19,4 +19,5 @@ export class TemplateName {
   static MICRO_BORROWER_FINANCIAL = 'Micro Borrower Financial';
   static MARKETING_ACTIVITIES = 'Marketing Activities';
   static CUSTOMER_REPORTING_INFO = 'Customer Reporting Info';
+  static COMMENTS = 'Comments';
 }

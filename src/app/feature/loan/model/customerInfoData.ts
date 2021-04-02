@@ -21,6 +21,7 @@ import {MicroBaselRiskExposure} from './micro-basel-risk-exposure';
 import {MicroBorrowerFinancial} from './micro-borrower-financial';
 import {MarketingActivities} from './marketing-activities';
 import {ReportingInfoLevel} from '../../reporting/model/reporting-info-level';
+import {Comments} from '../../admin/modal/comments';
 
 export class CustomerInfoData {
     id: number;
@@ -68,4 +69,5 @@ export class CustomerInfoData {
     isMicroCustomer: boolean;
     clientType: any;
     reportingInfoLevels: Array<ReportingInfoLevel>;
+    dataFromComments: Comments;
 }
