@@ -44,8 +44,8 @@
 <!--    <i class="col-md-1 fas fa-angle-double-left"></i>-->
   </button>
 
-  <button (click)="onEdit()" *ngIf="!catalogueStatus" [disabled]="!actionsList.edit"
-          [ngStyle]="{ 'filter' : (actionsList.edit === false)? 'grayscale(100%)': 'grayscale(0%)'}"
+  <button (click)="onEdit()" *ngIf="!catalogueStatus" [disabled]="!actionsList.roleTypeMaker"
+          [ngStyle]="{ 'filter' : (actionsList.roleTypeMaker === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-primary">
     EDIT
 <!--    <i class="col-md-1 fa fa-edit"></i>-->
