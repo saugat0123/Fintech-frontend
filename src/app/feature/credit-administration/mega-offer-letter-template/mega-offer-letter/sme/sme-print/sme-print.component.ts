@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MegaOfferLetterConst} from '../../../../mega-offer-letter-const';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-sme-print',
@@ -7,7 +9,9 @@ import {MegaOfferLetterConst} from '../../../../mega-offer-letter-const';
   styleUrls: ['./sme-print.component.scss']
 })
 export class SmePrintComponent implements OnInit {
+  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() letter: any;
+  loanHolderInfo;
   offerLetterConst =  MegaOfferLetterConst;
   overdraft = false;
   demandLoan = false;
@@ -44,6 +48,9 @@ export class SmePrintComponent implements OnInit {
           break;
       }
     });
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+      this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+    }
   }
 
 }
