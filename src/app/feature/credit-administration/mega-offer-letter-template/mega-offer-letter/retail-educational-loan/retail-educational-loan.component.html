@@ -6,7 +6,7 @@
       <nb-card-body>
         <div class="row">
           <div class="col-md-12">
-        <form (ngSubmit)="submit()" [formGroup]="form">
+        <form (ngSubmit)="submit()" [formGroup]="form" class="nepali">
           <h6 class="text-center">व्यक्तिगत एवं गोप्य</h6>
           <p class="text-right"> मिति:
             <input class="form-field form-control-sm nepaliFont col-3"
@@ -15,14 +15,12 @@
                    type="text"/>
           </p>
           <div class="row text-center">
-            <p> <strong>RefNo. <input class="form-field form-control-sm" formControlName="refNo" name="refNo"
+            <p> <strong>RefNo. <input class="nepaliFont" formControlName="refNo" name="refNo"
                                       type="text"></strong></p>
           </div>
           <div class="row form-group">
-            <p><strong>श्री / सुश्री / श्रीमती : <input class="form-field form-control-sm nepaliFont"
-                                                        formControlName="customerName"
-                                                        name="customerName"
-                                                        type="text"/></strong></p>
+            <p>  <b>नाम :</b><strong class="form-field form-control-sm"> {{loanHolderInfo?.name}}</strong>
+
           </div>
 
           <div class="row form-group">
