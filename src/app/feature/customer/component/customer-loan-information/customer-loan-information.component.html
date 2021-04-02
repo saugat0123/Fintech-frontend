@@ -487,7 +487,7 @@
         <nb-accordion-item-body>
           <app-previous-comments *ngIf="previousCommentAccordion.expanded"
                   (previousCommentEmitter)="savePreviousComments($event)"
-                  [data]="customerInfo?.data"></app-previous-comments>
+                  [formData]="customerInfo?.comments"></app-previous-comments>
           <div>
             <button class="btn float-right d-flex justify-content-end" (click)="previousCommentsComponent.onSubmit()" type="submit" nbButton>Save</button>
           </div>

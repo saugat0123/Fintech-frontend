@@ -21,7 +21,7 @@ import {MicroBaselRiskExposure} from './micro-basel-risk-exposure';
 import {MicroBorrowerFinancial} from './micro-borrower-financial';
 import {MarketingActivities} from './marketing-activities';
 import {ReportingInfoLevel} from '../../reporting/model/reporting-info-level';
-import {Comments} from '../../loan-information-template/previous-comments/model/comments';
+import {Comments} from './comments';
 
 export class CustomerInfoData {
     id: number;

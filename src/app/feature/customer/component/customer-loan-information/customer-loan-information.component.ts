@@ -35,7 +35,7 @@ import {MarketingActivities} from '../../../loan/model/marketing-activities';
 import {ReportingInfoLevel} from '../../../reporting/model/reporting-info-level';
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 import {PreviousCommentsComponent} from '../../../loan-information-template/previous-comments/previous-comments.component';
-import {Comments} from '../../../loan-information-template/previous-comments/model/comments';
+import {Comments} from '../../../loan/model/comments';
 @Component({
   selector: 'app-customer-loan-information',
   templateUrl: './customer-loan-information.component.html',
@@ -102,6 +102,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   public reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
   @ViewChild('previousCommentAccordion', {static: false})
   private previousCommentAccordion: NbAccordionItemComponent;
+  @ViewChild('previousCommentsComponent', {static: false})
   public previousCommentsComponent: PreviousCommentsComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
   calendarType: CalendarType = CalendarType.AD;
@@ -515,6 +516,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   }
 
   savePreviousComments(data: Comments) {
+    alert('test');
     if (ObjectUtil.isEmpty(this.comments)) {
         this.comments = new Comments();
     }
