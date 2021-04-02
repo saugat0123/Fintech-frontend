@@ -189,26 +189,6 @@ export class RetailProfessionalLoanComponent implements OnInit {
         }
     }
 
-
-    // change(arraySelected) {
-    //     console.log(arraySelected, 'sel');
-    //     this.selectedArray = arraySelected;
-    //     this.proTermLoanSelected = this.proOverdraftLoanSelected = false;
-    //     if (!ObjectUtil.isEmpty(arraySelected)) {
-    //         arraySelected.forEach(selectedValue => {
-    //             switch (selectedValue) {
-    //                 case 'Professional Term Loan' :
-    //                     this.proTermLoanSelected = true;
-    //                     break;
-    //                 case 'Professional Overdraft Loan' :
-    //                     this.mortgageFinanceSelected = true;
-    //                     break;
-    //             }
-    //         });
-    //              }
-    //
-    //     }
-
 submit(): void {
         console.log('Check Value', this.retailProfessionalLoan.value);
         this.spinner = true;
@@ -244,18 +224,7 @@ submit(): void {
         });
 
     }
-    // // nepaliToEng(formArrayName, i , formControlName) {
-    // //     this.nepaliAmount[i] = this.retailProfessionalLoan.get([formArrayName, i, formControlName]).value;
-    // //     this.finalNepaliWord[i] = this.nepaliCurrencyWordPipe.transform(this.nepaliAmount[i]);
-    // //     this.external[i] = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.nepaliAmount[i]));
-    // //     this.retailProfessionalLoan.get([formArrayName, i, formControlName]).patchValue(this.external[i]);
-    // //     if (formControlName === 'loanAmount') {
-    // //         this.retailProfessionalLoan.get([formArrayName, i, 'loanAmountInWord']).patchValue(this.finalNepaliWord[i]);
-    // //     }
-    // //     if (formControlName === 'loanAmountReturn') {
-    // //         this.retailProfessionalLoan.get([formArrayName, i, 'loanAmountReturnInWord']).patchValue(this.finalNepaliWord[i]);
-    // //     }
-    // }
+
     nepaliToEng(event: any, i , formArrayName) {
         this.retailProfessionalLoan.get([formArrayName, i, 'amountInWords']).patchValue(event.nepVal);
         this.retailProfessionalLoan.get([formArrayName, i, 'emiAmount']).patchValue(event.val);
