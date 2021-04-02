@@ -51,6 +51,8 @@ export class RoleHierarchyModelComponent implements OnInit {
     showUserList = true;
     selectedRole: Role;
     ckeConfig = Editor.CK_CONFIG;
+    selectedUsername: Object;
+    username: string;
 
     constructor(
         public nbDialogRef: NbDialogRef<RoleHierarchyModelComponent>,
@@ -71,6 +73,7 @@ export class RoleHierarchyModelComponent implements OnInit {
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         // method called
         this.getRoleData();
+        console.log('username', this.username);
     }
 
     // method to build form control names
@@ -115,6 +118,10 @@ export class RoleHierarchyModelComponent implements OnInit {
         });
     }
 
+    getSelectedUser(toUser) {
+        this.selectedUsername = toUser.username;
+    }
+
     public onSubmit() {
         this.submitted = true;
         // stop form submit if invalid
@@ -122,7 +129,7 @@ export class RoleHierarchyModelComponent implements OnInit {
             return;
         }
         // restricting loan transfer for same user
-        if (this.selectedRole.roleType === RoleType.MAKER && this.selectedRole.id === this.roleId) {
+        if (this.selectedRole.roleType === RoleType.MAKER && this.selectedUsername === LocalStorageUtil.getStorage().username) {
             this.toastService.show(new Alert(AlertType.ERROR, 'Please select different user to transfer file'));
             return;
         }

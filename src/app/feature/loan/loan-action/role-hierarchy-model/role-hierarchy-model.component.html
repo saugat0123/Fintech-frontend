@@ -25,7 +25,7 @@
                     <div class="col-md-12 form-group">
                         <label class="toUser" for="toUser">To User</label>
                         <select class="form-control form-control-sm" formControlName="toUser" id="toUser"
-                                name="toUser">
+                                name="toUser" (change)="getSelectedUser(form.get('toUser').value)">
                             <option *ngFor="let user of userList"
                                     [ngValue]="user">
                                 {{user.username}}
