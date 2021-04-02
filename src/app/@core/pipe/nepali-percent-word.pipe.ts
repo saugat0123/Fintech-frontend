@@ -208,7 +208,7 @@ export class NepaliPercentWordPipe implements PipeTransform {
         const r = 0;
         const afterDecimal = e.toString().split('.');
         if (afterDecimal.length > 1) {
-            paisa = 'दसमलब' + this.numberIntoWordsNepaliPaisa(afterDecimal[1]);
+            paisa = ' ' + 'दसमलब' + this.numberIntoWordsNepaliPaisa(afterDecimal[1]);
         }
         let a = '';
         e = afterDecimal[0];
@@ -240,7 +240,7 @@ export class NepaliPercentWordPipe implements PipeTransform {
             t);
         console.log(finalNep);
         if (finalNep === null  || finalNep === '0' || finalNep === '') {
-            return 'सुन्य ' + paisa;
+            return 'सुन्य' + paisa;
         } else {
             return finalNep + paisa;
         }

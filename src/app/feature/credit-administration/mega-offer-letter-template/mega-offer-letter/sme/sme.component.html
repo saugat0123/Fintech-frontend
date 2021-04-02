@@ -25,17 +25,20 @@
                    </div>
 
                    <div class="mb-2">
-                       <b>नाम :</b> <input class="form-fields form-control-sm nepaliFont"
-                                           formControlName="to"
-                                           placeholder="श्री सुश्री श्रीमती"
-                                           type="text"/>
+                       <b>नाम :</b><strong class="nepaliFont"> {{smeLoanHolderInfo?.name}}</strong>
                    </div>
-
                    <div class="mb-2">
-                       <b>ठेगाना: <input class="form-fields form-control-sm nepaliFont"
-                                         formControlName="address"
-                                         placeholder="विरगंज–१५, पर्सा"
-                                         type="text"/></b>
+                       <b>ठेगाना:</b>
+                       प्रदेश
+                       <strong class="nepaliFont">{{smeLoanHolderInfo?.permanentProvince}}</strong>,
+                       जिल्ला <strong class="nepaliFont">{{smeLoanHolderInfo?.permanentDistrict}}</strong>
+                       वार्ड न <strong class="nepaliFont">{{smeLoanHolderInfo?.permanentWard}}</strong>
+                       <span *ngIf="smeLoanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+                       <span *ngIf="smeLoanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span><strong class="nepaliFont">{{smeLoanHolderInfo?.permanentMunicipality}}</strong>
                    </div>
 
                    <div class="mb-2">
@@ -83,7 +86,7 @@
                    देहाय बमोजिमको कर्जा सुविधा देहाय बमोजिमका शर्तहरुमा प्रदान गर्न सहर्ष प्रस्ताव गर्दछौं ।<br>
                    पक्षहरु :–<br>
                    <div class="ml-4">
-                       १. <span class="nepaliFont form-field"><b>{{this.loanForm.get('to').value}}</b></span> (यस पछि “ऋणी” भनिएको)<br>
+                       १. <span class="nepaliFont form-field"><b>{{smeLoanHolderInfo?.name}}</b></span> (यस पछि “ऋणी” भनिएको)<br>
                        २. श्री मेगा बैंक नेपाल लिमिटेड (यसपछि “बैंक” भनिएको)
                    </div>
                    <br>
@@ -110,15 +113,14 @@
                                <tbody>
                                <tr>
                                    <td> कर्जा सीमा रकम</td>
-                                   <td><b> रु.</b><input
-                                           class="form-fields form-control-sm nepaliFont"
-                                           formControlName="overdrafLoanAmount"
-                                           placeholder=" २,५०,००,०००c"
-                                           type="text"/>/- (अक्षरुपी <input
-                                           class="form-fields form-control-sm nepaliFont col-3"
-                                           formControlName="overdrafLoanAmountInWord"
+                                   <td><b> रु.</b>
+                                       <app-custom-input (eventEmit)="changeToNepAmount($event, overdraftIndex , 'overdraftLoan')"
+                                                         [name]="patchValueFunction('overdraftLoan',overdraftIndex,'loanAmount')"></app-custom-input>/-
+                                       (अक्षरुपी <input readonly
+                                           class="form-fields form-control-sm col-3"
+                                           formControlName="loanAmountInWord"
                                            placeholder="दुई करोड पचाँस लाख रुपैयाँ"
-                                           type="text"/> रुपैयाँ मात्र ।)
+                                           type="text"/> मात्र ।)
                                    </td>
                                </tr>
                                <tr>
@@ -128,21 +130,18 @@
                                <tr>
                                    <td> व्याज</td>
                                    <td><b>आधार दर (Base Rate) + प्रिमियम दर(Premium Rate)</b> (हालको आधार दर
-                                       <input (keyup)="calculateRate(overdraftIndex)" class="form-fields form-control-sm nepaliFont col-3"
-                                              formControlName="overdrafLoanCurrentTermRate"
+                                       <input (change)="calcYearlyRate('overdraftLoan', overdraftIndex)" class="form-fields form-control-sm nepaliFont col-3"
+                                              formControlName="baseRate"
                                               placeholder="९.७६%"
                                               type="text"/>% + प्रिमियम दर
-                                       <input (keyup)="calculateRate(overdraftIndex)" class="form-fields form-control-sm nepaliFont col-3"
-                                              formControlName="overdrafLoanPremiumRate"
-                                              placeholder="प्रिमियम दर"
+                                       <input (change)="calcYearlyRate('overdraftLoan', overdraftIndex)" class="form-fields form-control-sm nepaliFont col-3"
+                                              formControlName="premiumRate"
                                               type="text"/>%) का
-                                       दरले हाललाई बार्षिक <b>{{overdraftTotal[overdraftIndex]}}</b>
-                                       <span *ngIf="overdraftTotal === [undefined]">
-                                           <input class="form-fields form-control-sm nepaliFont col-3"
-                                                  formControlName="overdrafLoanCurrentAnnualRate"
+                                       दरले हाललाई बार्षिक
+                                           <input readonly class="form-fields form-control-sm col-3"
+                                                  formControlName="yearlyRate"
                                                   placeholder="दरले हाललाई बार्षिक %"
                                                   type="text"/>
-                                       </span>
                                         % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ
                                        मसान्त) वा समय समयमा
                                        बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि। बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर
@@ -184,12 +183,14 @@
                                </tr>
                                <tr>
                                    <td> सेवा शुल्क</td>
-                                   <td>भुक्तानी दिईने ऋण सुविधा रकमको <input class="form-fields form-control-sm nepaliFont col-3"
+                                   <td>भुक्तानी दिईने ऋण सुविधा रकमको
+                                       <input (change)="calcPercent('overdraftLoan', overdraftIndex , 'overdrafLoanServiceRate')"
+                                              class="form-fields form-control-sm nepaliFont col-3"
                                                                              formControlName="overdrafLoanServiceRate"
                                                                              placeholder="०.२५ %"
                                                                              type="text"/>%
-                                       (<input class="form-fields form-control-sm nepaliFont col-3"
-                                               formControlName="overdrafLoanServiceCharge"
+                                       (<input readonly class="form-fields form-control-sm col-3"
+                                               formControlName="serviceChargeAmount"
                                                placeholder=" रु. २,५०,००" type="text"/> प्रतिशत) मात्र।
                                    </td>
                                </tr>
@@ -247,13 +248,13 @@
                                    <tbody>
                                    <tr>
                                        <td> कर्जा सीमा रकम</td>
-                                       <td><b>रु</b><input
-                                               class="form-fields form-control-sm nepaliFont"
-                                               formControlName="demandLoanLimit"
-                                               placeholder="रु. २,००,००,०००/–"/> /- (अक्षरुपी<input
-                                               class="form-fields form-control-sm nepaliFont"
-                                               formControlName="demandLoanLimitInWord"
-                                               placeholder=" दुई करोड"/> रुपैयाँ मात्र ।)
+                                       <td><b>रु</b>
+                                           <app-custom-input (eventEmit)="changeToNepAmount($event, demandLoanIndex , 'demandLoanType')"
+                                                            [name]="patchValueFunction('demandLoanType',demandLoanIndex,'loanAmount')"></app-custom-input>/-
+                                           (अक्षरुपी<input readonly
+                                               class="form-fields form-control-sm"
+                                               formControlName="loanAmountInWord"
+                                               placeholder=" दुई करोड"/> मात्र ।)
                                        </td>
                                    </tr>
                                    <tr>
@@ -266,18 +267,16 @@
                                    <tr>
                                        <td> व्याज</td>
                                        <td> <b>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate)</b> (हालको आधार दर
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="demandLoanCurrentBaseRate"
-                                                  placeholder="९.७६ %"
+                                           <input (change)="calcYearlyRate('demandLoanType', demandLoanIndex)" class="form-fields form-control-sm nepaliFont col-3"
+                                                  formControlName="baseRate"
                                                   type="text"/>% + प्रिमियम दर
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="demandLoanPremiumRate"
-                                                  placeholder="०.५० %"
-                                                  type="text"/> %) का
+                                           <input (change)="calcYearlyRate('demandLoanType', demandLoanIndex)" class="form-fields form-control-sm nepaliFont col-3"
+                                                  formControlName="premiumRate"
+                                                  type="text"/>%) का
                                            दरले
                                            हाललाई बार्षिक
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="demandLoanAnnualRate"
+                                           <input readonly class="form-fields form-control-sm"
+                                                  formControlName="yearlyRate"
                                                   placeholder="१०.२६० %"
                                                   type="text"/> % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा
                                            समय समयमा
@@ -362,12 +361,12 @@
                                    </tr>
                                    <tr>
                                        <td> कर्जा सीमा रकम</td>
-                                       <td><b>रु</b><input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="fixedTermLoanBoundaryAmountInNumber"
-                                                  placeholder="रु. १९,८२,४२८.७३र–"
-                                                  type="text"/> /- (अक्षरेपी
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="fixedTermLoanBoundaryAmountInWord"
+                                       <td><b>रु</b>
+                                           <app-custom-input (eventEmit)="changeToNepAmount($event, fixTermLoanIndex , 'fixTermLoan')"
+                                                             [name]="patchValueFunction('fixTermLoan',fixTermLoanIndex,'loanAmount')"></app-custom-input>/-
+                                           (अक्षरेपी
+                                           <input readonly class="form-fields form-control-sm"
+                                                  formControlName="loanAmountInWord"
                                                   placeholder="उन्नाईस लाख बयासी हजार चार सय अट्ठाईस रुपैयाँ त्रीहत्तर पैसा"
                                                   type="text"/>
                                            मात्र ।)
@@ -398,14 +397,13 @@
                                                   placeholder="२०"
                                                   type="text"/> समान मासिक
                                            किस्ता बन्दीमा
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="fixedTermLoanAmountInNumber"
-                                                  placeholder="रु.१,०८,२५९.८५ "
-                                                  type="text"/>(
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="fixedTermLoanAmountInWord"
+                                           <app-custom-input (eventEmit)="changeToAkchyarupi($event, fixTermLoanIndex , 'fixTermLoan')"
+                                                             [name]="patchValueFunction('fixTermLoan',fixTermLoanIndex,'loanAmountInNumber')"></app-custom-input>/-
+                                           (
+                                           <input readonly class="form-fields form-control-sm"
+                                                  formControlName="loanAkchyarupi"
                                                   placeholder="अक्षरेपी एक लाख आठ हजार दुई सय उनान्साठी"
-                                                  type="text"/> रुपैँया पचासी पैसा
+                                                  type="text"/>
                                            मात्र) का दरले
                                            ईश्वी संवत अनुसारको प्रत्येक महिनाको
                                            <input class="form-fields form-control-sm nepaliFont"
@@ -417,17 +415,15 @@
                                    <tr>
                                        <td> व्याज</td>
                                        <td><b>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate)</b> (हालको आधार दर
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="fixedTermLoanBaseRate"
-                                                  placeholder="९.७६%"
+                                           <input (change)="calcYearlyRate('fixTermLoan', fixTermLoanIndex)" class="form-fields form-control-sm nepaliFont col-3"
+                                                  formControlName="baseRate"
                                                   type="text"/>% + प्रिमियम दर
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="fixedTermLoanPremiumRate"
-                                                  placeholder="०.५०%"
-                                                  type="text"/> %) का
+                                           <input (change)="calcYearlyRate('fixTermLoan', fixTermLoanIndex)" class="form-fields form-control-sm nepaliFont col-3"
+                                                  formControlName="premiumRate"
+                                                  type="text"/>%) का
                                            दरले हाललाई बार्षिक
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="fixedTermLoanCurrentYearPercent"
+                                           <input readonly class="form-fields form-control-sm"
+                                                  formControlName="yearlyRate"
                                                   placeholder="१०.२६%"
                                                   type="text"/> % वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि।
                                            बैंकले त्रैमाशिक रुपमा
@@ -467,11 +463,12 @@
                                    <tr>
                                        <td> सेवा शुल्क</td>
                                        <td>भुक्तानी दिईने ऋण सुविधा रकमको
-                                           <input class="form-fields form-control-sm nepaliFont"
+                                           <input (change)="calcPercent('fixTermLoan', fixTermLoanIndex , 'fixedTermLoanPaymentAmount')"
+                                                  class="form-fields form-control-sm nepaliFont"
                                                   formControlName="fixedTermLoanPaymentAmount"
                                                   placeholder="०.२५% "
-                                                  type="text"/>(<input class="form-fields form-control-sm nepaliFont"
-                                                                       formControlName="fixedTermLoanPaymentAmountDescription"
+                                                  type="text"/>(<input readonly class="form-fields form-control-sm"
+                                                                       formControlName="serviceChargeAmount"
                                                                        placeholder="शुन्य दशमलव दुई पाँच"
                                                                        type="text"/> प्रतिशत) मात्र ।</td>
                                    </tr>
@@ -481,13 +478,13 @@
                                    </tr>
                                    <tr>
                                        <td> कर्जा सीमा रकम</td>
-                                       <td><b>रु</b><input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="fixedTermLoanTwoBoundaryAmountInNumber"
-                                                  placeholder="रु. ९,५९,२५६.५३र–"
-                                                  type="text"/>/- (अक्षरुपी <input class="form-fields form-control-sm nepaliFont"
-                                                                                 formControlName="fixedTermLoanTwoBoundaryAmountInWord"
+                                       <td><b>रु</b>
+                                           <app-custom-input (eventEmit)="changeToNepAmount2($event, fixTermLoanIndex , 'fixTermLoan')"
+                                                             [name]="patchValueFunction('fixTermLoan',fixTermLoanIndex,'secondFixedTermLoan')"></app-custom-input>
+                                           /- (अक्षरुपी <input readonly class="form-fields form-control-sm"
+                                                                                 formControlName="secondFixedTermLoanInWord"
                                                                                  placeholder="नौ लाख उनान्साठी हजार दुई सय छपन्न रुपैयाँ त्रीपन्न पैसा"
-                                                                                 type="text"/> रुपैयाँ मात्र ।)
+                                                                                 type="text"/> मात्र ।)
                                        </td>
                                    </tr>
                                    <tr>
@@ -514,11 +511,10 @@
                                                   placeholder="३९"
                                                   type="text"/> समान मासिक
                                            किस्ता बन्दीमा
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="fixedTermLoanTwoAmountInNumber"
-                                                  placeholder="३९"
-                                                  type="text"/>(
-                                           <input class="form-fields form-control-sm nepaliFont"
+                                           <app-custom-input (eventEmit)="changeToAkchyarupi2($event, fixTermLoanIndex , 'fixTermLoan')"
+                                                             [name]="patchValueFunction('fixTermLoan',fixTermLoanIndex,'fixedTermLoanTwoAmountInNumber')"></app-custom-input>/-
+                                           (
+                                           <input readonly class="form-fields form-control-sm"
                                                   formControlName="fixedTermLoanTwoAmountInWord"
                                                   placeholder="३९"
                                                   type="text"/> पैसा मात्र) का दरले
@@ -533,18 +529,16 @@
                                    <tr>
                                        <td> व्याज</td>
                                        <td><b>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate)</b> (हालको आधार दर
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="fixedTermLoanTwoBaseRate"
-                                                  placeholder="९.७६%"
-                                                  type="text"/> + प्रिमियम दर
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="fixedTermLoanTwoPremiumRate"
-                                                  placeholder="०.५०%"
+                                           <input (change)="calcSecondYearlyRate('fixTermLoan', fixTermLoanIndex)" class="form-fields form-control-sm nepaliFont col-3"
+                                                  formControlName="secondBaseRate"
+                                                  type="text"/>+ प्रिमियम दर
+                                           <input (change)="calcSecondYearlyRate('fixTermLoan', fixTermLoanIndex)" class="form-fields form-control-sm nepaliFont col-3"
+                                                  formControlName="secondPremiumRate"
                                                   type="text"/>)
                                            का
                                            दरले हाललाई बार्षिक
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="fixedTermLoanTwoCurrentYearPercent"
+                                           <input readonly class="form-fields form-control-sm"
+                                                  formControlName="secondYearlyRate"
                                                   placeholder="१०.२६%"
                                                   type="text"/> वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि।
                                            बैंकले त्रैमाशिक रुपमा
@@ -583,12 +577,13 @@
                                    <tr>
                                        <td> सेवा शुल्क</td>
                                        <td>भुक्तानी दिईने ऋण सुविधा रकमको
-                                           <input class="form-fields form-control-sm nepaliFont"
+                                           <input (change)="secondCalcPercent('fixTermLoan', fixTermLoanIndex , 'fixedTermLoanTwoPaymentAmount')"
+                                                  class="form-fields form-control-sm nepaliFont"
                                                   formControlName="fixedTermLoanTwoPaymentAmount"
                                                   placeholder="०.२५%"
                                                   type="text"/> (
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="fixedTermLoanPaymentTwoAmountDescription"
+                                           <input readonly class="form-fields form-control-sm"
+                                                  formControlName="secondServiceChargeAmount"
                                                   placeholder="शुन्य दशमलव दुई पाँच"
                                                   type="text"/>प्रतिशत) मात्र ।</td>
                                    </tr>
@@ -620,14 +615,13 @@
                                    </tr>
                                    <tr>
                                        <td> रकम</td>
-                                       <td><b>रु</b><input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="hirePurchasePaymentAmountInNumber"
-                                                  placeholder="रु. ४७,८१,६५०.३०/-"
-                                                  type="text"/>/-
-                                           (अक्षरुपी <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="hirePurchaseLoanPaymentAmountInWord"
+                                       <td><b>रु</b>
+                                           <app-custom-input (eventEmit)="changeToNepAmount($event, hirePurchaseIndex , 'hirePurchaseLoan')"
+                                                             [name]="patchValueFunction('hirePurchaseLoan',hirePurchaseIndex,'loanAmount')"></app-custom-input>/-
+                                           (अक्षरुपी <input readonly class="form-fields form-control-sm"
+                                                  formControlName="loanAmountInWord"
                                                   placeholder="अक्षेरुपी सत्तचालीस लाख एकासी हजार छ सय पचास रुपैयाँ तीस पैसा"
-                                                  type="text"/> रुपैयाँ मात्र ।)</td>
+                                                  type="text"/> मात्र ।)</td>
                                    </tr>
                                    <tr>
                                        <td> प्रयोजन</td>
@@ -648,16 +642,14 @@
                                        <td>व्याज</td>
                                        <td><b>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) </b>
                                            (हालको आधार दर
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                                 formControlName="hirePurchaseLoanBaseRate"
-                                                                 placeholder="९.७६%"
-                                                                 type="text"/>+ प्रिमियम दर
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="hirePurchaseLoanPremiumRate"
-                                                  placeholder="०.५०%"
+                                           <input (change)="calcYearlyRate('hirePurchaseLoan', hirePurchaseIndex)" class="form-fields form-control-sm nepaliFont col-3"
+                                                  formControlName="baseRate"
+                                                  type="text"/> + प्रिमियम दर
+                                           <input (change)="calcYearlyRate('hirePurchaseLoan', hirePurchaseIndex)" class="form-fields form-control-sm nepaliFont col-3"
+                                                  formControlName="premiumRate"
                                                   type="text"/>) का दरले हाललाई बार्षिक
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="hirePurchaseLoanCurrentYear"
+                                           <input readonly class="form-fields form-control-sm"
+                                                  formControlName="yearlyRate"
                                                   placeholder="१०.२६%"
                                                   type="text"/> वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि। बैंकले त्रैमाशिक रुपमा
                                            प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर संसोधन (घट्न∕बढ्न) सक्नेछ ।
@@ -671,12 +663,11 @@
                                                   placeholder="४०"
                                                   type="text"/> समान मासिक
                                            किस्ता बन्दीमा
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="hirePurchaseLoanAmountInNumber"
-                                                  placeholder="रु. १,४१,६५१.११ "
-                                                  type="text"/>(
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="hirePurchaseLoanInWord"
+                                           <app-custom-input (eventEmit)="changeToAkchyarupi($event, hirePurchaseIndex , 'hirePurchaseLoan')"
+                                                             [name]="patchValueFunction('hirePurchaseLoan',hirePurchaseIndex,'loanAmountInNumber')"></app-custom-input>
+                                           (
+                                           <input readonly class="form-fields form-control-sm"
+                                                  formControlName="loanAkchyarupi"
                                                   placeholder="अक्षरेपी एक लाख एकचालीस हजार छ सय एकाउन्न रुपैयाँ एघार पैसा"
                                                   type="text"/>मात्र) का दरले ईश्वी
                                            संवत अनुसारको प्रत्येक महिनाको
@@ -717,12 +708,13 @@
                                    <tr>
                                        <td> सेवा शुल्क</td>
                                        <td>भुक्तानी हुने ऋण सुविधा रकमको
-                                           <input class="form-fields form-control-sm nepaliFont"
+                                           <input (change)="calcPercent('hirePurchaseLoan', hirePurchaseIndex , 'hirePurchaseLoanServiceCharge')"
+                                                  class="form-fields form-control-sm nepaliFont"
                                                   formControlName="hirePurchaseLoanServiceCharge"
                                                   placeholder="०.२५% "
                                                   type="text"/>(
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="hirePurchaseLoanServicePercent"
+                                           <input readonly class="form-fields form-control-sm"
+                                                  formControlName="serviceChargeAmount"
                                                   placeholder="शुन्य दशमलव दुई पाँच "
                                                   type="text"/>प्रतिशत मात्र) ।
                                        </td>
@@ -752,14 +744,13 @@
                                    <tr>
                                        <td> कर्जा सीमा रकम</td>
                                        <td><b>रु</b>
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="letterOfCreditAmountInNumber"
-                                                  placeholder="रु. १६,००,००,०००र–"
-                                                  type="text"/>/-( अक्षेरुपी
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="latterOfCreditAmountInWord"
+                                           <app-custom-input (eventEmit)="changeToNepAmount($event, lcIndex , 'letterOfCredit')"
+                                                             [name]="patchValueFunction('letterOfCredit',lcIndex,'loanAmount')"></app-custom-input>/-
+                                           ( अक्षेरुपी
+                                           <input readonly class="form-fields form-control-sm"
+                                                  formControlName="loanAmountInWord"
                                                   placeholder="अक्षेरुपी सोह्र करोड रुपैयाँ"
-                                                  type="text"/> रुपैयाँ मात्र ।)</td>
+                                                  type="text"/> मात्र ।)</td>
                                    </tr>
                                    <tr>
                                        <td> उद्देश्य</td>
@@ -842,14 +833,14 @@
                                    </tr>
                                    <tr>
                                        <td>कर्जा सीमा रकम</td>
-                                       <td>रु <input class="form-fields form-control-sm nepaliFont"
-                                                     formControlName="trustReceiptAmountInNumber"
-                                                     placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                     type="text"/> /– (अक्षरेपी
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="trustReceiptAmountInWord"
+                                       <td>रु
+                                           <app-custom-input (eventEmit)="changeToNepAmount($event, trIndex , 'trustReceipt')"
+                                                             [name]="patchValueFunction('trustReceipt',trIndex,'loanAmount')"></app-custom-input>/-
+                                           (अक्षरेपी
+                                           <input readonly class="form-fields form-control-sm"
+                                                  formControlName="loanAmountInWord"
                                                   placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/>रुपैयाँ मात्र ।)</td>
+                                                  type="text"/> मात्र ।)</td>
                                    </tr>
                                    <tr>
                                        <td> उद्देश्य</td>
@@ -858,17 +849,15 @@
                                    <tr>
                                        <td> व्याज</td>
                                        <td><b>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate)</b> (हालको आधार दर
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="trustReceiptBaseRate"
-                                                  placeholder="९.७६%"
+                                           <input (change)="calcYearlyRate('trustReceipt', trIndex)" class="form-fields form-control-sm nepaliFont col-3"
+                                                  formControlName="baseRate"
                                                   type="text"/>% + प्रिमियम दर
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="trustReceiptPremiumRate"
-                                                  placeholder="०.५०%"
+                                           <input (change)="calcYearlyRate('trustReceipt', trIndex)" class="form-fields form-control-sm nepaliFont col-3"
+                                                  formControlName="premiumRate"
                                                   type="text"/>)% का
                                            दरले हाललाई बार्षिक
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="trustReceiptYearlyRate"
+                                           <input readonly class="form-fields form-control-sm"
+                                                  formControlName="yearlyRate"
                                                   placeholder="१०.२६%"
                                                   type="text"/>% त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ
                                            मसान्त) वा समय समयमा
@@ -947,14 +936,13 @@
                                    <tbody>
                                    <tr>
                                        <td>कर्जा सीमा रकम</td>
-                                       <td><b>रु</b><input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="cashCreditAmountInNumber"
+                                       <td><b>रु</b>
+                                           <app-custom-input (eventEmit)="changeToNepAmount($event, chIndex , 'cashCredit')"
+                                                             [name]="patchValueFunction('cashCredit',chIndex,'loanAmount')"></app-custom-input>/- (अक्षरेपी
+                                           <input readonly class="form-fields form-control-sm"
+                                                  formControlName="loanAmountInWord"
                                                   placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/>/– (अक्षरेपी
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="cashCreditAmountInWord"
-                                                  placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/>रुपैयाँ मात्र ।)</td>
+                                                  type="text"/> मात्र ।)</td>
                                    </tr>
                                    <tr>
                                        <td> उद्देश्य</td>
@@ -966,17 +954,15 @@
                                    <tr>
                                        <td> व्याज</td>
                                        <td><b>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate)</b> (हालको आधार दर
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="cashCreditBaseRate"
-                                                  placeholder="९.७६%"
+                                           <input (change)="calcYearlyRate('cashCredit', chIndex)" class="form-fields form-control-sm nepaliFont col-3"
+                                                  formControlName="baseRate"
                                                   type="text"/> % + प्रिमियम दर
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="cashCreditPremiumRate"
-                                                  placeholder="०.५०%"
+                                           <input (change)="calcYearlyRate('cashCredit', chIndex)" class="form-fields form-control-sm nepaliFont col-3"
+                                                  formControlName="premiumRate"
                                                   type="text"/>%) का
                                            दरले हाललाई बार्षिक
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="cashCreditCurrentYear"
+                                           <input readonly class="form-fields form-control-sm"
+                                                  formControlName="yearlyRate"
                                                   placeholder="१०.२६%"
                                                   type="text"/>% त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ
                                            मसान्त) वा समय समयमा
@@ -1063,14 +1049,14 @@
                                    <tbody>
                                    <tr>
                                        <td>कर्जा सीमा रकम</td>
-                                       <td><b>रु</b><input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="shortTermLoanAmountInNumber"
+                                       <td><b>रु</b>
+                                           <app-custom-input (eventEmit)="changeToNepAmount($event, stlIndex , 'shortTermLoan')"
+                                                             [name]="patchValueFunction('shortTermLoan',stlIndex,'loanAmount')"></app-custom-input>/-
+                                           (अक्षरेपी
+                                           <input readonly class="form-fields form-control-sm"
+                                                  formControlName="loanAmountInWord"
                                                   placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/> /– (अक्षरेपी
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="shortTermLoanAmountInWord"
-                                                  placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/>रुपैयाँ मात्र ।)।</td>
+                                                  type="text"/> मात्र ।)।</td>
                                    </tr>
                                    <tr>
                                        <td> उद्देश्य</td>
@@ -1082,16 +1068,15 @@
                                    <tr>
                                        <td> व्याज</td>
                                        <td><b>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) </b>
-                                           (हालको आधार दर <input class="form-fields form-control-sm nepaliFont"
-                                                                 formControlName="shortTermLoanBaseRate"
-                                                                 placeholder="८.१४%"
-                                                                 type="text"/> + प्रिमियम दर
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="shortTermLoanPremiumRate"
-                                                  placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
+                                           (हालको आधार दर
+                                           <input (change)="calcYearlyRate('shortTermLoan', stlIndex)" class="form-fields form-control-sm nepaliFont col-3"
+                                                  formControlName="baseRate"
+                                                  type="text"/> + प्रिमियम दर
+                                           <input (change)="calcYearlyRate('shortTermLoan', stlIndex)" class="form-fields form-control-sm nepaliFont col-3"
+                                                  formControlName="premiumRate"
                                                   type="text"/>%)
-                                           का दरले हाललाई बार्षिक <input class="form-fields form-control-sm nepaliFont"
-                                                                         formControlName="shortTermLoanCurrentYear"
+                                           का दरले हाललाई बार्षिक <input readonly class="form-fields form-control-sm"
+                                                                         formControlName="yearlyRate"
                                                                          placeholder="ÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
                                                                          type="text"/> % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा
                                            समय समयमा बैंकले तोके बमोजिम चुक्ताभुक्तान गर्नु पर्ने गरि । बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा
@@ -1167,14 +1152,14 @@
                                    <tbody>
                                    <tr>
                                        <td> कर्जा सीमा रकम</td>
-                                       <td><b>रु</b><input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="bankGuaranteeAmountInNumber"
+                                       <td><b>रु</b>
+                                           <app-custom-input (eventEmit)="changeToNepAmount($event, bngIndex , 'bankGuarantee')"
+                                                             [name]="patchValueFunction('bankGuarantee',bngIndex,'loanAmount')"></app-custom-input>/-
+                                           (अक्षरेपी
+                                           <input readonly class="form-fields form-control-sm"
+                                                  formControlName="loanAmountInWord"
                                                   placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/> /- (अक्षरेपी
-                                           <input class="form-fields form-control-sm nepaliFont"
-                                                  formControlName="bankGuaranteeAmountInWord"
-                                                  placeholder="रुÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒ"
-                                                  type="text"/> रुपैयाँ मात्र ।)</td>
+                                                  type="text"/> मात्र ।)</td>
                                    </tr>
                                    <tr>
                                        <td> उद्देश्य</td>
@@ -1655,8 +1640,21 @@
                                </div>
                                ऋणी <br>
                                <div class="ml-4">
-                                   <strong>नाम : </strong><span class="nepaliFont form-field">{{this.loanForm.get('to').value}}</span> <br>
-                                   <strong>ठेगाना : </strong><span class="nepaliFont form-field">{{this.loanForm.get('address').value}}</span><br>
+                                   <strong>नाम : </strong><span class="nepaliFont form-field">{{smeLoanHolderInfo?.name}}</span> <br>
+                                   <div class="mb-2">
+                                       <b>ठेगाना:</b>
+                                       प्रदेश
+                                       <strong class="nepaliFont">{{smeLoanHolderInfo?.permanentProvince}}</strong>,
+                                       जिल्ला <strong class="nepaliFont">{{smeLoanHolderInfo?.permanentDistrict}}</strong>
+                                       वार्ड न <strong class="nepaliFont">{{smeLoanHolderInfo?.permanentWard}}</strong>
+                                       <span *ngIf="smeLoanHolderInfo?.permanentMunType==1">
+                                        गा बि स
+                                        </span>
+                                       <span *ngIf="smeLoanHolderInfo?.permanentMunType==0">
+                                    नगरपालिका
+                                    </span><strong class="nepaliFont">{{smeLoanHolderInfo?.permanentMunicipality}}</strong>
+                                   </div>
+                                   <br>
                                    <strong>संपर्क नम्बर : </strong><span class="nepaliFont form-field">{{this.loanForm.get('mobileNo').value}}</span>
                                </div>
                            </div>
@@ -1724,7 +1722,7 @@
                        रुपमा चुक्ता भुक्तान नगरे सम्म यसमा उल्ल्ेखित शर्तहरुको पूर्ण रुपले पालना गर्ने प्रतिज्ञा गर्दछु/गर्दछौं
                        ।<br>
                        <br>
-                       ऋणीको नाम : <span class="nepaliFont form-field">{{this.loanForm.get('to').value}}</span>
+                       ऋणीको नाम : <span class="nepaliFont form-field">{{smeLoanHolderInfo?.name}}</span>
                        <br>
 
                        <div class="row mt-5">
@@ -1770,6 +1768,8 @@
        </nb-card-footer>
    </nb-card>
 </div>
-<app-sme-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-sme-print>
+<app-sme-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint"
+               [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+               hidden></app-sme-print>
 
 
