@@ -64,42 +64,6 @@
                 </div>
             </div>
             <hr>
-            <div class="row mt-1">
-                <div class="col-md-6 text-left">
-                    <div *ngIf="currentDocAction === 'FORWARD' || currentDocAction === 'BACKWARD'
-                          || currentDocAction === 'PENDING'">
-                        <span><strong>Pending Under: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
-                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                    </div>
-                    <div *ngIf="currentDocAction === 'APPROVED'">
-                        <span><strong>Approved By: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
-                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                    </div>
-                    <div *ngIf="currentDocAction === 'REJECT'">
-                        <span><strong>Rejected By: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
-                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                    </div>
-                    <div *ngIf="currentDocAction === 'CLOSED'">
-                        <span><strong>Closed By: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
-                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                    </div>
-                </div>
-                <div class="col-md-6 text-right">
-                    <div *ngIf="currentDocAction === 'FORWARD'">
-                    <span><strong>Forwarded By: </strong>{{loanDataHolder?.currentStage?.fromUser?.name}}
-                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                    </div>
-                    <div *ngIf="currentDocAction === 'BACKWARD'">
-                    <span><strong>Backward By: </strong>{{loanDataHolder?.currentStage?.fromUser?.name}}
-                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                    </div>
-                    <!--<div class="col-md-6">
-                        <div class="text-right">
-                            <span><strong>Branch: </strong>{{loanDataHolder?.branch?.name}}</span>
-                        </div>
-                    </div>-->
-                </div>
-            </div>
             <div class="row">
                 <div class="col-md-6 sb-small">
                     <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span>
