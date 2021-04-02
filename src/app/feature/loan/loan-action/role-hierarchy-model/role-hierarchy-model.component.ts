@@ -51,7 +51,7 @@ export class RoleHierarchyModelComponent implements OnInit {
     showUserList = true;
     selectedRole: Role;
     ckeConfig = Editor.CK_CONFIG;
-    selectedUsername: Object;
+    selectedUsername: string;
     username: string;
 
     constructor(
@@ -117,8 +117,10 @@ export class RoleHierarchyModelComponent implements OnInit {
             });
         });
     }
-
+    
+    // get selected user username
     getSelectedUser(toUser) {
+        // set selected user
         this.selectedUsername = toUser.username;
     }
 
@@ -129,7 +131,8 @@ export class RoleHierarchyModelComponent implements OnInit {
             return;
         }
         // restricting loan transfer for same user
-        if (this.selectedRole.roleType === RoleType.MAKER && this.selectedUsername === LocalStorageUtil.getStorage().username) {
+        if (this.selectedRole.roleType === RoleType.MAKER &&
+            this.selectedUsername === LocalStorageUtil.getStorage().username) {
             this.toastService.show(new Alert(AlertType.ERROR, 'Please select different user to transfer file'));
             return;
         }
