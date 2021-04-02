@@ -26,6 +26,9 @@ export class RetailEducationalLoanComponent implements OnInit {
     initialInfoPrint;
     offerLetterConst = MegaOfferLetterConst;
     offerLetterDocument: OfferDocument;
+    nepData;
+    external = [];
+    loanHolderInfo;
 
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
 
@@ -40,6 +43,9 @@ export class RetailEducationalLoanComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         this.checkOfferLetterData();
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+            this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+        }
     }
 
     buildForm() {
