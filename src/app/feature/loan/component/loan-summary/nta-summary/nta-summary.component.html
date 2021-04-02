@@ -170,6 +170,42 @@
 
 
                 </tr>
+
+                <tr>
+                    <td class="text-left pl-1"><b>Drawing Power (in %)</b></td>
+                    <!--previous year-->
+                    <td class="pr-1">{{prevYearData?.drawingPower?.q1}} %</td>
+                    <td class="pr-1">{{prevYearData?.drawingPower?.q2}} %</td>
+                    <td class="pr-1">{{prevYearData?.drawingPower?.q3}} %</td>
+                    <td class="pr-1">{{prevYearData?.drawingPower?.q4}} %</td>
+                    <td class="pr-1">{{prevYearData?.drawingPower?.average}} %</td>
+
+                    <!-- current year-->
+                    <td class="pr-1">{{currentYearData?.drawingPower?.q1}} %</td>
+                    <td class="pr-1">{{currentYearData?.drawingPower?.q2}} %</td>
+                    <td class="pr-1">{{currentYearData?.drawingPower?.q3}} %</td>
+                    <td class="pr-1">{{currentYearData?.drawingPower?.q4}} %</td>
+                    <td class="pr-1">{{currentYearData?.drawingPower?.average}} %</td>
+
+                </tr>
+
+                <tr>
+                    <td class="text-left pl-1"><b>Drawing Power (Amount)</b></td>
+                    <!--previous year-->
+                    <td class="pr-1">Rs. {{prevYearData?.drawingPowerAmount?.q1 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{prevYearData?.drawingPowerAmount?.q2 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{prevYearData?.drawingPowerAmount?.q3 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{prevYearData?.drawingPowerAmount?.q4 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{prevYearData?.drawingPowerAmount?.average |currencyFormatter}}</td>
+
+                    <!-- current year-->
+                    <td class="pr-1">Rs. {{currentYearData?.drawingPowerAmount?.q1 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{currentYearData?.drawingPowerAmount?.q2 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{currentYearData?.drawingPowerAmount?.q3 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{currentYearData?.drawingPowerAmount?.q4 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{currentYearData?.drawingPowerAmount?.average |currencyFormatter}}</td>
+                </tr>
+
                 </thead>
             </table>
 </div>
