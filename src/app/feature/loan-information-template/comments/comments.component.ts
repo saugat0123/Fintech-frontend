@@ -15,48 +15,39 @@ export class CommentsComponent implements OnInit {
   @Input() commentsDataResponse: Comments;
   @Input() fromProfile;
   @Output() commentsDataEmitter = new EventEmitter();
+  @Input() commentData: any;
   commentsDataObject = new Comments();
   commentsAccordionFormGroup: FormGroup;
-  commentsForEdit;
   submitted = false;
+  comments;
+  auditor;
   constructor(private formBuilder: FormBuilder,
               private el: ElementRef) { }
 
   ngOnInit() {
     this.buildForm();
-    if (!ObjectUtil.isEmpty(this.commentsDataResponse)) {
-      this.commentsForEdit = JSON.parse(this.commentsDataResponse.data);
-      this.commentsAccordionFormGroup.patchValue(this.commentsForEdit);
+    if (!ObjectUtil.isEmpty(this.commentData)) {
+      const commentsForEdit = JSON.parse(this.commentData);
+      this.setFormData(commentsForEdit.data);
     }
+
   }
   buildForm() {
   this.commentsAccordionFormGroup = this. formBuilder.group({
-    previousComments:[undefined],
+    previousComments: [undefined],
     auditorComments: [undefined],
   });
   }
-  scrollToFirstInvalidControl() {
-    const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
-        'form .ng-invalid'
-    );
-    window.scroll({
-      top: this.getTopOffset(firstInvalidControl),
-      left: 0,
-      behavior: 'smooth'
-    });
-    firstInvalidControl.focus();
-  }
-  private getTopOffset(controlEl: HTMLElement): number {
-    const labelOffset = 50;
-    return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
-  }
-  submitForm() {
-    console.log('Form value', this.commentsDataObject);
-    this.submitted = true;
-    if (this.commentsAccordionFormGroup.invalid) {
-      this.scrollToFirstInvalidControl();
-      return;
+
+  public setFormData(formData): void {
+    if (!ObjectUtil.isEmpty(formData)) {
+      const parseData = JSON.parse(formData);
+      this.commentsAccordionFormGroup.patchValue(parseData);
     }
+  }
+
+  submitForm() {
+    this.submitted = true;
     if (!ObjectUtil.isEmpty(this.commentsDataResponse)) {
       this.commentsDataObject = this.commentsDataResponse;
     }

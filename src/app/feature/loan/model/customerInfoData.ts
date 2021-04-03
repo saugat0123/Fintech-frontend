@@ -70,4 +70,5 @@ export class CustomerInfoData {
     clientType: any;
     reportingInfoLevels: Array<ReportingInfoLevel>;
     dataFromComments: Comments;
+    data: string;
 }

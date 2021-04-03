@@ -131,6 +131,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   public reportingInfoLevelCode: string;
   public reportingInfoLevelDescription: string;
   public commentsDataResponse: Comments;
+  public commentsData: string;
 
 
   constructor(
@@ -200,8 +201,8 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.reportingInfoLevelDescription = f.description;
       });
     }
-    if (!ObjectUtil.isEmpty(this.customerInfo.dataFromComments)) {
-      this.commentsDataResponse = this.customerInfo.dataFromComments;
+    if (!ObjectUtil.isEmpty(this.customerInfo.data)) {
+      this.commentsData = this.customerInfo.data;
     }
   }
 

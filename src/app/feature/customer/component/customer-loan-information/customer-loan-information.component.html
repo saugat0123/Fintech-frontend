@@ -448,11 +448,11 @@
               <span>COMMENTS</span>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="customerInfo?.dataFromComments" style="color:green" title="Status : Saved">
+              <span *ngIf="commentsData" style="color:green" title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
               </span>
               <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!customerInfo?.dataFromComments" class="fas fa-times-circle px-2"></em>
+                <em *ngIf="!commentsData" class="fas fa-times-circle px-2"></em>
               </span>
             </div>
           </div>
@@ -461,6 +461,7 @@
           <app-comments
                   #commentsInfoTagging
                   [commentsDataResponse]="commentsDataResponse"
+                  [commentData]="customerInfo?.data"
                                    [fromProfile]="true"
                                    *ngIf="commentsFromAccount.expanded"
                                    (commentsDataEmitter)="saveDataFromComments($event)">
