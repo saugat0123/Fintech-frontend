@@ -7,6 +7,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CombinedLoan} from '../../loan/model/combined-loan';
 import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
 import {CombinedLoanService} from '../../service/combined-loan.service';
+import {FiscalYearService} from '../../admin/service/fiscal-year.service';
 
 @Component({
   selector: 'app-detail-view-base',
@@ -27,10 +28,14 @@ export class DetailViewBaseComponent implements OnInit {
   incomeFromAccountParsedData: any;
   newCustomerFlag: boolean[];
   constructor(private customerLoanService: LoanFormService,
-              private combinedLoanService: CombinedLoanService) { }
+              private combinedLoanService: CombinedLoanService,
+              private fiscalYearService: FiscalYearService) { }
 
   ngOnInit() {
     this.getAllLoans(this.loanDataHolder.loanHolder.id);
+    this. fiscalYearService.getAll().subscribe( res => {
+      this.fiscalYearArray = res.detail;
+    });
     if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
       this.proposalData = this.loanDataHolder.proposal;
       if (!ObjectUtil.isEmpty(this.loanHolder.incomeFromAccount)) {
