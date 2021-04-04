@@ -43,8 +43,8 @@
                         <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
                         <th>Valautor Name</th>
                         <th>Valuator Representative Name</th>
-                        <th>Staff Representative Name</th>
-                        <th colspan="2">Alternative Staff Representative Name</th>
+                        <th>Staff Representative Name 1</th>
+                        <th colspan="2">Staff Representative Name 2</th>
                     </tr>
                     <tr>
                         <td class="text-right pr-1">{{vehicleDetails?.chassisNumber}}</td>
@@ -54,7 +54,7 @@
                         <td class="text-left pl-1">{{vehicleDetails?.vehicalValuator?.name}}</td>
                         <td class="text-left pl-1">{{vehicleDetails?.vehicalValuatorRepresentative}}</td>
                         <td class="text-left pl-1">{{vehicleDetails?.vehicalStaffRepresentativeName}}</td>
-                        <td colspan="2" class="text-left pl-1">{{vehicleDetails?.vehicalAlternateStaffRepresentativeName}}</td>
+                        <td colspan="2" class="text-left pl-1">{{vehicleDetails?.vehicaleStaffRepresentativeName2}}</td>
                     </tr>
                 </table>
             </div>
@@ -98,8 +98,8 @@
                         <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
                         <th colspan="2">Valautor Name</th>
                         <th>Valuator Representative Name</th>
-                        <th>Staff Representative Name</th>
-                        <th colspan="2">Alternative Staff Representative Name</th>
+                        <th>Staff Representative Name 1</th>
+                        <th colspan="2">Staff Representative Name 2</th>
                     </tr>
 
                     <tr>
@@ -109,7 +109,7 @@
                         <td colspan="2" class="text-left pl-1">{{landDetails?.landValuator?.name}}</td>
                         <td class="text-left pl-1">{{landDetails?.landValuatorRepresentative}}</td>
                         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeName}}</td>
-                        <td colspan="2" class="text-left pl-1">{{landDetails?.landAlternateStaffRepresentativeName}}</td>
+                        <td colspan="2" class="text-left pl-1">{{landDetails?.landStaffRepresentativeName2}}</td>
                     </tr>
 
                     <ng-container *ngFor="let kyc of landDetails?.ownerKycApplicableData?.ownerKycDetails; let j = index">
@@ -229,9 +229,9 @@
                         <th>Valautor Name</th>
                         <th>Considered Value</th>
                         <th>Valuator Representative Name</th>
-                        <th>Staff Representative Name</th>
+                        <th>Staff Representative Name 1</th>
                         <th>Collateral Owner Relationship</th>
-                        <th colspan="2">Alternative Staff Representative Name</th>
+                        <th colspan="2">Staff Representative Name 2</th>
                     </tr>
                     <tr>
                         <td class="text-left pl-1">{{landBuilding?.buildingValuatorDate |date}}</td>
@@ -241,7 +241,7 @@
                         <td class="text-left pl-1">{{landBuilding?.buildingValuatorRepresentative}}</td>
                         <td class="text-left pl-1">{{landBuilding?.buildingStaffRepresentativeName}}</td>
                         <td class="text-left pl-1">{{landBuilding?.landBuildingCollateralOwnerRelationship}}</td>
-                        <td colspan="2" class="text-left pl-1">{{landBuilding?.landBuildingAlternateStaffRepresentativeName}}</td>
+                        <td colspan="2" class="text-left pl-1">{{landBuilding?.landBuildingStaffRepresentativeName2}}</td>
                     </tr>
                     <tr class="text-center sb-bg-dark text-white">
                         <th>Address as per Legal Document</th>
@@ -386,8 +386,8 @@
                         <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
                         <th colspan="2">Valautor Name</th>
                         <th>Valuator Representative Name</th>
-                        <th>Staff Representative Name</th>
-                        <th colspan="2">Alternative Staff Representative Name</th>
+                        <th>Staff Representative Name 1</th>
+                        <th colspan="2">Staff Representative Name 2</th>
                     </tr>
                     <tr>
                         <td class="text-left pl-1">{{buildingDetails?.ApartmentValuatorDate |date}}</td>
@@ -395,7 +395,7 @@
                         <td colspan="2" class="text-left pl-1">{{buildingDetails?.ApartmentValuator?.name}}</td>
                         <td class="text-left pl-1">{{buildingDetails?.ApartmentValuatorRepresentative}}</td>
                         <td class="text-left pl-1">{{buildingDetails?.ApartmentStaffRepresentativeName}}</td>
-                        <td colspan="2" class="text-left pl-1">{{buildingDetails?.apartmentAlternateStaffRepresentativeName}}</td>
+                        <td colspan="2" class="text-left pl-1">{{buildingDetails?.apartmentStaffRepresentativeName2}}</td>
                     </tr>
                     <ng-container *ngIf="buildingDetails?.revaluationData != null && buildingDetails?.revaluationData?.isReValuated">
                         <tr>
@@ -503,8 +503,8 @@
                         <th>Valuated Date</th>
                         <th>Valautor Name</th>
                         <th>Representative Name</th>
-                        <th>Staff Representative Name</th>
-                        <th>Alternative Staff Representative Name</th>
+                        <th>Staff Representative Name 1</th>
+                        <th>Staff Representative Name 2</th>
                     </tr>
                     <tr *ngFor="let plantDetails of formData['initialForm']['plantDetails']; let i= index">
                         <td>{{i + 1}}</td>
@@ -517,7 +517,7 @@
                         <td class="text-left pl-1">{{plantDetails?.plantMachineryValuator?.name}}</td>
                         <td class="text-left pl-1">{{plantDetails?.plantMachineryValuatorRepresentative}}</td>
                         <td class="text-left pl-1">{{plantDetails?.plantMachineryStaffRepresentativeName}}</td>
-                        <td class="text-left pl-1">{{plantDetails?.plantMachineryAlternateStaffRepresentativeName}}</td>
+                        <td class="text-left pl-1">{{plantDetails?.plantMachineryStaffRepresentativeName2}}</td>
                     </tr>
                     </thead>
                 </table>
