@@ -51,6 +51,8 @@
                                       [fiscalYears]="fiscalYearArray"
                                       [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
             </ng-template>
+<app-comments-summary
+                      [formData]="dataFromComments"></app-comments-summary>
 
 <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"
                                  [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-summery>

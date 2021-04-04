@@ -43,6 +43,7 @@ import {OwnerKycApplicableComponent} from './security/security-initial-form/owne
 import {NtaMegaComponent} from './nta-mega/nta-mega.component';
 import { MicroProposalComponent } from '../micro-loan/form-component/micro-proposal/micro-proposal.component';
 import { CommentsComponent } from './comments/comments.component';
+import { PreviousSecurityComponent } from './previous-security/previous-security.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -78,7 +79,7 @@ const COMPONENTS = [
 
 
 @NgModule({
-  declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent],
+  declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent],
     exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent],
     entryComponents: [...COMPONENTS],
     imports: [

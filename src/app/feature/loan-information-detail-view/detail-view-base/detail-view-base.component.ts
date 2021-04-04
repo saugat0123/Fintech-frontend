@@ -19,6 +19,8 @@ export class DetailViewBaseComponent implements OnInit {
   @Input() loanHolder;
   @Input() calendarType;
   @Input() loanId;
+  @Input() comment;
+  @Input() formData;
   fiscalYearArray: Array<FiscalYear>;
 
   isMega = environment.isMega;
@@ -27,6 +29,9 @@ export class DetailViewBaseComponent implements OnInit {
   megaGroupEnabled = environment.MEGA_GROUP;
   incomeFromAccountParsedData: any;
   newCustomerFlag: boolean[];
+  dataFromComments: any;
+  commentsSummary = false;
+
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
               private fiscalYearService: FiscalYearService) { }
@@ -42,6 +47,10 @@ export class DetailViewBaseComponent implements OnInit {
         this.incomeFromAccountParsedData = JSON.parse(this.loanHolder.incomeFromAccount.data);
         this.newCustomerFlag = this.incomeFromAccountParsedData.newCustomerChecked;
       }
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
+      this.dataFromComments = JSON.parse(this.loanDataHolder.loanHolder.data);
+      this.commentsSummary = true;
     }
   }
 

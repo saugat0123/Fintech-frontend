@@ -13,7 +13,6 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 })
 export class CommentsComponent implements OnInit {
   @Input() commentsDataResponse: Comments;
-  @Input() fromProfile;
   @Output() commentsDataEmitter = new EventEmitter();
   @Input() commentData: any;
   commentsDataObject = new Comments();
@@ -21,8 +20,7 @@ export class CommentsComponent implements OnInit {
   submitted = false;
   comments;
   auditor;
-  constructor(private formBuilder: FormBuilder,
-              private el: ElementRef) { }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.buildForm();
