@@ -355,8 +355,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     modeOfTransfer: [singleData.modeOfTransfer],
                     revaluationData: [singleData.revaluationData],
                     landStaffRepresentativeDesignation: [singleData.landStaffRepresentativeDesignation],
-                    landAlternateStaffRepresentativeName: [singleData.landAlternateStaffRepresentativeName],
-                    landAlternateStaffRepresentativeDesignation: [singleData.landAlternateStaffRepresentativeDesignation],
+                    landStaffRepresentativeName2: [singleData.landStaffRepresentativeName2],
+                    landStaffRepresentativeDesignation2: [singleData.landStaffRepresentativeDesignation2],
                     landSecurityLegalDocumentAddress: [singleData.landSecurityLegalDocumentAddress],
                     ownershipTransferDate: [ObjectUtil.isEmpty(singleData.ownershipTransferDate) ?
                         undefined : new Date(singleData.ownershipTransferDate)],
@@ -511,8 +511,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     apartmentBranch: [singleData.apartmentBranch],
                     revaluationData: [singleData.revaluationData],
                     apartmentStaffRepresentativeDesignation: [singleData.apartmentStaffRepresentativeDesignation],
-                    apartmentAlternateStaffRepresentativeDesignation: [singleData.apartmentAlternateStaffRepresentativeDesignation],
-                    apartmentAlternateStaffRepresentativeName: [singleData.apartmentAlternateStaffRepresentativeName],
+                    apartmentStaffRepresentativeDesignation2: [singleData.apartmentStaffRepresentativeDesignation2],
+                    apartmentStaffRepresentativeName2: [singleData.apartmentStaffRepresentativeName2],
                 })
             );
         });
@@ -586,8 +586,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     // modeOfTransferConstruction: [singleData.modeOfTransferConstruction],
                     revaluationData: [singleData.revaluationData],
                     landBuildingStaffRepresentativeDesignation: [singleData.landBuildingStaffRepresentativeDesignation],
-                    landBuildingAlternateStaffRepresentativeDesignation: [singleData.landBuildingAlternateStaffRepresentativeDesignation],
-                    landBuildingAlternateStaffRepresentativeName: [singleData.landBuildingAlternateStaffRepresentativeName],
+                    landBuildingStaffRepresentativeDesignation2: [singleData.landBuildingStaffRepresentativeDesignation2],
+                    landBuildingStaffRepresentativeName2: [singleData.landBuildingStaffRepresentativeName2],
                     landAndBuildingSecurityLegalDocumentAddress: [singleData.landAndBuildingSecurityLegalDocumentAddress],
                     landBuildingCollateralOwnerRelationship: [singleData.landBuildingCollateralOwnerRelationship],
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
@@ -723,9 +723,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     plantMachineryStaffRepresentativeName: [singleData.plantMachineryStaffRepresentativeName],
                     plantBranch: [singleData.plantBranch],
                     plantMachineryStaffRepresentativeDesignation: [singleData.plantMachineryStaffRepresentativeDesignation],
-                    plantMachineryAlternateStaffRepresentativeDesignation:
-                        [singleData.plantMachineryAlternateStaffRepresentativeDesignation],
-                    plantMachineryAlternateStaffRepresentativeName: [singleData.plantMachineryAlternateStaffRepresentativeName],
+                    plantMachineryStaffRepresentativeDesignation2:
+                        [singleData.plantMachineryStaffRepresentativeDesignation2],
+                    plantMachineryStaffRepresentativeName2: [singleData.plantMachineryStaffRepresentativeName2],
                   })
             );
         });
@@ -775,8 +775,8 @@ export class SecurityInitialFormComponent implements OnInit {
     change(arraySelected) {
         this.selectedArray = arraySelected;
         this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected
-            = this.underConstructionChecked = this.depositSelected = this.shareSelected =
-            this.landBuilding = this.insurancePolicySelected = this.hypothecation = this.assignment = this.corporate = this.personal = this.insurancePolicySelected = false;
+            = this.underConstructionChecked = this.depositSelected = this.shareSelected = this.landBuilding = this.insurancePolicySelected =
+            this.hypothecation = this.assignment = this.corporate = this.personal = this.insurancePolicySelected = false;
         arraySelected.forEach(selectedValue => {
             switch (selectedValue) {
                 case 'LandSecurity' :
@@ -904,8 +904,8 @@ export class SecurityInitialFormComponent implements OnInit {
             modeOfTransfer: [undefined],
             revaluationData: [undefined],
             landStaffRepresentativeDesignation: [undefined],
-            landAlternateStaffRepresentativeName: [undefined],
-            landAlternateStaffRepresentativeDesignation: [undefined],
+            landStaffRepresentativeName2: [undefined],
+            landStaffRepresentativeDesignation2: [undefined],
             landSecurityLegalDocumentAddress: [undefined],
             ownershipTransferDate: undefined,
             ownershipTransferThrough: undefined,
@@ -950,8 +950,8 @@ export class SecurityInitialFormComponent implements OnInit {
             apartmentBranch: [undefined],
             revaluationData: [undefined],
             apartmentStaffRepresentativeDesignation: [undefined],
-            apartmentAlternateStaffRepresentativeDesignation: [undefined],
-            apartmentAlternateStaffRepresentativeName: [undefined],
+            apartmentStaffRepresentativeDesignation2: [undefined],
+            apartmentStaffRepresentativeName2: [undefined],
         });
     }
 
@@ -1004,8 +1004,8 @@ export class SecurityInitialFormComponent implements OnInit {
             underConstructionChecked: undefined,
             revaluationData: [undefined],
             landBuildingStaffRepresentativeDesignation: [undefined],
-            landBuildingAlternateStaffRepresentativeDesignation: [undefined],
-            landBuildingAlternateStaffRepresentativeName: [undefined],
+            landBuildingStaffRepresentativeDesignation2: [undefined],
+            landBuildingStaffRepresentativeName2: [undefined],
             landAndBuildingSecurityLegalDocumentAddress: [undefined],
             landBuildingCollateralOwnerRelationship: [undefined],
             ownerKycApplicableData: [undefined],
@@ -1040,8 +1040,8 @@ export class SecurityInitialFormComponent implements OnInit {
             plantMachineryStaffRepresentativeName: [undefined],
             plantBranch: [undefined],
             plantMachineryStaffRepresentativeDesignation: [undefined],
-            plantMachineryAlternateStaffRepresentativeDesignation: [undefined],
-            plantMachineryAlternateStaffRepresentativeName: [undefined],
+            plantMachineryStaffRepresentativeDesignation2: [undefined],
+            plantMachineryStaffRepresentativeName2: [undefined],
         });
     }
     assignmentDetailsFormGroup(): FormGroup {
@@ -1192,8 +1192,8 @@ export class SecurityInitialFormComponent implements OnInit {
             vehicalStaffRepresentativeName: [undefined],
             vehicalBranch: [undefined],
             vehicalStaffRepresentativeDesignation: [undefined],
-            vehicalAlternateStaffRepresentativeDesignation: [undefined],
-            vehicalAlternateStaffRepresentativeName: [undefined],
+            vehicaleStaffRepresentativeDesignation2: [undefined],
+            vehicaleStaffRepresentativeName2: [undefined],
             showroomAddress: undefined,
             showroomName: undefined,
             ownershipTransferDate:  undefined
@@ -1235,8 +1235,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     vehicalStaffRepresentativeName: [singleData.vehicalStaffRepresentativeName],
                     vehicalBranch: [singleData.vehicalBranch],
                     vehicalStaffRepresentativeDesignation: [singleData.vehicalStaffRepresentativeDesignation],
-                    vehicalAlternateStaffRepresentativeDesignation: [singleData.vehicalAlternateStaffRepresentativeDesignation],
-                    vehicalAlternateStaffRepresentativeName: [singleData.vehicalAlternateStaffRepresentativeName],
+                    vehicaleStaffRepresentativeDesignation2: [singleData.vehicaleStaffRepresentativeDesignation2],
+                    vehicaleStaffRepresentativeName2: [singleData.vehicaleStaffRepresentativeName2],
                     showroomAddress: [singleData.showroomAddress],
                     showroomName: [singleData.showroomName],
                     ownershipTransferDate:  [ObjectUtil.isEmpty(singleData.ownershipTransferDate) ?
