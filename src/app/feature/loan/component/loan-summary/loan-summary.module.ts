@@ -33,6 +33,7 @@ import {RoleHierarchyChainComponent} from './role-heirarchy-chain/role-hierarchy
 import { NtaMegaSummaryComponent } from './nta-mega-summary/nta-mega-summary.component';
 import { MGroupSummaryComponent } from './m-group-summary/m-group-summary.component';
 import { CommentsSummaryComponent } from './comments-summary/comments-summary.component';
+import {PreviousSecuritySummaryComponent} from '../../../loan-information-view/previous-security-summary/previous-security-summary.component';
 
 
 const COMPONENTS = [
@@ -61,7 +62,7 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent ],
+    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent],
     imports: [
         CommonModule,
         ThemeModule,
@@ -92,7 +93,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         FinancialSummaryComponent,
         ProposalSummaryComponent,
         MGroupSummaryComponent,
-        CommentsSummaryComponent
+        CommentsSummaryComponent,
+        PreviousSecuritySummaryComponent
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

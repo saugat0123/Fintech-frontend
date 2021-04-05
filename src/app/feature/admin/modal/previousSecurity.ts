@@ -1,5 +1,5 @@
 import {BaseEntity} from '../../../@core/model/base-entity';
 
-export class PreviousComments extends BaseEntity{
+export class PreviousSecurity extends BaseEntity {
     data: string;
 }

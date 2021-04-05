@@ -14,6 +14,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 export class CommentsComponent implements OnInit {
   @Input() commentsDataResponse: Comments;
   @Output() commentsDataEmitter = new EventEmitter();
+  @Input() fromProfile;
   @Input() commentData: any;
   commentsDataObject = new Comments();
   commentsAccordionFormGroup: FormGroup;

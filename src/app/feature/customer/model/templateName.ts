@@ -20,4 +20,5 @@ export class TemplateName {
   static MARKETING_ACTIVITIES = 'Marketing Activities';
   static CUSTOMER_REPORTING_INFO = 'Customer Reporting Info';
   static COMMENTS = 'Comments';
+  static PREVIOUS_SECURITY = 'previousSecurity';
 }

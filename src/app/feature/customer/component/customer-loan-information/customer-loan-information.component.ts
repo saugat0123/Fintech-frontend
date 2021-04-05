@@ -36,6 +36,9 @@ import {ReportingInfoLevel} from '../../../reporting/model/reporting-info-level'
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 import {Comments} from '../../../admin/modal/comments';
 import {CommentsComponent} from '../../../loan-information-template/comments/comments.component';
+import {PreviousSecurity} from '../../../admin/modal/previousSecurity';
+import {PreviousSecurityComponent} from '../../../loan-information-template/previous-security/previous-security.component';
+import {Clients} from '../../../../../environments/Clients';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -107,6 +110,11 @@ export class CustomerLoanInformationComponent implements OnInit {
   private commentsFromAccount: NbAccordionItemComponent;
   @ViewChild('commentsInfoTagging', {static: false})
   public commentsComponent: CommentsComponent;
+  @ViewChild('dataFromPreviousSecurity', {static: false})
+  private dataFromPreviousSecurity: NbAccordionItemComponent;
+  @ViewChild('previousSecurityInfoTagging', {static: false})
+  public previousSecurityComponent: PreviousSecurityComponent;
+
   private siteVisit: SiteVisit;
   private financial: Financial;
   /*private creditRiskGradingAlpha: CreditRiskGradingAlpha;*/
@@ -132,6 +140,10 @@ export class CustomerLoanInformationComponent implements OnInit {
   public reportingInfoLevelDescription: string;
   public commentsDataResponse: Comments;
   public commentsData: string;
+  public securityDataResponse: PreviousSecurity;
+  private securityData: string;
+  client = environment.client;
+  clientName = Clients;
 
 
   constructor(
@@ -203,6 +215,9 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.data)) {
       this.commentsData = this.customerInfo.data;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.data)) {
+      this.securityData = this.customerInfo.data;
     }
   }
 
@@ -532,4 +547,19 @@ export class CustomerLoanInformationComponent implements OnInit {
         });
   }
 
+  saveDataFromSecurity(data: PreviousSecurity) {
+    if (!ObjectUtil.isEmpty(this.securityDataResponse)) {
+      this.securityDataResponse = new PreviousSecurity();
+    }
+    this.securityDataResponse = data;
+    this.customerInfoService.saveLoanInfo(this.securityDataResponse, this.customerInfoId, TemplateName. PREVIOUS_SECURITY)
+        .subscribe( () => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Previous Security'));
+          this.dataFromPreviousSecurity.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Previous Security'));
+        });
+  }
 }

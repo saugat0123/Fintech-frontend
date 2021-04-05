@@ -74,7 +74,8 @@ const COMPONENTS = [
     SecurityRevaluationComponent,
     OwnerKycApplicableComponent,
     CadDocumentUploadComponent,
-    NtaMegaComponent
+    NtaMegaComponent,
+    PreviousSecurityComponent
 ];
 
 

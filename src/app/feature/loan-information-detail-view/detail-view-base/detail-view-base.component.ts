@@ -8,6 +8,7 @@ import {CombinedLoan} from '../../loan/model/combined-loan';
 import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
 import {CombinedLoanService} from '../../service/combined-loan.service';
 import {FiscalYearService} from '../../admin/service/fiscal-year.service';
+import {Clients} from '../../../../environments/Clients';
 
 @Component({
   selector: 'app-detail-view-base',
@@ -31,6 +32,10 @@ export class DetailViewBaseComponent implements OnInit {
   newCustomerFlag: boolean[];
   dataFromComments: any;
   commentsSummary = false;
+  previousSecuritySummary = false;
+  dataFromPreviousSecurity: any;
+  client = environment.client;
+  clientName = Clients;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -51,6 +56,11 @@ export class DetailViewBaseComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
       this.dataFromComments = JSON.parse(this.loanDataHolder.loanHolder.data);
       this.commentsSummary = true;
+    }
+    // Setting Previous Security Data
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
+      this.dataFromPreviousSecurity = JSON.parse(this.loanDataHolder.loanHolder.data);
+      this.previousSecuritySummary = true;
     }
   }
 
