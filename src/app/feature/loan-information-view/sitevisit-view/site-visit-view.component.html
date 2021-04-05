@@ -22,18 +22,18 @@
         <td class="text-left pl-1">{{formData['currentResidentDetails']['nearBy']}}</td>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th>Staff Representative Designation</th>
-        <th>Staff Representative Name</th>
-        <th>Alternative Staff Representative Designation</th>
-        <th>Alternative Staff Representative Name</th>
+        <th>Staff Representative Designation 1</th>
+        <th>Staff Representative Name 1</th>
+        <th>Staff Representative Designation 2</th>
+        <th>Staff Representative Name 2</th>
         <th>Longitude</th>
         <th>Latitude</th>
     </tr>
     <tr>
         <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeNameDesignation}}</td>
         <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{formData?.currentResidentDetails?.alternativeStaffRepresentativeNameDesignation}}</td>
-        <td class="text-left pl-1">{{formData?.currentResidentDetails?.alternativeStaffRepresentativeName}}</td>
+        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeNameDesignation2}}</td>
+        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeName2}}</td>
         <td class="text-right pr-1">{{formData['currentResidentDetails']['currentSiteVisitLongitude']}}</td>
         <td class="text-right pr-1">{{formData['currentResidentDetails']['currentSiteVisiLatitude']}}</td>
     </tr>
@@ -60,7 +60,6 @@
         <th>Address Line 2</th>
         <th>Date of Visit</th>
         <th>Objective of Visit</th>
-        <th>Staff Representative Designation</th>
     </tr>
     <tr>
         <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['nameOfThePersonContacted']}}</td>
@@ -74,8 +73,6 @@
         <td class="text-left pl-1"> {{formData['businessSiteVisitDetails']['officeAddress']?.address2}}</td>
         <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['dateOfVisit'] | date}}</td>
         <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['objectiveOfVisit']}}</td>
-        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.staffRepresentativeNameDesignation}}</td>
-
 
     </tr>
     <tr class="text-white sb-bg-dark">
@@ -85,16 +82,18 @@
 
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th>Staff Representative Name</th>
-        <th>Alternative Staff Representative Designation</th>
-        <th>Alternative Staff Representative Name</th>
+        <th>Staff Representative Designation 1</th>
+        <th>Staff Representative Name 1</th>
+        <th>Staff Representative Designation 2</th>
+        <th>Staff Representative Name 2</th>
         <th>Longitude</th>
         <th>Latitude</th>
     </tr>
     <tr>
+        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.staffRepresentativeNameDesignation}}</td>
         <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.staffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.alternativeStaffRepresentativeNameDesignation}}</td>
-        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.alternativeStaffRepresentativeName}}</td>
+        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.staffRepresentativeNameDesignation2}}</td>
+        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.staffRepresentativeName2}}</td>
         <td class="text-right pr-1">{{formData['businessSiteVisitDetails']['businessSiteVisitLongitude']}}</td>
         <td class="text-right pr-1">{{formData['businessSiteVisitDetails']['businessSiteVisitLatitude']}}</td>
     </tr>
@@ -268,16 +267,16 @@
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr class="text-white sb-bg-dark">
-        <th>Staff Representative Designation</th>
-        <th>Staff Representative Name</th>
-        <th>Alternative Staff Representative Designation</th>
-        <th>Alternative Staff Representative Name</th>
+        <th>Staff Representative Designation 1</th>
+        <th>Staff Representative Name 1</th>
+        <th>Staff Representative Designation 2</th>
+        <th>Staff Representative Name 2</th>
     </tr>
     <tr *ngFor="let staff of formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['staffs']">
         <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation}}</td>
         <td class="text-left pl-1">{{staff.staffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{staff.alternativeStaffRepresentativeNameDesignation}}</td>
-        <td class="text-left pl-1">{{staff.alternativeStaffRepresentativeName}}</td>
+        <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation2}}</td>
+        <td class="text-left pl-1">{{staff.staffRepresentativeName2}}</td>
 
     </tr>
 </table>
@@ -360,16 +359,16 @@
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr class="text-white sb-bg-dark">
-        <th>Staff Representative Designation</th>
-        <th>Staff Representative Name</th>
-        <th>Alternative Staff Representative Designation</th>
-        <th>Alternative Staff Representative Name</th>
+        <th>Staff Representative Designation 1</th>
+        <th>Staff Representative Name 1</th>
+        <th>Staff Representative Designation 2</th>
+        <th>Staff Representative Name 2</th>
     </tr>
     <tr *ngFor="let staff of formData['currentAssetsInspectionDetails']['insuranceVerification']['inspectingStaffsDetails']">
         <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation}}</td>
         <td class="text-left pl-1">{{staff.staffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{staff.alternativeStaffRepresentativeNameDesignation}}</td>
-        <td class="text-left pl-1">{{staff.alternativeStaffRepresentativeName}}</td>
+        <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation2}}</td>
+        <td class="text-left pl-1">{{staff.staffRepresentativeName2}}</td>
     </tr>
 </table>
 

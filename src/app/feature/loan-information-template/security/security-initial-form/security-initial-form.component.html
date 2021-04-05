@@ -205,11 +205,11 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="landStaffRepresentativeDesignation">Staff Representative Designation</label>
+                                <label class="title" for="landStaffRepresentativeDesignation">Staff Representative Designation 1</label>
                                 <select class="form-control rounded" formControlName="landStaffRepresentativeDesignation"
                                        id="landStaffRepresentativeDesignation"
                                         name="landStaffRepresentativeDesignation">
-                                    <option [ngValue]="null" hidden>Staff Representative Designation</option>
+                                    <option [ngValue]="null" hidden>Staff Representative Designation 1</option>
                                     <option *ngFor="let designation of designationList"
                                             [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                 </select>
@@ -217,20 +217,20 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="landStaffRepresentativeName">Staff Representative Name</label>
+                                <label class="title" for="landStaffRepresentativeName">Staff Representative Name 1</label>
                                 <input class="form-control rounded" formControlName="landStaffRepresentativeName"
                                        id="landStaffRepresentativeName"
-                                       name="landStaffRepresentativeName" placeholder="Staff Representative Name"
+                                       name="landStaffRepresentativeName" placeholder="Staff Representative Name 1"
                                        type="text"/>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="landAlternateStaffRepresentativeDesignation">Alternate Staff Representative Designation</label>
-                                <select class="form-control rounded" formControlName="landAlternateStaffRepresentativeDesignation"
-                                        id="landAlternateStaffRepresentativeDesignation"
-                                        name="landAlternateStaffRepresentativeDesignation">
-                                    <option [ngValue]="null">Alternate Staff Representative Designation</option>
+                                <label class="title" for="landStaffRepresentativeDesignation2">Staff Representative Designation 2</label>
+                                <select class="form-control rounded" formControlName="landStaffRepresentativeDesignation2"
+                                        id="landStaffRepresentativeDesignation2"
+                                        name="landStaffRepresentativeDesignation2">
+                                    <option [ngValue]="null">Staff Representative Designation 2</option>
                                     <option *ngFor="let designation of designationList"
                                             [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                 </select>
@@ -238,10 +238,10 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="landAlternateStaffRepresentativeName">Alternate Staff Representative Name</label>
-                                <input class="form-control rounded" formControlName="landAlternateStaffRepresentativeName"
-                                       id="landAlternateStaffRepresentativeName"
-                                       name="landAlternateStaffRepresentativeName" placeholder="Alternate Staff Representative Name"
+                                <label class="title" for="landStaffRepresentativeName2">Staff Representative Name 2</label>
+                                <input class="form-control rounded" formControlName="landStaffRepresentativeName2"
+                                       id="landStaffRepresentativeName2"
+                                       name="landStaffRepresentativeName2" placeholder="Staff Representative Name 2"
                                        type="text"/>
                             </div>
                         </div>
@@ -624,11 +624,11 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="apartmentStaffRepresentativeDesignation">Staff Representative Designation</label>
+                                        <label class="title" for="apartmentStaffRepresentativeDesignation">Staff Representative Designation 1</label>
                                         <select class="form-control rounded" formControlName="apartmentStaffRepresentativeDesignation"
                                                 id="apartmentStaffRepresentativeDesignation"
                                                 name="apartmentStaffRepresentativeDesignation">
-                                            <option [ngValue]="null" hidden>Staff Representative Designation</option>
+                                            <option [ngValue]="null" hidden>Staff Representative Designation 1</option>
                                             <option *ngFor="let designation of designationList"
                                                     [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                         </select>
@@ -637,19 +637,20 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="ApartmentStaffRepresentativeName">Staff Representative Name</label>
+                                        <label class="title" for="ApartmentStaffRepresentativeName">Staff Representative Name 1</label>
                                         <input class="form-control rounded" formControlName="ApartmentStaffRepresentativeName"
                                                id="ApartmentStaffRepresentativeName"
-                                               name="ApartmentStaffRepresentativeName" placeholder="Staff Representative Name"
+                                               name="ApartmentStaffRepresentativeName" placeholder="Staff Representative Name 1"
                                                type="text"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="apartmentAlternateStaffRepresentativeDesignation">Alternate Staff Representative Designation</label>
-                                        <select class="form-control rounded" formControlName="apartmentAlternateStaffRepresentativeDesignation"
-                                                id="apartmentAlternateStaffRepresentativeDesignation"
-                                                name="apartmentAlternateStaffRepresentativeDesignation">
+                                        <label class="title" for="apartmentStaffRepresentativeDesignation2">Staff Representative Designation 2</label>
+                                        <select class="form-control rounded" formControlName="apartmentStaffRepresentativeDesignation2"
+                                                id="apartmentStaffRepresentativeDesignation2"
+                                                name="apartmentStaffRepresentativeDesignation2">
+                                            <option [ngValue]="null">Staff Representative Designation 2</option>
                                             <option *ngFor="let designation of designationList"
                                                     [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                         </select>
@@ -657,10 +658,10 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="apartmentAlternateStaffRepresentativeName">Alternate Staff Representative Name</label>
-                                        <input class="form-control rounded" formControlName="apartmentAlternateStaffRepresentativeName"
-                                               id="apartmentAlternateStaffRepresentativeName"
-                                               name="apartmentAlternateStaffRepresentativeName" placeholder="Alternate Staff Representative Name"
+                                        <label class="title" for="apartmentStaffRepresentativeName2">Staff Representative Name 2</label>
+                                        <input class="form-control rounded" formControlName="apartmentStaffRepresentativeName2"
+                                               id="apartmentStaffRepresentativeName2"
+                                               name="apartmentStaffRepresentativeName2" placeholder="Staff Representative Name 2"
                                                type="text"/>
                                     </div>
                                 </div>
@@ -1361,7 +1362,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="title" for="landBuildingStaffRepresentativeDesignation">Staff Representative Designation</label>
+                                    <label class="title" for="landBuildingStaffRepresentativeDesignation">Staff Representative Designation 1</label>
                                     <select class="form-control rounded" formControlName="landBuildingStaffRepresentativeDesignation"
                                             id="landBuildingStaffRepresentativeDesignation"
                                             name="landBuildingStaffRepresentativeDesignation">
@@ -1373,23 +1374,22 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="title">Staff Representative
-                                        Name</label>
+                                    <label class="title">Staff Representative Name 1</label>
                                     <input class="form-control rounded"
                                            formControlName="buildingStaffRepresentativeName"
                                            name="buildingStaffRepresentativeName"
-                                           placeholder="Staff Representative Name"
+                                           placeholder="Staff Representative Name 1"
                                            type="text"/>
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="title" for="landBuildingAlternateStaffRepresentativeDesignation">Alternate Staff Representative Designation</label>
-                                    <select class="form-control rounded" formControlName="landBuildingAlternateStaffRepresentativeDesignation"
-                                            id="landBuildingAlternateStaffRepresentativeDesignation"
-                                            name="landBuildingAlternateStaffRepresentativeDesignation">
-                                        <option [ngValue]="null">Alternate Staff Representative Designation</option>
+                                    <label class="title" for="landBuildingStaffRepresentativeDesignation2">Staff Representative Designation 2</label>
+                                    <select class="form-control rounded" formControlName="landBuildingStaffRepresentativeDesignation2"
+                                            id="landBuildingStaffRepresentativeDesignation2"
+                                            name="landBuildingStaffRepresentativeDesignation2">
+                                        <option [ngValue]="null">Staff Representative Designation 2</option>
                                         <option *ngFor="let designation of designationList"
                                                 [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                     </select>
@@ -1397,10 +1397,10 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="title" for="landBuildingAlternateStaffRepresentativeName">Alternate Staff Representative Name</label>
-                                    <input class="form-control rounded" formControlName="landBuildingAlternateStaffRepresentativeName"
-                                           id="landBuildingAlternateStaffRepresentativeName"
-                                           name="landBuildingAlternateStaffRepresentativeName" placeholder="Alternate Staff Representative Name"
+                                    <label class="title" for="landBuildingStaffRepresentativeName2">Staff Representative Name 2</label>
+                                    <input class="form-control rounded" formControlName="landBuildingStaffRepresentativeName2"
+                                           id="landBuildingStaffRepresentativeName2"
+                                           name="landBuildingStaffRepresentativeName2" placeholder="Staff Representative Name 2"
                                            type="text"/>
                                 </div>
                             </div>
@@ -1810,11 +1810,11 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="plantMachineryStaffRepresentativeDesignation">Staff Representative Designation</label>
+                                <label class="title" for="plantMachineryStaffRepresentativeDesignation">Staff Representative Designation 1</label>
                                 <select class="form-control rounded" formControlName="plantMachineryStaffRepresentativeDesignation"
                                         id="plantMachineryStaffRepresentativeDesignation"
                                         name="plantMachineryStaffRepresentativeDesignation">
-                                    <option [ngValue]="null" hidden>Staff Representative Designation</option>
+                                    <option [ngValue]="null" hidden>Staff Representative Designation 1</option>
                                     <option *ngFor="let designation of designationList"
                                             [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                 </select>
@@ -1822,20 +1822,20 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="plantMachineryStaffRepresentativeName">Staff Representative Name</label>
+                                <label class="title" for="plantMachineryStaffRepresentativeName">Staff Representative Name 1</label>
                                 <input class="form-control rounded" formControlName="plantMachineryStaffRepresentativeName"
                                        id="plantMachineryStaffRepresentativeName"
-                                       name="plantMachineryStaffRepresentativeName" placeholder="Staff Representative Name"
+                                       name="plantMachineryStaffRepresentativeName" placeholder="Staff Representative Name 1"
                                        type="text"/>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="plantMachineryAlternateStaffRepresentativeDesignation">Alternate Staff Representative Designation</label>
-                                <select class="form-control rounded" formControlName="plantMachineryAlternateStaffRepresentativeDesignation"
-                                        id="plantMachineryAlternateStaffRepresentativeDesignation"
-                                        name="plantMachineryAlternateStaffRepresentativeDesignation">
-                                    <option [ngValue]="null">Alternate Staff Representative Designation</option>
+                                <label class="title" for="plantMachineryStaffRepresentativeDesignation2">Staff Representative Designation 2</label>
+                                <select class="form-control rounded" formControlName="plantMachineryStaffRepresentativeDesignation2"
+                                        id="plantMachineryStaffRepresentativeDesignation2"
+                                        name="plantMachineryStaffRepresentativeDesignation2">
+                                    <option [ngValue]="null">Staff Representative Designation 2</option>
                                     <option *ngFor="let designation of designationList"
                                             [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                 </select>
@@ -1843,10 +1843,10 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="plantMachineryAlternateStaffRepresentativeName">Alternate Staff Representative Name</label>
-                                <input class="form-control rounded" formControlName="plantMachineryAlternateStaffRepresentativeName"
-                                       id="plantMachineryAlternateStaffRepresentativeName"
-                                       name="plantMachineryAlternateStaffRepresentativeName" placeholder="Alternate Staff Representative Name"
+                                <label class="title" for="plantMachineryStaffRepresentativeName2">Staff Representative Name 2</label>
+                                <input class="form-control rounded" formControlName="plantMachineryStaffRepresentativeName2"
+                                       id="plantMachineryStaffRepresentativeName2"
+                                       name="plantMachineryStaffRepresentativeName2" placeholder="Staff Representative Name2"
                                        type="text"/>
                             </div>
                         </div>
@@ -2052,11 +2052,11 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title" for="vehicalStaffRepresentativeDesignation">Staff Representative Designation</label>
+                                <label class="title" for="vehicalStaffRepresentativeDesignation">Staff Representative Designation 1</label>
                                 <select class="form-control rounded" formControlName="vehicalStaffRepresentativeDesignation"
                                         id="vehicalStaffRepresentativeDesignation"
                                         name="vehicalStaffRepresentativeDesignation">
-                                    <option [ngValue]="null" hidden>Staff Representative Designation</option>
+                                    <option [ngValue]="null" hidden>Staff Representative Designation 1</option>
                                     <option *ngFor="let designation of designationList"
                                             [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                 </select>
@@ -2064,20 +2064,20 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title" for="vehicalStaffRepresentativeName">Staff Representative Name</label>
+                                <label class="title" for="vehicalStaffRepresentativeName">Staff Representative Name 1</label>
                                 <input class="form-control rounded" formControlName="vehicalStaffRepresentativeName"
                                        id="vehicalStaffRepresentativeName"
-                                       name="vehicalStaffRepresentativeName" placeholder="Staff Representative Name"
+                                       name="vehicalStaffRepresentativeName" placeholder="Staff Representative Name 1"
                                        type="text"/>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title" for="vehicalAlternateStaffRepresentativeDesignation">Alternate Staff Representative Designation</label>
-                                <select class="form-control rounded" formControlName="vehicalAlternateStaffRepresentativeDesignation"
-                                        id="vehicalAlternateStaffRepresentativeDesignation"
-                                        name="vehicalAlternateStaffRepresentativeDesignation">
-                                    <option [ngValue]="null">Alternate Staff Representative Designation</option>
+                                <label class="title" for="vehicaleStaffRepresentativeDesignation2">Staff Representative Designation 2</label>
+                                <select class="form-control rounded" formControlName="vehicaleStaffRepresentativeDesignation2"
+                                        id="vehicaleStaffRepresentativeDesignation2"
+                                        name="vehicaleStaffRepresentativeDesignation2">
+                                    <option [ngValue]="null">Staff Representative Designation 2</option>
                                     <option *ngFor="let designation of designationList"
                                             [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                 </select>
@@ -2085,10 +2085,10 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title" for="vehicalAlternateStaffRepresentativeName">Alternate Staff Representative Name</label>
-                                <input class="form-control rounded" formControlName="vehicalAlternateStaffRepresentativeName"
-                                       id="vehicalAlternateStaffRepresentativeName"
-                                        name="vehicalAlternateStaffRepresentativeName" placeholder="Alternate Staff Representative Name"
+                                <label class="title" for="vehicaleStaffRepresentativeName2">Staff Representative Name 2</label>
+                                <input class="form-control rounded" formControlName="vehicaleStaffRepresentativeName2"
+                                       id="vehicaleStaffRepresentativeName2"
+                                        name="vehicaleStaffRepresentativeName2" placeholder="Staff Representative Name 2"
                                        type="text"/>
                             </div>
                         </div>
