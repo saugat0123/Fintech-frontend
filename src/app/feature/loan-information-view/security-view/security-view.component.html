@@ -41,10 +41,10 @@
         <th colspan="2">Valuator Name</th>
         <th>Valuated Date</th>
         <th>Valuator Representative Name</th>
-        <th>Staff Representative Designation</th>
-        <th>Staff Representative Name</th>
-        <th>Alternative Staff Representative Designation</th>
-        <th>Alternative Representative Name</th>
+        <th>Staff Representative Designation 1</th>
+        <th>Staff Representative Name 1</th>
+        <th>Staff Representative Designation 2</th>
+        <th>Staff Representative Name 2</th>
 
       </tr>
       </thead>
@@ -56,8 +56,8 @@
         <td cclass="text-left pl-1">{{landDetails?.landValuatorRepresentative}}</td>
         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeDesignation}}</td>
         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{landDetails?.landAlternateStaffRepresentativeDesignation}}</td>
-        <td class="text-left pl-1">{{landDetails?.landAlternateStaffRepresentativeName}}</td>
+        <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeDesignation2}}</td>
+        <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeName2}}</td>
       </tr>
       <tr>
       <tr class="text-white sb-bg-dark">
@@ -123,10 +123,10 @@
       <ng-container>
         <tr class="sb-bg-dark text-white">
           <th>Relation</th>
-          <th colspan="2">Name</th>
+          <th>Name</th>
           <th *ngIf="client === clientName.SHINE_RESUNGA" colspan="2">Age</th>
           <th>Citizenship Number</th>
-          <th colspan="2">Issued District</th>
+          <th>Issued District</th>
           <th>Issued Date</th>
           <th>Mobile Number</th>
           <th>Address</th>
@@ -135,10 +135,10 @@
         <ng-container *ngFor="let kyc of landDetails?.ownerKycApplicableData?.ownerKycDetails; let j = index">
           <tr>
             <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
-            <td colspan="2" class="text-left pl-1">{{kyc?.relationName}}</td>
+            <td class="text-left pl-1">{{kyc?.relationName}}</td>
             <td *ngIf="client === clientName.SHINE_RESUNGA" colspan="2" class="text-left pl-1">{{kyc?.age}}</td>
             <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
-            <td colspan="2" class="text-left pl-1">{{kyc?.issuedLocation}}</td>
+            <td class="text-left pl-1">{{kyc?.issuedLocation}}</td>
             <td class="text-left pl-1">{{kyc?.issuedDate | date}}</td>
             <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
             <td class="text-left pl-1">{{kyc?.address}}</td>
@@ -223,9 +223,10 @@
           <th>Valuator Name</th>
           <th>Valuator Representative Name</th>
           <th>Valuated Date</th>
-          <th>Staff Representative Designation</th>
-          <th>Staff Representative Name</th>
-          <th>Alternative Staff Representative Designation</th>
+          <th>Staff Representative Designation 1</th>
+          <th>Staff Representative Name 1</th>
+          <th>Staff Representative Designation 2</th>
+          <th>Staff Representative Name 2</th>
         </tr>
         <tr>
           <td *ngIf="securityData['otherBranchcheck']" class="text-left pl-1">{{landBuilding?.buildingBranch?.name}}</td>
@@ -234,10 +235,10 @@
           <td class="text-left pl-1">{{landBuilding?.buildingValuatorDate | date}}</td>
           <td class="text-left pl-1">{{landBuilding?.landBuildingStaffRepresentativeDesignation}}</td>
           <td class="text-left pl-1">{{landBuilding?.buildingStaffRepresentativeName}}</td>
-          <td class="text-left pl-1">{{landBuilding?.landBuildingAlternateStaffRepresentativeDesignation}}</td>
+          <td class="text-left pl-1">{{landBuilding?.landBuildingStaffRepresentativeDesignation2}}</td>
+          <td class="text-left pl-1">{{landBuilding?.landBuildingStaffRepresentativeName2}}</td>
         </tr>
         <tr class="text-white sb-bg-dark">
-          <th>Alternative Representative Name</th>
           <th>Address as per Legal Document</th>
           <th>Ownership transfer date</th>
           <th> Ownership transfer Through</th>
@@ -250,7 +251,6 @@
           <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'">Other</th>
         </tr>
         <tr>
-          <td class="text-left pl-1">{{landBuilding?.landBuildingAlternateStaffRepresentativeName}}</td>
           <td class="text-left pl-1">{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
           <td class="text-left pl-1">{{landBuilding?.ownershipTransferDate | date}}</td>
           <td>{{ownerShipTransfer[landBuilding?.ownershipTransferThrough]}}</td>
@@ -310,11 +310,11 @@
 
         <ng-container *ngIf="landBuilding?.revaluationData != null && landBuilding?.revaluationData?.isReValuated">
           <tr>
-            <td colspan="8"></td>
+            <td colspan="9"></td>
           </tr>
           <tr class="sb-bg-dark text-white">
             <th>ReValuation Date</th>
-            <th colspan="1">Valuator name</th>
+            <th colspan="2">Valuator name</th>
             <th colspan="1">ReValuation Fmv</th>
             <th colspan="1">ReValuation Dv</th>
             <th colspan="1">ReValuation Considered Value</th>
@@ -324,7 +324,7 @@
           </tr>
           <tr class="text-right">
             <td class="text-left pl-1"> {{landBuilding?.revaluationData?.reValuationDate |date}}</td>
-            <td colspan="1" class="text-left pl-1">{{landBuilding?.revaluationData?.newValuator?.name}}</td>
+            <td colspan="2" class="text-left pl-1">{{landBuilding?.revaluationData?.newValuator?.name}}</td>
             <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
             <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
             <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
@@ -338,7 +338,7 @@
           <th>Name</th>
           <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
           <th>Citizenship Number</th>
-          <th colspan="2">Issued District</th>
+          <th>Issued District</th>
           <th>Issued Date</th>
           <th>Mobile Number</th>
           <th>Address</th>
@@ -350,7 +350,7 @@
             <td class="text-left pl-1">{{kyc?.relationName}}</td>
             <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
             <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
-            <td colspan="2" class="text-left pl-1">{{kyc?.issuedLocation}}</td>
+            <td class="text-left pl-1">{{kyc?.issuedLocation}}</td>
             <td class="text-left pl-1">{{kyc?.issuedDate | date}}</td>
             <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
             <td class="text-left pl-1">{{kyc?.address}}</td>
@@ -617,29 +617,22 @@
       </tr>
       </tbody>
       <tr class="text-white sb-bg-dark">
-        <th></th>
         <th>Valuated Date</th>
         <th>Valuator Representative Name</th>
         <th>Staff Representative Designation</th>
         <th>Staff Representative Name</th>
-        <th>Alternative Staff Representative Designation</th>
+        <th>Staff Representative Designation 2</th>
+        <th>Staff Representative Name 2</th>
       </tr>
       <tr>
-        <td></td>
         <td class="text-left pl-1">{{buildingDetails?.ApartmentValuatorDate | date}}</td>
         <td class="text-left pl-1">{{buildingDetails?.ApartmentValuatorRepresentative}}</td>
         <td class="text-left pl-1">{{buildingDetails?.apartmentStaffRepresentativeDesignation}}</td>
         <td class="text-left pl-1">{{buildingDetails?.ApartmentStaffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{buildingDetails?.apartmentAlternateStaffRepresentativeDesignation}}</td>
+        <td class="text-left pl-1">{{buildingDetails?.apartmentStaffRepresentativeDesignation2}}</td>
+        <td class="text-left pl-1">{{buildingDetails?.apartmentStaffRepresentativeName2}}</td>
       </tr>
-      <tr class="text-white sb-bg-dark">
-        <th></th>
-        <th>Alternative Representative Name</th>
-      </tr>
-      <tr>
-        <td></td>
-        <td class="text-left pl-1">{{buildingDetails?.apartmentAlternateStaffRepresentativeName}}</td>
-      </tr>
+
       <ng-container *ngIf="buildingDetails?.revaluationData != null && buildingDetails?.revaluationData?.isReValuated">
         <tr>
           <td colspan="8"></td>
@@ -1201,15 +1194,15 @@
       <tr class="text-white sb-bg-dark">
         <th></th>
         <th>Staff Representative Name</th>
-        <th>Alternative Staff Representative Designation</th>
-        <th>Alternative Representative Name</th>
+        <th>Staff Representative Designation 2</th>
+        <th>Staff Representative Name 2</th>
       </tr>
       <tr>
         <td>
         </td>
         <td class="text-left pl-1">{{plantDetails?.plantMachineryStaffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{plantDetails?.plantMachineryAlternateStaffRepresentativeDesignation}}</td>
-        <td class="text-left pl-1">{{plantDetails?.plantMachineryAlternateStaffRepresentativeName}}</td>
+        <td class="text-left pl-1">{{plantDetails?.plantMachineryStaffRepresentativeDesignation2}}</td>
+        <td class="text-left pl-1">{{plantDetails?.plantMachineryStaffRepresentativeName2}}</td>
       </tr>
       </tbody>
     </table>
@@ -1272,7 +1265,7 @@
         <th>Valuator Representative Name</th>
         <th>Valuated Date</th>
 
-        <th>Staff Representative D</th>
+        <th>Staff Representative Designation 1</th>
 
       </tr>
       </thead>
@@ -1286,15 +1279,15 @@
       </tbody>
       <tr class="text-white sb-bg-dark">
         <th>Staff Representative Name</th>
-        <th>Alternative Staff Representative Designation</th>
-        <th>Alternative Representative Name</th>
+        <th>Staff Representative Designation 2</th>
+        <th>Representative Name 2</th>
         <th>Showroom Name</th>
 
       </tr>
       <tr>
         <td class="text-left pl-1">{{vehicleSecurity?.vehicalStaffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{vehicleSecurity?.vehicalAlternateStaffRepresentativeDesignation}}</td>
-        <td class="text-left pl-1">{{vehicleSecurity?.vehicalAlternateStaffRepresentativeName}}</td>
+        <td class="text-left pl-1">{{vehicleSecurity?.vehicaleStaffRepresentativeDesignation2}}</td>
+        <td class="text-left pl-1">{{vehicleSecurity?.vehicaleStaffRepresentativeName2}}</td>
         <td class="text-left pl-1">{{vehicleSecurity?.showroomName}}</td>
 
       </tr>

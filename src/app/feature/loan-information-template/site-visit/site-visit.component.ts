@@ -155,12 +155,12 @@ export class SiteVisitComponent implements OnInit {
         staffRepresentativeName: [this.formDataForEdit === undefined ? undefined :
             (this.formDataForEdit.currentResidentDetails === undefined ? undefined
             : this.formDataForEdit.currentResidentDetails.staffRepresentativeName)],
-        alternativeStaffRepresentativeNameDesignation: [this.formDataForEdit === undefined ? undefined :
+        staffRepresentativeNameDesignation2: [this.formDataForEdit === undefined ? undefined :
             (this.formDataForEdit.currentResidentDetails === undefined ? undefined
-            : this.formDataForEdit.currentResidentDetails.alternativeStaffRepresentativeNameDesignation)],
-        alternativeStaffRepresentativeName: [this.formDataForEdit === undefined ? undefined :
+            : this.formDataForEdit.currentResidentDetails.staffRepresentativeNameDesignation2)],
+        staffRepresentativeName2: [this.formDataForEdit === undefined ? undefined :
             (this.formDataForEdit.currentResidentDetails === undefined ? undefined
-            : this.formDataForEdit.currentResidentDetails.alternativeStaffRepresentativeName)],
+            : this.formDataForEdit.currentResidentDetails.staffRepresentativeName2)],
         findingComment: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? undefined
             : this.formDataForEdit.currentResidentDetails.findingComment)],
         locationPreview: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
@@ -186,12 +186,12 @@ export class SiteVisitComponent implements OnInit {
         staffRepresentativeName: [this.formDataForEdit === undefined ? undefined :
             (this.formDataForEdit.businessSiteVisitDetails === undefined ? undefined
                 : this.formDataForEdit.businessSiteVisitDetails.staffRepresentativeName)],
-        alternativeStaffRepresentativeNameDesignation: [this.formDataForEdit === undefined ? undefined :
+        staffRepresentativeNameDesignation2: [this.formDataForEdit === undefined ? undefined :
             (this.formDataForEdit.businessSiteVisitDetails === undefined ? undefined
-                : this.formDataForEdit.businessSiteVisitDetails.alternativeStaffRepresentativeNameDesignation)],
-        alternativeStaffRepresentativeName: [this.formDataForEdit === undefined ? undefined :
+                : this.formDataForEdit.businessSiteVisitDetails.staffRepresentativeNameDesignation2)],
+        staffRepresentativeName2: [this.formDataForEdit === undefined ? undefined :
             (this.formDataForEdit.businessSiteVisitDetails === undefined ? undefined
-                : this.formDataForEdit.businessSiteVisitDetails.alternativeStaffRepresentativeName)],
+                : this.formDataForEdit.businessSiteVisitDetails.staffRepresentativeName2)],
         locationPreview: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.locationPreview],
         mapAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
@@ -674,8 +674,8 @@ export class SiteVisitComponent implements OnInit {
     return this.formBuilder.group({
       staffRepresentativeNameDesignation: undefined,
       staffRepresentativeName: undefined,
-      alternativeStaffRepresentativeNameDesignation: undefined,
-      alternativeStaffRepresentativeName: undefined,
+      staffRepresentativeNameDesignation2: undefined,
+      staffRepresentativeName2: undefined,
     });
   }
 
@@ -1066,8 +1066,8 @@ export class SiteVisitComponent implements OnInit {
         this.formBuilder.group({
           staffRepresentativeNameDesignation: undefined,
           staffRepresentativeName: undefined,
-          alternativeStaffRepresentativeNameDesignation: undefined,
-          alternativeStaffRepresentativeName: undefined,
+          staffRepresentativeNameDesignation2: undefined,
+          staffRepresentativeName2: undefined,
         })
     );
   }
@@ -1080,8 +1080,8 @@ export class SiteVisitComponent implements OnInit {
         this.formBuilder.group({
           staffRepresentativeNameDesignation: undefined,
           staffRepresentativeName: undefined,
-          alternativeStaffRepresentativeNameDesignation: undefined,
-          alternativeStaffRepresentativeName: undefined,
+          staffRepresentativeNameDesignation2: undefined,
+          staffRepresentativeName2: undefined,
         })
     );
   }
@@ -1163,8 +1163,8 @@ export class SiteVisitComponent implements OnInit {
           this.formBuilder.group({
             staffRepresentativeNameDesignation: [data.staffRepresentativeNameDesignation],
             staffRepresentativeName: [data.staffRepresentativeName],
-            alternativeStaffRepresentativeNameDesignation: [data.alternativeStaffRepresentativeNameDesignation],
-            alternativeStaffRepresentativeName: [data.alternativeStaffRepresentativeName],
+            staffRepresentativeNameDesignation2: [data.staffRepresentativeNameDesignation2],
+            staffRepresentativeName2: [data.staffRepresentativeName2],
           })
       );
     });
@@ -1181,8 +1181,8 @@ export class SiteVisitComponent implements OnInit {
             this.formBuilder.group({
               staffRepresentativeNameDesignation: [data.staffRepresentativeNameDesignation],
               staffRepresentativeName: [data.staffRepresentativeName],
-              alternativeStaffRepresentativeNameDesignation: [data.alternativeStaffRepresentativeNameDesignation],
-              alternativeStaffRepresentativeName: [data.alternativeStaffRepresentativeName],
+              staffRepresentativeNameDesignation2: [data.staffRepresentativeNameDesignation2],
+              staffRepresentativeName2: [data.staffRepresentativeName2],
             })
         );
       });
