@@ -367,8 +367,11 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
 
   calculateSalesToWclLimit(financialData, currentFiscalYearIndex) {
     const salesToWclLimit = Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value) /
-        (Number(financialData.balanceSheetData.currentAssets[currentFiscalYearIndex].value) -
-            Number(financialData.balanceSheetData.currentLiabilities[currentFiscalYearIndex].value));
+        (Number(
+            (financialData.balanceSheetData.currentLiabilitiesCategory as Array<any>).filter(
+                singleCategory => singleCategory['name'] === 'Short Term Loan'
+            )[0]['amount'][currentFiscalYearIndex].value
+        ));
     const automatedValue = salesToWclLimit.toFixed(2);
     if (salesToWclLimit > 3) {
       this.setValueForCriteria('salesToWclLimit', 'Above 3 times', 4.50, automatedValue);
