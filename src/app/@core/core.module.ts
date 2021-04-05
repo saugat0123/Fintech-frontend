@@ -16,6 +16,7 @@ import {NepaliToEngNumberPipe} from './pipe/nepali-to-eng-number.pipe';
 import {LoanStatusPipe} from './pipe/loan-status-pipe';
 import {EngToNepaliNumberPipe} from './pipe/eng-to-nepali-number.pipe';
 import {NepaliPercentWordPipe} from './pipe/nepali-percent-word.pipe';
+import {NgxNumToWordsModule} from 'ngx-num-to-words';
 // import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 // import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 
@@ -92,9 +93,14 @@ export const NB_CORE_PROVIDERS = [
 
 ];
 
+const UTILITY_MODULES = [
+    NgxNumToWordsModule
+];
+
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        ...UTILITY_MODULES
     ],
     exports: [
         // NbAuthModule,
@@ -109,7 +115,8 @@ export const NB_CORE_PROVIDERS = [
         DecimalNumberDirective,
         NepaliToEngNumberPipe,
         LoanStatusPipe,
-        EngToNepaliNumberPipe
+        EngToNepaliNumberPipe,
+        ...UTILITY_MODULES
     ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
