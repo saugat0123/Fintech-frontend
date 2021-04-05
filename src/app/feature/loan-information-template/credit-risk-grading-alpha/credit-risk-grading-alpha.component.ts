@@ -390,16 +390,21 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     if (currentFiscalYearIndex === 0) {
       this.setValueForCriteria('salesGrowth', 'Initial year (Absence of previous year data)', 0, '--');
     } else {
-      const salesGrowth = ((Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value) -
+
+      /*const salesGrowth = ((Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value) -
           Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex - 1].value)) /
-          Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex - 1].value)) * 100;
+          Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex - 1].value)) * 100;*/
+
+      const salesGrowth = Number(financialData.keyIndicatorsData.sales[currentFiscalYearIndex].value);
       const automatedValue = salesGrowth.toFixed(2);
       if (salesGrowth > 15) {
         this.setValueForCriteria('salesGrowth', 'Sales growth above 15%', 3, automatedValue);
-      } else if (salesGrowth >= 10 && salesGrowth <= 15) {
-        this.setValueForCriteria('salesGrowth', 'Minimum Sales growth of 10%', 2.25, automatedValue);
-      } else if (salesGrowth > 0 && salesGrowth < 10) {
-        this.setValueForCriteria('salesGrowth', 'Growing sales', 1.50, automatedValue);
+      } else if (salesGrowth > 10 && salesGrowth <= 15) {
+        this.setValueForCriteria('salesGrowth', 'Sales growth between 10% to 15%', 2.25, automatedValue);
+      } else if (salesGrowth >= 5 && salesGrowth <= 10) {
+        this.setValueForCriteria('salesGrowth', 'Sales growth between 5% to 10%', 1.50, automatedValue);
+      } else if (salesGrowth > 0 && salesGrowth < 5) {
+        this.setValueForCriteria('salesGrowth', 'Sales growth below 5%', 0.75, automatedValue);
       } else if (salesGrowth <= 0) {
         this.setValueForCriteria('salesGrowth', 'Declining Sales', 0, automatedValue);
       }
@@ -407,7 +412,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   }
 
   calculateProfitability(financialData, currentFiscalYearIndex: number) {
-    const profitability = ((Number(financialData.incomeStatementData.profitAfterTax[currentFiscalYearIndex].value) +
+    /*const profitability = ((Number(financialData.incomeStatementData.profitAfterTax[currentFiscalYearIndex].value) +
         Number(this.getSubCategory(financialData, 'incomeStatementData', 'operatingExpensesCategory', 'Depreciation')
             [0]['amount'][currentFiscalYearIndex].value)) /
         Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value)) * 100;
@@ -415,8 +420,9 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     if (currentFiscalYearIndex > 0) {
       netCashFlow = Number(financialData.keyIndicatorsData.cashFlowKI[currentFiscalYearIndex].value) -
           Number(financialData.keyIndicatorsData.cashFlowKI[currentFiscalYearIndex - 1].value);
-    }
-    const automatedValue = `${profitability.toFixed(2)}, ${netCashFlow.toFixed(2)}`;
+    }*/
+
+    /*const automatedValue = `${profitability.toFixed(2)}, ${netCashFlow.toFixed(2)}`;
     if (profitability >= 5 && netCashFlow > 0) {
       this.setValueForCriteria('profitability', 'Minimum net profit of 5%, increasing cash flow', 3, automatedValue);
     } else if ((profitability >= 2 && profitability < 5) && netCashFlow > 0) {
@@ -427,6 +433,21 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
       this.setValueForCriteria('profitability', 'Net loss/ negative cash flow', 0, automatedValue);
     } else {
       this.setValueForCriteria('profitability', 'Net loss/ negative cash flow', 0, automatedValue);
+    }*/
+
+    const profitability = Number(financialData.keyIndicatorsData.netProfitMargin[currentFiscalYearIndex].value);
+    const automatedValue = `${profitability.toFixed(2)}`;
+
+    if (profitability >= 5) {
+      this.setValueForCriteria('profitability', 'Minimum net profit margin of 5% and higher', 3, automatedValue);
+    } else if (profitability >= 2 && profitability < 5) {
+      this.setValueForCriteria('profitability', 'Minimum net profit margin 2% to 5%', 2.25, automatedValue);
+    } else if (profitability >= 1 && profitability < 2) {
+      this.setValueForCriteria('profitability', 'Minimum net profit margin 1% to 2%', 1.50, automatedValue);
+    } else if (profitability < 1 && profitability > 0) {
+      this.setValueForCriteria('profitability', 'Net profit margin below 1%', 0.75, automatedValue);
+    } else {
+      this.setValueForCriteria('profitability', 'Net loss', 0, automatedValue);
     }
   }
 
@@ -460,11 +481,13 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     ) / Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value)) * 365;*/
 
     const workingCapitalCycle = Number(financialData.keyIndicatorsData.netOperatingCycle[currentFiscalYearIndex].value);
-    const receivableCollectionPeriod = Number(financialData.keyIndicatorsData.averageCollectionPeriod[currentFiscalYearIndex].value);
 
-    const automatedValue = `${workingCapitalCycle.toFixed(2)}, ${receivableCollectionPeriod.toFixed(2)}`;
+    /*const receivableCollectionPeriod = Number(financialData.keyIndicatorsData.averageCollectionPeriod[currentFiscalYearIndex].value);
+    const automatedValue = `${workingCapitalCycle.toFixed(2)}, ${receivableCollectionPeriod.toFixed(2)}`;*/
 
-    if (workingCapitalCycle < 120 && receivableCollectionPeriod < 60) {
+    const automatedValue = `${workingCapitalCycle.toFixed(2)}`;
+
+    /*if (workingCapitalCycle < 120 && receivableCollectionPeriod < 60) {
       this.setValueForCriteria('workingCapitalCycle',
           'Working capital cycle below 120 days with receivable collection period below 60 days', 3, automatedValue);
     } else if ((workingCapitalCycle >= 120 && workingCapitalCycle <= 150)
@@ -474,6 +497,18 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     } else if (workingCapitalCycle > 150 && workingCapitalCycle <= 180) {
       this.setValueForCriteria('workingCapitalCycle',
           'Working capital cycle above 150 days  to 180 days / Improving projection', 1.50, automatedValue);
+    } else if (workingCapitalCycle > 180) {
+      this.setValueForCriteria('workingCapitalCycle', 'Working capital cycle above 180 days', 0.75, automatedValue);
+    } else {
+      this.setValueForCriteria('workingCapitalCycle', 'Default', 0.75, automatedValue);
+    }*/
+
+    if (workingCapitalCycle < 120) {
+      this.setValueForCriteria('workingCapitalCycle', 'Working capital cycle below 120 days', 3, automatedValue);
+    } else if (workingCapitalCycle >= 120 && workingCapitalCycle <= 150) {
+      this.setValueForCriteria('workingCapitalCycle', 'Working capital cycle below 150 days', 2.25, automatedValue);
+    } else if (workingCapitalCycle > 150 && workingCapitalCycle <= 180) {
+      this.setValueForCriteria('workingCapitalCycle', 'Working capital cycle above 150 days', 1.50, automatedValue);
     } else if (workingCapitalCycle > 180) {
       this.setValueForCriteria('workingCapitalCycle', 'Working capital cycle above 180 days', 0.75, automatedValue);
     } else {
