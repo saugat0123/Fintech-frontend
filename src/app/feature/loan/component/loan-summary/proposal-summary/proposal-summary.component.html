@@ -290,3 +290,12 @@
         </table>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-12 sb-medium">
+        <strong>Total Proposed Limit (in words):</strong>
+        {{ getTotal('proposedLimit') | currencyFormatter}}
+        (Rs. {{ getTotal('proposedLimit') | inWords | titlecase }}
+        Only /-)
+    </div>
+</div>

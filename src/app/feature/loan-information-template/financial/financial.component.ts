@@ -210,6 +210,7 @@ export class FinancialComponent implements OnInit {
             this.financialForm.get('netWorthOfFirmOrCompany').setValue(initialFormData.netWorthOfFirmOrCompany);
             this.financialForm.get('taxCompliance').setValue(initialFormData.taxCompliance);
             this.financialForm.get('historicalDataPresent').setValue(initialFormData.historicalDataPresent);
+            this.financialForm.get('totalWorkingCapitalLimit').setValue(initialFormData.totalWorkingCapitalLimit);
             this.historicalDataPresent = initialFormData.historicalDataPresent;
             this.financialForm.patchValue(initialFormData);
         } else {
@@ -246,6 +247,7 @@ export class FinancialComponent implements OnInit {
             netWorthOfFirmOrCompany: undefined,
             taxCompliance: undefined,
             historicalDataPresent: [true],
+            totalWorkingCapitalLimit: [0],
             // crg lambda fields---
             majorSourceIncomeType: [undefined, [Validators.required]],
             periodOfEarning: [undefined, [Validators.required , Validators.pattern(Pattern.NUMBER_ONLY)]],
@@ -261,6 +263,10 @@ export class FinancialComponent implements OnInit {
     toggleHistory($event: boolean) {
         this.historicalDataPresent = $event;
         this.financialForm.get('historicalDataPresent').setValue($event);
+    }
+
+    setTotalWorkingCapitalLimit(amount) {
+        this.financialForm.get('totalWorkingCapitalLimit').setValue(amount);
     }
 
     // Setting existing data--

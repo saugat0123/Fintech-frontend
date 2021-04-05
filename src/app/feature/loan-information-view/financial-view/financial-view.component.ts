@@ -13,6 +13,7 @@ export class FinancialViewComponent implements OnInit {
 
   @Input() formData: Financial;
   @Input() customerType: any;
+  activeClientIsMega = true;
 
   financialData: any;
 
@@ -26,6 +27,7 @@ export class FinancialViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.activeClientIsMega = environment.client === Clients.MEGA;
     if (this.formData !== undefined) {
       this.financialData = JSON.parse(this.formData.data);
     }

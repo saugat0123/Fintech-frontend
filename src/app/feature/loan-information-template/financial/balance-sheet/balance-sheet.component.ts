@@ -5,6 +5,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FinancialDeleteComponentComponent} from '../financial-delete-component/financial-delete-component.component';
 import {ModalResponse} from '../../../../@core/utils';
 import {Editor} from '../../../../@core/utils/constants/editor';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-balance-sheet',
@@ -406,7 +407,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         ? 0 : this.financialService
                 .convertToPercent(Number(incomeStatement.profitAfterTax[index].value) / Number(netWorth.controls['value'].value));
 
-        keyIndicators.debtServiceCoverageRatio[index].value = Number(longTermLoan.controls['value'].value) === 0 ? 0 :
+        keyIndicators.debtServiceCoverageRatio[index].value = (ObjectUtil.isEmpty(Number(principleInstalmentPaidDuringTheYear.controls['value'].value))
+        || Number(principleInstalmentPaidDuringTheYear.controls['value'].value) === 0) ? 0 :
             ((Number(incomeStatement.operatingProfit[index].value)
                 + Number(this.financialService
                     .fetchValuesForJsonSubCategories(incomeStatement.operatingExpensesCategory, 'Depreciation', index))
