@@ -651,13 +651,7 @@
                     [customerAllLoanList]="customerAllLoanList"
                     [proposalData]="proposalData"
                     [loanDataHolder]="loanDataHolder"></app-proposal-summary>
-            <div class="row">
-                <div class="col-md-12 sb-medium">
-                    <strong>Propose Amount:</strong>
-                    Rs. {{loanDataHolder?.proposal?.proposedAmountInWords}}
-                    Only /-
-                </div>
-            </div>
+
             <div *ngIf="loanDataHolder?.customerInfo?.withinLimitRemarks">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-dark text-white">

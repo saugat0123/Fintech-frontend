@@ -39,7 +39,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   @Input() security: Security;
   @Input() companyInfo: CompanyInfo;
   @Input() customerInfo: CustomerInfoData;
-  @Input() proposedLimit;
+  // @Input() proposedLimit;
   @Input() loanTag: string;
 
   historicalDataPresent: boolean;
@@ -53,6 +53,8 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   fiscalYearList = [];
   parsedFinancialData: any;
   loanTagEnum = LoanTag;
+
+  totalWorkingCapitalLimit = 0;
 
   relationshipRiskArray = [
     'bankingRelationship',
@@ -161,6 +163,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.financialData)) {
       this.parsedFinancialData = JSON.parse(this.financialData);
       this.historicalDataPresent = this.parsedFinancialData.initialForm.historicalDataPresent;
+      this.totalWorkingCapitalLimit = Number(this.parsedFinancialData.initialForm.totalWorkingCapitalLimit);
       if (this.parsedFinancialData.fiscalYear.length > 0) {
         this.fiscalYearList = this.parsedFinancialData.fiscalYear;
         this.reCalculateFinancial(Number(this.parsedFinancialData.fiscalYear.length - 1));
@@ -182,12 +185,12 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
         message: 'Financial data absent! Please refer financial tab for necessary data entries',
       });
     }
-    if (ObjectUtil.isEmpty(this.proposedLimit)) {
+    /*if (ObjectUtil.isEmpty(this.proposedLimit)) {
       this.missingAlerts.push({
         type: 'danger',
         message: 'Proposed limit is missing! Please refer proposal tab for data entry',
       });
-    }
+    }*/
     // Calculate Security risk portion --
     if (!ObjectUtil.isEmpty(this.security) && !ObjectUtil.isEmpty(this.security.data)) {
       const parsedSecurityData = JSON.parse(this.security.data);
@@ -351,7 +354,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
         }
       }
     });
-    const securityCoverageFAC = (totalFMV / Number(this.proposedLimit)) * 100;
+    const securityCoverageFAC = (totalFMV / Number(this.totalWorkingCapitalLimit)) * 100;
     const automatedValue = securityCoverageFAC.toFixed(2);
     if (securityCoverageFAC >= 125) {
       this.setValueForCriteria('securityCoverageFAC', '125% FMV', 40.00, automatedValue);
@@ -364,8 +367,11 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
 
   calculateSalesToWclLimit(financialData, currentFiscalYearIndex) {
     const salesToWclLimit = Number(this.getDirectSales(financialData)[0]['amount'][currentFiscalYearIndex].value) /
-        (Number(financialData.balanceSheetData.currentAssets[currentFiscalYearIndex].value) -
-            Number(financialData.balanceSheetData.currentLiabilities[currentFiscalYearIndex].value));
+        (Number(
+            (financialData.balanceSheetData.currentLiabilitiesCategory as Array<any>).filter(
+                singleCategory => singleCategory['name'] === 'Short Term Loan'
+            )[0]['amount'][currentFiscalYearIndex].value
+        ));
     const automatedValue = salesToWclLimit.toFixed(2);
     if (salesToWclLimit > 3) {
       this.setValueForCriteria('salesToWclLimit', 'Above 3 times', 4.50, automatedValue);
