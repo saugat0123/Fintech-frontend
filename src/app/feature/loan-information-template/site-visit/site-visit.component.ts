@@ -294,7 +294,7 @@ export class SiteVisitComponent implements OnInit {
           constructionYear: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.constructionYear],
+                      : new Date(this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.constructionYear)],
           qualityOfConstructionRemarks: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
