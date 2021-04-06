@@ -729,6 +729,13 @@
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
             <br>
+            <div *ngIf="client === clientName?.MEGA">
+                <app-comments-summary *ngIf="commentsSummary"
+                                             [formData]="dataFromComments"></app-comments-summary>
+                <app-previous-security-summary *ngIf="previousSecuritySummary" [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
+            </div>
+
+            <br>
             <div *ngIf="client !== clientName?.MEGA">
                 <app-guarantor-summary *ngIf="checkGuarantorData"
                                        [guarantorData]="guarantorData"></app-guarantor-summary>
