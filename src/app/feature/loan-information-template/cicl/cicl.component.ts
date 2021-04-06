@@ -18,6 +18,7 @@ import {environment} from '../../../../environments/environment.srdb';
 })
 export class CiclComponent implements OnInit {
   @Input() ciclValue: CiclArray;
+    // @Input() calendarType: CalendarType;
 
   @Input() fromProfile: boolean;
   calendarType = 'AD';
@@ -74,6 +75,7 @@ export class CiclComponent implements OnInit {
 
     this.buildCiclForm();
     this.relationlist = this.relationshipList.relation;
+    const test = this.ciclForm.get('obtaineddate').value;
   }
   buildCiclForm() {
     this.ciclForm = this.formBuilder.group({
@@ -149,7 +151,7 @@ export class CiclComponent implements OnInit {
             overdueAmount: [cicl.overdueAmount, Validators.required],
             outstandingAmount: [cicl.outstandingAmount, Validators.required],
             ciclStatus: [cicl.status, Validators.required],
-            obtaineddate: [cicl.obtaineddate, Validators.required],
+            obtaineddate: [new Date(cicl.obtaineddate), Validators.required],
             loanamount: [cicl.loanamount, Validators.required],
             overdue: [cicl.overdue],
             ciclRelation: [cicl.ciclRelation]
