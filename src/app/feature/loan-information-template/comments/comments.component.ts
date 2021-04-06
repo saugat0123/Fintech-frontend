@@ -35,6 +35,7 @@ export class CommentsComponent implements OnInit {
   this.commentsAccordionFormGroup = this. formBuilder.group({
     previousComments: [undefined],
     auditorComments: [undefined],
+    securityDetails: [undefined],
   });
   }
 

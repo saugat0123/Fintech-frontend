@@ -25,18 +25,20 @@ export class PreviousSecurityComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    if ( !ObjectUtil.isEmpty(this.securityData)) {
+      const securityForEdit = JSON.parse(this.securityData);
+      this.setFormData(securityForEdit.data);
+    }
+    if ( !ObjectUtil.isEmpty(this.commentData)) {
     const commentsForEdit = JSON.parse(this.commentData);
     const comment = JSON.parse(commentsForEdit.data);
-    if ( !ObjectUtil.isEmpty(this.securityData)) {
-        const securityForEdit = JSON.parse(this.securityData);
-        this.setFormData(securityForEdit.data);
     }
   }
   buildForm() {
     this.previousSecurityFormGroup = this.formBuilder.group({
-      securityDetails: [undefined],
       previousComments: [undefined],
       auditorComments: [undefined],
+      securityDetails: [undefined],
     });
 
   }
