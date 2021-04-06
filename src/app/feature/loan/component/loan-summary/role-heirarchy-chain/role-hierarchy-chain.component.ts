@@ -36,7 +36,7 @@ export class RoleHierarchyChainComponent implements OnInit, OnChanges {
   popUpTitle: string;
   currentRoleOrder: number;
   currentRoleType: string;
-  arrow = '>>';
+  arrow = ' >> ';
 
   constructor(
       private route: ActivatedRoute,
