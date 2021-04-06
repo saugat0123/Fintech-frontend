@@ -275,19 +275,19 @@
             <tr class="text-white sb-bg-dark">
                 <th colspan="9">Information of Proprietor/Shareholder/Partner with holder %</th>
             </tr>
-            <tr class="text-white sb-bg-dark">
-                <th class="sn">S.N</th>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Contact No</th>
-                <th>Share %</th>
-                <th>Address</th>
-                <th>Ward No.</th>
-                <th>Address Line 1</th>
-                <th>Address Line 2</th>
-            </tr>
             </thead>
             <ng-container *ngFor="let holder of companyJsonData.proprietorList;let i =index">
+                <tr class="text-white sb-bg-dark">
+                    <th class="sn">S.N</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Contact No</th>
+                    <th>Share %</th>
+                    <th>Address</th>
+                    <th>Ward No.</th>
+                    <th>Address Line 1</th>
+                    <th>Address Line 2</th>
+                </tr>
                 <tr>
                     <td>{{i+1}}</td>
                     <td class="text-left pl-1"><strong>{{holder?.name}}</strong></td>
@@ -302,8 +302,12 @@
 
                 <tr *ngIf="client != clientName.MEGA">
                     <td colspan="9">
+                        <br>
                         <table class="table border-dark">
                             <thead class="sb-bg-dark text-white">
+                            <tr class="sb-bg-secondary text-white">
+                                <th colspan="10">Family details of {{holder?.name}}</th>
+                            </tr>
                             <tr>
                                 <th class="sn">S.N</th>
                                 <th>Owner Relationship</th>
@@ -334,7 +338,6 @@
                             </ng-container>
                             </tbody>
                         </table>
-                    </td>
                 </tr>
             </ng-container>
         </table>
