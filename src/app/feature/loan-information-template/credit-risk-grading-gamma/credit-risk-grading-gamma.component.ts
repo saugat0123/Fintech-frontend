@@ -123,15 +123,15 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             this.totalPoints = total;
             this.creditRiskGrading.get('totalPoint').patchValue(this.totalPoints);
             if (this.totalPoints >= 90) {
-                this.grading = 'Excellent';
+                this.grading = 'Not Eligible for new loans';
             } else if (this.totalPoints >= 75 && this.totalPoints < 90) {
-                this.grading = 'Very Good';
+                this.grading = 'Acceptable';
             } else if (this.totalPoints >= 65 && this.totalPoints < 75) {
                 this.grading = 'Good';
             } else if (this.totalPoints >= 50 && this.totalPoints < 65) {
-                this.grading = 'Acceptable';
+                this.grading = 'Very Good';
             } else if (this.totalPoints < 50) {
-                this.grading = 'Not Eligible for new loans';
+                this.grading = 'Excellent';
             }
             this.creditRiskGrading.get('grade').patchValue(this.grading);
         }
