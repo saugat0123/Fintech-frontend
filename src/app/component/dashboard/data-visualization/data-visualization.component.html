@@ -45,12 +45,12 @@
                             <ngx-charts-advanced-pie-chart [view]="view" [scheme]="colorScheme" [results]="pieChart">
                             </ngx-charts-advanced-pie-chart>
                             <div class="row">
-                                <div class="col-md-4 ">
+                                <div class="col-md-5 ">
                                     <nb-card class="card bg-info text-white " >
                                         <div >
                                             <a  (click)="resolveToCatalogue('discussion')">
                                                 <label class="card-header bg-dark cursor">
-                                                    Discussion <mark class="text-info"><strong> {{discussionFileCount}}</strong></mark>
+                                                    Discussion <mark class="text-info rounded-pill"><strong> {{discussionFileCount}}</strong></mark>
                                                 </label>
                                             </a>
 
@@ -60,12 +60,12 @@
                                         </div>
                                     </nb-card>
                                 </div>
-                                <div class="col-md-4 ">
+                                <div class="col-md-5 ">
                                     <nb-card  class="card bg-info text-white "  >
                                         <div >
                                             <a class="cursor" (click)="resolveToCatalogue('documentation')">
                                                 <label class="card-header bg-dark cursor">
-                                                    Documentation <mark class="text-info "><strong> {{documentationFileCount}}</strong></mark>
+                                                    Documentation <mark class="text-info rounded-pill"><strong> {{documentationFileCount}}</strong></mark>
                                                 </label>
                                             </a>
                                             <div id="documentationAmountApproved"  style="display: inline">
@@ -76,12 +76,12 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4 ">
+                                <div class="col-md-5 ">
                                     <nb-card class="card bg-info text-white " >
                                         <div>
                                             <a class="cursor" (click)="resolveToCatalogue('valuation')">
                                                 <label class="card-header bg-dark cursor">
-                                                    Valuation <mark class="text-info"><strong> {{valuationFileCount}}</strong></mark>
+                                                    Valuation <mark class="text-info rounded-pill"><strong> {{valuationFileCount}}</strong></mark>
                                                 </label>
                                             </a>
 
@@ -91,12 +91,12 @@
                                         </div>
                                     </nb-card>
                                 </div>
-                                <div class="col-md-4 ">
+                                <div class="col-md-5 ">
                                     <nb-card  class="card bg-info text-white "  >
                                         <div >
                                             <a class="cursor" (click)="resolveToCatalogue('underReview')">
                                                 <label class="card-header bg-dark cursor">
-                                                    Under Review <mark class="text-info"><strong> {{valuationFileCount}}</strong></mark>
+                                                    Under Review <mark class="text-info rounded-pill"><strong> {{valuationFileCount}}</strong></mark>
                                                 </label>
                                             </a>
 
@@ -108,12 +108,12 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4 ">
+                                <div class="col-md-5 ">
                                     <nb-card class="  card bg-warning text-white " >
                                         <div>
                                             <a class="cursor" (click)="resolveToCatalogue('pending')">
                                                 <label class="card-header bg-dark cursor">
-                                                    Pending <mark class="text-warning"><strong> {{pendingFileCount}}</strong></mark>
+                                                    Pending <mark class="text-warning rounded-pill"><strong> {{pendingFileCount}}</strong></mark>
                                                 </label>
                                             </a>
                                             <div id="seperateAmountPending"  style="display: inline">
@@ -122,12 +122,12 @@
                                         </div>
                                     </nb-card>
                                 </div>
-                                <div class="col-md-4 ">
+                                <div class="col-md-5 ">
                                     <nb-card  class=" card bg-success text-white "  >
                                         <div >
                                             <a class="cursor" (click)="resolveToCatalogue('approved')">
                                                 <label class="card-header bg-dark cursor">
-                                                    Approved <mark class="text-success cursor"><strong> {{approvedFileCount}}</strong></mark>
+                                                    Approved <mark class="text-success cursor rounded-pill"><strong> {{approvedFileCount}}</strong></mark>
                                                 </label>
                                             </a>
 
@@ -139,12 +139,12 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4 ">
+                                <div class="col-md-5 ">
                                     <nb-card  class=" card bg-danger text-white " >
                                         <div >
                                             <a class="cursor" (click)="resolveToCatalogue('rejected')">
                                                 <label class="card-header bg-dark cursor">
-                                                    Rejected <mark class="text-danger"><strong> {{rejectedFileCount}}</strong></mark>
+                                                    Rejected <mark class="text-danger rounded-pill"><strong> {{rejectedFileCount}}</strong></mark>
                                                 </label>
                                             </a>
                                             <div id="seperateAmountRejected"  style="display: inline">
@@ -153,12 +153,12 @@
                                         </div>
                                     </nb-card>
                                 </div>
-                                <div class="col-md-4 ">
+                                <div class="col-md-5 ">
                                     <nb-card  class=" bg-primary text-white align-self-center " >
                                         <div >
                                             <a  (click)="resolveToCatalogue('closed')">
                                                 <label class="card-header bg-dark cursor">
-                                                    Closed <mark class="text-primary"><strong> {{closureFileCount}}</strong></mark>
+                                                    Closed <mark class="text-primary rounded-pill"><strong> {{closureFileCount}}</strong></mark>
                                                 </label>
                                             </a>
 
