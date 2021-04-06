@@ -31,7 +31,6 @@ export class PreviousSecurityComponent implements OnInit {
         const securityForEdit = JSON.parse(this.securityData);
         this.setFormData(securityForEdit.data);
     }
-    console.log(this.commentData);
   }
   buildForm() {
     this.previousSecurityFormGroup = this.formBuilder.group({
