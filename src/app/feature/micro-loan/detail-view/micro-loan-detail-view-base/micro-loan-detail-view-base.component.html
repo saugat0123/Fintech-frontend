@@ -90,8 +90,7 @@
                                                [financialData]="loanDataHolder?.financial?.data"
                                                [companyInfo]="loanDataHolder?.companyInfo"
                                                [customerInfo]="loanDataHolder?.loanHolder"
-                                               [loanTag]="loanDataHolder?.loan?.loanTag"
-                                               [proposedLimit]="loanDataHolder?.proposal?.proposedLimit"></app-credit-risk-grading-alpha>
+                                               [loanTag]="loanDataHolder?.loan?.loanTag"></app-credit-risk-grading-alpha>
             </div>
         <ng-template  #allDocumentView>
             <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>

@@ -327,6 +327,15 @@
 </form>
 
 <div *ngIf="isBusinessLoan">
+    <div class="row my-2">
+        <div class="col-md-12 form-group">
+            <label><b>Total Working Capital Limit*</b></label>
+            <input #totalWorkingCapitalLimit nbInput
+                   [value]="financialForm.get('totalWorkingCapitalLimit').value"
+                   (input)="setTotalWorkingCapitalLimit(totalWorkingCapitalLimit?.value)"
+                   type="number" class="form-control mb-2" />
+        </div>
+    </div>
     <div class="text-right m-4">
         <nb-checkbox [checked]="historicalDataPresent" (checkedChange)="toggleHistory($event)">
             Availability of Historical Data
