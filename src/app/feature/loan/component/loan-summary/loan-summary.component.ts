@@ -161,6 +161,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     sbsGroupEnabled = environment.SBS_GROUP;
     megaGroupEnabled = environment.MEGA_GROUP;
+    commentsSummary = false;
+    dataFromComments;
+    previousSecuritySummary = false;
+    dataFromPreviousSecurity;
 
 
     constructor(
@@ -234,6 +238,18 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.incomeFromAccountData = this.loanDataHolder.loanHolder.incomeFromAccount;
             this.incomeFromAccountSummary = true;
         }
+        // Setting Comments data--
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
+            this.dataFromComments = JSON.parse(this.loanDataHolder.loanHolder.data);
+            this.commentsSummary = true;
+        }
+
+        // Setting Previous Security Data
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
+            this.dataFromPreviousSecurity = JSON.parse(this.loanDataHolder.loanHolder.data);
+            this.previousSecuritySummary = true;
+        }
+
 
         // Setting NetTradingAssets data--
         if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.netTradingAssets)) {
