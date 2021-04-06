@@ -1196,7 +1196,8 @@ export class SecurityInitialFormComponent implements OnInit {
             vehicaleStaffRepresentativeName2: [undefined],
             showroomAddress: undefined,
             showroomName: undefined,
-            ownershipTransferDate:  undefined
+            ownershipTransferDate:  undefined,
+            vehicleQuotationDate: undefined
         });
     }
 
@@ -1241,6 +1242,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     showroomName: [singleData.showroomName],
                     ownershipTransferDate:  [ObjectUtil.isEmpty(singleData.ownershipTransferDate) ?
                       undefined : new Date(singleData.ownershipTransferDate)],
+                    vehicleQuotationDate:  [ObjectUtil.isEmpty(singleData.vehicleQuotationDate) ?
+                        undefined : new Date(singleData.vehicleQuotationDate)],
                 })
             );
         });
