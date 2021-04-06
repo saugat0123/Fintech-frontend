@@ -10,6 +10,7 @@ import {RepaymentTrack} from '../../admin/modal/crg/RepaymentTrack';
 import {RelationshipList} from '../../loan/model/relationshipList';
 import {CiclRelationListEnum} from '../../loan/model/ciclRelationListEnum';
 import {environment} from '../../../../environments/environment.srdb';
+import {CalendarType} from '../../../@core/model/calendar-type';
 
 @Component({
   selector: 'app-cicl',
@@ -21,7 +22,7 @@ export class CiclComponent implements OnInit {
     // @Input() calendarType: CalendarType;
 
   @Input() fromProfile: boolean;
-  calendarType = 'AD';
+  calendarType = CalendarType.AD;
 
   ciclForm: FormGroup;
 
