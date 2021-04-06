@@ -5,57 +5,62 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Comments} from '../../admin/modal/comments';
 
 @Component({
-  selector: 'app-previous-security',
-  templateUrl: './previous-security.component.html',
-  styleUrls: ['./previous-security.component.scss']
+    selector: 'app-previous-security',
+    templateUrl: './previous-security.component.html',
+    styleUrls: ['./previous-security.component.scss']
 })
 export class PreviousSecurityComponent implements OnInit {
-  @Input() securityDataResponse: PreviousSecurity;
-  @Input() securityData: any;
-  @Input() fromProfile;
-  @Output() securityDataEmitter = new EventEmitter();
-  @Input() commentData;
-  ckeConfig;
-  submitted = false;
-  previousSecurityFormGroup: FormGroup;
-  securityDataObject = new Comments();
+    @Input() securityDataResponse: PreviousSecurity;
+    @Input() securityData: any;
+    @Input() fromProfile;
+    @Output() securityDataEmitter = new EventEmitter();
+    @Input() commentData;
+    ckeConfig;
+    submitted = false;
+    previousSecurityFormGroup: FormGroup;
+    securityDataObject = new Comments();
+    checked = false;
 
-
-  constructor( private formBuilder: FormBuilder) { }
-
-  ngOnInit() {
-    this.buildForm();
-    if ( !ObjectUtil.isEmpty(this.securityData)) {
-      const securityForEdit = JSON.parse(this.securityData);
-      this.setFormData(securityForEdit.data);
+    constructor(private formBuilder: FormBuilder) {
     }
-    if ( !ObjectUtil.isEmpty(this.commentData)) {
-    const commentsForEdit = JSON.parse(this.commentData);
-    const comment = JSON.parse(commentsForEdit.data);
-    }
-  }
-  buildForm() {
-    this.previousSecurityFormGroup = this.formBuilder.group({
-      previousComments: [undefined],
-      auditorComments: [undefined],
-      securityDetails: [undefined],
-    });
 
-  }
-
-  public setFormData(formData): void {
-    if (!ObjectUtil.isEmpty(formData)) {
-      const parseData = JSON.parse(formData);
-      this.previousSecurityFormGroup.patchValue(parseData);
+    ngOnInit() {
+        this.buildForm();
+        if (!ObjectUtil.isEmpty(this.securityData)) {
+            const securityForEdit = JSON.parse(this.securityData);
+            this.setFormData(securityForEdit.data);
+        }
+        if (!ObjectUtil.isEmpty(this.commentData)) {
+            const commentsForEdit = JSON.parse(this.commentData);
+            const comment = JSON.parse(commentsForEdit.data);
+        }
     }
-  }
 
-  submitForm() {
-    this.submitted = true;
-    if (!ObjectUtil.isEmpty(this.securityDataResponse)) {
-      this.securityDataObject = this.securityDataResponse;
+    buildForm() {
+        this.previousSecurityFormGroup = this.formBuilder.group({
+            previousComments: [undefined],
+            auditorComments: [undefined],
+            securityDetails: [undefined],
+        });
+
     }
-    this.securityDataObject.data = JSON.stringify(this.previousSecurityFormGroup.value);
-    this.securityDataEmitter.emit(this.securityDataObject);
-  }
+
+    public setFormData(formData): void {
+        if (!ObjectUtil.isEmpty(formData)) {
+            const parseData = JSON.parse(formData);
+            if (!ObjectUtil.isEmpty(parseData.securityDetails)) {
+                this.checked = true;
+            }
+            this.previousSecurityFormGroup.patchValue(parseData);
+        }
+    }
+
+    submitForm() {
+        this.submitted = true;
+        if (!ObjectUtil.isEmpty(this.securityDataResponse)) {
+            this.securityDataObject = this.securityDataResponse;
+        }
+        this.securityDataObject.data = JSON.stringify(this.previousSecurityFormGroup.value);
+        this.securityDataEmitter.emit(this.securityDataObject);
+    }
 }

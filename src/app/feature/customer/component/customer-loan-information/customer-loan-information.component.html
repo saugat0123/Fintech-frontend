@@ -448,11 +448,11 @@
               <span>COMMENTS</span>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="commentsData" style="color:green" title="Status : Saved">
+              <span *ngIf="checkedPreviousComments" style="color:green" title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
               </span>
               <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!commentsData" class="fas fa-times-circle px-2"></em>
+                <em *ngIf="!checkedPreviousComments" class="fas fa-times-circle px-2"></em>
               </span>
             </div>
           </div>
@@ -480,11 +480,11 @@
               <span>PREVIOUS SECURITY</span>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="securityData" style="color:green" title="Status : Saved">
+              <span *ngIf="checkedPreviousSecurity" style="color:green" title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
               </span>
               <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!securityData" class="fas fa-times-circle px-2"></em>
+                <em *ngIf="!checkedPreviousSecurity" class="fas fa-times-circle px-2"></em>
               </span>
             </div>
           </div>
