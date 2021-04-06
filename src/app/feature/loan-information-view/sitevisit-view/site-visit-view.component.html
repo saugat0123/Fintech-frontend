@@ -150,7 +150,8 @@
         <th>Road Width(in feet)</th>
         <th>Road Access From</th>
         <th>Prominent Place</th>
-        <th>Approach Distance(in feet)</th>
+        <th *ngIf="client === clientName?.SHINE_RESUNGA">Approach Distance(in meter)</th>
+        <th *ngIf="client !== clientName?.SHINE_RESUNGA">Approach Distance(in feet)</th>
         <th>Water Supply</th>
         <th>Electricity</th>
         <th>Boundary wall</th>

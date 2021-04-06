@@ -510,6 +510,13 @@
                             <td *ngFor="let amount of financialData['balanceSheetData']['differenceBS']" class="text-right pr-1">
                                 <b>Rs. {{amount.value | currencyFormatter}}</b></td>
                         </tr>
+
+                        <tr>
+                            <th scope="row">F</th>
+                            <td class="text-left pl-1"><b>Principle Instalment paid/payable during the year</b></td>
+                            <td *ngFor="let amount of financialData['balanceSheetData']['principleInstalmentPaidDuringTheYear']" class="text-right pr-1">
+                                <b>Rs. {{amount.value | currencyFormatter}}</b></td>
+                        </tr>
                         </tbody>
 
                     </table>
