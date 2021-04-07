@@ -591,6 +591,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     landAndBuildingSecurityLegalDocumentAddress: [singleData.landAndBuildingSecurityLegalDocumentAddress],
                     landBuildingCollateralOwnerRelationship: [singleData.landBuildingCollateralOwnerRelationship],
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
+                    progessCost: [singleData.progessCost],
                 })
             );
         });
@@ -739,11 +740,11 @@ export class SecurityInitialFormComponent implements OnInit {
                     this.formBuilder.group({
                         insuredAmount: [singleData.insuredAmount],
                         insuranceCompanyName: [singleData.insuranceCompanyName],
-                        policyStartDate: [singleData.policyStartDate],
-                        maturityDate: [singleData.maturityDate],
+                        policyStartDate: [new Date(singleData.policyStartDate)],
+                        maturityDate: [new Date(singleData.maturityDate)],
                         insurancePolicyType: [singleData.insurancePolicyType],
                         surrenderValue: [singleData.surrenderValue],
-                        earlySurrenderDate: [singleData.earlySurrenderDate],
+                        earlySurrenderDate: [new Date(singleData.earlySurrenderDate)],
                         consideredValue: [singleData.consideredValue],
                         cashBackAmount: [singleData.cashBackAmount],
                     })
@@ -1009,6 +1010,7 @@ export class SecurityInitialFormComponent implements OnInit {
             landAndBuildingSecurityLegalDocumentAddress: [undefined],
             landBuildingCollateralOwnerRelationship: [undefined],
             ownerKycApplicableData: [undefined],
+            progessCost: [undefined],
         });
     }
     // Insurance policy form group
@@ -1221,7 +1223,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.formBuilder.group({
                     model: [singleData.model],
                     registrationNumber: [singleData.registrationNumber],
-                    registrationDate: [singleData.registrationDate],
+                    registrationDate: [new Date(singleData.registrationDate)],
                     engineNumber: [singleData.engineNumber],
                     chassisNumber: [singleData.chassisNumber],
                     valuationAmount: [singleData.valuationAmount],
@@ -1293,7 +1295,7 @@ export class SecurityInitialFormComponent implements OnInit {
                         remarks: [deposit.remarks],
                         accountHolderName: [deposit.accountHolderName],
                         accountNumber: [deposit.accountNumber],
-                        tenureStartDate: [deposit.tenureStartDate]
+                        tenureStartDate: [new Date(deposit.tenureStartDate)]
                     })
                 );
             });

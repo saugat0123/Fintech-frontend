@@ -1606,8 +1606,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="title">Total cost
-                                        </label>
+                                        <label class="title">Total Estimate cost</label>
                                         <input class="form-control rounded"
                                                formControlName="totalCostConstruction"
                                                name="totalCost" placeholder="Total cost"
@@ -1636,6 +1635,15 @@
                                                name="distressValue"
                                                placeholder="distress value"
                                                type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title">Progess cost</label>
+                                        <input class="form-control rounded"
+                                               formControlName="progessCost"
+                                               name="progessCost" placeholder="Progess cost"
+                                               type="number"/>
                                     </div>
                                 </div>
 <!--                                To do: need to remove if not required in future-->
@@ -1920,7 +1928,11 @@
                                     [nbDatepicker]="registrationDate"
                                     class="form-control" formControlName="registrationDate" fullWidth
                                     id="registrationDate" name="registrationDate"
-                                    nbInput placeholder="Registration Date">
+                                    nbInput placeholder="Registration Date" *ngIf="calendarType === 'AD'">
+                                <app-calendar
+                                        (messageToEmit)="securityForm.get(['vehicleDetails',i,'registrationDate']).patchValue($event?.eDate)"
+                                        *ngIf="calendarType === 'BS'"
+                                        [ePreDate]="securityForm.get(['vehicleDetails',i,'registrationDate']).value"></app-calendar>
                                 <nb-datepicker #registrationDate></nb-datepicker>
                             </div>
                         </div>
