@@ -11,6 +11,9 @@ import {DesignationList} from '../../loan/model/designationList';
 import {InsuranceList} from '../../loan/model/insuranceList';
 import {CommonAddressComponent} from '../../common-address/common-address.component';
 import {RoleService} from '../../admin/component/role-permission/role.service';
+import {CalendarType} from '../../../@core/model/calendar-type';
+import {environment} from '../../../../environments/environment';
+import {Clients} from '../../../../environments/Clients';
 
 
 declare let google: any;
@@ -24,6 +27,7 @@ export class SiteVisitComponent implements OnInit {
   @Input() formValue: SiteVisit;
   @Input() fromProfile: boolean;
   @Output() siteVisitDataEmitter = new EventEmitter();
+  @Input() calendarType = CalendarType;
 
   @ViewChild('currentResidentAddress', {static: true}) currentResidentAddress: CommonAddressComponent;
   @ViewChild('fixedAssetsAddress', {static: true}) fixedAssetsAddress: CommonAddressComponent;
@@ -55,6 +59,8 @@ export class SiteVisitComponent implements OnInit {
   designationList = [];
   insuranceList = InsuranceList.insuranceCompanyList;
   spinner = false;
+  client = environment.client;
+  clientName = Clients;
 
   constructor(private formBuilder: FormBuilder,
               dateService: NbDateService<Date>,
@@ -177,7 +183,7 @@ export class SiteVisitComponent implements OnInit {
                 : this.formDataForEdit.businessSiteVisitDetails.nameOfThePersonContacted,
           [Validators.required , Validators.pattern(Pattern.ALPHABET_ONLY)]],
         dateOfVisit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.dateOfVisit, Validators.required],
+            : new Date(this.formDataForEdit.businessSiteVisitDetails.dateOfVisit)],
         objectiveOfVisit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.objectiveOfVisit, Validators.required],
         staffRepresentativeNameDesignation: [this.formDataForEdit === undefined ? undefined :
@@ -206,7 +212,7 @@ export class SiteVisitComponent implements OnInit {
       }),
       fixedAssetCollateralDetails: this.formBuilder.group({
         date: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
-            : this.formDataForEdit.fixedAssetCollateralDetails.date, Validators.required],
+            : new Date(this.formDataForEdit.fixedAssetCollateralDetails.date), Validators.required],
         address: [undefined],
         personContacted: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
             : this.formDataForEdit.fixedAssetCollateralDetails.personContacted , Validators.pattern(Pattern.ALPHABET_ONLY)],
@@ -288,7 +294,7 @@ export class SiteVisitComponent implements OnInit {
           constructionYear: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.constructionYear],
+                      : new Date(this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.constructionYear)],
           qualityOfConstructionRemarks: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
@@ -380,7 +386,7 @@ export class SiteVisitComponent implements OnInit {
       currentAssetsInspectionDetails: this.formBuilder.group({
         dateOfInspection: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                : this.formDataForEdit.currentAssetsInspectionDetails.dateOfInspection, Validators.required],
+                : new Date(this.formDataForEdit.currentAssetsInspectionDetails.dateOfInspection), Validators.required],
         particularsOfGoodInspected: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                 : this.formDataForEdit.currentAssetsInspectionDetails.particularsOfGoodInspected],
@@ -415,7 +421,7 @@ export class SiteVisitComponent implements OnInit {
           expiryDate: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.expiryDate],
+                      : new Date(this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.expiryDate)],
           clientsOverallRating: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''

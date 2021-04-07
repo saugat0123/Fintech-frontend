@@ -24,6 +24,7 @@
         <nb-accordion-item-body>
           <app-site-visit #siteVisitComponent
                           (siteVisitDataEmitter)="saveSiteVisit($event)"
+                          [calendarType]="calendarType"
                           *ngIf="itemSiteVisit.expanded"
                           [formValue]="customerInfo?.siteVisit"
                           [fromProfile]="true"></app-site-visit>
