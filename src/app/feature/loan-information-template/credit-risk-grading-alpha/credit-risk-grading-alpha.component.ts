@@ -317,8 +317,6 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
 
   calculateTotalFMV(securityParsedData) {
     let totalFMV = 0;
-    const containsLandSecurity = securityParsedData.selectedArray.includes('LandSecurity');
-    const containsBuildingSecurity = securityParsedData.selectedArray.includes('ApartmentSecurity');
     securityParsedData.selectedArray.forEach(selectedSecurity => {
       if (selectedSecurity === 'LandSecurity') {
         const landDetailsArray = securityParsedData.initialForm.landDetails as Array<any>;
@@ -340,28 +338,21 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
         for (let i = 0; i < plantDetailsArray.length; i++) {
           totalFMV = Number(plantDetailsArray[i].quotation) + totalFMV;
         }
-      }
-      if (selectedSecurity === 'Land and Building Security' && !containsLandSecurity) {
-        const landDetailsArray = securityParsedData.initialForm.landDetails as Array<any>;
-        for (let i = 0; i < landDetailsArray.length; i++) {
-          totalFMV = Number(landDetailsArray[i].marketValue) + totalFMV;
-        }
-      }
-      if (selectedSecurity === 'Land and Building Security' && !containsBuildingSecurity) {
-        const buildingDetailsArray = securityParsedData.initialForm.buildingDetails as Array<any>;
-        for (let i = 0; i < buildingDetailsArray.length; i++) {
-          totalFMV = Number(buildingDetailsArray[i].buildingFairMarketValue) + totalFMV;
+      } else if (selectedSecurity === 'Land and Building Security') {
+        const landBuildingsArray = securityParsedData.initialForm.landBuilding as Array<any>;
+        for (let i = 0; i < landBuildingsArray.length; i++) {
+          totalFMV = Number(landBuildingsArray[i].marketValue) + totalFMV;
         }
       }
     });
     const securityCoverageFAC = (totalFMV / Number(this.totalWorkingCapitalLimit)) * 100;
     const automatedValue = securityCoverageFAC.toFixed(2);
-    if (securityCoverageFAC >= 125) {
-      this.setValueForCriteria('securityCoverageFAC', '125% FMV', 40.00, automatedValue);
-    } else if (securityCoverageFAC < 125 && securityCoverageFAC >= 100) {
-      this.setValueForCriteria('securityCoverageFAC', '100% FMV', 35.00, automatedValue);
-    } else if (securityCoverageFAC < 100) {
-      this.setValueForCriteria('securityCoverageFAC', '< 100% FMV', 30.00, automatedValue);
+    if (securityCoverageFAC >= 100) {
+      this.setValueForCriteria('securityCoverageFAC', '100% FMV and above', 40.00, automatedValue);
+    } else if (securityCoverageFAC <= 99.99 && securityCoverageFAC >= 95) {
+      this.setValueForCriteria('securityCoverageFAC', '95% - 99.99% FMV', 35.00, automatedValue);
+    } else if (securityCoverageFAC <= 94.99) {
+      this.setValueForCriteria('securityCoverageFAC', 'Below 95% FMV', 30.00, automatedValue);
     }
   }
 
