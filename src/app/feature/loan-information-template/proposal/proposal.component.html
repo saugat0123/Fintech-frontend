@@ -624,14 +624,14 @@
                                                         class="form-control" formControlName="subsidizedLoan"
                                                         id="subsidizedLoan"
                                                         name="subsidizedLoan" placeholder="Discount Rate"
-                                                        type="number" appDecimalNumber (change)="calculateInterestRate()"/>
+                                                        type="number" appDecimalNumber/>
                                             </div>
                                         </div>
                                         <div class="col-md-4 form-group">
                                             <div *ngIf="subsidizedLoanChecked">
                                                 <label for="subsidyLoanType"><strong>Subsidy Loan Type</strong></label>
                                                 <nb-select formControlName="subsidyLoanType" id="subsidyLoanType"
-                                                      placeholder="Select Loan Type" fullWidth (selectedChange)="onChange()">
+                                                      placeholder="Select Loan Type" fullWidth>
                                                     <nb-option *ngFor="let type of subsidyLoanType" [value]="type?.value">
                                                         {{type?.value}}
                                                     </nb-option>

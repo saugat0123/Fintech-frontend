@@ -158,7 +158,7 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
           .patchValue(Number(value)));
 
-  this.onChange();
+  // this.onChange();
   }
 
   buildForm() {
@@ -556,14 +556,14 @@ export class ProposalComponent implements OnInit {
         return this.proposalForm.get('interestAmount').setValue(Number(interestAmount).toFixed(2));
     }
 
-  calculateInterestRate() {
-    const baseRate = Number(this.proposalForm.get('baseRate').value);
-    const premiumRateOnBaseRate = Number(this.proposalForm.get('premiumRateOnBaseRate').value);
-    const discountRate = Number(this.proposalForm.get('subsidizedLoan').value);
-
-    const interestRate = (baseRate - discountRate + premiumRateOnBaseRate);
-    return this.proposalForm.get('interestRate').setValue(Number(interestRate).toFixed(2));
-  }
+  // calculateInterestRate() {
+  //   const baseRate = Number(this.proposalForm.get('baseRate').value);
+  //   const premiumRateOnBaseRate = Number(this.proposalForm.get('premiumRateOnBaseRate').value);
+  //   const discountRate = Number(this.proposalForm.get('subsidizedLoan').value);
+  //
+  //   const interestRate = (baseRate - discountRate + premiumRateOnBaseRate);
+  //   return this.proposalForm.get('interestRate').setValue(Number(interestRate).toFixed(2));
+  // }
 
   public calculateProposedLimit() {
     const existingLimit = Number(this.proposalForm.get('existingLimit').value);
@@ -572,14 +572,14 @@ export class ProposalComponent implements OnInit {
     return this.proposalForm.get('proposedLimit').setValue(Number(totalProposedLimit));
   }
 
-  onChange() {
-    const isOtherSelected = this.proposalForm.get('subsidyLoanType').value.includes('Others');
-    if (isOtherSelected) {
-      this.othersSubsidyLoan = true;
-    } else {
-      this.othersSubsidyLoan = false;
-      this.proposalForm.get('others').setValue(null);
-    }
-  }
+  // onChange() {
+  //   const isOtherSelected = this.proposalForm.get('subsidyLoanType').value.includes('Others');
+  //   if (isOtherSelected) {
+  //     this.othersSubsidyLoan = true;
+  //   } else {
+  //     this.othersSubsidyLoan = false;
+  //     this.proposalForm.get('others').setValue(null);
+  //   }
+  // }
 
 }
