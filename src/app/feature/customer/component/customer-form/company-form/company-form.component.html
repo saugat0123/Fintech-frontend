@@ -1513,7 +1513,7 @@
                                <label><strong>Regulatory Concern</strong></label>
                                <select formControlName="regulatoryConcern" id="regulatoryConcern"
                                        [ngClass]="{'is-invalid':submitted &&  form.regulatoryConcern?.errors}" class="form-control">
-                                   <option [value]="null">Select regulatory concern here</option>
+                                   <option [value]="null" hidden>Select regulatory concern here</option>
                                    <option *ngFor="let regConcern of regulatoryConcernList"
                                            [value]="regConcern?.value">
                                        {{regConcern?.value}}
@@ -1527,7 +1527,7 @@
                            <div class="col-md-3">
                                <label><strong>Supplier</strong></label>
                                <select formControlName="supplier" id="supplier" class="form-control">
-                                   <option [value]="null">Select supplier</option>
+                                   <option [value]="null" hidden>Select supplier</option>
                                    <option *ngFor="let supplier of supplierList"
                                            [value]="supplier?.value">
                                        {{supplier?.value}}
@@ -1543,7 +1543,7 @@
                                <label><strong>Buyer</strong></label>
                                <select formControlName="buyer" id="buyer"
                                        [ngClass]="{'is-invalid':submitted &&  form.buyer?.errors}" class="form-control">
-                                   <option [value]="null">Select Buyer</option>
+                                   <option [value]="null" hidden>Select Buyer</option>
                                    <option *ngFor="let buyer of buyerList"
                                            [value]="buyer?.value">
                                        {{buyer?.value}}
@@ -1565,7 +1565,7 @@
                                <div class="form-group">
                                    <select formControlName="industryGrowth" id="industryGrowth"
                                            [ngClass]="{'is-invalid':submitted &&  form.industryGrowth?.errors}" class="form-control">
-                                       <option [value]="null">Select Industry Growth</option>
+                                       <option [value]="null" hidden>Select Industry Growth</option>
                                        <option *ngFor="let industryGrowth of industryGrowthList"
                                                [value]="industryGrowth?.value">
                                            {{industryGrowth?.value}}
@@ -1584,7 +1584,7 @@
                                <div class="form-group">
                                    <select formControlName="marketCompetition" id="marketCompetition"
                                            [ngClass]="{'is-invalid':submitted &&  form.marketCompetition?.errors}" class="form-control">
-                                       <option [value]="null">Select Market Competition</option>
+                                       <option [value]="null" hidden>Select Market Competition</option>
                                        <option  *ngFor="let marketComp of marketCompetitionList"
                                                 [value]="marketComp?.value">
                                            {{marketComp?.value}}
@@ -1603,7 +1603,7 @@
                                <div class="form-group">
                                    <select formControlName="experience" id="experience"
                                            [ngClass]="{'is-invalid':submitted &&  form.experience?.errors}" class="form-control">
-                                       <option [value]="null">Select Experience</option>
+                                       <option [value]="null" hidden>Select Experience</option>
                                        <option  *ngFor="let experience of experiences"
                                                 [value]="experience?.value">
                                            {{experience?.value}}
@@ -1622,7 +1622,7 @@
                                        </div>
                                        <select formControlName="succession" id="succession"
                                                [ngClass]="{'is-invalid':submitted &&  form.succession?.errors}" class="form-control">
-                                           <option [value]="null">Select succession</option>
+                                           <option [value]="null" hidden>Select succession</option>
                                            <option  *ngFor="let succession of successionList"
                                                     [value]="succession?.value">
                                                {{succession?.value}}
