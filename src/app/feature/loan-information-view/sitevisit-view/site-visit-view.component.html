@@ -577,6 +577,7 @@
     </tr>
 </table>
 
+<div *ngIf="client !== clientName?.SHINE_RESUNGA">
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr>
@@ -768,3 +769,4 @@
         <td colspan="3" class="text-left pl-1">{{formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.overAllFindings}}</td>
     </tr>
 </table>
+</div>
