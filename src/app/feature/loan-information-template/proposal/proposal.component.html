@@ -204,7 +204,7 @@
                                                 id="interestRate" name="interestRate" placeholder="Interest Rate(%)"
                                                 [(ngModel)]="interestLimit"
                                                 type="number" (input)="checkRepaymentMode(); checkCustomRepaymentMode()" appDecimalNumber
-                                                >
+                                                (change)="calculateInterestRate()">
                                         <!--                    <div *ngIf="(submitted) && formControls.interestRate.invalid"-->
                                         <!--                         class="invalid-feedback">-->
                                         <!--                      <span *ngIf="formControls.interestRate.errors.required">Interest Rate is required</span>-->
@@ -631,7 +631,7 @@
                                             <div *ngIf="subsidizedLoanChecked">
                                                 <label for="subsidyLoanType"><strong>Subsidy Loan Type</strong></label>
                                                 <nb-select formControlName="subsidyLoanType" id="subsidyLoanType"
-                                                      placeholder="Select Loan Type" fullWidth>
+                                                      placeholder="Select Loan Type" fullWidth (selectedChange)="onChange()">
                                                     <nb-option *ngFor="let type of subsidyLoanType" [value]="type?.value">
                                                         {{type?.value}}
                                                     </nb-option>

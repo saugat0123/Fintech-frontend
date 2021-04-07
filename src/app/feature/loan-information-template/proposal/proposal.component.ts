@@ -572,14 +572,14 @@ export class ProposalComponent implements OnInit {
     return this.proposalForm.get('proposedLimit').setValue(Number(totalProposedLimit));
   }
 
-  // onChange() {
-  //   const isOtherSelected = this.proposalForm.get('subsidyLoanType').value.includes('Others');
-  //   if (isOtherSelected) {
-  //     this.othersSubsidyLoan = true;
-  //   } else {
-  //     this.othersSubsidyLoan = false;
-  //     this.proposalForm.get('others').setValue(null);
-  //   }
-  // }
+  onChange() {
+    const isOtherSelected = this.proposalForm.get('subsidyLoanType').value.includes('Others');
+    if (isOtherSelected) {
+      this.othersSubsidyLoan = true;
+    } else {
+      this.othersSubsidyLoan = false;
+      this.proposalForm.get('others').setValue(null);
+    }
+  }
 
 }
