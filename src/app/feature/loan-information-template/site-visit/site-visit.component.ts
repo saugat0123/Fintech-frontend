@@ -27,7 +27,7 @@ export class SiteVisitComponent implements OnInit {
   @Input() formValue: SiteVisit;
   @Input() fromProfile: boolean;
   @Output() siteVisitDataEmitter = new EventEmitter();
-  @Input() calendarType = CalendarType;
+  calendarType = CalendarType.AD;
 
   @ViewChild('currentResidentAddress', {static: true}) currentResidentAddress: CommonAddressComponent;
   @ViewChild('fixedAssetsAddress', {static: true}) fixedAssetsAddress: CommonAddressComponent;
