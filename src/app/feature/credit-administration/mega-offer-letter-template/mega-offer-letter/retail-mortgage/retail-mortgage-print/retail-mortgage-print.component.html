@@ -17,15 +17,53 @@
             </div>
             <div class="row mt-3 justify-content-between">
                 <div class="col-md-4">
-                    <p>Ref No: 2076/77-MBNL-CAD-RET-1472</p>
+                    <p>Ref No: {{form['referenceNo']}}</p>
                     <div class="form-group form-inline col-md-6">
-                        <strong class="nepaliFont">{{form['name']}}</strong>
+                        <strong class="nepaliFont">{{loanHolderInfo?.name}}</strong>
                     </div>
                     <div class="form-group form-inline col-md-6">
-                        <strong class="nepaliFont">{{form['address']}}</strong>
+                        <b>स्थायी ठेगाना:</b>
+                        प्रदेश
+                        <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
+                        जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
+                        वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
+                        <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+                        <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong>
+                    </div>
+
+                    <div class="form-group form-inline col-md-6">
+                        <b>हाल:</b>
+                        प्रदेश
+                        <strong class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</strong>,
+                        जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</strong>
+                        वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</strong>
+                        <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                               गा बि स
+                           </span>
+                        <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                               नगरपालिका
+                           </span><strong class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</strong>
+                    </div>
+
+                    <div class="form-group form-inline col-md-6">
+                        <b>हाल:</b>
+                        प्रदेश
+                        <strong class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</strong>,
+                        जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</strong>
+                        वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</strong>
+                        <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                               गा बि स
+                           </span>
+                        <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                               नगरपालिका
+                           </span><strong class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</strong>
                     </div>
                     <div class="form-group form-inline col-md-6">
-                        <strong class="nepaliFont">{{form['mobileNumber']}}</strong>
+                        <strong class="nepaliFont">{{form['mobileNo']}}</strong>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -63,7 +101,7 @@
                 <div class="col-md-10">
                     <p>
                         १.
-                        <strong class="nepaliFont mx-1">{{ form['name'] }}</strong>
+                        <strong class="nepaliFont mx-1">{{ loanHolderInfo?.name }}</strong>
                         (यस पछि “ऋणी” भनिएको)
                     </p>
                     <p>
@@ -258,7 +296,7 @@
                 <div class="col-md-11 form-group form-inline">
                     <p>
                         श्री
-                        <strong class="nepaliFont mx-2">{{ form['name'] }}</strong>
+                        <strong class="nepaliFont mx-2">{{ loanHolderInfo?.name }}</strong>
                         स्वामित्व
                         र
                         एकलौटी हकभोगको
@@ -277,7 +315,7 @@
                 <div class="col-md-1 text-center"> २.४</div>
                 <div class="col-md-11">
                     श्री
-                    <strong class="nepaliFont mx-2">{{ form['name'] }}</strong>
+                    <strong class="nepaliFont mx-2">{{ loanHolderInfo?.name }}</strong>
                     माथि
                     उल्लेखित अचल सम्पत्ति
                     धितो सुरक्षण कायम
@@ -328,7 +366,7 @@
                             </li>
                             <li>
                                 श्री
-                                <strong class="nepaliFont mx-2">{{ form['name'] }}</strong>
+                                <strong class="nepaliFont mx-2">{{ loanHolderInfo?.name }}</strong>
                                 र श्रीमती
                                 <strong class="nepaliFont mx-2">{{ form['spouseName'] }}</strong>
                                 व्यक्तिगत स्थायी लेखा
@@ -961,7 +999,7 @@
                             <div class="row justify-content-end">
                                 <div class="col-md-11">
                                     <p>
-                                        <strong class="nepaliFont">{{ form['name'] }}</strong>
+                                        <strong class="nepaliFont">{{ loanHolderInfo?.name }}</strong>
                                     </p>
                                     <p>
                                         <strong class="nepaliFont">{{ form['address'] }}</strong>
@@ -1024,7 +1062,7 @@
                                 पूर्ण
                                 रुपले पालना गर्ने प्रतिज्ञा गर्दछु/गर्दछौं ।
                                 ऋणीको नामस् श्री
-                                <strong class="nepaliFont mx-2">{{ form['name'] }}</strong>।
+                                <strong class="nepaliFont mx-2">{{ loanHolderInfo?.name }}</strong>।
                             </div>
                             <div class="row justify-content-between">
                                 <div class="col-md-4">
