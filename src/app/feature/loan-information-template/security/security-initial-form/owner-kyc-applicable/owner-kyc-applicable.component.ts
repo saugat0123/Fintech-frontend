@@ -58,7 +58,7 @@ export class OwnerKycApplicableComponent implements OnInit {
                     relationName: [singleData.relationName],
                     citizenshipNumber: [singleData.citizenshipNumber],
                     issuedLocation: [singleData.issuedLocation],
-                    issuedDate: [singleData.issuedDate],
+                    issuedDate: [new Date(singleData.issuedDate)],
                     mobileNumber: [singleData.mobileNumber],
                     address: [singleData.address],
                     age: [singleData.age],

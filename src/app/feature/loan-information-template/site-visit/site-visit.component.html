@@ -1109,6 +1109,7 @@
                     </div>
                 </div>
 
+                <div *ngIf="client !== clientName?.SHINE_RESUNGA">
                 <h4 class="col-md-12 mt-3">Current Assets Inspection - Receivables</h4>
                 <div class="row col-md-12 mt-3" formGroupName="receivablesAndPayables">
                     <div *ngFor="let party of partyForm; let i = index;"
@@ -1438,6 +1439,7 @@
                                       row="3" type="text"></textarea>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
             <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">

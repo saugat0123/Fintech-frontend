@@ -74,6 +74,8 @@ export class CustomerWisePendingComponent implements OnInit {
     clientType = [];
     subSector = [];
     model = new LoanDataHolder();
+    displayCombineLoanList = [];
+    loanHolderLoanListTemp: Array<LoanHolderLoans> = new Array<LoanHolderLoans>();
 
     constructor(
         private service: DmsLoanService,
@@ -98,14 +100,17 @@ export class CustomerWisePendingComponent implements OnInit {
         other.toggleArray = [];
         other.loanForCombine = [];
         other.loanHolderLoanList = [];
+        other.loanHolderLoanListTemp = [];
         other.loanFormService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe(
             (response: any) => {
-                other.dmsLoanFiles = response.detail.content;
                 other.loanHolderLoanList = response.detail.content;
+                other.loanHolderLoanListTemp = response.detail.content;
                 other.loanHolderLoanList.forEach(() => other.toggleArray.push({toggled: false}));
                 other.loanHolderLoanList.forEach((l) => other.loanForCombine.push({loan: other.getLoansData(l.combineList)}));
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
+                console.log(other.loanHolderLoanList);
+                console.log(other.loanHolderLoanListTemp[6].combineList);
             }, error => {
                 console.log(error);
                 other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
@@ -307,4 +312,37 @@ export class CustomerWisePendingComponent implements OnInit {
     public customSafePipe(val) {
         return this.safePipe.transform(val);
     }
+
+    combineLoanListDisplay(data, template, index) {
+        const list = this.loanHolderLoanListTemp[index].combineList;
+        this.displayCombineLoanList = [];
+        list.forEach(l => {
+            const input: Map<number, Array<LoanDataHolder>> = l;
+            Object.keys(input).forEach(key => {
+                if (key.toString() === data.combinedLoan.id.toString()) {
+
+                    this.displayCombineLoanList = input[data.combinedLoan.id];
+
+                }
+            });
+
+            // tslint:disable-next-line:max-line-length
+            this.displayCombineLoanList[0].proposal.proposedLimit = JSON.parse(this.displayCombineLoanList[0].proposal.data)['proposedLimit'];
+            this.displayCombineLoanList[0].loan.name = this.displayCombineLoanList[0].loan.name.toString().split(',')[0];
+        });
+
+        this.modalService.open(template);
+    }
+
+    onClickLoan(loanConfigId: number, customerLoan: number) {
+        this.spinner = true;
+        this.modalService.dismissAll();
+        this.router.navigate(['/home/loan/summary'], {
+            queryParams: {
+                loanConfigId: loanConfigId,
+                customerId: customerLoan
+            }
+        });
+    }
+
 }
