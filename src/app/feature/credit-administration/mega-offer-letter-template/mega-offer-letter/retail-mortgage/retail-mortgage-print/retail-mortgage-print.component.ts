@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MegaOfferLetterConst} from '../../../../mega-offer-letter-const';
-import {ObjectUtil} from "../../../../../../@core/utils/ObjectUtil";
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
@@ -21,6 +21,9 @@ export class RetailMortgagePrintComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         }
+
+        console.log('form');
+        console.log(this.form);
     }
 
 }

@@ -282,7 +282,7 @@
                                                        formControlName="assuranceFee"
                                                        placeholder="०.५०"
                                                        size="7" type="text">
-                                                % ( <input class="form-fields form-control-sm nepaliFont mx-2"
+                                                % ( <input readonly class="form-fields form-control-sm nepaliFont mx-2"
                                                            formControlName="assuranceFeeInWords"
                                                            placeholder="शुन्य दशमलव पाँच शुन्य प्रतिशत" type="text">)
                                                 मात्र ।
@@ -1303,24 +1303,22 @@
             </form>
         </nb-card-body>
         <nb-card-footer class="mb-3">
-            <button *ngIf="initialInfoPrint"
+            <button nbButton
+                    [disabled]="!initialInfoPrint"
                     [useExistingCss]="true"
                     class="mb-4 btn btn-primary float-right"
                     ngxPrint
-                    printSectionId="{{offerLetterConst.RETAIL_MORTGAGE_OVERDRAFT}}">
+                    printSectionId="{{offerLetterConst.RETAIL_MORTGAGE_OVERDRAFT}}Print">
                 Print
             </button>
         </nb-card-footer>
     </nb-card>
 </div>
 <div>
-    <button *ngIf="initialInfoPrint"
-            [useExistingCss]="true"
-            class="btn btn-primary"
-            ngxPrint
-            printSectionId="{{offerLetterConst.RETAIL_MORTGAGE_OVERDRAFT}}">
-        प्रिन्ट गर्नुहोस्
-    </button>
+
 </div>
-<app-retail-mortgage-print *ngIf="form.value" [form]="form.value" hidden>
+<app-retail-mortgage-print *ngIf="initialInfoPrint"
+                           [form]="initialInfoPrint"
+                           [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                           hidden>
 </app-retail-mortgage-print>
