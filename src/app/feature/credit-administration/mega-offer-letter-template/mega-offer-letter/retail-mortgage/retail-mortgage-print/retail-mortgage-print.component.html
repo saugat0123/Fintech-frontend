@@ -44,7 +44,19 @@
                                नगरपालिका
                            </span><span class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</span>
                 </div>
-
+                <div class="form-group form-inline col-md-12">
+                    <b>हाल:</b>
+                    प्रदेश
+                    <strong class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</strong>,
+                    जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</strong>
+                    वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</strong>
+                    <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                               गा बि स
+                           </span>
+                    <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                               नगरपालिका
+                           </span><strong class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</strong>
+                </div>
                 <div class="form-group form-inline col-md-12">
                     <b>मोबाईल नं.:</b><strong class="nepaliFont">{{form['mobileNo']}}</strong>
                 </div>
@@ -198,7 +210,7 @@
                         </div>
                     </div>
 
-
+                    <div style="page-break-after: always"></div>
                     <div class="row justify-content-end">
                         <div class="col-md-2">
                             प्रतिबद्वता शुल्क
@@ -219,7 +231,6 @@
                         </div>
                     </div>
 
-                    <div style="page-break-after: always"></div>
 
                     <div class="row justify-content-end">
                         <div class="col-md-2">
@@ -414,6 +425,8 @@
                 </div>
             </div>
 
+            <div style="page-break-after: always"></div>
+
             <div>
                 <h6>४.<strong><u> ऋण चुक्ता: </u></strong></h6>
                 <div class="row justify-content-end">
@@ -439,7 +452,6 @@
                 </div>
             </div>
 
-            <div style="page-break-after: always"></div>
 
             <div class="mt-3">
                 <h6>६.<strong><u> सहमति (Covenants):</u></strong></h6>
@@ -570,7 +582,7 @@
                                 फरक गर्न सक्नेछ ।
                             </div>
                         </div>
-
+                        <div style="page-break-after: always"></div>
                         <div class="row">
                             <div class="col-md-1">(ण)</div>
                             <div class="col-md-10">
@@ -594,7 +606,6 @@
                     </div>
                 </div>
 
-                <div style="page-break-after: always"></div>
 
                 <div class="row justify-content-end">
                     <div class="col-md-11">
