@@ -1,1055 +1,1324 @@
-<nb-card
-        [nbSpinner]="spinner"
-        nbSpinnerStatus="primary"
-        nbSpinnerSize="large"
-        nbSpinnerMessage="Saving Retail Mortgage OverDraft offer letter....."
-        id="{{offerLetterConst.RETAIL_MORTGAGE_OVERDRAFT}}">
-    <nb-card-body>
-<form [formGroup]="form">
-    <div class="container text-justify nep viewFull">
-        <img src="../../../../../../assets/img/logo.png" width="10%" height="10%">
-        <div class="text-center my-2">
-            <strong><u> व्यक्तिगत एवं गोप्य </u></strong>
-        </div>
-        <div class="row mt-3 justify-content-between">
-            <div class="col-md-4">
-                <p>Ref No: 2076/77-MBNL-CAD-RET-1472</p>
-                <div class="form-group form-inline col-md-6">
-                    <input class="form-control form-control-sm nepaliFont" formControlName="name"
-                           placeholder="नाम"
-                           type="text">
-                </div>
-                <div class="form-group form-inline col-md-6">
-                    <input class="form-control form-control-sm nepaliFont" formControlName="address"
-                           placeholder="ठेगाना" type="text">
-                </div>
-                <div class="form-group form-inline col-md-6">
-                    <input class="form-control form-control-sm nepaliFont" formControlName="mobileNumber"
-                           placeholder="मोवाइल नं" type="text">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group form-inline">
-                    <label for="date">मितिः</label>
-                    <input class="form-control ml-2 nepaliFont" formControlName="date" id="date">
-                </div>
-            </div>
-        </div>
-        <div class="text-center my-2">
-            <strong> विषय :– बैकिङ्ग कर्जा सुविधा पत्र । </strong>
-        </div>
-        <div>
-            <p>महाशय,</p>
-            धितो अधिविकर्ष कर्जा सुविधा उपलब्ध गराइपाँउ भनी तपाँईले दिनु भएको निवेदन र त्यसमा भएका छलफलबाट,
-            हामी, मेगा बैंक नेपाल लिमिटेड, निम्न बमोजिमको कर्जा सुविधा देहाय बमोजिमका शर्तहरुमा प्रदान गर्न सहर्ष
-            प्रस्ताव
-            गर्दछौं ।
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="row justify-content-end">
-                            <div class="col-md-6">
-                                <p>पक्षहरु :–</p>
+<div class="nep">
+    <nb-card
+            [nbSpinner]="spinner"
+            nbSpinnerStatus="primary"
+            nbSpinnerSize="large"
+            nbSpinnerMessage="Saving Retail Mortgage OverDraft offer letter....."
+            id="{{offerLetterConst.RETAIL_MORTGAGE_OVERDRAFT}}">
+        <nb-card-body>
+            <form [formGroup]="form" class="nep">
+                <div class="container text-justify nep nb-card-body__viewFull" style="width: 100%">
+                    <img src="../../../../../../assets/img/logo.png" width="10%" height="10%">
+                    <div class="text-center my-2">
+                        <strong><u> व्यक्तिगत एवं गोप्य </u></strong>
+                    </div>
+                    <div class="row mt-3 justify-content-between">
+                        <div class="col-md-4">
+                            <p>Ref No: <input class="form-fields form-control-sm"
+                                              formControlName="referenceNo"
+                                              placeholder="2076/77-MBNL-CAD-RET-2148"
+                                              style="width: 280px"
+                                              type="text"/></p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-inline">
+                                <label>मितिः</label>
+                                <input class="form-fields form-control-sm nepaliFont"
+                                       formControlName="date"
+                                       placeholder="२०७६।११।०५"
+                                       type="text">
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                    <div class="row mt-3 justify-content-between">
 
-        <div class="row justify-content-end">
-            <div class="col-md-10">
-                <p>
-                    १.
-                    <strong class="nepaliFont mx-1">{{ this.form.controls['name'].value }}</strong> (यस
-                    पछि
-                    “ऋणी”
-                    भनिएको)
-                </p>
-                <p>
-                    २.<span class="ml-1"></span>श्री मेगा बैंक नेपाल लिमिटेड (यस पछि “बैंक” भनिएको)
-                </p>
-            </div>
-        </div>
+                        <div class="form-group form-inline col-md-12">
+                            <b>नाम :</b><strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
+                        </div>
+                        <div class="form-group form-inline col-md-12">
+                            <b>स्थायी ठेगाना:</b>
+                            प्रदेश
+                            <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
+                            जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
+                            वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
+                            <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+                            <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong>
+                        </div>
+                        <div class="form-group form-inline col-md-12">
+                            <b>हाल:</b>
+                            प्रदेश
+                            <strong class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</strong>,
+                            जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</strong>
+                            वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</strong>
+                            <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                               गा बि स
+                           </span>
+                            <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                               नगरपालिका
+                           </span><strong class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</strong>
+                        </div>
 
-        <div class="my-2">
-            <h6>१. <strong><u>कर्जा सुविधाको प्रयोजन तथा संचालनः </u></strong></h6>
-            <div class="row justify-content-end">
-                <div class="col-md-3">
+                        <div class="form-group form-inline col-md-6">
+                            <b>मोबाईल नं.: </b><input class="form-fields form-control-sm nepaliFont"
+                                                      formControlName="mobileNo"
+                                                      placeholder="९८४६११७८९६"
+                                                      style="width: 200px"
+                                                      type="text"/>
+                        </div>
+
+                    </div>
+                    <div class="text-center my-2">
+                        <strong> विषय :– बैकिङ्ग कर्जा सुविधा पत्र । </strong>
+                    </div>
+                    <div>
+                        <p>महाशय,</p>
+                        धितो अधिविकर्ष कर्जा सुविधा उपलब्ध गराइपाँउ भनी तपाँईले दिनु भएको निवेदन र त्यसमा भएका छलफलबाट,
+                        हामी, मेगा बैंक नेपाल लिमिटेड, निम्न बमोजिमको कर्जा सुविधा देहाय बमोजिमका शर्तहरुमा प्रदान गर्न
+                        सहर्ष
+                        प्रस्ताव
+                        गर्दछौं ।
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row justify-content-end">
+                                        <div class="col-md-6">
+                                            <p>पक्षहरु :–</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row justify-content-end">
-                        <div class="col-md-9">
-                            <strong>क. प्रस्तवित सुविधा</strong>
+                        <div class="col-md-10">
+                            <p>
+                                १.
+                                <strong class="nepaliFont mx-1">{{ loanHolderInfo?.name }}</strong> (यस
+                                पछि
+                                “ऋणी”
+                                भनिएको)
+                            </p>
+                            <p>
+                                २.<span class="ml-1"></span>श्री मेगा बैंक नेपाल लिमिटेड (यस पछि “बैंक” भनिएको)
+                            </p>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-9">
-                    <div class="form-group form-inline">
-                        :<input class="form-control mx-2 nepaliFont" formControlName="mortgageOverdraft"
-                                placeholder="धितो अधिविकर्ष" type="text">
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-end">
-                <div class="col-md-2">
-                    कर्जा सीमा रकम
-                </div>
-                <div class="col-md-9">
-                    <div class="form-group form-inline">
-                        :<strong>रु.</strong><input class="form-control mx-1 nepaliFont" formControlName="loanLimit"
-                                                    placeholder="१०,००,०००" type="text">/–
-                        (अक्षेरुपी <input class="form-control mx-1 nepaliFont" formControlName="loanLimitInWords"
-                                          placeholder="दश लाख" type="text"> रुपैयाँ
-                        मात्र ।)
-                    </div>
-                </div>
-            </div>
-            <div class="row form-group justify-content-end">
-                <div class="col-md-2">
-                    उद्देश्य
-                </div>
-                <div class="col-md-9">
-                    :व्यक्तिगत ऋण चुक्ता प्रयोजनार्थ ।
-                </div>
-            </div>
-            <div class="row justify-content-end">
-                <div class="col-md-2">
-                    व्याज
-                </div>
-                <div class="col-md-9">
-                    <div class="form-group form-inline">
-                        <p>
-                            :बार्षिक <input class="form-control ml-1 mr-3 nepaliFont"
-                                            formControlName="annualInterestRate" size="7" type="text">%
-                            (आधार दर <input class="form-control ml-2 mr-1 nepaliFont" formControlName="baseInterestRate"
-                                            size="7" type="text">% +
-                            प्रिमियम दर <input class="form-control ml-2 mr-1 nepaliFont"
-                                               formControlName="premiumInterestRate" size="7" type="text">% ) का दरमा
-                            त्रैमासिक रुपमा (अश्विन मसान्त, पौष मसान्त,
-                            चैत्र मसान्त र असाढ मसान्त) वा समय समयमा बैंकले तोके बमोजिम चुक्ता गर्नु पर्ने गरि ।
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-end">
-                <div class="col-md-2">
-                    समयावधि
-                </div>
-                <div class="col-md-9">
-                    <div class="form-group form-inline">
-                        :<input class="form-control mx-2 nepaliFont" formControlName="timeLimit"
-                                placeholder="रिभल्भिङ्ग, नोम्भवर मसान्त २०२० "
-                                type="text"> सम्म ।
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-end form-horizontal">
-                <div class="col-md-2">
-                    भुक्तानी
-                </div>
-                <div class="col-md-9">
-                    <div class="form-group form-inline">
-                        <p>
-                            :यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको
-                            आधारमा
-                            अचल
-                            धितो सुरक्षणको डिस्ट्रेस
-                            मुल्य को अधिकतम
-                            <input class="form-control mx-2 nepaliFont" formControlName="maxPayment" size="7"
-                                   type="text">
-                            प्रतिशत सम्म रकम भुक्तानी गरिनेछ ।
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-end">
-                <div class="col-md-2">
-                    पूर्व भुक्तानी शुल्क
-                </div>
-                <div class="col-md-9">
-                    <div class="form-inline form-group">
-                        <p>
-                            :कर्जाको शर्त तथा ब्याजदर परिवर्तन भएको कारणले ऋणीले आफ्नो आम्दानीको श्रोतबाट कर्जा
-                            अग्रिम
-                            भुक्तानी गर्न चाहेको अवस्थामा
-                            वाहेक तोकिएको समयावधि अघिनै भुक्तानी गर्न चाहेमा ऋणीको नाममा स्वीकृत भई उपभोग भईरहेको
-                            कर्जा
-                            सीमा रकमको एक बर्ष भित्रै
-                            भए
-                            <input class="form-control mx-2 nepaliFont" formControlName="fullPaymentFeeBeforeOneYear"
-                                   size="7" type="text">
-                            प्रतिशत, एक बर्ष पछि भए
-                            <input class="form-control mx-2 nepaliFont" formControlName="fullPaymentFeeAfterOneYear"
-                                   size="7" type="text">
-                            प्रतिशत तथा सापटी वा कुनै बैंक वा वित्तीय संस्थामा सार्न वा
-                            कर्जा खरिद गर्ने भए
-                            <input class="form-control mx-2 nepaliFont" formControlName="fullPaymentFeeForTransfer"
-                                   size="7" type="text">
-                            प्रतिशत पूर्व भुक्तानी शुल्क लाग्नेछ ।
-                        </p>
-                    </div>
-                </div>
-            </div>
 
-            <div class="row justify-content-end">
-                <div class="col-md-2">
-                    प्रतिबद्वता शुल्क
-                </div>
-                <div class="col-md-9">
-                    <div class="form-group form-inline">
-                        <p>
-                            :स्वीकृत अधिविकर्ष सुविधाको सीमा औसतमा
-                            <input class="nepaliFont mx-2 form-control" formControlName="usedApprovedOverdraft"
-                                   size="7" type="text">
-                            प्रतिशत भन्दा कम उपभोग भएको खण्डमा उपभोग नभएको अधिविकर्ष कर्जा सुविधाको
-                            सीमाको
-                            <input class="form-control nepaliFont mx-2" formControlName="assuranceFee"
-                                   placeholder="०.५०"
-                                   size="7" type="text">
-                            % ( <input class="form-control nepaliFont mx-2" formControlName="assuranceFeeInWords"
-                                       placeholder="शुन्य दशमलव पाँच शुन्य प्रतिशत" type="text">)
-                            मात्र ।
-                        </p>
+                    <div class="my-2">
+                        <h6>१. <strong><u>कर्जा सुविधाको प्रयोजन तथा संचालनः </u></strong></h6>
+
+
+                        <div class="row form-group"
+                             *ngFor="let mortgageOverdraft of form.get('mortgageOverdraft')['controls']; let i=index"
+                             formArrayName="mortgageOverdraft">
+                            <div class="col-md-12" [formGroupName]="i">
+                                <i (click)="removeMortgageOverdraft(i)" size="small" class="float-right fa fa-trash"
+                                   *ngIf="form.get('mortgageOverdraft')['length']>1"></i>
+                                <br><br>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="row justify-content-end">
+                                            <div class="col-md-9">
+                                                <strong>{{i + 1 | nepaliWord:'unicode'}}. प्रस्तवित सुविधा</strong>
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="form-group form-inline">
+                                            :<input class="form-fields form-control-sm nepaliFont"
+                                                    formControlName="maxTimeLimit"
+                                                    placeholder="धितो अधिविकर्ष" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-end">
+                                    <div class="col-md-2">
+                                        कर्जा सीमा रकम
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="form-group form-inline">
+                                            :<strong>रु.</strong>
+                                            <app-custom-input
+                                                    (eventEmit)="changeToNepAmount($event, i , 'mortgageOverdraft')"
+                                                    [name]="patchFunction('mortgageOverdraft',i,'loanLimit')">
+                                            </app-custom-input>
+                                            /-
+                                            (अक्षेरुपी <input readonly class="form-fields form-control-sm nepaliFont"
+                                                              formControlName="loanLimitInWords"
+                                                              placeholder="दश लाख" type="text"> रुपैयाँ
+                                            मात्र ।)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group justify-content-end">
+                                    <div class="col-md-2">
+                                        उद्देश्य
+                                    </div>
+                                    <div class="col-md-9">
+                                        :व्यक्तिगत ऋण चुक्ता प्रयोजनार्थ ।
+                                    </div>
+                                </div>
+                                <div class="row justify-content-end">
+                                    <div class="col-md-2">
+                                        व्याज
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="form-group form-inline">
+                                            <p>
+                                                :बार्षिक <input readonly
+                                                                class="form-fields form-control-sm ml-1 mr-3 nepaliFont"
+                                                                formControlName="yearlyRate" size="7" type="text">%
+                                                (आधार दर
+                                                <input (change)="calcYearlyRate('mortgageOverdraft', i)"
+                                                       class="form-fields form-control-sm nepaliFont"
+                                                       formControlName="baseRate" size="2"/>% +
+                                                प्रिमियम दर <input (change)="calcYearlyRate('mortgageOverdraft', i)"
+                                                                   class="form-fields form-control-sm nepaliFont"
+                                                                   formControlName="premiumRate" size="2"/>%
+                                                ) का
+                                                दरमा
+                                                त्रैमासिक रुपमा (अश्विन मसान्त, पौष मसान्त,
+                                                चैत्र मसान्त र असाढ मसान्त) वा समय समयमा बैंकले तोके बमोजिम चुक्ता गर्नु
+                                                पर्ने
+                                                गरि ।
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-end">
+                                    <div class="col-md-2">
+                                        समयावधि
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="form-group form-inline">
+                                            :<input class="form-fields form-control-sm mx-2 nepaliFont"
+                                                    formControlName="timeLimit"
+                                                    placeholder="रिभल्भिङ्ग, नोम्भवर मसान्त २०२०"
+                                                    type="text"> सम्म ।
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-end form-horizontal">
+                                    <div class="col-md-2">
+                                        भुक्तानी
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="form-group form-inline">
+                                            <p>
+                                                :यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो
+                                                कागजपत्रहरुको
+                                                आधारमा
+                                                अचल
+                                                धितो सुरक्षणको डिस्ट्रेस
+                                                मुल्य को अधिकतम
+                                                <input class="form-fields form-control-sm mx-2 nepaliFont"
+                                                       formControlName="maxPayment"
+                                                       size="7"
+                                                       type="text">
+                                                प्रतिशत सम्म रकम भुक्तानी गरिनेछ ।
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-end">
+                                    <div class="col-md-2">
+                                        पूर्व भुक्तानी शुल्क
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="form-inline form-group">
+                                            <p>
+                                                :कर्जाको शर्त तथा ब्याजदर परिवर्तन भएको कारणले ऋणीले आफ्नो आम्दानीको
+                                                श्रोतबाट
+                                                कर्जा
+                                                अग्रिम
+                                                भुक्तानी गर्न चाहेको अवस्थामा
+                                                वाहेक तोकिएको समयावधि अघिनै भुक्तानी गर्न चाहेमा ऋणीको नाममा स्वीकृत भई
+                                                उपभोग
+                                                भईरहेको
+                                                कर्जा
+                                                सीमा रकमको एक बर्ष भित्रै
+                                                भए
+                                                <input class="form-fields form-control-sm mx-2 nepaliFont"
+                                                       formControlName="fullPaymentFeeBeforeOneYear"
+                                                       size="7" type="text">
+                                                प्रतिशत, एक बर्ष पछि भए
+                                                <input class="form-fields form-control-sm mx-2 nepaliFont"
+                                                       formControlName="fullPaymentFeeAfterOneYear"
+                                                       size="7" type="text">
+                                                प्रतिशत तथा सापटी वा कुनै बैंक वा वित्तीय संस्थामा सार्न वा
+                                                कर्जा खरिद गर्ने भए
+                                                <input class="form-fields form-control-sm mx-2 nepaliFont"
+                                                       formControlName="fullPaymentFeeForTransfer"
+                                                       size="7" type="text">
+                                                प्रतिशत पूर्व भुक्तानी शुल्क लाग्नेछ ।
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-end">
+                                    <div class="col-md-2">
+                                        प्रतिबद्वता शुल्क
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="form-group form-inline">
+                                            <p>
+                                                :स्वीकृत अधिविकर्ष सुविधाको सीमा औसतमा
+                                                <input class="form-fields form-control-sm nepaliFont mx-2"
+                                                       formControlName="usedApprovedOverdraft"
+                                                       size="7" type="text">
+                                                प्रतिशत भन्दा कम उपभोग भएको खण्डमा उपभोग नभएको अधिविकर्ष कर्जा सुविधाको
+                                                सीमाको
+                                                <input (change)="calcAssurance('mortgageOverdraft', i)"
+                                                       class="form-fields form-control-sm nepaliFont mx-2"
+                                                       formControlName="assuranceFee"
+                                                       placeholder="०.५०"
+                                                       size="7" type="text">
+                                                % ( <input readonly class="form-fields form-control-sm nepaliFont mx-2"
+                                                           formControlName="assuranceFeeInWords"
+                                                           placeholder="शुन्य दशमलव पाँच शुन्य प्रतिशत" type="text">)
+                                                मात्र ।
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-end">
+                                    <div class="col-md-2">
+                                        सेवा शुल्क
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="form-group form-inline">
+                                            :भुक्तानी दिने ऋण सुविधा रकमको
+                                            <input (change)="calcpercent('mortgageOverdraft', i )"
+                                                   class="form-fields form-control-sm nepaliFont mx-2"
+                                                   formControlName="serviceCharge"
+                                                   placeholder="१"
+                                                   type="text">
+                                            % (
+                                            <input readonly
+                                                   class="form-fields form-control-sm nepaliFont mx-2"
+                                                   formControlName="serviceChargeInWords"
+                                                   placeholder="एक प्रतिशत"
+                                                   type="text">
+                                            प्रतिशत मात्र) ।
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-end">
+                                    <div class="col-md-2 form-group form-inline">
+                                        क.सु.के. दस्तुर
+                                    </div>
+                                    <div class="col-md-9 form-group form-inline">
+                                        :रु <input class="form-fields form-control-sm nepaliFont mx-2"
+                                                   formControlName="kaSuKCharge"
+                                                   placeholder="१,१००"
+                                                   type="text">/– मात्र ।
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button (click)="addEmptyMortgageOverdraft()" nbButton size="small" status="info" type="Button">
+                            थप्नुहोस् (Mortgage Overdraft)..
+                        </button>
                     </div>
-                </div>
-            </div>
-            <div class="row justify-content-end">
-                <div class="col-md-2">
-                    सेवा शुल्क
-                </div>
-                <div class="col-md-9">
-                    <div class="form-group form-inline">
-                        :भुक्तानी दिने ऋण सुविधा रकमको
-                        <input class="form-control nepaliFont mx-2" formControlName="serviceCharge" placeholder="१"
-                               type="text">
-                        % (
-                        <input class="form-control nepaliFont mx-2" formControlName="serviceChargeInWords"
-                               placeholder="एक प्रतिशत"
-                               type="text">
-                        ) ।
+
+
+                    <div>
+                        <h6>२.<strong><u> सुरक्षण (धितो) </u></strong></h6>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col">
+                                उल्लेखित कर्जा सुविधा प्रदान गर्दा सो कर्जा रकमलाई खाम्ने देहाय बमोजिमका सुरक्षणहरु
+                                रहनेछन्ः–
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1 text-center">२.१</div>
+                            <div class="col-md-11">
+                                ऋणीद्वारा हस्ताक्षर गरिएका प्रतिज्ञा पत्र <strong>( Promissory Note )</strong>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1 text-center">२.२</div>
+                            <div class="col-md-11">
+                                सम्पूर्ण कर्जा सिमा रकम बराबरको कर्जा लिखत <strong>( Loan Deed )</strong>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1 text-center">
+                                २.३
+                            </div>
+                            <div class="col-md-11 form-group form-inline">
+                                <p>
+                                    श्री <strong class="nepaliFont mx-2">{{ loanHolderInfo?.name }}</strong>
+                                    आफ्नो
+                                    एकल
+                                    स्वामित्व
+                                    र
+                                    एकलौटी हकभोगको
+                                    <input class="form-fields form-control-sm nepaliFont mx-2"
+                                           formControlName="kittaAddress"
+                                           placeholder="मोरङ जिल्ला, कन्चनवारी वडा नं. ३"
+                                           type="text">
+                                    स्थित कित्ता नं.
+                                    <input class="form-fields form-control-sm nepaliFont mx-2"
+                                           formControlName="kittaNumber"
+                                           placeholder="५५९३ "
+                                           type="text">
+                                    <input class="form-fields form-control-sm nepaliFont mx-2"
+                                           formControlName="kittaArea"
+                                           placeholder="०–१–०–० विगाह" type="text">
+                                    को जग्गा ऋणीको नाममा स्वीकृत सम्पूर्ण कर्जा सीमा रकमको लागि सम्बन्धित निकायबाट
+                                    बैंकको
+                                    नाममा धितोको प्रथम
+                                    र पूर्ण हक कायम हुने गरि धितो बन्धकीको तमसुक रजिष्ट्रेशन गरिदिनु पर्नेछ ।
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1 text-center"> २.४</div>
+                            <div class="col-md-11">
+                                श्री <strong class="nepaliFont mx-2">{{ loanHolderInfo?.name }}</strong>
+                                हकवालाहरुले
+                                माथि
+                                उल्लेखित अचल सम्पत्ति
+                                धितो सुरक्षण कायम
+                                राख्न दिएको मञ्जुरीनामा
+                                (स्व : घोषित नाता प्रमाणित सहित) ।
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1 text-center"> २.५</div>
+                            <div class="col-md-11">
+                                कि.नं. <strong
+                                    class="mx-2 nepaliFont">{{ this.form.controls['kittaNumber'].value }}</strong>
+                                को
+                                पुर्व जग्गा
+                                धनीको
+                                हकवालाहरुले
+                                माथि उल्लेखित अचल
+                                धितो सम्पत्ति धितो सुरक्षण
+                                कायम राख्न दिएको मञ्जुरीनामा (नाता प्रमाणित सहित) ।
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1 text-center"> २.६</div>
+                            <div class="col-md-11 form-group form-inline">
+                                श्रीमती
+                                <input class="form-fields form-control-sm nepaliFont mx-2" formControlName="spouseName"
+                                       placeholder="श्रीमतीको नाम"
+                                       type="text">
+                                तर्फबाट कर्जा सीमा रकम बराबरको व्यक्तिगत जमानी पेश गर्नु पर्नेछ ।<br>
+                                <p>
+                                    <strong class="mt-4 mb-1"> नोटः माथि उल्लेखित सुरक्षणहरुका साथ निम्न शर्तहरु
+                                        अनिवार्य
+                                        रुपमा
+                                        पालना
+                                        गर्नुपर्नेछ ।
+                                    </strong>
+                                </p>
+                                <div class="ml-3">
+                                    <ul>
+                                        <li>
+                                            ऋणी तथा व्यक्तिगतको सम्पत्ति खुलाउने लिखत <strong>(Net Worth
+                                            Statement)</strong>
+                                            फोटो
+                                            तथा सम्पर्क
+                                            ठेगाना सहित पेश गनुपर्नेछ ।
+                                        </li>
+                                        <li>
+                                            अन्य बैंकहरुसंग गरेको कारोवार बारे लिखित रुपमा खुलाउनुपर्ने <strong>(Multiple
+                                            Banking Declaration)</strong> पेश गर्नुपर्नेछ ।
+                                        </li>
+                                        <li>
+                                            उल्लेखित प्रस्तावित अचल सम्पत्तिको पूर्ण मुल्याङकन प्रतिवेदन <strong>(Complete
+                                            Valuation
+                                            Report)</strong> पेश भएपश्चात मात्र कर्जा भुक्तान गरिनेछ ।
+                                        </li>
+                                        <li>
+                                            सम्पूर्ण कर्जा सम्बन्धी कागजातहरु सक्कल कागजातहरुसँग भिडाइ प्रमाणित <strong>(Verify
+                                            with
+                                            Original)</strong> गर्नुपर्नेछ ।
+                                        </li>
+                                        <li>
+                                            श्री <strong
+                                                class="nepaliFont mx-2">{{ loanHolderInfo?.name }}</strong>
+                                            र श्रीमती
+                                            <strong
+                                                    class="nepaliFont mx-2">{{ this.form.controls['spouseName'].value }}</strong>
+                                            व्यक्तिगत स्थायी लेखा
+                                            दर्ता
+                                            प्रमाणपत्रको
+                                            (Permanent Account Number-PAN) प्रतिलिपी पेश गर्नु पर्नेछ ।
+                                        </li>
+                                        <li>
+                                            प्रस्तावित कर्जा प्रवाह पूर्व कर्जा सुविधाको प्रयोजन खुल्ने
+                                            कागजात∕घोषणा–पत्र
+                                            पेश
+                                            गर्नुपर्नेछ ।
+                                        </li>
+
+                                        <li>
+                                            ऋणीको सम्पूर्ण आय रकम यस मेगा बैंक नेपाल लि. मा रहेको खाता मार्फत प्रवाह
+                                            गराउनु
+                                            पर्नेछ ।
+                                        </li>
+                                        <li>
+                                            प्रस्तावित अचल धितो सम्पत्तीमा श्री मेगा बैंक नेपाल लि. को नाममा जारी भएको
+                                            ब्लु
+                                            प्रिन्ट पेश गर्नुपर्नेछ ।
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="row justify-content-end">
-                <div class="col-md-2 form-group form-inline">
-                    क.सु.के. दस्तुर
-                </div>
-                <div class="col-md-9 form-group form-inline">
-                    :रु <input class="form-control nepaliFont mx-2" formControlName="kaSuKCharge" placeholder="१,१००"
-                               type="text">/– मात्र ।
-                </div>
-            </div>
-        </div>
 
-        <div>
-            <h6>२.<strong><u> सुरक्षण (धितो) </u></strong></h6>
-            <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col">
-                    उल्लेखित कर्जा सुविधा प्रदान गर्दा सो कर्जा रकमलाई खाम्ने देहाय बमोजिमका सुरक्षणहरु रहनेछन्ः–
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1 text-center">२.१</div>
-                <div class="col-md-11">
-                    ऋणीद्वारा हस्ताक्षर गरिएका प्रतिज्ञा पत्र <strong>( Promissory Note )</strong>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1 text-center">२.२</div>
-                <div class="col-md-11">
-                    सम्पूर्ण कर्जा सिमा रकम बराबरको कर्जा लिखत <strong>( Loan Deed )</strong>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1 text-center">
-                    २.३
-                </div>
-                <div class="col-md-11 form-group form-inline">
-                    <p>
-                        श्री <strong class="nepaliFont mx-2">{{ this.form.controls['name'].value }}</strong>
-                        आफ्नो
-                        एकल
-                        स्वामित्व
-                        र
-                        एकलौटी हकभोगको
-                        <input class="form-control nepaliFont mx-2" formControlName="kittaAddress"
-                               placeholder="मोरङ जिल्ला, कन्चनवारी वडा नं. ३"
-                               type="text">
-                        स्थित कित्ता नं.
-                        <input class="form-control nepaliFont mx-2" formControlName="kittaNumber" placeholder="५५९३ "
-                               type="text">
-                        <input class="form-control nepaliFont mx-2" formControlName="kittaArea"
-                               placeholder="०–१–०–० विगाह" type="text">
-                        को जग्गा ऋणीको नाममा स्वीकृत सम्पूर्ण कर्जा सीमा रकमको लागि सम्बन्धित निकायबाट
-                        बैंकको
-                        नाममा धितोको प्रथम
-                        र पूर्ण हक कायम हुने गरि धितो बन्धकीको तमसुक रजिष्ट्रेशन गरिदिनु पर्नेछ ।
-                    </p>
+                    <div>
+                        <h6>३.<strong><u> व्याज </u></strong></h6>
+                        <div class="row justify-content-end">
+                            <div class="col-md-11">
+                                <div class="form-group form-inline">
+                                    <p>
+                                        धितो अधिविकर्ष सुविधाको हकमा ऋण सुविधाको व्याज निर्धारण गरिए बमोजिमको दरमा तथा
+                                        चुक्ता
+                                        हुन
+                                        बाँकी
+                                        रकममा
+                                        निरन्तर लगाइनेछ (दैनिक डेविट बाँकी मा हिसाव गरिने)। बैंकले समय समयमा निर्णय गरी
+                                        ऋणीलाई
+                                        सूचना
+                                        दिए
+                                        बमोजिम
+                                        अन्य व्याजदर लगाउने कुराको अधिकार बैंकलाई रहनेछ । तर, सुविधा प्रदान गरिएको समयमा
+                                        राखिएका
+                                        अवस्था
+                                        र
+                                        शर्तहरु पालना नगरिएको अवस्थामा वा उक्त सुविधा अन्तर्गतको भुक्तानी सोही सुविधा
+                                        अन्तर्गतको
+                                        सीमा
+                                        भन्दा
+                                        बढी
+                                        भएको अवस्थामा तथा कर्जा सीमा समयमै नविकरण हुन नसकेको अवस्थामा पनि कर्जा नविकरण
+                                        नभएसम्म
+                                        वा
+                                        चुक्ता
+                                        भुक्तान
+                                        नभएसम्म ऋणीको खातामा विना सूचना कम्तिमा पनि उल्लेखित ब्याजदरमा थप
+                                        <input class="form-fields form-control-sm nepaliFont mx-2"
+                                               formControlName="overdueInterest"
+                                               size="7"
+                                               type="text">
+                                        प्रतिशत भन्दा
+                                        कम नहुने गरी हर्जाना
+                                        व्याज लगाइनेछ । यस्तै तिर्न बांकि रकम (overdue interest and principle) मा पनि
+                                        उल्ल्ेखित
+                                        दरमा
+                                        थप
+                                        व्याज
+                                        लगाइनेछ
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1 text-center"> २.४</div>
-                <div class="col-md-11">
-                    श्री <strong class="nepaliFont mx-2">{{ this.form.controls['name'].value }}</strong>
-                    हकवालाहरुले
-                    माथि
-                    उल्लेखित अचल सम्पत्ति
-                    धितो सुरक्षण कायम
-                    राख्न दिएको मञ्जुरीनामा
-                    (स्व : घोषित नाता प्रमाणित सहित) ।
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1 text-center"> २.५</div>
-                <div class="col-md-11">
-                    कि.नं. <strong class="mx-2 nepaliFont">{{ this.form.controls['kittaNumber'].value }}</strong>
-                    को
-                    पुर्व जग्गा
-                    धनीको
-                    हकवालाहरुले
-                    माथि उल्लेखित अचल
-                    धितो सम्पत्ति धितो सुरक्षण
-                    कायम राख्न दिएको मञ्जुरीनामा (नाता प्रमाणित सहित) ।
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1 text-center"> २.६</div>
-                <div class="col-md-11 form-group form-inline">
-                    श्रीमती
-                    <input class="form-control nepaliFont mx-2" formControlName="spouseName" placeholder="श्रीमतीको नाम"
-                           type="text">
-                    तर्फबाट कर्जा सीमा रकम बराबरको व्यक्तिगत जमानी पेश गर्नु पर्नेछ ।<br>
-                    <p>
-                        <strong class="mt-4 mb-1"> नोटः माथि उल्लेखित सुरक्षणहरुका साथ निम्न शर्तहरु अनिवार्य रुपमा
-                            पालना
-                            गर्नुपर्नेछ ।
-                        </strong>
-                    </p>
-                    <div class="ml-3">
-                        <ul>
-                            <li>
-                                ऋणी तथा व्यक्तिगतको सम्पत्ति खुलाउने लिखत <strong>(Net Worth Statement)</strong>
-                                फोटो
-                                तथा सम्पर्क
-                                ठेगाना सहित पेश गनुपर्नेछ ।
-                            </li>
-                            <li>
-                                अन्य बैंकहरुसंग गरेको कारोवार बारे लिखित रुपमा खुलाउनुपर्ने <strong>(Multiple
-                                Banking Declaration)</strong> पेश गर्नुपर्नेछ ।
-                            </li>
-                            <li>
-                                उल्लेखित प्रस्तावित अचल सम्पत्तिको पूर्ण मुल्याङकन प्रतिवेदन <strong>(Complete
-                                Valuation
-                                Report)</strong> पेश भएपश्चात मात्र कर्जा भुक्तान गरिनेछ ।
-                            </li>
-                            <li>
-                                सम्पूर्ण कर्जा सम्बन्धी कागजातहरु सक्कल कागजातहरुसँग भिडाइ प्रमाणित <strong>(Verify
-                                with
-                                Original)</strong> गर्नुपर्नेछ ।
-                            </li>
-                            <li>
-                                श्री <strong
-                                    class="nepaliFont mx-2">{{ this.form.controls['name'].value }}</strong>
-                                र श्रीमती
-                                <strong
-                                        class="nepaliFont mx-2">{{ this.form.controls['spouseName'].value }}</strong>
-                                व्यक्तिगत स्थायी लेखा
-                                दर्ता
-                                प्रमाणपत्रको
-                                (Permanent Account Number-PAN) प्रतिलिपी पेश गर्नु पर्नेछ ।
-                            </li>
-                            <li>
-                                प्रस्तावित कर्जा प्रवाह पूर्व कर्जा सुविधाको प्रयोजन खुल्ने कागजात∕घोषणा–पत्र पेश
-                                गर्नुपर्नेछ ।
-                            </li>
-
-                            <li>
-                                ऋणीको सम्पूर्ण आय रकम यस मेगा बैंक नेपाल लि. मा रहेको खाता मार्फत प्रवाह गराउनु
+                    <div class="mt-3">
+                        <h6>४.<strong><u> ऋण चुक्ता: </u></strong></h6>
+                        <div class="row justify-content-end">
+                            <div class="col-md-11">
+                                यस ऋण स्विकृतीपत्रमा अन्यथा उल्लेख गरिएकोमा यस स्विकृतीपत्र अन्तर्गत ऋणीलाई उपलब्ध
+                                गराइएका
+                                सम्पूर्ण
+                                कर्जा सुविधा (loan/advances) हरु बैंकले माग गरेका बखत ऋणीले बैंकलाई तत्कालै चुक्ता
+                                भुक्तान
+                                गर्नु
                                 पर्नेछ ।
-                            </li>
-                            <li>
-                                प्रस्तावित अचल धितो सम्पत्तीमा श्री मेगा बैंक नेपाल लि. को नाममा जारी भएको ब्लु
-                                प्रिन्ट पेश गर्नुपर्नेछ ।
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <h6>३.<strong><u> व्याज </u></strong></h6>
-            <div class="row justify-content-end">
-                <div class="col-md-11">
-                    <div class="form-group form-inline">
-                        <p>
-                            धितो अधिविकर्ष सुविधाको हकमा ऋण सुविधाको व्याज निर्धारण गरिए बमोजिमको दरमा तथा चुक्ता
-                            हुन
-                            बाँकी
-                            रकममा
-                            निरन्तर लगाइनेछ (दैनिक डेविट बाँकी मा हिसाव गरिने)। बैंकले समय समयमा निर्णय गरी ऋणीलाई
-                            सूचना
-                            दिए
-                            बमोजिम
-                            अन्य व्याजदर लगाउने कुराको अधिकार बैंकलाई रहनेछ । तर, सुविधा प्रदान गरिएको समयमा राखिएका
-                            अवस्था
-                            र
-                            शर्तहरु पालना नगरिएको अवस्थामा वा उक्त सुविधा अन्तर्गतको भुक्तानी सोही सुविधा अन्तर्गतको
-                            सीमा
-                            भन्दा
-                            बढी
-                            भएको अवस्थामा तथा कर्जा सीमा समयमै नविकरण हुन नसकेको अवस्थामा पनि कर्जा नविकरण नभएसम्म
-                            वा
-                            चुक्ता
-                            भुक्तान
-                            नभएसम्म ऋणीको खातामा विना सूचना कम्तिमा पनि उल्लेखित ब्याजदरमा थप
-                            <input class="form-control nepaliFont mx-2" formControlName="overdueInterest" size="7"
-                                   type="text">
-                            प्रतिशत भन्दा
-                            कम नहुने गरी हर्जाना
-                            व्याज लगाइनेछ । यस्तै तिर्न बांकि रकम (overdue interest and principle) मा पनि उल्ल्ेखित
-                            दरमा
-                            थप
-                            व्याज
-                            लगाइनेछ
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-3">
-            <h6>४.<strong><u> ऋण चुक्ता: </u></strong></h6>
-            <div class="row justify-content-end">
-                <div class="col-md-11">
-                    यस ऋण स्विकृतीपत्रमा अन्यथा उल्लेख गरिएकोमा यस स्विकृतीपत्र अन्तर्गत ऋणीलाई उपलब्ध गराइएका
-                    सम्पूर्ण
-                    कर्जा सुविधा (loan/advances) हरु बैंकले माग गरेका बखत ऋणीले बैंकलाई तत्कालै चुक्ता भुक्तान गर्नु
-                    पर्नेछ ।
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-3">
-            <h6>५. <strong><u>निरीक्षण:</u></strong></h6>
-            <div class="row justify-content-end">
-                <div class="col-md-11">
-                    ऋणीले उल्लेखित ऋण सुविधा उपभोग गरेवापत बैंकलाई उपलब्ध गराएको धितो सुरक्षण बैंकले समय समयमा वा
-                    आवश्यक
-                    ठानेका वखत कुनै पनि समयमा सुचना दिई वा विना सूचना पनि निरीक्षण गर्न सक्नेछ र सो वापत लाग्ने
-                    सम्पूर्ण
-                    खर्च ऋणीले व्यहोर्नु पर्नेछ ।
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-3">
-            <h6>६.<strong><u> सहमति (Covenants):</u></strong></h6>
-            <div class="row justify-content-end">
-                <div class="col-md-11">
-                    बैंकले यो प्रस्ताव फिर्ता नलिए सम्म वा ऋणीले यस ऋण स्विकृतीपत्र अन्तर्गत लिएको ऋणको कुनै बक्यौता
-                    बांकि रहेसम्म यसमा उल्लेखित सम्पूर्ण शर्तहरुको पालना गर्न ऋणी स्विकार
-                    <div class="row">
-                        <div class="col-md-1">(क)</div>
-                        <div class="col-md-11">
-                            बैंकबाट प्रदान गरिएको सुविधाको समीक्षा गर्न आवश्यक पर्न सक्ने ऋणीकोे कार्य व्यवस्थासंग
-                            सम्बन्धित आर्थिक वा अन्य सूचना, बैंकमा पेश गर्नेछ ।
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(ख)</div>
-                        <div class="col-md-11">
-                            समय समयमा संशोधन हुने प्रचलित कानूनको सर्वथा पालना गर्ने छ । यस अन्तर्गतको सुविधा नेपाली
-                            कानून बमोजिम निर्देशित रहेको व्याख्या गरिने छ र नेपालका अदालतको कार्यक्षेत्र भित्र
-                            पर्नेछ
-                            भन्ने स्विकार गर्दछ ।
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(ग)</div>
-                        <div class="col-md-11">
-                            बैंकबाट प्रदान गरिएको सुविधाको समीक्षा गर्न आवश्यक पर्न सक्ने ऋणीले उपभोग गरेको कर्जासंग
-                            सम्बन्धित आर्थिक वा अन्य सूचना वा जानकारी बैंकलाई उपलब्ध गराउन पर्नेछ ।
+                            </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-1">(घ)</div>
-                        <div class="col-md-11">
-                            बैंकले यस अन्तर्गतको ऋण सुविधा उपलब्ध गराउंदा ऋणीले बैंकलाई धितो स्वरुप उपलब्ध गराएको
-                            सवै सम्पत्तिहरुको अग्नि, वाढी, आतंक तथा हुलदंगा, हड्ताल, चोरी, डकैती, भूकम्प जस्ता
-                            सवैखाले
-                            संभावित जोखिमहरुबाट मुक्त राख्न ऋणीले आफ्रनै खर्चमा बैंकको हितमा ब्यापक विमा गराई विमा
-                            पोलिसिको सक्कल प्रति बैंकमा बुझाउनु पर्नेछ । साथै प्रत्येक वर्ष सम्बन्धित विमा कम्पनीमा
-                            सो
-                            विमा वापतको प्रिमियम तिरी पोलिसि समयभित्रै नविकरण गराई नविकरण गरिएको सक्कल प्रति बैंकलाई
-                            बुझाउनुु पर्नेछ । कदाचित उल्ल्ेखित शर्तको पालना गर्न ऋणी चुकेमा वा नविकरण गरिएको सक्कल
-                            प्रति
-                            समयभित्रै बैंकमा नबुझाएको पाइएमा बैंकले सो को नविकरण गराई सो गरेवापतको खर्च ऋणीको
-                            खाताबाट
-                            कट्टा गरि लिनेछ । तर, बैंकले उल्लेखित कार्य सम्पन्न गरिसकेको अवस्थामा ऋणीले विमा
-                            पोलिसिको
-                            नविकरण गराएको कारणबाट पर्न जाने दोहोरो खर्च प्रति बैंक जवाफदेही हुनै छैन ।
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1"> (ङ)</div>
-                        <div class="col-md-11">
-                            यस अन्तर्गत उपलब्ध हुने बैकिङ ऋण सुविधा प्राप्त गर्दा लाग्ने सम्पूर्ण खर्चहरु ऋणी
-                            स्वयंले नै
-                            व्यहोर्नेछ ।
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1"> (च)</div>
-                        <div class="col-md-11">
-                            बैंकबाट पूर्व लिखित स्वीकृति प्राप्त नगरेसम्म ऋणीले आफ्नो सम्पत्ति अन्य कुनै बैंक वा
-                            वित्तीय संस्थामा वा अन्य कुनै साहू कहां धितो बन्धक राख्ने छैन ।
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(छ)</div>
-                        <div class="col-md-11">
-                            बैंकबाट लिखित स्वीकृति प्राप्त नगरेसम्म ऋणीले अन्य कुनै पनि बैंक तथा वित्तीय
-                            संस्थाहरुबाट कुनै पनि अतिरिक्त ऋण सुविधा उपलब्ध गर्ने छैन ।
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(ज)</div>
-                        <div class="col-md-11">
-                            बैंकमा ऋणीले धितो राखेको सुरक्षण माथि कुनै विवाद उत्पन्न भएमा सो धितोमा ऋणीले आफ्नो तथा
-                            बैंकको पूर्ण अधिकार सुरक्षीत रहने गरि अपनाउनु पर्ने सम्पूर्ण सजगता अपनाउने छ ।
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1"> (झ)</div>
-                        <div class="col-md-11">
-                            बैंकमा ऋणीले धितो राखेको सुरक्षण माथि कुनै विवाद उत्पन्न भएमा सो धितोमा ऋणीले आफ्नो तथा
-                            बैंकको पूर्ण अधिकार सुरक्षित रहने गरि अपनाउनु पर्ने सम्पूर्ण सजगता अपनाउने छ ।
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1"> (ञ)</div>
-                        <div class="col-md-11">
-                            ऋण सुविधा उपयोग गर्दाको क्रममा यस संग सम्बन्धित कुनै मुद्धा मामिला वा कानूनी कारवाही
-                            आइपरेको अवस्थामा अदालतहरुमा प्रतिनिधित्व गर्ने दायित्व बैंकको नभई ऋणीको हुने तथा
-                            सम्पूर्ण
-                            कानूनी कारवाहीको लागि ऋणीे स्वयं नै एकल रुपमा जिम्मेवार हुनेछ भन्ने कुरामा समहत हुनु
-                            पर्ने छ
-                            र ऋणी स्वयंले नै कानून व्यवसायी नियुक्त गर्न र त्यसमा लाग्न सक्ने सम्पूर्ण खर्च एवं वा
-                            तिर्न
-                            बुझाउनु पर्ने जरिवाना वा शुल्क, यदि भएको अवस्थामा, व्यहोर्ने छ ।
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1"> (ट)</div>
-                        <div class="col-md-11">
-                            ऋणीले यो ऋण स्विकृतीपत्र अन्तर्गत प्राप्त गरेको ऋण या यसले समेटेको उत्पादन कुनै पनि गैर
-                            कानूनी उद्देश्यमा प्रयोग गर्ने छैन।
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1"> (ठ)</div>
-                        <div class="col-md-11">
-                            यो ऋण स्विकृतीपत्र अन्तर्गत प्रदत्त अधिकार वा दायित्व ऋणीद्वारा प्रत्यक्ष वा अप्रत्यक्ष
-                            रुपमा कसैलाई पनि प्रदान गर्न वा हस्तान्तरण गर्न सक्ने छैन ।
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(ड)</div>
-                        <div class="col-md-11">
-                            यो संझौताका कुनै पनि शर्त बन्देजको पालना ऋणीबाट नगरिएको कारणले बैंकलाई पुग्न सक्ने
-                            संभावित हानी नोक्सानीको लागि बैंकलाई हानि रहित अवस्थामा राख्न तथा आवश्यक परेमा बैंकलाई
-                            सो को
-                            हर्जाना तिर्नु पर्ने दायित्व ऋणी स्वयंको हुनेछ ।
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1"> (ढ)</div>
-                        <div class="col-md-11">
-                            वैंकको व्याज दर परिवर्तन भएको अवस्थामा ऋण चुक्ता हुने किस्ताबन्दी रकमको दर पनि बैंकले
-                            फरक गर्न सक्नेछ ।
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(ण)</div>
-                        <div class="col-md-11">
-                            बैंकलाई ऋणीले मासिक किस्ताबन्दी रुपमा तिर्नु बुझाउनु पर्ने तोकिएको रकम यस कर्जा
-                            स्वीकृतिपत्रमा तोकिएको समयमा नतिरे नबुझाएमा वा सो तिर्न बुझाउन पर्ने समय गुज्रन गएमा वा
-                            लागेमा बैंकले जुनसुकै बखत उल्लेखित रकम ऋणीको यस बैंकको कुनैपनि शाखामा रहेको कुनै पनि
-                            खातामा
-                            जम्मा भएको रकमबाट सिधै कट्टा गरी लिन वा एक खाताबाट अर्को खातामा रकममान्तर गरी बैंकको
-                            आफ्नो
-                            लेना हिसाब मिलाउन समेत बैंकलाई यसै मार्फत ऋणीको पूर्ण अख्तियार प्रदान गर्दछ छ र छुट्टै
-                            अख्तियारनामाको आवश्यकता पर्ने छैन भनि ऋणी स्वीकार गर्दछ ।
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(त)</div>
-                        <div class="col-md-11">
-                            ऋणीले बैंकलाई सुरक्षण वापत उपलब्ध गराएको सम्पत्तिको प्रचलित कानून बमोजिम आंफूले तिर्नु
-                            बुझाउनु पर्ने कर, दस्तुर, शुल्क आदी समयमा नै तिर्ने बुझाउने छ।
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(थ)</div>
-                        <div class="col-md-11">
-                            यो ऋण स्विकृतीपत्र ऋणीले बुझ्ने भाषामा लेखिएको तथा ऋणीलाई बुझाईएको हुंदा यसमा उल्लेखित
-                            शर्त बन्देजहरुका बारेमा ऋणी पूर्ण रुपले सचेत छ र ऋणीको आफ्नो स्वतन्त्र ईच्छा र सहमतिमा
-                            यो
-                            ऋण स्विकृतीपत्र तयार भएको हो भन्ने कुरा ऋणी पूर्ण रुपमा स्विकार गर्दछ ।
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1"> (द)</div>
-                        <div class="col-md-11">
-                            बैंकले यस ऋण स्विकृतीपत्रमा आवश्यकतानुसार संशोधन गर्न सक्नेछ र सो को जानकारी लिखित रुपमा
-                            ऋणीलाई गराइनेछ । ऋणीले यो ऋण स्विकृतीपत्र तथा यसका संशोधनमा उल्लेख गरिएका ब्यवस्थाहरुको
-                            पूर्णरुपमा पालना गर्दै यस अन्तर्गत ऋणीलाई उपलब्ध गराइएको ऋण कर्जा तथा सो को सांवा ब्याज
-                            पुर्ण रुपमा बैंकलाई चुक्ता भुक्तान नगरे सम्म प्रचलित कानून अन्तर्गत पालना गर्नु पर्ने
-                            सम्पुर्ण कानून तथा नियमहरुको पूर्ण रुपमा पालना गर्नेछ ।
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(ध)</div>
-                        <div class="col-md-11">
-                            ऋणीले अन्य कुनै ऋण/कर्जा र/वा बैकिङ्ग सुविधा उपभोग गरेको वा ऋणीको स्वामित्वमा रहेको/
-                            ऋणीले प्रबद्र्वन गरेको वा नेपाल राष्ट्र बैंकको निर्देशिका बमोजिम एउटै समुहमा बर्गिकरण
-                            गरिएको सम्बन्धित अन्य कुनै फर्म/कम्पनी/संस्थाले अन्य ऋण प्रस्ताव पत्रमा उल्लेख गरे
-                            बमोजिम
-                            उपभोग गरेको/कर्जा र/वा बैकिङ्ग सुविधा बापत लेखिदिएको धितो सुरक्षणलाई समेत यस ऋण
-                            प्रस्ताव पत्रमा उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधा बापत धितो सुरक्षण दिएको मानिनेछ ।
-                            यस ऋण प्रस्ताव पत्रमा उल्लेखित कुनै शर्तको उल्लघंन भई उक्त धितो सुरक्षणबाट असुल उपर
-                            गरीलिएमा ऋणीको मन्जुरी रहनेछ ।
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(न)</div>
-                        <div class="col-md-11">
-                            मथि जे जस्तो उल्लेख भएतापनि बैंकले आवश्यक ठानेमा कुनै पनि समय ऋणीलाई सुचना दिई उपभोग
-                            गरिरहेको कर्जा सिमा (पूर्ण वा आशिंक रुपमा) भुक्तानीका लागि माग गर्न सक्नेछ । तथा
-                            भुक्तानी
-                            हुन बाँकी कर्जा सिमा खारेज गर्न सक्नेछ ।
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="mt-3">
-            <h6>७. <strong><u> भाखा नाघ्ने अवस्थाहरु (Events of defaults):</u></strong></h6>
-            <div class="row justify-content-end">
-                <div class="col-md-11">
-                    <p>
-                        देहायमा उल्लेखित अवस्थामा भाखा नाघेको (यस पछि भाखा नाघ्ने अवस्था भनिएको) प्रमाणित भएको
-                        मानिनेछ :-
-                    </p>
-                    <div class="row">
-                        <div class="col-md-1"> (क)</div>
-                        <div class="col-md-11">
-                            यो ऋण स्विकृतीपत्रमा उल्लेखित कुनै बयान वा प्रत्याभूत प्रतिज्ञा (warranty) वा ऋणको लागि
-                            गरिएको कुनै पत्राचार वा निवेदन वा ऋणको लागि ऋणिले निवेदनसंग पेश गरेको कुनै आर्थिक विवरण,
-                            योजना वा तथ्यांक कुनै पनि किसिमले गलत, झुटो वा धोकापूर्ण भएको सावित भएमा,
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(ख)</div>
-                        <div class="col-md-11">
-                            बैंकलाई स्पष्ट जानकारी नभएको तर ऋणीकोे वित्तीय अवस्था, प्रतिवद्धता वा दायित्व वा ऋणीको
-                            पूंजीगत खर्च आदी संग सम्बन्धित कुनै पनि तथ्य वा जानकारीहरु बंैकलाई उपलब्ध नगराएमा,
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(ग)</div>
-                        <div class="col-md-11">
-                            ऋणिले पालना गर्नु पर्ने वा पूरा गर्नु पर्ने कुनै पनि सहमति वा शर्तहरु पालना गर्नमा वा
-                            पूरा गर्नमा वा बैंकलाई तिर्नु बुझाउनु पर्ने ऋण रकमको सांवा व्याज वा सो को महिनावारी
-                            किस्ता
-                            वा ऋणको सांवा, व्याज, मूल्य, शुल्क र खर्चहरु चुक्ता र भुक्तानी गर्नको लागि सुरक्षण
-                            स्वरुप
-                            बनाईएका कागजपत्रहमा उल्लेखित शर्तहरुको पालना गर्न तथा ऋणीले आफ्नो चल्ती खातामा नीजको
-                            खाता
-                            डेबीट गर्न आवश्यक पर्ने पर्याप्त रकम व्यवस्थित गर्नबाट ऋणि चुकेमा,
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(घ)</div>
-                        <div class="col-md-11">
-                            ऋणीले बैकिङ्ग कसुर तथा सजाय सम्बन्धि प्रचलित कानूनको वर्खिलाफ हुने गरि कर्जा सुविधा
-                            लिएको तथा उपयोग गरेको पाइएमा,
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(ङ)</div>
-                        <div class="col-md-11">
-                            कुनै नियामक निकायद्धारा ऋणीको सम्पत्ति रोक्का वा जफत गर्ने आदेश जारी भएको अवस्थामा ।
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(च)</div>
-                        <div class="col-md-11">
-                            सामान्य परिस्थितीमा ऋणीले आफ्नो व्यापार व्यवसाय बन्द गरेमा वा आफ्नो व्यापार व्यवसायको
-                            केही भाग बन्द वा बेचविखन गर्ने निर्णय गरेमा ।
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(छ)</div>
-                        <div class="col-md-11">
-                            ऋणीले अन्य साहूहरुलाई तिर्नु बुझाउनु पर्ने ऋण कर्जा समयमा तिर्न बुझाउन बाट ऋणी चुकेमा
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(ज)</div>
-                        <div class="col-md-11">
-                            सरकार वा कानून बमोजिम अख्तियार प्राप्त कुनै निकायवाट ऋणीको सम्पत्तिको सम्पूर्ण वा
-                            महत्वपूर्ण भाग जफत गर्ने निर्णय भएको अवस्थामा वा ऋणीको संचालित व्यवसाय निलम्बन वा विघटन
-                            गर्ने निर्णय भएमा ।
+                    <div class="mt-3">
+                        <h6>५. <strong><u>निरीक्षण:</u></strong></h6>
+                        <div class="row justify-content-end">
+                            <div class="col-md-11">
+                                ऋणीले उल्लेखित ऋण सुविधा उपभोग गरेवापत बैंकलाई उपलब्ध गराएको धितो सुरक्षण बैंकले समय
+                                समयमा
+                                वा
+                                आवश्यक
+                                ठानेका वखत कुनै पनि समयमा सुचना दिई वा विना सूचना पनि निरीक्षण गर्न सक्नेछ र सो वापत
+                                लाग्ने
+                                सम्पूर्ण
+                                खर्च ऋणीले व्यहोर्नु पर्नेछ ।
+                            </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-1">(झ)</div>
-                        <div class="col-md-11">
-                            कुनै असाधारण परिस्थिती सृजना भई ऋणी यस ऋण स्विकृतीपत्र अन्तर्गतको दायित्व बहन गर्न
-                            असमर्थ हुन्छ भन्ने बैंकलाई लागेको अवस्थामा बैंकले लिने वा लिएको कुनै पनि निर्णय ऋणीको
-                            लागि
-                            अन्तिम तथा बाध्यकारी हुनेछ । साथै त्यसपछिका कुनै पनि त्यस्ता अवस्थाहरु उत्पन्न भएको
-                            खण्डमा
-                            बैंकलाई देहायबमोजिमका अधिकारहरु हुनेछन् :
-                            <div class="col-md-12">
+                    <div class="mt-3">
+                        <h6>६.<strong><u> सहमति (Covenants):</u></strong></h6>
+                        <div class="row justify-content-end">
+                            <div class="col-md-11">
+                                बैंकले यो प्रस्ताव फिर्ता नलिए सम्म वा ऋणीले यस ऋण स्विकृतीपत्र अन्तर्गत लिएको ऋणको कुनै
+                                बक्यौता
+                                बांकि रहेसम्म यसमा उल्लेखित सम्पूर्ण शर्तहरुको पालना गर्न ऋणी स्विकार
                                 <div class="row">
                                     <div class="col-md-1">(क)</div>
                                     <div class="col-md-11">
-                                        यस ऋण स्विकृतीपत्र अन्तर्गत ऋणीले बैंकलाई तिर्नु बुझाउनु पर्ने सम्पूर्ण ऋण
-                                        बक्यौता आदीको व्याज समेत सम्पूर्ण रकम तत्काल बैंकलाई तिर्नु पर्ने गरी बाँकी
-                                        रहने
-                                        छन् र बैंकले सम्पूर्ण लेना रकम तत्काल चुक्ता गर्न माग गर्ने,
+                                        बैंकबाट प्रदान गरिएको सुविधाको समीक्षा गर्न आवश्यक पर्न सक्ने ऋणीकोे कार्य
+                                        व्यवस्थासंग
+                                        सम्बन्धित आर्थिक वा अन्य सूचना, बैंकमा पेश गर्नेछ ।
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-1">(ख)</div>
                                     <div class="col-md-11">
-                                        यसको शर्त नं. ३ मा उल्लेख गरिएको व्याजदर लागु गर्ने,
+                                        समय समयमा संशोधन हुने प्रचलित कानूनको सर्वथा पालना गर्ने छ । यस अन्तर्गतको
+                                        सुविधा
+                                        नेपाली
+                                        कानून बमोजिम निर्देशित रहेको व्याख्या गरिने छ र नेपालका अदालतको कार्यक्षेत्र
+                                        भित्र
+                                        पर्नेछ
+                                        भन्ने स्विकार गर्दछ ।
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-1">(ग)</div>
                                     <div class="col-md-11">
-                                        ऋणीले बैंकलाई लेखिदिएको वा बैंकमा राखेको धितो सुरक्षणलाई लिलाम बिक्री गरी वा
-                                        अन्य कुनै व्यवस्था गरी आफ्नो सावाँ ब्याज असूलउपर गर्ने र यसरी पनि ऋणीले
+                                        बैंकबाट प्रदान गरिएको सुविधाको समीक्षा गर्न आवश्यक पर्न सक्ने ऋणीले उपभोग गरेको
+                                        कर्जासंग
+                                        सम्बन्धित आर्थिक वा अन्य सूचना वा जानकारी बैंकलाई उपलब्ध गराउन पर्नेछ ।
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-1">(घ)</div>
+                                    <div class="col-md-11">
+                                        बैंकले यस अन्तर्गतको ऋण सुविधा उपलब्ध गराउंदा ऋणीले बैंकलाई धितो स्वरुप उपलब्ध
+                                        गराएको
+                                        सवै सम्पत्तिहरुको अग्नि, वाढी, आतंक तथा हुलदंगा, हड्ताल, चोरी, डकैती, भूकम्प
+                                        जस्ता
+                                        सवैखाले
+                                        संभावित जोखिमहरुबाट मुक्त राख्न ऋणीले आफ्रनै खर्चमा बैंकको हितमा ब्यापक विमा
+                                        गराई
+                                        विमा
+                                        पोलिसिको सक्कल प्रति बैंकमा बुझाउनु पर्नेछ । साथै प्रत्येक वर्ष सम्बन्धित विमा
+                                        कम्पनीमा
+                                        सो
+                                        विमा वापतको प्रिमियम तिरी पोलिसि समयभित्रै नविकरण गराई नविकरण गरिएको सक्कल प्रति
                                         बैंकलाई
-                                        तिर्नु बुझाउनु पर्ने सांवा व्याज असुल उपर हुन नसकेमा ऋणीको पुर्ण हक लाग्ने
-                                        तथा
+                                        बुझाउनुु पर्नेछ । कदाचित उल्ल्ेखित शर्तको पालना गर्न ऋणी चुकेमा वा नविकरण गरिएको
+                                        सक्कल
+                                        प्रति
+                                        समयभित्रै बैंकमा नबुझाएको पाइएमा बैंकले सो को नविकरण गराई सो गरेवापतको खर्च
+                                        ऋणीको
+                                        खाताबाट
+                                        कट्टा गरि लिनेछ । तर, बैंकले उल्लेखित कार्य सम्पन्न गरिसकेको अवस्थामा ऋणीले विमा
+                                        पोलिसिको
+                                        नविकरण गराएको कारणबाट पर्न जाने दोहोरो खर्च प्रति बैंक जवाफदेही हुनै छैन ।
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"> (ङ)</div>
+                                    <div class="col-md-11">
+                                        यस अन्तर्गत उपलब्ध हुने बैकिङ ऋण सुविधा प्राप्त गर्दा लाग्ने सम्पूर्ण खर्चहरु
                                         ऋणी
-                                        संग सम्बन्धित अन्य सम्पत्ति जायदात रोक्का गरी ऋण असुलिको प्रकया अघि बढाउने,
+                                        स्वयंले नै
+                                        व्यहोर्नेछ ।
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"> (च)</div>
+                                    <div class="col-md-11">
+                                        बैंकबाट पूर्व लिखित स्वीकृति प्राप्त नगरेसम्म ऋणीले आफ्नो सम्पत्ति अन्य कुनै
+                                        बैंक वा
+                                        वित्तीय संस्थामा वा अन्य कुनै साहू कहां धितो बन्धक राख्ने छैन ।
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">(छ)</div>
+                                    <div class="col-md-11">
+                                        बैंकबाट लिखित स्वीकृति प्राप्त नगरेसम्म ऋणीले अन्य कुनै पनि बैंक तथा वित्तीय
+                                        संस्थाहरुबाट कुनै पनि अतिरिक्त ऋण सुविधा उपलब्ध गर्ने छैन ।
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">(ज)</div>
+                                    <div class="col-md-11">
+                                        बैंकमा ऋणीले धितो राखेको सुरक्षण माथि कुनै विवाद उत्पन्न भएमा सो धितोमा ऋणीले
+                                        आफ्नो
+                                        तथा
+                                        बैंकको पूर्ण अधिकार सुरक्षीत रहने गरि अपनाउनु पर्ने सम्पूर्ण सजगता अपनाउने छ ।
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"> (झ)</div>
+                                    <div class="col-md-11">
+                                        बैंकमा ऋणीले धितो राखेको सुरक्षण माथि कुनै विवाद उत्पन्न भएमा सो धितोमा ऋणीले
+                                        आफ्नो
+                                        तथा
+                                        बैंकको पूर्ण अधिकार सुरक्षित रहने गरि अपनाउनु पर्ने सम्पूर्ण सजगता अपनाउने छ ।
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"> (ञ)</div>
+                                    <div class="col-md-11">
+                                        ऋण सुविधा उपयोग गर्दाको क्रममा यस संग सम्बन्धित कुनै मुद्धा मामिला वा कानूनी
+                                        कारवाही
+                                        आइपरेको अवस्थामा अदालतहरुमा प्रतिनिधित्व गर्ने दायित्व बैंकको नभई ऋणीको हुने तथा
+                                        सम्पूर्ण
+                                        कानूनी कारवाहीको लागि ऋणीे स्वयं नै एकल रुपमा जिम्मेवार हुनेछ भन्ने कुरामा समहत
+                                        हुनु
+                                        पर्ने छ
+                                        र ऋणी स्वयंले नै कानून व्यवसायी नियुक्त गर्न र त्यसमा लाग्न सक्ने सम्पूर्ण खर्च
+                                        एवं
+                                        वा
+                                        तिर्न
+                                        बुझाउनु पर्ने जरिवाना वा शुल्क, यदि भएको अवस्थामा, व्यहोर्ने छ ।
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"> (ट)</div>
+                                    <div class="col-md-11">
+                                        ऋणीले यो ऋण स्विकृतीपत्र अन्तर्गत प्राप्त गरेको ऋण या यसले समेटेको उत्पादन कुनै
+                                        पनि
+                                        गैर
+                                        कानूनी उद्देश्यमा प्रयोग गर्ने छैन।
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"> (ठ)</div>
+                                    <div class="col-md-11">
+                                        यो ऋण स्विकृतीपत्र अन्तर्गत प्रदत्त अधिकार वा दायित्व ऋणीद्वारा प्रत्यक्ष वा
+                                        अप्रत्यक्ष
+                                        रुपमा कसैलाई पनि प्रदान गर्न वा हस्तान्तरण गर्न सक्ने छैन ।
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">(ड)</div>
+                                    <div class="col-md-11">
+                                        यो संझौताका कुनै पनि शर्त बन्देजको पालना ऋणीबाट नगरिएको कारणले बैंकलाई पुग्न
+                                        सक्ने
+                                        संभावित हानी नोक्सानीको लागि बैंकलाई हानि रहित अवस्थामा राख्न तथा आवश्यक परेमा
+                                        बैंकलाई
+                                        सो को
+                                        हर्जाना तिर्नु पर्ने दायित्व ऋणी स्वयंको हुनेछ ।
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"> (ढ)</div>
+                                    <div class="col-md-11">
+                                        वैंकको व्याज दर परिवर्तन भएको अवस्थामा ऋण चुक्ता हुने किस्ताबन्दी रकमको दर पनि
+                                        बैंकले
+                                        फरक गर्न सक्नेछ ।
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">(ण)</div>
+                                    <div class="col-md-11">
+                                        बैंकलाई ऋणीले मासिक किस्ताबन्दी रुपमा तिर्नु बुझाउनु पर्ने तोकिएको रकम यस कर्जा
+                                        स्वीकृतिपत्रमा तोकिएको समयमा नतिरे नबुझाएमा वा सो तिर्न बुझाउन पर्ने समय गुज्रन
+                                        गएमा
+                                        वा
+                                        लागेमा बैंकले जुनसुकै बखत उल्लेखित रकम ऋणीको यस बैंकको कुनैपनि शाखामा रहेको कुनै
+                                        पनि
+                                        खातामा
+                                        जम्मा भएको रकमबाट सिधै कट्टा गरी लिन वा एक खाताबाट अर्को खातामा रकममान्तर गरी
+                                        बैंकको
+                                        आफ्नो
+                                        लेना हिसाब मिलाउन समेत बैंकलाई यसै मार्फत ऋणीको पूर्ण अख्तियार प्रदान गर्दछ छ र
+                                        छुट्टै
+                                        अख्तियारनामाको आवश्यकता पर्ने छैन भनि ऋणी स्वीकार गर्दछ ।
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">(त)</div>
+                                    <div class="col-md-11">
+                                        ऋणीले बैंकलाई सुरक्षण वापत उपलब्ध गराएको सम्पत्तिको प्रचलित कानून बमोजिम आंफूले
+                                        तिर्नु
+                                        बुझाउनु पर्ने कर, दस्तुर, शुल्क आदी समयमा नै तिर्ने बुझाउने छ।
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">(थ)</div>
+                                    <div class="col-md-11">
+                                        यो ऋण स्विकृतीपत्र ऋणीले बुझ्ने भाषामा लेखिएको तथा ऋणीलाई बुझाईएको हुंदा यसमा
+                                        उल्लेखित
+                                        शर्त बन्देजहरुका बारेमा ऋणी पूर्ण रुपले सचेत छ र ऋणीको आफ्नो स्वतन्त्र ईच्छा र
+                                        सहमतिमा
+                                        यो
+                                        ऋण स्विकृतीपत्र तयार भएको हो भन्ने कुरा ऋणी पूर्ण रुपमा स्विकार गर्दछ ।
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"> (द)</div>
+                                    <div class="col-md-11">
+                                        बैंकले यस ऋण स्विकृतीपत्रमा आवश्यकतानुसार संशोधन गर्न सक्नेछ र सो को जानकारी
+                                        लिखित
+                                        रुपमा
+                                        ऋणीलाई गराइनेछ । ऋणीले यो ऋण स्विकृतीपत्र तथा यसका संशोधनमा उल्लेख गरिएका
+                                        ब्यवस्थाहरुको
+                                        पूर्णरुपमा पालना गर्दै यस अन्तर्गत ऋणीलाई उपलब्ध गराइएको ऋण कर्जा तथा सो को
+                                        सांवा
+                                        ब्याज
+                                        पुर्ण रुपमा बैंकलाई चुक्ता भुक्तान नगरे सम्म प्रचलित कानून अन्तर्गत पालना गर्नु
+                                        पर्ने
+                                        सम्पुर्ण कानून तथा नियमहरुको पूर्ण रुपमा पालना गर्नेछ ।
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">(ध)</div>
+                                    <div class="col-md-11">
+                                        ऋणीले अन्य कुनै ऋण/कर्जा र/वा बैकिङ्ग सुविधा उपभोग गरेको वा ऋणीको स्वामित्वमा
+                                        रहेको/
+                                        ऋणीले प्रबद्र्वन गरेको वा नेपाल राष्ट्र बैंकको निर्देशिका बमोजिम एउटै समुहमा
+                                        बर्गिकरण
+                                        गरिएको सम्बन्धित अन्य कुनै फर्म/कम्पनी/संस्थाले अन्य ऋण प्रस्ताव पत्रमा उल्लेख
+                                        गरे
+                                        बमोजिम
+                                        उपभोग गरेको/कर्जा र/वा बैकिङ्ग सुविधा बापत लेखिदिएको धितो सुरक्षणलाई समेत यस ऋण
+                                        प्रस्ताव पत्रमा उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधा बापत धितो सुरक्षण दिएको
+                                        मानिनेछ ।
+                                        यस ऋण प्रस्ताव पत्रमा उल्लेखित कुनै शर्तको उल्लघंन भई उक्त धितो सुरक्षणबाट असुल
+                                        उपर
+                                        गरीलिएमा ऋणीको मन्जुरी रहनेछ ।
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">(न)</div>
+                                    <div class="col-md-11">
+                                        मथि जे जस्तो उल्लेख भएतापनि बैंकले आवश्यक ठानेमा कुनै पनि समय ऋणीलाई सुचना दिई
+                                        उपभोग
+                                        गरिरहेको कर्जा सिमा (पूर्ण वा आशिंक रुपमा) भुक्तानीका लागि माग गर्न सक्नेछ । तथा
+                                        भुक्तानी
+                                        हुन बाँकी कर्जा सिमा खारेज गर्न सक्नेछ ।
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-3">
+                        <h6>७. <strong><u> भाखा नाघ्ने अवस्थाहरु (Events of defaults):</u></strong></h6>
+                        <div class="row justify-content-end">
+                            <div class="col-md-11">
+                                <p>
+                                    देहायमा उल्लेखित अवस्थामा भाखा नाघेको (यस पछि भाखा नाघ्ने अवस्था भनिएको) प्रमाणित
+                                    भएको
+                                    मानिनेछ :-
+                                </p>
+                                <div class="row">
+                                    <div class="col-md-1"> (क)</div>
+                                    <div class="col-md-11">
+                                        यो ऋण स्विकृतीपत्रमा उल्लेखित कुनै बयान वा प्रत्याभूत प्रतिज्ञा (warranty) वा
+                                        ऋणको
+                                        लागि
+                                        गरिएको कुनै पत्राचार वा निवेदन वा ऋणको लागि ऋणिले निवेदनसंग पेश गरेको कुनै
+                                        आर्थिक
+                                        विवरण,
+                                        योजना वा तथ्यांक कुनै पनि किसिमले गलत, झुटो वा धोकापूर्ण भएको सावित भएमा,
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">(ख)</div>
+                                    <div class="col-md-11">
+                                        बैंकलाई स्पष्ट जानकारी नभएको तर ऋणीकोे वित्तीय अवस्था, प्रतिवद्धता वा दायित्व वा
+                                        ऋणीको
+                                        पूंजीगत खर्च आदी संग सम्बन्धित कुनै पनि तथ्य वा जानकारीहरु बंैकलाई उपलब्ध
+                                        नगराएमा,
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">(ग)</div>
+                                    <div class="col-md-11">
+                                        ऋणिले पालना गर्नु पर्ने वा पूरा गर्नु पर्ने कुनै पनि सहमति वा शर्तहरु पालना
+                                        गर्नमा
+                                        वा
+                                        पूरा गर्नमा वा बैंकलाई तिर्नु बुझाउनु पर्ने ऋण रकमको सांवा व्याज वा सो को
+                                        महिनावारी
+                                        किस्ता
+                                        वा ऋणको सांवा, व्याज, मूल्य, शुल्क र खर्चहरु चुक्ता र भुक्तानी गर्नको लागि
+                                        सुरक्षण
+                                        स्वरुप
+                                        बनाईएका कागजपत्रहमा उल्लेखित शर्तहरुको पालना गर्न तथा ऋणीले आफ्नो चल्ती खातामा
+                                        नीजको
+                                        खाता
+                                        डेबीट गर्न आवश्यक पर्ने पर्याप्त रकम व्यवस्थित गर्नबाट ऋणि चुकेमा,
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-1">(घ)</div>
                                     <div class="col-md-11">
-                                        यस ऋण स्विकृतीपत्र अन्तर्गतका केही वा सवै दायित्वहरुको समाप्ती गर्ने ,
+                                        ऋणीले बैकिङ्ग कसुर तथा सजाय सम्बन्धि प्रचलित कानूनको वर्खिलाफ हुने गरि कर्जा
+                                        सुविधा
+                                        लिएको तथा उपयोग गरेको पाइएमा,
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-1">(ङ)</div>
                                     <div class="col-md-11">
-                                        ऋणीलाई उपलब्ध गराइएको एक वा एक भन्दा बढी ऋण सुबिधा संग सम्बन्धित शर्तहरुमा
-                                        परिवर्तन गर्ने,
+                                        कुनै नियामक निकायद्धारा ऋणीको सम्पत्ति रोक्का वा जफत गर्ने आदेश जारी भएको
+                                        अवस्थामा ।
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-1">(च)</div>
                                     <div class="col-md-11">
-                                        यो ऋण स्विकृती पत्रमा उल्लेख गरिएको भन्दा बाहेक ऋणीलाई यस बैंकबाट अन्य कुनै
-                                        ऋण
-                                        सुविधा उपलब्ध गराइएको अवस्थामा त्यस्तो अन्य ऋण सुविधाका सम्बन्धमा ऋणीले कुनै
-                                        Default गरेमा त्यस्तो Default लाई यसै ऋण स्विकृती पत्र अन्तर्गत ऋण लिंदा
-                                        Default
-                                        गरे सरह मानी व्याख्या गरिनेछ र त्यस्तो अवस्थामा यस ऋण स्विकृती पत्र अन्तर्गत
-                                        उपलब्ध
-                                        गराइएकोे ऋण सुविधा वा ऋण तत्काल तिर्नु पर्ने गरी माग गर्न बैंकलाई पूर्ण
-                                        अधिकार
-                                        (full entitlement) हुनेछ ।
+                                        सामान्य परिस्थितीमा ऋणीले आफ्नो व्यापार व्यवसाय बन्द गरेमा वा आफ्नो व्यापार
+                                        व्यवसायको
+                                        केही भाग बन्द वा बेचविखन गर्ने निर्णय गरेमा ।
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">(छ)</div>
+                                    <div class="col-md-11">
+                                        ऋणीले अन्य साहूहरुलाई तिर्नु बुझाउनु पर्ने ऋण कर्जा समयमा तिर्न बुझाउन बाट ऋणी
+                                        चुकेमा
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">(ज)</div>
+                                    <div class="col-md-11">
+                                        सरकार वा कानून बमोजिम अख्तियार प्राप्त कुनै निकायवाट ऋणीको सम्पत्तिको सम्पूर्ण
+                                        वा
+                                        महत्वपूर्ण भाग जफत गर्ने निर्णय भएको अवस्थामा वा ऋणीको संचालित व्यवसाय निलम्बन
+                                        वा
+                                        विघटन
+                                        गर्ने निर्णय भएमा ।
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-1">(झ)</div>
+                                    <div class="col-md-11">
+                                        कुनै असाधारण परिस्थिती सृजना भई ऋणी यस ऋण स्विकृतीपत्र अन्तर्गतको दायित्व बहन
+                                        गर्न
+                                        असमर्थ हुन्छ भन्ने बैंकलाई लागेको अवस्थामा बैंकले लिने वा लिएको कुनै पनि निर्णय
+                                        ऋणीको
+                                        लागि
+                                        अन्तिम तथा बाध्यकारी हुनेछ । साथै त्यसपछिका कुनै पनि त्यस्ता अवस्थाहरु उत्पन्न
+                                        भएको
+                                        खण्डमा
+                                        बैंकलाई देहायबमोजिमका अधिकारहरु हुनेछन् :
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-1">(क)</div>
+                                                <div class="col-md-11">
+                                                    यस ऋण स्विकृतीपत्र अन्तर्गत ऋणीले बैंकलाई तिर्नु बुझाउनु पर्ने
+                                                    सम्पूर्ण
+                                                    ऋण
+                                                    बक्यौता आदीको व्याज समेत सम्पूर्ण रकम तत्काल बैंकलाई तिर्नु पर्ने
+                                                    गरी
+                                                    बाँकी
+                                                    रहने
+                                                    छन् र बैंकले सम्पूर्ण लेना रकम तत्काल चुक्ता गर्न माग गर्ने,
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-1">(ख)</div>
+                                                <div class="col-md-11">
+                                                    यसको शर्त नं. ३ मा उल्लेख गरिएको व्याजदर लागु गर्ने,
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-1">(ग)</div>
+                                                <div class="col-md-11">
+                                                    ऋणीले बैंकलाई लेखिदिएको वा बैंकमा राखेको धितो सुरक्षणलाई लिलाम
+                                                    बिक्री
+                                                    गरी वा
+                                                    अन्य कुनै व्यवस्था गरी आफ्नो सावाँ ब्याज असूलउपर गर्ने र यसरी पनि
+                                                    ऋणीले
+                                                    बैंकलाई
+                                                    तिर्नु बुझाउनु पर्ने सांवा व्याज असुल उपर हुन नसकेमा ऋणीको पुर्ण हक
+                                                    लाग्ने
+                                                    तथा
+                                                    ऋणी
+                                                    संग सम्बन्धित अन्य सम्पत्ति जायदात रोक्का गरी ऋण असुलिको प्रकया अघि
+                                                    बढाउने,
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-1">(घ)</div>
+                                                <div class="col-md-11">
+                                                    यस ऋण स्विकृतीपत्र अन्तर्गतका केही वा सवै दायित्वहरुको समाप्ती गर्ने
+                                                    ,
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-1">(ङ)</div>
+                                                <div class="col-md-11">
+                                                    ऋणीलाई उपलब्ध गराइएको एक वा एक भन्दा बढी ऋण सुबिधा संग सम्बन्धित
+                                                    शर्तहरुमा
+                                                    परिवर्तन गर्ने,
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-1">(च)</div>
+                                                <div class="col-md-11">
+                                                    यो ऋण स्विकृती पत्रमा उल्लेख गरिएको भन्दा बाहेक ऋणीलाई यस बैंकबाट
+                                                    अन्य
+                                                    कुनै
+                                                    ऋण
+                                                    सुविधा उपलब्ध गराइएको अवस्थामा त्यस्तो अन्य ऋण सुविधाका सम्बन्धमा
+                                                    ऋणीले
+                                                    कुनै
+                                                    Default गरेमा त्यस्तो Default लाई यसै ऋण स्विकृती पत्र अन्तर्गत ऋण
+                                                    लिंदा
+                                                    Default
+                                                    गरे सरह मानी व्याख्या गरिनेछ र त्यस्तो अवस्थामा यस ऋण स्विकृती पत्र
+                                                    अन्तर्गत
+                                                    उपलब्ध
+                                                    गराइएकोे ऋण सुविधा वा ऋण तत्काल तिर्नु पर्ने गरी माग गर्न बैंकलाई
+                                                    पूर्ण
+                                                    अधिकार
+                                                    (full entitlement) हुनेछ ।
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h6>८. <strong><u>पूर्व शर्तहरु (Conditions Precedent):-</u></strong></h6>
+                        <div class="row justify-content-end">
+                            <div class="col-md-11">
+                                यस अन्तर्गत बैंकले ऋणीलाई उपलब्ध गराउने कर्जा नेपाल राष्ट्र बैंकबाट समय समयमा बैंकलाई
+                                जारी
+                                गरिएको
+                                निर्देशन र प्रचलित बैंक तथा वित्तीय संस्था सम्बन्धि कानून अन्तर्गत रही गरिनेछ । यस कर्जा
+                                सुविधा
+                                अन्तर्गतको रकम ऋणीलाई बैंकले भुक्तानी गर्दा नेपाल राष्ट्र बैंकबाट जारी गरिएको कालो सूचि
+                                सम्बन्धि
+                                निर्देशन अन्तर्गत कर्जा सूचना केन्द्र लिमिटेडबाट प्राप्त हुने सन्तोषजनक प्रतिवेदनको
+                                अधिनमा
+                                रही मात्र
+                                गरिनेछ । साथै यस ऋण स्विकृतीपत्रमा हस्ताक्षर गर्दाको वखत ऋणीले नेपाल राष्ट्र बैंकबाट
+                                जारी
+                                गरिएको
+                                कालो सूचि सम्बन्धि निर्देशनका बारेमा पर्याप्त रुपमा जानकारी राखेको छ र सोमा उल्लेखित
+                                शर्तहरुमा
+                                उल्लेखित अवस्थाहरु आएको खण्डमा उल्लेखित निर्देशन बमोजिम बैंकले ऋणीलाई कालो सूचिमा राख्न
+                                सहमति प्रदान
+                                गर्दछ भनि मानिएको छ ।
+                                ऋणीले तेश्रो पक्षको सम्पत्ति धितो सुरक्षण राखी उल्लेखित ऋण उपलब्ध गर्न चाहेको खण्डमा
+                                बैंकलाई
+                                सम्पत्ति धितो सुरक्षण दिने तेश्रो पक्षको आफ्नो स्वमित्व तथा हकभोगको र निजको परिवारका सवै
+                                सदस्यहरुको
+                                मन्जुरीनामा सहितको रितपूर्वकको कागजातहरु बैंकलाई उपलब्ध गराउनु पर्नेछ ।
+                                माथि जुनसुकै कुरा उल्लेख गरिएको भएतापनि बैंकले ऋण सुविधाको प्रस्ताव गर्दा मानेका
+                                आधारहरुमा
+                                प्रतिकूल
+                                असर पर्न जान सक्ने कुनै पनि अवस्था आइपरेमा बैंकले प्रस्तावलाई स्वीकृति पूर्व पनि फिर्ता
+                                लिन
+                                सक्नेछ ।
+                                यस ऋण स्विकृती पत्रको दुई प्रतिहरु बनाइएका छन् । दुवै प्रतिको हरेक पृष्ठमा ऋणीले दस्तखत
+                                गरि
+                                एउटा
+                                सक्कल प्रति बैंकमा फिर्ता बुझाउनु पर्नेछ , जसलाई बैकले यस प्रस्तावमा उल्लेख गरिएको
+                                शर्तहरुमाथि
+                                ऋणीले
+                                दिएको स्विकृतीको प्रमाण मानिनेछ र दोस्रो प्रति ऋणीको अभिलेखको लागि मानिनेछ ।
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <h6>९. <strong><u> घोषणा (Representation)</u></strong></h6>
+                        <div class="row justify-content-end">
+                            <div class="col-md-11">
+                                ऋणी निम्न लिखित कुराहरु सत्य भएको स्विकार गर्दछ :
+                                <div class="row">
+                                    <div class="col-md-1">(क)</div>
+                                    <div class="col-md-11">
+                                        यस ऋण स्विकृतीपत्र संग सम्बन्धित सम्पूर्ण कारोवारी कागजपत्रहरु कानूनी रुपमा
+                                        बन्धनकारी छन
+                                        ्।
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">(ख)</div>
+                                    <div class="col-md-11">
+                                        यस ऋण स्विकृतीपत्र संग सम्बन्धित सम्पूर्ण कारोवारी कागजपत्रहरुमा कुनै पनि
+                                        त्रुटीका
+                                        संभाव्य
+                                        अवस्थाहरु विद्यमान छैनन वा विद्यमान भएको थाहा छैन ।
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">(ग)</div>
+                                    <div class="col-md-11">
+                                        ऋणीले यस ऋण स्विकृतीपत्र अन्तर्गत बैंकलाई उपलब्ध गराएका सुरक्षण प्रत्यक्ष वा
+                                        अप्रत्यक्ष
+                                        रुपमा
+                                        कच्चा हुने वा हुन सक्ने खालको कुनै पनि कानूनी कारवाही कुनै अदालतमा विचाराधीन
+                                        समेत
+                                        छैन ।
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">(घ)</div>
+                                    <div class="col-md-11">
+                                        यसमा उल्लेखित कागजपत्रहरु प्रचलित कानून खासगरि बैंक तथा वित्तीय संस्था सम्बन्धि
+                                        कानून
+                                        तथा बैकिङ अपराध तथा कसुर सम्बन्धि कानून, अनुमति पत्र, प्रवन्ध पत्र वा नियमावलीको
+                                        प्रतिकूल
+                                        छैनन् ।
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <br><br>
-                </div>
-            </div>
-        </div>
 
-        <div>
-            <h6>८. <strong><u>पूर्व शर्तहरु (Conditions Precedent):-</u></strong></h6>
-            <div class="row justify-content-end">
-                <div class="col-md-11">
-                    यस अन्तर्गत बैंकले ऋणीलाई उपलब्ध गराउने कर्जा नेपाल राष्ट्र बैंकबाट समय समयमा बैंकलाई जारी
-                    गरिएको
-                    निर्देशन र प्रचलित बैंक तथा वित्तीय संस्था सम्बन्धि कानून अन्तर्गत रही गरिनेछ । यस कर्जा
-                    सुविधा
-                    अन्तर्गतको रकम ऋणीलाई बैंकले भुक्तानी गर्दा नेपाल राष्ट्र बैंकबाट जारी गरिएको कालो सूचि
-                    सम्बन्धि
-                    निर्देशन अन्तर्गत कर्जा सूचना केन्द्र लिमिटेडबाट प्राप्त हुने सन्तोषजनक प्रतिवेदनको अधिनमा
-                    रही मात्र
-                    गरिनेछ । साथै यस ऋण स्विकृतीपत्रमा हस्ताक्षर गर्दाको वखत ऋणीले नेपाल राष्ट्र बैंकबाट जारी
-                    गरिएको
-                    कालो सूचि सम्बन्धि निर्देशनका बारेमा पर्याप्त रुपमा जानकारी राखेको छ र सोमा उल्लेखित
-                    शर्तहरुमा
-                    उल्लेखित अवस्थाहरु आएको खण्डमा उल्लेखित निर्देशन बमोजिम बैंकले ऋणीलाई कालो सूचिमा राख्न
-                    सहमति प्रदान
-                    गर्दछ भनि मानिएको छ ।
-                    ऋणीले तेश्रो पक्षको सम्पत्ति धितो सुरक्षण राखी उल्लेखित ऋण उपलब्ध गर्न चाहेको खण्डमा बैंकलाई
-                    सम्पत्ति धितो सुरक्षण दिने तेश्रो पक्षको आफ्नो स्वमित्व तथा हकभोगको र निजको परिवारका सवै
-                    सदस्यहरुको
-                    मन्जुरीनामा सहितको रितपूर्वकको कागजातहरु बैंकलाई उपलब्ध गराउनु पर्नेछ ।
-                    माथि जुनसुकै कुरा उल्लेख गरिएको भएतापनि बैंकले ऋण सुविधाको प्रस्ताव गर्दा मानेका आधारहरुमा
-                    प्रतिकूल
-                    असर पर्न जान सक्ने कुनै पनि अवस्था आइपरेमा बैंकले प्रस्तावलाई स्वीकृति पूर्व पनि फिर्ता लिन
-                    सक्नेछ ।
-                    यस ऋण स्विकृती पत्रको दुई प्रतिहरु बनाइएका छन् । दुवै प्रतिको हरेक पृष्ठमा ऋणीले दस्तखत गरि
-                    एउटा
-                    सक्कल प्रति बैंकमा फिर्ता बुझाउनु पर्नेछ , जसलाई बैकले यस प्रस्तावमा उल्लेख गरिएको
-                    शर्तहरुमाथि
-                    ऋणीले
-                    दिएको स्विकृतीको प्रमाण मानिनेछ र दोस्रो प्रति ऋणीको अभिलेखको लागि मानिनेछ ।
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-3">
-            <h6>९. <strong><u> घोषणा (Representation)</u></strong></h6>
-            <div class="row justify-content-end">
-                <div class="col-md-11">
-                    ऋणी निम्न लिखित कुराहरु सत्य भएको स्विकार गर्दछ :
-                    <div class="row">
-                        <div class="col-md-1">(क)</div>
-                        <div class="col-md-11">
-                            यस ऋण स्विकृतीपत्र संग सम्बन्धित सम्पूर्ण कारोवारी कागजपत्रहरु कानूनी रुपमा बन्धनकारी छन
-                            ्।
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(ख)</div>
-                        <div class="col-md-11">
-                            यस ऋण स्विकृतीपत्र संग सम्बन्धित सम्पूर्ण कारोवारी कागजपत्रहरुमा कुनै पनि त्रुटीका
-                            संभाव्य
-                            अवस्थाहरु विद्यमान छैनन वा विद्यमान भएको थाहा छैन ।
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(ग)</div>
-                        <div class="col-md-11">
-                            ऋणीले यस ऋण स्विकृतीपत्र अन्तर्गत बैंकलाई उपलब्ध गराएका सुरक्षण प्रत्यक्ष वा अप्रत्यक्ष
-                            रुपमा
-                            कच्चा हुने वा हुन सक्ने खालको कुनै पनि कानूनी कारवाही कुनै अदालतमा विचाराधीन समेत छैन ।
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(घ)</div>
-                        <div class="col-md-11">
-                            यसमा उल्लेखित कागजपत्रहरु प्रचलित कानून खासगरि बैंक तथा वित्तीय संस्था सम्बन्धि कानून
-                            तथा बैकिङ अपराध तथा कसुर सम्बन्धि कानून, अनुमति पत्र, प्रवन्ध पत्र वा नियमावलीको
-                            प्रतिकूल
-                            छैनन् ।
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-3">
-            <h6>१०. <strong><u> परित्याग (Waiver)</u></strong></h6>
-            <div class="row justify-content-end">
-                <div class="col-md-11">
-                    यो ऋण स्विकृतीपत्र अन्तर्गत बैंकको कुनै पनि अधिकार बैंकले परित्याग गरेको लिखित सूचना दिइएकोमा
-                    बाहेक
-                    अन्य अवस्थामा परित्याग हुन सक्ने छैनन् ।
-                    <p><strong>खासगरीः</strong></p>
-                    <div class="row">
-                        <div class="col-md-1">(क)</div>
-                        <div class="col-md-10">
-                            बैंकले आफ्नो कुनै पनि अधिकार प्रयोग गरेको छैन वा तत्काल प्रयोग पनि गर्ने छैन भन्ने मात्र
-                            कारणले
-                            बैंकले यो ऋण स्विकृतीपत्र संग सम्वन्धित कुनै पनि अधिकार परित्याग गर्ने छैन, र
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1">(ख)</div>
-                        <div class="col-md-10">
-                            बैंकले यो ऋण स्विकृतीपत्र अन्तर्गत आफ्नो कुनै अधिकारको प्रयोग एक पटक वा पटक पटक वा आंशिक
-                            रुपमा
-                            गरेकोमा बैंकले त्यस्तो अधिकार वा अन्य अधिकारको प्रयोग फेरि गर्न सक्दैन भन्ने छैन ।
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-3">
-            <h6>११. <strong><u>कानून र क्षेत्राधिकार:</u></strong></h6>
-            <div class="row justify-content-end">
-                <div class="col-md-11">
-                    प्रस्तुत बैंकिङ ऋण स्विकृतीपत्र नेपालको बैंक तथा वित्तीय संस्था सम्बन्धि कानून तथा अन्य प्रचलित
-                    कानून र क्षेत्राधिकारको अधिनमा रहनेछ । साथै प्रचलित नेपाल कानून, नेपाल राष्ट्र बैंकको निर्देशन
-                    तथा
-                    बैंकको नीति, नियम तथा सोमा समय समयमा हुने संशोधन सहितको पालना गर्न मञ्जूर गर्नुका साथै माथि
-                    उल्लेखित
-                    सम्पूर्ण ऋण/कर्जा र/वा बैंकिङ्ग सुविधा समेत उल्लेखित कानूनको अधिनमा
-                    रहने कुरामा ऋणी मन्जूर गर्दछ । यो स्वीकृतीपत्रको अधिनमा रही ऋणीले कर्जा सुविधाहरु उपभोग तथा
-                    सावाँ
-                    ब्याज भुक्तानी गर्दा वा कर्जाको शर्तहरु उल्लंघन भई कर्जा असुलीको प्रक्रियार्मा बैंकसंग कुनै
-                    गुनासो/असमझदारी/विवाद भएमा त्यस्तो विवाद समाधानको लागि अड्डा अदालत, नियमनकारी निकाय आदि मार्फत
-                    विवाद
-                    समाधान गर्नु गराउनु पूर्व धनी बैंकले स्थापना गरेको मेलमिलाप केन्द्र (Mega Mediation Center)
-                    मार्फत
-                    आफ्ना विवाद तथा गुनासोको समाधान गर्न निवेदन दिनु पर्नेछ । उक्त केन्द्रबाट आफ्नो गुनासो वा विवाद
-                    समाधान नभएमा मात्र प्रचलित कानून बमोजिमको अधिकार प्रयोग गरी कानूनीबाटो खोज्नु पर्नेछ ।
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-3">
-            <h6>१२.<strong><u>सूचना दिन सहमतीः</u></strong></h6>
-            <div class="row justify-content-end">
-                <div class="col-md-11">
-                    ऋणी यस मार्फत निजको आफ्नो व्यवसायिक कारोवार संग सम्बन्धित कुनै पनि सूचना वा जानकारी, बैंकलाई
-                    आवश्यक
-                    परेको खण्डमा, बैंक तथा वित्तीय संस्था सम्बन्धि कानूनको अधिनमा रही कुनै पनि व्यक्ति वा निकाय संग
-                    आदान
-                    प्रदान गर्न वा उपलब्ध गराउन सहमति प्रदान गर्दछ ।
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-3">
-            <h6>१३. <strong><u>सूचनाहरु:</u></strong></h6>
-            <div class="row justify-content-end">
-                <div class="col-md-11">
-                    ऋणीले उपभोग गरिरहेको कर्जा सम्बन्धी बिभिन्न सुचनाहरु जस्तै ब्याजदरमा परिवर्तन, भाखा नाघेको कर्जा
-                    रकम, कर्जा सुविधाको किस्ता रकम, भुक्तानी मिति तथा कारोबार सम्बन्धी अन्य जानकारीहरु ऋणीलाई
-                    आधिकारीक
-                    पत्र, बिद्युतिय माध्यम अथवा एसएमएस मार्फत गराइनेछ जसलाई बैंकको आधिकारीक सुचना मानिनेछ । साथै
-                    अन्य
-                    सूचनाहरु देहाय बमोजिमको ठेगानामा हुलाक वा फ्याक्सको माध्यमद्वारा दिइनेछ । <br><br>
-                    <p>बैंकः</p>
-                    <div class="row justify-content-end">
-                        <div class="col-md-11">
-                            <p>कर्जा ब्यवस्थापन विभाग</p>
-                            <p>मेगा बैंक नेपाल लिमिटेड, केन्द्रीय कार्यालय, कमलादी, काठमाण्डौ</p>
-                            <p>पोष्ट बक्स नं.२६५५९</p>
-                            <p>फोन –९७७–१–४१६९२५० फ्याक्स –९७७–१–४१६९२६०</p>
-                        </div>
-                    </div>
-                    <div class="mt-5">
-                        ऋणी:
+                    <div class="mt-3">
+                        <h6>१०. <strong><u> परित्याग (Waiver)</u></strong></h6>
                         <div class="row justify-content-end">
                             <div class="col-md-11">
-                                <p>
-                                    <strong class="nepaliFont">{{ this.form.controls['name'].value }}</strong>
-                                </p>
-                                <p>
-                                    <strong class="nepaliFont">{{ this.form.controls['address'].value }}</strong>
-                                </p>
-                                <p>
-                                    मोवाइल नं:<strong
-                                        class="nepaliFont ml-2">{{ this.form.controls['mobileNumber'].value }}</strong>
-                                </p>
+                                यो ऋण स्विकृतीपत्र अन्तर्गत बैंकको कुनै पनि अधिकार बैंकले परित्याग गरेको लिखित सूचना
+                                दिइएकोमा
+                                बाहेक
+                                अन्य अवस्थामा परित्याग हुन सक्ने छैनन् ।
+                                <p><strong>खासगरीः</strong></p>
+                                <div class="row">
+                                    <div class="col-md-1">(क)</div>
+                                    <div class="col-md-10">
+                                        बैंकले आफ्नो कुनै पनि अधिकार प्रयोग गरेको छैन वा तत्काल प्रयोग पनि गर्ने छैन
+                                        भन्ने
+                                        मात्र
+                                        कारणले
+                                        बैंकले यो ऋण स्विकृतीपत्र संग सम्वन्धित कुनै पनि अधिकार परित्याग गर्ने छैन, र
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1">(ख)</div>
+                                    <div class="col-md-10">
+                                        बैंकले यो ऋण स्विकृतीपत्र अन्तर्गत आफ्नो कुनै अधिकारको प्रयोग एक पटक वा पटक पटक
+                                        वा
+                                        आंशिक
+                                        रुपमा
+                                        गरेकोमा बैंकले त्यस्तो अधिकार वा अन्य अधिकारको प्रयोग फेरि गर्न सक्दैन भन्ने छैन
+                                        ।
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="mt-5 mb-3">
-                    यो सुविधाको प्रस्ताव उपर स्वीकृति दिन को लागि माथि उल्लेखित मिति देखि ३० दिनसम्म को समय दिईएको छ
-                    र उल्लेखित समय भित्र ऋणिले आफ्नो सहमति लिखित रुपमा दिईसक्नु पर्ने छ । बैंकले ऋण सुविधाको
-                    प्रस्ताव गर्दा मानेका आधारहरुमा प्रतिकूल असर पर्न जान सक्ने कुनै पनि अवस्था आइपरेमा ऋणीले उपलब्ध
-                    गराइ सकेका
-                    वा नसकेको जुनसुकै अवस्थामा भएपनि विना कुनै कारण बैंकले यस प्रस्तावलाई स्वीकृति पूर्व पनि फिर्ता
-                    लिन
-                    सक्नेछ ।<br>
-                    भवदीय,<br>
-                    मेगा बैंक नेपाल लिमिटेडका तर्फबाट
 
-                    <div class="row justify-content-between mt-5">
-                        <div class="col-md-4 form-group form-inline">
-                            <div>
-                                <p>-----------------------------------</p>
-                                <p>अधिकृत - कर्जा ब्यबस्थापन </p>
-                                <input class="form-control nepaliFont mx-2"
-                                       formControlName="adhikrit1" placeholder="अधिकृतको नाम"
-                                       type="text">
-                            </div>
-                        </div>
-                        <div class="col-md-4 form-group form-inline justify-content-end">
-                            <div>
-                                <p>-----------------------------------</p>
-                                <p>अधिकृत - कर्जा ब्यबस्थापन </p>
-                                <input class="form-control nepaliFont mx-2"
-                                       formControlName="adhikrit2" placeholder="अधिकृतको नाम"
-                                       type="text">
+                    <div class="mt-3">
+                        <h6>११. <strong><u>कानून र क्षेत्राधिकार:</u></strong></h6>
+                        <div class="row justify-content-end">
+                            <div class="col-md-11">
+                                प्रस्तुत बैंकिङ ऋण स्विकृतीपत्र नेपालको बैंक तथा वित्तीय संस्था सम्बन्धि कानून तथा अन्य
+                                प्रचलित
+                                कानून र क्षेत्राधिकारको अधिनमा रहनेछ । साथै प्रचलित नेपाल कानून, नेपाल राष्ट्र बैंकको
+                                निर्देशन
+                                तथा
+                                बैंकको नीति, नियम तथा सोमा समय समयमा हुने संशोधन सहितको पालना गर्न मञ्जूर गर्नुका साथै
+                                माथि
+                                उल्लेखित
+                                सम्पूर्ण ऋण/कर्जा र/वा बैंकिङ्ग सुविधा समेत उल्लेखित कानूनको अधिनमा
+                                रहने कुरामा ऋणी मन्जूर गर्दछ । यो स्वीकृतीपत्रको अधिनमा रही ऋणीले कर्जा सुविधाहरु उपभोग
+                                तथा
+                                सावाँ
+                                ब्याज भुक्तानी गर्दा वा कर्जाको शर्तहरु उल्लंघन भई कर्जा असुलीको प्रक्रियार्मा बैंकसंग
+                                कुनै
+                                गुनासो/असमझदारी/विवाद भएमा त्यस्तो विवाद समाधानको लागि अड्डा अदालत, नियमनकारी निकाय आदि
+                                मार्फत
+                                विवाद
+                                समाधान गर्नु गराउनु पूर्व धनी बैंकले स्थापना गरेको मेलमिलाप केन्द्र (Mega Mediation
+                                Center)
+                                मार्फत
+                                आफ्ना विवाद तथा गुनासोको समाधान गर्न निवेदन दिनु पर्नेछ । उक्त केन्द्रबाट आफ्नो गुनासो
+                                वा
+                                विवाद
+                                समाधान नभएमा मात्र प्रचलित कानून बमोजिमको अधिकार प्रयोग गरी कानूनीबाटो खोज्नु पर्नेछ ।
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="card mt-2">
-                    <div class="card-body">
-                        <div class="mb-5">
-                            म/हामीले १० पृष्ठको यस बैकिङ ऋण स्विकृतीपत्रमा उल्लेखित शर्तहरु राम्ररी पढेंरपढ्यौं र
-                            बुझेंरबुझ्यौं । यसमा उल्लेख गरिएको सम्पूर्ण शर्तहरु पालना गर्न म/हामी मन्जुर गर्दछु ।
-                            गर्दछौं र
-                            बैंकसंग यस अन्तर्गत लिएको ऋण पूर्ण रुपमा चुक्ता भुक्तान नगरे सम्म यसमा उल्ल्ेखित
-                            शर्तहरुको
-                            पूर्ण
-                            रुपले पालना गर्ने प्रतिज्ञा गर्दछु/गर्दछौं ।
-                            <p>
-                                ऋणीको नामस् : श्री
-                                <strong class="nepaliFont mx-2"> {{ this.form.controls['name'].value }}
-                                    ।</strong>
-                            </p>
-                        </div>
-                        <div class="row justify-content-between">
-                            <div class="col-md-3">
-                                आधिकारीक दस्तखत ................
-                            </div>
-                            <div class="col-md-3">
-                                मितिः <strong class="nepaliFont">{{ this.form.controls['date'].value }}</strong>
+                    <div class="mt-3">
+                        <h6>१२.<strong><u>सूचना दिन सहमतीः</u></strong></h6>
+                        <div class="row justify-content-end">
+                            <div class="col-md-11">
+                                ऋणी यस मार्फत निजको आफ्नो व्यवसायिक कारोवार संग सम्बन्धित कुनै पनि सूचना वा जानकारी,
+                                बैंकलाई
+                                आवश्यक
+                                परेको खण्डमा, बैंक तथा वित्तीय संस्था सम्बन्धि कानूनको अधिनमा रही कुनै पनि व्यक्ति वा
+                                निकाय
+                                संग
+                                आदान
+                                प्रदान गर्न वा उपलब्ध गराउन सहमति प्रदान गर्दछ ।
                             </div>
                         </div>
                     </div>
+
+                    <div class="mt-3">
+                        <h6>१३. <strong><u>सूचनाहरु:</u></strong></h6>
+                        <div class="row justify-content-end">
+                            <div class="col-md-11">
+                                ऋणीले उपभोग गरिरहेको कर्जा सम्बन्धी बिभिन्न सुचनाहरु जस्तै ब्याजदरमा परिवर्तन, भाखा
+                                नाघेको
+                                कर्जा
+                                रकम, कर्जा सुविधाको किस्ता रकम, भुक्तानी मिति तथा कारोबार सम्बन्धी अन्य जानकारीहरु
+                                ऋणीलाई
+                                आधिकारीक
+                                पत्र, बिद्युतिय माध्यम अथवा एसएमएस मार्फत गराइनेछ जसलाई बैंकको आधिकारीक सुचना मानिनेछ ।
+                                साथै
+                                अन्य
+                                सूचनाहरु देहाय बमोजिमको ठेगानामा हुलाक वा फ्याक्सको माध्यमद्वारा दिइनेछ । <br><br>
+                                <p>बैंकः</p>
+                                <div class="row justify-content-end">
+                                    <div class="col-md-11">
+                                        <p>कर्जा ब्यवस्थापन विभाग</p>
+                                        <p>मेगा बैंक नेपाल लिमिटेड, केन्द्रीय कार्यालय, कमलादी, काठमाण्डौ</p>
+                                        <p>पोष्ट बक्स नं.२६५५९</p>
+                                        <p>फोन –९७७–१–४१६९२५० फ्याक्स –९७७–१–४१६९२६०</p>
+                                    </div>
+                                </div>
+                                <div class="mt-5">
+                                    ऋणी:
+                                    <div class="row justify-content-end">
+                                        <div class="col-md-11">
+                                            <p>
+                                                <strong class="nepaliFont">{{ loanHolderInfo?.name }}</strong>
+                                            </p>
+                                            <p>
+                                                प्रदेश
+                                                <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
+                                                जिल्ला <strong
+                                                    class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
+                                                वार्ड न <strong
+                                                    class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
+                                                <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+                                                <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong>
+
+                                            </p>
+                                            <p>
+                                                मोवाइल नं:<strong
+                                                    class="nepaliFont ml-2">{{ this.form.controls['mobileNo'].value}}</strong>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-5 mb-3">
+                                यो सुविधाको प्रस्ताव उपर स्वीकृति दिन को लागि माथि उल्लेखित मिति देखि ३० दिनसम्म को समय
+                                दिईएको छ
+                                र उल्लेखित समय भित्र ऋणिले आफ्नो सहमति लिखित रुपमा दिईसक्नु पर्ने छ । बैंकले ऋण सुविधाको
+                                प्रस्ताव गर्दा मानेका आधारहरुमा प्रतिकूल असर पर्न जान सक्ने कुनै पनि अवस्था आइपरेमा
+                                ऋणीले
+                                उपलब्ध
+                                गराइ सकेका
+                                वा नसकेको जुनसुकै अवस्थामा भएपनि विना कुनै कारण बैंकले यस प्रस्तावलाई स्वीकृति पूर्व पनि
+                                फिर्ता
+                                लिन
+                                सक्नेछ ।<br>
+                                भवदीय,<br>
+                                मेगा बैंक नेपाल लिमिटेडका तर्फबाट
+
+                                <div class="row justify-content-between mt-5">
+                                    <div class="col-md-4 form-group form-inline">
+                                        <div>
+                                            <p>-----------------------------------</p>
+                                            <p>अधिकृत - कर्जा ब्यबस्थापन </p>
+                                            <input class="form-fields form-control-sm nepaliFont mx-2"
+                                                   formControlName="adhikrit1" placeholder="अधिकृतको नाम"
+                                                   type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 form-group form-inline justify-content-end">
+                                        <div>
+                                            <p>-----------------------------------</p>
+                                            <p>अधिकृत - कर्जा ब्यबस्थापन </p>
+                                            <input class="form-fields form-control-sm nepaliFont mx-2"
+                                                   formControlName="adhikrit2" placeholder="अधिकृतको नाम"
+                                                   type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card mt-2">
+                                <div class="card-body">
+                                    <div class="mb-5">
+                                        म/हामीले १० पृष्ठको यस बैकिङ ऋण स्विकृतीपत्रमा उल्लेखित शर्तहरु राम्ररी
+                                        पढेंरपढ्यौं
+                                        र
+                                        बुझेंरबुझ्यौं । यसमा उल्लेख गरिएको सम्पूर्ण शर्तहरु पालना गर्न म/हामी मन्जुर
+                                        गर्दछु
+                                        ।
+                                        गर्दछौं र
+                                        बैंकसंग यस अन्तर्गत लिएको ऋण पूर्ण रुपमा चुक्ता भुक्तान नगरे सम्म यसमा उल्ल्ेखित
+                                        शर्तहरुको
+                                        पूर्ण
+                                        रुपले पालना गर्ने प्रतिज्ञा गर्दछु/गर्दछौं ।
+                                        <p>
+                                            ऋणीको नामस् : श्री
+                                            <strong class="nepaliFont mx-2"> {{ loanHolderInfo?.name}}
+                                                ।</strong>
+                                        </p>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="col-md-3">
+                                            आधिकारीक दस्तखत ................
+                                        </div>
+                                        <div class="col-md-3">
+                                            मितिः <strong
+                                                class="nepaliFont">{{ this.form.controls['date'].value }}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <p>नोट : कृपया हरेक पृष्ठमा आधिकारिक दस्तखत तथा निकायको छाप अनिवार्य रुपमा लगाउनु होला ।</p>
+                    </div>
                 </div>
-            </div>
-            <br>
-            <p>नोट : कृपया हरेक पृष्ठमा आधिकारिक दस्तखत तथा निकायको छाप अनिवार्य रुपमा लगाउनु होला ।</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 text-right">
-            <button (click)="submit()" nbButton status="success" type="submit">Save</button>
-        </div>
-    </div>
-</form>
-    </nb-card-body>
-    <nb-card-footer class="mb-3">
-        <button  nbButton status="info" class="mb-4 float-right" [disabled]="!initialInfoPrint" [useExistingCss]="true"
-                 ngxPrint printSectionId="{{offerLetterConst.RETAIL_MORTGAGE_OVERDRAFT}}Print">Print
-        </button>
-    </nb-card-footer>
-</nb-card>
-<div>
-    <button *ngIf="initialInfoPrint" [useExistingCss]="true" class="btn btn-primary" ngxPrint
-            printSectionId="{{offerLetterConst.RETAIL_MORTGAGE_OVERDRAFT}}">
-        प्रिन्ट गर्नुहोस्
-    </button>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button (click)="submit()" nbButton status="success" type="submit">Save</button>
+                    </div>
+                </div>
+            </form>
+        </nb-card-body>
+        <nb-card-footer class="mb-3">
+            <button nbButton
+                    [disabled]="!initialInfoPrint"
+                    [useExistingCss]="true"
+                    class="mb-4 btn btn-primary float-right"
+                    ngxPrint
+                    printSectionId="{{offerLetterConst.RETAIL_MORTGAGE_OVERDRAFT}}Print">
+                Print
+            </button>
+        </nb-card-footer>
+    </nb-card>
 </div>
-<app-retail-mortgage-print *ngIf="form.value" [form]="form.value" hidden>
+<div>
+
+</div>
+<app-retail-mortgage-print *ngIf="initialInfoPrint"
+                           [form]="initialInfoPrint"
+                           [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                           hidden>
 </app-retail-mortgage-print>
