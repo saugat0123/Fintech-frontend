@@ -46,6 +46,7 @@ export class RetailEducationalLoanComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         }
+        console.log(this.loanHolderInfo, 'Loan Holder Info');
     }
 
     buildForm() {
