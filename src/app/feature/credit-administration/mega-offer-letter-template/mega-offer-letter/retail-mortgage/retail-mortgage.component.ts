@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
 import {ToastService} from '../../../../../@core/utils';
 import {Router} from '@angular/router';
@@ -14,7 +14,12 @@ import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../model/CadDocStatus';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
-
+import {NepaliNumberAndWords} from '../../../model/nepaliNumberAndWords';
+import {NepaliCurrencyWordPipe} from "../../../../../@core/pipe/nepali-currency-word.pipe";
+import {EngToNepaliNumberPipe} from "../../../../../@core/pipe/eng-to-nepali-number.pipe";
+import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
+import {NepaliToEngNumberPipe} from "../../../../../@core/pipe/nepali-to-eng-number.pipe";
+import {NepaliPercentWordPipe} from "../../../../../@core/pipe/nepali-percent-word.pipe";
 
 @Component({
     selector: 'app-retail-mortgage',
@@ -29,9 +34,15 @@ export class RetailMortgageComponent implements OnInit {
     initialInfoPrint;
     offerLetterConst = MegaOfferLetterConst;
     offerLetterDocument: OfferDocument;
-
+    nepaliNumber = new NepaliNumberAndWords();
+    nepaliAmount = [];
+    finalNepaliWord = [];
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
 
+    nepData;
+    external = [];
+    loanHolderInfo;
+    percentTotal;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -39,28 +50,38 @@ export class RetailMortgageComponent implements OnInit {
         private router: Router,
         private administrationService: CreditAdministrationService,
         protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-        private routerUtilsService: RouterUtilsService
+        private routerUtilsService: RouterUtilsService,
+        private engToNepNumberPipe: EngToNepaliNumberPipe,
+        private currencyFormatPipe: CurrencyFormatterPipe,
+        private nepToEngNumberPipe: NepaliToEngNumberPipe,
+        private nepPercentWordPipe: NepaliPercentWordPipe
     ) {
     }
 
     ngOnInit() {
         this.buildForm();
         this.checkOfferLetterData();
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+            this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+        }
     }
 
     buildForm() {
         this.form = this.formBuilder.group({
+            referenceNo: [undefined],
             name: [undefined],
             date: [undefined],
-            address: [undefined],
-            mobileNumber: [undefined],
-            mortgageOverdraft: [undefined],
+            permanentAddress: [undefined],
+            currentAddress: [undefined],
+            mobileNo: [undefined],
+            mortgageOverdraft: this.formBuilder.array([]),
+            maxTimeLimit: [undefined],
             loanLimit: [undefined],
             loanLimitInWords: [undefined],
             timeLimit: [undefined],
-            annualInterestRate: [undefined],
-            baseInterestRate: [undefined],
-            premiumInterestRate: [undefined],
+            yearlyRate: [undefined],
+            baseRate: [undefined],
+            premiumRate: [undefined],
             maxPayment: [undefined],
             fullPaymentFeeBeforeOneYear: [undefined],
             fullPaymentFeeAfterOneYear: [undefined],
@@ -82,21 +103,23 @@ export class RetailMortgageComponent implements OnInit {
     }
 
     checkOfferLetterData() {
-        if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
-            this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-                === this.offerLetterConst.value(this.offerLetterConst.RETAIL_MORTGAGE_OVERDRAFT).toString())[0];
-            if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-                this.offerLetterDocument = new OfferDocument();
-                this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_MORTGAGE_OVERDRAFT);
-            } else {
-                const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-                console.log(initialInfo);
-                this.initialInfoPrint = initialInfo;
-                console.log(this.offerLetterDocument);
-                this.existingOfferLetter = true;
-                this.form.patchValue(initialInfo, {emitEvent: false});
-                this.initialInfoPrint = initialInfo;
+        this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
+            === this.offerLetterConst.value(this.offerLetterConst.RETAIL_MORTGAGE_OVERDRAFT).toString())[0];
+        if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
+            this.addEmptyMortgageOverdraft();
+            this.offerLetterDocument = new OfferDocument();
+            this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_MORTGAGE_OVERDRAFT);
+        } else {
+            const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+            console.log(initialInfo);
+            this.initialInfoPrint = initialInfo;
+            console.log(this.offerLetterDocument);
+            this.existingOfferLetter = true;
+            this.form.patchValue(initialInfo, {emitEvent: false});
+            if (!ObjectUtil.isEmpty(initialInfo)) {
+                this.setMortgageOverdraft(initialInfo.mortgageOverdraft);
             }
+            this.initialInfoPrint = initialInfo;
         }
     }
 
@@ -133,4 +156,121 @@ export class RetailMortgageComponent implements OnInit {
         });
 
     }
+
+
+    addEmptyMortgageOverdraft() {
+        const formArray = this.form.get('mortgageOverdraft') as FormArray;
+        formArray.push(this.formBuilder.group({
+
+            referenceNo: undefined,
+            name: undefined,
+            date: undefined,
+            permanentAddress: undefined,
+            currentAddress: undefined,
+            mobileNo: undefined,
+            mortgageOverdraft: this.formBuilder.array([]),
+            maxTimeLimit: undefined,
+            loanLimit: undefined,
+            loanLimitInWords: undefined,
+            timeLimit: undefined,
+            yearlyRate: undefined,
+            baseRate: undefined,
+            premiumRate: undefined,
+            maxPayment: undefined,
+            fullPaymentFeeBeforeOneYear: undefined,
+            fullPaymentFeeAfterOneYear: undefined,
+            fullPaymentFeeForTransfer: undefined,
+            usedApprovedOverdraft: undefined,
+            assuranceFee: undefined,
+            assuranceFeeInWords: undefined,
+            serviceCharge: undefined,
+            serviceChargeInWords: undefined,
+            kaSuKCharge: undefined,
+            kittaAddress: undefined,
+            kittaNumber: undefined,
+            kittaArea: undefined,
+            spouseName: undefined,
+            overdueInterest: undefined,
+            adhikrit1: undefined,
+            adhikrit2: undefined,
+        }));
+    }
+
+    setMortgageOverdraft(data) {
+        const formArray = this.form.get('mortgageOverdraft') as FormArray;
+        if (ObjectUtil.isEmpty(data)) {
+            this.addEmptyMortgageOverdraft();
+            return;
+        }
+        data.forEach(value => {
+            formArray.push(this.formBuilder.group({
+                referenceNo: [value.referenceNo],
+                name: [value.name],
+                date: [value.date],
+                permanentAddress: [value.permanentAddress],
+                currentAddress: [value.currentAddress],
+                mobileNo: [value.mobileNo],
+                mortgageOverdraft: this.formBuilder.array([]),
+                maxTimeLimit: [value.maxTimeLimit],
+                loanLimit: [value.loanLimit],
+                loanLimitInWords: [value.loanLimitInWords],
+                timeLimit: [value.timeLimit],
+                yearlyRate: [value.yearlyRate],
+                baseRate: [value.baseRate],
+                premiumRate: [value.premiumRate],
+                maxPayment: [value.maxPayment],
+                fullPaymentFeeBeforeOneYear: [value.fullPaymentFeeBeforeOneYear],
+                fullPaymentFeeAfterOneYear: [value.fullPaymentFeeAfterOneYear],
+                fullPaymentFeeForTransfer: [value.fullPaymentFeeForTransfer],
+                usedApprovedOverdraft: [value.usedApprovedOverdraft],
+                assuranceFee: [value.assuranceFee],
+                assuranceFeeInWords: [value.assuranceFeeInWords],
+                serviceCharge: [value.serviceCharge],
+                serviceChargeInWords: [value.serviceChargeInWords],
+                kaSuKCharge: [value.kaSuKCharge],
+                kittaAddress: [value.kittaAddress],
+                kittaNumber: [value.kittaNumber],
+                kittaArea: [value.kittaArea],
+                spouseName: [value.spouseName],
+                overdueInterest: [value.overdueInterest],
+                adhikrit1: [value.adhikrit1],
+                adhikrit2: [value.adhikrit2],
+            }));
+        });
+    }
+
+    removeMortgageOverdraft(index) {
+        (this.form.get('mortgageOverdraft') as FormArray).removeAt(index);
+    }
+
+    changeToNepAmount(event: any, i, formArrayName) {
+        this.form.get([formArrayName, i, 'loanLimitInWords']).patchValue(event.nepVal);
+        this.form.get([formArrayName, i, 'loanLimit']).patchValue(event.val);
+    }
+
+    patchFunction(formArrayName, i, formControlName) {
+        const patchValue1 = this.form.get([formArrayName, i, formControlName]).value;
+        return patchValue1;
+    }
+
+    calcYearlyRate(formArrayName, i) {
+        const baseRate = this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i, 'baseRate']).value);
+        const premiumRate = this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i, 'premiumRate']).value);
+        const addRate = parseFloat(baseRate) + parseFloat(premiumRate);
+        const asd = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
+        this.form.get([formArrayName, i, 'yearlyRate']).patchValue(asd);
+    }
+
+    calcpercent(formArrayName, i) {
+        const serviceCharge = this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i, 'serviceCharge']).value);
+        const returnVal = this.nepPercentWordPipe.transform(serviceCharge);
+        this.form.get([formArrayName, i, 'serviceChargeInWords']).patchValue(returnVal);
+    }
+
+    calcAssurance(formArrayName, i) {
+        const assuranceFee = this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i, 'assuranceFee']).value);
+        const returnVal = this.nepPercentWordPipe.transform(assuranceFee);
+        this.form.get([formArrayName, i, 'assuranceFeeInWords']).patchValue(returnVal);
+    }
+
 }
