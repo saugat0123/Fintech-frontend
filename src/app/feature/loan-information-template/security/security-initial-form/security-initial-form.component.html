@@ -20,11 +20,14 @@
             </div>
             <hr>
         </div>
-        <nb-checkbox (change)="otherBranch($event.target.checked)"
-                     [checked]="otherBranchcheck">Property on another branch location
-        </nb-checkbox>
+<!--        <nb-checkbox (change)="otherBranch($event.target.checked)"-->
+<!--                     [checked]="otherBranchcheck">Property on another branch location-->
+<!--        </nb-checkbox>-->
         <!--Land Security-->
         <nb-card [hidden]="!landSelected" class="p-3">
+            <nb-checkbox (change)="otherBranch($event.target.checked)"
+                         [checked]="otherBranchcheck">Property on another branch location
+            </nb-checkbox>
             <div class="box-header with-border">
                 <h2 class="box-title title">Details of Security Offered and Value Amount : LAND</h2>
             </div>
@@ -2158,6 +2161,12 @@
                                        type="text"/>
                             </div>
                         </div>
+
+                        <div class="col-md-12 form-group">
+                            <label><b>Vehicle Remarks</b></label>
+                            <textarea class="form-control" formControlName="vehicleRemarks" rows="4" placeholder="Vehicle Remarks"></textarea>
+                        </div>
+
                     </div>
                     <hr>
                 </div>

@@ -44,7 +44,8 @@
                         <th>Valautor Name</th>
                         <th>Valuator Representative Name</th>
                         <th>Staff Representative Name 1</th>
-                        <th colspan="2">Staff Representative Name 2</th>
+                        <th>Staff Representative Name 2</th>
+                        <th>Quotation Date</th>
                     </tr>
                     <tr>
                         <td class="text-right pr-1">{{vehicleDetails?.chassisNumber}}</td>
@@ -54,8 +55,17 @@
                         <td class="text-left pl-1">{{vehicleDetails?.vehicalValuator?.name}}</td>
                         <td class="text-left pl-1">{{vehicleDetails?.vehicalValuatorRepresentative}}</td>
                         <td class="text-left pl-1">{{vehicleDetails?.vehicalStaffRepresentativeName}}</td>
-                        <td colspan="2" class="text-left pl-1">{{vehicleDetails?.vehicaleStaffRepresentativeName2}}</td>
+                        <td class="text-left pl-1">{{vehicleDetails?.vehicaleStaffRepresentativeName2}}</td>
+                        <td class="text-right pr-1">{{vehicleDetails?.vehicleQuotationDate | date}}</td>
                     </tr>
+
+                    <tr class="sb-bg-dark text-white">
+                        <th colspan="9">Vehicle Remarks</th>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-1" colspan="9">{{vehicleDetails?.vehicleRemarks}}</td>
+                    </tr>
+
                 </table>
             </div>
         </div>
@@ -272,7 +282,7 @@
                         </ng-container>
                     </tr>
                     <tr *ngIf="landBuilding.underConstructionChecked === true">
-                        <th colspan="8">Under Construction</th>
+                        <th colspan="8">land And Building Under Construction</th>
                     </tr>
                     <tr *ngIf="landBuilding.underConstructionChecked === true"
                         class="text-center sb-bg-dark text-white">

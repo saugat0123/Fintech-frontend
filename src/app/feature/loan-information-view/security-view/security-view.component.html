@@ -627,7 +627,7 @@
         <th>Valuated Date</th>
         <th>Valuator Representative Name</th>
         <th>Staff Representative Designation</th>
-        <th>Staff Representative Name</th>
+        <th>Staff Representative Name 1</th>
         <th>Staff Representative Designation 2</th>
         <th>Staff Representative Name 2</th>
       </tr>
@@ -1225,14 +1225,15 @@
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" *ngFor="let vehicleSecurity of securityData['initialForm']['vehicleDetails']; let i=index"  style="table-layout: fixed; width: 100%">
       <thead>
       <tr class="text-white sb-bg-dark">
-        <th colspan="5">{{i+1}}.Details of Security Offered: Vehicle</th>
+        <th colspan="6">{{i+1}}.Details of Security Offered: Vehicle</th>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th class="sn">S.N</th>
         <th>Model</th>
         <th>Registration Number</th>
         <th>Registration Date</th>
-        <th>Valuation Amount</th>
+        <th>Engine Number</th>
+        <th>Chassis Number</th>
       </tr>
       </thead>
       <tbody>
@@ -1241,39 +1242,19 @@
         <td class="text-right pr-1">{{vehicleSecurity['model']}}</td>
         <td class="text-right pr-1">{{vehicleSecurity?.registrationNumber}}</td>
         <td class="text-left pl-1">{{vehicleSecurity?.registrationDate | date}}</td>
-        <td class="text-right pr-1">Rs. {{vehicleSecurity['valuationAmount'] | currencyFormatter}}</td>
-
-      </tr>
-      </tbody>
-      <thead>
-      <tr class="text-white sb-bg-dark">
-        <th>Engine Number</th>
-
-        <th>Chassis Number</th>
-
-        <th>Down Payment</th>
-        <th>Remaining Amount</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
         <td  style="word-wrap: break-word" class="text-right pr-1"> {{vehicleSecurity['engineNumber']}}</td>
-
         <td style="word-wrap: break-word" class="text-right pr-1">{{vehicleSecurity['chassisNumber']}}</td>
 
-        <td class="text-right pr-1">Rs. {{vehicleSecurity['downPayment'] | currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{vehicleSecurity['remainingAmount'] | currencyFormatter}}</td>
       </tr>
       </tbody>
       <thead>
       <tr class="text-white sb-bg-dark">
         <th>Valuator Name</th>
-
         <th>Valuator Representative Name</th>
         <th>Valuated Date</th>
-
-        <th>Staff Representative Designation 1</th>
-
+        <th>Valuation Amount</th>
+        <th>Down Payment</th>
+        <th>Remaining Amount</th>
       </tr>
       </thead>
       <tbody>
@@ -1281,17 +1262,20 @@
         <td class="text-left pl-1">{{vehicleSecurity?.vehicalValuator?.name}}</td>
         <td class="text-left pl-1">{{vehicleSecurity?.vehicalValuatorRepresentative}}</td>
         <td class="text-left pl-1">{{vehicleSecurity?.vehicalValuatorDate | date}}</td>
-        <td class="text-left pl-1">{{vehicleSecurity?.vehicalStaffRepresentativeDesignation}}</td>
+        <td class="text-right pr-1">Rs. {{vehicleSecurity['valuationAmount'] | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{vehicleSecurity['downPayment'] | currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{vehicleSecurity['remainingAmount'] | currencyFormatter}}</td>
       </tr>
       </tbody>
       <tr class="text-white sb-bg-dark">
+        <th>Staff Representative Designation 1</th>
         <th>Staff Representative Name 1</th>
         <th>Staff Representative Designation 2</th>
-        <th>Representative Name 2</th>
+        <th>Staff Representative Name 2</th>
         <th>Showroom Name</th>
-
       </tr>
       <tr>
+        <td class="text-left pl-1">{{vehicleSecurity?.vehicalStaffRepresentativeDesignation}}</td>
         <td class="text-left pl-1">{{vehicleSecurity?.vehicalStaffRepresentativeName}}</td>
         <td class="text-left pl-1">{{vehicleSecurity?.vehicaleStaffRepresentativeDesignation2}}</td>
         <td class="text-left pl-1">{{vehicleSecurity?.vehicaleStaffRepresentativeName2}}</td>
@@ -1311,7 +1295,13 @@
         <td class="text-left pl-1">{{vehicleSecurity?.ownershipTransferDate | date}}</td>
         <td *ngIf="securityData['otherBranchcheck']" class="text-left pl-1">{{securityData['otherBranchcheck'] ? vehicleSecurity?.vehicalBranch?.name : 'N/A'}}</td>
         <td class="text-right pr-1">{{vehicleSecurity?.vehicleQuotationDate | date}}</td>
+      </tr>
 
+      <tr class="sb-bg-dark text-white">
+        <th colspan="6">Vehicle Remarks</th>
+      </tr>
+      <tr>
+        <td class="text-left pl-1" colspan="6">{{vehicleSecurity?.vehicleRemarks}}</td>
       </tr>
     </table>
   </div>
