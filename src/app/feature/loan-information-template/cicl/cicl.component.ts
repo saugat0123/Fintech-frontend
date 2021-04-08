@@ -76,7 +76,6 @@ export class CiclComponent implements OnInit {
 
     this.buildCiclForm();
     this.relationlist = this.relationshipList.relation;
-    const test = this.ciclForm.get('obtaineddate').value;
   }
   buildCiclForm() {
     this.ciclForm = this.formBuilder.group({

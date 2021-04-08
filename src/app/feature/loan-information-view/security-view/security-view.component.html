@@ -65,7 +65,7 @@
 
       <thead>
       <tr class="text-white sb-bg-dark">
-        <th  *ngIf="securityData['otherBranchcheck']">Branch</th>
+        <th *ngIf="landDetails?.landOtherBranchChecked === true">Branch</th>
         <th colspan="2">Valuator Name</th>
         <th>Valuated Date</th>
         <th>Valuator Representative Name</th>
@@ -78,7 +78,7 @@
       </thead>
       <tbody>
       <tr>
-        <td *ngIf="securityData['otherBranchcheck']">{{landDetails?.landBranch?.name}}</td>
+        <td *ngIf="landDetails?.landOtherBranchChecked === true">{{landDetails?.landBranch?.name || 'N/A'}}</td>
         <td colspan="2" class="text-left pl-1">{{landDetails?.landValuator?.name}}</td>
         <td class="text-left pl-1">{{landDetails?.landValuatorDate | date}}</td>
         <td cclass="text-left pl-1">{{landDetails?.landValuatorRepresentative}}</td>
@@ -248,7 +248,7 @@
         </ng-container>
 
         <tr class="text-center sb-bg-dark text-white">
-          <th  *ngIf="securityData['otherBranchcheck']">Branch</th>
+          <th *ngIf="landBuilding.landBuildingOtherBranchChecked === true">Branch</th>
           <th>Valuator Name</th>
           <th>Valuator Representative Name</th>
           <th>Valuated Date</th>
@@ -258,7 +258,7 @@
           <th>Staff Representative Name 2</th>
         </tr>
         <tr>
-          <td *ngIf="securityData['otherBranchcheck']" class="text-left pl-1">{{landBuilding?.buildingBranch?.name}}</td>
+          <td *ngIf="landBuilding.landBuildingOtherBranchChecked === true" class="text-left pl-1">{{landBuilding?.buildingBranch?.name || 'N/A'}}</td>
           <td class="text-left pl-1">{{landBuilding?.buildingValuator?.name}}</td>
           <td class="text-left pl-1">{{landBuilding?.buildingValuatorRepresentative}}</td>
           <td class="text-left pl-1">{{landBuilding?.buildingValuatorDate | date}}</td>
@@ -607,7 +607,7 @@
         <th>Apartment Total Cost</th>
         <th>Apartment Fair Market Value</th>
         <th>Apartment Distress Value</th>
-        <th  *ngIf="securityData['otherBranchcheck']">Branch</th>
+        <th  *ngIf="buildingDetails?.apartmentOtherBranchChecked === true">Branch</th>
         <th>Valuator Name</th>
 
       </tr>
@@ -618,7 +618,7 @@
         <td class="text-right pr-1">Rs. {{buildingDetails?.buildingTotalCost | currencyFormatter}}</td>
         <td class="text-right pr-1">Rs. {{buildingDetails?.buildingFairMarketValue | currencyFormatter}}</td>
         <td class="text-right pr-1">Rs. {{buildingDetails?.buildingDistressValue | currencyFormatter}}</td>
-        <td *ngIf="securityData['otherBranchcheck']" class="text-left pl-1">{{buildingDetails?.apartmentBranch?.name}}</td>
+        <td *ngIf="buildingDetails?.apartmentOtherBranchChecked === true" class="text-left pl-1">{{buildingDetails?.apartmentBranch?.name || 'N/A'}}</td>
         <td class="text-left pl-1">{{buildingDetails?.ApartmentValuator?.name}}</td>
 
       </tr>
@@ -626,7 +626,7 @@
       <tr class="text-white sb-bg-dark">
         <th>Valuated Date</th>
         <th>Valuator Representative Name</th>
-        <th>Staff Representative Designation</th>
+        <th>Staff Representative Designation 1</th>
         <th>Staff Representative Name 1</th>
         <th>Staff Representative Designation 2</th>
         <th>Staff Representative Name 2</th>
@@ -948,7 +948,7 @@
       <tbody>
       <tr>
         <td></td>
-        <td *ngIf="securityData['otherBranchcheck']" class="text-left pl-1">{{landBuildingDetails?.apartmentBranch?.name}}</td>
+        <td *ngIf="securityData['otherBranchcheck']" class="text-left pl-1">{{landBuildingDetails?.apartmentBranch?.name || 'N/A'}}</td>
         <td class="text-left pl-1">{{landBuildingDetails?.ApartmentValuator?.name}}</td>
         <td class="text-left pl-1">{{landBuildingDetails?.ApartmentValuatorDate | date}}</td>
         <td class="text-left pl-1">{{landBuildingDetails?.ApartmentValuatorRepresentative}}</td>
@@ -1182,17 +1182,17 @@
       <thead>
       <tr class="text-white sb-bg-dark">
         <th></th>
-        <th  *ngIf="securityData['otherBranchcheck']">Branch</th>
+        <th *ngIf="plantDetails?.plantOtherBranchChecked === true">Branch</th>
         <th>Valuator</th>
         <th>Valuated Date</th>
         <th>Valuator Representative Name</th>
-        <th>Staff Representative Designation</th>
+        <th>Staff Representative Designation 1</th>
       </tr>
       </thead>
       <tbody>
       <tr>
         <td></td>
-        <td *ngIf="securityData['otherBranchcheck']" class="text-left pl-1">{{plantDetails?.plantBranch?.name}}</td>
+        <td *ngIf="plantDetails?.plantOtherBranchChecked === true" class="text-left pl-1">{{plantDetails?.plantBranch?.name || 'N/A'}}</td>
         <td class="text-left pl-1">{{plantDetails?.plantMachineryValuator?.name}}</td>
         <td class="text-left pl-1">{{plantDetails?.plantMachineryValuatorDate | date}}</td>
         <td class="text-left pl-1">{{plantDetails?.plantMachineryValuatorRepresentative}}</td>
@@ -1286,14 +1286,14 @@
         <th>Showroom Address</th>
         <th>Showroom Commission</th>
         <th>Ownership transfer date</th>
-        <th *ngIf="securityData['otherBranchcheck']">Branch</th>
+        <th *ngIf="vehicleSecurity.vehicleOtherBranchChecked === true">Branch</th>
         <th>Quotation Date</th>
       </tr>
       <tr>
         <td class="text-left pl-1">{{vehicleSecurity?.showroomAddress}}</td>
         <td class="text-right pr-1">Rs. {{vehicleSecurity?.showroomCommission | currencyFormatter}}</td>
         <td class="text-left pl-1">{{vehicleSecurity?.ownershipTransferDate | date}}</td>
-        <td *ngIf="securityData['otherBranchcheck']" class="text-left pl-1">{{securityData['otherBranchcheck'] ? vehicleSecurity?.vehicalBranch?.name : 'N/A'}}</td>
+        <td *ngIf="vehicleSecurity.vehicleOtherBranchChecked === true" class="text-left pl-1">{{vehicleSecurity?.vehicalBranch?.name || 'N/A'}}</td>
         <td class="text-right pr-1">{{vehicleSecurity?.vehicleQuotationDate | date}}</td>
       </tr>
 
