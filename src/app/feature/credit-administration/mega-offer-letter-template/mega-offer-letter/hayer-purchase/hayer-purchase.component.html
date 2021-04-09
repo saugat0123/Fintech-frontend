@@ -22,16 +22,18 @@
                                                     placeholder="Eg.0244"
                                                     type="text"/>
                 <p>
-                  <input class="form-field form-control-sm nepaliFont col-3"
-                         formControlName="name"
-                         placeholder=" श्री डिल बहादुर घले"
-                         type="text"/>
+                  <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
                 </p>
-                <p>ठेगाना:
-                  <input class="form-field form-control-sm nepaliFont col-2"
-                         formControlName="borrowerAddress"
-                         placeholder=" भरतपुर"
-                         type="text"/>
+                <p>ठेगाना: प्रदेश
+                  <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
+                  जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
+                  वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
+                  <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+                  <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong>
                 </p>
                 <p>सम्पर्क टेलिफोन नंः
                   <input class="form-field form-control-sm nepaliFont"
@@ -50,8 +52,7 @@
               <p class="pl-5">
               <div class="col-md-12">
                 <div>
-                  १.
-                  <span class="nepaliFont form-field">{{hayarPurchase.get('name').value}}</span>(यस पछि
+                  १.<strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>(यस पछि
                   “ऋणी” भनिएको)
                 </div>
                 <div>
@@ -79,14 +80,14 @@
                   <tbody>
                   <tr>
                     <td>रकम:</td>
-                    <td>रु<input class="form-field form-control-sm nepaliFont"
-                                 formControlName="amount"
-                                 placeholder=" रु ४८,५०,०००"
-                                 type="text"/>/- (अक्षेरुपी <input
-                            class="form-field form-control-sm nepaliFont col-md-5"
+                    <td>रु
+                      <app-custom-input (eventEmit)="changeToNepAmount($event, i , 'hayarPurchaseLoanArray')"
+                                        [name]="patchFunction('hayarPurchaseLoanArray',i,'amount')"></app-custom-input>/-
+                      (अक्षेरुपी <input readonly
+                            class="form-field form-control-sm col-md-5"
                             formControlName="amountInWord"
                             placeholder=" अठ्चालीस लाख पचास हजार रुपंयाँ"
-                            type="text"/>रुपैयाँ मात्र ।)
+                            type="text"/> मात्र ।)
                     </td>
                   </tr>
                   <tr>
@@ -107,15 +108,16 @@
                   <tr>
                     <td>व्याज</td>
                     <td>
-                      आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) हालको आधार दर <input class="form-field form-control-sm nepaliFont"
+                      आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) हालको आधार दर
+                      <input (change)="calcPresentRate('hayarPurchaseLoanArray',i)" class="form-field form-control-sm nepaliFont"
                                                                                                  formControlName="baseRate"
                                                                                                  placeholder="९"
                                                                                                  type="text"/>% +
-                      प्रिमियम दर <input class="form-field form-control-sm nepaliFont"
+                      प्रिमियम दर <input (change)="calcPresentRate('hayarPurchaseLoanArray',i)" class="form-field form-control-sm nepaliFont"
                                          formControlName="premiumRate"
                                          placeholder="१ "
                                          type="text"/>%)
-                      का दरले हाललाई बार्षिक <input class="form-field form-control-sm nepaliFont"
+                      का दरले हाललाई बार्षिक <input readonly class="form-field form-control-sm"
                                                     formControlName="presentRate"
                                                     placeholder="१०"
                                                     type="text"/>% वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
@@ -136,16 +138,14 @@
                              type="text"/>
                       समान
                       मासिक किस्ता बन्दीमा रु.
-                      <input class="form-field form-control-sm nepaliFont"
-                             formControlName="emiAmount"
-                             placeholder="१,०५,४५०"
-                             type="text"/>
-                      /– (अक्षेरुपी
-                      <input class="form-field form-control-sm nepaliFont "
+                      <app-custom-input (eventEmit)="changeToEmiAmount($event, i , 'hayarPurchaseLoanArray')"
+                                        [name]="patchFunction('hayarPurchaseLoanArray',i,'emiAmount')"></app-custom-input>/-
+                      (अक्षेरुपी
+                      <input readonly class="form-field form-control-sm"
                              formControlName="emiAmountInWord"
                              placeholder=" एक लाख पाँच हजार चार सय पचास"
                              type="text"/>
-                      रुपैंयाँ मात्र) का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको
+                      मात्र) का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको
                       <input class="form-field form-control-sm nepaliFont"
                              formControlName="loanClearanceMonthlyDate"
                              placeholder="१३"
@@ -206,11 +206,11 @@
                   <tr>
                     <td>सेवा शुल्क</td>
                     <td>भुक्तानी दिने ऋण सुविधा रकमको
-                      <input class="form-field form-control-sm nepaliFont"
+                      <input (change)="calcpercent('hayarPurchaseLoanArray', i)" class="form-field form-control-sm nepaliFont"
                              formControlName="servicePercentage"
                              placeholder="१"
                              type="text"/>% (
-                      <input class="form-field form-control-sm nepaliFont"
+                      <input readonly class="form-field form-control-sm"
                              formControlName="servicePercentageWords"
                              placeholder="एक"
                              type="text"/> प्रतिशत) ।
@@ -721,9 +721,18 @@
                 <div class="col-md-12">
                   ऋणीः
                   <div class="pl-md-3">
-                    <p>नाम: <span class="nepaliFont form-field">{{hayarPurchase.get('name').value}}</span></p>
+                    <p>नाम: <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong></p>
                     <p>ठेगाना:
-                      <strong class="nepaliFont">{{hayarPurchase.get('borrowerAddress').value}}</strong>
+                      प्रदेश
+                      <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
+                      जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
+                      वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
+                      <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+                      <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                      </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong>
                     </p>
                     <p>सम्पर्क टेलिफोन नंः
                       <strong class="nepaliFont">{{hayarPurchase.get('contactNumber').value}}</strong>
@@ -775,9 +784,7 @@
                       र बुझें/बुझ्यौं । यसमा उल्लेखित गरिएको सम्पूर्ण शर्तहरु पालना गर्न म/हामी मन्जुर
                       गर्दछु/गर्दछौं र बैंकसंग यस अन्तर्गत लिएको ऋण पूर्ण रुपमा चुक्ता भुक्तान नगरे सम्म
                       यसमा उल्खित शर्तहरुको पूर्ण रुपले पालना गर्ने प्रतिज्ञा गर्दछु/गर्दछौं ।
-                      <p class="pt-2"> ऋणीको नाम: <span class="nepaliFont form-field">{{hayarPurchase.get(
-                              'name').value}}</span>
-                      </p>
+                      <p class="pt-2"> ऋणीको नाम: <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong></p>
                       <p class="pt-2">आधिकारीक दस्तखत ............................</p>
                       <p>मितिः<span class="nepaliFont">{{hayarPurchase.get('date').value}}</span></p>
                       <p><b>नोट: कृपया हरेक पृष्ठमा आधिकारिक दस्तखत तथा निकायको छाप अनिवार्य रुपमा लगाउनु
@@ -801,5 +808,7 @@
   </nb-card-footer>
 </nb-card>
 </div>
-<app-hayer-purchase-print  *ngIf="initialInfoPrint" [loan]="initialInfoPrint" hidden></app-hayer-purchase-print>
+<app-hayer-purchase-print  *ngIf="initialInfoPrint"
+                           [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                           [loan]="initialInfoPrint" hidden></app-hayer-purchase-print>
 

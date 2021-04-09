@@ -94,13 +94,14 @@
               <tr>
                 <td>रकम</td>
                 <td>
-                  <app-custom-input (eventEmit)="changeToNepAmount($event, 'loanNameInWord', 'loanAmount')"
+                  रु.<app-custom-input (eventEmit)="changeToNepAmount($event, 'loanNameInWord', 'loanAmount')"
                                     [name]="patchFunction('loanAmount')"></app-custom-input>/-
+                  (अक्षेरुपी
                   <input readonly class="form-field form-control-sm"
                          formControlName="loanNameInWord"
                          name="loanNameInWord"
                          placeholder="अक्षेरुपी"
-                         type="text"/>
+                         type="text"/>मात्र ।
                 </td>
               </tr>
               <tr>
@@ -212,7 +213,7 @@
               </tr>
               <tr>
                 <td>सेवा शुल्क</td>
-                <td>भुक्तानी दिने ऋण सुविधा रकमको <input
+                <td>भुक्तानी दिने ऋण सुविधा रकमको रु.<input
                         class="form-field form-control-sm nepaliFont"
                         formControlName="serviceChargePercent"
                         name="serviceChargePercent"
@@ -781,7 +782,7 @@
               आधिकारीक दस्तखत ......................
             </span>
                   <span class="float-right">
-              मितिः....................
+              मितिः<span class="nepaliFont">{{form.get('date').value }} </span>
             </span>
                 </div>
               </div>
