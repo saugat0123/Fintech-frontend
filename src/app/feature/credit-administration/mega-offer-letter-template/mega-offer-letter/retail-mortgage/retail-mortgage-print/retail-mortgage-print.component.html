@@ -33,29 +33,27 @@
                 </div>
                 <div class="form-group form-inline col-md-12">
                     <b>स्थायी ठेगाना:</b>
-                    प्रदेश
-                    <span class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</span>,
-                    जिल्ला <span class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</span>
-                    वार्ड न <span class="nepaliFont">{{loanHolderInfo?.permanentWard}}</span>
+                    प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                    जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                    वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
                     <span *ngIf="loanHolderInfo?.permanentMunType==1">
-                               गा बि स
-                           </span>
+                                                गा बि स
+                                                </span>
                     <span *ngIf="loanHolderInfo?.permanentMunType==0">
-                               नगरपालिका
-                           </span><span class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</span>
+                                                नगरपालिका
+                                                </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
                 </div>
                 <div class="form-group form-inline col-md-12">
                     <b>हाल:</b>
-                    प्रदेश
-                    <strong class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</strong>,
-                    जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</strong>
-                    वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</strong>
+                    प्रदेश &nbsp;<b>{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp;
+                    जिल्ला &nbsp;<b>{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp;
+                    वार्ड न &nbsp;<b>{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
                     <span *ngIf="loanHolderInfo?.temporaryMunType==1">
                                गा बि स
                            </span>
                     <span *ngIf="loanHolderInfo?.temporaryMunType==0">
                                नगरपालिका
-                           </span><strong class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</strong>
+                           </span>&nbsp;<b>{{loanHolderInfo?.temporaryMunicipality}}</b>
                 </div>
                 <div class="form-group form-inline col-md-12">
                     <b>मोबाईल नं.:</b><strong class="nepaliFont">{{form['mobileNo']}}</strong>
@@ -121,7 +119,7 @@
                                 :<strong>रु.</strong>
                                 <strong class="nepaliFont mx-2">{{ mortgageOverdrafts.loanLimit }}</strong> /–
                                 (अक्षेरुपी <strong
-                                    class="nepaliFont mx-2">{{ mortgageOverdrafts.loanLimitInWords }}</strong>
+                                    class="mx-2">{{ mortgageOverdrafts.loanLimitInWords }}</strong>
                                 रुपैयाँ मात्र ।)
                             </div>
                         </div>
@@ -142,7 +140,7 @@
                             <div class="form-group form-inline">
                                 <p>
                                     :बार्षिक
-                                    <strong class="nepaliFont mx-2">{{ mortgageOverdrafts.yearlyRate }}</strong>
+                                    <strong class="mx-2">{{ mortgageOverdrafts.yearlyRate }}</strong>
                                     (आधार दर
                                     <strong class="nepaliFont mx-2">{{ mortgageOverdrafts.baseRate }}</strong> +
                                     प्रिमियम दर
@@ -224,7 +222,7 @@
                                     सीमाको
                                     <strong class="nepaliFont mx-2">{{ mortgageOverdrafts.assuranceFee }}</strong>
                                     % (
-                                    <strong class="nepaliFont mx-2">{{ mortgageOverdrafts.assuranceFeeInWords }}</strong>)
+                                    <strong class="mx-2">{{ mortgageOverdrafts.assuranceFeeInWords }}</strong>)
                                     मात्र ।
                                 </p>
                             </div>
@@ -241,7 +239,7 @@
                                 :भुक्तानी दिने ऋण सुविधा रकमको
                                 <strong class="nepaliFont mx-2">{{ mortgageOverdrafts.serviceCharge }}</strong>
                                 % (
-                                <strong class="nepaliFont mx-2">{{ mortgageOverdrafts.serviceChargeInWords }}</strong>
+                                <strong class="mx-2">{{ mortgageOverdrafts.serviceChargeInWords }}</strong>
                                 ) ।
                             </div>
                         </div>
@@ -1015,22 +1013,16 @@
                                         <p>
                                             <strong class="nepaliFont">{{ loanHolderInfo?.name }}</strong>
                                         </p>
-                                        <p>
-                                            <strong class="nepaliFont">
-                                                प्रदेश
-                                                <span class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</span>,
-                                                जिल्ला <span
-                                                    class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</span>
-                                                वार्ड न <span
-                                                    class="nepaliFont">{{loanHolderInfo?.permanentWard}}</span>
-                                                <span *ngIf="loanHolderInfo?.permanentMunType==1">
-                               गा बि स
-                           </span>
-                                                <span *ngIf="loanHolderInfo?.permanentMunType==0">
-                               नगरपालिका
-                           </span><span class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</span>
-                                            </strong>
-                                        </p>
+                                        <b>ठेगाना:</b>
+                                        प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                                        जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                                        वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                                        <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                                                गा बि स
+                                                </span>
+                                        <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                                                नगरपालिका
+                                                </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
                                         <p>
                                             <strong class="nepaliFont">{{ form['mobileNo'] }}</strong>
                                         </p>
