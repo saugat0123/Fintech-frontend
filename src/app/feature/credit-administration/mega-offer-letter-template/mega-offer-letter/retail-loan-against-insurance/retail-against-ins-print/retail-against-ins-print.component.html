@@ -26,18 +26,16 @@
                     <strong>नाम: </strong>
                     <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
                 </p>
-                <p>
-                    <strong>ठेगानाः </strong>
-                    प्रदेश <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
-                    जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
-                    वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
-                    <span *ngIf="loanHolderInfo?.permanentMunType==1">
-                    गा बि स
-                    </span>
-                    <span *ngIf="loanHolderInfo?.permanentMunType==0">
-                    नगरपालिका
-                    </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong>
-                </p>
+                <strong>ठेगाना:</strong>
+                प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+                <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
                 <p>
                     <strong>सम्पर्क टेलिफोन नंः</strong>
                     <strong class="font-weight-bold nepaliFont">{{letter['borrowerContactNo']}}</strong>
@@ -762,19 +760,16 @@
                                     <strong>नाम: </strong>
                                     <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
                                 </p>
-                                <p>
-                                    <strong>ठेगानाः </strong>
-                                    <strong>ठेगानाः </strong>
-                                    प्रदेश <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
-                                    जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
-                                    वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
-                                    <span *ngIf="loanHolderInfo?.permanentMunType==1">
-                                    गा बि स
-                                    </span>
-                                    <span *ngIf="loanHolderInfo?.permanentMunType==0">
-                                    नगरपालिका
-                                    </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong>
-                                </p>
+                                <strong>ठेगाना:</strong>
+                                प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                                जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                                वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                                <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+                                <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
                                 <p>
                                     <strong>सम्पर्क टेलिफोन नंः </strong>
                                     <strong class="font-weight-bold nepaliFont">{{letter['borrowerContactNo']}}</strong>

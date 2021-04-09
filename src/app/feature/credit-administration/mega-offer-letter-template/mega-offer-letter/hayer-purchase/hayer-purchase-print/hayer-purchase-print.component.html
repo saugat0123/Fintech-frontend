@@ -18,18 +18,16 @@
       </p>
 
       Ref No: 2076/77-MBNL-CAD-RET-{{loan['refNo']}}<br>
-      <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
-      <p class="print-space">ठेगानाः
-        <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
-        जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
-        वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
-        <span *ngIf="loanHolderInfo?.permanentMunType==1">
+      नाम: <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong><br>
+      ठेगाना: प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+          जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+          वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+          <span *ngIf="loanHolderInfo?.permanentMunType==1">
                                गा बि स
                            </span>
-        <span *ngIf="loanHolderInfo?.permanentMunType==0">
+          <span *ngIf="loanHolderInfo?.permanentMunType==0">
                                नगरपालिका
-                           </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong>
-      </p>
+                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
       <p class="print-space">सम्पर्क टेलिफोन नंः
         <strong class="nepaliFont">{{loan['contactNumber']}}</strong>
       </p>
@@ -546,18 +544,16 @@
     <div class="col-md-12">
       ऋणीः
       <div class="pl-md-3">
-        <b>नाम-</b>
-        <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong><br>
-        <b>ठेगाना-</b>
-        <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
-        जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
-        वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
-        <span *ngIf="loanHolderInfo?.permanentMunType==1">
+        <b>नाम:</b> <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong><br>
+        ठेगाना : प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+            जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+            वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+            <span *ngIf="loanHolderInfo?.permanentMunType==1">
                                गा बि स
                            </span>
-        <span *ngIf="loanHolderInfo?.permanentMunType==0">
+            <span *ngIf="loanHolderInfo?.permanentMunType==0">
                                नगरपालिका
-                           </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong><br>
+                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b><br>
         <b>सम्पर्क टेलिफोन नं-</b>
         <strong class="nepaliFont">{{loan['contactNumber']}}</strong><br>
       </div>

@@ -1197,21 +1197,16 @@
                                             <p>
                                                 <strong class="nepaliFont">{{ loanHolderInfo?.name }}</strong>
                                             </p>
-                                            <p>
-                                                प्रदेश
-                                                <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
-                                                जिल्ला <strong
-                                                    class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
-                                                वार्ड न <strong
-                                                    class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
+                                                <b>ठेगाना:</b>
+                                                प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                                                जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                                                वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
                                                 <span *ngIf="loanHolderInfo?.permanentMunType==1">
-                               गा बि स
-                           </span>
+                                                गा बि स
+                                                </span>
                                                 <span *ngIf="loanHolderInfo?.permanentMunType==0">
-                               नगरपालिका
-                           </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong>
-
-                                            </p>
+                                                नगरपालिका
+                                                </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
                                             <p>
                                                 मोवाइल नं:<strong
                                                     class="nepaliFont ml-2">{{ this.form.controls['mobileNo'].value}}</strong>

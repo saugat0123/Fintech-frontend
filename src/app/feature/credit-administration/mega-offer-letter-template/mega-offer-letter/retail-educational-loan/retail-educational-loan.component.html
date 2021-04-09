@@ -24,30 +24,29 @@
           </div>
 
           <div class="row form-group">
-            <p><b>स्थायी ठेगाना:</b>
-              प्रदेश
-              <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
-              जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
-              वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
+            <p><b>स्थायी ठेगाना:</b></p>
+            <div>प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+              जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+              वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
               <span *ngIf="loanHolderInfo?.permanentMunType==1">
                                गा बि स
                            </span>
               <span *ngIf="loanHolderInfo?.permanentMunType==0">
                                नगरपालिका
-                           </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong></p>
+                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
+            </div>
           </div>
           <div class="row form-group">
-            <p><b>ठेगाना</b> : प्रदेश
-              <strong class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</strong>,
-              जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</strong>
-              वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</strong>
+            <b>ठेगाना</b> :
+              प्रदेश &nbsp;<b>{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp;
+              जिल्ला &nbsp;<b>{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp;
+              वार्ड न &nbsp;<b>{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
               <span *ngIf="loanHolderInfo?.temporaryMunType==1">
                                गा बि स
                            </span>
               <span *ngIf="loanHolderInfo?.temporaryMunType==0">
                                नगरपालिका
-                           </span><strong class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</strong>
-            </p>
+                           </span>&nbsp;<b>{{loanHolderInfo?.temporaryMunicipality}}</b>
           </div>
           <div class="row form-group">
             <p>  <strong> मोवाइल नंः : <input class="form-field form-control-sm nepaliFont"
@@ -712,29 +711,31 @@
               <h6>ऋणीः</h6>
               <div class="ml-lg-5">
                 <p>श्री / सुश्री / श्रीमती : <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong></p>
-                <p>
-                  स्थायी ठेगाना :
-                  प्रदेश <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
-                  जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
-                  वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
-                  <span *ngIf="loanHolderInfo?.permanentMunType==1">
-                    गा बि स
-                  </span>
-                  <span *ngIf="loanHolderInfo?.permanentMunType==0">
-                    नगरपालिका
-                  </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong>
-                </p>
-                <p> ठेगाना :
-                  <strong class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</strong>,
-                  जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</strong>
-                  वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</strong>
+                <div class="row form-group">
+                  <p><b>स्थायी ठेगाना:</b></p>
+                  <div>प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                    जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                    वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                    <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+                    <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <b>ठेगाना</b> :
+                  प्रदेश &nbsp;<b>{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp;
+                  जिल्ला &nbsp;<b>{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp;
+                  वार्ड न &nbsp;<b>{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
                   <span *ngIf="loanHolderInfo?.temporaryMunType==1">
-                   गा बि स
-                  </span>
+                               गा बि स
+                           </span>
                   <span *ngIf="loanHolderInfo?.temporaryMunType==0">
-                   नगरपालिका
-                  </span><strong class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</strong>
-                </p>
+                               नगरपालिका
+                           </span>&nbsp;<b>{{loanHolderInfo?.temporaryMunicipality}}</b>
+                </div>
                 <p> मोवाइल नंः  <span class="nepaliFont">{{form.get('mobileNo').value }} </span></p>
               </div>
             </div>
