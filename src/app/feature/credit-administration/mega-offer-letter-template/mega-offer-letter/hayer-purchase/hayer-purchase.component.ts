@@ -13,6 +13,11 @@ import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {NepaliEditor} from '../../../../../@core/utils/constants/nepaliEditor';
+import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
+import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
+import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-word.pipe';
 
 @Component({
     selector: 'app-hayer-purchase',
@@ -34,6 +39,7 @@ export class HayerPurchaseComponent implements OnInit {
         '<li><span style="font-family:Preeti">tpNn]lvt k|:tfljt crn ;DklQsf] k"0f{ d\'Nofªsg k|ltj]bg -</span><span>Complete Valuation Report<span style="font-family:Preeti">_ k]z ePkZrft dfq shf{ e\'Qmfg ul/g]5 .</span></li> </ul>';
 
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+    loanHolderInfo;
 
 
     constructor(private formBuilder: FormBuilder,
@@ -41,12 +47,20 @@ export class HayerPurchaseComponent implements OnInit {
                 private router: Router,
                 private routerUtilsService: RouterUtilsService,
                 private administrationService: CreditAdministrationService,
+                private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+                private engToNepNumberPipe: EngToNepaliNumberPipe,
+                private currencyFormatPipe: CurrencyFormatterPipe,
+                private nepToEngNumberPipe: NepaliToEngNumberPipe,
+                private nepPercentWordPipe: NepaliPercentWordPipe,
                 protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>) {
     }
 
     ngOnInit() {
         this.buildForm();
         this.checkOfferLetterData();
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+            this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+        }
     }
 
     buildForm() {
@@ -96,7 +110,7 @@ export class HayerPurchaseComponent implements OnInit {
             loanClearanceMonthlyDate: [undefined],
             PurwaBhuktaniSulka: [undefined],
             PurwaBhuktaniSewaSulkaRate: [undefined],
-            secureTransactionFees:[undefined]
+            secureTransactionFees: [undefined]
         });
     }
 
@@ -190,6 +204,30 @@ export class HayerPurchaseComponent implements OnInit {
             this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
         });
 
+    }
+    changeToNepAmount(event: any, i , formArrayName) {
+        this.hayarPurchase.get([formArrayName, i, 'amountInWord']).patchValue(event.nepVal);
+        this.hayarPurchase.get([formArrayName, i, 'amount']).patchValue(event.val);
+    }
+    changeToEmiAmount(event: any, i , formArrayName) {
+        this.hayarPurchase.get([formArrayName, i, 'emiAmountInWord']).patchValue(event.nepVal);
+        this.hayarPurchase.get([formArrayName, i, 'emiAmount']).patchValue(event.val);
+    }
+    patchFunction(formArrayName, i, formControlName) {
+            return this.hayarPurchase.get([formArrayName, i, formControlName]).value;
+    }
+    calcPresentRate(formArrayName, i ) {
+        const baseRate = this.nepToEngNumberPipe.transform(this.hayarPurchase.get([formArrayName, i , 'baseRate']).value);
+        const premiumRate = this.nepToEngNumberPipe.transform(this.hayarPurchase.get([formArrayName, i , 'premiumRate']).value);
+        const addRate = parseFloat(baseRate) + parseFloat(premiumRate);
+        const finalValue = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
+        this.hayarPurchase.get([formArrayName, i, 'presentRate']).patchValue(finalValue);
+    }
+    calcpercent(formArrayName, i ) {
+        const serviceChargePercent =
+            this.nepToEngNumberPipe.transform(this.hayarPurchase.get([formArrayName, i , 'servicePercentage']).value);
+        const returnVal = this.nepPercentWordPipe.transform(serviceChargePercent);
+        this.hayarPurchase.get([formArrayName, i, 'servicePercentageWords']).patchValue(returnVal);
     }
 }
 
