@@ -13,6 +13,12 @@ import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {CadDocStatus} from '../../../model/CadDocStatus';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
+import {NepaliNumberAndWords} from '../../../model/nepaliNumberAndWords';
+import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
+import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
+import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-word.pipe';
 
 @Component({
     selector: 'app-retail-mortgage-loan',
@@ -25,10 +31,18 @@ export class RetailMortgageLoanComponent implements OnInit {
     spinner = false;
     existingOfferLetter = false;
     initialInfoPrint;
+    nepaliNumber = new NepaliNumberAndWords();
+    nepaliAmount = [];
+    finalNepaliWord = [];
     offerLetterConst = MegaOfferLetterConst;
     offerLetterDocument: OfferDocument;
 
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+
+    loanHolderInfo;
+    external = [];
+    nepData;
+
 
     constructor(private formBuilder: FormBuilder,
                 private router: Router,
@@ -36,13 +50,22 @@ export class RetailMortgageLoanComponent implements OnInit {
                 private toastService: ToastService,
                 private administrationService: CreditAdministrationService,
                 protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-                private routerUtilsService: RouterUtilsService
+                private routerUtilsService: RouterUtilsService,
+                private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+                private engToNepNumberPipe: EngToNepaliNumberPipe,
+                private currencyFormatPipe: CurrencyFormatterPipe,
+                private nepToEngNumberPipe: NepaliToEngNumberPipe,
+                private nepPercentWordPipe: NepaliPercentWordPipe
     ) {
     }
 
     ngOnInit() {
         this.buildForm();
         this.checkOfferLetterData();
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+            this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+        }
+        console.log(this.loanHolderInfo, 'Loan Holder Info');
     }
 
     buildForm() {
@@ -106,13 +129,12 @@ export class RetailMortgageLoanComponent implements OnInit {
                 this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_MORTGAGE_LOAN);
             } else {
                 const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-                console.log(initialInfo);
                 this.initialInfoPrint = initialInfo;
-                console.log(this.offerLetterDocument);
                 this.existingOfferLetter = true;
                 this.form.patchValue(initialInfo, {emitEvent: false});
                 this.initialInfoPrint = initialInfo;
             }
+            console.log(this.initialInfoPrint, 'Initial Info Print');
         }
     }
 
@@ -148,5 +170,19 @@ export class RetailMortgageLoanComponent implements OnInit {
             this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
         });
 
+    }
+
+    getNumAmountWord(numLabel, wordLabel) {
+        const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+        const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+        this.form.get(wordLabel).patchValue(returnVal);
+    }
+
+    calcYearlyRate() {
+        const baseRate = this.nepToEngNumberPipe.transform(this.form.get('baseRate').value);
+        const premiumRate = this.nepToEngNumberPipe.transform(this.form.get('premiumRate').value);
+        const addRate = parseFloat(baseRate) + parseFloat(premiumRate);
+        const asd = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
+        this.form.get('yearlyLoanRate').patchValue(asd);
     }
 }
