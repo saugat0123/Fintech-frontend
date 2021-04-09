@@ -32,13 +32,19 @@
                         <p>
                             <strong>
                                 <strong>नाम: </strong>
-                                <input class="form-field form-control-sm nepaliFont" name="borrowerName" formControlName="borrowerName" placeholder="श्री/श्रीमती" type="text"/>
+                                <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
                             </strong>
                         </p>
-                        <p>
-                            <strong>ठेगानाः </strong>
-                            <input class="form-field form-control-sm nepaliFont" name="borrowerAddress" formControlName="borrowerAddress" placeholder="ठेगाना" type="text"/>
-                        </p>
+                            <strong>ठेगाना:</strong>
+                            प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                                जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                                वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                                <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+                                <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
                         <p>
                             <strong>सम्पर्क टेलिफोन नंः </strong>
                             <input class="form-field form-control-sm nepaliFont" name="borrowerContactNo" formControlName="borrowerContactNo" placeholder="सम्पर्क टेलिफोन नं" type="text"/>
@@ -64,7 +70,7 @@
                         </p>
                         <p>
                             <strong>१.</strong>
-                            <span class="nepaliFont form-field">{{retailLoanAgainstInsurance.get('borrowerName').value}}</span>
+                            <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
                             (यस पछि “ऋणी” भनिएको)
                         </p>
                         <p>
@@ -109,16 +115,14 @@
                                     <tr>
                                         <td>कर्जा सीमा रकम</td>
                                         <td><strong>रु</strong>
-                                            <input class="form-field form-control-sm nepaliFont"
-                                                   name="termLoanDebitLimitAmount"
-                                                   formControlName="termLoanDebitLimitAmount"
-                                                   placeholder="" type="text"/>
-                                            /–
-                                            (अक्षरेपी <input class="form-field form-control-sm longInput nepaliFont"
+                                            <app-custom-input
+                                                    (eventEmit)="changeToAmount($event, i , 'laiTermLoanArray', 'termLoanDebitLimitAmount', 'termLoanDebitLimitAmountWord')"
+                                                    [name]="patchFunction('laiTermLoanArray',i,'termLoanDebitLimitAmount')"></app-custom-input>/-
+                                            (अक्षरेपी <input readonly class="form-field form-control-sm"
                                                              name="termLoanDebitLimitAmountWord"
                                                              formControlName="termLoanDebitLimitAmountWord"
                                                              placeholder="" type="text"/>
-                                            रुपैयाँ मात्र ।)
+                                            मात्र ।)
                                         </td>
                                     </tr>
                                     <tr>
@@ -141,18 +145,18 @@
                                         <td>व्याज</td>
                                         <td> : <strong>आधार दर (Base Rate)</strong> + <strong>प्रिमियम दर (Premium Rate)</strong>
                                             (हालको आधार दर
-                                            <input class="form-field form-control-sm shortInput nepaliFont"
+                                            <input (change)="calcYearlyRate('laiTermLoanArray', i)" class="form-field form-control-sm shortInput nepaliFont"
                                                    name="termBaseRate"
-                                                   formControlName="termBaseRate"
+                                                   formControlName="baseRate"
                                                    placeholder="८।१४" type="text" size="2"/> % + प्रिमियम दर
-                                            <input class="form-field form-control-sm shortInput nepaliFont"
+                                            <input (change)="calcYearlyRate('laiTermLoanArray', i)" class="form-field form-control-sm shortInput nepaliFont"
                                                    name="termLoanPremiumRate"
-                                                   formControlName="termLoanPremiumRate"
+                                                   formControlName="premiumRate"
                                                    placeholder="" type="text"/>
                                             %)
-                                            का दरले हाललाई बार्षिक <input class="form-field form-control-sm shortInput nepaliFont"
-                                                                          name="termLoanYearlyInterest"
-                                                                          formControlName="termLoanYearlyInterest"
+                                            का दरले हाललाई बार्षिक <input readonly class="form-field form-control-sm shortInput"
+                                                                          name="yearlyRate"
+                                                                          formControlName="yearlyRate"
                                                                           placeholder="" type="text"/>
                                             <strong>%</strong> वा समय समयमा बैंकले तोके बमोजिम चुक्ता/भुक्तान गर्नु पर्ने गरि । बैंकले त्रैमाशिक
                                             रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर संसोधन (घट्न/बढ्न) सक्नेछ  ।
@@ -170,16 +174,15 @@
                                                    formControlName="termLoanFirstInstallment"
                                                    placeholder="" type="text"/>
                                             समान मासिक किस्ता बन्दीमा रु.
-                                            <input class="form-field form-control-sm nepaliFont"
-                                                   name="termLoanInstallmentRate"
-                                                   formControlName="termLoanInstallmentRate"
-                                                   placeholder="" type="text"/>
-                                            /–(अक्षरेपी
-                                            <input class="form-field form-control-sm longInput nepaliFont"
+                                            <app-custom-input
+                                                    (eventEmit)="changeToAmount($event, i , 'laiTermLoanArray', 'termLoanInstallmentRate', 'termLoanInstallmentRateWords')"
+                                                    [name]="patchFunction('laiTermLoanArray',i,'termLoanInstallmentRate')"></app-custom-input>/-
+                                            (अक्षरेपी
+                                            <input readonly class="form-field form-control-sm"
                                                    name="termLoanInstallmentRateWords"
                                                    formControlName="termLoanInstallmentRateWords"
                                                    placeholder="" type="text"/>
-                                            रुपैयाँ मात्र)
+                                            मात्र)
                                             का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ ।
                                         </td>
                                     </tr>
@@ -196,14 +199,15 @@
                                         <td>सेवा शुल्क</td>
                                         <td>
                                             सेवा शुल्क	भुक्तानी गरिने कर्जा रकमको
-                                            <input class="form-field form-control-sm shortInput nepaliFont"
-                                                   name="termLoanServiceChargeRate"
-                                                   formControlName="termLoanServiceChargeRate"
+                                            <input (change)="calcpercent('laiTermLoanArray', i )"
+                                                   class="form-field form-control-sm shortInput nepaliFont"
+                                                   name="serviceChargePercent"
+                                                   formControlName="serviceChargePercent"
                                                    placeholder="" type="text"/>
                                             % (
-                                            <input class="form-field form-control-sm nepaliFont"
-                                                   name="termLoanServiceChargeRateWords"
-                                                   formControlName="termLoanServiceChargeRateWords"
+                                            <input readonly class="form-field form-control-sm"
+                                                   name="serviceChargeAmount"
+                                                   formControlName="serviceChargeAmount"
                                                    placeholder="" type="text"/>
                                             प्रतिशत)
                                         </td>
@@ -265,16 +269,15 @@
                                     <tr>
                                         <td>कर्जा सीमा रकम</td>
                                         <td><strong>रु</strong>
-                                            <input class="form-field form-control-sm nepaliFont"
-                                                   name="overdraftDebitLimitAmount"
-                                                   formControlName="overdraftDebitLimitAmount"
-                                                   placeholder="" type="text"/>
-                                            /– (अक्षरेपी
-                                            <input class="form-field form-control-sm longInput nepaliFont"
+                                            <app-custom-input
+                                                    (eventEmit)="changeToAmount($event, i , 'laiOverDraftLoanArray', 'overdraftDebitLimitAmount', 'overdraftDebitLimitAmountWords')"
+                                                    [name]="patchFunction('laiOverDraftLoanArray',i,'overdraftDebitLimitAmount')"></app-custom-input>/-
+                                            (अक्षरेपी
+                                            <input readonly class="form-field form-control-sm"
                                                    name="overdraftDebitLimitAmountWords"
                                                    formControlName="overdraftDebitLimitAmountWords"
                                                    placeholder="" type="text"/>
-                                            रुपैयाँ मात्र ।)</td>
+                                            मात्र ।)</td>
                                     </tr>
                                     <tr>
                                         <td>प्रयोजन</td>
@@ -298,19 +301,19 @@
                                         <td>व्याज</td>
                                         <td> : <strong>आधार दर (Base Rate)</strong> + <strong>प्रिमियम दर (Premium Rate)</strong>
                                             (हालको आधार दर
-                                            <input class="form-field form-control-sm shortInput nepaliFont"
+                                            <input (change)="calcYearlyRate('laiOverDraftLoanArray', i)" class="form-field form-control-sm shortInput nepaliFont"
                                                    name="overdraftBaseRate"
-                                                   formControlName="overdraftBaseRate"
+                                                   formControlName="baseRate"
                                                    placeholder="८।१४"
                                                    type="text" size="2"/>% + प्रिमियम दर
-                                            <input class="form-field form-control-sm shortInput nepaliFont"
-                                                   name="overdraftPremiumRate"
-                                                   formControlName="overdraftPremiumRate"
+                                            <input (change)="calcYearlyRate('laiOverDraftLoanArray', i)" class="form-field form-control-sm shortInput nepaliFont"
+                                                   name="premiumRate"
+                                                   formControlName="premiumRate"
                                                    placeholder="" type="text"/>
                                             %) का दरले हाललाई बार्षिक
-                                            <input class="form-field form-control-sm shortInput nepaliFont"
-                                                   name="overdraftYearlyInterest"
-                                                   formControlName="overdraftYearlyInterest"
+                                            <input readonly class="form-field form-control-sm shortInput"
+                                                   name="yearlyRate"
+                                                   formControlName="yearlyRate"
                                                    placeholder="" type="text"/>
                                             % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त)
                                             वा समय समयमा बैंकले तोके बमोजिम चुक्ता/भुक्तान गर्नु पर्ने गरि । बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही
@@ -330,13 +333,14 @@
                                         <td>सेवा शुल्क</td>
                                         <td>
                                             सेवा शुल्क	भुक्तानी गरिने कर्जा रकमको
-                                            <input class="form-field form-control-sm shortInput nepaliFont"
-                                                   name="overdraftServiceChargeRate"
-                                                   formControlName="overdraftServiceChargeRate"
+                                            <input (change)="calcpercent('laiOverDraftLoanArray', i )"
+                                                   class="form-field form-control-sm shortInput nepaliFont"
+                                                   name="serviceChargePercent"
+                                                   formControlName="serviceChargePercent"
                                                    placeholder="" type="text"/>
                                             % (<input class="form-field form-control-sm nepaliFont"
-                                                      name="overdraftServiceChargeRateWords"
-                                                      formControlName="overdraftServiceChargeRateWords"
+                                                      name="serviceChargeAmount"
+                                                      formControlName="serviceChargeAmount"
                                                       placeholder="" type="text"/>
                                             प्रतिशत)
                                         </td>
@@ -398,13 +402,14 @@
                                     <tbody>
                                     <tr>
                                         <td>कर्जा सीमा रकम</td>
-                                        <td>रु. <input class="form-field form-control-sm nepaliFont"
-                                                       name="demandLimitAmount"
-                                                       formControlName="demandLimitAmount"
-                                                       placeholder="" type="text"/>/– (अक्षेरुपी <input class="form-field form-control-sm nepaliFont"
+                                        <td>रु.
+                                            <app-custom-input
+                                                    (eventEmit)="changeToAmount($event, i , 'laiDemandLoanArray', 'demandLimitAmount', 'demandLimitAmountWord')"
+                                                    [name]="patchFunction('laiDemandLoanArray',i,'demandLimitAmount')"></app-custom-input>/-
+                                            (अक्षेरुपी <input readonly class="form-field form-control-sm"
                                                                                                         name="demandLimitAmountWord"
                                                                                                         formControlName="demandLimitAmountWord"
-                                                                                                        placeholder="" type="text"/> रुपैयाँ मात्र)</td>
+                                                                                                        placeholder="" type="text"/> मात्र)</td>
                                     </tr>
                                     <tr>
                                         <td>प्रयोजन</td>
@@ -423,18 +428,20 @@
                                     <tr>
                                         <td>व्याज</td>
                                         <td> : <strong>आधार दर (Base Rate)</strong> + <strong>प्रिमियम दर (Premium Rate)</strong>
-                                            (हालको आधार दर <input class="form-field form-control-sm shortInput nepaliFont"
-                                                                  name="premiumAadharRate"
-                                                                  formControlName="premiumAadharRate"
+                                            (हालको आधार दर <input (change)="calcYearlyRate('laiDemandLoanArray', i)"
+                                                                  class="form-field form-control-sm shortInput nepaliFont"
+                                                                  name="baseRate"
+                                                                  formControlName="baseRate"
                                                                   placeholder="८।१४" type="text"/>% + प्रिमियम दर
-                                            <input class="form-field form-control-sm shortInput nepaliFont"
-                                                   name="demandLoanPremiumRate"
-                                                   formControlName="demandLoanPremiumRate"
+                                            <input (change)="calcYearlyRate('laiDemandLoanArray', i)"
+                                                   class="form-field form-control-sm shortInput nepaliFont"
+                                                   name="premiumRate"
+                                                   formControlName="premiumRate"
                                                    placeholder="" type="text"/>
                                             %) का दरले हाललाई बार्षिक
-                                            <input class="form-field form-control-sm shortInput nepaliFont"
-                                                   name="demandLoanPremiumRateWords"
-                                                   formControlName="demandLoanPremiumRateWords"
+                                            <input readonly class="form-field form-control-sm"
+                                                   name="yearlyRate"
+                                                   formControlName="yearlyRate"
                                                    placeholder="" type="text"/>
                                             % त्रैमासिक रुपमा
                                             (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा समय समयमा बैंकले तोके बमोजिम चुक्ता/भुक्तान
@@ -455,14 +462,14 @@
                                         <td>सेवा शुल्क</td>
                                         <td>
                                             सेवा शुल्क	भुक्तानी गरिने कर्जा रकमको
-                                            <input class="form-field form-control-sm shortInput nepaliFont"
-                                                   name="demandLoanServiceChargeRate"
-                                                   formControlName="demandLoanServiceChargeRate"
+                                            <input (change)="calcpercent('laiDemandLoanArray', i)" class="form-field form-control-sm shortInput nepaliFont"
+                                                   name="serviceChargePercent"
+                                                   formControlName="serviceChargePercent"
                                                    placeholder="" type="text"/>
                                             % (
-                                            <input class="form-field form-control-sm nepaliFont"
-                                                   name="demandLoanServiceChargeRateWords"
-                                                   formControlName="demandLoanServiceChargeRateWords"
+                                            <input readonly class="form-field form-control-sm"
+                                                   name="serviceChargeAmount"
+                                                   formControlName="serviceChargeAmount"
                                                    placeholder="" type="text"/>
                                             प्रतिशत)
                                         </td>
@@ -944,7 +951,7 @@
                         <p>
                             ऋणीले उपभोग गरिरहेको कर्जा सम्बन्धी बिभिन्न सुचनाहरु जस्तै ब्याजदरमा परिवर्तन, भाखा नाघेको कर्जा रकम, कर्जा सुविधाको किस्ता रकम,
                             भुक्तानी मिति तथा कारोबार सम्बन्धी अन्य जानकारीहरु ऋणीलाई आधिकारीक पत्र, बिद्युतीय माध्यम अथवा एस.एम.एस (SMS) मार्फत
-                            गराइनेछ जसलाई बैंकको आधिकारीक सुचना मानिनेछ । साथै अन्य सूचनाहरु देहाय बमोजिमको ठेगानामा हुलाक वा प्mयाक्सको माध्यमद्वारा दिइनेछ ।
+                            गराइनेछ जसलाई बैंकको आधिकारीक सुचना मानिनेछ । साथै अन्य सूचनाहरु देहाय बमोजिमको ठेगानामा हुलाक वा फ्याक्सको माध्यमद्वारा दिइनेछ ।
                         </p>
                         <!--New-->
                         <div class="container">
@@ -958,7 +965,7 @@
                                         <p>मेगा बैंक नेपाल लिमिटेड, केन्द्रीय कार्यालय, कमलादी, काठमाण्डौ </p>
                                         <p>पोष्ट बक्स नं.२६५५९</p>
                                         <p>फोन –९७७–१–४१६९२५०</p>
-                                        <p> प्mयाक्स –९७७–१–४१६९२६०</p>
+                                        <p>फ्याक्स –९७७–१–४१६९२६०</p>
                                         <p>काठमाडौं, नेपाल ।</p>
                                     </div>
                                 </div>
@@ -969,12 +976,18 @@
                                     <div class="col-md-12">
                                         <p>
                                             <strong>नाम: </strong>
-                                            <span class="nepaliFont form-field">{{retailLoanAgainstInsurance.get('borrowerName').value}}</span>
+                                            <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
                                         </p>
-                                        <p>
-                                            <strong>ठेगानाः </strong>
-                                            <span class="nepaliFont form-field">{{retailLoanAgainstInsurance.get('borrowerAddress').value}}</span>
-                                        </p>
+                                        <strong>ठेगाना:</strong>
+                                        प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                                        जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                                        वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                                        <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                                        गा बि स
+                                        </span>
+                                        <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                                        नगरपालिका
+                                        </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
                                         <p>
                                             <strong>सम्पर्क टेलिफोन नंः </strong>
                                             <span class="nepaliFont form-field">{{retailLoanAgainstInsurance.get('borrowerContactNo').value}}</span>
@@ -1044,7 +1057,7 @@
                         </p>
                         <p>
                             ऋणीको नाम:
-                            <span class="nepaliFont form-field">{{retailLoanAgainstInsurance.get('borrowerName').value}}</span>
+                            <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
                         </p>
                         <br>
                         <p class="mt-lg-5">
@@ -1076,4 +1089,6 @@
         </nb-card-footer>
     </nb-card>
 </div>
-<app-retail-against-ins-print  *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-retail-against-ins-print>
+<app-retail-against-ins-print  *ngIf="initialInfoPrint"
+                               [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                               [letter]="initialInfoPrint" hidden></app-retail-against-ins-print>
