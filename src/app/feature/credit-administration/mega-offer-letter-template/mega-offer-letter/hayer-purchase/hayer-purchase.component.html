@@ -20,21 +20,17 @@
                 Ref No: 2077/78-MBNL-CAD-RET-<input class="form-field form-control-sm "
                                                     formControlName="refNo"
                                                     placeholder="Eg.0244"
-                                                    type="text"/>
-                <p>
-                  <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
-                </p>
-                <p>ठेगाना: प्रदेश
-                  <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
-                  जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
-                  वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
-                  <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                                                    type="text"/><br>
+                नाम: <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong><br>
+                ठेगाना: प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                <span *ngIf="loanHolderInfo?.permanentMunType==1">
                                गा बि स
                            </span>
-                  <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                <span *ngIf="loanHolderInfo?.permanentMunType==0">
                                नगरपालिका
-                           </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong>
-                </p>
+                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b><br>
                 <p>सम्पर्क टेलिफोन नंः
                   <input class="form-field form-control-sm nepaliFont"
                          formControlName="contactNumber"
@@ -705,7 +701,7 @@
                     नाघेको कर्जा रकम, कर्जा सुविधाको किस्ता रकम, भुक्तानी मिति तथा कारोबार सम्बन्धी अन्य
                     जानकारीहरु ऋणीलाई आधिकारीक पत्र, बिद्युतिय माध्यम अथवा एसएमएस मार्फत गराइनेछ जसलाई
                     बैंकको आधिकारीक सुचना मानिनेछ । साथै अन्य सूचनाहरु देहाय बमोजिमको ठेगानामा हुलाक वा
-                    प्mयाक्सको माध्यमद्वारा दिइनेछ ।
+                    फ्याक्सको माध्यमद्वारा दिइनेछ ।
                   </div>
                 </div>
 
@@ -721,19 +717,17 @@
                 <div class="col-md-12">
                   ऋणीः
                   <div class="pl-md-3">
-                    <p>नाम: <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong></p>
-                    <p>ठेगाना:
-                      प्रदेश
-                      <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
-                      जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
-                      वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
+                    नाम: <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong><br>
+                    ठेगाना:
+                      प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                      जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                      वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
                       <span *ngIf="loanHolderInfo?.permanentMunType==1">
                                गा बि स
                            </span>
                       <span *ngIf="loanHolderInfo?.permanentMunType==0">
                                नगरपालिका
-                      </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong>
-                    </p>
+                      </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b><br>
                     <p>सम्पर्क टेलिफोन नंः
                       <strong class="nepaliFont">{{hayarPurchase.get('contactNumber').value}}</strong>
                     </p>
