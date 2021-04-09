@@ -1,4 +1,4 @@
-<div id="{{offerLetterConst.RETAIL_HOUSING}}Print">
+<div id="{{offerLetterConst.RETAIL_MORTGAGE_LOAN}}Print">
     <div class="logo-container">
         <img height="60px" src="../../../../../assets/img/logo.png">
     </div>
@@ -81,8 +81,8 @@
                     <tr>
                         <td>रकम</td>
                         <td>
-                            <strong class="nepaliFont"> {{letter['loanAmount']}}</strong>
-                            <strong class="nepaliFont"> {{letter['loanAmountInWord']}}</strong>
+                            रु. <strong class="nepaliFont">  {{letter['loanAmount']}} </strong>/–
+                            ( अक्षेरुपी<strong class="nepaliFont"> {{letter['loanNameInWord']}} </strong>मात्र )
                         </td>
                     </tr>
                     <tr>
@@ -120,7 +120,7 @@
                                 class="nepaliFont"> {{letter['moratoriumPeriod']}}</strong> महिना पछि प्रथम
                             किस्ता प्रारम्भ हुनेगरी
                             <strong class="nepaliFont"> {{letter['emiPeriod']}}</strong>समान
-                            मासिक किस्ता बन्दीमा रु. <strong class="nepaliFont"> {{letter['emiAmount']}}</strong>÷–
+                            मासिक किस्ता बन्दीमा रु. <strong class="nepaliFont"> {{letter['emiAmount']}}</strong>/–
                             (अक्षेरुपी
                             <strong class="nepaliFont"> {{letter['emiAmountInWord']}}</strong> मात्र) का दरले
                             ईश्वी संवत अनुसारको प्रत्येक महिनाको १३ तारिखमा चुक्ता
@@ -138,6 +138,12 @@
                             गरिनेछ ।
                         </td>
                     </tr>
+
+                </table>
+            </div>
+            <div style="page-break-after: always"></div>
+            <div class="row">
+                <table class="table table-bordered">
                     <tr>
                         <td>पूर्व भुक्तानी शुल्क</td>
                         <td>
@@ -149,11 +155,6 @@
                             भुक्तानी शुल्क लाग्नेछ ।
                         </td>
                     </tr>
-                </table>
-            </div>
-            <div style="page-break-after: always"></div>
-            <div class="row">
-                <table class="table table-bordered">
                     <tr>
                         <td>सेवा शुल्क</td>
                         <td>भुक्तानी दिने ऋण सुविधा रकमको <strong
@@ -214,7 +215,7 @@
                     <th>जोखिम वहन (Risks Coverage)</th>
                     </thead>
                     <tr *ngFor="let security of letter['security']; let i = index">
-                        <td>{{i + 1 | nepaliWord:'preeti'}}</td>
+                        <td>{{i + 1 | nepaliWord:'unicode'}}</td>
                         <td><strong class="nepaliFont">{{security['securityDetail']}}</strong></td>
                         <td><strong class="nepaliFont">{{security['securityAmount']}}</strong></td>
                         <td><strong class="nepaliFont">{{security['riskCoverage']}}</strong></td>
@@ -312,12 +313,13 @@
                     व्यवस्थासंग
                     सम्बन्धित आर्थिक वा अन्य सूचना, बैंकमा पेश गर्नेछ ।
                 </p>
+            </div>
+            <div style="page-break-after: always"></div>
+            <div class="row">
                 <p>(ख) समय समयमा संशोधन हुने प्रचलित कानूनको सर्वथा पालना गर्ने छ । यस अन्तर्गतको सुविधा
                     नेपाली कानून बमोजिम निर्देशित रहेको व्याख्या गरिने छ र नेपालका अदालतको कार्यक्षेत्र भित्र
                     पर्नेछ भन्ने स्विकार गर्दछ ।
-                </p></div>
-            <div style="page-break-after: always"></div>
-            <div class="row">
+                </p>
                 <p>(ग) बैंकबाट प्रदान गरिएको सुविधाको समीक्षा गर्न आवश्यक पर्न सक्ने ऋणीले उपभोग गरेको
                     कर्जासंग सम्बन्धित आर्थिक वा अन्य सूचना वा जानकारी बैंकलाई उपलब्ध गराउन पर्नेछ।
 
@@ -622,7 +624,7 @@
                     दिइनेछ ।</p>
             </div>
             <div class="row">
-                <div class="offset-1 col-md-6">
+                <div class="offset-1 col-md-12">
                     <h6> बैंक ः</h6>
                     <div class="ml-lg-5">
                         <div class="ml-lg-5">
@@ -640,14 +642,35 @@
                         <p>श्री / सुश्री / श्रीमती : <strong
                                 class="nepaliFont"> {{loanHolderInfo?.name}}</strong></p>
                         <p>
-                            स्थायी ठेगाना : <strong class="nepaliFont">{{letter['permanentAddress']}}</strong>
+                            स्थायी ठेगाना :
+                            प्रदेश
+                            <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
+                            जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
+                            वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
+                            <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+                            <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong>
                         </p>
-                        <p> ठेगाना : <strong class="nepaliFont"> {{letter['currentAddress'] }} </strong>
+                        <p> ठेगाना :
+                            प्रदेश
+                            <strong class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</strong>,
+                            जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</strong>
+                            वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</strong>
+                            <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                               गा बि स
+                           </span>
+                            <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                               नगरपालिका
+                           </span><strong class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</strong>
                         </p>
                         <p> मोवाइल नंः <strong class="nepaliFont">{{letter['mobileNo'] }} </strong></p>
                     </div>
                 </div>
             </div>
+            <div style="page-break-after: always"></div>
             <div class="row">
                 यो सुविधाको प्रस्ताव उपर स्वीकृति दिन को लागि माथि उल्लेखित मिति देखि ३० दिनसम्म को समय
                 दिईएको

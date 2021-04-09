@@ -65,7 +65,6 @@ export class RetailMortgageLoanComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         }
-        console.log(this.loanHolderInfo, 'Loan Holder Info');
     }
 
     buildForm() {
@@ -116,6 +115,21 @@ export class RetailMortgageLoanComponent implements OnInit {
         }));
     }
 
+    setSecurity(data) {
+        const formArray = this.form.get('security') as FormArray;
+        if (ObjectUtil.isEmpty(data)) {
+            this.addSecurity();
+            return;
+        }
+        data.forEach(value => {
+            formArray.push(this.formBuilder.group({
+                securityDetail: [value.securityDetail],
+                securityAmount: [value.securityAmount],
+                riskCoverage: [value.riskCoverage],
+            }));
+        });
+    }
+
     removeSecurity(deleteIndex: number): void {
         (this.form.get('security') as FormArray).removeAt(deleteIndex);
     }
@@ -125,6 +139,7 @@ export class RetailMortgageLoanComponent implements OnInit {
             this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
                 === this.offerLetterConst.value(this.offerLetterConst.RETAIL_MORTGAGE_LOAN).toString())[0];
             if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
+                this.addSecurity();
                 this.offerLetterDocument = new OfferDocument();
                 this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_MORTGAGE_LOAN);
             } else {
@@ -132,10 +147,13 @@ export class RetailMortgageLoanComponent implements OnInit {
                 this.initialInfoPrint = initialInfo;
                 this.existingOfferLetter = true;
                 this.form.patchValue(initialInfo, {emitEvent: false});
+                if (!ObjectUtil.isEmpty(initialInfo)) {
+                    this.setSecurity(initialInfo.security);
+                }
                 this.initialInfoPrint = initialInfo;
             }
-            console.log(this.initialInfoPrint, 'Initial Info Print');
         }
+
     }
 
 
