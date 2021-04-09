@@ -75,9 +75,10 @@
           <tr>
             <td>रकम</td>
             <td>
-              <strong class="nepaliFont">{{letter['loanAmount']}}</strong>
-
-              <strong class=""></strong>{{letter['loanAmountInWord']}}
+              रु.<strong class="nepaliFont">{{letter['loanAmount']}}</strong>
+              (अक्षेरुपी
+              <strong class="">{{letter['loanNameInWord']}}</strong>
+              मात्र ।
             </td>
           </tr>
           <tr>
@@ -147,7 +148,7 @@
           </tr>
           <tr>
             <td>सेवा शुल्क</td>
-            <td>भुक्तानी दिने ऋण सुविधा रकमको <strong
+            <td>भुक्तानी दिने ऋण सुविधा रकमको रु.<strong
                 class="nepaliFont">{{letter['serviceChargePercent']}}</strong> ।
             </td>
           </tr>
@@ -728,7 +729,7 @@
               आधिकारीक दस्तखत ......................
             </span>
           <span class="float-right">
-              मितिः....................
+              मितिः<span class="nepaliFont"><strong>{{letter['date']}}</strong></span>
             </span>
         </div>
       </div>
