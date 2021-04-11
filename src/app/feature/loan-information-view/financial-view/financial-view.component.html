@@ -133,6 +133,31 @@
 
             </table>
             <br>
+
+            <table *ngIf="auditorList.length > 0" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <tr>
+                    <th class="text-center sb-bg-dark text-white" colspan="7">Financial Auditor Detail Information</th>
+                </tr>
+                <tr class="sb-bg-secondary text-white">
+                    <th scope="col" class="sn">S.N</th>
+                    <th scope="col">Audited</th>
+                    <th scope="col">Audit Firm</th>
+                    <th scope="col">Propriete/Partner</th>
+                    <th scope="col">Membership No.</th>
+                    <th scope="col">Certificate of Practice</th>
+                    <th scope="col">Class</th>
+                </tr>
+                <tr *ngFor="let auditor of auditorList; let i = index">
+                    <td><strong>{{i + 1}}</strong></td>
+                    <td class="text-right pr-1">{{auditor['audited']}}</td>
+                    <td class="text-left pl-1">{{auditor['auditFirm']}}</td>
+                    <td class="text-left pl-1">{{auditor['proprietePartner']}}</td>
+                    <td class="text-right pr-1">{{auditor['membershipNo']}}</td>
+                    <td class="text-left pl-1">{{auditor['certificateOfPractice']}}</td>
+                    <td class="text-left pl-1">{{auditor['class']}}</td>
+                </tr>
+            </table>
+
             <p class="justify-content-start"><strong>Income Statement</strong></p>
                     <table
                            class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
