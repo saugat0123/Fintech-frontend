@@ -40,22 +40,32 @@
                         <th>Chassis Number</th>
                         <th>Showroom Commission</th>
                         <th>Valuated Date</th>
-                        <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
+                        <th *ngIf="vehicleDetails?.vehicleOtherBranchChecked === true">Valuator Branch</th>
                         <th>Valautor Name</th>
                         <th>Valuator Representative Name</th>
                         <th>Staff Representative Name 1</th>
-                        <th colspan="2">Staff Representative Name 2</th>
+                        <th>Staff Representative Name 2</th>
+                        <th>Quotation Date</th>
                     </tr>
                     <tr>
                         <td class="text-right pr-1">{{vehicleDetails?.chassisNumber}}</td>
                         <td class="text-right pr-1">Rs. {{vehicleDetails?.showroomCommission | currencyFormatter}}</td>
                         <td class="text-left pl-1">{{vehicleDetails?.vehicalValuatorDate |date}}</td>
-                        <td *ngIf="formData['otherBranchcheck']" class="text-left pl-1">{{vehicleDetails?.vehicalBranch?.name}}</td>
-                        <td class="text-left pl-1">{{vehicleDetails?.vehicalValuator?.name}}</td>
+                        <td *ngIf="vehicleDetails?.vehicleOtherBranchChecked === true" class="text-left pl-1">{{vehicleDetails?.vehicalBranch?.name || 'N/A'}}</td>
+                        <td class="text-left pl-1">{{vehicleDetails?.vehicalValuator?.name || 'N/A'}}</td>
                         <td class="text-left pl-1">{{vehicleDetails?.vehicalValuatorRepresentative}}</td>
                         <td class="text-left pl-1">{{vehicleDetails?.vehicalStaffRepresentativeName}}</td>
-                        <td colspan="2" class="text-left pl-1">{{vehicleDetails?.vehicaleStaffRepresentativeName2}}</td>
+                        <td class="text-left pl-1">{{vehicleDetails?.vehicaleStaffRepresentativeName2}}</td>
+                        <td class="text-right pr-1">{{vehicleDetails?.vehicleQuotationDate | date}}</td>
                     </tr>
+
+                    <tr class="sb-bg-dark text-white">
+                        <th colspan="9">Vehicle Remarks</th>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-1" colspan="9">{{vehicleDetails?.vehicleRemarks}}</td>
+                    </tr>
+
                 </table>
             </div>
         </div>
@@ -95,7 +105,7 @@
                     <tr class="sb-bg-secondary text-white">
                         <th>Considered Value</th>
                         <th colspan="2">Valuated Date</th>
-                        <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
+                        <th *ngIf="landDetails?.landOtherBranchChecked === true">Valuator Branch</th>
                         <th colspan="2">Valautor Name</th>
                         <th>Valuator Representative Name</th>
                         <th>Staff Representative Name 1</th>
@@ -105,8 +115,8 @@
                     <tr>
                         <td class="text-right pr-1">Rs. {{landDetails?.landConsideredValue | currencyFormatter}}</td>
                         <td class="text-left pl-1" colspan="2">{{landDetails?.landValuatorDate |date}}</td>
-                        <td *ngIf="formData['otherBranchcheck']" class="text-left pl-1">{{landDetails?.landBranch?.name}}</td>
-                        <td colspan="2" class="text-left pl-1">{{landDetails?.landValuator?.name}}</td>
+                        <td *ngIf="landDetails?.landOtherBranchChecked === true" class="text-left pl-1">{{landDetails?.landBranch?.name || 'N/A'}}</td>
+                        <td colspan="2" class="text-left pl-1">{{landDetails?.landValuator?.name || 'N/A'}}</td>
                         <td class="text-left pl-1">{{landDetails?.landValuatorRepresentative}}</td>
                         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeName}}</td>
                         <td colspan="2" class="text-left pl-1">{{landDetails?.landStaffRepresentativeName2}}</td>
@@ -225,7 +235,7 @@
                     </tr>
                     <tr class="text-center sb-bg-dark text-white">
                         <th>Valuated Date</th>
-                        <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
+                        <th *ngIf="landBuilding?.landBuildingOtherBranchChecked === true">Valuator Branch</th>
                         <th>Valautor Name</th>
                         <th>Considered Value</th>
                         <th>Valuator Representative Name</th>
@@ -235,8 +245,8 @@
                     </tr>
                     <tr>
                         <td class="text-left pl-1">{{landBuilding?.buildingValuatorDate |date}}</td>
-                        <td *ngIf="formData['otherBranchcheck']" class="text-left pl-1">{{landBuilding?.buildingBranch?.name}}</td>
-                        <td class="text-left pl-1">{{landBuilding?.buildingValuator?.name}}</td>
+                        <td *ngIf="landBuilding?.landBuildingOtherBranchChecked === true" class="text-left pl-1">{{landBuilding?.buildingBranch?.name || 'N/A'}}</td>
+                        <td class="text-left pl-1">{{landBuilding?.buildingValuator?.name || 'N/A'}}</td>
                         <td class="text-right pr-1">Rs. {{landBuilding?.landConsideredValue | currencyFormatter}}</td>
                         <td class="text-left pl-1">{{landBuilding?.buildingValuatorRepresentative}}</td>
                         <td class="text-left pl-1">{{landBuilding?.buildingStaffRepresentativeName}}</td>
@@ -272,7 +282,7 @@
                         </ng-container>
                     </tr>
                     <tr *ngIf="landBuilding.underConstructionChecked === true">
-                        <th colspan="8">Under Construction</th>
+                        <th colspan="8">land And Building Under Construction</th>
                     </tr>
                     <tr *ngIf="landBuilding.underConstructionChecked === true"
                         class="text-center sb-bg-dark text-white">
@@ -383,7 +393,7 @@
                     </tr>
                     <tr class="text-center sb-bg-secondary text-white">
                         <th>Valuated Date</th>
-                        <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
+                        <th *ngIf="buildingDetails?.apartmentOtherBranchChecked === true">Valuator Branch</th>
                         <th colspan="2">Valautor Name</th>
                         <th>Valuator Representative Name</th>
                         <th>Staff Representative Name 1</th>
@@ -391,8 +401,8 @@
                     </tr>
                     <tr>
                         <td class="text-left pl-1">{{buildingDetails?.ApartmentValuatorDate |date}}</td>
-                        <td *ngIf="formData['otherBranchcheck']" class="text-left pl-1">{{buildingDetails?.apartmentBranch?.name}}</td>
-                        <td colspan="2" class="text-left pl-1">{{buildingDetails?.ApartmentValuator?.name}}</td>
+                        <td *ngIf="buildingDetails?.apartmentOtherBranchChecked === true" class="text-left pl-1">{{buildingDetails?.apartmentBranch?.name || 'N/A'}}</td>
+                        <td colspan="2" class="text-left pl-1">{{buildingDetails?.ApartmentValuator?.name || 'N/A'}}</td>
                         <td class="text-left pl-1">{{buildingDetails?.ApartmentValuatorRepresentative}}</td>
                         <td class="text-left pl-1">{{buildingDetails?.ApartmentStaffRepresentativeName}}</td>
                         <td colspan="2" class="text-left pl-1">{{buildingDetails?.apartmentStaffRepresentativeName2}}</td>
@@ -487,10 +497,11 @@
 
         <div class="row" *ngIf="plantSelected">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+                       *ngFor="let plantDetails of formData['initialForm']['plantDetails']; let i= index">
                     <thead>
                     <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="10">Plant and Machinery Details Security
+                        <th class="text-center sb-bg-dark text-white" colspan="12">Plant and Machinery Details Security
                         </th>
                     </tr>
                     <tr class="text-center sb-bg-secondary text-white">
@@ -499,22 +510,23 @@
                         <th>Quotation</th>
                         <th>Supplier</th>
                         <th>Downpay</th>
-                        <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
+                        <th *ngIf="plantDetails?.plantOtherBranchChecked === true">Valuator Branch</th>
                         <th>Valuated Date</th>
                         <th>Valautor Name</th>
+                        <th>Valuated Date</th>
                         <th>Representative Name</th>
                         <th>Staff Representative Name 1</th>
                         <th>Staff Representative Name 2</th>
                     </tr>
-                    <tr *ngFor="let plantDetails of formData['initialForm']['plantDetails']; let i= index">
+                    <tr>
                         <td>{{i + 1}}</td>
                         <td class="text-right pr-1">{{plantDetails?.model}}</td>
                         <td class="text-right pr-1">Rs. {{plantDetails?.quotation | currencyFormatter}}</td>
                         <td class="text-left pl-1">{{plantDetails?.supplier}}</td>
                         <td class="text-right pr-1">Rs. {{plantDetails?.downPay | currencyFormatter}}</td>
-                        <td *ngIf="formData['otherBranchcheck']">{{plantDetails?.plantBranch?.name}}</td>
+                        <td *ngIf="plantDetails?.plantOtherBranchChecked === true">{{plantDetails?.plantBranch?.name || 'N/A'}}</td>
+                        <td class="text-left pl-1">{{plantDetails?.plantMachineryValuator?.name || 'N/A'}}</td>
                         <td class="text-left pl-1">{{plantDetails?.plantMachineryValuatorDate |date}}</td>
-                        <td class="text-left pl-1">{{plantDetails?.plantMachineryValuator?.name}}</td>
                         <td class="text-left pl-1">{{plantDetails?.plantMachineryValuatorRepresentative}}</td>
                         <td class="text-left pl-1">{{plantDetails?.plantMachineryStaffRepresentativeName}}</td>
                         <td class="text-left pl-1">{{plantDetails?.plantMachineryStaffRepresentativeName2}}</td>

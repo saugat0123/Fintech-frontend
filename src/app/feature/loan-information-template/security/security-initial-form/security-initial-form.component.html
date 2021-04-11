@@ -20,9 +20,9 @@
             </div>
             <hr>
         </div>
-        <nb-checkbox (change)="otherBranch($event.target.checked)"
-                     [checked]="otherBranchcheck">Property on another branch location
-        </nb-checkbox>
+<!--        <nb-checkbox (change)="otherBranch($event.target.checked)"-->
+<!--                     [checked]="otherBranchcheck">Property on another branch location-->
+<!--        </nb-checkbox>-->
         <!--Land Security-->
         <nb-card [hidden]="!landSelected" class="p-3">
             <div class="box-header with-border">
@@ -32,6 +32,7 @@
                  class="font-weight-bold"
                  formArrayName="landDetails">
                 <div [formGroupName]="i">
+                    <input type="checkbox" formControlName="landOtherBranchChecked"> Property on another branch location
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -111,7 +112,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div *ngIf="otherBranchcheck">
+                            <div *ngIf="securityForm.get(['landDetails',i,'landOtherBranchChecked']).value">
                                 <div class="form-group">
                                     <label>Select Branch</label>
                                     <ng-select
@@ -383,6 +384,7 @@
                      formArrayName="buildingDetails">
                     <div [formGroupName]="i">
                         <ng-template #apartment>
+                            <input type="checkbox" formControlName="apartmentOtherBranchChecked"> Property on another branch location
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -569,7 +571,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div *ngIf="otherBranchcheck">
+                                    <div *ngIf="securityForm.get(['buildingDetails',i,'apartmentOtherBranchChecked']).value">
                                         <div class="form-group">
                                             <label>Select Branch</label>
                                             <ng-select
@@ -1098,7 +1100,9 @@
         <nb-card [hidden]="!landBuilding" class="p-5">
             <div class="row">
                 <div class="col-md-5">
-                    <strong>Land And Building</strong>
+                    <div class="box-header with-border">
+                        <h2 class="box-title title">Land and Building Security</h2>
+                    </div>
                 </div>
                 <div class="col-md-7">
 
@@ -1110,7 +1114,6 @@
                     *ngFor="let landAndBuilding of securityForm.get('landBuilding')['controls']; let i = index"
                     class="font-weight-bold">
                     <div class="row">
-
                         <div class="col-md-10">
                             <p><b>{{i + 1}}.Land & Building</b></p>
 
@@ -1124,8 +1127,9 @@
                         </div>
                     </div>
                     <div [formGroupName]="i">
-                        <input  type="checkbox" formControlName="underConstructionChecked" >
-                        Check if Land & Building is Under Construction
+                        <input type="checkbox" formControlName="underConstructionChecked"> Check if Land & Building is Under Construction
+                        <br>
+                        <input type="checkbox" formControlName="landBuildingOtherBranchChecked"> Property on another branch location
                         <div class="row pt-2">
                             <div class="col-md-3">
                                 <div class="form-group">
@@ -1262,7 +1266,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div *ngIf="otherBranchcheck">
+                                <div *ngIf="securityForm.get(['landBuilding',i,'landBuildingOtherBranchChecked']).value">
                                     <div class="form-group">
                                         <label>Select Branch</label>
                                         <ng-select
@@ -1713,6 +1717,7 @@
                  class="font-weight-bold"
                  formArrayName="plantDetails">
                 <div [formGroupName]="i">
+                    <input type="checkbox" formControlName="plantOtherBranchChecked"> Property on another branch location
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -1763,7 +1768,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div *ngIf="otherBranchcheck">
+                            <div *ngIf="securityForm.get(['plantDetails',i,'plantOtherBranchChecked']).value">
                                 <div class="form-group">
                                     <label>Select Branch</label>
                                     <ng-select
@@ -1888,6 +1893,7 @@
                     <div class="row">
                         <div class="col-md-10">
                             <h5>{{i + 1}}) Details of Security Offered: Vehicle</h5>
+                            <input type="checkbox" formControlName="vehicleOtherBranchChecked"> Property on another branch location
                         </div>
                         <div *ngIf="securityForm.get('vehicleDetails')['length']>1"
                              class="col-md-2 ">
@@ -2026,7 +2032,7 @@
                     </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div *ngIf="otherBranchcheck">
+                                <div *ngIf="securityForm.get(['vehicleDetails',i,'vehicleOtherBranchChecked']).value">
                                     <div class="form-group">
                                         <label>Select Branch</label>
                                         <ng-select
@@ -2158,6 +2164,12 @@
                                        type="text"/>
                             </div>
                         </div>
+
+                        <div class="col-md-12 form-group">
+                            <label><b>Vehicle Remarks</b></label>
+                            <textarea class="form-control" formControlName="vehicleRemarks" rows="4" placeholder="Vehicle Remarks"></textarea>
+                        </div>
+
                     </div>
                     <hr>
                 </div>

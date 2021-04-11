@@ -125,7 +125,7 @@
         <th>Phone Number</th>
         <th>Type Of Property</th>
         <th>Shape Of Land</th>
-        <th>Location And Shape Of Land As Per Blueprint</th>
+        <th>Does the location & shape of land appear consistent with Blue Print?</th>
 
     </tr>
     <tr>
@@ -296,7 +296,8 @@
     </tr>
     <tr class="text-white sb-bg-dark">
         <th>Date of Inspection</th>
-        <th>Good Inspected</th>
+        <th>Particulars Of Good
+            Inspected</th>
         <th>Stock Value Reported</th>
         <th>Rents</th>
         <th *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">Copy of rental/leased
@@ -383,27 +384,31 @@
         <th colspan="6"><b>Current Asset Inspection: Major Inquiries and Observations</b></th>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th colspan="6">Business Nature and Operating/Manufacturing</th>
+        <th colspan="6">Explain the business nature, operating/manufacturing process in maximum 4 lines as per observation/discussion with the customer during inspection.</th>
     </tr>
     <tr>
         <td colspan="6" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessNature']}}</td>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th colspan="6">Observation Of Business Operation/Activities</th>
+        <th colspan="6">Observation of business operation/activities: No of staffs/workers, Machines/Plant in operation; Loading/unloading happening/brief of various sections of business (Manufacturing/ Packaging/ Storage/ Dispatch/ Quality Control etc.), No of vehicles observed etc.</th>
     </tr>
     <tr>
         <td colspan="6" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessActivities']}}</td>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th colspan="6">Questions For Accompanying Person Of Client</th>
+        <th colspan="6">Questions to be asked to the accompanying person of client</th>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th colspan="3">Business compared to last year</th>
-        <th colspan="3">Prospects and Challenges for the business</th>
+        <th colspan="3">How is the business doing now compared to last year?</th>
+        <th colspan="3">What are the prospects and challenges for the business?</th>
     </tr>
     <tr>
         <td colspan="3" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessProgress']}}</td>
         <td colspan="3" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessChallenges']}}</td>
+    </tr>
+    <tr>
+        <th colspan="2"><b>Power Back-up Arrangement availability at site:</b></th>
+        <th colspan="2"><b>The stock register system at the site is in the form of:</b></th>
     </tr>
     <tr class="text-white sb-bg-dark">
         <th>Normal Electricity Line</th>
