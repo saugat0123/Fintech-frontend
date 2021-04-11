@@ -59,10 +59,43 @@
         </table>
         <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
             <thead>
-            <tr class="text-white sb-bg-dark">
-                <th class="text-left pl-1">Net Saving</th>
-                <th class="text-right pr-1"><b>Rs.{{ financialData['initialForm']['netSaving'] | currencyFormatter}}</b></th>
+            <tr>
+                <td class="text-left pl-1" colspan="2"><strong>Net Saving</strong></td>
+                <td colspan="2" class="text-right pr-1">
+                    <strong>Rs. {{financialData?.initialForm?.netSaving | currencyFormatter}}</strong>
+                </td>
             </tr>
+            <tr>
+                <td class="text-left pl-1" colspan="2"><strong>Total Gross Monthly income/Total monthly obligations</strong></td>
+                <td colspan="2" class="text-right pr-1">
+                    <strong>Rs. {{financialData?.initialForm?.grossMonthlyObligation | currencyFormatter}}</strong>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1" colspan="2"><strong>Total EMI of client including present proposal</strong></td>
+                <td colspan="2" class="text-right pr-1">
+                    <strong>Rs. {{financialData?.initialForm?.emiWithProposal | currencyFormatter}}</strong>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1" colspan="2"><strong>EMI / Gross Monthly Income</strong></td>
+                <td colspan="2" class="text-right pr-1">
+                    <strong>Rs. {{financialData?.initialForm?.totalEMIInterest}}</strong>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1" colspan="2"><strong>EMI / Net Monthly Income</strong></td>
+                <td colspan="2" class="text-right pr-1">
+                    <strong>Rs. {{financialData?.initialForm?.emiNetMonthly | currencyFormatter}}</strong>
+                </td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th colspan="4">Note</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1" colspan="4">{{financialData?.initialForm?.note}}</td>
+            </tr>
+
             </thead>
         </table>
         <table *ngIf="!isBusinessLoan" class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small">

@@ -68,6 +68,38 @@
                 <strong>Rs. {{financialData?.initialForm?.netSaving | currencyFormatter}}</strong>
               </td>
             </tr>
+            <tr>
+              <td class="text-left pl-1" colspan="3"><strong>Total Gross Monthly income/Total monthly obligations</strong></td>
+              <td colspan="2" class="text-right pr-1">
+                <strong>Rs. {{financialData?.initialForm?.grossMonthlyObligation | currencyFormatter}}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-left pl-1" colspan="3"><strong>Total EMI of client including present proposal</strong></td>
+              <td colspan="2" class="text-right pr-1">
+                <strong>Rs. {{financialData?.initialForm?.emiWithProposal | currencyFormatter}}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-left pl-1" colspan="3"><strong>EMI / Gross Monthly Income</strong></td>
+              <td colspan="2" class="text-right pr-1">
+                <strong>Rs. {{financialData?.initialForm?.totalEMIInterest}}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-left pl-1" colspan="3"><strong>EMI / Net Monthly Income</strong></td>
+              <td colspan="2" class="text-right pr-1">
+                <strong>Rs. {{financialData?.initialForm?.emiNetMonthly | currencyFormatter}}</strong>
+              </td>
+            </tr>
+
+            <tr class="text-white sb-bg-dark">
+              <th colspan="4">Note</th>
+            </tr>
+            <tr>
+              <td class="text-left pl-1" colspan="4">{{financialData?.initialForm?.note}}</td>
+            </tr>
+
             </tbody>
           </table>
         </div>

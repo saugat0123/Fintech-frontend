@@ -77,6 +77,7 @@ export class FinancialSummaryComponent implements OnInit {
         this.auditorList = this.financialData.auditorList;
       }
     }
+    console.log(this.financialData, 'FinancialData');
   }
 
   accountReceivableArray() {
