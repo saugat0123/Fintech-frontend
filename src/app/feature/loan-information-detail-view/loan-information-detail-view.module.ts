@@ -12,23 +12,25 @@ import {MicroLoanModule} from '../micro-loan/micro-loan.module';
 import {CreditChecklistViewComponent} from '../loan-information-view/credit-checklist-view/credit-checklist-view.component';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {CoreModule} from '../../@core/core.module';
+import {CbsGroupModule} from '../cbs-group/cbs-group.module';
 
 
 
 @NgModule({
   declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent , DetailViewBaseComponent],
-  imports: [
-    CommonModule,
-    LoanInformationViewModule,
-    ThemeModule,
-    NgxPrintModule,
-    ReportingModule,
-    LoanInformationTemplateModule,
-    LoanSummaryModule,
-    NepaliCalendarModule,
-    MicroLoanModule,
-    CoreModule,
+    imports: [
+        CommonModule,
+        LoanInformationViewModule,
+        ThemeModule,
+        NgxPrintModule,
+        ReportingModule,
+        LoanInformationTemplateModule,
+        LoanSummaryModule,
+        NepaliCalendarModule,
+        MicroLoanModule,
+        CoreModule,
+        CbsGroupModule,
 
-  ]
+    ]
 })
 export class LoanInformationDetailViewModule { }

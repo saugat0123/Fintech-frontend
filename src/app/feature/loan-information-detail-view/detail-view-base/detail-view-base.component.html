@@ -14,6 +14,20 @@
 <div *ngIf="megaGroupEnabled">
     <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
 </div>
+
+<div *ngIf="productUtils.CBS_ENABLE">
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <p><strong>Group Details</strong>
+            </p>
+        </div>
+        <div class="col-md-12">
+            <app-cbs-table [customerInfo]="loanDataHolder.loanHolder"
+                           *ngIf="loanDataHolder"></app-cbs-table>
+        </div>
+    </div>
+</div>
+
 <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
                    [shareSecurityData]="loanHolder?.shareSecurity"></app-security-view>
 <app-financial-view *ngIf="loanHolder?.financial"

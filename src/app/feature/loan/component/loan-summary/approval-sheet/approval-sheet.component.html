@@ -354,6 +354,19 @@
                     [customerAllLoanList]="customerAllLoanList"
                     [security]="loanDataHolder?.security"></app-collateral-summary>
 
+            <div *ngIf="productUtils.CBS_ENABLE">
+                <div class="row mt-5">
+                    <div class="col-md-12">
+                        <p><strong>Group Details</strong>
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+                        <app-cbs-table [customerInfo]="loanDataHolder.loanHolder"
+                                       *ngIf="loanDataHolder"></app-cbs-table>
+                    </div>
+                </div>
+            </div>
+
             <app-security-summary *ngIf="securitySummary"
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
             <hr>

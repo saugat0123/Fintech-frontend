@@ -9,6 +9,8 @@ import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.
 import {CombinedLoanService} from '../../service/combined-loan.service';
 import {FiscalYearService} from '../../admin/service/fiscal-year.service';
 import {Clients} from '../../../../environments/Clients';
+import {ProductUtils} from '../../admin/service/product-mode.service';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 
 @Component({
   selector: 'app-detail-view-base',
@@ -36,10 +38,14 @@ export class DetailViewBaseComponent implements OnInit {
   dataFromPreviousSecurity: any;
   client = environment.client;
   clientName = Clients;
+  productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+  showCadDoc = false;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
-              private fiscalYearService: FiscalYearService) { }
+              private fiscalYearService: FiscalYearService) {
+    this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
+  }
 
   ngOnInit() {
     this.getAllLoans(this.loanDataHolder.loanHolder.id);
