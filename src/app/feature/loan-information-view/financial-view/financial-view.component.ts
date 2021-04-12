@@ -22,6 +22,7 @@ export class FinancialViewComponent implements OnInit {
   disableCrgAlphaParams = environment.disableCrgAlpha;
   client = environment.client;
   clientName = Clients;
+  auditorList = [];
 
   constructor() {
   }
@@ -34,6 +35,7 @@ export class FinancialViewComponent implements OnInit {
     if (CustomerType[this.customerType] === CustomerType.INSTITUTION) {
       this.isBusinessLoan = true;
     }
+    this.auditorList = this.financialData.auditorList;
   }
 
   changeActiveTab(tabs: QueryList<any>) {
