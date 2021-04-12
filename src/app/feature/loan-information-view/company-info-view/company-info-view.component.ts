@@ -48,7 +48,14 @@ export class CompanyInfoViewComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.companyJsonData = JSON.parse(this.formValue.companyJsonData);
-      this.additionalInfoJsonData = JSON.parse(this.formValue.additionalCompanyInfo);
+
+
+      if(this.chekValidity(JSON.parse(this.formValue.additionalCompanyInfo))){
+        this.additionalInfoJsonData = JSON.parse(this.formValue.additionalCompanyInfo);
+      }else{
+        this.additionalInfoJsonData==null;
+      }
+
       this.contactPersonJsonData = JSON.parse(this.formValue.contactPersons);
       this.businessAndIndustry = JSON.parse(this.formValue.businessAndIndustry);
       this.businessGiven = JSON.parse(this.formValue.businessGiven);
@@ -57,4 +64,25 @@ export class CompanyInfoViewComponent implements OnInit {
     this.bankingRelation = JSON.parse(this.customerInfo.bankingRelationship);
   }
 
+
+  public chekValidity(obj):boolean{
+    if(obj.licenseHolderName==null){
+     return false;
+    }
+    else if (obj.licenseHolderName==null){
+      return false;
+    }
+    else if(obj.registrationType==null){
+      return false;
+    }
+    else if(obj.licenseIssuedDate==null){
+      return  false
+    }
+    else if (obj.licenseIssuePlace==null){
+      return false;
+    }
+    else {
+      return  true;
+    }
+  }
 }
