@@ -230,6 +230,23 @@ export class CatalogueComponent implements OnInit {
             Date.UTC(createdAt.getFullYear(), createdAt.getMonth(), createdAt.getDate())) / (1000 * 60 * 60 * 24));
     }
 
+
+    getDifferenceInDaysAndHours(createdDate: Date): any {
+        const createdAt = new Date(createdDate);
+        const current = Date.now();
+        let delta = Math.abs(current - createdAt.getTime()) / 1000;
+
+// calculate (and subtract) whole days
+        const days = Math.floor(delta / 86400);
+        delta -= days * 86400;
+
+// calculate (and subtract) whole hours
+        const hours = Math.floor(delta / 3600) % 24;
+        const inHours = (hours !== 0) ? hours + ' Hours ' : '';
+
+        return days + ' Days ' + inHours;
+    }
+
     getDaysDifference(lastModifiedDate: Date, createdDate: Date): number {
         const createdAt = new Date(createdDate);
         const lastModifiedAt = new Date(lastModifiedDate);

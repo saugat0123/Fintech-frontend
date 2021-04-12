@@ -111,7 +111,8 @@
                     </div>
 
                     <div class="col-md-3 mb-3">
-                        <input class="form-control form-control-tiny rounded" formControlName="customerName" id="customerName"
+                        <input class="form-control form-control-tiny rounded" formControlName="customerName"
+                               id="customerName"
                                placeholder="Enter customer name">
                     </div>
 
@@ -150,7 +151,7 @@
                 <th>Proposed Amount</th>
                 <th>Type</th>
                 <th>Status</th>
-                <th>Possession Under/Days</th>
+                <th>Possession Under/Days and Hours</th>
                 <th>Loan lifespan</th>
                 <th *ngIf="transferDoc">Transfer</th>
                 <th>Created On</th>
@@ -185,7 +186,7 @@
                          model?.documentStatus.toString()==="UNDER_REVIEW" ||
                          model?.documentStatus.toString()==="VALUATION"'>
                         {{model?.currentStage?.toUser?.name}}
-                        / {{getDifferenceInDays(model?.currentStage?.lastModifiedAt)}}
+                        / {{getDifferenceInDaysAndHours(model?.currentStage?.lastModifiedAt)}}
                     </div>
                     <div *ngIf='(model?.documentStatus.toString()==="CLOSED" ||
                         model?.documentStatus.toString()==="REJECTED" ||
