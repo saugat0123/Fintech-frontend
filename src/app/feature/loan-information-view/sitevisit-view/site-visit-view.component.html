@@ -110,9 +110,8 @@
 </table>
 <!-- ============================================================= Business Site Visit END ==============================================================-->
 <!-- ============================================================= Fixed Asset Collateral Form  ==============================================================-->
-<p *ngIf="formData['fixedAssetCollateralFormChecked'] === true" class="font-weight-bold small">Fixed Asset Collateral &
-    Facilities
-    Details</p>
+<p *ngIf="formData['fixedAssetCollateralFormChecked'] === true" class="font-weight-bold small">
+    {{client === clientName?.SHINE_RESUNGA ? 'Collateral Inspection Report' : 'Fixed Asset Collateral'}} & Facilities Details</p>
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr class="text-white sb-bg-dark">
@@ -223,9 +222,6 @@
         <th>Naksa Pass Obtained</th>
         <th>Building Completion Certificate Obtained</th>
         <th>Construction as per Approved Naksa Pass</th>
-        <th>Any Road Setbacks</th>
-        <th>Any River/Canal Setbacks</th>
-        <th>Any High-Tension Setbacks</th>
     </tr>
     <tr *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['frameStructure'] | booleanConvert}}</td>
@@ -234,9 +230,16 @@
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['naksaPassObtained'] | booleanConvert}}</td>
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingCompCertificate'] | booleanConvert}}</td>
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['constructionAsPerNaksa'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['roadSetbacks'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['riverOrCanalSetbacks'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['highTensionSetbacks'] | booleanConvert}}</td>
+    </tr>
+    <tr class="text-white sb-bg-dark" *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']">
+        <th>Any Road Setbacks</th>
+        <th>Any River/Canal Setbacks</th>
+        <th>Any High-Tension Setbacks</th>
+    </tr>
+    <tr>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['roadSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['roadSetbacks'] === 'NO' ? 'No' : null}}</td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['riverOrCanalSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['riverOrCanalSetbacks'] === 'NO' ? 'No' : null}}</td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['highTensionSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['highTensionSetbacks'] === 'NO' ? 'No' : null}}</td>
     </tr>
 
 </table>
@@ -263,6 +266,17 @@
     <tr>
         <td colspan="3" class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['commentAboutFAC']}}</td>
 
+    </tr>
+    <tr class="text-white sb-bg-dark">
+        <th colspan="3">Location details</th>
+    </tr>
+    <tr>
+        <td>Longitude</td>
+        <td>latitude</td>
+    </tr>
+    <tr>
+        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['fixedAssetsLongitude']}}</td>
+        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['fixedAssetsLatitude']}}</td>
     </tr>
 </table>
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"

@@ -36,6 +36,7 @@ export class SiteVisitViewComponent implements OnInit {
               this.currentAssetsInspectionSummary = true;
       }
     }
+    console.log(this.formData, 'Data');
     }
 
 }
