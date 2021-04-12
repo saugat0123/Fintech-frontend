@@ -110,6 +110,7 @@
                                                 <ckeditor
                                                         [ngClass]="{ 'is-invalid': individualType?.submitted && control?.get('comment')?.errors }"
                                                         formControlName="comment" id="comment{{i}}"
+                                                        [config]="ckeConfig"
                                                         name="text"
                                                 ></ckeditor>
                                                 <div
