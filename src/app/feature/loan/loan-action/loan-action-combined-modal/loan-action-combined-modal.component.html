@@ -107,11 +107,12 @@
                                         <div class="row">
                                             <div class="col-md-12 form-group">
                                                 <label for="comment">Comment:</label>
-                                                <textarea
+                                                <ckeditor
                                                         [ngClass]="{ 'is-invalid': individualType?.submitted && control?.get('comment')?.errors }"
-                                                        class="form-control" formControlName="comment" id="comment{{i}}"
+                                                        formControlName="comment" id="comment{{i}}"
+                                                        [config]="ckeConfig"
                                                         name="text"
-                                                ></textarea>
+                                                ></ckeditor>
                                                 <div
                                                         *ngIf="individualType?.submitted && control?.get('comment')?.hasError('required')"
                                                         class="error-message"
@@ -144,7 +145,7 @@
                                                         <option
                                                                 *ngFor="let forwardBackward of sendForwardBackwardList"
                                                                 [ngValue]="forwardBackward?.role"
-                                                               >
+                                                        >
                                                             {{forwardBackward?.role?.roleName}}
                                                         </option>
                                                     </select>
@@ -164,7 +165,7 @@
                                                                 [compareWith]="compareFn">
                                                             <option *ngFor="let user of individualType?.solUsers.get(i)"
                                                                     [ngValue]="user"
-                                                                    >
+                                                            >
                                                                 {{user.username}}
                                                         </select>
                                                     </div>
@@ -222,11 +223,9 @@
                             <div class="row">
                                 <div class="col-md-12 form-group">
                                     <label for="comment">Comment:</label>
-                                    <textarea
+                                    <ckeditor
                                             [ngClass]="{ 'is-invalid': combinedType?.submitted && combinedType?.form.controls['comment'].errors }"
-                                            class="form-control" formControlName="comment" id="comment"
-                                            name="text" rows="5"
-                                    ></textarea>
+                                            id="comment" formControlName="comment" [config]="ckeConfig"></ckeditor>
                                     <div
                                             *ngIf="combinedType?.submitted && combinedType?.form.controls['comment'].hasError('required')"
                                             class="error-message"
@@ -239,7 +238,8 @@
 
                             <div *ngIf="isMaker">
                                 <div class="col-md-12">
-                                    <nb-checkbox class="cursor" formControlName="isSol" [checked]="preSelectedSolUser[0]?.isSol"
+                                    <nb-checkbox class="cursor" formControlName="isSol"
+                                                 [checked]="preSelectedSolUser[0]?.isSol"
                                                  (checkedChange)="showHideSolCombine($event)"
                                     >is SOL?
                                     </nb-checkbox>
@@ -256,7 +256,7 @@
                                             <option [value]="null" hidden>Select To</option>
                                             <option *ngFor="let forwardBackward of sendForwardBackwardList"
                                                     [ngValue]="forwardBackward.role"
-                                                   >
+                                            >
                                                 {{forwardBackward.role?.roleName}}
                                             </option>
                                         </select>
@@ -274,7 +274,7 @@
                                                     [compareWith]="compareFn">
                                                 <option *ngFor="let user of combinedType?.solUserList"
                                                         [ngValue]="user"
-                                                        >
+                                                >
                                                     {{user.username}}</option>
                                             </select>
 
