@@ -231,15 +231,15 @@
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingCompCertificate'] | booleanConvert}}</td>
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['constructionAsPerNaksa'] | booleanConvert}}</td>
     </tr>
-    <tr class="text-white sb-bg-dark" *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']">
+    <tr class="text-white sb-bg-dark">
         <th>Any Road Setbacks</th>
         <th>Any River/Canal Setbacks</th>
         <th>Any High-Tension Setbacks</th>
     </tr>
     <tr>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['roadSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['roadSetbacks'] === 'NO' ? 'No' : null}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['riverOrCanalSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['riverOrCanalSetbacks'] === 'NO' ? 'No' : null}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['highTensionSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['highTensionSetbacks'] === 'NO' ? 'No' : null}}</td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['roadSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['roadSetbacks'] === 'NO' ? 'No' : 'N/A'}}</td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['riverOrCanalSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['riverOrCanalSetbacks'] === 'NO' ? 'No' : 'N/A'}}</td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['highTensionSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['highTensionSetbacks'] === 'NO' ? 'No' : 'N/A'}}</td>
     </tr>
 
 </table>

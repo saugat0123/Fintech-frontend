@@ -102,7 +102,7 @@
         <th  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION' && landDetails['familyTransferOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
         <th  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landDetails['giftOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
         <th *ngIf="landDetails?.ownershipTransferThrough == 'OTHER'">Other</th>
-
+        <th>Revaluation Done ?</th>
 
       </tr>
       <tr>
@@ -119,6 +119,7 @@
         <td  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION' && landDetails['familyTransferOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landDetails?.familyRegistrationAmount}}</td>
         <td  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landDetails['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landDetails?.giftRegistrationAmount}}</td>
         <th *ngIf="landDetails?.ownershipTransferThrough == 'OTHER'" class="text-right pr-1">Rs. {{landDetails?.otherOwnershipTransferValue}}</th>
+        <td class="text-left pl-1">{{landDetails?.revaluationData?.isReValuated | booleanConvert}}</td>
 
 
       </tr>
@@ -278,6 +279,7 @@
           <th  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION' && landBuilding['familyTransferOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
           <th  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landBuilding['giftOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
           <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'">Other</th>
+          <th>Revaluation Done?</th>
         </tr>
         <tr>
           <td class="text-left pl-1">{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
@@ -290,6 +292,7 @@
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION' && landBuilding['familyTransferOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landBuilding?.familyRegistrationAmount}}</td>
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landBuilding['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landBuilding?.giftRegistrationAmount}}</td>
           <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'" class="text-right pr-1">Rs. {{landBuilding?.otherOwnershipTransferValue}}</th>
+          <td class="text-left pl-1">{{landBuilding?.revaluationData?.isReValuated | booleanConvert}}</td>
         </tr>
 
         <ng-container *ngIf="landBuilding?.revaluationData != null && landBuilding?.revaluationData?.isReValuated">
@@ -603,41 +606,41 @@
       </tbody>
       <thead>
       <tr class="text-white sb-bg-dark">
-        <th></th>
         <th>Apartment Total Cost</th>
         <th>Apartment Fair Market Value</th>
         <th>Apartment Distress Value</th>
         <th  *ngIf="buildingDetails?.apartmentOtherBranchChecked === true">Branch</th>
         <th>Valuator Name</th>
+        <th>Valuated Date</th>
 
       </tr>
       </thead>
       <tbody>
       <tr>
-        <td></td>
         <td class="text-right pr-1">Rs. {{buildingDetails?.buildingTotalCost | currencyFormatter}}</td>
         <td class="text-right pr-1">Rs. {{buildingDetails?.buildingFairMarketValue | currencyFormatter}}</td>
         <td class="text-right pr-1">Rs. {{buildingDetails?.buildingDistressValue | currencyFormatter}}</td>
         <td *ngIf="buildingDetails?.apartmentOtherBranchChecked === true" class="text-left pl-1">{{buildingDetails?.apartmentBranch?.name || 'N/A'}}</td>
         <td class="text-left pl-1">{{buildingDetails?.ApartmentValuator?.name}}</td>
+        <td class="text-left pl-1">{{buildingDetails?.ApartmentValuatorDate | date}}</td>
 
       </tr>
       </tbody>
       <tr class="text-white sb-bg-dark">
-        <th>Valuated Date</th>
         <th>Valuator Representative Name</th>
         <th>Staff Representative Designation 1</th>
         <th>Staff Representative Name 1</th>
         <th>Staff Representative Designation 2</th>
         <th>Staff Representative Name 2</th>
+        <th>Revaluation Done ?</th>
       </tr>
       <tr>
-        <td class="text-left pl-1">{{buildingDetails?.ApartmentValuatorDate | date}}</td>
         <td class="text-left pl-1">{{buildingDetails?.ApartmentValuatorRepresentative}}</td>
         <td class="text-left pl-1">{{buildingDetails?.apartmentStaffRepresentativeDesignation}}</td>
         <td class="text-left pl-1">{{buildingDetails?.ApartmentStaffRepresentativeName}}</td>
         <td class="text-left pl-1">{{buildingDetails?.apartmentStaffRepresentativeDesignation2}}</td>
         <td class="text-left pl-1">{{buildingDetails?.apartmentStaffRepresentativeName2}}</td>
+        <td class="text-left pl-1">{{buildingDetails?.revaluationData?.isReValuated | booleanConvert}}</td>
       </tr>
 
       <ng-container *ngIf="buildingDetails?.revaluationData != null && buildingDetails?.revaluationData?.isReValuated">
