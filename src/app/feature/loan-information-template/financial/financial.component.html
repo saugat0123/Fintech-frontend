@@ -245,7 +245,7 @@
                         <label for="grossMonthlyObligation"><strong>Total Gross Monthly income/Total monthly obligations</strong></label>
                         <input class="form-control" formControlName="grossMonthlyObligation" id="grossMonthlyObligation"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('grossMonthlyObligation').invalid}"
-                               placeholder="Amount" readonly [value]="numberUtils.isNumber(form.totalIncome.value/form.totalExpense.value).toFixed(2)">
+                               placeholder="Amount" readonly [value]="totalEmiMonthlyGross()">
 
                         <div *ngIf="(submitted) && form.grossMonthlyObligation.invalid"
                              class="invalid-feedback">Invalid Gross Monthly Obligation
@@ -256,7 +256,7 @@
                             class="text-danger">*</strong>
                         <input class="form-control" formControlName="emiWithProposal" id="emiWithProposal"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('emiWithProposal').invalid}"
-                               placeholder="Total EMI of client including present proposal" appDecimalNumber/>
+                               placeholder="Include EMI of other BFIs" appDecimalNumber/>
 
                         <div *ngIf="(submitted) && form.emiWithProposal.invalid"
                              class="invalid-feedback">
@@ -264,14 +264,34 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4" *ngIf="client === clientName.MEGA">
-                        <label for="totalEMIInterest"><strong>Total EMI and interest expenses to Gross income</strong></label>
+                    <div class="col-md-4">
+                        <label for="totalEMIInterest" *ngIf="client ===  clientName?.MEGA"><strong>Total EMI and interest expenses to Gross income</strong></label>
+                        <label for="totalEMIInterest" *ngIf="client ===  clientName?.SHINE_RESUNGA"><strong>EMI / Gross Monthly Income</strong></label>
                         <input class="form-control" formControlName="totalEMIInterest" id="totalEMIInterest" name
                                [ngClass]="{'is-invalid': submitted && financialForm.get('totalEMIInterest').invalid}"
                                placeholder="Total EMI and Interest Expenses" readonly
-                               [value]="numberUtils.isNumber((form.emiWithProposal.value) / (form.totalIncome.value)).toFixed(2)">
+                               [value]="totalEmiMonthlyGross()">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="emiNetMonthly"><strong>EMI / Net Monthly Income</strong></label>
+                        <input class="form-control" formControlName="emiNetMonthly" id="emiNetMonthly"
+                               [ngClass]="{'is-invalid': submitted && financialForm.get('emiNetMonthly').invalid}"
+                               placeholder="EMI / Net Monthly Income" readonly
+                               [value]="totalEmiMonthlyGross()">
+                        <div *ngIf="(submitted) && form.emiNetMonthly.invalid"
+                             class="invalid-feedback"> EMI / Net Monthly Income is required
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row" *ngIf="client === clientName?.SHINE_RESUNGA">
+                    <div class="col-md-12">
+                        <label><b>Note: </b></label>
+                        <textarea class="form-control" formControlName="note" rows="4" placeholder="Note"></textarea>
                     </div>
                 </div>
+
             </nb-card-body>
         </nb-card>
     </div>
