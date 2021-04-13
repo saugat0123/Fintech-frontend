@@ -8,6 +8,9 @@ import {CombinedLoan} from '../../loan/model/combined-loan';
 import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
 import {CombinedLoanService} from '../../service/combined-loan.service';
 import {FiscalYearService} from '../../admin/service/fiscal-year.service';
+import {Clients} from '../../../../environments/Clients';
+import {ProductUtils} from '../../admin/service/product-mode.service';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 
 @Component({
   selector: 'app-detail-view-base',
@@ -19,6 +22,8 @@ export class DetailViewBaseComponent implements OnInit {
   @Input() loanHolder;
   @Input() calendarType;
   @Input() loanId;
+  @Input() comment;
+  @Input() formData;
   fiscalYearArray: Array<FiscalYear>;
 
   isMega = environment.isMega;
@@ -27,9 +32,20 @@ export class DetailViewBaseComponent implements OnInit {
   megaGroupEnabled = environment.MEGA_GROUP;
   incomeFromAccountParsedData: any;
   newCustomerFlag: boolean[];
+  dataFromComments: any;
+  commentsSummary = false;
+  previousSecuritySummary = false;
+  dataFromPreviousSecurity: any;
+  client = environment.client;
+  clientName = Clients;
+  productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+  showCadDoc = false;
+
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
-              private fiscalYearService: FiscalYearService) { }
+              private fiscalYearService: FiscalYearService) {
+    this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
+  }
 
   ngOnInit() {
     this.getAllLoans(this.loanDataHolder.loanHolder.id);
@@ -42,6 +58,15 @@ export class DetailViewBaseComponent implements OnInit {
         this.incomeFromAccountParsedData = JSON.parse(this.loanHolder.incomeFromAccount.data);
         this.newCustomerFlag = this.incomeFromAccountParsedData.newCustomerChecked;
       }
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
+      this.dataFromComments = JSON.parse(this.loanDataHolder.loanHolder.data);
+      this.commentsSummary = true;
+    }
+    // Setting Previous Security Data
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
+      this.dataFromPreviousSecurity = JSON.parse(this.loanDataHolder.loanHolder.data);
+      this.previousSecuritySummary = true;
     }
   }
 

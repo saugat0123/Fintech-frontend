@@ -24,17 +24,28 @@
 
                    </p>
                    <div class="mb-2">
-                       <b>स्थायी ठेगाना:</b>
-                       प्रदेश
-                       <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
-                       जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
-                       वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
-                       <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                       <div>
+                           <b>स्थायी ठेगाना:</b>
+                           प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                           जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                           वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                           <span *ngIf="loanHolderInfo?.permanentMunType==1">
                                गा बि स
                            </span>
-                       <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                           <span *ngIf="loanHolderInfo?.permanentMunType==0">
                                नगरपालिका
-                           </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong>
+                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
+                       </div>
+                       <b>हाल :</b>
+                       प्रदेश &nbsp;<b>{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp;
+                       जिल्ला &nbsp;<b>{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp;
+                       वार्ड न &nbsp;<b>{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
+                       <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                               गा बि स
+                           </span>
+                       <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                               नगरपालिका
+                           </span>&nbsp;<b>{{loanHolderInfo?.temporaryMunicipality}}</b>
                    </div>
                    <p>सम्पर्क टेलिफोन नंः
                        <input class="form-field form-control-sm nepaliFont"
@@ -99,7 +110,7 @@
                                <td>कर्जा सीमा रकम</td>
                                <td>रु.<app-custom-input (eventEmit)="changeToNepAmount($event, i , 'professionalTermLoanArray')"
                                                         [name]="patchFunction('professionalTermLoanArray',i,'karjaSeemaRakam')"></app-custom-input>/-
-                                                                            (अक्षेरुपी <input readonly class="form-field form-control-sm nepaliFont"
+                                                                            (अक्षेरुपी <input readonly class="form-field form-control-sm"
                                                                                 formControlName="karjaSeemaRakamWord"
                                                                               placeholder="दश लाख"
                                                                               type="text"/> रुपैयाँ मात्र।)</td>
@@ -131,7 +142,7 @@
                                                       formControlName="premiumRate"
                                                       placeholder=" २.३५%"
                                                       type="text"/>%) का दरले हाललाइ बार्षिक
-                                   <input readonly class="form-field form-control-sm nepaliFont col-2"
+                                   <input readonly class="form-field form-control-sm col-2"
                                           formControlName="rate"
                                           placeholder=" १३%"
                                           type="text"/>%
@@ -158,7 +169,7 @@
                                    <app-custom-input (eventEmit)="nepaliToEng($event, i , 'professionalTermLoanArray')"
                                                                                                 [name]="patchFunction('professionalTermLoanArray',i,'emiAmount')" ></app-custom-input>/- (अक्षेरुपी
 
-                                   <input readonly class="form-field form-control-sm nepaliFont"
+                                   <input readonly class="form-field form-control-sm"
                                            formControlName="amountInWords"
                                            placeholder=" बाईस हजार सात सय त्रिपन्न रुपैयाँ सात पैसा मात्र"
                                            type="text"/>मात्र) का
@@ -746,45 +757,43 @@
                    सुविधाको किस्ता रकम, भुक्तानी मिति तथा कारोबार सम्बन्धी अन्य जानकारीहरु ऋणीलाई आधिकारीक पत्र, बिद्युतीय
                    माध्यम अथवा एस.एम.एस (SMS) मार्फत गराइनेछ जसलाई बैंकको आधिकारीक सुचना मानिनेछ । साथै अन्य सूचनाहरु
                    देहाय
-                   बमोजिमको ठेगानामा हुलाक वा प्mयाक्सको माध्यमद्वारा दिइनेछ ।
+                   बमोजिमको ठेगानामा हुलाक वा फ्याक्सको माध्यमद्वारा दिइनेछ ।
                </div>
                <div class="col-md-8">
                    <div class="pt-2 pb-2  col-md-8 ">
                        <div>बैंक कर्जा ब्यवस्थापन विभाग</div>
                        <div>मेगा बैंक नेपाल लिमिटेड, केन्द्रिय कार्यालय,</div>
                        <div>कमलादी, काठमाण्डौ पोष्ट बक्स नं.२६५५९</div>
-                       <div>फोन –९७७–१–४१६९२५० प्mयाक्स –९७७–१–४१६९२६०</div>
+                       <div>फोन –९७७–१–४१६९२५० </div>
+                       <div>फ्याक्स –९७७–१–४१६९२६०</div>
                        <div>काठमाडौं, नेपाल ।</div>
                    </div>
                    <div class=" col-md-10 " >
                        <strong>ऋणीः</strong>
                        <div class="ml-4">
                            <strong>नाम : </strong><strong class="nepaliFont">{{loanHolderInfo?.name}}</strong> <br>
-                           <strong>ठेगाना : </strong><strong class="">
-                           प्रदेश
-                           <strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,
-                           जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>
-                           वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>
-                           <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                           <div>
+                               <b>स्थायी ठेगाना:</b>
+                               प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                               जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                               वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                               <span *ngIf="loanHolderInfo?.permanentMunType==1">
                                गा बि स
                            </span>
-                           <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               <span *ngIf="loanHolderInfo?.permanentMunType==0">
                                नगरपालिका
-                           </span><strong class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</strong>
-                       </strong>
-                           <br>
-                           <strong>हाल :
-                               प्रदेश
-                               <strong class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</strong>,
-                               जिल्ला <strong class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</strong>
-                               वार्ड न <strong class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</strong>
-                               <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
+                           </div>
+                           <b>हाल :</b>
+                           प्रदेश &nbsp;<b>{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp;
+                           जिल्ला &nbsp;<b>{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp;
+                           वार्ड न &nbsp;<b>{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
+                           <span *ngIf="loanHolderInfo?.temporaryMunType==1">
                                गा बि स
                            </span>
-                               <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                           <span *ngIf="loanHolderInfo?.temporaryMunType==0">
                                नगरपालिका
-                           </span><strong class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</strong><br>
-                           </strong>
+                           </span>&nbsp;<b>{{loanHolderInfo?.temporaryMunicipality}}</b>
                        </div>
                    </div>
                </div>

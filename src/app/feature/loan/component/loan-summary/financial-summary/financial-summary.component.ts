@@ -38,6 +38,7 @@ export class FinancialSummaryComponent implements OnInit {
   termDrawingPowerArray = [];
   termLoanTLArray = [];
   termLoanDPC = [];
+  auditorList = [];
 
   constructor(private financialService: FinancialService) { }
 
@@ -73,8 +74,10 @@ export class FinancialSummaryComponent implements OnInit {
         this.getDPTermLoan();
         this.getTermLoan();
         this.getDPCalculationTermLoan();
+        this.auditorList = this.financialData.auditorList;
       }
     }
+    console.log(this.financialData, 'FinancialData');
   }
 
   accountReceivableArray() {

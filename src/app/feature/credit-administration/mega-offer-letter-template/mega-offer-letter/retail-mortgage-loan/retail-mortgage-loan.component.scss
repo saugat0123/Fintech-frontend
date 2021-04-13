@@ -2,6 +2,7 @@
   border-style: solid;
 
 }
+
 .nepali {
   font-size: 16px;
   line-height: 1.9;
@@ -16,10 +17,18 @@
   border: 0;
   border-bottom: 1px solid black;
   border-radius: 0px;
+
   &:focus {
     outline: none;
   }
 }
-nb-card{
+
+nb-card {
   max-height: 900px;
+}
+
+.nepaliFont {
+  line-height: 1.2;
+  margin-right: 5px;
+  margin-left: 5px;
 }

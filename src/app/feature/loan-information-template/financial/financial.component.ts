@@ -257,6 +257,9 @@ export class FinancialComponent implements OnInit {
             totalNetMonthlyIncome: [undefined],
             totalEMIInterest: [undefined],
             emiWithProposal: [undefined , [Validators.required , Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+            emiGrossMonthly: [undefined],
+            emiNetMonthly: [undefined],
+            note: [undefined]
         });
     }
 
@@ -594,5 +597,20 @@ export class FinancialComponent implements OnInit {
         }
         this.financialData.data = JSON.stringify(this.currentFormData);
         this.financialDataEmitter.emit(this.financialData.data);
+    }
+
+    totalEmiMonthlyGross() {
+        const totalNetMonthly = Number(this.financialForm.get('totalIncome').value) -
+            Number(this.financialForm.get('totalExpense').value);
+        const totalEmiNetMonthly = (Number(this.financialForm.get('emiWithProposal').value) / totalNetMonthly).toFixed(2);
+        this.financialForm.get('emiNetMonthly').patchValue(totalEmiNetMonthly);
+
+        const totalGrossMonthly = (Number(this.financialForm.get('totalIncome').value) /
+            Number(this.financialForm.get('totalExpense').value)).toFixed(2);
+        this.financialForm.get('grossMonthlyObligation').patchValue(totalGrossMonthly);
+
+        const totalEMIInterest = (Number(this.financialForm.get('emiWithProposal').value) /
+            Number(this.financialForm.get('totalIncome').value)).toFixed(2);
+        this.financialForm.get('totalEMIInterest').patchValue(totalEMIInterest);
     }
 }

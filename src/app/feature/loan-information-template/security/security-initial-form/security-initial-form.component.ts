@@ -133,6 +133,11 @@ export class SecurityInitialFormComponent implements OnInit {
     nepsePriceInfo: NepsePriceInfo = new NepsePriceInfo();
     insuranceList: InsuranceList = new InsuranceList();
     insuranceCompanyList = InsuranceList.insuranceCompanyList;
+    landOtherBranchChecked = false;
+    apartmentOtherBranchChecked = false;
+    landBuildingOtherBranchChecked = false;
+    vehicleOtherBranchChecked = false;
+    plantOtherBranchChecked = false;
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -197,6 +202,11 @@ export class SecurityInitialFormComponent implements OnInit {
             this.setInsurancePolicy(this.formDataForEdit['insurancePolicy']);
             this.securityForm.get('vehicleLoanExposure').patchValue(this.formDataForEdit['vehicleLoanExposure']);
             this.setAssignment(this.formDataForEdit['assignmentOfReceivables']);
+            this.landOtherBank(this.formData['landOtherBranchChecked']);
+            this.apartmentOtheBank(this.formData['apartmentOtherBranchChecked']);
+            this.landBuildingOtherBank(this.formData['landBuildingOtherBranchChecked']);
+            this.vehicleOtherBank(this.formData['vehicleOtherBranchChecked']);
+            this.plantOtherBank(this.formData['plantOtherBranchChecked']);
 
         } else {
             this.addMoreLand();
@@ -265,7 +275,8 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     valuator(branchId, type: string, index: number) {
-        if (this.otherBranchcheck && ObjectUtil.isEmpty(branchId)) {
+        if ((this.landOtherBranchChecked || this.landBuildingOtherBranchChecked || this.apartmentOtherBranchChecked ||
+            this.vehicleOtherBranchChecked || this.plantOtherBranchChecked) && ObjectUtil.isEmpty(branchId)) {
             return;
         }
         const valuatorSearch = {
@@ -329,7 +340,7 @@ export class SecurityInitialFormComponent implements OnInit {
     setLandDetails(currentData) {
         const landDetails = this.securityForm.get('landDetails') as FormArray;
         currentData.forEach((singleData, index) => {
-            if (this.otherBranchcheck && singleData['landBranch']) {
+            if (this.landOtherBranchChecked && singleData['landBranch']) {
                 this.valuator(singleData['landBranch']['id'], 'land', index);
             } else {
                 this.valuator(null, 'land', index);
@@ -370,6 +381,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     giftRegistrationAmount: [singleData.giftRegistrationAmount],
                     landCollateralOwnerRelationship: [singleData.landCollateralOwnerRelationship],
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
+                    landOtherBranchChecked: [singleData.landOtherBranchChecked],
                 })
             );
         });
@@ -478,7 +490,7 @@ export class SecurityInitialFormComponent implements OnInit {
     setBuildingDetails(Data) {
         const buildingDetails = this.securityForm.get('buildingDetails') as FormArray;
         Data.forEach((singleData, index) => {
-            if (this.otherBranchcheck && singleData.apartmentBranch) {
+            if (this.apartmentOtherBranchChecked && singleData.apartmentBranch) {
                 this.valuator(singleData['apartmentBranch']['id'], 'apartment', index);
             } else {
                 this.valuator(null, 'apartment', index);
@@ -513,6 +525,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     apartmentStaffRepresentativeDesignation: [singleData.apartmentStaffRepresentativeDesignation],
                     apartmentStaffRepresentativeDesignation2: [singleData.apartmentStaffRepresentativeDesignation2],
                     apartmentStaffRepresentativeName2: [singleData.apartmentStaffRepresentativeName2],
+                    apartmentOtherBranchChecked: [singleData.apartmentOtherBranchChecked],
                 })
             );
         });
@@ -591,6 +604,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     landAndBuildingSecurityLegalDocumentAddress: [singleData.landAndBuildingSecurityLegalDocumentAddress],
                     landBuildingCollateralOwnerRelationship: [singleData.landBuildingCollateralOwnerRelationship],
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
+                    progessCost: [singleData.progessCost],
+                    landBuildingOtherBranchChecked: [singleData.landBuildingOtherBranchChecked]
                 })
             );
         });
@@ -704,7 +719,7 @@ export class SecurityInitialFormComponent implements OnInit {
     setPlantDetails(currentData) {
         const plantDetails = this.securityForm.get('plantDetails') as FormArray;
         currentData.forEach((singleData, index) => {
-            if (this.otherBranchcheck && singleData.plantBranch) {
+            if (this.plantOtherBranchChecked && singleData.plantBranch) {
                 this.valuator(singleData['plantBranch']['id'], 'plant', index);
             } else {
                 this.valuator(null, 'plant', index);
@@ -726,6 +741,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     plantMachineryStaffRepresentativeDesignation2:
                         [singleData.plantMachineryStaffRepresentativeDesignation2],
                     plantMachineryStaffRepresentativeName2: [singleData.plantMachineryStaffRepresentativeName2],
+                    plantOtherBranchChecked: [singleData.plantOtherBranchChecked],
                   })
             );
         });
@@ -739,11 +755,11 @@ export class SecurityInitialFormComponent implements OnInit {
                     this.formBuilder.group({
                         insuredAmount: [singleData.insuredAmount],
                         insuranceCompanyName: [singleData.insuranceCompanyName],
-                        policyStartDate: [singleData.policyStartDate],
-                        maturityDate: [singleData.maturityDate],
+                        policyStartDate: [new Date(singleData.policyStartDate)],
+                        maturityDate: [new Date(singleData.maturityDate)],
                         insurancePolicyType: [singleData.insurancePolicyType],
                         surrenderValue: [singleData.surrenderValue],
-                        earlySurrenderDate: [singleData.earlySurrenderDate],
+                        earlySurrenderDate: [new Date(singleData.earlySurrenderDate)],
                         consideredValue: [singleData.consideredValue],
                         cashBackAmount: [singleData.cashBackAmount],
                     })
@@ -776,7 +792,9 @@ export class SecurityInitialFormComponent implements OnInit {
         this.selectedArray = arraySelected;
         this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected
             = this.underConstructionChecked = this.depositSelected = this.shareSelected = this.landBuilding = this.insurancePolicySelected =
-            this.hypothecation = this.assignment = this.corporate = this.personal = this.insurancePolicySelected = false;
+            this.hypothecation = this.assignment = this.corporate = this.personal = this.insurancePolicySelected =
+                this.landOtherBranchChecked = this.apartmentOtherBranchChecked = this.landBuildingOtherBranchChecked =
+                    this.vehicleOtherBranchChecked = this.plantOtherBranchChecked = false;
         arraySelected.forEach(selectedValue => {
             switch (selectedValue) {
                 case 'LandSecurity' :
@@ -918,6 +936,7 @@ export class SecurityInitialFormComponent implements OnInit {
             giftRegistrationAmount: undefined,
             landCollateralOwnerRelationship: undefined,
             ownerKycApplicableData: [undefined],
+            landOtherBranchChecked: [undefined],
 
         });
     }
@@ -952,6 +971,7 @@ export class SecurityInitialFormComponent implements OnInit {
             apartmentStaffRepresentativeDesignation: [undefined],
             apartmentStaffRepresentativeDesignation2: [undefined],
             apartmentStaffRepresentativeName2: [undefined],
+            apartmentOtherBranchChecked: [undefined],
         });
     }
 
@@ -1009,6 +1029,8 @@ export class SecurityInitialFormComponent implements OnInit {
             landAndBuildingSecurityLegalDocumentAddress: [undefined],
             landBuildingCollateralOwnerRelationship: [undefined],
             ownerKycApplicableData: [undefined],
+            progessCost: [undefined],
+            landBuildingOtherBranchChecked: [undefined]
         });
     }
     // Insurance policy form group
@@ -1042,6 +1064,7 @@ export class SecurityInitialFormComponent implements OnInit {
             plantMachineryStaffRepresentativeDesignation: [undefined],
             plantMachineryStaffRepresentativeDesignation2: [undefined],
             plantMachineryStaffRepresentativeName2: [undefined],
+            plantOtherBranchChecked: [undefined],
         });
     }
     assignmentDetailsFormGroup(): FormGroup {
@@ -1196,7 +1219,10 @@ export class SecurityInitialFormComponent implements OnInit {
             vehicaleStaffRepresentativeName2: [undefined],
             showroomAddress: undefined,
             showroomName: undefined,
-            ownershipTransferDate:  undefined
+            ownershipTransferDate:  undefined,
+            vehicleQuotationDate: undefined,
+            vehicleRemarks: [undefined],
+            vehicleOtherBranchChecked: [undefined],
         });
     }
 
@@ -1211,7 +1237,7 @@ export class SecurityInitialFormComponent implements OnInit {
     setVehicleDetails(currentData) {
         const vehicleDetails = this.securityForm.get('vehicleDetails') as FormArray;
         currentData.forEach((singleData, index) => {
-            if (this.otherBranchcheck && singleData.vehicalBranch) {
+            if (this.vehicleOtherBranchChecked && singleData.vehicalBranch) {
                 this.valuator(singleData['vehicalBranch']['id'], 'vehicle', index);
             } else {
                 this.valuator(null, 'vehicle', index);
@@ -1220,7 +1246,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.formBuilder.group({
                     model: [singleData.model],
                     registrationNumber: [singleData.registrationNumber],
-                    registrationDate: [singleData.registrationDate],
+                    registrationDate: [new Date(singleData.registrationDate)],
                     engineNumber: [singleData.engineNumber],
                     chassisNumber: [singleData.chassisNumber],
                     valuationAmount: [singleData.valuationAmount],
@@ -1241,6 +1267,10 @@ export class SecurityInitialFormComponent implements OnInit {
                     showroomName: [singleData.showroomName],
                     ownershipTransferDate:  [ObjectUtil.isEmpty(singleData.ownershipTransferDate) ?
                       undefined : new Date(singleData.ownershipTransferDate)],
+                    vehicleQuotationDate:  [ObjectUtil.isEmpty(singleData.vehicleQuotationDate) ?
+                        undefined : new Date(singleData.vehicleQuotationDate)],
+                    vehicleRemarks: [singleData.vehicleRemarks],
+                    vehicleOtherBranchChecked: [singleData.vehicleOtherBranchChecked]
                 })
             );
         });
@@ -1290,7 +1320,7 @@ export class SecurityInitialFormComponent implements OnInit {
                         remarks: [deposit.remarks],
                         accountHolderName: [deposit.accountHolderName],
                         accountNumber: [deposit.accountNumber],
-                        tenureStartDate: [deposit.tenureStartDate]
+                        tenureStartDate: [new Date(deposit.tenureStartDate)]
                     })
                 );
             });
@@ -1737,5 +1767,45 @@ export class SecurityInitialFormComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, 'Error While Fetching List'));
             this.spinner = false;
         });
+    }
+
+    private landOtherBank(checkedStatus) {
+        if (checkedStatus) {
+            this.landOtherBranchChecked = true;
+        } else {
+            this.landOtherBranchChecked = false;
+        }
+    }
+
+    landBuildingOtherBank(checkStatus) {
+        if (checkStatus) {
+            this.landBuildingOtherBranchChecked = true;
+        } else {
+            this.landBuildingOtherBranchChecked = false;
+        }
+    }
+
+    apartmentOtheBank(checkStatus) {
+        if (checkStatus) {
+            this.apartmentOtherBranchChecked = true;
+        } else {
+            this.apartmentOtherBranchChecked = false;
+        }
+    }
+
+    vehicleOtherBank(checkStatus) {
+        if (checkStatus) {
+            this.vehicleOtherBranchChecked = false;
+        } else {
+            this.vehicleOtherBranchChecked = true;
+        }
+    }
+
+    plantOtherBank(checkStatus) {
+        if (checkStatus) {
+            this.plantOtherBranchChecked = false;
+        } else {
+            this.plantOtherBranchChecked = true;
+        }
     }
 }

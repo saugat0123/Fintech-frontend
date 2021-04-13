@@ -1,3 +1,12 @@
+<div class="col-md-12">
+    <div class="d-flex justify-content-end">
+        <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
+                        name="guarantorCalendarType">
+            <nb-radio value="AD">AD</nb-radio>
+            <nb-radio value="BS">BS</nb-radio>
+        </nb-radio-group>
+    </div>
+</div>
 <nb-card [nbSpinner]="spinner"
          nbSpinnerStatus="primary"
          nbSpinnerSize="large"
@@ -47,7 +56,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 form-group">
-                    <label class="ownerName" for="address">Owner Name</label>
+                    <label class="ownerName" for="ownerName">Owner Name</label>
                     <input class="form-control" formControlName="ownerName" id="ownerName" name="ownerName"
                            [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('currentResidentDetails')?.get('ownerName')?.errors }"
                            placeholder="owner name" type="text">
@@ -168,8 +177,13 @@
                 <div class="col-md-4 form-group">
                     <label class="title" for="dateOfVisit">Date Of Visit</label>
                     <input [nbDatepicker]="datepicker3" class="form-control" formControlName="dateOfVisit"
+                           *ngIf="calendarType === 'AD'"
                            [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit')?.errors }"
                            id="dateOfVisit" placeholder="date of visit">
+                    <app-calendar
+                            [ePreDate]="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit')?.value"
+                            *ngIf="calendarType === 'BS'"
+                            (messageToEmit)="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit').patchValue($event?.eDate)"></app-calendar>
                     <nb-datepicker #datepicker3></nb-datepicker>
                     <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit')?.invalid"
                          class="invalid-feedback">
@@ -296,9 +310,14 @@
                 <h4 class="col-md-12">Fixed Assets Collateral</h4>
                 <div class="col-md-4 form-group">
                     <label class="title" for="date">Date</label>
-                    <input [max]="date" [nbDatepicker]="datepicker4" class="form-control"
+                    <input [max]="date" [nbDatepicker]="datepicker4" *ngIf="calendarType === 'AD'" class="form-control"
                            [ngClass]="{ 'is-invalid': (fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('date')?.errors }"
                            formControlName="date" id="date" placeholder="date">
+                    <app-calendar
+                            [ePreDate]="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('date')?.value"
+                            *ngIf="calendarType === 'BS'"
+                            (messageToEmit)="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('date').patchValue($event?.eDate)"></app-calendar>
+
                     <nb-datepicker [max]="date" #datepicker4></nb-datepicker>
                     <div *ngIf="(fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('date')?.invalid"
                          class="invalid-feedback">
@@ -387,7 +406,12 @@
                                 name="prominentPlace" placeholder="prominent place" type="text">
                     </div>
                     <div class="col-md-3 form-group">
-                        <label class="title" for="approachDistance">Approach Distance<em class="sb-small"><strong> (in feet)</strong></em></label>
+                        <div *ngIf="client === clientName?.SHINE_RESUNGA; else otherBank">
+                            <label class="title" for="approachDistance">Approach Distance<em class="sb-small"><strong>(in meter)</strong></em></label>
+                        </div>
+                        <ng-template #otherBank>
+                            <label class="title" for="approachDistance">Approach Distance<em class="sb-small"><strong>(in feet)</strong></em></label>
+                        </ng-template>
                         <input class="form-control" formControlName="approachDistance" id="approachDistance"
                                name="approachDistance" placeholder="approach distance" type="number" appDecimalNumber/>
                     </div>
@@ -475,7 +499,12 @@
                             <label class="title" for="constructionYear">Construction Year</label>
                             <input [nbDatepicker]="datepicker5" class="form-control"
                                    formControlName="constructionYear" id="constructionYear"
-                                   name="constructionYear" placeholder="construction year">
+                                   name="constructionYear" placeholder="construction year"
+                                   *ngIf="calendarType === 'AD'">
+                            <app-calendar
+                                    [ePreDate]="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('constructionYear').value"
+                                    *ngIf="calendarType === 'BS'"
+                                    (messageToEmit)="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('constructionYear').patchValue($event?.eDate)"></app-calendar>
                             <nb-datepicker #datepicker5></nb-datepicker>
                         </div>
                         <div *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('building')?.value == 'YES'"
@@ -690,7 +719,13 @@
                     <input [nbDatepicker]="datepicker1" class="form-control"
                            [ngClass]="{ 'is-invalid': (current) && siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('dateOfInspection')?.errors }"
                            formControlName="dateOfInspection"
-                           id="dateOfInspection" placeholder="date of inspection">
+                           id="dateOfInspection" placeholder="date of inspection"
+                           *ngIf="calendarType === 'AD'">
+                    <app-calendar
+                            [ePreDate]="siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('dateOfInspection')?.value"
+                            *ngIf="calendarType === 'BS'"
+                            (messageToEmit)="siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('dateOfInspection').patchValue($event?.eDate)"></app-calendar>
+
                     <nb-datepicker #datepicker1 ></nb-datepicker>
                     <div *ngIf="(current) && siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('dateOfInspection')?.invalid"
                          class="invalid-feedback">
@@ -749,7 +784,7 @@
                         <div class="col-md-4 form-group">
                             <label class="title" for="assetsMortgaged">Assets Mortgaged</label>
                             <input class="form-control" formControlName="assetsMortgaged" id="assetsMortgaged"
-                                   name="assetsMortgaged" placeholder="assets mortgaged">
+                                   name="assetsMortgaged" placeholder="assets mortgaged" type="number">
                         </div>
                         <div class="col-md-4 form-group">
                             <label class="title" for="insuredAmount">Insured Amount</label>
@@ -768,7 +803,12 @@
                         <div class="col-md-4 form-group">
                             <label class="title" for="expiryDate">Expiry Date</label>
                             <input [nbDatepicker]="datepicker2" class="form-control" formControlName="expiryDate"
-                                   id="expiryDate" placeholder="expiry date">
+                                   id="expiryDate" placeholder="expiry date" *ngIf="calendarType === 'AD'">
+                            <app-calendar
+                                    [ePreDate]="siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('insuranceVerification')?.get('expiryDate')?.value"
+                                    *ngIf="calendarType === 'BS'"
+                                    (messageToEmit)="siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('insuranceVerification')?.get('expiryDate').patchValue($event?.eDate)"></app-calendar>
+
                             <nb-datepicker #datepicker2></nb-datepicker>
                         </div>
                         <div class="col-md-4 form-group">
@@ -818,7 +858,7 @@
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label class="staffRepresentativeNameDesignation2"
-                                           for="staffRepresentativeNameDesignation2">Staff Representative Designation 1</label>
+                                           for="staffRepresentativeNameDesignation2">Staff Representative Designation 2</label>
                                     <select class="form-control"
                                             formControlName="staffRepresentativeNameDesignation2"
                                             id="staffRepresentativeNameDesignationCurrent2"
@@ -1069,6 +1109,7 @@
                     </div>
                 </div>
 
+                <div *ngIf="client !== clientName?.SHINE_RESUNGA">
                 <h4 class="col-md-12 mt-3">Current Assets Inspection - Receivables</h4>
                 <div class="row col-md-12 mt-3" formGroupName="receivablesAndPayables">
                     <div *ngFor="let party of partyForm; let i = index;"
@@ -1398,6 +1439,7 @@
                                       row="3" type="text"></textarea>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
             <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
