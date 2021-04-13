@@ -236,11 +236,11 @@ export class CatalogueComponent implements OnInit {
         const current = Date.now();
         let delta = Math.abs(current - createdAt.getTime()) / 1000;
 
-// calculate (and subtract) whole days
+        // calculate (and subtract) whole days
         const days = Math.floor(delta / 86400);
         delta -= days * 86400;
 
-// calculate (and subtract) whole hours
+        // calculate (and subtract) whole hours
         const hours = Math.floor(delta / 3600) % 24;
         const inHours = (hours !== 0) ? hours + ' Hours ' : '';
 
