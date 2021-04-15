@@ -144,7 +144,8 @@ export class SecurityInitialFormComponent implements OnInit {
         'market': 0,
         'considered': 0
     };
-    totalLandValueRemarks;
+
+    totalLandValueRemarks: any;
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -200,6 +201,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.setVehicleDetails(this.formDataForEdit['vehicleDetails']);
             this.setFixedDepositDetails(this.formDataForEdit['fixedDepositDetails']);
             this.setLandBuildingDescription(this.formDataForEdit['landBuildingDescription']);
+            this.setLandValueRemarks(this.formDataForEdit['totalLandValueRemarks']);
             this.setRemark(this.formDataForEdit['remark']);
             this.setHypothecation(this.formDataForEdit['hypothecationOfStock']);
             this.setAssignments(this.formDataForEdit['leaseAssignment']);
@@ -273,6 +275,7 @@ export class SecurityInitialFormComponent implements OnInit {
         this.securityForm = this.formBuilder.group({
             buildingDetailsDescription: [undefined],
             description: [undefined],
+            totalLandValueRemarks: [undefined],
             landDetails: this.formBuilder.array([]),
             buildingDetails: this.formBuilder.array([]),
             buildingUnderConstructions: this.formBuilder.array([]),
@@ -367,6 +370,10 @@ export class SecurityInitialFormComponent implements OnInit {
         this.securityForm.get('description').setValue(landDescription);
     }
 
+    setLandValueRemarks(landValueRemarks) {
+        this.securityForm.get('totalLandValueRemarks').setValue(landValueRemarks);
+    }
+
     setRemark(remarkData) {
         this.securityForm.get('remark').patchValue(remarkData);
     }
@@ -416,7 +423,6 @@ export class SecurityInitialFormComponent implements OnInit {
                     landCollateralOwnerRelationship: [singleData.landCollateralOwnerRelationship],
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
                     landOtherBranchChecked: [singleData.landOtherBranchChecked],
-                    totalLandValueRemarks: [singleData.totalLandValueRemarks]
                 })
             );
         });
@@ -971,7 +977,6 @@ export class SecurityInitialFormComponent implements OnInit {
             landCollateralOwnerRelationship: undefined,
             ownerKycApplicableData: [undefined],
             landOtherBranchChecked: [undefined],
-            totalLandValueRemarks: [undefined]
         });
     }
 
