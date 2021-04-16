@@ -383,7 +383,9 @@
                                                       [oldValuation]="securityForm.get('landDetails').value"
                                                       [data]="formDataForEdit?.landDetails[i]?.revaluationData"
                                                       [revaluationId]="securityId.landId + i"
-                                                      [calendarType]="calendarType"></app-security-revaluation>
+                                                      [calendarType]="calendarType"
+                                                      (revaluationDataEmitter)="updateLandSecurityTotal($event)"
+                            ></app-security-revaluation>
                         </div>
                         <div *ngIf="securityForm.get('landDetails') ['length'] > 1" class="col-md-1">
                             <input (click)="removeLandDetails(i)"
@@ -426,7 +428,8 @@
                             <td>{{totalLandValue['considered']}}</td>
                             <td>{{totalLandValue['market']}}</td>
                             <td>{{totalLandValue['distress']}}</td>
-                            <td><input type="text" class="form-control" id="totalLandValueRemarks" formControlName="totalLandValueRemarks" /></td>
+                            <td><input type="text" class="form-control" id="totalLandValueRemarks"
+                                       formControlName="totalLandValueRemarks"/></td>
                         </tr>
                         </tbody>
                     </table>

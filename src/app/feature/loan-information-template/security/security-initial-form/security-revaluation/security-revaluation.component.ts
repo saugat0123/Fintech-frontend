@@ -41,6 +41,7 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
             this.formGroup.patchValue(this.data);
             this.formGroup.get('reValuationDate').setValue(new Date(this.data.reValuationDate));
         }
+
     }
 
     get formControls() {
@@ -90,4 +91,7 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
         this.formGroup.patchValue(calcData);
     }
 
+    Revaluate() {
+        this.revaluationDataEmitter.emit(this.formGroup);
+    }
 }
