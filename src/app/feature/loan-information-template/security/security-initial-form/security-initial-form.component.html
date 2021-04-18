@@ -107,7 +107,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title" for="distressValue">Distress Value</label>
-                                <input (change)="updateLandSecurityTotal()"
+                                <input (change)="updateLandSecurityTotal(i)"
                                        class="form-control rounded"
                                        formControlName="distressValue"
                                        id="distressValue"
@@ -384,7 +384,8 @@
                                                       [data]="formDataForEdit?.landDetails[i]?.revaluationData"
                                                       [revaluationId]="securityId.landId + i"
                                                       [calendarType]="calendarType"
-                                                      (revaluationDataEmitter)="updateLandSecurityTotal($event)"
+                                                      [index]="i"
+                                                      (revaluationDataEmitter)="eventLandSecurity($event, i)"
                             ></app-security-revaluation>
                         </div>
                         <div *ngIf="securityForm.get('landDetails') ['length'] > 1" class="col-md-1">
@@ -425,9 +426,9 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>{{totalLandValue['considered']}}</td>
-                            <td>{{totalLandValue['market']}}</td>
-                            <td>{{totalLandValue['distress']}}</td>
+                            <td>{{totalcv }}</td>
+                            <td>{{totalmv}}</td>
+                            <td>{{totaldv}}</td>
                             <td><input type="text" class="form-control" id="totalLandValueRemarks"
                                        formControlName="totalLandValueRemarks"/></td>
                         </tr>

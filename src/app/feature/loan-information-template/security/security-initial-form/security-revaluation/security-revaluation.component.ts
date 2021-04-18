@@ -17,6 +17,7 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
     @Input() data;
     @Input() valuators;
     @Input() oldValuation;
+    @Input() index;
     formGroup: FormGroup;
     submitValue;
     @Output() revaluationDataEmitter = new EventEmitter();
@@ -91,7 +92,14 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
         this.formGroup.patchValue(calcData);
     }
 
-    Revaluate() {
-        this.revaluationDataEmitter.emit(this.formGroup);
+    revaluate(isRevaluated, index) {
+        const revData = {
+            reValuatedFmv: this.formGroup.get('reValuatedFmv').value,
+            reValuatedDv: this.formGroup.get('reValuatedDv').value,
+            reValuatedConsideredValue: this.formGroup.get('reValuatedConsideredValue').value,
+            isReValuated: isRevaluated,
+            index: index
+        };
+        this.revaluationDataEmitter.emit(revData);
     }
 }
