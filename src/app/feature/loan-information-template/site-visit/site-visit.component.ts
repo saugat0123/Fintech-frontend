@@ -380,7 +380,13 @@ export class SiteVisitComponent implements OnInit {
                   : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.commentAboutFAC],
           branchInchargeComment: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.branchInchargeComment]
+                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.branchInchargeComment],
+          fixedAssetsLongitude: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
+                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.fixedAssetsLongitude],
+          fixedAssetsLatitude: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
+                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.fixedAssetsLatitude]
         })
       }),
       currentAssetsInspectionDetails: this.formBuilder.group({
