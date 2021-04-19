@@ -245,7 +245,6 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     eventLandSecurity($event) {
-        console.log($event, 'Event');
         const landDetails = this.securityForm.get('landDetails') as FormArray;
         $event['reValuatedDv'] = $event['reValuatedDv'] == null ? 0 : $event['reValuatedDv'];
         $event['reValuatedFmv'] = $event['reValuatedFmv'] == null ? 0 : $event['reValuatedFmv'];
@@ -278,58 +277,19 @@ export class SecurityInitialFormComponent implements OnInit {
         this.totaldv = 0;
         this.totalmv = 0;
         this.totalcv = 0;
-        console.log(landDetails, 'Land Details');
         landDetails['value'].forEach((sec, index) => {
             if (sec['revaluationData'] !== null && sec['revaluationData']['isReValuated']) {
-                console.log(1);
                 this.totaldv += Number(sec['revaluationData']['reValuatedDv']);
                 this.totalmv += Number(sec['revaluationData']['reValuatedFmv']);
                 this.totalcv += Number(sec['revaluationData']['reValuatedConsideredValue']);
             } else {
-                console.log(2);
                 this.totaldv += Number(sec['distressValue']);
                 this.totalmv += Number(sec['marketValue']);
                 this.totalcv += Number(sec['landConsideredValue']);
             }
 
         });
-
-        console.log(this.totalcv, ' TotalCV asdasdasd');
-        console.log(this.totaldv, ' TotalDV asdasdasd');
-        console.log(this.totalmv, ' TotalMV asdasdasd');
-
-
     }
-
-    // updatemv(i) {
-    //     this.totalmv += this.securityForm.get('landDetails').value[i]['marketValue'].value;
-    // }
-    //
-
-    // updatedv(i) {
-    //     this.totaldv = 0;
-    //     const landDetails = this.securityForm.get('landDetails').value;
-    //     landDetails.forEach((sec, index) => {
-    //         this.totaldv += Number(sec['distressValue']);
-    //     });
-    // }
-
-    //
-
-    // updatecv(formArrayName, totalcv) {
-    //     let total = 0;
-    //     // const controls = this.securityForm.get(formArrayName) as FormArray;
-    //     console.log(formArrayName.value);
-    //     total += formArrayName.value;
-    //     // (this.securityForm.get(formArrayName) as FormArray).controls.forEach(group => {
-    //     //     console.log(group);
-    //     //     total = Number(group.get('amount').value) + Number(total);
-    //     // });
-    //     this.securityForm.get(totalcv).setValue(total);
-    //     // this.securityForm.get('netSaving').setValue(Number(this.securityForm.get('totalIncome').value)
-    //     //     - Number(this.securityForm.get('totalExpense').value));
-    // }
-
 
     buildForm() {
         this.securityForm = this.formBuilder.group({
@@ -634,7 +594,6 @@ export class SecurityInitialFormComponent implements OnInit {
 
     revaluateCalc(data, formGroup, i) {
         const form = (this.securityForm.get(formGroup) as FormArray);
-        console.log(data.reValuatedFmv);
     }
 
     setLandBuildingDetails(Data) {
