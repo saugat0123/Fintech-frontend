@@ -41,6 +41,9 @@ export class SecurityViewComponent implements OnInit {
   securityOther: any;
   assignments: any;
   assignment = false;
+  totalLandSecurityDistressValue = 0;
+  totalLandSecurityMarketValue = 0;
+  totalLandSecurityConsideredValue = 0;
 
   constructor() {
   }
@@ -106,6 +109,10 @@ export class SecurityViewComponent implements OnInit {
     if (this.depositSelected) {
       this.calculateTotal();
     }
+
+    if (this.landSelected) {
+      this.calcLandSecuritiesTotal();
+    }
   }
 
   calculateShareTotals() {
@@ -120,6 +127,23 @@ export class SecurityViewComponent implements OnInit {
     const depositList = this.securityData['initialForm']['fixedDepositDetails'];
     depositList.forEach(deposit => {
       this.totalAmount += deposit.amount;
+    });
+  }
+
+  calcLandSecuritiesTotal() {
+    this.totalLandSecurityDistressValue = 0;
+    this.totalLandSecurityMarketValue = 0;
+    this.totalLandSecurityConsideredValue = 0;
+    this.securityData['initialForm']['landDetails'].forEach(sec => {
+      if (sec['revaluationData'] !== null && sec['revaluationData']['isReValuated']) {
+        this.totalLandSecurityDistressValue += Number(sec['revaluationData']['reValuatedDv']);
+        this.totalLandSecurityMarketValue += Number(sec['revaluationData']['reValuatedFmv']);
+        this.totalLandSecurityConsideredValue += Number(sec['revaluationData']['reValuatedConsideredValue']);
+      } else {
+        this.totalLandSecurityDistressValue += Number(sec['distressValue']);
+        this.totalLandSecurityMarketValue += Number(sec['marketValue']);
+        this.totalLandSecurityConsideredValue += Number(sec['landConsideredValue']);
+      }
     });
   }
 
