@@ -4,9 +4,11 @@
             <div class="row">
                 <div class="col-md-12 mt-3 mb-2">
                     <strong>Revaluation Done: </strong>
-                    <nb-radio-group formControlName="isReValuated" class="ml-1 d-inline-flex ">
-                        <nb-radio [value]="true">Yes</nb-radio>
-                        <nb-radio [value]="false">No</nb-radio>
+                    <nb-radio-group
+                            formControlName="isReValuated"
+                            class="ml-1 d-inline-flex ">
+                        <nb-radio (click)="revaluate(true, index)" [value]="true" value="true">Yes</nb-radio>
+                        <nb-radio (click)="revaluate(false, index)" [value]="false" value="false">No</nb-radio>
                     </nb-radio-group>
                 </div>
                 <ng-container *ngIf="formControls.isReValuated.value">
@@ -44,7 +46,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="reValuatedFmv">FMV as per Revaluation</label>
-                            <input class="form-control rounded" formControlName="reValuatedFmv"
+                            <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
+                                   class="form-control rounded" formControlName="reValuatedFmv"
                                    id="reValuatedFmv"
                                    name="reValuatedFmv" placeholder="market value"
                                    type="text"/>
@@ -53,7 +56,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="reValuatedDv">DV as per Revaluation</label>
-                            <input class="form-control rounded" formControlName="reValuatedDv"
+                            <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
+                                   class="form-control rounded" formControlName="reValuatedDv"
                                    id="reValuatedDv"
                                    name="reValuatedDv" placeholder="distress value"
                                    type="text"/>
@@ -62,7 +66,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="reValuatedConsideredValue">Considered Value as per Revaluation</label>
-                            <input class="form-control" formControlName="reValuatedConsideredValue"
+                            <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
+                                   class="form-control" formControlName="reValuatedConsideredValue"
                                    id="reValuatedConsideredValue" name="total" placeholder="considered value">
                         </div>
                     </div>
