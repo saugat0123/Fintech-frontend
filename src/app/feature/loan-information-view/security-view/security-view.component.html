@@ -175,24 +175,6 @@
 
       </tbody>
     </table>
-
-    <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-      <thead>
-      <tr class="text-white sb-bg-dark">
-        <th>Total Land Distress Value</th>
-        <th>Total Land Market Value</th>
-        <th>Total Land Considered Value</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>{{totalLandSecurityDistressValue}}</td>
-        <td>{{totalLandSecurityMarketValue}}</td>
-        <td>{{totalLandSecurityConsideredValue}}</td>
-      </tr>
-      </tbody>
-    </table>
-
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
       <thead>
       <tr class="text-white sb-bg-dark">
@@ -204,6 +186,22 @@
         <td>{{securityData['initialForm']['description']}}</td>
       </tr>
       </tbody>
+    </table>
+    <table class="table-sm mb-3 table-condensed table-responsive-md text-left table-sm sb-small" width="100%">
+      <tr>
+        <td>
+          <mark class="alert-warning text">Total Land Distress Value:</mark>
+          <strong>Rs.{{this.landSecurities['totaldv']}}</strong>
+        </td>
+        <td>
+          <mark class="alert-warning">Total Land Market Value:</mark>
+          <strong>Rs.{{this.landSecurities['totalmv']}}</strong>
+        </td>
+        <td>
+          <mark class="alert-warning">Total Land Considered Value:</mark>
+          <strong> Rs. {{this.landSecurities['totalcv']}}</strong>
+        </td>
+      </tr>
     </table>
   </div>
 
@@ -447,6 +445,22 @@
       </tr>
       <tr>
         <td class="text-left pl-1">{{securityData['initialForm']?.landBuildingDescription}}</td>
+      </tr>
+    </table>
+    <table class="table-sm mb-3 table-condensed table-responsive-md text-left table-sm sb-small" width="100%">
+      <tr>
+        <td>
+          <mark class="alert-warning text">Total Land & Building Distress Value:</mark>
+          <strong>Rs.{{this.landAndBuildingSecurities['totaldv']}}</strong>
+        </td>
+        <td>
+          <mark class="alert-warning">Total Land & Building Market Value:</mark>
+          <strong>Rs.{{this.landAndBuildingSecurities['totalmv']}}</strong>
+        </td>
+        <td>
+          <mark class="alert-warning">Total Land & Building Considered Value:</mark>
+          <strong> Rs. {{this.landAndBuildingSecurities['totalcv']}}</strong>
+        </td>
       </tr>
     </table>
   </div>
@@ -764,6 +778,22 @@
         <td class="text-left pl-1">{{securityData['initialForm']['buildingDetailsDescription']}}</td>
       </tr>
       </tbody>
+    </table>
+    <table class="table-sm mb-3 table-condensed table-responsive-md text-left table-sm sb-small" width="100%">
+      <tr>
+        <td>
+          <mark class="alert-warning text">Total Apartment Distress Value:</mark>
+          <strong>Rs.{{this.buildingSecurities['totaldv']}}</strong>
+        </td>
+        <td>
+          <mark class="alert-warning">Total Apartment Market Value:</mark>
+          <strong>Rs.{{this.buildingSecurities['totalmv']}}</strong>
+        </td>
+        <td>
+          <mark class="alert-warning">Total Apartment Considered Value:</mark>
+          <strong> Rs. {{this.buildingSecurities['totalcv']}}</strong>
+        </td>
+      </tr>
     </table>
   </div>
 

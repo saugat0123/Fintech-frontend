@@ -41,9 +41,21 @@ export class SecurityViewComponent implements OnInit {
   securityOther: any;
   assignments: any;
   assignment = false;
-  totalLandSecurityDistressValue = 0;
-  totalLandSecurityMarketValue = 0;
-  totalLandSecurityConsideredValue = 0;
+  buildingSecurities = {
+    totaldv: 0,
+    totalmv: 0,
+    totalcv: 0
+  };
+  landSecurities = {
+    totaldv: 0,
+    totalmv: 0,
+    totalcv: 0
+  };
+  landAndBuildingSecurities = {
+    totaldv: 0,
+    totalmv: 0,
+    totalcv: 0
+  };
 
   constructor() {
   }
@@ -113,6 +125,12 @@ export class SecurityViewComponent implements OnInit {
     if (this.landSelected) {
       this.calcLandSecuritiesTotal();
     }
+    if (this.apartmentSelected) {
+      this.calcBuildingSecuritiesTotal();
+    }
+    if (this.landAndBuildingSecurities) {
+      this.calcLandAndBuildingSecurityTotal();
+    }
   }
 
   calculateShareTotals() {
@@ -130,21 +148,45 @@ export class SecurityViewComponent implements OnInit {
     });
   }
 
-  calcLandSecuritiesTotal() {
-    this.totalLandSecurityDistressValue = 0;
-    this.totalLandSecurityMarketValue = 0;
-    this.totalLandSecurityConsideredValue = 0;
-    this.securityData['initialForm']['landDetails'].forEach(sec => {
+  calcBuildingSecuritiesTotal() {
+    this.securityData['initialForm']['buildingDetails'].forEach(sec => {
       if (sec['revaluationData'] !== null && sec['revaluationData']['isReValuated']) {
-        this.totalLandSecurityDistressValue += Number(sec['revaluationData']['reValuatedDv']);
-        this.totalLandSecurityMarketValue += Number(sec['revaluationData']['reValuatedFmv']);
-        this.totalLandSecurityConsideredValue += Number(sec['revaluationData']['reValuatedConsideredValue']);
+        this.buildingSecurities['totaldv'] += Number(sec['revaluationData']['reValuatedDv']);
+        this.buildingSecurities['totalmv'] += Number(sec['revaluationData']['reValuatedFmv']);
+        this.buildingSecurities['totalcv'] += Number(sec['revaluationData']['reValuatedConsideredValue']);
       } else {
-        this.totalLandSecurityDistressValue += Number(sec['distressValue']);
-        this.totalLandSecurityMarketValue += Number(sec['marketValue']);
-        this.totalLandSecurityConsideredValue += Number(sec['landConsideredValue']);
+        this.buildingSecurities['totaldv'] += Number(sec['buildingDistressValue']);
+        this.buildingSecurities['totalmv'] += Number(sec['buildingFairMarketValue']);
+        this.buildingSecurities['totalcv'] += Number(sec['buildingConsideredValue']);
       }
     });
   }
 
+  calcLandSecuritiesTotal() {
+    this.securityData['initialForm']['landDetails'].forEach(sec => {
+      if (sec['revaluationData'] !== null && sec['revaluationData']['isReValuated']) {
+        this.landSecurities['totaldv'] += Number(sec['revaluationData']['reValuatedDv']);
+        this.landSecurities['totalmv'] += Number(sec['revaluationData']['reValuatedFmv']);
+        this.landSecurities['totalcv'] += Number(sec['revaluationData']['reValuatedConsideredValue']);
+      } else {
+        this.landSecurities['totaldv'] += Number(sec['distressValue']);
+        this.landSecurities['totalmv'] += Number(sec['marketValue']);
+        this.landSecurities['totalcv'] += Number(sec['landConsideredValue']);
+      }
+    });
+  }
+
+  calcLandAndBuildingSecurityTotal() {
+    this.securityData['initialForm']['landBuilding'].forEach(sec => {
+      if (sec['revaluationData'] !== null && sec['revaluationData']['isReValuated']) {
+        this.landAndBuildingSecurities['totaldv'] += Number(sec['revaluationData']['reValuatedDv']);
+        this.landAndBuildingSecurities['totalmv'] += Number(sec['revaluationData']['reValuatedFmv']);
+        this.landAndBuildingSecurities['totalcv'] += Number(sec['revaluationData']['reValuatedConsideredValue']);
+      } else {
+        this.landAndBuildingSecurities['totaldv'] += Number(sec['distressValue']);
+        this.landAndBuildingSecurities['totalmv'] += Number(sec['marketValue']);
+        this.landAndBuildingSecurities['totalcv'] += Number(sec['landConsideredValue']);
+      }
+    });
+  }
 }

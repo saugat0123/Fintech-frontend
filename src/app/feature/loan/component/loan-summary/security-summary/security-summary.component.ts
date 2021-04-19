@@ -4,6 +4,7 @@ import {NepseMaster} from '../../../../admin/modal/NepseMaster';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {OwnershipTransfer} from '../../../model/ownershipTransfer';
+import {FormArray} from '@angular/forms';
 
 
 @Component({
@@ -40,9 +41,21 @@ export class SecuritySummaryComponent implements OnInit {
   otherDetail: any;
   assignments = false;
   leaseAssignment: any;
-  totalLandSecurityDistressValue = 0;
-  totalLandSecurityMarketValue = 0;
-  totalLandSecurityConsideredValue = 0;
+  landSecurities = {
+    totaldv: 0,
+    totalmv: 0,
+    totalcv: 0
+  };
+  buildingSecurities = {
+    totaldv: 0,
+    totalmv: 0,
+    totalcv: 0
+  };
+  landAndBuildingSecurities = {
+    totaldv: 0,
+    totalmv: 0,
+    totalcv: 0
+  };
 
   constructor() {
   }
@@ -117,9 +130,16 @@ export class SecuritySummaryComponent implements OnInit {
       this.calculateShareTotals();
       this.loanSharePercent = this.shareSecurity['loanShareRate'];
     }
+    if (this.apartmentSelected) {
+      this.calcBuildingSecuritiesTotal();
+    }
     if (this.landSelected) {
       this.calcLandSecuritiesTotal();
     }
+    if (this.landAndBuildingSecurities) {
+      this.calcLandAndBuildingSecurityTotal();
+    }
+
     if (this.formData['guarantorsForm']['guarantorsDetails'].length !== 0) {
       this.isPresentGuarantor = true;
     }
@@ -141,18 +161,43 @@ export class SecuritySummaryComponent implements OnInit {
   }
 
   calcLandSecuritiesTotal() {
-    this.totalLandSecurityDistressValue = 0;
-    this.totalLandSecurityMarketValue = 0;
-    this.totalLandSecurityConsideredValue = 0;
     this.formData['initialForm']['landDetails'].forEach(sec => {
       if (sec['revaluationData'] !== null && sec['revaluationData']['isReValuated']) {
-        this.totalLandSecurityDistressValue += Number(sec['revaluationData']['reValuatedDv']);
-        this.totalLandSecurityMarketValue += Number(sec['revaluationData']['reValuatedFmv']);
-        this.totalLandSecurityConsideredValue += Number(sec['revaluationData']['reValuatedConsideredValue']);
+        this.landSecurities['totaldv'] += Number(sec['revaluationData']['reValuatedDv']);
+        this.landSecurities['totalmv'] += Number(sec['revaluationData']['reValuatedFmv']);
+        this.landSecurities['totalcv'] += Number(sec['revaluationData']['reValuatedConsideredValue']);
       } else {
-        this.totalLandSecurityDistressValue += Number(sec['distressValue']);
-        this.totalLandSecurityMarketValue += Number(sec['marketValue']);
-        this.totalLandSecurityConsideredValue += Number(sec['landConsideredValue']);
+        this.landSecurities['totaldv'] += Number(sec['distressValue']);
+        this.landSecurities['totalmv'] += Number(sec['marketValue']);
+        this.landSecurities['totalcv'] += Number(sec['landConsideredValue']);
+      }
+    });
+  }
+
+  calcBuildingSecuritiesTotal() {
+    this.formData['initialForm']['buildingDetails'].forEach(sec => {
+      if (sec['revaluationData'] !== null && sec['revaluationData']['isReValuated']) {
+        this.buildingSecurities['totaldv'] += Number(sec['revaluationData']['reValuatedDv']);
+        this.buildingSecurities['totalmv'] += Number(sec['revaluationData']['reValuatedFmv']);
+        this.buildingSecurities['totalcv'] += Number(sec['revaluationData']['reValuatedConsideredValue']);
+      } else {
+        this.buildingSecurities['totaldv'] += Number(sec['buildingDistressValue']);
+        this.buildingSecurities['totalmv'] += Number(sec['buildingFairMarketValue']);
+        this.buildingSecurities['totalcv'] += Number(sec['buildingConsideredValue']);
+      }
+    });
+  }
+
+  calcLandAndBuildingSecurityTotal() {
+    this.formData['initialForm']['landBuilding'].forEach(sec => {
+      if (sec['revaluationData'] !== null && sec['revaluationData']['isReValuated']) {
+        this.landAndBuildingSecurities['totaldv'] += Number(sec['revaluationData']['reValuatedDv']);
+        this.landAndBuildingSecurities['totalmv'] += Number(sec['revaluationData']['reValuatedFmv']);
+        this.landAndBuildingSecurities['totalcv'] += Number(sec['revaluationData']['reValuatedConsideredValue']);
+      } else {
+        this.landAndBuildingSecurities['totaldv'] += Number(sec['distressValue']);
+        this.landAndBuildingSecurities['totalmv'] += Number(sec['marketValue']);
+        this.landAndBuildingSecurities['totalcv'] += Number(sec['landConsideredValue']);
       }
     });
   }

@@ -149,9 +149,15 @@ export class SecurityInitialFormComponent implements OnInit {
     totalmv: 0,
     totalcv: 0
   };
+  buildingSecurities = {
+    totaldv: 0,
+    totalmv: 0,
+    totalcv: 0
+  };
 
   totalLandValueRemarks: any;
   totalLandAndBuildingValueRemarks: any;
+  totalBuildingValueRemarks: any;
 
   constructor(private formBuilder: FormBuilder,
               private valuatorToast: ToastService,
@@ -209,6 +215,7 @@ export class SecurityInitialFormComponent implements OnInit {
       this.setLandBuildingDescription(this.formDataForEdit['landBuildingDescription']);
       this.setLandValueRemarks(this.formDataForEdit['totalLandValueRemarks']);
       this.setLandAndBuildingValueRemarks(this.formDataForEdit['totalLandAndBuildingValueRemarks']);
+      this.setBuildingValueRemarks(this.formDataForEdit['totalBuildingValueRemarks']);
       this.setRemark(this.formDataForEdit['remark']);
       this.setHypothecation(this.formDataForEdit['hypothecationOfStock']);
       this.setAssignments(this.formDataForEdit['leaseAssignment']);
@@ -250,8 +257,52 @@ export class SecurityInitialFormComponent implements OnInit {
       this.setShareSecurityDetails(this.shareSecurity);
     }
     this.updateLandSecurityTotal();
+    this.updateBuildingSecurityTotal();
     this.updateLandAndBuildingSecurityTotal();
 
+  }
+
+  eventBuildingSecurity($event) {
+    console.log($event, 'Event');
+    const building = this.securityForm.get('buildingDetails') as FormArray;
+    $event['reValuatedDv'] = $event['reValuatedDv'] == null ? 0 : $event['reValuatedDv'];
+    $event['reValuatedFmv'] = $event['reValuatedFmv'] == null ? 0 : $event['reValuatedFmv'];
+    $event['reValuatedConsideredValue'] = $event['reValuatedConsideredValue'] == null ? 0 : $event['reValuatedConsideredValue'];
+
+    if ($event['isReValuated']) {
+      building.controls[$event['index']]['controls']['revaluationData']['value']['isReValuated'] = Boolean(true);
+      building.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedDv'] = $event['reValuatedDv'];
+      building.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedFmv'] = $event['reValuatedFmv'];
+      building.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedConsideredValue'] = $event['reValuatedConsideredValue'];
+    } else {
+      building.controls[$event['index']]['controls']['revaluationData']['value']['isReValuated'] = Boolean(false);
+      building.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedDv'] = 0;
+      building.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedFmv'] = 0;
+      building.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedConsideredValue'] = 0;
+    }
+    this.updateBuildingSecurityTotal();
+  }
+
+  updateBuildingSecurityTotal() {
+    const building = this.securityForm.get('buildingDetails') as FormArray;
+    this.buildingSecurities = {
+      totaldv: 0,
+      totalmv: 0,
+      totalcv: 0
+    };
+    console.log(building, 'Land Building non event');
+    building['value'].forEach((sec) => {
+      if (sec['revaluationData'] !== null && sec['revaluationData']['isReValuated']) {
+        this.buildingSecurities['totaldv'] += Number(sec['revaluationData']['reValuatedDv']);
+        this.buildingSecurities['totalmv'] += Number(sec['revaluationData']['reValuatedFmv']);
+        this.buildingSecurities['totalcv'] += Number(sec['revaluationData']['reValuatedConsideredValue']);
+      } else {
+        this.buildingSecurities['totaldv'] += Number(sec['buildingDistressValue']);
+        this.buildingSecurities['totalmv'] += Number(sec['buildingFairMarketValue']);
+        this.buildingSecurities['totalcv'] += Number(sec['buildingConsideredValue']);
+      }
+
+    });
   }
 
   eventLandSecurity($event) {
@@ -317,7 +368,6 @@ export class SecurityInitialFormComponent implements OnInit {
 
   updateLandAndBuildingSecurityTotal() {
     const landBuilding = this.securityForm.get('landBuilding') as FormArray;
-    // const landBuilding = this.securityForm;
     this.landAndBuildingSecurities = {
       totaldv: 0,
       totalmv: 0,
@@ -343,6 +393,7 @@ export class SecurityInitialFormComponent implements OnInit {
       description: [undefined],
       totalLandValueRemarks: [undefined],
       totalLandAndBuildingValueRemarks: [undefined],
+      totalBuildingValueRemarks: [undefined],
       landDetails: this.formBuilder.array([]),
       buildingDetails: this.formBuilder.array([]),
       buildingUnderConstructions: this.formBuilder.array([]),
@@ -443,6 +494,10 @@ export class SecurityInitialFormComponent implements OnInit {
 
   setLandAndBuildingValueRemarks(landValueRemarks) {
     this.securityForm.get('totalLandAndBuildingValueRemarks').setValue(landValueRemarks);
+  }
+
+  setBuildingValueRemarks(landValueRemarks) {
+    this.securityForm.get('totalBuildingValueRemarks').setValue(landValueRemarks);
   }
 
   setRemark(remarkData) {
@@ -622,6 +677,7 @@ export class SecurityInitialFormComponent implements OnInit {
           sanitation: [singleData.sanitation],
           electrification: [singleData.electrification],
           buildingTotalCost: [singleData.buildingTotalCost],
+          buildingConsideredValue: [singleData.buildingConsideredValue],
           buildingFairMarketValue: [singleData.buildingFairMarketValue],
           buildingDistressValue: [singleData.buildingDistressValue],
           electrificationPercent: [singleData.electrificationPercent],
@@ -742,6 +798,7 @@ export class SecurityInitialFormComponent implements OnInit {
             sanitation: [singleData.buildingDetailsBeforeCompletion.sanitation],
             electrification: [singleData.buildingDetailsBeforeCompletion.electrification],
             buildingTotalCost: [singleData.buildingDetailsBeforeCompletion.buildingTotalCost],
+            buildingConsideredValue: [singleData.buildingDetailsBeforeCompletion.buildingConsideredValue],
             buildingFairMarketValue: [singleData.buildingDetailsBeforeCompletion.buildingFairMarketValue],
             buildingDistressValue: [singleData.buildingDetailsBeforeCompletion.buildingDistressValue],
             electrificationPercent: [singleData.buildingDetailsBeforeCompletion.electrificationPercent],
@@ -763,6 +820,7 @@ export class SecurityInitialFormComponent implements OnInit {
             sanitation: [singleData.buildingDetailsAfterCompletion.sanitation],
             electrification: [singleData.buildingDetailsAfterCompletion.electrification],
             buildingTotalCost: [singleData.buildingDetailsAfterCompletion.buildingTotalCost],
+            buildingConsideredValue: [singleData.buildingDetailsAfterCompletion.buildingConsideredValue],
             buildingFairMarketValue: [singleData.buildingDetailsAfterCompletion.buildingFairMarketValue],
             buildingDistressValue: [singleData.buildingDetailsAfterCompletion.buildingDistressValue],
             waterSupplyPercent: [singleData.buildingDetailsAfterCompletion.waterSupplyPercent],
@@ -798,6 +856,7 @@ export class SecurityInitialFormComponent implements OnInit {
           sanitation: [undefined],
           electrification: [undefined],
           buildingTotalCost: [undefined],
+          buildingConsideredValue: [undefined],
           buildingFairMarketValue: [undefined],
           buildingDistressValue: [undefined]
         }),
@@ -818,6 +877,7 @@ export class SecurityInitialFormComponent implements OnInit {
           sanitation: [undefined],
           electrification: [undefined],
           buildingTotalCost: [undefined],
+          buildingConsideredValue: [undefined],
           buildingFairMarketValue: [undefined],
           buildingDistressValue: [undefined]
 
@@ -1068,6 +1128,7 @@ export class SecurityInitialFormComponent implements OnInit {
       sanitation: [''],
       electrification: [''],
       buildingTotalCost: [''],
+      buildingConsideredValue: [''],
       buildingFairMarketValue: [''],
       buildingDistressValue: [''],
       buildingDetailsDescription: [''],
@@ -1076,7 +1137,7 @@ export class SecurityInitialFormComponent implements OnInit {
       ApartmentValuatorRepresentative: [undefined],
       ApartmentStaffRepresentativeName: [undefined],
       apartmentBranch: [undefined],
-      revaluationData: [undefined],
+      revaluationData: [{isReValuated: false, reValuatedDv: 0, reValuatedFmv: 0, reValuatedConsideredValue: 0}],
       apartmentStaffRepresentativeDesignation: [undefined],
       apartmentStaffRepresentativeDesignation2: [undefined],
       apartmentStaffRepresentativeName2: [undefined],
@@ -1288,6 +1349,7 @@ export class SecurityInitialFormComponent implements OnInit {
 
   removeBuildingDetails(index: number) {
     (this.securityForm.get('buildingDetails') as FormArray).removeAt(index);
+    this.updateBuildingSecurityTotal();
   }
 
   removeBuildingUnderConstructions(index: number) {

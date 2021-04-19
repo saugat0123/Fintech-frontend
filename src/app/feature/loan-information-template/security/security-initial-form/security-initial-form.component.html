@@ -634,10 +634,24 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
+                    <label class="title" for="buildingFairMarketValue">Apartment Considered
+
+                      Value</label>
+                    <input (change)="updateBuildingSecurityTotal()"
+                           class="form-control rounded"
+                           formControlName="buildingConsideredValue"
+                           id="buildingConsideredValue"
+                           name="buildingConsideredValue" placeholder="Apartment Considered Value"
+                           type="text"/>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
                     <label class="title" for="buildingFairMarketValue">Apartment Fair
                       Market
                       Value</label>
-                    <input class="form-control rounded"
+                    <input (change)="updateBuildingSecurityTotal()"
+                           class="form-control rounded"
                            formControlName="buildingFairMarketValue"
                            id="buildingFairMarketValue"
                            name="buildingFairMarketValue" placeholder="Apartment FMV"
@@ -648,7 +662,8 @@
                   <div class="form-group">
                     <label class="title" for="buildingDistressValue">Apartment Distress
                       Value</label>
-                    <input class="form-control rounded"
+                    <input (change)="updateBuildingSecurityTotal()"
+                           class="form-control rounded"
                            formControlName="buildingDistressValue"
                            id="buildingDistressValue"
                            name="buildingDistressValue" placeholder="Apartment DV"
@@ -777,6 +792,8 @@
                                             [oldValuation]="securityForm.get('buildingDetails').value"
                                             [revaluationId]="securityId.apartmentId + i"
                                             [calendarType]="calendarType"
+                                            [index]="i"
+                                            (revaluationDataEmitter)="eventBuildingSecurity($event)"
                   ></app-security-revaluation>
                 </div>
                 <div *ngIf="securityForm.get('buildingDetails')['length'] > 1"
@@ -807,6 +824,30 @@
                     id="buildingDetailsDescription"
                     placeholder="Apartment Description"
                     rows="5"></textarea>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md-12">
+          <table class="table table-bordered">
+            <thead class="thead-light">
+            <tr>
+              <th>Total Considered Value</th>
+              <th>Total Fair Market Value</th>
+              <th>Total Distress Value</th>
+              <th>Remarks</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>{{this.buildingSecurities['totalcv'] }}</td>
+              <td>{{this.buildingSecurities['totalmv'] }}</td>
+              <td>{{this.buildingSecurities['totaldv'] }}</td>
+              <td><input type="text" class="form-control" id="totalBuildingValueRemarks"
+                         formControlName="totalBuildingValueRemarks"/></td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
