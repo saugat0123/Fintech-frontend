@@ -36,4 +36,5 @@ export class FixedAssetsCollateral {
   inspectingStaffList: Array<InspectingStaff> = new Array<InspectingStaff>();
   commentsAboutFAC: string;
   branchInchargeComment: string;
+  data?: string;
 }

@@ -44,6 +44,7 @@ import {NtaMegaComponent} from './nta-mega/nta-mega.component';
 import { MicroProposalComponent } from '../micro-loan/form-component/micro-proposal/micro-proposal.component';
 import { CommentsComponent } from './comments/comments.component';
 import { PreviousSecurityComponent } from './previous-security/previous-security.component';
+import { FixedAssetsCollateralFormComponent } from './site-visit/fixed-assets-collateral-form/fixed-assets-collateral-form.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -75,7 +76,8 @@ const COMPONENTS = [
     OwnerKycApplicableComponent,
     CadDocumentUploadComponent,
     NtaMegaComponent,
-    PreviousSecurityComponent
+    PreviousSecurityComponent,
+    FixedAssetsCollateralFormComponent
 ];
 
 
