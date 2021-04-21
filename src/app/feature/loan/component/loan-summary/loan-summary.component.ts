@@ -627,5 +627,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             && storage.roleType === 'COMMITTEE'
             && this.loanDataHolder.currentStage.toUser.id === Number(storage.userId);
     }
+
+    public customSafePipe(val) {
+        return val.replace(/(<([^>]+)>)/gi, "");
+    }
 }
 

@@ -1102,16 +1102,16 @@
 
                             <td class="text-left pl-1">{{previousList?.docAction}}</td>
                             <td class="text-left">
-                                <div class="pl-1 disable-print">
-                                    {{previousList?.comment?.length > 50 ?
+                                <div class="pl-1 disable-print" [innerHTML]="customSafePipe(
+                                    previousList?.comment?.length > 50 ?
                                     previousList?.comment?.substring(0, 49) :
-                                    previousList?.comment}}
+                                    previousList?.comment)">
                                 </div>
                                 <a (click)="open(previousList?.comment)"
                                    *ngIf="previousList?.comment?.length > 50"
                                    class="text-left pl-1 disable-print">read more ....</a>
                                 <div>
-                                    <span class="pl-1 print-only justify-content">{{previousList?.comment}}</span>
+                                    <span class="pl-1 print-only justify-content" [innerHTML]="previousList?.comment | safeHtml"></span>
                                 </div>
                             </td>
                         </tr>
@@ -1137,9 +1137,9 @@
                             <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe }}</td>
                             <td class="text-left">
                                 <div class="pl-1 disable-print">
-                                    <span [innerHTML]="loanDataHolder?.currentStage?.comment?.length > 50 ?
+                                    <span [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?
                                     loanDataHolder?.currentStage?.comment?.substring(0, 49) :
-                                    loanDataHolder?.currentStage?.comment | safeHtml"></span>
+                                    loanDataHolder?.currentStage?.comment)"></span>
                                 </div>
                                 <a (click)="open(loanDataHolder.currentStage.comment)"
                                    *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
@@ -1211,9 +1211,9 @@
                             <td class="text-left pl-1">{{previousList?.docAction}}</td>
                             <td class="text-left">
                                 <div class="pl-1">
-                                    <span [innerHTML]="previousList?.comment?.length > 50 ?
+                                    <span [innerHTML]="customSafePipe(previousList?.comment?.length > 50 ?
                                     previousList?.comment?.substring(0, 49) :
-                                    previousList?.comment | safeHtml"></span>
+                                    previousList?.comment)"></span>
                                 </div>
                                 <a (click)="open(previousList?.comment)"
                                    *ngIf="previousList?.comment?.length > 50"
