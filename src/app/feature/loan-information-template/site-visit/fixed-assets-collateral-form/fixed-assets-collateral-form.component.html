@@ -187,16 +187,16 @@
                                     <input class="form-control" formControlName="buildingArea" id="buildingArea"
                                            name="buildingArea" placeholder="building area">
                                 </div>
-<!--                                <div *ngIf="fixedAssetsForm?.get('otherFacilities')?.get('building')?.value == 'YES'"-->
-<!--                                     class="col-md-12 form-group">-->
-<!--                                    <label class="title" for="constructionYear">Construction Year</label>-->
-<!--                                    <input nbInput fullWidth [ngClass]="{'is-invalid': submitted && form.constructionYear.errors}"-->
-<!--                                           class="form-control" formControlName="constructionYear" id="constructionYear"-->
-<!--                                           type="date">-->
-<!--                                    <div *ngIf="submitted && form.constructionYear.invalid" class="invalid-feedback">-->
-<!--                                        Construction Year is required-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                                <div *ngIf="fixedAssetsForm?.get('otherFacilities')?.get('building')?.value == 'YES'"
+                                     class="col-md-12 form-group">
+                                    <label class="title" for="constructionYear">Construction Year</label>
+                                    <input nbInput fullWidth [ngClass]="{'is-invalid': submitted && form.constructionYear?.errors}"
+                                           class="form-control" formControlName="constructionYear" id="constructionYear"
+                                           type="date">
+                                    <div *ngIf="submitted && form.constructionYear?.invalid" class="invalid-feedback">
+                                        Construction Year is required
+                                    </div>
+                                </div>
                                 <div *ngIf="fixedAssetsForm.get('otherFacilities')?.get('building')?.value == 'YES'"
                                      class="col-md-12 form-group">
                                     <label class="title" for="buildingType">Building Type</label>
@@ -446,6 +446,8 @@
             <em class="fa fa-save"></em>
         </button>
     </nb-card-footer>
+
+    {{fixedData | json}}
 </nb-card>
 
 

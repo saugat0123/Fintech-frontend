@@ -2,12 +2,11 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {SiteVisit} from '../../admin/modal/siteVisit';
-import {NbDateService} from '@nebular/theme';
+import {NbDateService, NbDialogService} from '@nebular/theme';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {FormUtils} from '../../../@core/utils/form.utils';
 import {Pattern} from '../../../@core/utils/constants/pattern';
-import {DesignationList} from '../../loan/model/designationList';
 import {InsuranceList} from '../../loan/model/insuranceList';
 import {CommonAddressComponent} from '../../common-address/common-address.component';
 import {RoleService} from '../../admin/component/role-permission/role.service';
@@ -18,6 +17,7 @@ import {Security} from '../../loan/model/security';
 import {FixedAssetsCollateralFormComponent} from './fixed-assets-collateral-form/fixed-assets-collateral-form.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FixedAssetsCollateral} from '../../admin/modal/fixedAssetsCollateral';
+import {CustomerInfoService} from '../../customer/service/customer-info.service';
 
 
 declare let google: any;
@@ -75,7 +75,9 @@ export class SiteVisitComponent implements OnInit {
               dateService: NbDateService<Date>,
               private toastService: ToastService,
               private roleService: RoleService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private customerInfoService: CustomerInfoService,
+              private dialogService: NbDialogService) {
     this.date = dateService.today();
   }
 
@@ -1131,10 +1133,10 @@ export class SiteVisitComponent implements OnInit {
     });
   }
 
-  add(index) {
+  add() {
     const modalRef = this.modalService.open(FixedAssetsCollateralFormComponent, {size: 'lg'});
     modalRef.componentInstance.model = new FixedAssetsCollateral();
-    modalRef.componentInstance.index = index;
+    modalRef.componentInstance.formValue = this.formValue;
     modalRef.componentInstance.customerInfoId = this.customerInfoId;
   }
 
@@ -1152,6 +1154,19 @@ export class SiteVisitComponent implements OnInit {
     });
     console.log('concat data:::::', this.concatData);
   }
+
+  // editCollateral(data) {
+  //   this.customerInfoService.detail(data.customerInfoId).subscribe( (response: any) => {
+  //     const detail = response.detail;
+  //     console.log(detail, 'Detail');
+  //     this.dialogService.open(FixedAssetsCollateralFormComponent, {
+  //       context: {
+  //         model: detail,
+  //       },
+  //     });
+  //   }, error => this.toastService.show(new Alert(AlertType.ERROR, error.error.message)));
+  //   console.log(this.customerInfoId, 'ID');
+  // }
 }
 
 

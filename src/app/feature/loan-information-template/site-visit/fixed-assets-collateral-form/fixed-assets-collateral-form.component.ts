@@ -24,7 +24,7 @@ import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 })
 export class FixedAssetsCollateralFormComponent implements OnInit {
 
-  @Input() index;
+  @Input() formValue: SiteVisit;
   @Input() model: FixedAssetsCollateral;
   @Input() customerInfoId;
 
@@ -42,6 +42,7 @@ export class FixedAssetsCollateralFormComponent implements OnInit {
   fixed = false;
   siteVisit: SiteVisit;
   customerInfo: CustomerInfoData;
+  fixedData;
 
   constructor(private formBuilder: FormBuilder,
               private roleService: RoleService,
@@ -51,10 +52,10 @@ export class FixedAssetsCollateralFormComponent implements OnInit {
 
   ngOnInit() {
     this.getRoleList();
-    // if (!ObjectUtil.isEmpty(this.data)) {
-    //   const stringFormData = this.data.data;
-    //   this.formDataForEdit = JSON.parse(stringFormData);
-    // }
+    if (!ObjectUtil.isEmpty(this.formValue)) {
+      const stringFormData = this.formValue.data;
+      this.formDataForEdit = JSON.parse(stringFormData);
+    }
     this.buildForm();
     this.addStaffOfVicinity();
     this.customerInfoService.detail(this.customerInfoId).subscribe((res: any) => {
@@ -63,7 +64,8 @@ export class FixedAssetsCollateralFormComponent implements OnInit {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load customer information'));
     });
-    console.log(this.index, 'index');
+    console.log(this.formDataForEdit, 'Site visit data');
+    console.log(this.formValue.data, 'FormValue Data');
     console.log(this.customerInfoId, 'cusotmerInforId');
   }
   buildForm() {
@@ -171,8 +173,10 @@ export class FixedAssetsCollateralFormComponent implements OnInit {
     this.submitted = true;
     this.submitData = this.fixedAssetsForm.value;
     this.model.data = JSON.stringify(this.submitData);
-    console.log(this.submitData, 'Submmit data');
-    console.log(this.model.data, 'Json Data');
+    // console.log(this.submitData, 'Submmit data');
+    // console.log(this.model.data, 'Json Data');
+    this.fixedData = this.formValue.data.concat(this.model.data);
+    console.log(this.fixedData, 'Data');
 
     // this.customerInfoService.saveCollateral(this.model, this.index).subscribe(() => {
     //         this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Branch!'));
@@ -184,7 +188,7 @@ export class FixedAssetsCollateralFormComponent implements OnInit {
     //       this.activeModal.dismiss(error);
     //     }
     // );
-    this.customerInfoService.saveLoanInfo(this.model, this.customerInfoId, TemplateName.SITE_VISIT)
+    this.customerInfoService.saveLoanInfo(this.fixedData, this.customerInfoId, TemplateName.SITE_VISIT)
         .subscribe(() => {
           this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully collateral form!'));
         }, error => {
