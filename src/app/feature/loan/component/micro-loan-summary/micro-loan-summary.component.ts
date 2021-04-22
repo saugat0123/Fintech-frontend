@@ -613,4 +613,8 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
     this.router.navigate(['home/approval-role-hierarchy', 'LOAN', loanId]);
   }
 
+  public customSafePipe(val) {
+    return val.replace(/(<([^>]+)>)/gi, "");
+  }
+
 }
