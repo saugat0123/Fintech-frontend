@@ -37,6 +37,7 @@ import {environment as envSrdb} from '../../../../../../environments/environment
 import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
 import {Clients} from '../../../../../../environments/Clients';
+import {Editor} from '../../../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-customer-form',
@@ -124,6 +125,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     crgLambdaDisabled = envSrdb.disableCrgLambda;
     client = environment.client;
     clientName = Clients;
+    ckeConfig = Editor.CK_CONFIG;
 
     ngOnInit() {
         this.getProvince();

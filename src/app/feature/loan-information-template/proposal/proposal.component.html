@@ -653,13 +653,11 @@
                                     <div class="form-group">
                                         <label class="title" for="disbursementCriteria"><strong>Disbursement
                                             Criteria</strong></label>
-                                        <textarea
+                                        <ckeditor
                                                 [ngClass]="{ 'is-invalid': (submitted) && formControls.disbursementCriteria.errors }"
-                                                class="form-control"
                                                 formControlName="disbursementCriteria" id="disbursementCriteria"
                                                 name="disbursementCriteria"
-                                                placeholder="Disbursement Criteria"
-                                                rows="3"></textarea>
+                                                [config]="ckeConfig"></ckeditor>
                                         <div *ngIf="(submitted) && formControls.disbursementCriteria.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.disbursementCriteria.errors.required">Disbursement Criteria is required.</span>
@@ -669,13 +667,11 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title" for="repayment"><strong>Repayment</strong></label>
-                                        <textarea
+                                        <ckeditor
                                                 [ngClass]="{ 'is-invalid': (submitted) && formControls.repayment.errors }"
-                                                class="form-control"
                                                 formControlName="repayment" id="repayment"
                                                 name="repayment"
-                                                placeholder="Repayment"
-                                                rows="3"></textarea>
+                                                [config]="ckeConfig"></ckeditor>
                                         <div *ngIf="(submitted) && formControls.repayment.invalid"
                                              class="invalid-feedback">
                       <span
@@ -733,18 +729,15 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title" for="remark"><strong>Remarks</strong></label>
-                                        <textarea
-                                            class="form-control"
+                                        <ckeditor
                                             formControlName="remark" id="remark"
-                                            name="remark"
-                                            placeholder="Remarks"
-                                            rows="3"></textarea>
+                                            [config]="ckeConfig"></ckeditor>
                                     </div>
                                 </div>
                               <div class="col-md-12" *ngIf="client != clientName.MEGA">
                                     <div class="form-group">
                                         <label class="title"><b>Purpose of Loan</b></label>
-                                        <textarea class="form-control" [rows]="3" formControlName="purposeOfLoan" placeholder="Purpose of Loan"></textarea>
+                                        <ckeditor formControlName="purposeOfLoan"></ckeditor>
                                     </div>
                               </div>
                                 <div class="col-md-12">
