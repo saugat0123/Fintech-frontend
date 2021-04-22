@@ -30,7 +30,7 @@
                 <div class="col-md-3">
                     <nb-checkbox [checked]="fixedAssetCollateralForm"
                                  (change)="checkboxSelected('fixedAssetCollateral',$event.target.checked)">
-                        Fixed Asset Collateral
+                        {{client === clientName?.SHINE_RESUNGA ? 'Collateral Inspection Report' : 'Fixed Assets Collateral' }}
                     </nb-checkbox>
                 </div>
                 <div class="col-md-3">
@@ -307,7 +307,7 @@
             </div>
             <div [hidden]="!fixedAssetCollateralForm" class="row mt-3"
                  formGroupName="fixedAssetCollateralDetails">
-                <h4 class="col-md-12">Fixed Assets Collateral</h4>
+                <h4 class="col-md-12"> {{client === clientName?.SHINE_RESUNGA ? 'Collateral Inspection Report' : 'Fixed Assets Collateral'}} </h4>
                 <div class="col-md-4 form-group">
                     <label class="title" for="date">Date</label>
                     <input [max]="date" [nbDatepicker]="datepicker4" *ngIf="calendarType === 'AD'" class="form-control"
@@ -590,22 +590,37 @@
                             <td>Construction appears to be as per the Approved Naksa Pass</td>
                             <td><input formControlName="constructionAsPerNaksa" type="checkbox"></td>
                         </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>Any road setbacks?</td>
-                            <td><input formControlName="roadSetbacks" type="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td>Any river/canal setbacks? </td>
-                            <td><input formControlName="riverOrCanalSetbacks" type="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>13</td>
-                            <td>Any High-tension setbacks?</td>
-                            <td><input formControlName="highTensionSetbacks" type="checkbox"></td>
-                        </tr>
                     </table>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label class="title" for="roadSetbacks">Any road setbacks?</label>
+                            <select class="custom-select" formControlName="roadSetbacks" id="roadSetbacks"
+                                    name="roadSetbacks">
+                                <option [ngValue]="''" hidden>Select Yes/No</option>
+                                <option value="YES">Yes</option>
+                                <option value="NO">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="title" for="riverOrCanalSetbacks">Any river/canal setbacks?</label>
+                            <select class="custom-select" formControlName="riverOrCanalSetbacks" id="riverOrCanalSetbacks"
+                                    name="riverOrCanalSetbacks">
+                                <option [ngValue]="''" hidden>Select Yes/No</option>
+                                <option value="YES">Yes</option>
+                                <option value="NO">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="title" for="highTensionSetbacks">Any High-tension setbacks?</label>
+                            <select class="custom-select" formControlName="highTensionSetbacks" id="highTensionSetbacks"
+                                    name="highTensionSetbacks">
+                                <option [ngValue]="''" hidden>Select Yes/No</option>
+                                <option value="YES">Yes</option>
+                                <option value="NO">No</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <h5 class="col-md-12 mt-3">Vicinity to the Basic Amenities</h5>
                 <div class="row col-md-12 mt-3" formGroupName="vicinityToTheBasicAmenities">
@@ -708,6 +723,24 @@
                                       id="commentAboutFAC" name="commentsAboutFAC"
                                       placeholder="comments" row="3" type="text"></textarea>
                         </div>
+                        <div>
+                            <label class="ml-2"><strong>Location Detail</strong></label>
+                        </div>
+                        <div class="row col-md-12">
+                            <div class="col-md-4">
+                                <label for="fixedAssetsLongitude">Longitude</label>
+                                <input type="number" class="form-control" id="fixedAssetsLongitude"
+                                       formControlName="fixedAssetsLongitude" name="fixedAssetsLongitude"
+                                       placeholder="Longitude">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="fixedAssetsLatitude">Latitude</label>
+                                <input type="number" class="form-control" id="fixedAssetsLatitude"
+                                       formControlName="fixedAssetsLatitude" name="fixedAssetsLatitude"
+                                       placeholder="Latitude">
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -784,7 +817,7 @@
                         <div class="col-md-4 form-group">
                             <label class="title" for="assetsMortgaged">Assets Mortgaged</label>
                             <input class="form-control" formControlName="assetsMortgaged" id="assetsMortgaged"
-                                   name="assetsMortgaged" placeholder="assets mortgaged">
+                                   name="assetsMortgaged" placeholder="assets mortgaged" type="number">
                         </div>
                         <div class="col-md-4 form-group">
                             <label class="title" for="insuredAmount">Insured Amount</label>
@@ -858,7 +891,7 @@
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label class="staffRepresentativeNameDesignation2"
-                                           for="staffRepresentativeNameDesignation2">Staff Representative Designation 1</label>
+                                           for="staffRepresentativeNameDesignation2">Staff Representative Designation 2</label>
                                     <select class="form-control"
                                             formControlName="staffRepresentativeNameDesignation2"
                                             id="staffRepresentativeNameDesignationCurrent2"
@@ -1109,6 +1142,7 @@
                     </div>
                 </div>
 
+                <div *ngIf="client !== clientName?.SHINE_RESUNGA">
                 <h4 class="col-md-12 mt-3">Current Assets Inspection - Receivables</h4>
                 <div class="row col-md-12 mt-3" formGroupName="receivablesAndPayables">
                     <div *ngFor="let party of partyForm; let i = index;"
@@ -1438,6 +1472,7 @@
                                       row="3" type="text"></textarea>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
             <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">

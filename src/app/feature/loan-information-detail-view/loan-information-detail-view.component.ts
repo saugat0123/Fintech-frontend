@@ -215,4 +215,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
         });
     }
 
+    public customSafePipe(val) {
+        return val.replace(/(<([^>]+)>)/gi, "");
+    }
 }

@@ -18,10 +18,16 @@
       </p>
 
       Ref No: 2076/77-MBNL-CAD-RET-{{loan['refNo']}}<br>
-      <strong class="nepaliFont">{{loan['name']}}</strong><br>
-      <p class="print-space">ठेगानाः
-        <strong class="nepaliFont">{{loan['borrowerAddress']}}</strong>
-      </p>
+      नाम: <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong><br>
+      ठेगाना: प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+          जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+          वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+          <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+          <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
       <p class="print-space">सम्पर्क टेलिफोन नंः
         <strong class="nepaliFont">{{loan['contactNumber']}}</strong>
       </p>
@@ -34,7 +40,7 @@
     <p class="pl-3 print-space"> पक्षहरु :–</p>
     <div class="col-md-12">
       <div>
-        १. <strong class="nepaliFont">{{loan['name']}}</strong>
+        १. <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
         “ऋणी” भनिएको)
       </div>
       <div>
@@ -55,7 +61,7 @@
         <tr>
           <td>रकम:</td>
           <td>रु <strong class="nepaliFont">{{hayarPurchaseLoan['amount']}}</strong>/- (अक्षेरुपी
-            <strong class="nepaliFont">{{hayarPurchaseLoan['amountInWord']}}</strong> रुपैयाँ मात्र ।)
+            <strong class="">{{hayarPurchaseLoan['amountInWord']}}</strong> मात्र ।)
           </td>
         </tr>
         <tr>
@@ -72,7 +78,7 @@
           <td>
             आधार दर (Base Rate) ० + प्रिमियम दर (Premium Rate) हालको आधार दर <strong class="nepaliFont">{{hayarPurchaseLoan['baseRate']}}</strong> % +
             प्रिमियम दर <strong class="nepaliFont">{{hayarPurchaseLoan['premiumRate']}}</strong> %)
-            का दरले हाललाई बार्षिक <strong class="nepaliFont">{{hayarPurchaseLoan['presentRate']}}</strong> % वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
+            का दरले हाललाई बार्षिक <strong class="">{{hayarPurchaseLoan['presentRate']}}</strong> % वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
             बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर संसोधन (घट्न∕बढ्न) सक्नेछ ।
           </td>
         </tr>
@@ -86,8 +92,8 @@
             मासिक किस्ता बन्दीमा रु.
             <strong class="nepaliFont">{{hayarPurchaseLoan['emiAmount']}}</strong>
             /– (अक्षेरुपी
-            <strong class="nepaliFont">{{hayarPurchaseLoan['emiAmountInWord']}}</strong>
-            रुपैंयाँ मात्र) का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको
+            <strong class="">{{hayarPurchaseLoan['emiAmountInWord']}}</strong>
+            मात्र) का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको
             <strong class="nepaliFont">{{hayarPurchaseLoan['loanClearanceMonthlyDate']}}</strong>
             तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ ।
           </td>
@@ -125,7 +131,7 @@
           <td>सेवा शुल्क</td>
           <td>भुक्तानी दिने ऋण सुविधा रकमको
             <strong class="nepaliFont">{{hayarPurchaseLoan['servicePercentage']}}</strong> % (
-            <strong class="nepaliFont">{{hayarPurchaseLoan['servicePercentageWords']}}</strong> प्रतिशत) ।
+            <strong class="">{{hayarPurchaseLoan['servicePercentageWords']}}</strong> प्रतिशत) ।
           </td>
         </tr>
 
@@ -520,7 +526,7 @@
           नाघेको कर्जा रकम, कर्जा सुविधाको किस्ता रकम, भुक्तानी मिति तथा कारोबार सम्बन्धी अन्य
           जानकारीहरु ऋणीलाई आधिकारीक पत्र, बिद्युतिय माध्यम अथवा एसएमएस मार्फत गराइनेछ जसलाई
           बैंकको आधिकारीक सुचना मानिनेछ । साथै अन्य सूचनाहरु देहाय बमोजिमको ठेगानामा हुलाक वा
-          प्mयाक्सको माध्यमद्वारा दिइनेछ ।
+          फ्याक्सको माध्यमद्वारा दिइनेछ ।
 
         </div>
       </div>
@@ -538,10 +544,16 @@
     <div class="col-md-12">
       ऋणीः
       <div class="pl-md-3">
-        <b>नाम-</b>
-        <strong class="nepaliFont">{{loan['name']}}</strong><br>
-        <b>ठेगाना-</b>
-        <strong class="nepaliFont">{{loan['borrowerAddress']}}</strong><br>
+        <b>नाम:</b> <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong><br>
+        ठेगाना : प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+            जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+            वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+            <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+            <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b><br>
         <b>सम्पर्क टेलिफोन नं-</b>
         <strong class="nepaliFont">{{loan['contactNumber']}}</strong><br>
       </div>
@@ -577,7 +589,7 @@
             गर्दछु/गर्दछौं र बैंकसंग यस अन्तर्गत लिएको ऋण पूर्ण रुपमा चुक्ता भुक्तान नगरे सम्म
             यसमा उल्खित शर्तहरुको पूर्ण रुपले पालना गर्ने प्रतिज्ञा गर्दछु/गर्दछौं ।
             <p class="pt-2"> ऋणीको नाम:
-              <strong class="nepaliFont">{{loan['name']}}</strong>
+              <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
             </p>
             <p class="pt-2">आधिकारीक दस्तखत ............................</p>
             <p>मितिः <strong class="nepaliFont">{{loan['date']}}</strong>

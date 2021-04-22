@@ -12,15 +12,33 @@
         RefNo. <strong>{{letter['refNo']}}</strong>
       </div>
       <div class="row form-group">
-        श्री / सुश्री / श्रीमती : <strong class="nepaliFont">{{letter['customerName']}}</strong>
+        श्री / सुश्री / श्रीमती : <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
       </div>
 
       <div class="row form-group">
-        स्थायी ठेगाना : <strong class="nepaliFont">{{letter['permanentAddress']}} </strong>
+        <p><b>स्थायी ठेगाना:</b></p>
+        <div>प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+          जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+          वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+          <span *ngIf="loanHolderInfo?.permanentMunType==1">
+          गा बि स
+          </span>
+          <span *ngIf="loanHolderInfo?.permanentMunType==0">
+          नगरपालिका
+          </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
+        </div>
       </div>
       <div class="row form-group">
-        ठेगाना : <strong class="nepaliFont"> {{letter['currentAddress']}} </strong>
-
+        <b>ठेगाना</b> :
+        प्रदेश &nbsp;<b>{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp;
+        जिल्ला &nbsp;<b>{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp;
+        वार्ड न &nbsp;<b>{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
+        <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                               गा बि स
+                           </span>
+        <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                               नगरपालिका
+                           </span>&nbsp;<b>{{loanHolderInfo?.temporaryMunicipality}}</b>
       </div>
       <div class="row form-group">
         मोवाइल नंः :<strong class="nepaliFont"> {{letter['mobileNo']}}</strong>
@@ -39,7 +57,7 @@
         <p class="ml-3">पक्षहरु :–</p>
       </div>
       <div class="row form-group">
-        १. <strong class="nepaliFont">{{letter['customerName']}}</strong>
+        १. <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
         (यस पछि “संयुक्त ऋणी” भनिएको) ।
       </div>
       <div class="row form-group">
@@ -57,9 +75,10 @@
           <tr>
             <td>रकम</td>
             <td>
-              <strong class="nepaliFont">{{letter['loanAmount']}}</strong>
-
-              <strong class="nepaliFont"></strong>{{letter['loanAmountInWord']}}
+              रु.<strong class="nepaliFont">{{letter['loanAmount']}}</strong>
+              (अक्षेरुपी
+              <strong class="">{{letter['loanNameInWord']}}</strong>
+              मात्र ।
             </td>
           </tr>
           <tr>
@@ -67,7 +86,7 @@
               प्रयोजन
             </td>
             <td>
-              <strong class="nepaliFont">{{letter['customerName']}}</strong>लाई
+              <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>लाई
               <strong class="nepaliFont">{{letter['companyLocation']}} </strong> स्थित
               <strong class="nepaliFont">{{letter['companyName']}}</strong> म ा
               <strong class="nepaliFont"> {{letter['course']}} </strong> अध्ययन प्रयोजनार्थ ।
@@ -78,12 +97,12 @@
             <td>बैंकबाट कर्जा भुक्तानी भएको मितिल
 
               <strong class="nepaliFont">{{letter['loanTenure']}}</strong> वर्ष
-              (<strong class="nepaliFont">{{letter['moratoriumPeriod']</strong>}} महिना मोराटोरियम
+              (<strong class="nepaliFont">{{letter['moratoriumPeriod']}}</strong> महिना मोराटोरियम
               अवधि सहित )।
               व्याज(हालको आधार दर :<strong class="nepaliFont">{{letter['baseRate']}}</strong> +
               प्रिमियम दर
               <strong class="nepaliFont">{{letter['premiumRate']}}</strong> %) का दरले हाललाई
-              बार्षिक <strong class="nepaliFont">{{letter['yearlyLoanRate']}}</strong>% वा समय समयमा
+              बार्षिक <strong class="">{{letter['yearlyLoanRate']}}</strong>% वा समय समयमा
               बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने
               गरि । बैंकले
               त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर
@@ -98,9 +117,9 @@
                 class="nepaliFont">{{letter['moratoriumPeriod']}}</strong> महिना पछि प्रथम किस्ता
               प्रारम्भ हुनेगरी
               <strong class="nepaliFont">  {{letter['emiPeriod']}}</strong> समान
-              मासिक किस्ता बन्दीमा रु. <strong class="nepaliFont">{{letter['emiAmount']}}</strong>÷–
+              मासिक किस्ता बन्दीमा रु. <strong class="nepaliFont">{{letter['emiAmount']}}</strong>/-
               (अक्षेरुपी
-              <strong class="nepaliFont"> {{letter['emiAmountInWord']}}</strong> मात्र) का दरले
+              <strong class=""> {{letter['emiAmountInWord']}}</strong> मात्र) का दरले
               ईश्वी संवत अनुसारको प्रत्येक महिनाको १३ तारिखमा चुक्ता
               भुक्तान
               गर्नु पर्नेछ ।
@@ -129,7 +148,7 @@
           </tr>
           <tr>
             <td>सेवा शुल्क</td>
-            <td>भुक्तानी दिने ऋण सुविधा रकमको <strong
+            <td>भुक्तानी दिने ऋण सुविधा रकमको रु.<strong
                 class="nepaliFont">{{letter['serviceChargePercent']}}</strong> ।
             </td>
           </tr>
@@ -221,7 +240,7 @@
             <li>मोराटरियम अवधिमा समेत कर्जाको व्याज रकम मासिक रुपमा भुक्तानी गर्नुपर्नेछ ।</li>
 
             <div style="page-break-after: always"></div>
-            <li> श्री र<strong class="nepaliFont">{{letter['customerName']}}</strong>को
+            <li> श्री <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>को
               व्यक्तिगत स्थायी लेखा दर्ता प्रमाणपत्रको (Permanent Account Number-PAN) प्रतिलिपी
               पेश गर्नु पर्नेछ ।
             </li>
@@ -618,34 +637,54 @@
       ऋणीले उपभोग गरिरहेको कर्जा सम्बन्धी बिभिन्न सुचनाहरु जस्तै ब्याजदरमा परिवर्तन, भाखा नाघेको
       कर्जा रकम, कर्जा सुविधाको किस्ता रकम, भुक्तानी मिति तथा कारोबार सम्बन्धी अन्य जानकारीहरु
       ऋणीलाई आधिकारीक पत्र, बिद्युतिय माध्यम अथवा एसएमएस मार्फत गराइनेछ जसलाई बैंकको आधिकारीक
-      सुचना मानिनेछ । साथै अन्य सूचनाहरु देहाय बमोजिमको ठेगानामा हुलाक वा प्mयाक्सको
+      सुचना मानिनेछ । साथै अन्य सूचनाहरु देहाय बमोजिमको ठेगानामा हुलाक वा फ्याक्सको
       माध्यमद्वारा
       दिइनेछ ।
     </div>
   </div>
   <div class="row">
-    <div class="offset-1 col-md-6">
-      <h6> बैंक ः</h6>
+    <div class="offset-1 col-md-10">
+      <h6> बैंक :</h6>
       <div class="ml-lg-5">
         <div class="ml-lg-5">
           <p>कर्जा ब्यवस्थापन विभाग</p>
           <p>मेगा बैंक नेपाल लिमिटेड, प्रधान कार्यालय, कमलादी, काठमाण्डौ</p>
           <p>पोष्ट बक्स नंस् २६५५९
           </p>
-          <p>फोन –९७७–१–४१६९२५० प्mयाक्स–९७७–१–४१६९२६०</p>
+          <p>फोन –९७७–१–४१६९२५०</p>
+          <p>फ्याक्स –९७७–१–४१६९२६०</p>
           <p> काठमाडौं, नेपाल ।</p>
         </div>
       </div>
 
       <h6>ऋणीः</h6>
       <div class="ml-lg-5">
-        <p><strong class="nepaliFont"> {{letter['customerName']}}</strong></p>
-        <p>
-          <strong class="nepaliFont">{{letter['permanentAddress']}} </strong>
-        </p>
-        <p><strong class="nepaliFont">{{letter['currentAddress']}}</strong>
-        </p>
-        <p><strong class="nepaliFont">{{letter['mobileNo']}}</strong></p>
+        <p>श्री / सुश्री / श्रीमती : <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong></p>
+        <div class="row form-group">
+          <p><b>स्थायी ठेगाना:</b></p>
+          <div>प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+            जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+            वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+            <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+            <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
+          </div>
+        </div>
+        <div class="row form-group">
+          <b>ठेगाना</b> :
+          प्रदेश &nbsp;<b>{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp;
+          जिल्ला &nbsp;<b>{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp;
+          वार्ड न &nbsp;<b>{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
+          <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                               गा बि स
+                           </span>
+          <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                               नगरपालिका
+                           </span>&nbsp;<b>{{loanHolderInfo?.temporaryMunicipality}}</b>
+        </div>
       </div>
     </div>
   </div>
@@ -683,8 +722,8 @@
       बुझेंरबुझ्यौं । यसमा उल्लेख गरिएको सम्पूर्ण शर्तहरु पालना गर्न मरहामी मन्जुर
       गर्दछुरगर्दछौं र बैंकसंग यस अन्तर्गत लिएको ऋण पूर्ण रुपमा चुक्ता भुक्तान नगरे सम्म यसमा
       उल्ल्ेखित शर्तहरुको पूर्ण रुपले पालना गर्ने प्रतिज्ञा गर्दछुरगर्दछौं ।
-      ऋणीको नाम ः श्री / सुश्री / श्रीमती : <strong
-        class="nepaliFont">{{letter['customerName']}} ।</strong>
+      ऋणीको नाम: श्री / सुश्री / श्रीमती :
+      <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
       <br><br>
       <div class="row">
         <div class="col-md-12">
@@ -692,7 +731,7 @@
               आधिकारीक दस्तखत ......................
             </span>
           <span class="float-right">
-              मितिः....................
+              मितिः<span class="nepaliFont"><strong>{{letter['date']}}</strong></span>
             </span>
         </div>
       </div>

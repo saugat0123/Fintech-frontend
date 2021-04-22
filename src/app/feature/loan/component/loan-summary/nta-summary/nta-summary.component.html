@@ -206,6 +206,40 @@
                     <td class="pr-1">Rs. {{currentYearData?.drawingPowerAmount?.average |currencyFormatter}}</td>
                 </tr>
 
+                <tr>
+                    <td class="text-left pl-1"><b>Loan From Us</b></td>
+                    <!--previous year-->
+                    <td class="pr-1">Rs. {{prevYearData?.loanFromUs?.q1 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{prevYearData?.loanFromUs?.q2 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{prevYearData?.loanFromUs?.q3 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{prevYearData?.loanFromUs?.q4 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{prevYearData?.loanFromUs?.average |currencyFormatter}}</td>
+
+                    <!-- current year-->
+                    <td class="pr-1">Rs. {{currentYearData?.loanFromUs?.q1 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{currentYearData?.loanFromUs?.q2 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{currentYearData?.loanFromUs?.q3 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{currentYearData?.loanFromUs?.q4 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{currentYearData?.loanFromUs?.average |currencyFormatter}}</td>
+                </tr>
+
+                <tr>
+                    <td class="text-left pl-1"><b>Surplus/(Deficit)</b></td>
+                    <!--previous year-->
+                    <td class="pr-1">Rs. {{prevYearData?.surplusDeficit?.q1 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{prevYearData?.surplusDeficit?.q2 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{prevYearData?.surplusDeficit?.q3 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{prevYearData?.surplusDeficit?.q4 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{prevYearData?.surplusDeficit?.average |currencyFormatter}}</td>
+
+                    <!-- current year-->
+                    <td class="pr-1">Rs. {{currentYearData?.surplusDeficit?.q1 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{currentYearData?.surplusDeficit?.q2 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{currentYearData?.surplusDeficit?.q3 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{currentYearData?.surplusDeficit?.q4 |currencyFormatter}}</td>
+                    <td class="pr-1">Rs. {{currentYearData?.surplusDeficit?.average |currencyFormatter}}</td>
+                </tr>
+
                 </thead>
             </table>
 </div>

@@ -16,6 +16,7 @@ import {LoanFormService} from '../../component/loan-form/service/loan-form.servi
 import {Router} from '@angular/router';
 import {LoanDataHolder} from '../../model/loanData';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {Editor} from '../../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-loan-action-combined-modal',
@@ -31,7 +32,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     @Input() additionalDetails: any;
     @Input() isMaker: boolean;
     @Input() branchId: number;
-
+    ckeConfig = Editor.CK_CONFIG;
     public combinedLoan: CombinedLoan;
     public LoanType = LoanType;
     public stageType: 'individually' | 'combined';
@@ -246,11 +247,11 @@ export class LoanActionCombinedModalComponent implements OnInit {
             actions = this.individualType.form.get('actions').value;
         }
         this.loanFormService.postCombinedLoanAction(actions, !isCombined).subscribe(() => {
-          const msg = `Document Has been Successfully ${this.docAction}`;
-          this.toastService.show(new Alert(AlertType.SUCCESS, msg));
-          this.router.navigate(['/home/pending']);
+            const msg = `Document Has been Successfully ${this.docAction}`;
+            this.toastService.show(new Alert(AlertType.SUCCESS, msg));
+            this.router.navigate(['/home/pending']);
         }, error => {
-          this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
         });
     }
 
@@ -346,5 +347,6 @@ export class LoanActionCombinedModalComponent implements OnInit {
     compareFn(c1: any, c2: any): boolean {
         return c1 && c2 ? c1.id === c2.id : c1 === c2;
     }
+
 
 }
