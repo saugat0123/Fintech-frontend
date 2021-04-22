@@ -49,12 +49,14 @@ export class OfferLetterListComponent implements OnInit {
             other.loanList = res.detail.content;
             other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
             other.loanList.forEach((l) => l.loanStage = other.getInitiator(l.assignedLoan));
+            // tslint:disable-next-line:max-line-length
             other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: ObjectUtil.isEmpty(l.previousList) ? 0 : l.previousList.length}));
             other.pageable = PaginationUtils.getPageable(res.detail);
             other.spinner = false;
 
 
         }, error => {
+            other.spinner = false;
             console.log(error);
         });
     }

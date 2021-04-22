@@ -51,6 +51,7 @@ export class OfferLetterApprovedComponent implements OnInit {
             other.spinner = false;
 
         }, error => {
+            other.spinner = false;
             console.log(error);
         });
     }
