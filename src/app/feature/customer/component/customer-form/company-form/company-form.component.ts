@@ -193,18 +193,15 @@ export class CompanyFormComponent implements OnInit {
             console.log(this.microCustomer);
         }
         this.companyInfo = this.formValue;
-        if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
+        this.setCheckedData(this.companyJsonData.isAdditionalCompanyInfo);
+
+        this.companyJsonData =  JSON.parse(this.companyInfo.companyJsonData);
+        this.additionalFieldSelected = this.companyJsonData.isAdditionalCompanyInfo;
+        if (this.additionalFieldSelected) {
             this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
-            this.additionalFieldSelected = true;
-            if (JSON.stringify(this.additionalFieldData).includes(null)) {
-                this.additionalFieldSelected = false;
-            }
         }
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) {
             this.businessAndIndustry = JSON.parse(this.companyInfo.businessAndIndustry);
-        }
-        if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
-            this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
         }
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessGiven)) {
             this.businessGiven = JSON.parse(this.companyInfo.businessGiven);
@@ -989,6 +986,7 @@ export class CompanyFormComponent implements OnInit {
         submitData.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
         submitData.proprietorList = this.companyJsonData.proprietorList;
         submitData.totalSharePercent = this.companyInfoFormGroup.get('totalSharePercent').value;
+        submitData.isAdditionalCompanyInfo = this.additionalFieldSelected;
 
         if (this.microCustomer) {
             /** micro data **/
@@ -1038,14 +1036,24 @@ export class CompanyFormComponent implements OnInit {
         });
     }
 
-    onAdditionalFieldSelect(chk) {
-        if (!chk) {
-            this.additionalFieldSelected = false;
-            this.companyInfoFormGroup.get('additionalCompanyInfo').clearValidators();
-            this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
-        } else {
-            this.additionalFieldSelected = true;
-            this.companyInfoFormGroup.enable();
+    checkChecked(event, type) {
+        switch (type) {
+            case 'additionalInfo':
+                if (event) {
+                    this.additionalFieldSelected = true;
+                    this.companyInfoFormGroup.enable();
+                } else {
+                    this.additionalFieldSelected = false;
+                    this.companyInfoFormGroup.get('additionalCompanyInfo').clearValidators();
+                    this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
+                }
+                break;
+        }
+    }
+
+    setCheckedData(data) {
+        if (!ObjectUtil.isEmpty(data)) {
+            this.checkChecked(data['additionalFieldSelected'], 'additionalInfo');
         }
     }
 

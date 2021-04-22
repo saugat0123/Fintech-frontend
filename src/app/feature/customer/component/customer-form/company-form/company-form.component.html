@@ -285,7 +285,10 @@
                                <div class="col-md-12">
                                    <div class="form-group form-inline">
                                        <h6>Additional registration/license information</h6>
-                                       <nb-checkbox #chek id="additionalInfo" class="ml-2" (checkedChange)="onAdditionalFieldSelect(chek.checked)" [checked]="additionalFieldSelected"></nb-checkbox>
+
+                                       <nb-checkbox (change)="checkChecked($event.target.checked,'additionalInfo')"
+                                                    [checked]="additionalFieldSelected">
+                                       </nb-checkbox>
                                    </div>
                                </div>
                            </div>
