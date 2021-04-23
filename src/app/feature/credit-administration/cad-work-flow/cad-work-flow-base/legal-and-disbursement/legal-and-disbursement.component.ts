@@ -51,9 +51,10 @@ export class LegalAndDisbursementComponent implements OnInit {
             other.customerInfoData = other.cadOfferLetterApprovedDoc.loanHolder;
             other.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => other.toggleArray.push({toggled: false}));
             console.log(res.detail);
+            if (!ObjectUtil.isEmpty(other.cadOfferLetterApprovedDoc.cadCurrentStage.toUser)) {
             if (other.cadOfferLetterApprovedDoc.cadCurrentStage.toUser.id.toString() === LocalStorageUtil.getStorage().userId) {
                 other.isInCurrentUser = true;
-            }
+            }}
             other.spinner = false;
         }, error => {
             console.log(error);
@@ -68,8 +69,10 @@ export class LegalAndDisbursementComponent implements OnInit {
             this.cadOfferLetterApprovedDoc = history.state.data;
             this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
             this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
-            if (this.cadOfferLetterApprovedDoc.cadCurrentStage.toUser.id.toString() === LocalStorageUtil.getStorage().userId) {
-                this.isInCurrentUser = true;
+            if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.cadCurrentStage.toUser)) {
+                if (this.cadOfferLetterApprovedDoc.cadCurrentStage.toUser.id.toString() === LocalStorageUtil.getStorage().userId) {
+                    this.isInCurrentUser = true;
+                }
             }
         } else {
             LegalAndDisbursementComponent.loadData(this);

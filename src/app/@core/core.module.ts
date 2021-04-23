@@ -17,73 +17,13 @@ import {LoanStatusPipe} from './pipe/loan-status-pipe';
 import {EngToNepaliNumberPipe} from './pipe/eng-to-nepali-number.pipe';
 import {NepaliPercentWordPipe} from './pipe/nepali-percent-word.pipe';
 import {NgxNumToWordsModule} from 'ngx-num-to-words';
-// import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
-// import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
+import {FormsModule} from '@angular/forms';
 
-const socialLinks = [
-    {
-        url: 'https://github.com/akveo/nebular',
-        target: '_blank',
-        icon: 'socicon-github',
-    },
-    {
-        url: 'https://www.facebook.com/akveo/',
-        target: '_blank',
-        icon: 'socicon-facebook',
-    },
-    {
-        url: 'https://twitter.com/akveo_inc',
-        target: '_blank',
-        icon: 'socicon-twitter',
-    },
-];
 
 const DATA_SERVICES = [];
-/*
-export class NbSimpleRoleProvider extends NbRoleProvider {
-  getRole() {
-    // here you could provide any role based on any auth flow
-    return observableOf('guest');
-  }
-}*/
 
 export const NB_CORE_PROVIDERS = [
     ...DATA_SERVICES,
-    /* ...NbAuthModule.forRoot({
-
-       strategies: [
-         NbDummyAuthStrategy.setup({
-           name: 'email',
-           delay: 3000,
-         }),
-       ],
-       forms: {
-         login: {
-           socialLinks: socialLinks,
-         },
-         register: {
-           socialLinks: socialLinks,
-         },
-       },
-     }).providers,
-
-     NbSecurityModule.forRoot({
-       accessControl: {
-         guest: {
-           view: '*',
-         },
-         user: {
-           parent: 'guest',
-           create: '*',
-           edit: '*',
-           remove: '*',
-         },
-       },
-     }).providers,
-
-     {
-       provide: NbRoleProvider, useClass: NbSimpleRoleProvider,
-     },*/
     AnalyticsService,
     LayoutService,
     StateService,
@@ -100,6 +40,7 @@ const UTILITY_MODULES = [
 @NgModule({
     imports: [
         CommonModule,
+        FormsModule,
         ...UTILITY_MODULES
     ],
     exports: [
@@ -131,7 +72,8 @@ const UTILITY_MODULES = [
         LoanStatusPipe,
         EngToNepaliNumberPipe,
         NepaliPercentWordPipe
-    ],
+
+    ]
 })
 export class CoreModule {
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
