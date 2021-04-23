@@ -235,7 +235,7 @@
                 <th>Company Background</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.companyBackground}}</td>
+                <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.companyBackground | safeHtml"></span></td>
             </tr>
         </table>
 
@@ -400,7 +400,7 @@
                 <th>Succession Risk</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{formValue?.successionPlanning}}</td>
+                <td class="text-left pl-1"><span [innerHTML]="formValue?.successionPlanning | safeHtml"></span></td>
             </tr>
         </table>
 
