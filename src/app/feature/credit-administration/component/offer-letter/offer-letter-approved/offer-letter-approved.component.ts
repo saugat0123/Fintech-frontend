@@ -9,6 +9,7 @@ import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {UserService} from '../../../../../@core/service/user.service';
 import {User} from '../../../../admin/modal/user';
 import {RoleType} from '../../../../admin/modal/roleType';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-offer-letter-approved',
@@ -44,8 +45,8 @@ export class OfferLetterApprovedComponent implements OnInit {
         other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, 10).subscribe((res: any) => {
             other.loanList = res.detail.content;
             other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
-            other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: l.previousList.length}));
-
+            // tslint:disable-next-line:max-line-length
+            other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: ObjectUtil.isEmpty(l.previousList) ? 0 : l.previousList.length}));
             console.log(other.loanList);
             other.pageable = PaginationUtils.getPageable(res.detail);
             other.spinner = false;
