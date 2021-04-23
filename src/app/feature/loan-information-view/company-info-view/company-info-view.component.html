@@ -52,7 +52,7 @@
             </tr>
         </table>
         <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" *ngIf="companyJsonData?.isAdditionalCompanyInfo">
             <thead>
             <tr class="text-white sb-bg-dark">
                 <th colspan="5">Additional registration/license information
@@ -70,8 +70,8 @@
             <tr>
                 <td class="text-left pl-1">{{additionalInfoJsonData?.registrationType}}</td>
                 <td class="text-left pl-1">{{additionalInfoJsonData?.licenseHolderName}}</td>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseIssuedDate}}</td>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseExpiryDate}}</td>
+                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseIssuedDate | date}}</td>
+                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseExpiryDate | date}}</td>
                 <td class="text-left pl-1">{{additionalInfoJsonData?.licenseIssuePlace}}</td>
             </tr>
             <tr class="text-white sb-bg-dark">
@@ -235,7 +235,7 @@
                 <th>Company Background</th>
             </tr>
             <tr>
-                <th class="text-left pl-1">{{companyJsonData?.companyBackground}}</th>
+                <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.companyBackground | safeHtml"></span></td>
             </tr>
         </table>
 
@@ -400,7 +400,7 @@
                 <th>Succession Risk</th>
             </tr>
             <tr>
-                <th class="text-left pl-1">{{formValue?.successionPlanning}}</th>
+                <td class="text-left pl-1"><span [innerHTML]="formValue?.successionPlanning | safeHtml"></span></td>
             </tr>
         </table>
 
