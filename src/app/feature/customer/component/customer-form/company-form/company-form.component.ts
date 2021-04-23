@@ -194,7 +194,7 @@ export class CompanyFormComponent implements OnInit {
         }
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
-            this.companyJsonData =  JSON.parse(this.companyInfo.companyJsonData);
+            this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
         }
         this.additionalFieldSelected = this.companyJsonData.isAdditionalCompanyInfo;
         if (this.additionalFieldSelected) {
@@ -472,7 +472,7 @@ export class CompanyFormComponent implements OnInit {
                 licenseExpiryDate: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
                     new Date(this.additionalFieldData.licenseExpiryDate)],
                 licenseIssuedDate: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                   new Date(this.additionalFieldData.licenseIssuedDate)],
+                    new Date(this.additionalFieldData.licenseIssuedDate)],
                 licenseIssuePlace: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
                     this.additionalFieldData.licenseIssuePlace],
                 additionalInfoRemark: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
@@ -666,7 +666,7 @@ export class CompanyFormComponent implements OnInit {
             this.addressList[proprietorIndex] = new Address();
             if (!ObjectUtil.isEmpty(proprietors.province) && proprietors.province.id !== null) {
                 this.getDistricts(proprietors.province.id, proprietorIndex);
-                if (proprietors.district.id !== null) {
+                if (!ObjectUtil.isEmpty(proprietors.district) && proprietors.district.id !== null) {
                     this.getMunicipalities(proprietors.district.id, proprietorIndex);
                 }
             }
@@ -930,7 +930,7 @@ export class CompanyFormComponent implements OnInit {
             municipalityVdc = this.getProprietor()[proprietorsIndex].municipalityVdc;
             proprietors.municipalityVdc = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].municipalityVdc))
                 ? municipalityVdc : undefined;
-            if ( this.client !== this.clientName.MEGA) {
+            if (this.client !== this.clientName.MEGA) {
                 proprietors.kycInfo = this.shareholderKyc.filter(item => item.kycId.toString() ===
                     proprietorsIndex.toString())[0].ownerKycForm.value;
             }
@@ -1117,7 +1117,7 @@ export class CompanyFormComponent implements OnInit {
     // Calculation of Share %
     calculateSharePercent(formArrayName, resultControllerName) {
         let total = 0;
-        (this.companyInfoFormGroup.get(formArrayName) as FormArray).controls.forEach( group => {
+        (this.companyInfoFormGroup.get(formArrayName) as FormArray).controls.forEach(group => {
             total = Number(group.get('share').value) + Number(total);
         });
         this.companyInfoFormGroup.get(resultControllerName).setValue(total);
