@@ -46,6 +46,10 @@ export class LoanInformationDetailViewComponent implements OnInit {
     customerAllLoanList: Array<LoanDataHolder> = [];
     isMega = environment.isMega;
     isMicro = false;
+    crgGammaSummary = false;
+    crgGammaScore = 0;
+    crgGammaGradeStatusBadge;
+    crgGammaGrade;
 
 
     constructor(private loanConfigService: LoanConfigService,
@@ -75,6 +79,21 @@ export class LoanInformationDetailViewComponent implements OnInit {
             }
             if (ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.insurance)) {
                 this.loanDataHolder.loanHolder.insurance = [];
+            }
+
+            // Setting credit risk GAMMA data---
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.crgGamma)) {
+                this.crgGammaSummary = true;
+                const crgParsedData = JSON.parse(this.loanDataHolder.crgGamma.data);
+                this.crgGammaGrade = crgParsedData.grade;
+                this.crgGammaScore = ObjectUtil.isEmpty(crgParsedData.totalPoint) ? 0 : crgParsedData.totalPoint;
+                if (this.crgGammaGrade === 'Superior' || this.crgGammaGrade === 'Good') {
+                    this.crgGammaGradeStatusBadge = 'badge badge-success';
+                } else if (this.crgGammaGrade === 'Bad & Loss' || this.crgGammaGrade === 'Doubtful') {
+                    this.crgGammaGradeStatusBadge = 'badge badge-danger';
+                } else {
+                    this.crgGammaGradeStatusBadge = 'badge badge-warning';
+                }
             }
 
             this.signatureList = this.getSignatureList(new Array<LoanStage>
@@ -216,6 +235,6 @@ export class LoanInformationDetailViewComponent implements OnInit {
     }
 
     public customSafePipe(val) {
-        return val.replace(/(<([^>]+)>)/gi, "");
+        return val.replace(/(<([^>]+)>)/gi, '');
     }
 }
