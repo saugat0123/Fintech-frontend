@@ -193,9 +193,9 @@ export class CompanyFormComponent implements OnInit {
             console.log(this.microCustomer);
         }
         this.companyInfo = this.formValue;
-        this.setCheckedData(this.companyJsonData.isAdditionalCompanyInfo);
-
-        this.companyJsonData =  JSON.parse(this.companyInfo.companyJsonData);
+        if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
+            this.companyJsonData =  JSON.parse(this.companyInfo.companyJsonData);
+        }
         this.additionalFieldSelected = this.companyJsonData.isAdditionalCompanyInfo;
         if (this.additionalFieldSelected) {
             this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
@@ -470,9 +470,9 @@ export class CompanyFormComponent implements OnInit {
                 licenseHolderName: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
                     this.additionalFieldData.licenseHolderName],
                 licenseExpiryDate: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    this.additionalFieldData.licenseExpiryDate],
+                    new Date(this.additionalFieldData.licenseExpiryDate)],
                 licenseIssuedDate: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    this.additionalFieldData.licenseIssuedDate],
+                   new Date(this.additionalFieldData.licenseIssuedDate)],
                 licenseIssuePlace: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
                     this.additionalFieldData.licenseIssuePlace],
                 additionalInfoRemark: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
@@ -1048,12 +1048,6 @@ export class CompanyFormComponent implements OnInit {
                     this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
                 }
                 break;
-        }
-    }
-
-    setCheckedData(data) {
-        if (!ObjectUtil.isEmpty(data)) {
-            this.checkChecked(data['additionalFieldSelected'], 'additionalInfo');
         }
     }
 
