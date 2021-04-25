@@ -6,7 +6,6 @@ import {ActivatedRoute} from '@angular/router';
 import {CreditAdministrationService} from '../../service/credit-administration.service';
 import {CommonService} from '../../../../@core/service/common.service';
 import * as CryptoJS from 'crypto-js';
-import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-cad-summary',
@@ -21,6 +20,7 @@ export class CadSummaryComponent implements OnInit {
     currentUserLocalStorage = LocalStorageUtil.getStorage().userId;
     toggleArray: { toggled: boolean }[] = [];
     checkListLiteVersion = LocalStorageUtil.getStorage().productUtil.CHECK_LIST_LITE_VERSION;
+
     constructor(private activatedRoute: ActivatedRoute,
                 private service: CreditAdministrationService,
                 public commonService: CommonService,
@@ -44,14 +44,8 @@ export class CadSummaryComponent implements OnInit {
 
     ngOnInit() {
         this.cadDocumentId = Number(this.decryptUrl(this.activatedRoute.snapshot.params.id));
-        if (!ObjectUtil.isEmpty(history.state.data)) {
-            this.cadOfferLetterApprovedDoc = history.state.data;
-            this.spinner = false;
-            this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
-            this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
-        } else {
-            CadSummaryComponent.loadData(this);
-        }
+        CadSummaryComponent.loadData(this);
+
 
     }
 

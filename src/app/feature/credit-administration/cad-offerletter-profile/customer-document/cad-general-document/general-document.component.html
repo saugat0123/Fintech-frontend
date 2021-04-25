@@ -23,7 +23,7 @@
                              [nbTooltip]="data?.document?.displayName">
                             <a (click)="service.openDocument(data?.docPath)" class="cursor"><em
                                     [className]="service.SET_CLASS_NAME"></em>
-                                <span class="mx-1"> {{data?.document?.displayName.length > 15 ?
+                                <span class="mx-1"> {{data?.document?.displayName?.length > 15 ?
                                     data?.document?.displayName?.substring(0, 12) + '..' :
                                     data?.document?.displayName}}</span></a>
                         </div>

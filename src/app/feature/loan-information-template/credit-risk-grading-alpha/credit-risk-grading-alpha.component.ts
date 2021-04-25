@@ -166,11 +166,28 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
       this.totalWorkingCapitalLimit = Number(this.parsedFinancialData.initialForm.totalWorkingCapitalLimit);
       if (this.parsedFinancialData.fiscalYear.length > 0) {
         this.fiscalYearList = this.parsedFinancialData.fiscalYear;
-        this.reCalculateFinancial(Number(this.parsedFinancialData.fiscalYear.length - 1));
+
+        if (this.parsedFinancialData.fiscalYear.length > 0) {
+          let selectedFiscalYearIndex = Number(this.parsedFinancialData.fiscalYear.length - 1);
+
+          if (!ObjectUtil.isEmpty(this.formData)) {
+            const parsedCrgAlphaData = JSON.parse(this.formData.data);
+            if (!ObjectUtil.isEmpty(parsedCrgAlphaData.selectedFiscalYearIndex)) {
+              selectedFiscalYearIndex = parsedCrgAlphaData.selectedFiscalYearIndex;
+            }
+          }
+          this.reCalculateFinancial(selectedFiscalYearIndex);
+
+        } else {
+          this.missingAlerts.push({
+            type: 'danger',
+            message: 'No Fiscal year detected for grade automation in financial section!',
+          });
+        }
       } else {
         this.missingAlerts.push({
           type: 'danger',
-          message: 'No Fiscal year detected for grade automation in financial section!',
+          message: 'No Financial data detected for grade automation in financial section!',
         });
       }
       this.setValueForCriteria('salesProjectionVsAchievement', this.parsedFinancialData.initialForm.salesProjectionVsAchievement,
@@ -693,7 +710,8 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
 
     this.creditRiskData.data = JSON.stringify({
       ...this.creditRiskGradingForm.value,
-      currentFiscalYear: this.fiscalYearList[this.financialCurrentYearIndex]
+      currentFiscalYear: this.fiscalYearList[this.financialCurrentYearIndex],
+      selectedFiscalYearIndex: this.financialCurrentYearIndex
     });
   }
 }

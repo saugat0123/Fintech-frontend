@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="card-header">
+        Warning
+    </div>
+    <div class="card-body">
+        <p>Your Session has been expired!! Please Login again.</p>
+        <p class="text-danger">{{msg}}</p>
+        <form #lform="ngForm" (ngSubmit)="lform.valid && onLogin(lform)" class="login-form"
+              name="login-form">
+            <div class="form-group has-feedback">
+                <input #pass="ngModel" [ngClass]="{'is-invalid': lform.submitted && pass.invalid}"
+                       class="form-control"
+                       id="password"
+                       name="password"
+                       ngModel placeholder="Password" required
+                       type="password">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                <div *ngIf="pass.invalid && lform.submitted" class="invalid-feedback">
+                    Password is required
+                </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary  btn-flat" type="submit" [disabled]="spinner">verify</button>
+            </div>
+        </form>
+
+    </div>
+</div>
