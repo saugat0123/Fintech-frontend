@@ -5,7 +5,7 @@ import {Component} from '@angular/core';
     styleUrls: ['./footer.component.scss'],
     template: `
         <span class="created-by">
-            Powered by <b><a href="https://www.sbsolutionsnepal.com/" target="_blank">Sb Solutions Pvt. Limited</a></b> 2020
+            Powered by <b><a href="https://www.sbsolutionsnepal.com/" target="_blank">SB Solutions Pvt. Ltd.</a></b> 2021
         </span>
         <div class="socials">
             <a href="#" target="_blank" class="ion ion-social-github"></a>
