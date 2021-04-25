@@ -78,8 +78,7 @@
                 <th>Remarks</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.additionalInfoRemark}}</td>
-
+                <td class="text-left pl-1" [innerHTML]="additionalInfoJsonData?.additionalInfoRemark | safeHtml"></td>
             </tr>
             </tbody>
         </table>

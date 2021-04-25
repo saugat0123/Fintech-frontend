@@ -279,13 +279,13 @@
         </th>
       </tr>
       <tr>
-        <td class="text-left pl-1">{{proposalAllData?.disbursementCriteria}}</td>
+        <td class="text-left pl-1" [innerHTML]="proposalAllData?.disbursementCriteria | safeHtml"></td>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th>Repayment</th>
       </tr>
       <tr>
-        <td class="text-left pl-1">{{proposalAllData?.repayment}}</td>
+        <td class="text-left pl-1" [innerHTML]="proposalAllData?.repayment | safeHtml"></td>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th *ngIf="client !== clientName?.MEGA">Background</th>
@@ -304,13 +304,13 @@
         <th>Remarks</th>
       </tr>
       <tr>
-        <td class="text-left pl-1">{{proposalAllData?.remark}}</td>
+        <td class="text-left pl-1" [innerHTML]="proposalAllData?.remark"></td>
       </tr>
       <tr class="text-white sb-bg-dark" *ngIf="client !== clientName?.MEGA">
         <th>Purpose of Loan</th>
       </tr>
       <tr>
-        <td class="text-left pl-1" *ngIf="client !== clientName?.MEGA">{{proposalAllData?.purposeOfLoan}}</td>
+        <td class="text-left pl-1" *ngIf="client !== clientName?.MEGA" [innerHTML]="proposalAllData?.purposeOfLoan"></td>
       </tr>
       <ng-container *ngIf="checkedData?.waiverChecked">
         <tr class="text-white sb-bg-dark">
