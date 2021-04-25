@@ -268,12 +268,12 @@
                                                 </td>
                                                 <td>
                                                     <a class="px-2 cursor"
-                                                       (click)="model?.id ? toggleArray[i]?.toggled = !toggleArray[i]?.toggled:''"
+                                                       (click)="model?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
                                                        nbTooltip="click to view detail comments ">
                                                         <em class="fa fa-eye"></em>
                                                     </a></td>
                                             </tr>
-                                            <ng-container *ngIf="toggleArray[i]?.toggled">
+                                            <ng-container *ngIf="toggleArray[i].toggled">
                                                 <tr>
                                                     <td colspan="10"><b>Loan History</b></td>
                                                 </tr>
