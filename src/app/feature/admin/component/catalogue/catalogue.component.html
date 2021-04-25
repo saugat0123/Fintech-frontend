@@ -165,20 +165,18 @@
                 [ngStyle]="{'color': (getSortedLoanFlags(model?.loanHolder?.loanFlags, model?.id)?.length > 0) ? 'red': 'auto'}"
                 class="cursor">
                 <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-                <td (click)="onClick(model.loan.id,model.id)"
+                <td (click)="onClick(model?.loan?.id,model?.id)"
                     *ngIf="showBranch">{{model?.branch?.name}}</td>
-                <td (click)="onClick(model.loan.id,model.id)">
-                    {{model?.loanCategory === 'INSTITUTION' ?
-                    model?.companyInfo?.companyName
-                    : model?.customerInfo?.customerName}}</td>
-                <td (click)="onClick(model.loan.id,model.id)">{{model?.loan?.name}}</td>
-                <td (click)="onClick(model.loan.id,model.id)">
+                <td (click)="onClick(model?.loan?.id,model?.id)">
+                    {{model?.loanHolder?.name}}</td>
+                <td (click)="onClick(model?.loan?.id,model?.id)">{{model?.loan?.name}}</td>
+                <td (click)="onClick(model?.loan?.id,model?.id)">
                     <span
                             class="d-flex justify-content-end pr-1">Rs. {{model?.proposal?.proposedLimit | currencyFormatter}}</span>
                 </td>
-                <td (click)="onClick(model.loan.id,model.id)">{{loanType[model?.loanType]}}</td>
-                <td (click)="onClick(model.loan.id,model.id)">{{model?.documentStatus}}</td>
-                <td (click)="onClick(model.loan.id,model.id)">
+                <td (click)="onClick(model?.loan?.id,model?.id)">{{loanType[model?.loanType]}}</td>
+                <td (click)="onClick(model?.loan?.id,model?.id)">{{model?.documentStatus}}</td>
+                <td (click)="onClick(model?.loan?.id,model?.id)">
                     <div *ngIf='model?.documentStatus.toString()==="PENDING" ||
                          model?.documentStatus.toString()==="DOCUMENTATION" ||
                          model?.documentStatus.toString()==="DISCUSSION" ||
@@ -194,7 +192,7 @@
                         /{{getDaysDifference(model?.currentStage.lastModifiedAt, model?.previousList[model?.previousList?.length - 1].lastModifiedAt)}}
                     </div>
                 </td>
-                <td (click)="onClick(model.loan.id,model.id)">
+                <td (click)="onClick(model?.loan?.id,model?.id)">
                     <div *ngIf='model?.documentStatus.toString()==="PENDING" ||
                          model?.documentStatus.toString()==="DOCUMENTATION" ||
                          model?.documentStatus.toString()==="DISCUSSION" ||
@@ -225,13 +223,13 @@
 
                 </td>
                 <td>
-                    <div (click)="onClick(model.loan.id,model.id)">
+                    <div (click)="onClick(model?.loan?.id,model?.id)">
                         {{model?.createdAt | date}}
                     </div>
                 </td>
-                <td (click)="onClick(model.loan.id,model.id)"
+                <td (click)="onClick(model?.loan?.id,model?.id)"
                     *ngIf="showBranchProvince">{{model?.branch?.province?.name}}</td>
-                <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew); else linkin">
+                <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model?.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew); else linkin">
                     <select [(ngModel)]="tempLoanType" class="form-control form-control-tiny py-0"
                             (ngModelChange)="onChange(model,onActionChange)">
                         <option [value]="null" selected hidden>Select Type</option>
@@ -252,7 +250,7 @@
                 </td>
                 <ng-template #linkin>
                     <td *ngIf="model.parentId">
-                        <a (click)="renewedOrCloseFrom(model.loan.id,model.parentId)"
+                        <a (click)="renewedOrCloseFrom(model?.loan?.id,model?.parentId)"
                            class="text-success cursor">{{loanType[model.loanType]}} From
                             <em class="p-1 fa fa-edit"></em></a>
                     </td>
@@ -304,7 +302,7 @@
                                         </a>
                                     </div>
                                     <div class="col-md-6">
-                                        <span *ngFor="let branch of users.branchDtoList;">
+                                        <span *ngFor="let branch of users?.branchDtoList;">
                                             {{branch?.name}}
                                         </span>
                                     </div>
@@ -340,9 +338,9 @@
                     <button type="submit" class="btn btn-danger  btn-flat fa-pull-left" (click)="onClose()">
                         Cancel
                     </button>
-                    <button [ngStyle]="{ 'filter' : (comment.value == undefined || comment.value == '')? 'grayscale(100%)': 'grayscale(0%)'}"
-                            [disabled]="comment.value == undefined || comment.value == ''" type="submit"
-                            class="btn btn-primary  btn-flat" (click)="confirm(comment.value)">
+                    <button [ngStyle]="{ 'filter' : (comment?.value == undefined || comment?.value == '')? 'grayscale(100%)': 'grayscale(0%)'}"
+                            [disabled]="comment?.value == undefined || comment?.value == ''" type="submit"
+                            class="btn btn-primary  btn-flat" (click)="confirm(comment?.value)">
                         Confirm
                     </button>
                 </div>
