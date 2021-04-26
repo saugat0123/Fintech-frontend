@@ -426,7 +426,10 @@
         <td *ngFor="let amount of balanceSheetForm.get('principleInstalmentPaidDuringTheYear')['controls']; let j = index"
             formArrayName="principleInstalmentPaidDuringTheYear" scope="col">
           <div [formGroupName]="j" class="text-center">
-            <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0">
+            <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; "
+                   (input)="onValueChange('principleInstalmentPaidDuringTheYear', j)"
+                   (change)="checkForLatterFiscalYearChanges(j)"
+                   value="0">
           </div>
         </td>
       </tr>
