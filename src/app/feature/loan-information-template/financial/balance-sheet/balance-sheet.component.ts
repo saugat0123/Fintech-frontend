@@ -407,9 +407,7 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         ? 0 : this.financialService
                 .convertToPercent(Number(incomeStatement.profitAfterTax[index].value) / Number(netWorth.controls['value'].value));
 
-        keyIndicators.debtServiceCoverageRatio[index].value = (ObjectUtil.isEmpty(Number(principleInstalmentPaidDuringTheYear.controls['value'].value))
-        || Number(principleInstalmentPaidDuringTheYear.controls['value'].value) === 0) ? 0 :
-            ((Number(incomeStatement.operatingProfit[index].value)
+        keyIndicators.debtServiceCoverageRatio[index].value = ((Number(incomeStatement.operatingProfit[index].value)
                 + Number(this.financialService
                     .fetchValuesForJsonSubCategories(incomeStatement.operatingExpensesCategory, 'Depreciation', index))
                 ) /
