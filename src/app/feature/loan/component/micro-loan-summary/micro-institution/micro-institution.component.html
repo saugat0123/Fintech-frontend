@@ -169,7 +169,7 @@
                 <th>Background of Company</th>
             </thead>
             <tbody>
-                <td class="text-justify p-1">{{companyJsonData?.companyBackground}}</td>
+                <td class="text-justify p-1" [innerHTML]="companyJsonData?.companyBackground | safeHtml"></td>
             </tbody>
         </table>
     </div>
@@ -224,7 +224,7 @@
         <th>Remarks</th>
         </thead>
         <tbody>
-        <td>{{companyJsonData?.managementTeamNote || 'NA'}}</td>
+        <td [innerHTML]="companyJsonData?.managementTeamNote | safeHtml"></td>
         </tbody>
     </table>
 </div>
@@ -278,10 +278,10 @@
         <th>Threats</th>
         </thead>
         <tbody>
-        <td>{{companyJsonData?.swot?.strength || 'NA'}}</td>
-        <td>{{companyJsonData?.swot?.weakness || 'NA'}}</td>
-        <td>{{companyJsonData?.swot?.opportunity || 'NA'}}</td>
-        <td>{{companyJsonData?.swot?.threats || 'NA'}}</td>
+        <td [innerHTML]="companyJsonData?.swot?.strength | safeHtml"></td>
+        <td [innerHTML]="companyJsonData?.swot?.weakness | safeHtml"></td>
+        <td [innerHTML]="companyJsonData?.swot?.opportunity | safeHtml"></td>
+        <td [innerHTML]="companyJsonData?.swot?.threats | safeHtml"></td>
         </tbody>
     </table>
 </div>
