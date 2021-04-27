@@ -545,9 +545,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   }
 
   calculateIscrAndDscr(financialData, currentFiscalYearIndex) {
-    const iscr = Number(financialData.incomeStatementData.operatingProfit[currentFiscalYearIndex].value) /
-        Number(financialData.incomeStatementData.interestExpenses[currentFiscalYearIndex].value);
-
+    const iscr = Number(financialData.keyIndicatorsData.interestCoverageRatio[currentFiscalYearIndex].value);
     const dscr = Number(financialData.keyIndicatorsData.debtServiceCoverageRatio[currentFiscalYearIndex].value);
 
     const automatedValue = `${iscr.toFixed(2)}, ${dscr.toFixed(2)}`;
