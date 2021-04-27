@@ -221,6 +221,7 @@ export class GuarantorComponent implements OnInit {
     province.id = provinceId;
     this.addressServices.getDistrictByProvince(province).subscribe((response: any) => {
       this.districtList = response.detail;
+      this.districtList.sort((a, b) => a.name.localeCompare(b.name));
       this.addressList[i].districtList = this.districtList;
     });
   }
@@ -230,6 +231,7 @@ export class GuarantorComponent implements OnInit {
     district.id = districtId;
     this.addressServices.getMunicipalityVDCByDistrict(district).subscribe((response: any) => {
       this.municipalitiesList = response.detail;
+      this.municipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
       this.addressList[i].municipalityVdcList = this.municipalitiesList;
     });
   }
@@ -239,6 +241,7 @@ export class GuarantorComponent implements OnInit {
     province.id = provinceId;
     this.addressServices.getDistrictByProvince(province).subscribe((response: any) => {
       this.districtList = response.detail;
+      this.districtList.sort((a, b) => a.name.localeCompare(b.name));
       this.addressListTemporary[i].districtList = this.districtList;
     });
   }
@@ -248,6 +251,7 @@ export class GuarantorComponent implements OnInit {
     district.id = districtId;
     this.addressServices.getMunicipalityVDCByDistrict(district).subscribe((response: any) => {
       this.municipalitiesList = response.detail;
+      this.municipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
       this.addressListTemporary[i].municipalityVdcList = this.municipalitiesList;
     });
   }

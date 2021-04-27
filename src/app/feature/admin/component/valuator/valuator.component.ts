@@ -84,6 +84,7 @@ export class ValuatorComponent implements OnInit {
         ValuatorComponent.loadData(this);
         this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
             this.branchList = response.detail;
+            this.branchList.sort((a,b) => a.name.localeCompare(b.name));
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
