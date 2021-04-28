@@ -11,9 +11,9 @@ export enum RepaymentHistory {
 
 export class RepaymentHistoryMap {
     static repaymentHistoryMap: Map<string, number> = new Map([
-        [RepaymentHistory.BEFORE_DUE, 4],
-        [RepaymentHistory.WITHIN_SEVEN_DAYS_FROM_DUE, 3],
-        [RepaymentHistory.WITHIN_THIRTY_DAYS_FROM_DUE, 2],
+        [RepaymentHistory.BEFORE_DUE, 3.50],
+        [RepaymentHistory.WITHIN_SEVEN_DAYS_FROM_DUE, 2.45],
+        [RepaymentHistory.WITHIN_THIRTY_DAYS_FROM_DUE, 1.75],
         [RepaymentHistory.AFTER_THIRTY_DAYS_FROM_DUE, 0],
         [RepaymentHistory.NEW_CUSTOMER, 0],
     ]);
