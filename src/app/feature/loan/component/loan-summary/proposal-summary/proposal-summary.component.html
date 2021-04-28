@@ -253,19 +253,19 @@
                 <th>Disbursement Criteria</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="proposalAllData?.disbursementCriteria"></td>
+                <td class="text-left pl-1" [innerHTML]="proposalAllData?.disbursementCriteria | safeHtml"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Repayment</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="proposalAllData?.repayment"></td>
+                <td class="text-left pl-1" [innerHTML]="proposalAllData?.repayment | safeHtml"></td>
             </tr>
             <tr class="text-white sb-bg-dark" *ngIf="client !== clientName?.MEGA">
                 <th>Purpose of Loan</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" *ngIf="client !== clientName?.MEGA" [innerHTML]="proposalAllData?.purposeOfLoan"></td>
+                <td class="text-left pl-1" *ngIf="client !== clientName?.MEGA" [innerHTML]="proposalAllData?.purposeOfLoan | safeHtml"></td>
             </tr>
         </table>
     </div>
