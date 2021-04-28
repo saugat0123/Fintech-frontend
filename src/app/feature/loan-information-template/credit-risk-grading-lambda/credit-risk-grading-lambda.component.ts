@@ -65,8 +65,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
     'securityCoverage'
   ];
   exposureRiskArray = [
-    'multibanking',
-    'repaymentTrackInOtherBfIs',
+    'multibanking'
   ];
 
   customerGroupLoanList = [];
@@ -81,9 +80,6 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
 
   // Repayment risk points map --
   multipleSourceOfIncomeMap: Map<string, number> = MajorSourceIncomeMap.majorSourceIncomeMap;
-
-  // Exposure risk points map --
-  repaymentTrackInOtherBfIs: Map<string, number> = RepaymentTrackMap.repaymentTrackMap;
 
   ngOnInit() {
     this.buildForm();
@@ -148,8 +144,6 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.ciCl)) {
       const ciClParsed = JSON.parse(this.ciCl.data);
       this.calculateMultibanking(ciClParsed);
-      this.setValueForCriteria('repaymentTrackInOtherBfIs', this.ciCl.repaymentTrack,
-          this.repaymentTrackInOtherBfIs.get(this.ciCl.repaymentTrack));
     } else {
       this.missingAlerts.push({
         type: 'danger',
@@ -186,17 +180,17 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
     const conditionValue = CalculationUtil.calculateTotalFromList(LoanDataKey.OUTSTANDING_AMOUNT, ciClParsed);
     const automatedValue = conditionValue.toFixed(2);
     if (conditionValue > 10000000) {
-      this.setValueForCriteria('multibanking', 'Above 10 Million', 1.25, automatedValue);
+      this.setValueForCriteria('multibanking', 'Above 10 Million', 1.50, automatedValue);
     } else if (conditionValue > 7500000 && conditionValue <= 10000000) {
-      this.setValueForCriteria('multibanking', 'Above NPR 7.5 Million to NPR 10 Million', 1.50, automatedValue);
+      this.setValueForCriteria('multibanking', 'Above NPR 7.5 Million to NPR 10 Million', 1.80, automatedValue);
     } else if (conditionValue > 5000000 && conditionValue <= 7500000) {
-      this.setValueForCriteria('multibanking', 'Above NPR 5 Million to NPR 7.5 Million', 1.88, automatedValue);
+      this.setValueForCriteria('multibanking', 'Above NPR 5 Million to NPR 7.5 Million', 2.25, automatedValue);
     } else if (conditionValue > 2500000 && conditionValue <= 5000000) {
-      this.setValueForCriteria('multibanking', 'Above NPR 2.5 Million to NPR 5 Million', 2.25, automatedValue);
+      this.setValueForCriteria('multibanking', 'Above NPR 2.5 Million to NPR 5 Million', 2.70, automatedValue);
     } else if (conditionValue === 2500000) {
-      this.setValueForCriteria('multibanking', 'Loan upto NPR 2.5 Million', 2.50, automatedValue);
+      this.setValueForCriteria('multibanking', 'Loan upto NPR 2.5 Million', 3.00, automatedValue);
     } else {
-      this.setValueForCriteria('multibanking', 'Not applicable ', 2.50, automatedValue);
+      this.setValueForCriteria('multibanking', 'Not applicable ', 3.00, automatedValue);
     }
   }
 
@@ -316,7 +310,6 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
 
       securityCoverage: this.criteriaFormGroup(),
       multibanking: this.criteriaFormGroup(),
-      repaymentTrackInOtherBfIs: this.criteriaFormGroup(),
 
       repaymentRiskTotal: undefined,
       relationshipRiskTotal: undefined,

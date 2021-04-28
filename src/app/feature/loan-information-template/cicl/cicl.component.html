@@ -157,31 +157,6 @@
 
       </div>
       <div class="row">
-
-        <div class="col-md-12 form-group">
-          <nb-card *ngIf="!crgLambdaDisabled">
-            <nb-card-body>
-              <div class="row">
-                <div class="col">
-                  <label for="repaymentTrack">
-                    <strong>Repayment track in other BFIs</strong></label><strong
-                    class="text-danger">*</strong>
-                  <select id="repaymentTrack" class="form-control"
-                          formControlName="repaymentTrack"
-                          [ngClass]="{'is-invalid': submitted && ciclForm.get('repaymentTrack').invalid}">
-                    <option [ngValue]="null" hidden selected>--Select Repayment Track--</option>
-                    <option *ngFor="let m of repaymentTrack"
-                            [value]="m?.value">{{m?.value}}</option>
-                  </select>
-                  <div *ngIf="(submitted) && ciclForm.get('repaymentTrack').invalid"
-                       class="invalid-feedback">
-                    Repayment Track is Required
-                  </div>
-                </div>
-              </div>
-            </nb-card-body>
-          </nb-card>
-        </div>
         <div class="col-md-12 form-group">
           <label for="ciclRemarks"><b>Remarks</b></label>
           <!--          <textarea class="form-control" id="ciclRemarks" name="ciclRemarks"  formControlName="ciclRemarks"-->
