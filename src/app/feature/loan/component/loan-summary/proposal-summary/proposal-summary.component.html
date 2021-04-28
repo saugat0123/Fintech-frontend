@@ -245,6 +245,20 @@
         Only /-)
     </div>
 </div>
+<div class="row">
+   <div class="col-md-12">
+       <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small mt-3">
+           <ng-container *ngIf="checkedData?.waiverChecked">
+               <tr class="text-white sb-bg-dark">
+                   <th>Waiver/Deviation</th>
+               </tr>
+               <tr>
+                   <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation | safeHtml"></span></td>
+               </tr>
+           </ng-container>
+       </table>
+   </div>
+</div>
 
 <div class="row" *ngIf="client === clientName?.SHINE_RESUNGA">
     <div class="col-md-12">
