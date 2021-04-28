@@ -714,6 +714,7 @@ export class CompanyFormComponent implements OnInit {
         this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
                 this.districtList = response.detail;
+                this.districtList.sort((a, b) => a.name.localeCompare(b.name));
                 if (proprietorIndex == null) {
                     if (!ObjectUtil.isEmpty(this.customerInfo)) {
                         this.districtList.forEach(district => {
@@ -740,6 +741,7 @@ export class CompanyFormComponent implements OnInit {
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.municipalityVdcList = response.detail;
+                this.municipalityVdcList.sort((a, b) => a.name.localeCompare(b.name));
                 if (proprietorIndex == null) {
                     if (!ObjectUtil.isEmpty(this.customerInfo)) {
                         this.municipalityVdcList.forEach(municipality => {
@@ -1024,6 +1026,7 @@ export class CompanyFormComponent implements OnInit {
     private getAllDistrict() {
         this.commonLocation.getAllDistrict().subscribe((response: any) => {
             this.allDistrict = response.detail;
+            this.allDistrict.sort((a, b) => a.name.localeCompare(b.name));
         });
     }
 
