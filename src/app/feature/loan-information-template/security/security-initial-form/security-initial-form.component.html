@@ -280,7 +280,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3" *ngIf="client !==clientName?.SHINE_RESUNGA">
                             <div class="form-group">
                                 <label class="title" for="landStaffRepresentativeName">Mode of transfer</label>
                                 <input class="form-control rounded" formControlName="modeOfTransfer"
