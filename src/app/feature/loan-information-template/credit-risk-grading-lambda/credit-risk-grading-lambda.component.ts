@@ -38,6 +38,8 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
   @Input() proposedLimit;
   @Input() fromSummery = false;
 
+  totalLoanLimitApprovedPending = 0;
+
   missingAlerts = [];
 
   creditRiskGradingForm: FormGroup;
@@ -85,6 +87,10 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.getTotalLoanLimitApprovedPending();
+  }
+
+  calculateLambda() {
     if (!ObjectUtil.isEmpty(this.financialData)) {
       this.parsedFinancialData = JSON.parse(this.financialData);
       this.setValueForCriteria('typeOfSourceOfIncome', null, this.parsedFinancialData.initialForm.typeOfSourceOfIncomeObtainedScore);
@@ -154,6 +160,28 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
     this.calculateTotalScore();
   }
 
+  getTotalLoanLimitApprovedPending() {
+    let proposedLimitTotal = 0;
+    let approvalLimitTotal = 0;
+    this.customerLoanService.getLoansByLoanHolderId(this.customerInfoData.id).subscribe((res: any) => {
+      this.customerGroupLoanList = res.detail;
+      this.customerGroupLoanList.forEach(l => {
+        if (l.proposal) {
+          if (l.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
+            approvalLimitTotal += l.proposal.proposedLimit;
+          } else {
+            proposedLimitTotal += l.proposal.proposedLimit;
+          }
+        }
+      });
+      this.totalLoanLimitApprovedPending = Number(proposedLimitTotal) + Number(approvalLimitTotal);
+      this.calculateLambda();
+    }, e => {
+      console.log(e, 'Error in fetching Total limit');
+      this.calculateLambda();
+    });
+  }
+
   calculateMultibanking(ciClParsed) {
     const conditionValue = CalculationUtil.calculateTotalFromList(LoanDataKey.OUTSTANDING_AMOUNT, ciClParsed);
     const automatedValue = conditionValue.toFixed(2);
@@ -173,35 +201,21 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
   }
 
   calculateNetWorth() {
-    const conditionValue = Number(this.customer.netWorth) / Number(this.security.totalSecurityAmount);
+    const conditionValue = (Number(this.customer.netWorth) / Number(this.totalLoanLimitApprovedPending)) * 100;
     const automatedValue = conditionValue.toFixed(2);
-    if (conditionValue > 2) {
-      this.setValueForCriteria('netWorth', 'Above 2 times of FAC', 3, automatedValue);
-    } else if (conditionValue >= 1.5 && conditionValue <= 2) {
-      this.setValueForCriteria('netWorth', 'Between 1.5 to 2 times', 2.25, automatedValue);
-    } else if (conditionValue >= 1 && conditionValue < 1.5) {
-      this.setValueForCriteria('netWorth', 'Equals to FAC', 1.50, automatedValue);
-    } else if (conditionValue < 1) {
-      this.setValueForCriteria('netWorth', 'Lower than FAC', 0, automatedValue);
+    if (conditionValue > 150) {
+      this.setValueForCriteria('netWorth', 'Covers loan by 151% and above', 3, automatedValue);
+    } else if (conditionValue >= 100 && conditionValue <= 150) {
+      this.setValueForCriteria('netWorth', 'Covers loan by 100% - 150%', 2.25, automatedValue);
+    } else if (conditionValue >= 50 && conditionValue <= 99) {
+      this.setValueForCriteria('netWorth', 'Covers loan by 50% - 99%', 1.50, automatedValue);
+    } else if (conditionValue < 50) {
+      this.setValueForCriteria('netWorth', 'Covers loan by less than 50%', 0, automatedValue);
     }
   }
 
   calculateSecurityCoverage() {
-    let proposedLimitTotal = 0;
-    let approvalLimitTotal = 0;
-    this.customerLoanService.getLoansByLoanHolderId(this.customerInfoData.id).subscribe((res: any) => {
-      this.customerGroupLoanList = res.detail;
-      this.customerGroupLoanList.forEach(l => {
-        if (l.proposal) {
-          if (l.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
-            approvalLimitTotal += l.proposal.proposedLimit;
-          } else {
-            proposedLimitTotal += l.proposal.proposedLimit;
-          }
-        }
-      });
-    });
-    const conditionValue = (Number(this.security.totalSecurityAmount) / Number(proposedLimitTotal) + Number(approvalLimitTotal)) * 100;
+    const conditionValue = (Number(this.security.totalSecurityAmount) / this.totalLoanLimitApprovedPending) * 100;
     const automatedValue = conditionValue.toFixed(2);
     if (conditionValue > 200) {
       this.setValueForCriteria('securityCoverage', 'Above 200%', 21, automatedValue);
