@@ -15,9 +15,9 @@ export class BankingRelationshipMap {
 }
 export class BankingRelationshipIndividualMap {
     static bankingRelationshipMap: Map<string, number> = new Map([
-        [BankingRelationship.MORE_THAN_TWO, 2.5],
-        [BankingRelationship.TWO_OR_LESS, 1.25],
-        [BankingRelationship.NEW_CUSTOMER_WITH_MIN_TWO, 1.25],
+        [BankingRelationship.MORE_THAN_TWO, 3.50],
+        [BankingRelationship.TWO_OR_LESS, 1.75],
+        [BankingRelationship.NEW_CUSTOMER_WITH_MIN_TWO, 1.75],
         [BankingRelationship.NEW_CUSTOMER_WITH_LESS_THAN_ONE, 0]
     ]);
 }

@@ -38,6 +38,8 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
   @Input() proposedLimit;
   @Input() fromSummery = false;
 
+  totalLoanLimitApprovedPending = 0;
+
   missingAlerts = [];
 
   creditRiskGradingForm: FormGroup;
@@ -63,8 +65,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
     'securityCoverage'
   ];
   exposureRiskArray = [
-    'multibanking',
-    'repaymentTrackInOtherBfIs',
+    'multibanking'
   ];
 
   customerGroupLoanList = [];
@@ -80,11 +81,12 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
   // Repayment risk points map --
   multipleSourceOfIncomeMap: Map<string, number> = MajorSourceIncomeMap.majorSourceIncomeMap;
 
-  // Exposure risk points map --
-  repaymentTrackInOtherBfIs: Map<string, number> = RepaymentTrackMap.repaymentTrackMap;
-
   ngOnInit() {
     this.buildForm();
+    this.getTotalLoanLimitApprovedPending();
+  }
+
+  calculateLambda() {
     if (!ObjectUtil.isEmpty(this.financialData)) {
       this.parsedFinancialData = JSON.parse(this.financialData);
       this.setValueForCriteria('typeOfSourceOfIncome', null, this.parsedFinancialData.initialForm.typeOfSourceOfIncomeObtainedScore);
@@ -142,8 +144,6 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.ciCl)) {
       const ciClParsed = JSON.parse(this.ciCl.data);
       this.calculateMultibanking(ciClParsed);
-      this.setValueForCriteria('repaymentTrackInOtherBfIs', this.ciCl.repaymentTrack,
-          this.repaymentTrackInOtherBfIs.get(this.ciCl.repaymentTrack));
     } else {
       this.missingAlerts.push({
         type: 'danger',
@@ -154,39 +154,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
     this.calculateTotalScore();
   }
 
-  calculateMultibanking(ciClParsed) {
-    const conditionValue = CalculationUtil.calculateTotalFromList(LoanDataKey.OUTSTANDING_AMOUNT, ciClParsed);
-    const automatedValue = conditionValue.toFixed(2);
-    if (conditionValue > 10000000) {
-      this.setValueForCriteria('multibanking', 'Above 10 Million', 1.25, automatedValue);
-    } else if (conditionValue > 7500000 && conditionValue <= 10000000) {
-      this.setValueForCriteria('multibanking', 'Above NPR 7.5 Million to NPR 10 Million', 1.50, automatedValue);
-    } else if (conditionValue > 5000000 && conditionValue <= 7500000) {
-      this.setValueForCriteria('multibanking', 'Above NPR 5 Million to NPR 7.5 Million', 1.88, automatedValue);
-    } else if (conditionValue > 2500000 && conditionValue <= 5000000) {
-      this.setValueForCriteria('multibanking', 'Above NPR 2.5 Million to NPR 5 Million', 2.25, automatedValue);
-    } else if (conditionValue === 2500000) {
-      this.setValueForCriteria('multibanking', 'Loan upto NPR 2.5 Million', 2.50, automatedValue);
-    } else {
-      this.setValueForCriteria('multibanking', 'Not applicable ', 2.50, automatedValue);
-    }
-  }
-
-  calculateNetWorth() {
-    const conditionValue = Number(this.customer.netWorth) / Number(this.security.totalSecurityAmount);
-    const automatedValue = conditionValue.toFixed(2);
-    if (conditionValue > 2) {
-      this.setValueForCriteria('netWorth', 'Above 2 times of FAC', 3, automatedValue);
-    } else if (conditionValue >= 1.5 && conditionValue <= 2) {
-      this.setValueForCriteria('netWorth', 'Between 1.5 to 2 times', 2.25, automatedValue);
-    } else if (conditionValue >= 1 && conditionValue < 1.5) {
-      this.setValueForCriteria('netWorth', 'Equals to FAC', 1.50, automatedValue);
-    } else if (conditionValue < 1) {
-      this.setValueForCriteria('netWorth', 'Lower than FAC', 0, automatedValue);
-    }
-  }
-
-  calculateSecurityCoverage() {
+  getTotalLoanLimitApprovedPending() {
     let proposedLimitTotal = 0;
     let approvalLimitTotal = 0;
     this.customerLoanService.getLoansByLoanHolderId(this.customerInfoData.id).subscribe((res: any) => {
@@ -200,8 +168,48 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
           }
         }
       });
+      this.totalLoanLimitApprovedPending = Number(proposedLimitTotal) + Number(approvalLimitTotal);
+      this.calculateLambda();
+    }, e => {
+      console.log(e, 'Error in fetching Total limit');
+      this.calculateLambda();
     });
-    const conditionValue = (Number(this.security.totalSecurityAmount) / Number(proposedLimitTotal) + Number(approvalLimitTotal)) * 100;
+  }
+
+  calculateMultibanking(ciClParsed) {
+    const conditionValue = CalculationUtil.calculateTotalFromList(LoanDataKey.OUTSTANDING_AMOUNT, ciClParsed);
+    const automatedValue = conditionValue.toFixed(2);
+    if (conditionValue > 10000000) {
+      this.setValueForCriteria('multibanking', 'Above 10 Million', 1.50, automatedValue);
+    } else if (conditionValue > 7500000 && conditionValue <= 10000000) {
+      this.setValueForCriteria('multibanking', 'Above NPR 7.5 Million to NPR 10 Million', 1.80, automatedValue);
+    } else if (conditionValue > 5000000 && conditionValue <= 7500000) {
+      this.setValueForCriteria('multibanking', 'Above NPR 5 Million to NPR 7.5 Million', 2.25, automatedValue);
+    } else if (conditionValue > 2500000 && conditionValue <= 5000000) {
+      this.setValueForCriteria('multibanking', 'Above NPR 2.5 Million to NPR 5 Million', 2.70, automatedValue);
+    } else if (conditionValue === 2500000) {
+      this.setValueForCriteria('multibanking', 'Loan upto NPR 2.5 Million', 3.00, automatedValue);
+    } else {
+      this.setValueForCriteria('multibanking', 'Not applicable ', 3.00, automatedValue);
+    }
+  }
+
+  calculateNetWorth() {
+    const conditionValue = (Number(this.customer.netWorth) / Number(this.totalLoanLimitApprovedPending)) * 100;
+    const automatedValue = conditionValue.toFixed(2);
+    if (conditionValue > 150) {
+      this.setValueForCriteria('netWorth', 'Covers loan by 151% and above', 3, automatedValue);
+    } else if (conditionValue >= 100 && conditionValue <= 150) {
+      this.setValueForCriteria('netWorth', 'Covers loan by 100% - 150%', 2.25, automatedValue);
+    } else if (conditionValue >= 50 && conditionValue <= 99) {
+      this.setValueForCriteria('netWorth', 'Covers loan by 50% - 99%', 1.50, automatedValue);
+    } else if (conditionValue < 50) {
+      this.setValueForCriteria('netWorth', 'Covers loan by less than 50%', 0, automatedValue);
+    }
+  }
+
+  calculateSecurityCoverage() {
+    const conditionValue = (Number(this.security.totalSecurityAmount) / this.totalLoanLimitApprovedPending) * 100;
     const automatedValue = conditionValue.toFixed(2);
     if (conditionValue > 200) {
       this.setValueForCriteria('securityCoverage', 'Above 200%', 21, automatedValue);
@@ -302,7 +310,6 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
 
       securityCoverage: this.criteriaFormGroup(),
       multibanking: this.criteriaFormGroup(),
-      repaymentTrackInOtherBfIs: this.criteriaFormGroup(),
 
       repaymentRiskTotal: undefined,
       relationshipRiskTotal: undefined,
