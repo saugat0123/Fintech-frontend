@@ -16,14 +16,14 @@
                 <div>
                     <div class="row sb-small"><strong> Disbursement criteria :</strong></div>
                     <div class="sb-small">
-                        <span>{{(data.proposal.data |jsonParse)?.disbursementCriteria || 'NA'}}</span>
+                        <span [innerHTML]="(data.proposal.data |jsonParse)?.disbursementCriteria || 'NA'"></span>
                     </div>
                 </div>
 
                 <div>
                     <div class="row sb-small"><strong> Repayment criteria :</strong></div>
                     <div class="sb-small">
-                        <span>{{(data.proposal.data |jsonParse)?.repayment || 'NA'}}</span>
+                        <span [innerHTML]="(data?.proposal?.data | jsonParse)?.repayment || 'NA'"></span>
                     </div>
                 </div>
                 <hr>
