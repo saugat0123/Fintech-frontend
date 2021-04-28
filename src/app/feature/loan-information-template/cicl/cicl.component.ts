@@ -6,7 +6,6 @@ import {FormUtils} from '../../../@core/utils/form.utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
 import {Editor} from '../../../@core/utils/constants/editor';
-import {RepaymentTrack} from '../../admin/modal/crg/RepaymentTrack';
 import {RelationshipList} from '../../loan/model/relationshipList';
 import {CiclRelationListEnum} from '../../loan/model/ciclRelationListEnum';
 import {environment} from '../../../../environments/environment.srdb';
@@ -32,7 +31,6 @@ export class CiclComponent implements OnInit {
   submitted = false;
   ckeConfig = Editor.CK_CONFIG;
 
-  repaymentTrack = RepaymentTrack.enumObject();
   relationshipList: RelationshipList = new RelationshipList();
   relationlist;
   ciclRelation = CiclRelationListEnum.pair();
@@ -81,8 +79,6 @@ export class CiclComponent implements OnInit {
     this.ciclForm = this.formBuilder.group({
       ciclArray: this.formBuilder.array([]),
       ciclRemarks: [ObjectUtil.isEmpty(this.ciclValue) ? '' : this.ciclValue.remarks],
-      repaymentTrack: [ObjectUtil.isEmpty(this.ciclValue) ? '' : this.ciclValue.repaymentTrack,
-          this.crgLambdaDisabled ? undefined : Validators.required],
       cibCharge: [ObjectUtil.isEmpty(this.ciclValue) ? undefined : this.ciclValue.cibCharge]
     });
     if (!ObjectUtil.isEmpty(this.ciclList)) {
@@ -215,8 +211,6 @@ export class CiclComponent implements OnInit {
     // uncomment if value is need
     this.ciclValue.remarks = this.ciclForm.get('ciclRemarks').value === undefined ? '' : this.ciclForm.get('ciclRemarks').value;
     this.ciclValue.cibCharge = this.ciclForm.get('cibCharge').value === undefined ? '' : this.ciclForm.get('cibCharge').value;
-    this.ciclValue.repaymentTrack = this.ciclForm.get('repaymentTrack').value === undefined ? '' :
-        this.ciclForm.get('repaymentTrack').value;
     this.ciclValue.data = JSON.stringify(this.ciclList);
     this.ciclDataEmitter.emit(this.ciclValue);
   }
