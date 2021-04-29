@@ -29,7 +29,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-5">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="title"><strong>Type</strong></label><strong
                                         class="text-danger">*</strong>
@@ -40,6 +40,21 @@
                                     </ng-select>
                                     <span *ngIf="incomeOfBorrower.get('organization').invalid"
                                           class="text-danger small">Type required</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title"><strong>Age of Income Generated(In Months)</strong></label><strong
+                                        class="text-danger">*</strong>
+                                    <input
+                                           [ngClass]="{
+                               'is-invalid': incomeOfBorrower.get('ageOfIncomeGenerated').invalid && (incomeOfBorrower.get('ageOfIncomeGenerated').dirty || incomeOfBorrower.get('ageOfIncomeGenerated').touched),
+                                'is-valid': !incomeOfBorrower.get('ageOfIncomeGenerated').invalid && (incomeOfBorrower.get('ageOfIncomeGenerated').dirty || incomeOfBorrower.get('ageOfIncomeGenerated').touched)
+                                }" class="form-control"
+                                           placeholder="Age of Income Generated"
+                                           formControlName="ageOfIncomeGenerated"
+                                           type="number" appDecimalNumber>
+                                    <span *ngIf="incomeOfBorrower.get('ageOfIncomeGenerated').invalid" class="text-danger small">Age required</span>
                                 </div>
                             </div>
 
