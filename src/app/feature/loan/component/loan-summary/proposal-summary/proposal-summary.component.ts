@@ -10,6 +10,8 @@ import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {ActivatedRoute, Params} from '@angular/router';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
+import {ProductUtils} from '../../../../admin/service/product-mode.service';
+import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-proposal-summary',
@@ -45,6 +47,7 @@ export class ProposalSummaryComponent implements OnInit {
     showInstallmentAmount = false;
     showRepaymentMode = false;
     showPrincipalAmount = false;
+    productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
 
     constructor(private activatedRoute: ActivatedRoute,
                 private loanConfigService: LoanConfigService) {
