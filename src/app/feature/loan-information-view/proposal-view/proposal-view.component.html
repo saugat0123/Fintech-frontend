@@ -205,12 +205,16 @@
   <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.RENEW_WITH_ENHANCEMENT)"
      class="text-round">R/E</i>
 </ng-template>
+
 <div class="row">
   <div class="col-md-12 sb-medium">
-    <strong>Propose Amount:</strong>
-    Rs. {{loanDataHolder?.proposal?.proposedAmountInWords}}
-    Only /-
+    <strong>Total Proposed Limit (in words):</strong>
+    {{ getTotal('proposedLimit') | currencyFormatter}}
+    (Rs. {{ getTotal('proposedLimit') | inWords | titlecase }} Only /-)
   </div>
+</div>
+
+<div class="row">
   <div class="col-md-12">
     <table
             class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
@@ -269,31 +273,30 @@
         <td class="text-center" *ngIf="checkedData?.subsidizedLoanChecked && (client !== clientName?.MEGA) && proposalAllData?.others !== null">{{proposalAllData?.others}}</td>
       </tr>
     </table>
+    <table *ngIf="productUtils.CBS_ENABLE"
+           class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
+        <tr class="text-white sb-bg-dark">
+          <th>Disbursement Criteria </th>
+        </tr>
+        <tr>
+          <td class="text-left pl-1" [innerHTML]="proposalAllData?.disbursementCriteria | safeHtml"></td>
+        </tr>
+        <tr class="text-white sb-bg-dark">
+          <th>Repayment</th>
+        </tr>
+        <tr>
+          <td class="text-left pl-1" [innerHTML]="proposalAllData?.repayment | safeHtml"></td>
+        </tr>
+        <tr class="text-white sb-bg-dark">
+          <th *ngIf="client !== clientName?.MEGA">Background</th>
+          <th *ngIf="client === clientName?.MEGA">Justification of limit</th>
+        </tr>
+        <tr>
+          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.borrowerInformation  | safeHtml"></span> </td>
+        </tr>
+    </table>
 
-    <table
-            class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
-
-      <tr class="text-white sb-bg-dark">
-        <th>Disbursement
-          Criteria
-        </th>
-      </tr>
-      <tr>
-        <td class="text-left pl-1" [innerHTML]="proposalAllData?.disbursementCriteria | safeHtml"></td>
-      </tr>
-      <tr class="text-white sb-bg-dark">
-        <th>Repayment</th>
-      </tr>
-      <tr>
-        <td class="text-left pl-1" [innerHTML]="proposalAllData?.repayment | safeHtml"></td>
-      </tr>
-      <tr class="text-white sb-bg-dark">
-        <th *ngIf="client !== clientName?.MEGA">Background</th>
-        <th *ngIf="client === clientName?.MEGA">Justification of limit</th>
-      </tr>
-      <tr>
-        <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.borrowerInformation  | safeHtml"></span> </td>
-      </tr>
+    <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
       <tr class="text-white sb-bg-dark">
         <th>Summery & Recommendation</th>
       </tr>
