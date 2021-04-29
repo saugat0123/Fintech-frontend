@@ -3,7 +3,8 @@
     <p ><strong>Security Details</strong></p>
   </div>
   <div *ngIf="landSelected" class="row">
-    <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" *ngFor="let landDetails of securityData['initialForm']['landDetails']; let i= index">
+    <ng-container  *ngFor="let landDetails of securityData['initialForm']['landDetails']; let i= index">
+    <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
       <thead>
       <tr>
         <th colspan="10">{{i+1}}.Land Security Details</th>
@@ -151,6 +152,17 @@
 
       </tbody>
     </table>
+      <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+        <tr class="sb-bg-dark text-white">
+          <th colspan="1">Road access seen in blueprint</th>
+          <th colspan="4">Road Access Description</th>
+        </tr>
+        <tr>
+          <td colspan="1">{{landDetails?.roadAccessBluePrint}}</td>
+          <td colspan="4">{{landDetails?.roadAccessDescribe}}</td>
+        </tr>
+      </table>
+    </ng-container>
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
       <thead>
       <tr class="text-white sb-bg-dark">
@@ -166,7 +178,8 @@
   </div>
 
   <div class="row" *ngIf= "landBuilding">
-    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"  *ngFor="let landBuilding of  securityData['initialForm']['landBuilding']; let i= index">
+    <ng-container   *ngFor="let landBuilding of  securityData['initialForm']['landBuilding']; let i= index">
+    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
         <thead>
         <tr>
           <th class="text-center" colspan="9">{{i+1}}.Land & Building Security Details</th>
@@ -370,6 +383,17 @@
         </tbody>
 
       </table>
+      <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+        <tr class="sb-bg-dark text-white">
+          <th colspan="1">Road access seen in blueprint</th>
+          <th colspan="4">Road Access Description</th>
+        </tr>
+        <tr>
+          <td colspan="1">{{landBuilding?.roadAccessBluePrint}}</td>
+          <td colspan="4">{{landBuilding?.roadAccessDescribe}}</td>
+        </tr>
+      </table>
+    </ng-container>
     <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
       <tr class="text-center sb-bg-dark text-white">
         <td>Remarks of land and building</td>

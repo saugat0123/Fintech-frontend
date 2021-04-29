@@ -7,13 +7,14 @@
           <table class="table table-bordered text-right table-sm sb-small text-center">
             <thead>
             <tr>
-              <th class="text-center" colspan="5">Income of Borrower</th>
+              <th class="text-center" colspan="6">Income of Borrower</th>
             </tr>
             <tr class="text-white sb-bg-dark">
               <th>S.N</th>
               <th>Source of Income</th>
               <th>Organization</th>
               <th>Amount</th>
+              <th>Age Of Income Generated</th>
               <th>Remarks</th>
             </tr>
             </thead>
@@ -23,11 +24,12 @@
               <td class="text-left pl-1">{{incomeOfBorrower.incomeSource}}</td>
               <td class="text-left pl-1">{{incomeOfBorrower.organization}}</td>
               <td class="text-right pr-1">Rs. {{incomeOfBorrower.amount | currencyFormatter}}</td>
+              <td>{{incomeOfBorrower.ageOfIncomeGenerated|| '0'}} months</td>
               <td class="text-left pl-1">{{incomeOfBorrower.remarks}}</td>
             </tr>
             <tr>
               <td class="text-left pl-1" colspan="3"><strong>Total Income</strong></td>
-              <td colspan="2" class="text-right pr-1">
+              <td colspan="3" class="text-right pr-1">
                 <strong>Rs. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</strong>
               </td>
             </tr>
