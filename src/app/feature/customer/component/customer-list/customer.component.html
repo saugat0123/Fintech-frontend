@@ -166,8 +166,42 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-success float-right" nbButton size="small" (click)="getForm()">Next
+    <button class="btn btn-success float-right" nbButton size="small" (click)="getForm(chooseAcType)">Next
     </button>
   </div>
+</ng-template>
+<ng-template #chooseAcType let-ref="dialogRef">
+  <nb-card class="m-0" [nbSpinner]="onActionChangeSpinner">
+    <nb-card-header>
+      <a (click)="onClose()" aria-label="Close" class="close pull-right cursor">
+        <span aria-hidden="true">&times;</span>
+      </a>
+      <h5>Are you registering as Joint Customer?</h5>
+    </nb-card-header>
+    <nb-card-footer>
+      <div class="d-flex justify-content-end">
+        <button (click)="changeAction(chooseJointNo);ref.close()" nbButton status="primary" type="submit">YES</button>
+        <button (click)="onCloseJoint();ref.close()" nbButton status="warning" type="button">NO</button>
+      </div>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+<ng-template #chooseJointNo let-ref="dialogRef">
+  <nb-card class="m-0" [nbSpinner]="onActionChangeSpinner">
+    <nb-card-header>
+      <a (click)="onClose()" aria-label="Close" class="close pull-right cursor">
+        <span aria-hidden="true">&times;</span>
+      </a>
+      <h4>No. of Joint Customer</h4>
+      <input class="form-control"
+             placeholder="Please input greater or equal to 2"
+             type="number"
+             #joint>
+    </nb-card-header>
+    <nb-card-footer>
+      <button class="btn btn-success float-right" nbButton size="small" (click)="onNextJointCustomer(joint.value);ref.close()">Next
+      </button>
+    </nb-card-footer>
+  </nb-card>
 </ng-template>
 <app-overlay-spinner></app-overlay-spinner>

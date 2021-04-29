@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core';
 import {CustomerService} from '../../service/customer.service';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -10,7 +10,7 @@ import {LoanType} from '../../../loan/model/loanType';
 import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CustomerFormComponent} from '../customer-form/individual-form/customer-form.component';
-import {NbDialogService} from '@nebular/theme';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {CustomerInfoService} from '../../service/customer-info.service';
 import {CustomerType} from '../../model/customerType';
 import {CompanyFormComponent} from '../customer-form/company-form/company-form.component';
@@ -27,6 +27,9 @@ import {CustomerGroupService} from '../../../admin/component/preference/services
 import {CustomerGroup} from '../../../admin/modal/customer-group';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {Province} from '../../../admin/modal/province';
+import {JointFormComponent} from '../customer-form/joint-form/joint-form.component';
+import {any} from 'codelyzer/util/function';
+
 
 @Component({
     selector: 'app-customer-component',
@@ -56,6 +59,7 @@ export class CustomerComponent implements OnInit {
     showBranchProvince = true;
     customerGroupList: Array<CustomerGroup>;
     provinces: Province[];
+    onActionChangeSpinner = false;
 
     constructor(private customerService: CustomerService,
                 private toastService: ToastService,
@@ -70,7 +74,7 @@ export class CustomerComponent implements OnInit {
                 private branchService: BranchService,
                 private customerGroupService: CustomerGroupService,
                 private companyInfoService: CompanyInfoService,
-                private location: AddressService
+                private location: AddressService,
     ) {
     }
 
@@ -151,21 +155,18 @@ export class CustomerComponent implements OnInit {
     onSearch() {
         CustomerComponent.loadData(this);
     }
+    openChooseAcType(modal) {
+        this.modalService.open(modal);
+    }
+    openJ
 
-
-    getForm() {
+    getForm(chooseAcType) {
         this.onClose();
         if (CustomerType.INDIVIDUAL === CustomerType[this.customerType]) {
-
-            this.dialogService.open(CustomerFormComponent, {
-                closeOnBackdropClick: false,
-                closeOnEsc: false,
-                hasBackdrop: false,
-                hasScroll: true
-            }).onClose.subscribe(res => CustomerComponent.loadData(this));
+            this.openChooseAcType(chooseAcType);
         } else if (CustomerType.INSTITUTION === CustomerType[this.customerType]) {
             this.dialogService.open(CompanyFormComponent, {
-                closeOnBackdropClick: false,
+                closeOnBackdropClick: true,
                 closeOnEsc: false,
                 hasBackdrop: false,
                 hasScroll: true
@@ -176,7 +177,6 @@ export class CustomerComponent implements OnInit {
     openTemplate(template) {
         this.modalService.open(template);
     }
-
     onClose() {
         this.modalService.dismissAll();
     }
@@ -223,7 +223,6 @@ export class CustomerComponent implements OnInit {
         if (this.accessSpecific || this.accessAll) {
             this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
                 this.branchList = response.detail;
-                this.branchList.sort((a,b) => a.name.localeCompare(b.name));
             }, error => {
                 console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
@@ -259,22 +258,56 @@ export class CustomerComponent implements OnInit {
             this.companyInfoService.detail(model.associateId).subscribe((res: any) => {
                 const detail = res.detail;
                 this.dialogService.open(CompanyFormComponent, {
-                context: {
-                    formValue: detail,
-                    bankingRelationshipInput: model.bankingRelationship,
-                    subSectorDetailCodeInput: model.subsectorDetail,
-                    customerCode: model.customerCode,
-                    clientTypeInput: model.clientType,
-                },
-                closeOnBackdropClick: false,
-                closeOnEsc: false,
-                hasBackdrop: false,
-                hasScroll: true
-                // tslint:disable-next-line:no-shadowed-variable
-            }).onClose.subscribe(res => CustomerComponent.loadData(this));
+                    context: {
+                        formValue: detail,
+                        bankingRelationshipInput: model.bankingRelationship,
+                        subSectorDetailCodeInput: model.subsectorDetail,
+                        customerCode: model.customerCode,
+                        clientTypeInput: model.clientType,
+                    },
+                    closeOnBackdropClick: false,
+                    closeOnEsc: false,
+                    hasBackdrop: false,
+                    hasScroll: true
+                    // tslint:disable-next-line:no-shadowed-variable
+                }).onClose.subscribe(res => CustomerComponent.loadData(this));
             });
         }
     }
 
+    changeAction(chooseJointNo: TemplateRef<any>) {
+        this.onClose();
+       this.modalService.open(chooseJointNo);
+    }
+
+    onCloseJoint() {
+        this.onClose();
+            this.dialogService.open(CustomerFormComponent, {
+                closeOnBackdropClick: false,
+                closeOnEsc: false,
+                hasBackdrop: false,
+                hasScroll: true
+            }).onClose.subscribe(res => CustomerComponent.loadData(this));
+    }
+
+    onNextJointCustomer(val) {
+        this.onClose();
+        if (CustomerType.INDIVIDUAL === CustomerType[this.customerType]) {
+            const context = {
+                currentVal: val
+            };
+            if (val >= 2) {
+                this.dialogService.open(JointFormComponent, {
+                    context,
+                    closeOnBackdropClick: false,
+                    closeOnEsc: false,
+                    hasBackdrop: false,
+                    hasScroll: true
+                }).onClose.subscribe(res => CustomerComponent.loadData(this));
+            } else {
+                this.toastService.show(new Alert(AlertType.ERROR, 'Please input the number greater or equal to 2'));
+            }
+        }
+    }
 
 }
