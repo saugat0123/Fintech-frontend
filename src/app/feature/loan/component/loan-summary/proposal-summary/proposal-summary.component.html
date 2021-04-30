@@ -245,22 +245,39 @@
         Only /-)
     </div>
 </div>
+<div class="row">
+   <div class="col-md-12">
+       <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small mt-3">
+           <ng-container *ngIf="checkedData?.waiverChecked">
+               <tr class="text-white sb-bg-dark">
+                   <th>Waiver/Deviation</th>
+               </tr>
+               <tr>
+                   <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation | safeHtml"></span></td>
+               </tr>
+           </ng-container>
+       </table>
+   </div>
+</div>
 
 <div class="row" *ngIf="client === clientName?.SHINE_RESUNGA">
     <div class="col-md-12">
+        <table *ngIf="productUtils?.CBS_ENABLE"
+               class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <tr class="text-white sb-bg-dark">
+                    <th>Disbursement Criteria</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1" [innerHTML]="proposalAllData?.disbursementCriteria | safeHtml"></td>
+                </tr>
+                <tr class="text-white sb-bg-dark">
+                    <th>Repayment</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1" [innerHTML]="proposalAllData?.repayment | safeHtml"></td>
+                </tr>
+        </table>
         <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
-            <tr class="text-white sb-bg-dark">
-                <th>Disbursement Criteria</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="proposalAllData?.disbursementCriteria | safeHtml"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Repayment</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="proposalAllData?.repayment | safeHtml"></td>
-            </tr>
             <tr class="text-white sb-bg-dark" *ngIf="client !== clientName?.MEGA">
                 <th>Purpose of Loan</th>
             </tr>
