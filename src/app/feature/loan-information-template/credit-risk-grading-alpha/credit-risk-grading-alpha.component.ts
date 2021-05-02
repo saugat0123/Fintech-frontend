@@ -673,7 +673,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
       total = Number(this.creditRiskGradingForm.get(singleCriteria).get('value').value) + total;
     });
     if (!this.historicalDataPresent) {
-      total = 0.5 * total;
+      total = 0.15 * total;
     }
     this.creditRiskGradingForm.get('financialTotal').patchValue(total.toFixed(2));
     return total;
