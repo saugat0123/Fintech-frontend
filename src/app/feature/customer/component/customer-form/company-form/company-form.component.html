@@ -1135,7 +1135,7 @@
                                            </div>
                                        </div>
                                    </div>
-                                   <div class="col-md-4 form-group">
+                                   <div class="col-md-4 form-group" *ngIf="client !== clientName.MEGA">
                                        <label><strong>Citizenship Number</strong></label>
                                        <input [ngClass]="{'is-invalid': submitted && proprietor.get('citizenshipNum').errors}"
                                               class="form-control"
@@ -1149,7 +1149,7 @@
                                            </div>
                                        </div>
                                    </div>
-                                   <div class="col-md-4 form-group">
+                                   <div class="col-md-4 form-group" *ngIf="client !== clientName.MEGA">
                                        <label><strong>Issued date</strong></label>
                                        <input *ngIf="calendarType === 'AD'" [nbDatepicker]="issuedDate"
                                               [ngClass]="{ 'is-invalid':submitted && proprietor.get('issuedDate').errors}"
@@ -1168,7 +1168,7 @@
                                        </div>
                                    </div>
                                </div>
-                               <div class="row">
+                               <div class="row" *ngIf="client !== clientName.MEGA">
                                    <div class="col-md-4 form-group">
                                        <label><strong>Issued place</strong></label>
                                        <ng-select [ngClass]="{ 'is-invalid':submitted && proprietor.get('issuedPlace').errors }"
