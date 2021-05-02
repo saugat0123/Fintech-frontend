@@ -25,7 +25,7 @@
                   class="form-control" placeholder="remark"/>
       </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2" *ngIf="client !== clientName?.SHINE_RESUNGA">
       <div class="form-group">
         <label for="negativeList"><strong>Customer Negative List Checked?</strong></label> <br>
         <nb-radio-group class="close d-inline-flex float-left" formControlName="negativeList" name="negativeList" id="negativeList">
@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" *ngIf="client !== clientName?.SHINE_RESUNGA">
       <div class="form-group">
         <label for="negativeListRemark"><strong>Negative List Remark</strong></label>
         <input id="negativeListRemark" formControlName="negativeListRemark" name="negativeListRemark" type="text"
