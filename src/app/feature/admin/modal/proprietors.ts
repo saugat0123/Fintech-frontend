@@ -13,5 +13,9 @@ export class Proprietors {
     addressLine1: string;
     addressLine2: string;
     type: string;
+    issuedDate: string;
+    citizenshipNum: string;
+    issuedPlace: string;
+    dateOfBirth: string;
     kycInfo: any;
 }

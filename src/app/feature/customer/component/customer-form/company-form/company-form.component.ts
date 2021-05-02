@@ -617,6 +617,10 @@ export class CompanyFormComponent implements OnInit {
             district: [null],
             municipalityVdc: [null],
             holderPercentWardNumber: [undefined, Validators.required],
+            citizenshipNum: [undefined, Validators.required],
+            issuedDate: [undefined, Validators.required],
+            issuedPlace: [undefined, Validators.required],
+            dateOfBirth: [undefined, Validators.required],
             addressLine1: [undefined, Validators.required],
             addressLine2: [undefined],
             type: [null, Validators.required]
@@ -679,8 +683,12 @@ export class CompanyFormComponent implements OnInit {
                 district: [proprietors.district === null ? null : proprietors.district],
                 municipalityVdc: [proprietors.municipalityVdc === null ? null : proprietors.municipalityVdc],
                 holderPercentWardNumber: [proprietors.holderPercentWardNumber === null ? null : proprietors.holderPercentWardNumber],
-                addressLine1: [proprietors.addressLine1 === null ? null : proprietors.addressLine1],
-                addressLine2: [proprietors.addressLine2 === null ? null : proprietors.addressLine2],
+                citizenshipNum: [proprietors.citizenshipNum === null ? null : proprietors.citizenshipNum, Validators.required],
+                issuedDate: [proprietors.issuedDate === null ? null : proprietors.issuedDate, Validators.required],
+                issuedPlace: [proprietors.issuedPlace === null ? null : proprietors.issuedPlace, Validators.required],
+                dateOfBirth: [proprietors.dateOfBirth === null ? null : proprietors.dateOfBirth, Validators.required],
+                addressLine1: [proprietors.addressLine1 === null ? null : proprietors.addressLine1, Validators.required],
+                addressLine2: [proprietors.addressLine2 === null ? null : proprietors.addressLine2, Validators.required],
                 type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]
             }));
         });
@@ -919,6 +927,10 @@ export class CompanyFormComponent implements OnInit {
             proprietors.contactNo = this.getProprietor()[proprietorsIndex].contactNo;
             proprietors.share = this.getProprietor()[proprietorsIndex].share;
             proprietors.holderPercentWardNumber = this.getProprietor()[proprietorsIndex].holderPercentWardNumber;
+            proprietors.citizenshipNum = this.getProprietor()[proprietorsIndex].citizenshipNum;
+            proprietors.issuedDate = this.getProprietor()[proprietorsIndex].issuedDate;
+            proprietors.dateOfBirth = this.getProprietor()[proprietorsIndex].dateOfBirth;
+            proprietors.issuedPlace = this.getProprietor()[proprietorsIndex].issuedPlace;
             proprietors.addressLine1 = this.getProprietor()[proprietorsIndex].addressLine1;
             proprietors.addressLine2 = this.getProprietor()[proprietorsIndex].addressLine2;
             proprietors.type = this.getProprietor()[proprietorsIndex].type;
