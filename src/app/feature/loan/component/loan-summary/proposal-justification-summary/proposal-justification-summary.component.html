@@ -10,20 +10,24 @@
                     <strong><span><u>{{data.loan.name}}({{data.createdAt | date}}) :</u></span></strong>
                 </div>
 
-        <div class="text-align" [innerHTML]="(data.proposal.data |jsonParse)?.borrowerInformation | safeHtml">
-        </div>
+                <div>
+                    <div class="row sb-small" ><strong>{{client === clientName?.MEGA ? 'Justification of limit :' : 'Background :' }}</strong></div>
+                    <div class="sb-small">
+                        <span [innerHTML]="(data.proposal.data |jsonParse)?.borrowerInformation || 'NA' | safeHtml"></span>
+                    </div>
+                </div>
 
                 <div>
                     <div class="row sb-small"><strong> Disbursement criteria :</strong></div>
                     <div class="sb-small">
-                        <span>{{(data.proposal.data |jsonParse)?.disbursementCriteria || 'NA'}}</span>
+                        <span [innerHTML]="(data.proposal.data |jsonParse)?.disbursementCriteria || 'NA' | safeHtml"></span>
                     </div>
                 </div>
 
                 <div>
                     <div class="row sb-small"><strong> Repayment criteria :</strong></div>
                     <div class="sb-small">
-                        <span>{{(data.proposal.data |jsonParse)?.repayment || 'NA'}}</span>
+                        <span [innerHTML]="(data?.proposal?.data | jsonParse)?.repayment || 'NA' | safeHtml"></span>
                     </div>
                 </div>
                 <hr>

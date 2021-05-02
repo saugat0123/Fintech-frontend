@@ -401,19 +401,19 @@
                   <table aria-describedby="swot table" class="table  table-bordered table-hover sb-small text-center">
                     <tr>
                       <td class="sb-bg-dark text-white"> Strengths</td>
-                      <td>{{companyJsonData?.swot?.strength}} </td>
+                      <td [innerHTML]="companyJsonData?.swot?.strength | safeHtml"></td>
                     </tr>
                     <tr>
                       <td class="sb-bg-dark text-white"> Weaknesses</td>
-                      <td> {{companyJsonData?.swot?.weakness}}</td>
+                      <td [innerHTML]="companyJsonData?.swot?.weakness | safeHtml"></td>
                     </tr>
                     <tr>
                       <td class="sb-bg-dark text-white"> Opportunities</td>
-                      <td> {{companyJsonData?.swot?.opportunity}}</td>
+                      <td [innerHTML]="companyJsonData?.swot?.opportunity | safeHtml"></td>
                     </tr>
                     <tr>
                       <td class="sb-bg-dark text-white"> Threats</td>
-                      <td> {{companyJsonData?.swot?.threats}}</td>
+                      <td [innerHTML]="companyJsonData?.swot?.threats | safeHtml"></td>
                     </tr>
                   </table>
                 </nb-accordion-item-body>

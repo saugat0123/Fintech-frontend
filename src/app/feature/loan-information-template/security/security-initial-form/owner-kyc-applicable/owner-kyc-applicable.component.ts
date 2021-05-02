@@ -95,6 +95,7 @@ export class OwnerKycApplicableComponent implements OnInit {
     getAllDistrict() {
         this.districtService.getAllDistrict().subscribe((response: any) => {
             this.allDistrict = response.detail;
+            this.allDistrict.sort((a, b) => a.name.localeCompare(b.name));
         }, (error) => {
             console.log(error);
         });

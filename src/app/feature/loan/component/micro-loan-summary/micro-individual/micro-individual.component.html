@@ -137,7 +137,7 @@
             <th>Background of Customer / Business</th>
             </thead>
             <tbody>
-            <td>{{customerInfo?.introduction}}</td>
+            <td [innerHTML]="customerInfo?.introduction | safeHtml"></td>
             </tbody>
         </table>
     </div>

@@ -135,17 +135,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label for="landSecurityLegalDocumentAddress"><strong>Address as per Legal Document</strong></label>
-                            <textarea class="form-control"
-                                      formControlName="landSecurityLegalDocumentAddress"
-                                      id="landSecurityLegalDocumentAddress"
-                                      name="landSecurityLegalDocumentAddress"
-                                      placeholder="Address as per Legal Document"
-                                      rows="5"
-                                      type="text" maxlength="256"></textarea>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="title" for="landCollateralOwnerRelationship">Collateral Owner
                                     Relationship</label>
@@ -157,6 +147,40 @@
                                             [ngValue]="relationship.id">{{relationship.name}}</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="title" for="roadAccessBluePrintLand">Is road access seen in blueprint or
+                                    not</label>
+                                <select class="form-control rounded"
+                                        formControlName="roadAccessBluePrint"
+                                        id="roadAccessBluePrintLand">
+                                    <option [ngValue]="null">--Select Road Access--</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label for="roadAccessDescribeLand"><strong>Briefly describe the road access</strong></label>
+                            <textarea class="form-control"
+                                      formControlName="roadAccessDescribe"
+                                      id="roadAccessDescribeLand"
+                                      placeholder="Road Access Description"
+                                      rows="5"
+                                      type="text"></textarea>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="landSecurityLegalDocumentAddress"><strong>Address as per Legal Document</strong></label>
+                            <textarea class="form-control"
+                                      formControlName="landSecurityLegalDocumentAddress"
+                                      id="landSecurityLegalDocumentAddress"
+                                      name="landSecurityLegalDocumentAddress"
+                                      placeholder="Address as per Legal Document"
+                                      rows="5"
+                                      type="text" maxlength="256"></textarea>
                         </div>
                     </div>
                     <div class="row">
@@ -280,7 +304,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3" *ngIf="client !==clientName?.SHINE_RESUNGA">
                             <div class="form-group">
                                 <label class="title" for="landStaffRepresentativeName">Mode of transfer</label>
                                 <input class="form-control rounded" formControlName="modeOfTransfer"
@@ -1415,18 +1439,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label for="landAndBuildingSecurityLegalDocumentAddress"><strong>Address as per Legal
-                                    Document</strong></label>
-                                <textarea class="form-control"
-                                          formControlName="landAndBuildingSecurityLegalDocumentAddress"
-                                          id="landAndBuildingSecurityLegalDocumentAddress"
-                                          name="landAndBuildingSecurityLegalDocumentAddress"
-                                          placeholder="Address as per Legal Document"
-                                          rows="5"
-                                          type="text" maxlength="256"></textarea>
-                            </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="title" for="landBuildingCollateralOwnerRelationship">Collateral Owner
                                         Relationship</label>
@@ -1439,6 +1452,44 @@
                                                 [ngValue]="relationship.id">{{relationship.name}}</option>
                                     </select>
                                 </div>
+                            </div>
+                                <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="title" for="roadAccessBluePrint">Is road access seen in blueprint or
+                                        not</label>
+                                    <select class="form-control rounded"
+                                            formControlName="roadAccessBluePrint"
+                                            id="roadAccessBluePrint"
+                                            name="roadAccessBluePrint">
+                                        <option [ngValue]="null">--Select Road Access--</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label for="roadAccessDescribe"><strong>Briefly describe the road access</strong></label>
+                                <textarea class="form-control"
+                                          formControlName="roadAccessDescribe"
+                                          id="roadAccessDescribe"
+                                          name="roadAccessDescribe"
+                                          placeholder="Road Access Description"
+                                          rows="5"
+                                          type="text"></textarea>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="landAndBuildingSecurityLegalDocumentAddress"><strong>Address as per Legal
+                                    Document</strong></label>
+                                <textarea class="form-control"
+                                          formControlName="landAndBuildingSecurityLegalDocumentAddress"
+                                          id="landAndBuildingSecurityLegalDocumentAddress"
+                                          name="landAndBuildingSecurityLegalDocumentAddress"
+                                          placeholder="Address as per Legal Document"
+                                          rows="5"
+                                          type="text" maxlength="256"></textarea>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">

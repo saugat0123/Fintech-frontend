@@ -102,7 +102,7 @@
                     <div class="row">
                         <span> <strong>Mobile Number :</strong> {{customer.contactNumber }}</span></div>
                     <div class="row">
-                        <span> <strong>Introduction :</strong> {{customer.introduction }}</span></div>
+                        <span> <strong>Introduction :</strong> <span [innerHTML]="customer.introduction | safeHtml"></span></span></div>
                 </div>
                 <div *ngIf="isEdited" class="col-md-9 sb-small">
                     <form [formGroup]="basicForm">

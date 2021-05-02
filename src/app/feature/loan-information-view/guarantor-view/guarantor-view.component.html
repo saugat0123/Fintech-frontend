@@ -82,8 +82,8 @@
       </tr>
       <tr>
         <td class="text-right pr-1">Rs. {{guarantor?.netWorth | currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{guarantor?.temporaryAddressLineOne}}</td>
-        <td class="text-right pr-1">Rs. {{guarantor?.temporaryAddressLineTwo}}</td>
+        <td class="text-right pr-1">{{guarantor?.temporaryAddressLineOne}}</td>
+        <td class="text-right pr-1">{{guarantor?.temporaryAddressLineTwo}}</td>
         <td class="text-left pl-1">{{guarantor?.provinceTemporary?.name}}</td>
         <td class="text-left pl-1">{{guarantor?.districtTemporary?.name}}</td>
         <td class="text-left pl-1">{{guarantor?.municipalitiesTemporary?.name}}</td>

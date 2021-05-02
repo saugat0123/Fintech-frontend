@@ -18,7 +18,11 @@ import {TaxCompliance} from '../model/tax-compliance';
 import {MajorSourceIncomeType} from '../../admin/modal/crg/major-source-income-type';
 import {NumberUtils} from '../../../@core/utils/number-utils';
 import {Pattern} from '../../../@core/utils/constants/pattern';
-import {TypeOfSourceOfIncome, TypeOfSourceOfIncomeArray, TypeOfSourceOfIncomeMap} from '../../admin/modal/crg/typeOfSourceOfIncome';
+import {
+    TypeOfSourceOfIncome,
+    TypeOfSourceOfIncomeArray,
+    TypeOfSourceOfIncomeMap
+} from '../../admin/modal/crg/typeOfSourceOfIncome';
 import {NgSelectComponent} from '@ng-select/ng-select';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
@@ -188,6 +192,10 @@ export class FinancialComponent implements OnInit {
                 private activatedRoute: ActivatedRoute) {
     }
 
+    get form() {
+        return this.financialForm.controls;
+    }
+
     ngOnInit() {
         this.activatedRoute.queryParams.subscribe(queryParams => {
             if (CustomerType.INDIVIDUAL === CustomerType[queryParams.customerType]) {
@@ -213,6 +221,7 @@ export class FinancialComponent implements OnInit {
             this.financialForm.get('totalWorkingCapitalLimit').setValue(initialFormData.totalWorkingCapitalLimit);
             this.historicalDataPresent = initialFormData.historicalDataPresent;
             this.financialForm.patchValue(initialFormData);
+            this.methodListeners();
         } else {
             if (this.isBusinessLoan) {
                 const currentFormDataJson = JSON.stringify(currentFormData['default']);
@@ -228,10 +237,6 @@ export class FinancialComponent implements OnInit {
             this.addIncomeOfBorrower();
             this.addExpensesOfBorrower();
         }
-    }
-
-    get form() {
-        return this.financialForm.controls;
     }
 
     buildForm() {
@@ -250,16 +255,21 @@ export class FinancialComponent implements OnInit {
             totalWorkingCapitalLimit: [0],
             // crg lambda fields---
             majorSourceIncomeType: [undefined, [Validators.required]],
-            periodOfEarning: [undefined, [Validators.required , Validators.pattern(Pattern.NUMBER_ONLY)]],
+            periodOfEarning: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
             alternateIncomeSource: [undefined],
             alternateIncomeSourceAmount: [undefined, [Validators.pattern(Pattern.NUMBER_DOUBLE)]],
             grossMonthlyObligation: [undefined],
             totalNetMonthlyIncome: [undefined],
             totalEMIInterest: [undefined],
-            emiWithProposal: [undefined , [Validators.required , Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+            emiWithProposal: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
             emiGrossMonthly: [undefined],
             emiNetMonthly: [undefined],
-            note: [undefined]
+            note: [undefined],
+
+            existingObligationOtherBank: [undefined],
+            totalObligationCurrentBank: [undefined],
+            totalBankObligation: [undefined],
+            obligationGrossIncomeRatio: [undefined],
         });
     }
 
@@ -282,7 +292,8 @@ export class FinancialComponent implements OnInit {
                     incomeSource: [singleData.incomeSource, Validators.required],
                     organization: [singleData.organization, Validators.required],
                     amount: [singleData.amount, Validators.required],
-                    remarks: [singleData.remarks, Validators.required]
+                    remarks: [singleData.remarks, Validators.required],
+                    ageOfIncomeGenerated: [singleData.ageOfIncomeGenerated, Validators.required],
                 })
             );
         });
@@ -358,7 +369,7 @@ export class FinancialComponent implements OnInit {
 
     openFiscalYearModal() {
         const fiscalYearModalRef = this.modalService.open(FiscalYearModalComponent, {backdrop: 'static', size: 'lg'});
-        fiscalYearModalRef.result.then( closeParams => {
+        fiscalYearModalRef.result.then(closeParams => {
             this.addFiscalYear(closeParams.fiscalYearValue, closeParams.auditorDetails);
         }, dismiss => {
             console.log(dismiss);
@@ -469,7 +480,8 @@ export class FinancialComponent implements OnInit {
                 incomeSource: [undefined, Validators.required],
                 organization: [undefined, Validators.required],
                 amount: [undefined, Validators.required],
-                remarks: [undefined, Validators.required]
+                remarks: [undefined, Validators.required],
+                ageOfIncomeGenerated: [undefined, Validators.required],
             })
         );
     }
@@ -497,7 +509,7 @@ export class FinancialComponent implements OnInit {
 
     totalAdditionInitialForm(formArrayName, resultControllerName) {
         let total = 0;
-        (this.financialForm.get(formArrayName) as FormArray).controls.forEach( group => {
+        (this.financialForm.get(formArrayName) as FormArray).controls.forEach(group => {
             total = Number(group.get('amount').value) + Number(total);
         });
         this.financialForm.get(resultControllerName).setValue(total);
@@ -514,7 +526,9 @@ export class FinancialComponent implements OnInit {
     }
 
     optionChangeTypeOfSourceOfIncome($event, organizationSelect: NgSelectComponent, clearField: boolean) {
-        if (clearField) { organizationSelect.clearModel(); }
+        if (clearField) {
+            organizationSelect.clearModel();
+        }
         switch ($event) {
             case TypeOfSourceOfIncome.SALARY:
                 organizationSelect.itemsList.setItems(TypeOfSourceOfIncomeArray.salaryArray);
@@ -527,27 +541,45 @@ export class FinancialComponent implements OnInit {
                 break;
             case TypeOfSourceOfIncome.REMITTANCE:
                 organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.REMITTANCE]);
-                organizationSelect.select({value: TypeOfSourceOfIncome.REMITTANCE, label: TypeOfSourceOfIncome.REMITTANCE});
+                organizationSelect.select({
+                    value: TypeOfSourceOfIncome.REMITTANCE,
+                    label: TypeOfSourceOfIncome.REMITTANCE
+                });
                 break;
             case TypeOfSourceOfIncome.COMMISSION:
                 organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.COMMISSION]);
-                organizationSelect.select({value: TypeOfSourceOfIncome.COMMISSION, label: TypeOfSourceOfIncome.COMMISSION});
+                organizationSelect.select({
+                    value: TypeOfSourceOfIncome.COMMISSION,
+                    label: TypeOfSourceOfIncome.COMMISSION
+                });
                 break;
             case TypeOfSourceOfIncome.TRANSPORTATION:
                 organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.TRANSPORTATION]);
-                organizationSelect.select({value: TypeOfSourceOfIncome.TRANSPORTATION, label: TypeOfSourceOfIncome.TRANSPORTATION});
+                organizationSelect.select({
+                    value: TypeOfSourceOfIncome.TRANSPORTATION,
+                    label: TypeOfSourceOfIncome.TRANSPORTATION
+                });
                 break;
             case TypeOfSourceOfIncome.FREELANCING:
                 organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.FREELANCING]);
-                organizationSelect.select({value: TypeOfSourceOfIncome.FREELANCING, label: TypeOfSourceOfIncome.FREELANCING});
+                organizationSelect.select({
+                    value: TypeOfSourceOfIncome.FREELANCING,
+                    label: TypeOfSourceOfIncome.FREELANCING
+                });
                 break;
             case TypeOfSourceOfIncome.AGRICULTURE:
                 organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.AGRICULTURE]);
-                organizationSelect.select({value: TypeOfSourceOfIncome.AGRICULTURE, label: TypeOfSourceOfIncome.AGRICULTURE});
+                organizationSelect.select({
+                    value: TypeOfSourceOfIncome.AGRICULTURE,
+                    label: TypeOfSourceOfIncome.AGRICULTURE
+                });
                 break;
             case TypeOfSourceOfIncome.INTEREST_INCOME:
                 organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.INTEREST_INCOME]);
-                organizationSelect.select({value: TypeOfSourceOfIncome.INTEREST_INCOME, label: TypeOfSourceOfIncome.INTEREST_INCOME});
+                organizationSelect.select({
+                    value: TypeOfSourceOfIncome.INTEREST_INCOME,
+                    label: TypeOfSourceOfIncome.INTEREST_INCOME
+                });
                 break;
             case TypeOfSourceOfIncome.DIVIDEND:
                 organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.DIVIDEND]);
@@ -562,7 +594,7 @@ export class FinancialComponent implements OnInit {
 
     calculateAndSetHighestScore() {
         const incomeSourcePointsArray = [];
-        (this.financialForm.get('incomeOfBorrower') as FormArray).controls.forEach( group => {
+        (this.financialForm.get('incomeOfBorrower') as FormArray).controls.forEach(group => {
             incomeSourcePointsArray.push(TypeOfSourceOfIncomeMap.typeOfSourceOfIncomePointsMap.get(group.get('organization').value));
         });
         this.financialForm.get('typeOfSourceOfIncomeObtainedScore').patchValue(Math.max(...incomeSourcePointsArray));
@@ -613,4 +645,22 @@ export class FinancialComponent implements OnInit {
             Number(this.financialForm.get('totalIncome').value)).toFixed(2);
         this.financialForm.get('totalEMIInterest').patchValue(totalEMIInterest);
     }
+
+    methodListeners() {
+        this.financialForm.get('totalIncome').valueChanges.subscribe(value => {
+            this.totalObligationRatio();
+        });
+    }
+
+    totalObligation() {
+        this.financialForm.get('totalBankObligation').setValue(Number(this.form.existingObligationOtherBank.value)
+            + Number(this.form.totalObligationCurrentBank.value));
+        this.totalObligationRatio();
+
+    }
+
+    totalObligationRatio() {
+        this.financialForm.get('obligationGrossIncomeRatio').setValue((
+                this.form.totalBankObligation.value / this.form.totalIncome.value).toFixed(2));
+        }
 }
