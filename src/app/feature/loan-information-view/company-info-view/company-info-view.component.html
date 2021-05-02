@@ -272,7 +272,7 @@
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
-                <th colspan="9">Information of Proprietor/Shareholder/Partner with holder %</th>
+                <th colspan="100%">Information of Proprietor/Shareholder/Partner with holder %</th>
             </tr>
             </thead>
             <ng-container *ngFor="let holder of companyJsonData.proprietorList;let i =index">
@@ -286,6 +286,10 @@
                     <th>Ward No.</th>
                     <th>Address Line 1</th>
                     <th>Address Line 2</th>
+                    <th>Citizenship Number</th>
+                    <th>Issued date</th>
+                    <th>Issued place</th>
+                    <th>Date of birth</th>
                 </tr>
                 <tr>
                     <td>{{i+1}}</td>
@@ -297,6 +301,10 @@
                     <td class="text-right pr-1"><strong>{{holder?.holderPercentWardNumber}}</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.addressLine1}}</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.addressLine2}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.citizenshipNum}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.issuedDate|date}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.issuedPlace}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.dateOfBirth|date}}</strong></td>
                 </tr>
 
                 <tr *ngIf="client != clientName.MEGA">
