@@ -96,12 +96,19 @@
                                     <br/>
                                     <span class="sb-small"> for </span>
                                 </div>
-                                <div
-                                        class="report-header-sub-heading"><span class="sb-medium"><strong>
+                                <div class="report-header-sub-heading" *ngIf="!isJointInfo"><span class="sb-medium"><strong>
                                     {{loanCategory === 'INSTITUTION' ?
                                     loanDataHolder?.companyInfo?.companyName
                                     : loanDataHolder?.customerInfo?.customerName}}
                                </strong> </span>
+                                </div>
+                                <div class="report-header-sub-heading" *ngIf="isJointInfo">
+                                    <div *ngFor="let jointCustomer of jointInfo">
+                                        <ng-container *ngFor="let info of jointCustomer">
+                                            <span class="sb-medium">{{loanCategory === 'INSTITUTION' ?
+                                                loanDataHolder?.companyInfo?.companyName : info?.customerName}}</span><br/>
+                                        </ng-container>
+                                    </div>
                                 </div>
                                 <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
                                 <div class="badge badge-warning">Summary</div>
@@ -415,7 +422,7 @@
                 </div>
             </div>
 
-            <div class="row" *ngIf="loanCategory === 'INDIVIDUAL'">
+            <div class="row" *ngIf="loanCategory === 'INDIVIDUAL' && !isJointInfo">
                 <div class="col-md-12">
                     <p><strong>Details of Borrower</strong></p>
                 </div>
@@ -518,6 +525,94 @@
                                 </td>
 
                             </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row" *ngIf="loanCategory === 'INDIVIDUAL' && isJointInfo">
+                <div class="col-md-12">
+                    <p><strong>Details of Borrower</strong></p>
+                </div>
+                <div class="col-md-12">
+                    <div>
+                        <table
+                                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                            <thead>
+                            <tr class="text-white sb-bg-dark">
+                                <th>Name</th>
+                                <th>Date Of Birth</th>
+                                <th>Citizenship Number</th>
+                                <th>Mobile Number</th>
+                                <th>LandLine Number</th>
+                                <th>Occupation</th>
+                                <th>Income Source</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <ng-container *ngFor="let jointCustomer of jointInfo">
+                                <tr class="text-left" *ngFor="let info of jointCustomer">
+                                    <td class="pl-1">{{info?.customerName}}</td>
+                                    <td class="pl-1">{{info?.dob | date}}</td>
+                                    <td class="text-right pr-1">{{info?.citizenshipNumber}}</td>
+                                    <td class="text-right pr-1">{{info?.contactNumber || 'NA'}}</td>
+                                    <td class="text-right pr-1">{{info?.landLineNumber || 'NA'}}</td>
+                                    <td class="pl-1">{{info?.occupation || 'NA'}}</td>
+                                    <td class="pl-1">{{info?.incomeSource || 'NA'}}</td>
+
+                                </tr>
+                            </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div *ngIf="loanCategory === 'INDIVIDUAL'">
+                        <p><strong>Family Details</strong></p>
+                        <table
+                                class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                            <thead>
+                            <tr class="text-white sb-bg-dark">
+                                <th>Name</th>
+                                <th>Relation Name</th>
+                                <th>Citizenship no.</th>
+                                <th>Citizenship Issued Date</th>
+                                <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <ng-container *ngFor="let jointCustomer of jointInfo">
+                                <tr *ngFor="let info of jointCustomer">
+                                    <td class="text-left pl-1">{{info?.customerRelativeName1 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.customerRelation1 || 'NA'}}</td>
+                                    <td class="text-right pr-1">{{info?.citizenshipNumber1 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace1 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate1 || 'NA' | date}}</td>
+                                </tr>
+                                <tr *ngFor="let info of jointCustomer">
+                                    <td class="text-left pl-1">{{info?.customerRelativeName2 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.customerRelation2 || 'NA'}}</td>
+                                    <td class="text-right pr-1">{{info?.citizenshipNumber2 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace2 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate2 || 'NA' | date}}</td>
+                                </tr>
+                                <tr *ngFor="let info of jointCustomer">
+                                    <td class="text-left pl-1">{{info?.customerRelativeName3 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.customerRelation3 || 'NA'}}</td>
+                                    <td class="text-right pr-1">{{info?.citizenshipNumber3 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace3 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate3 || 'NA' | date}}</td>
+                                </tr>
+                                <tr *ngFor="let info of jointCustomer">
+                                    <td class="text-left pl-1">{{info?.customerRelativeName4 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.customerRelation4 || 'NA'}}</td>
+                                    <td class="text-right pr-1">{{info?.citizenshipNumber4 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace4 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate4 || 'NA' | date}}</td>
+                                </tr>
+                            </ng-container>
                             </tbody>
                         </table>
                     </div>
