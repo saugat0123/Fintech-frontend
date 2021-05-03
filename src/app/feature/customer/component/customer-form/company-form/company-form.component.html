@@ -1187,7 +1187,7 @@
                                            </div>
                                        </div>
                                    </div>
-                                   <div class="col-md-4">
+                                   <div class="col-md-4" *ngIf="client !== clientName.MEGA">
                                        <label><strong>Date of birth</strong></label>
                                        <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dateOfBirth"
                                               [ngClass]="{ 'is-invalid':submitted && proprietor.get('dateOfBirth').errors}"
@@ -1204,6 +1204,40 @@
                                             class="invalid-feedback">
                                            <div *ngIf="proprietor.get('dateOfBirth').errors.required">
                                                Date of birth is required!
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-4" *ngIf="client !== clientName.MEGA">
+                                       <div class="form-group">
+                                           <label for="contactNumber"><strong>Father's Name</strong></label>
+                                           <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('fatherName').errors}"
+                                                  class="form-control" formControlName="fatherName" id="fatherName"
+                                                  name="fatherName"
+                                                  placeholder="Father Name"
+                                                  type="text">
+                                           <div *ngIf="(submitted) && proprietor.get('fatherName').invalid"
+                                                class="invalid-feedback">
+                                               <div *ngIf="proprietor.get('fatherName').errors.required">
+                                                   Father's Name is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="row">
+                               <div class="col-md-4" *ngIf="client !== clientName.MEGA">
+                                       <div class="form-group">
+                                           <label for="contactNumber"><strong>Grandfather's Name</strong></label>
+                                           <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('grandFatherName').errors}"
+                                                  class="form-control" formControlName="grandFatherName" id="grandFatherName"
+                                                  name="grandFatherName"
+                                                  placeholder="Grandfather Name"
+                                                  type="text">
+                                           <div *ngIf="(submitted) && proprietor.get('grandFatherName').invalid"
+                                                class="invalid-feedback">
+                                               <div *ngIf="proprietor.get('grandFatherName').errors.required">
+                                                   Grandfather's Name is required
+                                               </div>
                                            </div>
                                        </div>
                                    </div>

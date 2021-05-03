@@ -295,6 +295,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.customer.temporaryMunicipalities = this.basicInfo.get('temporaryMunicipalities').value;
                     this.customer.temporaryWardNumber = this.basicInfo.get('temporaryWardNumber').value;
                     this.customer.contactNumber = this.basicInfo.get('contactNumber').value;
+                    this.customer.fatherName = this.basicInfo.get('fatherName').value;
+                    this.customer.grandFatherName = this.basicInfo.get('grandFatherName').value;
                     this.customer.landLineNumber = this.basicInfo.get('landLineNumber').value;
                     this.customer.email = this.basicInfo.get('email').value;
                     this.customer.dob = this.basicInfo.get('dob').value;
@@ -388,6 +390,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, [Validators.required,
                 Validators.max(9999999999), Validators.min(1000000000)]],
             landLineNumber: [this.customer.landLineNumber === undefined ? undefined : this.customer.landLineNumber],
+            grandFatherName: [this.customer.grandFatherName === undefined ? undefined : this.customer.grandFatherName, Validators.required],
+            fatherName: [this.customer.fatherName === undefined ? undefined : this.customer.fatherName, Validators.required],
             email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.email],
             // initial Relation Date not used in ui
             initialRelationDate: [this.customer.initialRelationDate === undefined ? undefined :

@@ -18,4 +18,6 @@ export class Proprietors {
     citizenshipNum: string;
     dateOfBirth: string;
     issuedPlace: string;
+    fatherName: string;
+    grandFatherName: string;
 }

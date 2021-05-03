@@ -31,6 +31,8 @@
       </tbody>
       <thead>
       <tr class="text-white sb-bg-dark">
+        <th *ngIf="client !== clientName.MEGA">Father's Name</th>
+        <th *ngIf="client !== clientName.MEGA">Grandfather's Name</th>
         <th>Mobile Number</th>
         <th>LandLine Number</th>
         <th>Email</th>
@@ -41,6 +43,8 @@
       </thead>
       <tbody>
       <tr>
+        <td class="text-left pl-1" *ngIf="client !== clientName.MEGA">{{customerInfo?.fatherName}}</td>
+        <td class="text-left pl-1" *ngIf="client !== clientName.MEGA">{{customerInfo?.grandfatherName}}</td>
         <td class="text-right pr-1">{{individual?.contactNumber || 'NA'}}</td>
         <td class="text-right pr1">{{individual?.landLineNumber || 'NA'}}</td>
         <td class="text-left pl-1">{{individual?.email || 'NA'}}</td>

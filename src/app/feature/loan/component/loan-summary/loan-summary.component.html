@@ -432,6 +432,8 @@
                                 <th>LandLine Number</th>
                                 <th>Occupation</th>
                                 <th>Income Source</th>
+                                <th *ngIf="client !== clientName.MEGA">Father's Name</th>
+                                <th *ngIf="client !== clientName.MEGA">Grandfather's Name</th>
 
                             </tr>
                             </thead>
@@ -444,6 +446,8 @@
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.landLineNumber}}</td>
                                 <td class="pl-1">{{(loanDataHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
                                 <td class="pl-1">{{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>
+                                <td class="pl-1" *ngIf="client !== clientName.MEGA">{{loanDataHolder?.customerInfo?.grandFatherName}}</td>
+                                <td class="pl-1" *ngIf="client !== clientName.MEGA">{{loanDataHolder?.customerInfo?.fatherName}}</td>
 
                             </tr>
                             <tr class="text-white sb-bg-dark">
