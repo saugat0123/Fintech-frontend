@@ -837,7 +837,7 @@
                                              [config]="ckeConfig"
                                              [ngClass]="{ 'is-invalid': (submitted) && form.companyBackground.errors }"></ckeditor>
                                    <div *ngIf="(submitted) && form.companyBackground.invalid"
-                                        class="invalid-feedback">
+                                        class="text-danger">
                                        <div *ngIf="form.companyBackground.errors.required">
                                            Company Background is required
                                        </div>
@@ -1119,9 +1119,11 @@
                                    </div>
 
                                    <div class="col-md-4 form-group">
-                                       <strong class="title">
-                                           Ward Number
-                                       </strong>
+                                       <label>
+                                           <strong class="title">
+                                               Ward Number
+                                           </strong>
+                                       </label>
                                        <input [ngClass]="{'is-invalid': submitted && proprietor.get('holderPercentWardNumber').errors}"
                                               class="form-control"
                                               formControlName="holderPercentWardNumber"
@@ -1130,6 +1132,78 @@
                                             class="invalid-feedback">
                                            <div *ngIf="proprietor.get('holderPercentWardNumber').errors.required">
                                                Ward is required!
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-4 form-group" *ngIf="client !== clientName.MEGA">
+                                       <label><strong>Citizenship Number</strong></label>
+                                       <input [ngClass]="{'is-invalid': submitted && proprietor.get('citizenshipNum').errors}"
+                                              class="form-control"
+                                              formControlName="citizenshipNum"
+                                              placeholder="Citizenship Number"
+                                              type="text">
+                                       <div *ngIf="(submitted) && proprietor.get('citizenshipNum').invalid"
+                                            class="invalid-feedback">
+                                           <div *ngIf="proprietor.get('citizenshipNum').errors.required">
+                                               Citizenship Number is required!
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-4 form-group" *ngIf="client !== clientName.MEGA">
+                                       <label><strong>Issued date</strong></label>
+                                       <input *ngIf="calendarType === 'AD'" [nbDatepicker]="issuedDate"
+                                              [ngClass]="{ 'is-invalid':submitted && proprietor.get('issuedDate').errors}"
+                                              class="form-control rounded"
+                                              formControlName="issuedDate"
+                                              id="issuedDate" placeholder="Enter Issued date"
+                                              type="text"/>
+                                       <input formControlName="issuedDate" *ngIf="calendarType === 'BS'" hidden>
+                                       <app-calendar [ePreDate]="proprietor.get('issuedDate').value" *ngIf="calendarType === 'BS'"></app-calendar>
+                                       <nb-datepicker #issuedDate></nb-datepicker>
+                                       <div *ngIf="(submitted) && proprietor.get('issuedDate').invalid"
+                                            class="invalid-feedback">
+                                           <div *ngIf="proprietor.get('issuedDate').errors.required">
+                                               Issued date is required!
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="row" *ngIf="client !== clientName.MEGA">
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                           <label for="issuedPlace"><strong>Issue Place</strong></label>
+                                           <select formControlName="issuedPlace" id="issuedPlace"
+                                                   [ngClass]="{'is-invalid':submitted &&  proprietor.get('issuedPlace').errors}" class="form-control">
+                                               <option [value]="null">Select Issued Place</option>
+                                               <option  *ngFor="let district of allDistrict" [value]="district?.name">
+                                                   {{district?.name}}</option>
+                                           </select>
+
+                                           <div *ngIf="submitted && proprietor.get('issuedPlace').invalid"
+                                                class="invalid-feedback">
+                                               <div *ngIf="proprietor.get('issuedPlace').errors.required">
+                                                   Issued Place is required.
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <label><strong>Date of birth</strong></label>
+                                       <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dateOfBirth"
+                                              [ngClass]="{ 'is-invalid':submitted && proprietor.get('dateOfBirth').errors}"
+                                              class="form-control rounded"
+                                              formControlName="dateOfBirth"
+                                              id="dateOfBirth" placeholder="Enter Date Of Birth"
+                                              type="text"/>
+                                       <input formControlName="dateOfBirth" *ngIf="calendarType === 'BS'" hidden>
+                                       <app-calendar [ePreDate]="proprietor.get('dateOfBirth').value" *ngIf="calendarType === 'BS'"
+                                                     (messageToEmit)="proprietor.get('dateOfBirth').patchValue($event?.eDate)"></app-calendar>
+
+                                       <nb-datepicker #dateOfBirth></nb-datepicker>
+                                       <div *ngIf="(submitted) && proprietor.get('dateOfBirth').invalid"
+                                            class="invalid-feedback">
+                                           <div *ngIf="proprietor.get('dateOfBirth').errors.required">
+                                               Date of birth is required!
                                            </div>
                                        </div>
                                    </div>
@@ -1180,7 +1254,7 @@
                                              name="strength" [config]="ckeConfig"
                                              type="text"></ckeditor>
                                    <div *ngIf="(submitted) && form.strength.invalid"
-                                        class="invalid-feedback">
+                                        class="text-danger">
                                        <div *ngIf="form.strength.errors.required">
                                            Strength is required
                                        </div>
@@ -1195,7 +1269,7 @@
                                              name="weakness" [config]="ckeConfig"
                                              type="text"></ckeditor>
                                    <div *ngIf="(submitted) && form.weakness.invalid"
-                                        class="invalid-feedback">
+                                        class="text-danger">
                                        <div *ngIf="form.weakness.errors.required">
                                            Weakness is required
                                        </div>
@@ -1209,7 +1283,7 @@
                                              formControlName="opportunity" id="opportunity"
                                              name="opportunity" [config]="ckeConfig"></ckeditor>
                                    <div *ngIf="(submitted) && form.opportunity.invalid"
-                                        class="invalid-feedback">
+                                        class="text-danger">
                                        <div *ngIf="form.opportunity.errors.required">
                                            Opportunity is required
                                        </div>
@@ -1223,7 +1297,7 @@
                                              id="threats"
                                              name="threats" [config]="ckeConfig"></ckeditor>
                                    <div *ngIf="(submitted) && form.threats.invalid"
-                                        class="invalid-feedback">
+                                        class="text-danger">
                                        <div *ngIf="form.threats.errors.required">
                                            Threats is required
                                        </div>

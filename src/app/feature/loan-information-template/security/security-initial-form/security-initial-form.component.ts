@@ -17,7 +17,6 @@ import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {SecurityRevaluationComponent} from './security-revaluation/security-revaluation.component';
 import {SecurityIds} from './SecurityIds';
-import {DesignationList} from '../../../loan/model/designationList';
 import {OwnershipTransfer} from '../../../loan/model/ownershipTransfer';
 import {RelationshipList} from '../../../loan/model/relationshipList';
 import {OwnerKycApplicableComponent} from './owner-kyc-applicable/owner-kyc-applicable.component';
@@ -445,6 +444,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     familyRegistrationAmount: [singleData.familyRegistrationAmount],
                     giftRegistrationAmount: [singleData.giftRegistrationAmount],
                     landCollateralOwnerRelationship: [singleData.landCollateralOwnerRelationship],
+                    roadAccessBluePrint: [singleData.roadAccessBluePrint],
+                    roadAccessDescribe: [singleData.roadAccessDescribe],
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
                     landOtherBranchChecked: [singleData.landOtherBranchChecked],
                 })
@@ -667,6 +668,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     landBuildingStaffRepresentativeName2: [singleData.landBuildingStaffRepresentativeName2],
                     landAndBuildingSecurityLegalDocumentAddress: [singleData.landAndBuildingSecurityLegalDocumentAddress],
                     landBuildingCollateralOwnerRelationship: [singleData.landBuildingCollateralOwnerRelationship],
+                    roadAccessDescribe: [singleData.roadAccessDescribe],
+                    roadAccessBluePrint: [singleData.roadAccessBluePrint],
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
                     progessCost: [singleData.progessCost],
                     landBuildingOtherBranchChecked: [singleData.landBuildingOtherBranchChecked]
@@ -998,6 +1001,8 @@ export class SecurityInitialFormComponent implements OnInit {
             familyRegistrationAmount: undefined,
             giftRegistrationAmount: undefined,
             landCollateralOwnerRelationship: undefined,
+            roadAccessBluePrint: undefined,
+            roadAccessDescribe: undefined,
             ownerKycApplicableData: [undefined],
             landOtherBranchChecked: [undefined],
         });
@@ -1090,6 +1095,8 @@ export class SecurityInitialFormComponent implements OnInit {
             landBuildingStaffRepresentativeName2: [undefined],
             landAndBuildingSecurityLegalDocumentAddress: [undefined],
             landBuildingCollateralOwnerRelationship: [undefined],
+            roadAccessBluePrint: [undefined],
+            roadAccessDescribe: [undefined],
             ownerKycApplicableData: [undefined],
             progessCost: [undefined],
             landBuildingOtherBranchChecked: [undefined]

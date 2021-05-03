@@ -292,7 +292,8 @@ export class FinancialComponent implements OnInit {
                     incomeSource: [singleData.incomeSource, Validators.required],
                     organization: [singleData.organization, Validators.required],
                     amount: [singleData.amount, Validators.required],
-                    remarks: [singleData.remarks, Validators.required]
+                    remarks: [singleData.remarks, Validators.required],
+                    ageOfIncomeGenerated: [singleData.ageOfIncomeGenerated, Validators.required],
                 })
             );
         });
@@ -479,7 +480,8 @@ export class FinancialComponent implements OnInit {
                 incomeSource: [undefined, Validators.required],
                 organization: [undefined, Validators.required],
                 amount: [undefined, Validators.required],
-                remarks: [undefined, Validators.required]
+                remarks: [undefined, Validators.required],
+                ageOfIncomeGenerated: [undefined, Validators.required],
             })
         );
     }
