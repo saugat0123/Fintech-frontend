@@ -29,6 +29,7 @@ import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {Province} from '../../../admin/modal/province';
 import {JointFormComponent} from '../customer-form/joint-form/joint-form.component';
 import {any} from 'codelyzer/util/function';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 
 @Component({
@@ -83,6 +84,7 @@ export class CustomerComponent implements OnInit {
         other.spinner = true;
         other.customerInfoService.getPaginationWithSearchObject(other.filterForm.value, other.page, 10).subscribe((response: any) => {
             other.customerList = response.detail.content;
+            console.log('Response', response);
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
             other.overlay.hide();
@@ -158,7 +160,6 @@ export class CustomerComponent implements OnInit {
     openChooseAcType(modal) {
         this.modalService.open(modal);
     }
-    openJ
 
     getForm(chooseAcType) {
         this.onClose();
@@ -235,23 +236,36 @@ export class CustomerComponent implements OnInit {
         if (CustomerType.INDIVIDUAL === CustomerType[model.customerType]) {
             this.customerService.detail(model.associateId).subscribe((res: any) => {
                 const detail = res.detail;
-                this.dialogService.open(CustomerFormComponent, {
-                    context: {
-                        formValue: detail,
-                        clientTypeInput: model.clientType,
-                        customerIdInput: model.customerCode,
-                        bankingRelationshipInput: model.bankingRelationship,
-                        subSectorDetailCodeInput: model.subsectorDetail,
-                        gender: model.gender,
-                        maritalStatus: model.maritalStatus,
-                        customerLegalDocumentAddress: model.customerLegalDocumentAddress
-                    },
-                    closeOnBackdropClick: false,
-                    closeOnEsc: false,
-                    hasBackdrop: false,
-                    hasScroll: true
-                    // tslint:disable-next-line:no-shadowed-variable
-                }).onClose.subscribe((res: any) => CustomerComponent.loadData(this));
+                if (!ObjectUtil.isEmpty(detail.jointInfo)) {
+                    this.dialogService.open(JointFormComponent, {
+                        context: {
+                            formValue: detail,
+                        },
+                        closeOnBackdropClick: false,
+                        closeOnEsc: false,
+                        hasBackdrop: false,
+                        hasScroll: true
+                        // tslint:disable-next-line:no-shadowed-variable
+                    }).onClose.subscribe((res: any) => CustomerComponent.loadData(this));
+                } else {
+                    this.dialogService.open(CustomerFormComponent, {
+                        context: {
+                            formValue: detail,
+                            clientTypeInput: model.clientType,
+                            customerIdInput: model.customerCode,
+                            bankingRelationshipInput: model.bankingRelationship,
+                            subSectorDetailCodeInput: model.subsectorDetail,
+                            gender: model.gender,
+                            maritalStatus: model.maritalStatus,
+                            customerLegalDocumentAddress: model.customerLegalDocumentAddress
+                        },
+                        closeOnBackdropClick: false,
+                        closeOnEsc: false,
+                        hasBackdrop: false,
+                        hasScroll: true
+                        // tslint:disable-next-line:no-shadowed-variable
+                    }).onClose.subscribe((res: any) => CustomerComponent.loadData(this));
+                }
             }, error => this.toastService.show(new Alert(AlertType.ERROR, error.error.message)));
 
         } else if (CustomerType.INSTITUTION === CustomerType[model.customerType]) {
