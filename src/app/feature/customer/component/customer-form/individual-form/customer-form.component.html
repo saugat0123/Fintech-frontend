@@ -706,7 +706,7 @@
                                              [config]="ckeConfig"
                                              [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.introduction.errors }"></ckeditor>
                                    <div *ngIf="(submitted) && basicInfoControls.introduction.invalid"
-                                        class="invalid-feedback">
+                                        class="text-danger">
                                        <div *ngIf="basicInfoControls.introduction.errors.required">
                                            Introduction is required
                                        </div>

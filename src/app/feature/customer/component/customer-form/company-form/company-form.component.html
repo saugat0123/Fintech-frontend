@@ -837,7 +837,7 @@
                                              [config]="ckeConfig"
                                              [ngClass]="{ 'is-invalid': (submitted) && form.companyBackground.errors }"></ckeditor>
                                    <div *ngIf="(submitted) && form.companyBackground.invalid"
-                                        class="invalid-feedback">
+                                        class="text-danger">
                                        <div *ngIf="form.companyBackground.errors.required">
                                            Company Background is required
                                        </div>
@@ -1169,20 +1169,21 @@
                                    </div>
                                </div>
                                <div class="row" *ngIf="client !== clientName.MEGA">
-                                   <div class="col-md-4 form-group">
-                                       <label><strong>Issued place</strong></label>
-                                       <ng-select [ngClass]="{ 'is-invalid':submitted && proprietor.get('issuedPlace').errors }"
-                                                  formControlName="issuedPlace"
-                                                  id="issuedPlace">
-                                           <ng-option [value]="null">Select Issue Place</ng-option>
-                                           <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
-                                               {{district?.name}}
-                                           </ng-option>
-                                       </ng-select>
-                                       <div *ngIf="(submitted) && proprietor.get('issuedPlace').invalid"
-                                            class="invalid-feedback">
-                                           <div *ngIf="proprietor.get('issuedPlace').errors.required">
-                                               Issued place is required!
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                           <label for="issuedPlace"><strong>Issue Place</strong></label>
+                                           <select formControlName="issuedPlace" id="issuedPlace"
+                                                   [ngClass]="{'is-invalid':submitted &&  proprietor.get('issuedPlace').errors}" class="form-control">
+                                               <option [value]="null">Select Issued Place</option>
+                                               <option  *ngFor="let district of allDistrict" [value]="district?.name">
+                                                   {{district?.name}}</option>
+                                           </select>
+
+                                           <div *ngIf="submitted && proprietor.get('issuedPlace').invalid"
+                                                class="invalid-feedback">
+                                               <div *ngIf="proprietor.get('issuedPlace').errors.required">
+                                                   Issued Place is required.
+                                               </div>
                                            </div>
                                        </div>
                                    </div>
@@ -1253,7 +1254,7 @@
                                              name="strength" [config]="ckeConfig"
                                              type="text"></ckeditor>
                                    <div *ngIf="(submitted) && form.strength.invalid"
-                                        class="invalid-feedback">
+                                        class="text-danger">
                                        <div *ngIf="form.strength.errors.required">
                                            Strength is required
                                        </div>
@@ -1268,7 +1269,7 @@
                                              name="weakness" [config]="ckeConfig"
                                              type="text"></ckeditor>
                                    <div *ngIf="(submitted) && form.weakness.invalid"
-                                        class="invalid-feedback">
+                                        class="text-danger">
                                        <div *ngIf="form.weakness.errors.required">
                                            Weakness is required
                                        </div>
@@ -1282,7 +1283,7 @@
                                              formControlName="opportunity" id="opportunity"
                                              name="opportunity" [config]="ckeConfig"></ckeditor>
                                    <div *ngIf="(submitted) && form.opportunity.invalid"
-                                        class="invalid-feedback">
+                                        class="text-danger">
                                        <div *ngIf="form.opportunity.errors.required">
                                            Opportunity is required
                                        </div>
@@ -1296,7 +1297,7 @@
                                              id="threats"
                                              name="threats" [config]="ckeConfig"></ckeditor>
                                    <div *ngIf="(submitted) && form.threats.invalid"
-                                        class="invalid-feedback">
+                                        class="text-danger">
                                        <div *ngIf="form.threats.errors.required">
                                            Threats is required
                                        </div>
