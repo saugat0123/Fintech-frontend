@@ -27,6 +27,8 @@ import {CustomerGroupService} from '../../../admin/component/preference/services
 import {CustomerGroup} from '../../../admin/modal/customer-group';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {Province} from '../../../admin/modal/province';
+import {LoanDataHolder} from '../../../loan/model/loanData';
+import {UserService} from '../../../../@core/service/user.service';
 
 @Component({
     selector: 'app-customer-component',
@@ -50,6 +52,11 @@ export class CustomerComponent implements OnInit {
     roleAccess: string;
     isMaker = false;
 
+    transferCustomer = false;
+    transferSpinner = false;
+    transferUserList;
+    customerGroupLoanList: Array<LoanDataHolder> = Array<LoanDataHolder>();
+
     accessSpecific: boolean;
     accessAll: boolean;
     showBranch = true;
@@ -70,7 +77,8 @@ export class CustomerComponent implements OnInit {
                 private branchService: BranchService,
                 private customerGroupService: CustomerGroupService,
                 private companyInfoService: CompanyInfoService,
-                private location: AddressService
+                private location: AddressService,
+                private userService: UserService
     ) {
     }
 
@@ -103,6 +111,11 @@ export class CustomerComponent implements OnInit {
         this.location.getProvince().subscribe((response: any) => {
             this.provinces = response.detail;
         });
+        /* added to check if the transfer column is to be displayed*/
+        if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === RoleType.ADMIN) {
+            this.transferCustomer = true;
+        }
+        /* added to check if the transfer column is to be displayed*/
     }
 
     buildFilterForm() {
@@ -275,5 +288,32 @@ export class CustomerComponent implements OnInit {
         }
     }
 
+    onTransferClick(template, customerInfoId) {
+        this.transferSpinner = true;
+        this.customerLoanService.getFinalLoanListByLoanHolderId(customerInfoId).subscribe((res: any) => {
+            this.customerGroupLoanList = res.detail;
+        });
+        this.getBranches();
+        this.transferSpinner = false;
+        this.modalService.open(template, {size: 'lg', backdrop: 'static', keyboard: false});
+    }
+
+    private getBranches() {
+        this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
+            this.branchList = response.detail;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
+        });
+    }
+
+    getUsers(branchId) {
+        this.transferSpinner = true;
+        this.transferUserList = undefined;
+        this.userService.getUserListByBranchIdAndMakerActive(branchId).subscribe((res: any) => {
+            this.transferUserList = res.detail;
+            this.transferSpinner = false;
+        });
+    }
 
 }

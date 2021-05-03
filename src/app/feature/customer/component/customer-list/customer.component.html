@@ -112,6 +112,7 @@
         <th>Associated Since</th>
         <th *ngIf="showBranchProvince">Branch Province</th>
         <th *ngIf="isMaker">Action</th>
+        <th>Transfer</th>
 
 
       </tr>
@@ -133,6 +134,14 @@
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{(model?.createdAt|date) || 'NA'}}</td>
         <td *ngIf="this.showBranchProvince" (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.branch?.province?.name}}</td>
         <td *ngIf="isMaker"><button  nbButton size="tiny" shape="rectangle" (click)="editCustomer(model)"><em class="fa fa-edit"></em></button></td>
+        <td *ngIf="transferCustomer">
+          <div>
+            <button nbButton status="warning" size="tiny"
+                    (click)="onTransferClick(transferCust, model.id)">
+              <em class="fa fa-arrow-circle-right"></em></button>
+          </div>
+
+        </td>
       </tr>
 
       </tbody>
@@ -144,6 +153,91 @@
     <!-- ===================table-pagination==================== -->
   </nb-card-body>
 
+  <ng-template #transferCust>
+    <nb-card accent="primary" class="transfer-modal"
+             [nbSpinner]="transferSpinner"
+             nbSpinnerStatus="primary"
+             nbSpinnerSize="large"
+             nbSpinnerMessage="Loading data for transfer...">
+      <nb-card-header>
+        <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
+          <span aria-hidden="true">&times;</span>
+        </a>
+        <h4>Transfer to other Branch</h4>
+      </nb-card-header>
+      <nb-card-body>
+
+        <div class="col-md-3 mb-3">
+            <select (change)="getUsers($event.target.value)">
+              <option [value]="null" selected hidden>Branch</option>
+              <option *ngFor="let branch of branchList"
+                         value="{{branch.id}}">{{branch.name}}</option>
+            </select>
+        </div>
+
+        <nb-accordion>
+
+          <nb-accordion-item>
+            <nb-accordion-item-header>
+                Select Relationship Manager
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+
+              <div *ngFor="let rm of transferUserList;let i=index">
+                <div class="col-md-12 row">
+                  <div>
+                    <a class="cursor">
+                      <div class="radio">
+                        <label><input type="radio" name="optradio">
+                          <strong class="ml-2">{{rm.name}}</strong>
+                        </label>
+                      </div>
+
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button [disabled]="formAction.invalid"
+                [ngStyle]="{ 'filter' : (formAction.invalid)? 'grayscale(100%)': 'grayscale(0%)'}"
+                type="submit" class="btn btn-success float-right" (click)="action(confirmation)">Next
+        </button>
+      </nb-card-footer>
+    </nb-card>
+  </ng-template>
+
+  <ng-template #confirmation>
+    <nb-card accent="primary"
+             [nbSpinner]="transferSpinner"
+             [nbSpinnerMessage]="'Transferring loan to ' + selectedUserForTransfer?.username + '...'">
+      <nb-card-header>Do you want to transfer this loan to <b>{{selectedUserForTransfer?.username}}</b>?
+      </nb-card-header>
+      <nb-card-body>
+        <label for="comment">Reason to transfer loan</label>
+        <textarea rows="9" #comment id="comment" class="form-control"
+                  placeholder="Comments for transfer"></textarea>
+      </nb-card-body>
+      <nb-card-footer>
+        <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-danger  btn-flat fa-pull-left" (click)="onClose()">
+            Cancel
+          </button>
+          <button [ngStyle]="{ 'filter' : (comment.value == undefined || comment.value == '')? 'grayscale(100%)': 'grayscale(0%)'}"
+                  [disabled]="comment.value == undefined || comment.value == ''" type="submit"
+                  class="btn btn-primary  btn-flat" (click)="confirm(comment.value)">
+            Confirm
+          </button>
+        </div>
+      </nb-card-footer>
+    </nb-card>
+
+  </ng-template>
 
 </nb-card>
 
