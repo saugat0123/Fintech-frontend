@@ -620,6 +620,8 @@ export class CompanyFormComponent implements OnInit {
             citizenshipNum: [undefined, Validators.required],
             issuedDate: [undefined, Validators.required],
             issuedPlace: [undefined, Validators.required],
+            fatherName: [undefined, Validators.required],
+            grandFatherName: [undefined, Validators.required],
             dateOfBirth: [undefined, Validators.required],
             addressLine1: [undefined, Validators.required],
             addressLine2: [undefined],
@@ -685,8 +687,10 @@ export class CompanyFormComponent implements OnInit {
                 holderPercentWardNumber: [proprietors.holderPercentWardNumber === null ? null : proprietors.holderPercentWardNumber],
                 citizenshipNum: [proprietors.citizenshipNum === null ? null : proprietors.citizenshipNum, Validators.required],
                 issuedDate: [proprietors.issuedDate === null ? null : proprietors.issuedDate, Validators.required],
-                issuedPlace: [proprietors.issuedPlace === null ? null : proprietors.issuedPlace],
+                issuedPlace: [proprietors.issuedPlace === null ? null : proprietors.issuedPlace, Validators.required],
                 dateOfBirth: [proprietors.dateOfBirth === null ? null : proprietors.dateOfBirth, Validators.required],
+                fatherName: [proprietors.fatherName === null ? null : proprietors.fatherName],
+                grandFatherName: [proprietors.grandFatherName === null ? null : proprietors.grandFatherName],
                 addressLine1: [proprietors.addressLine1 === null ? null : proprietors.addressLine1],
                 addressLine2: [proprietors.addressLine2 === null ? null : proprietors.addressLine2],
                 type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]
@@ -931,6 +935,8 @@ export class CompanyFormComponent implements OnInit {
             proprietors.issuedDate = this.getProprietor()[proprietorsIndex].issuedDate;
             proprietors.dateOfBirth = this.getProprietor()[proprietorsIndex].dateOfBirth;
             proprietors.issuedPlace = this.getProprietor()[proprietorsIndex].issuedPlace;
+            proprietors.fatherName = this.getProprietor()[proprietorsIndex].fatherName;
+            proprietors.grandFatherName = this.getProprietor()[proprietorsIndex].grandFatherName;
             proprietors.addressLine1 = this.getProprietor()[proprietorsIndex].addressLine1;
             proprietors.addressLine2 = this.getProprietor()[proprietorsIndex].addressLine2;
             proprietors.type = this.getProprietor()[proprietorsIndex].type;
