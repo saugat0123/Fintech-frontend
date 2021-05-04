@@ -84,7 +84,6 @@ export class CustomerComponent implements OnInit {
         other.spinner = true;
         other.customerInfoService.getPaginationWithSearchObject(other.filterForm.value, other.page, 10).subscribe((response: any) => {
             other.customerList = response.detail.content;
-            console.log('Response', response);
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
             other.overlay.hide();
