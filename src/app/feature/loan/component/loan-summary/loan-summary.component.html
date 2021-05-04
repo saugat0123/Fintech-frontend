@@ -445,13 +445,18 @@
                                 <td class="pl-1">{{(loanDataHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
                                 <td class="pl-1">{{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>
 
+
                             </tr>
                             <tr class="text-white sb-bg-dark">
+                                <th *ngIf="client !== clientName.MEGA">Father's Name</th>
+                                <th *ngIf="client !== clientName.MEGA">Grandfather's Name</th>
                                 <th>Customer Client Type</th>
                                 <th>SubSector</th>
                                 <!--<td>Address as per Legal Document</td>-->
                             </tr>
                             <tr>
+                                <td class="pl-1" *ngIf="client !== clientName.MEGA">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
+                                <td class="pl-1" *ngIf="client !== clientName.MEGA">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
                                 <td class="text-left pl-1">{{loanDataHolder?.loanHolder['clientType']}}</td>
                                 <td class="text-left pl-1">{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
                                 <!--<td>{{loanDataHolder?.customerInfo?.customerLegalDocumentAddress}}</td>-->
