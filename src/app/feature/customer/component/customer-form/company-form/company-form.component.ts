@@ -687,10 +687,10 @@ export class CompanyFormComponent implements OnInit {
                 holderPercentWardNumber: [proprietors.holderPercentWardNumber === null ? null : proprietors.holderPercentWardNumber],
                 citizenshipNum: [proprietors.citizenshipNum === null ? null : proprietors.citizenshipNum, Validators.required],
                 issuedDate: [proprietors.issuedDate === null ? null : proprietors.issuedDate, Validators.required],
-                issuedPlace: [proprietors.issuedPlace === null ? null : proprietors.issuedPlace],
+                issuedPlace: [proprietors.issuedPlace === null ? null : proprietors.issuedPlace, Validators.required],
                 dateOfBirth: [proprietors.dateOfBirth === null ? null : proprietors.dateOfBirth, Validators.required],
-                fatherName: [proprietors.fatherName === null ? null : proprietors.fatherName, Validators.required],
-                grandFatherName: [proprietors.grandFatherName === null ? null : proprietors.grandFatherName, Validators.required],
+                fatherName: [proprietors.fatherName === null ? null : proprietors.fatherName],
+                grandFatherName: [proprietors.grandFatherName === null ? null : proprietors.grandFatherName],
                 addressLine1: [proprietors.addressLine1 === null ? null : proprietors.addressLine1],
                 addressLine2: [proprietors.addressLine2 === null ? null : proprietors.addressLine2],
                 type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]

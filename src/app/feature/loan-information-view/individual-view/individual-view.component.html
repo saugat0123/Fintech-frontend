@@ -43,8 +43,8 @@
       </thead>
       <tbody>
       <tr>
-        <td class="text-left pl-1" *ngIf="client !== clientName.MEGA">{{customerInfo?.fatherName}}</td>
-        <td class="text-left pl-1" *ngIf="client !== clientName.MEGA">{{customerInfo?.grandfatherName}}</td>
+        <td class="text-left pl-1" *ngIf="client !== clientName.MEGA">{{(individual?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
+        <td class="text-left pl-1" *ngIf="client !== clientName.MEGA">{{(individual?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
         <td class="text-right pr-1">{{individual?.contactNumber || 'NA'}}</td>
         <td class="text-right pr1">{{individual?.landLineNumber || 'NA'}}</td>
         <td class="text-left pl-1">{{individual?.email || 'NA'}}</td>

@@ -1215,12 +1215,6 @@
                                                   name="fatherName"
                                                   placeholder="Father Name"
                                                   type="text">
-                                           <div *ngIf="(submitted) && proprietor.get('fatherName').invalid"
-                                                class="invalid-feedback">
-                                               <div *ngIf="proprietor.get('fatherName').errors.required">
-                                                   Father's Name is required
-                                               </div>
-                                           </div>
                                        </div>
                                    </div>
                                </div>
@@ -1233,12 +1227,6 @@
                                                   name="grandFatherName"
                                                   placeholder="Grandfather Name"
                                                   type="text">
-                                           <div *ngIf="(submitted) && proprietor.get('grandFatherName').invalid"
-                                                class="invalid-feedback">
-                                               <div *ngIf="proprietor.get('grandFatherName').errors.required">
-                                                   Grandfather's Name is required
-                                               </div>
-                                           </div>
                                        </div>
                                    </div>
                                </div>

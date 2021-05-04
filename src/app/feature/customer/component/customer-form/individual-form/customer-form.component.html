@@ -181,33 +181,17 @@
                            <div class="col-md-4" *ngIf="client !== clientName.MEGA">
                                <div class="form-group">
                                    <label for="contactNumber"><strong>Father's Name</strong></label>
-                                   <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.fatherName.errors}"
-                                          class="form-control" formControlName="fatherName" id="fatherName"
-                                          name="fatherName"
+                                   <input class="form-control" formControlName="fatherName"
                                           placeholder="Father Name"
                                           type="text">
-                                   <div *ngIf="(submitted) && basicInfoControls.fatherName.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="basicInfoControls.fatherName.errors.required">
-                                           Father's Name is required
-                                       </div>
-                                   </div>
                                </div>
                            </div>
                            <div class="col-md-4" *ngIf="client !== clientName.MEGA">
                                <div class="form-group">
                                    <label for="contactNumber"><strong>Grandfather's Name</strong></label>
-                                   <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.grandFatherName.errors}"
-                                          class="form-control" formControlName="grandFatherName" id="grandFatherName"
-                                          name="grandFatherName"
+                                   <input class="form-control" formControlName="grandFatherName"
                                           placeholder="Grandfather Name"
                                           type="text">
-                                   <div *ngIf="(submitted) && basicInfoControls.grandFatherName.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="basicInfoControls.grandFatherName.errors.required">
-                                           Grandfather's Name is required
-                                       </div>
-                                   </div>
                                </div>
                            </div>
 

@@ -46,7 +46,5 @@ export class Customer {
     customerLegalDocumentAddress: string;
     individualJsonData: string;
     isMicroCustomer: boolean;
-    grandFatherName: string;
-    fatherName: string;
 
 }
