@@ -178,6 +178,22 @@
                                    </div>
                                </div>
                            </div>
+                           <div class="col-md-4" *ngIf="client !== clientName.MEGA">
+                               <div class="form-group">
+                                   <label for="contactNumber"><strong>Father's Name</strong></label>
+                                   <input class="form-control" formControlName="fatherName"
+                                          placeholder="Father Name"
+                                          type="text">
+                               </div>
+                           </div>
+                           <div class="col-md-4" *ngIf="client !== clientName.MEGA">
+                               <div class="form-group">
+                                   <label for="contactNumber"><strong>Grandfather's Name</strong></label>
+                                   <input class="form-control" formControlName="grandFatherName"
+                                          placeholder="Grandfather Name"
+                                          type="text">
+                               </div>
+                           </div>
 
 
                            <!-- END ROW -->

@@ -286,10 +286,6 @@
                     <th>Ward No.</th>
                     <th>Address Line 1</th>
                     <th>Address Line 2</th>
-                    <th *ngIf="client !== clientName.MEGA">Citizenship Number</th>
-                    <th *ngIf="client !== clientName.MEGA">Issued date</th>
-                    <th *ngIf="client !== clientName.MEGA">Issued place</th>
-                    <th *ngIf="client !== clientName.MEGA">Date of birth</th>
                 </tr>
                 <tr>
                     <td>{{i+1}}</td>
@@ -301,10 +297,24 @@
                     <td class="text-right pr-1"><strong>{{holder?.holderPercentWardNumber}}</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.addressLine1}}</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.addressLine2}}</strong></td>
-                    <td class="text-left pl-1" *ngIf="client !== clientName.MEGA"><strong>{{holder?.citizenshipNum}}</strong></td>
-                    <td class="text-left pl-1" *ngIf="client !== clientName.MEGA"><strong>{{holder?.issuedDate|date}}</strong></td>
-                    <td class="text-left pl-1" *ngIf="client !== clientName.MEGA"><strong>{{holder?.issuedPlace}}</strong></td>
-                    <td class="text-left pl-1" *ngIf="client !== clientName.MEGA"><strong>{{holder?.dateOfBirth|date}}</strong></td>
+                </tr>
+                <tr class="text-white sb-bg-dark" *ngIf="client !== clientName.MEGA">
+                    <th></th>
+                    <th>Father's Name</th>
+                    <th>Grandfather's Name</th>
+                    <th>Citizenship Number</th>
+                    <th>Issued date</th>
+                    <th>Issued place</th>
+                    <th>Date of birth</th>
+                </tr>
+                <tr *ngIf="client !== clientName.MEGA">
+                    <td></td>
+                    <td class="text-left pl-1"><strong>{{holder?.fatherName}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.grandFatherName}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.citizenshipNum}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.issuedDate|date}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.issuedPlace}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.dateOfBirth|date}}</strong></td>
                 </tr>
 
                 <tr *ngIf="client != clientName.MEGA">
