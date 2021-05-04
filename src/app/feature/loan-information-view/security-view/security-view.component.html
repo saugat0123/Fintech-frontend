@@ -5,7 +5,6 @@
   <div *ngIf="landSelected" class="row">
     <ng-container  *ngFor="let landDetails of securityData['initialForm']['landDetails']; let i= index">
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-      <thead>
       <tr>
         <th colspan="10">{{i+1}}.Land Security Details</th>
       </tr>
@@ -21,10 +20,8 @@
         <th>Fair Market Value</th>
         <th>Collateral Owner Relationship</th>
       </tr>
-      </thead>
-      <tbody>
       <tr>
-        <td>{{i + 1}}</td>
+        <td rowspan="5" class="align-middle">{{i + 1}}</td>
         <td class="text-left pl-1">{{landDetails?.owner}}</td>
         <td class="text-left pl-1">{{landDetails?.location}}</td>
         <td class="text-right pr-1">{{landDetails?.plotNumber}}</td>
@@ -35,13 +32,12 @@
         <td class="text-right pr-1">Rs. {{landDetails?.marketValue | currencyFormatter}}</td>
         <td class="text-right pr-1">{{landDetails?.landCollateralOwnerRelationship}}</td>
       </tr>
-      </tbody>
 
       <ng-container>
         <tr class="sb-bg-dark text-white">
           <th>Relation</th>
           <th>Name</th>
-          <th *ngIf="client === clientName.SHINE_RESUNGA" colspan="2">Age</th>
+          <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
           <th>Citizenship Number</th>
           <th>Issued District</th>
           <th>Issued Date</th>
@@ -53,7 +49,7 @@
           <tr>
             <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
             <td class="text-left pl-1">{{kyc?.relationName}}</td>
-            <td *ngIf="client === clientName.SHINE_RESUNGA" colspan="2" class="text-left pl-1">{{kyc?.age}}</td>
+            <td *ngIf="client === clientName.SHINE_RESUNGA"  class="text-left pl-1">{{kyc?.age}}</td>
             <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
             <td class="text-left pl-1">{{kyc?.issuedLocation}}</td>
             <td class="text-left pl-1">{{kyc?.issuedDate | date}}</td>
@@ -64,7 +60,6 @@
         </ng-container>
       </ng-container>
 
-      <thead>
       <tr class="text-white sb-bg-dark">
         <th *ngIf="landDetails?.landOtherBranchChecked === true">Branch</th>
         <th colspan="2">Valuator Name</th>
@@ -76,13 +71,12 @@
         <th>Staff Representative Name 2</th>
 
       </tr>
-      </thead>
-      <tbody>
+
       <tr>
         <td *ngIf="landDetails?.landOtherBranchChecked === true">{{landDetails?.landBranch?.name || 'N/A'}}</td>
         <td colspan="2" class="text-left pl-1">{{landDetails?.landValuator?.name}}</td>
         <td class="text-left pl-1">{{landDetails?.landValuatorDate | date}}</td>
-        <td cclass="text-left pl-1">{{landDetails?.landValuatorRepresentative}}</td>
+        <td class="text-left pl-1">{{landDetails?.landValuatorRepresentative}}</td>
         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeDesignation}}</td>
         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeName}}</td>
         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeDesignation2}}</td>
@@ -90,7 +84,6 @@
       </tr>
       <tr>
       <tr class="text-white sb-bg-dark">
-        <th></th>
         <th colspan="2">Type of Property</th>
         <th *ngIf="client !== clientName?.SHINE_RESUNGA">Mode of Transfer</th>
         <th colspan="2">Address as per Legal Document</th>
@@ -107,7 +100,6 @@
 
       </tr>
       <tr>
-        <td></td>
         <td colspan="2"class="text-left pl-1">{{landDetails?.typeOfProperty}}</td>
         <td class="text-left pl-1" *ngIf="client !== clientName?.SHINE_RESUNGA">{{landDetails?.modeOfTransfer}}</td>
         <td colspan="2" class="text-left pl-1">{{landDetails?.landSecurityLegalDocumentAddress}}</td>
@@ -150,7 +142,6 @@
         </tr>
       </ng-container>
 
-      </tbody>
     </table>
       <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
         <tr class="sb-bg-dark text-white">
