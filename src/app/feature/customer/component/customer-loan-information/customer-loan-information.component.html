@@ -416,7 +416,7 @@
                   [formData]="customerInfo?.synopsisCreditworthiness"></app-micro-synopsis>
         </nb-accordion-item-body>
       </nb-accordion-item>
-      <nb-accordion-item #reportingInfoLevelAccordion>
+      <nb-accordion-item #reportingInfoLevelAccordion *ngIf="client !== clientName?.SHINE_RESUNGA">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">

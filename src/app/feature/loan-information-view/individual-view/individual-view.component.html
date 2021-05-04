@@ -149,25 +149,25 @@
         <th colspan="2">Introduction</th>
       </tr>
       <tr>
-        <td colspan="2" class="text-left pl-1">{{individual?.introduction}}</td>
+        <td colspan="2" class="text-left pl-1" [innerHTML]="individual?.introduction | safeHtml"></td>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th colspan="2">Income Risk</th>
       </tr>
       <tr>
-        <td colspan="2" class="text-left pl-1">{{individualJsonData?.incomeRisk}}</td>
+        <td colspan="2" class="text-left pl-1" [innerHTML]="individualJsonData?.incomeRisk | safeHtml"></td>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th colspan="2">Security Risk</th>
       </tr>
       <tr>
-        <td colspan="2" class="text-left pl-1">{{individualJsonData?.securityRisk}}</td>
+        <td colspan="2" class="text-left pl-1" [innerHTML]="individualJsonData?.securityRisk | safeHtml"></td>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th colspan="2">Succession Risk</th>
       </tr>
       <tr>
-        <td colspan="2" class="text-left pl-1">{{individualJsonData?.successionRisk}}</td>
+        <td colspan="2" class="text-left pl-1" [innerHTML]="individualJsonData?.successionRisk | safeHtml"></td>
       </tr>
       <tr *ngIf="!crgLambdaDisabled" class="text-white sb-bg-dark">
         <th>Banking Relationship</th>

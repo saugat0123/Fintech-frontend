@@ -26,6 +26,7 @@ import {ProductUtilService} from '../../../../../@core/service/product-util.serv
 import {CompanyJsonData} from '../../../../admin/modal/CompanyJsonData';
 import {MGroup} from '../../../model/mGroup';
 import {environment} from '../../../../../../environments/environment';
+import {LoanFormService} from '../../../../loan/component/loan-form/service/loan-form.service';
 
 @Component({
     selector: 'app-company-profile',
@@ -34,7 +35,7 @@ import {environment} from '../../../../../../environments/environment';
 })
 export class CompanyProfileComponent implements OnInit, AfterContentInit {
     @ViewChild('mGroupAccordion', {static: false})
-    public mGroupAccordion: NbAccordionItemComponent
+    public mGroupAccordion: NbAccordionItemComponent;
 
     companyInfo: CompanyInfo = new CompanyInfo();
     customerInfo: CustomerInfoData;
@@ -69,6 +70,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     companyJsonData: CompanyJsonData = new CompanyJsonData();
     sbsGroupEnabled = environment.SBS_GROUP;
     megaGroupEnabled = environment.MEGA_GROUP;
+    isEditable = false;
 
     constructor(private companyInfoService: CompanyInfoService,
                 private customerInfoService: CustomerInfoService,
@@ -80,7 +82,8 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
                 private dialogService: NbDialogService,
                 private commonLocation: AddressService,
                 private formBuilder: FormBuilder,
-                private utilService: ProductUtilService) {
+                private utilService: ProductUtilService,
+                private loanFormService: LoanFormService) {
     }
 
     get form() {
@@ -102,6 +105,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
 
         this.utilService.getProductUtil().then(r =>
             this.productUtils = r);
+
     }
 
     editCustomer(val) {
@@ -135,6 +139,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
 
     getCustomerInfo(customerInfoId) {
         this.spinner = true;
+
         this.customerInfoService.detail(customerInfoId).subscribe((res: any) => {
             this.customerInfo = res.detail;
             this.setCompanyData(this.companyInfo);
@@ -194,12 +199,13 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     }
 
     ngAfterContentInit(): void {
+
         const roleType = LocalStorageUtil.getStorage().roleType;
         if (roleType === 'MAKER') {
             this.maker = true;
+            this.isEditableCustomerData();
         }
     }
-
 
 
     openCompanyDetailEdit(companyInfo) {
@@ -318,5 +324,12 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     setMGroupData(mGroup: MGroup) {
         this.customerInfo.mgroupInfo = mGroup;
         this.mGroupAccordion.close();
+    }
+
+    isEditableCustomerData() {
+        if(this.maker){
+        this.loanFormService.isCustomerEditable(this.customerInfoId).subscribe((res: any) => {
+            this.isEditable = res.detail;
+        });}
     }
 }

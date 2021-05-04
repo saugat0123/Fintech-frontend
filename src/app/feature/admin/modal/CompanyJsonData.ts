@@ -23,4 +23,5 @@ export class CompanyJsonData {
   proprietorList: Array<Proprietors> = new Array<Proprietors>();
   microCustomerDetail: any;
   totalSharePercent: string;
+  isAdditionalCompanyInfo: boolean;
 }

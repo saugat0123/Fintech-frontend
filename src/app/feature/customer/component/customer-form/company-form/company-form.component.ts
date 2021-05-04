@@ -193,18 +193,15 @@ export class CompanyFormComponent implements OnInit {
             console.log(this.microCustomer);
         }
         this.companyInfo = this.formValue;
-        if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
+        if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
+            this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
+        }
+        this.additionalFieldSelected = this.companyJsonData.isAdditionalCompanyInfo;
+        if (this.additionalFieldSelected) {
             this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
-            this.additionalFieldSelected = true;
-            if (JSON.stringify(this.additionalFieldData).includes(null)) {
-                this.additionalFieldSelected = false;
-            }
         }
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) {
             this.businessAndIndustry = JSON.parse(this.companyInfo.businessAndIndustry);
-        }
-        if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
-            this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
         }
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessGiven)) {
             this.businessGiven = JSON.parse(this.companyInfo.businessGiven);
@@ -473,9 +470,9 @@ export class CompanyFormComponent implements OnInit {
                 licenseHolderName: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
                     this.additionalFieldData.licenseHolderName],
                 licenseExpiryDate: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    this.additionalFieldData.licenseExpiryDate],
+                    new Date(this.additionalFieldData.licenseExpiryDate)],
                 licenseIssuedDate: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    this.additionalFieldData.licenseIssuedDate],
+                    new Date(this.additionalFieldData.licenseIssuedDate)],
                 licenseIssuePlace: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
                     this.additionalFieldData.licenseIssuePlace],
                 additionalInfoRemark: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
@@ -620,6 +617,10 @@ export class CompanyFormComponent implements OnInit {
             district: [null],
             municipalityVdc: [null],
             holderPercentWardNumber: [undefined, Validators.required],
+            citizenshipNum: [undefined, Validators.required],
+            issuedDate: [undefined, Validators.required],
+            issuedPlace: [undefined, Validators.required],
+            dateOfBirth: [undefined, Validators.required],
             addressLine1: [undefined, Validators.required],
             addressLine2: [undefined],
             type: [null, Validators.required]
@@ -669,7 +670,7 @@ export class CompanyFormComponent implements OnInit {
             this.addressList[proprietorIndex] = new Address();
             if (!ObjectUtil.isEmpty(proprietors.province) && proprietors.province.id !== null) {
                 this.getDistricts(proprietors.province.id, proprietorIndex);
-                if (proprietors.district.id !== null) {
+                if (!ObjectUtil.isEmpty(proprietors.district) && proprietors.district.id !== null) {
                     this.getMunicipalities(proprietors.district.id, proprietorIndex);
                 }
             }
@@ -682,6 +683,10 @@ export class CompanyFormComponent implements OnInit {
                 district: [proprietors.district === null ? null : proprietors.district],
                 municipalityVdc: [proprietors.municipalityVdc === null ? null : proprietors.municipalityVdc],
                 holderPercentWardNumber: [proprietors.holderPercentWardNumber === null ? null : proprietors.holderPercentWardNumber],
+                citizenshipNum: [proprietors.citizenshipNum === null ? null : proprietors.citizenshipNum, Validators.required],
+                issuedDate: [proprietors.issuedDate === null ? null : proprietors.issuedDate, Validators.required],
+                issuedPlace: [proprietors.issuedPlace === null ? null : proprietors.issuedPlace],
+                dateOfBirth: [proprietors.dateOfBirth === null ? null : proprietors.dateOfBirth, Validators.required],
                 addressLine1: [proprietors.addressLine1 === null ? null : proprietors.addressLine1],
                 addressLine2: [proprietors.addressLine2 === null ? null : proprietors.addressLine2],
                 type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]
@@ -717,6 +722,7 @@ export class CompanyFormComponent implements OnInit {
         this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
                 this.districtList = response.detail;
+                this.districtList.sort((a, b) => a.name.localeCompare(b.name));
                 if (proprietorIndex == null) {
                     if (!ObjectUtil.isEmpty(this.customerInfo)) {
                         this.districtList.forEach(district => {
@@ -743,6 +749,7 @@ export class CompanyFormComponent implements OnInit {
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.municipalityVdcList = response.detail;
+                this.municipalityVdcList.sort((a, b) => a.name.localeCompare(b.name));
                 if (proprietorIndex == null) {
                     if (!ObjectUtil.isEmpty(this.customerInfo)) {
                         this.municipalityVdcList.forEach(municipality => {
@@ -920,6 +927,10 @@ export class CompanyFormComponent implements OnInit {
             proprietors.contactNo = this.getProprietor()[proprietorsIndex].contactNo;
             proprietors.share = this.getProprietor()[proprietorsIndex].share;
             proprietors.holderPercentWardNumber = this.getProprietor()[proprietorsIndex].holderPercentWardNumber;
+            proprietors.citizenshipNum = this.getProprietor()[proprietorsIndex].citizenshipNum;
+            proprietors.issuedDate = this.getProprietor()[proprietorsIndex].issuedDate;
+            proprietors.dateOfBirth = this.getProprietor()[proprietorsIndex].dateOfBirth;
+            proprietors.issuedPlace = this.getProprietor()[proprietorsIndex].issuedPlace;
             proprietors.addressLine1 = this.getProprietor()[proprietorsIndex].addressLine1;
             proprietors.addressLine2 = this.getProprietor()[proprietorsIndex].addressLine2;
             proprietors.type = this.getProprietor()[proprietorsIndex].type;
@@ -933,7 +944,7 @@ export class CompanyFormComponent implements OnInit {
             municipalityVdc = this.getProprietor()[proprietorsIndex].municipalityVdc;
             proprietors.municipalityVdc = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].municipalityVdc))
                 ? municipalityVdc : undefined;
-            if ( this.client !== this.clientName.MEGA) {
+            if (this.client !== this.clientName.MEGA) {
                 proprietors.kycInfo = this.shareholderKyc.filter(item => item.kycId.toString() ===
                     proprietorsIndex.toString())[0].ownerKycForm.value;
             }
@@ -989,6 +1000,7 @@ export class CompanyFormComponent implements OnInit {
         submitData.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
         submitData.proprietorList = this.companyJsonData.proprietorList;
         submitData.totalSharePercent = this.companyInfoFormGroup.get('totalSharePercent').value;
+        submitData.isAdditionalCompanyInfo = this.additionalFieldSelected;
 
         if (this.microCustomer) {
             /** micro data **/
@@ -1026,6 +1038,7 @@ export class CompanyFormComponent implements OnInit {
     private getAllDistrict() {
         this.commonLocation.getAllDistrict().subscribe((response: any) => {
             this.allDistrict = response.detail;
+            this.allDistrict.sort((a, b) => a.name.localeCompare(b.name));
         });
     }
 
@@ -1038,14 +1051,18 @@ export class CompanyFormComponent implements OnInit {
         });
     }
 
-    onAdditionalFieldSelect(chk) {
-        if (!chk) {
-            this.additionalFieldSelected = false;
-            this.companyInfoFormGroup.get('additionalCompanyInfo').clearValidators();
-            this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
-        } else {
-            this.additionalFieldSelected = true;
-            this.companyInfoFormGroup.enable();
+    checkChecked(event, type) {
+        switch (type) {
+            case 'additionalInfo':
+                if (event) {
+                    this.additionalFieldSelected = true;
+                    this.companyInfoFormGroup.enable();
+                } else {
+                    this.additionalFieldSelected = false;
+                    this.companyInfoFormGroup.get('additionalCompanyInfo').clearValidators();
+                    this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
+                }
+                break;
         }
     }
 
@@ -1115,7 +1132,7 @@ export class CompanyFormComponent implements OnInit {
     // Calculation of Share %
     calculateSharePercent(formArrayName, resultControllerName) {
         let total = 0;
-        (this.companyInfoFormGroup.get(formArrayName) as FormArray).controls.forEach( group => {
+        (this.companyInfoFormGroup.get(formArrayName) as FormArray).controls.forEach(group => {
             total = Number(group.get('share').value) + Number(total);
         });
         this.companyInfoFormGroup.get(resultControllerName).setValue(total);

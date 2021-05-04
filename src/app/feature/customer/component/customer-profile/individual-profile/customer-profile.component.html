@@ -102,7 +102,7 @@
                     <div class="row">
                         <span> <strong>Mobile Number :</strong> {{customer.contactNumber }}</span></div>
                     <div class="row">
-                        <span> <strong>Introduction :</strong> {{customer.introduction }}</span></div>
+                        <span> <strong>Introduction :</strong> <span [innerHTML]="customer.introduction | safeHtml"></span></span></div>
                 </div>
                 <div *ngIf="isEdited" class="col-md-9 sb-small">
                     <form [formGroup]="basicForm">
@@ -389,15 +389,20 @@
             </div>
         </div>
         <!--        //cbs Group-->
+        <div class="row  py-2" *ngIf="maker && !isEditable">
+            <div class="col-md-12 text-danger">
+                <sup>*</sup><strong style=" font-style: oblique;"> This Customer Loan is Under Progress So Information cannot be Edit.
+            </strong> </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <app-customer-loan-information
                         (triggerCustomerRefresh)="refreshCustomerInfo()"
-                        *ngIf="customerInfo && maker"
+                        *ngIf="customerInfo &&  isEditable"
                         [customerInfoId]="customerInfoId"
                         [isMicroCustomer]="customer?.isMicroCustomer"
                         [customerInfo]="customerInfo"></app-customer-loan-information>
-                <app-customer-loan-information-view *ngIf="!maker"
+                <app-customer-loan-information-view *ngIf=" !isEditable"
                                                     [customerInfo]="customerInfo"></app-customer-loan-information-view>
             </div>
         </div>

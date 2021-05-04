@@ -28,6 +28,7 @@ import {NepaliCurrencyWordPipe} from './@core/pipe/nepali-currency-word.pipe';
 import {NepaliToEngNumberPipe} from './@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliWordPipe} from './@core/pipe/nepali-word.pipe';
 import {NepaliPercentWordPipe} from './@core/pipe/nepali-percent-word.pipe';
+import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import {NepaliPercentWordPipe} from './@core/pipe/nepali-percent-word.pipe';
         ResentForgotPasswordComponent,
         LoginBaseComponent,
         NewPasswordComponent,
+        TimeOutPopUpComponent,
         NepaliCurrencyWordPipe
     ],
     imports: [
@@ -70,7 +72,7 @@ import {NepaliPercentWordPipe} from './@core/pipe/nepali-percent-word.pipe';
         NepaliPercentWordPipe],
     bootstrap: [AppComponent],
     exports: [],
-    entryComponents: []
+    entryComponents: [TimeOutPopUpComponent]
 
 })
 export class AppModule {

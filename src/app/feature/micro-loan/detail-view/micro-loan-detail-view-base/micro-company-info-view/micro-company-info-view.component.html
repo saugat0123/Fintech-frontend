@@ -233,7 +233,7 @@
                 <th>Company Background</th>
             </tr>
             <tr>
-                <th class="text-left pl-1">{{companyJsonData?.companyBackground}}</th>
+                <th class="text-left pl-1" [innerHTML]="companyJsonData?.companyBackground | safeHtml"></th>
             </tr>
         </table>
 
@@ -264,7 +264,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="text-left pl-1">{{companyJsonData?.managementTeamNote}}</td>
+                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.managementTeamNote | safeHtml"></td>
                 </tr>
             </tbody>
         </table>
@@ -379,10 +379,10 @@
             </thead>
             <tbody>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.swot?.strength}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.swot?.weakness}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.swot?.opportunity}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.swot?.threats}}</td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.strength | safeHtml"></td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.weakness | safeHtml"></td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.opportunity | safeHtml"></td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.threats | safeHtml"></td>
             </tr>
             </tbody>
         </table>
@@ -392,7 +392,7 @@
                 <th>Succession Risk</th>
             </tr>
             <tr>
-                <th class="text-left pl-1">{{formValue?.successionPlanning}}</th>
+                <th class="text-left pl-1" [innerHTML]="formValue?.successionPlanning | safeHtml"></th>
             </tr>
         </table>
 
@@ -484,7 +484,7 @@
                 <th>Group’s background</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.groupsBackGround}}</td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.groupsBackGround | safeHtml"></td>
             </tr>
         </table>
         <table

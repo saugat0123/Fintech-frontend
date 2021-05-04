@@ -29,7 +29,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-5">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="title"><strong>Type</strong></label><strong
                                         class="text-danger">*</strong>
@@ -40,6 +40,21 @@
                                     </ng-select>
                                     <span *ngIf="incomeOfBorrower.get('organization').invalid"
                                           class="text-danger small">Type required</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title"><strong>Age of Income Generated(In Months)</strong></label><strong
+                                        class="text-danger">*</strong>
+                                    <input
+                                           [ngClass]="{
+                               'is-invalid': incomeOfBorrower.get('ageOfIncomeGenerated').invalid && (incomeOfBorrower.get('ageOfIncomeGenerated').dirty || incomeOfBorrower.get('ageOfIncomeGenerated').touched),
+                                'is-valid': !incomeOfBorrower.get('ageOfIncomeGenerated').invalid && (incomeOfBorrower.get('ageOfIncomeGenerated').dirty || incomeOfBorrower.get('ageOfIncomeGenerated').touched)
+                                }" class="form-control"
+                                           placeholder="Age of Income Generated"
+                                           formControlName="ageOfIncomeGenerated"
+                                           type="number" appDecimalNumber>
+                                    <span *ngIf="incomeOfBorrower.get('ageOfIncomeGenerated').invalid" class="text-danger small">Age required</span>
                                 </div>
                             </div>
 
@@ -292,6 +307,67 @@
                     </div>
                 </div>
 
+            </nb-card-body>
+        </nb-card>
+
+        <nb-card>
+            <nb-card-header>Repayment Capacity</nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="grossTotalIncome"><strong>Gross Total Income</strong></label>
+                        <input class="form-control" id="grossTotalIncome"
+                               [readOnly]="true"
+                               placeholder="Amount" [value]="numberUtils.isNumber(financialForm.get('totalIncome').value).toFixed(2)">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="existingObligationOtherBank"><strong>Existing Obligation at other Bank</strong></label>
+                        <input class="form-control" formControlName="existingObligationOtherBank" id="existingObligationOtherBank"
+                               [ngClass]="{'is-invalid': submitted && financialForm.get('existingObligationOtherBank').invalid}"
+                               (change)="totalObligation()"
+                               placeholder="Amount">
+
+                        <div *ngIf="(submitted) && form.existingObligationOtherBank.invalid"
+                             class="invalid-feedback">Invalid Existing Obligation at other Bank
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="totalObligationCurrentBank"><strong>Proposed and Existing Obligation at Our Bank</strong></label>
+                        <input class="form-control" formControlName="totalObligationCurrentBank" id="totalObligationCurrentBank"
+                               [ngClass]="{'is-invalid': submitted && financialForm.get('existingObligationOtherBank').invalid}"
+                               type="number"
+                               (change)="totalObligation()"
+                               placeholder="Amount">
+
+                        <div *ngIf="(submitted) && form.totalObligationCurrentBank.invalid"
+                             class="invalid-feedback">Invalid Existing Obligation value
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="totalBankObligation"><strong>Total Bank Obligation</strong></label>
+                        <input class="form-control" formControlName="totalBankObligation" id="totalBankObligation"
+                               type="number"
+                               [ngClass]="{'is-invalid': submitted && financialForm.get('totalBankObligation').invalid}"
+                               [readOnly]="true"
+
+                               [value]="numberUtils.isNumber(form.existingObligationOtherBank.value) + numberUtils.isNumber(form.totalObligationCurrentBank.value)"
+                        >
+
+                        <div *ngIf="(submitted) && form.totalBankObligation.invalid"
+                             class="invalid-feedback">Invalid Total Bank Obligation value
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="obligationGrossIncomeRatio"><strong>Total Bank Obligation to Gross Income Ratio</strong></label>
+                        <input class="form-control" formControlName="obligationGrossIncomeRatio" id="obligationGrossIncomeRatio"
+                               [ngClass]="{'is-invalid': submitted && financialForm.get('obligationGrossIncomeRatio').invalid}"
+                               [readOnly]="true">
+
+                        <div *ngIf="(submitted) && form.obligationGrossIncomeRatio.invalid"
+                             class="invalid-feedback">Invalid Obligation Ratio
+                        </div>
+                    </div>
+                </div>
             </nb-card-body>
         </nb-card>
     </div>
