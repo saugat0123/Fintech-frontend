@@ -7,4 +7,6 @@ export class IndividualJsonData {
     temporaryAddressLine1: string;
     temporaryAddressLine2: string;
     microCustomerDetail: any;
+    grandFatherName: string;
+    fatherName: string;
 }
