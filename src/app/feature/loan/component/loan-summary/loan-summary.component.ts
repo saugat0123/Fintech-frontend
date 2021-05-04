@@ -202,7 +202,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
             this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
             this.isJointInfo = true;
-            console.log('customerinfo', jointCustomerInfo);
         }
         this.loadSummary();
         this.roleType = LocalStorageUtil.getStorage().roleType;

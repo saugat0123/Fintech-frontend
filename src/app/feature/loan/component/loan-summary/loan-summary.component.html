@@ -569,7 +569,7 @@
                     </div>
 
                     <div *ngIf="loanCategory === 'INDIVIDUAL'">
-                        <p><strong>Family Details</strong></p>
+                        <p><strong>Joint Family Details</strong></p>
                         <table
                                 class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                             <thead>
@@ -577,9 +577,8 @@
                                 <th>Name</th>
                                 <th>Relation Name</th>
                                 <th>Citizenship no.</th>
+                                <th>Citizenship Issued District</th>
                                 <th>Citizenship Issued Date</th>
-                                <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
-
                             </tr>
                             </thead>
                             <tbody>

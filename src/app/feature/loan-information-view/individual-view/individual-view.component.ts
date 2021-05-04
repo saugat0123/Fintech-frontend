@@ -28,6 +28,8 @@ export class IndividualViewComponent implements OnInit {
   @Input() calendarType: CalendarType;
 
   @Input() loanId: any;
+  isJointInfo = false;
+  jointInfo = [];
 
   constructor() {
   }
@@ -38,6 +40,11 @@ export class IndividualViewComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
         this.individualJsonData = JSON.parse(this.individual.individualJsonData);
       }
+    }
+    if (!ObjectUtil.isEmpty(this.individual.jointInfo)) {
+      const jointCustomerInfo = JSON.parse(this.individual.jointInfo);
+      this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
+      this.isJointInfo = true;
     }
 
   }
