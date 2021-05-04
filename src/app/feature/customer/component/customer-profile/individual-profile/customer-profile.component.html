@@ -393,30 +393,46 @@
                     <nb-card-body *ngIf="isJointInfo">
                         <div *ngFor="let jointCustomer of jointInfo">
                             <ng-container *ngFor="let info of jointCustomer">
+                                <div *ngIf="info?.customerRelativeName1">
                                 <strong>Name : </strong><span>{{info?.customerRelativeName1 || 'NA'}}</span><br/>
                                 <strong>Relation : </strong><span>{{info?.customerRelation1 || 'NA'}}</span><br/>
                                 <strong>Citizenship no : </strong><span>{{info?.citizenshipNumber1 || 'NA'}}</span><br/>
                                 <strong>Issued Place : </strong><span>{{info?.citizenshipIssuedPlace1 || 'NA'}}</span><br/>
                                 <strong>Issued Date : </strong><span>{{info?.citizenshipIssuedDate1 || 'NA' | date}}</span><br/>
                                 <hr/>
+                                </div>
+                                <div *ngIf="info?.customerRelativeName2">
                                 <strong>Name : </strong><span>{{info?.customerRelativeName2 || 'NA'}}</span><br/>
                                 <strong>Relation : </strong><span>{{info?.customerRelation2 || 'NA'}}</span><br/>
                                 <strong>Citizenship no : </strong><span>{{info?.citizenshipNumber2 || 'NA'}}</span><br/>
                                 <strong>Issued Place : </strong><span>{{info?.citizenshipIssuedPlace2 || 'NA'}}</span><br/>
                                 <strong>Issued Date : </strong><span>{{info?.citizenshipIssuedDate2 || 'NA' | date}}</span><br/>
                                 <hr/>
+                                </div>
+                                <div *ngIf="info?.customerRelativeName3">
                                 <strong>Name : </strong><span>{{info?.customerRelativeName3 || 'NA'}}</span><br/>
                                 <strong>Relation : </strong><span>{{info?.customerRelation3 || 'NA'}}</span><br/>
                                 <strong>Citizenship no : </strong><span>{{info?.citizenshipNumber3 || 'NA'}}</span><br/>
                                 <strong>Issued Place : </strong><span>{{info?.citizenshipIssuedPlace3 || 'NA'}}</span><br/>
                                 <strong>Issued Date : </strong><span>{{info?.citizenshipIssuedDate3 || 'NA' | date}}</span><br/>
                                 <hr/>
+                                </div>
+                                <div *ngIf="info?.customerRelativeName4">
                                 <strong>Name : </strong><span>{{info?.customerRelativeName4 || 'NA'}}</span><br/>
                                 <strong>Relation : </strong><span>{{info?.customerRelation4 || 'NA'}}</span><br/>
                                 <strong>Citizenship no : </strong><span>{{info?.citizenshipNumber4 || 'NA'}}</span><br/>
                                 <strong>Issued Place : </strong><span>{{info?.citizenshipIssuedPlace4 || 'NA'}}</span><br/>
                                 <strong>Issued Date : </strong><span>{{info?.citizenshipIssuedDate4 || 'NA' | date}}</span><br/>
                                 <hr/>
+                                </div>
+                                <div *ngIf="info?.customerRelativeName5">
+                                <strong>Name : </strong><span>{{info?.customerRelativeName5 || 'NA'}}</span><br/>
+                                <strong>Relation : </strong><span>{{info?.customerRelation5 || 'NA'}}</span><br/>
+                                <strong>Citizenship no : </strong><span>{{info?.citizenshipNumber5 || 'NA'}}</span><br/>
+                                <strong>Issued Place : </strong><span>{{info?.citizenshipIssuedPlace5 || 'NA'}}</span><br/>
+                                <strong>Issued Date : </strong><span>{{info?.citizenshipIssuedDate5 || 'NA' | date}}</span><br/>
+                                <hr/>
+                                </div>
                             </ng-container>
                         </div>
                     </nb-card-body>
