@@ -121,7 +121,9 @@
           *ngFor="let model of customerList;let i=index" class="cursor">
         <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
         <td *ngIf="!isMaker" (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.branch?.name}}</td>
-        <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.name}}</td>
+        <td (click)="customerProfile(model.associateId,model.id,model.customerType)">
+          <span *ngIf="model.isJointCustomer">Joint Customer: </span>{{model?.name}}
+        </td>
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.customerType}}</td>
 
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.idNumber || 'NA'}}</td>

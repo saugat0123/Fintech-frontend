@@ -240,6 +240,8 @@ export class CustomerComponent implements OnInit {
                     this.dialogService.open(JointFormComponent, {
                         context: {
                             formValue: detail,
+                            clientTypeInput: model.clientType,
+                            subSectorInput: model.subsectorDetail,
                         },
                         closeOnBackdropClick: false,
                         closeOnEsc: false,

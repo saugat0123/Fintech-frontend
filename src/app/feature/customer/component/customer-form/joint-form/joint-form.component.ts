@@ -22,6 +22,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {DateValidator} from '../../../../../@core/validator/date-validator';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {BankingRelationship} from '../../../../admin/modal/banking-relationship';
+import {Editor} from '../../../../../@core/utils/constants/editor';
 
 @Component({
   selector: 'app-joint-form',
@@ -30,6 +31,8 @@ import {BankingRelationship} from '../../../../admin/modal/banking-relationship'
 })
 export class JointFormComponent implements OnInit {
   @Input() formValue: Customer = new Customer();
+  @Input() clientTypeInput: any;
+  @Input() subSectorInput: any;
   @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() currentVal: any;
   jointInputVal: number;
@@ -73,6 +76,7 @@ export class JointFormComponent implements OnInit {
   clientName = Clients;
   id: number;
   version: number;
+  ckeConfig = Editor.CK_CONFIG;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -89,6 +93,8 @@ export class JointFormComponent implements OnInit {
   ngOnInit() {
     this.getProvince(0);
     this.getAllDistrict();
+    this.getClientType();
+    this.getSubSector();
     this.formMaker();
     if (!ObjectUtil.isEmpty(this.formValue)) {
       if (!ObjectUtil.isEmpty(this.formValue.jointInfo)) {
@@ -96,7 +102,11 @@ export class JointFormComponent implements OnInit {
         this.setJointDetail(this.individualJsonData);
         this.id = this.formValue.id;
         this.version = this.formValue.version;
-          this.getProvince(0);
+        this.customer.clientType = this.clientTypeInput;
+        this.customer.subsectorDetail = this.subSectorInput;
+        this.basicJointInfo.get('clientType').patchValue(this.customer.clientType);
+        this.basicJointInfo.get('subsectorDetail').patchValue(this.customer.subsectorDetail);
+        this.getProvince(0);
       }
       this.getJointValue();
     }
@@ -143,7 +153,13 @@ export class JointFormComponent implements OnInit {
             gender: [jointDetail.gender],
             maritalStatus: [jointDetail.maritalStatus],
             customerLegalDocumentAddress: [jointDetail.customerLegalDocumentAddress],
-              relationCheck: [jointDetail.relationCheck],
+            relationCheck: [jointDetail.relationCheck],
+            introduction: [jointDetail.introduction],
+            incomeRisk: [jointDetail.incomeRisk],
+            securityRisk: [jointDetail.securityRisk],
+            successionRisk: [jointDetail.successionRisk],
+            bankingRelationship: [jointDetail.bankingRelationship],
+            netWorth: [jointDetail.netWorth],
             customerRelation1: [jointDetail.customerRelation1],
             customerRelativeName1: [jointDetail.customerRelativeName1],
             citizenshipNumber1: [jointDetail.citizenshipNumber1],
@@ -168,6 +184,12 @@ export class JointFormComponent implements OnInit {
             citizenshipIssuedPlace4: [jointDetail.citizenshipIssuedPlace4],
             citizenshipIssuedDate4: [jointDetail.citizenshipIssuedDate4],
             age4: [jointDetail.age4],
+            customerRelation5: [jointDetail.customerRelation5],
+            customerRelativeName5: [jointDetail.customerRelativeName5],
+            citizenshipNumber5: [jointDetail.citizenshipNumber5],
+            citizenshipIssuedPlace5: [jointDetail.citizenshipIssuedPlace5],
+            citizenshipIssuedDate5: [jointDetail.citizenshipIssuedDate5],
+            age5: [jointDetail.age5],
           })
       );
     });
@@ -275,9 +297,13 @@ export class JointFormComponent implements OnInit {
               this.customer.id = this.id;
               this.customer.version = this.version;
           }
+          this.customer.isJointCustomer = true;
+          this.customer.clientType = this.basicJointInfo.get('clientType').value;
+          this.customer.subsectorDetail = this.basicJointInfo.get('subsectorDetail').value;
           // to avoid backend validation error
-          this.customer.customerName = this.basicJointInfo.get('jointCustomerInfo')['controls'][0]
-              .get('customerName').value;
+          const customerName1 = this.basicJointInfo.get('jointCustomerInfo')['controls'][0].get('customerName').value;
+          const customerName2 = this.basicJointInfo.get('jointCustomerInfo')['controls'][1].get('customerName').value;
+          this.customer.customerName = customerName1 + '/' + customerName2;
           this.customer.citizenshipNumber = this.basicJointInfo.get('jointCustomerInfo')['controls'][0]
               .get('citizenshipNumber').value;
           this.customer.citizenshipIssuedPlace = this.basicJointInfo.get('jointCustomerInfo')['controls'][0]
@@ -331,6 +357,8 @@ export class JointFormComponent implements OnInit {
 
   formMaker() {
     this.basicJointInfo = this.formBuilder.group({
+      clientType: [undefined],
+      subsectorDetail: [undefined],
       jointCustomerInfo: this.formBuilder.array([])
     });
   }
@@ -367,31 +395,43 @@ export class JointFormComponent implements OnInit {
       gender: [undefined, Validators.required],
       maritalStatus: [undefined, Validators.required],
       customerLegalDocumentAddress: [undefined, Validators.required],
-      relationCheck: [undefined],
+      relationCheck: [undefined, Validators.required],
+      introduction: [undefined, Validators.required],
+      incomeRisk: [undefined, Validators.required],
+      securityRisk: [undefined, Validators.required],
+      successionRisk: [undefined, Validators.required],
+      bankingRelationship: [undefined, Validators.required],
+      netWorth: [undefined, Validators.required],
       customerRelation1: [undefined, Validators.required],
       customerRelativeName1: [undefined, Validators.compose([Validators.required])],
       citizenshipNumber1: [undefined],
       citizenshipIssuedPlace1: [undefined],
       citizenshipIssuedDate1: [undefined, DateValidator.isValidBefore],
-      age1: [undefined, Validators.required],
+      age1: [undefined],
       customerRelation2: [undefined, Validators.required],
       customerRelativeName2: [undefined, Validators.compose([Validators.required])],
       citizenshipNumber2: [undefined],
       citizenshipIssuedPlace2: [undefined],
       citizenshipIssuedDate2: [undefined, DateValidator.isValidBefore],
-      age2: [undefined, Validators.required],
-      customerRelation3: [undefined, Validators.required],
-      customerRelativeName3: [undefined, Validators.compose([Validators.required])],
+      age2: [undefined],
+      customerRelation3: [undefined],
+      customerRelativeName3: [undefined],
       citizenshipNumber3: [undefined],
       citizenshipIssuedPlace3: [undefined],
-      citizenshipIssuedDate3: [undefined, DateValidator.isValidBefore],
-      age3: [undefined, Validators.required],
-      customerRelation4: [undefined, Validators.required],
-      customerRelativeName4: [undefined, Validators.compose([Validators.required])],
+      citizenshipIssuedDate3: [undefined],
+      age3: [undefined],
+      customerRelation4: [undefined],
+      customerRelativeName4: [undefined],
       citizenshipNumber4: [undefined],
       citizenshipIssuedPlace4: [undefined],
-      citizenshipIssuedDate4: [undefined, DateValidator.isValidBefore],
-      age4: [undefined, Validators.required],
+      citizenshipIssuedDate4: [undefined],
+      age4: [undefined],
+      customerRelation5: [undefined],
+      customerRelativeName5: [undefined],
+      citizenshipNumber5: [undefined],
+      citizenshipIssuedPlace5: [undefined],
+      citizenshipIssuedDate5: [undefined],
+      age5: [undefined],
     });
   }
 
@@ -458,5 +498,30 @@ export class JointFormComponent implements OnInit {
     this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryWardNumber'])
         .setValue(this.basicJointInfo.get(['jointCustomerInfo', index, 'wardNumber']).value);
   }
+
+    getClientType() {
+        this.customerService.clientType().subscribe((res: any) => {
+                this.clientType = res.detail;
+            }
+            , error => {
+                console.error(error);
+            });
+    }
+
+    getSubSector() {
+        this.customerService.subSector().subscribe((res: any) => {
+                const response = res.detail;
+                const sectorArray = [];
+                Object.keys(res.detail).forEach(value => {
+                    sectorArray.push({
+                        key: value, value: response[value]
+                    });
+                });
+                this.subSector = sectorArray;
+            }
+            , error => {
+                console.error(error);
+            });
+    }
 
 }

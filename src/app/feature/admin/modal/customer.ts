@@ -47,5 +47,6 @@ export class Customer {
     individualJsonData: string;
     jointInfo: string;
     isMicroCustomer: boolean;
+    isJointCustomer: boolean;
 
 }
