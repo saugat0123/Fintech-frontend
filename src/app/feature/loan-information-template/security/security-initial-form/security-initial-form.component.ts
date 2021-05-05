@@ -1507,6 +1507,10 @@ export class SecurityInitialFormComponent implements OnInit {
                     consideredValue: [share.consideredValue],
                     ownershipTransferDate: [ObjectUtil.isEmpty(share.ownershipTransferDate) ?
                         undefined : new Date(share.ownershipTransferDate)],
+                    priceEarningRatio: [share.priceEarningRatio],
+                    priceBookValue: [share.priceBookValue],
+                    dividendYeild: [share.dividendYeild],
+                    dividendPayoutRatio: [share.dividendPayoutRatio],
                 })
             );
         });
@@ -1523,7 +1527,11 @@ export class SecurityInitialFormComponent implements OnInit {
             amountPerUnit: [''],
             total: [''],
             consideredValue: [''],
-            ownershipTransferDate: undefined
+            ownershipTransferDate: undefined,
+            priceEarningRatio: [undefined],
+            priceBookValue: [undefined],
+            dividendYeild: [undefined],
+            dividendPayoutRatio: [undefined],
         });
     }
 

@@ -2667,6 +2667,34 @@
                                     <nb-datepicker #ownershipDate></nb-datepicker>
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Price Earning Ratio</label>
+                                    <input class="form-control" formControlName="priceEarningRatio"
+                                           id="priceEarningRatio" name="priceEarningRatio" type="number">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Price to Book Value</label>
+                                    <input class="form-control" formControlName="priceBookValue"
+                                           id="priceBookValue" name="priceBookValue" type="number">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Dividend Yield</label>
+                                    <input class="form-control" formControlName="dividendYeild"
+                                           id="dividendYeild" name="dividendYeild" type="number">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Dividend Payout Radio</label>
+                                    <input class="form-control" formControlName="dividendPayoutRatio"
+                                           id="dividendPayoutRatio" name="dividendPayoutRatio" type="number">
+                                </div>
+                            </div>
                         </div>
                         <div *ngIf="shareSecurityForm.get('shareSecurityDetails')['length'] > 1"
                              class="d-flex justify-content-sm-end">
