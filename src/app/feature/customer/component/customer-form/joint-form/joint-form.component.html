@@ -149,6 +149,10 @@
                                                                 *ngIf="joinCustomerInfo.get('dob').errors.required || joinCustomerInfo.get('dob').errors">
                                                             Date of Birth is required
                                                         </div>
+                                                        <div *ngIf="submitted && joinCustomerInfo.get('dob').errors.beforeToday"
+                                                             class="small text-danger">
+                                                            Invalid Date of Birth!
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -606,17 +610,24 @@
                                                         <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <label><strong>Issued Date</strong></label>
-                                                                <input *ngIf="calendarType === 'AD'" nbInput
-                                                                       [nbDatepicker]="relationCitizenIssueDate1"
+                                                                <input [nbDatepicker]="relationCitizenIssueDate1" *ngIf="calendarType === 'AD'"
+                                                                       [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('citizenshipIssuedDate1').errors }"
                                                                        class="form-control"
                                                                        formControlName="citizenshipIssuedDate1"
                                                                        id="citizenshipIssuedDate1{{i}}"
                                                                        name="citizenshipIssuedDate1{{i}}"
-                                                                       [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('citizenshipIssuedDate1').errors }">
+                                                                       readonly>
                                                                 <nb-datepicker #relationCitizenIssueDate1></nb-datepicker>
                                                                 <div *ngIf="submitted && joinCustomerInfo.get('citizenshipIssuedDate1').errors"
                                                                      class="small text-danger">
-                                                                    Invalid Issued Date!
+                                                                    <div
+                                                                            *ngIf="joinCustomerInfo.get('citizenshipIssuedDate1').errors.required || joinCustomerInfo.get('citizenshipIssuedDate1').errors">
+                                                                        Issued Date is required
+                                                                    </div>
+                                                                    <div *ngIf="submitted && joinCustomerInfo.get('citizenshipIssuedDate1').errors.beforeToday"
+                                                                         class="small text-danger">
+                                                                        Invalid Issued Date!
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -688,17 +699,24 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label><strong>Issued Date</strong></label>
-                                                        <input *ngIf="calendarType === 'AD'" nbInput
-                                                               [nbDatepicker]="relationCitizenIssueDate2"
+                                                        <input [nbDatepicker]="relationCitizenIssueDate2" *ngIf="calendarType === 'AD'"
+                                                               [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('citizenshipIssuedDate2').errors }"
                                                                class="form-control"
                                                                formControlName="citizenshipIssuedDate2"
                                                                id="citizenshipIssuedDate2{{i}}"
                                                                name="citizenshipIssuedDate2{{i}}"
-                                                               [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('citizenshipIssuedDate2').errors }">
+                                                               readonly>
                                                         <nb-datepicker #relationCitizenIssueDate2></nb-datepicker>
                                                         <div *ngIf="submitted && joinCustomerInfo.get('citizenshipIssuedDate2').errors"
                                                              class="small text-danger">
-                                                            Invalid Issued Date!
+                                                            <div
+                                                                    *ngIf="joinCustomerInfo.get('citizenshipIssuedDate2').errors.required || joinCustomerInfo.get('citizenshipIssuedDate2').errors">
+                                                                Issued Date is required
+                                                            </div>
+                                                            <div *ngIf="submitted && joinCustomerInfo.get('citizenshipIssuedDate2').errors.beforeToday"
+                                                                 class="small text-danger">
+                                                                Invalid Issued Date!
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

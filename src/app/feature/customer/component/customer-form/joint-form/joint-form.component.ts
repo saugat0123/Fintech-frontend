@@ -268,6 +268,7 @@ export class JointFormComponent implements OnInit {
         return;
       } else {
           if (this.basicJointInfo.controls['jointCustomerInfo'].invalid) {
+              this.toastService.show(new Alert(AlertType.WARNING, 'Please check validation'));
               return;
           }
         {
@@ -386,13 +387,13 @@ export class JointFormComponent implements OnInit {
       customerRelativeName1: [undefined, Validators.compose([Validators.required])],
       citizenshipNumber1: [undefined],
       citizenshipIssuedPlace1: [undefined],
-      citizenshipIssuedDate1: [undefined, DateValidator.isValidBefore],
+      citizenshipIssuedDate1: [undefined, [Validators.required, DateValidator.isValidBefore]],
       age1: [undefined],
       customerRelation2: [undefined, Validators.required],
       customerRelativeName2: [undefined, Validators.compose([Validators.required])],
       citizenshipNumber2: [undefined],
       citizenshipIssuedPlace2: [undefined],
-      citizenshipIssuedDate2: [undefined, DateValidator.isValidBefore],
+      citizenshipIssuedDate2: [undefined, [Validators.required, DateValidator.isValidBefore]],
       age2: [undefined],
       customerRelation3: [undefined],
       customerRelativeName3: [undefined],
