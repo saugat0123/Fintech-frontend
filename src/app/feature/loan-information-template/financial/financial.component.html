@@ -256,16 +256,16 @@
                              class="invalid-feedback">Invalid Net Monthly Income
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <label for="grossMonthlyObligation"><strong>Total Gross Monthly income/Total monthly obligations</strong></label>
-                        <input class="form-control" formControlName="grossMonthlyObligation" id="grossMonthlyObligation"
-                               [ngClass]="{'is-invalid': submitted && financialForm.get('grossMonthlyObligation').invalid}"
-                               placeholder="Amount" readonly [value]="totalEmiMonthlyGross()">
+<!--                    <div class="col-md-4">-->
+<!--                        <label for="grossMonthlyObligation"><strong>Total Gross Monthly income/Total monthly obligations</strong></label>-->
+<!--                        <input class="form-control" formControlName="grossMonthlyObligation" id="grossMonthlyObligation"-->
+<!--                               [ngClass]="{'is-invalid': submitted && financialForm.get('grossMonthlyObligation').invalid}"-->
+<!--                               placeholder="Amount" readonly [value]="totalEmiMonthlyGross()">-->
 
-                        <div *ngIf="(submitted) && form.grossMonthlyObligation.invalid"
-                             class="invalid-feedback">Invalid Gross Monthly Obligation
-                        </div>
-                    </div>
+<!--                        <div *ngIf="(submitted) && form.grossMonthlyObligation.invalid"-->
+<!--                             class="invalid-feedback">Invalid Gross Monthly Obligation-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <div class="col-md-4">
                         <label for="emiWithProposal"><strong>Total EMI of client including present proposal</strong></label><strong
                             class="text-danger">*</strong>
