@@ -255,23 +255,6 @@ export class JointFormComponent implements OnInit {
 
   }
 
-  scrollToFirstInvalidControl() {
-    const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
-        'form .ng-invalid'
-    );
-    window.scroll({
-      top: this.getTopOffset(firstInvalidControl),
-      left: 0,
-      behavior: 'smooth'
-    });
-    firstInvalidControl.focus();
-  }
-
-  private getTopOffset(controlEl: HTMLElement): number {
-    const labelOffset = 50;
-    return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
-  }
-
   onSubmit(value) {
     this.submitted = true;
     const tempId = this.basicJointInfo.get('jointCustomerInfo')['controls'][0].get('citizenshipNumber').value;
@@ -284,12 +267,9 @@ export class JointFormComponent implements OnInit {
         this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Customer'));
         return;
       } else {
-        if (this.basicJointInfo.controls['jointCustomerInfo'].invalid) {
-          this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
-          this.scrollToFirstInvalidControl();
-          this.spinner = false;
-          return;
-        }
+          if (this.basicJointInfo.controls['jointCustomerInfo'].invalid) {
+              return;
+          }
         {
           this.spinner = true;
           // for update join customer form
