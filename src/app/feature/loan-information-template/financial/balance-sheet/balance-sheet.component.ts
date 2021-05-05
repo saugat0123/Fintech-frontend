@@ -5,7 +5,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FinancialDeleteComponentComponent} from '../financial-delete-component/financial-delete-component.component';
 import {ModalResponse} from '../../../../@core/utils';
 import {Editor} from '../../../../@core/utils/constants/editor';
-import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {environment} from '../../../../../environments/environment';
+import {Clients} from '../../../../../environments/Clients';
 
 @Component({
     selector: 'app-balance-sheet',
@@ -18,6 +19,7 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
     @Output() removeFiscalYear = new EventEmitter<any>();
     balanceSheetForm: FormGroup;
     ckeConfig = Editor.CK_CONFIG;
+    isSRDB = environment.client === Clients.SHINE_RESUNGA;
 
     constructor(private formBuilder: FormBuilder,
                 private modalService: NgbModal,
@@ -346,28 +348,30 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                         .controls['value'].value)).toFixed(2);
             cashFlowStatement.addOpeningBalance[index].value = cashFlowStatement.closingBalance[index - 1].value;
         } else {
-            cashFlowStatement.increaseDecreaseInInventory[index].value = (-Math.abs(Number(inventories.controls['value'].value)))
-            .toFixed(2);
-            cashFlowStatement.increaseDecreaseInAccountsReceivable[index].value =
-                (-Math.abs(Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
-                'Account Receivable', index)))).toFixed(2);
-            cashFlowStatement.increaseDecreaseInShortTermInvestment[index].value =
-                (-Math.abs(Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
-                'Short term investment', index)))).toFixed(2);
-            cashFlowStatement.increaseDecreaseInAdvanceAndDeposit[index].value =
-                (-Math.abs(Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
-                'Advances and Deposits', index)))).toFixed(2);
-            cashFlowStatement.increaseDecreaseInOtherCurrentAssets[index].value =
-                (-Math.abs(Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
-                'Others', index)))).toFixed(2);
-            cashFlowStatement.increaseDecreaseInCreditors[index].value =
-                (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
-                    'Creditors', index))).toFixed(2);
-            cashFlowStatement.increaseDecreaseInOtherCurrentLiabilities[index].value =
-                (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
-                    'Security Deposits', index))
-                + Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
-                'Taxes Payable', index))).toFixed(2);
+            if (!this.isSRDB) {
+                cashFlowStatement.increaseDecreaseInInventory[index].value = (-Math.abs(Number(inventories.controls['value'].value)))
+                    .toFixed(2);
+                cashFlowStatement.increaseDecreaseInAccountsReceivable[index].value =
+                    (-Math.abs(Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
+                        'Account Receivable', index)))).toFixed(2);
+                cashFlowStatement.increaseDecreaseInShortTermInvestment[index].value =
+                    (-Math.abs(Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
+                        'Short term investment', index)))).toFixed(2);
+                cashFlowStatement.increaseDecreaseInAdvanceAndDeposit[index].value =
+                    (-Math.abs(Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
+                        'Advances and Deposits', index)))).toFixed(2);
+                cashFlowStatement.increaseDecreaseInOtherCurrentAssets[index].value =
+                    (-Math.abs(Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
+                        'Others', index)))).toFixed(2);
+                cashFlowStatement.increaseDecreaseInCreditors[index].value =
+                    (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
+                        'Creditors', index))).toFixed(2);
+                cashFlowStatement.increaseDecreaseInOtherCurrentLiabilities[index].value =
+                    (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
+                        'Security Deposits', index))
+                        + Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
+                            'Taxes Payable', index))).toFixed(2);
+            }
 
             cashFlowStatement.changedInFixedAsset[index].value = (-Math.abs(
                 Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('fixedAssetsCategory'),

@@ -89,7 +89,15 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInInventory')['controls']; let j = index"
                     formArrayName="increaseDecreaseInInventory" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInInventory">
+                            <input formControlName="value" class="text-center headingParticular" type="number"
+                                   style="border: none; outline: none; " value="0">
+                        </ng-template>
+
+                        <ng-template #subsequentYears_increaseDecreaseInInventory>
+                            <input formControlName="value" class="text-center" type="number"
+                                   style="border: none; outline: none; " value="0" readonly>
+                        </ng-template>
                     </div>
                 </td>
             </tr>
@@ -102,7 +110,15 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInAccountsReceivable')['controls']; let j = index"
                     formArrayName="increaseDecreaseInAccountsReceivable" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInAccountsReceivable">
+                            <input formControlName="value" class="text-center headingParticular" type="number"
+                                   style="border: none; outline: none; " value="0">
+                        </ng-template>
+
+                        <ng-template #subsequentYears_increaseDecreaseInAccountsReceivable>
+                            <input formControlName="value" class="text-center" type="number"
+                                   style="border: none; outline: none; " value="0" readonly>
+                        </ng-template>
                     </div>
                 </td>
             </tr>
@@ -115,7 +131,15 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInShortTermInvestment')['controls']; let j = index"
                     formArrayName="increaseDecreaseInShortTermInvestment" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInShortTermInvestment">
+                            <input formControlName="value" class="text-center headingParticular" type="number"
+                                   style="border: none; outline: none; " value="0">
+                        </ng-template>
+
+                        <ng-template #subsequentYears_increaseDecreaseInShortTermInvestment>
+                            <input formControlName="value" class="text-center" type="number"
+                                   style="border: none; outline: none; " value="0" readonly>
+                        </ng-template>
                     </div>
                 </td>
             </tr>
@@ -128,7 +152,15 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInAdvanceAndDeposit')['controls']; let j = index"
                     formArrayName="increaseDecreaseInAdvanceAndDeposit" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInAdvanceAndDeposit">
+                            <input formControlName="value" class="text-center headingParticular" type="number"
+                                   style="border: none; outline: none; " value="0">
+                        </ng-template>
+
+                        <ng-template #subsequentYears_increaseDecreaseInAdvanceAndDeposit>
+                            <input formControlName="value" class="text-center" type="number"
+                                   style="border: none; outline: none; " value="0" readonly>
+                        </ng-template>
                     </div>
                 </td>
             </tr>
@@ -141,7 +173,15 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInOtherCurrentAssets')['controls']; let j = index"
                     formArrayName="increaseDecreaseInOtherCurrentAssets" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInOtherCurrentAssets">
+                            <input formControlName="value" class="text-center headingParticular" type="number"
+                                   style="border: none; outline: none; " value="0">
+                        </ng-template>
+
+                        <ng-template #subsequentYears_increaseDecreaseInOtherCurrentAssets>
+                            <input formControlName="value" class="text-center" type="number"
+                                   style="border: none; outline: none; " value="0" readonly>
+                        </ng-template>
                     </div>
                 </td>
             </tr>
@@ -154,7 +194,15 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInCreditors')['controls']; let j = index"
                     formArrayName="increaseDecreaseInCreditors" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInCreditors">
+                            <input formControlName="value" class="text-center headingParticular" type="number"
+                                   style="border: none; outline: none; " value="0">
+                        </ng-template>
+
+                        <ng-template #subsequentYears_increaseDecreaseInCreditors>
+                            <input formControlName="value" class="text-center" type="number"
+                                   style="border: none; outline: none; " value="0" readonly>
+                        </ng-template>
                     </div>
                 </td>
             </tr>
@@ -167,7 +215,15 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInOtherCurrentLiabilities')['controls']; let j = index"
                     formArrayName="increaseDecreaseInOtherCurrentLiabilities" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInOtherCurrentLiabilities">
+                            <input formControlName="value" class="text-center headingParticular" type="number"
+                                   style="border: none; outline: none; " value="0">
+                        </ng-template>
+
+                        <ng-template #subsequentYears_increaseDecreaseInOtherCurrentLiabilities>
+                            <input formControlName="value" class="text-center" type="number"
+                                   style="border: none; outline: none; " value="0" readonly>
+                        </ng-template>
                     </div>
                 </td>
             </tr>
@@ -388,13 +444,13 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('addOpeningBalance')['controls']; let j = index"
                     formArrayName="addOpeningBalance">
                     <div [formGroupName]="j" class="text-center">
-                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears">
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_addOpeningBalance">
                             <input (input)="onChangeAddOpeningBalance()"
                                    formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
 
-                        <ng-template #subsequentYears>
+                        <ng-template #subsequentYears_addOpeningBalance>
                             <input formControlName="value" class="text-center" type="number"
                                    style="border: none; outline: none; " value="0" readonly>
                         </ng-template>

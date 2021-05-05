@@ -4,6 +4,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FinancialDeleteComponentComponent} from '../financial-delete-component/financial-delete-component.component';
 import {ModalResponse} from '../../../../@core/utils';
 import {Editor} from '../../../../@core/utils/constants/editor';
+import {environment} from '../../../../../environments/environment';
+import {Clients} from '../../../../../environments/Clients';
 
 @Component({
     selector: 'app-cash-flow-statement',
@@ -16,6 +18,7 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
     @Output() removeFiscalYear = new EventEmitter<any>();
     cashFlowStatementForm: FormGroup;
     ckeConfig = Editor.CK_CONFIG;
+    isSRDB = environment.client === Clients.SHINE_RESUNGA;
 
     constructor(private formBuilder: FormBuilder,
                 private modalService: NgbModal) {
@@ -512,6 +515,33 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
         });
     }
 
+    saveAdjustmentForWorkingCapital() {
+        /** This method has been create to separate the calculations part while taking input */
+        const increaseDecreaseInInventory = this.cashFlowStatementForm.get('increaseDecreaseInInventory') as FormArray;
+        const increaseDecreaseInAccountsReceivable = this.cashFlowStatementForm.get('increaseDecreaseInAccountsReceivable') as FormArray;
+        const increaseDecreaseInShortTermInvestment = this.cashFlowStatementForm.get('increaseDecreaseInShortTermInvestment') as FormArray;
+        const increaseDecreaseInAdvanceAndDeposit = this.cashFlowStatementForm.get('increaseDecreaseInAdvanceAndDeposit') as FormArray;
+        const increaseDecreaseInOtherCurrentAssets = this.cashFlowStatementForm.get('increaseDecreaseInOtherCurrentAssets') as FormArray;
+        const increaseDecreaseInCreditors = this.cashFlowStatementForm.get('increaseDecreaseInCreditors') as FormArray;
+        const increaseDecreaseInOtherCurrentLiabilities =
+            this.cashFlowStatementForm.get('increaseDecreaseInOtherCurrentLiabilities') as FormArray;
+
+        if (increaseDecreaseInInventory.controls.length > 0) {
+            this.formData['cashFlowStatementData'].increaseDecreaseInInventory[0].value = increaseDecreaseInInventory.value[0].value;
+            this.formData['cashFlowStatementData'].increaseDecreaseInAccountsReceivable[0].value =
+                increaseDecreaseInAccountsReceivable.value[0].value;
+            this.formData['cashFlowStatementData'].increaseDecreaseInShortTermInvestment[0].value =
+                increaseDecreaseInShortTermInvestment.value[0].value;
+            this.formData['cashFlowStatementData'].increaseDecreaseInAdvanceAndDeposit[0].value =
+                increaseDecreaseInAdvanceAndDeposit.value[0].value;
+            this.formData['cashFlowStatementData'].increaseDecreaseInOtherCurrentAssets[0].value =
+                increaseDecreaseInOtherCurrentAssets.value[0].value;
+            this.formData['cashFlowStatementData'].increaseDecreaseInCreditors[0].value = increaseDecreaseInCreditors.value[0].value;
+            this.formData['cashFlowStatementData'].increaseDecreaseInOtherCurrentLiabilities[0].value =
+                increaseDecreaseInOtherCurrentLiabilities.value[0].value;
+        }
+    }
+
     onChangeAddOpeningBalance() {
         const netCashFlowForInitialYear = (this.cashFlowStatementForm.get('netCashFlow') as FormArray).value[0].value;
         const addOpeningBalanceForInitialYear = (this.cashFlowStatementForm.get('addOpeningBalance') as FormArray).value[0].value;
@@ -537,5 +567,6 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             this.formData['cashFlowStatementData'].closingCash[0].value = firstYearClosingCashFormData.value[0].value;
             this.formData['cashFlowStatementData'].differenceCFS[0].value = firstYearDifferenceCFSFormData.value[0].value;
         }
+        this.saveAdjustmentForWorkingCapital();
     }
 }
