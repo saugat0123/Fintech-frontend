@@ -375,7 +375,7 @@ export class JointFormComponent implements OnInit {
       wardNumber: [undefined, Validators.required],
       contactNumber: [undefined, [Validators.required, Validators.max(9999999999), Validators.min(1000000000)]],
       landLineNumber: [undefined],
-      email: [undefined, Validators.email],
+      email: [undefined, [Validators.required, Validators.email]],
       // initial Relation Date not used in ui
       initialRelationDate: [new Date()],
       citizenshipNumber: [undefined, Validators.required],

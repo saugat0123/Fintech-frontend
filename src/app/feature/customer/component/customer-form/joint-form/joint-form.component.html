@@ -117,6 +117,9 @@
                                                            placeholder="eg. xyz@abc.com"
                                                            type="email">
                                                     <div *ngIf="(submitted) && joinCustomerInfo.get('email').invalid" class="invalid-feedback">
+                                                        <div *ngIf="joinCustomerInfo.get('email').errors.required">
+                                                            Email address is required
+                                                        </div>
                                                         <div *ngIf="joinCustomerInfo.get('email').errors.email">Valid email address has form
                                                             xyz@abc.com
                                                         </div>
@@ -350,8 +353,8 @@
 
                                             <div class="col-md-4 form-group">
                                                 <label for="province{{i}}">Province</label>
-                                                <ng-select (change)="getDistricts(joinCustomerInfo.get('province').value)"
-                                                        [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('province').errors}"
+                                                <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('province').errors}"
+                                                        (change)="getDistricts(joinCustomerInfo.get('province').value)"
                                                         formControlName="province"
                                                         id="province{{i}}"
                                                         bindLabel="name">
@@ -361,16 +364,16 @@
                                                     </ng-option>
                                                 </ng-select>
                                                 <div *ngIf="(submitted) && joinCustomerInfo.get('province').invalid"
-                                                     class="invalid-feedback">
-                                                    <div *ngIf="joinCustomerInfo.get('province').errors.required">
-                                                        Province is required
-                                                    </div>
+                                                     class="help-block">
+                                                        <span *ngIf="joinCustomerInfo.get('province').errors.required">
+                                                          <span class="text-danger">Province is required</span>
+                                                        </span>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 form-group">
                                                 <label for="district{{i}}">District</label>
-                                                <ng-select (change)="getMunicipalities(joinCustomerInfo.get('district')?.value)"
-                                                        [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('district').errors}"
+                                                <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('district').errors}"
+                                                        (change)="getMunicipalities(joinCustomerInfo.get('district')?.value)"
                                                         formControlName="district"
                                                         id="district{{i}}"
                                                         bindLabel="name">
@@ -379,17 +382,16 @@
                                                         {{districtVal.name}}
                                                     </ng-option>
                                                 </ng-select>
-                                                <div *ngIf="(submitted) &&  joinCustomerInfo.get('district').invalid"
-                                                     class="invalid-feedback">
-                                                    <div *ngIf="joinCustomerInfo.get('district').errors.required">
-                                                        District is required
-                                                    </div>
+                                                <div *ngIf="(submitted) && joinCustomerInfo.get('district').invalid"
+                                                     class="help-block">
+                                                        <span *ngIf="joinCustomerInfo.get('district').errors.required">
+                                                          <span class="text-danger"> District is required</span>
+                                                        </span>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 form-group">
                                                 <label for="municipality{{i}}">Municipalities or VDC</label>
-                                                <ng-select
-                                                        [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('municipalities').errors}"
+                                                <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('municipalities').errors}"
                                                         formControlName="municipalities"
                                                         id="municipality{{i}}"
                                                         bindLabel="name">
@@ -399,8 +401,10 @@
                                                     </ng-option>
                                                 </ng-select>
                                                 <div *ngIf="(submitted) && joinCustomerInfo.get('municipalities').invalid"
-                                                     class="invalid-feedback">
-                                                    Municipality is required
+                                                     class="help-block">
+                                                        <span *ngIf="joinCustomerInfo.get('municipalities').errors.required">
+                                                          <span class="text-danger"> Municipalities is required</span>
+                                                        </span>
                                                 </div>
                                             </div>
 
@@ -473,8 +477,8 @@
 
                                             <div class="col-md-4 form-group">
                                                 <label for="temporaryProvince{{i}}">Province</label>
-                                                <ng-select (change)="getTemporaryDistricts(i, joinCustomerInfo.get('province')?.value)"
-                                                        [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('temporaryProvince').errors}"
+                                                <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('temporaryProvince').errors}"
+                                                        (change)="getTemporaryDistricts(i, joinCustomerInfo.get('province')?.value)"
                                                         formControlName="temporaryProvince"
                                                         id="temporaryProvince{{i}}"
                                                         bindLabel="name">
@@ -484,16 +488,16 @@
                                                     </ng-option>
                                                 </ng-select>
                                                 <div *ngIf="(submitted) && joinCustomerInfo.get('temporaryProvince').invalid"
-                                                     class="invalid-feedback">
-                                                    <div *ngIf="joinCustomerInfo.get('temporaryProvince').errors.required">
-                                                        Province is required
-                                                    </div>
+                                                     class="help-block">
+                                                        <span *ngIf="joinCustomerInfo.get('temporaryProvince').errors.required">
+                                                          <span class="text-danger">Province is required</span>
+                                                        </span>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 form-group">
                                                 <label for="temporaryDistrict{{i}}">District</label>
-                                                <ng-select (change)="getTemporaryMunicipalities(i, joinCustomerInfo.get('district')?.value)"
-                                                        [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('temporaryDistrict').errors}"
+                                                <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('temporaryDistrict').errors}"
+                                                        (change)="getTemporaryMunicipalities(i, joinCustomerInfo.get('district')?.value)"
                                                         formControlName="temporaryDistrict"
                                                         id="temporaryDistrict{{i}}"
                                                            bindLabel="name">
@@ -502,11 +506,11 @@
                                                         {{districtVal?.name}}
                                                     </ng-option>
                                                 </ng-select>
-                                                <div *ngIf="(submitted) &&  joinCustomerInfo.get('temporaryDistrict').invalid"
-                                                     class="invalid-feedback">
-                                                    <div *ngIf="joinCustomerInfo.get('temporaryDistrict').errors.required">
-                                                        District is required
-                                                    </div>
+                                                <div *ngIf="(submitted) && joinCustomerInfo.get('temporaryDistrict').invalid"
+                                                     class="help-block">
+                                                        <span *ngIf="joinCustomerInfo.get('temporaryDistrict').errors.required">
+                                                          <span class="text-danger"> District is required</span>
+                                                        </span>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 form-group">
@@ -522,8 +526,10 @@
                                                     </ng-option>
                                                 </ng-select>
                                                 <div *ngIf="(submitted) && joinCustomerInfo.get('temporaryMunicipalities').invalid"
-                                                     class="invalid-feedback">
-                                                    Municipality is required
+                                                     class="help-block">
+                                                        <span *ngIf="joinCustomerInfo.get('temporaryMunicipalities').errors.required">
+                                                          <span class="text-danger"> Municipalities is required</span>
+                                                        </span>
                                                 </div>
                                             </div>
 
@@ -899,14 +905,14 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label><strong>Introduction</strong></label>
-                                                        <ckeditor id="introduction{{i}}" formControlName="introduction"
-                                                                  [config]="ckeConfig"
-                                                                  [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('introduction').errors }"></ckeditor>
+                                                        <ckeditor [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('introduction').errors }"
+                                                                id="introduction{{i}}" formControlName="introduction"
+                                                                  [config]="ckeConfig"></ckeditor>
                                                         <div *ngIf="(submitted) && joinCustomerInfo.get('introduction').invalid"
-                                                             class="text-danger">
-                                                            <div *ngIf="joinCustomerInfo.get('introduction').errors.required">
-                                                                Introduction is required
-                                                            </div>
+                                                             class="help-block">
+                                                        <span *ngIf="joinCustomerInfo.get('introduction').errors.required">
+                                                          <span class="text-danger">Introduction is required</span>
+                                                        </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -915,42 +921,42 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label><strong>Income Risk</strong></label>
-                                                        <ckeditor id="incomeRisk{{i}}" formControlName="incomeRisk"
-                                                                  [config]="ckeConfig"
-                                                                  [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo('incomeRisk').errors }"></ckeditor>
-                                                        <div *ngIf="(submitted) && joinCustomerInfo('incomeRisk').invalid"
-                                                             class="invalid-feedback">
-                                                            <div *ngIf="joinCustomerInfo('incomeRisk').errors.required">
-                                                                Income Risk is required
-                                                            </div>
+                                                        <ckeditor [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('incomeRisk').errors }"
+                                                                id="incomeRisk{{i}}" formControlName="incomeRisk"
+                                                                  [config]="ckeConfig"></ckeditor>
+                                                        <div *ngIf="(submitted) && joinCustomerInfo.get('incomeRisk').invalid"
+                                                             class="help-block">
+                                                        <span *ngIf="joinCustomerInfo.get('incomeRisk').errors.required">
+                                                          <span class="text-danger">Income risk is required</span>
+                                                        </span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label><strong>Security Risk</strong></label>
-                                                        <ckeditor id="securityRisk{{i}}" formControlName="securityRisk"
-                                                                  [config]="ckeConfig"
-                                                                  [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('securityRisk').errors }"></ckeditor>
+                                                        <ckeditor [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('securityRisk').errors }"
+                                                                id="securityRisk{{i}}" formControlName="securityRisk"
+                                                                  [config]="ckeConfig"></ckeditor>
                                                         <div *ngIf="(submitted) && joinCustomerInfo.get('securityRisk').invalid"
-                                                             class="invalid-feedback">
-                                                            <div *ngIf="joinCustomerInfo.get('securityRisk').errors.required">
-                                                                Security Risk is required
-                                                            </div>
+                                                             class="help-block">
+                                                        <span *ngIf="joinCustomerInfo.get('securityRisk').errors.required">
+                                                          <span class="text-danger">Security risk is required</span>
+                                                        </span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label><strong>Succession Risk</strong></label>
-                                                        <ckeditor id="successionRisk{{i}}" formControlName="successionRisk"
-                                                                  [config]="ckeConfig"
-                                                                  [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('successionRisk').errors }"></ckeditor>
+                                                        <ckeditor [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('successionRisk').errors }"
+                                                                id="successionRisk{{i}}" formControlName="successionRisk"
+                                                                  [config]="ckeConfig"></ckeditor>
                                                         <div *ngIf="(submitted) && joinCustomerInfo.get('successionRisk').invalid"
-                                                             class="invalid-feedback">
-                                                            <div *ngIf="joinCustomerInfo.get('successionRisk').errors.required">
-                                                                Succession Risk is required
-                                                            </div>
+                                                             class="help-block">
+                                                        <span *ngIf="joinCustomerInfo.get('successionRisk').errors.required">
+                                                          <span class="text-danger">Succession risk is required</span>
+                                                        </span>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -327,6 +327,54 @@
     </table>
   </div>
 </div>
+<div *ngIf="isJointInfo" class="col-md-12 text-center">
+  <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+    <tbody *ngFor="let jointCustomer of jointInfo">
+    <tr class="text-white sb-bg-dark">
+      <th>Customer Name</th>
+      <th colspan="2">Introduction</th>
+    </tr>
+    <tr *ngFor="let info of jointCustomer">
+      <td class="text-left pl-1">{{info?.customerName}}</td>
+      <td colspan="2" class="text-left pl-1" [innerHTML]="info?.introduction | safeHtml"></td>
+    </tr>
+    <tr class="text-white sb-bg-dark">
+      <th>Customer Name</th>
+      <th colspan="2">Income Risk</th>
+    </tr>
+    <tr *ngFor="let info of jointCustomer">
+      <td class="text-left pl-1">{{info?.customerName}}</td>
+      <td colspan="2" class="text-left pl-1" [innerHTML]="info?.incomeRisk | safeHtml"></td>
+    </tr>
+    <tr class="text-white sb-bg-dark">
+      <th>Customer Name</th>
+      <th colspan="2">Security Risk</th>
+    </tr>
+    <tr *ngFor="let info of jointCustomer">
+      <td class="text-left pl-1">{{info?.customerName}}</td>
+      <td colspan="2" class="text-left pl-1" [innerHTML]="info?.securityRisk | safeHtml"></td>
+    </tr>
+    <tr class="text-white sb-bg-dark">
+      <th>Customer Name</th>
+      <th colspan="2">Succession Risk</th>
+    </tr>
+    <tr *ngFor="let info of jointCustomer">
+      <td class="text-left pl-1">{{info?.customerName}}</td>
+      <td colspan="2" class="text-left pl-1" [innerHTML]="info?.successionRisk | safeHtml"></td>
+    </tr>
+    <tr class="text-white sb-bg-dark">
+      <th>Customer Name</th>
+      <th>Banking Relationship</th>
+      <th>Net Worth</th>
+    </tr>
+    <tr *ngFor="let info of jointCustomer">
+      <td class="text-left pl-1">{{info?.customerName}}</td>
+      <td class="text-left pl-1">{{info?.bankingRelationship}}</td>
+      <td class="text-right pr-1">Rs. {{info?.netWorth |currencyFormatter}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 <div *ngIf="!individual" class="col-md-12">
   <app-customer-info-search-form [customerType]="customerType.INDIVIDUAL"
                                  [calendarType]="calendarType"
