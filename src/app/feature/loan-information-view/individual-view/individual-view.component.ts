@@ -32,6 +32,7 @@ export class IndividualViewComponent implements OnInit {
   @Input() loanId: any;
   isJointInfo = false;
   jointInfo = [];
+  riskInfo: any;
 
   constructor() {
   }
@@ -45,6 +46,7 @@ export class IndividualViewComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.individual.jointInfo)) {
       const jointCustomerInfo = JSON.parse(this.individual.jointInfo);
+      this.riskInfo = jointCustomerInfo;
       this.clientType = jointCustomerInfo.clientType;
       this.subsectorDetail = jointCustomerInfo.subsectorDetail;
       this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);

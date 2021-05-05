@@ -340,6 +340,12 @@ export class JointFormComponent implements OnInit {
     this.basicJointInfo = this.formBuilder.group({
       clientType: [undefined],
       subsectorDetail: [undefined],
+      introduction: [undefined, Validators.required],
+      incomeRisk: [undefined, Validators.required],
+      securityRisk: [undefined, Validators.required],
+      successionRisk: [undefined, Validators.required],
+      bankingRelationship: [undefined, Validators.required],
+      netWorth: [undefined, Validators.required],
       jointCustomerInfo: this.formBuilder.array([])
     });
   }
@@ -377,12 +383,6 @@ export class JointFormComponent implements OnInit {
       maritalStatus: [undefined, Validators.required],
       customerLegalDocumentAddress: [undefined, Validators.required],
       relationCheck: [undefined, Validators.required],
-      introduction: [undefined, Validators.required],
-      incomeRisk: [undefined, Validators.required],
-      securityRisk: [undefined, Validators.required],
-      successionRisk: [undefined, Validators.required],
-      bankingRelationship: [undefined, Validators.required],
-      netWorth: [undefined, Validators.required],
       customerRelation1: [undefined, Validators.required],
       customerRelativeName1: [undefined, Validators.compose([Validators.required])],
       citizenshipNumber1: [undefined],
