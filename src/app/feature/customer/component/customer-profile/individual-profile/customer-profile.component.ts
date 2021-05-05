@@ -32,8 +32,8 @@ import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {ProductUtilService} from '../../../../../@core/service/product-util.service';
 import {environment} from '../../../../../../environments/environment';
 import {MGroup} from '../../../model/mGroup';
-import {environment as envSrdb} from "../../../../../../environments/environment.srdb";
-import {Clients} from "../../../../../../environments/Clients";
+import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
+import {Clients} from '../../../../../../environments/Clients';
 
 
 @Component({
@@ -87,7 +87,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     crgLambdaDisabled = envSrdb.disableCrgLambda;
     client = environment.client;
     clientName = Clients;
-
+    isEditable = false;
 
     constructor(private route: ActivatedRoute,
                 private customerService: CustomerService,
@@ -143,9 +143,11 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     ngAfterContentInit(): void {
+
         const roleType = LocalStorageUtil.getStorage().roleType;
         if (roleType === 'MAKER') {
             this.maker = true;
+
         }
     }
 
@@ -153,6 +155,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         this.spinner = true;
         this.customerInfoService.detail(this.customerInfoId).subscribe((res: any) => {
             this.customerInfo = res.detail;
+            this.isEditableCustomerData();
             this.spinner = false;
         }, error => {
             console.error(error);
@@ -424,5 +427,13 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     setMGroupData(mGroup: MGroup) {
         this.customerInfo.mgroupInfo = mGroup;
         this.mGroupAccordion.close();
+    }
+
+    isEditableCustomerData() {
+        if(this.maker){
+        this.customerLoanService.isCustomerEditable(this.customerInfoId).subscribe((res: any) => {
+            this.isEditable = res.detail;
+        });}
+
     }
 }

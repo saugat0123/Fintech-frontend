@@ -30,11 +30,12 @@ export class FilterComponent implements OnInit {
               private userService: UserService) { }
 
   ngOnInit() {
-    this.getUserList();
+
     this.buildFilterForm();
     this.userService.getLoggedInUser().subscribe(res => {
       if (res.detail.role.roleType === RoleType.CAD_ADMIN || res.detail.role.roleType === RoleType.CAD_SUPERVISOR){
         this.showPossessionUnder = true;
+        this.getUserList();
       }
       if (res.detail.role.roleType === RoleType.CAD_SUPERVISOR){
         const idList = [];

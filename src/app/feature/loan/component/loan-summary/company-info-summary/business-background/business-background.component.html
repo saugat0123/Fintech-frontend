@@ -33,7 +33,7 @@
    </div>
    <div class="col-md-12">
      <div class="font-weight-bold sb-medium"><strong>d.Groups Background</strong></div>
-     <div class="sb-small ml-3"> {{companyJsonData?.groupsBackGround}}</div>
+     <div class="sb-small ml-3" [innerHTML]="companyJsonData?.groupsBackGround | safeHtml"></div>
 
    </div>
  </div>

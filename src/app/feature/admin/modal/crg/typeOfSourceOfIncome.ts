@@ -8,6 +8,7 @@ export enum TypeOfSourceOfIncome {
     SINGAPORE_POLICE = 'Singapore police',
     INDIAN_ARMY = 'Indian Army',
     CONTRACTUAL_EMPLOYEMENT = 'Contractual Employement',
+    NGO_INGO_DEVELOPMENT_SECTOR = 'NGOs/INGOs/Development Sector',
 
     PRIME_COMMERCIAL = 'Prime Commercial',
     COMMERCIAL = 'Commercial ',
@@ -41,6 +42,7 @@ export class TypeOfSourceOfIncomeMap {
         [TypeOfSourceOfIncome.INSURANCE_COMPANIES, 24],
         [TypeOfSourceOfIncome.PUBLIC_LIMITED, 24],
         [TypeOfSourceOfIncome.PROFESSIONALS_WITH_PERMANENT_EMPLOYMENT, 24],
+        [TypeOfSourceOfIncome.NGO_INGO_DEVELOPMENT_SECTOR, 24],
         [TypeOfSourceOfIncome.BRITISH_GURKHA, 21.60],
         [TypeOfSourceOfIncome.SINGAPORE_POLICE, 21.60],
         [TypeOfSourceOfIncome.INDIAN_ARMY, 21.60],
@@ -89,6 +91,7 @@ export class TypeOfSourceOfIncomeArray {
         TypeOfSourceOfIncome.INSURANCE_COMPANIES,
         TypeOfSourceOfIncome.PUBLIC_LIMITED,
         TypeOfSourceOfIncome.PROFESSIONALS_WITH_PERMANENT_EMPLOYMENT,
+        TypeOfSourceOfIncome.NGO_INGO_DEVELOPMENT_SECTOR,
         TypeOfSourceOfIncome.BRITISH_GURKHA,
         TypeOfSourceOfIncome.SINGAPORE_POLICE,
         TypeOfSourceOfIncome.INDIAN_ARMY,

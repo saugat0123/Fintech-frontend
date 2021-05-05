@@ -174,6 +174,12 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.post(req.url, loanDataHolder, {headers: req.header});
     }
 
+    public isCustomerEditable(loanHolderId: number) {
+        const api = `${this.getApi()}/customer-editable/${loanHolderId}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
     protected getApi(): string {
         return LoanFormService.API;
     }
