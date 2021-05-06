@@ -45,11 +45,18 @@
                                     <br/>
                                     for
                                 </div>
-                                <div
-                                        class="report-header-sub-heading">
+                                <div class="report-header-sub-heading" *ngIf="!isJointInfo">
                                     {{loanCategory === 'INSTITUTION' ?
                                     loanDataHolder?.companyInfo?.companyName
                                     : loanDataHolder?.customerInfo?.customerName}}
+                                </div>
+                                <div class="report-header-sub-heading" *ngIf="isJointInfo">
+                                    <div *ngFor="let jointCustomer of jointInfo">
+                                        <ng-container *ngFor="let info of jointCustomer">
+                                            <span class="sb-medium">{{loanCategory === 'INSTITUTION' ?
+                                                loanDataHolder?.companyInfo?.companyName : info?.customerName}}</span><br/>
+                                        </ng-container>
+                                    </div>
                                 </div>
                                 <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
                                 <div class="badge badge-warning">Detail</div>
