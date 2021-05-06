@@ -5,6 +5,8 @@ import {FiscalYearService} from '../../../../../admin/service/fiscal-year.servic
 import {FiscalYear} from '../../../../../admin/modal/FiscalYear';
 import {OtherCompanyDetail} from '../../../../../admin/modal/otherCompanyDetail';
 import {NrbDirective} from '../../../../../admin/modal/nrbDirective';
+import {environment} from '../../../../../../../environments/environment';
+import {Clients} from '../../../../../../../environments/Clients';
 
 @Component({
   selector: 'app-company-other-detail',
@@ -18,6 +20,8 @@ export class CompanyOtherDetailComponent implements OnInit {
   fiscalYears: Array<FiscalYear> = [];
   submitData: OtherCompanyDetail;
   nrbDirective = NrbDirective.enumObject();
+  client = environment.client;
+  clientName = Clients;
 
   constructor(private formBuilder: FormBuilder,
               private fiscalYearService: FiscalYearService) {

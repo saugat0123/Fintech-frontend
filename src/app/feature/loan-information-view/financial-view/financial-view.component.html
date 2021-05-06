@@ -4,13 +4,14 @@
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
             <thead>
             <tr>
-                <th colspan="5">Income of Borrower</th>
+                <th colspan="6">Income of Borrower</th>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th class="sn">S.N</th>
                 <th>Income Source</th>
                 <th>Organization</th>
                 <th>Amount</th>
+                <th>Age Of Income Generated</th>
                 <th>Remarks</th>
             </tr>
             </thead>
@@ -20,11 +21,12 @@
                 <td class="text-left pl-1">{{incomeOfBorrower.incomeSource}}</td>
                 <td class="text-left pl-1">{{incomeOfBorrower.organization}}</td>
                 <td class="text-right pr-1">Rs. {{incomeOfBorrower.amount | currencyFormatter}}</td>
+                <td>{{incomeOfBorrower.ageOfIncomeGenerated || '0'}} months</td>
                 <td class="text-left pl-1">{{incomeOfBorrower.remarks}}</td>
             </tr>
             <tr>
                 <td colspan="3" class="text-left pl-1"><b>Total Income </b></td>
-                <td class="text-right pr-1" colspan="2"><b>Rs.{{ financialData['initialForm']['totalIncome'] | currencyFormatter}}</b></td>
+                <td class="text-right pr-1" colspan="3"><b>Rs.{{ financialData['initialForm']['totalIncome'] | currencyFormatter}}</b></td>
                 <td></td>
             </tr>
             </tbody>
@@ -66,12 +68,6 @@
                 </td>
             </tr>
             <tr>
-                <td class="text-left pl-1" colspan="2"><strong>Total Gross Monthly income/Total monthly obligations</strong></td>
-                <td colspan="2" class="text-right pr-1">
-                    <strong>Rs. {{financialData?.initialForm?.grossMonthlyObligation | currencyFormatter}}</strong>
-                </td>
-            </tr>
-            <tr>
                 <td class="text-left pl-1" colspan="2"><strong>Total EMI of client including present proposal</strong></td>
                 <td colspan="2" class="text-right pr-1">
                     <strong>Rs. {{financialData?.initialForm?.emiWithProposal | currencyFormatter}}</strong>
@@ -80,13 +76,13 @@
             <tr>
                 <td class="text-left pl-1" colspan="2"><strong>EMI / Gross Monthly Income</strong></td>
                 <td colspan="2" class="text-right pr-1">
-                    <strong>Rs. {{financialData?.initialForm?.totalEMIInterest}}</strong>
+                    <strong>{{financialData?.initialForm?.totalEMIInterest}}</strong>
                 </td>
             </tr>
             <tr>
                 <td class="text-left pl-1" colspan="2"><strong>EMI / Net Monthly Income</strong></td>
                 <td colspan="2" class="text-right pr-1">
-                    <strong>Rs. {{financialData?.initialForm?.emiNetMonthly | currencyFormatter}}</strong>
+                    <strong>{{financialData?.initialForm?.emiNetMonthly}}</strong>
                 </td>
             </tr>
             <tr class="text-white sb-bg-dark">
@@ -116,16 +112,6 @@
                 <td>
                     Source Amount
                 </td>
-                <td>
-                    Total Net monthly Income
-                </td>
-                <td>
-                    Total Gross/Monthly Obligation
-                </td>
-                <td>
-                    EMI With Proposal
-                </td>
-                <td *ngIf="client === clientName?.MEGA">Total EMI & Interest<em class="sb-medium">(in ratio)</em></td>
             </tr>
             </thead>
             <tbody>
@@ -134,12 +120,34 @@
                 <td class="text-right pl-1">{{ financialData['initialForm']['periodOfEarning']}}</td>
                 <td  class="text-left pl-1">{{ financialData['initialForm']['alternateIncomeSource']}}</td>
                 <td class="text-right pr-1">Rs.{{ financialData['initialForm']['alternateIncomeSourceAmount'] | currencyFormatter}}</td>
-                <td class="text-right pr-1">Rs.{{ financialData['initialForm']['totalIncome'] - financialData['initialForm']['totalExpense'] |currencyFormatter}}</td>
-                <td class="text-right pr-1">Rs.{{ financialData['initialForm']['totalIncome'] / financialData['initialForm']['totalExpense'] |currencyFormatter}}</td>
-                <td class="text-right pr-1">Rs.{{ financialData['initialForm']['emiWithProposal'] |currencyFormatter}}</td>
-                <td class="text-right pr-1" *ngIf="client === clientName?.MEGA">{{ financialData['initialForm']['emiWithProposal'] / financialData['initialForm']['totalIncome'] |currencyFormatter}}</td>
-            </tr>
+              </tr>
             </tbody>
+        </table>
+        <table *ngIf="!isBusinessLoan" class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th colspan="5">Borrower Repayment Capacity</th>
+            </tr>
+            <tr  class="text-white sb-bg-dark">
+                <th>Gross Total Income</th>
+                <th>Existing Obligation at other Bank</th>
+                <th>Proposed and Existing Obligation at Our Bank</th>
+                <th>Total Bank Obligation</th>
+                <th>Total Bank Obligation to Gross Income Ratio</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-right">Rs. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</td>
+                <td class="text-right">Rs. {{financialData?.initialForm?.existingObligationOtherBank | currencyFormatter}}</td>
+                <td class="text-right">Rs. {{financialData?.initialForm?.totalObligationCurrentBank | currencyFormatter}}</td>
+                <td class="text-right">Rs. {{financialData?.initialForm?.totalBankObligation | currencyFormatter}}</td>
+                <td>{{financialData?.initialForm?.obligationGrossIncomeRatio | percent}}</td>
+
+            </tr>
+
+            </tbody>
+
         </table>
         <div *ngIf="isBusinessLoan">
             <p class="float-left"><strong>Financial Details</strong></p>

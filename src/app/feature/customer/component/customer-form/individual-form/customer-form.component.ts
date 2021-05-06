@@ -175,6 +175,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
                 this.districtList = response.detail;
+                this.districtList.sort((a, b) => a.name.localeCompare(b.name));
                 this.districtList.forEach(district => {
                     if (!ObjectUtil.isEmpty(this.customer.district) && district.id === this.customer.district.id) {
                         this.basicInfo.controls.district.setValue(district);
@@ -189,6 +190,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.municipalitiesList = response.detail;
+                this.municipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
                 this.municipalitiesList.forEach(municipality => {
                     if (!ObjectUtil.isEmpty(this.customer.municipalities) && municipality.id === this.customer.municipalities.id) {
                             this.basicInfo.controls.municipalities.setValue(municipality);
@@ -202,6 +204,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
                 this.temporaryDistrictList = response.detail;
+                this.temporaryDistrictList.sort((a, b) => a.name.localeCompare(b.name));
                 this.temporaryDistrictList.forEach(district => {
                     if (!ObjectUtil.isEmpty(this.customer.temporaryDistrict) && district.id === this.customer.temporaryDistrict.id) {
                         this.basicInfo.controls.temporaryDistrict.patchValue(district);
@@ -216,6 +219,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.temporaryMunicipalitiesList = response.detail;
+                this.temporaryMunicipalitiesList.sort((a,b) => a.name.localeCompare(b.name));
                 this.temporaryMunicipalitiesList.forEach(municipality => {
                     if (!ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) &&
                         municipality.id === this.customer.temporaryMunicipalities.id) {
@@ -245,7 +249,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     onSubmit() {
-        console.log(this.basicInfo);
+        console.log('this is basic info', this.basicInfo);
         this.submitted = true;
         const tempId = this.basicInfo.get('citizenshipNumber').value;
         this.blackListService.checkBlacklistByRef(tempId).subscribe((response: any) => {
@@ -291,7 +295,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.customer.temporaryMunicipalities = this.basicInfo.get('temporaryMunicipalities').value;
                     this.customer.temporaryWardNumber = this.basicInfo.get('temporaryWardNumber').value;
                     this.customer.contactNumber = this.basicInfo.get('contactNumber').value;
-                    this.customer.landLineNumber = this.basicInfo.get('landLineNumber').value;
                     this.customer.email = this.basicInfo.get('email').value;
                     this.customer.dob = this.basicInfo.get('dob').value;
                     this.customer.initialRelationDate = this.basicInfo.get('initialRelationDate').value;
@@ -343,6 +346,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 }
             }
         });
+        console.log('this is customer data', this.customer);
     }
 
     getProvince() {
@@ -380,6 +384,10 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.individualJsonData.permanentAddressLine1],
             permanentAddressLine2: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.permanentAddressLine2],
+            fatherName: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
+                this.individualJsonData.fatherName],
+            grandFatherName: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
+                this.individualJsonData.grandFatherName],
             wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber, Validators.required],
             contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, [Validators.required,
                 Validators.max(9999999999), Validators.min(1000000000)]],
@@ -447,6 +455,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         individualJsonData.permanentAddressLine2 = this.basicInfoControls.permanentAddressLine2.value;
         individualJsonData.temporaryAddressLine1 = this.basicInfoControls.temporaryAddressLine1.value;
         individualJsonData.temporaryAddressLine2 = this.basicInfoControls.temporaryAddressLine2.value;
+        individualJsonData.grandFatherName = this.basicInfoControls.grandFatherName.value;
+        individualJsonData.fatherName = this.basicInfoControls.fatherName.value;
         if (this.microCustomer) {
             individualJsonData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
         }
@@ -508,6 +518,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     private getAllDistrict() {
         this.commonLocation.getAllDistrict().subscribe((response: any) => {
             this.allDistrict = response.detail;
+            this.allDistrict.sort((a, b) => a.name.localeCompare(b.name));
         });
     }
 

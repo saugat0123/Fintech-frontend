@@ -114,7 +114,7 @@
           <td colspan="2">{{companyJsonData?.otherCompanyDetail?.ClassificationByNRB}}</td>
         </tr>
 
-        <tr>
+        <tr *ngIf="client !== clientName?.SHINE_RESUNGA">
           <td><b>Customer Negative List Checked</b></td>
           <td colspan="2"><span>(<i *ngIf="companyJsonData?.otherCompanyDetail?.negativeList === 'checked'" class="fas fa-check-circle"></i> )Checked</span>
             <span class="ml-2">(<i *ngIf="companyJsonData?.otherCompanyDetail?.negativeList === 'unchecked'" class="fas fa-check-circle"></i> )Not checked</span>

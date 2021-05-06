@@ -55,6 +55,7 @@ export class CommonAddressComponent implements OnInit {
     this.addressService.getDistrictByProvince(province).subscribe(
         (response: any) => {
           this.districts = response.detail;
+          this.districts.sort((a, b) => a.name.localeCompare(b.name));
         }
     );
   }
@@ -66,6 +67,7 @@ export class CommonAddressComponent implements OnInit {
     this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
         (response: any) => {
           this.municipalities = response.detail;
+          this.municipalities.sort((a, b) => a.name.localeCompare(b.name));
           if (event !== null) {
             this.addressForm.get('municipalityVdc').patchValue(null);
           }

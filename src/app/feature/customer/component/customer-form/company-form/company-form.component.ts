@@ -617,6 +617,12 @@ export class CompanyFormComponent implements OnInit {
             district: [null],
             municipalityVdc: [null],
             holderPercentWardNumber: [undefined, Validators.required],
+            citizenshipNum: [undefined],
+            issuedDate: [undefined],
+            issuedPlace: [undefined],
+            fatherName: [undefined],
+            grandFatherName: [undefined],
+            dateOfBirth: [undefined],
             addressLine1: [undefined, Validators.required],
             addressLine2: [undefined],
             type: [null, Validators.required]
@@ -679,6 +685,12 @@ export class CompanyFormComponent implements OnInit {
                 district: [proprietors.district === null ? null : proprietors.district],
                 municipalityVdc: [proprietors.municipalityVdc === null ? null : proprietors.municipalityVdc],
                 holderPercentWardNumber: [proprietors.holderPercentWardNumber === null ? null : proprietors.holderPercentWardNumber],
+                citizenshipNum: [proprietors.citizenshipNum === null ? null : proprietors.citizenshipNum],
+                issuedDate: [proprietors.issuedDate === null ? null : proprietors.issuedDate],
+                issuedPlace: [proprietors.issuedPlace === null ? null : proprietors.issuedPlace],
+                dateOfBirth: [proprietors.dateOfBirth === null ? null : proprietors.dateOfBirth],
+                fatherName: [proprietors.fatherName === null ? null : proprietors.fatherName],
+                grandFatherName: [proprietors.grandFatherName === null ? null : proprietors.grandFatherName],
                 addressLine1: [proprietors.addressLine1 === null ? null : proprietors.addressLine1],
                 addressLine2: [proprietors.addressLine2 === null ? null : proprietors.addressLine2],
                 type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]
@@ -714,6 +726,7 @@ export class CompanyFormComponent implements OnInit {
         this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
                 this.districtList = response.detail;
+                this.districtList.sort((a, b) => a.name.localeCompare(b.name));
                 if (proprietorIndex == null) {
                     if (!ObjectUtil.isEmpty(this.customerInfo)) {
                         this.districtList.forEach(district => {
@@ -740,6 +753,7 @@ export class CompanyFormComponent implements OnInit {
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.municipalityVdcList = response.detail;
+                this.municipalityVdcList.sort((a, b) => a.name.localeCompare(b.name));
                 if (proprietorIndex == null) {
                     if (!ObjectUtil.isEmpty(this.customerInfo)) {
                         this.municipalityVdcList.forEach(municipality => {
@@ -917,6 +931,12 @@ export class CompanyFormComponent implements OnInit {
             proprietors.contactNo = this.getProprietor()[proprietorsIndex].contactNo;
             proprietors.share = this.getProprietor()[proprietorsIndex].share;
             proprietors.holderPercentWardNumber = this.getProprietor()[proprietorsIndex].holderPercentWardNumber;
+            proprietors.citizenshipNum = this.getProprietor()[proprietorsIndex].citizenshipNum;
+            proprietors.issuedDate = this.getProprietor()[proprietorsIndex].issuedDate;
+            proprietors.dateOfBirth = this.getProprietor()[proprietorsIndex].dateOfBirth;
+            proprietors.issuedPlace = this.getProprietor()[proprietorsIndex].issuedPlace;
+            proprietors.fatherName = this.getProprietor()[proprietorsIndex].fatherName;
+            proprietors.grandFatherName = this.getProprietor()[proprietorsIndex].grandFatherName;
             proprietors.addressLine1 = this.getProprietor()[proprietorsIndex].addressLine1;
             proprietors.addressLine2 = this.getProprietor()[proprietorsIndex].addressLine2;
             proprietors.type = this.getProprietor()[proprietorsIndex].type;
@@ -1024,6 +1044,7 @@ export class CompanyFormComponent implements OnInit {
     private getAllDistrict() {
         this.commonLocation.getAllDistrict().subscribe((response: any) => {
             this.allDistrict = response.detail;
+            this.allDistrict.sort((a, b) => a.name.localeCompare(b.name));
         });
     }
 

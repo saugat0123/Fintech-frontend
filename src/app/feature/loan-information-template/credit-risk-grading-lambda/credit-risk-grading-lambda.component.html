@@ -228,7 +228,7 @@
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td>Net Worth</td>
+                <td>Net Worth to Total Bank Loan (Total Assets  Divided by Total Bank Loan)</td>
                 <td>10%</td>
                 <td>{{creditRiskGradingForm.get('netWorth').get('parameter').value}}</td>
                 <td> {{creditRiskGradingForm.get('netWorth').get('automatedValue').value}} </td>
@@ -242,7 +242,7 @@
 
             <tr>
                 <td colspan="2"><strong>Relationship Risk</strong></td>
-                <td colspan="4"><strong>5.00%</strong></td>
+                <td colspan="4"><strong>7.00%</strong></td>
             </tr>
             <tr>
                 <td>(Capacity)</td>
@@ -268,23 +268,15 @@
 
             <tr>
                 <td colspan="2"><strong>Exposure Risk</strong></td>
-                <td colspan="4"><strong>5.00%</strong></td>
+                <td colspan="4"><strong>3%</strong></td>
             </tr>
             <tr>
                 <td> </td>
-                <td>Multibanking</td>
-                <td>50%</td>
+                <td>Total bank exposure</td>
+                <td>100%</td>
                 <td>{{creditRiskGradingForm.get('multibanking').get('parameter').value}}</td>
                 <td> {{creditRiskGradingForm.get('multibanking').get('automatedValue').value}} </td>
                 <td>{{creditRiskGradingForm.get('multibanking').get('value').value}}%</td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>Repayment track in other BFIs</td>
-                <td>50%</td>
-                <td>{{creditRiskGradingForm.get('repaymentTrackInOtherBfIs').get('parameter').value}}</td>
-                <td>--</td>
-                <td>{{creditRiskGradingForm.get('repaymentTrackInOtherBfIs').get('value').value}}%</td>
             </tr>
 
             <tr class="table-success">
