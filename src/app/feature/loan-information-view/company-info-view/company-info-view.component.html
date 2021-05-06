@@ -20,13 +20,13 @@
             <tbody>
             <tr>
                 <td class="text-left pl-1">{{formValue?.companyName}}</td>
-                <td class="text-right pr-1">{{customerInfo['customerCode']}}</td>
+                <td class="text-right pr-1">{{customerInfo['customerCode'] || 'N/A'}}</td>
                 <td class="text-left pl-1">{{formValue?.establishmentDate | date}}</td>
                 <td class="text-right pr-1">{{formValue?.registrationNumber}}</td>
                 <td class="text-left pl-1">{{formValue?.issuePlace}}</td>
                 <td class="text-right pr1">{{formValue?.panNumber}}</td>
                 <td class="text-left pl-1">{{formValue?.businessType}}</td>
-                <td class=" pl-1">{{formValue?.companyLegalDocumentAddress}}</td>
+                <td class=" pl-1">{{formValue?.companyLegalDocumentAddress || 'N/A'}}</td>
             </tr>
             </tbody>
             <tr class="text-white sb-bg-dark">
@@ -40,11 +40,11 @@
                 <th *ngIf="client === clientName?.SHINE_RESUNGA">Obligor Code</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{formValue?.email}}</td>
+                <td class="text-left pl-1">{{formValue?.email|| 'N/A'}}</td>
                 <td class="text-right pr-1">{{formValue?.contactNum}}</td>
-                <td class="text-right pr-1">{{formValue?.landLineNumber}}</td>
+                <td class="text-right pr-1">{{formValue?.landLineNumber || 'N/A'}}</td>
                 <td class="text-left pl-1">{{companyJsonData?.majorProductService}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.relationshipSince | date}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.relationshipSince || 'N/A'| date}}</td>
                 <td class="text-left pl-1">{{customerInfo['clientType']}}</td>
                 <td class="text-left pl-1">{{customerInfo['subsectorDetail']}}</td>
                 <td class="text-left pl-1" *ngIf="client === clientName?.SHINE_RESUNGA">{{customerInfo?.obligor}}</td>
@@ -78,7 +78,7 @@
                 <th>Remarks</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="additionalInfoJsonData?.additionalInfoRemark | safeHtml"></td>
+                <td class="text-left pl-1" [innerHTML]="additionalInfoJsonData?.additionalInfoRemark || 'N/A' | safeHtml"></td>
             </tr>
             </tbody>
         </table>
@@ -102,11 +102,11 @@
             <tr>
                 <td class="text-left pl-1">{{formValue?.legalStatus?.corporateStructure?.name}}</td>
                 <td class="text-left pl-1">{{registeredOffice[formValue?.legalStatus?.registeredOffice]}}</td>
-                <td class="text-left pl-1">{{formValue?.legalStatus?.registeredUnderAct}}</td>
+                <td class="text-left pl-1">{{formValue?.legalStatus?.registeredUnderAct || 'N/A'}}</td>
                 <td class="text-right pr-1">{{formValue?.legalStatus?.registrationDate | date}}</td>
                 <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationOffice}}</td>
                 <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationDate |date}}</td>
-                <td class="text-left pl-1">{{formValue?.legalStatus?.registrationExpiryDate | date}}</td>
+                <td class="text-left pl-1">{{formValue?.legalStatus?.registrationExpiryDate || 'N/A' | date}}</td>
             </tr>
             </tbody>
         </table>
@@ -134,7 +134,7 @@
                 <!--        <td>{{formValue?.capital?.totalCapital}}</td>-->
                 <!--        <td>{{formValue?.capital?.fixedCapital}}</td>-->
                 <!--        <td>{{formValue?.capital?.workingCapital}}</td>-->
-                <td class="text-right pr-1">{{formValue?.capital?.numberOfShareholder}}</td>
+                <td class="text-right pr-1">{{formValue?.capital?.numberOfShareholder || 'N/A'}}</td>
             </tr>
             </tbody>
         </table>
@@ -157,7 +157,7 @@
                 <td>{{i + 1}}</td>
                 <td class="text-left pl-1">{{contactPerson?.contactName}}</td>
                 <td class="text-right pr-1">{{contactPerson?.contactNumber}}</td>
-                <td class="text-left pl-1">{{contactPerson?.contactEmail}}</td>
+                <td class="text-left pl-1">{{contactPerson?.contactEmail || 'N/A'}}</td>
                 <td class="text-left pl-1">{{contactPerson?.functionalPosition}}</td>
             </tr>
             </tbody>
@@ -182,8 +182,8 @@
                     , {{companyLocationData?.municipalityVdc?.name}})
                 </td>
                 <td class="text-right pr-1"> {{companyLocationData?.ward}}</td>
-                <td class="text-left pl-1"> {{companyLocationData?.address1}}</td>
-                <td class="text-left pl-1"> {{companyLocationData?.address2}}</td>
+                <td class="text-left pl-1"> {{companyLocationData?.address1 || 'N/A'}}</td>
+                <td class="text-left pl-1"> {{companyLocationData?.address2 || 'N/A'}}</td>
             </tr>
             </tbody>
         </table>
@@ -194,7 +194,7 @@
                 <th>Sister Concern</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.sisterConcern}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.sisterConcern || 'N/A'}}</td>
             </tr>
             </thead>
         </table>
@@ -218,11 +218,11 @@
             </thead>
             <tbody>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.taxClearanceTill}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.taxClearanceRemark}}</td>
-                <td class="text-left pl-1" *ngIf="client !== clientName?.SHINE_RESUNGA">{{companyJsonData?.otherCompanyDetail?.negativeList}}</td>
-                <td class="text-left pl-1" *ngIf="client !== clientName?.SHINE_RESUNGA">{{companyJsonData?.otherCompanyDetail?.negativeListRemark}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.ClassificationByNRB}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.taxClearanceTill || 'N/A'}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.taxClearanceRemark || 'N/A'}}</td>
+                <td class="text-left pl-1" *ngIf="client !== clientName?.SHINE_RESUNGA">{{companyJsonData?.otherCompanyDetail?.negativeList || 'N/A'}}</td>
+                <td class="text-left pl-1" *ngIf="client !== clientName?.SHINE_RESUNGA">{{companyJsonData?.otherCompanyDetail?.negativeListRemark || 'N/A'}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.ClassificationByNRB || 'N/A'}}</td>
 
             </tr>
             </tbody>
@@ -234,7 +234,7 @@
                 <th>Company Background</th>
             </tr>
             <tr>
-                <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.companyBackground | safeHtml"></span></td>
+                <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.companyBackground || 'N/A' | safeHtml"></span></td>
             </tr>
         </table>
 
@@ -254,9 +254,9 @@
             <tbody *ngFor="let management of companyJsonData.managementTeamList; let i=index">
             <tr>
                 <td>{{i + 1}}</td>
-                <td class="text-left pl-1">{{management?.name}}</td>
-                <td class="text-left pl-1">{{management?.designation}}</td>
-                <td class="text-left pl-1">{{management?.companyLegalDocumentAddress}}</td>
+                <td class="text-left pl-1">{{management?.name || 'N/A'}}</td>
+                <td class="text-left pl-1">{{management?.designation || 'N/A'}}</td>
+                <td class="text-left pl-1">{{management?.companyLegalDocumentAddress || 'N/A'}}</td>
             </tr>
 
             </tbody>
@@ -264,7 +264,7 @@
                 <th colspan="3">Note</th>
             </tr>
             <tr>
-                <td colspan="3" class="text-left pl-1" [innerHTML]="companyJsonData?.managementTeamNote | safeHtml"></td>
+                <td colspan="3" class="text-left pl-1" [innerHTML]="companyJsonData?.managementTeamNote || 'N/A'  | safeHtml"></td>
             </tr>
         </table>
 
@@ -291,12 +291,12 @@
                     <td>{{i+1}}</td>
                     <td class="text-left pl-1"><strong>{{holder?.name}}</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.type}}</strong></td>
-                    <td class="text-right pr-1"><strong>{{holder?.contactNo}}</strong></td>
+                    <td class="text-right pr-1"><strong>{{holder?.contactNo || 'N/A'}}</strong></td>
                     <td class="text-right pr-1"><strong>{{holder?.share}}</strong></td>
-                    <td class="text-left pl-1"><strong>{{holder?.province?.name}}, {{holder?.district?.name}}, {{holder?.municipalityVdc?.name}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.province?.name || 'N/A'}}, {{holder?.district?.name }}, {{holder?.municipalityVdc?.name }}</strong></td>
                     <td class="text-right pr-1"><strong>{{holder?.holderPercentWardNumber}}</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.addressLine1}}</strong></td>
-                    <td class="text-left pl-1"><strong>{{holder?.addressLine2}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.addressLine2 || 'N/A'}}</strong></td>
                 </tr>
                 <tr class="text-white sb-bg-dark" *ngIf="client !== clientName.MEGA">
                     <th></th>
@@ -404,10 +404,10 @@
             </thead>
             <tbody>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.strength | safeHtml"></td>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.weakness | safeHtml"></td>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.opportunity | safeHtml"></td>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.threats | safeHtml"></td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.strength || 'N/A' | safeHtml"></td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.weakness || 'N/A' | safeHtml"></td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.opportunity || 'N/A' | safeHtml"></td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.threats || 'N/A' | safeHtml"></td>
             </tr>
             </tbody>
         </table>
@@ -417,7 +417,7 @@
                 <th>Succession Risk</th>
             </tr>
             <tr>
-                <td class="text-left pl-1"><span [innerHTML]="formValue?.successionPlanning | safeHtml"></span></td>
+                <td class="text-left pl-1"><span [innerHTML]="formValue?.successionPlanning || 'N/A' | safeHtml"></span></td>
             </tr>
         </table>
 
@@ -426,7 +426,7 @@
             <tr class="text-white sb-bg-dark">
                 <th>Business Objective</th>
             </tr>
-            <tr class="text-left pl-1">{{companyJsonData?.businessObjective}}</tr>
+            <tr class="text-left pl-1">{{companyJsonData?.businessObjective || 'N/A'}}</tr>
         </table>
 
         <table
@@ -439,8 +439,8 @@
                 <th>Raw Materials Availability</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.rawMaterialSourcing}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.rawMaterialAvailability}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.rawMaterialSourcing|| 'N/A'}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.rawMaterialAvailability|| 'N/A'}}</td>
             </tr>
         </table>
         <table
@@ -452,7 +452,7 @@
                 <th>Market demand of product/service</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.marketScenario['marketDemandService']}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.marketScenario['marketDemandService'] || 'N/A'}}</td>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Key Suppliers</th>
@@ -470,37 +470,37 @@
                 <th>Competitors Overview</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.marketScenario['competitorsOverview']}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.marketScenario['competitorsOverview'] || 'N/A'}}</td>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Industry/Market Risk</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.marketScenario['BusinessIndustryOutlook']}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.marketScenario['BusinessIndustryOutlook'] || 'N/A'}}</td>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Marketing Strategies</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.marketScenario['marketingStrategies']}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.marketScenario['marketingStrategies'] || 'N/A'}}</td>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Business/Management Risk</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.marketScenario['technicalAspect']}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.marketScenario['technicalAspect'] || 'N/A'}}</td>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Security Risk</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.marketScenario['securityRisk']}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.marketScenario['securityRisk'] || 'N/A'}}</td>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Financial and Cash Flow Risk</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.marketScenario['financialAndCashFlowRisk']}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.marketScenario['financialAndCashFlowRisk'] || 'N/A'}}</td>
             </tr>
         </table>
         <table
@@ -509,7 +509,7 @@
                 <th>Group’s background</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.groupsBackGround | safeHtml"></td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.groupsBackGround || 'N/A' | safeHtml"></td>
             </tr>
         </table>
         <table
@@ -518,7 +518,7 @@
                 <th>Legal review Remarks</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.legalReviewRemark}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.legalReviewRemark || 'N/A'}}</td>
             </tr>
         </table>
         <table *ngIf="!srdbAffiliatedId"

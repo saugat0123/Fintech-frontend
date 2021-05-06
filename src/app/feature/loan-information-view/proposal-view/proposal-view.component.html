@@ -307,7 +307,7 @@
         <th>Remarks</th>
       </tr>
       <tr>
-        <td class="text-left pl-1" [innerHTML]="proposalAllData?.remark"></td>
+        <td class="text-left pl-1" [innerHTML]="proposalAllData?.remark || 'N/A' "></td>
       </tr>
       <tr class="text-white sb-bg-dark" *ngIf="client !== clientName?.MEGA">
         <th>Purpose of Loan</th>
