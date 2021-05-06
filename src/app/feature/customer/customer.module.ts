@@ -43,6 +43,7 @@ import {FeatureModule} from '../feature.module';
 import {CbsGroupModule} from '../cbs-group/cbs-group.module';
 import {MicroLoanModule} from '../micro-loan/micro-loan.module';
 import { CustomerGroupComponent } from './component/customer-profile/individual-profile/customer-group/customer-group.component';
+import { JointFormComponent } from './component/customer-form/joint-form/joint-form.component';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -68,6 +69,7 @@ const COMPONENTS = [
   CustomerLoanEditComponent,
   CustomerListGroupComponent,
   BankingRelationComponent,
+  JointFormComponent
 ];
 
 @NgModule({
@@ -110,7 +112,8 @@ const COMPONENTS = [
     EditPartnerInfoComponent,
     EditSwotComponent,
     CompanyDetailEditComponent,
-    CustomerLoanApplyComponent
+    CustomerLoanApplyComponent,
+    JointFormComponent
   ]
 })
 export class CustomerModule {
