@@ -20,6 +20,8 @@ export class IndividualViewComponent implements OnInit {
   customerType = CustomerType;
   individualJsonData: IndividualJsonData;
   @Input() customerInfoData: CustomerInfoData;
+  clientType: string;
+  subsectorDetail: string;
 
   crgLambdaDisabled = envSrdb.disableCrgLambda;
   client = environment.client;
@@ -28,6 +30,9 @@ export class IndividualViewComponent implements OnInit {
   @Input() calendarType: CalendarType;
 
   @Input() loanId: any;
+  isJointInfo = false;
+  jointInfo = [];
+  riskInfo: any;
 
   constructor() {
   }
@@ -38,6 +43,14 @@ export class IndividualViewComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
         this.individualJsonData = JSON.parse(this.individual.individualJsonData);
       }
+    }
+    if (!ObjectUtil.isEmpty(this.individual.jointInfo)) {
+      const jointCustomerInfo = JSON.parse(this.individual.jointInfo);
+      this.riskInfo = jointCustomerInfo;
+      this.clientType = jointCustomerInfo.clientType;
+      this.subsectorDetail = jointCustomerInfo.subsectorDetail;
+      this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
+      this.isJointInfo = true;
     }
 
   }

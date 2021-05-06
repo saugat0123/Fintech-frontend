@@ -50,6 +50,8 @@ export class LoanInformationDetailViewComponent implements OnInit {
     crgGammaScore = 0;
     crgGammaGradeStatusBadge;
     crgGammaGrade;
+    isJointInfo = false;
+    jointInfo = [];
 
 
     constructor(private loanConfigService: LoanConfigService,
@@ -99,6 +101,11 @@ export class LoanInformationDetailViewComponent implements OnInit {
             this.signatureList = this.getSignatureList(new Array<LoanStage>
             (...this.loanDataHolder.previousList, this.loanDataHolder.currentStage));
             this.getAllLoans(this.loanHolder.id);
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
+                const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
+                this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
+                this.isJointInfo = true;
+            }
 
         });
         this.getFiscalYears();

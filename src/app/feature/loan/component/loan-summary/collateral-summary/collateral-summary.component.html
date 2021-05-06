@@ -87,6 +87,11 @@
     </div>
     <div  class="col-md-2 sb-small">
         <mark class="alert-warning">Coverage%:</mark>
-        <strong>{{(security?.totalSecurityAmount/totalRequiredCollateral)*100 |roundvalue |currencyFormatter}}%</strong>
+        <strong>{{(security?.totalSecurityAmount/totalProposedAmount)*100 |roundvalue}}%</strong>
+    </div>
+    <div  class="col-md-2 sb-small">
+        <mark class="alert-warning">Loan Exposure:</mark>
+        <strong>{{
+            ((totalProposedAmount) / security?.totalSecurityAmount) * 100 |roundvalue}}%</strong>
     </div>
 </div>

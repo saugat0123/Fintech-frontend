@@ -258,7 +258,7 @@ export class FinancialComponent implements OnInit {
             periodOfEarning: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
             alternateIncomeSource: [undefined],
             alternateIncomeSourceAmount: [undefined, [Validators.pattern(Pattern.NUMBER_DOUBLE)]],
-            grossMonthlyObligation: [undefined],
+            // grossMonthlyObligation: [undefined],
             totalNetMonthlyIncome: [undefined],
             totalEMIInterest: [undefined],
             emiWithProposal: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
@@ -637,9 +637,9 @@ export class FinancialComponent implements OnInit {
         const totalEmiNetMonthly = (Number(this.financialForm.get('emiWithProposal').value) / totalNetMonthly).toFixed(2);
         this.financialForm.get('emiNetMonthly').patchValue(totalEmiNetMonthly);
 
-        const totalGrossMonthly = (Number(this.financialForm.get('totalIncome').value) /
-            Number(this.financialForm.get('totalExpense').value)).toFixed(2);
-        this.financialForm.get('grossMonthlyObligation').patchValue(totalGrossMonthly);
+        // const totalGrossMonthly = (Number(this.financialForm.get('totalIncome').value) /
+        //     Number(this.financialForm.get('totalExpense').value)).toFixed(2);
+        // this.financialForm.get('grossMonthlyObligation').patchValue(totalGrossMonthly);
 
         const totalEMIInterest = (Number(this.financialForm.get('emiWithProposal').value) /
             Number(this.financialForm.get('totalIncome').value)).toFixed(2);
