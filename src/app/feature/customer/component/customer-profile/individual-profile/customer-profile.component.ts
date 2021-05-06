@@ -88,6 +88,8 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     client = environment.client;
     clientName = Clients;
     isEditable = false;
+    jointInfo = [];
+    isJointInfo = false;
 
     constructor(private route: ActivatedRoute,
                 private customerService: CustomerService,
@@ -115,7 +117,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     ngOnInit() {
-        console.log(this.sbsGroupEnabled);
         this.associateId = this.route.snapshot.params.id;
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
@@ -133,6 +134,11 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         }
         this.customerService.detail(this.associateId).subscribe((res: any) => {
             this.customer = res.detail;
+            if (!ObjectUtil.isEmpty(this.customer.jointInfo)) {
+                const jointCustomerInfo = JSON.parse(this.customer.jointInfo);
+                this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
+                this.isJointInfo = true;
+            }
             this.customerBasicFormBuilder();
             this.getProvince();
             this.setRelatives(this.customer.customerRelatives);

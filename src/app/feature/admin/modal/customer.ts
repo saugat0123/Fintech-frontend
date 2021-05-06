@@ -45,6 +45,8 @@ export class Customer {
     maritalStatus: MaritalStatus;
     customerLegalDocumentAddress: string;
     individualJsonData: string;
+    jointInfo: string;
     isMicroCustomer: boolean;
+    isJointCustomer: boolean;
 
 }
