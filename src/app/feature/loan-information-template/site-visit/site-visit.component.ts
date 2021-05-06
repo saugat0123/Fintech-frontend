@@ -30,6 +30,7 @@ declare let google: any;
 export class SiteVisitComponent implements OnInit {
   @Input() formValue: SiteVisit;
   @Input() fromProfile: boolean;
+  @Input() security;
   @Output() siteVisitDataEmitter = new EventEmitter();
   @Input() customerInfoId;
   calendarType = CalendarType.AD;
@@ -493,6 +494,7 @@ export class SiteVisitComponent implements OnInit {
 
     } else if (label === 'fixedAssetCollateral') {
       this.fixedAssetCollateralForm = isChecked;
+      console.log('this is security data', this.security.data);
       this.siteVisitFormGroup.get('fixedAssetCollateralFormChecked').patchValue(isChecked);
 
     } else if (label === 'currentAssetsInspection') {

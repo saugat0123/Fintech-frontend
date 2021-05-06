@@ -51,8 +51,8 @@ export class CustomerInfoService extends BaseService<Object> {
         return this.http.patch(req.url, data , {headers: req.header});
     }
 
-    public saveCollateral(obj,  index): Observable<any> {
-        const api = `${this.getApi()}/${index}`;
+    public saveCollateral(obj, customerInfoId): Observable<any> {
+        const api = `${this.getApi()}/${customerInfoId}`;
         const req = ApiUtils.getRequest(api);
 
         return this.http.post(req.url, obj, {headers: req.header});

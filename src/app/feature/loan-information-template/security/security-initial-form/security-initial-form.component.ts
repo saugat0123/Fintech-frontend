@@ -42,6 +42,7 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() calendarType: CalendarType;
     @Input() loanTag: string;
     @Input() shareSecurity;
+    @Input() securityData;
 
     @ViewChildren('revaluationComponent')
     revaluationComponent: QueryList<SecurityRevaluationComponent>;

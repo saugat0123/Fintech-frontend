@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
 import {CalendarType} from '../../../../@core/model/calendar-type';
@@ -16,6 +16,8 @@ import {TemplateName} from '../../../customer/model/templateName';
 import {SiteVisit} from '../../../admin/modal/siteVisit';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
+import {HttpClient} from '@angular/common/http';
+import {SiteVisitComponent} from '../site-visit.component';
 
 @Component({
   selector: 'app-fixed-assets-collateral-form',
@@ -27,6 +29,9 @@ export class FixedAssetsCollateralFormComponent implements OnInit {
   @Input() formValue: SiteVisit;
   @Input() model: FixedAssetsCollateral;
   @Input() customerInfoId;
+  @Input() security;
+  siteVisitData: SiteVisit = new SiteVisit();
+  @ViewChild('siteVisitComponent', {static: false})
 
   client = environment.client;
   clientName = Clients;
@@ -48,10 +53,12 @@ export class FixedAssetsCollateralFormComponent implements OnInit {
               private roleService: RoleService,
               private toastService: ToastService,
               private customerInfoService: CustomerInfoService,
+              private http: HttpClient,
               private activeModal: NgbActiveModal) { }
 
   ngOnInit() {
     this.getRoleList();
+    console.log('this is security data', this.security.data);
     if (!ObjectUtil.isEmpty(this.formValue)) {
       const stringFormData = this.formValue.data;
       this.formDataForEdit = JSON.parse(stringFormData);
@@ -64,9 +71,9 @@ export class FixedAssetsCollateralFormComponent implements OnInit {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load customer information'));
     });
-    console.log(this.formDataForEdit, 'Site visit data');
-    console.log(this.formValue.data, 'FormValue Data');
-    console.log(this.customerInfoId, 'cusotmerInforId');
+    console.log('Site visit data', this.formDataForEdit);
+    console.log('FormValue Data', this.formValue.data);
+    console.log('cusotmerInforId', this.customerInfoId);
   }
   buildForm() {
     this.fixedAssetsForm = this.formBuilder.group({
@@ -171,12 +178,13 @@ export class FixedAssetsCollateralFormComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this.submitData = this.fixedAssetsForm.value;
-    this.model.data = JSON.stringify(this.submitData);
+    this.submitData = JSON.stringify(this.fixedAssetsForm.value);
+    console.log('this is submitted Data', this.submitData);
+    // this.siteVisitData.collateralData = JSON.stringify(this.submitData);
     // console.log(this.submitData, 'Submmit data');
     // console.log(this.model.data, 'Json Data');
-    this.fixedData = this.formValue.data.concat(this.model.data);
-    console.log(this.fixedData, 'Data');
+    // this.fixedData = this.formValue.data.concat(this.model.data);
+    // console.log(this.fixedData, 'Data');
 
     // this.customerInfoService.saveCollateral(this.model, this.index).subscribe(() => {
     //         this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Branch!'));
@@ -188,7 +196,12 @@ export class FixedAssetsCollateralFormComponent implements OnInit {
     //       this.activeModal.dismiss(error);
     //     }
     // );
-    this.customerInfoService.saveLoanInfo(this.fixedData, this.customerInfoId, TemplateName.SITE_VISIT)
+    let siteVisitToSave = new SiteVisit();
+    if (!ObjectUtil.isEmpty(this.formValue)) {
+      siteVisitToSave = this.formValue;
+    }
+    siteVisitToSave.collateralData = this.submitData;
+    this.customerInfoService.saveCollateral(siteVisitToSave , this.customerInfoId)
         .subscribe(() => {
           this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully collateral form!'));
         }, error => {
