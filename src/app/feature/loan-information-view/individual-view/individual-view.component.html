@@ -238,6 +238,7 @@
           <th>Citizenship no.</th>
           <th>Citizenship Issued District</th>
           <th>Citizenship Issued Date</th>
+          <th>Age</th>
         </tr>
         <tr *ngIf="info?.customerRelativeName1">
           <td class="text-left pl-1">{{info?.customerRelativeName1 || 'NA'}}</td>
@@ -245,6 +246,7 @@
           <td class="text-right pr-1">{{info?.citizenshipNumber1 || 'NA'}}</td>
           <td class="text-left pl-1">{{info?.citizenshipIssuedPlace1 || 'NA'}}</td>
           <td class="text-left pl-1">{{info?.citizenshipIssuedDate1 || 'NA' | date}}</td>
+          <td class="text-left pl-1">{{info?.age1 || 'NA'}}</td>
         </tr>
         <tr *ngIf="info?.customerRelativeName2">
           <td class="text-left pl-1">{{info?.customerRelativeName2 || 'NA'}}</td>
@@ -252,6 +254,7 @@
           <td class="text-right pr-1">{{info?.citizenshipNumber2 || 'NA'}}</td>
           <td class="text-left pl-1">{{info?.citizenshipIssuedPlace2 || 'NA'}}</td>
           <td class="text-left pl-1">{{info?.citizenshipIssuedDate2 || 'NA' | date}}</td>
+          <td class="text-left pl-1">{{info?.age2 || 'NA'}}</td>
         </tr>
         <tr *ngIf="info?.customerRelativeName3">
           <td class="text-left pl-1">{{info?.customerRelativeName3 || 'NA'}}</td>
@@ -259,6 +262,7 @@
           <td class="text-right pr-1">{{info?.citizenshipNumber3 || 'NA'}}</td>
           <td class="text-left pl-1">{{info?.citizenshipIssuedPlace3 || 'NA'}}</td>
           <td class="text-left pl-1">{{info?.citizenshipIssuedDate3 || 'NA' | date}}</td>
+          <td class="text-left pl-1">{{info?.age3 || 'NA'}}</td>
         </tr>
         <tr *ngIf="info?.customerRelativeName4">
           <td class="text-left pl-1">{{info?.customerRelativeName4 || 'NA'}}</td>
@@ -266,6 +270,7 @@
           <td class="text-right pr-1">{{info?.citizenshipNumber4 || 'NA'}}</td>
           <td class="text-left pl-1">{{info?.citizenshipIssuedPlace4 || 'NA'}}</td>
           <td class="text-left pl-1">{{info?.citizenshipIssuedDate4 || 'NA' | date}}</td>
+          <td class="text-left pl-1">{{info?.age4 || 'NA'}}</td>
         </tr>
         <tr *ngIf="info?.customerRelativeName5">
           <td class="text-left pl-1">{{info?.customerRelativeName5 || 'NA'}}</td>
@@ -273,6 +278,7 @@
           <td class="text-right pr-1">{{info?.citizenshipNumber5 || 'NA'}}</td>
           <td class="text-left pl-1">{{info?.citizenshipIssuedPlace5 || 'NA'}}</td>
           <td class="text-left pl-1">{{info?.citizenshipIssuedDate5 || 'NA' | date}}</td>
+          <td class="text-left pl-1">{{info?.age5 || 'NA'}}</td>
         </tr>
       </ng-container>
       </tbody>
