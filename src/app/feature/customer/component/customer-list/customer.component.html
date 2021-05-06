@@ -137,7 +137,7 @@
         <td *ngIf="transferCustomer">
           <div>
             <button nbButton status="warning" size="tiny"
-                    (click)="onTransferClick(transferCust, model.id)">
+                    (click)="onTransferClick(transferCust, model, model.id)">
               <em class="fa fa-arrow-circle-right"></em></button>
           </div>
 
@@ -168,28 +168,31 @@
       <nb-card-body>
 
         <div class="col-md-3 mb-3">
-            <select (change)="getUsers($event.target.value)">
-              <option [value]="null" selected hidden>Branch</option>
+            <select (change)="getMakerUsersByBranchId($event.target.value)">
+              <option [value]="null" selected hidden>Select Branch</option>
               <option *ngFor="let branch of branchList"
                          value="{{branch.id}}">{{branch.name}}</option>
             </select>
         </div>
-
-        <nb-accordion>
+        <div *ngIf="!transferUserList?.length > 0">
+          <p>No Content Found</p>
+        </div>
+        <nb-accordion *ngIf="transferUserList.length > 0">
 
           <nb-accordion-item>
             <nb-accordion-item-header>
-                Select Relationship Manager
+                Select User from {{transferSelectedBranch.name}} branch to transfer
             </nb-accordion-item-header>
             <nb-accordion-item-body>
 
-              <div *ngFor="let rm of transferUserList;let i=index">
+              <div *ngFor="let user of transferUserList;let i=index">
                 <div class="col-md-12 row">
                   <div>
                     <a class="cursor">
                       <div class="radio">
-                        <label><input type="radio" name="optradio">
-                          <strong class="ml-2">{{rm.name}}</strong>
+                        <label>
+                          <input type="radio" name="optradio" (click)="setUserForTransfer(user.id, user)">
+                          <strong class="ml-2">{{user.name}}</strong>
                         </label>
                       </div>
 
@@ -206,7 +209,7 @@
       <nb-card-footer>
         <button [disabled]="formAction.invalid"
                 [ngStyle]="{ 'filter' : (formAction.invalid)? 'grayscale(100%)': 'grayscale(0%)'}"
-                type="submit" class="btn btn-success float-right" (click)="action(confirmation)">Next
+                type="submit" class="btn btn-success float-right" (click)="actionNext(confirmation)">Next
         </button>
       </nb-card-footer>
     </nb-card>
@@ -215,11 +218,11 @@
   <ng-template #confirmation>
     <nb-card accent="primary"
              [nbSpinner]="transferSpinner"
-             [nbSpinnerMessage]="'Transferring loan to ' + selectedUserForTransfer?.username + '...'">
-      <nb-card-header>Do you want to transfer this loan to <b>{{selectedUserForTransfer?.username}}</b>?
+             [nbSpinnerMessage]="'Transferring customer to ' + transferSelectedBranch.name + ' branch...'">
+      <nb-card-header>Do you want to transfer this customer to {{selectedUserForTransfer.name}} <b>{{transferSelectedBranch.name}}</b>?
       </nb-card-header>
       <nb-card-body>
-        <label for="comment">Reason to transfer loan</label>
+        <label for="comment">Reason to transfer customer</label>
         <textarea rows="9" #comment id="comment" class="form-control"
                   placeholder="Comments for transfer"></textarea>
       </nb-card-body>
@@ -230,7 +233,7 @@
           </button>
           <button [ngStyle]="{ 'filter' : (comment.value == undefined || comment.value == '')? 'grayscale(100%)': 'grayscale(0%)'}"
                   [disabled]="comment.value == undefined || comment.value == ''" type="submit"
-                  class="btn btn-primary  btn-flat" (click)="confirm(comment.value)">
+                  class="btn btn-primary  btn-flat" (click)="confirmTransferCustomer(comment.value)">
             Confirm
           </button>
         </div>
