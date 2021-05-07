@@ -643,6 +643,8 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.formData['cashFlowStatementData'].justificationCashFlowStatement = this.cashFlowStatementForm.get('justificationCashFlowStatement').value;
+
+        this.saveAdjustmentForWorkingCapital();
         const firstYearOpeningBalanceFormData = this.cashFlowStatementForm.get('addOpeningBalance') as FormArray;
         const firstYearClosingCashFormData = this.cashFlowStatementForm.get('closingCash') as FormArray;
         const firstYearDifferenceCFSFormData = this.cashFlowStatementForm.get('differenceCFS') as FormArray;
@@ -652,6 +654,5 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             this.formData['cashFlowStatementData'].closingCash[0].value = firstYearClosingCashFormData.value[0].value;
             this.formData['cashFlowStatementData'].differenceCFS[0].value = firstYearDifferenceCFSFormData.value[0].value;
         }
-        this.saveAdjustmentForWorkingCapital();
     }
 }
