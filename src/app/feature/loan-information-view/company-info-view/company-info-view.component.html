@@ -44,7 +44,7 @@
                 <td class="text-right pr-1">{{formValue?.contactNum}}</td>
                 <td class="text-right pr-1">{{formValue?.landLineNumber || 'N/A'}}</td>
                 <td class="text-left pl-1">{{companyJsonData?.majorProductService}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.relationshipSince || 'N/A'| date}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.relationshipSince | date}}</td>
                 <td class="text-left pl-1">{{customerInfo['clientType']}}</td>
                 <td class="text-left pl-1">{{customerInfo['subsectorDetail']}}</td>
                 <td class="text-left pl-1" *ngIf="client === clientName?.SHINE_RESUNGA">{{customerInfo?.obligor}}</td>
@@ -106,7 +106,7 @@
                 <td class="text-right pr-1">{{formValue?.legalStatus?.registrationDate | date}}</td>
                 <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationOffice}}</td>
                 <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationDate |date}}</td>
-                <td class="text-left pl-1">{{formValue?.legalStatus?.registrationExpiryDate || 'N/A' | date}}</td>
+                <td class="text-left pl-1">{{formValue?.legalStatus?.registrationExpiryDate | date}}</td>
             </tr>
             </tbody>
         </table>
