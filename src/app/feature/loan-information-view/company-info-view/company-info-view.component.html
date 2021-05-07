@@ -14,7 +14,7 @@
                 <th>Issue Place</th>
                 <th>PAN</th>
                 <th>Business Type</th>
-                <th>Address as per Legal Document</th>
+                <th *ngIf="client === clientName?.SHINE_RESUNGA">Address as per Legal Document</th>
             </tr>
             </thead>
             <tbody>
@@ -26,7 +26,7 @@
                 <td class="text-left pl-1">{{formValue?.issuePlace}}</td>
                 <td class="text-right pr1">{{formValue?.panNumber}}</td>
                 <td class="text-left pl-1">{{formValue?.businessType}}</td>
-                <td class=" pl-1">{{formValue?.companyLegalDocumentAddress}}</td>
+                <td class="text-left pl-1" *ngIf="client === clientName?.SHINE_RESUNGA">{{companyJsonData?.addressLegalDocument}}</td>
             </tr>
             </tbody>
             <tr class="text-white sb-bg-dark">

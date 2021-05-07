@@ -224,7 +224,8 @@ export class ProposalComponent implements OnInit {
       riskConclusionRecommendation: [undefined],
       summeryRecommendation: undefined,
       purposeOfLoan: undefined,
-      termsAndCondition: undefined
+      termsAndCondition: undefined,
+      prepaymentSwapCommitment: [undefined]
 
 
     });
