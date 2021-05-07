@@ -515,8 +515,79 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
         });
     }
 
+    handleFirstYearInputChanges() {
+        const cashFromOperatingActivities = (this.cashFlowStatementForm.get('cashFromOperatingActivities') as FormArray).value[0].value;
+        const addOpeningBalance = (this.cashFlowStatementForm.get('addOpeningBalance') as FormArray).value[0].value;
+
+        /** For cashFromInvestingActivities **/
+        const changedInFixedAsset = (this.cashFlowStatementForm.get('changedInFixedAsset') as FormArray).value[0].value;
+        const nonOperatingIncomeExpenses = (this.cashFlowStatementForm.get('nonOperatingIncomeExpenses') as FormArray).value[0].value;
+        const changeInOtherAssets = (this.cashFlowStatementForm.get('changeInOtherAssets') as FormArray).value[0].value;
+        const changeInOtherLongTermLiabilities = (this.cashFlowStatementForm
+            .get('changeInOtherLongTermLiabilities') as FormArray).value[0].value;
+        const changeInOtherProvisions = (this.cashFlowStatementForm.get('changeInOtherProvisions') as FormArray).value[0].value;
+
+        ((this.cashFlowStatementForm.get('cashFromInvestingActivities') as FormArray).controls[0] as FormGroup)
+            .controls['value'].patchValue((Number(changedInFixedAsset)
+            + Number(nonOperatingIncomeExpenses)
+            + Number(changeInOtherAssets)
+            + Number(changeInOtherLongTermLiabilities)
+            + Number(changeInOtherProvisions)).toFixed(2));
+        const cashFromInvestingActivities = (this.cashFlowStatementForm.get('cashFromInvestingActivities') as FormArray).value[0].value;
+
+        /** For cashFromFinancingActivities **/
+        const paidUpCapitalEquity = (this.cashFlowStatementForm.get('paidUpCapitalEquity') as FormArray).value[0].value;
+        const shortTermLoan = (this.cashFlowStatementForm.get('shortTermLoan') as FormArray).value[0].value;
+        const longTermLoanReceived = (this.cashFlowStatementForm.get('longTermLoanReceived') as FormArray).value[0].value;
+        const dividendDrawing = (this.cashFlowStatementForm.get('dividendDrawing') as FormArray).value[0].value;
+        const interestExpensesCFSb = (this.cashFlowStatementForm.get('interestExpensesCFSb') as FormArray).value[0].value;
+        const otherAdjustments = (this.cashFlowStatementForm.get('otherAdjustments') as FormArray).value[0].value;
+
+        ((this.cashFlowStatementForm.get('cashFromFinancingActivities') as FormArray).controls[0] as FormGroup)
+            .controls['value'].patchValue((Number(paidUpCapitalEquity)
+            + Number(shortTermLoan)
+            + Number(longTermLoanReceived)
+            + Number(dividendDrawing)
+            + Number(interestExpensesCFSb)
+            + Number(otherAdjustments)).toFixed(2));
+        const cashFromFinancingActivities = (this.cashFlowStatementForm.get('cashFromFinancingActivities') as FormArray).value[0].value;
+
+        /** Calculating net cash flow **/
+        ((this.cashFlowStatementForm.get('netCashFlow') as FormArray).controls[0] as FormGroup)
+            .controls['value'].patchValue((Number(cashFromOperatingActivities)
+            + Number(cashFromInvestingActivities)
+            + Number(cashFromFinancingActivities)).toFixed(2));
+        const netCashFlow = (this.cashFlowStatementForm.get('netCashFlow') as FormArray).value[0].value;
+
+        /** Calculating closing cash */
+        ((this.cashFlowStatementForm.get('closingCash') as FormArray).controls[0] as FormGroup)
+            .controls['value'].patchValue((Number(netCashFlow)
+            + Number(addOpeningBalance)).toFixed(2));
+        const closingBalance = (this.cashFlowStatementForm.get('closingBalance') as FormArray).value[0].value;
+        const closingCash = (this.cashFlowStatementForm.get('closingCash') as FormArray).value[0].value;
+
+        /** Calculating difference in CFS **/
+        ((this.cashFlowStatementForm.get('differenceCFS') as FormArray).controls[0] as FormGroup)
+            .controls['value'].patchValue((Number(closingCash) - Number(closingBalance)).toFixed(2));
+    }
+
     saveAdjustmentForWorkingCapital() {
         /** This method has been create to separate the calculations part while taking input */
+        const cashFromInvestingActivities = this.cashFlowStatementForm.get('cashFromInvestingActivities') as FormArray;
+        const changedInFixedAsset = this.cashFlowStatementForm.get('changedInFixedAsset') as FormArray;
+        const changeInOtherAssets = this.cashFlowStatementForm.get('changeInOtherAssets') as FormArray;
+        const changeInOtherLongTermLiabilities = this.cashFlowStatementForm.get('changeInOtherLongTermLiabilities') as FormArray;
+        const changeInOtherProvisions = this.cashFlowStatementForm.get('changeInOtherProvisions') as FormArray;
+
+        const cashFromFinancingActivities = this.cashFlowStatementForm.get('cashFromFinancingActivities') as FormArray;
+        const paidUpCapitalEquity = this.cashFlowStatementForm.get('paidUpCapitalEquity') as FormArray;
+        const shortTermLoan = this.cashFlowStatementForm.get('shortTermLoan') as FormArray;
+        const longTermLoanReceived = this.cashFlowStatementForm.get('longTermLoanReceived') as FormArray;
+
+        const netCashFlow = this.cashFlowStatementForm.get('netCashFlow') as FormArray;
+        const closingCash = this.cashFlowStatementForm.get('closingCash') as FormArray;
+        const differenceCFS = this.cashFlowStatementForm.get('differenceCFS') as FormArray;
+
         const increaseDecreaseInInventory = this.cashFlowStatementForm.get('increaseDecreaseInInventory') as FormArray;
         const increaseDecreaseInAccountsReceivable = this.cashFlowStatementForm.get('increaseDecreaseInAccountsReceivable') as FormArray;
         const increaseDecreaseInShortTermInvestment = this.cashFlowStatementForm.get('increaseDecreaseInShortTermInvestment') as FormArray;
@@ -539,6 +610,20 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             this.formData['cashFlowStatementData'].increaseDecreaseInCreditors[0].value = increaseDecreaseInCreditors.value[0].value;
             this.formData['cashFlowStatementData'].increaseDecreaseInOtherCurrentLiabilities[0].value =
                 increaseDecreaseInOtherCurrentLiabilities.value[0].value;
+
+            this.formData['cashFlowStatementData'].cashFromInvestingActivities[0].value = cashFromInvestingActivities.value[0].value;
+            this.formData['cashFlowStatementData'].changedInFixedAsset[0].value = changedInFixedAsset.value[0].value;
+            this.formData['cashFlowStatementData'].changeInOtherAssets[0].value = changeInOtherAssets.value[0].value;
+            this.formData['cashFlowStatementData'].changeInOtherLongTermLiabilities[0].value =
+                changeInOtherLongTermLiabilities.value[0].value;
+            this.formData['cashFlowStatementData'].changeInOtherProvisions[0].value = changeInOtherProvisions.value[0].value;
+            this.formData['cashFlowStatementData'].cashFromFinancingActivities[0].value = cashFromFinancingActivities.value[0].value;
+            this.formData['cashFlowStatementData'].paidUpCapitalEquity[0].value = paidUpCapitalEquity.value[0].value;
+            this.formData['cashFlowStatementData'].shortTermLoan[0].value = shortTermLoan.value[0].value;
+            this.formData['cashFlowStatementData'].longTermLoanReceived[0].value = longTermLoanReceived.value[0].value;
+            this.formData['cashFlowStatementData'].netCashFlow[0].value = netCashFlow.value[0].value;
+            this.formData['cashFlowStatementData'].closingCash[0].value = closingCash.value[0].value;
+            this.formData['cashFlowStatementData'].differenceCFS[0].value = differenceCFS.value[0].value;
         }
     }
 
