@@ -96,6 +96,7 @@ export class SecurityViewComponent implements OnInit {
     });
     if (!ObjectUtil.isEmpty(this.shareSecurityData)) {
       this.shareSecurity = JSON.parse(this.shareSecurityData.data);
+      console.log(this.shareSecurity, 'sharesecurity');
     } else {
       this.shareSelected = false;
     }
