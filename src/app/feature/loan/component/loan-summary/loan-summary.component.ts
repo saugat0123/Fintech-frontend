@@ -165,6 +165,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     dataFromComments;
     previousSecuritySummary = false;
     dataFromPreviousSecurity;
+    isJointInfo = false;
+    jointInfo = [];
 
 
     constructor(
@@ -196,6 +198,12 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loanDataHolder = this.loanData;
+        if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&
+            !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
+            const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
+            this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
+            this.isJointInfo = true;
+        }
         this.loadSummary();
         this.roleType = LocalStorageUtil.getStorage().roleType;
         this.checkDocUploadConfig();
