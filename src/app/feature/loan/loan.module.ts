@@ -87,6 +87,7 @@ import {MicroLoanModule} from '../micro-loan/micro-loan.module';
 import {MicroBaselRiskExposureSummaryComponent} from './component/micro-loan-summary/micro-basel-risk-exposure-summary/micro-basel-risk-exposure-summary.component';
 import {MarketingActivitiesSummaryComponent} from './component/micro-loan-summary/marketing-activities-summary/marketing-activities-summary.component';
 import {CustomerWiseLoanPullComponent} from './component/loan-pull/customer-wise-loan-pull/customer-wise-loan-pull.component';
+import { RoleHierarchyCombinedModelComponent } from './loan-action/role-hierarchy-combined-model/role-hierarchy-combined-model.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -148,7 +149,8 @@ const COMPONENTS = [
     MicroProposalSummaryComponent,
     BorrowerPortfolioSummaryComponent,
     MicroBaselRiskExposureSummaryComponent,
-    MarketingActivitiesSummaryComponent
+    MarketingActivitiesSummaryComponent,
+    RoleHierarchyCombinedModelComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -160,7 +162,8 @@ const ENTRY_COMPONENTS = [
     LoanActionVerificationComponent,
     LoanActionCombinedModalComponent,
     GuarantorDetailComponent,
-    RoleHierarchyModelComponent
+    RoleHierarchyModelComponent,
+    RoleHierarchyCombinedModelComponent
 ];
 
 const modules = {

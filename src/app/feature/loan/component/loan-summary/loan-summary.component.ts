@@ -55,6 +55,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     loanConfig: LoanConfig = new LoanConfig();
 
     @Input() nepaliDate;
+    hasMissingDeferredDocs = false;
 
     client: string;
     clientName = Clients;
