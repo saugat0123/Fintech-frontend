@@ -623,7 +623,7 @@
                                                <select class="form-control" formControlName="customerRelation"
                                                        id="customerRelation{{i}}"
                                                        [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelation').errors }">
-                                                   <option [value]="null">Select Relation</option>
+                                                   <option [value]="null" hidden>Select Relation</option>
                                                    <option [value]="relation.id" *ngFor="let relation of relationArray.relation">{{relation.name}}</option>
                                                </select>
                                                <div *ngIf="submitted && relatives.get('customerRelation').errors"
