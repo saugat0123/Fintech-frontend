@@ -286,8 +286,10 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
                     - Number(this.financialService.fetchValuesForSubCategories(this.incomeStatementForm
                         .get('operatingExpensesCategory'), 'Amortization/Other Non-Cash Expenses', index)))
                     .toFixed(2);
+
+                /** Commented this because this made the 'addOpeningBalance' field editable being inexplicable **/
+                // cashFlowStatement.addOpeningBalance[index].value = Number(operatingProfit.controls['value'].value);
             }
-            // cashFlowStatement.addOpeningBalance[index].value = Number(operatingProfit.controls['value'].value);
         }
 
         cashFlowStatement.nonOperatingIncomeExpenses[index].value = nonOperatingIncomeOrExpenses.controls['value'].value;

@@ -516,6 +516,40 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
     }
 
     handleFirstYearInputChanges() {
+        const netProfitForThePeriod = (this.cashFlowStatementForm.get('netProfitForThePeriod') as FormArray).value[0].value;
+        const depreciation = (this.cashFlowStatementForm.get('depreciation') as FormArray).value[0].value;
+        const otherAmortizationAndNonCashExpenses =
+            (this.cashFlowStatementForm.get('otherAmortizationAndNonCashExpenses') as FormArray).value[0].value;
+        const increaseDecreaseInInventory = (this.cashFlowStatementForm.get('increaseDecreaseInInventory') as FormArray).value[0].value;
+        const increaseDecreaseInAccountsReceivable =
+            (this.cashFlowStatementForm.get('increaseDecreaseInAccountsReceivable') as FormArray).value[0].value;
+        const increaseDecreaseInShortTermInvestment =
+            (this.cashFlowStatementForm.get('increaseDecreaseInShortTermInvestment') as FormArray).value[0].value;
+        const increaseDecreaseInAdvanceAndDeposit =
+            (this.cashFlowStatementForm.get('increaseDecreaseInAdvanceAndDeposit') as FormArray).value[0].value;
+        const increaseDecreaseInOtherCurrentAssets =
+            (this.cashFlowStatementForm.get('increaseDecreaseInOtherCurrentAssets') as FormArray).value[0].value;
+        const increaseDecreaseInCreditors = (this.cashFlowStatementForm.get('increaseDecreaseInCreditors') as FormArray).value[0].value;
+        const increaseDecreaseInOtherCurrentLiabilities =
+            (this.cashFlowStatementForm.get('increaseDecreaseInOtherCurrentLiabilities') as FormArray).value[0].value;
+        const adjustmentForNonOperatingIncome =
+            (this.cashFlowStatementForm.get('adjustmentForNonOperatingIncome') as FormArray).value[0].value;
+        const interestExpensesCFSa = (this.cashFlowStatementForm.get('interestExpensesCFSa') as FormArray).value[0].value;
+
+        ((this.cashFlowStatementForm.get('cashFromOperatingActivities') as FormArray).controls[0] as FormGroup)
+            .controls['value'].patchValue((Number(netProfitForThePeriod)
+            + Number(depreciation)
+            + Number(otherAmortizationAndNonCashExpenses)
+            + Number(increaseDecreaseInInventory)
+            + Number(increaseDecreaseInAccountsReceivable)
+            + Number(increaseDecreaseInShortTermInvestment)
+            + Number(increaseDecreaseInAdvanceAndDeposit)
+            + Number(increaseDecreaseInOtherCurrentAssets)
+            + Number(increaseDecreaseInCreditors)
+            + Number(increaseDecreaseInOtherCurrentLiabilities)
+            + Number(adjustmentForNonOperatingIncome)
+            + Number(interestExpensesCFSa)).toFixed(2));
+
         const cashFromOperatingActivities = (this.cashFlowStatementForm.get('cashFromOperatingActivities') as FormArray).value[0].value;
         const addOpeningBalance = (this.cashFlowStatementForm.get('addOpeningBalance') as FormArray).value[0].value;
 

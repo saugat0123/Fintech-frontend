@@ -90,7 +90,7 @@
                     formArrayName="increaseDecreaseInInventory" scope="col">
                     <div [formGroupName]="j" class="text-center">
                         <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInInventory">
-                            <input formControlName="value" class="text-center headingParticular" type="number"
+                            <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
 
@@ -111,7 +111,7 @@
                     formArrayName="increaseDecreaseInAccountsReceivable" scope="col">
                     <div [formGroupName]="j" class="text-center">
                         <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInAccountsReceivable">
-                            <input formControlName="value" class="text-center headingParticular" type="number"
+                            <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
 
@@ -132,7 +132,7 @@
                     formArrayName="increaseDecreaseInShortTermInvestment" scope="col">
                     <div [formGroupName]="j" class="text-center">
                         <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInShortTermInvestment">
-                            <input formControlName="value" class="text-center headingParticular" type="number"
+                            <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
 
@@ -153,7 +153,7 @@
                     formArrayName="increaseDecreaseInAdvanceAndDeposit" scope="col">
                     <div [formGroupName]="j" class="text-center">
                         <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInAdvanceAndDeposit">
-                            <input formControlName="value" class="text-center headingParticular" type="number"
+                            <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
 
@@ -174,7 +174,7 @@
                     formArrayName="increaseDecreaseInOtherCurrentAssets" scope="col">
                     <div [formGroupName]="j" class="text-center">
                         <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInOtherCurrentAssets">
-                            <input formControlName="value" class="text-center headingParticular" type="number"
+                            <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
 
@@ -195,7 +195,7 @@
                     formArrayName="increaseDecreaseInCreditors" scope="col">
                     <div [formGroupName]="j" class="text-center">
                         <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInCreditors">
-                            <input formControlName="value" class="text-center headingParticular" type="number"
+                            <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
 
@@ -216,7 +216,7 @@
                     formArrayName="increaseDecreaseInOtherCurrentLiabilities" scope="col">
                     <div [formGroupName]="j" class="text-center">
                         <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInOtherCurrentLiabilities">
-                            <input formControlName="value" class="text-center headingParticular" type="number"
+                            <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
 
