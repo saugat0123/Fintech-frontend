@@ -593,7 +593,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4 form-group" *ngIf="client === clientName?.ICFC">
+                                <div class="col-md-4 form-group" *ngIf="client !== clientName?.MEGA">
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'swapCharge')"
                                                  [checked]="swapChargeChecked"><b>Swap Charge<em class="sb-medium">(if any)</em></b>
                                     </nb-checkbox>
@@ -649,6 +649,28 @@
 
 
                                 <!--                end of Moratorium Period amount div-->
+                                <div class="col-md-12 form-group" *ngIf="client !== clientName?.MEGA">
+                                    <label class="title" for="prepaymentSwapCommitment"
+                                           *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral; else commitmentDescription">
+                                        <strong>Prepayment/Commitment/Swap Charge Description</strong>
+                                    </label>
+                                    <ng-template #commitmentDescription>
+                                        <label *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral; else swapChargeDescription">
+                                            <strong>Commitment/Swap Charge Description</strong>
+                                        </label>
+                                    </ng-template>
+                                    <ng-template #swapChargeDescription>
+                                        <label class="title" for="prepaymentSwapCommitment"><strong>Swap Charge Description</strong></label>
+                                    </ng-template>
+                                    <ckeditor [ngClass]="{ 'is-invalid': (submitted) && formControls.prepaymentSwapCommitment.errors}"
+                                              formControlName="prepaymentSwapCommitment" id="prepaymentSwapCommitment"
+                                              name="prepaymentSwapCommitment"
+                                              [config]="ckeConfig"></ckeditor>
+                                    <div *ngIf="(submitted) && formControls.prepaymentSwapCommitment.invalid"
+                                         class="text-danger">
+                                        <span *ngIf="formControls.prepaymentSwapCommitment.errors">Prepayment/Commitment/Swap Charge Description</span>
+                                    </div>
+                                </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title" for="disbursementCriteria"><strong>Disbursement

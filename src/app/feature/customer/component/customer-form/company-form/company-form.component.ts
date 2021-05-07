@@ -558,6 +558,9 @@ export class CompanyFormComponent implements OnInit {
                 this.businessGiven.total],
             totalSharePercent: [0],
 
+            addressLegalDocument: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyJsonData.addressLegalDocument)) ? undefined :
+                this.companyJsonData.addressLegalDocument],
 
         });
         if (!this.additionalFieldSelected) {
@@ -1007,6 +1010,7 @@ export class CompanyFormComponent implements OnInit {
         submitData.proprietorList = this.companyJsonData.proprietorList;
         submitData.totalSharePercent = this.companyInfoFormGroup.get('totalSharePercent').value;
         submitData.isAdditionalCompanyInfo = this.additionalFieldSelected;
+        submitData.addressLegalDocument = this.companyInfoFormGroup.get('addressLegalDocument').value;
 
         if (this.microCustomer) {
             /** micro data **/
