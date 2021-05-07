@@ -1380,10 +1380,10 @@
           <th>Total Value</th>
           <th>Considered Value</th>
           <th>Ownership transfer Date</th>
-          <th>Price Earning Ratio</th>
-          <th>Price to Book Value</th>
-          <th>Dividend Yield</th>
-          <th>Dividend Payout Ratio</th>
+          <th *ngIf="client === clientName?.ICFC">Price Earning Ratio</th>
+          <th *ngIf="client === clientName?.ICFC">Price to Book Value</th>
+          <th *ngIf="client === clientName?.ICFC">Dividend Yield</th>
+          <th *ngIf="client === clientName?.ICFC">Dividend Payout Ratio</th>
         </tr>
         </thead>
         <tbody>
@@ -1396,13 +1396,13 @@
           <td class="text-right pr-1">Rs. {{singleShareData?.total |currencyFormatter}}</td>
           <td class="text-right pr-1">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
           <td class="text-left pl-1">{{singleShareData?.ownershipTransferDate |date}}</td>
-          <td class="text-left pl-1">{{singleShareData?.priceEarningRatio}}</td>
-          <td class="text-left pl-1">{{singleShareData?.priceBookValue}}</td>
-          <td class="text-left pl-1">{{singleShareData?.dividendYeild}}</td>
-          <td class="text-left pl-1">{{singleShareData?.dividendPayoutRatio}}</td>
+          <td class="text-left pl-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.priceEarningRatio}}</td>
+          <td class="text-left pl-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.priceBookValue}}</td>
+          <td class="text-left pl-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.dividendYeild}}</td>
+          <td class="text-left pl-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.dividendPayoutRatio}}</td>
         </tr>
         <tr>
-          <th class="text-left pl-1" colspan="8">Total</th>
+          <th class="text-left pl-1" colspan="6">Total</th>
           <th class="text-right pr-1">Rs. {{shareTotalValue |currencyFormatter}}</th>
           <th class="text-right pr-1">Rs. {{totalConsideredValue |currencyFormatter}}</th>
           <th></th>
@@ -1410,9 +1410,9 @@
         <tr>
           <th></th>
           <th class="sb-bg-dark text-white">Price As per Date</th>
-          <td colspan="6" class="text-left pl-1">{{shareSecurity?.sharePriceDate |date}}</td>
+          <td colspan="4" class="text-left pl-1">{{shareSecurity?.sharePriceDate |date}}</td>
           <th class="sb-bg-dark text-white">Average Day's for Share Price</th>
-          <td colspan="6" class="text-left pl-1">{{shareSecurity?.avgDaysForPrice}} days</td>
+          <td colspan="4" class="text-left pl-1">{{shareSecurity?.avgDaysForPrice}} days</td>
         </tr>
         <tr>
           <th class="text-white sb-bg-dark">Description</th>
