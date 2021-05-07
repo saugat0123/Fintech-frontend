@@ -30,7 +30,7 @@
           <td><b>Regd. Number</b></td>
           <td>{{companyInfo?.registrationNumber}}</td>
         </tr>
-        <tr>
+        <tr *ngIf="client === clientName?.SHINE_RESUNGA">
           <td><b>Address as per legal Document</b></td>
           <td>{{companyJsonData?.addressLegalDocument}}</td>
         </tr>
