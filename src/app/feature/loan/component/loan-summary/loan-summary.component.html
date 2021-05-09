@@ -466,7 +466,7 @@
                                 <td class="pl-1" *ngIf="client !== clientName.MEGA">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
                                 <td class="pl-1" *ngIf="client !== clientName.MEGA">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
                                 <td class="text-left pl-1">{{loanDataHolder?.loanHolder['clientType']}}</td>
-                                <td class="text-left pl-1">{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
+                                <td class="text-left pl-1">{{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
                                 <!--<td>{{loanDataHolder?.customerInfo?.customerLegalDocumentAddress}}</td>-->
 
                             </tr>
