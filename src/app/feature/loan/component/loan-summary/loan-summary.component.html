@@ -9,6 +9,7 @@
                         <app-role-heirarchy-chain [refId]="id"
                         [loanDataHolder]="loanDataHolder"
                         [branchId]="loanDataHolder?.branch?.id"
+                        [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
                         [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"></app-role-heirarchy-chain>
                     </div>
                     <div *ngIf="(loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
