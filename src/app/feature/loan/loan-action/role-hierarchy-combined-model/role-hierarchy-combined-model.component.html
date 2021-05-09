@@ -115,52 +115,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--                  //sol-->
-                                        <div *ngIf="isMaker">
-                                            <div class="col-md-12">
-                                                <nb-checkbox class="cursor" [checked]="preSelectedSolUser[i]?.isSol"
-                                                             formControlName="isSol"
-                                                             (checkedChange)="showHideSol($event,i)">is SOL?
-                                                </nb-checkbox>
-                                            </div>
-                                            <div class="col-md-12 row" *ngIf="showSolUser[i]?.value">
-                                                <div class="col-md-6">
-                                                    <label class="selectedRoleForSol" for="selectedRoleForSol{{i}}">Approval
-                                                        Role</label>
-                                                    <select style="width: 100%"
-                                                            [compareWith]="compareFn"
-                                                            (change)="getIndividualUserSolList(control?.get('selectedRoleForSol').value, i)"
-                                                            class="form-control form-control-sm"
-                                                            formControlName="selectedRoleForSol"
-                                                            id="selectedRoleForSol{{i}}"
-                                                            name="selectedRoleForSol">
-                                                        <option [value]="null" hidden>Select To</option>
-                                                        <option
-                                                                *ngFor="let forwardBackward of sendForwardBackwardList"
-                                                                [ngValue]="forwardBackward?.role">
-                                                            {{forwardBackward?.role?.roleName}}
-                                                        </option>
-                                                    </select>
-                                                    <div class="sb-small text-danger" *ngIf="!isSolUserPresent[i]">
-                                                        No User Present in this Role for this Branch
-                                                    </div>
-                                                </div>
-                                                <div *ngIf="individualType?.solUsers.get(i)?.length > 1" class="row">
-                                                    <div class="col-md-12 form-group">
-                                                        <label class="solUser" for="toUser">Approval User</label>
-                                                        <select class="form-control form-control-sm"
-                                                                style="width: 100%"
-                                                                formControlName="solUser" id="solUser{{i}}"
-                                                                name="solUser"
-                                                                [compareWith]="compareFn">
-                                                            <option *ngFor="let user of individualType?.solUsers.get(i)"
-                                                                    [ngValue]="user">
-                                                                {{user.username}}
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </nb-accordion-item-body>
                                 </nb-accordion-item>
                             </nb-accordion>
@@ -211,50 +165,6 @@
                                             *ngIf="combinedType?.submitted && combinedType?.form.controls['comment'].hasError('required')"
                                             class="error-message"
                                             style="color: red;">comment is required
-                                    </div>
-                                </div>
-                            </div>
-                            <!--//sol-->
-                            <div *ngIf="isMaker">
-                                <div class="col-md-12">
-                                    <nb-checkbox class="cursor" formControlName="isSol"
-                                                 [checked]="preSelectedSolUser[0]?.isSol"
-                                                 (checkedChange)="showHideSolCombine($event)"
-                                    >is SOL?
-                                    </nb-checkbox>
-                                </div>
-                                <div class="col-md-12 row" *ngIf="showHideCombineSolUser">
-                                    <div class="col-md-6">
-                                        <label class="toRole" for="toRole">Approval Role</label>
-                                        <select style="width: 100%"
-                                                [compareWith]="compareFn"
-                                                (change)="getCombinedSolUserList(combinedType?.form.get('selectedRoleForSol').value)"
-                                                class="form-control form-control-sm"
-                                                formControlName="selectedRoleForSol"
-                                                name="solUser">
-                                            <option [value]="null" hidden>Select To</option>
-                                            <option *ngFor="let forwardBackward of sendForwardBackwardList"
-                                                    [ngValue]="forwardBackward.role"
-                                            >
-                                                {{forwardBackward.role?.roleName}}
-                                            </option>
-                                        </select>
-                                        <div class="sb-small text-danger" *ngIf="!isSolUserPresentForCombine">
-                                            No User Present in this Role For this Branch
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6" *ngIf="combinedType?.solUserList?.length > 1">
-                                        <div style="width:100%">
-                                            <label class="solUser" for="solUser">Approval User</label>
-                                            <select class="form-control form-control-sm" formControlName="solUser"
-                                                    id="solUser"
-                                                    name="solUser"
-                                                    [compareWith]="compareFn">
-                                                <option *ngFor="let user of combinedType?.solUserList"
-                                                        [ngValue]="user">
-                                                    {{user.username}}</option>
-                                            </select>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
