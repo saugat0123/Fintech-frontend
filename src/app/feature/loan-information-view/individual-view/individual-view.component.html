@@ -25,8 +25,8 @@
         <td class="text-right pr-1">{{individual?.citizenshipNumber}}</td>
         <td class="text-left pl-1">{{individual?.citizenshipIssuedDate | date}}</td>
         <td class="text-left pl-1">{{individual?.citizenshipIssuedPlace}}</td>
-        <td class="text-left pl-1">{{customerInfo?.gender || 'N/A'}}</td>
-        <td class="text-left pl-1">{{customerInfo?.maritalStatus || 'N/A'}}</td>
+        <td class="text-left pl-1">{{customerInfo?.gender}}</td>
+        <td class="text-left pl-1">{{customerInfo?.maritalStatus}}</td>
       </tr>
       </tbody>
       <thead>
@@ -137,7 +137,7 @@
           {{relative.citizenshipNumber || 'N/A'}}
         </td>
         <td class="text-left pl-1">
-          {{relative.citizenshipIssuedDate || 'N/A' | date }}
+          {{relative.citizenshipIssuedDate | date}}
         </td>
         <td class="text-left pl-1">{{relative.citizenshipIssuedPlace || 'N/A'}}</td>
         <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{relative.age}}</td>

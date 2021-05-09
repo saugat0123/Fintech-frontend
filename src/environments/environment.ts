@@ -17,17 +17,17 @@ import {Clients} from './Clients';
  */
 export const environment = {
   production: false,
-  client: Clients.SHINE_RESUNGA,
+  client: Clients.MEGA,
   GOOGLE_MAP_API_KEY: 'AIzaSyDKERYllGf5BfVR_c_45nqHVkbHoPgXPDA',
   LOCAL_STORAGE_KEY: 'QP\'`0tWfyBni^(*rv0gB].ck$s@z(/',
   LOCAL_STORAGE_NAME: 'SBSolutionsLAS',
   enablePreAddingAccountNumber: true,
   disableCrgAlpha: true,
   disableApprovalSheet: false,
-  microLoan: false,
-  isMega: false,
+  microLoan: true,
+  isMega: true,
   SBS_GROUP: false,
-  MEGA_GROUP: false,
+  MEGA_GROUP: true,
 };
 
 /*
