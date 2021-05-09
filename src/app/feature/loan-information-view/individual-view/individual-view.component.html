@@ -20,7 +20,7 @@
       <tbody>
       <tr>
         <td class="text-left pl-1">{{individual?.customerName}}</td>
-        <td class="text-right pr-1">{{customerInfo?.customerCode}}</td>
+        <td class="text-right pr-1">{{customerInfo?.customerCode || 'N/A'}}</td>
         <td class="text-left pl-1">{{individual?.dob | date}}</td>
         <td class="text-right pr-1">{{individual?.citizenshipNumber}}</td>
         <td class="text-left pl-1">{{individual?.citizenshipIssuedDate | date}}</td>
@@ -60,7 +60,7 @@
         <th *ngIf="client === clientName?.SHINE_RESUNGA">Obligor Code</th>
       </tr>
       <tr>
-        <td class="text-left pl-1">{{customerInfo?.subsectorDetail}}</td>
+        <td class="text-left pl-1">{{customerInfo?.subsectorDetail || 'N/A'}}</td>
         <td class="text-left pl-1">{{customerInfo?.customerLegalDocumentAddress}}</td>
         <td class="text-left pl-1" *ngIf="client === clientName?.SHINE_RESUNGA">{{customerInfo?.obligor}}</td>
       </tr>
@@ -134,12 +134,12 @@
           {{relative.customerRelation}}
         </td>
         <td class="text-right pr-1">
-          {{relative.citizenshipNumber}}
+          {{relative.citizenshipNumber || 'N/A'}}
         </td>
         <td class="text-left pl-1">
           {{relative.citizenshipIssuedDate | date}}
         </td>
-        <td class="text-left pl-1">{{relative.citizenshipIssuedPlace}}</td>
+        <td class="text-left pl-1">{{relative.citizenshipIssuedPlace || 'N/A'}}</td>
         <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{relative.age}}</td>
 
       </tr>
@@ -159,19 +159,19 @@
         <th colspan="2">Income Risk</th>
       </tr>
       <tr>
-        <td colspan="2" class="text-left pl-1" [innerHTML]="individualJsonData?.incomeRisk | safeHtml"></td>
+        <td colspan="2" class="text-left pl-1" [innerHTML]="individualJsonData?.incomeRisk || 'N/A' | safeHtml"></td>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th colspan="2">Security Risk</th>
       </tr>
       <tr>
-        <td colspan="2" class="text-left pl-1" [innerHTML]="individualJsonData?.securityRisk | safeHtml"></td>
+        <td colspan="2" class="text-left pl-1" [innerHTML]="individualJsonData?.securityRisk || 'N/A' | safeHtml"></td>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th colspan="2">Succession Risk</th>
       </tr>
       <tr>
-        <td colspan="2" class="text-left pl-1" [innerHTML]="individualJsonData?.successionRisk | safeHtml"></td>
+        <td colspan="2" class="text-left pl-1" [innerHTML]="individualJsonData?.successionRisk || 'N/A'  | safeHtml"></td>
       </tr>
       <tr *ngIf="!crgLambdaDisabled" class="text-white sb-bg-dark">
         <th>Banking Relationship</th>
