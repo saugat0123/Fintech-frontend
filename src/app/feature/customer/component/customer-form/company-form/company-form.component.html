@@ -120,6 +120,27 @@
                                        </div>
                                    </div>
                                </div>
+
+                               <div class="col-md-4" *ngIf="client === clientName?.SHINE_RESUNGA">
+                                   <div class="form-group rounded">
+                                       <label for="addressLegalDocument"><strong>Address as Per Legal Document</strong></label>
+                                       <div class="input-group mb-3">
+                                           <input [ngClass]="{ 'is-invalid':submitted && form.addressLegalDocument.errors }"
+                                                  class="form-control rounded"
+                                                  formControlName="addressLegalDocument"
+                                                  id="addressLegalDocument"
+                                                  min="0" placeholder="Enter legal Document Address"
+                                                  type="text"/>
+                                           <div *ngIf="submitted && form.addressLegalDocument.errors "
+                                                class="invalid-feedback">
+                                               <div *ngIf="form.addressLegalDocument.errors.required">
+                                                   Address as per legal document is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+
                            </div>
                            <div class="row">
                                <div class="col-md-4">

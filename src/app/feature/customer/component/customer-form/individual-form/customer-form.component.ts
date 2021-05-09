@@ -467,7 +467,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         const relation = ['Grand Father', 'Father'];
         relation.forEach((customerRelation) => {
             (this.basicInfo.get('customerRelatives') as FormArray).push(this.formBuilder.group({
-                customerRelation: [{value: customerRelation, disabled: true}],
+                customerRelation: [{value: customerRelation, disabled: false}],
                 customerRelativeName: [undefined, Validators.required],
                 citizenshipNumber: [undefined],
                 citizenshipIssuedPlace: [undefined],
@@ -486,7 +486,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 // Increase index number with increase in static relatives---
                 relativesData.push(this.formBuilder.group({
                     customerRelation: (index > 1) ? [(customerRelative)] :
-                        [({value: customerRelative, disabled: true}), Validators.required],
+                        [({value: customerRelative, disabled: false}), Validators.required],
                     customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
                     version: [singleRelatives.version === undefined ? undefined : singleRelatives.version],
                     citizenshipNumber: [singleRelatives.citizenshipNumber],

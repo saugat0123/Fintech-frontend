@@ -24,4 +24,5 @@ export class CompanyJsonData {
   microCustomerDetail: any;
   totalSharePercent: string;
   isAdditionalCompanyInfo: boolean;
+  addressLegalDocument: string;
 }
