@@ -20,7 +20,7 @@
             <tbody>
             <tr>
                 <td class="text-left pl-1">{{formValue?.companyName}}</td>
-                <td class="text-right pr-1">{{customerInfo['customerCode']}}</td>
+                <td class="text-right pr-1">{{customerInfo['customerCode'] || 'N/A'}}</td>
                 <td class="text-left pl-1">{{formValue?.establishmentDate | date}}</td>
                 <td class="text-right pr-1">{{formValue?.registrationNumber}}</td>
                 <td class="text-left pl-1">{{formValue?.issuePlace}}</td>
