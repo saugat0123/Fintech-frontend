@@ -8,7 +8,7 @@
         <th colspan="12" class="text-left">Guarantor {{i + 1}} Details (<i class="fas fa-check" *ngIf="guarantor?.consentOfLegalHeirs"></i><i class="fas fa-times" *ngIf="!guarantor?.consentOfLegalHeirs"></i> Consent of Legal Heirs)</th>
       </tr>
       <tr class="text-white sb-bg-dark">
-        <th>Name</th>
+        <th colspan="2">Name</th>
         <th>CitizenNumber</th>
         <th>Issued Year</th>
         <th>Issued Place</th>
@@ -21,7 +21,7 @@
       </thead>
       <tbody>
       <tr>
-        <td class="text-left pl-1">{{guarantor?.name}}</td>
+        <td class="text-left pl-1" colspan="2">{{guarantor?.name}}</td>
         <td class="text-right pr-1">{{guarantor?.citizenNumber}}</td>
         <td class="text-left pl-1">{{guarantor?.issuedYear | date}}</td>
         <td class="text-left pl-1">{{guarantor?.issuedPlace}}</td>
@@ -34,43 +34,35 @@
       </tbody>
       <thead>
       <tr class="text-white sb-bg-dark">
-        <th>Municipalities</th>
+        <th colspan="2">Municipalities</th>
         <th>Ward Number</th>
         <th>Street Name</th>
         <th>Contact Number</th>
         <th>Father Name</th>
         <th>Grand Father Name</th>
+        <td>Mother Name</td>
+        <td>Spouse Name</td>
+        <td>Father-in-Law Name</td>
       </tr>
       </thead>
       <tbody>
       <tr>
-        <td class="text-left pl-1">{{guarantor?.municipalities?.name}}</td>
+        <td class="text-left pl-1" colspan="2">{{guarantor?.municipalities?.name}}</td>
         <td class="text-right pr-1">{{guarantor?.wardNumber}}</td>
         <td class="text-left pl-1">{{guarantor?.streetName}}</td>
         <td class="text-right pr-1">{{guarantor?.contactNumber}}</td>
         <td class="text-left pl-1">{{guarantor?.fatherName}}</td>
         <td class="text-left pl-1">{{guarantor?.grandFatherName}}</td>
+        <td class="text-left pl-1">{{guarantor?.motherName}}</td>
+        <td class="text-left pl-1">{{guarantor?.spouseName}}</td>
+        <td class="text-left pl-1">{{guarantor?.fatherInLaw}}</td>
 
       </tr>
       </tbody>
       <tr class="text-white sb-bg-dark">
-        <td>Mother Name</td>
-        <td>Spouse Name</td>
-        <td>Father-in-Law Name</td>
         <td>Profession</td>
         <td>Date of Birth</td>
         <th>Relationship</th>
-
-      </tr>
-      <tr>
-        <td class="text-left pl-1">{{guarantor?.motherName}}</td>
-        <td class="text-left pl-1">{{guarantor?.spouseName}}</td>
-        <td class="text-left pl-1">{{guarantor?.fatherInLaw}}</td>
-        <td class="text-left pl-1">{{Occupation[guarantor?.profession]}}</td>
-        <td class="text-left pl-1">{{guarantor?.dateOfBirth | date}}</td>
-        <td class="text-left pl-1">{{guarantor?.relationship}}</td>
-      </tr>
-      <tr class="text-white sb-bg-dark">
         <th>Net Worth</th>
         <th>Temporary Address 1</th>
         <th>Temporary Address 2</th>
@@ -81,6 +73,9 @@
 
       </tr>
       <tr>
+        <td class="text-left pl-1">{{Occupation[guarantor?.profession]}}</td>
+        <td class="text-left pl-1">{{guarantor?.dateOfBirth | date}}</td>
+        <td class="text-left pl-1">{{guarantor?.relationship}}</td>
         <td class="text-right pr-1">Rs. {{guarantor?.netWorth | currencyFormatter}}</td>
         <td class="text-right pr-1">{{guarantor?.temporaryAddressLineOne}}</td>
         <td class="text-right pr-1">{{guarantor?.temporaryAddressLineTwo}}</td>
@@ -88,14 +83,12 @@
         <td class="text-left pl-1">{{guarantor?.districtTemporary?.name}}</td>
         <td class="text-left pl-1">{{guarantor?.municipalitiesTemporary?.name}}</td>
         <td class="text-right pr-1">{{guarantor?.wardNumberTemporary}}</td>
-
       </tr>
       <tr class="text-white sb-bg-dark">
-        <td colspan="9">BackGround</td>
+        <td colspan="10">BackGround</td>
       </tr>
       <tr>
-        <th colspan="9" class="text-left pl-1">{{guarantor?.background}}</th>
-
+        <th colspan="10" class="text-left pl-1">{{guarantor?.background}}</th>
       </tr>
     </table>
   </div>
