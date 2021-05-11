@@ -114,15 +114,15 @@
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
-                <th colspan="4">Capital Information</th>
+                <th colspan="7">Capital Information</th>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Authorized Capital</th>
                 <th>Issued Capital</th>
                 <th>Paid Up Capital</th>
-                <!--        <th>Total Capital</th>-->
-                <!--        <th>Fixed Capital</th>-->
-                <!--        <th>Working Capital</th>-->
+                <th *ngIf="client === clientName?.ICFC">Total Capital</th>
+                <th *ngIf="client === clientName?.ICFC">Fixed Capital</th>
+                <th *ngIf="client === clientName?.ICFC">Working Capital</th>
                 <th>Number Of Shareholder</th>
             </tr>
             </thead>
@@ -131,9 +131,9 @@
                 <td class="text-right pr-1">Rs. {{formValue?.capital?.authorizedCapital | currencyFormatter}}</td>
                 <td class="text-right pr-1">Rs. {{formValue?.capital?.issuedCapital | currencyFormatter}}</td>
                 <td class="text-right pr-1">Rs. {{formValue?.capital?.paidUpCapital | currencyFormatter}}</td>
-                <!--        <td>{{formValue?.capital?.totalCapital}}</td>-->
-                <!--        <td>{{formValue?.capital?.fixedCapital}}</td>-->
-                <!--        <td>{{formValue?.capital?.workingCapital}}</td>-->
+                <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">Rs. {{formValue?.capital?.totalCapital}}</td>
+                <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">Rs. {{formValue?.capital?.fixedCapital}}</td>
+                <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">Rs. {{formValue?.capital?.workingCapital}}</td>
                 <td class="text-right pr-1">{{formValue?.capital?.numberOfShareholder}}</td>
             </tr>
             </tbody>
