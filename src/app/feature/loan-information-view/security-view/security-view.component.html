@@ -1367,7 +1367,7 @@
       <table class="table table-sm table-bordered text-center table-sm sb-small">
         <thead>
         <tr>
-          <th colspan="12">
+          <th colspan="11">
             Share Security Detail(Promoter Percent: {{loanSharePercent == undefined? 0: loanSharePercent.promoter}} , Ordinary Percent: {{loanSharePercent == undefined? 0 : loanSharePercent.ordinary}})
           </th>
         </tr>
@@ -1404,13 +1404,17 @@
           <th class="text-right pr-1">Rs. {{shareTotalValue |currencyFormatter}}</th>
           <th class="text-right pr-1">Rs. {{totalConsideredValue |currencyFormatter}}</th>
           <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
         </tr>
         <tr>
           <th></th>
           <th class="sb-bg-dark text-white">Price As per Date</th>
-          <td colspan="4" class="text-left pl-1">{{shareSecurity?.sharePriceDate |date}}</td>
+          <td colspan="3" class="text-left pl-1">{{shareSecurity?.sharePriceDate |date}}</td>
           <th class="sb-bg-dark text-white">Average Day's for Share Price</th>
-          <td colspan="4" class="text-left pl-1">{{shareSecurity?.avgDaysForPrice}} days</td>
+          <td colspan="3" class="text-left pl-1">{{shareSecurity?.avgDaysForPrice}} days</td>
+          <th></th>
           <th></th>
         </tr>
         <tr>
