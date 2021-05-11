@@ -1469,7 +1469,7 @@ export class SecurityInitialFormComponent implements OnInit {
     get totalConsideredValue() {
         let total = 0;
         this.shareField.controls.forEach(c => total += Number(c.get('consideredValue').value));
-        return total;
+        return total.toFixed(2);
     }
 
     get shareField() {
@@ -1505,8 +1505,6 @@ export class SecurityInitialFormComponent implements OnInit {
                     amountPerUnit: [share.amountPerUnit],
                     total: [share.total],
                     consideredValue: [share.consideredValue],
-                    ownershipTransferDate: [ObjectUtil.isEmpty(share.ownershipTransferDate) ?
-                        undefined : new Date(share.ownershipTransferDate)],
                     priceEarningRatio: [share.priceEarningRatio],
                     priceBookValue: [share.priceBookValue],
                     dividendYeild: [share.dividendYeild],
@@ -1527,7 +1525,6 @@ export class SecurityInitialFormComponent implements OnInit {
             amountPerUnit: [''],
             total: [''],
             consideredValue: [''],
-            ownershipTransferDate: undefined,
             priceEarningRatio: [undefined],
             priceBookValue: [undefined],
             dividendYeild: [undefined],
