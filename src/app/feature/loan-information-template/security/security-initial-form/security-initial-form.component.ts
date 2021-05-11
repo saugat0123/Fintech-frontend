@@ -30,6 +30,8 @@ import {InsuranceList} from '../../../loan/model/insuranceList';
 import {FormUtils} from '../../../../@core/utils/form.utils';
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
+import {FixAssetCollateralComponent} from './fix-asset-collateral/fix-asset-collateral.component';
 
 
 @Component({
@@ -147,6 +149,11 @@ export class SecurityInitialFormComponent implements OnInit {
     totalLandValueRemarks: any;
     client = environment.client;
     clientName = Clients;
+    landForSiteVisit = false;
+    landAndBuildingForSiteVisit = false;
+    hypothecationForSiteVisit = false;
+    dialogRef: NbDialogRef<any>;
+    isOpen = false;
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -156,7 +163,8 @@ export class SecurityInitialFormComponent implements OnInit {
                 private nepsePriceInfoService: NepsePriceInfoService,
                 private datePipe: DatePipe,
                 private toastService: ToastService,
-                private roleService: RoleService) {
+                private roleService: RoleService,
+                private nbDialogService: NbDialogService) {
     }
 
 
@@ -405,6 +413,7 @@ export class SecurityInitialFormComponent implements OnInit {
         const landDetails = this.securityForm.get('landDetails') as FormArray;
         currentData.forEach((singleData, index) => {
             if (this.landOtherBranchChecked && singleData['landBranch']) {
+                this.landForSiteVisit = true;
                 this.valuator(singleData['landBranch']['id'], 'land', index);
             } else {
                 this.valuator(null, 'land', index);
@@ -455,6 +464,7 @@ export class SecurityInitialFormComponent implements OnInit {
 
     setHypothecation(currentData) {
         if (!ObjectUtil.isEmpty(currentData)) {
+            this.hypothecationForSiteVisit = true;
             const hypothecationDetails = this.securityForm.get('hypothecationOfStock') as FormArray;
             currentData.forEach((singleData) => {
                 hypothecationDetails.push(
@@ -609,6 +619,7 @@ export class SecurityInitialFormComponent implements OnInit {
         const buildingDetails = this.securityForm.get('landBuilding') as FormArray;
         Data.forEach((singleData, index) => {
             if (this.otherBranchcheck && singleData.buildingBranch) {
+                this.landAndBuildingForSiteVisit = true;
                 this.valuator(singleData['buildingBranch']['id'], 'building', index);
             } else {
                 this.valuator(null, 'building', index);
@@ -1890,5 +1901,22 @@ export class SecurityInitialFormComponent implements OnInit {
         } else {
             this.plantOtherBranchChecked = true;
         }
+    }
+
+    public close() {
+        if (this.isOpen) {
+            this.dialogRef.close();
+            this.isOpen = false;
+        }
+    }
+
+    openSiteVisitModel() {
+        this.close();
+        this.dialogRef = this.nbDialogService.open(FixAssetCollateralComponent, {
+            closeOnBackdropClick: false,
+            hasBackdrop: false,
+            hasScroll: true
+        });
+        this.isOpen = true;
     }
 }

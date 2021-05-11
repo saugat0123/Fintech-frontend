@@ -24,6 +24,9 @@
         <!--        </nb-checkbox>-->
         <!--Land Security-->
         <nb-card [hidden]="!landSelected" class="p-3">
+            <div class="row justify-content-end">
+                <button class="btn btn-primary sb-small" (click)="openSiteVisitModel()">Inspect Site Visit</button>
+            </div>
             <div class="box-header with-border">
                 <h2 class="box-title title">Details of Security Offered and Value Amount : LAND</h2>
             </div>
@@ -1250,6 +1253,9 @@
         </nb-card>
         <!--        Land Building security-->
         <nb-card [hidden]="!landBuilding" class="p-5">
+            <div class="row justify-content-end">
+                <button class="btn btn-primary sb-small">Inspect Site Visit</button>
+            </div>
             <div class="row">
                 <div class="col-md-5">
                     <div class="box-header with-border">
@@ -2731,6 +2737,9 @@
         </nb-card>
 
         <nb-card [hidden]="!hypothecation" class="p-3">
+            <div class="row justify-content-end">
+                <button class="btn btn-primary sb-small">Inspect Site Visit</button>
+            </div>
             <div class="box-header with-border">
                 <h2 class="box-title title">Hypothecation of Stock</h2>
             </div>
