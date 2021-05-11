@@ -609,51 +609,51 @@
                        </div>
                        <!-- END ROW -->
                        <!-- START ROW -->
-<!--                       <div class="row">-->
-<!--                           <div class="col-md-4">-->
-<!--                               <div class="form-group">-->
-<!--                                   <label for="totalCapital"><strong>Total Capital</strong></label>-->
-<!--                                   <input id="totalCapital" formControlName="totalCapital" name="totalCapital" type="number"-->
-<!--                                          class="form-control" placeholder="Total Capital"-->
-<!--                                          [ngClass]="{ 'is-invalid': (submitted) && form.totalCapital.errors }">-->
-<!--                                   <div *ngIf="(submitted) && form.totalCapital.invalid"-->
-<!--                                        class="invalid-feedback">-->
-<!--                                       <div *ngIf="form.totalCapital.errors.required">-->
-<!--                                           Total Capital is required-->
-<!--                                       </div>-->
-<!--                                   </div>-->
-<!--                               </div>-->
-<!--                           </div>-->
-<!--                           <div class="col-md-4">-->
-<!--                               <div class="form-group">-->
-<!--                                   <label for="fixedCapital"><strong>Fixed Capital</strong></label>-->
-<!--                                   <input id="fixedCapital" formControlName="fixedCapital" name="fixedCapital" type="number"-->
-<!--                                          class="form-control" placeholder="Fixed Capital"-->
-<!--                                          [ngClass]="{ 'is-invalid': (submitted) && form.fixedCapital.errors }">-->
-<!--                                   <div *ngIf="(submitted) && form.fixedCapital.invalid"-->
-<!--                                        class="invalid-feedback">-->
-<!--                                       <div *ngIf="form.fixedCapital.errors.required">-->
-<!--                                           Fixed Capital is required-->
-<!--                                       </div>-->
-<!--                                   </div>-->
-<!--                               </div>-->
-<!--                           </div>-->
-<!--                           <div class="col-md-4">-->
-<!--                               <div class="form-group">-->
-<!--                                   <label for="workingCapital"><strong>Working Capital</strong></label>-->
-<!--                                   <input id="workingCapital" formControlName="workingCapital" name="workingCapital"-->
-<!--                                          type="number"-->
-<!--                                          class="form-control" placeholder="Working Capital"-->
-<!--                                          [ngClass]="{ 'is-invalid': (submitted) && form.workingCapital.errors }">-->
-<!--                                   <div *ngIf="(submitted) && form.workingCapital.invalid"-->
-<!--                                        class="invalid-feedback">-->
-<!--                                       <div *ngIf="form.workingCapital.errors.required">-->
-<!--                                           Working Capital is required-->
-<!--                                       </div>-->
-<!--                                   </div>-->
-<!--                               </div>-->
-<!--                           </div>-->
-<!--                       </div>-->
+                       <div class="row" *ngIf="client === clientName?.ICFC">
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label for="totalCapital"><strong>Total Capital</strong></label>
+                                   <input id="totalCapital" formControlName="totalCapital" name="totalCapital" type="number"
+                                          class="form-control" placeholder="Total Capital"
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.totalCapital.errors }">
+                                   <div *ngIf="(submitted) && form.totalCapital.invalid"
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.totalCapital.errors.required">
+                                           Total Capital is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label for="fixedCapital"><strong>Fixed Capital</strong></label>
+                                   <input id="fixedCapital" formControlName="fixedCapital" name="fixedCapital" type="number"
+                                          class="form-control" placeholder="Fixed Capital"
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.fixedCapital.errors }">
+                                   <div *ngIf="(submitted) && form.fixedCapital.invalid"
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.fixedCapital.errors.required">
+                                           Fixed Capital is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label for="workingCapital"><strong>Working(Current) Capital</strong></label>
+                                   <input id="workingCapital" formControlName="workingCapital" name="workingCapital"
+                                          type="number"
+                                          class="form-control" placeholder="Working Capital"
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.workingCapital.errors }">
+                                   <div *ngIf="(submitted) && form.workingCapital.invalid"
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.workingCapital.errors.required">
+                                           Working Capital is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
                        <!-- END ROW -->
                        <!-- START ROW -->
                        <div class="row">
