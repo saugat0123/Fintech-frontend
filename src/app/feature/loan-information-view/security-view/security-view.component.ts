@@ -6,7 +6,6 @@ import {OwnershipTransfer} from '../../loan/model/ownershipTransfer';
 import {environment as envSrdb} from '../../../../environments/environment.srdb';
 import {Clients} from '../../../../environments/Clients';
 import {environment} from '../../../../environments/environment';
-import {logoFacebook} from 'ionicons/icons';
 
 @Component({
   selector: 'app-security-view',
@@ -97,7 +96,6 @@ export class SecurityViewComponent implements OnInit {
     });
     if (!ObjectUtil.isEmpty(this.shareSecurityData)) {
       this.shareSecurity = JSON.parse(this.shareSecurityData.data);
-      console.log(this.shareSecurity, 'sharesecurity');
     } else {
       this.shareSelected = false;
     }
@@ -115,8 +113,6 @@ export class SecurityViewComponent implements OnInit {
     shareList.forEach(share => {
       this.shareTotalValue += share.total;
       this.totalConsideredValue += share.consideredValue;
-      console.log('considered value', share.consideredValue);
-      console.log('Total', this.totalConsideredValue);
     });
   }
 
