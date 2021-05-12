@@ -15,42 +15,45 @@
                         <div class="col-md-4 form-group">
                             <label class="title" for="date">Date</label>
                             <input nbInput fullWidth
+                                   [ngClass]="{ 'is-invalid': (submitted) && form.date?.errors }"
                                    class="form-control" formControlName="date" id="date"
                                    type="date">
-                            <!--                            <div *ngIf="form.date.invalid && submitted" class="invalid-feedback">-->
-                            <!--                                Date is required-->
-                            <!--                            </div>-->
+                            <div *ngIf="(submitted) && form.date?.invalid"
+                                 class="invalid-feedback">
+                                <span *ngIf="form.date?.errors.required">Date is required</span>
+                            </div>
                         </div>
                         <div class="col-md-4 form-group">
                             <label class="title" for="personContacted">Person Contacted</label>
-                            <input class="form-control" formControlName="personContacted" id="personContacted"
+                            <input class="form-control"
+                                   [ngClass]="{'is-invalid': (submitted) && form.personContacted?.errors}"
+                                   formControlName="personContacted" id="personContacted"
                                    name="personContacted" placeholder="person contacted"
                                    type="text">
-                            <!--                            <div *ngIf="form.personContacted.invalid"-->
-                            <!--                                 class="invalid-feedback">-->
-                            <!--                        <span *ngIf="form.personContacted.errors.pattern">-->
-                            <!--                            Invalid Person Name</span>-->
-                            <!--                            </div>-->
+                            <div *ngIf="form.personContacted.invalid"
+                                 class="invalid-feedback">
+                                <span *ngIf="form.personContacted.errors.pattern">Invalid Person Name</span>
+                            </div>
                         </div>
                         <div class="col-md-4 form-group">
                             <label class="title" for="phoneNoOfContact">Phone No. Of Contact</label>
-                            <input class="form-control" formControlName="phoneNoOfContact" id="phoneNoOfContact"
+                            <input class="form-control"
+                                   [ngClass]="{'is-invalid': (submitted) && form.phoneNoOfContact?.errors}"
+                                   formControlName="phoneNoOfContact" id="phoneNoOfContact"
                                    name="phoneNoOfContact" placeholder="phone no. of contact" type="text">
-                            <!--                            <div *ngIf="submitted && form?.phoneNoOfContact?.invalid"-->
-                            <!--                                 class="invalid-feedback">-->
-                            <!--                        <span *ngIf="form?.phoneNoOfContact.errors.pattern">-->
-                            <!--                            Invalid Mobile Number-->
-                            <!--                        </span>-->
-                            <!--                            </div>-->
+                            <div *ngIf="submitted && form?.phoneNoOfContact?.invalid"
+                                 class="invalid-feedback">
+                                <span *ngIf="form?.phoneNoOfContact.errors.pattern">Invalid Mobile Number</span>
+                            </div>
                         </div>
-                        <!--                        <div class="col-md-12">-->
-                        <!--                            <app-common-address #fixedAssetsAddress [address]="formDataForEdit?.fixedAssetsForm?.address"></app-common-address>-->
-                        <!--                        </div>-->
+                        <div class="col-md-12">
+                            <app-common-address #currentResidentAddress></app-common-address>
+                        </div>
                         <div class="col-md-4 form-group">
                             <label class="title" for="typeOfProperty">Type of Property</label>
                             <select class="custom-select" formControlName="typeOfProperty" id="typeOfProperty"
                                     name="typeOfProperty">
-                                <option [ngValue]="''" hidden>Type of Property</option>
+                                <option [ngValue]="null" hidden>Type of Property</option>
                                 <option value="Agricultural">Agricultural</option>
                                 <option value="Industrial">Industrial</option>
                                 <option value="Commercial">Commercial</option>
@@ -62,7 +65,7 @@
                             <label class="title" for="shapeOfLand">Shape of Land</label>
                             <select class="custom-select" formControlName="shapeOfLand" id="shapeOfLand"
                                     name="shapeOfLand">
-                                <option [ngValue]="''" hidden>Select shape of land</option>
+                                <option [ngValue]="null" hidden>Select shape of land</option>
                                 <option value="Rectangular">Rectangular</option>
                                 <option value="Triangular">Triangular</option>
                                 <option value="Irregular">Irregular</option>
@@ -85,7 +88,7 @@
                                 <label class="title" for="roadApproach">Road Approach</label>
                                 <select class="custom-select" formControlName="roadApproach" id="roadApproach"
                                         name="roadApproach">
-                                    <option [ngValue]="''" hidden>Select Road Approach</option>
+                                    <option [ngValue]="null" hidden>Select Road Approach</option>
                                     <option value="Black Topped Road">Black Topped Road</option>
                                     <option value="Gravelled Road">Gravelled Road</option>
                                     <option value="Earthen Road">Earthen Road</option>
@@ -108,9 +111,6 @@
                                     <label class="title" for="approachDistance">Approach Distance<em
                                             class="sb-small"><strong>(in meter)</strong></em></label>
                                 </div>
-                                <!--                                <ng-template #otherBank>-->
-                                <!--                                    <label class="title" for="approachDistance">Approach Distance<em class="sb-small"><strong>(in feet)</strong></em></label>-->
-                                <!--                                </ng-template>-->
                                 <input class="form-control" formControlName="approachDistance" id="approachDistance"
                                        name="approachDistance" placeholder="approach distance" type="number"
                                        appDecimalNumber/>
@@ -119,7 +119,7 @@
                                 <label class="title" for="roadAccessFrom">Road Access From</label>
                                 <select class="custom-select" formControlName="roadAccessFrom" id="roadAccessFrom"
                                         name="roadAccessFrom">
-                                    <option [ngValue]="''" hidden>Select Road Access From</option>
+                                    <option [ngValue]="null" hidden>Select Road Access From</option>
                                     <option value="One Side">One Side</option>
                                     <option value="Two Sides">Two Sides</option>
                                     <option value="Both Sides">Both Sides</option>
@@ -128,50 +128,6 @@
                         </div>
                         <h5 class="col-md-12 mt-3">Other Facilities</h5>
                         <div class="row">
-                            <div class="col-md-6">
-                                <table class="table table-bordered table-sm sb-small text-center">
-                                    <tr class="text-white sb-bg-dark">
-                                        <th>SN</th>
-                                        <th>Particulars</th>
-                                        <th>Check for Yes</th>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Water Supply</td>
-                                        <td><input formControlName="waterSupply" type="checkbox"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Electricity</td>
-                                        <td><input formControlName="electricity" type="checkbox"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Boundary Wall Construction</td>
-                                        <td><input formControlName="boundaryWallConstruction" type="checkbox"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Boundary Fencing</td>
-                                        <td><input formControlName="boundaryFencing" type="checkbox"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Drainage</td>
-                                        <td><input formControlName="drainage" type="checkbox"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td>Open</td>
-                                        <td><input formControlName="open" type="checkbox"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>7</td>
-                                        <td>Telephone Line</td>
-                                        <td><input formControlName="telephoneLine" type="checkbox"></td>
-                                    </tr>
-                                </table>
-                            </div>
                             <div class="col-md-6">
                                 <table class="table table-bordered table-sm sb-small text-center">
                                     <tr class="text-white sb-bg-dark">
@@ -231,25 +187,67 @@
                                     </tr>
                                 </table>
                             </div>
-                        </div>
-                        <div class="row col-md-12">
-                            <div class="col-md-4 form-group">
-                                <label class="title" for="remarksForOtherFacility">Remarks For 'No' Option</label>
-                                <textarea class="form-control" formControlName="remarksForOtherFacility"
-                                          id="remarksForOtherFacility" name="remarksForOtherFacility"
-                                          placeholder="remarks"
-                                          row="3" type="text"></textarea>
+                            <div class="col-md-6 form-group">
+                                <label class="title" for="building">Building</label>
+                                <select class="custom-select" formControlName="building" id="building" name="building">
+                                    <option [value]="null" hidden>Select Building</option>
+                                    <option value="YES">Yes</option>
+                                    <option value="NO">No</option>
+                                </select>
                             </div>
-
+                        </div>
+                        <div class="row col-md-12 form-group" *ngIf="form.building?.value == 'NO'">
+                            <label class="title" for="remarksForOtherFacility">Remarks For 'No' Option</label>
+                            <textarea class="form-control" formControlName="remarksForOtherFacility"
+                                      id="remarksForOtherFacility" name="remarksForOtherFacility"
+                                      placeholder="remarks"
+                                      cols="3" type="text"></textarea>
+                        </div>
+                        <div class="row col-md-12" *ngIf="form.building?.value == 'YES'">
                             <div class="row">
-                                <div class="col-md-4 form-group">
-                                    <label class="title" for="building">Building</label>
-                                    <select class="custom-select" formControlName="building" id="building"
-                                            name="building">
-                                        <option [ngValue]="''" hidden>Select Building</option>
-                                        <option value="YES">Yes</option>
-                                        <option value="NO">No</option>
-                                    </select>
+                                <div class="col-md-4">
+                                    <table class="table table-bordered table-sm sb-small text-center">
+                                        <tr class="text-white sb-bg-dark">
+                                            <th>SN</th>
+                                            <th>Particulars</th>
+                                            <th>Check for Yes</th>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Water Supply</td>
+                                            <td><input formControlName="waterSupply" type="checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Electricity</td>
+                                            <td><input formControlName="electricity" type="checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Boundary Wall Construction</td>
+                                            <td><input formControlName="boundaryWallConstruction" type="checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Boundary Fencing</td>
+                                            <td><input formControlName="boundaryFencing" type="checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>Drainage</td>
+                                            <td><input formControlName="drainage" type="checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>Open</td>
+                                            <td><input formControlName="open" type="checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td>Telephone Line</td>
+                                            <td><input formControlName="telephoneLine" type="checkbox"></td>
+                                        </tr>
+                                    </table>
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label class="title" for="buildingArea">Building Area</label>
@@ -259,19 +257,19 @@
                                 <div class="col-md-4 form-group">
                                     <label class="title" for="constructionYear">Construction Year</label>
                                     <input nbInput fullWidth
-                                           class="form-control" formControlName="constructionYear" id="constructionYear"
+                                           class="form-control"
+                                           [ngClass]="{'is-invalid': (submitted) && form.constructionYear?.errors}"
+                                           formControlName="constructionYear" id="constructionYear"
                                            type="date">
-                                    <!--                                    <div *ngIf="submitted && form.constructionYear?.invalid" class="invalid-feedback">-->
-                                    <!--                                        Construction Year is required-->
-                                    <!--                                    </div>-->
+                                    <div *ngIf="submitted && form.constructionYear?.invalid" class="invalid-feedback">
+                                        Construction Year is required
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-4 form-group">
                                     <label class="title" for="buildingType">Building Type</label>
                                     <select class="custom-select" formControlName="buildingType" id="buildingType"
                                             name="buildingType">
-                                        <option [ngValue]="''" hidden>Select Building type</option>
+                                        <option [ngValue]="null" hidden>Select Building type</option>
                                         <option value="Residential">Residential</option>
                                         <option value="Commercial Complex/Mall">Commercial Complex/Mall</option>
                                         <option value="Factory Shed">Factory Shed</option>
@@ -289,14 +287,11 @@
                                     <input class="form-control" formControlName="noOfStorey" id="noOfStorey"
                                            name="noOfStorey" placeholder="No. of Storey ">
                                 </div>
-                            </div>
-
-                            <div class="row">
                                 <div class="col-md-4 form-group">
                                     <label class="title" for="roadSetbacks">Any road setbacks?</label>
                                     <select class="custom-select" formControlName="roadSetbacks" id="roadSetbacks"
                                             name="roadSetbacks">
-                                        <option [ngValue]="''" hidden>Select Yes/No</option>
+                                        <option [ngValue]="null" hidden>Select Yes/No</option>
                                         <option value="YES">Yes</option>
                                         <option value="NO">No</option>
                                     </select>
@@ -306,7 +301,7 @@
                                     <select class="custom-select" formControlName="riverOrCanalSetbacks"
                                             id="riverOrCanalSetbacks"
                                             name="riverOrCanalSetbacks">
-                                        <option [ngValue]="''" hidden>Select Yes/No</option>
+                                        <option [ngValue]="null" hidden>Select Yes/No</option>
                                         <option value="YES">Yes</option>
                                         <option value="NO">No</option>
                                     </select>
@@ -316,7 +311,7 @@
                                     <select class="custom-select" formControlName="highTensionSetbacks"
                                             id="highTensionSetbacks"
                                             name="highTensionSetbacks">
-                                        <option [ngValue]="''" hidden>Select Yes/No</option>
+                                        <option [ngValue]="null" hidden>Select Yes/No</option>
                                         <option value="YES">Yes</option>
                                         <option value="NO">No</option>
                                     </select>
@@ -337,8 +332,9 @@
                                         <td>Major Market Places</td>
                                         <td>
                                             <select formControlName="majorMarketPlaces" class="custom-select">
-                                                <option [ngValue]="''" hidden>Select Distance</option>
-                                                <!--                                                <option *ngFor="let distance of majorMarketPlaceDistance" [ngValue]="distance">{{distance}}</option>-->
+                                                <option [ngValue]="null" hidden>Select Distance</option>
+                                                <option *ngFor="let distance of majorMarketPlaceDistance"
+                                                        [ngValue]="distance">{{distance}}</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -347,8 +343,9 @@
                                         <td>School/Colleges</td>
                                         <td>
                                             <select formControlName="schoolOrCollege" class="custom-select">
-                                                <option [ngValue]="''" hidden>Select Distance</option>
-                                                <!--                                                <option *ngFor="let distance of majorMarketPlaceDistance" [ngValue]="distance">{{distance}}</option>-->
+                                                <option [ngValue]="null" hidden>Select Distance</option>
+                                                <option *ngFor="let distance of majorMarketPlaceDistance"
+                                                        [ngValue]="distance">{{distance}}</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -357,8 +354,9 @@
                                         <td>Hospital/Nursing Home</td>
                                         <td>
                                             <select formControlName="hospitalOrNursingHome" class="custom-select">
-                                                <option [ngValue]="''" hidden>Select Distance</option>
-                                                <!--                                                <option *ngFor="let distance of majorMarketPlaceDistance" [ngValue]="distance">{{distance}}</option>-->
+                                                <option [ngValue]="null" hidden>Select Distance</option>
+                                                <option *ngFor="let distance of majorMarketPlaceDistance"
+                                                        [ngValue]="distance">{{distance}}</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -378,14 +376,15 @@
                                                     name="staffRepresentativeNameDesignation">
                                                 <option [ngValue]="null" hidden>Staff Representative Designation 1
                                                 </option>
-                                                <!--                                                <option *ngFor="let designation of designationList"-->
-                                                <!--                                                        [ngValue]="designation?.roleName">{{designation?.roleName}}</option>-->
+                                                <option *ngFor="let designation of designationList"
+                                                        [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                             </select>
                                         </div>
                                         <div class="col-md-4 form-group">
                                             <label class="staffRepresentativeName" for="staffRepresentativeNameFac">Staff
                                                 Representative Name 1</label>
-                                            <input class="form-control" formControlName="staffRepresentativeName"
+                                            <input class="form-control"
+                                                   formControlName="staffRepresentativeName"
                                                    id="staffRepresentativeNameFac" name="staffRepresentativeName"
                                                    placeholder="Staff Representative Name 1" type="text">
                                         </div>
@@ -397,27 +396,30 @@
                                                     formControlName="staffRepresentativeNameDesignation2"
                                                     id="staffRepresentativeNameDesignationFac2"
                                                     name="staffRepresentativeNameDesignation2">
-                                                <option [ngValue]="null">Staff Representative Designation 2</option>
-                                                <!--                                                <option *ngFor="let designation of designationList"-->
-                                                <!--                                                        [ngValue]="designation?.roleName">{{designation?.roleName}}</option>-->
+                                                <option [ngValue]="null" hidden>Staff Representative Designation 2
+                                                </option>
+                                                <option *ngFor="let designation of designationList"
+                                                        [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                             </select>
                                         </div>
                                         <div class="col-md-4 form-group">
                                             <label class="staffRepresentativeName2"
                                                    for="staffRepresentativeNameFac2">Staff Representative Name 2</label>
-                                            <input class="form-control" formControlName="staffRepresentativeName2"
+                                            <input class="form-control"
+                                                   formControlName="staffRepresentativeName2"
                                                    id="staffRepresentativeNameFac2"
                                                    name="staffRepresentativeName2"
                                                    placeholder="Staff Representative Name 2" type="text">
                                         </div>
                                         <div class="col-md-1 pt-4" *ngIf="i>0">
                                             <input class="align-self-end btn btn-sm btn-danger btn-primary"
-                                                 (click)="deleteStaff(i)"  type="button" value="Delete"/>
+                                                   (click)="deleteStaff(i)" type="button" value="Delete"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="text-right">
-                                    <button class="btn btn-sm btn-flat btn-primary" (click)="addStaffs()">Add Staff</button>
+                                    <button class="btn btn-sm btn-flat btn-primary" (click)="addStaffs()">Add Staff
+                                    </button>
                                 </div>
                                 <div class="form-group">
                                     <label class="title" for="commentAboutFAC">Comments About FAC</label>
@@ -450,7 +452,7 @@
         </div>
     </nb-card-body>
     <nb-card-footer>
-        <button nbButton type="button">Save</button>
+        <button nbButton type="button" (click)="onSubmit()">Save</button>
     </nb-card-footer>
 </nb-card>
 
