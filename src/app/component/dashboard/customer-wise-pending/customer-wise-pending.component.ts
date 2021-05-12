@@ -50,7 +50,8 @@ export class CustomerWisePendingComponent implements OnInit {
         provinceId: undefined,
         customerType: undefined,
         clientType: undefined,
-        customerCode: undefined
+        customerCode: undefined,
+        toUser: undefined
     };
     filterForm: FormGroup;
     loanList: Array<LoanConfig> = new Array<LoanConfig>();
@@ -239,6 +240,7 @@ export class CustomerWisePendingComponent implements OnInit {
 
     getCsv() {
         this.spinner = true;
+        this.search.toUser = LocalStorageUtil.getStorage().userId;
         this.loanFormService.download(this.search).subscribe((response: any) => {
             this.spinner = false;
             const link = document.createElement('a');
