@@ -50,7 +50,8 @@ export class CustomerWisePendingComponent implements OnInit {
         provinceId: undefined,
         customerType: undefined,
         clientType: undefined,
-        customerCode: undefined
+        customerCode: undefined,
+        toUser: undefined
     };
     filterForm: FormGroup;
     loanList: Array<LoanConfig> = new Array<LoanConfig>();
@@ -109,8 +110,6 @@ export class CustomerWisePendingComponent implements OnInit {
                 other.loanHolderLoanList.forEach((l) => other.loanForCombine.push({loan: other.getLoansData(l.combineList)}));
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
-                console.log(other.loanHolderLoanList);
-                console.log(other.loanHolderLoanListTemp[6].combineList);
             }, error => {
                 console.log(error);
                 other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
@@ -241,6 +240,7 @@ export class CustomerWisePendingComponent implements OnInit {
 
     getCsv() {
         this.spinner = true;
+        this.search.toUser = LocalStorageUtil.getStorage().userId;
         this.loanFormService.download(this.search).subscribe((response: any) => {
             this.spinner = false;
             const link = document.createElement('a');

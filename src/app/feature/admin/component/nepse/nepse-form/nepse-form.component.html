@@ -1,92 +1,104 @@
 <div class="modal-document">
-    <div class="modal-content">
-        <div class="modal-header sb-bg-dark " style="display:block">
-            <a class="close cursor" data-dismiss="modal" aria-label="Close"
-               (click)="onClose()">
-                <span aria-hidden="true" class="text-white">×</span></a>
-            <h4 class="modal-title pull-left text-white">{{task}} Nepse</h4>
-        </div>
-      <div *ngIf="task == 'Edit'" class="modal-body">
-            <form name="form" (ngSubmit)="nepseForm.form.valid && onSubmit()" #nepseForm="ngForm">
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="name">Company Name</label>
-                        <input type="hidden" class="form-control" [(ngModel)]="model.id" name="id"
-                               placeholder="id">
-                        <input type="text" class="form-control" required [(ngModel)]="model.companyName"
-                               #companyVal="ngModel" id="name" name="name" placeholder="Name"
-                               [ngClass]="{'is-invalid': nepseForm.submitted && companyVal.invalid}"/>
-                        <div *ngIf="companyVal.invalid && nepseForm.submitted" class="invalid-feedback">
-                            Name is required
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="amount">Share Amount per unit</label>
-                        <input type="text" class="form-control" placeholder="amount" required
-                               [(ngModel)]="model.amountPerUnit" id="amount" name="amount" #amountVal="ngModel"
-                               [ngClass]="{'is-invalid': nepseForm.submitted && amountVal.invalid}" appDecimalNumber/>
-                        <div *ngIf="amountVal.invalid && nepseForm.submitted" class="invalid-feedback">
-                            Amount is required
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <!--<button type="button" class="btn btn-primary">Bulk Upload</button>-->
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
-                </div>
-            </form>
-      </div>
-      <div *ngIf="task == 'Add'" class="modal-body">
+  <div class="modal-content">
+    <div class="modal-header sb-bg-dark " style="display:block">
+      <a (click)="onClose()" aria-label="Close" class="close cursor"
+         data-dismiss="modal">
+        <span aria-hidden="true" class="text-white">×</span></a>
+      <h4 class="modal-title pull-left text-white">{{task}} Nepse</h4>
+    </div>
+    <div *ngIf="task == 'Edit'" class="modal-body">
+      <form #nepseForm="ngForm" (ngSubmit)="nepseForm.form.valid && onSubmit()" name="form">
         <div class="row form-group">
-            <ng-container [formGroup]="nepsePriceInfoForm">
+          <div class="col-md-6">
+            <label for="name">Company Name</label>
+            <input [(ngModel)]="model.id" class="form-control" name="id" placeholder="id"
+                   type="hidden">
+            <input #companyVal="ngModel" [(ngModel)]="model.companyName" [ngClass]="{'is-invalid': nepseForm.submitted && companyVal.invalid}" class="form-control"
+                   id="name" name="name" placeholder="Name" required
+                   type="text"/>
+            <div *ngIf="companyVal.invalid && nepseForm.submitted" class="invalid-feedback">
+              Name is required
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="amount">Share Amount per unit</label>
+            <input #amountVal="ngModel" [(ngModel)]="model.amountPerUnit" [ngClass]="{'is-invalid': nepseForm.submitted && amountVal.invalid}" appDecimalNumber
+                   class="form-control" id="amount" name="amount" placeholder="amount"
+                   required
+                   type="text"/>
+            <div *ngIf="amountVal.invalid && nepseForm.submitted" class="invalid-feedback">
+              Amount is required
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <!--<button type="button" class="btn btn-primary">Bulk Upload</button>-->
+          <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i></button>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="task == 'Add'" class="modal-body">
+      <div class="row form-group">
+        <ng-container [formGroup]="nepsePriceInfoForm">
 
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label for="amount">Share Price Date</label>
-                        <input type="date" class="form-control form-control-error rounded"
-                               placeholder="Share Price Date"
-                               [ngClass]="{'is-invalid': nepsePriceForm.sharePriceDate.invalid}"
-                               formControlName="sharePriceDate"
-                               id="priceDate" name="priceDate"/>
-                        <div class="invalid-feedback" *ngIf="nepsePriceForm.sharePriceDate.invalid">
-                           Invalid Share Price Date
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-7">
-                    <div class="form-group">
-                        <label for="amount">Average Day's for Share Price</label>
-                        <input class="form-control"
-                               formControlName="avgDaysForPrice"
-                               [ngClass]="{'is-invalid': nepsePriceForm.avgDaysForPrice.invalid}"
-                               id="avgDaysForPrice" name="avgDaysForPrice"/>
-                        <div class="invalid-feedback" *ngIf="nepsePriceForm.avgDaysForPrice.invalid">
-                           Invalid Average Day's for Share Price
-                        </div>
-                    </div>
-                </div>
-            </ng-container>
-          <form>
-            <div class="col-md-12">
-              <input #nepseFile name="uploadNepse" type="file">
-              <br>
-              <div class="card" style="width: 29rem">
-                <div class="card-header">
-                  <b>Upload Format</b>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                  <img class="report-log img-thumbnail border-0"
-                       src="../../../../../assets/img/NepseCompanyUploadFormat.jpg" width="100%">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                  <input (click)="excelUpload(nepseFile)" class="btn btn-primary" type="submit">
-                </div>
+          <div class="col-md-5">
+            <div class="form-group">
+              <label for="amount">Share Price Date</label>
+              <input [ngClass]="{'is-invalid': nepsePriceForm.sharePriceDate.invalid}" class="form-control form-control-error rounded"
+                     formControlName="sharePriceDate"
+                     id="priceDate"
+                     name="priceDate"
+                     placeholder="Share Price Date" type="date"/>
+              <div *ngIf="nepsePriceForm.sharePriceDate.invalid" class="invalid-feedback">
+                Invalid Share Price Date
               </div>
             </div>
-          </form>
-        </div>
+          </div>
+          <div class="col-md-7">
+            <div class="form-group">
+              <label for="amount">Average Day's for Share Price</label>
+              <input [ngClass]="{'is-invalid': nepsePriceForm.avgDaysForPrice.invalid}"
+                     class="form-control"
+                     formControlName="avgDaysForPrice"
+                     id="avgDaysForPrice" name="avgDaysForPrice"/>
+              <div *ngIf="nepsePriceForm.avgDaysForPrice.invalid" class="invalid-feedback">
+                Invalid Average Day's for Share Price
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <form>
+          <div class="col-md-12">
+            <input #nepseFile name="uploadNepse" type="file">
+            <br>
+            <div class="card" style="width: 29rem">
+              <div class="card-header">
+                <b>Upload Format</b>
+              </div>
+              <div class="card-body" *ngIf="client === clientName?.ICFC">
+                <div class="row">
+                  <mark><strong>Follow below column order on Excel</strong></mark>
+                </div>
+                <div class="row sb-small">
+                  Company name|Value|Company code|Share type|Price Earning Ratio|Price to Book
+                  Value|Divident Yield|Dividend Payout Ratio
+                </div>
+                <div class="row">
+                  <img class="report-log img-thumbnail border-0"
+                       src="../../../../../assets/img/NepseUploadFormatwithRatio.png" width="100%">
+                </div>
+              </div>
+              <div class="card-body" *ngIf="client !== clientName?.ICFC">
+                <img class="report-log img-thumbnail border-0"
+                     src="../../../../../assets/img/NepseCompanyUploadFormat.jpg" width="100%">
+              </div>
+              <div class="modal-footer">
+                <input (click)="excelUpload(nepseFile)" class="btn btn-primary" type="submit">
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
+  </div>
 </div>
