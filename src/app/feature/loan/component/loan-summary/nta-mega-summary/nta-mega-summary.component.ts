@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NetTradingAssets} from '../../../../admin/modal/NetTradingAssets';
 import {FiscalYear} from '../../../../admin/modal/FiscalYear';
+import {logoFacebook, logoGoogle} from 'ionicons/icons';
 
 @Component({
   selector: 'app-nta-mega-summary',
@@ -23,15 +24,19 @@ export class NtaMegaSummaryComponent implements OnInit {
   ngOnInit() {
     this.currentFiscalYearIndex = this.fiscalYears.indexOf(
         this.fiscalYears.filter(value => value.isCurrentYear === true)[0]);
-    this.prevFiscalYearIndex = this.currentFiscalYearIndex + 1;
     this.ntaData = JSON.parse(this.netTradingAssetsData.data);
-    this.ntaData.forEach((value , index) => {
+    this.ntaData.forEach((value) => {
       if (value.id === this.fiscalYears[this.currentFiscalYearIndex].id) {
         this.currentYearData = value;
-        if (this.ntaData[index + 1] !== undefined) {
-          this.prevYearData = this.ntaData[index + 1]; // prev year index
-        }
       }
+    });
+
+    this.ntaData.forEach(value => {
+      if (this.fiscalYears[this.currentFiscalYearIndex].id > 1 ) {
+        this.prevFiscalYearIndex = this.fiscalYears.length - 1;
+        if (value.id === this.fiscalYears[this.prevFiscalYearIndex].id) {
+          this.prevYearData = value;
+        }}
     });
   }
 }
