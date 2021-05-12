@@ -3,8 +3,8 @@ export class Capital {
     authorizedCapital: number;
     paidUpCapital: number;
     issuedCapital: number;
-    // totalCapital: number;
-    // fixedCapital: number;
-    // workingCapital: number;
+    totalCapital: number;
+    fixedCapital: number;
+    workingCapital: number;
     numberOfShareholder: number;
 }

@@ -35,7 +35,7 @@
         <th>Enhance</th>
         <th>Settlement</th>
         <th>Proposed Limit</th>
-        <th>Existing INT/COM/CM</th>
+        <!--        <th>Existing INT/COM/CM</th>-->
         <!--        for non funded commision and cash margin combination to be view-->
         <th>Proposed INT/COM/CM</th>
 
@@ -79,7 +79,7 @@
 
         <td class="text-right pr-1">Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
         <!--                Existing INT/COM/CM-->
-        <td>-</td>
+        <!--        <td>-</td>-->
         <td>
           <span *ngIf="loan?.loan?.isFundable">
 
