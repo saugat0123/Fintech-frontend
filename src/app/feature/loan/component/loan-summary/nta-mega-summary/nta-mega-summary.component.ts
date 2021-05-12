@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NetTradingAssets} from '../../../../admin/modal/NetTradingAssets';
 import {FiscalYear} from '../../../../admin/modal/FiscalYear';
-import {logoFacebook, logoGoogle} from 'ionicons/icons';
 
 @Component({
   selector: 'app-nta-mega-summary',
