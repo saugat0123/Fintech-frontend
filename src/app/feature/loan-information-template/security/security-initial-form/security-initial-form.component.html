@@ -2635,7 +2635,7 @@
                                     <input
                                             (change)="calculateShareFieldsValues(shareFieldIndex)"
                                             class="form-control" formControlName="amountPerUnit"
-                                            id="shareRate" name="shareRate" readonly
+                                            id="shareRate" name="shareRate" appDecimalNumber
                                             type="number">
                                 </div>
                             </div>
@@ -2651,20 +2651,6 @@
                                     <label for="consideredValue">Considered Value</label>
                                     <input class="form-control" formControlName="consideredValue"
                                            id="consideredValue" name="total" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title">Ownership transfer date</label>
-                                    <input class="form-control rounded" formControlName="ownershipTransferDate"
-                                           *ngIf="calendarType === 'AD'"
-                                           name="ownershipTransferDate" placeholder="Ownership transfer date"
-                                           [nbDatepicker]="ownershipDate">
-                                    <app-calendar
-                                            (messageToEmit)="shareSecurityForm.get(['shareSecurityDetails',shareFieldIndex,'ownershipTransferDate']).patchValue($event?.eDate)"
-                                            *ngIf="calendarType === 'BS'"
-                                            [ePreDate]="shareSecurityForm.get(['shareSecurityDetails',shareFieldIndex,'ownershipTransferDate']).value"></app-calendar>
-                                    <nb-datepicker #ownershipDate></nb-datepicker>
                                 </div>
                             </div>
                         </div>
@@ -2692,7 +2678,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="title">Dividend Payout Radio</label>
+                                            <label class="title">Dividend Payout Ratio</label>
                                             <input class="form-control" formControlName="dividendPayoutRatio"
                                                    id="dividendPayoutRatio" name="dividendPayoutRatio" type="number">
                                         </div>

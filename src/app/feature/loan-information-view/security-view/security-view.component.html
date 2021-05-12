@@ -1367,7 +1367,7 @@
       <table class="table table-sm table-bordered text-center table-sm sb-small">
         <thead>
         <tr>
-          <th colspan="12">
+          <th colspan="11">
             Share Security Detail(Promoter Percent: {{loanSharePercent == undefined? 0: loanSharePercent.promoter}} , Ordinary Percent: {{loanSharePercent == undefined? 0 : loanSharePercent.ordinary}})
           </th>
         </tr>
@@ -1379,7 +1379,6 @@
           <th> Rate</th>
           <th>Total Value</th>
           <th>Considered Value</th>
-          <th>Ownership transfer Date</th>
           <th *ngIf="client === clientName?.ICFC">Price Earning Ratio</th>
           <th *ngIf="client === clientName?.ICFC">Price to Book Value</th>
           <th *ngIf="client === clientName?.ICFC">Dividend Yield</th>
@@ -1395,24 +1394,27 @@
           <td class="text-right pr-1">Rs. {{singleShareData?.amountPerUnit |currencyFormatter}}</td>
           <td class="text-right pr-1">Rs. {{singleShareData?.total |currencyFormatter}}</td>
           <td class="text-right pr-1">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
-          <td class="text-left pl-1">{{singleShareData?.ownershipTransferDate |date}}</td>
-          <td class="text-left pl-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.priceEarningRatio}}</td>
-          <td class="text-left pl-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.priceBookValue}}</td>
-          <td class="text-left pl-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.dividendYeild}}</td>
-          <td class="text-left pl-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.dividendPayoutRatio}}</td>
+          <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.priceEarningRatio}}</td>
+          <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.priceBookValue}}</td>
+          <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.dividendYeild}}</td>
+          <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.dividendPayoutRatio}}</td>
         </tr>
         <tr>
           <th class="text-left pl-1" colspan="5">Total</th>
           <th class="text-right pr-1">Rs. {{shareTotalValue |currencyFormatter}}</th>
           <th class="text-right pr-1">Rs. {{totalConsideredValue |currencyFormatter}}</th>
           <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
         </tr>
         <tr>
           <th></th>
           <th class="sb-bg-dark text-white">Price As per Date</th>
-          <td colspan="4" class="text-left pl-1">{{shareSecurity?.sharePriceDate |date}}</td>
+          <td colspan="3" class="text-left pl-1">{{shareSecurity?.sharePriceDate |date}}</td>
           <th class="sb-bg-dark text-white">Average Day's for Share Price</th>
-          <td colspan="4" class="text-left pl-1">{{shareSecurity?.avgDaysForPrice}} days</td>
+          <td colspan="3" class="text-left pl-1">{{shareSecurity?.avgDaysForPrice}} days</td>
+          <th></th>
           <th></th>
         </tr>
         <tr>
