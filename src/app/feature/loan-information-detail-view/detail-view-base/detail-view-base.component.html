@@ -80,9 +80,6 @@
 <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"
                                  [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-summery>
 
-<app-income-from-account-view *ngIf="!newCustomerFlag"
-                              [data]="incomeFromAccountParsedData"></app-income-from-account-view>
-
 <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
 
     <app-report-summary

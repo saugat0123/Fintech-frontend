@@ -30,8 +30,6 @@ export class DetailViewBaseComponent implements OnInit {
   customerAllLoanList: LoanDataHolder[] = [];
   proposalData: Proposal;
   megaGroupEnabled = environment.MEGA_GROUP;
-  incomeFromAccountParsedData: any;
-  newCustomerFlag: boolean[];
   dataFromComments: any;
   commentsSummary = false;
   previousSecuritySummary = false;
@@ -54,10 +52,6 @@ export class DetailViewBaseComponent implements OnInit {
     });
     if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
       this.proposalData = this.loanDataHolder.proposal;
-      if (!ObjectUtil.isEmpty(this.loanHolder.incomeFromAccount)) {
-        this.incomeFromAccountParsedData = JSON.parse(this.loanHolder.incomeFromAccount.data);
-        this.newCustomerFlag = this.incomeFromAccountParsedData.newCustomerChecked;
-      }
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
       this.dataFromComments = JSON.parse(this.loanDataHolder.loanHolder.data);
