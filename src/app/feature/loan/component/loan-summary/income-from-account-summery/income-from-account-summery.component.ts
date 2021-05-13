@@ -12,6 +12,7 @@ export class IncomeFromAccountSummeryComponent implements OnInit {
   @Input() formData;
   incomeFromAccount;
   srdbAffiliatedId = false;
+  newCustomerFlag: boolean[];
 
   constructor() {
   }
@@ -22,6 +23,7 @@ export class IncomeFromAccountSummeryComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.formData)) {
       this.incomeFromAccount = JSON.parse(this.formData.data);
+      this.newCustomerFlag = this.incomeFromAccount.newCustomerChecked;
     }
   }
 
