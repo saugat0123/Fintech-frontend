@@ -25,8 +25,6 @@ export class DetailViewBaseComponent implements OnInit {
   @Input() comment;
   @Input() formData;
   fiscalYearArray: Array<FiscalYear>;
-
-  isMega = environment.isMega;
   customerAllLoanList: LoanDataHolder[] = [];
   proposalData: Proposal;
   megaGroupEnabled = environment.MEGA_GROUP;

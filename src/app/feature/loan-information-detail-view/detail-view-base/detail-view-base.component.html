@@ -60,16 +60,16 @@
                             [fromProfile]="false"
                             [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
  -->
-            <ng-container *ngIf="!isMega; else ntaMegaSummary">
-                <app-nta-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
-                                 [fiscalYears]="fiscalYearArray"
-                                 [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
-            </ng-container>
-
-            <ng-template #ntaMegaSummary>
+            <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
                 <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
                                       [fiscalYears]="fiscalYearArray"
                                       [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
+            </ng-container>
+
+            <ng-template #otherBank>
+                <app-nta-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
+                                 [fiscalYears]="fiscalYearArray"
+                                 [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
             </ng-template>
 <div *ngIf="client === clientName?.MEGA">
     <app-comments-summary
