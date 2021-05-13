@@ -25,7 +25,6 @@ export const environment = {
   disableCrgAlpha: true,
   disableApprovalSheet: false,
   microLoan: true,
-  isMega: true,
   SBS_GROUP: false,
   MEGA_GROUP: true,
 };
