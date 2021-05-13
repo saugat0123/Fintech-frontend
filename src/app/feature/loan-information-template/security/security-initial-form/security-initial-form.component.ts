@@ -44,6 +44,7 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() calendarType: CalendarType;
     @Input() loanTag: string;
     @Input() shareSecurity;
+    @Input() customerSecurityId;
 
     @ViewChildren('revaluationComponent')
     revaluationComponent: QueryList<SecurityRevaluationComponent>;
@@ -149,9 +150,6 @@ export class SecurityInitialFormComponent implements OnInit {
     totalLandValueRemarks: any;
     client = environment.client;
     clientName = Clients;
-    landForSiteVisit = false;
-    landAndBuildingForSiteVisit = false;
-    hypothecationForSiteVisit = false;
     dialogRef: NbDialogRef<any>;
     isOpen = false;
 
@@ -413,7 +411,6 @@ export class SecurityInitialFormComponent implements OnInit {
         const landDetails = this.securityForm.get('landDetails') as FormArray;
         currentData.forEach((singleData, index) => {
             if (this.landOtherBranchChecked && singleData['landBranch']) {
-                this.landForSiteVisit = true;
                 this.valuator(singleData['landBranch']['id'], 'land', index);
             } else {
                 this.valuator(null, 'land', index);
@@ -464,7 +461,6 @@ export class SecurityInitialFormComponent implements OnInit {
 
     setHypothecation(currentData) {
         if (!ObjectUtil.isEmpty(currentData)) {
-            this.hypothecationForSiteVisit = true;
             const hypothecationDetails = this.securityForm.get('hypothecationOfStock') as FormArray;
             currentData.forEach((singleData) => {
                 hypothecationDetails.push(
@@ -619,7 +615,6 @@ export class SecurityInitialFormComponent implements OnInit {
         const buildingDetails = this.securityForm.get('landBuilding') as FormArray;
         Data.forEach((singleData, index) => {
             if (this.otherBranchcheck && singleData.buildingBranch) {
-                this.landAndBuildingForSiteVisit = true;
                 this.valuator(singleData['buildingBranch']['id'], 'building', index);
             } else {
                 this.valuator(null, 'building', index);
@@ -1910,9 +1905,14 @@ export class SecurityInitialFormComponent implements OnInit {
         }
     }
 
-    openSiteVisitModel() {
+    openSiteVisitModel(security: string) {
         this.close();
+        const context = {
+            securityId: this.customerSecurityId,
+            security: security
+        };
         this.dialogRef = this.nbDialogService.open(FixAssetCollateralComponent, {
+            context,
             closeOnBackdropClick: false,
             hasBackdrop: false,
             hasScroll: true

@@ -25,7 +25,8 @@
         <!--Land Security-->
         <nb-card [hidden]="!landSelected" class="p-3">
             <div class="row justify-content-end">
-                <button class="btn btn-primary sb-small" (click)="openSiteVisitModel()">Inspect Site Visit</button>
+                <button class="btn btn-primary sb-small"
+                        (click)="openSiteVisitModel('Land Security')">Inspect Site Visit</button>
             </div>
             <div class="box-header with-border">
                 <h2 class="box-title title">Details of Security Offered and Value Amount : LAND</h2>
@@ -1253,20 +1254,18 @@
         </nb-card>
         <!--        Land Building security-->
         <nb-card [hidden]="!landBuilding" class="p-5">
-            <div class="row justify-content-end">
-                <button class="btn btn-primary sb-small">Inspect Site Visit</button>
-            </div>
+
             <div class="row">
                 <div class="col-md-5">
                     <div class="box-header with-border">
                         <h2 class="box-title title">Land and Building Security</h2>
                     </div>
                 </div>
-                <div class="col-md-7">
-
-                </div>
             </div>
-
+            <div class="row justify-content-end">
+                <button class="btn btn-primary sb-small"
+                        (click)="openSiteVisitModel('Land And Building Security')">Inspect Site Visit</button>
+            </div>
             <div formArrayName="landBuilding">
                 <div
                         *ngFor="let landAndBuilding of securityForm.get('landBuilding')['controls']; let i = index"
@@ -2737,11 +2736,12 @@
         </nb-card>
 
         <nb-card [hidden]="!hypothecation" class="p-3">
-            <div class="row justify-content-end">
-                <button class="btn btn-primary sb-small">Inspect Site Visit</button>
-            </div>
             <div class="box-header with-border">
                 <h2 class="box-title title">Hypothecation of Stock</h2>
+            </div>
+            <div class="row justify-content-end">
+                <button class="btn btn-primary sb-small"
+                        (click)="openSiteVisitModel('Hypothecation Of Stock')">Inspect Site Visit</button>
             </div>
             <div *ngFor="let hypothecation of securityForm.get('hypothecationOfStock')['controls']; let i = index"
                  class="font-weight-bold"

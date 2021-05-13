@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
@@ -6,9 +6,15 @@ import {NbDialogRef} from '@nebular/theme';
 import {FormUtils} from '../../../../../@core/utils/form.utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {Pattern} from '../../../../../@core/utils/constants/pattern';
-import {CommonAddressComponent} from '../../../../common-address/common-address.component';
 import {RoleService} from '../../../../admin/component/role-permission/role.service';
 import {ToastService} from '../../../../../@core/utils';
+import {CollateralSiteVisit} from './CollateralSiteVisit';
+import {CollateralSiteVisitService} from './collateral-site-visit.service';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {Province} from '../../../../admin/modal/province';
+import {District} from '../../../../admin/modal/district';
+import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
+import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 
 @Component({
     selector: 'app-fix-asset-collateral',
@@ -17,18 +23,28 @@ import {ToastService} from '../../../../../@core/utils';
 })
 export class FixAssetCollateralComponent implements OnInit {
     fixedAssetsForm: FormGroup;
+    @Input() securityId: number;
+    @Input() security: string;
     submitted = false;
-    @ViewChild('currentResidentAddress', {static: true}) currentResidentAddress: CommonAddressComponent;
     majorMarketPlaceDistance = ['less than 500M', '500M to 1KM', '1KM to 2KM', 'More than 2KM'];
     designationList = [];
     spinner = false;
+    fixed = false;
+    provinceList: Array<Province> = new Array<Province>();
+    districts: Array<District> = new Array<District>();
+    municipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
+    collateralSiteVisits: Array<CollateralSiteVisit>;
+    collateralSiteVisit: CollateralSiteVisit = new CollateralSiteVisit();
+    collateralData: any;
 
     constructor(private formBuilder: FormBuilder,
                 private http: HttpClient,
                 public nbDialogRef: NbDialogRef<FixAssetCollateralComponent>,
                 private activeModal: NgbActiveModal,
                 private toastService: ToastService,
-                private roleService: RoleService) {
+                private roleService: RoleService,
+                private addressService: AddressService,
+                private collateralSiteVisitService: CollateralSiteVisitService) {
     }
 
     get form() {
@@ -40,20 +56,87 @@ export class FixAssetCollateralComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getRoleList();
         this.buildForm();
+        this.addressService.getProvince().subscribe(
+            (response: any) => {
+                this.provinceList = response.detail;
+            });
+        this.getRoleList();
+        this.getCollateralBySecurityName(this.security);
         this.addStaffs();
     }
 
+    getCollateralBySecurityName(securityName) {
+        this.collateralSiteVisitService.getCollateralBySecurityName(securityName).subscribe((response: any) => {
+            this.collateralSiteVisits = response.detail;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info of ${securityName}`));
+        });
+    }
+
+    getLastSiteVisitDetail(siteVisitDate: string) {
+        this.collateralSiteVisitService.getCollateralBySiteVisitDate(siteVisitDate).subscribe((response: any) => {
+            this.collateralSiteVisit = response.detail;
+            this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
+            this.getDistrictsById(this.collateralData.province.id, null);
+            this.getMunicipalitiesById(this.collateralData.district.id, null);
+            this.fixedAssetsForm.patchValue(JSON.parse(this.collateralSiteVisit.siteVisitJsonData));
+            this.setStaffDetail(this.collateralData);
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info by ${siteVisitDate} date`));
+        });
+    }
+    getDistrictsById(provinceId: number, event) {
+        const province = new Province();
+        province.id = provinceId;
+        this.addressService.getDistrictByProvince(province).subscribe(
+            (response: any) => {
+                this.districts = response.detail;
+                this.districts.sort((a, b) => a.name.localeCompare(b.name));
+            }
+        );
+    }
+
+
+    getMunicipalitiesById(districtId: number, event) {
+        const district = new District();
+        district.id = districtId;
+        this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+            (response: any) => {
+                this.municipalities = response.detail;
+                this.municipalities.sort((a, b) => a.name.localeCompare(b.name));
+                if (event !== null) {
+                    this.fixedAssetsForm.get('municipalityVdc').patchValue(null);
+                }
+            }
+        );
+    }
     getRoleList() {
         this.spinner = true;
         this.roleService.getAll().subscribe(res => {
             this.designationList = res.detail;
             this.spinner = false;
         }, error => {
-            console.log('error', error);
+            console.error('error', error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Error While Fetching List'));
             this.spinner = false;
+        });
+    }
+
+    setStaffDetail(data) {
+        const formControls = this.fixedAssetsForm.get('staffs') as FormArray;
+        data.staffs.splice(0, 1);
+        data.staffs.forEach((detail) => {
+            formControls.push(
+                this.formBuilder.group({
+                    staffRepresentativeNameDesignation: [detail.staffRepresentativeNameDesignation],
+                    staffRepresentativeName: [detail.staffRepresentativeName],
+                    staffRepresentativeNameDesignation2: [detail.staffRepresentativeNameDesignation2],
+                    staffRepresentativeName2: [detail.staffRepresentativeName2],
+                })
+            );
         });
     }
 
@@ -62,7 +145,12 @@ export class FixAssetCollateralComponent implements OnInit {
             date: [undefined, Validators.required],
             personContacted: [undefined, Validators.pattern(Pattern.ALPHABET_ONLY)],
             phoneNoOfContact: [undefined, Validators.pattern(Pattern.NUMBER_MOBILE)],
-            address: [undefined],
+            address1: [undefined],
+            address2: [undefined],
+            province: [undefined, Validators.required],
+            district: [undefined, Validators.required],
+            municipalityVdc: [undefined, Validators.required],
+            ward: [undefined, Validators.required],
             typeOfProperty: [undefined],
             shapeOfLand: [undefined],
             locationAndShapeOfLand: [undefined],
@@ -82,7 +170,7 @@ export class FixAssetCollateralComponent implements OnInit {
             remarksForOtherFacility: [undefined],
             building: [undefined],
             buildingArea: [undefined],
-            constructionYear: [undefined, Validators.required],
+            constructionYear: [undefined],
             builtUpArea: [undefined],
             buildingType: [undefined],
             noOfStorey: [undefined],
@@ -133,6 +221,27 @@ export class FixAssetCollateralComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
+        if (ObjectUtil.isEmpty(this.collateralSiteVisit)) {
+            this.collateralSiteVisit = new CollateralSiteVisit();
+        }
+        this.collateralSiteVisit.siteVisitDate = this.fixedAssetsForm.get('date').value;
+        this.collateralSiteVisit.siteVisitJsonData = JSON.stringify(this.fixedAssetsForm.value);
+        this.collateralSiteVisit.securityName = this.security;
+        if (this.fixedAssetsForm.invalid) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation!!!'));
+            return;
+        }
+        this.collateralSiteVisitService.saveCollateralSiteVisit(this.securityId, this.collateralSiteVisit).subscribe(() => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Save Security Site Visit'));
+            this.nbDialogRef.close();
+        }, error => {
+            this.spinner = false;
+            console.log(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Security Site Visit'));
+        });
     }
 
+    compareFn(c1: any, c2: any): boolean {
+        return c1 && c2 ? c1.id === c2.id : c1 === c2;
+    }
 }

@@ -1,6 +1,6 @@
 <nb-card ngDraggable [ngResizable]="true">
     <nb-card-header>
-        <strong>Header</strong>
+        <strong>Collateral Site Visit</strong>
         <button (click)="nbDialogRef.close()" aria-label="Close"
                 class="close cursor d-inline-flex justify-content-end" nbButton
                 size="tiny"
@@ -8,6 +8,15 @@
             <span aria-hidden="true">X</span></button>
     </nb-card-header>
     <nb-card-body>
+        <div class="row">
+            <div class="col-md-4">
+                <span>Last Site Visit Date</span>
+                <select class="form-control" #selectElement (change)="getLastSiteVisitDetail(selectElement.value)">
+                    <option [value]="null" hidden>Select Date</option>
+                    <option *ngFor="let siteVisit of collateralSiteVisits">{{siteVisit?.siteVisitDate}}</option>
+                </select>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <form [formGroup]="fixedAssetsForm">
@@ -46,8 +55,88 @@
                                 <span *ngIf="form?.phoneNoOfContact.errors.pattern">Invalid Mobile Number</span>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <app-common-address #currentResidentAddress></app-common-address>
+                        <div class="row col-md-12">
+                            <div class="col-md-6 form-group">
+                                <label class="title" for="address1">Address Line 1</label>
+                                <input class="form-control" formControlName="address1" id="address1" name="address1"
+                                       placeholder="Address Line 1 (optional)" type="text">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="title" for="address2">Address Line 2</label>
+                                <input class="form-control" formControlName="address2" id="address2" name="address2"
+                                       placeholder="Address Line 2 (optional)" type="text">
+                            </div>
+
+                            <div class="col-md-4 form-group">
+                                <label for="province">Province</label>
+                                <ng-select (change)="getDistrictsById(form.province.value?.id , $event)"
+                                        [compareWith]="compareFn"
+                                        [ngClass]="{'is-invalid': submitted && form.province.errors}"
+                                        formControlName="province"
+                                        id="province"
+                                        bindLabel="name">
+                                    <ng-option *ngFor="let provinceVal of provinceList"
+                                            [value]="provinceVal">
+                                        {{provinceVal.name}}
+                                    </ng-option>
+                                </ng-select>
+                                <div *ngIf="(submitted) && form.province.invalid"
+                                     class="invalid-feedback">
+                                    <div *ngIf="form.province.errors.required">
+                                        Province is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label for="district">District</label>
+                                <ng-select (change)="getMunicipalitiesById(form?.district.value?.id, $event)"
+                                        [compareWith]="compareFn"
+                                        [ngClass]="{'is-invalid': submitted && form.district.errors}"
+                                        formControlName="district"
+                                        id="district"
+                                        bindLabel="name">
+                                    <ng-option *ngFor="let districtVal of districts"
+                                            [value]="districtVal">
+                                        {{districtVal.name}}
+                                    </ng-option>
+                                </ng-select>
+                                <div *ngIf="(submitted) && form.district.invalid"
+                                     class="invalid-feedback">
+                                    <div *ngIf="form.district.errors.required">
+                                        District is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label for="municipality">Municipalities or VDC</label>
+                                <ng-select [compareWith]="compareFn"
+                                        [ngClass]="{'is-invalid': submitted && form.municipalityVdc.errors}"
+                                        formControlName="municipalityVdc"
+                                        id="municipality"
+                                        bindLabel="name">
+                                    <ng-option *ngFor="let municipalityVal of municipalities"
+                                            [value]="municipalityVal">
+                                        {{municipalityVal.name}}
+                                    </ng-option>
+                                </ng-select>
+                                <div *ngIf="(submitted) && form.municipalityVdc.invalid"
+                                     class="invalid-feedback">
+                                    Municipality is required
+                                </div>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label class="title" for="ward">Ward Number</label>
+                                <input [ngClass]="{'is-invalid': submitted && form.ward.errors}" class="form-control"
+                                       formControlName="ward"
+                                       id="ward" name="ward"
+                                       placeholder="ward" type="number">
+                                <div *ngIf="(submitted) && form.ward.invalid"
+                                     class="invalid-feedback">
+                                    <div *ngIf="form.ward.errors.required">
+                                        Ward is required
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-4 form-group">
                             <label class="title" for="typeOfProperty">Type of Property</label>
@@ -258,12 +347,8 @@
                                     <label class="title" for="constructionYear">Construction Year</label>
                                     <input nbInput fullWidth
                                            class="form-control"
-                                           [ngClass]="{'is-invalid': (submitted) && form.constructionYear?.errors}"
                                            formControlName="constructionYear" id="constructionYear"
                                            type="date">
-                                    <div *ngIf="submitted && form.constructionYear?.invalid" class="invalid-feedback">
-                                        Construction Year is required
-                                    </div>
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label class="title" for="buildingType">Building Type</label>
@@ -452,7 +537,7 @@
         </div>
     </nb-card-body>
     <nb-card-footer>
-        <button nbButton type="button" (click)="onSubmit()">Save</button>
+        <button nbButton type="button" (click)="onSubmit()" class="float-right">Save</button>
     </nb-card-footer>
 </nb-card>
 

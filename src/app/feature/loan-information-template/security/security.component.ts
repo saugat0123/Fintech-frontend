@@ -66,6 +66,7 @@ export class SecurityComponent implements OnInit {
 
     disableCrgAlphaParams = environment.disableCrgAlpha;
     crgLambdaDisabled = environment.disableCrgLambda;
+    securityId: number;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -88,6 +89,7 @@ export class SecurityComponent implements OnInit {
             this.initialSecurityValue = this.securityValueForEdit;
             this.setCrgSecurityForm(this.securityValueForEdit);
             this.setGuarantorsDetails(this.securityValue.guarantor);
+            this.securityId = this.securityValue.id;
         } else {
             this.addGuarantorsDetails();
             this.initialSecurityValue = undefined;
