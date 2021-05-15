@@ -296,8 +296,14 @@
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
 
-            <app-guarantor-summary *ngIf="checkGuarantorData"
-                                   [guarantorData]="guarantorData"></app-guarantor-summary>
+            <div *ngIf="client !== clientName?.MEGA">
+                <app-guarantor-summary *ngIf="checkGuarantorData"
+                                       [guarantorData]="guarantorData"></app-guarantor-summary>
+            </div>
+            <div *ngIf="client === clientName?.MEGA">
+                <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
+                                    [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+            </div>
 
             <app-sitevist-summary-component *ngIf="siteVisitSummary"
                                             [formData]="siteVisitData"

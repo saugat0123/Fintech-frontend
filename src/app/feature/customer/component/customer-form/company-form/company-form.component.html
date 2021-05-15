@@ -28,11 +28,17 @@
                                    <div class="form-group">
                                        <label><strong>Customer Client Type</strong></label>
                                        <select
+                                               [ngClass]="{ 'is-invalid':submitted && form.clientType.errors }"
                                            class="custom-select" formControlName="clientType">
                                            <option  [ngValue]="null">Select Client Type</option>
 
                                            <option *ngFor="let data of clientType " [ngValue]="data">{{data}}</option>
                                        </select>
+                                       <div *ngIf="submitted && form.clientType.errors"
+                                            class="invalid-feedback">
+                                           <div *ngIf="form.clientType.errors.required">Customer Type is required</div>
+                                       </div>
+                                   </div>
                                    </div>
                                </div>
                                <div class="col-md-6">

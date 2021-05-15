@@ -344,7 +344,7 @@ export class CompanyFormComponent implements OnInit {
                     this.subSectorDetailCodeInput],
             clientType:
                 [ObjectUtil.isEmpty(this.clientTypeInput) ? undefined :
-                    this.clientTypeInput],
+                    this.clientTypeInput, Validators.required],
 
             // legalStatus
             corporateStructure: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus) ||

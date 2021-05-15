@@ -52,11 +52,16 @@
                                <div class="form-group">
                                    <label for="customerNameForm"><strong>Customer Client Type</strong></label>
                                    <select
+                                           [ngClass]="{ 'is-invalid':submitted && basicInfoControls.clientType.errors }"
                                            class="custom-select" formControlName="clientType">
                                        <option [ngValue]="null">Select Client Type</option>
                                        <option *ngFor="let data of clientType " [ngValue]="data"
                                                [selected]="data === clientTypeInput" >{{data}}</option>
                                    </select>
+                                   <div *ngIf="submitted && basicInfoControls.clientType.errors"
+                                        class="invalid-feedback">
+                                       <div *ngIf="basicInfoControls.clientType.errors.required">Customer Type is required</div>
+                                   </div>
                                </div>
                            </div>
                            <div class="col-md-6">
@@ -816,7 +821,6 @@
 
                </nb-tab>
                <nb-tab *ngIf="microCustomer" tabTitle="Micro Customer">
-                   check micro customer::{{microCustomer}}
                    <app-micro-individual-form #microIndividualFormComponent [data]="individualJsonData?.microCustomerDetail"></app-micro-individual-form>
                </nb-tab>
            </nb-tabset>
