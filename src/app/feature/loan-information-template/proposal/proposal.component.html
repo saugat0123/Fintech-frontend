@@ -671,10 +671,36 @@
                                         <span *ngIf="formControls.prepaymentSwapCommitment.errors">Prepayment/Commitment/Swap Charge Description</span>
                                     </div>
                                 </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group" style="max-height: 300px !important;height: 250px;">
+                                        <strong>{{client === clientName?.MEGA ? 'Justification of limit' : 'Background' }}</strong>
+                                        <ckeditor formControlName="borrowerInformation"
+                                                  [style]="{height:'250px !important;'}"
+                                                  placeholder="Background"
+                                                  required
+                                                  [config]="ckeConfig"
+                                                  [ngClass]="{'is-invalid': formControls.borrowerInformation.invalid && submitted}">
+                                        </ckeditor>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-md-12" style="padding-top: 70px;">
+                                    <div *ngIf="submitted">
+                                        <span *ngIf="formControls.borrowerInformation.invalid" class="text-danger">
+                                            <sup>*</sup> {{client === clientName?.MEGA ? 'Justification of limit is required!' : 'Background Information is required.' }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="client != clientName.MEGA">
+                                    <div class="form-group">
+                                        <label class="title"><b>Purpose of Loan</b></label>
+                                        <ckeditor formControlName="purposeOfLoan"></ckeditor>
+                                    </div>
+                                </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="title" for="disbursementCriteria"><strong>Disbursement
-                                            Criteria</strong></label>
+                                        <label class="title" for="disbursementCriteria"><strong>Disbursement Criteria</strong></label>
                                         <ckeditor
                                                 [ngClass]="{ 'is-invalid': (submitted) && formControls.disbursementCriteria.errors }"
                                                 formControlName="disbursementCriteria" id="disbursementCriteria"
@@ -701,56 +727,14 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="form-group" style="max-height: 300px !important;height: 250px;">
-                                        <strong>{{client === clientName?.MEGA ? 'Justification of limit' : 'Background' }}</strong>
-                                        <!--                    <textarea-->
-                                        <!--                        [ngClass]="{ 'is-invalid': (submitted) && formControls.borrowerInformation.errors }"-->
-                                        <!--                        class="form-control"-->
-                                        <!--                        formControlName="borrowerInformation" id="borrowerInfo"-->
-                                        <!--                        name="borrowerInfo"-->
-                                        <!--                        placeholder="Borrower Information"-->
-                                        <!--                        rows="3"></textarea>-->
-                                        <ckeditor formControlName="borrowerInformation"
-                                                  [style]="{height:'250px !important;'}"
-                                                  placeholder="Background"
-                                                  required
-                                                  [config]="ckeConfig"
-                                                  [ngClass]="{'is-invalid': formControls.borrowerInformation.invalid && submitted}">
-                                        </ckeditor>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="col-md-12" style="padding-top: 70px;">
-                                    <div *ngIf="submitted">
-                    <span *ngIf="formControls.borrowerInformation.invalid" class="text-danger">
-                      <sup>*</sup> {{client === clientName?.MEGA ? 'Justification of limit is required!' : 'Background Information is required.' }}
-                    </span>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 mt-3">
-                                    <div class="form-group">
-                                        <label class="title"><strong>Summary & Recommendation</strong></label>
-                                        <ckeditor formControlName="summeryRecommendation"
-                                                  [style]="{height:'250px !important;'}"
-                                                  placeholder="Summary & Recommendation"
-                                                  [config]="ckeConfig">
-                                        </ckeditor>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title" for="remark"><strong>Remarks</strong></label>
                                         <ckeditor
-                                            formControlName="remark" id="remark"
-                                            [config]="ckeConfig"></ckeditor>
+                                                formControlName="remark" id="remark"
+                                                [config]="ckeConfig"></ckeditor>
                                     </div>
                                 </div>
-                              <div class="col-md-12" *ngIf="client != clientName.MEGA">
-                                    <div class="form-group">
-                                        <label class="title"><b>Purpose of Loan</b></label>
-                                        <ckeditor formControlName="purposeOfLoan"></ckeditor>
-                                    </div>
-                              </div>
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title"><strong>Terms And Condition</strong></label>
@@ -761,6 +745,18 @@
                                         </ckeditor>
                                     </div>
                                 </div>
+
+                                <div class="col-md-12 mt-3">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Summary & Recommendation</strong></label>
+                                        <ckeditor formControlName="summeryRecommendation"
+                                                  [style]="{height:'250px !important;'}"
+                                                  placeholder="Summary & Recommendation"
+                                                  [config]="ckeConfig">
+                                        </ckeditor>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-12 form-group">
                                     <h6><strong>Additional Description</strong></h6>
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
