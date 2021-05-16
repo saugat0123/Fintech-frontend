@@ -2,7 +2,8 @@
     nbSpinnerStatus="primary"
     nbSpinnerSize="giant">
     <nb-card-header>
-        <nb-checkbox [hidden]="!microEnabled" [(ngModel)]="microCustomer">Micro Customer</nb-checkbox>
+        <nb-checkbox [hidden]="!microEnabled" [(ngModel)]="microCustomer"
+        (click)="microCustomerValidation()">Micro Customer</nb-checkbox>
         <div class="d-flex justify-content-end">
             <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex" name="companyInfoCalendarType">
                 <nb-radio value="AD">AD</nb-radio>
@@ -306,7 +307,6 @@
                                    </div>
                                </div>
                            </div>
-                       </div>
                        <div formGroupName="additionalCompanyInfo">
                            <div class="row">
                                <div class="col-md-12">

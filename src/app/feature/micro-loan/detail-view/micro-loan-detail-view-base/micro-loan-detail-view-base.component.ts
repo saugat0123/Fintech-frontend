@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {LoanDataHolder} from '../../../loan/model/loanData';
+import {environment} from '../../../../../environments/environment';
+import {Clients} from '../../../../../environments/Clients';
 
 @Component({
   selector: 'app-micro-loan-detail-view-base',
@@ -14,6 +16,8 @@ export class MicroLoanDetailViewBaseComponent implements OnInit {
   @Input() loanId;
   @Input() customerAllLoanList;
   @Input() fiscalYearArray;
+  client = environment.client;
+  clientName = Clients;
 
   constructor() { }
 

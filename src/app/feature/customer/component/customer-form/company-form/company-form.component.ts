@@ -1147,4 +1147,22 @@ export class CompanyFormComponent implements OnInit {
         });
         this.companyInfoFormGroup.get(resultControllerName).setValue(total);
     }
+
+    microCustomerValidation() {
+        this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'] , !!this.microCustomer);
+    }
+
+    /** @Param validate --- true for add validation and false for remove validation
+     * @Param controlNames --- list of formControlName**/
+    controlValidation(controlNames: string[], validate) {
+
+        controlNames.forEach(s => {
+            if (validate) {
+                this.companyInfoFormGroup.get(s).setValidators(Validators.required);
+            } else {
+                this.companyInfoFormGroup.get(s).clearValidators();
+            }
+            this.companyInfoFormGroup.get(s).updateValueAndValidity();
+        });
+    }
 }
