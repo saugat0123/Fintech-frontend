@@ -9,12 +9,12 @@ import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
-import {CadOfferLetterModalComponent} from '../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {ToastService} from '../../../../@core/utils';
 import {NbDialogService} from '@nebular/theme';
 import {ExcelOfferLetterConst} from '../../../cad-documents/cad-document-core/excel-offer-letter/excel-offer-letter-const';
 import {CadOfferLetterConfigurationComponent} from '../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
 import {UpdateCustomerCadInfoComponent} from '../../cad-offerletter-profile/update-customer-cad-info/update-customer-cad-info.component';
+import {ExcelOfferLetterComponent} from '../../excel-offer-letter-template/excel-offer-letter/excel-offer-letter.component';
 
 @Component({
     selector: 'app-profile-view',
@@ -96,8 +96,11 @@ export class ProfileViewComponent implements OnInit {
         if (a) {
             offerLetterType = this.offerLetterConst.keysEnum(offerLetterType);
         }
-        this.nbDialogService.open(CadOfferLetterModalComponent, {
-            context: {offerLetterType, cadOfferLetterApprovedDoc}
+        this.nbDialogService.open(ExcelOfferLetterComponent, {
+            context: {
+                offerLetterType: offerLetterType,
+                cadOfferLetterApprovedDoc: cadOfferLetterApprovedDoc
+            },
         });
 
 
