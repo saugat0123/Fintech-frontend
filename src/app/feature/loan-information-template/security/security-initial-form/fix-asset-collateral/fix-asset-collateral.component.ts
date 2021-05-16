@@ -68,6 +68,9 @@ export class FixAssetCollateralComponent implements OnInit {
     }
 
     getCollateralBySecurityName(securityName) {
+        if (this.securityId === undefined) {
+            return;
+        }
         this.collateralSiteVisitService.getCollateralBySecurityNameAndSecurityAndId(securityName, this.securityId)
             .subscribe((response: any) => {
             this.collateralSiteVisits = response.detail;

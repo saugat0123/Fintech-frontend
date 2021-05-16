@@ -4,6 +4,7 @@ import {NepseMaster} from '../../../../admin/modal/NepseMaster';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {OwnershipTransfer} from '../../../model/ownershipTransfer';
+import {CollateralSiteVisit} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 
 
 @Component({
@@ -40,6 +41,8 @@ export class SecuritySummaryComponent implements OnInit {
     otherDetail: any;
     assignments = false;
     leaseAssignment: any;
+    @Input() securityId: number;
+    @Input() collateralSiteVisitDetail = [];
 
     constructor() {
     }

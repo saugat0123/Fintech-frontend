@@ -36,4 +36,10 @@ export class CollateralSiteVisitService extends BaseService<CollateralSiteVisit>
     const req = ApiUtils.getRequest(api);
     return this.http.get(req.url, {headers: req.header});
   }
+
+  public getCollateralSiteVisitBySecurityId(securityId: number): Observable<any> {
+    const api = `${this.getApi()}/site-visit/${securityId}`;
+    const req = ApiUtils.getRequest(api);
+    return this.http.get(req.url, {headers: req.header});
+  }
 }
