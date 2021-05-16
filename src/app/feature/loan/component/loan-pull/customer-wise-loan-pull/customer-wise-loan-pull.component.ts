@@ -346,6 +346,7 @@ export class CustomerWiseLoanPullComponent implements OnInit {
 
 
     getCsv() {
+        this.spinner = true;
         this.loanFormService.download(this.catalogueService.search).subscribe((response: any) => {
             const link = document.createElement('a');
             link.target = '_blank';
@@ -353,7 +354,10 @@ export class CustomerWiseLoanPullComponent implements OnInit {
             link.download = ApiConfig.URL + '/' + response.detail;
             link.setAttribute('visibility', 'hidden');
             link.click();
-
+            this.spinner = false;
+        }, error => {
+            this.spinner = false;
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message === null ? 'Unable to download!' : error.error.message));
         });
     }
 

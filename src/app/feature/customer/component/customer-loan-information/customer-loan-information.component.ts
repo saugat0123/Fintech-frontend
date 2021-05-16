@@ -134,7 +134,6 @@ export class CustomerLoanInformationComponent implements OnInit {
     public microBaselRiskExposure: MicroBaselRiskExposure;
     public microBorrowerFinancial: MicroBorrowerFinancial;
     customerType = CustomerType;
-    isMega = environment.isMega;
     public reportingInfoLevels: Array<ReportingInfoLevel>;
     public reportingInfoLevelCode: string;
     public reportingInfoLevelDescription: string;

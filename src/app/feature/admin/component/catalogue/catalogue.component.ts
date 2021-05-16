@@ -147,7 +147,7 @@ export class CatalogueComponent implements OnInit {
         if (this.accessSpecific || this.accessAll) {
             this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
                 this.branchList = response.detail;
-                this.branchList.sort((a,b) => a.name.localeCompare(b.name));
+                this.branchList.sort((a, b) => a.name.localeCompare(b.name));
             }, error => {
                 console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
@@ -433,6 +433,7 @@ export class CatalogueComponent implements OnInit {
     }
 
     getCsv() {
+        this.spinner = true;
         this.loanFormService.download(this.catalogueService.search).subscribe((response: any) => {
             const link = document.createElement('a');
             link.target = '_blank';
@@ -440,7 +441,10 @@ export class CatalogueComponent implements OnInit {
             link.download = ApiConfig.URL + '/' + response.detail;
             link.setAttribute('visibility', 'hidden');
             link.click();
-
+            this.spinner = false;
+        }, error => {
+            this.spinner = false;
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message === null ? 'Unable to download!' : error.error.message));
         });
     }
 

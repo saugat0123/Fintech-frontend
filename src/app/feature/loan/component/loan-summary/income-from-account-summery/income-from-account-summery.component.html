@@ -61,3 +61,6 @@
     </table>
   </div>
 </div>
+
+<app-income-from-account-view *ngIf="!newCustomerFlag"
+                              [data]="incomeFromAccount"></app-income-from-account-view>
