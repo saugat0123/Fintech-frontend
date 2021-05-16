@@ -24,10 +24,6 @@
         <!--        </nb-checkbox>-->
         <!--Land Security-->
         <nb-card [hidden]="!landSelected" class="p-3">
-            <div class="row justify-content-end">
-                <button class="btn btn-primary sb-small"
-                        (click)="openSiteVisitModel('Land Security')">Inspect Site Visit</button>
-            </div>
             <div class="box-header with-border">
                 <h2 class="box-title title">Details of Security Offered and Value Amount : LAND</h2>
             </div>
@@ -36,6 +32,10 @@
                  formArrayName="landDetails">
                 <div [formGroupName]="i">
                     <input type="checkbox" formControlName="landOtherBranchChecked"> Property on another branch location
+                    <div class="row justify-content-end">
+                        <button class="btn btn-primary sb-small mr-2"
+                                (click)="openSiteVisitModel('Land Security'+' '+(i+1))">Inspect Site Visit</button>
+                    </div>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -1262,14 +1262,14 @@
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-end">
-                <button class="btn btn-primary sb-small"
-                        (click)="openSiteVisitModel('Land And Building Security')">Inspect Site Visit</button>
-            </div>
             <div formArrayName="landBuilding">
                 <div
                         *ngFor="let landAndBuilding of securityForm.get('landBuilding')['controls']; let i = index"
                         class="font-weight-bold">
+                    <div class="row justify-content-end">
+                        <button class="btn btn-primary sb-small mr-2"
+                                (click)="openSiteVisitModel('Land And Building Security'+' '+(i+1))">Inspect Site Visit</button>
+                    </div>
                     <div class="row">
                         <div class="col-md-10">
                             <p><b>{{i + 1}}.Land & Building</b></p>
@@ -2739,16 +2739,15 @@
             <div class="box-header with-border">
                 <h2 class="box-title title">Hypothecation of Stock</h2>
             </div>
-            <div class="row justify-content-end">
-                <button class="btn btn-primary sb-small"
-                        (click)="openSiteVisitModel('Hypothecation Of Stock')">Inspect Site Visit</button>
-            </div>
             <div *ngFor="let hypothecation of securityForm.get('hypothecationOfStock')['controls']; let i = index"
                  class="font-weight-bold"
                  formArrayName="hypothecationOfStock">
                 <div [formGroupName]="i">
+                        <div class="row justify-content-end">
+                            <button class="btn btn-primary sb-small mr-2"
+                                    (click)="openSiteVisitModel('Hypothecation Of Stock'+' '+(i+1))">Inspect Site Visit</button>
+                        </div>
                     <div class="row">
-
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="title" for="description">Description</label>

@@ -36,6 +36,7 @@ export class FixAssetCollateralComponent implements OnInit {
     collateralSiteVisits: Array<CollateralSiteVisit>;
     collateralSiteVisit: CollateralSiteVisit = new CollateralSiteVisit();
     collateralData: any;
+    selectedSiteVisit: any;
 
     constructor(private formBuilder: FormBuilder,
                 private http: HttpClient,
@@ -67,7 +68,8 @@ export class FixAssetCollateralComponent implements OnInit {
     }
 
     getCollateralBySecurityName(securityName) {
-        this.collateralSiteVisitService.getCollateralBySecurityName(securityName).subscribe((response: any) => {
+        this.collateralSiteVisitService.getCollateralBySecurityNameAndSecurityAndId(securityName, this.securityId)
+            .subscribe((response: any) => {
             this.collateralSiteVisits = response.detail;
         }, error => {
             console.error(error);
@@ -75,8 +77,9 @@ export class FixAssetCollateralComponent implements OnInit {
         });
     }
 
-    getLastSiteVisitDetail(siteVisitDate: string) {
-        this.collateralSiteVisitService.getCollateralBySiteVisitDate(siteVisitDate).subscribe((response: any) => {
+    getLastSiteVisitDetail() {
+        this.collateralSiteVisitService.getCollateralBySiteVisitDateAndId(this.selectedSiteVisit.siteVisitDate, this.selectedSiteVisit.id)
+            .subscribe((response: any) => {
             this.collateralSiteVisit = response.detail;
             this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
             this.getDistrictsById(this.collateralData.province.id, null);
@@ -85,7 +88,7 @@ export class FixAssetCollateralComponent implements OnInit {
             this.setStaffDetail(this.collateralData);
         }, error => {
             console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info by ${siteVisitDate} date`));
+            this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info by ${this.selectedSiteVisit.siteVisitDate} date`));
         });
     }
     getDistrictsById(provinceId: number, event) {
@@ -236,7 +239,7 @@ export class FixAssetCollateralComponent implements OnInit {
             this.nbDialogRef.close();
         }, error => {
             this.spinner = false;
-            console.log(error);
+            console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Security Site Visit'));
         });
     }

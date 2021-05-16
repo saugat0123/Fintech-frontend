@@ -25,14 +25,14 @@ export class CollateralSiteVisitService extends BaseService<CollateralSiteVisit>
     return this.http.post(req.url, collateral, {headers: req.header});
   }
 
-  public getCollateralBySecurityName(securityName: string): Observable<any> {
-    const api = `${this.getApi()}/${securityName}`;
+  public getCollateralBySecurityNameAndSecurityAndId(securityName: string, id: number): Observable<any> {
+    const api = `${this.getApi()}/${securityName}/${id}`;
     const req = ApiUtils.getRequest(api);
     return this.http.get(req.url, {headers: req.header});
   }
 
-  public getCollateralBySiteVisitDate(siteVisitDate: string): Observable<any> {
-    const api = `${this.getApi()}/site-visit/${siteVisitDate}`;
+  public getCollateralBySiteVisitDateAndId(siteVisitDate: string, id: number): Observable<any> {
+    const api = `${this.getApi()}/site-visit/${siteVisitDate}/${id}`;
     const req = ApiUtils.getRequest(api);
     return this.http.get(req.url, {headers: req.header});
   }

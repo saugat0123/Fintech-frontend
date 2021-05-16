@@ -1,6 +1,6 @@
 <nb-card ngDraggable [ngResizable]="true">
     <nb-card-header>
-        <strong>Collateral Site Visit</strong>
+        <strong>Collateral Site Visit for {{security}}</strong>
         <button (click)="nbDialogRef.close()" aria-label="Close"
                 class="close cursor d-inline-flex justify-content-end" nbButton
                 size="tiny"
@@ -10,10 +10,10 @@
     <nb-card-body>
         <div class="row">
             <div class="col-md-4">
-                <span>Last Site Visit Date</span>
-                <select class="form-control" #selectElement (change)="getLastSiteVisitDetail(selectElement.value)">
-                    <option [value]="null" hidden>Select Date</option>
-                    <option *ngFor="let siteVisit of collateralSiteVisits">{{siteVisit?.siteVisitDate}}</option>
+                <span><strong>Select Last Site Visit Date</strong></span>
+                <select class="form-control" [(ngModel)]="selectedSiteVisit" (change)="getLastSiteVisitDetail()">
+                    <option [ngValue]="null" hidden>Select Date</option>
+                    <option *ngFor="let siteVisit of collateralSiteVisits" [ngValue]="siteVisit">{{siteVisit?.siteVisitDate}}</option>
                 </select>
             </div>
         </div>
