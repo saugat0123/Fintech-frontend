@@ -1639,21 +1639,21 @@
       <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
         <td>{{i+1}}</td>
         <td>{{siteVisit?.securityName.slice(0, -2)}}</td>
-        <td>{{siteVisit?.waterSupply || 'NA'}}</td>
-        <td>{{siteVisit?.electricity || 'NA'}}</td>
-        <td>{{siteVisit?.boundaryWallConstruction || 'NA'}}</td>
-        <td>{{siteVisit?.boundaryFencing || 'NA'}}</td>
-        <td>{{siteVisit?.drainage || 'NA'}}</td>
-        <td>{{siteVisit?.open || 'NA'}}</td>
-        <td>{{siteVisit?.telephoneLine || 'NA'}}</td>
-        <td>{{siteVisit?.buildingArea || 'NA'}}</td>
-        <td>{{siteVisit?.constructionYear || 'NA'}}</td>
-        <td>{{siteVisit?.buildingType || 'NA'}}</td>
-        <td>{{siteVisit?.builtUpArea || 'NA'}}</td>
-        <td>{{siteVisit?.noOfStorey || 'NA'}}</td>
-        <td>{{siteVisit?.roadSetbacks || 'NA'}}</td>
-        <td>{{siteVisit?.riverOrCanalSetbacks || 'NA'}}</td>
-        <td>{{siteVisit?.highTensionSetbacks || 'NA'}}</td>
+        <td>{{siteVisit?.waterSupply === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.electricity === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.boundaryWallConstruction === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.boundaryFencing === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.drainage === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.open === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.telephoneLine === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.buildingArea === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.constructionYear === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.buildingType === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.builtUpArea === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.noOfStorey === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.roadSetbacks === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.riverOrCanalSetbacks === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.highTensionSetbacks === true ? 'YES' : 'NO'}}</td>
       </tr>
       </tbody>
     </table>
