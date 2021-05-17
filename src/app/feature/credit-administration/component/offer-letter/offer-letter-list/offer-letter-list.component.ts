@@ -45,7 +45,7 @@ export class OfferLetterListComponent implements OnInit {
         other.currentIndexArray = [];
         other.toggleArray = [];
         other.loanList = [];
-        other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, 10).subscribe((res: any) => {
+        other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
             other.loanList = res.detail.content;
             other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
             other.loanList.forEach((l) => l.loanStage = other.getInitiator(l.assignedLoan));
