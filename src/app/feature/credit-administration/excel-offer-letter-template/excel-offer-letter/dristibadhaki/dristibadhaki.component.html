@@ -19,22 +19,26 @@
                 <div class="col-md-12">
                     नाम
                     <input class="form-field form-control-sm nepaliFont"
+                           readonly
                            formControlName="grandParent"
                            name="grandParent"
                            placeholder="" type="text"/>
                     को नाति/नातिनी/बुहारी
                     <input class="form-field form-control-sm nepaliFont"
+                           readonly
                            formControlName="parent"
                            name="parent"
                            placeholder="" type="text"/>
                     को छोरा/छोरी/पत्नी
                     <input class="form-field form-control-sm nepaliFont"
+                           readonly
                            formControlName="permanentDistrict"
                            name="permanentDistrict"
                            placeholder=""
                            type="text"/>
                     जिल्ला,
                     <input class="form-field form-control-sm nepaliFont"
+                           readonly
                            formControlName="permanentMunicipalities"
                            name="permanentMunicipalities"
                            placeholder=" "
@@ -42,18 +46,21 @@
                     गा.वि.स/न.पा./उ.म.न.पा./म.न.पा.
                     वडा नं
                     <input class="form-field form-control-sm nepaliFont"
+                           readonly
                            formControlName="permanentWard"
                            name="permanentWard"
                            placeholder=""
                            type="text"/>
                     घर भई हाल
                     <input class="form-field form-control-sm nepaliFont"
+                           readonly
                            formControlName="temporaryDistrict"
                            name="temporaryDistrict"
                            placeholder=""
                            type="text"/>
                     जिल्ला
                     <input class="form-field form-control-sm nepaliFont"
+                           readonly
                            formControlName="temporaryMunicipalities"
                            name="temporaryMunicipalities"
                            placeholder=""
@@ -61,12 +68,14 @@
                     गा.पा./न.पा./उ.म.न.पा./म.न.पा.
                     वडा नं
                     <input class="form-field form-control-sm nepaliFont"
+                           readonly
                            formControlName="temporaryWard"
                            name="temporaryWard"
                            placeholder=" "
                            type="text"/>
                     बस्ने वर्ष
                     <input class="form-field form-control-sm nepaliFont"
+                           readonly
                            formControlName="age"
                            name="age"
                            placeholder=" "
@@ -74,6 +83,7 @@
 
                     को/की
                     <input class="form-field form-control-sm nepaliFont"
+
                            formControlName="guarantor"
                            name="guarantor"
                            placeholder=" "
@@ -173,6 +183,7 @@
                            type="text"/>
                     को/की
                     <input class="form-field form-control-sm nepaliFont"
+                           readonly
                            formControlName="name"
                            name="name"
                            placeholder=" "
@@ -185,8 +196,8 @@
                            placeholder=" "
                            type="text"/>
                     ।– (अक्षरुपी
-                    <input readonly
-                           class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm nepaliFont"
+                           readonly
                            formControlName="amountInWord"
                            name="amountInWord"
                            placeholder=" "
@@ -249,7 +260,7 @@
             </div>
 
         </form>
-        <button [disabled]="initialInfoPrint" [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4"
+        <button [disabled]="!initialInfoPrint" [useExistingCss]="true" class="btn btn-flat btn-lg btn-primary m-4"
                 ngxPrint printSectionId="print-section">Print
         </button>
     </div>

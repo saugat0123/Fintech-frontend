@@ -12,7 +12,6 @@ import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-
 })
 export class DpNoteBorrowerComponent implements OnInit {
 
-  constructor() { }
   @Input() offerLetterType;
   @Input() cadOfferLetterApprovedDoc;
   spinner;

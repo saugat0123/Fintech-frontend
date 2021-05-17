@@ -18,8 +18,6 @@ export class CadOfferLetterModalComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.offerLetterType, 'CAD OFFER LETTER TYPE');
-        console.log(this.cadOfferLetterApprovedDoc, 'CAD OFFER LETTER APPRIVED DOC');
     }
 
     onClose() {
