@@ -484,6 +484,10 @@
                      class="font-weight-bold"
                      formArrayName="buildingDetails">
                     <div [formGroupName]="i">
+                        <div class="row justify-content-end">
+                            <button class="btn btn-primary sb-small mr-2"
+                                    (click)="openSiteVisitModel('Apartment Security'+' '+(i+1))">Inspect Site Visit</button>
+                        </div>
                         <ng-template #apartment>
                             <input type="checkbox" formControlName="apartmentOtherBranchChecked"> Property on another
                             branch location
@@ -2743,10 +2747,6 @@
                  class="font-weight-bold"
                  formArrayName="hypothecationOfStock">
                 <div [formGroupName]="i">
-                        <div class="row justify-content-end">
-                            <button class="btn btn-primary sb-small mr-2"
-                                    (click)="openSiteVisitModel('Hypothecation Of Stock'+' '+(i+1))">Inspect Site Visit</button>
-                        </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
