@@ -48,7 +48,7 @@ export class CadDocumentListComponent implements OnInit {
         other.encryptUrlArray = [];
         other.loanList = [];
         other.spinner = true;
-        other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, 10).subscribe((res: any) => {
+        other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
             other.spinner = false;
             other.loanList = res.detail.content;
             other.loanList.forEach(() => other.toggleArray.push({toggled: false}));

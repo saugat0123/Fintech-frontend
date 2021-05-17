@@ -36,7 +36,7 @@ export class UnassignedLoanComponent implements OnInit {
     static loadData(other: UnassignedLoanComponent) {
         other.spinnerService.show();
         other.spinner = true;
-        other.service.getPaginationWithSearchObject(other.searchObj, other.page, 10).subscribe((res: any) => {
+        other.service.getPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
             other.loanList = res.detail.content;
             other.pageable = PaginationUtils.getPageable(res.detail);
             other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
