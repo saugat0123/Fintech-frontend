@@ -17,6 +17,7 @@ export class TemplateName {
   static BORROWER_PORTFOLIO = 'Borrower Portfolio';
   static BASEL_RISK_EXPOSURE = 'Basel Risk Exposure';
   static MICRO_BORROWER_FINANCIAL = 'Micro Borrower Financial';
+  static MICRO_CRG_PARAMS = 'Micro CRG Params';
   static MARKETING_ACTIVITIES = 'Marketing Activities';
   static CUSTOMER_REPORTING_INFO = 'Customer Reporting Info';
   static COMMENTS = 'Comments';
