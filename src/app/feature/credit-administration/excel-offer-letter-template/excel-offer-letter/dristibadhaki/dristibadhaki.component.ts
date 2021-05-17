@@ -49,22 +49,18 @@ export class DristibadhakiComponent implements OnInit {
     }
 
     checkOfferLetter() {
-        if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
-            this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-                === this.offerLetterConst.value(this.offerLetterConst.DRISTIBANDHAKI).toString())[0];
-            if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-                this.offerLetterDocument = new OfferDocument();
-                this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.DRISTIBANDHAKI);
-                this.fillForm();
-            } else {
-                const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-                this.initialInfoPrint = initialInfo;
-                this.existingOfferLetter = true;
-                this.form.patchValue(initialInfo);
-            }
+        this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
+            === this.offerLetterConst.value(this.offerLetterConst.DRISTIBANDHAKI).toString())[0];
+        if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
+            this.offerLetterDocument = new OfferDocument();
+            this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.DRISTIBANDHAKI);
+            this.fillForm();
+        } else {
+            const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+            this.initialInfoPrint = initialInfo;
+            this.existingOfferLetter = true;
+            this.form.patchValue(initialInfo);
         }
-
-
     }
 
     fillForm() {

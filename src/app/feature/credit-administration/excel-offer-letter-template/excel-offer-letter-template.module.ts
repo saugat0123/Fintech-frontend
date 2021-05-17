@@ -12,13 +12,15 @@ import {DpNoteBorrowerComponent} from './excel-offer-letter/dp-note-borrower/dp-
 import {PgFirmComponent} from './excel-offer-letter/pg-firm/pg-firm.component';
 import {PgRetailLoanComponent} from './excel-offer-letter/pg-retail-loan/pg-retail-loan.component';
 import {ContinuationDeedComponent} from './excel-offer-letter/continuation-deed/continuation-deed.component';
-import { DristibandhakiPrintComponent } from './excel-offer-letter/dristibadhaki/dristibandhaki-print/dristibandhaki-print.component';
+import {DristibandhakiPrintComponent} from './excel-offer-letter/dristibadhaki/dristibandhaki-print/dristibandhaki-print.component';
+import {DpNoteBorrowerPrintComponent} from './excel-offer-letter/dp-note-borrower/dp-note-borrower-print/dp-note-borrower-print.component';
 
 const COMPONENTS = [
     ExcelOfferLetterComponent,
     DristibadhakiComponent,
     DristibandhakiPrintComponent,
     DpNoteGuarantorComponent,
+    DpNoteBorrowerPrintComponent,
     PledgeDeedFirstComponent,
     DpNoteBorrowerComponent,
     PgFirmComponent,
@@ -30,6 +32,7 @@ const COMPONENTS = [
     declarations: [
         ...COMPONENTS,
         DristibandhakiPrintComponent,
+        DpNoteBorrowerPrintComponent,
     ],
     exports: [
         ...COMPONENTS
