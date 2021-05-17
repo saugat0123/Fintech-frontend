@@ -6,7 +6,8 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NepseService} from '../nepse.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {Pattern} from '../../../../../@core/utils/constants/pattern';
+import {environment} from '../../../../../../environments/environment';
+import {Clients} from '../../../../../../environments/Clients';
 
 
 @Component({
@@ -22,6 +23,8 @@ export class NepseFormComponent implements OnInit, DoCheck {
     submitted = false;
     spinner = false;
     nepsePriceInfoForm: FormGroup;
+    client = environment.client;
+    clientName = Clients;
 
     constructor(
         public fb: FormBuilder,

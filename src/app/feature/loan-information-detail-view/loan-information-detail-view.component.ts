@@ -44,7 +44,6 @@ export class LoanInformationDetailViewComponent implements OnInit {
     currentDocAction;
     fiscalYearArray = [];
     customerAllLoanList: Array<LoanDataHolder> = [];
-    isMega = environment.isMega;
     isMicro = false;
     crgGammaSummary = false;
     crgGammaScore = 0;

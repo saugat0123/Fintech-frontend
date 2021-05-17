@@ -158,7 +158,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     roleType;
     showApprovalSheetInfo = false;
     notApprove = 'notApprove';
-    isMega = environment.isMega;
 
     sbsGroupEnabled = environment.SBS_GROUP;
     megaGroupEnabled = environment.MEGA_GROUP;
