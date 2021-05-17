@@ -60,8 +60,7 @@ export class DristibadhakiComponent implements OnInit {
                 const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
                 this.initialInfoPrint = initialInfo;
                 this.existingOfferLetter = true;
-                this.form.patchValue(initialInfo, {emitEvent: false});
-                this.initialInfoPrint = initialInfo;
+                this.form.patchValue(initialInfo);
             }
         }
 
@@ -80,26 +79,26 @@ export class DristibadhakiComponent implements OnInit {
             temporaryMunicipalities: nepaliData.temporaryMunicipality ? nepaliData.temporaryMunicipality : '',
             temporaryWard: nepaliData.temporaryWard ? nepaliData.temporaryWard : '',
             age: nepaliData.age ? nepaliData.age : '',
-            guarantor: [undefined],
-            ministry: [undefined],
-            department: [undefined],
-            office: [undefined],
-            date: [undefined],
-            registrationNumber: [undefined],
-            companyDistrict: [undefined],
-            companyMunicipalities: [undefined],
-            number: [undefined],
-            company: [undefined],
-            guarantorGrandParent: [undefined],
-            guarantorParent: [undefined],
-            guarantorDistrict: [undefined],
-            guarantorMunicipalities: [undefined],
-            guarantorWard: [undefined],
-            guarantorAge: [undefined],
+            // guarantor: [undefined],
+            // ministry: [undefined],
+            // department: [undefined],
+            // office: [undefined],
+            // date: [undefined],
+            // registrationNumber: [undefined],
+            // companyDistrict: [undefined],
+            // companyMunicipalities: [undefined],
+            // number: [undefined],
+            // company: [undefined],
+            // guarantorGrandParent: [undefined],
+            // guarantorParent: [undefined],
+            // guarantorDistrict: [undefined],
+            // guarantorMunicipalities: [undefined],
+            // guarantorWard: [undefined],
+            // guarantorAge: [undefined],
             name: nepaliData.name ? nepaliData.name : '',
-            creditor: [undefined],
-            freight: [undefined],
-            self: [undefined],
+            // creditor: [undefined],
+            // freight: [undefined],
+            // self: [undefined],
         });
     }
 
