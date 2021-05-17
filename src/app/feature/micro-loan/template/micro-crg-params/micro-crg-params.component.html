@@ -1,1 +1,368 @@
-<p>micro-crg-params works!</p>
+<form [formGroup]="microCrgParamsForm" class="form-horizontal mb-2">
+    <div>
+        <nb-card>
+            <nb-card-header>
+                <h3><strong>Income of Borrower</strong></h3>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="row m-2">
+                    <em class="fa fa-info-circle"><em class="ml-2">Note : Remark can be income source detail or
+                        Type detail or any other description.</em></em>
+                </div>
+                <div *ngFor="let incomeOfBorrower of microCrgParamsForm.get('incomeOfBorrower')['controls']; let incomeIndex = index"
+                     class="border-bottom border-dark m-4"
+                     formArrayName="incomeOfBorrower">
+                    <div [formGroupName]="incomeIndex">
+                        <!-- START ROW -->
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="title"><strong>Income Source</strong></label><strong
+                                        class="text-danger">*</strong>
+                                    <ng-select #incomeSourceSelect [items]="typeOfSourceOfIncomeArray"
+                                               formControlName="incomeSource"
+                                               [appendTo]="'body'"
+                                               (change)="optionChangeTypeOfSourceOfIncome($event, organizationSelect, true)">
+                                        <span *ngIf="incomeOfBorrower.get('incomeSource').invalid"
+                                              class="text-danger small">Income source required</span>
+                                    </ng-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title"><strong>Type</strong></label><strong
+                                        class="text-danger">*</strong>
+                                    <ng-select #organizationSelect
+                                               [appendTo]="'body'"
+                                               (click)="optionChangeTypeOfSourceOfIncome(incomeSourceSelect.selectedValues[0], organizationSelect, false)"
+                                               formControlName="organization">
+                                    </ng-select>
+                                    <span *ngIf="incomeOfBorrower.get('organization').invalid"
+                                          class="text-danger small">Type required</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title"><strong>Age of Income Generated(In Months)</strong><strong
+                                            class="text-danger">*</strong></label>
+                                    <input
+                                            [ngClass]="{
+                               'is-invalid': incomeOfBorrower.get('ageOfIncomeGenerated').invalid && (incomeOfBorrower.get('ageOfIncomeGenerated').dirty || incomeOfBorrower.get('ageOfIncomeGenerated').touched),
+                                'is-valid': !incomeOfBorrower.get('ageOfIncomeGenerated').invalid && (incomeOfBorrower.get('ageOfIncomeGenerated').dirty || incomeOfBorrower.get('ageOfIncomeGenerated').touched)
+                                }" class="form-control"
+                                            placeholder="Age of Income Generated"
+                                            formControlName="ageOfIncomeGenerated"
+                                            type="number" appDecimalNumber>
+                                    <span *ngIf="incomeOfBorrower.get('ageOfIncomeGenerated').invalid" class="text-danger small">Age required</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="title"><strong>Amount (Monthly)</strong></label><strong
+                                        class="text-danger">*</strong>
+                                    <input (input)="totalAdditionInitialForm('incomeOfBorrower', 'totalIncome')"
+                                           [ngClass]="{
+                               'is-invalid': incomeOfBorrower.get('amount').invalid && (incomeOfBorrower.get('amount').dirty || incomeOfBorrower.get('amount').touched),
+                                'is-valid': !incomeOfBorrower.get('amount').invalid && (incomeOfBorrower.get('amount').dirty || incomeOfBorrower.get('amount').touched)
+                                }" class="form-control"
+                                           formControlName="amount" placeholder="Amount"
+                                           type="number" appDecimalNumber>
+                                    <span *ngIf="incomeOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="title"><strong>Remarks</strong></label><strong
+                                        class="text-danger">*</strong>
+                                    <input [ngClass]="{
+                               'is-invalid': incomeOfBorrower.get('remarks').invalid && (incomeOfBorrower.get('remarks').dirty || incomeOfBorrower.get('remarks').touched),
+                                'is-valid': !incomeOfBorrower.get('remarks').invalid && (incomeOfBorrower.get('remarks').dirty || incomeOfBorrower.get('remarks').touched)
+                                }" class="form-control"
+                                           formControlName="remarks" placeholder="Remarks"
+                                           type="text">
+                                    <span *ngIf="incomeOfBorrower.get('remarks').invalid" class="invalid-feedback">Remarks required</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1 ml-0 pl-0 mt-4">
+                                <button (click)="removeIncomeIndex(incomeIndex)"
+                                        *ngIf="microCrgParamsForm.get('incomeOfBorrower')['controls'].length > 1"
+                                        class="btn btn-sm btn-flat btn-danger" value="Delete">
+                                    <em class="fa fa-trash" style="color:white;"></em>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 pl-5">
+                        <label class="title"><strong>Total Income :
+                            Rs.{{microCrgParamsForm.get('totalIncome').value | currencyFormatter}}</strong></label>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <input (click)="addIncomeOfBorrower()" class="btn btn-sm btn-flat btn-primary"
+                               type="button" value="Add More"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <nb-card>
+                            <nb-card-body>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label for="majorSourceIncomeType">
+                                            <strong>Please select how the major source of income(s) are
+                                                divided between</strong></label><strong
+                                            class="text-danger">*</strong>
+                                        <select id="majorSourceIncomeType" class="form-control"
+                                                formControlName="majorSourceIncomeType"
+                                                [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('majorSourceIncomeType').invalid}">
+                                            <option value="null" hidden selected>--Select Options--</option>
+                                            <option *ngFor="let m of majorSourceIncomeType"
+                                                    [value]="m?.value">{{m?.value}}</option>
+                                        </select>
+                                        <div *ngIf="(submitted) && microCrgParamsForm.get('majorSourceIncomeType').invalid"
+                                             class="invalid-feedback">
+                                            Invalid Major Source of Income
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" >
+                                        <label for="periodOfEarning"><strong>Period of earning/employment (in years)</strong></label><strong
+                                            class="text-danger">*</strong>
+                                        <input class="form-control" formControlName="periodOfEarning" id="periodOfEarning"
+                                               [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('periodOfEarning').invalid}"
+                                               placeholder="Period of earning/employment">
+
+                                        <div *ngIf="(submitted) && form.periodOfEarning.invalid"
+                                             class="invalid-feedback">
+                                            <div>
+                                                Invalid Period of earning/employment
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-8" nbTooltip="Type NA in case there is no alternative source" nbTooltipStatus="primary" >
+                                        <label for="alternateIncomeSource"><strong>Alternate/Secondary source of income</strong></label>
+                                        <input class="form-control" formControlName="alternateIncomeSource" id="alternateIncomeSource"
+                                               placeholder="Alternate/Secondary source of income">
+                                    </div>
+                                    <div class="col-md-4" nbTooltip="Type 0 if there is no alternate source" nbTooltipStatus="primary" >
+                                        <label for="alternateIncomeSourceAmount"><strong>Source Amount</strong></label>
+                                        <input class="form-control" formControlName="alternateIncomeSourceAmount" id="alternateIncomeSourceAmount"
+                                               placeholder="Amount" appDecimalNumber/>
+                                    </div>
+                                </div>
+                            </nb-card-body>
+                        </nb-card>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+
+        <nb-card>
+            <nb-card-header>
+                <h3><strong>Expenses of Borrower</strong></h3>
+            </nb-card-header>
+            <nb-card-body>
+                <div *ngFor="let expensesOfBorrower of microCrgParamsForm.get('expensesOfBorrower')['controls']; let expenseIndex = index"
+                     class="border-bottom border-dark m-4"
+                     formArrayName="expensesOfBorrower">
+                    <div [formGroupName]="expenseIndex">
+
+                        <!-- START ROW -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title"><strong>Particulars</strong><strong
+                                            class="text-danger">*</strong></label>
+                                    <input [ngClass]="{
+                               'is-invalid': expensesOfBorrower.get('particulars').invalid && (expensesOfBorrower.get('particulars').dirty || expensesOfBorrower.get('particulars').touched),
+                                'is-valid': !expensesOfBorrower.get('particulars').invalid && (expensesOfBorrower.get('particulars').dirty || expensesOfBorrower.get('particulars').touched)
+                                }" class="form-control"
+                                           formControlName="particulars" placeholder="Particulars"
+                                           type="text">
+                                    <span *ngIf="expensesOfBorrower.get('particulars').invalid"
+                                          class="invalid-feedback">Particulars required</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title"><strong>Amount (Monthly)</strong><strong
+                                            class="text-danger">*</strong></label>
+                                    <input (input)="totalAdditionInitialForm('expensesOfBorrower', 'totalExpense')"
+                                           [ngClass]="{
+                               'is-invalid': expensesOfBorrower.get('amount').invalid && (expensesOfBorrower.get('amount').dirty || expensesOfBorrower.get('amount').touched),
+                                'is-valid': !expensesOfBorrower.get('amount').invalid && (expensesOfBorrower.get('amount').dirty || expensesOfBorrower.get('amount').touched)
+                                }" class="form-control"
+                                           formControlName="amount" placeholder="Amount"
+                                           type="number" appDecimalNumber>
+                                    <span *ngIf="expensesOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title"><strong>Remarks</strong><strong
+                                            class="text-danger">*</strong></label>
+                                    <input [ngClass]="{
+                               'is-invalid': expensesOfBorrower.get('remarks').invalid && (expensesOfBorrower.get('remarks').dirty || expensesOfBorrower.get('remarks').touched),
+                                'is-valid': !expensesOfBorrower.get('remarks').invalid && (expensesOfBorrower.get('remarks').dirty || expensesOfBorrower.get('remarks').touched)
+                                }" class="form-control"
+                                           formControlName="remarks" placeholder="Remarks"
+                                           type="text">
+                                    <span *ngIf="expensesOfBorrower.get('remarks').invalid"
+                                          class="invalid-feedback">Remarks required</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1 ml-0 pl-0 mt-4">
+                                <button (click)="removeExpensesIndex(expenseIndex)"
+                                        *ngIf="microCrgParamsForm.get('expensesOfBorrower')['controls'].length > 1"
+                                        class="btn btn-sm btn-flat btn-danger" value="Delete">
+                                    <em class="fa fa-trash" style="color:white;"></em>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 pl-5">
+                        <label class="title"><strong>Total Expense :
+                            Rs.{{microCrgParamsForm.get('totalExpense').value | currencyFormatter}}</strong></label>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <input (click)="addExpensesOfBorrower()" class="btn btn-sm btn-flat btn-primary"
+                               type="button" value="Add More"/>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+
+        <nb-card>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="totalNetMonthlyIncome"><strong>Total Net monthly Income</strong></label>
+                        <input class="form-control" formControlName="totalNetMonthlyIncome" id="totalNetMonthlyIncome"
+                               [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('totalNetMonthlyIncome').invalid}"
+                               placeholder="Amount" readonly [value]="numberUtils.isNumber(form.totalIncome.value - form.totalExpense.value).toFixed(2)">
+
+                        <div *ngIf="(submitted) && form.totalNetMonthlyIncome.invalid"
+                             class="invalid-feedback">Invalid Net Monthly Income
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="emiWithProposal"><strong>Total EMI of client including present proposal</strong></label><strong
+                            class="text-danger">*</strong>
+                        <input class="form-control" formControlName="emiWithProposal" id="emiWithProposal"
+                               [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('emiWithProposal').invalid}"
+                               placeholder="Include EMI of other BFIs" appDecimalNumber/>
+
+                        <div *ngIf="(submitted) && form.emiWithProposal.invalid"
+                             class="invalid-feedback">
+                            Invalid EMI Amount
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="totalEMIInterest" *ngIf="client ===  clientName?.MEGA"><strong>Total EMI and interest expenses to Gross income</strong></label>
+                        <label for="totalEMIInterest" *ngIf="client ===  clientName?.SHINE_RESUNGA"><strong>EMI / Gross Monthly Income</strong></label>
+                        <input class="form-control" formControlName="totalEMIInterest" id="totalEMIInterest" name
+                               [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('totalEMIInterest').invalid}"
+                               placeholder="Total EMI and Interest Expenses" readonly
+                               [value]="totalEmiMonthlyGross()">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="emiNetMonthly"><strong>EMI / Net Monthly Income</strong></label>
+                        <input class="form-control" formControlName="emiNetMonthly" id="emiNetMonthly"
+                               [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('emiNetMonthly').invalid}"
+                               placeholder="EMI / Net Monthly Income" readonly
+                               [value]="totalEmiMonthlyGross()">
+                        <div *ngIf="(submitted) && form.emiNetMonthly.invalid"
+                             class="invalid-feedback"> EMI / Net Monthly Income is required
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row" *ngIf="client === clientName?.SHINE_RESUNGA">
+                    <div class="col-md-12">
+                        <label><b>Note: </b></label>
+                        <textarea class="form-control" formControlName="note" rows="4" placeholder="Note"></textarea>
+                    </div>
+                </div>
+
+            </nb-card-body>
+        </nb-card>
+
+        <nb-card>
+            <nb-card-header>Repayment Capacity</nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="grossTotalIncome"><strong>Gross Total Income</strong></label>
+                        <input class="form-control" id="grossTotalIncome"
+                               [readOnly]="true"
+                               placeholder="Amount" [value]="numberUtils.isNumber(microCrgParamsForm.get('totalIncome').value).toFixed(2)">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="existingObligationOtherBank"><strong>Existing Obligation at other Bank</strong></label>
+                        <input class="form-control" formControlName="existingObligationOtherBank" id="existingObligationOtherBank"
+                               [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('existingObligationOtherBank').invalid}"
+                               (change)="totalObligation()"
+                               placeholder="Amount">
+
+                        <div *ngIf="(submitted) && form.existingObligationOtherBank.invalid"
+                             class="invalid-feedback">Invalid Existing Obligation at other Bank
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="totalObligationCurrentBank"><strong>Proposed and Existing Obligation at Our Bank</strong></label>
+                        <input class="form-control" formControlName="totalObligationCurrentBank" id="totalObligationCurrentBank"
+                               [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('existingObligationOtherBank').invalid}"
+                               type="number"
+                               (change)="totalObligation()"
+                               placeholder="Amount">
+
+                        <div *ngIf="(submitted) && form.totalObligationCurrentBank.invalid"
+                             class="invalid-feedback">Invalid Existing Obligation value
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="totalBankObligation"><strong>Total Bank Obligation</strong></label>
+                        <input class="form-control" formControlName="totalBankObligation" id="totalBankObligation"
+                               type="number"
+                               [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('totalBankObligation').invalid}"
+                               [readOnly]="true"
+
+                               [value]="numberUtils.isNumber(form.existingObligationOtherBank.value) + numberUtils.isNumber(form.totalObligationCurrentBank.value)"
+                        >
+
+                        <div *ngIf="(submitted) && form.totalBankObligation.invalid"
+                             class="invalid-feedback">Invalid Total Bank Obligation value
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="obligationGrossIncomeRatio"><strong>Total Bank Obligation to Gross Income Ratio</strong></label>
+                        <input class="form-control" formControlName="obligationGrossIncomeRatio" id="obligationGrossIncomeRatio"
+                               [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('obligationGrossIncomeRatio').invalid}"
+                               [readOnly]="true">
+
+                        <div *ngIf="(submitted) && form.obligationGrossIncomeRatio.invalid"
+                             class="invalid-feedback">Invalid Obligation Ratio
+                        </div>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+
+    <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+        <button (click)="onSubmit()" nbButton type="button">save</button>
+    </div>
+</form>

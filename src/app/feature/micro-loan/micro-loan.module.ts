@@ -24,6 +24,7 @@ import {BorrowerPortfolioViewComponent} from './detail-view/micro-loan-detail-vi
 import { BorrowerFinancialComponent } from './template/borrower-financial/borrower-financial.component';
 import { MarketingActivitiesViewComponent } from './detail-view/micro-loan-detail-view-base/marketing-activities-view/marketing-activities-view.component';
 import { MicroCrgParamsComponent } from './template/micro-crg-params/micro-crg-params.component';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 
 
@@ -66,6 +67,7 @@ import { MicroCrgParamsComponent } from './template/micro-crg-params/micro-crg-p
         LoanSummaryModule,
         ReportingModule,
         LoanInformationTemplateModule,
+        NgSelectModule,
     ]
 })
 export class MicroLoanModule { }
