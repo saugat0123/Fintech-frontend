@@ -148,6 +148,7 @@ export class FixAssetCollateralComponent implements OnInit {
 
     buildForm() {
         this.fixedAssetsForm = this.formBuilder.group({
+            securityName: [undefined],
             date: [undefined, Validators.required],
             personContacted: [undefined, Validators.pattern(Pattern.ALPHABET_ONLY)],
             phoneNoOfContact: [undefined, Validators.pattern(Pattern.NUMBER_MOBILE)],
@@ -231,6 +232,7 @@ export class FixAssetCollateralComponent implements OnInit {
             this.collateralSiteVisit = new CollateralSiteVisit();
         }
         this.collateralSiteVisit.siteVisitDate = this.fixedAssetsForm.get('date').value;
+        this.fixedAssetsForm.get('securityName').patchValue(this.security);
         this.collateralSiteVisit.siteVisitJsonData = JSON.stringify(this.fixedAssetsForm.value);
         this.collateralSiteVisit.securityName = this.security;
         if (this.fixedAssetsForm.invalid) {

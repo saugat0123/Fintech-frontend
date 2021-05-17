@@ -1504,4 +1504,228 @@
       </tbody>
     </table>
   </div>
+  <div class="row" *ngIf="isCollateralSiteVisit">
+    <table class="table table-sm table-bordered text-center table-sm sb-small">
+      <thead>
+        <tr>
+          <th colspan="11">
+            Security Collateral Site Visit Detail
+          </th>
+        </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>S.N</th>
+        <th>Security</th>
+        <th>Site Visit Date</th>
+        <th>Person Contacted</th>
+        <th>Phone No</th>
+        <th>Address Line 1</th>
+        <th>Address Line 2</th>
+        <th>Province</th>
+        <th>District</th>
+        <th>Municipality</th>
+        <th>Ward Number</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{siteVisit?.securityName.slice(0, -2)}}</td>
+          <td>{{siteVisit?.date | date}}</td>
+          <td>{{siteVisit?.personContacted}}</td>
+          <td>{{siteVisit?.phoneNoOfContact || 'NA'}}</td>
+          <td>{{siteVisit?.address1 || 'NA'}}</td>
+          <td>{{siteVisit?.address2 || 'NA'}}</td>
+          <td>{{siteVisit?.province.name}}</td>
+          <td>{{siteVisit?.district.name}}</td>
+          <td>{{siteVisit?.municipalityVdc.name}}</td>
+          <td>{{siteVisit?.ward}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table table-sm table-bordered text-center table-sm sb-small">
+      <thead>
+      <tr>
+        <th colspan="7">
+          Facilities
+        </th>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>S.N</th>
+        <th>Security</th>
+        <th>Road Approach</th>
+        <th>Road Width</th>
+        <th>Prominent Place</th>
+        <th>Approach Distance</th>
+        <th>Road Access From</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{siteVisit?.securityName.slice(0, -2)}}</td>
+        <td>{{siteVisit?.roadApproach}}</td>
+        <td>{{siteVisit?.roadWidth}}</td>
+        <td>{{siteVisit?.prominentPlace}}</td>
+        <td>{{siteVisit?.approachDistance}}</td>
+        <td>{{siteVisit?.roadAccessFrom}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="table table-sm table-bordered text-center table-sm sb-small">
+      <thead>
+      <tr>
+        <th colspan="12">
+          Other Facility
+        </th>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>S.N</th>
+        <th>Security</th>
+        <th>Load Bearing Wall</th>
+        <th>Mortar Cement</th>
+        <th>Other Roofing</th>
+        <th>Inside Furniture</th>
+        <th>Frame Structure</th>
+        <th>RCC Roofing</th>
+        <th>Bathroom And Toilet</th>
+        <th>Naksa Pass Obtained</th>
+        <th>Building Completion Certificate Obtained</th>
+        <th>Construction Appears to be as per the Approved Naksa Pass</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{siteVisit?.securityName.slice(0, -2)}}</td>
+        <td>{{siteVisit?.loadBearingWall === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.mortarCement === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.otherRoofing === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.insideFurniture === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.frameStructure === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.rccRoofing === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.bathroomAndToilet === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.naksaPassObtained === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.buildingCompCertificate === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.constructionAsPerNaksa === true ? 'YES' : 'NO'}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="table table-sm table-bordered text-center table-sm sb-small">
+      <thead>
+        <tr>
+          <th colspan="17">Building Detail</th>
+        </tr>
+        <tr class="text-white sb-bg-dark">
+          <th>S.N</th>
+          <th>Security</th>
+          <th>Water Supply</th>
+          <th>Electricity</th>
+          <th>Boundary Wall Construction</th>
+          <th>Boundary Fencing</th>
+          <th>Drainage</th>
+          <th>Open</th>
+          <th>Telephone Line</th>
+          <th>Building Area</th>
+          <th>Construction Year</th>
+          <th>Building Type</th>
+          <th>Built Up Area</th>
+          <th>Number of Storey</th>
+          <th>Any road setbacks?</th>
+          <th>Any river/canal/setbacks?</th>
+          <th>Any High-tension setbacks?</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{siteVisit?.securityName.slice(0, -2)}}</td>
+        <td>{{siteVisit?.waterSupply || 'NA'}}</td>
+        <td>{{siteVisit?.electricity || 'NA'}}</td>
+        <td>{{siteVisit?.boundaryWallConstruction || 'NA'}}</td>
+        <td>{{siteVisit?.boundaryFencing || 'NA'}}</td>
+        <td>{{siteVisit?.drainage || 'NA'}}</td>
+        <td>{{siteVisit?.open || 'NA'}}</td>
+        <td>{{siteVisit?.telephoneLine || 'NA'}}</td>
+        <td>{{siteVisit?.buildingArea || 'NA'}}</td>
+        <td>{{siteVisit?.constructionYear || 'NA'}}</td>
+        <td>{{siteVisit?.buildingType || 'NA'}}</td>
+        <td>{{siteVisit?.builtUpArea || 'NA'}}</td>
+        <td>{{siteVisit?.noOfStorey || 'NA'}}</td>
+        <td>{{siteVisit?.roadSetbacks || 'NA'}}</td>
+        <td>{{siteVisit?.riverOrCanalSetbacks || 'NA'}}</td>
+        <td>{{siteVisit?.highTensionSetbacks || 'NA'}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="table table-sm table-bordered text-center table-sm sb-small">
+      <thead>
+        <tr class="text-white sb-bg-dark">
+          <th colspan="1">S.N</th>
+          <th colspan="2">Security</th>
+          <th colspan="7">Remarks For 'NO' Option</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
+          <td colspan="1">{{i+1}}</td>
+          <td colspan="2">{{siteVisit?.securityName.slice(0, -2)}}</td>
+          <td colspan="7">{{siteVisit?.remarksForOtherFacility || 'NA'}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table table-sm table-bordered text-center table-sm sb-small">
+      <thead>
+      <tr>
+        <th colspan="5">
+         Vicinity to the Basic Amenities
+        </th>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>S.N</th>
+        <th>Security</th>
+        <th>Major Market Places</th>
+        <th>Schools/Colleges</th>
+        <th>Hospital/Nursing Home</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{siteVisit?.securityName.slice(0, -2)}}</td>
+        <td>{{siteVisit?.majorMarketPlaces || 'NA'}}</td>
+        <td>{{siteVisit?.schoolOrCollege || 'NA'}}</td>
+        <td>{{siteVisit?.hospitalOrNursingHome || 'NA'}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="table table-sm table-bordered text-center table-sm sb-small">
+      <thead>
+      <tr>
+        <th colspan="6">
+         Staff Details
+        </th>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>S.N</th>
+        <th>Security</th>
+        <th>Staff Representative Designation 1</th>
+        <th>Staff Representative Designation Name 1</th>
+        <th>Staff Representative Designation 2</th>
+        <th>Staff Representative Designation Name 2</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngFor="let siteVisit of siteVisitJson; let i = index">
+      <tr *ngFor="let staff of siteVisit.staffs;">
+        <td>{{i+1}}</td>
+        <td>{{siteVisit?.securityName.slice(0, -2)}}</td>
+        <td>{{staff.staffRepresentativeNameDesignation || 'NA'}}</td>
+        <td>{{staff.staffRepresentativeName || 'NA'}}</td>
+        <td>{{staff.staffRepresentativeNameDesignation2 || 'NA'}}</td>
+        <td>{{staff.staffRepresentativeName2 || 'NA'}}</td>
+      </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
 </div>

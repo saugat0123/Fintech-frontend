@@ -822,7 +822,7 @@
                 </table>
             </div>
         </div>
-        <div class="col-md-12">
+        <div *ngIf="isCollateralSiteVisit" class="col-md-12">
             <span><strong>Security Collateral Site Visit</strong></span>
             <ng-container *ngFor="let collateralDetail of collateralSiteVisitDetail; let j = index">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">

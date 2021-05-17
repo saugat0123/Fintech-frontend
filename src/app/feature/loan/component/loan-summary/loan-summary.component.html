@@ -798,7 +798,8 @@
             </div>
             <app-security-summary *ngIf="securitySummary"
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"
-            [collateralSiteVisitDetail]="collateralSiteVisitDetail"></app-security-summary>
+            [collateralSiteVisitDetail]="collateralSiteVisitDetail"
+            [isCollateralSiteVisit]="isCollateralSiteVisit"></app-security-summary>
 
             <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>

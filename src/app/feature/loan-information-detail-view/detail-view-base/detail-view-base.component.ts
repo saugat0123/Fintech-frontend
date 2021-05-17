@@ -11,6 +11,8 @@ import {FiscalYearService} from '../../admin/service/fiscal-year.service';
 import {Clients} from '../../../../environments/Clients';
 import {ProductUtils} from '../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {CollateralSiteVisitService} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
+import {CollateralSiteVisit} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 
 @Component({
   selector: 'app-detail-view-base',
@@ -36,6 +38,7 @@ export class DetailViewBaseComponent implements OnInit {
   clientName = Clients;
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   showCadDoc = false;
+  securityId: number;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -59,6 +62,9 @@ export class DetailViewBaseComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
       this.dataFromPreviousSecurity = JSON.parse(this.loanDataHolder.loanHolder.data);
       this.previousSecuritySummary = true;
+    }
+    if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
+      this.securityId = this.loanHolder.security.id;
     }
   }
 
