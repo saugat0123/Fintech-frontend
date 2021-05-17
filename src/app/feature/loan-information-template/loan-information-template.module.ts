@@ -4,7 +4,7 @@ import {SiteVisitComponent} from './site-visit/site-visit.component';
 import {ThemeModule} from '../../@theme/theme.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // @ts-ignore
-import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgSelectModule} from '@ng-select/ng-select';
 // @ts-ignore
 import {NbDatepickerModule, NbDialogModule} from '@nebular/theme';
@@ -44,6 +44,8 @@ import {NtaMegaComponent} from './nta-mega/nta-mega.component';
 import { MicroProposalComponent } from '../micro-loan/form-component/micro-proposal/micro-proposal.component';
 import { CommentsComponent } from './comments/comments.component';
 import { PreviousSecurityComponent } from './previous-security/previous-security.component';
+import { FixAssetCollateralComponent } from './security/security-initial-form/fix-asset-collateral/fix-asset-collateral.component';
+import {AngularDraggableModule} from 'angular2-draggable';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -75,7 +77,8 @@ const COMPONENTS = [
     OwnerKycApplicableComponent,
     CadDocumentUploadComponent,
     NtaMegaComponent,
-    PreviousSecurityComponent
+    PreviousSecurityComponent,
+    FixAssetCollateralComponent
 ];
 
 
@@ -98,7 +101,11 @@ const COMPONENTS = [
         }),
         CoreModule,
         CKEditorModule,
-        FeatureModule
+        FeatureModule,
+        AngularDraggableModule
+    ],
+    providers: [
+        NgbActiveModal
     ]
 })
 export class LoanInformationTemplateModule {
