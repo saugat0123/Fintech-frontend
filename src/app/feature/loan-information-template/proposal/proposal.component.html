@@ -363,6 +363,7 @@
                                             <option value="MONTHLY">Monthly</option>
                                             <option value="QUARTERLY">Quarterly</option>
                                             <option value="SEMI-ANNUALLY">Semi-Annually</option>
+                                            <option value="AT MATURITY" *ngIf="client === clientName?.ICFC">AT Maturity</option>
                                         </select>
                                         <div *ngIf="(submitted) && formControls.repaymentModePrincipal.invalid"
                                              class="invalid-feedback">
@@ -392,19 +393,19 @@
                                          *ngIf="(this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
                                            ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
                                         <div class="form-group>">
-                                            <label class="title"> <strong>Interest Amount</strong></label>
+                                            <label class="title"> <strong>Interest Amount<em class="sb-medium">(in year)</em></strong></label>
                                             <input
                                                     class="form-control" formControlName="interestAmount"
                                                     id="interestAmount"
                                                     name="interestAmount" placeholder="Interest Amount" disabled
-                                                    type="number" value="{{calculateInterestAmountForRepaymentMode()}}">
+                                                    type="number">
                                         </div>
                                     </div>
                                     <div class="col-md-4"
                                          *ngIf="(this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
                                            ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
                                         <div class="form-group>">
-                                            <label class="title"> <strong>Principal Amount</strong></label>
+                                            <label class="title"> <strong>Principal Amount<em class="sb-medium">(in year)</em></strong></label>
                                             <input
                                                     class="form-control" formControlName="principalAmount"
                                                     id="principalAmount"
@@ -728,7 +729,8 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="title" for="remark"><strong>Remarks</strong></label>
+                                        <label class="title" for="remark">
+                                            <strong>{{client === clientName?.SHINE_RESUNGA ? 'Account Strategy' : 'Remarks'}}</strong></label>
                                         <ckeditor
                                                 formControlName="remark" id="remark"
                                                 [config]="ckeConfig"></ckeditor>
@@ -764,9 +766,6 @@
                                         <b>Waiver/Deviation</b>
                                     </nb-checkbox>
                                     <div *ngIf="waiverChecked">
-                                        <!--                    <textarea class="form-control"-->
-                                        <!--                              formControlName="waiverConclusionRecommendation" placeholder="Waiver"-->
-                                        <!--                              rows="2"></textarea>-->
                                         <ckeditor formControlName="waiverConclusionRecommendation"
                                                   [config]="ckeConfig"></ckeditor>
                                     </div>
@@ -778,10 +777,6 @@
                                         Obligor Limit</b>
                                     </nb-checkbox>
                                     <div *ngIf="solChecked">
-                                        <!--                    <textarea class="form-control"-->
-                                        <!--                              formControlName="solConclusionRecommendation"-->
-                                        <!--                              placeholder="  Single Obligor Limit "-->
-                                        <!--                              rows="2"></textarea>-->
                                         <ckeditor formControlName="solConclusionRecommendation"
                                                   [config]="ckeConfig"></ckeditor>
                                     </div>
@@ -793,10 +788,6 @@
                                         Mitigation</b>
                                     </nb-checkbox>
                                     <div *ngIf="riskChecked">
-                                        <!--                    <textarea class="form-control"-->
-                                        <!--                              formControlName="riskConclusionRecommendation"-->
-                                        <!--                              placeholder="Risk & Mitigation "-->
-                                        <!--                              rows="2"></textarea>-->
                                         <ckeditor formControlName="riskConclusionRecommendation"
                                                   [config]="ckeConfig"></ckeditor>
                                     </div>
