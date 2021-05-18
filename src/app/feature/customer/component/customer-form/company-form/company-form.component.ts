@@ -190,7 +190,7 @@ export class CompanyFormComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.microCustomer = this.formValue.isMicroCustomer;
-            console.log(this.microCustomer);
+            this.microCustomerValidation()
         }
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {

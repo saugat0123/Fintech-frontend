@@ -37,6 +37,7 @@
                 <th>Occupation</th>
                 <th>Income</th>
                 <th>Client Type</th>
+                <th>Distance from Branch (km)</th>
             </tr>
             </thead>
             <tbody>
@@ -47,6 +48,7 @@
                 <td class="text-left pl-1">{{(individual?.occupation| jsonParse)?.multipleOccupation || 'NA'}}</td>
                 <td class="text-left pl-1">{{(individual?.incomeSource| jsonParse)?.multipleIncome || 'NA'}}</td>
                 <td class="text-left pl-1">{{customerInfo?.clientType}}</td>
+                <td>{{individualJsonData?.microCustomerDetail?.bankDistance || 'NA'}}</td>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Subsector</th>
