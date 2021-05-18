@@ -56,7 +56,6 @@ export class DpNoteBorrowerComponent implements OnInit {
         if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
             this.offerLetterDocument = new OfferDocument();
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.DPNOTEBORROWER);
-            this.fillForm();
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
