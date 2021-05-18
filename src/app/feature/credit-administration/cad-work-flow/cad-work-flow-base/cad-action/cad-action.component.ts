@@ -198,7 +198,7 @@ export class CadActionComponent implements OnInit, OnChanges {
             this.forApproveMaker = [];
             switch (error.status) {
                 case 417:
-this.commentVar = this.formAction.get('comment').value;
+                    this.commentVar = this.formAction.get('comment').value;
                     // tslint:disable-next-line:max-line-length
                     this.cadService.getMakerUserByBranchID
                     (this.cadOfferLetterApprovedDoc.loanHolder.branch.id).subscribe((resUser: any) => {
@@ -280,6 +280,10 @@ this.commentVar = this.formAction.get('comment').value;
                     this.sendForwardBackwardList = [];
                     this.sendForwardBackwardList = response.detail;
                     if (this.sendForwardBackwardList.length !== 0) {
+                        alert(this.currentStatus);
+                        if (this.isMaker) {
+                            this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType !== RoleType.CAD_LEGAL);
+                        }
                         this.getUserList(this.sendForwardBackwardList[0].role);
                     }
                 });
