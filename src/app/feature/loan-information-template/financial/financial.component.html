@@ -165,7 +165,7 @@
 
         <nb-card>
             <nb-card-header>
-                <h3><strong>Expenses of Borrower</strong></h3>
+                <h3><strong>{{client === clientName?.EXCEL ? 'Monthly Obligation of Borrower' : 'Expenses of Borrower'}}</strong></h3>
             </nb-card-header>
             <nb-card-body>
                 <div *ngFor="let expensesOfBorrower of financialForm.get('expensesOfBorrower')['controls']; let expenseIndex = index"
@@ -232,7 +232,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 pl-5">
-                        <label class="title"><strong>Total Expense :
+                        <label class="title"><strong> {{client === clientName?.EXCEL ? 'Total Obligations' : 'Total Expense'}} :
                             Rs.{{financialForm.get('totalExpense').value | currencyFormatter}}</strong></label>
                     </div>
                     <div class="col-md-6 text-right">
@@ -280,8 +280,8 @@
                     </div>
 
                     <div class="col-md-4">
-                        <label for="totalEMIInterest" *ngIf="client ===  clientName?.MEGA"><strong>Total EMI and interest expenses to Gross income</strong></label>
-                        <label for="totalEMIInterest" *ngIf="client ===  clientName?.SHINE_RESUNGA"><strong>EMI / Gross Monthly Income</strong></label>
+                        <label for="totalEMIInterest"><strong>{{client === clientName?.MEGA ? 'Total EMI and interest expenses to Gross income'
+                            : 'EMI / Gross Monthly Income'}}</strong></label>
                         <input class="form-control" formControlName="totalEMIInterest" id="totalEMIInterest" name
                                [ngClass]="{'is-invalid': submitted && financialForm.get('totalEMIInterest').invalid}"
                                placeholder="Total EMI and Interest Expenses" readonly
