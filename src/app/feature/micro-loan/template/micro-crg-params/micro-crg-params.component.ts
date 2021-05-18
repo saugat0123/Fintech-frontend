@@ -49,8 +49,10 @@ export class MicroCrgParamsComponent implements OnInit {
       const initialFormData = this.currentFormData['initialForm'];
 
       this.setIncomeOfBorrower(initialFormData.incomeOfBorrower);
+      this.setProjectDetails(initialFormData.projectDetailsArray);
       this.setExpensesOfBorrower(initialFormData.expensesOfBorrower);
       this.microCrgParamsForm.get('totalIncome').setValue(initialFormData.totalIncome);
+      this.microCrgParamsForm.get('projectCostTotal').setValue(initialFormData.projectCostTotal);
       this.microCrgParamsForm.get('totalExpense').setValue(initialFormData.totalExpense);
       this.microCrgParamsForm.get('netSaving').setValue(initialFormData.netSaving);
       this.microCrgParamsForm.get('salesProjectionVsAchievement').setValue(initialFormData.salesProjectionVsAchievement);
@@ -64,6 +66,7 @@ export class MicroCrgParamsComponent implements OnInit {
           initialForm: {}
         };
       this.addIncomeOfBorrower();
+      this.addProjectDetails();
       this.addExpensesOfBorrower();
     }
   }
@@ -71,9 +74,11 @@ export class MicroCrgParamsComponent implements OnInit {
   buildForm() {
     this.microCrgParamsForm = this.formBuilder.group({
       incomeOfBorrower: this.formBuilder.array([]),
+      projectDetailsArray: this.formBuilder.array([]),
       expensesOfBorrower: this.formBuilder.array([]),
       typeOfSourceOfIncomeObtainedScore: undefined,
       totalIncome: [0],
+      projectCostTotal: [0],
       totalExpense: [0],
       currentTotal: [0],
       netSaving: [0],
@@ -274,6 +279,45 @@ export class MicroCrgParamsComponent implements OnInit {
       incomeSourcePointsArray.push(TypeOfSourceOfIncomeMap.typeOfSourceOfIncomePointsMap.get(group.get('organization').value));
     });
     this.microCrgParamsForm.get('typeOfSourceOfIncomeObtainedScore').patchValue(Math.max(...incomeSourcePointsArray));
+  }
+
+  /** Project Details **/
+
+  setProjectDetails(currentData) {
+    const controls = this.microCrgParamsForm.get('projectDetailsArray') as FormArray;
+    currentData.forEach(singleData => {
+      controls.push(
+          this.formBuilder.group({
+            projectDescription: [singleData.projectDescription],
+            projectCost: [singleData.projectCost],
+            projectCostTotal: [singleData.projectCostTotal],
+          })
+      );
+    });
+  }
+
+  addProjectDetails() {
+    const control = this.microCrgParamsForm.controls.projectDetailsArray as FormArray;
+    control.push(
+        this.formBuilder.group({
+          projectDescription: [undefined],
+          projectCost: [undefined],
+          projectCostTotal: [undefined],
+        })
+    );
+  }
+
+  removeProjectDetails(index) {
+    (this.microCrgParamsForm.get('projectDetailsArray') as FormArray).removeAt(index);
+    this.totalProjectDetails();
+  }
+
+  totalProjectDetails() {
+    let total = 0;
+    (this.microCrgParamsForm.get('projectDetailsArray') as FormArray).controls.forEach(group => {
+      total = Number(group.get('projectCost').value) + Number(total);
+    });
+    this.microCrgParamsForm.get('projectCostTotal').setValue(total);
   }
 
   onSubmit() {

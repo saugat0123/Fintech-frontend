@@ -301,7 +301,9 @@
         </nb-card>
 
         <nb-card>
-            <nb-card-header>Repayment Capacity</nb-card-header>
+            <nb-card-header>
+                <h3><strong>Repayment Capacity</strong></h3>
+            </nb-card-header>
             <nb-card-body>
                 <div class="row">
                     <div class="col-md-4">
@@ -361,6 +363,62 @@
             </nb-card-body>
         </nb-card>
     </div>
+
+    <nb-card>
+        <nb-card-header>
+                <h3><strong>Project Details</strong></h3>
+        </nb-card-header>
+        <nb-card-body>
+            <div>
+                <div class="col-md-12" >
+                    <table class="table table-bordered table-responsive-md table-hover text-center sb-small table-sm">
+                        <thead>
+                        <tr class="sb-bg-secondary text-white">
+                            <th>Project Detail</th>
+                            <th>Project Cost</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let projectDetails of microCrgParamsForm.get('projectDetailsArray')['controls']; let i = index"
+                        formArrayName="projectDetailsArray">
+                            <ng-container [formGroupName]="i">
+                                <td>
+                                    <input class="text-center form-control"
+                                           formControlName="projectDescription">
+                                </td>
+                                <td>
+                                    <input class="text-center form-control" type="number" (change)="totalProjectDetails()"
+                                           formControlName="projectCost">
+                                </td>
+                                <td>
+                                    <button (click)="removeProjectDetails(i)"
+                                            *ngIf="microCrgParamsForm.get('projectDetailsArray')['controls'].length > 1"
+                                            class="btn btn-sm btn-flat btn-danger" value="Delete">
+                                        <em class="fa fa-trash" style="color:white;"></em>
+                                    </button>
+                                </td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Total Cost</h6>
+                            </td>
+                            <td>
+                                <h6>Rs.{{microCrgParamsForm.get('projectCostTotal').value | currencyFormatter}}</h6>
+                            </td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-right">
+                        <input (click)="addProjectDetails()" class="btn btn-sm btn-flat btn-primary"
+                               type="button" value="Add More"/>
+                    </div>
+                </div>
+            </div>
+        </nb-card-body>
+    </nb-card>
 
     <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
         <button (click)="onSubmit()" nbButton type="button">save</button>

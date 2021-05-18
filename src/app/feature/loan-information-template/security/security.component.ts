@@ -19,7 +19,9 @@ import {ActivatedRoute} from '@angular/router';
 import {CustomerShareData} from '../../admin/modal/CustomerShareData';
 import {RoadAccess} from '../../admin/modal/crg/RoadAccess';
 import {FacCategory} from '../../admin/modal/crg/fac-category';
-import {environment} from '../../../../environments/environment.srdb';
+import {environment} from '../../../../environments/environment';
+import {SecurityCoverageAutoPrivate} from '../model/security-coverage-auto-private';
+import {SecurityCoverageAutoCommercial} from '../model/security-coverage-auto-commercial';
 
 @Component({
     selector: 'app-security',
@@ -60,6 +62,12 @@ export class SecurityComponent implements OnInit {
     coverageList = VehicleSecurityCoverage.enumObject();
     newCoverage = VehicleSecurityCoverage.getNew();
     usedCoverage = VehicleSecurityCoverage.getUsed();
+
+    apNewCoverage = SecurityCoverageAutoPrivate.getNew();
+    apUsedCoverage = SecurityCoverageAutoPrivate.getUsed();
+
+    acNewCoverage = SecurityCoverageAutoCommercial.getNew();
+    acUsedCoverage = SecurityCoverageAutoCommercial.getUsed();
 
     roadAccess = RoadAccess.enumObject();
     facCategory = FacCategory.enumObject();
@@ -105,8 +113,11 @@ export class SecurityComponent implements OnInit {
             securityGuarantee: [undefined],
             buildingLocation: [undefined],
             vehicleSecurityCoverage: [undefined],
-            roadAccessOfPrimaryProperty: [undefined, !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
-            facCategory: [undefined, !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
+            lambdaScheme: ['GENERAL', !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
+            roadAccessOfPrimaryProperty: [undefined],
+            facCategory: [undefined],
+            securityCoverageAutoPrivate: [undefined],
+            securityCoverageAutoCommercial: [undefined],
         });
     }
 
@@ -115,9 +126,11 @@ export class SecurityComponent implements OnInit {
             securityGuarantee: formData.securityGuarantee,
             buildingLocation: formData.buildingLocation,
             vehicleSecurityCoverage: formData.vehicleSecurityCoverage,
-            roadAccessOfPrimaryProperty: [formData.roadAccessOfPrimaryProperty ,
-                !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
-            facCategory: [formData.facCategory , !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
+            lambdaScheme: [formData.lambdaScheme , !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
+            roadAccessOfPrimaryProperty: [formData.roadAccessOfPrimaryProperty],
+            facCategory: [formData.facCategory],
+            securityCoverageAutoCommercial: [formData.securityCoverageAutoCommercial],
+            securityCoverageAutoPrivate: [formData.securityCoverageAutoPrivate],
         });
     }
 
@@ -233,7 +246,10 @@ export class SecurityComponent implements OnInit {
             securityGuarantee: this.securityForm.get('securityGuarantee').value,
             buildingLocation: this.securityForm.get('buildingLocation').value,
             roadAccessOfPrimaryProperty: this.securityForm.get('roadAccessOfPrimaryProperty').value,
+            lambdaScheme: this.securityForm.get('lambdaScheme').value,
             facCategory: this.securityForm.get('facCategory').value,
+            securityCoverageAutoPrivate: this.securityForm.get('securityCoverageAutoPrivate').value,
+            securityCoverageAutoCommercial: this.securityForm.get('securityCoverageAutoCommercial').value,
             vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
         };
         this.securityData.totalSecurityAmount = this.calculateTotalSecurity(mergedForm);
