@@ -3,13 +3,13 @@ export enum SecurityCoverageAutoCommercial {
     NEW_PARTIALLY_BACKED_BY_FAC_60_TO_90_COVERAGE = 'Partially Backed by FAC (60% to 99% FAC coverage) - New',
     NEW_PARTIALLY_BACKED_BY_FAC_40_TO_59_COVERAGE = 'Partially Backed by FAC (40% to 59% FAC coverage) - New ',
     NEW_PARTIALLY_BACKED_BY_FAC_BELOW_40_COVERAGE = 'Partially Backed by FAC (Below 40% FAC coverage) - New',
-    NEW_VEHICLE_ONLY_AC = 'Vehicle Only',
+    NEW_VEHICLE_ONLY_AC = 'Vehicle Only - New',
 
     USED_FULLY_BACKED_BY_FAC_100_AND_ABOVE = 'Fully Backed by FAC (100% and Above FAC Coverage) - Used',
     USED_PARTIALLY_BACKED_BY_FAC_60_TO_90_COVERAGE = 'Partially Backed by FAC (60% to 99% FAC coverage) - Used',
     USED_PARTIALLY_BACKED_BY_FAC_40_TO_59_COVERAGE = 'Partially Backed by FAC (40% to 59% FAC coverage) - Used ',
     USED_PARTIALLY_BACKED_BY_FAC_BELOW_40_COVERAGE = 'Partially Backed by FAC (Below 40% FAC coverage) - Used',
-    USED_VEHICLE_ONLY_AC = 'Vehicle Only',
+    USED_VEHICLE_ONLY_AC = 'Vehicle Only - Used',
 }
 
 export class SecurityCoverageAutoCommercialPointsMap {
