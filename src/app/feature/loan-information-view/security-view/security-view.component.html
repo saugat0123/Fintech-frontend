@@ -124,10 +124,10 @@
           <th>ReValuation Date</th>
           <th colspan="2">Valuator name</th>
           <th colspan="1">ReValuation Fmv</th>
-          <th colspan="1">ReValuation Dv</th>
+          <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
           <th colspan="1">ReValuation Considered Value</th>
           <th colspan="1">Change in Fmv</th>
-          <th colspan="1">Change in Dv</th>
+          <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
           <th colspan="1">Change in Considered Value</th>
         </tr>
         <tr class="text-right">
@@ -307,10 +307,10 @@
             <th>ReValuation Date</th>
             <th colspan="2">Valuator name</th>
             <th colspan="1">ReValuation Fmv</th>
-            <th colspan="1">ReValuation Dv</th>
+            <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
             <th colspan="1">ReValuation Considered Value</th>
             <th colspan="1">Change in Fmv</th>
-            <th colspan="1">Change in Dv</th>
+            <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
             <th colspan="1">Change in Considered Value</th>
           </tr>
           <tr class="text-right">
@@ -666,7 +666,7 @@
           <th>ReValuation Date</th>
           <th colspan="1">Valuator name</th>
           <th colspan="1">ReValuation Fmv</th>
-          <th colspan="1">ReValuation Dv</th>
+          <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
           <th colspan="1">ReValuation Considered Value</th>
           <th colspan="1">Change in Fmv</th>
         </tr>
@@ -679,7 +679,7 @@
           <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
         </tr>
         <tr class="sb-bg-dark text-white">
-          <th colspan="1">Change in Dv</th>
+          <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
           <th colspan="1">Change in Considered Value</th>
         </tr>
         <tr>
