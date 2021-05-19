@@ -82,38 +82,126 @@
                     </div>
                 </ng-container>
 
-                <div class="row" *ngIf="!crgLambdaDisabled && !isBusinessLoan">
-                    <div class="col">
-                        <div>
-                            <h5>Road access of primary property</h5>
-                        </div>
-                        <div class="form-group">
-                            <nb-select formControlName="roadAccessOfPrimaryProperty"
-                                       fullWidth
-                                       placeholder="Select Road access of primary property">
-                                <nb-option *ngFor="let val of roadAccess" [value]="val.value">{{val.value}}</nb-option>
-                            </nb-select>
-                            <div *ngIf="submitted && securityForm.get('roadAccessOfPrimaryProperty').invalid" class="neb-error-feedback">
-                                Road Access Value is Required
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div>
-                            <h5>Primary FAC categorization</h5>
-                        </div>
-                        <div class="form-group">
-                            <nb-select formControlName="facCategory"
-                                       fullWidth
-                                       placeholder="Select Primary FAC categorization">
-                                <nb-option *ngFor="let val of facCategory" [value]="val.value">{{val.value}}</nb-option>
-                            </nb-select>
-                            <div *ngIf="submitted && securityForm.get('facCategory').invalid" class="neb-error-feedback">
-                                Road Access Value is Required
-                            </div>
+                <ng-container *ngIf="!crgLambdaDisabled && !isBusinessLoan">
+                    <div class="row">
+                        <div class="col">
+                            <nb-card>
+                                <nb-card-header>Please select scheme type for CRG calculation</nb-card-header>
+                                <nb-card-body>
+                                    <nb-radio-group formControlName="lambdaScheme"
+                                                    id="lambdaScheme"
+                                                    name="lambdaScheme">
+                                        <nb-radio value="GENERAL">General</nb-radio>
+                                        <nb-radio value="AUTO_PRIVATE">Auto Loan (Private - Personal)</nb-radio>
+                                        <nb-radio value="AUTO_COMMERCIAL">Auto Loan (Commercial - Personal)</nb-radio>
+                                    </nb-radio-group>
+                                    <div *ngIf="submitted && securityForm.get('lambdaScheme').invalid" class="neb-error-feedback">
+                                        Scheme type is Required
+                                    </div>
+                                </nb-card-body>
+                            </nb-card>
                         </div>
                     </div>
-                </div>
+
+                    <nb-card *ngIf="securityForm.get('lambdaScheme').value === 'GENERAL'">
+                        <nb-card-header>
+                            CRG General criteria
+                        </nb-card-header>
+                        <nb-card-body>
+                            <div class="row" >
+                                <div class="col">
+                                    <div>
+                                        <h5>Road access of primary property</h5>
+                                    </div>
+                                    <div class="form-group">
+                                        <nb-select formControlName="roadAccessOfPrimaryProperty"
+                                                   fullWidth
+                                                   placeholder="Select Road access of primary property">
+                                            <nb-option *ngFor="let val of roadAccess" [value]="val.value">{{val.value}}</nb-option>
+                                        </nb-select>
+                                        <div *ngIf="submitted && securityForm.get('roadAccessOfPrimaryProperty').invalid" class="neb-error-feedback">
+                                            Road Access Value is Required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div>
+                                        <h5>Primary FAC categorization</h5>
+                                    </div>
+                                    <div class="form-group">
+                                        <nb-select formControlName="facCategory"
+                                                   fullWidth
+                                                   placeholder="Select Primary FAC categorization">
+                                            <nb-option *ngFor="let val of facCategory" [value]="val.value">{{val.value}}</nb-option>
+                                        </nb-select>
+                                        <div *ngIf="submitted && securityForm.get('facCategory').invalid" class="neb-error-feedback">
+                                            Road Access Value is Required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </nb-card-body>
+                    </nb-card>
+
+                    <nb-card *ngIf="securityForm.get('lambdaScheme').value === 'AUTO_PRIVATE'">
+                        <nb-card-header>
+                            CRG Auto Loan (Private - Personal) criteria
+                        </nb-card-header>
+                        <nb-card-body>
+                            <div class="row" >
+                                <div class="col">
+                                    <div>
+                                        <h5>Security Coverage</h5>
+                                    </div>
+                                    <div class="form-group">
+                                        <nb-select formControlName="securityCoverageAutoPrivate"
+                                                   fullWidth
+                                                   placeholder="Select security coverage here">
+                                            <nb-option-group style="font-weight: bold" title="New">
+                                                <nb-option *ngFor="let newC of apNewCoverage"
+                                                           [value]="newC?.value">{{newC?.value}}</nb-option>
+                                            </nb-option-group>
+                                            <nb-option-group style="font-weight: bold" title="Used">
+                                                <nb-option *ngFor="let used of apUsedCoverage"
+                                                           [value]="used?.value">{{used?.value}}</nb-option>
+                                            </nb-option-group>
+                                        </nb-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </nb-card-body>
+                    </nb-card>
+
+                    <nb-card *ngIf="securityForm.get('lambdaScheme').value === 'AUTO_COMMERCIAL'">
+                        <nb-card-header>
+                            CRG Auto Loan (Commercial - Personal) criteria
+                        </nb-card-header>
+                        <nb-card-body>
+                            <div class="row" >
+                                <div class="col">
+                                    <div>
+                                        <h5>Security Coverage</h5>
+                                    </div>
+                                    <div class="form-group">
+                                        <nb-select formControlName="securityCoverageAutoCommercial"
+                                                   fullWidth
+                                                   placeholder="Select security coverage here">
+                                            <nb-option-group style="font-weight: bold" title="New">
+                                                <nb-option *ngFor="let newC of acNewCoverage"
+                                                           [value]="newC?.value">{{newC?.value}}</nb-option>
+                                            </nb-option-group>
+                                            <nb-option-group style="font-weight: bold" title="Used">
+                                                <nb-option *ngFor="let used of acUsedCoverage"
+                                                           [value]="used?.value">{{used?.value}}</nb-option>
+                                            </nb-option-group>
+                                        </nb-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </nb-card-body>
+                    </nb-card>
+
+                </ng-container>
             </form>
         </div>
     </div>

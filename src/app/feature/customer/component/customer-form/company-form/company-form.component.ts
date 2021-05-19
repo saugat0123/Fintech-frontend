@@ -190,7 +190,6 @@ export class CompanyFormComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.microCustomer = this.formValue.isMicroCustomer;
-            console.log(this.microCustomer);
         }
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
@@ -344,7 +343,7 @@ export class CompanyFormComponent implements OnInit {
                     this.subSectorDetailCodeInput],
             clientType:
                 [ObjectUtil.isEmpty(this.clientTypeInput) ? undefined :
-                    this.clientTypeInput],
+                    this.clientTypeInput, Validators.required],
 
             // legalStatus
             corporateStructure: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus) ||
@@ -566,6 +565,7 @@ export class CompanyFormComponent implements OnInit {
         if (!this.additionalFieldSelected) {
             this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
         }
+        this.microCustomerValidation(this.microCustomer);
     }
 
     setCompanyInfo(info: CompanyInfo) {
@@ -1146,5 +1146,23 @@ export class CompanyFormComponent implements OnInit {
             total = Number(group.get('share').value) + Number(total);
         });
         this.companyInfoFormGroup.get(resultControllerName).setValue(total);
+    }
+
+    microCustomerValidation(micro: boolean) {
+        this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'] , !micro);
+    }
+
+    /** @Param validate --- true for add validation and false for remove validation
+     * @Param controlNames --- list of formControlName**/
+    controlValidation(controlNames: string[], validate) {
+
+        controlNames.forEach(s => {
+            if (validate) {
+                this.companyInfoFormGroup.get(s).setValidators(Validators.required);
+            } else {
+                this.companyInfoFormGroup.get(s).clearValidators();
+            }
+            this.companyInfoFormGroup.get(s).updateValueAndValidity();
+        });
     }
 }

@@ -37,7 +37,7 @@
         <tr class="sb-bg-dark text-white">
           <th>Relation</th>
           <th>Name</th>
-          <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
+          <th *ngIf="client === clientName?.SHINE_RESUNGA">Age</th>
           <th>Citizenship Number</th>
           <th>Issued District</th>
           <th>Issued Date</th>
@@ -1483,7 +1483,7 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="client !== clientName?.SHINE_RESUNGA">
+  <div class="row" *ngIf="!crgLambdaDisabled && !disableCrgAlphaParams ">
     <table class="table table-sm table-bordered text-center table-sm sb-small">
       <thead>
       <tr>
@@ -1647,7 +1647,7 @@
         <td>{{siteVisit?.open === true ? 'YES' : 'NO'}}</td>
         <td>{{siteVisit?.telephoneLine === true ? 'YES' : 'NO'}}</td>
         <td>{{siteVisit?.buildingArea === true ? 'YES' : 'NO'}}</td>
-        <td>{{siteVisit?.constructionYear === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.constructionYear === null ? 'NA': siteVisit?.constructionYear | date}}</td>
         <td>{{siteVisit?.buildingType === true ? 'YES' : 'NO'}}</td>
         <td>{{siteVisit?.builtUpArea === true ? 'YES' : 'NO'}}</td>
         <td>{{siteVisit?.noOfStorey === true ? 'YES' : 'NO'}}</td>
