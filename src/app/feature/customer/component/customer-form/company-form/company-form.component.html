@@ -2,7 +2,8 @@
     nbSpinnerStatus="primary"
     nbSpinnerSize="giant">
     <nb-card-header>
-        <nb-checkbox [hidden]="!microEnabled" [(ngModel)]="microCustomer">Micro Customer</nb-checkbox>
+        <nb-checkbox [hidden]="!microEnabled" [(ngModel)]="microCustomer"
+        (click)="microCustomerValidation(!micro_checked.checked)" #micro_checked>Micro Customer</nb-checkbox>
         <div class="d-flex justify-content-end">
             <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex" name="companyInfoCalendarType">
                 <nb-radio value="AD">AD</nb-radio>
@@ -28,13 +29,18 @@
                                    <div class="form-group">
                                        <label><strong>Customer Client Type</strong></label>
                                        <select
+                                               [ngClass]="{ 'is-invalid':submitted && form.clientType.errors }"
                                            class="custom-select" formControlName="clientType">
                                            <option  [ngValue]="null">Select Client Type</option>
 
                                            <option *ngFor="let data of clientType " [ngValue]="data">{{data}}</option>
                                        </select>
+                                       <div *ngIf="submitted && form.clientType.errors"
+                                            class="invalid-feedback">
+                                           <div *ngIf="form.clientType.errors.required">Customer Type is required</div>
+                                       </div>
                                    </div>
-                               </div>
+                                   </div>
                                <div class="col-md-6">
                                    <div class="form-group">
                                        <label ><strong>SubSector</strong></label>
@@ -43,6 +49,7 @@
                                            <option *ngFor="let data of subSector " [ngValue]="data.key.toString().concat('-'+data.value)">{{data.value}}</option>
                                        </select>
                                    </div>
+                               </div>
                                </div>
                            </div>
 
@@ -300,7 +307,6 @@
                                    </div>
                                </div>
                            </div>
-                       </div>
                        <div formGroupName="additionalCompanyInfo">
                            <div class="row">
                                <div class="col-md-12">

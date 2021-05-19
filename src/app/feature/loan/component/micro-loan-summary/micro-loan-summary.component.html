@@ -81,7 +81,8 @@
                                     : loanDataHolder?.customerInfo?.customerName}}
                                </strong> </span>
                                 </div>
-                                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
+                                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch ,
+                                    {{loanDataHolder?.branch?.province?.name}}</div>
                                 <div class="badge badge-warning">Summary</div>
                             </div>
                         </div>
@@ -283,21 +284,37 @@
                                                            [proposalData]="proposalData"></app-proposal-justification-summary>
             <app-security-summary
                     *ngIf="securitySummary"
-                    [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
+                    [formData]="securityData" [shareSecurity]="shareSecurityData"
+                    [collateralSiteVisitDetail]="collateralSiteVisitDetail"
+                    [isCollateralSiteVisit]="isCollateralSiteVisit"></app-security-summary>
 
             <app-financial-summary
                     *ngIf="financialSummary" [formData]="financialData"
                     [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
-            <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
-                            [fiscalYears]="fiscalYearArray"
-                            [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
+            <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
+            <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
+                                  [fiscalYears]="fiscalYearArray"
+                                  [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
+            </ng-container>
+
+            <ng-template #otherBank>
+                <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
+                                 [fiscalYears]="fiscalYearArray"
+                                 [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
+            </ng-template>
 
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
 
-            <app-guarantor-summary *ngIf="checkGuarantorData"
-                                   [guarantorData]="guarantorData"></app-guarantor-summary>
+            <div *ngIf="client !== clientName?.MEGA">
+                <app-guarantor-summary *ngIf="checkGuarantorData"
+                                       [guarantorData]="guarantorData"></app-guarantor-summary>
+            </div>
+            <div *ngIf="client === clientName?.MEGA">
+                <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
+                                    [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+            </div>
 
             <app-sitevist-summary-component *ngIf="siteVisitSummary"
                                             [formData]="siteVisitData"

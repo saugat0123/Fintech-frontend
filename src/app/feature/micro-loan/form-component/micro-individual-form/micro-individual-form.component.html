@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-3">
             <div class="form-group">
-                <label for="bankDistance"><strong>Distance From Branch</strong></label>
+                <label for="bankDistance"><strong>Distance from Branch (km)</strong></label>
                 <input [ngClass]="{ 'is-invalid': (submitted) && microCustomerForm.get('bankDistance').errors }" class="form-control"
                        formControlName="bankDistance"
                        id="bankDistance" placeholder="Distance From Branch" type="number">

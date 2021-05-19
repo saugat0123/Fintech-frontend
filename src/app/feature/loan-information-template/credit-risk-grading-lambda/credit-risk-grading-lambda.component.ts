@@ -10,15 +10,14 @@ import {FacCategoryMap} from '../../admin/modal/crg/fac-category';
 import {RoadAccessMap} from '../../admin/modal/crg/RoadAccess';
 import {MajorSourceIncomeMap} from '../../admin/modal/crg/major-source-income-type';
 import {RepaymentTrackCurrentBankMap} from '../../admin/modal/crg/RepaymentTrackCurrentBank';
-import {RepaymentTrackMap} from '../../admin/modal/crg/RepaymentTrack';
 import {CiclArray} from '../../admin/modal/cicl';
 import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {DocStatus} from '../../loan/model/docStatus';
 import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
 import {CalculationUtil} from '../../../@core/utils/CalculationUtil';
 import {LoanDataKey} from '../../../@core/utils/constants/loan-data-key';
-import {SecurityCoverageAutoPrivate, SecurityCoverageAutoPrivatePointsMap} from '../model/security-coverage-auto-private';
-import {SecurityCoverageAutoCommercial, SecurityCoverageAutoCommercialPointsMap} from '../model/security-coverage-auto-commercial';
+import {SecurityCoverageAutoPrivatePointsMap} from '../model/security-coverage-auto-private';
+import {SecurityCoverageAutoCommercialPointsMap} from '../model/security-coverage-auto-commercial';
 
 @Component({
   selector: 'app-credit-risk-grading-lambda',

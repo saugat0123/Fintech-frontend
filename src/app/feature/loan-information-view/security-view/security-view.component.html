@@ -1647,7 +1647,7 @@
         <td>{{siteVisit?.open === true ? 'YES' : 'NO'}}</td>
         <td>{{siteVisit?.telephoneLine === true ? 'YES' : 'NO'}}</td>
         <td>{{siteVisit?.buildingArea === true ? 'YES' : 'NO'}}</td>
-        <td>{{siteVisit?.constructionYear === true ? 'YES' : 'NO'}}</td>
+        <td>{{siteVisit?.constructionYear === null ? 'NA': siteVisit?.constructionYear | date}}</td>
         <td>{{siteVisit?.buildingType === true ? 'YES' : 'NO'}}</td>
         <td>{{siteVisit?.builtUpArea === true ? 'YES' : 'NO'}}</td>
         <td>{{siteVisit?.noOfStorey === true ? 'YES' : 'NO'}}</td>
