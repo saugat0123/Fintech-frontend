@@ -17,10 +17,10 @@ import {Router} from '@angular/router';
 import {LoanDataHolder} from '../../model/loanData';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {Editor} from '../../../../@core/utils/constants/editor';
-import {RoleType} from "../../../admin/modal/roleType";
-import {Role} from "../../../admin/modal/role";
-import {RoleService} from "../../../admin/component/role-permission/role.service";
-import {DocAction} from "../../model/docAction";
+import {RoleType} from '../../../admin/modal/roleType';
+import {Role} from '../../../admin/modal/role';
+import {RoleService} from '../../../admin/component/role-permission/role.service';
+import {DocAction} from '../../model/docAction';
 
 @Component({
     selector: 'app-loan-action-combined-modal',

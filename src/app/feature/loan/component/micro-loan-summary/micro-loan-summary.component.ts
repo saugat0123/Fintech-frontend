@@ -36,6 +36,7 @@ import {ReadmoreModelComponent} from '../readmore-model/readmore-model.component
 import {DocAction} from '../../model/docAction';
 import {Security} from '../../../admin/modal/security';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
+import {Clients} from '../../../../../environments/Clients';
 
 @Component({
   selector: 'app-micro-loan-summary',
@@ -54,7 +55,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   @Input() nepaliDate;
 
   client: string;
-
+  clientName = Clients;
   docMsg;
   rootDocLength;
   dmsLoanFile: DmsLoanFile = new DmsLoanFile();
@@ -558,7 +559,6 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
           }
       }
   }*/
-
   /**
    * Get array of loan stage for authority signature array.
    *
