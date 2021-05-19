@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Financial} from '../../../model/financial';
 import {FinancialService} from '../../../../loan-information-template/financial/financial.service';
+import {environment} from '../../../../../../environments/environment';
+import {Clients} from '../../../../../../environments/Clients';
 
 @Component({
   selector: 'app-financial-summary',
@@ -39,6 +41,10 @@ export class FinancialSummaryComponent implements OnInit {
   termLoanTLArray = [];
   termLoanDPC = [];
   auditorList = [];
+
+  // Client Name
+  client = environment.client;
+  clientName = Clients;
 
   constructor(private financialService: FinancialService) { }
 

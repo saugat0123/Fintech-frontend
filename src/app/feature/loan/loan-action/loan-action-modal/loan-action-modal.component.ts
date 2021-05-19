@@ -93,7 +93,7 @@ export class LoanActionModalComponent implements OnInit {
                         toUser: this.userList[0]
                     });
                 } else if ((role.roleType === RoleType.COMMITTEE) && this.userList.length > 1) {
-                    const committeeDefaultUser = this.userList.filter(f => f.name.includes('default'));
+                    const committeeDefaultUser = this.userList.filter(f => f.name.toLowerCase().includes('default'));
                     this.showUserList = false;
                     if (committeeDefaultUser.length === 0) {
                         this.formAction.patchValue({

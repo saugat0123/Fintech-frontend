@@ -1,5 +1,5 @@
-<form [formGroup]="financialForm" class="form-horizontal mb-2">
-    <div *ngIf="!isBusinessLoan">
+<form [formGroup]="microCrgParamsForm" class="form-horizontal mb-2">
+    <div>
         <nb-card>
             <nb-card-header>
                 <h3><strong>Income of Borrower</strong></h3>
@@ -9,7 +9,7 @@
                     <em class="fa fa-info-circle"><em class="ml-2">Note : Remark can be income source detail or
                         Type detail or any other description.</em></em>
                 </div>
-                <div *ngFor="let incomeOfBorrower of financialForm.get('incomeOfBorrower')['controls']; let incomeIndex = index"
+                <div *ngFor="let incomeOfBorrower of microCrgParamsForm.get('incomeOfBorrower')['controls']; let incomeIndex = index"
                      class="border-bottom border-dark m-4"
                      formArrayName="incomeOfBorrower">
                     <div [formGroupName]="incomeIndex">
@@ -47,13 +47,13 @@
                                     <label class="title"><strong>Age of Income Generated(In Months)</strong><strong
                                             class="text-danger">*</strong></label>
                                     <input
-                                           [ngClass]="{
+                                            [ngClass]="{
                                'is-invalid': incomeOfBorrower.get('ageOfIncomeGenerated').invalid && (incomeOfBorrower.get('ageOfIncomeGenerated').dirty || incomeOfBorrower.get('ageOfIncomeGenerated').touched),
                                 'is-valid': !incomeOfBorrower.get('ageOfIncomeGenerated').invalid && (incomeOfBorrower.get('ageOfIncomeGenerated').dirty || incomeOfBorrower.get('ageOfIncomeGenerated').touched)
                                 }" class="form-control"
-                                           placeholder="Age of Income Generated"
-                                           formControlName="ageOfIncomeGenerated"
-                                           type="number" appDecimalNumber>
+                                            placeholder="Age of Income Generated"
+                                            formControlName="ageOfIncomeGenerated"
+                                            type="number" appDecimalNumber>
                                     <span *ngIf="incomeOfBorrower.get('ageOfIncomeGenerated').invalid" class="text-danger small">Age required</span>
                                 </div>
                             </div>
@@ -89,7 +89,7 @@
 
                             <div class="col-md-1 ml-0 pl-0 mt-4">
                                 <button (click)="removeIncomeIndex(incomeIndex)"
-                                        *ngIf="financialForm.get('incomeOfBorrower')['controls'].length > 1"
+                                        *ngIf="microCrgParamsForm.get('incomeOfBorrower')['controls'].length > 1"
                                         class="btn btn-sm btn-flat btn-danger" value="Delete">
                                     <em class="fa fa-trash" style="color:white;"></em>
                                 </button>
@@ -100,75 +100,75 @@
                 <div class="row">
                     <div class="col-md-6 pl-5">
                         <label class="title"><strong>Total Income :
-                            Rs.{{financialForm.get('totalIncome').value | currencyFormatter}}</strong></label>
+                            Rs.{{microCrgParamsForm.get('totalIncome').value | currencyFormatter}}</strong></label>
                     </div>
                     <div class="col-md-6 text-right">
                         <input (click)="addIncomeOfBorrower()" class="btn btn-sm btn-flat btn-primary"
                                type="button" value="Add More"/>
                     </div>
                 </div>
-              <div class="row">
-                  <div class="col-md-12">
-                      <nb-card>
-                          <nb-card-body>
-                              <div class="row">
-                                  <div class="col-md-8">
-                                      <label for="majorSourceIncomeType">
-                                          <strong>Please select how the major source of income(s) are
-                                              divided between</strong></label><strong
-                                          class="text-danger">*</strong>
-                                      <select id="majorSourceIncomeType" class="form-control"
-                                              formControlName="majorSourceIncomeType"
-                                              [ngClass]="{'is-invalid': submitted && financialForm.get('majorSourceIncomeType').invalid}">
-                                          <option value="null" hidden selected>--Select Options--</option>
-                                          <option *ngFor="let m of majorSourceIncomeType"
-                                                  [value]="m?.value">{{m?.value}}</option>
-                                      </select>
-                                      <div *ngIf="(submitted) && financialForm.get('majorSourceIncomeType').invalid"
-                                           class="invalid-feedback">
-                                             Invalid Major Source of Income
-                                      </div>
-                                  </div>
-                                  <div class="col-md-4" >
-                                      <label for="periodOfEarning"><strong>Period of earning/employment (in years)</strong></label><strong
-                                          class="text-danger">*</strong>
-                                      <input class="form-control" formControlName="periodOfEarning" id="periodOfEarning"
-                                             [ngClass]="{'is-invalid': submitted && financialForm.get('periodOfEarning').invalid}"
-                                             placeholder="Period of earning/employment">
+                <div class="row">
+                    <div class="col-md-12">
+                        <nb-card>
+                            <nb-card-body>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label for="majorSourceIncomeType">
+                                            <strong>Please select how the major source of income(s) are
+                                                divided between</strong></label><strong
+                                            class="text-danger">*</strong>
+                                        <select id="majorSourceIncomeType" class="form-control"
+                                                formControlName="majorSourceIncomeType"
+                                                [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('majorSourceIncomeType').invalid}">
+                                            <option value="null" hidden selected>--Select Options--</option>
+                                            <option *ngFor="let m of majorSourceIncomeType"
+                                                    [value]="m?.value">{{m?.value}}</option>
+                                        </select>
+                                        <div *ngIf="(submitted) && microCrgParamsForm.get('majorSourceIncomeType').invalid"
+                                             class="invalid-feedback">
+                                            Invalid Major Source of Income
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" >
+                                        <label for="periodOfEarning"><strong>Period of earning/employment (in years)</strong></label><strong
+                                            class="text-danger">*</strong>
+                                        <input class="form-control" formControlName="periodOfEarning" id="periodOfEarning"
+                                               [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('periodOfEarning').invalid}"
+                                               placeholder="Period of earning/employment">
 
-                                      <div *ngIf="(submitted) && form.periodOfEarning.invalid"
-                                           class="invalid-feedback">
-                                          <div>
-                                              Invalid Period of earning/employment
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="row mt-3">
-                                  <div class="col-md-8" nbTooltip="Type NA in case there is no alternative source" nbTooltipStatus="primary" >
-                                      <label for="alternateIncomeSource"><strong>Alternate/Secondary source of income</strong></label>
-                                      <input class="form-control" formControlName="alternateIncomeSource" id="alternateIncomeSource"
-                                             placeholder="Alternate/Secondary source of income">
-                                  </div>
-                                  <div class="col-md-4" nbTooltip="Type 0 if there is no alternate source" nbTooltipStatus="primary" >
-                                      <label for="alternateIncomeSourceAmount"><strong>Source Amount</strong></label>
-                                      <input class="form-control" formControlName="alternateIncomeSourceAmount" id="alternateIncomeSourceAmount"
-                                             placeholder="Amount" appDecimalNumber/>
-                                  </div>
-                              </div>
-                          </nb-card-body>
-                      </nb-card>
-                  </div>
-              </div>
+                                        <div *ngIf="(submitted) && form.periodOfEarning.invalid"
+                                             class="invalid-feedback">
+                                            <div>
+                                                Invalid Period of earning/employment
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-8" nbTooltip="Type NA in case there is no alternative source" nbTooltipStatus="primary" >
+                                        <label for="alternateIncomeSource"><strong>Alternate/Secondary source of income</strong></label>
+                                        <input class="form-control" formControlName="alternateIncomeSource" id="alternateIncomeSource"
+                                               placeholder="Alternate/Secondary source of income">
+                                    </div>
+                                    <div class="col-md-4" nbTooltip="Type 0 if there is no alternate source" nbTooltipStatus="primary" >
+                                        <label for="alternateIncomeSourceAmount"><strong>Source Amount</strong></label>
+                                        <input class="form-control" formControlName="alternateIncomeSourceAmount" id="alternateIncomeSourceAmount"
+                                               placeholder="Amount" appDecimalNumber/>
+                                    </div>
+                                </div>
+                            </nb-card-body>
+                        </nb-card>
+                    </div>
+                </div>
             </nb-card-body>
         </nb-card>
 
         <nb-card>
             <nb-card-header>
-                <h3><strong>{{client === clientName?.EXCEL ? 'Monthly Obligation of Borrower' : 'Expenses of Borrower'}}</strong></h3>
+                <h3><strong>Expenses of Borrower</strong></h3>
             </nb-card-header>
             <nb-card-body>
-                <div *ngFor="let expensesOfBorrower of financialForm.get('expensesOfBorrower')['controls']; let expenseIndex = index"
+                <div *ngFor="let expensesOfBorrower of microCrgParamsForm.get('expensesOfBorrower')['controls']; let expenseIndex = index"
                      class="border-bottom border-dark m-4"
                      formArrayName="expensesOfBorrower">
                     <div [formGroupName]="expenseIndex">
@@ -222,7 +222,7 @@
 
                             <div class="col-md-1 ml-0 pl-0 mt-4">
                                 <button (click)="removeExpensesIndex(expenseIndex)"
-                                        *ngIf="financialForm.get('expensesOfBorrower')['controls'].length > 1"
+                                        *ngIf="microCrgParamsForm.get('expensesOfBorrower')['controls'].length > 1"
                                         class="btn btn-sm btn-flat btn-danger" value="Delete">
                                     <em class="fa fa-trash" style="color:white;"></em>
                                 </button>
@@ -232,8 +232,8 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 pl-5">
-                        <label class="title"><strong> {{client === clientName?.EXCEL ? 'Total Obligations' : 'Total Expense'}} :
-                            Rs.{{financialForm.get('totalExpense').value | currencyFormatter}}</strong></label>
+                        <label class="title"><strong>Total Expense :
+                            Rs.{{microCrgParamsForm.get('totalExpense').value | currencyFormatter}}</strong></label>
                     </div>
                     <div class="col-md-6 text-right">
                         <input (click)="addExpensesOfBorrower()" class="btn btn-sm btn-flat btn-primary"
@@ -249,28 +249,18 @@
                     <div class="col-md-4">
                         <label for="totalNetMonthlyIncome"><strong>Total Net monthly Income</strong></label>
                         <input class="form-control" formControlName="totalNetMonthlyIncome" id="totalNetMonthlyIncome"
-                               [ngClass]="{'is-invalid': submitted && financialForm.get('totalNetMonthlyIncome').invalid}"
+                               [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('totalNetMonthlyIncome').invalid}"
                                placeholder="Amount" readonly [value]="numberUtils.isNumber(form.totalIncome.value - form.totalExpense.value).toFixed(2)">
 
                         <div *ngIf="(submitted) && form.totalNetMonthlyIncome.invalid"
                              class="invalid-feedback">Invalid Net Monthly Income
                         </div>
                     </div>
-<!--                    <div class="col-md-4">-->
-<!--                        <label for="grossMonthlyObligation"><strong>Total Gross Monthly income/Total monthly obligations</strong></label>-->
-<!--                        <input class="form-control" formControlName="grossMonthlyObligation" id="grossMonthlyObligation"-->
-<!--                               [ngClass]="{'is-invalid': submitted && financialForm.get('grossMonthlyObligation').invalid}"-->
-<!--                               placeholder="Amount" readonly [value]="totalEmiMonthlyGross()">-->
-
-<!--                        <div *ngIf="(submitted) && form.grossMonthlyObligation.invalid"-->
-<!--                             class="invalid-feedback">Invalid Gross Monthly Obligation-->
-<!--                        </div>-->
-<!--                    </div>-->
                     <div class="col-md-4">
                         <label for="emiWithProposal"><strong>Total EMI of client including present proposal</strong></label><strong
                             class="text-danger">*</strong>
                         <input class="form-control" formControlName="emiWithProposal" id="emiWithProposal"
-                               [ngClass]="{'is-invalid': submitted && financialForm.get('emiWithProposal').invalid}"
+                               [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('emiWithProposal').invalid}"
                                placeholder="Include EMI of other BFIs" appDecimalNumber/>
 
                         <div *ngIf="(submitted) && form.emiWithProposal.invalid"
@@ -280,10 +270,10 @@
                     </div>
 
                     <div class="col-md-4">
-                        <label for="totalEMIInterest"><strong>{{client === clientName?.MEGA ? 'Total EMI and interest expenses to Gross income'
-                            : 'EMI / Gross Monthly Income'}}</strong></label>
+                        <label for="totalEMIInterest" *ngIf="client ===  clientName?.MEGA"><strong>Total EMI and interest expenses to Gross income</strong></label>
+                        <label for="totalEMIInterest" *ngIf="client ===  clientName?.SHINE_RESUNGA"><strong>EMI / Gross Monthly Income</strong></label>
                         <input class="form-control" formControlName="totalEMIInterest" id="totalEMIInterest" name
-                               [ngClass]="{'is-invalid': submitted && financialForm.get('totalEMIInterest').invalid}"
+                               [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('totalEMIInterest').invalid}"
                                placeholder="Total EMI and Interest Expenses" readonly
                                [value]="totalEmiMonthlyGross()">
                     </div>
@@ -291,7 +281,7 @@
                     <div class="col-md-4">
                         <label for="emiNetMonthly"><strong>EMI / Net Monthly Income</strong></label>
                         <input class="form-control" formControlName="emiNetMonthly" id="emiNetMonthly"
-                               [ngClass]="{'is-invalid': submitted && financialForm.get('emiNetMonthly').invalid}"
+                               [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('emiNetMonthly').invalid}"
                                placeholder="EMI / Net Monthly Income" readonly
                                [value]="totalEmiMonthlyGross()">
                         <div *ngIf="(submitted) && form.emiNetMonthly.invalid"
@@ -311,19 +301,21 @@
         </nb-card>
 
         <nb-card>
-            <nb-card-header>Repayment Capacity</nb-card-header>
+            <nb-card-header>
+                <h3><strong>Repayment Capacity</strong></h3>
+            </nb-card-header>
             <nb-card-body>
                 <div class="row">
                     <div class="col-md-4">
                         <label for="grossTotalIncome"><strong>Gross Total Income</strong></label>
                         <input class="form-control" id="grossTotalIncome"
                                [readOnly]="true"
-                               placeholder="Amount" [value]="numberUtils.isNumber(financialForm.get('totalIncome').value).toFixed(2)">
+                               placeholder="Amount" [value]="numberUtils.isNumber(microCrgParamsForm.get('totalIncome').value).toFixed(2)">
                     </div>
                     <div class="col-md-4">
                         <label for="existingObligationOtherBank"><strong>Existing Obligation at other Bank</strong></label>
                         <input class="form-control" formControlName="existingObligationOtherBank" id="existingObligationOtherBank"
-                               [ngClass]="{'is-invalid': submitted && financialForm.get('existingObligationOtherBank').invalid}"
+                               [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('existingObligationOtherBank').invalid}"
                                (change)="totalObligation()"
                                placeholder="Amount">
 
@@ -334,7 +326,7 @@
                     <div class="col-md-4">
                         <label for="totalObligationCurrentBank"><strong>Proposed and Existing Obligation at Our Bank</strong></label>
                         <input class="form-control" formControlName="totalObligationCurrentBank" id="totalObligationCurrentBank"
-                               [ngClass]="{'is-invalid': submitted && financialForm.get('existingObligationOtherBank').invalid}"
+                               [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('existingObligationOtherBank').invalid}"
                                type="number"
                                (change)="totalObligation()"
                                placeholder="Amount">
@@ -347,7 +339,7 @@
                         <label for="totalBankObligation"><strong>Total Bank Obligation</strong></label>
                         <input class="form-control" formControlName="totalBankObligation" id="totalBankObligation"
                                type="number"
-                               [ngClass]="{'is-invalid': submitted && financialForm.get('totalBankObligation').invalid}"
+                               [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('totalBankObligation').invalid}"
                                [readOnly]="true"
 
                                [value]="numberUtils.isNumber(form.existingObligationOtherBank.value) + numberUtils.isNumber(form.totalObligationCurrentBank.value)"
@@ -360,7 +352,7 @@
                     <div class="col-md-4">
                         <label for="obligationGrossIncomeRatio"><strong>Total Bank Obligation to Gross Income Ratio</strong></label>
                         <input class="form-control" formControlName="obligationGrossIncomeRatio" id="obligationGrossIncomeRatio"
-                               [ngClass]="{'is-invalid': submitted && financialForm.get('obligationGrossIncomeRatio').invalid}"
+                               [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('obligationGrossIncomeRatio').invalid}"
                                [readOnly]="true">
 
                         <div *ngIf="(submitted) && form.obligationGrossIncomeRatio.invalid"
@@ -372,150 +364,63 @@
         </nb-card>
     </div>
 
-    <nb-card *ngIf="!disableCrgAlphaParams && isBusinessLoan">
+    <nb-card>
         <nb-card-header>
-            <h4>Risk factors</h4>
+                <h3><strong>Project Details</strong></h3>
         </nb-card-header>
         <nb-card-body>
-            <div class="row p-2">
-                <div class="col-md-12 border-bottom border-dark mb-4">
-                    <div class="form-group">
-                        <label class="title"><strong>Sales - Projection Vs Achievement</strong></label>
-                        <nb-radio-group class="d-contents form-control"
-                                        formControlName="salesProjectionVsAchievement"
-                                        id="salesProjectionVsAchievement"
-                                        name="salesProjectionVsAchievement">
-                            <nb-radio *ngFor="let field of salesProjectionVsAchievementArray"
-                                      [value]="field?.value">{{field?.value}}
-                            </nb-radio>
-                        </nb-radio-group>
-                    </div>
-                </div>
-                <div class="col-md-12 border-bottom border-dark mb-4">
-                    <div class="form-group">
-                        <label class="title"><strong>Net Worth of Firm/Company</strong></label>
-                        <nb-radio-group class="d-contents form-control"
-                                        formControlName="netWorthOfFirmOrCompany"
-                                        id="netWorthOfFirmOrCompany"
-                                        name="netWorthOfFirmOrCompany">
-                            <nb-radio *ngFor="let field of netWorthOfFirmOrCompanyArray"
-                                      [value]="field?.value">{{field?.value}}
-                            </nb-radio>
-                        </nb-radio-group>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label class="title"><strong>Tax Compliance</strong></label>
-                        <nb-radio-group class="d-contents form-control"
-                                        formControlName="taxCompliance"
-                                        id="taxCompliance"
-                                        name="taxCompliance">
-                            <nb-radio *ngFor="let field of taxComplianceArray"
-                                      [value]="field?.value">{{field?.value}}
-                            </nb-radio>
-                        </nb-radio-group>
+            <div>
+                <div class="col-md-12" >
+                    <table class="table table-bordered table-responsive-md table-hover text-center sb-small table-sm">
+                        <thead>
+                        <tr class="sb-bg-secondary text-white">
+                            <th>Project Detail</th>
+                            <th>Project Cost</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let projectDetails of microCrgParamsForm.get('projectDetailsArray')['controls']; let i = index"
+                        formArrayName="projectDetailsArray">
+                            <ng-container [formGroupName]="i">
+                                <td>
+                                    <input class="text-center form-control"
+                                           formControlName="projectDescription">
+                                </td>
+                                <td>
+                                    <input class="text-center form-control" type="number" (change)="totalProjectDetails()"
+                                           formControlName="projectCost">
+                                </td>
+                                <td>
+                                    <button (click)="removeProjectDetails(i)"
+                                            *ngIf="microCrgParamsForm.get('projectDetailsArray')['controls'].length > 1"
+                                            class="btn btn-sm btn-flat btn-danger" value="Delete">
+                                        <em class="fa fa-trash" style="color:white;"></em>
+                                    </button>
+                                </td>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Total Cost</h6>
+                            </td>
+                            <td>
+                                <h6>Rs.{{microCrgParamsForm.get('projectCostTotal').value | currencyFormatter}}</h6>
+                            </td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-right">
+                        <input (click)="addProjectDetails()" class="btn btn-sm btn-flat btn-primary"
+                               type="button" value="Add More"/>
                     </div>
                 </div>
             </div>
         </nb-card-body>
     </nb-card>
+
+    <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+        <button (click)="onSubmit()" nbButton type="button">save</button>
+    </div>
 </form>
-
-<div *ngIf="isBusinessLoan">
-    <div class="row my-2">
-        <div class="col-md-12 form-group">
-            <label><b>Total Working Capital Limit*</b></label>
-            <input #totalWorkingCapitalLimit nbInput
-                   [value]="financialForm.get('totalWorkingCapitalLimit').value"
-                   (input)="setTotalWorkingCapitalLimit(totalWorkingCapitalLimit?.value)"
-                   type="number" class="form-control mb-2" />
-        </div>
-    </div>
-    <div class="text-right m-4">
-        <nb-checkbox [checked]="historicalDataPresent" (checkedChange)="toggleHistory($event)">
-            Availability of Historical Data
-        </nb-checkbox>
-    </div>
-    <hr>
-    <div class="row my-2">
-        <div class="col-md-12 text-right">
-            <button (click)="openFiscalYearModal()" class="mb-2" nbButton>Add Fiscal year</button>
-        </div>
-    </div>
-
-    <hr>
-
-    <div *ngIf="auditorList.length > 0" class="row mb-4">
-        <div class="col-md-12">
-            <nb-card class="mark">
-                <nb-card-body>
-                    <h3 class="mb-2">Financial Auditor Detail Information</h3>
-                    <table aria-describedby="auditor list table" class="table table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col">S.N</th>
-                            <th scope="col">Audited</th>
-                            <th scope="col">Audit Firm</th>
-                            <th scope="col">Propriete/Partner</th>
-                            <th scope="col">Membership No.</th>
-                            <th scope="col">Certificate of Practice</th>
-                            <th scope="col">Class</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let auditor of auditorList; let i = index">
-                            <td><strong>{{i + 1}}</strong></td>
-                            <td>{{auditor['audited']}}</td>
-                            <td>{{auditor['auditFirm']}}</td>
-                            <td>{{auditor['proprietePartner']}}</td>
-                            <td>{{auditor['membershipNo']}}</td>
-                            <td>{{auditor['certificateOfPractice']}}</td>
-                            <td>{{auditor['class']}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </nb-card-body>
-            </nb-card>
-        </div>
-    </div>
-
-    <nb-tabset #currentTabSet (changeTab)="changeActiveTab(currentTabSet['tabs'])" class="mb-4" fullWidth>
-
-        <nb-tab class="px-0" tabTitle="Income Statement">
-            <app-income-statement #incomeStatement
-                                  (removeFiscalYear)="removeFiscalYear($event)"
-                                  *ngIf="activeTab === 'Income Statement'" [fiscalYear]="fiscalYear"
-                                  [formData]="currentFormData">
-            </app-income-statement>
-        </nb-tab>
-
-        <nb-tab class="px-0" tabTitle="Balance Sheet">
-            <app-balance-sheet #balanceSheet
-                               (removeFiscalYear)="removeFiscalYear($event)"
-                               *ngIf="activeTab === 'Balance Sheet'"
-                               [fiscalYear]="fiscalYear" [formData]="currentFormData">
-            </app-balance-sheet>
-        </nb-tab>
-
-        <nb-tab class="px-0" tabTitle="Cash Flow Statement">
-            <app-cash-flow-statement #cashFlowStatement
-                                     (removeFiscalYear)="removeFiscalYear($event)"
-                                     *ngIf="activeTab === 'Cash Flow Statement'"
-                                     [fiscalYear]="fiscalYear" [formData]="currentFormData">
-            </app-cash-flow-statement>
-        </nb-tab>
-
-        <nb-tab class="px-0" tabTitle="Key Indicators">
-            <app-key-indicators #keyIndicators
-                                (removeFiscalYear)="removeFiscalYear($event)"
-                                *ngIf="activeTab === 'Key Indicators'"
-                                [fiscalYear]="fiscalYear" [formData]="currentFormData">
-            </app-key-indicators>
-        </nb-tab>
-    </nb-tabset>
-</div>
-
-<div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
-    <button (click)="onSubmit()" nbButton type="button">save</button>
-</div>
