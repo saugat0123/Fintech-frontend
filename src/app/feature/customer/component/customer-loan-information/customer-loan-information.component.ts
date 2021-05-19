@@ -39,6 +39,7 @@ import {CommentsComponent} from '../../../loan-information-template/comments/com
 import {PreviousSecurity} from '../../../admin/modal/previousSecurity';
 import {PreviousSecurityComponent} from '../../../loan-information-template/previous-security/previous-security.component';
 import {Clients} from '../../../../../environments/Clients';
+import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -96,6 +97,10 @@ export class CustomerLoanInformationComponent implements OnInit {
     private borrowerLoanPortfolioComponent: NbAccordionItemComponent;
     @ViewChild('borrowerFinancialHighlight', {static: false})
     private borrowerFinancialHighlight: NbAccordionItemComponent;
+
+    @ViewChild('microCrgParamsComponent', {static: false})
+    private microCrgParamsComponent: NbAccordionItemComponent;
+
     @ViewChild('baselRiskAccordion', {static: false})
     private marketingActivitiesAccordian: NbAccordionItemComponent;
     @ViewChild('marketingActivitiesAccordian', {static: false})
@@ -133,6 +138,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     public marketingActivities: MarketingActivities;
     public microBaselRiskExposure: MicroBaselRiskExposure;
     public microBorrowerFinancial: MicroBorrowerFinancial;
+    public microCrgParams: MicroCrgParams;
     customerType = CustomerType;
     public reportingInfoLevels: Array<ReportingInfoLevel>;
     public reportingInfoLevelCode: string;
@@ -206,6 +212,9 @@ export class CustomerLoanInformationComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.microBorrowerFinancial)) {
             this.microBorrowerFinancial = this.customerInfo.microBorrowerFinancial;
+        }
+        if (!ObjectUtil.isEmpty(this.customerInfo.microCrgParams)) {
+            this.microCrgParams = this.customerInfo.microCrgParams;
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.reportingInfoLevels)) {
             this.reportingInfoLevels = this.customerInfo.reportingInfoLevels;
@@ -490,6 +499,22 @@ export class CustomerLoanInformationComponent implements OnInit {
             }, error => {
                 console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save  Borrower Portfolio!'));
+            });
+    }
+
+    saveMicroCrgParams(data: MicroCrgParams) {
+        if (ObjectUtil.isEmpty(this.microCrgParams)) {
+            this.microCrgParams = new MicroCrgParams();
+        }
+        this.microCrgParams = data;
+        this.customerInfoService.saveLoanInfo(this.microCrgParams, this.customerInfoId, TemplateName.MICRO_BORROWER_FINANCIAL)
+            .subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Micro CRG Params!'));
+                this.microCrgParamsComponent.close();
+                this.triggerCustomerRefresh.emit(true);
+            }, error => {
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Micro CRG Params!'));
             });
     }
 

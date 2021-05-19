@@ -55,7 +55,7 @@ import {LoanType} from '../../model/loanType';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
 import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
 import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
-import {environment} from '../../../../../environments/environment.srdb';
+import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
 import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
 import {NbDialogRef} from '@nebular/theme';
