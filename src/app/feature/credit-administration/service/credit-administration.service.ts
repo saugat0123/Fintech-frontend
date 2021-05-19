@@ -100,4 +100,11 @@ export class CreditAdministrationService extends BaseService<any> {
         return this.http.get(req.url, {headers: req.header});
     }
 
+    public getReport(searchObj: any): Observable<any> {
+        const api = `${this.getApi()}/report`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.post(req.url, searchObj, {headers: req.header});
+    }
+
 }
