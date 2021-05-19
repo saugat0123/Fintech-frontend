@@ -113,7 +113,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
                     });
                 });
                 this.getCombinedUserList(this.toRole);
-
+                this.showUserList = false;
             }
         }
     }
