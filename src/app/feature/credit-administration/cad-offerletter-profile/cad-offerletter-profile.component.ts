@@ -18,6 +18,8 @@ import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CadOfferLetterConfigurationComponent} from './cad-offer-letter-configuration/cad-offer-letter-configuration.component';
+import {ExcelOfferLetterComponent} from '../excel-offer-letter-template/excel-offer-letter/excel-offer-letter.component';
+import {ExcelOfferLetterConst} from '../../cad-documents/cad-document-core/excel-offer-letter/excel-offer-letter-const';
 
 @Component({
     selector: 'app-cad-offerletter-profile',
@@ -32,6 +34,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     responseCadData: EventEmitter<CustomerApprovedLoanCadDocumentation> = new EventEmitter<CustomerApprovedLoanCadDocumentation>();
     // change this on basis of bank
     offerLetterConst = MegaOfferLetterConst;
+    excelOfferLetterConst = ExcelOfferLetterConst;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -48,6 +51,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     loanHolderId;
     customerInfoData: CustomerInfoData;
     offerLetterTypes = [];
+    excelOfferLetterTypes = [];
     client = environment.client;
     clientList = Clients;
     // todo move document upload to different to component
@@ -66,6 +70,9 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         if (this.client === this.clientList.MEGA) {
             this.offerLetterTypes = MegaOfferLetterConst.enumObject();
         }
+        if (this.client === this.clientList.EXCEL) {
+            this.excelOfferLetterTypes = ExcelOfferLetterConst.enumObject();
+        }
     }
 
     initial() {
@@ -73,6 +80,27 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         console.log(this.cadOfferLetterApprovedDoc.assignedLoan, 'sd');
         this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
     }
+
+    openExcelOfferLetterDocumentModal(offerLetterType) {
+        if (ObjectUtil.isEmpty(offerLetterType)) {
+            this.toastrService.show(new Alert(AlertType.WARNING, 'Please Select Offer letter type'));
+            return;
+        }
+        const cadOfferLetterApprovedDoc = this.cadOfferLetterApprovedDoc;
+        const a = isNaN(offerLetterType);
+        if (a) {
+            offerLetterType = this.excelOfferLetterConst.keysEnum(offerLetterType);
+        }
+        this.nbDialogService.open(ExcelOfferLetterComponent, {
+            context: {
+                offerLetterType: offerLetterType,
+                cadOfferLetterApprovedDoc: cadOfferLetterApprovedDoc
+            },
+        });
+
+
+    }
+
 
     openOfferLetterDocumentModal(offerLetterType) {
         if (ObjectUtil.isEmpty(offerLetterType)) {
