@@ -1,14 +1,4 @@
-import {
-    Component,
-    DoCheck,
-    ElementRef,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
-    QueryList, ViewChild,
-    ViewChildren
-} from '@angular/core';
+import {Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Customer} from '../../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
@@ -34,7 +24,6 @@ import {MaritalStatus} from '../../../../../@core/model/enum/marital-status';
 import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
 import {environment, environment as env} from '../../../../../../environments/environment';
 import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
-import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
 import {Clients} from '../../../../../../environments/Clients';
 import {Editor} from '../../../../../@core/utils/constants/editor';
@@ -423,7 +412,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 undefined : this.customer.netWorth,
                 this.crgLambdaDisabled ? undefined : [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
             subsectorDetail: [this.customer.subsectorDetail === undefined ? undefined : this.customer.subsectorDetail],
-            clientType: [this.customer.clientType === undefined ? undefined : this.customer.clientType],
+            clientType: [this.customer.clientType === undefined ? undefined : this.customer.clientType, Validators.required],
             temporaryProvince: [this.customer.temporaryProvince === null ? undefined :
                 this.customer.temporaryProvince, Validators.required],
             temporaryDistrict: [this.customer.temporaryDistrict === null ? undefined :

@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {MicroCrgParamsComponent} from './micro-crg-params.component';
+import {MicroChecklistComponent} from './micro-checklist.component';
 
-describe('MicroCrgParamsComponent', () => {
-  let component: MicroCrgParamsComponent;
-  let fixture: ComponentFixture<MicroCrgParamsComponent>;
+describe('MicroChecklistComponent', () => {
+  let component: MicroChecklistComponent;
+  let fixture: ComponentFixture<MicroChecklistComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MicroCrgParamsComponent ]
+      declarations: [ MicroChecklistComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MicroCrgParamsComponent);
+    fixture = TestBed.createComponent(MicroChecklistComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

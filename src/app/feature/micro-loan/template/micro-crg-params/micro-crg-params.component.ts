@@ -1,7 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {TypeOfSourceOfIncome, TypeOfSourceOfIncomeArray, TypeOfSourceOfIncomeMap} from '../../../admin/modal/crg/typeOfSourceOfIncome';
+import {
+    TypeOfSourceOfIncome,
+    TypeOfSourceOfIncomeArray,
+    TypeOfSourceOfIncomeMap
+} from '../../../admin/modal/crg/typeOfSourceOfIncome';
 import {MajorSourceIncomeType} from '../../../admin/modal/crg/major-source-income-type';
 import {NgSelectComponent} from '@ng-select/ng-select';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
