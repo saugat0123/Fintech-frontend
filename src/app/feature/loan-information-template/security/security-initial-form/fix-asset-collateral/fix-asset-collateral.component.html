@@ -69,9 +69,9 @@
 
                             <div class="col-md-4 form-group">
                                 <label for="province">Province</label>
-                                <ng-select (change)="getDistrictsById(form.province.value?.id , $event)"
+                                <ng-select [ngClass]="{'is-invalid': submitted && form.province.errors}"
+                                        (change)="getDistrictsById(form.province.value?.id , $event)"
                                         [compareWith]="compareFn"
-                                        [ngClass]="{'is-invalid': submitted && form.province.errors}"
                                         formControlName="province"
                                         id="province"
                                         bindLabel="name">
@@ -81,17 +81,17 @@
                                     </ng-option>
                                 </ng-select>
                                 <div *ngIf="(submitted) && form.province.invalid"
-                                     class="invalid-feedback">
-                                    <div *ngIf="form.province.errors.required">
-                                        Province is required
-                                    </div>
+                                     class="help-block">
+                                     <span *ngIf="form.province.errors.required">
+                                        <span class="text-danger"> Province is required</span>
+                                     </span>
                                 </div>
                             </div>
                             <div class="col-md-4 form-group">
                                 <label for="district">District</label>
-                                <ng-select (change)="getMunicipalitiesById(form?.district.value?.id, $event)"
+                                <ng-select [ngClass]="{'is-invalid': submitted && form.district.errors}"
+                                        (change)="getMunicipalitiesById(form?.district.value?.id, $event)"
                                         [compareWith]="compareFn"
-                                        [ngClass]="{'is-invalid': submitted && form.district.errors}"
                                         formControlName="district"
                                         id="district"
                                         bindLabel="name">
@@ -101,16 +101,16 @@
                                     </ng-option>
                                 </ng-select>
                                 <div *ngIf="(submitted) && form.district.invalid"
-                                     class="invalid-feedback">
-                                    <div *ngIf="form.district.errors.required">
-                                        District is required
-                                    </div>
+                                     class="help-block">
+                                     <span *ngIf="form.district.errors.required">
+                                        <span class="text-danger"> District is required</span>
+                                     </span>
                                 </div>
                             </div>
                             <div class="col-md-4 form-group">
                                 <label for="municipality">Municipalities or VDC</label>
-                                <ng-select [compareWith]="compareFn"
-                                        [ngClass]="{'is-invalid': submitted && form.municipalityVdc.errors}"
+                                <ng-select [ngClass]="{'is-invalid': submitted && form.municipalityVdc.errors}"
+                                        [compareWith]="compareFn"
                                         formControlName="municipalityVdc"
                                         id="municipality"
                                         bindLabel="name">
@@ -120,8 +120,10 @@
                                     </ng-option>
                                 </ng-select>
                                 <div *ngIf="(submitted) && form.municipalityVdc.invalid"
-                                     class="invalid-feedback">
-                                    Municipality is required
+                                     class="help-block">
+                                     <span *ngIf="form.municipalityVdc.errors.required">
+                                        <span class="text-danger"> Municipalities is required</span>
+                                     </span>
                                 </div>
                             </div>
                             <div class="col-md-4 form-group">
@@ -133,7 +135,7 @@
                                 <div *ngIf="(submitted) && form.ward.invalid"
                                      class="invalid-feedback">
                                     <div *ngIf="form.ward.errors.required">
-                                        Ward is required
+                                        Ward number is required
                                     </div>
                                 </div>
                             </div>
