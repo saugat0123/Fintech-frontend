@@ -47,7 +47,7 @@ export class DpNoteGuarantorComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        this.fillForm();
+        this.checkOfferLetter();
     }
 
     fillForm() {
