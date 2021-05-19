@@ -74,30 +74,57 @@
         <td colspan="2"><strong>Security Risk</strong></td>
         <td colspan="4"><strong>30.00%</strong></td>
     </tr>
-    <tr>
-        <td>(Capacity & Capital)</td>
-        <td>Security Coverage</td>
-        <td>70%</td>
-        <td>{{crgLambdaData?.securityCoverage?.parameter}}</td>
-        <td> {{crgLambdaData?.securityCoverage?.automatedValue}} </td>
-        <td>{{crgLambdaData?.securityCoverage?.value}}%</td>
-    </tr>
-    <tr>
-        <td>&nbsp;</td>
-        <td>Location of property</td>
-        <td>10%</td>
-        <td>{{crgLambdaData?.locationOfProperty?.parameter}}</td>
-        <td> --</td>
-        <td>{{crgLambdaData?.locationOfProperty?.value}}%</td>
-    </tr>
-    <tr>
-        <td>&nbsp;</td>
-        <td>Road Access</td>
-        <td>10%</td>
-        <td>{{ crgLambdaData?.roadAccess?.parameter}}</td>
-        <td>--</td>
-        <td>{{crgLambdaData?.roadAccess?.value}}%</td>
-    </tr>
+
+    <ng-container *ngIf="lambdaScheme === 'GENERAL'">
+        <tr>
+            <td>(Capacity & Capital)</td>
+            <td>Loan to Value Ratio / Percentage of Financing
+            </td>
+            <td>70%</td>
+            <td>{{crgLambdaData?.securityCoverage?.parameter}}</td>
+            <td>{{crgLambdaData?.securityCoverage?.automatedValue}} </td>
+            <td>{{crgLambdaData?.securityCoverage?.value}}%</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>Location of property</td>
+            <td>10%</td>
+            <td>{{crgLambdaData?.locationOfProperty?.parameter}}</td>
+            <td> -- </td>
+            <td>{{crgLambdaData?.locationOfProperty?.value}}%</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>Road Access</td>
+            <td>10%</td>
+            <td>{{crgLambdaData?.roadAccess?.parameter}}</td>
+            <td>--</td>
+            <td>{{crgLambdaData?.roadAccess?.value}}%</td>
+        </tr>
+    </ng-container>
+    <ng-container *ngIf="lambdaScheme === 'AUTO_PRIVATE'">
+        <tr>
+            <td>&nbsp;</td>
+            <td>Security Coverage - Auto Loan (Private - Personal)
+            </td>
+            <td>90%</td>
+            <td>{{crgLambdaData?.securityCoverageAutoPrivate?.parameter}}</td>
+            <td> -- </td>
+            <td>{{crgLambdaData?.securityCoverageAutoPrivate?.value}}%</td>
+        </tr>
+    </ng-container>
+    <ng-container *ngIf="lambdaScheme === 'AUTO_COMMERCIAL'">
+        <tr>
+            <td>&nbsp;</td>
+            <td>Security Coverage - Auto Loan (Commercial - Personal)
+            </td>
+            <td>90%</td>
+            <td>{{crgLambdaData?.securityCoverageAutoCommercial?.parameter}}</td>
+            <td> -- </td>
+            <td>{{crgLambdaData?.securityCoverageAutoCommercial?.value}}%</td>
+        </tr>
+    </ng-container>
+
     <tr>
         <td>&nbsp;</td>
         <td>Net Worth</td>
