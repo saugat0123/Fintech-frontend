@@ -89,8 +89,8 @@ $color-bank-dark: #007bff;
 
 
 .sb-small {
-  font-size: 70%;
-  font-weight: 400;
+  font-size: 85%;
+  font-weight: 500;
 }
 
 .sb-medium {
@@ -118,6 +118,8 @@ input[type=number] {
 
 .table-sm th, .table-sm td {
   padding: 0;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .nb-card-header {
