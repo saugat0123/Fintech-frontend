@@ -118,6 +118,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
       this.setValueForCriteria('securityCoverageAutoCommercial', parsedSecurityData.securityCoverageAutoCommercial,
           this.securityCoverageAutoCommercialMap.get(parsedSecurityData.securityCoverageAutoCommercial));
       this.lambdaScheme = parsedSecurityData.lambdaScheme;
+      this.creditRiskGradingForm.get('lambdaScheme').patchValue(this.lambdaScheme);
       if (this.lambdaScheme === 'GENERAL') {
         this.securityRiskArray.push('locationOfProperty',
             'roadAccess',
@@ -334,6 +335,8 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
       relationshipRiskTotal: undefined,
       securityRiskTotal: undefined,
       exposureRiskTotal: undefined,
+
+      lambdaScheme: ['GENERAL'],
       // Aggregate properties--
       totalScore: undefined,
       creditRiskGrade: undefined,
