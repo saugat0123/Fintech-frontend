@@ -29,6 +29,7 @@ import {LoanDataKey} from '../../../@core/utils/constants/loan-data-key';
 import {CustomerService} from '../../../feature/admin/service/customer.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SafePipe} from '../../../feature/memo/pipe/safe.pipe';
+import {LoanTag} from '../../../feature/loan/model/loanTag';
 
 @Component({
     selector: 'app-customer-wise-pending',
@@ -51,7 +52,8 @@ export class CustomerWisePendingComponent implements OnInit {
         customerType: undefined,
         clientType: undefined,
         customerCode: undefined,
-        toUser: undefined
+        toUser: undefined,
+        loanTag: undefined,
     };
     filterForm: FormGroup;
     loanList: Array<LoanConfig> = new Array<LoanConfig>();
@@ -73,6 +75,7 @@ export class CustomerWisePendingComponent implements OnInit {
     loanForCombine: { loan: Array<LoanDataHolder> }[] = [];
     initStatus;
     clientType = [];
+    loanTag = LoanTag.values();
     subSector = [];
     model = new LoanDataHolder();
     displayCombineLoanList = [];
@@ -198,7 +201,8 @@ export class CustomerWisePendingComponent implements OnInit {
             provinceId: [undefined],
             customerType: [undefined],
             clientType: [undefined],
-            customerCode: [undefined]
+            customerCode: [undefined],
+            loanTag: [undefined],
         });
     }
 
@@ -220,6 +224,9 @@ export class CustomerWisePendingComponent implements OnInit {
             this.filterForm.get('clientType').value;
         this.search.customerCode = ObjectUtil.isEmpty(this.filterForm.get('customerCode').value) ? undefined :
             this.filterForm.get('customerCode').value;
+        this.search.loanTag = ObjectUtil.isEmpty(this.filterForm.get('loanTag').value) ? undefined :
+            this.filterForm.get('loanTag').value;
+        console.log(this.search);
         CustomerWisePendingComponent.loadData(this);
     }
 
