@@ -34,7 +34,7 @@
         </div>
 
             <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
-                               [shareSecurityData]="loanHolder?.shareSecurity"></app-security-view>
+                               [shareSecurityData]="loanHolder?.shareSecurity" [securityId]="securityId"></app-security-view>
             <app-financial-view *ngIf="loanHolder?.financial"
                                 [customerType]="loanHolder?.customerType"
                                 [formData]="loanHolder?.financial"></app-financial-view>

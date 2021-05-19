@@ -284,7 +284,9 @@
                                                            [proposalData]="proposalData"></app-proposal-justification-summary>
             <app-security-summary
                     *ngIf="securitySummary"
-                    [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
+                    [formData]="securityData" [shareSecurity]="shareSecurityData"
+                    [collateralSiteVisitDetail]="collateralSiteVisitDetail"
+                    [isCollateralSiteVisit]="isCollateralSiteVisit"></app-security-summary>
 
             <app-financial-summary
                     *ngIf="financialSummary" [formData]="financialData"
