@@ -3,7 +3,7 @@
     nbSpinnerSize="giant">
     <nb-card-header>
         <nb-checkbox [hidden]="!microEnabled" [(ngModel)]="microCustomer"
-        (click)="microCustomerValidation()">Micro Customer</nb-checkbox>
+        (click)="microCustomerValidation(!micro_checked.checked)" #micro_checked>Micro Customer</nb-checkbox>
         <div class="d-flex justify-content-end">
             <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex" name="companyInfoCalendarType">
                 <nb-radio value="AD">AD</nb-radio>
@@ -41,7 +41,6 @@
                                        </div>
                                    </div>
                                    </div>
-                               </div>
                                <div class="col-md-6">
                                    <div class="form-group">
                                        <label ><strong>SubSector</strong></label>
@@ -50,6 +49,7 @@
                                            <option *ngFor="let data of subSector " [ngValue]="data.key.toString().concat('-'+data.value)">{{data.value}}</option>
                                        </select>
                                    </div>
+                               </div>
                                </div>
                            </div>
 

@@ -190,7 +190,6 @@ export class CompanyFormComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.microCustomer = this.formValue.isMicroCustomer;
-            this.microCustomerValidation()
         }
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
@@ -566,6 +565,7 @@ export class CompanyFormComponent implements OnInit {
         if (!this.additionalFieldSelected) {
             this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
         }
+        this.microCustomerValidation(this.microCustomer);
     }
 
     setCompanyInfo(info: CompanyInfo) {
@@ -1148,8 +1148,8 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfoFormGroup.get(resultControllerName).setValue(total);
     }
 
-    microCustomerValidation() {
-        this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'] , !!this.microCustomer);
+    microCustomerValidation(micro: boolean) {
+        this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'] , !micro);
     }
 
     /** @Param validate --- true for add validation and false for remove validation
