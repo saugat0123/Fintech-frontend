@@ -17,6 +17,8 @@ import {DocStatus} from '../../loan/model/docStatus';
 import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
 import {CalculationUtil} from '../../../@core/utils/CalculationUtil';
 import {LoanDataKey} from '../../../@core/utils/constants/loan-data-key';
+import {SecurityCoverageAutoPrivate, SecurityCoverageAutoPrivatePointsMap} from '../model/security-coverage-auto-private';
+import {SecurityCoverageAutoCommercial, SecurityCoverageAutoCommercialPointsMap} from '../model/security-coverage-auto-commercial';
 
 @Component({
   selector: 'app-credit-risk-grading-lambda',
@@ -59,10 +61,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
     'repaymentHistory'
   ];
   securityRiskArray = [
-    'locationOfProperty',
-    'roadAccess',
-    'netWorth',
-    'securityCoverage'
+    'netWorth'
   ];
   exposureRiskArray = [
     'multibanking'
@@ -73,6 +72,8 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
   // Security points map --
   locationOfPropertyMap: Map<string, number> = FacCategoryMap.facCategoryMap;
   roadAccessMap: Map<string, number> = RoadAccessMap.roadAccessMap;
+  securityCoverageAutoPrivateMap: Map<string, number> = SecurityCoverageAutoPrivatePointsMap.securityCoverageAutoPrivatePointsMap;
+  securityCoverageAutoCommercialMap: Map<string, number> = SecurityCoverageAutoCommercialPointsMap.securityCoverageAutoCommercialPointsMap;
 
   // Relationship points map --
   bankingRelationshipMap: Map<string, number> = BankingRelationshipIndividualMap.bankingRelationshipMap;
@@ -80,6 +81,8 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
 
   // Repayment risk points map --
   multipleSourceOfIncomeMap: Map<string, number> = MajorSourceIncomeMap.majorSourceIncomeMap;
+
+  lambdaScheme = 'GENERAL';
 
   ngOnInit() {
     this.buildForm();
@@ -111,6 +114,20 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
           this.locationOfPropertyMap.get(parsedSecurityData.facCategory));
       this.setValueForCriteria('roadAccess', parsedSecurityData.roadAccessOfPrimaryProperty,
           this.roadAccessMap.get(parsedSecurityData.roadAccessOfPrimaryProperty));
+      this.setValueForCriteria('securityCoverageAutoPrivate', parsedSecurityData.securityCoverageAutoPrivate,
+          this.securityCoverageAutoPrivateMap.get(parsedSecurityData.securityCoverageAutoPrivate));
+      this.setValueForCriteria('securityCoverageAutoCommercial', parsedSecurityData.securityCoverageAutoCommercial,
+          this.securityCoverageAutoCommercialMap.get(parsedSecurityData.securityCoverageAutoCommercial));
+      this.lambdaScheme = parsedSecurityData.lambdaScheme;
+      if (this.lambdaScheme === 'GENERAL') {
+        this.securityRiskArray.push('locationOfProperty',
+            'roadAccess',
+            'securityCoverage');
+      } else if (this.lambdaScheme === 'AUTO_PRIVATE') {
+        this.securityRiskArray.push('securityCoverageAutoPrivate');
+      } else {
+        this.securityRiskArray.push('securityCoverageAutoCommercial');
+      }
     } else {
       this.missingAlerts.push({
         type: 'danger',
@@ -310,6 +327,9 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
 
       securityCoverage: this.criteriaFormGroup(),
       multibanking: this.criteriaFormGroup(),
+
+      securityCoverageAutoPrivate: this.criteriaFormGroup(),
+      securityCoverageAutoCommercial: this.criteriaFormGroup(),
 
       repaymentRiskTotal: undefined,
       relationshipRiskTotal: undefined,

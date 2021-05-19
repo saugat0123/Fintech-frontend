@@ -23,6 +23,8 @@ import {MicroSynopsisCreditworthinessViewComponent} from './detail-view/micro-lo
 import {BorrowerPortfolioViewComponent} from './detail-view/micro-loan-detail-view-base/borrower-portfolio-summary-view/borrower-portfolio-view.component';
 import { BorrowerFinancialComponent } from './template/borrower-financial/borrower-financial.component';
 import { MarketingActivitiesViewComponent } from './detail-view/micro-loan-detail-view-base/marketing-activities-view/marketing-activities-view.component';
+import { MicroCrgParamsComponent } from './template/micro-crg-params/micro-crg-params.component';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 
 
@@ -43,7 +45,8 @@ import { MarketingActivitiesViewComponent } from './detail-view/micro-loan-detai
       BorrowerPortfolioViewComponent,
       MicroProposalViewComponent,
       BorrowerFinancialComponent,
-      MarketingActivitiesViewComponent],
+      MarketingActivitiesViewComponent,
+      MicroCrgParamsComponent],
     exports: [
         MicroCompanyFormComponentComponent,
         MicroIndividualFormComponent,
@@ -53,6 +56,7 @@ import { MarketingActivitiesViewComponent } from './detail-view/micro-loan-detai
         MicroSynopsisComponent,
         MicroLoanDetailViewBaseComponent,
         BorrowerFinancialComponent,
+        MicroCrgParamsComponent,
     ],
     imports: [
         CommonModule,
@@ -63,6 +67,7 @@ import { MarketingActivitiesViewComponent } from './detail-view/micro-loan-detai
         LoanSummaryModule,
         ReportingModule,
         LoanInformationTemplateModule,
+        NgSelectModule,
     ]
 })
 export class MicroLoanModule { }

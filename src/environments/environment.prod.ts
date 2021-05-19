@@ -8,6 +8,7 @@ export const environment = {
   LOCAL_STORAGE_NAME: 'SBSolutionsLAS',
   enablePreAddingAccountNumber: false,
   disableCrgAlpha: true,
+  disableCrgLambda: true,
   disableApprovalSheet: false,
   isMega: true,
   SBS_GROUP: false,
