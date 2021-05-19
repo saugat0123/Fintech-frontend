@@ -2,7 +2,7 @@
     <nb-card-header>
         <div class="row">
             <div class="col-md-12">
-                <app-filter (eventEmitter)="setSearchValue($event)"></app-filter>
+                <app-filter (eventEmitter)="setSearchValue($event)" [docStatus]="'OFFER_PENDING'" ></app-filter>
             </div>
         </div>
         <h6 class="text-center">Offer Letter Pending</h6>
@@ -152,3 +152,4 @@
 
     </nb-card-body>
 </nb-card>
+
