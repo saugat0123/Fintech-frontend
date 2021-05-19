@@ -6,6 +6,8 @@ import {OwnershipTransfer} from '../../loan/model/ownershipTransfer';
 import {environment as envSrdb} from '../../../../environments/environment.srdb';
 import {Clients} from '../../../../environments/Clients';
 import {environment} from '../../../../environments/environment';
+import {CollateralSiteVisit} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
+import {CollateralSiteVisitService} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 
 @Component({
   selector: 'app-security-view',
@@ -41,13 +43,16 @@ export class SecurityViewComponent implements OnInit {
   securityOther: any;
   assignments: any;
   assignment = false;
+  @Input() securityId: number;
+  collateralSiteVisits: Array<CollateralSiteVisit> = [];
+  siteVisitJson = [];
+  isCollateralSiteVisit = false;
 
-  constructor() {
+  constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
   }
 
   ngOnInit() {
     this.securityData = JSON.parse(this.security.data);
-
     (this.securityData['selectedArray'] as Array<any>).forEach(selectedValue => {
       switch (selectedValue) {
         case 'VehicleSecurity':
@@ -105,6 +110,18 @@ export class SecurityViewComponent implements OnInit {
     }
     if (this.depositSelected) {
       this.calculateTotal();
+    }
+    if (this.securityId !== undefined) {
+      this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
+          .subscribe((response: any) => {
+            this.collateralSiteVisits = response.detail;
+              this.collateralSiteVisits.filter(item => {
+                this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+              });
+              if (response.detail.length > 0) {
+                this.isCollateralSiteVisit = true;
+              }
+          });
     }
   }
 

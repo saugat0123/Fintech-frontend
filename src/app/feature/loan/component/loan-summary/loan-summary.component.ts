@@ -38,6 +38,8 @@ import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 import {RouteConst} from '../../../credit-administration/model/RouteConst';
 import {ApprovalSheetInfoComponent} from './approval-sheet-info/approval-sheet-info.component';
 import {Clients} from '../../../../../environments/Clients';
+import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
+import {CollateralSiteVisit} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 
 @Component({
     selector: 'app-loan-summary',
@@ -167,6 +169,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     dataFromPreviousSecurity;
     isJointInfo = false;
     jointInfo = [];
+    collateralSiteVisitDetail = [];
+    isCollateralSiteVisit = false;
 
 
     constructor(
@@ -185,7 +189,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private combinedLoanService: CombinedLoanService,
         private commonRoutingUtilsService: CommonRoutingUtilsService,
         private toastService: ToastService,
-        private fiscalYearService: FiscalYearService
+        private fiscalYearService: FiscalYearService,
+        private collateralSiteVisitService: CollateralSiteVisitService
     ) {
         this.client = environment.client;
         this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
@@ -207,6 +212,15 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.loadSummary();
         this.roleType = LocalStorageUtil.getStorage().roleType;
         this.checkDocUploadConfig();
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+           this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.loanDataHolder.security.id)
+               .subscribe((response: any) => {
+                   this.collateralSiteVisitDetail.push(response.detail);
+                   if (response.detail.length > 0) {
+                       this.isCollateralSiteVisit = true;
+                   }
+               });
+        }
     }
 
     ngOnDestroy(): void {

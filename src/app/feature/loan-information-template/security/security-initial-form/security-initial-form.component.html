@@ -32,6 +32,10 @@
                  formArrayName="landDetails">
                 <div [formGroupName]="i">
                     <input type="checkbox" formControlName="landOtherBranchChecked"> Property on another branch location
+                    <div class="row justify-content-end">
+                        <button class="btn btn-primary sb-small mr-2"
+                                (click)="openSiteVisitModel('Land Security'+' '+(i+1))">Inspect Site Visit</button>
+                    </div>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -480,6 +484,10 @@
                      class="font-weight-bold"
                      formArrayName="buildingDetails">
                     <div [formGroupName]="i">
+                        <div class="row justify-content-end">
+                            <button class="btn btn-primary sb-small mr-2"
+                                    (click)="openSiteVisitModel('Apartment Security'+' '+(i+1))">Inspect Site Visit</button>
+                        </div>
                         <ng-template #apartment>
                             <input type="checkbox" formControlName="apartmentOtherBranchChecked"> Property on another
                             branch location
@@ -1250,21 +1258,22 @@
         </nb-card>
         <!--        Land Building security-->
         <nb-card [hidden]="!landBuilding" class="p-5">
+
             <div class="row">
                 <div class="col-md-5">
                     <div class="box-header with-border">
                         <h2 class="box-title title">Land and Building Security</h2>
                     </div>
                 </div>
-                <div class="col-md-7">
-
-                </div>
             </div>
-
             <div formArrayName="landBuilding">
                 <div
                         *ngFor="let landAndBuilding of securityForm.get('landBuilding')['controls']; let i = index"
                         class="font-weight-bold">
+                    <div class="row justify-content-end">
+                        <button class="btn btn-primary sb-small mr-2"
+                                (click)="openSiteVisitModel('Land And Building Security'+' '+(i+1))">Inspect Site Visit</button>
+                    </div>
                     <div class="row">
                         <div class="col-md-10">
                             <p><b>{{i + 1}}.Land & Building</b></p>
@@ -2635,7 +2644,7 @@
                                     <input
                                             (change)="calculateShareFieldsValues(shareFieldIndex)"
                                             class="form-control" formControlName="amountPerUnit"
-                                            id="shareRate" name="shareRate" appDecimalNumber
+                                            id="shareRate" name="shareRate"
                                             type="number">
                                 </div>
                             </div>
@@ -2672,13 +2681,13 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="title">Dividend Yield</label>
-                                            <input class="form-control" formControlName="dividendYield"
-                                                   id="dividendYield" name="dividendYield" type="number">
+                                            <input class="form-control" formControlName="dividendYeild"
+                                                   id="dividendYeild" name="dividendYeild" type="number">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="title">Dividend Payout Ratio</label>
+                                            <label class="title">Dividend Payout Radio</label>
                                             <input class="form-control" formControlName="dividendPayoutRatio"
                                                    id="dividendPayoutRatio" name="dividendPayoutRatio" type="number">
                                         </div>
@@ -2725,7 +2734,6 @@
                  formArrayName="hypothecationOfStock">
                 <div [formGroupName]="i">
                     <div class="row">
-
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="title" for="description">Description</label>
