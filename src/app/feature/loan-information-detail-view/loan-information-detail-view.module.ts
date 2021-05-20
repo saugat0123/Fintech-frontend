@@ -13,6 +13,7 @@ import {CreditChecklistViewComponent} from '../loan-information-view/credit-chec
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {CoreModule} from '../../@core/core.module';
 import {CbsGroupModule} from '../cbs-group/cbs-group.module';
+import {NepaliPatroModule} from 'nepali-patro';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import {CbsGroupModule} from '../cbs-group/cbs-group.module';
         MicroLoanModule,
         CoreModule,
         CbsGroupModule,
+        NepaliPatroModule,
 
     ]
 })
