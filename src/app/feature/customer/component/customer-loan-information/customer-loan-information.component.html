@@ -5,6 +5,30 @@
 
   <nb-card-body>
     <nb-accordion>
+      <nb-accordion-item #itemSiteVisit>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>SITE VISIT</span>
+            </div>
+            <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="customerInfo?.siteVisit" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+              <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!customerInfo?.siteVisit" class="fas fa-times-circle px-2"></em>
+              </span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-site-visit #siteVisitComponent
+                          (siteVisitDataEmitter)="saveSiteVisit($event)"
+                          *ngIf="itemSiteVisit.expanded"
+                          [formValue]="customerInfo?.siteVisit"
+                          [fromProfile]="true"></app-site-visit>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
       <nb-accordion-item #ciclComponent>
         <nb-accordion-item-header>
           <div class="row col-md-12">
