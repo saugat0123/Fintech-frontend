@@ -95,11 +95,22 @@ export class OfferLetterListComponent implements OnInit {
         if (!ObjectUtil.isEmpty(loan)) {
             if (loan.length > 1) {
                 const commentLoan = loan[loan.length - 1];
-                stage = commentLoan.previousList[0];
+                if (ObjectUtil.isEmpty(commentLoan.previousList)) {
+                    const tempPreviousList = JSON.parse(commentLoan.previousStageList);
+                    stage = tempPreviousList[0];
+                } else {
+                    stage = commentLoan.previousList[0];
+                }
                 stage.lastModifiedAt = commentLoan.lastModifiedAt;
                 return stage;
             } else if (loan.length === 1) {
-                stage = loan[0].previousList[0];
+                if (ObjectUtil.isEmpty(loan[0].previousList)) {
+                    const tempPreviousList = JSON.parse(loan[0].previousStageList);
+                    stage = tempPreviousList[0];
+                } else {
+                    stage = loan[0].previousList[0];
+                }
+
                 stage.lastModifiedAt = loan[0].lastModifiedAt;
                 return stage;
             }
