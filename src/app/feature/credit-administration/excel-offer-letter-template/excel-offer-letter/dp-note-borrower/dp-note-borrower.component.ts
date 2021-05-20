@@ -45,7 +45,6 @@ export class DpNoteBorrowerComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         this.buildForm();
         this.checkOfferLetter();
     }
@@ -56,12 +55,27 @@ export class DpNoteBorrowerComponent implements OnInit {
         if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
             this.offerLetterDocument = new OfferDocument();
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.DPNOTEBORROWER);
+            this.fillForm();
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
             this.existingOfferLetter = true;
             this.form.patchValue(initialInfo);
         }
+    }
+
+    fillForm() {
+        this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+        let guarantor = {
+            name: ''
+        };
+        if (this.nepaliData.guarantorDetails.length > 0) {
+            guarantor = this.nepaliData.guarantorDetails[0];
+        }
+        this.form.patchValue({
+            guarantor: guarantor.name ? guarantor.name : '',
+            name: this.nepaliData.name ? this.nepaliData.name : '',
+        });
     }
 
     submit(): void {
@@ -99,13 +113,11 @@ export class DpNoteBorrowerComponent implements OnInit {
 
     buildForm() {
         this.form = this.formBuilder.group({
-            address: [undefined],
-            borrower: [undefined],
-            name: [undefined],
-            branch: [undefined],
+            date: [undefined],
             amount: [undefined],
             amountinWord: [undefined],
-            date: [undefined],
+            guarantor: [undefined],
+            name: [undefined],
             date2: [undefined],
         });
     }
