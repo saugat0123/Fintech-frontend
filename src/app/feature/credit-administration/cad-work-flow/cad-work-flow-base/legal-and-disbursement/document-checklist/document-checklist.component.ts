@@ -105,7 +105,7 @@ export class DocumentChecklistComponent implements OnInit, OnChanges {
     previewDoc(url: string, name: string) {
         const link = document.createElement('a');
         link.target = '_blank';
-        link.href = `${ApiConfig.URL}/${url}`;
+        link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
         link.setAttribute('visibility', 'hidden');
         link.click();
     }
