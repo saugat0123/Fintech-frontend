@@ -85,7 +85,7 @@
                         <th>Area Format</th>
                         <th>Area</th>
                         <th>FMV</th>
-                        <th>DV</th>
+                        <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
                         <th>Collateral Owner Relationship</th>
                         <th colspan="2">Address as per Legal Document</th>
                     </tr>
@@ -183,10 +183,10 @@
                           <th>ReValuation Date</th>
                           <th colspan="1">Valuator name</th>
                           <th colspan="1">ReValuation Fmv</th>
-                          <th colspan="1">ReValuation Dv</th>
+                          <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
                           <th colspan="1">ReValuation Considered Value</th>
                           <th colspan="1">Change in Fmv</th>
-                          <th colspan="1">Change in Dv</th>
+                          <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
                           <th colspan="1">Change in Considered Value</th>
                       </tr>
                       <tr>
@@ -237,7 +237,7 @@
                         <th>Area Format</th>
                         <th>Area</th>
                         <th>FMV</th>
-                        <th colspan="2">DV</th>
+                        <th colspan="2">{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -340,10 +340,10 @@
                             <th>ReValuation Date</th>
                             <th colspan="1">Valuator name</th>
                             <th colspan="1">ReValuation Fmv</th>
-                            <th colspan="1">ReValuation Dv</th>
+                            <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
                             <th colspan="1">ReValuation Considered Value</th>
                             <th colspan="1">Change in Fmv</th>
-                            <th colspan="1">Change in Dv</th>
+                            <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
                             <th colspan="2">Change in Considered Value</th>
                         </tr>
                         <tr>
@@ -369,7 +369,7 @@
                         <th>Total building area (Sqf)</th>
                         <th>Total cost</th>
                         <th>FMV</th>
-                        <th>DV</th>
+                        <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
                         <th>Considered Value</th>
                     </tr>
                     <tr *ngIf="landBuilding.underConstructionChecked === true">
@@ -416,7 +416,7 @@
                         <th>Build Rate</th>
                         <th>Total Cost</th>
                         <th>FMV</th>
-                        <th>DV</th>
+                        <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
                     </tr>
                     <tr>
                         <td rowspan="3" class="align-middle">{{i + 1}}</td>
@@ -454,10 +454,10 @@
                             <th>ReValuation Date</th>
                             <th colspan="1">Valuator name</th>
                             <th colspan="1">ReValuation Fmv</th>
-                            <th colspan="1">ReValuation Dv</th>
+                            <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
                             <th colspan="1">ReValuation Considered Value</th>
                             <th colspan="1">Change in Fmv</th>
-                            <th colspan="1">Change in Dv</th>
+                            <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
                             <th colspan="1">Change in Considered Value</th>
                         </tr>
                         <tr>
