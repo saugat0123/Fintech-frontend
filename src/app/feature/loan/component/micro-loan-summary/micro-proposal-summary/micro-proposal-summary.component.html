@@ -48,7 +48,7 @@
                     <ng-container
                             *ngTemplateOutlet="loanTypeLetter; context: { $implicit: loan?.loanType }"></ng-container>
                     &nbsp;|&nbsp;
-                    {{ loan?.loan?.name }} ({{ loan?.createdAt | date }})
+                    {{ loan?.loan?.name }} ({{ loan?.createdAt | engNepDate: false }})
                 </td>
                 <td class="text-right pr-1"><span
                         *ngIf="(loan?.proposal?.data | jsonParse)?.existingLimit">Rs. {{(loan?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}</span>

@@ -110,7 +110,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title" for="distressValue">Distress Value</label>
+                                <label class="title" for="distressValue">{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</label>
                                 <input (change)="updateLandSecurityTotal(i)"
                                        class="form-control rounded"
                                        formControlName="distressValue"
@@ -448,7 +448,7 @@
                         <tr>
                             <th>Total Considered Value</th>
                             <th>Total Fair Market Value</th>
-                            <th>Total Distress Value</th>
+                            <th>Total {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
                             <th>Remarks</th>
                         </tr>
                         </thead>
@@ -677,12 +677,11 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="buildingDistressValue">Apartment Distress
-                                            Value</label>
+                                        <label class="title" for="buildingDistressValue">Apartment {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</label>
                                         <input class="form-control rounded"
                                                formControlName="buildingDistressValue"
                                                id="buildingDistressValue"
-                                               name="buildingDistressValue" placeholder="Apartment DV"
+                                               name="buildingDistressValue" placeholder="Apartment value"
                                                type="text"/>
                                     </div>
                                 </div>
@@ -1418,8 +1417,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title" for="distressValue">Distress
-                                        Value</label>
+                                    <label class="title" for="distressValue">{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</label>
                                     <input class="form-control rounded"
                                            formControlName="distressValue"
                                            name="distressValue"
@@ -1868,8 +1866,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="title" for="distressValue">Distress
-                                            Value</label>
+                                        <label class="title" for="distressValue">{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</label>
                                         <input class="form-control rounded"
                                                formControlName="distressValueConstruction"
                                                name="distressValue"

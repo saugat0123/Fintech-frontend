@@ -22,6 +22,8 @@ import {CompanyInfoService} from '../../../../admin/service/company-info.service
 import {BusinessType} from '../../../../admin/modal/businessType';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {LoanType} from '../../../model/loanType';
+import {environment} from '../../../../../../environments/environment';
+import {Clients} from '../../../../../../environments/Clients';
 
 
 @Component({
@@ -78,6 +80,10 @@ export class DmsLoanFileComponent implements OnInit {
   };
 
   docHeader = [];
+
+  // client environment
+  client = environment.client;
+  clientName = Clients;
 
   constructor(private formBuilder: FormBuilder,
               private loanDataService: LoanDataService,
