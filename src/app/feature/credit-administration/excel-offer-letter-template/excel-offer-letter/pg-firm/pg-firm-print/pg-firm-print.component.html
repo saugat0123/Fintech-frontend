@@ -1,6 +1,6 @@
-<div [nbSpinner]="spinner" class="row" id="{{offerLetterConst.PGFIRM}}">
+<div class="row" id="print-section-{{offerLetterConst.PGFIRM}}">
     <div class="col-md-12 viewFull">
-        <form (ngSubmit)="submit()" [formGroup]="form" class="nepali">
+        <form class="nepali">
             <div class="nep">
                 <div>
                     <p class="text-right"><b>फर्म नं.स् इडिविएलरएलडिएफ–२१</b></p>
@@ -8,132 +8,53 @@
 
                     लिखितम धनीका नाम प्रचलित कम्पनीसम्बन्धी कानुन तथा बैंक तथा वित्तीय संस्थासम्बन्धी कानुनबमोजिम
                     संस्थापना भएको <b>एक्सेल ८ेभलपमेन्६ बैंक लिमि६े८, शाखा/मुख्य कार्यालय,</b>
-                    <input class="form-field form-control-sm nepaliFont col-3"
-                           formControlName="branch"
-                           placeholder=""
-                           type="text"/>
-
+                    <span class="nepaliFont"> {{printDocForm?.branch}}</span>
 
                     <p><b>(जसलाई यसप५ी यस लिखतमा “धनी बैंक” भनिएको ५)</b> व्यक्तिगत जमानी लेखी दिने
-                        <input class="form-field form-control-sm nepaliFont col-3"
-                               formControlName="jamanikartaGrandParent"
-                               placeholder=""
-                               type="text"/>
-                        को/की नाति/नातिनी <input class="form-field form-control-sm nepaliFont col-3"
-                                                 formControlName="jamanikartaParent"
-                                                 placeholder=""
-                                                 type="text"/>
-                        को/की छोरा/छोरी <input class="form-field form-control-sm nepaliFont col-3"
-                                               formControlName="jamanikartaSpouse"
-                                               placeholder=""
-                                               type="text"/>
-                        की पत्नी<input class="form-field form-control-sm nepaliFont col-3"
-                                       formControlName="jamanikartaInLaws"
-                                       placeholder=""
-                                       type="text"/>
-                        की बुहारी नागरिकता वमोजिम <input class="form-field form-control-sm nepaliFont col-3"
-                                                         formControlName="jamanikartaPermanentDistrict"
-                                                         placeholder=""
-                                                         type="text"/>
-                        जिल्ला <input class="form-field form-control-sm nepaliFont col-3"
-                                      formControlName="jamanikartaPermanentMunicipality"
-                                      placeholder=""
-                                      type="text"/>
-                        न.पा.÷गा.वि.स. वडा नं. <input class="form-field form-control-sm nepaliFont col-3"
-                                                      formControlName="jamanikartaPermanentWardNum"
-                                                      placeholder=""
-                                                      type="text"/>
+                        <span class="nepaliFont">{{printDocForm?.jamanikartaGrandParent}}</span>
+
+                        को/की नाति/नातिनी <span class="nepaliFont">{{printDocForm?.jamanikartaParent}}</span>
+                        को/की छोरा/छोरी <span class="nepaliFont">{{printDocForm?.jamanikartaSpouse}}</span>
+                        की पत्नी <span class="nepaliFont">{{printDocForm?.jamanikartaInLaws}}</span>
+                        की बुहारी नागरिकता वमोजिम <span
+                                class="nepaliFont">{{printDocForm?.jamanikartaPermanentDistrict}}</span>
+                        जिल्ला <span class="nepaliFont">{{printDocForm?.jamanikartaPermanentMunicipality}}</span>
+                        न.पा.÷गा.वि.स. वडा नं. <span
+                                class="nepaliFont">{{printDocForm?.jamanikartaPermanentWardNum}}</span>
                         स्थायी ठेगाना भै हाल सोही स्थानमा बस्ने वा
-                        <input class="form-field form-control-sm nepaliFont col-3"
-                               formControlName="jamanikartaTemporaryDistrict"
-                               placeholder=""
-                               type="text"/>
-                        जिल्ला <input class="form-field form-control-sm nepaliFont col-3"
-                                      formControlName="jamanikartaTemporaryMunicipality"
-                                      placeholder=""
-                                      type="text"/>
-                        न.पा.÷गा.वि.स. वडा नं. <input class="form-field form-control-sm nepaliFont col-3"
-                                                      formControlName="jamanikartaTemporaryWardNum"
-                                                      placeholder=""
-                                                      type="text"/>
-                        बस्ने मिति <input class="form-field form-control-sm nepaliFont col-3"
-                                          formControlName="jamanikartaCitizenshipIssueDate"
-                                          placeholder=""
-                                          type="text"/>
-                        मा जिल्ला प्रशासन कार्यालय, <input class="form-field form-control-sm nepaliFont col-3"
-                                                           formControlName="jamanikartaCitizenshipIssuePlace"
-                                                           placeholder=""
-                                                           type="text"/>
-                        जारी गरिएको ना.प्र.प.नं. <input class="form-field form-control-sm nepaliFont col-3"
-                                                        formControlName="jamanikartaCitizenshipNum"
-                                                        placeholder=""
-                                                        type="text"/>
-                        भएको बर्ष <input class="form-field form-control-sm nepaliFont col-3"
-                                         formControlName="jamanikartaAge"
-                                         placeholder=""
-                                         type="text"/>
-                        को/की <b>श्री/श्रीमती/सुश्री</b> <input class="form-field form-control-sm nepaliFont col-3"
-                                                                formControlName="jamanikartaName"
-                                                                placeholder=""
-                                                                type="text"/>
+                        <span class="nepaliFont">{{printDocForm?.jamanikartaTemporaryDistrict}}</span>
+                        जिल्ला <span class="nepaliFont">{{printDocForm?.jamanikartaTemporaryMunicipality}}</span>
+                        न.पा.÷गा.वि.स. वडा नं. <span
+                                class="nepaliFont">{{printDocForm?.jamanikartaTemporaryWardNum}}</span>
+                        बस्ने मिति <span class="nepaliFont">{{printDocForm?.jamanikartaCitizenshipIssueDate}}</span>
+                        मा जिल्ला प्रशासन कार्यालय, <span
+                                class="nepaliFont">{{printDocForm?.jamanikartaCitizenshipIssuePlace}}</span>
+                        जारी गरिएको ना.प्र.प.नं. <span
+                                class="nepaliFont">{{printDocForm?.jamanikartaCitizenshipNum}}</span>
+                        भएको बर्ष <span class="nepaliFont">{{printDocForm?.jamanikartaAge}}</span>
+                        को/की <b>श्री/श्रीमती/सुश्री</b> <span
+                                class="nepaliFont">{{printDocForm?.jamanikartaName}}</span>
                         <b>(जस लाई यस प५ि “जमानतकर्ता“ भनिएको ५)</b> आगे प्राइभे६ फर्म रजिष्६«ेशन ऐन, द्दण्ज्ञद्ध वा
                         साझेदारी ऐन, द्दण्द्दण् वा कम्पनी ऐन, द्दण्टघ बमोजिम नेपाल सरकार, उद्योग वा वा०िाज्य तथा आपुर्ती
                         मन्त्रालय, उद्योग वा ३रेलु तथा साना उद्योग वा वा०िाज्य विभाग, उद्योग वा ३रेलु तथा साना उद्योग वा
                         वा०िाज्य कार्यालय वा कम्पनी रजिष्६«ारको कार्यालय,
-                        <input class="form-field form-control-sm nepaliFont col-3"
-                               formControlName="office"
-                               placeholder=""
-                               type="text"/>
+                        <span class="nepaliFont">{{printDocForm?.office}}</span>
 
                     </p> मा <p> मिति
-                    <input class="form-field form-control-sm nepaliFont col-3"
-                           formControlName="date"
-                           placeholder=""
-                           type="text"/>
+                    <span class="nepaliFont">{{printDocForm?.date}}</span>
                 </p> मा प्र.प.नं.÷प्रा.लि.÷प.लि. नं.
-                    <input class="form-field form-control-sm nepaliFont col-3"
-                           formControlName="registrationNum"
-                           placeholder=""
-                           type="text"/>
+                    <span class="nepaliFont">{{printDocForm?.registrationNum}}</span>
                     अन्तरगत रजिष्ट्रर्ड/दर्ता भएको रजिष्ट्रर्ड ठेगाना
-                    <input class="form-field form-control-sm nepaliFont col-3"
-                           readonly
-                           formControlName="customerPermanentDistrict"
-                           placeholder=""
-                           type="text"/>
-                    जिल्ला <input class="form-field form-control-sm nepaliFont col-3"
-                                  readonly
-                                  formControlName="customerPermanentMunicipality"
-                                  placeholder=""
-                                  type="text"/>
+                    <span class="nepaliFont">{{printDocForm?.customerPermanentDistrict}}</span>
+                    जिल्ला <span class="nepaliFont">{{printDocForm?.customerPermanentMunicipality}}</span>
                     न.पा./गा.वि.स. वडा नं.
-                    <input class="form-field form-control-sm nepaliFont col-3"
-                           readonly
-                           formControlName="customerPermanentWard"
-                           placeholder=""
-                           type="text"/>
-                    भई हाल<input class="form-field form-control-sm nepaliFont col-3"
-                                 readonly
-                                 formControlName="customerTemporaryDistrict"
-                                 placeholder=""
-                                 type="text"/>
+                    <span class="nepaliFont">{{printDocForm?.customerPermanentWard}}</span>
+                    भई हाल <span class="nepaliFont">{{printDocForm?.customerTemporaryDistrict}}</span>
                     जिल्ला
-                    <input class="form-field form-control-sm nepaliFont col-3"
-                           readonly
-                           formControlName="customerTemporaryMunicipality"
-                           placeholder=""
-                           type="text"/>
-                    न.पा.÷गा.वि.स. वडा नं. <input class="form-field form-control-sm nepaliFont col-3"
-                                                  readonly
-                                                  formControlName="customerTemporaryWard"
-                                                  placeholder=""
-                                                  type="text"/>
+                    <span class="nepaliFont">{{printDocForm?.customerTemporaryMunicipality}}</span>
+                    न.पा.÷गा.वि.स. वडा नं. <span class="nepaliFont">{{printDocForm?.customerTemporaryWard}}</span>
                     स्थित <b>श्री</b>
-                    <input class="form-field form-control-sm nepaliFont col-3"
-                           readonly
-                           formControlName="customerName"
-                           placeholder=""
-                           type="text"/>
+                    <span class="nepaliFont">{{printDocForm?.customerName}}</span>
 
                     <b>(यस प५ि “ऋ०ाी” भनी सम्बोधन गरिएको)</b> ले व्यापार÷उद्योग÷व्यवसायका लागि विभिन्न शीर्षकमा धनी
                     बैंकबा६ लिएको/लिने
@@ -142,16 +63,9 @@
                     बस्न मन्ज’र ५ ५ैन भनी मलाई सोध्न’ भएकोमा मेरो चित्त ब’झ्यो । निज ऋ०ाीले तपाई धनी बैंकबा६ एकै प६क वा
                     प६क प६क
                     गरी यसप५ि लिने÷यस अ३ि लिएको <b>रकम रु.</b>
-                    <input class="form-field form-control-sm nepaliFont col-3"
-                           formControlName="amount"
-                           (change)="getNumAmountWord('amount', 'amountInWords')"
-                           placeholder=""
-                           type="text"/><b>/</b>
-                    <b>(अक्षरुपी रुपैयां</b> <input class="form-field form-control-lg nepaliFont font-size-normal col-5"
-                                                    readonly
-                                                    formControlName="amountInWords"
-                                                    placeholder=""
-                                                    type="text"/>
+                    <span class="nepaliFont">{{printDocForm?.amount}}</span>
+                    <b>(अक्षरुपी रुपैयां</b> <span
+                        class="nepaliFont font-size-normal">{{printDocForm?.amountInWords}}</span>
 
 
                     <b>मात्र)</b> सम्मको नगद ऋ०ँ कर्जा लगायत अन्य बैंकिé÷वित्तीय स’विधा र त्यसको स¤ावा, ब्याज, थप ब्याज
@@ -225,80 +139,33 @@
                     निवासको ७ेगानामा ह’लाक मार्फत प७ाईदिएमा वा क’नै पनि समाचारपत्रमा सúचना प्रकाशित गरिएमा रितपúर्वक
                     प७ाएको मान्ने५’ ।
 
-                    इति सम्बत् द्दण्<input class="form-field form-control-sm nepaliFont col-3"
-                                           formControlName="docYear"
-                                           placeholder=""
-                                           type="text"/>
-                    साल <input class="form-field form-control-sm nepaliFont col-3"
-                               formControlName="docMonth"
-                               placeholder=""
-                               type="text"/>
-                    महिना <input class="form-field form-control-sm nepaliFont col-3"
-                                 formControlName="docDay"
-                                 placeholder=""
-                                 type="text"/> गते रोज <input class="form-field form-control-sm nepaliFont col-3"
-                                                              formControlName="docTime"
-                                                              placeholder=""
-                                                              type="text"/> शूभम् ।
+                    इति सम्बत् द्दण् <span class="nepaliFont">{{printDocForm?.docYear}}</span>
+                    साल <span class="nepaliFont">{{printDocForm?.docMonth}}</span>
+                    महिना <span class="nepaliFont">{{printDocForm?.docDay}}</span> गते रोज <span
+                        class="nepaliFont">{{printDocForm?.docTime}}</span> शूभम् ।
 
 
                 </div>
                 <p class="text-center"><b>साक्षी</b></p>
-                <div *ngFor="let guarantor of form.get('guarantors')['controls']; index as i"
-                     formArrayName="guarantors">
-                    <div [formGroupName]="i">
-                        <i (click)="removeGuarantor(i)" size="small" class="float-right fa fa-trash"
-                           *ngIf="form.get('guarantors')['length']>1"></i>
-                        {{i + 1 | nepaliWord:'unicode'}}. <input class="form-field form-control-sm nepaliFont col-3"
-                                                                 formControlName="district"
-                                                                 placeholder=""
-                                                                 type="text"/>
-                        जिल्ला <input class="form-field form-control-sm nepaliFont col-3"
-                                      formControlName="municipality"
-                                      placeholder=""
-                                      type="text"/>
-                        गा.वि.स.÷न.पा. व८ा नं. <input class="form-field form-control-sm nepaliFont col-3"
-                                                      formControlName="wardNum"
-                                                      placeholder=""
-                                                      type="text"/>
-                        बस्ने वर्ष <input class="form-field form-control-sm nepaliFont col-3"
-                                          formControlName="age"
-                                          placeholder=""
-                                          type="text"/>
-                        को/की <input class="form-field form-control-sm nepaliFont col-3"
-                                     formControlName="name"
-                                     placeholder=""
-                                     type="text"/>
+                <div *ngFor="let guarantor of printDocForm?.guarantors; index as i">
+                    <div>
+                        {{i + 1 | nepaliWord:'unicode'}}. <span class="nepaliFont">{{guarantor?.district}}</span>
+                        जिल्ला <span class="nepaliFont">{{guarantor?.municipality}}</span>
+                        गा.वि.स.÷न.पा. व८ा नं. <span class="nepaliFont">{{guarantor?.wardNum}}</span>
+                        बस्ने वर्ष <span class="nepaliFont">{{guarantor?.age}}</span>
+                        को/की <span class="nepaliFont">{{guarantor?.name}}</span>
                     </div>
                 </div>
-                <span (click)="addEmptyGuarantor()" nbButton size="small" status="info" type="button"
-                      class="d-print-none btn btn-sm btn-primary">+साक्षी थप्नुहोस्</span>
+
                 <br>
 
                 <br>
                 <div class="mt-3">
-                    धनी बैंकका कर्मचारी <input class="form-field form-control-sm nepaliFont col-3"
-                                               formControlName="employeeName"
-                                               placeholder=""
-                                               type="text"/>
-                </div>
-
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary float-right" nbButton status="success"
-                            type="submit">
-                        Save
-                    </button>
+                    धनी बैंकका कर्मचारी <span class="nepaliFont">{{printDocForm?.employeeName}}</span>
                 </div>
             </div>
         </form>
-        <button class="btn btn-primary d-print-none"
-                [useExistingCss]="true"
-                [disabled]="!initialInfoPrint"
-                printSectionId="print-section-{{ offerLetterConst.PGFIRM }}"
-                ngxPrint>print
-        </button>
+
     </div>
 </div>
 
-<app-pg-firm-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
-                   hidden></app-pg-firm-print>

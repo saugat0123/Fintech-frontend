@@ -16,6 +16,7 @@ import {DristibandhakiPrintComponent} from './excel-offer-letter/dristibadhaki/d
 import {DpNoteBorrowerPrintComponent} from './excel-offer-letter/dp-note-borrower/dp-note-borrower-print/dp-note-borrower-print.component';
 import { PledgeDeedFirstPrintComponent } from './excel-offer-letter/pledge-deed-first/pledge-deed-first-print/pledge-deed-first-print.component';
 import { DpNoteGuarantorPrintComponent } from './excel-offer-letter/dp-note-guarantor/dp-note-guarantor-print/dp-note-guarantor-print.component';
+import { PgFirmPrintComponent } from './excel-offer-letter/pg-firm/pg-firm-print/pg-firm-print.component';
 
 const COMPONENTS = [
     ExcelOfferLetterComponent,
@@ -37,6 +38,7 @@ const COMPONENTS = [
         DpNoteBorrowerPrintComponent,
         PledgeDeedFirstPrintComponent,
         DpNoteGuarantorPrintComponent,
+        PgFirmPrintComponent,
     ],
     exports: [
         ...COMPONENTS
