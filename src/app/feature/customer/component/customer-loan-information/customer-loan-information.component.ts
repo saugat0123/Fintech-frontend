@@ -241,6 +241,22 @@ export class CustomerLoanInformationComponent implements OnInit {
         }
     }
 
+    public saveSiteVisit(data: string) {
+        if (ObjectUtil.isEmpty(this.siteVisit)) {
+            this.siteVisit = new SiteVisit();
+        }
+        this.siteVisit.data = data;
+        this.customerInfoService.saveLoanInfo(this.siteVisit, this.customerInfoId, TemplateName.SITE_VISIT)
+            .subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved site visit!'));
+                this.itemSiteVisit.close();
+                this.triggerCustomerRefresh.emit(true);
+            }, error => {
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save site visit!'));
+            });
+    }
+
     saveFinancial(data: string) {
         if (ObjectUtil.isEmpty(this.financial)) {
             this.financial = new Financial();
