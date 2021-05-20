@@ -36,7 +36,7 @@
                     <td class="text-right pr-1">Rs. {{(model?.proposal?.proposedLimit | currencyFormatter)
                     || 0}}</td>
                     <td class="text-left pl-1">{{loanType[model?.loanType] || model?.loanType}}</td>
-                    <td class="text-left pl-1">{{model?.createdAt | date}}</td>
+                    <td class="text-left pl-1">{{model?.createdAt | engNepDate: false}}</td>
                     <td class="text-right pr-1">{{model?.proposal?.collateralRequirement}}</td>
                     <td class="text-right pr-1">Rs. {{(model?.proposal?.collateralRequirement * model?.proposal?.proposedLimit) / 100 |currencyFormatter}}
                     </td>
@@ -56,7 +56,7 @@
                     <td class="text-right pr-1">Rs. {{(model?.proposal?.proposedLimit | currencyFormatter)
                     || 0}}</td>
                     <td class="text-left pl-1">{{loanType[model?.loanType] || model?.loanType}}</td>
-                    <td class="text-left pl-1">{{model?.createdAt | date}}</td>
+                    <td class="text-left pl-1">{{model?.createdAt | engNepDate: false}}</td>
                     <td class="text-right pr-1">{{model?.proposal?.collateralRequirement}}</td>
                     <td class="text-right pr-1">Rs.
                         {{(model?.proposal?.collateralRequirement * model?.proposal?.proposedLimit) / 100 |currencyFormatter}}

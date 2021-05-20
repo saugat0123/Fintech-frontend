@@ -47,7 +47,7 @@
                 <tbody>
                 <tr class="text-center">
                     <td class="pl-1">{{loanDataHolder?.customerInfo?.customerName || 'NA'}}</td>
-                    <td class="pl-1">{{(loanDataHolder?.customerInfo?.dob | date) || 'NA'}}</td>
+                    <td class="pl-1">{{(loanDataHolder?.customerInfo?.dob | engNepDate: false) || 'NA'}}</td>
                     <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.citizenshipNumber || 'NA'}}</td>
                     <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.contactNumber || 'NA'}}</td>
                     <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.landLineNumber || 'NA'}}</td>
@@ -85,7 +85,7 @@
                         {{relative.citizenshipNumber || 'NA'}}
                     </td>
                     <td class="text-center">
-                        {{(relative.citizenshipIssuedDate | date) || 'NA'}}
+                        {{(relative.citizenshipIssuedDate | engNepDate: false) || 'NA'}}
                     </td>
 
                 </tr>

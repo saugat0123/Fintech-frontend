@@ -39,7 +39,7 @@
         </tr>
         <tr>
             <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['nameOfThePersonContacted']}}</td>
-            <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['dateOfVisit'] | date}}</td>
+            <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['dateOfVisit'] | engNepDate: false}}</td>
             <td class="text-left pl-1">
                 {{formData['businessSiteVisitDetails']['officeAddress']?.province?.name}},
                 {{formData['businessSiteVisitDetails']['officeAddress']?.district?.name}},

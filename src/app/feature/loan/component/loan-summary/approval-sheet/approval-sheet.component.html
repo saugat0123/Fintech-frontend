@@ -123,7 +123,7 @@
                         <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
                         <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
                         ({{loanDataHolder?.currentStage?.fromRole?.roleName}}
-                        )<b> on:</b> {{loanDataHolder?.lastModifiedAt | date}}
+                        )<b> on:</b> {{loanDataHolder?.lastModifiedAt | engNepDate: false}}
 
                     </span>
 
@@ -215,7 +215,7 @@
                             <tbody>
                             <tr>
                                 <td class="text-left pl-1">{{loanDataHolder?.customerInfo?.customerName}}</td>
-                                <td class="text-left pl-1">{{loanDataHolder?.customerInfo?.dob | date}}</td>
+                                <td class="text-left pl-1">{{loanDataHolder?.customerInfo?.dob | engNepDate: false}}</td>
                                 <td class="text-right pr-1">{{age}} years</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.contactNumber}}</td>
@@ -267,7 +267,7 @@
                                     {{relative.citizenshipNumber}}
                                 </td>
                                 <td class="text-left pl-1">
-                                    {{relative.citizenshipIssuedDate | date}}
+                                    {{relative.citizenshipIssuedDate | engNepDate: false}}
                                 </td>
 
                             </tr>
