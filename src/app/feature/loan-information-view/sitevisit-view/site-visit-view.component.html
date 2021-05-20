@@ -71,7 +71,7 @@
         <td class="text-right pr-1"> {{formData['businessSiteVisitDetails']['officeAddress']?.ward}}</td>
         <td class="text-left pl-1"> {{formData['businessSiteVisitDetails']['officeAddress']?.address1}}</td>
         <td class="text-left pl-1"> {{formData['businessSiteVisitDetails']['officeAddress']?.address2}}</td>
-        <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['dateOfVisit'] | date}}</td>
+        <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['dateOfVisit'] | engNepDate: false}}</td>
         <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['objectiveOfVisit']}}</td>
 
     </tr>
@@ -128,7 +128,7 @@
 
     </tr>
     <tr>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['date'] | date}} </td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['date'] | engNepDate: false}} </td>
         <td class="text-left pl-1">
             {{formData['fixedAssetCollateralDetails']['address']?.province?.name}},
             {{formData['fixedAssetCollateralDetails']['address']?.district?.name}},
@@ -205,7 +205,7 @@
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'NO' ? 'No' : null}}</td>
         <ng-container *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
             <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingArea']}}</td>
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['constructionYear'] | date}}</td>
+            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['constructionYear'] | engNepDate: false}}</td>
             <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingType']}}</td>
             <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['builtUpArea']}}</td>
             <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['noOfStorey']}}</td>
@@ -322,7 +322,7 @@
     </tr>
 
     <tr>
-        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['dateOfInspection'] | date}}</td>
+        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['dateOfInspection'] | engNepDate: false}}</td>
         <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['particularsOfGoodInspected']}}</td>
         <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['stockValueReported'] | currencyFormatter}}</td>
         <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['rents']}}</td>
@@ -358,7 +358,7 @@
         <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['assetsMortgaged'] | currencyFormatter}}</td>
         <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['insuredAmount'] | currencyFormatter}}</td>
         <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['insuranceCompany']}}</td>
-        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['expiryDate'] | date}}</td>
+        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['expiryDate'] | engNepDate: false}}</td>
         <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['clientsOverallRating']}}</td>
         <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['stockValueConfirmed'] | currencyFormatter}}</td>
     </tr>

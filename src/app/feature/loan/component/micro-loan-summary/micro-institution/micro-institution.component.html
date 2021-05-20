@@ -8,7 +8,7 @@
             <tr>
                 <td><b>Nature Of business</b></td>
                 <td>{{companyJsonData?.majorProductService}}</td>
-                <td><b>Relationship Start Date</b>: {{companyJsonData?.relationshipSince |date}}</td>
+                <td><b>Relationship Start Date</b>: {{companyJsonData?.relationshipSince |engNepDate: false}}</td>
             </tr>
             <tr>
                 <td><b>Sister Concerns</b></td>
@@ -26,7 +26,7 @@
             <tr>
 
                 <td><b>Date</b></td>
-                <td>{{companyInfo?.legalStatus?.registrationDate |date}}</td>
+                <td>{{companyInfo?.legalStatus?.registrationDate |engNepDate: false}}</td>
             </tr>
             <tr>
                 <td><b>Regd. Number</b></td>
@@ -41,7 +41,7 @@
                             <span class="float-right"> | </span>
                         </div>
                         <div class="col-md-6">
-                            <b>Date</b>: {{companyInfo?.legalStatus?.panRegistrationDate |date}}
+                            <b>Date</b>: {{companyInfo?.legalStatus?.panRegistrationDate |engNepDate: false}}
                         </div>
                     </div>
                 </td>
@@ -58,7 +58,7 @@
             <tr>
                 <td><b>Business Operation Since(if Other than registration date)</b></td>
                 <td colspan="2">
-                    {{companyInfo?.establishmentDate |date}}
+                    {{companyInfo?.establishmentDate |engNepDate: false}}
                 </td>
             </tr>
             <tr>
