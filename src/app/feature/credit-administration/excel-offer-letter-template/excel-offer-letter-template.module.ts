@@ -17,6 +17,7 @@ import {DpNoteBorrowerPrintComponent} from './excel-offer-letter/dp-note-borrowe
 import { PledgeDeedFirstPrintComponent } from './excel-offer-letter/pledge-deed-first/pledge-deed-first-print/pledge-deed-first-print.component';
 import { DpNoteGuarantorPrintComponent } from './excel-offer-letter/dp-note-guarantor/dp-note-guarantor-print/dp-note-guarantor-print.component';
 import { PgFirmPrintComponent } from './excel-offer-letter/pg-firm/pg-firm-print/pg-firm-print.component';
+import { PgRetailLoanPrintComponent } from './excel-offer-letter/pg-retail-loan/pg-retail-loan-print/pg-retail-loan-print.component';
 
 const COMPONENTS = [
     ExcelOfferLetterComponent,
@@ -28,7 +29,7 @@ const COMPONENTS = [
     DpNoteBorrowerComponent,
     PgFirmComponent,
     PgRetailLoanComponent,
-    ContinuationDeedComponent
+    ContinuationDeedComponent,
 ];
 
 @NgModule({
@@ -39,6 +40,7 @@ const COMPONENTS = [
         PledgeDeedFirstPrintComponent,
         DpNoteGuarantorPrintComponent,
         PgFirmPrintComponent,
+        PgRetailLoanPrintComponent,
     ],
     exports: [
         ...COMPONENTS
