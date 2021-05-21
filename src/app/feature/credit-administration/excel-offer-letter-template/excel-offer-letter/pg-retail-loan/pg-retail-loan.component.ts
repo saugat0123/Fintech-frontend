@@ -53,9 +53,6 @@ export class PgRetailLoanComponent implements OnInit {
 
     fillForm() {
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-        if (this.nepaliData.guarantorDetails.length > 0) {
-            this.setGuarantors(this.nepaliData.guarantorDetails);
-        }
         this.form.patchValue({
             customerPermanentDistrict2: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
             customerPermanentMunicipality2: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
@@ -72,8 +69,8 @@ export class PgRetailLoanComponent implements OnInit {
             customerInLaws2: this.nepaliData.fatherInLawName ? this.nepaliData.fatherInLawName : '',
             customerAge2: this.nepaliData.age ? this.nepaliData.age : '',
             customerName: this.nepaliData.name ? this.nepaliData.name : '',
-
         });
+        this.setGuarantors(this.nepaliData.guarantorDetails);
     }
 
     checkOfferLetter() {

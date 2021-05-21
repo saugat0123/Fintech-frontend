@@ -52,9 +52,7 @@ export class PgFirmComponent implements OnInit {
 
     fillForm() {
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-        if (this.nepaliData.guarantorDetails.length > 0) {
-            this.setGuarantors(this.nepaliData.guarantorDetails);
-        }
+
         this.form.patchValue({
             customerPermanentDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
             customerPermanentMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
@@ -63,8 +61,8 @@ export class PgFirmComponent implements OnInit {
             customerTemporaryMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
             customerTemporaryWard: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
             customerName: this.nepaliData.name ? this.nepaliData.name : '',
-
         });
+        this.setGuarantors(this.nepaliData.guarantorDetails);
     }
 
     checkOfferLetter() {
