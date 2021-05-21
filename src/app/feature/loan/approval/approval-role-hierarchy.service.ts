@@ -52,4 +52,10 @@ export class ApprovalRoleHierarchyService extends BaseService<ApprovalRoleHierar
 
         return this.http.get(req.url, {headers: req.header});
     }
+
+    public getTransferRolesForRoleWithType(roleId: number, type: string, refId: number): Observable<any> {
+        const req = ApiUtils.getRequest(`${this.getApi()}/transfer-roles/${roleId}/${type}/${refId}`);
+
+        return this.http.get(req.url, {headers: req.header});
+    }
 }

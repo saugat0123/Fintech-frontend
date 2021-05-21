@@ -51,7 +51,9 @@ export class RoleHierarchyChainComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
     this.currentRoleType = LocalStorageUtil.getStorage().roleType;
-    this.service.findAll(this.approvalType, this.refId).subscribe((response: any) => {
+    const loggedInRoleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
+    this.service.getTransferRolesForRoleWithType(loggedInRoleId, this.approvalType, this.refId).subscribe((response: any) => {
+      console.log('response', response);
       this.defaultRoleHierarchies = response.detail;
       this.length = this.defaultRoleHierarchies.length > 0;
       this.approvalRoleHierarchies = this.defaultRoleHierarchies.reverse();
