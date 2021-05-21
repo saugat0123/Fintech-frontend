@@ -6,13 +6,20 @@
                     <div *ngIf="loanDataHolder?.documentStatus?.toString() === 'PENDING'||
                     loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
                     loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'">
-                        <app-role-heirarchy-chain [refId]="id"
-                        [loanDataHolder]="loanDataHolder"
-                        [branchId]="loanDataHolder?.branch?.id"
-                        [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
-                        [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"></app-role-heirarchy-chain>
+                        <nb-accordion>
+                            <nb-accordion-item>
+                                <nb-accordion-item-header>File Under Possession</nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <app-role-heirarchy-chain [refId]="id"
+                                                              [loanDataHolder]="loanDataHolder"
+                                                              [branchId]="loanDataHolder?.branch?.id"
+                                                              [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
+                                                              [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"></app-role-heirarchy-chain>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
                     </div>
-                    <div *ngIf="(loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
+                    <div class="mt-2" *ngIf="(loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
                     loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'||
                     loanDataHolder?.documentStatus?.toString() === 'INITIAL') && roleType === 'MAKER' && productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL.toString() === 'LOAN'">
                         <button class="btn btn-primary sb-medium text-uppercase" nbButton size="small"
