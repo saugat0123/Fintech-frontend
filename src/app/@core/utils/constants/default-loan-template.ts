@@ -27,7 +27,7 @@ export class DefaultLoanTemplate {
         },
         {
             active: false,
-            name: 'Customer Document',
+            name: 'Loan Document',
             templateUrl: null
         },
         {

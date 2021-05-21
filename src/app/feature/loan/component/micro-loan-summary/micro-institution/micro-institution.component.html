@@ -188,9 +188,9 @@
             <tbody>
                 <tr *ngFor="let proprietor of companyJsonData.proprietorList; let i = index">
                     <td>{{i + 1}}</td>
-                    <td>{{proprietor?.name || 'NA'}}</td>
-                    <td>{{proprietor?.type || 'NA'}}</td>
-                    <td>{{proprietor?.share || 'NA'}}</td>
+                    <td class="text-left pl-1">{{proprietor?.name || 'NA'}}</td>
+                    <td class="text-left pl-1">{{proprietor?.type || 'NA'}}</td>
+                    <td class="text-right pr-1">{{proprietor?.share || 'NA'}}</td>
                 </tr>
             </tbody>
         </table>
@@ -210,9 +210,9 @@
             <tbody>
                 <tr *ngFor="let managements of companyJsonData.managementTeamList; let j = index;">
                     <td>{{j + 1}}</td>
-                    <td>{{managements?.name || 'NA'}}</td>
-                    <td>{{managements?.designation || 'NA'}}</td>
-                    <td>{{managements?.companyLegalDocumentAddress || 'NA'}}</td>
+                    <td class="text-left pl-1">{{managements?.name || 'NA'}}</td>
+                    <td class="text-left pl-1">{{managements?.designation || 'NA'}}</td>
+                    <td class="text-left pl-1">{{managements?.companyLegalDocumentAddress || 'NA'}}</td>
                 </tr>
             </tbody>
         </table>
@@ -224,7 +224,7 @@
         <th>Remarks</th>
         </thead>
         <tbody>
-        <td [innerHTML]="companyJsonData?.managementTeamNote | safeHtml"></td>
+        <td class="text-left pl-1" [innerHTML]="companyJsonData?.managementTeamNote | safeHtml"></td>
         </tbody>
     </table>
 </div>
@@ -234,7 +234,7 @@
         <th>Market Risk</th>
         </thead>
         <tbody>
-        <td>{{companyJsonData?.marketScenario['BusinessIndustryOutlook'] || 'NA'}}</td>
+        <td class="text-left pl-1">{{companyJsonData?.marketScenario['BusinessIndustryOutlook'] || 'NA'}}</td>
         </tbody>
     </table>
 </div>
@@ -244,7 +244,7 @@
         <th>Financial Risk</th>
         </thead>
         <tbody>
-        <td>{{companyJsonData?.marketScenario['financialAndCashFlowRisk'] || 'NA'}}</td>
+        <td class="text-left pl-1">{{companyJsonData?.marketScenario['financialAndCashFlowRisk'] || 'NA'}}</td>
         </tbody>
     </table>
 </div>
@@ -254,7 +254,7 @@
         <th>Management Risk</th>
         </thead>
         <tbody>
-        <td>{{companyJsonData?.marketScenario['technicalAspect'] || 'NA'}}</td>
+        <td class="text-left pl-1">{{companyJsonData?.marketScenario['technicalAspect'] || 'NA'}}</td>
         </tbody>
     </table>
 </div>
@@ -264,7 +264,7 @@
         <th>Security Risk</th>
         </thead>
         <tbody>
-        <td>{{companyJsonData?.marketScenario['securityRisk'] || 'NA'}}</td>
+        <td class="text-left pl-1">{{companyJsonData?.marketScenario['securityRisk'] || 'NA'}}</td>
         </tbody>
     </table>
 </div>
@@ -278,10 +278,10 @@
         <th>Threats</th>
         </thead>
         <tbody>
-        <td [innerHTML]="companyJsonData?.swot?.strength | safeHtml"></td>
-        <td [innerHTML]="companyJsonData?.swot?.weakness | safeHtml"></td>
-        <td [innerHTML]="companyJsonData?.swot?.opportunity | safeHtml"></td>
-        <td [innerHTML]="companyJsonData?.swot?.threats | safeHtml"></td>
+        <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.strength | safeHtml"></td>
+        <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.weakness | safeHtml"></td>
+        <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.opportunity | safeHtml"></td>
+        <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.threats | safeHtml"></td>
         </tbody>
     </table>
 </div>
