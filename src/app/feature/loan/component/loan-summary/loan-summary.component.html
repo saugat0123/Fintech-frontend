@@ -443,6 +443,7 @@
                             <tr class="text-white sb-bg-dark">
                                 <th>Name</th>
                                 <th>Date Of Birth</th>
+                                <th>Age</th>
                                 <th>Citizenship Number</th>
                                 <th>Mobile Number</th>
                                 <th>LandLine Number</th>
@@ -455,6 +456,7 @@
                             <tr class="text-left">
                                 <td class="pl-1">{{loanDataHolder?.customerInfo?.customerName}}</td>
                                 <td class="pl-1">{{loanDataHolder?.customerInfo?.dob | engNepDate: false}}</td>
+                                <td class="text-right pr-1">{{calculateAge(loanDataHolder?.customerInfo?.dob)}} years</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.contactNumber}}</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.landLineNumber}}</td>
@@ -560,6 +562,7 @@
                                 <tr class="text-white sb-bg-dark">
                                     <th>Name</th>
                                     <th>Date Of Birth</th>
+                                    <th>Age</th>
                                     <th>Citizenship Number</th>
                                     <th>Mobile Number</th>
                                     <th>LandLine Number</th>
@@ -569,6 +572,7 @@
                                 <tr class="text-left">
                                     <td class="pl-1">{{info?.customerName}}</td>
                                     <td class="pl-1">{{info?.dob | engNepDate: false}}</td>
+                                    <td class="text-right pr-1">{{calculateAge(info?.dob)}} years</td>
                                     <td class="text-right pr-1">{{info?.citizenshipNumber}}</td>
                                     <td class="text-right pr-1">{{info?.contactNumber || 'NA'}}</td>
                                     <td class="text-right pr-1">{{info?.landLineNumber || 'NA'}}</td>
