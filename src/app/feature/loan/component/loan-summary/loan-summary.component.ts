@@ -172,7 +172,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     collateralSiteVisitDetail = [];
     isCollateralSiteVisit = false;
     age: number;
-    dob;
 
 
     constructor(
@@ -208,7 +207,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&
             !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
             const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
-            console.log('joint :::', jointCustomerInfo);
             this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
             this.isJointInfo = true;
         }

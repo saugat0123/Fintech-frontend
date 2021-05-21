@@ -26,7 +26,7 @@
                 <td class="text-left pl-1">{{formValue?.issuePlace}}</td>
                 <td class="text-right pr1">{{formValue?.panNumber}}</td>
                 <td class="text-left pl-1">{{formValue?.businessType}}</td>
-                <td class=" pl-1">{{formValue?.companyLegalDocumentAddress}}</td>
+                <td class="text-left pl-1">{{formValue?.companyLegalDocumentAddress}}</td>
             </tr>
             </tbody>
             <tr class="text-white sb-bg-dark">
@@ -76,7 +76,7 @@
                 <th>Remarks</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.additionalInfoRemark}}</td>
+                <td class="text-left pl-1" [innerHTML]="additionalInfoJsonData?.additionalInfoRemark | safeHtml"></td>
 
             </tr>
             </tbody>
@@ -252,9 +252,9 @@
             <tbody>
             <tr *ngFor="let management of companyJsonData.managementTeamList; let i=index">
                 <td>{{i + 1}}</td>
-                <td>{{management?.name}}</td>
-                <td>{{management?.designation}}</td>
-                <td>{{management?.companyLegalDocumentAddress}}</td>
+                <td class="text-left pl-1">{{management?.name}}</td>
+                <td class="text-left pl-1">{{management?.designation}}</td>
+                <td class="text-left pl-1">{{management?.companyLegalDocumentAddress}}</td>
             </tr>
             </tbody>
         </table>
@@ -401,7 +401,7 @@
             <tr class="text-white sb-bg-dark">
                 <th>Business Objective</th>
             </tr>
-            <tr class="text-left pl-1">{{companyJsonData?.businessObjective}}</tr>
+            <tr class="text-left pl-1" [innerHTML]="companyJsonData?.businessObjective | safeHtml"></tr>
         </table>
 
         <table
@@ -414,8 +414,8 @@
                 <th>Raw Materials Availability</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.rawMaterialSourcing}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.rawMaterialAvailability}}</td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.rawMaterialSourcing | safeHtml"></td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.rawMaterialAvailability | safeHtml"></td>
             </tr>
         </table>
         <table
@@ -565,8 +565,7 @@
                 <td class="text-left pl-1">{{bankingRelation?.bankingRelationship}}</td>
             </tr>
             <tr>
-                <th class="text-white sb-bg-dark">Account Turnover
-                </th>
+                <th class="text-white sb-bg-dark">Account Turnover</th>
                 <td class="text-left pl-1">{{bankingRelation?.accountTurnover}}</td>
             </tr>
             <tr>
@@ -588,19 +587,19 @@
                 <th>Market Competition</th>
             </tr>
             <tr>
-                <td>{{businessAndIndustry?.regulatoryConcern}}</td>
-                <td>{{businessAndIndustry?.supplier}}</td>
-                <td>{{businessAndIndustry?.buyer}}</td>
-                <td>{{formValue?.industryGrowth}}</td>
-                <td>{{formValue?.marketCompetition}}</td>
+                <td class="text-left pl-1">{{businessAndIndustry?.regulatoryConcern}}</td>
+                <td class="text-right pr-1">{{businessAndIndustry?.supplier}}</td>
+                <td class="text-right pr-1">{{businessAndIndustry?.buyer}}</td>
+                <td class="text-left pl-1">{{formValue?.industryGrowth}}</td>
+                <td class="text-left pl-1">{{formValue?.marketCompetition}}</td>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Experience</th>
                 <th>Succession</th>
             </tr>
             <tr>
-                <td>{{formValue?.experience}}</td>
-                <td>{{formValue?.succession}}</td>
+                <td class="text-left pl-1">{{formValue?.experience}}</td>
+                <td class="text-left pl-1">{{formValue?.succession}}</td>
             </tr>
         </table>
     </div>
@@ -612,7 +611,7 @@
                 <th>Loan products</th>
             </thead>
             <tbody>
-                <td>{{companyJsonData?.microCustomerDetail['loanProducts'] || 'NA'}}</td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.microCustomerDetail ['loanProducts'] || 'NA' | safeHtml"></td>
             </tbody>
         </table>
     </div>
@@ -624,7 +623,7 @@
             <th>Other Products</th>
             </thead>
             <tbody>
-            <td>{{companyJsonData?.microCustomerDetail['otherProducts'] || 'NA'}}</td>
+            <td class="text-left pl-1" [innerHTML]="companyJsonData?.microCustomerDetail['otherProducts'] || 'NA' | safeHtml"></td>
             </tbody>
         </table>
     </div>
@@ -636,7 +635,7 @@
             <th>Repayment Schedule</th>
             </thead>
             <tbody>
-            <td><span [innerHTML]="companyJsonData?.microCustomerDetail['repaymentSchedule'] || 'NA'"></span></td>
+            <td class="text-left pl-1" [innerHTML]="companyJsonData?.microCustomerDetail['repaymentSchedule'] || 'NA'| safeHtml"></td>
             </tbody>
         </table>
     </div>
@@ -648,7 +647,7 @@
             <th>Saving Products</th>
             </thead>
             <tbody>
-            <td>{{companyJsonData?.microCustomerDetail['savingProducts'] || 'NA'}}</td>
+            <td class="text-left pl-1" [innerHTML]="companyJsonData?.microCustomerDetail['savingProducts'] || 'NA' | safeHtml"></td>
             </tbody>
         </table>
     </div>

@@ -23,7 +23,7 @@
         <td class="text-left pl-1">{{individual?.customerName}}</td>
         <td class="text-right pr-1">{{customerInfo?.customerCode || 'N/A'}}</td>
         <td class="text-left pl-1">{{individual?.dob | engNepDate: false}}</td>
-        <td class="text-right pr-1">{{age}} years</td>
+        <td class="text-right pr-1">{{calculateAge(individual?.dob)}} years</td>
         <td class="text-right pr-1">{{individual?.citizenshipNumber}}</td>
         <td class="text-left pl-1">{{individual?.citizenshipIssuedDate | engNepDate: false}}</td>
         <td class="text-left pl-1">{{individual?.citizenshipIssuedPlace}}</td>

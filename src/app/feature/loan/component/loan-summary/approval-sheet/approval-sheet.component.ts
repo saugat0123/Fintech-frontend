@@ -622,6 +622,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     calculateAge(dob) {
         const difference = Math.abs(Date.now() - new Date(dob).getTime());
         this.age = Math.floor((difference / (1000 * 3600 * 24)) / 365);
+        return this.age;
     }
 
     openApprovalSheetInfoModal() {

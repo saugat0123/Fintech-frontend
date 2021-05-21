@@ -24,18 +24,23 @@ export class MicroIndividualViewComponent implements OnInit {
   @Input() calendarType: CalendarType;
 
   @Input() loanId: any;
+  age: number;
 
   constructor() {
   }
 
   ngOnInit() {
-
     if (!ObjectUtil.isEmpty(this.individual)) {
       if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
         this.individualJsonData = JSON.parse(this.individual.individualJsonData);
       }
     }
+  }
 
+  calculateAge(dob) {
+    const difference = Math.abs(Date.now() - new Date(dob).getTime());
+    this.age = Math.floor((difference / (1000 * 3600 * 24)) / 365);
+    return this.age;
   }
 
 }
