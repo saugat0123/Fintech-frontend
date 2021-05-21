@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ExcelOfferLetterConst} from '../../../../../cad-documents/cad-document-core/excel-offer-letter/excel-offer-letter-const';
 
 @Component({
@@ -8,7 +8,6 @@ import {ExcelOfferLetterConst} from '../../../../../cad-documents/cad-document-c
 })
 export class PledgeDeedFirstPrintComponent implements OnInit {
     @Input() printDocForm;
-
     offerLetterConst = ExcelOfferLetterConst;
 
     constructor() {
