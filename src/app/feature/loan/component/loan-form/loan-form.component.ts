@@ -568,7 +568,7 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.proposal = this.proposalDetail.proposalData;
         }
 
-        if (name === 'Customer Document' && action) {
+        if (name === 'Loan Document' && action) {
             this.loanDocument.customerDocument = this.customerDocument.customerDocumentArray;
         }
 

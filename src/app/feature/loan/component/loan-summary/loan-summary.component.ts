@@ -171,6 +171,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     jointInfo = [];
     collateralSiteVisitDetail = [];
     isCollateralSiteVisit = false;
+    age: number;
 
 
     constructor(
@@ -652,6 +653,12 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     public customSafePipe(val) {
         return val.replace(/(<([^>]+)>)/gi, "");
+    }
+
+    calculateAge(dob) {
+        const difference = Math.abs(Date.now() - new Date(dob).getTime());
+        this.age = Math.floor((difference / (1000 * 3600 * 24)) / 365);
+        return this.age;
     }
 }
 
