@@ -33,6 +33,7 @@ export class IndividualViewComponent implements OnInit {
   isJointInfo = false;
   jointInfo = [];
   riskInfo: any;
+  age: number;
 
   constructor() {
   }
@@ -53,6 +54,11 @@ export class IndividualViewComponent implements OnInit {
       this.isJointInfo = true;
     }
 
+  }
+
+  calculateAge(dob) {
+    const difference = Math.abs(Date.now() - new Date(dob).getTime());
+    this.age = Math.floor((difference / (1000 * 3600 * 24)) / 365);
   }
 
 }
