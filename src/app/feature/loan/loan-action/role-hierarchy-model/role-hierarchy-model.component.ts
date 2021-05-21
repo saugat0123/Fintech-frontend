@@ -90,7 +90,7 @@ export class RoleHierarchyModelComponent implements OnInit {
     }
     // get all roll based on set hierarchy
     private getRoleData(): void {
-        this.approvalRoleHierarchyService.findAll(this.approvalType, this.refId).subscribe((response: any) => {
+        this.approvalRoleHierarchyService.getDefault(this.approvalType, this.refId).subscribe((response: any) => {
                 this.transferRoleList = [];
                 this.transferRoleList = response.detail;
             });
