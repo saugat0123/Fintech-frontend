@@ -145,7 +145,8 @@ export class JointFormComponent implements OnInit {
             citizenshipNumber: [jointDetail.citizenshipNumber],
             citizenshipIssuedPlace: [jointDetail.citizenshipIssuedPlace],
             citizenshipIssuedDate: [jointDetail.citizenshipIssuedDate],
-            dob: [jointDetail.dob],
+            dob: [ObjectUtil.isEmpty(jointDetail.dob) ?
+                undefined : new Date(jointDetail.dob), DateValidator.isValidBefore],
             occupation: [jointDetail.occupation],
             otherOccupation: [jointDetail.otherOccupation],
             incomeSource: [jointDetail.incomeSource],
@@ -378,7 +379,8 @@ export class JointFormComponent implements OnInit {
       citizenshipNumber: [undefined, Validators.required],
       citizenshipIssuedPlace: [undefined, Validators.required],
       citizenshipIssuedDate: [undefined, [Validators.required, DateValidator.isValidBefore]],
-      dob: [undefined, [Validators.required, DateValidator.isValidBefore]],
+      dob: [ObjectUtil.isEmpty(this.customer.dob) ? undefined :
+          new Date(this.customer.dob), [Validators.required, DateValidator.isValidBefore]],
       occupation: [undefined, [Validators.required]],
       otherOccupation: [undefined],
       incomeSource: [undefined, [Validators.required]],

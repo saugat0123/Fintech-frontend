@@ -6,15 +6,23 @@
                     <div *ngIf="loanDataHolder?.documentStatus?.toString() === 'PENDING'||
                     loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
                     loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'">
-                        <app-role-heirarchy-chain [refId]="id"
-                        [loanDataHolder]="loanDataHolder"
-                        [branchId]="loanDataHolder?.branch?.id"
-                        [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
-                        [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"></app-role-heirarchy-chain>
+                        <nb-accordion>
+                            <nb-accordion-item>
+                                <nb-accordion-item-header>File Under Possession</nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <app-role-heirarchy-chain [refId]="id"
+                                                              [loanDataHolder]="loanDataHolder"
+                                                              [branchId]="loanDataHolder?.branch?.id"
+                                                              [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
+                                                              [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"></app-role-heirarchy-chain>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
                     </div>
-                    <div *ngIf="(loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
+                    <div class="mt-2" *ngIf="(loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
                     loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'||
-                    loanDataHolder?.documentStatus?.toString() === 'INITIAL') && roleType === 'MAKER' && productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL.toString() === 'LOAN'">
+                    loanDataHolder?.documentStatus?.toString() === 'INITIAL' ||
+                    loanDataHolder?.documentStatus?.toString() === 'PENDING') && roleType === 'MAKER' && productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL.toString() === 'LOAN'">
                         <button class="btn btn-primary sb-medium text-uppercase" nbButton size="small"
                                 status="primary" nbTooltip="Configure Approval Role Hierarchy"
                                 (click)="SetRoleHierarchy(loanDataHolder?.id)">
@@ -435,6 +443,7 @@
                             <tr class="text-white sb-bg-dark">
                                 <th>Name</th>
                                 <th>Date Of Birth</th>
+                                <th>Age</th>
                                 <th>Citizenship Number</th>
                                 <th>Mobile Number</th>
                                 <th>LandLine Number</th>
@@ -447,6 +456,7 @@
                             <tr class="text-left">
                                 <td class="pl-1">{{loanDataHolder?.customerInfo?.customerName}}</td>
                                 <td class="pl-1">{{loanDataHolder?.customerInfo?.dob | engNepDate: false}}</td>
+                                <td class="text-right pr-1">{{calculateAge(loanDataHolder?.customerInfo?.dob)}} years</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.contactNumber}}</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.landLineNumber}}</td>
@@ -552,6 +562,7 @@
                                 <tr class="text-white sb-bg-dark">
                                     <th>Name</th>
                                     <th>Date Of Birth</th>
+                                    <th>Age</th>
                                     <th>Citizenship Number</th>
                                     <th>Mobile Number</th>
                                     <th>LandLine Number</th>
@@ -561,6 +572,7 @@
                                 <tr class="text-left">
                                     <td class="pl-1">{{info?.customerName}}</td>
                                     <td class="pl-1">{{info?.dob | engNepDate: false}}</td>
+                                    <td class="text-right pr-1">{{calculateAge(info?.dob)}} years</td>
                                     <td class="text-right pr-1">{{info?.citizenshipNumber}}</td>
                                     <td class="text-right pr-1">{{info?.contactNumber || 'NA'}}</td>
                                     <td class="text-right pr-1">{{info?.landLineNumber || 'NA'}}</td>
