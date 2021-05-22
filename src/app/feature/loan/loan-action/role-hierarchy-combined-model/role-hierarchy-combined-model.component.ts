@@ -236,7 +236,7 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
   private conditionalCombinedDataLoad(): void {
     switch (this.popUpTitle) {
       case 'Transfer':
-        this.approvalRoleHierarchyService.findAll(this.approvalType, this.refId)
+        this.approvalRoleHierarchyService.getDefault(this.approvalType, this.refId)
             .subscribe((response: any) => {
               this.sendForwardBackwardList = [];
               this.sendForwardBackwardList = response.detail;

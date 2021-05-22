@@ -88,6 +88,7 @@ import {MicroBaselRiskExposureSummaryComponent} from './component/micro-loan-sum
 import {MarketingActivitiesSummaryComponent} from './component/micro-loan-summary/marketing-activities-summary/marketing-activities-summary.component';
 import {CustomerWiseLoanPullComponent} from './component/loan-pull/customer-wise-loan-pull/customer-wise-loan-pull.component';
 import { RoleHierarchyCombinedModelComponent } from './loan-action/role-hierarchy-combined-model/role-hierarchy-combined-model.component';
+import {NepaliPatroModule} from 'nepali-patro';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -217,7 +218,8 @@ const modules = {
         AngularDraggableModule,
         LoanInformationDetailViewModule,
         NbTooltipModule,
-        MicroLoanModule
+        MicroLoanModule,
+        NepaliPatroModule
     ],
 
     providers: [

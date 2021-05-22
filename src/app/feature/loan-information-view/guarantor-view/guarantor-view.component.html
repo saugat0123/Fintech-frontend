@@ -23,7 +23,7 @@
       <tr>
         <td class="text-left pl-1" colspan="2">{{guarantor?.name}}</td>
         <td class="text-right pr-1">{{guarantor?.citizenNumber}}</td>
-        <td class="text-left pl-1">{{guarantor?.issuedYear | date}}</td>
+        <td class="text-left pl-1">{{guarantor?.issuedYear | engNepDate: false}}</td>
         <td class="text-left pl-1">{{guarantor?.issuedPlace}}</td>
         <td class="text-left pl-1">{{guarantor?.permanentAddressLineOne}}</td>
         <td class="text-left pl-1">{{guarantor?.permanentAddressLineTwo}}</td>
@@ -74,7 +74,7 @@
       </tr>
       <tr>
         <td class="text-left pl-1">{{Occupation[guarantor?.profession]}}</td>
-        <td class="text-left pl-1">{{guarantor?.dateOfBirth | date}}</td>
+        <td class="text-left pl-1">{{guarantor?.dateOfBirth | engNepDate: false}}</td>
         <td class="text-left pl-1">{{guarantor?.relationship}}</td>
         <td class="text-right pr-1">Rs. {{guarantor?.netWorth | currencyFormatter}}</td>
         <td class="text-right pr-1">{{guarantor?.temporaryAddressLineOne}}</td>

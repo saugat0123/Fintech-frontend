@@ -13,14 +13,14 @@
                 <th>Sub-Sector</th>
             </thead>
             <tbody class="text-center">
-                <td>{{customerInfo?.customerName || 'NA'}} </td>
-                <td>{{individualJsonData?.permanentAddressLine1 || 'NA'}}</td>
-                <td>{{individualJsonData?.microCustomerDetail?.customerCategory || 'NA'}}</td>
-                <td>{{individualJsonData?.microCustomerDetail?.bankDistance || 'NA'}}</td>
-                <td>{{individualJsonData?.microCustomerDetail?.riskClassificationPercent || 'NA'}}</td>
-                <td>{{individualJsonData?.microCustomerDetail?.riskClassificationBase || 'NA'}}</td>
-                <td>{{loanDataHolder?.loanHolder['clientType'] || 'NA'}}</td>
-                <td>{{loanDataHolder?.loanHolder['subsectorDetail'] || 'NA'}}</td>
+                <td class="text-left pl-1">{{customerInfo?.customerName || 'NA'}} </td>
+                <td class="text-left pl-1">{{individualJsonData?.permanentAddressLine1 || 'NA'}}</td>
+                <td class="text-left pl-1">{{individualJsonData?.microCustomerDetail?.customerCategory || 'NA'}}</td>
+                <td class="text-right pr-1">{{individualJsonData?.microCustomerDetail?.bankDistance || 'NA'}}</td>
+                <td class="text-right pr-1">{{individualJsonData?.microCustomerDetail?.riskClassificationPercent || 'NA'}}</td>
+                <td class="text-right pr-1">{{individualJsonData?.microCustomerDetail?.riskClassificationBase || 'NA'}}</td>
+                <td class="text-left pl-1">{{loanDataHolder?.loanHolder['clientType'] || 'NA'}}</td>
+                <td class="text-left pl-1">{{loanDataHolder?.loanHolder['subsectorDetail'] || 'NA'}}</td>
             </tbody>
         </table>
     </div>
@@ -37,6 +37,7 @@
                 <tr class="text-white sb-bg-dark">
                     <th>Name</th>
                     <th>Date Of Birth</th>
+                    <th>Age</th>
                     <th>Citizenship Number</th>
                     <th>Mobile Number</th>
                     <th>LandLine Number</th>
@@ -45,9 +46,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="text-center">
+                <tr class="text-left">
                     <td class="pl-1">{{loanDataHolder?.customerInfo?.customerName || 'NA'}}</td>
-                    <td class="pl-1">{{(loanDataHolder?.customerInfo?.dob | date) || 'NA'}}</td>
+                    <td class="pl-1">{{(loanDataHolder?.customerInfo?.dob | engNepDate: false) || 'NA'}}</td>
+                    <td class="pl-1">{{calculateAge(loanDataHolder?.customerInfo?.dob)}}</td>
                     <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.citizenshipNumber || 'NA'}}</td>
                     <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.contactNumber || 'NA'}}</td>
                     <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.landLineNumber || 'NA'}}</td>
@@ -74,18 +76,18 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
-                    <td class="text-center">
+                    <td class="text-left pl-1">
                         {{relative.customerRelativeName || 'NA'}}
                     </td>
 
-                    <td class="text-center">
+                    <td class="text-left pl-1">
                         {{relative.customerRelation || 'NA'}}
                     </td>
-                    <td class="text-center">
+                    <td class="text-right pr-1">
                         {{relative.citizenshipNumber || 'NA'}}
                     </td>
-                    <td class="text-center">
-                        {{(relative.citizenshipIssuedDate | date) || 'NA'}}
+                    <td class="text-left pl-1">
+                        {{(relative.citizenshipIssuedDate | engNepDate: false) || 'NA'}}
                     </td>
 
                 </tr>
@@ -108,8 +110,8 @@
             </thead>
             <tbody>
             <td>1 </td>
-            <td>{{individualJsonData?.microCustomerDetail['blbAgentName']}}</td>
-            <td>{{individualJsonData?.microCustomerDetail['blbAgentCode']}}</td>
+            <td class="text-left pl-1">{{individualJsonData?.microCustomerDetail['blbAgentName']}}</td>
+            <td class="text-left pl-1">{{individualJsonData?.microCustomerDetail['blbAgentCode']}}</td>
             </tbody>
         </table>
     </div>
@@ -126,7 +128,7 @@
             </thead>
             <tbody>
             <tr>
-                <td>{{individualJsonData?.microCustomerDetail['depriveSector']}}</td>
+                <td class="text-left pl-1">{{individualJsonData?.microCustomerDetail['depriveSector']}}</td>
             </tr>
             </tbody>
         </table>
@@ -137,7 +139,7 @@
             <th>Background of Customer / Business</th>
             </thead>
             <tbody>
-            <td [innerHTML]="customerInfo?.introduction | safeHtml"></td>
+            <td class="text-left pl-1" [innerHTML]="customerInfo?.introduction | safeHtml"></td>
             </tbody>
         </table>
     </div>
@@ -147,7 +149,7 @@
             <th>Purpose of Loan</th>
             </thead>
             <tbody>
-            <td>{{otherInformationAndConfirmation?.purposeOfLoan}}</td>
+            <td class="text-left pl-1" [innerHTML]="otherInformationAndConfirmation?.purposeOfLoan | safeHtml"></td>
             </tbody>
         </table>
     </div>
@@ -232,13 +234,17 @@
                 </tbody>
             </table>
     </div>
+
+
+
+
     <div class="col-md-12">
         <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
             <thead class="sb-bg-dark text-white">
                 <th>Deviation</th>
             </thead>
             <tbody>
-            <td><span [innerHTML]="otherInformationAndConfirmation?.waiverConclusionRecommendation | safeHtml"></span></td>
+            <td class="text-left pl-1" [innerHTML]="otherInformationAndConfirmation?.waiverConclusionRecommendation | safeHtml"></td>
             </tbody>
         </table>
     </div>
@@ -248,7 +254,7 @@
             <th class="sb-bg-dark text-white">Overall Justification / Recommendation</th>
             </thead>
             <tbody>
-            <td><span [innerHTML]="otherInformationAndConfirmation?.summeryRecommendation | safeHtml"></span></td>
+            <td class="text-left pl-1" [innerHTML]="otherInformationAndConfirmation?.summeryRecommendation | safeHtml"></td>
             </tbody>
         </table>
     </div>

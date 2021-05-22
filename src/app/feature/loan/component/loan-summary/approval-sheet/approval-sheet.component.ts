@@ -186,9 +186,6 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         this.prepareAuthoritySection();
         this.loadSummary();
         this.checkDocUploadConfig();
-        if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
-            this.calculateAge();
-        }
     }
 
     ngOnDestroy(): void {
@@ -622,12 +619,10 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         this.modalService.dismissAll();
         }
 
-    calculateAge() {
-        const dob = this.loanDataHolder.customerInfo.dob;
-        if (dob) {
-            const difference = Math.abs(Date.now() - new Date(dob).getTime());
-            this.age = Math.floor((difference / (1000 * 3600 * 24)) / 365);
-        }
+    calculateAge(dob) {
+        const difference = Math.abs(Date.now() - new Date(dob).getTime());
+        this.age = Math.floor((difference / (1000 * 3600 * 24)) / 365);
+        return this.age;
     }
 
     openApprovalSheetInfoModal() {
