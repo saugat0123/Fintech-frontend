@@ -226,7 +226,6 @@ export class CustomerWisePendingComponent implements OnInit {
             this.filterForm.get('customerCode').value;
         this.search.loanTag = ObjectUtil.isEmpty(this.filterForm.get('loanTag').value) ? undefined :
             this.filterForm.get('loanTag').value;
-        console.log(this.search);
         CustomerWisePendingComponent.loadData(this);
     }
 
