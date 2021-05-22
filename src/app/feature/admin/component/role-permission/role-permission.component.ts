@@ -72,11 +72,9 @@ export class RolePermissionComponent implements OnInit {
 
         this.service.detail(id).subscribe((response: any) => {
             this.rolePermissionList = response.detail;
-            console.log('role permission list', this.rolePermissionList);
 
             this.permissionService.getAll().subscribe((permissionResponse: any) => {
                 this.allPermission = permissionResponse.detail;
-                console.log('all permissions', this.allPermission);
                 this.checkPermission();
             });
         });
