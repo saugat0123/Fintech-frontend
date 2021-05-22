@@ -3,8 +3,6 @@ import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
-import {CollateralSiteVisit} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
-import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
@@ -22,6 +20,10 @@ export class MicroLoanDetailViewBaseComponent implements OnInit {
   client = environment.client;
   clientName = Clients;
   securityId: number;
+  commentsSummary = false;
+  dataFromComments;
+  previousSecuritySummary = false;
+  dataFromPreviousSecurity;
 
   constructor() { }
 
@@ -29,6 +31,17 @@ export class MicroLoanDetailViewBaseComponent implements OnInit {
     console.log(this.loanHolder);
     if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
       this.securityId = this.loanHolder.security.id;
+    }
+    // Setting Comments data--
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
+      this.dataFromComments = JSON.parse(this.loanDataHolder.loanHolder.data);
+      this.commentsSummary = true;
+    }
+
+    // Setting Previous Security Data
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
+      this.dataFromPreviousSecurity = JSON.parse(this.loanDataHolder.loanHolder.data);
+      this.previousSecuritySummary = true;
     }
   }
 

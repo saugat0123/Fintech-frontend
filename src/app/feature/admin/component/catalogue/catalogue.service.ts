@@ -21,6 +21,7 @@ export class CatalogueSearch {
     customerType: string;
     clientType: string;
     customerCode: string;
+    loanTag: string;
 }
 
 @Injectable({
