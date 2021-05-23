@@ -49,7 +49,7 @@
                 <tr class="text-left">
                     <td class="pl-1">{{loanDataHolder?.customerInfo?.customerName || 'NA'}}</td>
                     <td class="pl-1">{{(loanDataHolder?.customerInfo?.dob | engNepDate: false) || 'NA'}}</td>
-                    <td class="pl-1">{{calculateAge(loanDataHolder?.customerInfo?.dob)}}</td>
+                    <td class="pl-1">{{calculateAge(loanDataHolder?.customerInfo?.dob)}} years</td>
                     <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.citizenshipNumber || 'NA'}}</td>
                     <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.contactNumber || 'NA'}}</td>
                     <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.landLineNumber || 'NA'}}</td>
