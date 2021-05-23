@@ -3,61 +3,74 @@
         <form (ngSubmit)="submit()" [formGroup]="form" class="nepali">
             <div class="nep">
                 <div>
-                    <p class="text-right">फर्म नं.स् इडिविएल/एलडिएफ–२४</p>
-                    <p class="text-center"><b> प्रतिज्ञापत्र (२) </b></p>
+                    <p class="text-right">फर्म नं.स् इडिविएलरएलडिएफ–२३</p>
+                    <p class="text-center"><b> प्रतिज्ञापत्र (१) </b></p>
                     <p class="text-center"><b>(Demand Promissory Note)</b></p>
 
 
-                    <p class="text-left"> स्थानःएक्सेल डेभलपमेन्ट बैंक, बिर्तामोड </p>
+                    <p class="text-left"> स्थानः
+                        <input class="form-field form-control-sm nepaliFont col-3"
+                               formControlName="address"
+                               placeholder=""
+                               type="text"/>
+                    </p>
                     <p class="text-right"> मिति:
+
                         <input class="form-field form-control-sm nepaliFont col-3"
                                formControlName="date"
                                placeholder=""
                                type="text"/>
+
                     </p>
-                    रु<input class="form-field form-control-sm nepaliFont"
-                             formControlName="amount"
-                             (change)="getNumAmountWord('amount', 'amountinWord')"
-                             placeholder=" रु ४८,५०,०००"
-                             type="text"/>/- (अक्षेरुपी
-                    <input class="form-field form-control-sm nepaliFont col-md-5 font-size-normal"
-                           readonly
-                           formControlName="amountinWord"
-                           placeholder=" अठ्चालीस लाख पचास हजार रुपंयाँ"
-                           type="text"/>मात्र ।)
+                    <p>
+                        रु
+                        <input class="form-field form-control-sm nepaliFont"
+                               (change)="getNumAmountWord('amount', 'amountinWord')"
+                               formControlName="amount"
+                               placeholder=""
+                               type="text"/>
+                        /- (अक्षेरुपी
+                        <input class="form-field form-control-lg nepaliFont  font-size-normal col-md-5"
+                               readonly
+                               formControlName="amountinWord"
+                               placeholder=""
+                               type="text"/>
+                        मात्र ।)
+                    </p>
 
 
-                    म व्यक्तिगत जमानीकर्ता <p> श्री
+                    मैले/हामीले रकम बुझिलिए बापत उल्लेखित मिति पश्चातः माग गर्नासाथ तपाई श्री एक्सेल डेभलपमेन्ट बैंक
+                    लिमिटेड, <p>
+
                     <input class="form-field form-control-sm nepaliFont col-3"
-                           readonly
-                           formControlName="guarantor"
-                           placeholder=" डिल बहादुर घले"
+                           formControlName="branch"
+                           placeholder=""
                            type="text"/>
-                </p> तपाईं धनी बैंकवाट ऋणी <p> श्री
+
+                </p> शाखा÷कार्यालय वा तपाईले निर्देशन गरेको वा अ¥हाएको व्यक्ति÷संस्थालाई <p> रु
+                    <span class="nepaliFont">{{form.get('amount').value}}</span>/- (अक्षेरुपी
+                    रुपैयाँ <span class="nepaliFont  font-size-normal">{{form.get('amountinWord').value}}</span>)
+                    <p> र सोमा मिति
+
+                        <input class="form-field form-control-sm nepaliFont col-3"
+                               formControlName="date2"
+                               placeholder=""
+                               type="text"/>
+
+                    </p>को ऋण स्वीकृतिपत्र÷नविकरण÷थप र÷वा यस पछि त्यसमा हुने संशोधन वा परिवर्तन पत्रमा उल्लेखित दर
+                    अनुसार लागेको ब्याज तथा अन्य शुल्क समेत भुक्तानी दिने प्रतिज्ञा गर्दछु÷छौं ।
+
+
+                    अधिकारप्राप्त दस्तखतः
+
+                    अधिकारप्राप्त ब्यक्तिको नामः
                     <input class="form-field form-control-sm nepaliFont col-3"
                            readonly
                            formControlName="name"
-                           placeholder=" बहादुर "
+                           placeholder=""
                            type="text"/>
-                </p> ले रकम बुझिलिए बापत उल्लेखित मिति पश्चातः मागगर्नासाथ ऋणी/तपाई धनी बैंक एक्सेल डेभलपमेन्ट बैंक
-                    लिमिटेड,
-                    मुख्य शाखा/कार्यालय वा ऋणी/तपाई धनी बैंकले निर्देशन गरे वा अह्राए बमोजिम वा तपाईं धनी बैंकलाई सोझै
-                    रु.
-                    <span class="nepaliFont">{{form.get('amount').value}}</span>।
-                    (अक्षेरपी रुपैयाँ.<span
-                        class="nepaliFont font-size-normal">{{form.get('amountinWord').value}}</span> )
-                    र सोमा मिति <input class="form-field form-control-sm nepaliFont"
-                                       formControlName="date2"
-                                       placeholder=""
-                                       type="text"/> को ऋण स्वीकृतिपत्र/नविकरण/थप र/वा यस पछि त्यसमा हुने संशोधन वा
-                    परिवर्तन पत्रमा उल्लेखित दर अनुसार लागेको
-                    ब्याज तथा अन्य शुल्क समेत भुक्तानी दिने प्रतिज्ञा गर्दछु/छौं ।
-                    <div class="mt-4"></div>
 
-                    अधिकारप्राप्त/व्यक्तिगत जमानीकर्ताको दस्तखत :
-                    <div class="mt-4"></div>
-                    अधिकारप्राप्त ब्यक्ति/व्यक्तिगत जमानीकर्ताको नामः <span
-                        class="nepaliFont">{{form.get('guarantor').value}}</span>
+                    कम्पनी/फर्मको छापः
                 </div>
                 <div class="col-md-12">
                     <button nbButton class="float-right d-print-none" status="success" type="submit">Save</button>
@@ -74,3 +87,5 @@
 </div>
 <app-dp-note-borrower-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint" [nepaliData]="nepaliData"
                             hidden></app-dp-note-borrower-print>
+
+

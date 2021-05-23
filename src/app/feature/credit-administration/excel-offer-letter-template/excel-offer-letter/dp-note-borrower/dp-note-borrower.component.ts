@@ -66,14 +66,7 @@ export class DpNoteBorrowerComponent implements OnInit {
 
     fillForm() {
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-        let guarantor = {
-            name: ''
-        };
-        if (this.nepaliData.guarantorDetails.length > 0) {
-            guarantor = this.nepaliData.guarantorDetails[0];
-        }
         this.form.patchValue({
-            guarantor: guarantor.name ? guarantor.name : '',
             name: this.nepaliData.name ? this.nepaliData.name : '',
         });
     }
@@ -113,10 +106,11 @@ export class DpNoteBorrowerComponent implements OnInit {
 
     buildForm() {
         this.form = this.formBuilder.group({
+            address: [undefined],
             date: [undefined],
             amount: [undefined],
             amountinWord: [undefined],
-            guarantor: [undefined],
+            branch: [undefined],
             name: [undefined],
             date2: [undefined],
         });

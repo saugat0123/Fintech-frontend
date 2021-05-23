@@ -32,20 +32,6 @@ export const environment = {
     isMega: false
 };
 
-// export const environment = {
-//     production: false,
-//     client: Clients.SHINE_RESUNGA,
-//     GOOGLE_MAP_API_KEY: 'AIzaSyDKERYllGf5BfVR_c_45nqHVkbHoPgXPDA',
-//     LOCAL_STORAGE_KEY: 'QP\'`0tWfyBni^(*rv0gB].ck$s@z(/',
-//     LOCAL_STORAGE_NAME: 'SBSolutionsLAS',
-//     enablePreAddingAccountNumber: true,
-//     disableCrgAlpha: true,
-//     disableApprovalSheet: false,
-//     microLoan: true,
-//     SBS_GROUP: false,
-//     MEGA_GROUP: true,
-// };
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

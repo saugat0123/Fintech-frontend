@@ -52,10 +52,15 @@ export class DpNoteGuarantorComponent implements OnInit {
 
     fillForm() {
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-        const guarantorName = this.nepaliData.guarantorDetails[0].name;
+        let guarantor = {
+            name: ''
+        };
+        if ('guarantorDetails' in this.nepaliData && this.nepaliData.guarantorDetails.length > 0) {
+            guarantor = this.nepaliData.guarantorDetails[0];
+        }
         this.form.patchValue({
             name: this.nepaliData.name ? this.nepaliData.name : '',
-            guarantor: guarantorName ? guarantorName : '',
+            guarantor: guarantor ? guarantor : '',
         });
     }
 

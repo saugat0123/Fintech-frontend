@@ -168,7 +168,7 @@ export class ContinuationDeedComponent implements OnInit {
 
     setGuarantors(data) {
         const formArray = this.form.get('guarantors') as FormArray;
-        if (data.length === 0) {
+        if (!data || data.length === 0) {
             this.addEmptyGuarantor();
             return;
         }
