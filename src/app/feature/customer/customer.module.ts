@@ -35,49 +35,51 @@ import {CoreModule} from '../../@core/core.module';
 import {ActivityListComponent} from './component/activity-list/activity-list.component';
 import {CustomerActivityModule} from '../customer-activity/customer-activity.module';
 import {BankingRelationComponent} from './component/customer-form/banking-relation/banking-relation.component';
-import { CompanyOtherDetailComponent } from './component/customer-form/company-form/company-other-detail/company-other-detail.component';
-import { MarketScenarioComponent } from './component/customer-form/company-form/market-scenario/market-scenario.component';
+import {CompanyOtherDetailComponent} from './component/customer-form/company-form/company-other-detail/company-other-detail.component';
+import {MarketScenarioComponent} from './component/customer-form/company-form/market-scenario/market-scenario.component';
 import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {FeatureModule} from '../feature.module';
 import {CbsGroupModule} from '../cbs-group/cbs-group.module';
 import {MicroLoanModule} from '../micro-loan/micro-loan.module';
-import { CustomerGroupComponent } from './component/customer-profile/individual-profile/customer-group/customer-group.component';
-import { JointFormComponent } from './component/customer-form/joint-form/joint-form.component';
+import {CustomerGroupComponent} from './component/customer-profile/individual-profile/customer-group/customer-group.component';
+import {JointFormComponent} from './component/customer-form/joint-form/joint-form.component';
+import {ChangeLoanComponent} from './component/change-loan/change-loan.component';
 
 const COMPONENTS = [
-  CustomerComponent,
-  CustomerProfileComponent,
-  CustomerGroupLoanComponent,
-  CustomerFormComponent,
-  KycFormComponent,
-  CompanyProfileComponent,
-  CompanyProfileAdditionalInformationComponent,
-  CompanyFormComponent,
-  CustomerLoanInformationComponent,
-  CustomerDocComponent,
-  CustomerLoanInformationViewComponent,
-  CompanyFormComponent,
-  CustomerDocComponent,
-  CustomerLoanInformationViewComponent,
-  GroupTaggingComponent,
-  CompanyDetailEditComponent,
-  CustomerLoanApplyComponent,
-  EditSwotComponent,
-  EditPartnerInfoComponent,
-  EditManagementTeamComponent,
-  CustomerLoanEditComponent,
-  CustomerListGroupComponent,
-  BankingRelationComponent,
-  JointFormComponent
+    CustomerComponent,
+    CustomerProfileComponent,
+    CustomerGroupLoanComponent,
+    CustomerFormComponent,
+    KycFormComponent,
+    CompanyProfileComponent,
+    CompanyProfileAdditionalInformationComponent,
+    CompanyFormComponent,
+    CustomerLoanInformationComponent,
+    CustomerDocComponent,
+    CustomerLoanInformationViewComponent,
+    CompanyFormComponent,
+    CustomerDocComponent,
+    CustomerLoanInformationViewComponent,
+    GroupTaggingComponent,
+    CompanyDetailEditComponent,
+    CustomerLoanApplyComponent,
+    EditSwotComponent,
+    EditPartnerInfoComponent,
+    EditManagementTeamComponent,
+    CustomerLoanEditComponent,
+    CustomerListGroupComponent,
+    BankingRelationComponent,
+    JointFormComponent
 ];
 
 @NgModule({
-  declarations: [...COMPONENTS, ActivityListComponent, CompanyOtherDetailComponent, MarketScenarioComponent, CustomerGroupComponent],
+    declarations: [...COMPONENTS, ActivityListComponent, CompanyOtherDetailComponent, MarketScenarioComponent, CustomerGroupComponent, ChangeLoanComponent],
     exports: [
         CustomerGroupLoanComponent,
         CompanyFormComponent,
-        KycFormComponent
+        KycFormComponent,
+
     ],
     imports: [
         CommonModule,
@@ -104,17 +106,18 @@ const COMPONENTS = [
 
 
     ],
-  entryComponents: [
-    CustomerFormComponent,
-    CompanyFormComponent,
-    KycFormComponent,
-    EditManagementTeamComponent,
-    EditPartnerInfoComponent,
-    EditSwotComponent,
-    CompanyDetailEditComponent,
-    CustomerLoanApplyComponent,
-    JointFormComponent
-  ]
+    entryComponents: [
+        CustomerFormComponent,
+        CompanyFormComponent,
+        KycFormComponent,
+        EditManagementTeamComponent,
+        EditPartnerInfoComponent,
+        EditSwotComponent,
+        CompanyDetailEditComponent,
+        CustomerLoanApplyComponent,
+        JointFormComponent,
+        ChangeLoanComponent
+    ]
 })
 export class CustomerModule {
 }

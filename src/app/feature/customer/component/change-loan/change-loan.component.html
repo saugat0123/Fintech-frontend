@@ -1,0 +1,30 @@
+<nb-card [nbSpinner]="spinner" [accent]="'primary'">
+    <nb-card-header>
+
+          Change Loan
+            <a (click)="close()" aria-label="Close" class="close cursor"><span aria-hidden="true">×</span></a>
+
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="changeLoanForm" >
+            <div class="col-md-12">
+                <select
+                        formControlName="loanId"
+
+                        name="loanId">
+                    <option hidden> select Loan Type</option>
+                    <option *ngFor="let allList of loanList"
+                            [value]="allList.id">{{allList.name}}</option>
+                </select>
+            </div>
+
+            <div class="col-md-12 py-2">
+                <div class="clearfix">
+                    <div class="float-right">
+                        <button nbButton shape="rectangle" size="medium" status="success" type="submit" (click)="submit()">Change</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

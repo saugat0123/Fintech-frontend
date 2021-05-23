@@ -14,10 +14,9 @@ import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {SingleCombinedLoanDto} from '../../dto/single-combined-loan.dto';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {DocStatus} from '../../../loan/model/docStatus';
-import {Stage} from '../../../loan/model/stage';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
-import {Local} from 'protractor/built/driverProviders';
 import {LoanStage} from '../../../loan/model/loanStage';
+import {ChangeLoanComponent} from '../change-loan/change-loan.component';
 
 
 @Component({
@@ -313,5 +312,16 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
     addRequiredCollateral(collateralRequirement: number, proposalLimit) {
         return collateralRequirement * proposalLimit;
+    }
+
+    changeLoan(id: number, loanConfigId: number) {
+        const modelRef = this.modalService.open(ChangeLoanComponent, {backdrop: false});
+
+        modelRef.componentInstance.customerType = this.customerInfo.customerType;
+        modelRef.componentInstance.currentLoanConfigId = loanConfigId;
+        modelRef.componentInstance.isMicroCustomer = this.customerInfo.isMicroCustomer;
+        modelRef.componentInstance.customerLoanId = id;
+
+
     }
 }
