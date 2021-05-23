@@ -33,7 +33,6 @@ import {DocAction} from '../../../loan/model/docAction';
 import {DocStatus} from '../../../loan/model/docStatus';
 import {LoanStage} from '../../../loan/model/loanStage';
 import {SocketService} from '../../../../@core/service/socket.service';
-import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-customer-component',
@@ -59,12 +58,13 @@ export class CustomerComponent implements OnInit {
 
     transferCustomer = false;
     transferSpinner = false;
+    branchListForTransfer: Array<Branch> = new Array<Branch>();
     transferUserList = [];
     transferSelectedCustomerInfo;
     transferSelectedBranch;
     formAction: FormGroup;
     selectedUserForTransfer;
-    customerGroupLoanList: Array<LoanDataHolder> = Array<LoanDataHolder>();
+    /*customerGroupLoanList: Array<LoanDataHolder> = Array<LoanDataHolder>();*/
 
     accessSpecific: boolean;
     accessAll: boolean;
@@ -122,7 +122,7 @@ export class CustomerComponent implements OnInit {
             this.provinces = response.detail;
         });
         /* added to check if the transfer column is to be displayed*/
-        if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === RoleType.ADMIN) {
+            if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === RoleType.ADMIN) {
             this.transferCustomer = true;
         }
         this.buildActionForm();
@@ -303,28 +303,26 @@ export class CustomerComponent implements OnInit {
     buildActionForm(): void {
         this.formAction = this.formBuilder.group(
             {
-                customerLoanId: [undefined],
-                fromUser: [undefined],
-                toUser: [undefined, Validators.required],
+                customerInfoId: [undefined],
+                fromUserId: [undefined],
+                toUserId: [undefined, Validators.required],
                 docAction: [undefined],
                 comment: [undefined, Validators.required],
-                documentStatus: [undefined]
+                fromRoleId: [undefined],
+                toRoleId: [undefined],
+                toBranchId: [undefined]
             }
         );
     }
 
-    onTransferClick(template, customerInfo, customerInfoId) {
+    onTransferClick(template, customerInfo) {
         this.transferSpinner = true;
         this.transferUserList = [];
         this.transferSelectedBranch = null;
         this.transferSelectedCustomerInfo = customerInfo;
-        this.customerLoanService.getFinalLoanListByLoanHolderId(customerInfoId).subscribe((res: any) => {
-            this.customerGroupLoanList = res.detail;
-        });
-        this.getBranches();
+        this.branchListForTransfer = [];
+        this.getBranchesForTransfer(true);
         this.formAction.patchValue({
-                docAction: DocAction.value(DocAction.TRANSFER),
-                documentStatus: DocStatus.PENDING,
                 comment: 'TRANSFER'
             }
         );
@@ -332,12 +330,17 @@ export class CustomerComponent implements OnInit {
         this.modalService.open(template, {size: 'lg', backdrop: 'static', keyboard: false});
     }
 
-    private getBranches() {
+    private getBranchesForTransfer(spliceSelectedBranch: boolean) {
         this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
-            this.branchList = response.detail;
+            this.branchListForTransfer = response.detail;
+            this.branchListForTransfer.sort((a, b) => a.name.localeCompare(b.name));
+            if (spliceSelectedBranch) {
+                const indexOfBranch = this.branchListForTransfer.findIndex(b => b.id === this.transferSelectedCustomerInfo.branch.id);
+                this.branchListForTransfer.splice(indexOfBranch, 1);
+            }
         }, error => {
             console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load branch!'));
         });
     }
 
@@ -347,6 +350,9 @@ export class CustomerComponent implements OnInit {
         this.transferUserList = [];
         this.userService.getUserListByBranchIdAndMakerActive(branchId).subscribe((res: any) => {
             this.transferUserList = res.detail;
+        });
+        this.formAction.patchValue({
+            toBranchId: branchId
         });
         this.transferSpinner = false;
     }
@@ -358,11 +364,10 @@ export class CustomerComponent implements OnInit {
         });
     }
 
-    setUserForTransfer(userId, user) {
+    setUserForTransfer(user) {
         this.selectedUserForTransfer = user;
-        const users = {id: userId};
         this.formAction.patchValue({
-                toUser: users
+                toUserId: user.id
             }
         );
     }
@@ -375,33 +380,52 @@ export class CustomerComponent implements OnInit {
     confirmTransferCustomer(comment: string) {
         this.transferSpinner = true;
         this.formAction.patchValue({
-            comment: comment
+            docAction: DocAction.value(DocAction.TRANSFER),
+            comment: comment,
+            customerInfoId: this.transferSelectedCustomerInfo.id,
+            toBranchId: this.transferSelectedBranch.id,
+            toUserId: this.selectedUserForTransfer.id,
+            toRoleId: this.selectedUserForTransfer.role.id
         });
-        this.customerGroupLoanList.forEach(loan => {
-            this.formAction.patchValue({
-                customerLoanId: loan.id
-            });
-            this.customerLoanService.postLoanAction(this.formAction.value).subscribe((response: any) => {
-                this.sendLoanNotification(response.detail.customerLoanId);
+        this.customerInfoService.transferCustomerWithLoansToOtherBranch(this.formAction.value)
+            .subscribe((response: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Customer has been successfully transferred.'));
             }, error => {
                 this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
                 this.modalService.dismissAll();
             });
-        });
+        /*this.customerGroupLoanList.forEach(loan => {
+            if ((loan.documentStatus.toString() === DocStatus.value(DocStatus.PENDING))
+                || (loan.documentStatus.toString() === DocStatus.value(DocStatus.UNDER_REVIEW))) {
+                this.formAction.patchValue({
+                    docAction: DocAction.value(DocAction.TRANSFER),
+                    documentStatus: DocStatus.PENDING,
+                    comment: comment,
+                    customerLoanId: loan.id
+                });
+                this.customerLoanService.transferLoanToOtherBranch(this.formAction.value, this.transferSelectedBranch.id)
+                    .subscribe((response: any) => {
+                    this.sendLoanNotification(response.detail.customerLoanId);
+                }, error => {
+                    this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+                    this.modalService.dismissAll();
+                });
+            }
+        });*/
         /*update customer branch here after loan transfer*/
-        this.customerInfoService.updateCustomerBranch(this.transferSelectedCustomerInfo.id, this.transferSelectedBranch.id)
+        /*this.customerInfoService.updateCustomerBranch(this.transferSelectedCustomerInfo.id, this.transferSelectedBranch.id)
             .subscribe((response: any) => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Customer has been Successfully transferred'));
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Customer has been successfully transferred.'));
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
             this.modalService.dismissAll();
-        });
+        });*/
         this.modalService.dismissAll();
         CustomerComponent.loadData(this);
         this.transferSpinner = false;
     }
 
-    sendLoanNotification(customerLoanId: number): void {
+    /*sendLoanNotification(customerLoanId: number): void {
         this.customerLoanService.detail(customerLoanId).subscribe((loanResponse: any) => {
             const customerLoan: LoanDataHolder = loanResponse.detail;
             // set loan stage information
@@ -436,6 +460,6 @@ export class CustomerComponent implements OnInit {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
         });
-    }
+    }*/
 
 }

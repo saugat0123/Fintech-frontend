@@ -137,7 +137,7 @@
         <td *ngIf="transferCustomer">
           <div>
             <button nbButton status="warning" size="tiny"
-                    (click)="onTransferClick(transferCust, model, model.id)">
+                    (click)="onTransferClick(transferCust, model)">
               <em class="fa fa-arrow-circle-right"></em></button>
           </div>
 
@@ -163,22 +163,25 @@
         <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
           <span aria-hidden="true">&times;</span>
         </a>
-        <h4>Transfer to other Branch</h4>
+        <h4>Transfer {{transferSelectedCustomerInfo.name}} of {{transferSelectedCustomerInfo.branch.name}} to other Branch</h4>
       </nb-card-header>
       <nb-card-body>
 
         <div class="col-md-3 mb-3">
             <select (change)="getMakerUsersByBranchId($event.target.value)">
-              <option [value]="null" selected hidden>Select Branch</option>
-              <option *ngFor="let branch of branchList"
+              <option [disabled] [value]="null" selected hidden>Select Branch</option>
+              <option *ngFor="let branch of branchListForTransfer;let i=index"
                          value="{{branch.id}}">{{branch.name}}</option>
             </select>
         </div>
-        <div *ngIf="!transferUserList?.length > 0">
-          <p>No Content Found</p>
-        </div>
+          <nb-accordion *ngIf="!transferUserList.length > 0">
+              <nb-accordion-item>
+                  <nb-accordion-item-header>
+                      No Content Found
+                  </nb-accordion-item-header>
+              </nb-accordion-item>
+          </nb-accordion>
         <nb-accordion *ngIf="transferUserList.length > 0">
-
           <nb-accordion-item>
             <nb-accordion-item-header>
                 Select User from {{transferSelectedBranch.name}} branch to transfer
@@ -191,7 +194,7 @@
                     <a class="cursor">
                       <div class="radio">
                         <label>
-                          <input type="radio" name="optradio" (click)="setUserForTransfer(user.id, user)">
+                          <input type="radio" name="optradio" (click)="setUserForTransfer(user)">
                           <strong class="ml-2">{{user.name}}</strong>
                         </label>
                       </div>
@@ -219,7 +222,7 @@
     <nb-card accent="primary"
              [nbSpinner]="transferSpinner"
              [nbSpinnerMessage]="'Transferring customer to ' + transferSelectedBranch.name + ' branch...'">
-      <nb-card-header>Do you want to transfer this customer to {{selectedUserForTransfer.name}} <b>{{transferSelectedBranch.name}}</b>?
+        <nb-card-header>Do you want to transfer this customer to <b>{{selectedUserForTransfer.name}}</b> of <b>{{transferSelectedBranch.name}}</b>?
       </nb-card-header>
       <nb-card-body>
         <label for="comment">Reason to transfer customer</label>
