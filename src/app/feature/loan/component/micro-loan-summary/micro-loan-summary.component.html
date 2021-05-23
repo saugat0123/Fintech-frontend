@@ -187,6 +187,49 @@
                 </div>
             </div>
 
+            <!--CRG MICRO-->
+            <div *ngIf="crgMicroSummary">
+                <nb-card class="sb-medium">
+                    <nb-card-header>
+                        <h6>Credit Risk Gauge (MICRO)</h6>
+                    </nb-card-header>
+                    <nb-card-body>
+                        <div class="row">
+                            <div class="col-md-6 mr-0 pr-0 text-right">
+                                <app-gauge-chart [chartWidth]="275"
+                                                 gaugeIdentifier="crg-micro"
+                                                 [chartHeight]="180"
+                                                 [maxValue]="100"
+                                                 [obtainedValue]="crgMicroScore"></app-gauge-chart>
+                            </div>
+                            <div class="col-md-6 ml-0 gauge-label-padding">
+                                <div class="vertical-line">
+                                    <div class="text-left pl-2">
+                                        Credit Risk Grade :
+                                        <span [class]="crgMicroStatusBadge"> {{crgMicroGrade | titlecase}}</span>
+                                    </div>
+                                    <br>
+                                    <div class="text-left pl-2">
+                                        Credit Risk Rating :
+                                        <span [class]="crgMicroStatusBadge"> {{ crgMicroRating | titlecase }}</span>
+                                    </div>
+                                    <br>
+                                    <div class="text-left pl-2">
+                                        Credit Risk Score :
+                                        <span><strong> {{ crgMicroScore }}</strong></span>
+                                    </div>
+                                    <br>
+                                    <div class="text-left pl-2">
+                                        Premium :
+                                        <span><strong> {{ crgMicroPremium }}</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </nb-card-body>
+                </nb-card>
+            </div>
+
             <!--CRG - Lambda-->
             <div *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'" class="col-md-12">
                 <div *ngIf="creditRiskLambdaSummary">

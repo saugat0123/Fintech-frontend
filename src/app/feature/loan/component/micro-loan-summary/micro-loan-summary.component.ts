@@ -137,6 +137,13 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   creditRiskLambdaPremium;
   creditGradeLambdaStatusBadge;
 
+  crgMicroSummary = false;
+  crgMicroScore = 0;
+  crgMicroGrade;
+  crgMicroRating;
+  crgMicroPremium;
+  crgMicroStatusBadge;
+
   customerAllLoanList: LoanDataHolder[] = []; // current loan plus staged and combined loans
   incomeFromAccountSummary = false;
   incomeFromAccountData;
@@ -336,6 +343,24 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
         this.creditGradeLambdaStatusBadge = 'badge badge-danger';
       } else {
         this.creditGradeLambdaStatusBadge = 'badge badge-warning';
+      }
+    }
+
+    // Setting CRG- Micro data --
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.crgMicro)) {
+      const crgParsedData = JSON.parse(this.loanDataHolder.crgMicro.data);
+      this.crgMicroPremium = crgParsedData.premium;
+      this.crgMicroSummary = true;
+      this.crgMicroRating = crgParsedData.creditRiskRating;
+      this.crgMicroGrade = crgParsedData.creditRiskGrade;
+      this.crgMicroScore = ObjectUtil.isEmpty(crgParsedData.totalScore) || Number.isNaN(Number(crgParsedData.totalScore)) ?
+          0 : crgParsedData.totalScore;
+      if (this.crgMicroGrade === 'Excellent' || this.crgMicroGrade === 'Very Good') {
+        this.creditGradeLambdaStatusBadge = 'badge badge-success';
+      } else if (this.crgMicroGrade === 'Reject') {
+        this.crgMicroStatusBadge = 'badge badge-danger';
+      } else {
+        this.crgMicroStatusBadge = 'badge badge-warning';
       }
     }
 

@@ -58,6 +58,8 @@ import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grad
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
 import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
+import {MicroCrgParams} from '../../model/MicroCrgParams';
+import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -169,6 +171,9 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('creditRiskGradingLambda', {static: false})
     creditRiskGradingLambda: CreditRiskGradingLambdaComponent;
+
+    @ViewChild('crgMicro', {static: false})
+    crgMicro: CrgMicroComponent;
 
     @ViewChild('crgGamma', {static: false})
     crgGamma: CreditRiskGradingGammaComponent;
@@ -283,6 +288,10 @@ export class LoanFormComponent implements OnInit {
                                 this.showDocStatusDropDown = false;
                             }
                             this.docStatusForm.get('documentStatus').patchValue(this.loanDocument.documentStatus);
+                            this.populateTemplate();
+                        }, error => {
+                            console.log(error);
+                            this.populateTemplate();
                         }
                     );
                 } else {
@@ -291,14 +300,13 @@ export class LoanFormComponent implements OnInit {
                     this.loanFile = new DmsLoanFile();
                     this.priorityForm.get('priority').patchValue('MEDIUM');
                     this.docStatusForm.get('documentStatus').patchValue(DocStatus.value(DocStatus.DISCUSSION));
+                    this.populateTemplate();
                 }
 
             });
         this.dateService.getDateInNepali(this.datePipe.transform(new Date(), 'yyyy-MM-dd')).subscribe((response: any) => {
             this.currentNepDate = response.detail;
         });
-
-        this.populateTemplate();
         this.loading = false;
     }
 
@@ -329,6 +337,7 @@ export class LoanFormComponent implements OnInit {
 
     populateTemplate() {
         this.loanConfigService.detail(this.id).subscribe((response: any) => {
+            this.loanTag = response.detail.loanTag;
             // this.templateList = response.detail.templateList;
             this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
             // Splicing customer loan for Personal Type Loan--
@@ -342,7 +351,8 @@ export class LoanFormComponent implements OnInit {
                 });
 
                 this.templateList.forEach((value, index) => {
-                    if (environment.disableCrgLambda && value.name === 'Credit Risk Grading - Lambda') {
+                    if ((this.loanDocument.customerInfo.isMicroCustomer ||
+                        environment.disableCrgLambda) && value.name === 'Credit Risk Grading - Lambda') {
                         this.templateList.splice(index, 1);
                     }
                 });
@@ -374,7 +384,6 @@ export class LoanFormComponent implements OnInit {
             }
 
             this.loanTitle = response.detail.name;
-            this.loanTag = response.detail.loanTag;
             this.breadcrumbService.notify(response.detail.name);
             for (let i = 0; i < this.templateList.length; i++) {
                 this.templateList[i].active = false;
@@ -398,12 +407,27 @@ export class LoanFormComponent implements OnInit {
                 const crgQuestionsList = riskQsnRes.detail as Array<any>;
                 if (!(crgQuestionsList.length > 0)) {
                     this.removeCrgGammaFromTemplateList();
+                    this.templateList.forEach((value, index) => {
+                        if (CustomerType[this.allId.loanCategory] === CustomerType.INDIVIDUAL) {
+                            if (!this.loanDocument.customerInfo.isMicroCustomer
+                                && value.name === 'Credit Risk Grading - Micro') {
+                                this.templateList.splice(index, 1);
+                            }
+                        } else {
+                            if (value.name === 'Credit Risk Grading - Micro') {
+                                this.templateList.splice(index, 1);
+                            }
+                        }
+                    });
                 } else {
                     this.templateList.forEach((value, index) => {
                         if (value.name === 'Credit Risk Grading - Lambda') {
                             this.templateList.splice(index, 1);
                         }
                         if (value.name === 'Credit Risk Grading - Alpha') {
+                            this.templateList.splice(index, 1);
+                        }
+                        if (value.name === 'Credit Risk Grading - Micro') {
                             this.templateList.splice(index, 1);
                         }
                     });
@@ -615,6 +639,11 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Credit Risk Grading - Lambda' && action) {
             this.creditRiskGradingLambda.onSubmit();
             this.loanDocument.creditRiskGradingLambda = this.creditRiskGradingLambda.creditRiskData;
+        }
+
+        if (name === 'Credit Risk Grading - Micro' && action) {
+            this.crgMicro.onSubmit();
+            this.loanDocument.crgMicro = this.crgMicro.creditRiskData;
         }
 
         if (name === 'Credit Risk Grading - Gamma' && action) {
