@@ -101,6 +101,7 @@
                             <th>Priority</th>
                             <th>File Possession</th>
                             <th>Stage</th>
+                            <th *ngIf="!showDocStatusList && userRoleType !== 'MAKER'">Action(F/B) Date</th>
                             <th *ngIf="userRoleType != 'MAKER' && userRoleType != 'APPROVAL'">Action</th>
                         </tr>
                         </thead>
@@ -124,7 +125,8 @@
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder.loanType}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.priority}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{user?.role?.roleName}}</td>
-                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder.documentStatus}}</td>
+                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.documentStatus}}</td>
+                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)" *ngIf="userRoleType !== 'MAKER'">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}</td>
                             <td *ngIf="userRoleType != 'MAKER' && userRoleType != 'APPROVAL'">
                                 <button *ngIf="productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL === 'LOAN'"
                                         (click)="configureRole(loanDataHolder.id)" nbButton size="small"

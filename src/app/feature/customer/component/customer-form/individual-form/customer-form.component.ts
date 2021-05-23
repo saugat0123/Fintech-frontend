@@ -238,7 +238,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     onSubmit() {
-        console.log('this is basic info', this.basicInfo);
         this.submitted = true;
         const tempId = this.basicInfo.get('citizenshipNumber').value;
         this.blackListService.checkBlacklistByRef(tempId).subscribe((response: any) => {
@@ -335,7 +334,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 }
             }
         });
-        console.log('this is customer data', this.customer);
     }
 
     getProvince() {
@@ -645,7 +643,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     /** @Param validate --- true for add validation and false for remove validation
      * @Param controlNames --- list of formControlName**/
     controlValidation(controlNames: string[], validate) {
-        console.log(validate);
         controlNames.forEach(s => {
             if (validate) {
                 this.basicInfo.get(s).setValidators(Validators.required);
@@ -657,7 +654,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     onCustomerTypeChange(check: boolean) {
-        console.log('value is check' , check);
         if (check || this.crgLambdaDisabled) {
             this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk', 'bankingRelationship',
                 'netWorth'], false);
