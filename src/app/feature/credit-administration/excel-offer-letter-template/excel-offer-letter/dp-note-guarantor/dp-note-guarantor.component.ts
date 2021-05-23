@@ -55,8 +55,8 @@ export class DpNoteGuarantorComponent implements OnInit {
         let guarantor = {
             name: ''
         };
-        if ('guarantorDetails' in this.nepaliData && this.nepaliData.guarantorDetails.length > 0) {
-            guarantor = this.nepaliData.guarantorDetails[0];
+        if (('guarantorDetails' in this.nepaliData) && this.nepaliData.guarantorDetails.length > 0) {
+            guarantor = this.nepaliData.guarantorDetails[0].name;
         }
         this.form.patchValue({
             name: this.nepaliData.name ? this.nepaliData.name : '',

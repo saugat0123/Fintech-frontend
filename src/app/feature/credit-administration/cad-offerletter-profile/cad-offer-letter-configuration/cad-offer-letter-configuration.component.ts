@@ -182,10 +182,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     setGuarantors(guarantorDetails: any) {
         const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
-        if (ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
-            this.addGuarantor();
-            return;
-        }
         if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
             if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
                 const guarantorList = this.customerInfo.guarantors.guarantorList;
