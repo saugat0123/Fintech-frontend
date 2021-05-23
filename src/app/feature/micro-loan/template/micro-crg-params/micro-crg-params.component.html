@@ -420,6 +420,206 @@
         </nb-card-body>
     </nb-card>
 
+    <div class="row">
+        <div class="col">
+            <label for="totalDebt"><strong>
+                Total Debt (including other debts of the customer including present total)
+            </strong></label>
+            <input class="form-control" id="totalDebt"
+                   placeholder="Total Debt Amount" formControlName="totalDebt">
+            <span *ngIf="submitted && microCrgParamsForm.get('totalDebt').invalid" class="text-danger small">Total Debt Amount required</span>
+        </div>
+        <div class="col">
+            <label for="totalEquity"><strong>
+                Total Equity that client is injecting
+            </strong></label>
+            <input class="form-control" id="totalEquity"
+                   placeholder="Total Equity Amount" formControlName="totalEquity">
+            <span *ngIf="submitted && microCrgParamsForm.get('totalDebt').invalid" class="text-danger small">Total Equity Amount required</span>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col">
+            <label for="netWorthMicro"><strong>
+                Net worth
+            </strong></label>
+            <input class="form-control" id="netWorthMicro"
+                   placeholder="Net worth Amount" formControlName="netWorth">
+            <span *ngIf="submitted && microCrgParamsForm.get('netWorth').invalid" class="text-danger small">
+                Net worth required</span>
+        </div>
+        <div class="col">
+            <label for="totalLoanMicro"><strong>
+                Total loan including this present request
+            </strong></label>
+            <input class="form-control" id="totalLoanMicro"
+                   placeholder="Total loan including this present request" formControlName="totalLoan">
+            <span *ngIf="submitted && microCrgParamsForm.get('totalLoan').invalid" class="text-danger small">
+                Total loan required</span>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row" >
+        <div class="col">
+            <div>
+                <h5>Experience of client in related field</h5>
+            </div>
+            <div class="form-group">
+                <nb-select formControlName="expOfClient"
+                           fullWidth
+                           placeholder="Select Experience of client in related field">
+                    <nb-option *ngFor="let val of expOfClient" [value]="val.value">{{val.value}}</nb-option>
+                </nb-select>
+                <div *ngIf="submitted && microCrgParamsForm.get('expOfClient').invalid" class="neb-error-feedback">
+                    Experience of client in related field Required
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div>
+                <h5>Ownership of residence</h5>
+            </div>
+            <div class="form-group">
+                <nb-select formControlName="ownershipOfResidence"
+                           fullWidth
+                           placeholder="Select Ownership of residence">
+                    <nb-option *ngFor="let val of ownershipOfResidence" [value]="val.value">{{val.value}}</nb-option>
+                </nb-select>
+                <div *ngIf="submitted && microCrgParamsForm.get('ownershipOfResidence').invalid" class="neb-error-feedback">
+                    Ownership of residence Required
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" >
+        <div class="col-6">
+            <div>
+                <h5>Relationship with mega bank</h5>
+            </div>
+            <div class="form-group">
+                <nb-select formControlName="relationWithMega"
+                           fullWidth
+                           placeholder="Select Relationship with mega bank">
+                    <nb-option *ngFor="let val of relationWithMega" [value]="val.value">{{val.value}}</nb-option>
+                </nb-select>
+                <div *ngIf="submitted && microCrgParamsForm.get('relationWithMega').invalid" class="neb-error-feedback">
+                    Relationship with mega bank Required
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <nb-checkbox class="mb-2" formControlName="isSubsidized">Is a subsidized loan</nb-checkbox>
+    <br>
+    <div class="row" *ngIf="microCrgParamsForm.get('isSubsidized').value">
+        <div class="col-6">
+            <div>
+                <h5>Insurance coverage</h5>
+            </div>
+            <div class="form-group">
+                <nb-select formControlName="insuranceCoverage"
+                           fullWidth
+                           placeholder="Select Insurance coverage">
+                    <nb-option *ngFor="let val of insuranceCoverage" [value]="val.value">{{val.value}}</nb-option>
+                </nb-select>
+                <div *ngIf="submitted && microCrgParamsForm.get('insuranceCoverage').invalid" class="neb-error-feedback">
+                    Insurance coverage Required
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="!microCrgParamsForm.get('isSubsidized').value">
+        <div class="col">
+            <div>
+                <h5>Location of property with following options</h5>
+            </div>
+            <div class="form-group">
+                <nb-select formControlName="locationOfProperty"
+                           fullWidth
+                           placeholder="Select Location of property with following options">
+                    <nb-option *ngFor="let val of locationOfProperty" [value]="val.value">{{val.value}}</nb-option>
+                </nb-select>
+                <div *ngIf="submitted && microCrgParamsForm.get('locationOfProperty').invalid" class="neb-error-feedback">
+                    Location of property with following options Required
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div>
+                <h5>Road access to the property</h5>
+            </div>
+            <div class="form-group">
+                <nb-select formControlName="roadAccess"
+                           fullWidth
+                           placeholder="Select Road access">
+                    <nb-option *ngFor="let val of roadAccess" [value]="val.value">{{val.value}}</nb-option>
+                </nb-select>
+                <div *ngIf="submitted && microCrgParamsForm.get('roadAccess').invalid" class="neb-error-feedback">
+                    Road access Required
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-6">
+            <div>
+                <h5>Does the client has multibanking?</h5>
+            </div>
+            <div class="form-group">
+                <nb-select formControlName="multibanking"
+                           fullWidth
+                           placeholder="Select multibanking">
+                    <nb-option *ngFor="let val of multibanking" [value]="val.value">{{val.value}}</nb-option>
+                </nb-select>
+                <div *ngIf="submitted && microCrgParamsForm.get('multibanking').invalid" class="neb-error-feedback">
+                    Multibanking Required
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div>
+                <h5>Relationship with existing bank</h5>
+            </div>
+            <div class="form-group">
+                <nb-select formControlName="relationWithBank"
+                           fullWidth
+                           placeholder="Select Relationship with existing bank">
+                    <nb-option *ngFor="let val of relationWithBank" [value]="val.value">{{val.value}}</nb-option>
+                </nb-select>
+                <div *ngIf="submitted && microCrgParamsForm.get('relationWithBank').invalid" class="neb-error-feedback">
+                    Relationship with existing bank Required
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div>
+                <h5>Repayment history</h5>
+            </div>
+            <div class="form-group">
+                <nb-select formControlName="repaymentHistory"
+                           fullWidth
+                           placeholder="Select Repayment history">
+                    <nb-option *ngFor="let val of repaymentHistory" [value]="val.value">{{val.value}}</nb-option>
+                </nb-select>
+                <div *ngIf="submitted && microCrgParamsForm.get('repaymentHistory').invalid" class="neb-error-feedback">
+                    Repayment history Required
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
         <button (click)="onSubmit()" nbButton type="button">save</button>
     </div>

@@ -8,12 +8,19 @@ import {
 } from '../../../admin/modal/crg/typeOfSourceOfIncome';
 import {MajorSourceIncomeType} from '../../../admin/modal/crg/major-source-income-type';
 import {NgSelectComponent} from '@ng-select/ng-select';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {Pattern} from '../../../../@core/utils/constants/pattern';
 import {NumberUtils} from '../../../../@core/utils/number-utils';
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
+import {ExpOfClient} from './model/ExpOfClient';
+import {OwnershipOfResidence} from './model/OwnershipOfResidence';
+import {RelationWithMega} from './model/RelationWithMega';
+import {InsuranceCoverage} from './model/InsuranceCoverage';
+import {LocationOfProperty} from './model/LocationOfProperty';
+import {RoadAccess} from './model/RoadAccess';
+import {Multibanking} from './model/Multibanking';
+import {RepaymentHistory} from './model/RepaymentHistory';
 
 @Component({
   selector: 'app-micro-crg-params',
@@ -25,6 +32,16 @@ export class MicroCrgParamsComponent implements OnInit {
   @Input() fromProfile;
   @Input() microCrgParams: MicroCrgParams;
   @Output() dataEmitter = new EventEmitter();
+
+  expOfClient = ExpOfClient.enumObject();
+  ownershipOfResidence = OwnershipOfResidence.enumObject();
+  relationWithMega = RelationWithMega.enumObject();
+  insuranceCoverage = InsuranceCoverage.enumObject();
+  locationOfProperty = LocationOfProperty.enumObject();
+  roadAccess = RoadAccess.enumObject();
+  multibanking = Multibanking.enumObject();
+  relationWithBank = RelationWithMega.enumObject();
+  repaymentHistory = RepaymentHistory.enumObject();
 
   microCrgParamsForm: FormGroup;
   microCrgParamsData: MicroCrgParams = new MicroCrgParams();
@@ -38,8 +55,7 @@ export class MicroCrgParamsComponent implements OnInit {
   client = environment.client;
   clientName = Clients;
 
-  constructor(private formBuilder: FormBuilder,
-              private modalService: NgbModal) {
+  constructor(private formBuilder: FormBuilder) {
   }
 
   get form() {
@@ -106,6 +122,23 @@ export class MicroCrgParamsComponent implements OnInit {
       totalObligationCurrentBank: [undefined],
       totalBankObligation: [undefined],
       obligationGrossIncomeRatio: [undefined],
+
+      totalDebt: [undefined, Validators.required],
+      totalEquity: [undefined, Validators.required],
+      netWorth: [undefined, Validators.required],
+      totalLoan: [undefined, Validators.required],
+      expOfClient: [undefined, Validators.required],
+      ownershipOfResidence: [undefined, Validators.required],
+      relationWithMega: [undefined, Validators.required],
+
+      isSubsidized: [false],
+      insuranceCoverage: [undefined],
+      locationOfProperty: [undefined],
+      roadAccess: [undefined],
+
+      multibanking: [undefined, Validators.required],
+      relationWithBank: [undefined, Validators.required],
+      repaymentHistory: [undefined, Validators.required],
     });
   }
 
@@ -335,7 +368,7 @@ export class MicroCrgParamsComponent implements OnInit {
     this.calculateAndSetHighestScore();
     this.currentFormData['initialForm'] = this.microCrgParamsForm.value;
     this.microCrgParamsData.data = JSON.stringify(this.currentFormData);
-    this.dataEmitter.emit(this.microCrgParamsData.data);
+    this.dataEmitter.emit(this.microCrgParamsData);
   }
 
 }

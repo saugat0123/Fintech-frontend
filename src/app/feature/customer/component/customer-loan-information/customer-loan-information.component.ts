@@ -213,8 +213,8 @@ export class CustomerLoanInformationComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.customerInfo.microBorrowerFinancial)) {
             this.microBorrowerFinancial = this.customerInfo.microBorrowerFinancial;
         }
-        if (!ObjectUtil.isEmpty(this.customerInfo.microCrgParams)) {
-            this.microCrgParams = this.customerInfo.microCrgParams;
+        if (!ObjectUtil.isEmpty(this.customerInfo.microOtherParameters)) {
+            this.microCrgParams = this.customerInfo.microOtherParameters;
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.reportingInfoLevels)) {
             this.reportingInfoLevels = this.customerInfo.reportingInfoLevels;
@@ -523,7 +523,7 @@ export class CustomerLoanInformationComponent implements OnInit {
             this.microCrgParams = new MicroCrgParams();
         }
         this.microCrgParams = data;
-        this.customerInfoService.saveLoanInfo(this.microCrgParams, this.customerInfoId, TemplateName.MICRO_BORROWER_FINANCIAL)
+        this.customerInfoService.saveLoanInfo(this.microCrgParams, this.customerInfoId, TemplateName.MICRO_OTHER_PARAMETERS)
             .subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Micro CRG Params!'));
                 this.microCrgParamsComponent.close();
