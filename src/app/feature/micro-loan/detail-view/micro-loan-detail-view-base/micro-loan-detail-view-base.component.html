@@ -75,6 +75,11 @@
                              [fiscalYears]="fiscalYearArray"
                              [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
         </ng-template>
+        <div *ngIf="client === clientName?.MEGA">
+            <app-comments-summary
+                    [formData]="dataFromComments"></app-comments-summary>
+            <app-previous-security-summary *ngIf="previousSecuritySummary" [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
+        </div>
             <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
 
                 <app-report-summary

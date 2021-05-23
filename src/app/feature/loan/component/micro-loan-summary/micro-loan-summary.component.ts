@@ -170,6 +170,10 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   marketingActivityDetail;
   collateralSiteVisitDetail = [];
   isCollateralSiteVisit = false;
+  commentsSummary = false;
+  dataFromComments;
+  previousSecuritySummary = false;
+  dataFromPreviousSecurity;
 
 
   constructor(
@@ -274,6 +278,18 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.netTradingAssets)) {
       this.netTradingAssetsData = this.loanDataHolder.loanHolder.netTradingAssets;
       this.netTradingAssetsSummary = true;
+    }
+
+    // Setting Comments data--
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
+      this.dataFromComments = JSON.parse(this.loanDataHolder.loanHolder.data);
+      this.commentsSummary = true;
+    }
+
+    // Setting Previous Security Data
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
+      this.dataFromPreviousSecurity = JSON.parse(this.loanDataHolder.loanHolder.data);
+      this.previousSecuritySummary = true;
     }
 
 
