@@ -70,6 +70,32 @@
                             </div>
 
                         </nb-card-body>
+                        <nb-card-body *ngIf="client === clientList?.EXCEL">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <nb-select
+                                        #offerLetterType
+                                        fullWidth
+                                        placeholder="Select Offer Letter"
+                                        status="info">
+                                        <nb-option *ngFor="let i of excelOfferLetterTypes" [value]="i.value">
+                                            {{i.key | replace:'_':' ' }}
+                                        </nb-option>
+                                    </nb-select>
+                                </div>
+                                <div  class="col-md-12 mt-3">
+                                    <button (click)="openExcelOfferLetterDocumentModal(offerLetterType?.selected)"
+                                            class="float-right" nbButton
+                                            size="small"
+                                            [disabled]="roleType === 'MAKER' ||
+                              (cadOfferLetterApprovedDoc?.docStatus === 'LEGAL_APPROVED' ||
+                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||
+                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')">Generate
+                                    </button>
+                                </div>
+                            </div>
+
+                        </nb-card-body>
                     </nb-card>
 
                     <nb-card>

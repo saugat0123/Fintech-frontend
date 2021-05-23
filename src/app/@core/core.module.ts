@@ -30,7 +30,7 @@ export const NB_CORE_PROVIDERS = [
     ToastService,
     PermissionService,
     LoanStatusPipe,
-
+    EngToNepaliNumberPipe,
 ];
 
 const UTILITY_MODULES = [
