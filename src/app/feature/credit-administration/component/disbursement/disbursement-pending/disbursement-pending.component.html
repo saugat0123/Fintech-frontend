@@ -2,7 +2,7 @@
     <nb-card-header>
         <div class="row">
             <div class="col-md-12">
-                <app-filter (eventEmitter)="setSearchValue($event)"></app-filter>
+                <app-filter (eventEmitter)="setSearchValue($event)" [docStatus]="'DISBURSEMENT_PENDING'"></app-filter>
             </div>
         </div>
         <h6 class="text-center">Disbursement Pending</h6>

@@ -424,20 +424,24 @@ export class ProposalComponent implements OnInit {
     let interestAmount = 0;
     const rate = Number(this.proposalForm.get('interestRate').value) / 100;
     const proposedAmount = this.proposalForm.get('proposedLimit').value;
-    const tenure = this.proposalForm.get('tenureDurationInMonths').value;
+    const tenure = this.proposalForm.get('tenureDurationInMonths').value / 12;
+    const calculatedInterestAmount = this.proposalForm.get('interestAmount').value;
     if (proposedAmount) {
       switch (repaymentMode) {
         case 'MONTHLY':
-          interestAmount = (proposedAmount * rate) / 12;
-          principleAmount = (proposedAmount / tenure) * 12;
+          interestAmount = (proposedAmount * rate * tenure) / 12;
+          principleAmount = (calculatedInterestAmount / (tenure * rate)) * 12;
           break;
         case 'QUARTERLY':
-          interestAmount = (proposedAmount * rate) / 4;
-          principleAmount = (proposedAmount / tenure) * 4;
+          interestAmount = (proposedAmount * rate * tenure) / 4;
+          principleAmount = (calculatedInterestAmount / (tenure * rate)) * 4;
           break;
         case 'SEMI-ANNUALLY' :
-          interestAmount = (proposedAmount * rate) / 2;
-          principleAmount = (proposedAmount / tenure) * 2;
+          interestAmount = (proposedAmount * rate * tenure) / 2;
+          principleAmount = (calculatedInterestAmount / (tenure * rate)) * 2;
+          break;
+        case 'AT MATURITY':
+          principleAmount = proposedAmount;
           break;
         default:
           principleAmount = 0;
@@ -499,6 +503,7 @@ export class ProposalComponent implements OnInit {
       this.showInstallmentAmount = false;
       this.controlValidation(['repaymentModeInterest' , 'repaymentModePrincipal'] , true);
     } else {
+      this.calculateInterestAmountForRepaymentMode();
       this.showInstallmentAmount = false;
       this.showRepaymentMode = false;
     }
@@ -552,9 +557,10 @@ export class ProposalComponent implements OnInit {
     calculateInterestAmountForRepaymentMode() {
         const proposeLimit = Number(this.proposalForm.get('proposedLimit').value);
         const interestRate = Number(this.proposalForm.get('interestRate').value);
-        const tenureDurationInMonths = Number(this.proposalForm.get('tenureDurationInMonths').value);
+        const tenureDurationInMonths = Number(this.proposalForm.get('tenureDurationInMonths').value) / 12;
         const interestAmount = (proposeLimit * (interestRate / 100) * tenureDurationInMonths) / 12;
-        return this.proposalForm.get('interestAmount').setValue(Number(interestAmount).toFixed(2));
+        this.proposalForm.get('interestAmount').setValue(Number(interestAmount).toFixed(2));
+        this.proposalForm.get('principalAmount').setValue(Number(proposeLimit).toFixed(2));
     }
 
   calculateInterestRate() {

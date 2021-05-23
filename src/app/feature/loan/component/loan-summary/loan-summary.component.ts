@@ -38,6 +38,8 @@ import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 import {RouteConst} from '../../../credit-administration/model/RouteConst';
 import {ApprovalSheetInfoComponent} from './approval-sheet-info/approval-sheet-info.component';
 import {Clients} from '../../../../../environments/Clients';
+import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
+import {CollateralSiteVisit} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 
 @Component({
     selector: 'app-loan-summary',
@@ -167,6 +169,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     dataFromPreviousSecurity;
     isJointInfo = false;
     jointInfo = [];
+    collateralSiteVisitDetail = [];
+    isCollateralSiteVisit = false;
+    age: number;
 
 
     constructor(
@@ -185,7 +190,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private combinedLoanService: CombinedLoanService,
         private commonRoutingUtilsService: CommonRoutingUtilsService,
         private toastService: ToastService,
-        private fiscalYearService: FiscalYearService
+        private fiscalYearService: FiscalYearService,
+        private collateralSiteVisitService: CollateralSiteVisitService
     ) {
         this.client = environment.client;
         this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
@@ -207,6 +213,15 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.loadSummary();
         this.roleType = LocalStorageUtil.getStorage().roleType;
         this.checkDocUploadConfig();
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+           this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.loanDataHolder.security.id)
+               .subscribe((response: any) => {
+                   this.collateralSiteVisitDetail.push(response.detail);
+                   if (response.detail.length > 0) {
+                       this.isCollateralSiteVisit = true;
+                   }
+               });
+        }
     }
 
     ngOnDestroy(): void {
@@ -542,7 +557,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     previewOfferLetterDocument(url: string, name: string): void {
         const link = document.createElement('a');
         link.target = '_blank';
-        link.href = `${ApiConfig.URL}/${url}`;
+        link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
         link.download = name;
         link.setAttribute('visibility', 'hidden');
         link.click();
@@ -638,6 +653,12 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     public customSafePipe(val) {
         return val.replace(/(<([^>]+)>)/gi, "");
+    }
+
+    calculateAge(dob) {
+        const difference = Math.abs(Date.now() - new Date(dob).getTime());
+        this.age = Math.floor((difference / (1000 * 3600 * 24)) / 365);
+        return this.age;
     }
 }
 

@@ -36,6 +36,8 @@ import {ReadmoreModelComponent} from '../readmore-model/readmore-model.component
 import {DocAction} from '../../model/docAction';
 import {Security} from '../../../admin/modal/security';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
+import {Clients} from '../../../../../environments/Clients';
+import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 
 @Component({
   selector: 'app-micro-loan-summary',
@@ -54,7 +56,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   @Input() nepaliDate;
 
   client: string;
-
+  clientName = Clients;
   docMsg;
   rootDocLength;
   dmsLoanFile: DmsLoanFile = new DmsLoanFile();
@@ -159,6 +161,12 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   customerType: string;
   borrowerPortfolioDetail;
   marketingActivityDetail;
+  collateralSiteVisitDetail = [];
+  isCollateralSiteVisit = false;
+  commentsSummary = false;
+  dataFromComments;
+  previousSecuritySummary = false;
+  dataFromPreviousSecurity;
 
 
   constructor(
@@ -177,7 +185,8 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
       private combinedLoanService: CombinedLoanService,
       private commonRoutingUtilsService: CommonRoutingUtilsService,
       private toastService: ToastService,
-      private fiscalYearService: FiscalYearService
+      private fiscalYearService: FiscalYearService,
+      private collateralSiteVisitService: CollateralSiteVisitService
   ) {
     this.client = environment.client;
     this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
@@ -208,6 +217,15 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.marketingActivities)) {
       this.marketingActivityDetail = this.loanDataHolder.loanHolder.marketingActivities;
       this.marketingActivity = true;
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+      this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.loanDataHolder.security.id)
+          .subscribe((response: any) => {
+            this.collateralSiteVisitDetail.push(response.detail);
+            if (response.detail.length > 0) {
+              this.isCollateralSiteVisit = true;
+            }
+          });
     }
   }
 
@@ -253,6 +271,18 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.netTradingAssets)) {
       this.netTradingAssetsData = this.loanDataHolder.loanHolder.netTradingAssets;
       this.netTradingAssetsSummary = true;
+    }
+
+    // Setting Comments data--
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
+      this.dataFromComments = JSON.parse(this.loanDataHolder.loanHolder.data);
+      this.commentsSummary = true;
+    }
+
+    // Setting Previous Security Data
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
+      this.dataFromPreviousSecurity = JSON.parse(this.loanDataHolder.loanHolder.data);
+      this.previousSecuritySummary = true;
     }
 
 
@@ -532,7 +562,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   previewOfferLetterDocument(url: string, name: string): void {
     const link = document.createElement('a');
     link.target = '_blank';
-    link.href = `${ApiConfig.URL}/${url}`;
+    link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
     link.download = name;
     link.setAttribute('visibility', 'hidden');
     link.click();
@@ -558,7 +588,6 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
           }
       }
   }*/
-
   /**
    * Get array of loan stage for authority signature array.
    *

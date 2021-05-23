@@ -34,6 +34,7 @@ import { NtaMegaSummaryComponent } from './nta-mega-summary/nta-mega-summary.com
 import { MGroupSummaryComponent } from './m-group-summary/m-group-summary.component';
 import { CommentsSummaryComponent } from './comments-summary/comments-summary.component';
 import {PreviousSecuritySummaryComponent} from '../../../loan-information-view/previous-security-summary/previous-security-summary.component';
+import {NepaliPatroModule} from 'nepali-patro';
 
 
 const COMPONENTS = [
@@ -73,7 +74,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         CoreModule,
         CbsGroupModule,
         NgSelectModule,
-        LoanInformationViewModule
+        LoanInformationViewModule,
+        NepaliPatroModule
     ],
     exports: [
         LoanSummaryComponent,

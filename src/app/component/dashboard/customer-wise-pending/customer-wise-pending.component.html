@@ -96,6 +96,14 @@
                                 <input class="form-control form-control-tiny" formControlName="customerCode" id="code"
                                        placeholder="Customer code" type="text">
                             </div>
+                            <div class="col-md-3 mb-3 py-2">
+                                <select
+                                        class="form-control form-control-tiny" formControlName="loanTag">
+                                    <option [ngValue]="null">Select Loan Segment</option>
+                                    <option *ngFor="let data of loanTag" [ngValue]="data"
+                                    >{{data}}</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="col-md-12 p-0">
                             <button [disabled]="!filterForm.valid" class="mr-2" nbButton shape="rectangle"

@@ -7,16 +7,26 @@ import {UserService} from '../../admin/component/user/user.service';
 import {User} from '../../admin/modal/user';
 import {CustomerType} from '../../customer/model/customerType';
 import {RoleType} from '../../admin/modal/roleType';
+import {CreditAdministrationService} from '../service/credit-administration.service';
+import {CommonService} from '../../../@core/service/common.service';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {ToastService} from '../../../@core/utils';
+import {Alert, AlertType} from '../../../@theme/model/Alert';
 
 @Injectable({
     providedIn: 'root'
 })
 export class RouterUtilsService {
     currentUserLocalStorage = LocalStorageUtil.getStorage().userId;
+    searchObj = {};
 
     constructor(
         private router: Router,
-        private userService: UserService
+        private userService: UserService,
+        private cadService: CreditAdministrationService,
+        private commonService: CommonService,
+        private spinnerService: NgxSpinnerService,
+        private toastService: ToastService,
     ) {
     }
 
@@ -130,5 +140,22 @@ export class RouterUtilsService {
     encryptUrl(id) {
         const i = CryptoJS.AES.encrypt(id.toString(), 'id').toString();
         return i;
+    }
+
+    generateReport(value, status, isCadFile) {
+        this.spinnerService.show();
+        if (!isCadFile) {
+            this.searchObj = Object.assign(value, {docStatus: status});
+        } else {
+            this.searchObj = Object.assign(value, {isCadFile: 'true'});
+        }
+
+        this.cadService.getReport(this.searchObj).subscribe((response: any) => {
+            this.commonService.download(response.detail, 'offer pending');
+            this.spinnerService.hide();
+        }, error => {
+            this.spinnerService.hide();
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message === null ? 'Unable to Download ' : error.error.message));
+        });
     }
 }

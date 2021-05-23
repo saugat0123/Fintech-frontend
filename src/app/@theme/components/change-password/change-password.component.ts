@@ -45,7 +45,6 @@ export class ChangePasswordComponent implements OnInit, AfterViewInit {
 
   onChangePassword() {
         this.changePasswordObject.username = LocalStorageUtil.getStorage().username;
-        console.log(this.changePasswordObject.username);
         this.changePasswordObject.oldPassword = this.passwordForm.get('oldPassword').value;
         this.changePasswordObject.newPassword = this.passwordForm.get('newPassword').value;
         if (this.passwordForm.get('newPassword').value as string === this.passwordForm.get('confirmPassword').value as string) {

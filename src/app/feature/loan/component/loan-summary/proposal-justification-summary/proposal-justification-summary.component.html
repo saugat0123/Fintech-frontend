@@ -7,7 +7,7 @@
         <ol>
             <li class="col-md-12" *ngFor="let data of customerAllLoanList;let i = index">
                 <div class="row sb-medium">
-                    <strong><span><u>{{data.loan.name}}({{data.createdAt | date}}) :</u></span></strong>
+                    <strong><span><u>{{data.loan.name}}({{data.createdAt | engNepDate: false}}) :</u></span></strong>
                 </div>
 
                 <div>

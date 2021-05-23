@@ -20,6 +20,7 @@ export class MicroIndividualComponent implements OnInit {
   additionalInfoJsonData;
   customerLocationData;
   otherInformationAndConfirmation;
+  age: number;
 
   constructor() { }
 
@@ -29,6 +30,12 @@ export class MicroIndividualComponent implements OnInit {
       this.contact = JSON.parse(this.customerInfo.contactNumber);
       this.otherInformationAndConfirmation = JSON.parse(this.loanDataHolder.proposal.data);
     }
+  }
+
+  calculateAge(dob) {
+    const difference = Math.abs(Date.now() - new Date(dob).getTime());
+    this.age = Math.floor((difference / (1000 * 3600 * 24)) / 365);
+    return this.age;
   }
 
 }

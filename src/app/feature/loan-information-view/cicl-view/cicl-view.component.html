@@ -28,7 +28,7 @@
           <td class="text-left pl-1">{{data?.facility || 'NA'}}</td>
           <td class="text-right pr-1">Rs. {{data?.overdueAmount | currencyFormatter}}</td>
           <td class="text-left pl-1">{{data?.status || 'NA'}}</td>
-          <td class="text-left pl-1">{{data?.obtaineddate | date}}</td>
+          <td class="text-left pl-1">{{data?.obtaineddate | engNepDate: false}}</td>
           <td class="text-right pr-1">Rs. {{data?.loanamount | currencyFormatter}}</td>
           <td class="text-right pr-1">Rs. {{data?.outstandingAmount | currencyFormatter}}</td>
           <td class="text-right pr-1">{{data?.overdue}}</td>

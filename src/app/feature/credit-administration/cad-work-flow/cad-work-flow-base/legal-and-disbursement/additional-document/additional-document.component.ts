@@ -21,7 +21,7 @@ export class AdditionalDocumentComponent implements OnInit, OnChanges {
     responseCadData: EventEmitter<CustomerApprovedLoanCadDocumentation> = new EventEmitter<CustomerApprovedLoanCadDocumentation>();
 
 
-    constructor(private nbService: NbDialogService,public commonService: CommonService) {
+    constructor(private nbService: NbDialogService, public commonService: CommonService) {
     }
 
     ngOnInit() {

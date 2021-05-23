@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
-import {NgbActiveModal, NgbModal, NgbTabChangeEvent, NgbTabset} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbTabChangeEvent, NgbTabset} from '@ng-bootstrap/ng-bootstrap';
 import {LoanDataHolder} from '../../model/loanData';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 
@@ -20,7 +20,7 @@ import {CustomerRelative} from '../../../admin/modal/customer-relative';
 import {ProposalComponent} from '../../../loan-information-template/proposal/proposal.component';
 import {Proposal} from '../../../admin/modal/proposal';
 import {CiclComponent} from '../../../loan-information-template/cicl/cicl.component';
-import {ModalResponse, ToastService} from '../../../../@core/utils';
+import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {DatePipe} from '@angular/common';
 import {CreditGradingComponent} from '../../../loan-information-template/credit-grading/credit-grading.component';
@@ -55,11 +55,9 @@ import {LoanType} from '../../model/loanType';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
 import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
 import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
-import {environment} from '../../../../../environments/environment.srdb';
+import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
 import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
-import {NbDialogRef} from '@nebular/theme';
-import {CustomerProfileComponent} from '../../../customer/component/customer-profile/individual-profile/customer-profile.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -570,7 +568,7 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.proposal = this.proposalDetail.proposalData;
         }
 
-        if (name === 'Customer Document' && action) {
+        if (name === 'Loan Document' && action) {
             this.loanDocument.customerDocument = this.customerDocument.customerDocumentArray;
         }
 

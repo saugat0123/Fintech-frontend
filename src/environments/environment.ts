@@ -16,20 +16,18 @@ import {Clients} from './Clients';
  active client name in current repo: 'srdb' , 'tinau' , 'mega'
  */
 export const environment = {
-    production: true,
-    client: Clients.EXCEL,
-    GOOGLE_MAP_API_KEY: 'AIzaSyDKERYllGf5BfVR_c_45nqHVkbHoPgXPDA',
-    LOCAL_STORAGE_KEY: 'QP\'`0tWfyBni^(*rv0gB].ck$s@z(/',
-    LOCAL_STORAGE_NAME: 'SBSolutionsEXCELLAS',
-    enablePreAddingAccountNumber: false,
-    disableCrgAlpha: true,
-    disableCrgLambda: true,
-    disableApprovalSheet: true,
-    RISK_INITIAL_ROLE: 'RISK OFFICER',
-    microLoan: false,
-    SBS_GROUP: false,
-    MEGA_GROUP: false,
-    isMega: false
+  production: false,
+  client: Clients.MEGA,
+  GOOGLE_MAP_API_KEY: 'AIzaSyDKERYllGf5BfVR_c_45nqHVkbHoPgXPDA',
+  LOCAL_STORAGE_KEY: 'QP\'`0tWfyBni^(*rv0gB].ck$s@z(/',
+  LOCAL_STORAGE_NAME: 'SBSolutionsLAS',
+  enablePreAddingAccountNumber: true,
+  disableCrgAlpha: true,
+  disableCrgLambda: false,
+  disableApprovalSheet: false,
+  microLoan: true,
+  SBS_GROUP: false,
+  MEGA_GROUP: true,
 };
 
 /*

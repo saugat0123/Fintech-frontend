@@ -9,6 +9,7 @@
                 <th>Name</th>
                 <th>Customer Id</th>
                 <th>Date of birth</th>
+                <th>Age</th>
                 <th>Citizenship no.</th>
                 <th>Citizenship Issued Date</th>
                 <th>Issued Place</th>
@@ -22,6 +23,7 @@
                 <td class="text-left pl-1">{{individual?.customerName}}</td>
                 <td class="text-right pr-1">{{customerInfo?.customerCode}}</td>
                 <td class="text-left pl-1">{{individual?.dob | date}}</td>
+                <td class="text-left pl-1">{{calculateAge(individual?.dob)}} years</td>
                 <td class="text-right pr-1">{{individual?.citizenshipNumber}}</td>
                 <td class="text-left pl-1">{{individual?.citizenshipIssuedDate | date}}</td>
                 <td class="text-left pl-1">{{individual?.citizenshipIssuedPlace}}</td>
@@ -37,6 +39,7 @@
                 <th>Occupation</th>
                 <th>Income</th>
                 <th>Client Type</th>
+                <th>Distance from Branch (km)</th>
             </tr>
             </thead>
             <tbody>
@@ -47,6 +50,7 @@
                 <td class="text-left pl-1">{{(individual?.occupation| jsonParse)?.multipleOccupation || 'NA'}}</td>
                 <td class="text-left pl-1">{{(individual?.incomeSource| jsonParse)?.multipleIncome || 'NA'}}</td>
                 <td class="text-left pl-1">{{customerInfo?.clientType}}</td>
+                <td class="text-right pr-1">{{individualJsonData?.microCustomerDetail?.bankDistance || 'NA'}}</td>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Subsector</th>
