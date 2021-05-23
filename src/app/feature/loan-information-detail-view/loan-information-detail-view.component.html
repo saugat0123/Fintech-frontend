@@ -45,13 +45,21 @@
                                     <br/>
                                     for
                                 </div>
-                                <div
-                                        class="report-header-sub-heading">
+                                <div class="report-header-sub-heading" *ngIf="!isJointInfo">
                                     {{loanCategory === 'INSTITUTION' ?
                                     loanDataHolder?.companyInfo?.companyName
                                     : loanDataHolder?.customerInfo?.customerName}}
                                 </div>
-                                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
+                                <div class="report-header-sub-heading" *ngIf="isJointInfo">
+                                    <div *ngFor="let jointCustomer of jointInfo">
+                                        <ng-container *ngFor="let info of jointCustomer">
+                                            <span class="sb-medium">{{loanCategory === 'INSTITUTION' ?
+                                                loanDataHolder?.companyInfo?.companyName : info?.customerName}}</span><br/>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch ,
+                                    {{loanDataHolder?.branch?.province?.name}}</div>
                                 <div class="badge badge-warning">Detail</div>
 
                             </div>
@@ -79,12 +87,12 @@
             </div>
             <div class="row sb-small mb-1">
                 <div class="col-md-12">
-                    <span> <b>Application Received On:</b> {{loanDataHolder?.createdAt | date}} </span>
+                    <span> <b>Application Received On:</b> {{loanDataHolder?.createdAt | engNepDate: false}} </span>
                     <span class="float-right"><b>
                         <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
                         <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
                         ({{loanDataHolder?.currentStage?.fromRole?.roleName}})
-                        <b> on:</b> {{loanDataHolder?.lastModifiedAt | date}}
+                        <b> on:</b> {{loanDataHolder?.lastModifiedAt | engNepDate: false}}
                     </span>
 
                 </div>
@@ -138,9 +146,9 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>Gamma</td>
+                        <td class="text-left pl-1">Gamma</td>
                         <td><span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span></td>
-                        <td><span><strong> {{ crgGammaScore }}</strong></span></td>
+                        <td class="text-right pr-1"><span><strong> {{ crgGammaScore }}</strong></span></td>
                     </tr>
                     </tbody>
                 </table>
@@ -192,7 +200,7 @@
                         <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
                             <td>{{i + 1}}</td>
                             <td class="text-left pl-1">
-                                {{previousList?.lastModifiedAt | date}}
+                                {{previousList?.lastModifiedAt | engNepDate: false}}
                             </td>
                             <td class="text-left">
                                 <div class="pl-1">
@@ -228,7 +236,7 @@
                         </tr>
                         <tr>
                             <td>{{currentIndex + 1}}</td>
-                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}</td>
+                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}}</td>
                             <td class="text-left">
                                 <div class="pl-1">
                                     {{loanDataHolder?.currentStage?.fromUser?.name}}</div>

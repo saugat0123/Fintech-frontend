@@ -22,6 +22,7 @@ import { IncomeFromAccountViewComponent } from './income-from-account-view/incom
 import { CrgGammaDetailViewComponent } from './crg-gamma-detail-view/crg-gamma-detail-view.component';
 import { CrgAlphaDetailedViewComponent } from './crg-alpha-detailed-view/crg-alpha-detailed-view.component';
 import { CrgLambdaDetailViewComponent } from './crg-lambda-detail-view/crg-lambda-detail-view.component';
+import {NepaliPatroModule} from 'nepali-patro';
 
 
 @NgModule({
@@ -58,16 +59,17 @@ import { CrgLambdaDetailViewComponent } from './crg-lambda-detail-view/crg-lambd
         CrgAlphaDetailedViewComponent,
         CrgLambdaDetailViewComponent
     ],
-  imports: [
-    CommonModule,
-    CoreModule,
-    NbTabsetModule,
-    ReactiveFormsModule,
-    ThemeModule,
-    NgSelectModule,
-    NepaliCalendarModule,
+    imports: [
+        CommonModule,
+        CoreModule,
+        NbTabsetModule,
+        ReactiveFormsModule,
+        ThemeModule,
+        NgSelectModule,
+        NepaliCalendarModule,
+        NepaliPatroModule,
 
-  ],
+    ],
     entryComponents: [
         AllDocumentViewComponent
     ]

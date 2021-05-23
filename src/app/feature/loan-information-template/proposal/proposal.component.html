@@ -363,6 +363,7 @@
                                             <option value="MONTHLY">Monthly</option>
                                             <option value="QUARTERLY">Quarterly</option>
                                             <option value="SEMI-ANNUALLY">Semi-Annually</option>
+                                            <option value="AT MATURITY" *ngIf="client === clientName?.ICFC">AT Maturity</option>
                                         </select>
                                         <div *ngIf="(submitted) && formControls.repaymentModePrincipal.invalid"
                                              class="invalid-feedback">
@@ -392,19 +393,19 @@
                                          *ngIf="(this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
                                            ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
                                         <div class="form-group>">
-                                            <label class="title"> <strong>Interest Amount</strong></label>
+                                            <label class="title"> <strong>Interest Amount<em class="sb-medium">(in year)</em></strong></label>
                                             <input
                                                     class="form-control" formControlName="interestAmount"
                                                     id="interestAmount"
                                                     name="interestAmount" placeholder="Interest Amount" disabled
-                                                    type="number" value="{{calculateInterestAmountForRepaymentMode()}}">
+                                                    type="number">
                                         </div>
                                     </div>
                                     <div class="col-md-4"
                                          *ngIf="(this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
                                            ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
                                         <div class="form-group>">
-                                            <label class="title"> <strong>Principal Amount</strong></label>
+                                            <label class="title"> <strong>Principal Amount<em class="sb-medium">(in year)</em></strong></label>
                                             <input
                                                     class="form-control" formControlName="principalAmount"
                                                     id="principalAmount"
@@ -593,7 +594,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4 form-group" *ngIf="client === clientName?.ICFC">
+                                <div class="col-md-4 form-group" *ngIf="client !== clientName?.MEGA">
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'swapCharge')"
                                                  [checked]="swapChargeChecked"><b>Swap Charge<em class="sb-medium">(if any)</em></b>
                                     </nb-checkbox>
@@ -649,10 +650,58 @@
 
 
                                 <!--                end of Moratorium Period amount div-->
+                                <div class="col-md-12 form-group" *ngIf="client !== clientName?.MEGA">
+                                    <label class="title" for="prepaymentSwapCommitment"
+                                           *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral; else commitmentDescription">
+                                        <strong>Prepayment/Commitment/Swap Charge Description</strong>
+                                    </label>
+                                    <ng-template #commitmentDescription>
+                                        <label *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral; else swapChargeDescription">
+                                            <strong>Commitment/Swap Charge Description</strong>
+                                        </label>
+                                    </ng-template>
+                                    <ng-template #swapChargeDescription>
+                                        <label class="title" for="prepaymentSwapCommitment"><strong>Swap Charge Description</strong></label>
+                                    </ng-template>
+                                    <ckeditor [ngClass]="{ 'is-invalid': (submitted) && formControls.prepaymentSwapCommitment.errors}"
+                                              formControlName="prepaymentSwapCommitment" id="prepaymentSwapCommitment"
+                                              name="prepaymentSwapCommitment"
+                                              [config]="ckeConfig"></ckeditor>
+                                    <div *ngIf="(submitted) && formControls.prepaymentSwapCommitment.invalid"
+                                         class="text-danger">
+                                        <span *ngIf="formControls.prepaymentSwapCommitment.errors">Prepayment/Commitment/Swap Charge Description</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group" style="max-height: 300px !important;height: 250px;">
+                                        <strong>{{client === clientName?.MEGA ? 'Justification of limit' : 'Background' }}</strong>
+                                        <ckeditor formControlName="borrowerInformation"
+                                                  [style]="{height:'250px !important;'}"
+                                                  placeholder="Background"
+                                                  required
+                                                  [config]="ckeConfig"
+                                                  [ngClass]="{'is-invalid': formControls.borrowerInformation.invalid && submitted}">
+                                        </ckeditor>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-md-12" style="padding-top: 70px;">
+                                    <div *ngIf="submitted">
+                                        <span *ngIf="formControls.borrowerInformation.invalid" class="text-danger">
+                                            <sup>*</sup> {{client === clientName?.MEGA ? 'Justification of limit is required!' : 'Background Information is required.' }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="client != clientName.MEGA">
+                                    <div class="form-group">
+                                        <label class="title"><b>Purpose of Loan</b></label>
+                                        <ckeditor formControlName="purposeOfLoan"></ckeditor>
+                                    </div>
+                                </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="title" for="disbursementCriteria"><strong>Disbursement
-                                            Criteria</strong></label>
+                                        <label class="title" for="disbursementCriteria"><strong>Disbursement Criteria</strong></label>
                                         <ckeditor
                                                 [ngClass]="{ 'is-invalid': (submitted) && formControls.disbursementCriteria.errors }"
                                                 formControlName="disbursementCriteria" id="disbursementCriteria"
@@ -679,56 +728,15 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="form-group" style="max-height: 300px !important;height: 250px;">
-                                        <strong>{{client === clientName?.MEGA ? 'Justification of limit' : 'Background' }}</strong>
-                                        <!--                    <textarea-->
-                                        <!--                        [ngClass]="{ 'is-invalid': (submitted) && formControls.borrowerInformation.errors }"-->
-                                        <!--                        class="form-control"-->
-                                        <!--                        formControlName="borrowerInformation" id="borrowerInfo"-->
-                                        <!--                        name="borrowerInfo"-->
-                                        <!--                        placeholder="Borrower Information"-->
-                                        <!--                        rows="3"></textarea>-->
-                                        <ckeditor formControlName="borrowerInformation"
-                                                  [style]="{height:'250px !important;'}"
-                                                  placeholder="Background"
-                                                  required
-                                                  [config]="ckeConfig"
-                                                  [ngClass]="{'is-invalid': formControls.borrowerInformation.invalid && submitted}">
-                                        </ckeditor>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="col-md-12" style="padding-top: 70px;">
-                                    <div *ngIf="submitted">
-                    <span *ngIf="formControls.borrowerInformation.invalid" class="text-danger">
-                      <sup>*</sup> {{client === clientName?.MEGA ? 'Justification of limit is required!' : 'Background Information is required.' }}
-                    </span>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 mt-3">
                                     <div class="form-group">
-                                        <label class="title"><strong>Summary & Recommendation</strong></label>
-                                        <ckeditor formControlName="summeryRecommendation"
-                                                  [style]="{height:'250px !important;'}"
-                                                  placeholder="Summary & Recommendation"
-                                                  [config]="ckeConfig">
-                                        </ckeditor>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="title" for="remark"><strong>Remarks</strong></label>
+                                        <label class="title" for="remark">
+                                            <strong>{{client === clientName?.SHINE_RESUNGA ? 'Account Strategy' : 'Remarks'}}</strong></label>
                                         <ckeditor
-                                            formControlName="remark" id="remark"
-                                            [config]="ckeConfig"></ckeditor>
+                                                formControlName="remark" id="remark"
+                                                [config]="ckeConfig"></ckeditor>
                                     </div>
                                 </div>
-                              <div class="col-md-12" *ngIf="client != clientName.MEGA">
-                                    <div class="form-group">
-                                        <label class="title"><b>Purpose of Loan</b></label>
-                                        <ckeditor formControlName="purposeOfLoan"></ckeditor>
-                                    </div>
-                              </div>
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title"><strong>Terms And Condition</strong></label>
@@ -739,6 +747,18 @@
                                         </ckeditor>
                                     </div>
                                 </div>
+
+                                <div class="col-md-12 mt-3">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Summary & Recommendation</strong></label>
+                                        <ckeditor formControlName="summeryRecommendation"
+                                                  [style]="{height:'250px !important;'}"
+                                                  placeholder="Summary & Recommendation"
+                                                  [config]="ckeConfig">
+                                        </ckeditor>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-12 form-group">
                                     <h6><strong>Additional Description</strong></h6>
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
@@ -746,9 +766,6 @@
                                         <b>Waiver/Deviation</b>
                                     </nb-checkbox>
                                     <div *ngIf="waiverChecked">
-                                        <!--                    <textarea class="form-control"-->
-                                        <!--                              formControlName="waiverConclusionRecommendation" placeholder="Waiver"-->
-                                        <!--                              rows="2"></textarea>-->
                                         <ckeditor formControlName="waiverConclusionRecommendation"
                                                   [config]="ckeConfig"></ckeditor>
                                     </div>
@@ -760,10 +777,6 @@
                                         Obligor Limit</b>
                                     </nb-checkbox>
                                     <div *ngIf="solChecked">
-                                        <!--                    <textarea class="form-control"-->
-                                        <!--                              formControlName="solConclusionRecommendation"-->
-                                        <!--                              placeholder="  Single Obligor Limit "-->
-                                        <!--                              rows="2"></textarea>-->
                                         <ckeditor formControlName="solConclusionRecommendation"
                                                   [config]="ckeConfig"></ckeditor>
                                     </div>
@@ -775,10 +788,6 @@
                                         Mitigation</b>
                                     </nb-checkbox>
                                     <div *ngIf="riskChecked">
-                                        <!--                    <textarea class="form-control"-->
-                                        <!--                              formControlName="riskConclusionRecommendation"-->
-                                        <!--                              placeholder="Risk & Mitigation "-->
-                                        <!--                              rows="2"></textarea>-->
                                         <ckeditor formControlName="riskConclusionRecommendation"
                                                   [config]="ckeConfig"></ckeditor>
                                     </div>

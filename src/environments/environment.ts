@@ -23,9 +23,9 @@ export const environment = {
   LOCAL_STORAGE_NAME: 'SBSolutionsLAS',
   enablePreAddingAccountNumber: true,
   disableCrgAlpha: true,
+  disableCrgLambda: false,
   disableApprovalSheet: false,
   microLoan: true,
-  isMega: true,
   SBS_GROUP: false,
   MEGA_GROUP: true,
 };

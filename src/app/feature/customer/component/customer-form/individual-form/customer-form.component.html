@@ -52,11 +52,16 @@
                                <div class="form-group">
                                    <label for="customerNameForm"><strong>Customer Client Type</strong></label>
                                    <select
+                                           [ngClass]="{ 'is-invalid':submitted && basicInfoControls.clientType.errors }"
                                            class="custom-select" formControlName="clientType">
                                        <option [ngValue]="null">Select Client Type</option>
                                        <option *ngFor="let data of clientType " [ngValue]="data"
                                                [selected]="data === clientTypeInput" >{{data}}</option>
                                    </select>
+                                   <div *ngIf="submitted && basicInfoControls.clientType.errors"
+                                        class="invalid-feedback">
+                                       <div *ngIf="basicInfoControls.clientType.errors.required">Customer Type is required</div>
+                                   </div>
                                </div>
                            </div>
                            <div class="col-md-6">
@@ -623,7 +628,7 @@
                                                <select class="form-control" formControlName="customerRelation"
                                                        id="customerRelation{{i}}"
                                                        [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelation').errors }">
-                                                   <option [value]="null">Select Relation</option>
+                                                   <option [value]="null" hidden>Select Relation</option>
                                                    <option [value]="relation.id" *ngFor="let relation of relationArray.relation">{{relation.name}}</option>
                                                </select>
                                                <div *ngIf="submitted && relatives.get('customerRelation').errors"
@@ -735,42 +740,20 @@
                                <div class="form-group">
                                    <label><strong>Income Risk</strong></label>
                                    <ckeditor id="incomeRisk" formControlName="incomeRisk" name="introduction" type="text"
-                                             [config]="ckeConfig"
-                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls?.incomeRisk?.errors }"></ckeditor>
-                                   <div *ngIf="(submitted) && basicInfoControls?.incomeRisk?.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="basicInfoControls?.incomeRisk?.errors?.required">
-                                           Income Risk is required
-                                       </div>
-                                   </div>
+                                             [config]="ckeConfig"></ckeditor>
                                </div>
                            </div>
                            <div class="col-md-12" *ngIf="!microCustomer">
                                <div class="form-group">
                                    <label><strong>Security Risk</strong></label>
                                    <ckeditor id="securityRisk" formControlName="securityRisk" name="introduction"
-                                             [config]="ckeConfig"
-                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls?.securityRisk?.errors }"></ckeditor>
-                                   <div *ngIf="(submitted) && basicInfoControls?.securityRisk?.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="basicInfoControls?.securityRisk?.errors?.required">
-                                           Security Risk is required
-                                       </div>
-                                   </div>
+                                             [config]="ckeConfig"></ckeditor>
                                </div>
                            </div>
                            <div class="col-md-12" *ngIf="!microCustomer">
                                <div class="form-group">
                                    <label><strong>Succession Risk</strong></label>
-                                   <ckeditor id="successionRisk" formControlName="successionRisk" name="introduction"
-                                             [config]="ckeConfig"
-                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls?.successionRisk?.errors }"></ckeditor>
-                                   <div *ngIf="(submitted) && basicInfoControls?.successionRisk?.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="basicInfoControls?.successionRisk?.errors?.required">
-                                           Succession Risk is required
-                                       </div>
-                                   </div>
+                                   <ckeditor id="successionRisk" formControlName="successionRisk" name="introduction" [config]="ckeConfig"></ckeditor>
                                </div>
                            </div>
                        </div>
@@ -816,7 +799,6 @@
 
                </nb-tab>
                <nb-tab *ngIf="microCustomer" tabTitle="Micro Customer">
-                   check micro customer::{{microCustomer}}
                    <app-micro-individual-form #microIndividualFormComponent [data]="individualJsonData?.microCustomerDetail"></app-micro-individual-form>
                </nb-tab>
            </nb-tabset>

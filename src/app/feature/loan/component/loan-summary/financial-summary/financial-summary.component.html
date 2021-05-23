@@ -42,7 +42,7 @@
           <table class="table table-bordered table-sm sb-small text-center">
             <thead>
             <tr>
-              <th class="text-center" colspan="5">Expenses of Borrower</th>
+              <th class="text-center" colspan="5">{{client === clientName?.EXCEL ? 'Monthly Obligation of Borrower' : 'Expenses of Borrower'}}</th>
             </tr>
             <tr class="text-white sb-bg-dark">
               <th>S.N</th>
@@ -59,7 +59,7 @@
               <td class="text-left pl-1">{{expensesOfBorrower.remarks}}</td>
             </tr>
             <tr>
-              <td class="text-left pl-1" colspan="3"><strong>Total Expense</strong></td>
+              <td class="text-left pl-1" colspan="3"><strong>{{client === clientName?.EXCEL ? 'Total Obligations' : 'Total Expense'}}</strong></td>
               <td colspan="2" class="text-right pr-1">
                 <strong>Rs. {{financialData?.initialForm?.totalExpense | currencyFormatter}}</strong>
               </td>
@@ -77,7 +77,8 @@
               </td>
             </tr>
             <tr>
-              <td class="text-left pl-1" colspan="3"><strong>EMI / Gross Monthly Income</strong></td>
+              <td class="text-left pl-1" colspan="3"><strong>{{client === clientName?.MEGA ? 'Total EMI and interest expenses to Gross income'
+                      : 'EMI / Gross Monthly Income'}}</strong></td>
               <td colspan="2" class="text-right pr-1">
                 <strong>{{financialData?.initialForm?.totalEMIInterest}}</strong>
               </td>
@@ -119,11 +120,11 @@
   </thead>
   <tbody>
   <tr>
-    <td class="text-right">Rs. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</td>
-    <td class="text-right">Rs. {{financialData?.initialForm?.existingObligationOtherBank | currencyFormatter}}</td>
-    <td class="text-right">Rs. {{financialData?.initialForm?.totalObligationCurrentBank | currencyFormatter}}</td>
-    <td class="text-right">Rs. {{financialData?.initialForm?.totalBankObligation | currencyFormatter}}</td>
-    <td>{{financialData?.initialForm?.obligationGrossIncomeRatio | percent}}</td>
+    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</td>
+    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.existingObligationOtherBank | currencyFormatter}}</td>
+    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalObligationCurrentBank | currencyFormatter}}</td>
+    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalBankObligation | currencyFormatter}}</td>
+    <td class="text-right pr-1">{{financialData?.initialForm?.obligationGrossIncomeRatio | percent}}</td>
 
   </tr>
 

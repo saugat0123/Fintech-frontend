@@ -29,7 +29,6 @@
                           [fromProfile]="true"></app-site-visit>
         </nb-accordion-item-body>
       </nb-accordion-item>
-
       <nb-accordion-item #ciclComponent>
         <nb-accordion-item-header>
           <div class="row col-md-12">
@@ -126,6 +125,33 @@
           ></app-borrower-financial>
         </nb-accordion-item-body>
       </nb-accordion-item>
+
+      <!--<nb-accordion-item #microCrgParamsComponent>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span class="text-capitalize">Other details (Mandatory for Micro CRG)</span>
+            </div>
+            <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="microCrgParams" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+              <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!microCrgParams" class="fas fa-times-circle px-2"></em>
+              </span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-micro-crg-params #microCrgParamsComponent
+                                  *ngIf="microCrgParamsComponent.expanded"
+                                  (dataEmitter)="saveMicroCrgParams($event)"
+                                  [fromProfile]="true"
+                                  [microCrgParams]="customerInfo?.microCrgParams"
+          ></app-micro-crg-params>
+        </nb-accordion-item-body>
+      </nb-accordion-item>-->
+
         <nb-accordion-item #marketingActivitiesAccordian *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
           <nb-accordion-item-header>
             <div class="row col-md-12">
@@ -199,7 +225,7 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-      <nb-accordion-item #itemNetTradingAssets *ngIf="customerInfo?.customerType === 'INSTITUTION'">
+      <nb-accordion-item #itemNetTradingAssets *ngIf="customerInfo?.customerType === 'INSTITUTION' || isMicroCustomer">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -216,22 +242,22 @@
           </div>
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <ng-container *ngIf="!isMega; else ntaMega">
-            <app-net-trading-assets
-                    (netTradingAssetsEventEmitter) = "saveNetTradingAssets($event)"
-                    [fromProfile]=true
-                    *ngIf="itemNetTradingAssets.expanded"
-                    [netTradingAssetsData]="netTradingAssets">
-            </app-net-trading-assets>
-          </ng-container>
-
-          <ng-template #ntaMega>
+          <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
             <app-nta-mega
                     (netTradingAssetsEventEmitter) = "saveNetTradingAssets($event)"
                     [fromProfile]=true
                     *ngIf="itemNetTradingAssets.expanded"
                     [netTradingAssetsData]="netTradingAssets">
             </app-nta-mega>
+          </ng-container>
+
+          <ng-template #otherBank>
+            <app-net-trading-assets
+                    (netTradingAssetsEventEmitter) = "saveNetTradingAssets($event)"
+                    [fromProfile]=true
+                    *ngIf="itemNetTradingAssets.expanded"
+                    [netTradingAssetsData]="netTradingAssets">
+            </app-net-trading-assets>
           </ng-template>
         </nb-accordion-item-body>
       </nb-accordion-item>
@@ -364,7 +390,7 @@
 <!--        </nb-accordion-item-body>-->
 <!--      </nb-accordion-item>-->
       <!--  DEFAULT CRG-->
-      <nb-accordion-item #itemloanChecklist *ngIf="!isMicroCustomer">
+      <nb-accordion-item #itemloanChecklist>
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">

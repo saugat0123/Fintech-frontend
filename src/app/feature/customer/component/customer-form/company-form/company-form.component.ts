@@ -190,7 +190,6 @@ export class CompanyFormComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.microCustomer = this.formValue.isMicroCustomer;
-            console.log(this.microCustomer);
         }
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
@@ -344,7 +343,7 @@ export class CompanyFormComponent implements OnInit {
                     this.subSectorDetailCodeInput],
             clientType:
                 [ObjectUtil.isEmpty(this.clientTypeInput) ? undefined :
-                    this.clientTypeInput],
+                    this.clientTypeInput, Validators.required],
 
             // legalStatus
             corporateStructure: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus) ||
@@ -391,17 +390,17 @@ export class CompanyFormComponent implements OnInit {
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
                 this.companyInfo.capital.issuedCapital],
 
-            // totalCapital: [(ObjectUtil.isEmpty(this.companyInfo)
-            //     || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
-            //     this.companyInfo.capital.totalCapital, Validators.required],
+            totalCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+                this.companyInfo.capital.totalCapital],
 
-            // fixedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
-            //     || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
-            //     this.companyInfo.capital.fixedCapital, Validators.required],
+            fixedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+                this.companyInfo.capital.fixedCapital],
 
-            // workingCapital: [(ObjectUtil.isEmpty(this.companyInfo)
-            //     || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
-            //     this.companyInfo.capital.workingCapital, Validators.required],
+            workingCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+                this.companyInfo.capital.workingCapital],
 
             numberOfShareholder: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
@@ -558,11 +557,15 @@ export class CompanyFormComponent implements OnInit {
                 this.businessGiven.total],
             totalSharePercent: [0],
 
+            addressLegalDocument: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyJsonData.addressLegalDocument)) ? undefined :
+                this.companyJsonData.addressLegalDocument],
 
         });
         if (!this.additionalFieldSelected) {
             this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
         }
+        this.microCustomerValidation(this.microCustomer);
     }
 
     setCompanyInfo(info: CompanyInfo) {
@@ -892,9 +895,9 @@ export class CompanyFormComponent implements OnInit {
         this.capital.authorizedCapital = this.companyInfoFormGroup.get('authorizedCapital').value;
         this.capital.paidUpCapital = this.companyInfoFormGroup.get('paidUpCapital').value;
         this.capital.issuedCapital = this.companyInfoFormGroup.get('issuedCapital').value;
-        // this.capital.totalCapital = this.companyInfoFormGroup.get('totalCapital').value;
-        // this.capital.fixedCapital = this.companyInfoFormGroup.get('fixedCapital').value;
-        // this.capital.workingCapital = this.companyInfoFormGroup.get('workingCapital').value;
+        this.capital.totalCapital = this.companyInfoFormGroup.get('totalCapital').value;
+        this.capital.fixedCapital = this.companyInfoFormGroup.get('fixedCapital').value;
+        this.capital.workingCapital = this.companyInfoFormGroup.get('workingCapital').value;
         this.capital.numberOfShareholder = this.companyInfoFormGroup.get('numberOfShareholder').value;
         this.companyInfo.capital = this.capital;
         // swot
@@ -1007,6 +1010,7 @@ export class CompanyFormComponent implements OnInit {
         submitData.proprietorList = this.companyJsonData.proprietorList;
         submitData.totalSharePercent = this.companyInfoFormGroup.get('totalSharePercent').value;
         submitData.isAdditionalCompanyInfo = this.additionalFieldSelected;
+        submitData.addressLegalDocument = this.companyInfoFormGroup.get('addressLegalDocument').value;
 
         if (this.microCustomer) {
             /** micro data **/
@@ -1142,5 +1146,23 @@ export class CompanyFormComponent implements OnInit {
             total = Number(group.get('share').value) + Number(total);
         });
         this.companyInfoFormGroup.get(resultControllerName).setValue(total);
+    }
+
+    microCustomerValidation(micro: boolean) {
+        this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'] , !micro);
+    }
+
+    /** @Param validate --- true for add validation and false for remove validation
+     * @Param controlNames --- list of formControlName**/
+    controlValidation(controlNames: string[], validate) {
+
+        controlNames.forEach(s => {
+            if (validate) {
+                this.companyInfoFormGroup.get(s).setValidators(Validators.required);
+            } else {
+                this.companyInfoFormGroup.get(s).clearValidators();
+            }
+            this.companyInfoFormGroup.get(s).updateValueAndValidity();
+        });
     }
 }

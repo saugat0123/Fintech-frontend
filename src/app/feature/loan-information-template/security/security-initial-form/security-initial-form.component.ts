@@ -30,6 +30,8 @@ import {InsuranceList} from '../../../loan/model/insuranceList';
 import {FormUtils} from '../../../../@core/utils/form.utils';
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
+import {FixAssetCollateralComponent} from './fix-asset-collateral/fix-asset-collateral.component';
 
 
 @Component({
@@ -42,6 +44,7 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() calendarType: CalendarType;
     @Input() loanTag: string;
     @Input() shareSecurity;
+    @Input() customerSecurityId;
 
     @ViewChildren('revaluationComponent')
     revaluationComponent: QueryList<SecurityRevaluationComponent>;
@@ -147,6 +150,8 @@ export class SecurityInitialFormComponent implements OnInit {
     totalLandValueRemarks: any;
     client = environment.client;
     clientName = Clients;
+    dialogRef: NbDialogRef<any>;
+    isOpen = false;
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -156,7 +161,8 @@ export class SecurityInitialFormComponent implements OnInit {
                 private nepsePriceInfoService: NepsePriceInfoService,
                 private datePipe: DatePipe,
                 private toastService: ToastService,
-                private roleService: RoleService) {
+                private roleService: RoleService,
+                private nbDialogService: NbDialogService) {
     }
 
 
@@ -1469,7 +1475,7 @@ export class SecurityInitialFormComponent implements OnInit {
     get totalConsideredValue() {
         let total = 0;
         this.shareField.controls.forEach(c => total += Number(c.get('consideredValue').value));
-        return total;
+        return total.toFixed(2);
     }
 
     get shareField() {
@@ -1505,8 +1511,10 @@ export class SecurityInitialFormComponent implements OnInit {
                     amountPerUnit: [share.amountPerUnit],
                     total: [share.total],
                     consideredValue: [share.consideredValue],
-                    ownershipTransferDate: [ObjectUtil.isEmpty(share.ownershipTransferDate) ?
-                        undefined : new Date(share.ownershipTransferDate)],
+                    priceEarningRatio: [share.priceEarningRatio],
+                    priceBookValue: [share.priceBookValue],
+                    dividendYeild: [share.dividendYeild],
+                    dividendPayoutRatio: [share.dividendPayoutRatio],
                 })
             );
         });
@@ -1523,7 +1531,10 @@ export class SecurityInitialFormComponent implements OnInit {
             amountPerUnit: [''],
             total: [''],
             consideredValue: [''],
-            ownershipTransferDate: undefined
+            priceEarningRatio: [undefined],
+            priceBookValue: [undefined],
+            dividendYeild: [undefined],
+            dividendPayoutRatio: [undefined],
         });
     }
 
@@ -1882,5 +1893,27 @@ export class SecurityInitialFormComponent implements OnInit {
         } else {
             this.plantOtherBranchChecked = true;
         }
+    }
+
+    public close() {
+        if (this.isOpen) {
+            this.dialogRef.close();
+            this.isOpen = false;
+        }
+    }
+
+    openSiteVisitModel(security: string) {
+        this.close();
+        const context = {
+            securityId: this.customerSecurityId,
+            security: security
+        };
+        this.dialogRef = this.nbDialogService.open(FixAssetCollateralComponent, {
+            context,
+            closeOnBackdropClick: false,
+            hasBackdrop: false,
+            hasScroll: true
+        });
+        this.isOpen = true;
     }
 }

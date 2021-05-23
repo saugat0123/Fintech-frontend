@@ -35,7 +35,7 @@
                 <th>Enhance</th>
                 <th>Settlement</th>
                 <th>Proposed Limit</th>
-                <th>Existing INT/COM/CM</th>
+                <!--                <th>Existing INT/COM/CM</th>-->
                 <!--        for non funded commision and cash margin combination to be view-->
                 <th>Proposed INT/COM/CM</th>
 
@@ -59,7 +59,7 @@
                     <ng-container
                             *ngTemplateOutlet="loanTypeLetter; context: { $implicit: loan?.loanType }"></ng-container>
                     &nbsp;|&nbsp;
-                    {{ loan?.loan?.name }} ({{ loan?.createdAt | date }})
+                    {{ loan?.loan?.name }} ({{ loan?.createdAt | engNepDate: false }})
                 </td>
                 <td class="text-right pr-1"><span
                         *ngIf="(loan?.proposal?.data | jsonParse)?.existingLimit">Rs. {{(loan?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}</span>
@@ -85,7 +85,7 @@
 
                 <td class="text-right pr-1">Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
                 <!--                Existing INT/COM/CM-->
-                <td>-</td>
+                <!--                <td>-</td>-->
                 <td>
           <span *ngIf="loan?.loan?.isFundable">
 
@@ -120,7 +120,7 @@
                 <!--        <td>Rs. {{(loan?.proposal?.data | jsonParse)?.prepaymentCharge | currencyFormatter}}</td>-->
                 <td width="150px" class="text-left pl-1">
                     <span *ngIf="!loan.proposal.limitExpiryMethod">-</span>
-                    <span *ngIf="loan.proposal.limitExpiryMethod === 'ABSOLUTE'">{{loan.proposal?.dateOfExpiry | date}}</span>
+                    <span *ngIf="loan.proposal.limitExpiryMethod === 'ABSOLUTE'">{{loan.proposal?.dateOfExpiry | engNepDate: false}}</span>
                     <span *ngIf="loan.proposal.limitExpiryMethod === 'CUSTOM'">{{loan.proposal?.duration}} {{loan.proposal?.frequency}} {{loan.proposal?.condition}}</span>
                 </td>
             </tr>
@@ -245,20 +245,6 @@
         Only /-)
     </div>
 </div>
-<div class="row">
-   <div class="col-md-12">
-       <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small mt-3">
-           <ng-container *ngIf="checkedData?.waiverChecked">
-               <tr class="text-white sb-bg-dark">
-                   <th>Waiver/Deviation</th>
-               </tr>
-               <tr>
-                   <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation | safeHtml"></span></td>
-               </tr>
-           </ng-container>
-       </table>
-   </div>
-</div>
 
 <div class="row" *ngIf="client === clientName?.SHINE_RESUNGA">
     <div class="col-md-12">
@@ -274,15 +260,31 @@
                     <th>Repayment</th>
                 </tr>
                 <tr>
-                    <td class="text-left pl-1" [innerHTML]="proposalAllData?.repayment | safeHtml"></td>
+                    <td class="text-left pl-1" [innerHTML]="proposalAllData?.repayment || 'N/A' | safeHtml"></td>
                 </tr>
         </table>
-        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
-            <tr class="text-white sb-bg-dark" *ngIf="client !== clientName?.MEGA">
+        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small" *ngIf="client !== clientName?.MEGA">
+            <tr class="text-white sb-bg-dark" >
                 <th>Purpose of Loan</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" *ngIf="client !== clientName?.MEGA" [innerHTML]="proposalAllData?.purposeOfLoan | safeHtml"></td>
+                <td class="text-left pl-1" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>
+                    <div *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral; else commitmentDescription">
+                        Prepayment/Commitment/Swap Charge Description</div>
+                    <ng-template #commitmentDescription>
+                        <div *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral; else swapChargeDescription">
+                            Commitment/Swap Charge Description</div>
+                    </ng-template>
+                    <ng-template #swapChargeDescription>
+                        Swap Charge Description
+                    </ng-template>
+                </th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.prepaymentSwapCommitment || 'N/A' | safeHtml"></span> </td>
             </tr>
         </table>
     </div>
@@ -294,7 +296,7 @@
                     <th>Waiver/Deviation</th>
                 </tr>
                 <tr>
-                    <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation | safeHtml"></span></td>
+                    <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
                 </tr>
             </ng-container>
             <ng-container *ngIf="checkedData?.solChecked">
@@ -302,7 +304,7 @@
                     <th>Single Obligor Limit</th>
                 </tr>
                 <tr>
-                    <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.solConclusionRecommendation | safeHtml"></span></td>
+                    <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></span></td>
                 </tr>
             </ng-container>
             <ng-container *ngIf="checkedData?.riskChecked">
@@ -310,7 +312,7 @@
                     <th>Risk & Mitigation</th>
                 </tr>
                 <tr>
-                    <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.riskConclusionRecommendation | safeHtml"></span></td>
+                    <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.riskConclusionRecommendation || 'N/A' | safeHtml"></span></td>
                 </tr>
             </ng-container>
         </table>

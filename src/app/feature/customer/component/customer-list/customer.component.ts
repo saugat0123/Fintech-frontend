@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core';
 import {CustomerService} from '../../service/customer.service';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -10,7 +10,7 @@ import {LoanType} from '../../../loan/model/loanType';
 import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CustomerFormComponent} from '../customer-form/individual-form/customer-form.component';
-import {NbDialogService} from '@nebular/theme';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {CustomerInfoService} from '../../service/customer-info.service';
 import {CustomerType} from '../../model/customerType';
 import {CompanyFormComponent} from '../customer-form/company-form/company-form.component';
@@ -32,7 +32,9 @@ import {UserService} from '../../../../@core/service/user.service';
 import {DocAction} from '../../../loan/model/docAction';
 import {DocStatus} from '../../../loan/model/docStatus';
 import {LoanStage} from '../../../loan/model/loanStage';
-import {SocketService} from '../../../../@core/service/socket.service';
+import {JointFormComponent} from '../customer-form/joint-form/joint-form.component';
+import {any} from 'codelyzer/util/function';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-customer-component',
@@ -64,7 +66,6 @@ export class CustomerComponent implements OnInit {
     transferSelectedBranch;
     formAction: FormGroup;
     selectedUserForTransfer;
-    /*customerGroupLoanList: Array<LoanDataHolder> = Array<LoanDataHolder>();*/
 
     accessSpecific: boolean;
     accessAll: boolean;
@@ -72,6 +73,7 @@ export class CustomerComponent implements OnInit {
     showBranchProvince = true;
     customerGroupList: Array<CustomerGroup>;
     provinces: Province[];
+    onActionChangeSpinner = false;
 
     constructor(private customerService: CustomerService,
                 private toastService: ToastService,
@@ -87,8 +89,7 @@ export class CustomerComponent implements OnInit {
                 private customerGroupService: CustomerGroupService,
                 private companyInfoService: CompanyInfoService,
                 private location: AddressService,
-                private userService: UserService,
-                private socketService: SocketService
+                private userService: UserService
     ) {
     }
 
@@ -175,21 +176,17 @@ export class CustomerComponent implements OnInit {
     onSearch() {
         CustomerComponent.loadData(this);
     }
+    openChooseAcType(modal) {
+        this.modalService.open(modal);
+    }
 
-
-    getForm() {
+    getForm(chooseAcType) {
         this.onClose();
         if (CustomerType.INDIVIDUAL === CustomerType[this.customerType]) {
-
-            this.dialogService.open(CustomerFormComponent, {
-                closeOnBackdropClick: false,
-                closeOnEsc: false,
-                hasBackdrop: false,
-                hasScroll: true
-            }).onClose.subscribe(res => CustomerComponent.loadData(this));
+            this.openChooseAcType(chooseAcType);
         } else if (CustomerType.INSTITUTION === CustomerType[this.customerType]) {
             this.dialogService.open(CompanyFormComponent, {
-                closeOnBackdropClick: false,
+                closeOnBackdropClick: true,
                 closeOnEsc: false,
                 hasBackdrop: false,
                 hasScroll: true
@@ -228,7 +225,6 @@ export class CustomerComponent implements OnInit {
 
     }
 
-
     getBranch() {
         this.roleAccess = LocalStorageUtil.getStorage().roleAccess;
         if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
@@ -247,7 +243,6 @@ export class CustomerComponent implements OnInit {
         if (this.accessSpecific || this.accessAll) {
             this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
                 this.branchList = response.detail;
-                this.branchList.sort((a,b) => a.name.localeCompare(b.name));
             }, error => {
                 console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
@@ -260,44 +255,74 @@ export class CustomerComponent implements OnInit {
         if (CustomerType.INDIVIDUAL === CustomerType[model.customerType]) {
             this.customerService.detail(model.associateId).subscribe((res: any) => {
                 const detail = res.detail;
-                this.dialogService.open(CustomerFormComponent, {
-                    context: {
-                        formValue: detail,
-                        clientTypeInput: model.clientType,
-                        customerIdInput: model.customerCode,
-                        bankingRelationshipInput: model.bankingRelationship,
-                        subSectorDetailCodeInput: model.subsectorDetail,
-                        gender: model.gender,
-                        maritalStatus: model.maritalStatus,
-                        customerLegalDocumentAddress: model.customerLegalDocumentAddress
-                    },
-                    closeOnBackdropClick: false,
-                    closeOnEsc: false,
-                    hasBackdrop: false,
-                    hasScroll: true
-                    // tslint:disable-next-line:no-shadowed-variable
-                }).onClose.subscribe((res: any) => CustomerComponent.loadData(this));
+                if (!ObjectUtil.isEmpty(detail.jointInfo)) {
+                    this.dialogService.open(JointFormComponent, {
+                        context: {
+                            formValue: detail,
+                            clientTypeInput: model.clientType,
+                            subSectorInput: model.subsectorDetail,
+                        },
+                        closeOnBackdropClick: false,
+                        closeOnEsc: false,
+                        hasBackdrop: false,
+                        hasScroll: true
+                        // tslint:disable-next-line:no-shadowed-variable
+                    }).onClose.subscribe((res: any) => CustomerComponent.loadData(this));
+                } else {
+                    this.dialogService.open(CustomerFormComponent, {
+                        context: {
+                            formValue: detail,
+                            clientTypeInput: model.clientType,
+                            customerIdInput: model.customerCode,
+                            bankingRelationshipInput: model.bankingRelationship,
+                            subSectorDetailCodeInput: model.subsectorDetail,
+                            gender: model.gender,
+                            maritalStatus: model.maritalStatus,
+                            customerLegalDocumentAddress: model.customerLegalDocumentAddress
+                        },
+                        closeOnBackdropClick: false,
+                        closeOnEsc: false,
+                        hasBackdrop: false,
+                        hasScroll: true
+                        // tslint:disable-next-line:no-shadowed-variable
+                    }).onClose.subscribe((res: any) => CustomerComponent.loadData(this));
+                }
             }, error => this.toastService.show(new Alert(AlertType.ERROR, error.error.message)));
 
         } else if (CustomerType.INSTITUTION === CustomerType[model.customerType]) {
             this.companyInfoService.detail(model.associateId).subscribe((res: any) => {
                 const detail = res.detail;
                 this.dialogService.open(CompanyFormComponent, {
-                context: {
-                    formValue: detail,
-                    bankingRelationshipInput: model.bankingRelationship,
-                    subSectorDetailCodeInput: model.subsectorDetail,
-                    customerCode: model.customerCode,
-                    clientTypeInput: model.clientType,
-                },
+                    context: {
+                        formValue: detail,
+                        bankingRelationshipInput: model.bankingRelationship,
+                        subSectorDetailCodeInput: model.subsectorDetail,
+                        customerCode: model.customerCode,
+                        clientTypeInput: model.clientType,
+                    },
+                    closeOnBackdropClick: false,
+                    closeOnEsc: false,
+                    hasBackdrop: false,
+                    hasScroll: true
+                    // tslint:disable-next-line:no-shadowed-variable
+                }).onClose.subscribe(res => CustomerComponent.loadData(this));
+            });
+        }
+    }
+
+    changeAction(chooseJointNo: TemplateRef<any>) {
+        this.onClose();
+        this.modalService.open(chooseJointNo);
+    }
+
+    onCloseJoint() {
+        this.onClose();
+            this.dialogService.open(CustomerFormComponent, {
                 closeOnBackdropClick: false,
                 closeOnEsc: false,
                 hasBackdrop: false,
                 hasScroll: true
-                // tslint:disable-next-line:no-shadowed-variable
             }).onClose.subscribe(res => CustomerComponent.loadData(this));
-            });
-        }
     }
 
     buildActionForm(): void {
@@ -394,72 +419,29 @@ export class CustomerComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
                 this.modalService.dismissAll();
             });
-        /*this.customerGroupLoanList.forEach(loan => {
-            if ((loan.documentStatus.toString() === DocStatus.value(DocStatus.PENDING))
-                || (loan.documentStatus.toString() === DocStatus.value(DocStatus.UNDER_REVIEW))) {
-                this.formAction.patchValue({
-                    docAction: DocAction.value(DocAction.TRANSFER),
-                    documentStatus: DocStatus.PENDING,
-                    comment: comment,
-                    customerLoanId: loan.id
-                });
-                this.customerLoanService.transferLoanToOtherBranch(this.formAction.value, this.transferSelectedBranch.id)
-                    .subscribe((response: any) => {
-                    this.sendLoanNotification(response.detail.customerLoanId);
-                }, error => {
-                    this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-                    this.modalService.dismissAll();
-                });
-            }
-        });*/
-        /*update customer branch here after loan transfer*/
-        /*this.customerInfoService.updateCustomerBranch(this.transferSelectedCustomerInfo.id, this.transferSelectedBranch.id)
-            .subscribe((response: any) => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Customer has been successfully transferred.'));
-        }, error => {
-            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-            this.modalService.dismissAll();
-        });*/
         this.modalService.dismissAll();
         CustomerComponent.loadData(this);
         this.transferSpinner = false;
     }
 
-    /*sendLoanNotification(customerLoanId: number): void {
-        this.customerLoanService.detail(customerLoanId).subscribe((loanResponse: any) => {
-            const customerLoan: LoanDataHolder = loanResponse.detail;
-            // set loan stage information
-            this.socketService.message.loanConfigId = customerLoan.loan.id;
-            this.socketService.message.customerId = customerLoan.id;
-            this.socketService.message.toUserId = customerLoan.currentStage.toUser.id;
-            this.socketService.message.toRoleId = customerLoan.currentStage.toRole.id;
-            this.socketService.message.fromId = customerLoan.currentStage.fromUser.id;
-            this.socketService.message.fromRole = customerLoan.currentStage.fromRole.id;
-            this.socketService.message.date = new Date();
-            this.socketService.message.docAction = customerLoan.currentStage.docAction;
-
-            const docAction = customerLoan.currentStage.docAction.toString();
-            if (docAction === DocAction.value(DocAction.TRANSFER)) {
-                // send notification to current stage user
-                this.socketService.message.toId = customerLoan.currentStage.toUser.id;
-                this.socketService.message.toRole = customerLoan.currentStage.toRole.id;
-                this.socketService.sendMessageUsingSocket();
+    onNextJointCustomer(val) {
+        this.onClose();
+        if (CustomerType.INDIVIDUAL === CustomerType[this.customerType]) {
+            const context = {
+                currentVal: val
+            };
+            if (val >= 2) {
+                this.dialogService.open(JointFormComponent, {
+                    context,
+                    closeOnBackdropClick: false,
+                    closeOnEsc: false,
+                    hasBackdrop: false,
+                    hasScroll: true
+                }).onClose.subscribe(res => CustomerComponent.loadData(this));
+            } else {
+                this.toastService.show(new Alert(AlertType.ERROR, 'Please input the number greater or equal to 2'));
             }
-            // send notifications to unique previous stage users
-            for (const distinct of customerLoan.distinctPreviousList) {
-                const distinctStage: LoanStage = distinct;
-
-                if (customerLoan.currentStage.toUser.id !== distinctStage.toUser.id
-                    && customerLoan.currentStage.fromUser.id !== distinctStage.toUser.id) {
-                    this.socketService.message.toId = distinctStage.toUser.id;
-                    this.socketService.message.toRole = distinctStage.toRole.id;
-                    this.socketService.sendMessageUsingSocket();
-                }
-            }
-        }, error => {
-            console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-        });
-    }*/
+        }
+    }
 
 }

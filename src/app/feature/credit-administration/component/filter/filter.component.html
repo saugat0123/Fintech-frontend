@@ -14,10 +14,17 @@
     </div>
   </div>
 
+    <div class="col-md-6 d-flex justify-content-end">
+      <button (click)="getReport()" nbButton outline
+              status="info" size="small">
+        <i aria-hidden="true" class="fa fa-download"></i></button>
+
+  </div>
+
   <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">
     <form [formGroup]="filterForm">
       <div class="row py-3">
-        <div class="col-md-3 mb-3">
+        <div class="col-md-3 mb-3" *ngIf="!branchAccessIsOwn">
           <label class="form-group">Branch</label>
           <ng-select formControlName="branchIds" placeholder="branches">
             <ng-option *ngFor="let branch of branchList"
@@ -39,9 +46,9 @@
         </div>
         <div class="col-md-3 mb-3" *ngIf="showPossessionUnder">
           <label class="form-group">Current Possession Under</label>
-          <select class="form-control rounded" formControlName="toUser" id="toUser">
-            <option [ngValue]="null" hidden>Select User</option>
-            <option [ngValue]="user.id" *ngFor="let user of possessionUnderUserList">{{user.username}}</option>
+          <select class="form-control rounded" formControlName="toRole" id="toRole">
+            <option [ngValue]="null" hidden>Select Role</option>
+            <option [ngValue]="role.id" *ngFor="let role of possessionRoleList">{{role?.roleName}}</option>
           </select>
         </div>
         <div class="col-md-3 mb-3" *ngIf="fromCadDashboard">
@@ -66,3 +73,4 @@
   </div>
 </div>
 
+<app-overlay-spinner></app-overlay-spinner>

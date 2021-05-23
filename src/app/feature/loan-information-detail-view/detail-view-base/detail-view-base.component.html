@@ -35,7 +35,8 @@
 </div>
 
 <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
-                   [shareSecurityData]="loanHolder?.shareSecurity"></app-security-view>
+                   [shareSecurityData]="loanHolder?.shareSecurity"
+                   [securityId]="securityId"></app-security-view>
 <app-financial-view *ngIf="loanHolder?.financial"
                     [customerType]="loanHolder?.customerType"
                     [formData]="loanHolder?.financial"></app-financial-view>
@@ -60,16 +61,16 @@
                             [fromProfile]="false"
                             [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
  -->
-            <ng-container *ngIf="!isMega; else ntaMegaSummary">
-                <app-nta-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
-                                 [fiscalYears]="fiscalYearArray"
-                                 [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
-            </ng-container>
-
-            <ng-template #ntaMegaSummary>
+            <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
                 <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
                                       [fiscalYears]="fiscalYearArray"
                                       [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
+            </ng-container>
+
+            <ng-template #otherBank>
+                <app-nta-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
+                                 [fiscalYears]="fiscalYearArray"
+                                 [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
             </ng-template>
 <div *ngIf="client === clientName?.MEGA">
     <app-comments-summary
@@ -79,9 +80,6 @@
 
 <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"
                                  [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-summery>
-
-<app-income-from-account-view *ngIf="!newCustomerFlag"
-                              [data]="incomeFromAccountParsedData"></app-income-from-account-view>
 
 <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
 

@@ -29,7 +29,7 @@ export class LegalReviewApprovedComponent implements OnInit {
 
   static loadData(other: LegalReviewApprovedComponent) {
     other.spinner = true;
-    other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, 10).subscribe((res: any) => {
+    other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
       other.loanList = res.detail.content;
       console.log(other.loanList);
       other.pageable = PaginationUtils.getPageable(res.detail);

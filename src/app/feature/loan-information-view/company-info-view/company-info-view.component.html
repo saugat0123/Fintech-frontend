@@ -14,19 +14,19 @@
                 <th>Issue Place</th>
                 <th>PAN</th>
                 <th>Business Type</th>
-                <th>Address as per Legal Document</th>
+                <th *ngIf="client === clientName?.SHINE_RESUNGA">Address as per Legal Document</th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td class="text-left pl-1">{{formValue?.companyName}}</td>
-                <td class="text-right pr-1">{{customerInfo['customerCode']}}</td>
-                <td class="text-left pl-1">{{formValue?.establishmentDate | date}}</td>
+                <td class="text-right pr-1">{{customerInfo['customerCode'] || 'N/A'}}</td>
+                <td class="text-left pl-1">{{formValue?.establishmentDate | engNepDate: false}}</td>
                 <td class="text-right pr-1">{{formValue?.registrationNumber}}</td>
                 <td class="text-left pl-1">{{formValue?.issuePlace}}</td>
                 <td class="text-right pr1">{{formValue?.panNumber}}</td>
                 <td class="text-left pl-1">{{formValue?.businessType}}</td>
-                <td class=" pl-1">{{formValue?.companyLegalDocumentAddress}}</td>
+                <td class="text-left pl-1" *ngIf="client === clientName?.SHINE_RESUNGA">{{companyJsonData?.addressLegalDocument}}</td>
             </tr>
             </tbody>
             <tr class="text-white sb-bg-dark">
@@ -44,7 +44,7 @@
                 <td class="text-right pr-1">{{formValue?.contactNum}}</td>
                 <td class="text-right pr-1">{{formValue?.landLineNumber}}</td>
                 <td class="text-left pl-1">{{companyJsonData?.majorProductService}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.relationshipSince | date}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.relationshipSince | engNepDate: false}}</td>
                 <td class="text-left pl-1">{{customerInfo['clientType']}}</td>
                 <td class="text-left pl-1">{{customerInfo['subsectorDetail']}}</td>
                 <td class="text-left pl-1" *ngIf="client === clientName?.SHINE_RESUNGA">{{customerInfo?.obligor}}</td>
@@ -70,8 +70,8 @@
             <tr>
                 <td class="text-left pl-1">{{additionalInfoJsonData?.registrationType}}</td>
                 <td class="text-left pl-1">{{additionalInfoJsonData?.licenseHolderName}}</td>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseIssuedDate | date}}</td>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseExpiryDate | date}}</td>
+                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseIssuedDate | engNepDate: false}}</td>
+                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseExpiryDate | engNepDate: false}}</td>
                 <td class="text-left pl-1">{{additionalInfoJsonData?.licenseIssuePlace}}</td>
             </tr>
             <tr class="text-white sb-bg-dark">
@@ -103,10 +103,10 @@
                 <td class="text-left pl-1">{{formValue?.legalStatus?.corporateStructure?.name}}</td>
                 <td class="text-left pl-1">{{registeredOffice[formValue?.legalStatus?.registeredOffice]}}</td>
                 <td class="text-left pl-1">{{formValue?.legalStatus?.registeredUnderAct}}</td>
-                <td class="text-right pr-1">{{formValue?.legalStatus?.registrationDate | date}}</td>
+                <td class="text-right pr-1">{{formValue?.legalStatus?.registrationDate | engNepDate: false}}</td>
                 <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationOffice}}</td>
-                <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationDate |date}}</td>
-                <td class="text-left pl-1">{{formValue?.legalStatus?.registrationExpiryDate | date}}</td>
+                <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationDate |engNepDate: false}}</td>
+                <td class="text-left pl-1">{{formValue?.legalStatus?.registrationExpiryDate | engNepDate: false}}</td>
             </tr>
             </tbody>
         </table>
@@ -114,15 +114,15 @@
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
-                <th colspan="4">Capital Information</th>
+                <th colspan="7">Capital Information</th>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Authorized Capital</th>
                 <th>Issued Capital</th>
                 <th>Paid Up Capital</th>
-                <!--        <th>Total Capital</th>-->
-                <!--        <th>Fixed Capital</th>-->
-                <!--        <th>Working Capital</th>-->
+                <th *ngIf="client === clientName?.ICFC">Total Capital</th>
+                <th *ngIf="client === clientName?.ICFC">Fixed Capital</th>
+                <th *ngIf="client === clientName?.ICFC">Working Capital</th>
                 <th>Number Of Shareholder</th>
             </tr>
             </thead>
@@ -131,9 +131,9 @@
                 <td class="text-right pr-1">Rs. {{formValue?.capital?.authorizedCapital | currencyFormatter}}</td>
                 <td class="text-right pr-1">Rs. {{formValue?.capital?.issuedCapital | currencyFormatter}}</td>
                 <td class="text-right pr-1">Rs. {{formValue?.capital?.paidUpCapital | currencyFormatter}}</td>
-                <!--        <td>{{formValue?.capital?.totalCapital}}</td>-->
-                <!--        <td>{{formValue?.capital?.fixedCapital}}</td>-->
-                <!--        <td>{{formValue?.capital?.workingCapital}}</td>-->
+                <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">Rs. {{formValue?.capital?.totalCapital}}</td>
+                <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">Rs. {{formValue?.capital?.fixedCapital}}</td>
+                <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">Rs. {{formValue?.capital?.workingCapital}}</td>
                 <td class="text-right pr-1">{{formValue?.capital?.numberOfShareholder}}</td>
             </tr>
             </tbody>
@@ -312,9 +312,9 @@
                     <td class="text-left pl-1"><strong>{{holder?.fatherName}}</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.grandFatherName}}</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.citizenshipNum}}</strong></td>
-                    <td class="text-left pl-1"><strong>{{holder?.issuedDate|date}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.issuedDate|engNepDate: false}}</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.issuedPlace}}</strong></td>
-                    <td class="text-left pl-1"><strong>{{holder?.dateOfBirth|date}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.dateOfBirth|engNepDate: false}}</strong></td>
                 </tr>
 
                 <tr *ngIf="client != clientName.MEGA">
@@ -347,7 +347,7 @@
                                     <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-right pr-1">{{d?.age || 'N/A' }}</td>
                                     <td class="text-right pr-1">{{d?.citizenshipNumber ? d?.citizenshipNumber : 'N/A' }}</td>
                                     <td class="text-left pl-1">{{d?.issuedLocation ? d?.issuedLocation : 'N/A' }}</td>
-                                    <td class="text-left pl-1">{{d?.issuedDate ? (d?.issuedDate | date) : 'N/A'}}</td>
+                                    <td class="text-left pl-1">{{d?.issuedDate ? (d?.issuedDate | engNepDate: false) : 'N/A'}}</td>
                                     <td class="text-right pr-1">{{d?.mobileNumber ? d?.mobileNumber : 'N/A' }}</td>
                                     <td class="text-left pl-1">{{d?.address ? d?.address : 'N/A'}}</td>
                                     <td class="text-left pl-1">{{d?.remark ? d?.remark : 'N/A'}}</td>

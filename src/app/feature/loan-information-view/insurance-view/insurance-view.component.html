@@ -29,8 +29,8 @@
         <td class="text-right pr-1">Rs. {{insurance?.insuredAmount | currencyFormatter}}</td>
         <td class="text-left pl-1">{{insurance?.company}}</td>
         <td class="text-right pr-1">Rs. {{insurance?.premiumAmount | currencyFormatter}}</td>
-        <td class="text-left pl-1">{{insurance?.issuedDate | date}}</td>
-        <td class="text-left pl-1">{{insurance?.expiryDate | date}}</td>
+        <td class="text-left pl-1">{{insurance?.issuedDate | engNepDate: false}}</td>
+        <td class="text-left pl-1">{{insurance?.expiryDate | engNepDate: false}}</td>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th></th>

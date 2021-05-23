@@ -1,14 +1,4 @@
-import {
-    Component,
-    DoCheck,
-    ElementRef,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
-    QueryList, ViewChild,
-    ViewChildren
-} from '@angular/core';
+import {Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Customer} from '../../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
@@ -34,7 +24,6 @@ import {MaritalStatus} from '../../../../../@core/model/enum/marital-status';
 import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
 import {environment, environment as env} from '../../../../../../environments/environment';
 import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
-import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
 import {Clients} from '../../../../../../environments/Clients';
 import {Editor} from '../../../../../@core/utils/constants/editor';
@@ -249,7 +238,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     onSubmit() {
-        console.log('this is basic info', this.basicInfo);
         this.submitted = true;
         const tempId = this.basicInfo.get('citizenshipNumber').value;
         this.blackListService.checkBlacklistByRef(tempId).subscribe((response: any) => {
@@ -346,7 +334,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 }
             }
         });
-        console.log('this is customer data', this.customer);
     }
 
     getProvince() {
@@ -423,7 +410,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 undefined : this.customer.netWorth,
                 this.crgLambdaDisabled ? undefined : [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
             subsectorDetail: [this.customer.subsectorDetail === undefined ? undefined : this.customer.subsectorDetail],
-            clientType: [this.customer.clientType === undefined ? undefined : this.customer.clientType],
+            clientType: [this.customer.clientType === undefined ? undefined : this.customer.clientType, Validators.required],
             temporaryProvince: [this.customer.temporaryProvince === null ? undefined :
                 this.customer.temporaryProvince, Validators.required],
             temporaryDistrict: [this.customer.temporaryDistrict === null ? undefined :
@@ -467,7 +454,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         const relation = ['Grand Father', 'Father'];
         relation.forEach((customerRelation) => {
             (this.basicInfo.get('customerRelatives') as FormArray).push(this.formBuilder.group({
-                customerRelation: [{value: customerRelation, disabled: true}],
+                customerRelation: [{value: customerRelation, disabled: false}],
                 customerRelativeName: [undefined, Validators.required],
                 citizenshipNumber: [undefined],
                 citizenshipIssuedPlace: [undefined],
@@ -486,7 +473,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 // Increase index number with increase in static relatives---
                 relativesData.push(this.formBuilder.group({
                     customerRelation: (index > 1) ? [(customerRelative)] :
-                        [({value: customerRelative, disabled: true}), Validators.required],
+                        [({value: customerRelative, disabled: false}), Validators.required],
                     customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
                     version: [singleRelatives.version === undefined ? undefined : singleRelatives.version],
                     citizenshipNumber: [singleRelatives.citizenshipNumber],
@@ -656,7 +643,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     /** @Param validate --- true for add validation and false for remove validation
      * @Param controlNames --- list of formControlName**/
     controlValidation(controlNames: string[], validate) {
-        console.log(validate);
         controlNames.forEach(s => {
             if (validate) {
                 this.basicInfo.get(s).setValidators(Validators.required);
@@ -668,7 +654,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     onCustomerTypeChange(check: boolean) {
-        console.log('value is check' , check);
         if (check || this.crgLambdaDisabled) {
             this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk', 'bankingRelationship',
                 'netWorth'], false);

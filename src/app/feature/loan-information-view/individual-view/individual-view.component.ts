@@ -20,6 +20,8 @@ export class IndividualViewComponent implements OnInit {
   customerType = CustomerType;
   individualJsonData: IndividualJsonData;
   @Input() customerInfoData: CustomerInfoData;
+  clientType: string;
+  subsectorDetail: string;
 
   crgLambdaDisabled = envSrdb.disableCrgLambda;
   client = environment.client;
@@ -28,6 +30,10 @@ export class IndividualViewComponent implements OnInit {
   @Input() calendarType: CalendarType;
 
   @Input() loanId: any;
+  isJointInfo = false;
+  jointInfo = [];
+  riskInfo: any;
+  age: number;
 
   constructor() {
   }
@@ -39,7 +45,21 @@ export class IndividualViewComponent implements OnInit {
         this.individualJsonData = JSON.parse(this.individual.individualJsonData);
       }
     }
+    if (!ObjectUtil.isEmpty(this.individual.jointInfo)) {
+      const jointCustomerInfo = JSON.parse(this.individual.jointInfo);
+      this.riskInfo = jointCustomerInfo;
+      this.clientType = jointCustomerInfo.clientType;
+      this.subsectorDetail = jointCustomerInfo.subsectorDetail;
+      this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
+      this.isJointInfo = true;
+    }
 
+  }
+
+  calculateAge(dob) {
+    const difference = Math.abs(Date.now() - new Date(dob).getTime());
+    this.age = Math.floor((difference / (1000 * 3600 * 24)) / 365);
+    return this.age;
   }
 
 }

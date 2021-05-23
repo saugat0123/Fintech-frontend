@@ -11,11 +11,13 @@ export class CrgLambdaDetailViewComponent implements OnInit {
   @Input() lambdaData;
   @Input() loanTag;
   crgLambdaData: any;
+  lambdaScheme;
 
   constructor() { }
 
   ngOnInit() {
     this.crgLambdaData = JSON.parse(this.lambdaData.data);
+    this.lambdaScheme = this.crgLambdaData.lambdaScheme;
   }
 
 }
