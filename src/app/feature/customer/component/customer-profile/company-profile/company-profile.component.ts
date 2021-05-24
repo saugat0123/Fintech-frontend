@@ -11,7 +11,6 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {NbAccordionItemComponent, NbDialogService} from '@nebular/theme';
-import {CompanyDetailEditComponent} from './company-profile-detail-edit/company-detail-edit.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BusinessType} from '../../../../admin/modal/businessType';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
@@ -208,9 +207,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     }
 
 
-    openCompanyDetailEdit(companyInfo) {
-        this.dialogService.open(CompanyDetailEditComponent, {context: {companyInfo}}).onClose.subscribe(res => this.ngOnInit());
-    }
+
 
     buildCompanyForm() {
         this.companyForm = this.formBuilder.group({
@@ -327,9 +324,9 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     }
 
     isEditableCustomerData() {
-        if(this.maker){
+        if (this.maker) {
         this.loanFormService.isCustomerEditable(this.customerInfoId).subscribe((res: any) => {
             this.isEditable = res.detail;
-        });}
+        }); }
     }
 }

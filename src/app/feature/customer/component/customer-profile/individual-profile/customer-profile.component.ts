@@ -23,7 +23,6 @@ import {CustomerType} from '../../../model/customerType';
 import {CustomerInfoService} from '../../../service/customer-info.service';
 // @ts-ignore
 import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
-import {KycFormComponent} from './kyc-form/kyc-form.component';
 import {NbAccordionItemComponent, NbDialogService} from '@nebular/theme';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {CustomerLoanApplyComponent} from '../../customer-loan-apply/customer-loan-apply.component';
@@ -395,16 +394,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         this.totalProposalAmount = this.totalProposedAmountByGuarantor +
             this.totalLoanProposedAmount + this.proposeAmountOfGroup;
     }
-
-    openKycModal() {
-        const customer = this.customer;
-        this.dialogService.open(KycFormComponent, {context: {customer}}).onClose.subscribe(res => {
-            if (!ObjectUtil.isEmpty(res)) {
-                this.refreshCustomerInfo();
-            }
-        });
-    }
-
     refreshGroup() {
         this.refreshCustomerInfo();
     }

@@ -187,9 +187,6 @@
                 </div>
             </div>
             <div class="row justify-content-end">
-                <button (click)="editCustomer(0)" *ngIf="isEdited" nbButton size="small"
-                        status="warning" type="button">Cancel
-                </button>
                 <div class="px-2">
                     <button (click)="saveBasic()" *ngIf="isEdited" nbButton size="small"
                             status="danger" type="button">Save
@@ -322,10 +319,6 @@
                         <div class="row justify-content-lg-start">
                             <div class="col-md-6">KYC</div>
                             <div class="col-md-6 " *ngIf="maker && !isJointInfo">
-                                <div class="px-2 text-right">
-                                    <button nbButton size="tiny"><a (click)="openKycModal()" class="cursor"><i
-                                            class="fa fa-edit"></i></a></button>
-                                </div>
                             </div>
                         </div>
                     </nb-card-header>
