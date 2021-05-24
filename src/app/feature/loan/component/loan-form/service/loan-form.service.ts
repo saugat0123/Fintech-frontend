@@ -180,6 +180,11 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.get(req.url, {headers: req.header});
     }
 
+    /*public transferLoanToOtherBranch(object, bId: number): Observable<any> {
+        const req = ApiUtils.getRequest(`${LoanFormService.API}/transfer-loan-other-branch/${bId}`);
+        return this.http.post(req.url, object, {headers: req.header});
+    }*/
+
     protected getApi(): string {
         return LoanFormService.API;
     }
