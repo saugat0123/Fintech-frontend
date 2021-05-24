@@ -323,119 +323,12 @@
                             <div class="col-md-6">KYC</div>
                             <div class="col-md-6 " *ngIf="maker && !isJointInfo">
                                 <div class="px-2 text-right">
-                                    <button nbButton size="tiny"><a (click)="openKycModal()" class="cursor"><i
+                                    <button nbButton size="tiny"><a class="cursor"><i
                                             class="fa fa-edit"></i></a></button>
                                 </div>
                             </div>
                         </div>
                     </nb-card-header>
-
-                    <nb-card-body *ngIf="!isJointInfo">
-                        <div (click)="checkKycLoan(customerRelative)"
-                             *ngFor="let customerRelative of customer.customerRelatives" class="cursor">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <span> <strong>Name</strong></span></div>
-                                <div class="col-md-1">
-                                    <span> <strong>:</strong></span></div>
-                                <div class="col-md-5">{{customerRelative.customerRelativeName}}</div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <span> <strong>Relation</strong></span></div>
-                                <div class="col-md-1">
-                                    <span> <strong>:</strong></span></div>
-                                <div class="col-md-5">{{customerRelative.customerRelation}}</div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <span> <strong>Citizenship no</strong></span></div>
-                                <div class="col-md-1">
-                                    <span> <strong>:</strong></span></div>
-                                <div class="col-md-5">{{customerRelative.citizenshipNumber}}</div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <span> <strong>Issued Place</strong></span></div>
-                                <div class="col-md-1">
-                                    <span> <strong>:</strong></span></div>
-                                <div class="col-md-5">{{customerRelative.citizenshipIssuedPlace}}</div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <span> <strong>Issued Date</strong></span></div>
-                                <div class="col-md-1">
-                                    <span> <strong>:</strong></span></div>
-                                <div class="col-md-5">{{customerRelative.citizenshipIssuedDate | date}}</div>
-                            </div>
-                            <hr>
-                        </div>
-                        <div class="row" *ngIf="!crgLambdaDisabled">
-                            <div class="col-md-5">
-                                <span> <strong>Net Worth</strong></span></div>
-                            <div class="col-md-1">
-                                <span> <strong>:</strong></span></div>
-                            <div class="col-md-5"> Rs. {{customer?.netWorth |currencyFormatter}}</div>
-                        </div>
-                        <div class="row" *ngIf="!crgLambdaDisabled">
-                            <div class="col-md-5">
-                                <span> <strong>Banking RelationShip</strong></span></div>
-                            <div class="col-md-1">
-                                <span> <strong>:</strong></span></div>
-                            <div class="col-md-5">{{customerInfo?.bankingRelationship === undefined ? 'N/A' : json.parse(customerInfo?.bankingRelationship)}}</div>
-                        </div>
-                        <hr>
-                    </nb-card-body>
-                    <nb-card-body *ngIf="isJointInfo">
-                        <div *ngFor="let jointCustomer of jointInfo">
-                            <ng-container *ngFor="let info of jointCustomer">
-                                <div *ngIf="info?.customerRelativeName1">
-                                <strong>Name : </strong><span>{{info?.customerRelativeName1 || 'NA'}}</span><br/>
-                                <strong>Relation : </strong><span>{{info?.customerRelation1 || 'NA'}}</span><br/>
-                                <strong>Citizenship no : </strong><span>{{info?.citizenshipNumber1 || 'NA'}}</span><br/>
-                                <strong>Issued Place : </strong><span>{{info?.citizenshipIssuedPlace1 || 'NA'}}</span><br/>
-                                <strong>Issued Date : </strong><span>{{info?.citizenshipIssuedDate1 || 'NA' | date}}</span><br/>
-                                <hr/>
-                                </div>
-                                <div *ngIf="info?.customerRelativeName2">
-                                <strong>Name : </strong><span>{{info?.customerRelativeName2 || 'NA'}}</span><br/>
-                                <strong>Relation : </strong><span>{{info?.customerRelation2 || 'NA'}}</span><br/>
-                                <strong>Citizenship no : </strong><span>{{info?.citizenshipNumber2 || 'NA'}}</span><br/>
-                                <strong>Issued Place : </strong><span>{{info?.citizenshipIssuedPlace2 || 'NA'}}</span><br/>
-                                <strong>Issued Date : </strong><span>{{info?.citizenshipIssuedDate2 || 'NA' | date}}</span><br/>
-                                <hr/>
-                                </div>
-                                <div *ngIf="info?.customerRelativeName3">
-                                <strong>Name : </strong><span>{{info?.customerRelativeName3 || 'NA'}}</span><br/>
-                                <strong>Relation : </strong><span>{{info?.customerRelation3 || 'NA'}}</span><br/>
-                                <strong>Citizenship no : </strong><span>{{info?.citizenshipNumber3 || 'NA'}}</span><br/>
-                                <strong>Issued Place : </strong><span>{{info?.citizenshipIssuedPlace3 || 'NA'}}</span><br/>
-                                <strong>Issued Date : </strong><span>{{info?.citizenshipIssuedDate3 || 'NA' | date}}</span><br/>
-                                <hr/>
-                                </div>
-                                <div *ngIf="info?.customerRelativeName4">
-                                <strong>Name : </strong><span>{{info?.customerRelativeName4 || 'NA'}}</span><br/>
-                                <strong>Relation : </strong><span>{{info?.customerRelation4 || 'NA'}}</span><br/>
-                                <strong>Citizenship no : </strong><span>{{info?.citizenshipNumber4 || 'NA'}}</span><br/>
-                                <strong>Issued Place : </strong><span>{{info?.citizenshipIssuedPlace4 || 'NA'}}</span><br/>
-                                <strong>Issued Date : </strong><span>{{info?.citizenshipIssuedDate4 || 'NA' | date}}</span><br/>
-                                <hr/>
-                                </div>
-                                <div *ngIf="info?.customerRelativeName5">
-                                <strong>Name : </strong><span>{{info?.customerRelativeName5 || 'NA'}}</span><br/>
-                                <strong>Relation : </strong><span>{{info?.customerRelation5 || 'NA'}}</span><br/>
-                                <strong>Citizenship no : </strong><span>{{info?.citizenshipNumber5 || 'NA'}}</span><br/>
-                                <strong>Issued Place : </strong><span>{{info?.citizenshipIssuedPlace5 || 'NA'}}</span><br/>
-                                <strong>Issued Date : </strong><span>{{info?.citizenshipIssuedDate5 || 'NA' | date}}</span><br/>
-                                <hr/>
-                                </div>
-                            </ng-container>
-                        </div>
-                    </nb-card-body>
                 </nb-card>
             </div>
         </div>
