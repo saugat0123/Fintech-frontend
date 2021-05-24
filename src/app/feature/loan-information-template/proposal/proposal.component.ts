@@ -243,7 +243,7 @@ export class ProposalComponent implements OnInit {
         || this.loanType === 'FULL_SETTLEMENT_LOAN' || this.loanType === 'RENEW_WITH_ENHANCEMENT') {
       this.checkApproved = true;
       this.proposalForm.get('existingLimit').setValidators(Validators.required);
-      // this.proposalForm.get('outStandingLimit');
+      this.proposalForm.get('outStandingLimit');
     }
 }
   configEditor() {
