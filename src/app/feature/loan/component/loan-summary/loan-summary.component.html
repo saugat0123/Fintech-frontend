@@ -396,28 +396,28 @@
                     </thead>
                     <tbody>
                     <tr *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL' && creditRiskLambdaSummary">
-                        <td>Lambda</td>
+                        <td class="text-left pl-1">Lambda</td>
                         <td><span [class]="creditGradeLambdaStatusBadge"> {{creditRiskGradeLambda | titlecase}}</span>
                         </td>
                         <td><span
                                 [class]="creditGradeLambdaStatusBadge"> {{ creditRiskRatingLambda | titlecase }}</span>
                         </td>
-                        <td><strong> {{ creditRiskLambdaScore }}</strong></td>
-                        <td><strong> {{ creditRiskLambdaPremium }}</strong></td>
+                        <td class="text-right pr-1"><strong> {{ creditRiskLambdaScore }}</strong></td>
+                        <td class="text-right pr-1"><strong> {{ creditRiskLambdaPremium }}</strong></td>
                     </tr>
                     <tr *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION' && creditRiskAlphaSummary">
-                        <td>Alpha</td>
+                        <td class="text-left pl-1">Alpha</td>
                         <td><span [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha | titlecase}}</span>
                         </td>
                         <td><span [class]="creditGradeAlphaStatusBadge"> {{ creditRiskRatingAlpha | titlecase }}</span>
                         </td>
-                        <td><strong> {{ creditRiskAlphaScore }}</strong></td>
-                        <td><strong> {{ creditRiskAlphaPremium }}</strong></td>
+                        <td class="text-right pr-1"><strong> {{ creditRiskAlphaScore }}</strong></td>
+                        <td class="text-right pr-1"><strong> {{ creditRiskAlphaPremium }}</strong></td>
                     </tr>
                     <tr *ngIf="crgGammaSummary">
-                        <td>Gamma</td>
+                        <td class="text-left pl-1">Gamma</td>
                         <td><span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span></td>
-                        <td><span><strong> {{ crgGammaScore }}</strong></span></td>
+                        <td class="text-right pr-1"><span><strong> {{ crgGammaScore }}</strong></span></td>
                     </tr>
                     </tbody>
                 </table>
@@ -456,7 +456,7 @@
                             <tr class="text-left">
                                 <td class="pl-1">{{loanDataHolder?.customerInfo?.customerName}}</td>
                                 <td class="pl-1">{{loanDataHolder?.customerInfo?.dob | engNepDate: false}}</td>
-                                <td class="text-right pr-1">{{calculateAge(loanDataHolder?.customerInfo?.dob)}} years</td>
+                                <td class="text-left pl-1">{{calculateAge(loanDataHolder?.customerInfo?.dob)}} years</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.contactNumber}}</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.landLineNumber}}</td>
@@ -536,9 +536,7 @@
                                 <td class="text-left pl-1">
                                     {{relative.citizenshipIssuedDate | engNepDate: false}}
                                 </td>
-                                <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">
-                                    {{relative.age}}
-                                </td>
+                                <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{relative.age}} years</td>
 
                             </tr>
                             </tbody>
@@ -572,7 +570,7 @@
                                 <tr class="text-left">
                                     <td class="pl-1">{{info?.customerName}}</td>
                                     <td class="pl-1">{{info?.dob | engNepDate: false}}</td>
-                                    <td class="text-right pr-1">{{calculateAge(info?.dob)}} years</td>
+                                    <td class="text-left pl-1">{{calculateAge(info?.dob)}} years</td>
                                     <td class="text-right pr-1">{{info?.citizenshipNumber}}</td>
                                     <td class="text-right pr-1">{{info?.contactNumber || 'NA'}}</td>
                                     <td class="text-right pr-1">{{info?.landLineNumber || 'NA'}}</td>
@@ -1278,7 +1276,7 @@
                         <div class="text-center signature-detail sb-bg-secondary text-white">
                             <p class="m-0 sb-small">{{previous?.fromUser?.name}}</p>
                             <p class="m-0 sb-small">({{previous?.fromUser?.role?.roleName}})</p>
-                            <p class="m-0 sb-small">{{previous?.lastModifiedAt}}</p>
+                            <p class="m-0 sb-small">{{previous?.lastModifiedAt | engNepDate: false}}</p>
                         </div>
                     </div>
                 </div>

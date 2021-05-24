@@ -23,7 +23,7 @@
         <td class="text-left pl-1">{{individual?.customerName}}</td>
         <td class="text-right pr-1">{{customerInfo?.customerCode || 'N/A'}}</td>
         <td class="text-left pl-1">{{individual?.dob | engNepDate: false}}</td>
-        <td class="text-right pr-1">{{calculateAge(individual?.dob)}} years</td>
+        <td class="text-left pl-1">{{calculateAge(individual?.dob)}} years</td>
         <td class="text-right pr-1">{{individual?.citizenshipNumber}}</td>
         <td class="text-left pl-1">{{individual?.citizenshipIssuedDate | engNepDate: false}}</td>
         <td class="text-left pl-1">{{individual?.citizenshipIssuedPlace}}</td>
@@ -39,7 +39,7 @@
         <th>LandLine Number</th>
         <th>Email</th>
         <th>Occupation</th>
-        <th>Income</th>
+        <th>Income Source</th>
         <th>Client Type</th>
       </tr>
       </thead>
@@ -142,7 +142,7 @@
           {{relative.citizenshipIssuedDate | engNepDate: false}}
         </td>
         <td class="text-left pl-1">{{relative.citizenshipIssuedPlace || 'N/A'}}</td>
-        <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{relative.age}}</td>
+        <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{relative.age}} years</td>
 
       </tr>
       </tbody>
@@ -201,7 +201,7 @@
           <th>Date of birth</th>
           <th>Age</th>
           <th>Citizenship no.</th>
-          <th>Citizenship Issued Date</th>
+          <th>Issued Date</th>
           <th>Issued Place</th>
           <th>Gender</th>
           <th>Marital Status</th>
@@ -210,9 +210,9 @@
           <td class="pl-1">{{info?.customerName}}</td>
           <td class="pl-1">{{info?.customerCode}}</td>
           <td class="text-left pl-1">{{info?.dob | engNepDate: false}}</td>
-          <td class="text-right pr-1">{{calculateAge(info?.dob)}} years</td>
+          <td class="text-left pl-1">{{calculateAge(info?.dob)}} years</td>
           <td class="text-right pr-1">{{info?.citizenshipNumber || 'NA'}}</td>
-          <td class="text-right pr-1">{{info?.citizenshipIssuedDate || 'NA'}}</td>
+          <td class="text-right pr-1">{{info?.citizenshipIssuedDate | date}}</td>
           <td class="pl-1">{{info?.citizenshipIssuedPlace || 'NA'}}</td>
           <td class="pl-1">{{info?.gender.toLowerCase()}}</td>
           <td class="pl-1">{{info?.maritalStatus.toLowerCase()}}</td>
@@ -222,16 +222,16 @@
           <th>LandLine Number</th>
           <th>Email</th>
           <th>Occupation</th>
-          <th>Income</th>
+          <th>Income Source</th>
           <th>Client Type</th>
           <th>Subsector</th>
         </tr>
         <tr class="text-left">
           <td class="pl-1">{{info?.contactNumber}}</td>
           <td class="pl-1">{{info?.landLineNumber}}</td>
-          <td class="text-right pr-1">{{info?.email}}</td>
-          <td class="text-right pr-1">{{info?.occupation || 'NA'}}</td>
-          <td class="text-right pr-1">{{info?.incomeSource || 'NA'}}</td>
+          <td class="pl-1">{{info?.email}}</td>
+          <td class="text-left pl-1">{{info?.occupation || 'NA'}}</td>
+          <td class="text-left pl-1">{{info?.incomeSource || 'NA'}}</td>
           <td class="pl-1">{{clientType}}</td>
           <td class="pl-1">{{subsectorDetail}}</td>
         </tr>

@@ -28,6 +28,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
 
 import {MicroChecklistComponent} from './detail-view/micro-loan-detail-view-base/micro-checklist/micro-checklist.component';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -64,6 +65,8 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
     imports: [
         CommonModule,
         ThemeModule,
+        FormsModule,
+        ReactiveFormsModule,
         NgxPrintModule,
         CoreModule,
         LoanInformationViewModule,

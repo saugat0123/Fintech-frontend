@@ -151,6 +151,8 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     private spinner = false;
     disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
     showApprovalSheetInfo = false;
+    isJointInfo = false;
+    jointInfo = [];
 
     constructor(
         private userService: UserService,
@@ -182,6 +184,12 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loanDataHolder = this.loanData;
+        if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' && !ObjectUtil.isEmpty(
+            this.loanDataHolder.customerInfo.jointInfo)) {
+            const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
+            this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
+            this.isJointInfo = true;
+        }
         this.loggedUserAccess = LocalStorageUtil.getStorage().roleAccess;
         this.prepareAuthoritySection();
         this.loadSummary();
