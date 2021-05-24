@@ -183,7 +183,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.avgDaysForPrice
                 ? this.nepsePriceInfo.avgDaysForPrice : undefined);
         }, error => {
-            console.log(error);
+            console.error(error);
         });
         if (this.formData !== undefined) {
             this.ownerKycRelationInfoCheckedForLand = true;
