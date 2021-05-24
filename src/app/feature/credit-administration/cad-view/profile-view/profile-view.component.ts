@@ -15,6 +15,10 @@ import {ExcelOfferLetterConst} from '../../../cad-documents/cad-document-core/ex
 import {CadOfferLetterConfigurationComponent} from '../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
 import {UpdateCustomerCadInfoComponent} from '../../cad-offerletter-profile/update-customer-cad-info/update-customer-cad-info.component';
 import {ExcelOfferLetterComponent} from '../../excel-offer-letter-template/excel-offer-letter/excel-offer-letter.component';
+import {MegaOfferLetterConst} from '../../mega-offer-letter-const';
+import {CadOfferLetterModalComponent} from '../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
+import {ProgressiveOfferLetterConst} from '../../cad-document-template/progressive/progressive-offer-letter-const';
+import {ProgressiveOfferLetterComponent} from '../../cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter.component';
 
 @Component({
     selector: 'app-profile-view',
@@ -34,6 +38,7 @@ export class ProfileViewComponent implements OnInit {
     offerLetterTypes = [];
     client = environment.client;
     clientList = Clients;
+    component: any;
     roleType = LocalStorageUtil.getStorage().roleType;
     offerLetterConst = ExcelOfferLetterConst;
     responseCadData: EventEmitter<CustomerApprovedLoanCadDocumentation> = new EventEmitter<CustomerApprovedLoanCadDocumentation>();
@@ -47,8 +52,15 @@ export class ProfileViewComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.client === this.clientList.EXCEL) {
-            this.offerLetterTypes = ExcelOfferLetterConst.enumObject();
+        switch (this.client) {
+            case this.clientList.EXCEL:
+                this.offerLetterTypes = ExcelOfferLetterConst.enumObject();
+                this.component = ExcelOfferLetterComponent;
+                break;
+            case this.clientList.PROGRESSIVE:
+                this.offerLetterTypes = ProgressiveOfferLetterConst.enumObject();
+                this.component = ProgressiveOfferLetterComponent;
+                break;
         }
     }
 
@@ -96,7 +108,7 @@ export class ProfileViewComponent implements OnInit {
         if (a) {
             offerLetterType = this.offerLetterConst.keysEnum(offerLetterType);
         }
-        this.nbDialogService.open(ExcelOfferLetterComponent, {
+        this.nbDialogService.open(this.component, {
             context: {
                 offerLetterType: offerLetterType,
                 cadOfferLetterApprovedDoc: cadOfferLetterApprovedDoc
