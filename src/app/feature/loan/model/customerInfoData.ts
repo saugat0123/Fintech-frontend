@@ -67,7 +67,7 @@ export class CustomerInfoData {
     borrowerPortFolio: BorrowerPortfolio;
     microBaselRiskExposure: MicroBaselRiskExposure;
     microBorrowerFinancial: MicroBorrowerFinancial;
-    microCrgParams: MicroCrgParams;
+    microOtherParameters: MicroCrgParams;
     marketingActivities: MarketingActivities;
     isMicroCustomer: boolean;
     clientType: any;
