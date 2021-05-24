@@ -22,6 +22,7 @@ import {FacCategory} from '../../admin/modal/crg/fac-category';
 import {environment} from '../../../../environments/environment';
 import {SecurityCoverageAutoPrivate} from '../model/security-coverage-auto-private';
 import {SecurityCoverageAutoCommercial} from '../model/security-coverage-auto-commercial';
+import {ExpOfClient} from '../../micro-loan/template/micro-crg-params/model/ExpOfClient';
 
 @Component({
     selector: 'app-security',
