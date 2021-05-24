@@ -17,6 +17,7 @@ import {DocStatus} from '../../../loan/model/docStatus';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {LoanStage} from '../../../loan/model/loanStage';
 import {ChangeLoanComponent} from '../change-loan/change-loan.component';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 
 @Component({
@@ -69,7 +70,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     constructor(private router: Router,
                 private customerService: CustomerService,
                 private customerLoanService: LoanFormService,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                private spinnerService: NgxSpinnerService) {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -236,6 +238,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
     onClick(loanConfigId: number, customerId: number, currentStage: LoanStage) {
         this.modalService.dismissAll();
+        this.spinnerService.show();
         if (!ObjectUtil.isEmpty(currentStage)) {
             if ((currentStage.toUser.id.toString() === this.currentUserId) && (this.currentUserRoleType === 'MAKER')) {
                 this.router.navigate(['/home/loan/summary'], {
@@ -262,7 +265,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
                 }
             });
         }
-
+        this.spinnerService.hide();
     }
 
     initial() {
@@ -316,7 +319,6 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
     changeLoan(id: number, loanConfigId: number) {
         const modelRef = this.modalService.open(ChangeLoanComponent, {backdrop: false});
-
         modelRef.componentInstance.customerType = this.customerInfo.customerType;
         modelRef.componentInstance.currentLoanConfigId = loanConfigId;
         modelRef.componentInstance.isMicroCustomer = this.customerInfo.isMicroCustomer;

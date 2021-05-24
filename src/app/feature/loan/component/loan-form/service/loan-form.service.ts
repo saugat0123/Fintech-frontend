@@ -10,7 +10,6 @@ import {CustomerGroup} from '../../../../admin/modal/customer-group';
 import {CustomerDocuments} from '../../../model/customerDocuments';
 
 
-
 @Injectable({
     providedIn: 'root'
 })
@@ -130,6 +129,7 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         const req = ApiUtils.getRequest(`${this.getApi()}/customer-group`);
         return this.http.post(req.url, customerGroup, {headers: req.header});
     }
+
     public getCustomerFromCustomerLoan(searchObj: any, page: number = 1, size: number = 10) {
         const api = `${this.getApi()}/customer-list?page=${page}&size=${size}`;
         const req = ApiUtils.getRequest(api);
@@ -159,7 +159,7 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.post(req.url, formData, {headers: req.header});
     }
 
-    public saveCustomerDocument(loanId , customerDocuments: Array<CustomerDocuments>, data: string) {
+    public saveCustomerDocument(loanId, customerDocuments: Array<CustomerDocuments>, data: string) {
         const api = `${this.getApi()}/cad-document?loanId=${loanId}`;
         const req = ApiUtils.getRequest(api);
         const params = {
@@ -168,6 +168,7 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         };
         return this.http.post(req.url, customerDocuments, params);
     }
+
     public saveCbsNumbers(loanDataHolder) {
         const api = `${this.getApi()}/cbs`;
         const req = ApiUtils.getRequest(api);
@@ -176,6 +177,12 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
 
     public isCustomerEditable(loanHolderId: number) {
         const api = `${this.getApi()}/customer-editable/${loanHolderId}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
+    public changeLoanConfigByCustomerLoanIdAndLoanConfigID(customerLoanId: number, loanConfigId: number) {
+        const api = `${this.getApi()}/change-loan/customer-loan-id/${customerLoanId}/loan-config-id/${loanConfigId}`;
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
     }

@@ -4,7 +4,12 @@ import {LoanConfigService} from '../../../admin/component/loan-config/loan-confi
 import {CustomerType} from '../../model/customerType';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {ToastService} from '../../../../@core/utils';
+import {Status} from '../../../../@core/Status';
+import {LoginPopUp} from '../../../../@core/login-popup/login-pop-up';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-change-loan',
@@ -33,8 +38,10 @@ export class ChangeLoanComponent implements OnInit {
     constructor(private router: Router,
                 private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
-                private modalService: NgbActiveModal,
-                private loanFormService: LoanFormService) {
+                private modalService: NgbModal,
+                private loanFormService: LoanFormService,
+                private spinnerService: NgxSpinnerService,
+                private toastService: ToastService) {
     }
 
     ngOnInit() {
@@ -49,10 +56,12 @@ export class ChangeLoanComponent implements OnInit {
         this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
             this.spinner = false;
             if (this.isMicroCustomer) {
-                this.loanList = response.detail.filter((f) => f.loanTag === 'MICRO_LOAN');
+                // tslint:disable-next-line:max-line-length
+                this.loanList = response.detail.filter((f) => f.loanTag === 'MICRO_LOAN' && f.status === Status.ACTIVE && f.id !== this.currentLoanConfigId);
 
             } else {
-                this.loanList = response.detail.filter((f) => f.loanTag !== 'MICRO_LOAN');
+                // tslint:disable-next-line:max-line-length
+                this.loanList = response.detail.filter((f) => f.loanTag !== 'MICRO_LOAN' && f.status === Status.ACTIVE && f.id !== this.currentLoanConfigId);
             }
         }, error => {
             this.spinner = false;
@@ -66,14 +75,47 @@ export class ChangeLoanComponent implements OnInit {
     }
 
 
-    submit() {
+    submit(template) {
+        if (this.changeLoanForm.invalid) {
+            return;
+        }
+        const ref = this.modalService.open(LoginPopUp);
+        let isAuthorized = false;
+        ref.componentInstance.returnAuthorizedState.subscribe((receivedEntry) => {
+            isAuthorized = receivedEntry;
+            if (isAuthorized) {
+                this.modalService.dismissAll();
+                this.spinnerService.show();
+                const loanConfigID = this.changeLoanForm.get('loanId').value;
+                // tslint:disable-next-line:max-line-length
+                this.loanFormService.changeLoanConfigByCustomerLoanIdAndLoanConfigID(this.customerLoanId, loanConfigID).subscribe((res: any) => {
+                    this.spinnerService.hide();
+                    this.router.navigate(['/home/loan/loanForm'], {
+                        queryParams: {
+                            loanId: loanConfigID,
+                            customerId: this.customerLoanId,
+                            loanCategory: this.customerType
+                        }
+                    });
+                    setTimeout(() => {
+                        this.openTemplate(template);
+                    }, 2000);
+                }, error => {
+                    this.spinnerService.hide();
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Switch Loan'));
 
-        console.log(this.changeLoanForm.value);
+                });
+            }
+        });
 
     }
 
     close() {
-        this.modalService.close();
+        this.modalService.dismissAll();
+    }
+
+    openTemplate(template) {
+        this.modalService.open(template);
     }
 
 }

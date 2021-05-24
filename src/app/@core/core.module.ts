@@ -18,6 +18,7 @@ import {EngToNepaliNumberPipe} from './pipe/eng-to-nepali-number.pipe';
 import {NepaliPercentWordPipe} from './pipe/nepali-percent-word.pipe';
 import {NgxNumToWordsModule} from 'ngx-num-to-words';
 import {FormsModule} from '@angular/forms';
+import {LoginPopUp} from './login-popup/login-pop-up';
 
 
 const DATA_SERVICES = [];
@@ -57,7 +58,8 @@ const UTILITY_MODULES = [
         NepaliToEngNumberPipe,
         LoanStatusPipe,
         EngToNepaliNumberPipe,
-        ...UTILITY_MODULES
+        ...UTILITY_MODULES,
+        LoginPopUp
     ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
@@ -71,9 +73,10 @@ const UTILITY_MODULES = [
         NepaliToEngNumberPipe,
         LoanStatusPipe,
         EngToNepaliNumberPipe,
-        NepaliPercentWordPipe
+        NepaliPercentWordPipe,
+        LoginPopUp
 
-    ]
+    ], entryComponents: [LoginPopUp]
 })
 export class CoreModule {
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
