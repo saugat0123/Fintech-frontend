@@ -8,6 +8,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 })
 export class SecurityTableComponent implements OnInit {
   @Input() formDataForEdit: Object;
+  @Input() shareSecurity: any;
   isLandSecurity = false;
   landSecurity: any;
   isApartmentSecurity = false;
@@ -36,10 +37,13 @@ export class SecurityTableComponent implements OnInit {
   personalGuarantee: any;
   isInsurancePolicy = false;
   insurancePolicy: any;
+  isShareSecurity = false;
+  shareSecurityData: any;
 
   constructor() { }
 
   ngOnInit() {
+    console.log('shareSecurity', this.shareSecurity);
     // land security
       this.formDataForEdit['landDetails'].filter(f => {
         if (f.owner !== null) {
@@ -85,12 +89,10 @@ export class SecurityTableComponent implements OnInit {
     });
     //
     // // shared security
-    // this.formDataForEdit['shareSecurityForm'].filter(f => {
-    //   if (f.accountNumber !== null) {
-    //     this.sharedSecurity = this.formDataForEdit['fixedDepositDetails'];
-    //     this.isSharedSecurity = true;
-    //   }
-    // });
+    this.shareSecurityData = JSON.parse(this.shareSecurity.data);
+    if (this.shareSecurityData.avgDaysForPrice !== '') {
+      this.isShareSecurity = true;
+    }
     // hypothecation of stock security
     this.formDataForEdit['hypothecationOfStock'].filter(f => {
       if (f.owner !== '') {

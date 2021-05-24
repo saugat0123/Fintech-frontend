@@ -84,15 +84,18 @@
         </tr>
         </tbody>
 
-<!--        <tbody *ngIf="vehicleSecurity">-->
-<!--        <tr>-->
-<!--            <td>{{'Shared Security'}}</td>-->
-<!--            <td>{{noOfVehicleSecurity}}</td>-->
-<!--            <td><button type="button" nbButton size="tiny" status="info">-->
-<!--                <i class="fa fa-edit"></i>-->
-<!--            </button></td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
+        <tbody *ngIf="isShareSecurity">
+        <tr>
+            <td>{{'Shared Security'}}</td>
+            <td>{{1}}</td>
+            <td><strong>Average price for days:</strong>{{shareSecurityData?.avgDaysForPrice | currencyFormatter}},
+                <strong>Security Offered:</strong>
+                {{shareSecurityData?.securityOffered || 'NA'}}</td>
+            <td><button type="button" nbButton size="tiny" status="info">
+                <i class="fa fa-edit"></i>
+            </button></td>
+        </tr>
+        </tbody>
 
         <tbody *ngIf="isHypothecation">
         <tr>

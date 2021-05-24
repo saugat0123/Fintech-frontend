@@ -1,4 +1,6 @@
-<app-security-table [formDataForEdit]="this.formData['initialForm']"></app-security-table>
+<div *ngIf="this.formData['initialForm'] !== undefined" class="row col-md-12">
+    <app-security-table [shareSecurity]="shareSecurity" [formDataForEdit]="this.formData['initialForm']"></app-security-table>
+</div>
 <div class="form-group">
     <form [formGroup]="securityForm">
         <!--START ROW-->
