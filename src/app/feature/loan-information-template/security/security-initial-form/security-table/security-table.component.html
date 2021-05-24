@@ -5,7 +5,6 @@
             <th>Security Type</th>
             <th>No of Security</th>
             <th>Remarks</th>
-            <th>Action</th>
         </tr>
         </thead>
         <tbody *ngIf="landSecurity">
@@ -13,10 +12,7 @@
             <td>{{'Land Security'}}</td>
             <td>{{landSecurity.length}}</td>
             <td><strong>Owner:</strong>{{landSecurity[0]?.owner || 'NA'}}, <strong>Area:</strong> {{landSecurity[0]?.area || 'NA'}},
-                <strong>Market Value: </strong>Rs.{{landSecurity[0]?.marketValue || 'NA' | currencyFormatter }}</td>
-            <td><button type="button" nbButton size="tiny" status="info">
-                <i class="fa fa-edit"></i>
-            </button></td>
+                <strong>Market Value: </strong>Rs.{{landSecurity[0]?.marketValue | currencyFormatter }}</td>
         </tr>
         </tbody>
 
@@ -26,10 +22,7 @@
             <td>{{apartmentSecurity?.length}}</td>
             <td><strong>Building Name:</strong>{{apartmentSecurity[0]?.buildingName || 'NA'}}, <strong>Build Up Area:</strong>
                 {{apartmentSecurity[0]?.buildArea || 'NA'}} (Sq.ft),
-                <strong>Total Cost: </strong>Rs.{{apartmentSecurity[0]?.totalCost || 'NA' | currencyFormatter }}</td>
-            <td><button type="button" nbButton size="tiny" status="info">
-                <i class="fa fa-edit"></i>
-            </button></td>
+                <strong>Total Cost: </strong>Rs.{{apartmentSecurity[0]?.totalCost | currencyFormatter }}</td>
         </tr>
         </tbody>
 
@@ -38,7 +31,7 @@
             <td>{{'Land and Building'}}</td>
             <td>{{landAndBuilding.length}}</td>
             <td><strong>Owner:</strong>{{landAndBuilding[0]?.owner || 'NA'}}, <strong>Area:</strong> {{landAndBuilding[0]?.area || 'NA'}},
-                <strong>Market Value: </strong>Rs.{{landAndBuilding[0]?.marketValue || 'NA' | currencyFormatter }}</td>
+                <strong>Market Value: </strong>Rs.{{landAndBuilding[0]?.marketValue | currencyFormatter }}</td>
             <td><button type="button" nbButton size="tiny" status="info">
                 <i class="fa fa-edit"></i>
             </button></td>
@@ -50,11 +43,8 @@
             <td>{{'Plant and Machinery Security'}}</td>
             <td>{{plantAndMachinery.length}}</td>
             <td><strong>Model No.:</strong>{{plantAndMachinery[0]?.model || 'NA'}}, <strong>Quotation Amount:</strong> Rs.
-                {{plantAndMachinery[0]?.quotation || 'NA' | currencyFormatter}},
+                {{plantAndMachinery[0]?.quotation | currencyFormatter}},
                 <strong>Supplier: </strong>{{plantAndMachinery[0]?.supplier || 'NA'}}</td>
-            <td><button type="button" nbButton size="tiny" status="info">
-                <i class="fa fa-edit"></i>
-            </button></td>
         </tr>
         </tbody>
 
@@ -64,10 +54,7 @@
             <td>{{vehicleSecurity.length}}</td>
             <td><strong>Model No.:</strong>{{vehicleSecurity[0]?.model || 'NA'}}, <strong>Registration No.:</strong>
                 {{vehicleSecurity[0]?.registrationNumber || 'NA'}},
-                <strong>Down Payment: </strong>Rs.{{vehicleSecurity[0]?.downPayment || 'NA' | currencyFormatter}}</td>
-            <td><button type="button" nbButton size="tiny" status="info">
-                <i class="fa fa-edit"></i>
-            </button></td>
+                <strong>Down Payment: </strong>Rs.{{vehicleSecurity[0]?.downPayment | currencyFormatter}}</td>
         </tr>
         </tbody>
 
@@ -77,23 +64,17 @@
             <td>{{fixedDeposit.length}}</td>
             <td><strong>Account Holder Name.:</strong>{{fixedDeposit[0]?.accountHolderName || 'NA'}}, <strong>Account No.:</strong>
                 {{fixedDeposit[0]?.accountNumber || 'NA'}},
-                <strong>Amount: </strong>Rs.{{fixedDeposit[0]?.amount || 'NA' | currencyFormatter}}</td>
-            <td><button type="button" nbButton size="tiny" status="info">
-                <i class="fa fa-edit"></i>
-            </button></td>
+                <strong>Amount: </strong>Rs.{{fixedDeposit[0]?.amount | currencyFormatter}}</td>
         </tr>
         </tbody>
 
         <tbody *ngIf="isShareSecurity">
         <tr>
             <td>{{'Shared Security'}}</td>
-            <td>{{1}}</td>
+            <td>{{shareSecurityData?.shareSecurityDetails.length}}</td>
             <td><strong>Average price for days:</strong>{{shareSecurityData?.avgDaysForPrice | currencyFormatter}},
                 <strong>Security Offered:</strong>
                 {{shareSecurityData?.securityOffered || 'NA'}}</td>
-            <td><button type="button" nbButton size="tiny" status="info">
-                <i class="fa fa-edit"></i>
-            </button></td>
         </tr>
         </tbody>
 
@@ -103,10 +84,7 @@
             <td>{{hypothecation.length}}</td>
             <td><strong>Owner:</strong>{{hypothecation[0]?.owner || 'NA'}}, <strong>Stock:</strong>
                 {{hypothecation[0]?.stock || 'NA'}},
-                <strong>Value: </strong>Rs.{{hypothecation[0]?.value || 'NA' | currencyFormatter}}</td>
-            <td><button type="button" nbButton size="tiny" status="info">
-                <i class="fa fa-edit"></i>
-            </button></td>
+                <strong>Value: </strong>Rs.{{hypothecation[0]?.value | currencyFormatter}}</td>
         </tr>
         </tbody>
 
@@ -117,9 +95,6 @@
             <td><strong>Amount:</strong>Rs.{{assignmentOfReceivables[0]?.amount || 'NA' | currencyFormatter}}
                 <strong>Other Detail: </strong><span [innerHTML]="assignmentOfReceivables[0]?.otherDetail || 'NA' | safeHtml"></span>
                 </td>
-            <td><button type="button" nbButton size="tiny" status="info">
-                <i class="fa fa-edit"></i>
-            </button></td>
         </tr>
         </tbody>
 
@@ -128,9 +103,6 @@
             <td>{{'Lease Assignment'}}</td>
             <td>{{leaseAssignment.length}}</td>
             <td> <strong>Other Detail: </strong><span [innerHTML]="leaseAssignment[0]?.otherDetail || 'NA' | safeHtml"></span></td>
-            <td><button type="button" nbButton size="tiny" status="info">
-                <i class="fa fa-edit"></i>
-            </button></td>
         </tr>
         </tbody>
 
@@ -139,9 +111,6 @@
             <td>{{'Other Security'}}</td>
             <td>{{otherSecurity.length}}</td>
             <td> <strong>Other Detail: </strong><p [innerHTML]="otherSecurity[0]?.otherDetail || 'NA' | safeHtml"></p></td>
-            <td><button type="button" nbButton size="tiny" status="info">
-                <i class="fa fa-edit"></i>
-            </button></td>
         </tr>
         </tbody>
 
@@ -151,9 +120,6 @@
             <td>{{corporateGuarantee.length}}</td>
             <td><strong>Name:</strong>{{corporateGuarantee[0]?.name || 'NA'}}, <strong>Address:</strong>
                 {{corporateGuarantee[0]?.address || 'NA'}},</td>
-            <td><button type="button" nbButton size="tiny" status="info">
-                <i class="fa fa-edit"></i>
-            </button></td>
         </tr>
         </tbody>
 
@@ -163,9 +129,6 @@
             <td>{{personalGuarantee.length}}</td>
             <td><strong>Name:</strong>{{personalGuarantee[0]?.name || 'NA'}}, <strong>Address:</strong>
                 {{personalGuarantee[0]?.address || 'NA'}},</td>
-            <td><button type="button" nbButton size="tiny" status="info">
-                <i class="fa fa-edit"></i>
-            </button></td>
         </tr>
         </tbody>
 
@@ -173,11 +136,8 @@
         <tr>
             <td>{{'Insurance Policy'}}</td>
             <td>{{insurancePolicy.length}}</td>
-            <td><strong>Insurance Amount:</strong>Rs.{{insurancePolicy[0]?.insuredAmount || 'NA' | currencyFormatter}},
+            <td><strong>Insurance Amount:</strong>Rs.{{insurancePolicy[0]?.insuredAmount | currencyFormatter}},
                 <strong>Company Name:</strong>{{insurancePolicy[0]?.insuranceCompanyName || 'NA'}},</td>
-            <td><button type="button" nbButton size="tiny" status="info">
-                <i class="fa fa-edit"></i>
-            </button></td>
         </tr>
         </tbody>
 

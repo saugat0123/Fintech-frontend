@@ -43,7 +43,6 @@ export class SecurityTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('shareSecurity', this.shareSecurity);
     // land security
       this.formDataForEdit['landDetails'].filter(f => {
         if (f.owner !== null) {
@@ -89,13 +88,15 @@ export class SecurityTableComponent implements OnInit {
     });
     //
     // // shared security
-    this.shareSecurityData = JSON.parse(this.shareSecurity.data);
-    if (this.shareSecurityData.avgDaysForPrice !== '') {
-      this.isShareSecurity = true;
+    if (!ObjectUtil.isEmpty(this.shareSecurity)) {
+      this.shareSecurityData = JSON.parse(this.shareSecurity.data);
+      if (this.shareSecurityData.avgDaysForPrice !== '') {
+        this.isShareSecurity = true;
+      }
     }
     // hypothecation of stock security
     this.formDataForEdit['hypothecationOfStock'].filter(f => {
-      if (f.owner !== '') {
+      if (f.owner !== null) {
         this.hypothecation = this.formDataForEdit['hypothecationOfStock'];
         this.isHypothecation = true;
       }

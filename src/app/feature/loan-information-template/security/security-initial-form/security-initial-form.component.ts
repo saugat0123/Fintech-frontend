@@ -185,14 +185,11 @@ export class SecurityInitialFormComponent implements OnInit {
         }, error => {
             console.log(error);
         });
-
         if (this.formData !== undefined) {
             this.ownerKycRelationInfoCheckedForLand = true;
             this.ownerKycRelationInfoCheckedForLandBuilding = true;
             this.ownerKycRelationInfoCheckedForHypothecation = true;
             this.formDataForEdit = this.formData['initialForm'];
-            // this.selectedArray = this.formData['selectedArray'];
-            // this.change(this.selectedArray);
             this.underConstruction(this.formData['underConstructionChecked']);
             this.underBuildingConstruction(this.formData['underBuildingConstructionChecked']);
             this.otherBranch(this.formData['otherBranchcheck']);
