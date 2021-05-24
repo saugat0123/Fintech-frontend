@@ -1,0 +1,341 @@
+<p *ngIf="noDataForMicroParam">
+    <ngb-alert type="danger">Please fill the other details present for Micro specific customers to continue.</ngb-alert>
+</p>
+<nb-card accent="primary">
+    <nb-card-header>
+        <h4>Credit Risk Score</h4>
+    </nb-card-header>
+
+    <nb-card-body>
+
+        <nb-accordion>
+            <nb-accordion-item>
+                <nb-accordion-item-header>
+                    <em><mark><strong>click me to view CREDIT RISK GRADE SHEET</strong></mark></em>
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                    <table aria-describedby="scoreSummary"
+                           class="table table-sm table-bordered table-responsive-md text-center">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">S.N.</th>
+                            <th scope="col">Grading</th>
+                            <th scope="col">Short</th>
+                            <th scope="col">Remarks</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Excellent</td>
+                            <td>E</td>
+                            <td>
+                                90 and above
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Very Good</td>
+                            <td>VG</td>
+                            <td>75-89</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Good</td>
+                            <td>G</td>
+                            <td>65-74</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Acceptable</td>
+                            <td>S</td>
+                            <td>50-64</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Not Eligible for New Loans</td>
+                            <td>BL</td>
+                            <td><50</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <table aria-describedby="gradeSummary"
+                           class="table table-sm table-bordered table-responsive-md text-center">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Grading</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Excellent</td>
+                            <td>Approve</td>
+                        </tr>
+                        <tr>
+                            <td>Very Good</td>
+                            <td>Approve</td>
+                        </tr>
+                        <tr>
+                            <td>Good</td>
+                            <td>Approve with comments / remarks</td>
+                        </tr>
+                        <tr>
+                            <td>Acceptable</td>
+                            <td>Seek additional info if required / Approve with covenants</td>
+                        </tr>
+                        <tr>
+                            <td>Reject</td>
+                            <td>Not Eligible for New Loan</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <table aria-describedby="riskSummary"
+                           class="table table-sm table-bordered table-responsive-md text-center">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Risk Rating as per existing format</th>
+                            <th scope="col">Required Premium</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Low Risk</td>
+                            <td>Base Rate + Minimum 2%</td>
+                        </tr>
+                        <tr>
+                            <td>Average Risk</td>
+                            <td>Base Rate + Minimum 2.5%</td>
+                        </tr>
+                        <tr>
+                            <td>Moderate Risk</td>
+                            <td>Base Rate + Minimum 3%</td>
+                        </tr>
+                        <tr>
+                            <td>Tolerable Risk</td>
+                            <td>Base Rate + Minimum 3.5%</td>
+                        </tr>
+                        <tr>
+                            <td>High Risk</td>
+                            <td>Base Rate + Minimum 4%</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </nb-accordion-item-body>
+            </nb-accordion-item>
+        </nb-accordion>
+
+        <table aria-describedby="creditRiskGradingForm"
+               class="table table-sm table-bordered table-striped table-responsive-md text-center">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Type of Risk</th>
+                <th scope="col">Criteria</th>
+                <th scope="col">Weightage</th>
+                <th scope="col">Parameter</th>
+                <th scope="col">Automated Value</th>
+                <th scope="col">Obtained Score</th>
+            </tr>
+            </thead>
+            <tbody id="crgTableBody">
+            <tr>
+                <td colspan="2"><strong>Repayment Risk</strong></td>
+                <td colspan="4"><strong>40.00%</strong></td>
+            </tr>
+            <tr>
+                <td>(Character)</td>
+                <td>Type of Source of Income</td>
+                <td>40%</td>
+                <td>--</td>
+                <td>--</td>
+                <td>{{creditRiskGradingForm.get('typeOfSourceOfIncome').get('value').value}}%</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>Multiple/Family Source of Income</td>
+                <td>30%</td>
+                <td>{{creditRiskGradingForm.get('multipleSourceOfIncome').get('parameter').value}}</td>
+                <td>--</td>
+                <td>{{creditRiskGradingForm.get('multipleSourceOfIncome').get('value').value}}%</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>Debt to Equity Ratio</td>
+                <td>5%</td>
+                <td>{{creditRiskGradingForm.get('deRatio').get('parameter').value}}</td>
+                <td>{{creditRiskGradingForm.get('deRatio').get('automatedValue').value}}</td>
+                <td>{{creditRiskGradingForm.get('deRatio').get('value').value}}%</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>Income Routing through bank</td>
+                <td>5%</td>
+                <td>{{creditRiskGradingForm.get('incomeRoutingThroughBank').get('parameter').value}}</td>
+                <td>{{creditRiskGradingForm.get('incomeRoutingThroughBank').get('automatedValue').value}}</td>
+                <td>{{creditRiskGradingForm.get('incomeRoutingThroughBank').get('value').value}}%</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>Total gross monthly income/total gross monthly expenses</td>
+                <td>20%</td>
+                <td>{{creditRiskGradingForm.get('totalGrossMonthlyIncomeOrTotalGrossMonthlyExpenses').get('parameter').value}}</td>
+                <td>{{creditRiskGradingForm.get('totalGrossMonthlyIncomeOrTotalGrossMonthlyExpenses').get('automatedValue').value}}</td>
+                <td>{{creditRiskGradingForm.get('totalGrossMonthlyIncomeOrTotalGrossMonthlyExpenses').get('value').value}}%</td>
+            </tr>
+
+            <tr class="table-success">
+                <td colspan="4" class="text-right"><strong>Repayment Risk Total</strong></td>
+                <td colspan="2"><strong>{{creditRiskGradingForm.get('repaymentRiskTotal').value}}</strong></td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><strong>Security Risk</strong></td>
+                <td colspan="4"><strong>40.00%</strong></td>
+            </tr>
+            <ng-container *ngIf="!isSubsidiary">
+                <tr>
+                    <td>(Capacity & Capital)</td>
+                    <td>Loan to Value Ratio / Percentage of Financing
+                    </td>
+                    <td>60%</td>
+                    <td>{{creditRiskGradingForm.get('securityCoverage').get('parameter').value}}</td>
+                    <td> {{creditRiskGradingForm.get('securityCoverage').get('automatedValue').value}} </td>
+                    <td>{{creditRiskGradingForm.get('securityCoverage').get('value').value}}%</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>Location of property</td>
+                    <td>20%</td>
+                    <td>{{creditRiskGradingForm.get('locationOfProperty').get('parameter').value}}</td>
+                    <td> -- </td>
+                    <td>{{creditRiskGradingForm.get('locationOfProperty').get('value').value}}%</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>Road Access</td>
+                    <td>20%</td>
+                    <td>{{creditRiskGradingForm.get('roadAccess').get('parameter').value}}</td>
+                    <td>--</td>
+                    <td>{{creditRiskGradingForm.get('roadAccess').get('value').value}}%</td>
+                </tr>
+            </ng-container>
+            <ng-container *ngIf="isSubsidiary">
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>Insurance Coverage
+                    </td>
+                    <td>100%</td>
+                    <td>{{creditRiskGradingForm.get('insuranceCoverage').get('parameter').value}}</td>
+                    <td> -- </td>
+                    <td>{{creditRiskGradingForm.get('insuranceCoverage').get('value').value}}%</td>
+                </tr>
+            </ng-container>
+
+            <tr class="table-success">
+                <td colspan="4" class="text-right"><strong>Security Risk Total</strong></td>
+                <td colspan="2"><strong>{{creditRiskGradingForm.get('securityRiskTotal').value}}</strong></td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><strong>Relationship Risk</strong></td>
+                <td colspan="4"><strong>15.00%</strong></td>
+            </tr>
+            <tr>
+                <td>(Capacity)</td>
+                <td>Experience In Related Field/Business Experience</td>
+                <td>40%</td>
+                <td>{{creditRiskGradingForm.get('businessExperience').get('parameter').value}}</td>
+                <td>--</td>
+                <td>{{creditRiskGradingForm.get('businessExperience').get('value').value}}%</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>Ownership of Residence</td>
+                <td>40%</td>
+                <td>{{creditRiskGradingForm.get('ownershipOfResidence').get('parameter').value}}</td>
+                <td>--</td>
+                <td>{{creditRiskGradingForm.get('ownershipOfResidence').get('value').value}}%</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>Loan to Networth
+                </td>
+                <td>10%</td>
+                <td>{{creditRiskGradingForm.get('loanToNetworth').get('parameter').value}}</td>
+                <td> {{creditRiskGradingForm.get('loanToNetworth').get('automatedValue').value}} </td>
+                <td>{{creditRiskGradingForm.get('loanToNetworth').get('value').value}}%</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>Relationship with Mega Bank</td>
+                <td>10%</td>
+                <td>{{creditRiskGradingForm.get('relationshipWithMega').get('parameter').value}}</td>
+                <td>--</td>
+                <td>{{creditRiskGradingForm.get('relationshipWithMega').get('value').value}}%</td>
+            </tr>
+
+            <tr class="table-success">
+                <td colspan="4" class="text-right"><strong>Relationship Risk Total</strong></td>
+                <td colspan="2"><strong>{{creditRiskGradingForm.get('relationshipRiskTotal').value}}</strong></td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><strong>Exposure Risk</strong></td>
+                <td colspan="4"><strong>5%</strong></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>Sole/Multiple banking</td>
+                <td>60%</td>
+                <td>{{creditRiskGradingForm.get('multibanking').get('parameter').value}}</td>
+                <td>--</td>
+                <td>{{creditRiskGradingForm.get('multibanking').get('value').value}}%</td>
+            </tr>
+
+            <tr>
+                <td>&nbsp;</td>
+                <td>Relationship with existing bank</td>
+                <td>30%</td>
+                <td>{{creditRiskGradingForm.get('bankingRelationship').get('parameter').value}}</td>
+                <td>--</td>
+                <td>{{creditRiskGradingForm.get('bankingRelationship').get('value').value}}%</td>
+            </tr>
+
+            <tr>
+                <td>&nbsp;</td>
+                <td>Repayment History</td>
+                <td>10%</td>
+                <td>{{creditRiskGradingForm.get('repaymentHistory').get('parameter').value}}</td>
+                <td>--</td>
+                <td>{{creditRiskGradingForm.get('repaymentHistory').get('value').value}}%</td>
+            </tr>
+
+            <tr class="table-success">
+                <td colspan="4" class="text-right"><strong>Exposure Risk Total</strong></td>
+                <td colspan="2"><strong>{{creditRiskGradingForm.get('exposureRiskTotal').value}}</strong></td>
+            </tr>
+
+            <tr><td colspan="6">&nbsp;</td></tr>
+            <tr class="table-success">
+                <td colspan="4" class="text-right"><strong>Grand Total</strong></td>
+                <td colspan="2"><strong>{{creditRiskGradingForm.get('totalScore').value}}</strong></td>
+            </tr>
+            <tr class="table-success">
+                <td colspan="4" class="text-right"><strong>Credit Risk Grade</strong></td>
+                <td colspan="2"><strong>{{creditRiskGradingForm.get('creditRiskGrade').value}}</strong></td>
+            </tr>
+            <tr class="table-success">
+                <td colspan="4" class="text-right"><strong>Credit Risk Rating</strong></td>
+                <td colspan="2"><strong>{{creditRiskGradingForm.get('creditRiskRating').value}}</strong></td>
+            </tr>
+            <tr class="table-success">
+                <td colspan="4" class="text-right"><strong>Premium</strong></td>
+                <td colspan="2"><strong>{{creditRiskGradingForm.get('premium').value}}</strong></td>
+            </tr>
+            </tbody>
+        </table>
+    </nb-card-body>
+</nb-card>
+
