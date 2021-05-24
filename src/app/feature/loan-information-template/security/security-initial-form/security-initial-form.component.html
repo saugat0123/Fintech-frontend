@@ -1,19 +1,20 @@
+<app-security-table [formDataForEdit]="this.formData['initialForm']"></app-security-table>
 <div class="form-group">
     <form [formGroup]="securityForm">
         <!--START ROW-->
         <div class="font-weight-bold">
             <!--END ROW-->
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label>Choose Security Type</label>
-                        <nb-select #combinedSecurityElement (selectedChange)="change(combinedSecurityElement.selected)"
-                                   [selected]="selectedArray"
-                                   multiple placeholder="Multiple Select">
-                            <nb-option *ngFor="let type of getSecurities()" [value]="type?.key">
+                        <ng-select (change)="change(selectedSecurity)" [(ngModel)]="selectedSecurity"
+                        [addTagText]="null"
+                        placeholder="Select Security" [ngModelOptions]="{standalone: true}">
+                            <ng-option *ngFor="let type of getSecurities()" [value]="type?.key">
                                 {{type?.value}}
-                            </nb-option>
-                        </nb-select>
+                            </ng-option>
+                        </ng-select>
                     </div>
                 </div>
             </div>
