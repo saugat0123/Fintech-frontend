@@ -223,8 +223,7 @@ export class ProposalComponent implements OnInit {
       purposeOfLoan: undefined,
       termsAndCondition: undefined,
       prepaymentSwapCommitment: [undefined],
-      settlementAmount: [undefined],
-      enhancementAmount: [undefined]
+      settlementAmount: [undefined]
     });
   }
 
@@ -287,8 +286,6 @@ export class ProposalComponent implements OnInit {
     this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
     this.proposalData.existingLimit = this.proposalForm.get('existingLimit').value;
     this.proposalData.outStandingLimit = this.proposalForm.get('outStandingLimit').value;
-    this.proposalData.enhancementAmount = this.proposalForm.get('enhancementAmount').value;
-    this.proposalData.settlementAmount = this.proposalForm.get('settlementAmount').value;
     this.proposalData.collateralRequirement = this.proposalForm.get('collateralRequirement').value;
     this.proposalData.tenureDurationInMonths = this.proposalForm.get('tenureDurationInMonths').value;
     this.proposalData.limitExpiryMethod = this.proposalForm.get('limitExpiryMethod').value;
@@ -304,6 +301,7 @@ export class ProposalComponent implements OnInit {
     this.proposalData.tenorOfEachDeal = this.proposalForm.get('tenorOfEachDeal').value;
     this.proposalData.cashMarginMethod = this.proposalForm.get('cashMarginMethod').value;
     this.proposalData.enhanceLimitAmount = this.proposalForm.get('enhanceLimitAmount').value;
+    this.proposalData.settlementAmount = this.proposalForm.get('settlementAmount').value;
   }
 
   get formControls() {
@@ -340,7 +338,6 @@ export class ProposalComponent implements OnInit {
         } else {
           this.riskChecked = false;
           this.proposalForm.get('riskConclusionRecommendation').setValue(null);
-
         }
         break;
       case 'swapCharge':
@@ -539,18 +536,21 @@ export class ProposalComponent implements OnInit {
     calculateLimitValues() {
 
         switch (this.loanType) {
-            case  'PARTIAL_SETTLEMENT_LOAN':
-                const newLimit = this.formControls.existingLimit.value - this.formControls.settlementAmount.value;
-                this.formControls.proposedLimit.setValue(NumberUtils.isNumber(newLimit));
-                return;
-            case  'ENHANCED_LOAN':
-                const enhanceLimit = this.formControls.existingLimit.value + this.formControls.enhancementAmount.value;
-                this.formControls.proposedLimit.setValue(NumberUtils.isNumber(enhanceLimit));
-                return;
-            default:
-                return;
+          case  'PARTIAL_SETTLEMENT_LOAN':
+            const newLimit = this.formControls.existingLimit.value - this.formControls.settlementAmount.value;
+            this.formControls.proposedLimit.setValue(NumberUtils.isNumber(newLimit));
+            return;
+          case  'ENHANCED_LOAN':
+            const enhancementAmount = this.formControls.existingLimit.value + this.formControls.enhanceLimitAmount.value;
+            this.formControls.proposedLimit.setValue(NumberUtils.isNumber(enhancementAmount));
+            return;
+          case  'RENEW_WITH_ENHANCEMENT':
+            const enhanceLimit = this.formControls.existingLimit.value + this.formControls.enhanceLimitAmount.value;
+            this.formControls.proposedLimit.setValue(NumberUtils.isNumber(enhanceLimit));
+            return;
+          default:
+            return;
         }
-
     }
 
     calculateInterestAmountForRepaymentMode() {

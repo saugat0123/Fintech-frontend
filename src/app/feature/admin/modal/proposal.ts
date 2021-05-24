@@ -23,7 +23,6 @@ export class Proposal {
     cashMarginMethod: string;
     prepaymentCharge: number;
     enhanceLimitAmount: number;
-    enhancementAmount: number;
     settlementAmount: number;
 
 }
