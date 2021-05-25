@@ -24,7 +24,7 @@ export class UpdateDocumentComponent implements OnInit {
     selectedDocumentList = Array<number>();
     label: string;
     spinner = false;
-
+    checkAll = false;
     form: FormGroup;
 
     constructor(
@@ -74,6 +74,12 @@ export class UpdateDocumentComponent implements OnInit {
         });
     }
 
+    nbUpdateCheckbBox() {
+        this.availableDocumentOptions.forEach(d => {
+            this.form.get(d.name).setValue(!this.checkAll);
+        });
+    }
+
     updateLoanCycleInBulk() {
         this.service.updateDocumentByLoanCycle(this.loanCycle.id, this.selectedDocumentList)
             .subscribe(() => {
@@ -92,7 +98,6 @@ export class UpdateDocumentComponent implements OnInit {
                 selectedDocumentValues.push(d.id);
             }
         });
-
         this.service.updateDocumentByLoanCycle(this.loanCycle.id, selectedDocumentValues)
             .subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Document Loan Cycle'));

@@ -6,10 +6,20 @@
         </nb-accordion-item-header>
         <nb-accordion-item-body>
             <div *ngIf="availableDocumentOptions.length > 0">
+
+                <nb-checkbox id="checkUncheck" status="primary"
+                             [(ngModel)]="checkAll"
+                             (checkedChange)="nbUpdateCheckbBox()">
+                    Select/Unselect all
+                </nb-checkbox>
+                <br><br>
+
                 <form [formGroup]="form" (ngSubmit)="save()" *ngIf="form">
                     <div class="form-row">
                         <div class="col-md-6" *ngFor="let option of availableDocumentOptions">
-                            <nb-checkbox id="{{'document'+ option.id}}" status="primary"
+                            <nb-checkbox [checked]="checkAll"
+                                         id="{{'document'+ option.id}}"
+                                         status="primary"
                                          [formControlName]="option.name">
                                 {{option.displayName}}
                             </nb-checkbox>
