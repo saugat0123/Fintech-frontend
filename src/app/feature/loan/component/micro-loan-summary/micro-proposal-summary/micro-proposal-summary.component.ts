@@ -41,21 +41,18 @@ export class MicroProposalSummaryComponent implements OnInit {
   public getTotalFundable(key: string, funded: boolean, loanList: LoanDataHolder[]): number {
     this.fundedAndNonfundedList(loanList);
     let numb;
-    console.log('list:::', this.customerFundedLoanList);
     if (funded) {
       const tempList = this.customerFundedLoanList
           .filter(l => JSON.parse(l.proposal.data)[key]);
       numb = tempList
           .map(l => JSON.parse(l.proposal.data)[key])
           .reduce((a, b) => a + b, 0);
-      console.log('Return value', numb);
     } else {
       const tempList = this.customerNonFundedLoanList
           .filter(l => JSON.parse(l.proposal.data)[key]);
       numb = tempList
           .map(l => JSON.parse(l.proposal.data)[key])
           .reduce((a, b) => a + b, 0);
-      console.log('Return value', numb);
     }
     return this.isNumber(numb);
 

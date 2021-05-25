@@ -571,13 +571,6 @@ export class ProposalComponent implements OnInit {
     return this.proposalForm.get('interestRate').setValue(Number(interestRate).toFixed(2));
   }
 
-  public calculateProposedLimit() {
-    const existingLimit = Number(this.proposalForm.get('existingLimit').value);
-    const enhanceLimit = Number(this.proposalForm.get('enhanceLimitAmount').value);
-    const totalProposedLimit = enhanceLimit + existingLimit;
-    return this.proposalForm.get('proposedLimit').setValue(Number(totalProposedLimit));
-  }
-
   onChange() {
     const isOtherSelected = this.proposalForm.get('subsidyLoanType').value.includes('Others');
     if (isOtherSelected) {
