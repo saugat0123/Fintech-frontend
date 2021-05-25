@@ -53,6 +53,7 @@ import {AngularDraggableModule} from 'angular2-draggable';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {NepProposedAmountFormComponent} from './cad-offerletter-profile/cad-offer-letter-configuration/nep-proposed-amount-form/nep-proposed-amount-form.component';
 import {CadFileSetupComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
+import {ExcelOfferLetterTemplateModule} from './excel-offer-letter-template/excel-offer-letter-template.module';
 
 
 @NgModule({
@@ -103,6 +104,7 @@ import {CadFileSetupComponent} from './cad-work-flow/cad-work-flow-base/legal-an
         CommonModule,
         NbDialogModule.forRoot(),
         MegaOfferLetterTemplateModule,
+        ExcelOfferLetterTemplateModule,
         CadDocumentTemplateModule,
         RouterModule.forChild(routes),
         NgSelectModule,
@@ -112,7 +114,7 @@ import {CadFileSetupComponent} from './cad-work-flow/cad-work-flow-base/legal-an
         AngularDraggableModule,
         NepaliCalendarModule,
     ],
-    entryComponents:  [
+    entryComponents: [
         AssignPopUpComponent,
         VerifyPopUpComponent,
         CadOfferLetterModalComponent,

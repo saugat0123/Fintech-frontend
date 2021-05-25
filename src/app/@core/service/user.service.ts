@@ -93,4 +93,9 @@ export class UserService extends BaseService<User> {
         const req = ApiUtils.getRequest(`${this.getApi()}/switch-user`);
         return this.http.post(req.url, role, {headers: req.header});
     }
+
+    public getUserListByBranchIdAndMakerActive(bId): Observable<any> {
+        const req = ApiUtils.getRequest(`${this.getApi()}/users/branch/${bId}/maker-active`);
+        return this.http.get(req.url, {headers: req.header});
+    }
 }
