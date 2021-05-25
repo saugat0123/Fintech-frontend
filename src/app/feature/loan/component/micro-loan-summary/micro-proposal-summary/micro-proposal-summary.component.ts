@@ -54,7 +54,6 @@ export class MicroProposalSummaryComponent implements OnInit {
           .map(l => JSON.parse(l.proposal.data)[key])
           .reduce((a, b) => a + b, 0);
     }
-
     return this.isNumber(numb);
 
   }

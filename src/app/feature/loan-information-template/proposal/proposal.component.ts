@@ -155,8 +155,8 @@ export class ProposalComponent implements OnInit {
     .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(2)));
     this.proposalForm.get('limitExpiryMethod').valueChanges.subscribe(value => this.checkLimitExpiryBuildValidation(value));
     this.checkInstallmentAmount();
-      this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
-          .patchValue(Number(value)));
+    this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
+        .patchValue(Number(value)));
 
   this.onChange();
   }
@@ -203,9 +203,6 @@ export class ProposalComponent implements OnInit {
       subsidyLoanType: [undefined],
       others: [undefined],
 
-
-
-
       // Additional Fields--
       // for installment Amount--
       installmentAmount: [undefined],
@@ -225,9 +222,8 @@ export class ProposalComponent implements OnInit {
       summeryRecommendation: undefined,
       purposeOfLoan: undefined,
       termsAndCondition: undefined,
-      prepaymentSwapCommitment: [undefined]
-
-
+      prepaymentSwapCommitment: [undefined],
+      settlementAmount: [undefined]
     });
   }
 
@@ -246,7 +242,7 @@ export class ProposalComponent implements OnInit {
         || this.loanType === 'FULL_SETTLEMENT_LOAN' || this.loanType === 'RENEW_WITH_ENHANCEMENT') {
       this.checkApproved = true;
       this.proposalForm.get('existingLimit').setValidators(Validators.required);
-      this.proposalForm.get('outStandingLimit').setValidators(Validators.required);
+      this.proposalForm.get('outStandingLimit');
     }
 }
   configEditor() {
@@ -305,6 +301,7 @@ export class ProposalComponent implements OnInit {
     this.proposalData.tenorOfEachDeal = this.proposalForm.get('tenorOfEachDeal').value;
     this.proposalData.cashMarginMethod = this.proposalForm.get('cashMarginMethod').value;
     this.proposalData.enhanceLimitAmount = this.proposalForm.get('enhanceLimitAmount').value;
+    this.proposalData.settlementAmount = this.proposalForm.get('settlementAmount').value;
   }
 
   get formControls() {
@@ -341,7 +338,6 @@ export class ProposalComponent implements OnInit {
         } else {
           this.riskChecked = false;
           this.proposalForm.get('riskConclusionRecommendation').setValue(null);
-
         }
         break;
       case 'swapCharge':
@@ -540,18 +536,21 @@ export class ProposalComponent implements OnInit {
     calculateLimitValues() {
 
         switch (this.loanType) {
-            case  'PARTIAL_SETTLEMENT_LOAN':
-                const newLimit = this.formControls.existingLimit.value - this.formControls.outStandingLimit.value;
-                this.formControls.proposedLimit.setValue(NumberUtils.isNumber(newLimit));
-                return;
-            case  'ENHANCED_LOAN':
-                const enhanceLimit = this.formControls.existingLimit.value + this.formControls.outStandingLimit.value;
-                this.formControls.proposedLimit.setValue(NumberUtils.isNumber(enhanceLimit));
-                return;
-            default:
-                return;
+          case  'PARTIAL_SETTLEMENT_LOAN':
+            const newLimit = this.formControls.existingLimit.value - this.formControls.settlementAmount.value;
+            this.formControls.proposedLimit.setValue(NumberUtils.isNumber(newLimit));
+            return;
+          case  'ENHANCED_LOAN':
+            const enhancementAmount = this.formControls.existingLimit.value + this.formControls.enhanceLimitAmount.value;
+            this.formControls.proposedLimit.setValue(NumberUtils.isNumber(enhancementAmount));
+            return;
+          case  'RENEW_WITH_ENHANCEMENT':
+            const enhanceLimit = this.formControls.existingLimit.value + this.formControls.enhanceLimitAmount.value;
+            this.formControls.proposedLimit.setValue(NumberUtils.isNumber(enhanceLimit));
+            return;
+          default:
+            return;
         }
-
     }
 
     calculateInterestAmountForRepaymentMode() {
@@ -570,13 +569,6 @@ export class ProposalComponent implements OnInit {
 
     const interestRate = (baseRate - discountRate + premiumRateOnBaseRate);
     return this.proposalForm.get('interestRate').setValue(Number(interestRate).toFixed(2));
-  }
-
-  public calculateProposedLimit() {
-    const existingLimit = Number(this.proposalForm.get('existingLimit').value);
-    const enhanceLimit = Number(this.proposalForm.get('enhanceLimitAmount').value);
-    const totalProposedLimit = enhanceLimit + existingLimit;
-    return this.proposalForm.get('proposedLimit').setValue(Number(totalProposedLimit));
   }
 
   onChange() {
