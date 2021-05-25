@@ -153,7 +153,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
                     createdAt: loan.createdAt,
                     collateralRequirement: loan.proposal.collateralRequirement,
                     requiredCollateral: loan.proposal.collateralRequirement,
-                    currentStage: loan.currentStage
+                    currentStage: loan.currentStage,
+                    parentId: loan.parentId
                 });
             } else if (   // check if combined loan is not included already
                 !loanHistories.filter((l) => !ObjectUtil.isEmpty(l.combinedLoans))
@@ -190,7 +191,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
                             createdAt: l.createdAt,
                             collateralRequirement: l.proposal.collateralRequirement,
                             requiredCollateral: l.proposal.collateralRequirement,
-                            currentStage: l.currentStage
+                            currentStage: l.currentStage,
+                            parentId: l.parentId
                         };
                         return singleCombinedLoanDto;
                     })
