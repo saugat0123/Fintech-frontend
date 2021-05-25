@@ -44,7 +44,7 @@
                         <nb-card-header>
                             <strong>Generate Offer Letter</strong>
                         </nb-card-header>
-                        <nb-card-body *ngIf="client === clientList?.EXCEL">
+                        <nb-card-body *ngIf="client === clientList?.EXCEL || client === clientList?.PROGRESSIVE">
                             <div class="row">
                                 <div class="col-md-12">
                                     <nb-select

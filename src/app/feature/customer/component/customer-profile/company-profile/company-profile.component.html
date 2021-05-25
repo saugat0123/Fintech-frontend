@@ -426,8 +426,6 @@
         <nb-card accent="primary" style="height: 650px">
           <nb-card-header>
             Company Detail
-            <button (click)="openCompanyDetailEdit(companyInfo)" size="tiny" nbButton *ngIf="maker"
-                    class="float-right"><a class="cursor"><em class="fa fa-edit"></em></a></button>
           </nb-card-header>
           <nb-card-body>
             <app-company-profile-additional-information *ngIf="companyInfo?.registrationNumber"
