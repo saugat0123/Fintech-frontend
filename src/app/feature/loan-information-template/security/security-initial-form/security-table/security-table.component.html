@@ -1,0 +1,142 @@
+<div>
+    <table class="table table-sm table-bordered table-hover sb-small text-center">
+        <thead>
+        <tr class="sb-bg-dark text-white">
+            <th>Security Type</th>
+            <th>No of Security</th>
+            <th>Remarks</th>
+        </tr>
+        </thead>
+        <tbody *ngIf="landSecurity">
+        <tr>
+            <td>{{'Land Security'}}</td>
+            <td>{{landSecurity.length}}</td>
+            <td><strong>Owner:</strong>{{landSecurity[0]?.owner || 'NA'}}, <strong>Area:</strong> {{landSecurity[0]?.area || 'NA'}},
+                <strong>Market Value: </strong>Rs.{{landSecurity[0]?.marketValue | currencyFormatter }}</td>
+        </tr>
+        </tbody>
+
+        <tbody *ngIf="isApartmentSecurity">
+        <tr>
+            <td>{{'Apartment Security'}}</td>
+            <td>{{apartmentSecurity?.length}}</td>
+            <td><strong>Building Name:</strong>{{apartmentSecurity[0]?.buildingName || 'NA'}}, <strong>Build Up Area:</strong>
+                {{apartmentSecurity[0]?.buildArea || 'NA'}} (Sq.ft),
+                <strong>Total Cost: </strong>Rs.{{apartmentSecurity[0]?.totalCost | currencyFormatter }}</td>
+        </tr>
+        </tbody>
+
+        <tbody *ngIf="isLandAndBuilding">
+        <tr>
+            <td>{{'Land and Building'}}</td>
+            <td>{{landAndBuilding.length}}</td>
+            <td><strong>Owner:</strong>{{landAndBuilding[0]?.owner || 'NA'}}, <strong>Area:</strong> {{landAndBuilding[0]?.area || 'NA'}},
+                <strong>Market Value: </strong>Rs.{{landAndBuilding[0]?.marketValue | currencyFormatter }}</td>
+        </tr>
+        </tbody>
+
+        <tbody *ngIf="isPlantAndMachinery">
+        <tr>
+            <td>{{'Plant and Machinery Security'}}</td>
+            <td>{{plantAndMachinery.length}}</td>
+            <td><strong>Model No.:</strong>{{plantAndMachinery[0]?.model || 'NA'}}, <strong>Quotation Amount:</strong> Rs.
+                {{plantAndMachinery[0]?.quotation | currencyFormatter}},
+                <strong>Supplier: </strong>{{plantAndMachinery[0]?.supplier || 'NA'}}</td>
+        </tr>
+        </tbody>
+
+        <tbody *ngIf="isVehicle">
+        <tr>
+            <td>{{'Vehicle Security'}}</td>
+            <td>{{vehicleSecurity.length}}</td>
+            <td><strong>Model No.:</strong>{{vehicleSecurity[0]?.model || 'NA'}}, <strong>Registration No.:</strong>
+                {{vehicleSecurity[0]?.registrationNumber || 'NA'}},
+                <strong>Down Payment: </strong>Rs.{{vehicleSecurity[0]?.downPayment | currencyFormatter}}</td>
+        </tr>
+        </tbody>
+
+        <tbody *ngIf="isFixedDeposit">
+        <tr>
+            <td>{{'Fixed Deposit Receipt'}}</td>
+            <td>{{fixedDeposit.length}}</td>
+            <td><strong>Account Holder Name.:</strong>{{fixedDeposit[0]?.accountHolderName || 'NA'}}, <strong>Account No.:</strong>
+                {{fixedDeposit[0]?.accountNumber || 'NA'}},
+                <strong>Amount: </strong>Rs.{{fixedDeposit[0]?.amount | currencyFormatter}}</td>
+        </tr>
+        </tbody>
+
+        <tbody *ngIf="isShareSecurity">
+        <tr>
+            <td>{{'Shared Security'}}</td>
+            <td>{{shareSecurityData?.shareSecurityDetails.length}}</td>
+            <td><strong>Average price for days:</strong>{{shareSecurityData?.avgDaysForPrice | currencyFormatter}},
+                <strong>Security Offered:</strong>
+                {{shareSecurityData?.securityOffered || 'NA'}}</td>
+        </tr>
+        </tbody>
+
+        <tbody *ngIf="isHypothecation">
+        <tr>
+            <td>{{'Hypothecation of Stock'}}</td>
+            <td>{{hypothecation.length}}</td>
+            <td><strong>Owner:</strong>{{hypothecation[0]?.owner || 'NA'}}, <strong>Stock:</strong>
+                {{hypothecation[0]?.stock || 'NA'}},
+                <strong>Value: </strong>Rs.{{hypothecation[0]?.value | currencyFormatter}}</td>
+        </tr>
+        </tbody>
+
+        <tbody *ngIf="isAssignmentOfReceivables">
+        <tr>
+            <td>{{'Assignment of Receivables'}}</td>
+            <td>{{assignmentOfReceivables.length}}</td>
+            <td><strong>Amount:</strong>Rs.{{assignmentOfReceivables[0]?.amount || 'NA' | currencyFormatter}}
+                <strong>Other Detail: </strong><span [innerHTML]="assignmentOfReceivables[0]?.otherDetail || 'NA' | safeHtml"></span>
+                </td>
+        </tr>
+        </tbody>
+
+        <tbody *ngIf="isleaseAssignment">
+        <tr>
+            <td>{{'Lease Assignment'}}</td>
+            <td>{{leaseAssignment.length}}</td>
+            <td> <strong>Other Detail: </strong><span [innerHTML]="leaseAssignment[0]?.otherDetail || 'NA' | safeHtml"></span></td>
+        </tr>
+        </tbody>
+
+        <tbody *ngIf="isOtherSecurity">
+        <tr>
+            <td>{{'Other Security'}}</td>
+            <td>{{otherSecurity.length}}</td>
+            <td> <strong>Other Detail: </strong><p [innerHTML]="otherSecurity[0]?.otherDetail || 'NA' | safeHtml"></p></td>
+        </tr>
+        </tbody>
+
+        <tbody *ngIf="isCorporateGuarantee">
+        <tr>
+            <td>{{'Corporate Guarantee'}}</td>
+            <td>{{corporateGuarantee.length}}</td>
+            <td><strong>Name:</strong>{{corporateGuarantee[0]?.name || 'NA'}}, <strong>Address:</strong>
+                {{corporateGuarantee[0]?.address || 'NA'}},</td>
+        </tr>
+        </tbody>
+
+        <tbody *ngIf="isPersonalGuarantee">
+        <tr>
+            <td>{{'Personal Guarantee'}}</td>
+            <td>{{personalGuarantee.length}}</td>
+            <td><strong>Name:</strong>{{personalGuarantee[0]?.name || 'NA'}}, <strong>Address:</strong>
+                {{personalGuarantee[0]?.address || 'NA'}},</td>
+        </tr>
+        </tbody>
+
+        <tbody *ngIf="isInsurancePolicy">
+        <tr>
+            <td>{{'Insurance Policy'}}</td>
+            <td>{{insurancePolicy.length}}</td>
+            <td><strong>Insurance Amount:</strong>Rs.{{insurancePolicy[0]?.insuredAmount | currencyFormatter}},
+                <strong>Company Name:</strong>{{insurancePolicy[0]?.insuranceCompanyName || 'NA'}},</td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
