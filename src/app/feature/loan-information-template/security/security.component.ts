@@ -22,7 +22,6 @@ import {FacCategory} from '../../admin/modal/crg/fac-category';
 import {environment} from '../../../../environments/environment';
 import {SecurityCoverageAutoPrivate} from '../model/security-coverage-auto-private';
 import {SecurityCoverageAutoCommercial} from '../model/security-coverage-auto-commercial';
-import {ExpOfClient} from '../../micro-loan/template/micro-crg-params/model/ExpOfClient';
 
 @Component({
     selector: 'app-security',
@@ -261,11 +260,6 @@ export class SecurityComponent implements OnInit {
         if (this.initialSecurity.selectedSecurity === 'ShareSecurity') {
             this.shareSecuritySelected = true;
         }
-        // this.initialSecurity.selectedArray.forEach((selected) => {
-        //     if (selected === 'ShareSecurity') {
-        //         this.shareSecuritySelected = true;
-        //     }
-        // });
         if (this.shareSecuritySelected) {
             this.shareSecurityData = this.initialSecurity.shareSecurityData;
             this.securityData.share = this.shareSecurityData;
@@ -304,9 +298,6 @@ export class SecurityComponent implements OnInit {
 
     calculateTotalSecurity(securityData): number {
         let totalSecurityAmount = 0;
-        // const isLandSelected = securityData.selectedArray.includes('LandSecurity');
-        // const isBuildingSelected = securityData.selectedArray.includes('ApartmentSecurity');
-        // securityData.selectedArray.forEach(selectedSecurity => {
         switch (securityData.selectedSecurity) {
                 case 'LandSecurity':
                     const landDetailsArray = securityData.initialForm.landDetails as Array<any>;
@@ -355,7 +346,6 @@ export class SecurityComponent implements OnInit {
                     totalSecurityAmount += 0;
                     break;
             }
-        // });
         return totalSecurityAmount;
     }
 }
