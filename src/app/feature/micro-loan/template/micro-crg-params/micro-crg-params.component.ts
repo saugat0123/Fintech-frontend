@@ -1,19 +1,23 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {
-    TypeOfSourceOfIncome,
-    TypeOfSourceOfIncomeArray,
-    TypeOfSourceOfIncomeMap
-} from '../../../admin/modal/crg/typeOfSourceOfIncome';
-import {MajorSourceIncomeType} from '../../../admin/modal/crg/major-source-income-type';
 import {NgSelectComponent} from '@ng-select/ng-select';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {Pattern} from '../../../../@core/utils/constants/pattern';
 import {NumberUtils} from '../../../../@core/utils/number-utils';
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
+import {ExpOfClient} from './model/ExpOfClient';
+import {OwnershipOfResidence} from './model/OwnershipOfResidence';
+import {RelationWithMega} from './model/RelationWithMega';
+import {InsuranceCoverage} from './model/InsuranceCoverage';
+import {LocationOfProperty} from './model/LocationOfProperty';
+import {RoadAccess} from './model/RoadAccess';
+import {Multibanking} from './model/Multibanking';
+import {RepaymentHistory} from './model/RepaymentHistory';
+import {MultipleSourceIncomeType} from './model/MajorSourceIncomeType';
+import {RelationWithBank} from './model/RelationWithBank';
+import {TypeOfSourceOfIncome, TypeOfSourceOfIncomeArray, TypeOfSourceOfIncomeMap} from './model/TypeOfSourceOfIncome';
 
 @Component({
   selector: 'app-micro-crg-params',
@@ -26,20 +30,29 @@ export class MicroCrgParamsComponent implements OnInit {
   @Input() microCrgParams: MicroCrgParams;
   @Output() dataEmitter = new EventEmitter();
 
+  expOfClient = ExpOfClient.enumObject();
+  ownershipOfResidence = OwnershipOfResidence.enumObject();
+  relationWithMega = RelationWithMega.enumObject();
+  insuranceCoverage = InsuranceCoverage.enumObject();
+  locationOfProperty = LocationOfProperty.enumObject();
+  roadAccess = RoadAccess.enumObject();
+  multibanking = Multibanking.enumObject();
+  relationWithBank = RelationWithBank.enumObject();
+  repaymentHistory = RepaymentHistory.enumObject();
+
   microCrgParamsForm: FormGroup;
   microCrgParamsData: MicroCrgParams = new MicroCrgParams();
   currentFormData: Object;
   submitted = false;
 
   typeOfSourceOfIncomeArray = TypeOfSourceOfIncomeArray.typeOfSourceOfIncomeArray;
-  majorSourceIncomeType = MajorSourceIncomeType.enumObject();
+  majorSourceIncomeType = MultipleSourceIncomeType.enumObject();
 
   numberUtils = NumberUtils;
   client = environment.client;
   clientName = Clients;
 
-  constructor(private formBuilder: FormBuilder,
-              private modalService: NgbModal) {
+  constructor(private formBuilder: FormBuilder) {
   }
 
   get form() {
@@ -106,6 +119,23 @@ export class MicroCrgParamsComponent implements OnInit {
       totalObligationCurrentBank: [undefined],
       totalBankObligation: [undefined],
       obligationGrossIncomeRatio: [undefined],
+
+      totalDebt: [undefined, Validators.required],
+      totalEquity: [undefined, Validators.required],
+      netWorth: [undefined, Validators.required],
+      totalLoan: [undefined, Validators.required],
+      expOfClient: [undefined, Validators.required],
+      ownershipOfResidence: [undefined, Validators.required],
+      relationWithMega: [undefined, Validators.required],
+
+      isSubsidized: [false],
+      insuranceCoverage: [undefined],
+      locationOfProperty: [undefined],
+      roadAccess: [undefined],
+
+      multibanking: [undefined, Validators.required],
+      relationWithBank: [undefined, Validators.required],
+      repaymentHistory: [undefined, Validators.required],
     });
   }
 
@@ -252,27 +282,19 @@ export class MicroCrgParamsComponent implements OnInit {
           label: TypeOfSourceOfIncome.FREELANCING
         });
         break;
-      case TypeOfSourceOfIncome.AGRICULTURE:
-        organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.AGRICULTURE]);
+      case TypeOfSourceOfIncome.SELF_DECLARED_AGRICULTURE:
+        organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.SELF_DECLARED_AGRICULTURE]);
         organizationSelect.select({
-          value: TypeOfSourceOfIncome.AGRICULTURE,
-          label: TypeOfSourceOfIncome.AGRICULTURE
+          value: TypeOfSourceOfIncome.SELF_DECLARED_AGRICULTURE,
+          label: TypeOfSourceOfIncome.SELF_DECLARED_AGRICULTURE
         });
         break;
-      case TypeOfSourceOfIncome.INTEREST_INCOME:
-        organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.INTEREST_INCOME]);
+      case TypeOfSourceOfIncome.SELF_DECLARED_BUSINESS:
+        organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.SELF_DECLARED_BUSINESS]);
         organizationSelect.select({
-          value: TypeOfSourceOfIncome.INTEREST_INCOME,
-          label: TypeOfSourceOfIncome.INTEREST_INCOME
+          value: TypeOfSourceOfIncome.SELF_DECLARED_BUSINESS,
+          label: TypeOfSourceOfIncome.SELF_DECLARED_BUSINESS
         });
-        break;
-      case TypeOfSourceOfIncome.DIVIDEND:
-        organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.DIVIDEND]);
-        organizationSelect.select({value: TypeOfSourceOfIncome.DIVIDEND, label: TypeOfSourceOfIncome.DIVIDEND});
-        break;
-      case TypeOfSourceOfIncome.OTHERS:
-        organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.OTHERS]);
-        organizationSelect.select({value: TypeOfSourceOfIncome.OTHERS, label: TypeOfSourceOfIncome.OTHERS});
         break;
     }
   }
@@ -335,7 +357,7 @@ export class MicroCrgParamsComponent implements OnInit {
     this.calculateAndSetHighestScore();
     this.currentFormData['initialForm'] = this.microCrgParamsForm.value;
     this.microCrgParamsData.data = JSON.stringify(this.currentFormData);
-    this.dataEmitter.emit(this.microCrgParamsData.data);
+    this.dataEmitter.emit(this.microCrgParamsData);
   }
 
 }

@@ -213,8 +213,8 @@ export class CustomerLoanInformationComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.customerInfo.microBorrowerFinancial)) {
             this.microBorrowerFinancial = this.customerInfo.microBorrowerFinancial;
         }
-        if (!ObjectUtil.isEmpty(this.customerInfo.microCrgParams)) {
-            this.microCrgParams = this.customerInfo.microCrgParams;
+        if (!ObjectUtil.isEmpty(this.customerInfo.microOtherParameters)) {
+            this.microCrgParams = this.customerInfo.microOtherParameters;
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.reportingInfoLevels)) {
             this.reportingInfoLevels = this.customerInfo.reportingInfoLevels;
@@ -393,8 +393,6 @@ export class CustomerLoanInformationComponent implements OnInit {
             this.ciclResponse = new CiclArray();
         }
         this.ciclResponse = data;
-
-        console.log(this.ciclResponse);
         this.customerInfoService.saveLoanInfo(this.ciclResponse, this.customerInfoId, TemplateName.CICL)
             .subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved CICL!'));
@@ -523,7 +521,7 @@ export class CustomerLoanInformationComponent implements OnInit {
             this.microCrgParams = new MicroCrgParams();
         }
         this.microCrgParams = data;
-        this.customerInfoService.saveLoanInfo(this.microCrgParams, this.customerInfoId, TemplateName.MICRO_BORROWER_FINANCIAL)
+        this.customerInfoService.saveLoanInfo(this.microCrgParams, this.customerInfoId, TemplateName.MICRO_OTHER_PARAMETERS)
             .subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Micro CRG Params!'));
                 this.microCrgParamsComponent.close();
@@ -557,12 +555,11 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.reportingInfoLevels = data;
         this.customerInfoService.saveLoanInfo(this.reportingInfoLevels, this.customerInfoId, TemplateName.CUSTOMER_REPORTING_INFO)
             .subscribe(() => {
-                console.log('Reporting Info Level:', this.reportingInfoLevels);
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully save Customer Reporting Info!'));
                 this.reportingInfoLevelAccordion.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
-                console.log(error);
+                console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Customer Reporting Info!'));
             });
     }

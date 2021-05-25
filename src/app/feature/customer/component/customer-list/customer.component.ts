@@ -5,7 +5,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {ToastService} from '../../../../@core/utils';
 import {Router} from '@angular/router';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoanType} from '../../../loan/model/loanType';
 import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -27,10 +27,14 @@ import {CustomerGroupService} from '../../../admin/component/preference/services
 import {CustomerGroup} from '../../../admin/modal/customer-group';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {Province} from '../../../admin/modal/province';
+import {LoanDataHolder} from '../../../loan/model/loanData';
+import {UserService} from '../../../../@core/service/user.service';
+import {DocAction} from '../../../loan/model/docAction';
+import {DocStatus} from '../../../loan/model/docStatus';
+import {LoanStage} from '../../../loan/model/loanStage';
 import {JointFormComponent} from '../customer-form/joint-form/joint-form.component';
 import {any} from 'codelyzer/util/function';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-
 
 @Component({
     selector: 'app-customer-component',
@@ -54,6 +58,15 @@ export class CustomerComponent implements OnInit {
     roleAccess: string;
     isMaker = false;
 
+    transferCustomer = false;
+    transferSpinner = false;
+    branchListForTransfer: Array<Branch> = new Array<Branch>();
+    transferUserList = [];
+    transferSelectedCustomerInfo;
+    transferSelectedBranch;
+    formAction: FormGroup;
+    selectedUserForTransfer;
+
     accessSpecific: boolean;
     accessAll: boolean;
     showBranch = true;
@@ -76,6 +89,7 @@ export class CustomerComponent implements OnInit {
                 private customerGroupService: CustomerGroupService,
                 private companyInfoService: CompanyInfoService,
                 private location: AddressService,
+                private userService: UserService
     ) {
     }
 
@@ -108,6 +122,12 @@ export class CustomerComponent implements OnInit {
         this.location.getProvince().subscribe((response: any) => {
             this.provinces = response.detail;
         });
+        /* added to check if the transfer column is to be displayed*/
+            if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === RoleType.ADMIN) {
+            this.transferCustomer = true;
+        }
+        this.buildActionForm();
+        /* added to check if the transfer column is to be displayed*/
     }
 
     buildFilterForm() {
@@ -177,6 +197,7 @@ export class CustomerComponent implements OnInit {
     openTemplate(template) {
         this.modalService.open(template);
     }
+
     onClose() {
         this.modalService.dismissAll();
     }
@@ -203,7 +224,6 @@ export class CustomerComponent implements OnInit {
         });
 
     }
-
 
     getBranch() {
         this.roleAccess = LocalStorageUtil.getStorage().roleAccess;
@@ -292,7 +312,7 @@ export class CustomerComponent implements OnInit {
 
     changeAction(chooseJointNo: TemplateRef<any>) {
         this.onClose();
-       this.modalService.open(chooseJointNo);
+        this.modalService.open(chooseJointNo);
     }
 
     onCloseJoint() {
@@ -303,6 +323,105 @@ export class CustomerComponent implements OnInit {
                 hasBackdrop: false,
                 hasScroll: true
             }).onClose.subscribe(res => CustomerComponent.loadData(this));
+    }
+
+    buildActionForm(): void {
+        this.formAction = this.formBuilder.group(
+            {
+                customerInfoId: [undefined],
+                fromUserId: [undefined],
+                toUserId: [undefined, Validators.required],
+                docAction: [undefined],
+                comment: [undefined, Validators.required],
+                fromRoleId: [undefined],
+                toRoleId: [undefined],
+                toBranchId: [undefined]
+            }
+        );
+    }
+
+    onTransferClick(template, customerInfo) {
+        this.transferSpinner = true;
+        this.transferUserList = [];
+        this.transferSelectedBranch = null;
+        this.transferSelectedCustomerInfo = customerInfo;
+        this.branchListForTransfer = [];
+        this.getBranchesForTransfer(true);
+        this.formAction.patchValue({
+                comment: 'TRANSFER'
+            }
+        );
+        this.transferSpinner = false;
+        this.modalService.open(template, {size: 'lg', backdrop: 'static', keyboard: false});
+    }
+
+    private getBranchesForTransfer(spliceSelectedBranch: boolean) {
+        this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
+            this.branchListForTransfer = response.detail;
+            this.branchListForTransfer.sort((a, b) => a.name.localeCompare(b.name));
+            if (spliceSelectedBranch) {
+                const indexOfBranch = this.branchListForTransfer.findIndex(b => b.id === this.transferSelectedCustomerInfo.branch.id);
+                this.branchListForTransfer.splice(indexOfBranch, 1);
+            }
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load branch!'));
+        });
+    }
+
+    getMakerUsersByBranchId(branchId) {
+        this.transferSpinner = true;
+        this.getSelectedBranch(branchId);
+        this.transferUserList = [];
+        this.userService.getUserListByBranchIdAndMakerActive(branchId).subscribe((res: any) => {
+            this.transferUserList = res.detail;
+        });
+        this.formAction.patchValue({
+            toBranchId: branchId
+        });
+        this.transferSpinner = false;
+    }
+
+    getSelectedBranch(branchId) {
+        this.transferSelectedBranch = null;
+        this.branchService.detail(branchId).subscribe((res: any) => {
+            this.transferSelectedBranch = res.detail;
+        });
+    }
+
+    setUserForTransfer(user) {
+        this.selectedUserForTransfer = user;
+        this.formAction.patchValue({
+                toUserId: user.id
+            }
+        );
+    }
+
+    actionNext(template) {
+        this.modalService.dismissAll();
+        this.modalService.open(template, {backdrop: 'static', keyboard: false});
+    }
+
+    confirmTransferCustomer(comment: string) {
+        this.transferSpinner = true;
+        this.formAction.patchValue({
+            docAction: DocAction.value(DocAction.TRANSFER),
+            comment: comment,
+            customerInfoId: this.transferSelectedCustomerInfo.id,
+            toBranchId: this.transferSelectedBranch.id,
+            toUserId: this.selectedUserForTransfer.id,
+            toRoleId: this.selectedUserForTransfer.role.id
+        });
+        this.customerInfoService.transferCustomerWithLoansToOtherBranch(this.formAction.value)
+            .subscribe((response: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Customer has been successfully transferred.'));
+            }, error => {
+                this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+                this.modalService.dismissAll();
+            });
+        this.modalService.dismissAll();
+        CustomerComponent.loadData(this);
+        this.transferSpinner = false;
     }
 
     onNextJointCustomer(val) {

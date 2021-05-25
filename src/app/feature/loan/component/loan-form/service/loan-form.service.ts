@@ -159,7 +159,7 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.post(req.url, formData, {headers: req.header});
     }
 
-    public saveCustomerDocument(loanId, customerDocuments: Array<CustomerDocuments>, data: string) {
+    public saveCustomerDocument(loanId , customerDocuments: Array<CustomerDocuments>, data: string) {
         const api = `${this.getApi()}/cad-document?loanId=${loanId}`;
         const req = ApiUtils.getRequest(api);
         const params = {
@@ -180,6 +180,11 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
     }
+
+    /*public transferLoanToOtherBranch(object, bId: number): Observable<any> {
+        const req = ApiUtils.getRequest(`${LoanFormService.API}/transfer-loan-other-branch/${bId}`);
+        return this.http.post(req.url, object, {headers: req.header});
+    }*/
 
     public changeLoanConfigByCustomerLoanIdAndLoanConfigID(customerLoanId: number, loanConfigId: number) {
         const api = `${this.getApi()}/change-loan/customer-loan-id/${customerLoanId}/loan-config-id/${loanConfigId}`;

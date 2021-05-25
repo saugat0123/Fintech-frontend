@@ -191,11 +191,20 @@
                         <app-credit-risk-grading-lambda #creditRiskGradingLambda
                                                         [customer]="loanDocument?.customerInfo"
                                                         [customerInfoData]="loanDocument?.loanHolder"
+                                                        [formData]="loanDocument?.creditRiskGradingLambda"
                                                         [security]="loanDocument?.security"
                                                         [ciCl]="loanDocument?.loanHolder?.cicl"
                                                         [incomeFromAccount]="loanDocument?.loanHolder?.incomeFromAccount"
                                                         [proposedLimit]="loanDocument?.proposal?.proposedLimit"
                                                        [financialData]="loanDocument?.financial?.data"></app-credit-risk-grading-lambda>
+                    </ng-template>
+
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Micro'">
+                        <app-crg-micro #crgMicro
+                                       [formData]="loanDocument?.crgMicro"
+                                       [incomeFromAccount]="loanDocument?.loanHolder?.incomeFromAccount"
+                                       [security]="loanDocument?.security"
+                                       [microOtherParameters]="loanDocument?.loanHolder?.microOtherParameters"></app-crg-micro>
                     </ng-template>
 
                     <ng-template ngbTabContent *ngIf="allList.name == 'Reporting Info'">

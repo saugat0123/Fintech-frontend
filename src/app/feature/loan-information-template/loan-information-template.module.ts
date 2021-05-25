@@ -46,6 +46,8 @@ import { CommentsComponent } from './comments/comments.component';
 import { PreviousSecurityComponent } from './previous-security/previous-security.component';
 import { FixAssetCollateralComponent } from './security/security-initial-form/fix-asset-collateral/fix-asset-collateral.component';
 import {AngularDraggableModule} from 'angular2-draggable';
+import { CrgMicroComponent } from './crg-micro/crg-micro.component';
+import { SecurityTableComponent } from './security/security-initial-form/security-table/security-table.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -78,13 +80,15 @@ const COMPONENTS = [
     CadDocumentUploadComponent,
     NtaMegaComponent,
     PreviousSecurityComponent,
-    FixAssetCollateralComponent
+    FixAssetCollateralComponent,
+    SecurityTableComponent
 ];
 
 
 @NgModule({
-  declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent],
-    exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent],
+  declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
+      CrgMicroComponent],
+    exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent],
     entryComponents: [...COMPONENTS],
     imports: [
         CommonModule,

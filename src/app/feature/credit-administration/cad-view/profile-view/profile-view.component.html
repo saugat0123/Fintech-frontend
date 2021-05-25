@@ -3,7 +3,19 @@
          nbSpinnerMessage="Loading data please wait....."
          nbSpinnerSize="giant"
          nbSpinnerStatus="primary">
-
+    <nb-card-header>
+        <div class="clearfix">
+            <div>
+                <button nbButton size="tiny" nbTooltip="click to open config modal"
+                        (click)="openOfferLetterConfigModal()"><em
+                        class="fa fa-cogs"></em></button>
+            </div>
+            <div class="float-right">
+                <button nbButton size="tiny" nbTooltip="update account info" (click)="updateBasicInfo()"><em
+                        class="fa fa-edit"></em></button>
+            </div>
+        </div>
+    </nb-card-header>
     <nb-card-body>
         <div class="main-body">
 
@@ -28,7 +40,37 @@
                             </div>
                         </div>
                     </div>
+                    <nb-card class="mt-3" *ngIf="roleType !== 'MAKER'">
+                        <nb-card-header>
+                            <strong>Generate Offer Letter</strong>
+                        </nb-card-header>
+                        <nb-card-body *ngIf="client === clientList?.EXCEL || client === clientList?.PROGRESSIVE">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <nb-select
+                                        #offerLetterType
+                                        fullWidth
+                                        placeholder="Select Offer Letter"
+                                        status="info">
+                                        <nb-option *ngFor="let i of offerLetterTypes" [value]="i.value">
+                                            {{i.key | replace:'_':' ' }}
+                                        </nb-option>
+                                    </nb-select>
+                                </div>
+                                <div class="col-md-12 mt-3">
+                                    <button (click)="openOfferLetterDocumentModal(offerLetterType?.selected)"
+                                            class="float-right" nbButton
+                                            size="small"
+                                            [disabled]="roleType === 'MAKER' ||
+                              (cadOfferLetterApprovedDoc?.docStatus === 'LEGAL_APPROVED' ||
+                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||
+                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')">Generate
+                                    </button>
+                                </div>
+                            </div>
 
+                        </nb-card-body>
+                    </nb-card>
                     <nb-card *ngIf="cadOfferLetterApprovedDoc?.offerDocumentList?.length > 0">
                         <nb-card-header>Offer Letter Documents</nb-card-header>
                         <nb-card-body>
@@ -268,7 +310,8 @@
                                                     </td>
 
                                                     <td>{{model?.currentStage?.docAction}}</td>
-                                                    <td colspan="6" [innerHTML]="model?.currentStage?.comment | safeHtml"></td>
+                                                    <td colspan="6"
+                                                        [innerHTML]="model?.currentStage?.comment | safeHtml"></td>
 
                                                 </tr>
                                                 <tr class="sb-bg-dark">
