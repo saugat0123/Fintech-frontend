@@ -109,6 +109,7 @@ export class LetterOfArrangementsComponent implements OnInit {
     buildForm() {
         this.form = this.formBuilder.group({
             date: [undefined],
+            branch: [undefined],
             subject: [undefined],
             punji: [undefined],
             customerName: [undefined],
