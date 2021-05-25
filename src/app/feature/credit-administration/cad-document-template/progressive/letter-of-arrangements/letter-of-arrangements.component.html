@@ -1,0 +1,65 @@
+<div class="container text-justify">
+    <div class="row">
+       <div class="col-md-12">
+           <form [formGroup]="form" (ngSubmit)="onSubmit()" >
+               <h6 class="text-center">बन्दोबस्त–पत्र <br>
+               (Letter of Arrangements)</h6>
+               <p class="text-right"> मिति:
+                   <input class="form-field form-control-sm nepaliFont col-3"
+                          formControlName="date"
+                          placeholder=""
+                          type="text"/>
+               </p>
+               <b class="text-left"> प्रोग्रेशिभफाईनान्स लिमिटेड,
+               <br>
+              बनेपा शाखा ।</b>
+               <br>
+               <br>
+               <div class="row">
+                   <b>विषय :- त्यस वित्तीय संस्थाले म/हाम्रो निमित्त <input class="form-field form-control-sm nepaliFont col-3"
+                          formControlName=""
+                          placeholder=""
+                          type="text"/>को रिभल्भिङ/चालु पूँजी/  <input class="form-field form-control-sm nepaliFont col-3"
+                                                                       formControlName="chaluPuji"
+                                                                       placeholder=""
+                                                                       type="text"/>
+                       हद सम्म स्विकृत गरिएको सम्बन्धमा |</b>
+
+
+               </div>
+               <br>
+               <div class="row">
+                   <p>उपरोक्त विषय सम्बन्धि  <input class="form-field form-control-sm nepaliFont col-3"
+                                                    formControlName=""
+                                                    placeholder=""
+                                                    type="text"/>
+                       लाई उपरोक्तऋणको सिमा उपलब्ध गराईएकोमा सो को लागि मैले/हामीले आजका दिनमा प्रतिज्ञा
+                       पत्र तथा अन्य कागजातमा सहिछाप गरि जारी गरि दिएकोमा म/हामी त्यस वित्तीय संस्थाबाटउपलब्ध
+                       गराइएको सुविधाकुनै पनि समयमा म/हामीलाई पूर्व सूचनानदिई रद्द गर्न सक्ने अधिकारको पालना गर्ने
+                       गर्दछु/छौं |</p>
+               </div>
+
+               <div class="row">
+                   <b class="text-left">
+                       भवदीय,
+                       <br>
+                       <br>
+                     <input class="form-field form-control-sm nepaliFont "
+                          formControlName="singnature"
+                          placeholder=""
+                          type="text"/>
+
+                      <p> ऋणीको तर्फ बाट आधिकारीक दस्तखत
+                       <br>
+                       दस्तखत गर्नेको नाम : <input class="form-field form-control-sm nepaliFont col-3"
+                                                   formControlName="signaturePersonName"
+                                                   placeholder=""
+                                                   type="text"/>
+                      </p>
+                   </b>
+               </div>
+
+           </form>
+       </div>
+    </div>
+</div>
