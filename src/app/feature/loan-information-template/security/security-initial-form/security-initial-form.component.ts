@@ -66,7 +66,6 @@ export class SecurityInitialFormComponent implements OnInit {
 
     securityId = SecurityIds;
 
-    selectedArray = [];
     securityForm: FormGroup;
     landSelected = false;
     apartmentSelected = false;
@@ -94,6 +93,7 @@ export class SecurityInitialFormComponent implements OnInit {
     spinner = false;
     insurancePolicySelected = false;
     assignment = false;
+    selectedSecurity: string;
     securityTypes = [
         {key: 'LandSecurity', value: 'Land Security'},
         {key: 'VehicleSecurity', value: 'Vehicle Security'},
@@ -107,7 +107,6 @@ export class SecurityInitialFormComponent implements OnInit {
         {key: 'PersonalGuarantee', value: 'Personal Guarantee'},
         {key: 'InsurancePolicySecurity', value: 'Insurance Policy Security'},
         {key: 'AssignmentOfReceivables', value: 'Assignment of Receivables'},
-
         {key: 'LeaseAssignment', value: 'Lease Assignment'},
         {key: 'OtherSecurity', value: 'Other Security'}
     ];
@@ -184,17 +183,13 @@ export class SecurityInitialFormComponent implements OnInit {
             this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.avgDaysForPrice
                 ? this.nepsePriceInfo.avgDaysForPrice : undefined);
         }, error => {
-            console.log(error);
+            console.error(error);
         });
-
-        // todo : While setting data replace with patch value for non array field
         if (this.formData !== undefined) {
             this.ownerKycRelationInfoCheckedForLand = true;
             this.ownerKycRelationInfoCheckedForLandBuilding = true;
             this.ownerKycRelationInfoCheckedForHypothecation = true;
             this.formDataForEdit = this.formData['initialForm'];
-            this.selectedArray = this.formData['selectedArray'];
-            this.change(this.selectedArray);
             this.underConstruction(this.formData['underConstructionChecked']);
             this.underBuildingConstruction(this.formData['underBuildingConstructionChecked']);
             this.otherBranch(this.formData['otherBranchcheck']);
@@ -860,15 +855,13 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
 
-    change(arraySelected) {
-        this.selectedArray = arraySelected;
+    change(selectedSecurity) {
         this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected
             = this.underConstructionChecked = this.depositSelected = this.shareSelected = this.landBuilding = this.insurancePolicySelected =
             this.hypothecation = this.assignment = this.corporate = this.personal = this.insurancePolicySelected =
                 this.landOtherBranchChecked = this.apartmentOtherBranchChecked = this.landBuildingOtherBranchChecked =
                     this.vehicleOtherBranchChecked = this.plantOtherBranchChecked = false;
-        arraySelected.forEach(selectedValue => {
-            switch (selectedValue) {
+            switch (selectedSecurity) {
                 case 'LandSecurity' :
                     this.landSelected = true;
                     break;
@@ -912,7 +905,6 @@ export class SecurityInitialFormComponent implements OnInit {
                     this.assignment = true;
                     break;
             }
-        });
 
     }
 
