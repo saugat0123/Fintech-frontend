@@ -53,50 +53,88 @@ export class SecurityViewComponent implements OnInit {
 
   ngOnInit() {
     this.securityData = JSON.parse(this.security.data);
-    (this.securityData['selectedArray'] as Array<any>).forEach(selectedValue => {
-      switch (selectedValue) {
-        case 'VehicleSecurity':
-          this.vehicleSelected = true;
-          break;
-        case 'LandSecurity' :
-          this.landSelected = true;
-          break;
-        case 'ApartmentSecurity' :
-          this.apartmentSelected = true;
-          break;
-        case 'Land and Building Security' :
-          this.landBuilding = true;
-          break;
-        case 'FixedDeposit':
-          this.depositSelected = true;
-          break;
-        case 'ShareSecurity' :
-          this.shareSelected = true;
-          break;
-        case 'PlantSecurity' :
-          this.plantSelected = true;
-          break;
-        case 'HypothecationOfStock':
-          this.hypothecation = true;
-          break;
-        case 'OtherSecurity':
-          this.securityOther = true;
-          break;
-        case 'LeaseAssignment':
-          this.assignments = true;
-          break;
-        case 'CorporateGuarantee':
-          this.corporate = true;
-          break;
-        case 'PersonalGuarantee':
-          this.personal = true;
-          break;
-        case 'InsurancePolicySecurity':
-          this.insurancePolicySelected = true;
-          break;
-        case 'AssignmentOfReceivables':
-          this.assignment = true;
+    // land security
+    this.securityData['initialForm']['landDetails'].filter(f => {
+      if (f.owner !== null) {
+        this.landSelected = true;
+      }
+    });
 
+    // apartment security
+    this.securityData['initialForm']['buildingDetails'].filter(f => {
+      if (f.buildArea !== '') {
+        this.apartmentSelected = true;
+      }
+    });
+    // land and building security
+    this.securityData['initialForm']['landBuilding'].filter(f => {
+      if (f.owner !== null) {
+        this.landBuilding = true;
+      }
+    });
+    // plant and machinery security
+    this.securityData['initialForm']['plantDetails'].filter(f => {
+      if (f.model !== '') {
+        this.plantSelected = true;
+      }
+    });
+    // // vehicle security
+    this.securityData['initialForm']['vehicleDetails'].filter(f => {
+      if (f.model !== '') {
+        this.vehicleSelected = true;
+      }
+    });
+    // fixed deposit receipt security
+    this.securityData['initialForm']['fixedDepositDetails'].filter(f => {
+      if (f.accountNumber !== null) {
+        this.depositSelected = true;
+      }
+    });
+    //
+    // // shared security
+    if (this.shareSecurityData !== null) {
+        this.shareSelected = true;
+    }
+    // hypothecation of stock security
+    this.securityData['initialForm']['hypothecationOfStock'].filter(f => {
+      if (f.owner !== null) {
+        this.hypothecation = true;
+      }
+    });
+    // assignment of receivables
+    this.securityData['initialForm']['assignmentOfReceivables'].filter(f => {
+      if (f.amount !== null) {
+        this.assignment = true;
+      }
+    });
+    // lease assignment
+    this.securityData['initialForm']['leaseAssignment'].filter(f => {
+      if (f.otherDetail !== '') {
+        this.assignments = true;
+      }
+    });
+    // other security
+    this.securityData['initialForm']['otherSecurity'].filter(f => {
+      if (f.otherDetail !== '') {
+        this.securityOther = true;
+      }
+    });
+    // corporate guarantee
+    this.securityData['initialForm']['corporateGuarantee'].filter(f => {
+      if (f.name !== null) {
+        this.corporate = true;
+      }
+    });
+    // personal guarantee
+    this.securityData['initialForm']['personalGuarantee'].filter(f => {
+      if (f.name !== null) {
+        this.personal = true;
+      }
+    });
+    // insurance policy
+    this.securityData['initialForm']['insurancePolicy'].filter(f => {
+      if (f.insuredAmount !== null) {
+        this.insurancePolicySelected = true;
       }
     });
     if (!ObjectUtil.isEmpty(this.shareSecurityData)) {
