@@ -22,14 +22,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4" *ngIf="checkApproved">
+                                <div class="col-md-4" *ngIf="loanType !== 'NEW_LOAN'">
                                     <div class="form-group">
                                         <label class="title" for="outStandingLimit">
-                                            <span [ngSwitch]="loanType">
-                                            <strong  *ngSwitchCase = "'PARTIAL_SETTLEMENT_LOAN'">Settlement Amount</strong>
-                                            <strong  *ngSwitchCase = "'ENHANCED_LOAN'">Enhancement Amount</strong>
-                                            <strong  *ngSwitchDefault>Outstanding Limit</strong>
-                                            </span>
+<!--                                            <span [ngSwitch]="loanType">-->
+<!--                                            <strong  *ngSwitchCase = "'PARTIAL_SETTLEMENT_LOAN'">Settlement Amount</strong>-->
+<!--                                            <strong  *ngSwitchCase = "'ENHANCED_LOAN'">Enhancement Amount</strong>-->
+<!--                                            <strong  *ngSwitchDefault>Outstanding Limit</strong>-->
+<!--                                            </span>-->
+                                            <strong>Outstanding Limit</strong>
                                         </label>
                                         <input class="form-control"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.outStandingLimit.errors }"
@@ -43,16 +44,34 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4" *ngIf="loanType === 'RENEW_WITH_ENHANCEMENT'">
+
+                                <div class="col-md-4" *ngIf="loanType === 'PARTIAL_SETTLEMENT_LOAN'">
+                                    <div class="form-group">
+                                        <label class="title" for="settlementAmount"></label>
+                                        <strong>Settlement Amount</strong>
+                                        <input class="form-control"
+                                               [ngClass]="{ 'is-invalid': (submitted) && formControls.settlementAmount.errors }"
+                                               (keyup)="calculateLimitValues()"
+                                               formControlName="settlementAmount" id="settlementAmount"
+                                               name="settlementAmount" placeholder="Settlement Amount"
+                                               type="number">
+                                        <div *ngIf=" (submitted)  && formControls.settlementAmount.errors"
+                                             class="invalid-feedback">
+                                            <span *ngIf="(formControls.settlementAmount.errors.required)">Settlement Amount is required</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4" *ngIf="loanType === 'RENEW_WITH_ENHANCEMENT' || loanType === 'ENHANCED_LOAN'">
                                     <div class="form-group">
                                         <label class="title" for="enhanceLimitAmount">
-                                            <strong>Enhance Limit</strong>
+                                            <strong>{{loanType === 'RENEW_WITH_ENHANCEMENT' ? 'Enhance Limit' : 'Enhancement Amount'}}</strong>
                                         </label>
                                         <input class="form-control"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.enhanceLimitAmount.errors }"
                                                (keyup)="calculateLimitValues()"
                                                formControlName="enhanceLimitAmount" id="enhanceLimitAmount"
-                                               name="enhanceLimitAmount" placeholder="Enhance Limit"
+                                               name="enhanceLimitAmount" placeholder="Enhance Amount"
                                                type="number">
                                         <div *ngIf=" (submitted)  && formControls.enhanceLimitAmount.errors"
                                              class="invalid-feedback">
@@ -62,45 +81,23 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <ng-container *ngIf="loanType === 'RENEW_WITH_ENHANCEMENT';else other">
-                                        <div class="form-group">
-                                            <label class="title" for="proposedLimitWithEnhancement"><strong>Proposed Limit</strong></label>
-                                            <input
-                                                    [ngClass]="{ 'is-invalid': (submitted) && formControls.proposedLimit.errors }"
-                                                    class="form-control"
-                                                    [readOnly]="loanType == 'RENEW_WITH_ENHANCEMENT'"
-                                                    formControlName="proposedLimit" id="proposedLimitWithEnhancement"
-                                                    name="proposedLimit" placeholder="Proposed limit"
-                                                    type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()"
-                                                    value="{{calculateProposedLimit()}}" appDecimalNumber>
-                                            <div *ngIf=" (submitted)  && formControls.proposedLimit.errors"
-                                                 class="invalid-feedback">
-                                                <span *ngIf="(formControls.proposedLimit.errors.required)">Proposed Limit is required</span>
+                                    <div class="form-group">
+                                        <label class="title" for="proposedLimit"><strong>Proposed Limit</strong></label>
+                                        <input
+                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.proposedLimit.errors }"
+                                                class="form-control"
+                                                [readOnly]="loanType == 'PARTIAL_SETTLEMENT_LOAN' || loanType === 'RENEW_WITH_ENHANCEMENT' || loanType === 'ENHANCED_LOAN'"
+                                                formControlName="proposedLimit" id="proposedLimit"
+                                                name="proposedLimit" placeholder="Proposed limit"
+                                                type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()" appDecimalNumber>
+                                        <div *ngIf=" (submitted)  && formControls.proposedLimit.errors"
+                                             class="invalid-feedback">
+                                            <span *ngIf="(formControls.proposedLimit.errors.required)">Proposed Limit is required</span>
 
-                                                <span *ngIf="(formControls.proposedLimit.errors.min)">Proposed Limit must be positive numerical value.</span>
-                                                <span *ngIf="proposalForm.get('proposedLimit').hasError('amountRange') ">Minimum proposed amount must be greater than Rs.<strong>{{minimumAmountLimit}}</strong></span>
-                                            </div>
+                                            <span *ngIf="(formControls.proposedLimit.errors.min)">Proposed Limit must be positive numerical value.</span>
+                                            <span *ngIf="proposalForm.get('proposedLimit').hasError('amountRange') ">Minimum proposed amount must be greater than Rs.<strong>{{minimumAmountLimit}}</strong></span>
                                         </div>
-                                    </ng-container>
-                                    <ng-template #other>
-                                        <div class="form-group">
-                                            <label class="title" for="proposedLimit"><strong>Proposed Limit</strong></label>
-                                            <input
-                                                    [ngClass]="{ 'is-invalid': (submitted) && formControls.proposedLimit.errors }"
-                                                    class="form-control"
-                                                    [readOnly]="loanType == 'PARTIAL_SETTLEMENT_LOAN'"
-                                                    formControlName="proposedLimit" id="proposedLimit"
-                                                    name="proposedLimit" placeholder="Proposed limit"
-                                                    type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()" appDecimalNumber>
-                                            <div *ngIf=" (submitted)  && formControls.proposedLimit.errors"
-                                                 class="invalid-feedback">
-                                                <span *ngIf="(formControls.proposedLimit.errors.required)">Proposed Limit is required</span>
-
-                                                <span *ngIf="(formControls.proposedLimit.errors.min)">Proposed Limit must be positive numerical value.</span>
-                                                <span *ngIf="proposalForm.get('proposedLimit').hasError('amountRange') ">Minimum proposed amount must be greater than Rs.<strong>{{minimumAmountLimit}}</strong></span>
-                                            </div>
-                                        </div>
-                                    </ng-template>
+                                    </div>
                                 </div>
 
                                 <div *ngIf="!isFundable && fundableNonFundableSelcted" class="col-md-4">
