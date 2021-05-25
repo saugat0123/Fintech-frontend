@@ -5,4 +5,5 @@ export class Clients {
   static SB = 'SB Solutions Nepal';
   static EXCEL = 'Excel Development Bank Limited';
   static ICFC = 'ICFC Finance Limited';
+  static PROGRESSIVE = 'Progressive Finance Limited';
 }
