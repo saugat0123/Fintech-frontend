@@ -68,29 +68,7 @@ export class UIComponent implements OnInit, DoCheck {
     finalCadDocumentUploadList = Array<Document>();
     formLabel: string;
     enableMicro = environment.microLoan;
-    checkAll = {
-        initial: false,
-        renewal: false,
-        closure: false,
-        eligibility: false,
-        enhance: false,
-        partial: false,
-        full: false,
-        renewalEnhance: false,
-        cad: false
-    };
-    checkAllInitial: boolean = false;
-    checkAllRenewal: boolean = false;
-    checkAllClosure: boolean = false;
-    checkAllEligibility: boolean = false;
-    checkAllEnhance: boolean = false;
-    checkAllPartial: boolean = false;
-    checkAllFull: boolean = false;
-    checkAllRenewalEnhance: boolean = false;
-    checkAllCad: boolean = false;
-
-    renewFormGroup: FormGroup;
-    renwalEnhanceFG: FormGroupName;
+    form: FormGroup;
 
     @ViewChild('loanConfigForm', {static: true}) loanConfigForm: NgForm;
     finalRenewWithEnhancementDocument = Array<Document>();
@@ -436,8 +414,6 @@ export class UIComponent implements OnInit, DoCheck {
         this.loanConfig.loanCategory = this.selectedLoanCategory;
         this.loanConfig.loanTag = this.selectedLoanTag;
 
-        console.log(this.loanConfig);
-
         this.service.save(this.loanConfig).subscribe(() => {
                 if (this.loanConfig.id == null) {
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Loan Configuration'));
@@ -465,109 +441,126 @@ export class UIComponent implements OnInit, DoCheck {
     }
 
 
-
-    nbUpdateCheckBoxInitial(checkAll) {
-        this.checkAllInitial = checkAll;
+    nbUpdateCheckBoxInitial($event, checkAll) {
+        this.finalInitialDocument = [];
         this.initialDocumentList.forEach((d) => {
-            if (this.checkAll) {
+            if (checkAll) {
                 this.finalInitialDocument.push(d);
+                Object.assign(d, {checked: true});
             } else {
+                d.checked = false;
                 this.finalInitialDocument = [];
             }
         });
 
     }
 
-    nbUpdateCheckBoxRenewal(checkAll) {
-        this.checkAllRenewal = checkAll;
+    nbUpdateCheckBoxRenewal($event, checkAll) {
+        this.finalRenewalDocument = [];
         this.renewalDocumentList.forEach((d) => {
-            if (this.checkAllRenewal) {
+            if (checkAll) {
                 this.finalRenewalDocument.push(d);
+                Object.assign(d, {checked: true});
             } else {
+                d.checked = false;
                 this.finalRenewalDocument = [];
             }
         });
 
     }
 
-    nbUpdateCheckBoxClosure(checkAll) {
-        this.checkAllClosure = checkAll;
+    nbUpdateCheckBoxClosure($event, checkAll) {
+        this.finalClosureDocument = [];
         this.closureDocumentList.forEach((d) => {
-            if (this.checkAllClosure) {
+            if (checkAll) {
                 this.finalClosureDocument.push(d);
+                Object.assign(d, {checked: true});
             } else {
+                d.checked = false;
                 this.finalClosureDocument = [];
             }
         });
 
     }
 
-    nbUpdateCheckBoxEligibility(checkAll) {
-        this.checkAllEligibility = checkAll;
+    nbUpdateCheckBoxEligibility($event, checkAll) {
+        this.finalEligibilityDocument = [];
         this.eligibilityDocumentList.forEach((d) => {
-            if (this.checkAllEligibility) {
+            if (checkAll) {
                 this.finalEligibilityDocument.push(d);
+                Object.assign(d, {checked: true});
             } else {
+                d.checked = false;
                 this.finalEligibilityDocument = [];
             }
         });
 
     }
 
-    nbUpdateCheckBoxEnhance(checkAll) {
-        this.checkAllEnhance = checkAll;
+    nbUpdateCheckBoxEnhance($event, checkAll) {
+        this.finalEnhanceDocument = [];
         this.enhanceDocumentList.forEach((d) => {
-            if (this.checkAllEnhance) {
+            if (checkAll) {
                 this.finalEnhanceDocument.push(d);
+                Object.assign(d, {checked: true});
             } else {
+                d.checked = false;
                 this.finalEnhanceDocument = [];
             }
         });
 
     }
 
-    nbUpdateCheckBoxPartial(checkAll) {
-        this.checkAllPartial = checkAll;
+    nbUpdateCheckBoxPartial($event, checkAll) {
+        this.finalPartialSettlementDocument = [];
         this.partialSettlementDocumentList.forEach((d) => {
-            if (this.checkAllPartial) {
+            if (checkAll) {
                 this.finalPartialSettlementDocument.push(d);
+                Object.assign(d, {checked: true});
             } else {
+                d.checked = false;
                 this.finalPartialSettlementDocument = [];
             }
         });
 
     }
 
-    nbUpdateCheckBoxFull(checkAll) {
-        this.checkAllFull = checkAll;
+    nbUpdateCheckBoxFull($event, checkAll) {
+        this.finalFullSettlementDocument = [];
         this.fullSettlementDocumentList.forEach((d) => {
-            if (this.checkAllFull) {
+            if (checkAll) {
                 this.finalFullSettlementDocument.push(d);
+                Object.assign(d, {checked: true});
             } else {
+                d.checked = false;
                 this.finalFullSettlementDocument = [];
             }
         });
 
     }
 
-    nbUpdateCheckBoxCad(checkAll) {
-        this.checkAllCad = checkAll;
+    nbUpdateCheckBoxCad($event, checkAll) {
+        this.finalCadDocumentUploadList = [];
         this.cadDocumentUploadList.forEach((d) => {
-            if (this.checkAllCad) {
+            if (checkAll) {
                 this.finalCadDocumentUploadList.push(d);
+                Object.assign(d, {checked: true});
             } else {
+                d.checked = false;
                 this.finalCadDocumentUploadList = [];
             }
         });
 
     }
 
-    nbUpdateCheckBoxRenewalEnhance(checkAll) {
-        this.checkAllRenewalEnhance = checkAll;
+    nbUpdateCheckBoxRenewalEnhance($event, checkAll) {
+        this.finalRenewWithEnhancementDocument = [];
         this.renewWithEnhancementDocumentList.forEach((d) => {
-            if (this.checkAllRenewalEnhance) {
+            if (checkAll) {
                 this.finalRenewWithEnhancementDocument.push(d);
+                Object.assign(d, {checked: true});
             } else {
+                d.checked = false;
                 this.finalRenewWithEnhancementDocument = [];
             }
         });

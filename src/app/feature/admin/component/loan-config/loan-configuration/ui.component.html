@@ -236,10 +236,10 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Initial</nb-accordion-item-header>
                                 <nb-accordion-item-body>
-                                    <span (click)="nbUpdateCheckBoxInitial(true)"
+                                    <span (click)="nbUpdateCheckBoxInitial($event, true)"
                                           class="btn btn-primary btn-sm">Select All
                                     </span>
-                                    <span (click)="nbUpdateCheckBoxInitial(false)"
+                                    <span (click)="nbUpdateCheckBoxInitial($event, false)"
                                           class="ml-1 btn btn-primary btn-sm">Unselect All
                                     </span> <br><br>
                                     <div class="row">
@@ -247,10 +247,9 @@
                                              *ngFor="let initialDocument of initialDocumentList; let documentIndex = index">
                                             <nb-checkbox
                                                     (change)="updateDocument($event, initialDocument, this.finalInitialDocument)"
-                                                    [value]="initialDocument.checked"
+                                                    [checked]="initialDocument.checked"
                                                     id="{{'initialDocument'+documentIndex}}"
-                                                    status="primary"
-                                                    [checked]="checkAllInitial">
+                                                    status="primary">
                                                 {{initialDocument.displayName}}
                                             </nb-checkbox>
                                         </div>
@@ -265,21 +264,20 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Renew</nb-accordion-item-header>
                                 <nb-accordion-item-body>
-                                    <span (click)="nbUpdateCheckBoxRenewal(true)"
+                                    <span (click)="nbUpdateCheckBoxRenewal($event, true)"
                                           class="btn btn-primary btn-sm">Select All
                                     </span>
-                                    <span (click)="nbUpdateCheckBoxRenewal(false)"
+                                    <span (click)="nbUpdateCheckBoxRenewal($event, false)"
                                           class="ml-1 btn btn-primary btn-sm">Unselect All
                                     </span> <br><br>
 
                                     <br><br>
-                                    <div class="row" [formGroup]="renewFormGroup">
+                                    <div class="row">
                                         <div class="col-md-4"
                                              *ngFor="let renewalDocument of renewalDocumentList; let documentIndex = index;">
                                             <nb-checkbox id="{{'renewDocument'+documentIndex}}" status="primary"
                                                          (change)="updateDocument($event, renewalDocument, finalRenewalDocument)"
-                                                         [value]="renewalDocument.checked"
-                                                         [checked]="checkAllRenewal">
+                                                         [checked]="renewalDocument.checked">
                                                 <span>{{renewalDocument.displayName}}</span>
                                             </nb-checkbox>
                                         </div>
@@ -294,10 +292,10 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Closure</nb-accordion-item-header>
                                 <nb-accordion-item-body>
-                                    <span (click)="nbUpdateCheckBoxClosure(true)"
+                                    <span (click)="nbUpdateCheckBoxClosure($event,true)"
                                           class="btn btn-primary btn-sm">Select All
                                     </span>
-                                    <span (click)="nbUpdateCheckBoxClosure(false)"
+                                    <span (click)="nbUpdateCheckBoxClosure($event,false)"
                                           class="ml-1 btn btn-primary btn-sm">Unselect All
                                     </span> <br><br>
                                     <div class="row">
@@ -305,8 +303,7 @@
                                              *ngFor="let closureDocument of closureDocumentList; let documentIndex = index">
                                             <nb-checkbox id="{{'closureDocument'+documentIndex}}" status="primary"
                                                          (change)="updateDocument($event, closureDocument, finalClosureDocument)"
-                                                         [value]="closureDocument.checked"
-                                                         [checked]="checkAllClosure">
+                                                         [checked]="closureDocument.checked">
                                                 {{closureDocument.displayName}}
                                             </nb-checkbox>
                                         </div>
@@ -321,10 +318,10 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Eligibility</nb-accordion-item-header>
                                 <nb-accordion-item-body>
-                                    <span (click)="nbUpdateCheckBoxEligibility(true)"
+                                    <span (click)="nbUpdateCheckBoxEligibility($event,true)"
                                           class="btn btn-primary btn-sm">Select All
                                     </span>
-                                    <span (click)="nbUpdateCheckBoxEligibility(false)"
+                                    <span (click)="nbUpdateCheckBoxEligibility($event,false)"
                                           class="ml-1 btn btn-primary btn-sm">Unselect All
                                     </span> <br><br>
                                     <div class="row">
@@ -333,9 +330,8 @@
                                                 class="col-md-4">
                                             <nb-checkbox
                                                     (change)="updateDocument($event, eligibilityDocument, finalEligibilityDocument)"
-                                                    [value]="eligibilityDocument.checked"
+                                                    [checked]="eligibilityDocument.checked"
                                                     id="{{'eligibility'+documentIndex}}"
-                                                    [checked]="checkAllEligibility"
                                                     status="primary">
                                                 <span>{{eligibilityDocument.displayName}}</span>
                                             </nb-checkbox>
@@ -351,10 +347,10 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Enhance</nb-accordion-item-header>
                                 <nb-accordion-item-body>
-                                    <span (click)="nbUpdateCheckBoxEnhance(true)"
+                                    <span (click)="nbUpdateCheckBoxEnhance($event,true)"
                                           class="btn btn-primary btn-sm">Select All
                                     </span>
-                                    <span (click)="nbUpdateCheckBoxEnhance(false)"
+                                    <span (click)="nbUpdateCheckBoxEnhance($event,false)"
                                           class="ml-1 btn btn-primary btn-sm">Unselect All
                                     </span> <br><br>
                                     <div class="row">
@@ -363,8 +359,7 @@
                                                 class="col-md-4">
                                             <nb-checkbox
                                                     (change)="updateDocument($event, enhanceDocument, finalEnhanceDocument)"
-                                                    [value]="enhanceDocument.checked"
-                                                    [checked]="checkAllEnhance"
+                                                    [checked]="enhanceDocument.checked"
                                                     id="{{'enhance'+documentIndex}}"
                                                     status="primary">
                                                 <span>{{enhanceDocument.displayName}}</span>
@@ -381,10 +376,10 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Partial Settlement</nb-accordion-item-header>
                                 <nb-accordion-item-body>
-                                    <span (click)="nbUpdateCheckBoxPartial(true)"
+                                    <span (click)="nbUpdateCheckBoxPartial($event, true)"
                                           class="btn btn-primary btn-sm">Select All
                                     </span>
-                                    <span (click)="nbUpdateCheckBoxPartial(false)"
+                                    <span (click)="nbUpdateCheckBoxPartial($event, false)"
                                           class="ml-1 btn btn-primary btn-sm">Unselect All
                                     </span> <br><br>
                                     <div class="row">
@@ -393,9 +388,8 @@
                                                 class="col-md-4">
                                             <nb-checkbox
                                                     (change)="updateDocument($event, partialDocument, finalPartialSettlementDocument)"
-                                                    [value]="partialDocument.checked"
+                                                    [checked]="partialDocument.checked"
                                                     id="{{'partial'+documentIndex}}"
-                                                    [checked]="checkAllPartial"
                                                     status="primary">
                                                 <span>{{partialDocument.displayName}}</span>
                                             </nb-checkbox>
@@ -411,10 +405,10 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Full Settlement</nb-accordion-item-header>
                                 <nb-accordion-item-body>
-                                    <span (click)="nbUpdateCheckBoxFull(true)"
+                                    <span (click)="nbUpdateCheckBoxFull($event,true)"
                                           class="btn btn-primary btn-sm">Select All
                                     </span>
-                                    <span (click)="nbUpdateCheckBoxFull(false)"
+                                    <span (click)="nbUpdateCheckBoxFull($event, false)"
                                           class="ml-1 btn btn-primary btn-sm">Unselect All
                                     </span> <br><br>
                                     <div class="row">
@@ -423,9 +417,8 @@
                                                 class="col-md-4">
                                             <nb-checkbox
                                                     (change)="updateDocument($event, fullDocument, finalFullSettlementDocument)"
-                                                    [value]="fullDocument.checked"
+                                                    [checked]="fullDocument.checked"
                                                     id="{{'full'+documentIndex}}"
-                                                    [checked]="checkAll.full"
                                                     status="primary">
                                                 <span>{{fullDocument.displayName}}</span>
                                             </nb-checkbox>
@@ -442,10 +435,10 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Cad Documents</nb-accordion-item-header>
                                 <nb-accordion-item-body>
-                                    <span (click)="nbUpdateCheckBoxCad(true)"
+                                    <span (click)="nbUpdateCheckBoxCad($event,true)"
                                           class="btn btn-primary btn-sm">Select All
                                     </span>
-                                    <span (click)="nbUpdateCheckBoxCad(false)"
+                                    <span (click)="nbUpdateCheckBoxCad($event,false)"
                                           class="ml-1 btn btn-primary btn-sm">Unselect All
                                     </span> <br><br>
                                     <div class="row">
@@ -454,9 +447,8 @@
                                                 class="col-md-4">
                                             <nb-checkbox
                                                     (change)="updateDocument($event, cadDocument, finalCadDocumentUploadList)"
-                                                    [value]="cadDocument.checked"
+                                                    [checked]="cadDocument.checked"
                                                     id="{{'cad'+ documentIndex}}"
-                                                    [checked]="checkAllCad"
                                                     status="primary">
                                                 <span>{{cadDocument.displayName}}</span>
                                             </nb-checkbox>
@@ -471,10 +463,10 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Renew With Enhancement</nb-accordion-item-header>
                                 <nb-accordion-item-body>
-                                    <span (click)="nbUpdateCheckBoxRenewalEnhance(true)"
+                                    <span (click)="nbUpdateCheckBoxRenewalEnhance($event, true)"
                                           class="btn btn-primary btn-sm">Select All
                                     </span>
-                                    <span (click)="nbUpdateCheckBoxRenewalEnhance(false)"
+                                    <span (click)="nbUpdateCheckBoxRenewalEnhance($event, false)"
                                           class="ml-1 btn btn-primary btn-sm">Unselect All
                                     </span> <br><br>
                                     <div class="row">
@@ -482,10 +474,8 @@
                                              class="col-md-4">
                                             <nb-checkbox
                                                     (change)="updateDocument($event, renewWithEnhancementDocument, finalRenewWithEnhancementDocument)"
-                                                    [value]="renewWithEnhancementDocument.checked"
+                                                    [checked]="renewWithEnhancementDocument.checked"
                                                     id="{{'renewWithEnhancement'+documentIndex}}"
-                                                    [checked]="checkAllRenewalEnhance"
-                                                    [formControlName]="renewWithEnhancementDocument.name"
                                                     status="primary">
                                                 <span>{{renewWithEnhancementDocument.displayName}}</span>
                                             </nb-checkbox>
