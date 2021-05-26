@@ -24,7 +24,7 @@ export class UpdateDocumentComponent implements OnInit {
     selectedDocumentList = Array<number>();
     label: string;
     spinner = false;
-    checkAll = false;
+    checkAll;
     form: FormGroup;
 
     constructor(
@@ -74,9 +74,19 @@ export class UpdateDocumentComponent implements OnInit {
         });
     }
 
+    unSelectAll($event) {
+        this.checkAll = false;
+        this.nbUpdateCheckbBox();
+    }
+
+    selectAll($event) {
+        this.checkAll = true;
+        this.nbUpdateCheckbBox();
+    }
+
     nbUpdateCheckbBox() {
         this.availableDocumentOptions.forEach(d => {
-            this.form.get(d.name).setValue(!this.checkAll);
+            this.form.get(d.name).setValue(this.checkAll);
         });
     }
 

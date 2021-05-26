@@ -7,11 +7,14 @@
         <nb-accordion-item-body>
             <div *ngIf="availableDocumentOptions.length > 0">
 
-                <nb-checkbox id="checkUncheck" status="primary"
-                             [(ngModel)]="checkAll"
-                             (checkedChange)="nbUpdateCheckbBox()">
-                    Select/Unselect all
-                </nb-checkbox>
+                <button (click)="selectAll($event)" class="btn btn-primary btn-sm">Select All</button>
+                <button (click)="unSelectAll($event)" class="btn btn-primary btn-sm">Unselect All</button>
+
+<!--                <nb-checkbox id="checkUncheck" status="primary"-->
+<!--                             [(ngModel)]="checkAll"-->
+<!--                             (checkedChange)="nbUpdateCheckbBox()">-->
+<!--                    Select/Unselect all-->
+<!--                </nb-checkbox>-->
                 <br><br>
 
                 <form [formGroup]="form" (ngSubmit)="save()" *ngIf="form">
