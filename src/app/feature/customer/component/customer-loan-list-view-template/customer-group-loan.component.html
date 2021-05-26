@@ -38,7 +38,7 @@
                                 class="text-right pr-1">
                                 Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                             <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : changeLoan(model.id,model?.loanId)">
-                                <a nbTooltip="change loan" *ngIf="!model?.combinedLoans && model?.parentId === null && model?.currentStage?.toUser?.id.toString()===currentUserId"><em
+                                <a nbTooltip="change loan" *ngIf="!model?.combinedLoans && model?.parentId === null && model?.currentStage?.toUser?.id.toString()===currentUserId && currentUserRoleType === 'MAKER'"><em
                                         class="fa fa-cog"></em></a></td>
                         </tr>
                         <ng-container *ngIf="toggleArray[i].toggled">
